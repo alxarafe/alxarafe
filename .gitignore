@@ -1,0 +1,10 @@
+/.git/
+/.idea/
+/nbproject/
+/vendor/
+/cache/
+/libraries_/
+.DS_Store
+.htaccess
+.vscode
+*.lock
