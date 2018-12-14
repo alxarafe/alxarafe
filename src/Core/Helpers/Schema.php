@@ -81,8 +81,9 @@ class Schema
         $null = ((isset($structure['null'])) && $structure['null'] == true);
 
         if ($type == 'text') {
-            if ($max == 0)
-                $max = DEFAULT_STRING_LENGTH;
+            if ($max == 0) {
+                            $max = DEFAULT_STRING_LENGTH;
+            }
             $dbtype = "$dbtype($max)";
             $ret['pattern'] = '.{' . $min . ',' . $max . '}';
         } else if ($type == 'number') {
@@ -99,8 +100,9 @@ class Schema
             if ($min == 0) {
                 $min = $unsigned ? 0 : -$max;
             } else {
-                if ($_length < strlen($min))
-                    $_length = strlen($min);
+                if ($_length < strlen($min)) {
+                                    $_length = strlen($min);
+                }
             }
 
             if (isset($structure['decimals'])) {
@@ -123,18 +125,24 @@ class Schema
         $ret['default'] = $default;
         $ret['null'] = $null;
         $ret['label'] = $label;
-        if (isset($precision))
-            $ret['step'] = $precision;
-        if (isset($structure['key']))
-            $ret['key'] = $structure['key'];
-        if (isset($structure['placeholder']))
-            $ret['placeholder'] = $structure['placeholder'];
-        if (isset($structure['extra']))
-            $ret['extra'] = $structure['extra'];
-        if (isset($structure['help']))
-            $ret['help'] = $structure['help'];
-        if (isset($structure['unique']) && $structure['unique'])
-            $ret['unique'] = $structure['unique'];
+        if (isset($precision)) {
+                    $ret['step'] = $precision;
+        }
+        if (isset($structure['key'])) {
+                    $ret['key'] = $structure['key'];
+        }
+        if (isset($structure['placeholder'])) {
+                    $ret['placeholder'] = $structure['placeholder'];
+        }
+        if (isset($structure['extra'])) {
+                    $ret['extra'] = $structure['extra'];
+        }
+        if (isset($structure['help'])) {
+                    $ret['help'] = $structure['help'];
+        }
+        if (isset($structure['unique']) && $structure['unique']) {
+                    $ret['unique'] = $structure['unique'];
+        }
 
         if (isset($structure['relations'][$field]['table'])) {
             $ret['relation'] = array(
