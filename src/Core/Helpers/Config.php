@@ -79,7 +79,7 @@ class Config
         }
 
         if (!defined('DEFAULT_TEMPLATES_FOLDER')) {
-            define('DEFAULT_TEMPLATES_FOLDER', 'templates/');
+            define('DEFAULT_TEMPLATES_FOLDER', 'vendor/alxarafe/alxarafe/templates/');
         }
 
         if (!defined('CONFIGURATION_PATH')) {
