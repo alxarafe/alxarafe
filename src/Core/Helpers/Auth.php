@@ -6,36 +6,66 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\Users;
+use Alxarafe\Controllers\Login;
 
 class Auth extends Users
 {
 
-    public function logout()
+    /**
+     * TODO:
+     */
+    const COOKIE_EXPIRATION = 0;
+
+    private $user = null;
+
+    public function __construct()
     {
-        Debug::addMessage('messages', 'Auth::Logout(): ' . (self::$user == null ? 'No había usuario identificado.' : 'El usuario ' . self::$user . ' ha cerrado la sesión'));
-        Self::$user = null;
+        parent::__construct();
+        $this->getCookieUser();
+    }
+
+    private function getCookieUser()
+    {
+        if ($this->user == null) {
+            if (isset($_COOKIE['user'])) {
+                $this->user = $_COOKIE['user'];
+            }
+        }
+    }
+
+    private function setCookieUser()
+    {
+        setcookie('user', $this->user == null ? '' : $this->user, COOKIE_EXPIRATION);
+    }
+
+    private function clearCookieUser()
+    {
         setcookie('user', '');
         unset($_COOKIE['user']);
     }
 
+    public function login()
+    {
+        (new Login())->run();
+    }
+
+    public function logout()
+    {
+        Debug::addMessage('messages', 'Auth::Logout(): ' . ($this->user == null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
+        $this->user = null;
+        $this->clearCookieUser();
+    }
+
     public function setUser($user, $password)
     {
-        if (!database::tableExists($this->tablename)) {
-            Self::$user = null;
-            setcookie('user', '');
-            unset($_COOKIE['user']);
-            Debug::addMessage('SQL', "La tabla $tablename no existe");
-            return;
-        }
-        //$user = Auth::$userTable->where('username', $user)->get()->toArray();
-        //$_user = Auth::$userTable->where('username', $user)->get()->toArray();
         $_user = Config::$dbEngine->select("SELECT * FROM {$this->tablename} WHERE username='$user';");
         if (count($_user) > 0 && md5($password) == $_user[0]['password']) {
-            Self::$user = $user;
+            $this->user = $user;
             setcookie('user', $user);
             Debug::addMessage('SQL', "$user autenticado");
         } else {
-            Self::$user = null;
+            $this->user = null;
+            Config::setError('Error al autenticar el usuario. Revise usuario y contraseña.');
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {
@@ -44,15 +74,11 @@ class Auth extends Users
                 Debug::addMessage('SQL', "Comprobado md5:" . md5($password) . ', en fichero no existe usuario ' . $user);
             }
         }
+        return $this->user != null;
     }
 
-    public static function getUser()
+    public function getUser()
     {
-        if (Self::$user == null) {
-            if (isset($_COOKIE['user'])) {
-                Self::$user = $_COOKIE['user'];
-            }
-        }
-        return Self::$user;
+        return $this->user;
     }
 }

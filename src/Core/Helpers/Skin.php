@@ -11,30 +11,36 @@ use Alxarafe\Base\View;
 
 class Skin
 {
+
     const SKINS_FOLDER = "views/templates/";
     const COMMON_FOLDER = "views/common/";
 
     /**
      * It is the name of the template that is being used.
-     * It corresponds to the folder that is inside self::$templateFolders.
-     * By default, $templateFolders contains 'Views/Templates/', and self::$default
-     * contains 'Default', so the templates used by default will be found
-     * in 'Views/Templates/Default'.
+     *
+     * Es el nombre de la plantilla que va a dibujarse.
      *
      * @var string
      */
-    private static $template;
+    private static $currentTemplate;
 
     /**
-     * By default, only the 'Twig' template engine is used.
+     * By default, only the 'twig' template engine is used.
+     *
+     * Es el nombre del motor de plantillas (de momento sólo twig)
      *
      * @var string
      */
     private static $templatesEngine;
 
     /**
+     * It is the skin, that is, the folder that contains the templates.
+     *
+     * Es el nombre del fichero que contiene las plantillas del tema.
+     * Será el primer lugar donde se buscará $currentTemplate.
+     *
      * It is the folder where the different skins are located. Each skin uses a
-     * folder defined by $ template, which contains the templates that will be used.
+     * folder defined by $template, which contains the templates that will be used.
      *
      * @var string
      */
@@ -42,31 +48,60 @@ class Skin
 
     /**
      * Indicates the folder where the files common to all the templates are located.
-     * A file will be searched first in the template folder, and if it is not, it
-     * will be searched in this folder.
+     * A file will be searched first in the $templatesFolder, and if it is not, it
+     * will be searched in this $commonTemplatesFolder.
+     *
+     * Es la carpeta que contiene las plantillas comunes a todos los skins.
+     * Primero se buscará en templatesFolder y si no está se buscará aquí.
      *
      * @var string
      */
     private static $commonTemplatesFolder;
 
     /**
-     * Skin constructor.
+     * Contains an instance of the view, or the generic view if one is not specified.
+     *
+     * @var View
      */
-    public function __construct()
+    public static $view;
+
+    /**
+     * Sets the view class that will be used
+     *
+     * @param View $view
+     */
+    public static function setView(View $view)
     {
-        self::$templatesEngine = 'twig';
-        self::$template = self::$template ?? 'default';
-        self::$templatesFolder = SKINS_FOLDER . self::$template . '/';
+        self::$view = $view;
+        if (!self::hasTemplatesFolder()) {
+            self::setTemplatesFolder('default');
+        }
+    }
+
+    public static function hasTemplate(): bool
+    {
+        return (self::$currentTemplate != null);
+    }
+
+    public static function setTemplate($template)
+    {
+        self::$currentTemplate = $template;
+        Debug::addMessage('messages', "Setting '$template' template");
     }
 
     /**
-     * Returns the name of the template that is being used.
+     * Return the templates folder
      *
-     * @return string
+     * @return bool
      */
-    public static function getTemplate(): string
+    public static function hasTemplatesFolder(): bool
     {
-        return self::$template;
+        return (self::$templatesFolder != null);
+    }
+
+    public static function getTemplatesFolder(): string
+    {
+        return self::$templatesFolder;
     }
 
     /**
@@ -74,40 +109,20 @@ class Skin
      *
      * @param string $template
      */
-    public static function setTemplate(string $template)
+    public static function setTemplatesFolder(string $template)
     {
-        Debug::addMessage('messages', "Setting '$template' template");
-        self::$template = $template;
+        self::$templatesFolder = BASE_PATH . self::SKINS_FOLDER . $template . '/';
+        Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
-    /**
-     * TODO:
-     *
-     * @return string
-     */
+
     public static function getTemplatesEngine(): string
     {
         return self::$templatesEngine;
     }
 
-    /**
-     * TODO:
-     *
-     * @param string $templatesEngine
-     */
-    public static function setTemplatesEngine(string $templatesEngine)
+    public static function setTemplatesEngine($engine)
     {
-        Debug::addMessage('messages', "Setting '$templatesEngine' templates engine");
-        self::$templatesEngine = $templatesEngine;
-    }
-
-    /**
-     * TODO:
-     *
-     * @return string
-     */
-    public static function getTemplatesFolder(): string
-    {
-        return self::$templatesFolder . self::$template . '/';
+        self::$templatesEngine = $engine;
     }
 
     public static function getCommonTemplatesFolder(): string
@@ -115,20 +130,9 @@ class Skin
         return self::$commonTemplatesFolder;
     }
 
-    /**
-     * TODO:
-     *
-     * @param string $templateFolder
-     */
-    public static function setTemplatesFolder(string $templatesFolder)
-    {
-        Debug::addMessage('messages', "Setting '$templatesFolder' templates folder");
-        self::$templatesFolder = $templatesFolder;
-    }
-
     public static function setCommonTemplatesFolder(string $templatesFolder)
     {
-        Debug::addMessage('messages', "Setting '$templatesFolder' templates folder");
+        Debug::addMessage('messages', "Setting '$templatesFolder' common templates folder");
         self::$commonTemplatesFolder = $templatesFolder;
     }
 
@@ -147,6 +151,8 @@ class Skin
     {
         Debug::addMessage('messages', 'Templates engine: ' . self::$templatesEngine);
         Debug::addMessage('messages', 'Templates folder: ' . self::$templatesFolder);
+        Debug::addMessage('messages', 'Templates common folder: ' . self::$commonTemplatesFolder);
+        Debug::addMessage('messages', 'Current template: ' . self::$currentTemplate);
 
         return self::renderIt($vars);
     }
@@ -169,7 +175,6 @@ class Skin
         switch (self::$templatesEngine) {
             case 'twig' :
                 $templateVars = array_merge($vars, [
-                    'view' => Config::$view,
                     '_REQUEST' => $_REQUEST,
                     '_GET' => $_GET,
                     '_POST' => $_POST,
@@ -178,8 +183,10 @@ class Skin
 
                 $paths = [
                     self::$templatesFolder,
-                    Config::getVar('commonTemplatesFolder') ?? BASE_PATH . COMMON_FOLDER,
+                    Config::getVar('commonTemplatesFolder') ?? BASE_PATH . self::COMMON_FOLDER,
+                    DEFAULT_TEMPLATES_FOLDER,
                 ];
+
                 // Only use really existing path
                 $usePath = [];
                 foreach ($paths as $path) {
@@ -189,14 +196,11 @@ class Skin
                 }
 
                 $loader = new Twig_Loader_Filesystem($usePath);
-                if (!defined('RANDOM_NAME')) {
-                    define('RANDOM_NAME', 'ADFASDFASD');
-                }
-                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => BASE_PATH . '/tmp/' . RANDOM_NAME . '.Twig'];
+                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => BASE_PATH . '/tmp/' . RANDOM_PATH_NAME . '.Twig'];
 
                 $twig = new Twig_Environment($loader, $options);
 
-                $template = (isset($templateVars['template']) ? $templateVars['template'] : Skin::$template) . '.twig';
+                $template = (isset($templateVars['template']) ? $templateVars['template'] : Skin::$currentTemplate) . '.twig';
                 Debug::addMessage('messages', "Using '$template' template");
                 $return = $twig->render($template, $templateVars);
                 break;

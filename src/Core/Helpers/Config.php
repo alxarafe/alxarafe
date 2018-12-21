@@ -26,6 +26,13 @@ class Config
     static private $global;
 
     /**
+     * Contains error messages.
+     *
+     * @var array
+     */
+    static private $errors;
+
+    /**
      * Contains the instance to the database engine (or null)
      * 
      * @var Engine|null
@@ -48,13 +55,49 @@ class Config
      */
     static $user;
 
-    /*
-      static $ctrl;
-      static $ctrl;
-      static $model;
-      static $view;
-      static $lastError;
+    /**
+     * Define the constants of the application
      */
+    public static function defineConstants()
+    {
+        if (!defined('DEBUG')) {
+            define('DEBUG', false);
+        }
+
+        /**
+         * It is recommended to define BASE_PATH as the first line of the
+         * index.php file of the application.
+         *
+         * define('BASE_PATH', __DIR__ . '/');
+         */
+        if (!defined('BASE_PATH')) {
+            define('BASE_PATH', __DIR__ . '/../../../../');
+        }
+
+        if (!defined('VENDOR_FOLDER')) {
+            define('VENDOR_FOLDER', 'vendor/');
+        }
+
+        if (!defined('DEFAULT_TEMPLATES_FOLDER')) {
+            define('DEFAULT_TEMPLATES_FOLDER', 'templates/');
+        }
+
+        if (!defined('CONFIGURATION_PATH')) {
+            define('CONFIGURATION_PATH', BASE_PATH . 'config/');
+        }
+
+        if (!defined('DEFAULT_STRING_LENGTH')) {
+            define('DEFAULT_STRING_LENGTH', 50);
+        }
+
+        if (!defined('DEFAULT_INTEGER_SIZE')) {
+            define('DEFAULT_INTEGER_SIZE', 10);
+        }
+
+        if (!defined('RANDOM_PATH_NAME')) {
+            define('RANDOM_PATH_NAME', 'ADFASDFASD');
+        }
+    }
 
     /**
      * Returns the name of the configuration file. By default, create the config
@@ -67,9 +110,7 @@ class Config
      */
     public static function getConfigurationFile()// : ?string - NetBeans only supports up to php7.0, for this you need php7.1
     {
-        if (!defined('CONFIGURATION_PATH')) {
-            define('CONFIGURATION_PATH', BASE_PATH . 'config/');
-        }
+        self::defineConstants();
         $filename = CONFIGURATION_PATH . 'config.yaml';
         if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {
             return $filename;
@@ -123,6 +164,18 @@ class Config
             return false;
         }
         return file_put_contents($configFile, YAML::dump(self::$global)) !== FALSE;
+    }
+
+    public static function setError(string $error)
+    {
+        self::$errors[] = $error;
+    }
+
+    public static function getErrors()
+    {
+        $errors = self::$errors;
+        self::$errors = [];
+        return $errors;
     }
 
     /**

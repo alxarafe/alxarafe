@@ -1,0 +1,30 @@
+{% extends "index.twig" %}
+{% block title %}Identificación de usuario{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1>{{view.title}}</h1>
+        <form method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <h1 class="text-center login-title">Acceso a la aplicación</h1>
+                        <div class="account-wall">
+                            <img class="profile-img" src="{{ constant('DEFAULT_TEMPLATES_FOLDER')}}img/login.png"
+                                 alt="">
+                            {# <form method="post" class="form-signin"> #}
+                            {% if (message) %}{{message}}{% endif %}
+                                <input name="username" type="text" class="form-control" value="{{username}}" placeholder="Usuario" required autofocus>
+                                <br>
+                                <input name="password" type="password" class="form-control" value="{{password}}" placeholder="Contraseña" required>
+                                <br>
+                                <input name="login" class="btn btn-lg btn-primary btn-block" type="submit">Acceder</button>
+                                {# </form> #}
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

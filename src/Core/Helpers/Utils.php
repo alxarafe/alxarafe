@@ -15,7 +15,7 @@ class Utils
      * @param string $us
      * @return string
      */
-    public function camelToSnake($string, $us = '_')
+    static public function camelToSnake($string, $us = '_')
     {
         $patterns = [
             '/([a-z]+)([0-9]+)/i',
@@ -37,7 +37,7 @@ class Utils
      * @param string $us
      * @return string
      */
-    public function snakeToCamel($string, $us = '_')
+    static public function snakeToCamel($string, $us = '_')
     {
         return str_replace($us, '', ucwords($string, $us));
     }

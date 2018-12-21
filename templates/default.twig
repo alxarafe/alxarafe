@@ -1,0 +1,10 @@
+{% extends "index.twig" %}
+
+{% block title %}Default template{% endblock %}
+
+{% block body %}
+    <h1>{{view.title}}</h1>
+    {{view.openForm({action: view.url, message: view.getErrors()}) | raw}}
+    {{view.view() | raw}}
+    {{view.closeForm() | raw}}
+{% endblock %}

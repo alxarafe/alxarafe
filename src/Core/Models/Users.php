@@ -74,16 +74,16 @@ class Users extends Table
         return [
             [
                 'id' => 1,
-                'username' => "'admin'",
-                'email' => "'admin@alxarafe.com'",
-                'password' => "'" . md5('admin') . "'",
+                'username' => 'admin',
+                'email' => 'admin@alxarafe.com',
+                'password' => md5('admin'),
                 'active' => 1,
             ],
             [
                 'id' => 2,
-                'username' => "'user'",
-                'email' => "'user@alxarafe.com'",
-                'password' => "'" . md5('user') . "'",
+                'username' => 'user',
+                'email' => 'user@alxarafe.com',
+                'password' => md5('user'),
                 'active' => 1,
             ],
         ];

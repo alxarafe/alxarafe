@@ -82,7 +82,7 @@ class Schema
 
         if ($type == 'text') {
             if ($max == 0) {
-                            $max = DEFAULT_STRING_LENGTH;
+                $max = DEFAULT_STRING_LENGTH;
             }
             $dbtype = "$dbtype($max)";
             $ret['pattern'] = '.{' . $min . ',' . $max . '}';
@@ -101,7 +101,7 @@ class Schema
                 $min = $unsigned ? 0 : -$max;
             } else {
                 if ($_length < strlen($min)) {
-                                    $_length = strlen($min);
+                    $_length = strlen($min);
                 }
             }
 
@@ -126,22 +126,22 @@ class Schema
         $ret['null'] = $null;
         $ret['label'] = $label;
         if (isset($precision)) {
-                    $ret['step'] = $precision;
+            $ret['step'] = $precision;
         }
         if (isset($structure['key'])) {
-                    $ret['key'] = $structure['key'];
+            $ret['key'] = $structure['key'];
         }
         if (isset($structure['placeholder'])) {
-                    $ret['placeholder'] = $structure['placeholder'];
+            $ret['placeholder'] = $structure['placeholder'];
         }
         if (isset($structure['extra'])) {
-                    $ret['extra'] = $structure['extra'];
+            $ret['extra'] = $structure['extra'];
         }
         if (isset($structure['help'])) {
-                    $ret['help'] = $structure['help'];
+            $ret['help'] = $structure['help'];
         }
         if (isset($structure['unique']) && $structure['unique']) {
-                    $ret['unique'] = $structure['unique'];
+            $ret['unique'] = $structure['unique'];
         }
 
         if (isset($structure['relations'][$field]['table'])) {
@@ -206,7 +206,11 @@ class Schema
             $_defecto = $col['default'] ?? null;
             $defecto = '';
             if (isset($_defecto)) {
-                $defecto = "'$_defecto'";
+                if ($_defecto == 'CURRENT_TIMESTAMP') {
+                    $defecto = "$_defecto";
+                } else {
+                    $defecto = "'$_defecto'";
+                }
             } else {
                 if ($nulo) {
                     $defecto = 'NULL';

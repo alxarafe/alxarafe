@@ -15,9 +15,10 @@ use DebugBar\StandardDebugBar;
 
 class Debug
 {
-    public static $logger;
+
     public static $debugBar;
-    public static $render;
+    private static $render;
+    private static $logger;
 
     /**
      * Debug constructor.
@@ -38,6 +39,19 @@ class Debug
     }
 
     /**
+     * Check if the class is instanced, and instance it if not.
+     * This method can be called, after use self::$debugBar in any method.
+     *
+     * @throws \DebugBar\DebugBarException
+     */
+    private static function checkInstance()
+    {
+        if (is_null(self::$debugBar)) {
+            new self();
+        }
+    }
+
+    /**
      * Return the internal debug instance for get the html code.
      *
      * TODO: Analizar qué funciones harían falta para el html y retornar el html.
@@ -53,17 +67,14 @@ class Debug
         return self::$debugBar;
     }
 
-    /**
-     * Check if the class is instanced, and instance it if not.
-     * This method can be called, after use self::$debugBar in any method.
-     *
-     * @throws \DebugBar\DebugBarException
-     */
-    private static function checkInstance()
+    public static function getRenderHeader(): string
     {
-        if (is_null(self::$debugBar)) {
-            new self();
-        }
+        return self::$render->renderHead();
+    }
+
+    public static function getRenderFooter(): string
+    {
+        return self::$render->render();
     }
 
     /**
