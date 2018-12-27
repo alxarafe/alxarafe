@@ -2,39 +2,35 @@
 {% block title %}Configuración de la base de datos{% endblock %}
 {% block body %}
     {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
-    <form action='index.php?call=config' method='post' accept-charset="utf-8">
-        <div id="container" class="col-lg-6">
-            {% for key,var in vars %}
+    <div class="container">
+        <form action='index.php?call=config' method='post' accept-charset="utf-8">
+            <div class="col-xm-4">&nbsp;</div>
+            <div class="col-xm-4">
+
+                {% if (message) %}{{message}}{% endif %}
+
                 <div class="form-group">
-                    <label>{{var}}</label>
-                    <input id="{{key}}" name="{{key}}" class="form-control" type="text" value="{{ post[key] }}" />
-                    <p class="help-block">{{var}}</p>
+                    <label>Motor de base de datos</label>
+                    <select id="dbEngineName" name="dbEngineName" class="form-control">
+                        {% for dbEngine in dbEngines %}
+                            <option {{ post["dbEngineName"]==dbEngine ? "selected":"" }}>{{dbEngine}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-            {% endfor %}
-        </div>
-        <div class="col-lg-6">
 
-            <div class="form-group">
-                <label>Motor de base de datos</label>
-                <select id="dbengine" name="dbengine" class="form-control">
-                    {% for dbplugin in dbplugins %}
-                        <option {{ post["dbengine"]==dbplugin ? "selected":"" }}>{{dbplugin}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Seleccione una plantilla</label>
-                <select id="template" name="template" class="form-control">
-                    {% for skin in skins %}
-                        <option {{ post["template"]==skin ? "selected":"" }}>{{skin}}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                        {% for key,var in dbConfig %}
+                            <div class="form-group">
+                                <label>{{key}}</label>
+                                <input id="{{key}}" name="{{key}}" class="form-control" type="text" value="{{ var }}" />
+                            </div>
+                        {% endfor %}
 
-            <button name="submit" type="submit" class="btn btn-default">Guardar los cambios</button>
-            <button name="clear" type="submit" class="btn btn-default">Borrar los campos</button>
-            <button name="cancel" type="submit" class="btn btn-default">Abandonar</button>
-        </div>
-    </form>
+                <button name="submit" type="submit" class="btn btn-default">Guardar los cambios</button>
+                <!-- <button name="clear" type="submit" class="btn btn-default">Borrar los campos</button> -->
+                <button name="cancel" type="submit" class="btn btn-default">Abandonar</button>
+            </div>
+                        <div class="col-x-4">&nbsp;</div>
+        </form>
+    </div>
     <!-- /#page-wrapper -->
 {% endblock %}

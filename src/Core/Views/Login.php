@@ -20,6 +20,6 @@ class Login extends View
     public function addCss()
     {
         parent::addCss();
-        $this->css[] = $this->addResource('css/login', 'css');
+        $this->css[] = $this->addResource('/css/login', 'css');
     }
 }

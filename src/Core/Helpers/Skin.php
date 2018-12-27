@@ -12,8 +12,8 @@ use Alxarafe\Base\View;
 class Skin
 {
 
-    const SKINS_FOLDER = "views/templates/";
-    const COMMON_FOLDER = "views/common/";
+    const SKINS_FOLDER = "/views/templates";
+    const COMMON_FOLDER = "/views/common";
 
     /**
      * It is the name of the template that is being used.
@@ -111,7 +111,7 @@ class Skin
      */
     public static function setTemplatesFolder(string $template)
     {
-        self::$templatesFolder = BASE_PATH . self::SKINS_FOLDER . $template . '/';
+        self::$templatesFolder = BASE_PATH . self::SKINS_FOLDER . ('/' . trim($template, '/'));
         Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
 
@@ -187,6 +187,7 @@ class Skin
                     DEFAULT_TEMPLATES_FOLDER,
                 ];
 
+                //Debug::testArray('paths', $paths);
                 // Only use really existing path
                 $usePath = [];
                 foreach ($paths as $path) {
@@ -196,7 +197,7 @@ class Skin
                 }
 
                 $loader = new Twig_Loader_Filesystem($usePath);
-                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => BASE_PATH . '/tmp/' . RANDOM_PATH_NAME . '.Twig'];
+                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => BASE_PATH . '/tmp' . RANDOM_PATH_NAME . '.Twig'];
 
                 $twig = new Twig_Environment($loader, $options);
 

@@ -84,8 +84,8 @@ class View
      */
     public function addCSS()
     {
-        $this->css[] = $this->addResource(VENDOR_FOLDER . 'twbs/bootstrap/dist/css/bootstrap.min', 'css', false);
-        $this->css[] = $this->addResource('css/alxarafe', 'css');
+        $this->css[] = $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/css/bootstrap.min', 'css', false);
+        $this->css[] = $this->addResource('/css/alxarafe', 'css');
     }
 
     /**
@@ -95,9 +95,9 @@ class View
      */
     public function addJS()
     {
-        $this->js[] = $this->addResource(VENDOR_FOLDER . 'components/jquery/jquery.min', 'js', false);
-        $this->js[] = $this->addResource(VENDOR_FOLDER . 'twbs/bootstrap/dist/css/bootstrap.min', 'js', false);
-        $this->js[] = $this->addResource('js/alxarafe', 'js');
+        $this->js[] = $this->addResource(VENDOR_FOLDER . '/components/jquery/jquery.min', 'js', false);
+        $this->js[] = $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/js/bootstrap.min', 'js', false);
+        $this->js[] = $this->addResource('/js/alxarafe', 'js');
     }
 
     public function getHeader()
@@ -129,6 +129,7 @@ class View
         $this->vars['cssCode'] = $this->css;
         $this->vars['jsCode'] = $this->js;
         $this->vars['errors'] = Config::getErrors();
+
         echo Skin::render($this->vars);
 
         return true;

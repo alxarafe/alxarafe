@@ -13,19 +13,23 @@ class Controller
 {
 
     public $user;
+    public $vars;
 
     public function __construct()
     {
         //echo "<p>En constructor de Controller</p>";
     }
 
-    public function run(array $vars = [])
+    public function run()
     {
-        $vars['user'] = Config::$user->getUser();
+        if (isset(Config::$user)) {
+            $this->vars['user'] = Config::$user->getUser();
+        }
+
         if (Skin::$view == null) {
             Skin::$view = new View($this);
         }
 
-        Skin::$view->run($vars);
+        Skin::$view->run($this->vars);
     }
 }

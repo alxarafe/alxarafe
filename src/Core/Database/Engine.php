@@ -93,6 +93,19 @@ abstract class Engine
         return '';
     }
 
+    public static function getEngines(): array
+    {
+        $path = ALXARAFE_FOLDER . '/src/Core/Database/Engines';
+        $engines = scandir($path);
+        $ret = [];
+        foreach ($engines as $engine) {
+            if ($engine != '.' && $engine != '..' && substr($engine, -4) == '.php') {
+                $ret[] = substr($engine, 0, strlen($engine) - 4);
+            }
+        }
+        return $ret;
+    }
+
     /**
      * Establish a connection to the database.
      * If a connection already exists, it returns it. It does not establish a new one.
@@ -117,6 +130,7 @@ abstract class Engine
         } catch (PDOException $e) {
             //Config::setLastError($e->getMessage());
             Debug::addException($e);
+            (new EditConfig())->run();
         }
         return isset(self::$dbHandler);
     }
@@ -129,7 +143,8 @@ abstract class Engine
      * @param type $options
      * @return PDOStatement|false
      */
-    final public function prepare($sql, $options = []): bool
+    final public
+        function prepare($sql, $options = []): bool
     {
         if (!isset(self::$dbHandler)) {
             return false;
@@ -145,7 +160,8 @@ abstract class Engine
      * @param array $inputParameters
      * @return bool
      */
-    final public function execute($inputParameters = []): bool
+    final public
+        function execute($inputParameters = []): bool
     {
         if (!is_array($inputParameters)) {
             Debug::addMessage('Deprecated', 'Use exec to execute an SQL command. execute expects an array with a prepared statement.');
@@ -163,7 +179,8 @@ abstract class Engine
      * 
      * @return type
      */
-    final public function _resultSet(): array
+    final public
+        function _resultSet(): array
     {
         self::execute();
         return self::$statement->fetchAll(PDO::FETCH_ASSOC);
@@ -212,7 +229,8 @@ abstract class Engine
      *
      * @return bool
      */
-    final public function beginTransaction(): bool
+    final public
+        function beginTransaction(): bool
     {
         $ret = true;
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
@@ -232,7 +250,8 @@ abstract class Engine
      *
      * @return bool
      */
-    final public function commit()
+    final public
+        function commit()
     {
         $ret = true;
 
@@ -254,7 +273,8 @@ abstract class Engine
      * @throws PDOException if there is no transaction started
      * @return bool
      */
-    final public function rollBack()
+    final public
+        function rollBack()
     {
         $ret = true;
 
@@ -277,7 +297,8 @@ abstract class Engine
     /**
      * Undo all active transactions
      */
-    final private function rollbackTransactions()
+    final private
+        function rollbackTransactions()
     {
         while (self::$transactionDepth > 0) {
             $this->rollback();

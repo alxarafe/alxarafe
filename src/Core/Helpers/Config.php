@@ -54,50 +54,7 @@ class Config
      * @var Auth
      */
     static $user;
-
-    /**
-     * Define the constants of the application
-     */
-    public static function defineConstants()
-    {
-        if (!defined('DEBUG')) {
-            define('DEBUG', false);
-        }
-
-        /**
-         * It is recommended to define BASE_PATH as the first line of the
-         * index.php file of the application.
-         *
-         * define('BASE_PATH', __DIR__ . '/');
-         */
-        if (!defined('BASE_PATH')) {
-            define('BASE_PATH', __DIR__ . '/../../../../');
-        }
-
-        if (!defined('VENDOR_FOLDER')) {
-            define('VENDOR_FOLDER', 'vendor/');
-        }
-
-        if (!defined('DEFAULT_TEMPLATES_FOLDER')) {
-            define('DEFAULT_TEMPLATES_FOLDER', 'vendor/alxarafe/alxarafe/templates/');
-        }
-
-        if (!defined('CONFIGURATION_PATH')) {
-            define('CONFIGURATION_PATH', BASE_PATH . 'config/');
-        }
-
-        if (!defined('DEFAULT_STRING_LENGTH')) {
-            define('DEFAULT_STRING_LENGTH', 50);
-        }
-
-        if (!defined('DEFAULT_INTEGER_SIZE')) {
-            define('DEFAULT_INTEGER_SIZE', 10);
-        }
-
-        if (!defined('RANDOM_PATH_NAME')) {
-            define('RANDOM_PATH_NAME', 'ADFASDFASD');
-        }
-    }
+    static $configFilename;
 
     /**
      * Returns the name of the configuration file. By default, create the config
@@ -108,46 +65,56 @@ class Config
      *
      * @return string|null
      */
-    public static function getConfigurationFile()// : ?string - NetBeans only supports up to php7.0, for this you need php7.1
+    public static function getConfigFileName()// : ?string - NetBeans only supports up to php7.0, for this you need php7.1
     {
-        self::defineConstants();
-        $filename = CONFIGURATION_PATH . 'config.yaml';
+        if (isset(self::$configFilename)) {
+            return $self::$configFilename;
+        }
+        $filename = CONFIGURATION_PATH . '/config.yaml';
         if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {
             return $filename;
         }
         return null;
     }
 
-    /**
-     * Load the configuration file and initialize the template engine and the database.
-     */
-    public static function loadConfig()
+    public static function configFileExists(): bool
     {
-        self::$global = [];
-        if (self::loadConfigFile()) {
-            Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
-            Skin::setTemplate(self::getVar('template') ?? 'default');
-            Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? BASE_PATH . 'views/common/');
-            Skin::setTemplatesFolder(self::getVar('templatesFolder') ?? BASE_PATH . 'views/templates/' . self::getVar('template'));
+        return (file_exists(self::getConfigFileName()));
+    }
+
+    public static function loadConfigurationFile(): array
+    {
+        $filename = self::getConfigFileName();
+        if (isset($filename)) {
+            if (!self::configFileExists()) {
+                (new EditConfig())->run();
+            }
+            $yaml = file_get_contents(self::getConfigFile());
+            if ($yaml) {
+                return YAML::parse($yaml);
+            }
         }
+        return null;
+    }
+
+    public static function loadViewsConfig()
+    {
+        Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
+        Skin::setTemplate(self::getVar('template') ?? 'default');
+        Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? BASE_PATH . '/views/common');
+        Skin::setTemplatesFolder(self::getVar('templatesFolder') ?? BASE_PATH . '/views/templates' . self::getVar('template'));
+    }
+
+    public static function loadDbConfig()
+    {
         if (self::connectToDatabase() && self::$user == null) {
             self::$user = new Auth();
         }
     }
 
-    /**
-     * Read the variables stored in the configuration file
-     *
-     * @return bool
-     */
     public static function loadConfigFile(): bool
     {
-        $yaml = file_get_contents(self::getConfigurationFile());
-        if ($yaml === false) {
-            return false;
-        }
-        self::$global = YAML::parse($yaml);
-        return true;
+
     }
 
     /**

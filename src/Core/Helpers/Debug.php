@@ -34,8 +34,8 @@ class Debug
         self::$debugBar = new StandardDebugBar();
         self::$debugBar->addCollector(new MessagesCollector('SQL'));
         self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
-        $baseUrl = VENDOR_FOLDER . 'maximebf/debugbar/src/DebugBar/Resources/';
-        self::$render = Debug::getDebugBar()->getJavascriptRenderer($baseUrl, BASE_PATH . '/');
+        $baseUrl = VENDOR_FOLDER . '/maximebf/debugbar/src/DebugBar/Resources';
+        self::$render = Debug::getDebugBar()->getJavascriptRenderer($baseUrl, BASE_PATH);
     }
 
     /**
