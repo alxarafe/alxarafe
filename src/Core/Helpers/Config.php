@@ -43,7 +43,7 @@ class Config
     /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
-     * @var SqlHelper|null
+     * @var sqlHelper|null
      */
     static $sqlHelper;
 

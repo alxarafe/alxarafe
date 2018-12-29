@@ -10,7 +10,7 @@ use Alxarafe\Helpers\Debug;
 use PDO;
 
 /**
- * Personalization of PDO to use MySQL.
+ * Personalization of PDO to use Firebird.
  */
 class PdoFirebird extends Engine
 {

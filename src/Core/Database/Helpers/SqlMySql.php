@@ -8,7 +8,7 @@ namespace Alxarafe\Database\Engines;
 use Alxarafe\Database\SqlHelper;
 
 /**
- * Personalization of PDO to use MySQL.
+ * Personalization of SQL queries to use MySQL.
  */
 class SqlMySql extends SqlHelper
 {

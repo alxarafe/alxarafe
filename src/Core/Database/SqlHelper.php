@@ -12,4 +12,8 @@ namespace Alxarafe\Database;
 abstract class SqlHelper
 {
 
+    public function __construct()
+    {
+        
+    }
 }
