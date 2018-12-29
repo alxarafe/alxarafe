@@ -15,6 +15,7 @@ class Schema
     const CRLF = "\n\t";
 
     static protected $databaseStructure;
+    static protected $SqlHelper;
     protected $model;
     protected $tablename;
     protected $structure;

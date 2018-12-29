@@ -41,6 +41,13 @@ class Config
     static $dbEngine;
 
     /**
+     * Contains the instance to the specific SQL engine helper (or null)
+     *
+     * @var SqlHelper|null
+     */
+    static $sqlHelper;
+
+    /**
      * Contains the database structure data.
      * Each table is a index of the associative array.
      *
@@ -195,11 +202,16 @@ class Config
     {
         if (self::$dbEngine == null) {
             $dbEngineName = self::$global['dbEngineName'] ?? 'PdoMySql';
-            Debug::addMessage('SQL', "Using '$dbEngineName' engine.");
+            $helperName = 'Sql' . substr($dbEngineName, 3);
 
+            Debug::addMessage('SQL', "Using '$dbEngineName' engine.");
+            Debug::addMessage('SQL', "Using '$helperName' SQL helper engine.");
+
+            $sqlEngine = '\\Alxarafe\\Database\\Helpers\\' . $helperName;
             $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
             try {
-                $res = Config::$dbEngine = new $engine([
+                Config::$sqlHelper = new $sqlEngine();
+                Config::$dbEngine = new $engine([
                     'dbUser' => self::$global['dbUser'],
                     'dbPass' => self::$global['dbPass'],
                     'dbName' => self::$global['dbName'],
