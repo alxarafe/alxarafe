@@ -6,37 +6,20 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\EditConfig;
 
 class Dispatcher
 {
 
+    public $searchDir;
+
     public function __construct()
     {
         $this->getConfiguration();
-        if (Config::$user != null) {
-            $user = Config::$user->getUser();
-            if ($user == null) {
-                if (isset($_POST['username'])) {
-                    Config::$user->setUser($_POST['username'], $_POST['password']);
-                }
-                $user = isset(Config::$user) && Config::$user->getUser();
-                if ($user == null) {
-                    Config::$user->login();
-                    return;
-                }
-            }
-        }
-        if (isset($_GET['logout'])) {
-            unset($_GET['logout']);
-            Config::$user->logout();
-            // TODO: Ver si hay mejor forma de hacerlo
-            header('Location: ' . $_SERVER['PHP_SELF']);
-            exit;
-        }
-        $call = $_POST['call'] ?? 'index';
+
+        // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
+        $this->searchDir = [BASE_PATH, BASE_PATH . '/' . ALXARAFE_FOLDER];
     }
 
     private function getConfiguration()
@@ -45,44 +28,12 @@ class Dispatcher
         Config::loadViewsConfig();
         $configFile = Config::getConfigFileName();
         if (file_exists($configFile)) {
-            Config::loadDbConfig();
+            Config::loadConfig();
+        } else {
+            Config::setError("Creating '$configFile' file...");
+            (new EditConfig())->run();
+            die;
         }
-        /* else {
-
-          /*
-          //echo "<p>Creating <strong>$configFile</strong>...</p>";
-          /**
-         * These are the default values.
-         * It is not necessary to define them, if we are going to use these.
-         * /
-          Config::setVar('templateEngine', 'twig');
-          Config::setVar('templatesFolder', 'default');
-          Config::setVar('commonTemplatesFolder', BASE_PATH . '/views/common');
-
-          /**
-         * Database configuration parameters
-         * /
-          Config::setVar('dbEngine', 'PdoMySql');
-          Config::setVar('dbUser', 'root');
-          Config::setVar('dbPass', '');
-          Config::setVar('dbName', 'alxarafe');
-          Config::setVar('dbHost', '');
-          Config::setVar('dbPort', '');
-
-          Config::saveConfigFile();
-
-          (new EditConfig())->run();
-          return;
-          }
-         *
-         */
-
-        /*
-          echo "<p>The configuration of the <strong>$configFile</strong> file has been loaded...</p>";
-          echo '<pre>' . file_get_contents($configFile) . '</pre>';
-          echo '<p>This file contains the configuration of the database.</p>';
-          echo '<p>If the file is not correct, delete it and it will be created again.</p>';
-         */
     }
 
     /**
@@ -116,25 +67,55 @@ class Dispatcher
          */
         if (!defined('VENDOR_FOLDER')) {
             define('VENDOR_FOLDER', BASE_URI . '/vendor');
+        }
+        if (!defined('ALXARAFE_FOLDER')) {
             define('ALXARAFE_FOLDER', BASE_URI . '/vendor/alxarafe');
-            define('DEFAULT_TEMPLATES_FOLDER', BASE_URI . '/vendor/alxarafe/alxarafe/templates');
+        }
+        if (!defined('DEFAULT_TEMPLATES_FOLDER')) {
+            define('DEFAULT_TEMPLATES_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/templates');
         }
 
         define('CONFIGURATION_PATH', BASE_PATH . '/config');
         define('DEFAULT_STRING_LENGTH', 50);
         define('DEFAULT_INTEGER_SIZE', 10);
-        define('RANDOM_PATH_NAME', '/ADFASDFASD');
+    }
+
+    function processFolder($path, $call, $method)
+    {
+        $_className = 'Alxarafe\\Controllers\\' . $call;
+        if (class_exists($_className)) {
+            $className = $_className;
+        } else {
+            $className = $call;
+        }
+        $controllerPath = $path . '/' . $call . '.php';
+        if (file_exists($controllerPath)) {
+            require_once $controllerPath;
+            if (method_exists($className, $method)) {
+                $controller = new $className();
+                return $controller->{$method}();
+            }
+        }
     }
 
     function process()
     {
-        // Planificador por defecto
+        foreach ($this->searchDir as $dir) {
+            $path = $dir . '/Controllers';
+            $call = $_GET['call'] ?? 'index';
+            $method = $_GET['run'] ?? 'run';
+            if ($this->processFolder($path, $call, $method)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function run()
     {
-        $this->process();
-        $view = new View();
-        $view->run($vars);
+        if (!$this->process()) {
+            $view = new View();
+            $view->run();
+        }
     }
 }

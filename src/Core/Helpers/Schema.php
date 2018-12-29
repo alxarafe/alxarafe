@@ -22,12 +22,12 @@ class Schema
     /**
      * Return true if $tablename exists in database
      * 
-     * @param string $tableName
+     * @param string $tablename
      * @return bool
      */
-    static function tableExists(string $tableName): bool
+    static function tableExists(string $tablename): bool
     {
-        return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tableName);
+        return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tablename);
     }
 
     /**

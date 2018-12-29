@@ -25,6 +25,13 @@ class Skin
     private static $currentTemplate;
 
     /**
+     * Es el nombre del skin que se va a usar.
+     *
+     * @var string
+     */
+    private static $currentSkin;
+
+    /**
      * By default, only the 'twig' template engine is used.
      *
      * Es el nombre del motor de plantillas (de momento sólo twig)
@@ -83,6 +90,32 @@ class Skin
         return (self::$currentTemplate != null);
     }
 
+    public static function getSkins(): array
+    {
+        $path = BASE_PATH . self::SKINS_FOLDER;
+        if (!is_dir($path)) {
+            Config::setError("Directory '$path' does not exists!");
+            return [];
+        }
+        $skins = scandir($path);
+        $ret = [];
+        foreach ($skins as $skin) {
+            if ($skin != '.' && $skin != '..') {
+                $ret[] = $skin;
+            }
+        }
+        return $ret;
+    }
+
+    public static function setSkin($skin)
+    {
+        if ($skin != self::$currentSkin) {
+            self::$currentSkin = $skin;
+            self::setTemplatesFolder($skin);
+        }
+        Debug::addMessage('messages', "Setting '$skin' skin");
+    }
+
     public static function setTemplate($template)
     {
         self::$currentTemplate = $template;
@@ -105,7 +138,7 @@ class Skin
     }
 
     /**
-     * Establish a new template.
+     * Establish a new template. The parameter must be only de template name, no the path!
      *
      * @param string $template
      */
@@ -187,7 +220,8 @@ class Skin
                     DEFAULT_TEMPLATES_FOLDER,
                 ];
 
-                //Debug::testArray('paths', $paths);
+                Debug::addMessage('messages', 'Searching:' . print_r($paths, true));
+
                 // Only use really existing path
                 $usePath = [];
                 foreach ($paths as $path) {
@@ -195,6 +229,8 @@ class Skin
                         $usePath[] = $path;
                     }
                 }
+
+                Debug::addMessage('messages', 'Using:' . print_r($usePath, true));
 
                 $loader = new Twig_Loader_Filesystem($usePath);
                 $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => BASE_PATH . '/tmp' . RANDOM_PATH_NAME . '.Twig'];

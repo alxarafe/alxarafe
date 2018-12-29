@@ -16,19 +16,17 @@ class EditConfig extends Controller
 
     public function __construct()
     {
-        Skin::setTemplate('dbconfig');
+        Skin::setTemplate('config');
 
         parent::__construct();
 
-        $dbEngines = Engine::getEngines();
+        $vars = Config::configFileExists() ? Config::loadConfigurationFile() : [];
 
-        $yaml = file_get_contents(Config::getConfigurationFile());
-        if ($yaml == true) {
-            $vars = YAML::parse($yaml);
-        }
+        $this->vars['dbEngines'] = Engine::getEngines();
+        $this->vars['skins'] = Skin::getSkins();
 
-        $this->vars['dbEngines'] = $dbEngines;
-        $this->vars['dbEngineName'] = $this->vars['dbEngineName'] ?? $dbEngines[0] ?? '';
+        $this->vars['dbEngineName'] = $vars['dbEngineName'] ?? $this->vars['dbEngines'][0] ?? '';
+        $this->vars['skin'] = $vars['skin'] ?? $this->vars['skins'][0] ?? '';
         $this->vars['dbConfig']['dbUser'] = $vars['dbUser'] ?? 'root';
         $this->vars['dbConfig']['dbPass'] = $vars['dbPass'] ?? '';
         $this->vars['dbConfig']['dbName'] = $vars['dbName'] ?? 'alxarafe';
@@ -47,13 +45,14 @@ class EditConfig extends Controller
     function save()
     {
         $vars['dbEngineName'] = $_POST['dbEngineName'] ?? '';
+        $vars['skin'] = $_POST['skin'] ?? '';
         $vars['dbUser'] = $_POST['dbUser'] ?? '';
         $vars['dbPass'] = $_POST['dbPass'] ?? '';
         $vars['dbName'] = $_POST['dbName'] ?? '';
         $vars['dbHost'] = $_POST['dbHost'] ?? '';
         $vars['dbPort'] = $_POST['dbPort'] ?? '';
 
-        $yamlFile = Config::getConfigurationFile();
+        $yamlFile = Config::getConfigFileName();
         $yamlData = YAML::dump($vars);
         file_put_contents($yamlFile, $yamlData);
     }

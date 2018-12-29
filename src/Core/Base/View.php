@@ -13,8 +13,6 @@ class View
 {
 
     private $vars;
-    protected $css;
-    protected $js;
 
     public function __construct($controller = null)
     {
@@ -23,8 +21,7 @@ class View
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
-        $this->css = [];
-        $this->js = [];
+        $this->vars['user'] = Config::$username;
         $this->addCSS();
         $this->addJS();
     }
@@ -49,32 +46,47 @@ class View
         $absPath = $resourceName . '.' . $resourceExtension;
         if ($relative) {
             $path = Skin::getTemplatesFolder() . $absPath;
-            Debug::addMessage('messages', "Exists resource '$path'?");
+            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using resource $path");
+                Debug::addMessage('messages', "Using skin resource $path");
                 return $path;
             }
-            $path = Config::getVar('commonTemplatesFolder') . $absPath;
-            Debug::addMessage('messages', "Exists resource '$path'?");
+            $path = Skin::getCommonTemplatesFolder('commonTemplatesFolder') . $absPath;
+            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using resource $path");
+                Debug::addMessage('messages', "Using common resource $path");
                 return $path;
             }
             $path = DEFAULT_TEMPLATES_FOLDER . $absPath;
-            Debug::addMessage('messages', "Exists resource '$path'?");
+            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using resource $path");
+                Debug::addMessage('messages', "Using default resource $path");
                 return $path;
             }
             $path = VENDOR_FOLDER . $absPath;
-            Debug::addMessage('messages', "Exists resource '$path'?");
+            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using resource $path");
+                Debug::addMessage('messages', "Using package resource $path");
                 return $path;
             }
         }
-        Debug::addMessage('messages', "Adding absolute resource $absPath");
+        Debug::addMessage('messages', "Using absolute resource $absPath");
         return $absPath;
+    }
+
+    public function setVar($name, $value)
+    {
+        $this->vars[$name] = $value;
+    }
+
+    public function addToVar($name, $value)
+    {
+        $this->vars[$name][] = $value;
+    }
+
+    public function getVar($name)
+    {
+        return isset($this->vars[$name]) ?? [];
     }
 
     /**
@@ -84,8 +96,8 @@ class View
      */
     public function addCSS()
     {
-        $this->css[] = $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/css/bootstrap.min', 'css', false);
-        $this->css[] = $this->addResource('/css/alxarafe', 'css');
+        $this->addToVar('cssCode', $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/css/bootstrap.min', 'css', false));
+        $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
     }
 
     /**
@@ -95,9 +107,14 @@ class View
      */
     public function addJS()
     {
-        $this->js[] = $this->addResource(VENDOR_FOLDER . '/components/jquery/jquery.min', 'js', false);
-        $this->js[] = $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/js/bootstrap.min', 'js', false);
-        $this->js[] = $this->addResource('/js/alxarafe', 'js');
+        $this->addToVar('jsCode', $this->addResource(VENDOR_FOLDER . '/components/jquery/jquery.min', 'js', false));
+        $this->addToVar('jsCode', $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/js/bootstrap.min', 'js', false));
+        $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
+    }
+
+    public function getErrors()
+    {
+        return Config::getErrors();
     }
 
     public function getHeader()
@@ -110,24 +127,12 @@ class View
         return Debug::getRenderFooter();
     }
 
-    public function getVar($name)
-    {
-        return isset($this->vars[$name]) ?? [];
-    }
-
-    public function setVar($name, $value)
-    {
-        $this->vars[$name] = $value;
-    }
-
     public function run(array $data = [])
     {
         if (!Skin::hasTemplate()) {
             Skin::setTemplate('default');
         }
         $this->vars = \array_merge($this->vars, $data);
-        $this->vars['cssCode'] = $this->css;
-        $this->vars['jsCode'] = $this->js;
         $this->vars['errors'] = Config::getErrors();
 
         echo Skin::render($this->vars);

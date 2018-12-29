@@ -6,6 +6,7 @@
 namespace Alxarafe\Helpers;
 
 use Symfony\Component\Yaml\Yaml;
+use Alxarafe\Controllers\EditConfig;
 
 /**
  * All variables and global functions are centralized through the static class Config.
@@ -54,6 +55,7 @@ class Config
      * @var Auth
      */
     static $user;
+    static $username;
     static $configFilename;
 
     /**
@@ -89,7 +91,7 @@ class Config
             if (!self::configFileExists()) {
                 (new EditConfig())->run();
             }
-            $yaml = file_get_contents(self::getConfigFile());
+            $yaml = file_get_contents($filename);
             if ($yaml) {
                 return YAML::parse($yaml);
             }
@@ -100,21 +102,36 @@ class Config
     public static function loadViewsConfig()
     {
         Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
+        Skin::setSkin(self::getVar('skin') ?? 'default');
         Skin::setTemplate(self::getVar('template') ?? 'default');
-        Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? BASE_PATH . '/views/common');
-        Skin::setTemplatesFolder(self::getVar('templatesFolder') ?? BASE_PATH . '/views/templates' . self::getVar('template'));
+        Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? BASE_PATH . Skin::COMMON_FOLDER);
     }
 
-    public static function loadDbConfig()
+    public static function loadConfig()
     {
-        if (self::connectToDatabase() && self::$user == null) {
-            self::$user = new Auth();
+        self::$global = self::loadConfigurationFile();
+        if (isset(self::$global['skin'])) {
+            $templatesFolder = BASE_PATH . Skin::SKINS_FOLDER;
+            $skinFolder = $templatesFolder . '/' . self::$global['skin'];
+            if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
+                Config::setError("Skin folder '$skinFolder' does not exists!");
+                (new EditConfig())->run();
+                die;
+            }
+            Skin::setSkin(self::$global['skin']);
         }
-    }
-
-    public static function loadConfigFile(): bool
-    {
-
+        if (!self::connectToDataBase()) {
+            self::setError('Database Connection error...');
+            (new EditConfig())->run();
+            die;
+        }
+        if (self::$user == null) {
+            self::$user = new Auth();
+            self::$username = self::$user->getUser();
+            if (self::$username == null) {
+                self::$user->login();
+            }
+        }
     }
 
     /**
@@ -182,22 +199,18 @@ class Config
 
             $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
             try {
-                Config::$dbEngine = new $engine([
+                $res = Config::$dbEngine = new $engine([
                     'dbUser' => self::$global['dbUser'],
                     'dbPass' => self::$global['dbPass'],
                     'dbName' => self::$global['dbName'],
                     'dbHost' => self::$global['dbHost'],
                     'dbPort' => self::$global['dbPort'],
                 ]);
+                return isset(self::$dbEngine) && self::$dbEngine->connect() && Config::$dbEngine->checkConnection();
             } catch (Exception $e) {
                 Debug::addException($e);
-            }
-
-            if (!isset(self::$dbEngine)) {
                 return false;
             }
-            return self::$dbEngine->connect();
         }
-        return true;
     }
 }

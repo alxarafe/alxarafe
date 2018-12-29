@@ -106,6 +106,11 @@ abstract class Engine
         return $ret;
     }
 
+    public function checkConnection()
+    {
+        return (self::$dbHandler != Null);
+    }
+
     /**
      * Establish a connection to the database.
      * If a connection already exists, it returns it. It does not establish a new one.
@@ -120,7 +125,6 @@ abstract class Engine
             Debug::addMessage('SQL', "PDO: Already connected " . self::$dsn);
             return true;
         }
-
         Debug::addMessage('SQL', "PDO: " . self::$dsn);
         try {
             // Logs SQL queries. You need to wrap your PDO object into a DebugBar\DataCollector\PDO\TraceablePDO object.
@@ -128,9 +132,8 @@ abstract class Engine
             self::$dbHandler = new PDODataCollector\TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
             Debug::$debugBar->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
-            //Config::setLastError($e->getMessage());
             Debug::addException($e);
-            (new EditConfig())->run();
+            return false;
         }
         return isset(self::$dbHandler);
     }
@@ -214,7 +217,7 @@ abstract class Engine
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement != null && self::$statement->execute([])) {
-            return self::$statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result = self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return null;
     }

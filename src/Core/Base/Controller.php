@@ -17,11 +17,6 @@ class Controller
 
     public function __construct()
     {
-        //echo "<p>En constructor de Controller</p>";
-    }
-
-    public function run()
-    {
         if (isset(Config::$user)) {
             $this->vars['user'] = Config::$user->getUser();
         }
@@ -29,7 +24,11 @@ class Controller
         if (Skin::$view == null) {
             Skin::$view = new View($this);
         }
+    }
 
+    public function run()
+    {
+        var_dump($this);
         Skin::$view->run($this->vars);
     }
 }

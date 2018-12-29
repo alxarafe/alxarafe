@@ -65,7 +65,6 @@ class Auth extends Users
             Debug::addMessage('SQL', "$user autenticado");
         } else {
             $this->user = null;
-            Config::setError('Error al autenticar el usuario. Revise usuario y contraseña.');
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {

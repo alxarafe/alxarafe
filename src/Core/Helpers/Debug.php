@@ -27,6 +27,10 @@ class Debug
      */
     public function __construct()
     {
+        if (!defined('DEBUG')) {
+            define('DEBUG', false);
+        }
+
         self::$logger = new Logger('core_logger');
         self::$logger->pushHandler(new StreamHandler(BASE_PATH . 'core.log', Logger::DEBUG));
         self::$logger->pushHandler(new FirePHPHandler());
@@ -69,12 +73,20 @@ class Debug
 
     public static function getRenderHeader(): string
     {
-        return self::$render->renderHead();
+        if (DEBUG) {
+            self::checkInstance();
+            return self::$render->renderHead();
+        }
+        return '';
     }
 
     public static function getRenderFooter(): string
     {
-        return self::$render->render();
+        if (DEBUG) {
+            self::checkInstance();
+            return self::$render->render();
+        }
+        return '';
     }
 
     /**
