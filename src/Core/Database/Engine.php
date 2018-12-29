@@ -212,7 +212,7 @@ abstract class Engine
      * @param string $query
      * @return array
      */
-    final public static function select(string $query): array
+    public static function select(string $query): array
     {
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);

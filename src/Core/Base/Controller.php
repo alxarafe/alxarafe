@@ -28,7 +28,6 @@ class Controller
 
     public function run()
     {
-        var_dump($this);
         Skin::$view->run($this->vars);
     }
 }
