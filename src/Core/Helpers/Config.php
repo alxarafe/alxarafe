@@ -207,10 +207,10 @@ class Config
             Debug::addMessage('SQL', "Using '$dbEngineName' engine.");
             Debug::addMessage('SQL', "Using '$helperName' SQL helper engine.");
 
-            $sqlEngine = '\\Alxarafe\\Database\\Helpers\\' . $helperName;
+            $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
             $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
             try {
-                Config::$sqlHelper = new $sqlEngine();
+                //Config::$sqlHelper = new $sqlEngine();
                 Config::$dbEngine = new $engine([
                     'dbUser' => self::$global['dbUser'],
                     'dbPass' => self::$global['dbPass'],
