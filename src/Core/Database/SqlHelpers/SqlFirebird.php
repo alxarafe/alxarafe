@@ -106,6 +106,5 @@ ORDER BY b.RDB$FIELD_POSITION;
       ('1', 'Person 1', '11111111X', '21'),
       ('2', 'Person 2', '22222222Y', '32'),
       ('3', 'Person 3', '33333333Z', '43');
-
      */
 }

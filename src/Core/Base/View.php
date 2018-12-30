@@ -16,8 +16,6 @@ class View
 
     public function __construct($controller = null)
     {
-        Skin::setTemplatesEngine($config['templatesEngine'] ?? 'twig');
-
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
@@ -51,7 +49,7 @@ class View
                 Debug::addMessage('messages', "Using skin resource $path");
                 return $path;
             }
-            $path = Skin::getCommonTemplatesFolder('commonTemplatesFolder') . $absPath;
+            $path = Skin::getCommonTemplatesFolder() . $absPath;
             // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
                 Debug::addMessage('messages', "Using common resource $path");

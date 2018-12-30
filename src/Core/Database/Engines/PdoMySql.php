@@ -70,7 +70,7 @@ class PdoMySql extends Engine
 
     public static function normalizeColumns(array $columns): array
     {
-        $ret = [];
+        $res = [];
         foreach ($columns as $value) {
             var_dump($value);
             $fullType = self::splitType($value['Type']);
@@ -88,6 +88,7 @@ class PdoMySql extends Engine
                     $type = $fullType['type'];
                     Debug::addMessage('Deprecated', "Correct the data type '$type' in MySql database");
             }
+            $data = [];
             $data['name'] = strtolower(trim($value['Field']));
             $data['type'] = $type;
             $data['length'] = $fullType['length'];

@@ -43,7 +43,7 @@ abstract class Engine
      * Represents a prepared statement and, after the statement is executed, 
      * an associated result set.
      *
-     * @var PDOStatement
+     * @var \PDOStatement
      */
     static protected $statement;
 
@@ -144,12 +144,11 @@ abstract class Engine
      * Prepares a statement for execution and returns a statement object
      * http://php.net/manual/en/pdo.prepare.php
      *
-     * @param type $sql
-     * @param type $options
-     * @return PDOStatement|false
+     * @param string $sql
+     * @param array $options
+     * @return bool
      */
-    final public
-        function prepare($sql, $options = []): bool
+    final public function prepare(string $sql, array $options = []): bool
     {
         if (!isset(self::$dbHandler)) {
             return false;
@@ -165,8 +164,7 @@ abstract class Engine
      * @param array $inputParameters
      * @return bool
      */
-    final public
-        function execute($inputParameters = []): bool
+    final public function execute(array $inputParameters = []): bool
     {
         if (!is_array($inputParameters)) {
             Debug::addMessage('Deprecated', 'Use exec to execute an SQL command. execute expects an array with a prepared statement.');

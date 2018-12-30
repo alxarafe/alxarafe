@@ -347,7 +347,7 @@ class Schema
                     foreach ($indexData['ON'] as $key => $value) {
                         $consulta .= ' ON ' . $key . ' ' . $value . ', ';
                     }
-                    $consulta = substr($consulta, 0, -2);   // Quitamos el ', ' de detrás
+                    $consulta = substr($consulta, 0, -2); // Quitamos el ', ' de detrás
                 }
             }
         } else {

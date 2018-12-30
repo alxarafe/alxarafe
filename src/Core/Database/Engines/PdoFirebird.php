@@ -54,7 +54,7 @@ class PdoFirebird extends Engine
 
     public static function normalizeColumns(array $columns): array
     {
-        $ret = [];
+        $res = [];
         foreach ($columns as $value) {
             switch (trim($value['type'])) {
                 // Integers
@@ -70,6 +70,7 @@ class PdoFirebird extends Engine
                     $type = trim($value['type']);
                     Debug::addMessage('Deprecated', "Correct the data type '$type' in Firebird database");
             }
+            $data = [];
             $data['name'] = strtolower(trim($value['field']));
             $data['type'] = $type;
             $data['length'] = $value['length'];

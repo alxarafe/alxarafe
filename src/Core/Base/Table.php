@@ -106,8 +106,8 @@ abstract class Table
         if (method_exists(__CLASS__, $method)) {
             return $method($params);
         }
-        $command = substr($method, 0, 3);   // set o get
-        $field = Utils::camelToSnake(substr($method, 3));   // Lo que hay detrás del set o get
+        $command = substr($method, 0, 3); // set o get
+        $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
         switch ($command) {
             case 'set' :
                 return $this->newData[$field] = $params[0] ?? '';
@@ -319,7 +319,7 @@ abstract class Table
      */
     public function setStructure()
     {
-        self::setTableStructure($this->tablename, [
+        $this->setTableStructure($this->tablename, [
             'fields' => $this->getFields(),
             'keys' => $this->getKeys(),
             'values' => $this->getDefaultValues(),
