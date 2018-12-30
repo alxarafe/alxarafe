@@ -21,14 +21,50 @@ class Schema
     protected $structure;
 
     /**
+     * Flatten an array to leave it at a single level.
+     * Ignore the value of the indexes of the array, taking only the values.
+     * Remove spaces from the result and convert it to lowercase.
+     *
+     * @param array $array
+     * @return array
+     */
+    static protected function flatArray(array $array): array
+    {
+        $ret = [];
+        foreach ($array as $value) {
+            if (is_array($value)) {
+                // We expect that the indexes will not overlap
+                $ret = array_merge($ret, self::flatArray($value));
+            } else {
+                $ret[] = strtolower(trim($value));
+            }
+        }
+        return $ret;
+    }
+
+    /**
      * Return true if $tablename exists in database
      * 
      * @param string $tablename
      * @return bool
      */
-    static function tableExists(string $tablename): bool
+    static function tableExists($tablename): bool
     {
         return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tablename);
+    }
+
+    static function getTables(): array
+    {
+        $query = Config::$sqlHelper->getTables();
+        echo "<p>Query: '$query'</p>";
+        return self::flatArray(Config::$dbEngine->select($query));
+    }
+
+    static function getColumns(string $tablename): array
+    {
+        $query = Config::$sqlHelper->getColumns($tablename);
+        echo "<p>Query: '$query'</p>";
+        return Config::$dbEngine->select($query);
     }
 
     /**

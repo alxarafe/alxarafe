@@ -12,6 +12,65 @@ use Alxarafe\Database\SqlHelper;
  */
 class SqlFirebird extends SqlHelper
 {
+
+    public function __construct()
+    {
+        $this->tableQuote = '\'';
+        $this->fieldQuote = '';
+    }
+
+    public function quoteTablename(string $tablename): string
+    {
+        return strtoupper(parent::quoteTablename($tablename));
+    }
+
+    public function quoteFieldname(string $fieldname): string
+    {
+        return strtoupper(parent::quoteFieldname($tablename));
+    }
+
+    public function getTables(): string
+    {
+        // http://www.firebirdfaq.org/faq174/
+        return 'select rdb$relation_name from rdb$relations where rdb$view_blr is null and (rdb$system_flag is null or rdb$system_flag = 0);';
+    }
+
+    public function getViews(): string
+    {
+        // http://www.firebirdfaq.org/faq174/
+        return 'select rdb$relation_name from rdb$relations where rdb$view_blr is not null and (rdb$system_flag is null or rdb$system_flag = 0);';
+    }
+
+    public function getColumns(string $tablename): string
+    {
+        return 'SELECT
+RDB$FIELD_NAME AS NAME,
+RDB$NULL_FLAG AS NULLABLE,
+RDB$DEFAULT_SOURCE AS DEFAULT_SOURCE,
+RDB$DEFAULT_VALUE AS DEFAULT_VALUE
+from rdb$relation_fields
+where rdb$relation_name=' . $this->quoteTablename($tablename) . '
+ORDER BY RDB$FIELD_POSITION;';
+        return 'select rdb$field_name from rdb$relation_fields where rdb$relation_name=' . $this->quoteTablename($tablename) . ';';
+    }
+
+    public function getIndexes(string $tablename): string
+    {
+        // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
+
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tablaname);
+    }
+
+    public function getConstraints(string $tablename): string
+    {
+        /*
+         * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731
+         *
+         * select COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME
+         * from information_schema.KEY_COLUMN_USAGE
+         * where TABLE_NAME = 'table to be checked';
+         */
+    }
     /**
      *
      * Esta consulta funciona... Para tomarla como modelo.
@@ -36,8 +95,4 @@ class SqlFirebird extends SqlHelper
       ('3', 'Person 3', '33333333Z', '43');
 
      */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 }

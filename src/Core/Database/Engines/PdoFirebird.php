@@ -44,7 +44,6 @@ class PdoFirebird extends Engine
             $result = [];
             foreach ($_result as $idx => $records) {
                 foreach ($records as $key => $value) {
-                    echo '<p>Convirtiendo $key a ' . strtolower($key) . '</p>';
                     $result[$idx][strtolower($key)] = $value;
                 }
             }
