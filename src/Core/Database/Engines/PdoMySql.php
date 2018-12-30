@@ -64,8 +64,9 @@ class PdoMySql extends Engine
                 case 'VARIYING':
                     $type = 'STRING';
                     break;
+                default:
                     // Others
-                    $type = $value;
+                    $type = $value['type'];
                     Debug::addMessage('Deprecated', 'Correct the data type X in Firebird database');
             }
             $data['name'] = strtolower(trim($value['field']));

@@ -56,17 +56,18 @@ class PdoFirebird extends Engine
     {
         $ret = [];
         foreach ($columns as $value) {
-            switch ($value['type']) {
+            switch (trim($value['type'])) {
                 // Integers
                 case 'LONG':
                     $type = 'INTEGER';
                     break;
                 // String
-                case 'VARIYING':
+                case 'VARYING':
                     $type = 'STRING';
                     break;
+                default:
                     // Others
-                    $type = $value;
+                    $type = trim($value['type']);
                     Debug::addMessage('Deprecated', 'Correct the data type X in Firebird database');
             }
             $data['name'] = strtolower(trim($value['field']));
