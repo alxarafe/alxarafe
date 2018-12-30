@@ -5,6 +5,8 @@
  */
 namespace Alxarafe\Helpers;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * The Schema class contains static methods that allow you to manipulate the
  * database. It is used to create and modify tables and indexes in the database.
@@ -40,6 +42,22 @@ class Schema
             }
         }
         return $ret;
+    }
+
+    static function saveStructure()
+    {
+        $folder = BASE_PATH . '/schema';
+        if (!is_dir($folder)) {
+            mkdir($folder);
+        }
+        if (is_dir($folder)) {
+            $tables = self::getTables();
+            foreach ($tables as $table) {
+                $filename = $folder . '/' . $table . '.yaml';
+                $data = self::getColumns($table);
+                file_put_contents($filename, YAML::dump($data));
+            }
+        }
     }
 
     /**

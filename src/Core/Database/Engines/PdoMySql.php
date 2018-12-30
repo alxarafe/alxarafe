@@ -6,6 +6,7 @@
 namespace Alxarafe\Database\Engines;
 
 use Alxarafe\Database\Engine;
+use Alxarafe\Helpers\Debug;
 use PDO;
 
 /**
@@ -41,39 +42,59 @@ class PdoMySql extends Engine
         return $ret;
     }
 
+    private static function splitType($originalType): array
+    {
+        $explode = explode(' ', strtolower($originalType));
+
+        $extraType = '';
+
+        $pos = array_search('unsigned', $explode);
+        if ($pos) {
+            unset($explode[$pos]);
+            $extraType = 'unsigned';
+        }
+
+        $pos = array_search('zerofill', $explode);
+        if ($pos) {
+            unset($explode[$pos]);
+            $extraType .= ' zerofill';
+        }
+
+        $pos = strpos($explode[0], '(');
+
+        $type = $pos ? substr($explode[0], 0, $pos) : $explode[0];
+        $length = $pos ? intval(substr($explode[0], $pos + 1)) : null;
+
+        return array('type' => $type, 'length' => $length, 'extra' => trim($extraType));
+    }
+
     public static function normalizeColumns(array $columns): array
     {
-        /*
-          array (size=6)
-          'Field' => string 'id' (length=2)
-          'Type' => string 'int(10) unsigned' (length=16)
-          'Null' => string 'NO' (length=2)
-          'Key' => string 'PRI' (length=3)
-          'Default' => null
-          'Extra' => string 'auto_increment' (length=14)
-         */
-
         $ret = [];
         foreach ($columns as $value) {
-            switch ($value['type']) {
+            var_dump($value);
+            $fullType = self::splitType($value['Type']);
+            switch ($fullType['type']) {
                 // Integers
-                case 'LONG':
-                    $type = 'INTEGER';
+                case 'int':
+                    $type = 'integer';
                     break;
                 // String
-                case 'VARIYING':
-                    $type = 'STRING';
+                case 'varchar':
+                    $type = 'string';
                     break;
                 default:
                     // Others
-                    $type = $value['type'];
-                    Debug::addMessage('Deprecated', 'Correct the data type X in Firebird database');
+                    $type = $fullType['type'];
+                    Debug::addMessage('Deprecated', "Correct the data type '$type' in MySql database");
             }
-            $data['name'] = strtolower(trim($value['field']));
+            $data['name'] = strtolower(trim($value['Field']));
             $data['type'] = $type;
-            $data['length'] = $value['length'];
-            $data['null'] = $value['nullvalue'];
-            $data['default'] = isset($value['defaultsource']) ? substr($value['defaultsource'], 10) : null;
+            $data['length'] = $fullType['length'];
+            $data['null'] = $value['Null'];
+            $data['default'] = $value['Default'];
+            $data['key'] = $value['Key'];
+            $data['extra'] = $fullType['extra'];
             $res[] = $data;
         }
         return $res;

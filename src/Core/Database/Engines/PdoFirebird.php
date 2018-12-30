@@ -59,22 +59,24 @@ class PdoFirebird extends Engine
             switch (trim($value['type'])) {
                 // Integers
                 case 'LONG':
-                    $type = 'INTEGER';
+                    $type = 'integer';
                     break;
                 // String
                 case 'VARYING':
-                    $type = 'STRING';
+                    $type = 'string';
                     break;
                 default:
                     // Others
                     $type = trim($value['type']);
-                    Debug::addMessage('Deprecated', 'Correct the data type X in Firebird database');
+                    Debug::addMessage('Deprecated', "Correct the data type '$type' in Firebird database");
             }
             $data['name'] = strtolower(trim($value['field']));
             $data['type'] = $type;
             $data['length'] = $value['length'];
             $data['null'] = $value['nullvalue'];
             $data['default'] = isset($value['defaultsource']) ? substr($value['defaultsource'], 10) : null;
+            $data['key'] = '';
+            $data['extra'] = '';
             $res[] = $data;
         }
         return $res;
