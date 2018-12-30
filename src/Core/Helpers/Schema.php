@@ -56,15 +56,12 @@ class Schema
     static function getTables(): array
     {
         $query = Config::$sqlHelper->getTables();
-        echo "<p>Query: '$query'</p>";
         return self::flatArray(Config::$dbEngine->select($query));
     }
 
     static function getColumns(string $tablename): array
     {
-        $query = Config::$sqlHelper->getColumns($tablename);
-        echo "<p>Query: '$query'</p>";
-        return Config::$dbEngine->select($query);
+        return Config::$dbEngine->getColumns($tablename);
     }
 
     /**

@@ -8,6 +8,7 @@ namespace Alxarafe\Database;
 use PDO;
 use PDOException;
 use DebugBar\DataCollector\PDO as PDODataCollector;
+use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 
 /**
@@ -183,8 +184,7 @@ abstract class Engine
      * 
      * @return type
      */
-    final public
-        function _resultSet(): array
+    final public function _resultSet(): array
     {
         self::execute();
         return self::$statement->fetchAll(PDO::FETCH_ASSOC);
@@ -222,6 +222,16 @@ abstract class Engine
         }
         return null;
     }
+
+    abstract public static function normalizeColumns(array $columns): array;
+
+    public static function getColumns($tablename)
+    {
+        $query = Config::$sqlHelper->getColumns($tablename);
+        $columns = Config::$dbEngine->select($query);
+        $columns = Config::$dbEngine->normalizeColumns($columns);
+        return $columns;
+    }
     /**
      * Transactions support
      * https://coderwall.com/p/rml5fa/nested-pdo-transactions
@@ -233,8 +243,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public
-        function beginTransaction(): bool
+    final public function beginTransaction(): bool
     {
         $ret = true;
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
@@ -254,8 +263,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public
-        function commit()
+    final public function commit()
     {
         $ret = true;
 
@@ -277,8 +285,7 @@ abstract class Engine
      * @throws PDOException if there is no transaction started
      * @return bool
      */
-    final public
-        function rollBack()
+    final public function rollBack()
     {
         $ret = true;
 
@@ -301,8 +308,7 @@ abstract class Engine
     /**
      * Undo all active transactions
      */
-    final private
-        function rollbackTransactions()
+    final private function rollbackTransactions()
     {
         while (self::$transactionDepth > 0) {
             $this->rollback();

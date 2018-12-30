@@ -34,6 +34,15 @@ class SqlMySql extends SqlHelper
 
     public function getColumns(string $tablename): string
     {
+        /**
+         * array (size=6)
+         * 'Field' => string 'id' (length=2)
+         * 'Type' => string 'int(10) unsigned' (length=16)
+         * 'Null' => string 'NO' (length=2)
+         * 'Key' => string 'PRI' (length=3)
+         * 'Default' => null
+         * 'Extra' => string 'auto_increment' (length=14)
+         */
         return 'SHOW COLUMNS FROM ' . $this->quoteTablename($tablename) . ';';
     }
 

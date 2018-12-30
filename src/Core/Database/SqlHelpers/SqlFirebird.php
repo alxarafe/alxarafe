@@ -43,14 +43,27 @@ class SqlFirebird extends SqlHelper
 
     public function getColumns(string $tablename): string
     {
-        return 'SELECT
-RDB$FIELD_NAME AS NAME,
-RDB$NULL_FLAG AS NULLABLE,
-RDB$DEFAULT_SOURCE AS DEFAULT_SOURCE,
-RDB$DEFAULT_VALUE AS DEFAULT_VALUE
-from rdb$relation_fields
-where rdb$relation_name=' . $this->quoteTablename($tablename) . '
-ORDER BY RDB$FIELD_POSITION;';
+
+
+        return '
+SELECT
+	b.RDB$FIELD_NAME as Field,
+	d.RDB$TYPE_NAME as Type,
+	c.RDB$FIELD_LENGTH as Length,
+	b.RDB$DEFAULT_SOURCE AS DefaultSource,
+	b.RDB$DEFAULT_VALUE AS What,
+	b.RDB$NULL_FLAG AS NullValue
+FROM RDB$RELATIONS a
+INNER JOIN RDB$RELATION_FIELDS b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
+INNER JOIN RDB$FIELDS c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
+INNER JOIN RDB$TYPES d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
+WHERE
+	a.RDB$SYSTEM_FLAG = 0 AND
+	d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
+	b.RDB$RELATION_NAME=' . $this->quoteTablename($tablename) . '
+ORDER BY b.RDB$FIELD_POSITION;
+'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
+
         return 'select rdb$field_name from rdb$relation_fields where rdb$relation_name=' . $this->quoteTablename($tablename) . ';';
     }
 

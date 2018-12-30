@@ -30,7 +30,7 @@ abstract class SqlHelper
 
     public function quoteFieldname(string $fieldname): string
     {
-        return Config::$sqlHelper->fieldQuote . $tablename . Config::$sqlHelper->fieldQuote;
+        return Config::$sqlHelper->fieldQuote . $fieldname . Config::$sqlHelper->fieldQuote;
     }
 
     abstract public function getTables(): string;

@@ -110,7 +110,7 @@ abstract class Table
         $field = Utils::camelToSnake(substr($method, 3));   // Lo que hay detrás del set o get
         switch ($command) {
             case 'set' :
-                return $this->newData[$field] = $params[0] ?? null;
+                return $this->newData[$field] = $params[0] ?? '';
             case 'get':
                 return $this->newData[$field];
             default:
@@ -128,7 +128,7 @@ abstract class Table
      */
     public function __get(string $property): string
     {
-        return $this->newData[$property] ?? null;
+        return $this->newData[$property] ?? '';
     }
 
     /**
@@ -237,9 +237,9 @@ abstract class Table
      * $data is an array of assignments of type field=value.
      *
      * @param array $data
-     * @return string
+     * @return bool
      */
-    private function updateRecord($data)
+    private function updateRecord($data): bool
     {
         $value = implode(',', $data);
         return Config::$dbEngine->exec("UPDATE {$this->tablename} SET $value WHERE {$this->idField}='{$this->id}'");
@@ -252,9 +252,9 @@ abstract class Table
      *
      * @param array $fields
      * @param array $values
-     * @return string
+     * @return bool
      */
-    private function insertRecord($fields, $values)
+    private function insertRecord($fields, $values): bool
     {
         $fieldList = implode(',', $fields);
         $valueList = implode(',', $values);

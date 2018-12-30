@@ -41,4 +41,40 @@ class PdoMySql extends Engine
         return $ret;
     }
 
+    public static function normalizeColumns(array $columns): array
+    {
+        /*
+          array (size=6)
+          'Field' => string 'id' (length=2)
+          'Type' => string 'int(10) unsigned' (length=16)
+          'Null' => string 'NO' (length=2)
+          'Key' => string 'PRI' (length=3)
+          'Default' => null
+          'Extra' => string 'auto_increment' (length=14)
+         */
+
+        $ret = [];
+        foreach ($columns as $value) {
+            switch ($value['type']) {
+                // Integers
+                case 'LONG':
+                    $type = 'INTEGER';
+                    break;
+                // String
+                case 'VARIYING':
+                    $type = 'STRING';
+                    break;
+                    // Others
+                    $type = $value;
+                    Debug::addMessage('Deprecated', 'Correct the data type X in Firebird database');
+            }
+            $data['name'] = strtolower(trim($value['field']));
+            $data['type'] = $type;
+            $data['length'] = $value['length'];
+            $data['null'] = $value['nullvalue'];
+            $data['default'] = isset($value['defaultsource']) ? substr($value['defaultsource'], 10) : null;
+            $res[] = $data;
+        }
+        return $res;
+    }
 }
