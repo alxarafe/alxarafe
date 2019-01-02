@@ -146,29 +146,29 @@ class Schema
             Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
         }
 
-        $dbtype = $structure['type'];
+        $dbType = $structure['type'];
 
-        if ($dbtype == 'boolean') {
-            $dbtype = 'tinyint';
+        if ($dbType == 'boolean') {
+            $dbType = 'tinyint';
             $structure['min'] = 0;
             $structure['max'] = 1;
         }
 
-        if ($dbtype == 'int' || $dbtype == 'tinyint' || $dbtype == 'number') {
+        if ($dbType == 'int' || $dbType == 'tinyint' || $dbType == 'number') {
             $type = 'number';
-        } else if ($dbtype == 'float') {
+        } else if ($dbType == 'float') {
             $type = 'float';
-        } else if ($dbtype == 'double') {
+        } else if ($dbType == 'double') {
             $type = 'double';
-        } else if ($dbtype == 'char' || $dbtype == 'varchar' || $dbtype == 'text') {
+        } else if ($dbType == 'char' || $dbType == 'varchar' || $dbType == 'text') {
             $type = 'text';
-        } else if ($dbtype == 'date') {
+        } else if ($dbType == 'date') {
             $type = 'date';
-        } else if ($dbtype == 'datetime' || $dbtype == 'timestamp') {
+        } else if ($dbType == 'datetime' || $dbType == 'timestamp') {
             $type = 'datetime-local';
         } else {
-            echo "<p>Check Schema.normalizeField if you think that {$dbtype} might be necessary.</p>";
-            die("Type {$dbtype} is not valid for field {$field} of table {$tableName}");
+            echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
+            die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
         }
 
         $min = (isset($structure['min'])) ? $structure['min'] : 0;
@@ -178,11 +178,12 @@ class Schema
         $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
         $null = ((isset($structure['null'])) && $structure['null'] == true);
 
+        $ret = [];
         if ($type == 'text') {
             if ($max == 0) {
                 $max = DEFAULT_STRING_LENGTH;
             }
-            $dbtype = "$dbtype($max)";
+            $dbType = "$dbType($max)";
             $ret['pattern'] = '.{' . $min . ',' . $max . '}';
         } else if ($type == 'number') {
             if ($default === true) {
@@ -207,19 +208,19 @@ class Schema
                 $decimales = $structure['decimals'];
                 $precision = pow(10, -$decimales);
                 $_length += $decimales;
-                $dbtype = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
+                $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
                 $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
                 $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
             } else {
                 $precision = null;
-                $dbtype = "integer($_length)" . ($unsigned ? ' unsigned' : '');
+                $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
                 $ret['min'] = $min;
                 $ret['max'] = $max;
             }
         }
 
         $ret['type'] = $type;
-        $ret['dbtype'] = $dbtype;
+        $ret['dbtype'] = $dbType;
         $ret['default'] = $default;
         $ret['null'] = $null;
         $ret['label'] = $label;
@@ -286,19 +287,19 @@ class Schema
      */
     static protected function createFields(string $fieldName, array $fieldList): string
     {
-        $consulta = "CREATE TABLE $fieldName ( ";
+        $sql = "CREATE TABLE $fieldName ( ";
         foreach ($fieldList as $index => $col) {
             if (!isset($col['dbtype'])) {
                 die('Tipo no especificado en createTable');
             }
 
-            $consulta .= '`' . $index . '` ' . $col['dbtype'];
+            $sql .= '`' . $index . '` ' . $col['dbtype'];
             $nulo = isset($col['null']) && $col['null'];
 
-            $consulta .= ($nulo ? '' : ' NOT') . ' NULL';
+            $sql .= ($nulo ? '' : ' NOT') . ' NULL';
 
             if (isset($col['extra']) && (strtolower($col['extra']) == 'auto_increment')) {
-                $consulta .= ' PRIMARY KEY AUTO_INCREMENT';
+                $sql .= ' PRIMARY KEY AUTO_INCREMENT';
             }
 
             $_defecto = $col['default'] ?? null;
@@ -316,15 +317,15 @@ class Schema
             }
 
             if ($defecto != '') {
-                $consulta .= ' DEFAULT ' . $defecto;
+                $sql .= ' DEFAULT ' . $defecto;
             }
 
-            $consulta .= ', ';
+            $sql .= ', ';
         }
-        $consulta = substr($consulta, 0, -2); // Quitamos la coma y el espacio del final
-        $consulta .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
+        $sql = substr($sql, 0, -2); // Quitamos la coma y el espacio del final
+        $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
 
-        return $consulta;
+        return $sql;
     }
 
     /**
@@ -335,15 +336,16 @@ class Schema
      * 
      * Moreover, it should not be defined if it is auto_increment because it would 
      * generate an error when it already exists.
-     * 
-     * @param type $tableName
-     * @param type $indexname
-     * @param type $indexData
-     * @return type
+     *
+     * @param string $tableName
+     * @param string $indexname
+     * @param array $indexData
+     *
+     * @return string
      */
     static protected function createIndex($tableName, $indexname, $indexData)
     {
-        $consulta = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
+        $sql = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
 
         $command = '';
         // https://www.w3schools.com/sql/sql_primarykey.asp
@@ -387,13 +389,13 @@ class Schema
                     die('FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname);
                 }
 
-                $consulta .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
+                $sql .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
 
                 if (isset($indexData['ON']) && is_array($indexData['ON'])) {
                     foreach ($indexData['ON'] as $key => $value) {
-                        $consulta .= ' ON ' . $key . ' ' . $value . ', ';
+                        $sql .= ' ON ' . $key . ' ' . $value . ', ';
                     }
-                    $consulta = substr($consulta, 0, -2); // Quitamos el ', ' de detrás
+                    $sql = substr($sql, 0, -2); // Quitamos el ', ' de detrás
                 }
             }
         } else {
@@ -404,13 +406,13 @@ class Schema
             }
 
             if ($command == 'INDEX ') {
-                $consulta = "CREATE INDEX {$indexname} ON {$tableName}" . $fields;
+                $sql = "CREATE INDEX {$indexname} ON {$tableName}" . $fields;
             } else {
-                $consulta .= $command . ' ' . $fields;
+                $sql .= $command . ' ' . $fields;
             }
         }
 
-        return $consulta . ';' . self::CRLF;
+        return $sql . ';' . self::CRLF;
     }
 
     /**
@@ -422,7 +424,7 @@ class Schema
      */
     static protected function setValues(string $tableName, array $values): string
     {
-        $consulta = "INSERT INTO $tableName ";
+        $sql = "INSERT INTO $tableName ";
         $header = true;
         foreach ($values as $value) {
             $fields = "(";
@@ -435,14 +437,14 @@ class Schema
             $datos = substr($datos, 0, -2) . "), ";
 
             if ($header) {
-                $consulta .= $fields . " VALUES ";
+                $sql .= $fields . " VALUES ";
                 $header = false;
             }
 
-            $consulta .= $datos;
+            $sql .= $datos;
         }
 
-        return substr($consulta, 0, -2) . self::CRLF;
+        return substr($sql, 0, -2) . self::CRLF;
     }
 
     /**
@@ -457,12 +459,12 @@ class Schema
     public static function createTable(string $tableName): bool
     {
         $tabla = Config::$bbddStructure[$tableName];
-        $consulta = Self::createFields($tableName, $tabla['fields']);
+        $sql = Self::createFields($tableName, $tabla['fields']);
 
         foreach ($tabla['keys'] as $name => $index) {
-            $consulta .= self::createIndex($tableName, $name, $index);
+            $sql .= self::createIndex($tableName, $name, $index);
         }
-        $consulta .= self::setValues($tableName, $tabla['values']);
-        return Config::$dbEngine->exec($consulta);
+        $sql .= self::setValues($tableName, $tabla['values']);
+        return Config::$dbEngine->exec($sql);
     }
 }

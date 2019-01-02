@@ -413,12 +413,14 @@ abstract class Table
     /**
      * Create a new table if it does not exist and it has been passed true as a parameter.
      *
-     * TODO:
+     * TODO: Undocumented
      *
      * This should check if there are differences between the defined in bbddStructure
      * and the physical table, correcting the differences if true is passed as parameter.
      *
      * @param bool $create
+     *
+     * @throws \DebugBar\DebugBarException
      */
     public function checkStructure(bool $create = false)
     {

@@ -30,6 +30,7 @@ class EditConfig extends Controller
 
         $vars = Config::configFileExists() ? Config::loadConfigurationFile() : [];
 
+        $this->vars = [];
         $this->vars['dbEngines'] = Engine::getEngines();
         $this->vars['skins'] = Skin::getSkins();
 
@@ -55,6 +56,7 @@ class EditConfig extends Controller
      */
     public function save()
     {
+        $vars = [];
         $vars['dbEngineName'] = $_POST['dbEngineName'] ?? '';
         $vars['skin'] = $_POST['skin'] ?? '';
         $vars['dbUser'] = $_POST['dbUser'] ?? '';

@@ -8,7 +8,7 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * TODO:
+ * TODO: Undocumented
  *
  * Link each user with the assigned roles.
  *

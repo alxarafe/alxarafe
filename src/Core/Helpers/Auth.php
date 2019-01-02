@@ -17,7 +17,7 @@ class Auth extends Users
 {
 
     /**
-     * TODO:
+     * TODO: Undocumented
      */
     const COOKIE_EXPIRATION = 0;
 
@@ -54,7 +54,7 @@ class Auth extends Users
      */
     private function setCookieUser()
     {
-        setcookie('user', $this->user === null ? '' : $this->user, COOKIE_EXPIRATION);
+        setcookie('user', $this->user === null ? '' : $this->user, self::COOKIE_EXPIRATION);
     }
 
     /**

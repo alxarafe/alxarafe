@@ -8,6 +8,7 @@ namespace Alxarafe\Helpers;
 use Alxarafe\Controllers\EditConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
+use Exception;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -38,7 +39,7 @@ class Config
     /**
      * Contains the instance to the database engine (or null)
      * 
-     * @var Engine|null
+     * @var Engine
      */
     static $dbEngine;
 
@@ -235,6 +236,8 @@ class Config
      * database connection and assigns it to Config::$dbEngine.
      *
      * @return bool
+     *
+     * @throws \DebugBar\DebugBarException
      */
     public static function connectToDatabase(): bool
     {

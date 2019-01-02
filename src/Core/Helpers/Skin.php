@@ -232,7 +232,7 @@ class Skin
     }
 
     /**
-     * TODO:
+     * TODO: Undocumented
      *
      * @param array $vars
      *
@@ -253,7 +253,7 @@ class Skin
     }
 
     /**
-     * TODO:
+     * TODO: Undocumented
      *
      * @param array $vars
      *

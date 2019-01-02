@@ -8,7 +8,7 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * TODO:
+ * TODO: Undocumented
  *
  * Define the roles available in the application. By default, the administrator
  * and the user are defined.
