@@ -29,9 +29,9 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function quoteTablename(string $tableName): string
+    public function quoteTableName(string $tableName): string
     {
-        return strtoupper(parent::quoteTablename($tableName));
+        return strtoupper(parent::quoteTableName($tableName));
     }
 
     /**
@@ -75,26 +75,22 @@ class SqlFirebird extends SqlHelper
     {
 
 
-        return '
-SELECT
-	b.RDB$FIELD_NAME as Field,
-	d.RDB$TYPE_NAME as Type,
-	c.RDB$FIELD_LENGTH as Length,
-	b.RDB$DEFAULT_SOURCE AS DefaultSource,
-	b.RDB$DEFAULT_VALUE AS What,
-	b.RDB$NULL_FLAG AS NullValue
-FROM RDB$RELATIONS a
-INNER JOIN RDB$RELATION_FIELDS b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
-INNER JOIN RDB$FIELDS c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
-INNER JOIN RDB$TYPES d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
-WHERE
-	a.RDB$SYSTEM_FLAG = 0 AND
-	d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
-	b.RDB$RELATION_NAME=' . $this->quoteTablename($tableName) . '
-ORDER BY b.RDB$FIELD_POSITION;
-'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
-
-        return 'select rdb$field_name from rdb$relation_fields where rdb$relation_name=' . $this->quoteTablename($tableName) . ';';
+        return 'SELECT
+            b.RDB$FIELD_NAME as Field,
+            d.RDB$TYPE_NAME as Type,
+            c.RDB$FIELD_LENGTH as Length,
+            b.RDB$DEFAULT_SOURCE AS DefaultSource,
+            b.RDB$DEFAULT_VALUE AS What,
+            b.RDB$NULL_FLAG AS NullValue
+        FROM RDB$RELATIONS a
+        INNER JOIN RDB$RELATION_FIELDS b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
+        INNER JOIN RDB$FIELDS c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
+        INNER JOIN RDB$TYPES d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
+        WHERE
+            a.RDB$SYSTEM_FLAG = 0 AND
+            d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
+            b.RDB$RELATION_NAME=' . $this->quoteTableName($tableName) . '
+        ORDER BY b.RDB$FIELD_POSITION;'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
     }
 
     /**
@@ -108,7 +104,7 @@ ORDER BY b.RDB$FIELD_POSITION;
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tableName);
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
     }
 
     /**

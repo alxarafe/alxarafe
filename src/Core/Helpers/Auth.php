@@ -24,7 +24,7 @@ class Auth extends Users
     /**
      * TODO: Undocumented
      *
-     * @var Users|null
+     * @var string|null
      */
     private $user = null;
 
@@ -95,7 +95,7 @@ class Auth extends Users
      */
     public function setUser($user, $password)
     {
-        $_user = Config::$dbEngine->select("SELECT * FROM {$this->tablename} WHERE username='$user';");
+        $_user = Config::$dbEngine->select("SELECT * FROM {$this->tableName} WHERE username='$user';");
         if (count($_user) > 0 && md5($password) == $_user[0]['password']) {
             $this->user = $user;
             setcookie('user', $user);

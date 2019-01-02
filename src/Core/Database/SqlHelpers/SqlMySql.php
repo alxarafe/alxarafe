@@ -29,7 +29,7 @@ class SqlMySql extends SqlHelper
     public function getTables(): string
     {
         // Config::$global['dbName']
-        //return Config::$dbEngine->select('SHOW COLUMNS FROM '.self::quoteTablename($tableName));
+        //return Config::$dbEngine->select('SHOW COLUMNS FROM '.self::quoteTableName($tableName));
         return 'SHOW TABLES';
     }
 
@@ -44,7 +44,7 @@ class SqlMySql extends SqlHelper
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tableName);
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
     }
 
     /**
@@ -65,7 +65,7 @@ class SqlMySql extends SqlHelper
          * 'Default' => null
          * 'Extra' => string 'auto_increment' (length=14)
          */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTablename($tableName) . ';';
+        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName) . ';';
     }
 
     /**

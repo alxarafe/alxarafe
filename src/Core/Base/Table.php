@@ -84,7 +84,7 @@ abstract class Table
      */
     public function __construct(string $tableName, array $params = [])
     {
-        $this->tablename = $tableName;
+        $this->tableName = $tableName;
 
         $this->idField = $params['idField'] ?? 'id';
         $this->nameField = $params['nameField'] ?? 'name';
@@ -114,7 +114,7 @@ abstract class Table
             case 'get':
                 return $this->newData[$field];
             default:
-                Debug::testArray("Review $method in {$this->tablename}. Error collecting the '$command/$field' attribute", $params);
+                Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params);
         }
     }
 
@@ -155,7 +155,7 @@ abstract class Table
     {
         $this->id = '';
         $this->newData = [];
-        foreach (Config::$bbddStructure[$this->tablename]['fields'] as $key => $value) {
+        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
             $this->newData[$key] = $value['default'] ?? '';
         }
         $this->oldData = $this->newData;
@@ -173,7 +173,7 @@ abstract class Table
      */
     private function getData(string $id): bool
     {
-        $sql = "SELECT * FROM {$this->tablename} WHERE {$this->idField}='$id'";
+        $sql = "SELECT * FROM {$this->tableName} WHERE {$this->idField}='$id'";
         $data = Config::$dbEngine->select($sql);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
@@ -242,7 +242,7 @@ abstract class Table
     private function updateRecord($data): bool
     {
         $value = implode(',', $data);
-        return Config::$dbEngine->exec("UPDATE {$this->tablename} SET $value WHERE {$this->idField}='{$this->id}'");
+        return Config::$dbEngine->exec("UPDATE {$this->tableName} SET $value WHERE {$this->idField}='{$this->id}'");
     }
 
     /**
@@ -258,7 +258,7 @@ abstract class Table
     {
         $fieldList = implode(',', $fields);
         $valueList = implode(',', $values);
-        $ret = Config::$dbEngine->exec("INSERT INTO  {$this->tablename} ($fieldList) VALUES ($valueList)");
+        $ret = Config::$dbEngine->exec("INSERT INTO  {$this->tableName} ($fieldList) VALUES ($valueList)");
         // Asigna el valor de la clave primaria del registro recién insertado
         $this->id = $this->newData[$this->idField] ?? Config::$dbEngine->getLastInserted();
         return $ret;
@@ -319,7 +319,7 @@ abstract class Table
      */
     public function setStructure()
     {
-        $this->setTableStructure($this->tablename, [
+        $this->setTableStructure($this->tableName, [
             'fields' => $this->getFields(),
             'keys' => $this->getKeys(),
             'values' => $this->getDefaultValues(),
@@ -373,7 +373,7 @@ abstract class Table
      */
     public function getStructure(): array
     {
-        return Config::$bbddStructure[$this->tablename];
+        return Config::$bbddStructure[$this->tableName];
     }
 
     /**
@@ -383,7 +383,7 @@ abstract class Table
      */
     public function getAllRecords(): array
     {
-        $sql = "SELECT * FROM  {$this->tablename}";
+        $sql = "SELECT * FROM  {$this->tableName}";
         return Config::$dbEngine->select($sql);
     }
 
@@ -401,9 +401,9 @@ abstract class Table
             return '';
         }
 
-        $sql = "SELECT {$this->idField} AS id FROM {$this->tablename} WHERE {$this->nameField}='$name'";
+        $sql = "SELECT {$this->idField} AS id FROM {$this->tableName} WHERE {$this->nameField}='$name'";
         $data = Config::$dbEngine->select($sql);
-        if ($data && count($data) > 0) {
+        if (!empty($data) && count($data) > 0) {
             return $data[0]['id'];
         }
 
@@ -422,9 +422,9 @@ abstract class Table
      */
     public function checkStructure(bool $create = false)
     {
-        if (isset(Config::$bbddStructure[$this->tablename])) {
-            if ($create && !Schema::tableExists($this->tablename)) {
-                Schema::createTable($this->tablename);
+        if (isset(Config::$bbddStructure[$this->tableName])) {
+            if ($create && !Schema::tableExists($this->tableName)) {
+                Schema::createTable($this->tableName);
             }
         }
     }

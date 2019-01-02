@@ -43,7 +43,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    public function quoteTablename(string $tableName): string
+    public function quoteTableName(string $tableName): string
     {
         return $this->tableQuote . $tableName . $this->tableQuote;
     }

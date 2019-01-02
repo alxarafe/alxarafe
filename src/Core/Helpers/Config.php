@@ -7,6 +7,7 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Controllers\EditConfig;
 use Alxarafe\Database\Engine;
+use Alxarafe\Database\SqlHelper;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -44,7 +45,7 @@ class Config
     /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
-     * @var sqlHelper|null
+     * @var sqlHelper
      */
     static $sqlHelper;
 
