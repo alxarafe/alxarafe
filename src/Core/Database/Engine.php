@@ -95,6 +95,8 @@ abstract class Engine
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public static function getEngines(): array
@@ -112,6 +114,8 @@ abstract class Engine
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return bool
      */
     public function checkConnection()

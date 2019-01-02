@@ -90,6 +90,8 @@ class Debug
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      * @throws \DebugBar\DebugBarException
      */
@@ -103,6 +105,8 @@ class Debug
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      * @throws \DebugBar\DebugBarException
      */

@@ -26,6 +26,8 @@ class UserRoles extends Table
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public function getFields()
@@ -41,6 +43,8 @@ class UserRoles extends Table
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public function getKeys()
@@ -53,6 +57,8 @@ class UserRoles extends Table
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public function getDefaultValues()

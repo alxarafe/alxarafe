@@ -61,6 +61,8 @@ class Users extends Table
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public function getKeys()
@@ -73,6 +75,8 @@ class Users extends Table
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public function getDefaultValues()

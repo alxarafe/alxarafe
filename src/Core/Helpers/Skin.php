@@ -97,6 +97,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return bool
      */
     public static function hasTemplate(): bool
@@ -105,6 +107,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public static function getSkins(): array
@@ -164,6 +168,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public static function getTemplatesFolder(): string
@@ -183,6 +189,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public static function getTemplatesEngine(): string
@@ -201,6 +209,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public static function getCommonTemplatesFolder(): string

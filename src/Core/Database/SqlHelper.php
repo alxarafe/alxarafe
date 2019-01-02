@@ -61,6 +61,8 @@ abstract class SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     abstract public function getTables(): string;

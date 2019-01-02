@@ -123,6 +123,8 @@ class Dispatcher
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return bool
      */
     public function process()

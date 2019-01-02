@@ -145,6 +145,8 @@ class View
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public function getErrors()
@@ -153,6 +155,8 @@ class View
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public function getHeader()
@@ -161,6 +165,8 @@ class View
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public function getFooter()

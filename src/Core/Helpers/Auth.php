@@ -42,7 +42,7 @@ class Auth extends Users
      */
     private function getCookieUser()
     {
-        if ($this->user == null) {
+        if ($this->user === null) {
             if (isset($_COOKIE['user'])) {
                 $this->user = $_COOKIE['user'];
             }
@@ -54,7 +54,7 @@ class Auth extends Users
      */
     private function setCookieUser()
     {
-        setcookie('user', $this->user == null ? '' : $this->user, COOKIE_EXPIRATION);
+        setcookie('user', $this->user === null ? '' : $this->user, COOKIE_EXPIRATION);
     }
 
     /**
@@ -79,7 +79,7 @@ class Auth extends Users
      */
     public function logout()
     {
-        Debug::addMessage('messages', 'Auth::Logout(): ' . ($this->user == null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
+        Debug::addMessage('messages', 'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
         $this->user = null;
         $this->clearCookieUser();
     }
@@ -114,7 +114,9 @@ class Auth extends Users
     }
 
     /**
-     * @return Users|null
+     * TODO: Undocumented
+     *
+     * @return string|null
      */
     public function getUser()
     {

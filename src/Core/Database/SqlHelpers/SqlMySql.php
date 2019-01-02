@@ -24,6 +24,8 @@ class SqlMySql extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public function getTables(): string

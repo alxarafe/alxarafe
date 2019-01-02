@@ -75,7 +75,7 @@ class Schema
     /**
      * TODO: Undocummented
      */
-    static function saveStructure()
+    public static function saveStructure()
     {
         $folder = BASE_PATH . '/schema';
         if (!is_dir($folder)) {
@@ -95,17 +95,22 @@ class Schema
      * Return true if $tableName exists in database
      * 
      * @param string $tableName
+     *
      * @return bool
+     * @throws \DebugBar\DebugBarException
      */
-    static function tableExists($tableName): bool
+    public static function tableExists($tableName): bool
     {
         return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tableName);
     }
 
     /**
+     * TODO: Undocumentend
+     *
      * @return array
+     * @throws \DebugBar\DebugBarException
      */
-    static function getTables(): array
+    public static function getTables(): array
     {
         $query = Config::$sqlHelper->getTables();
         return self::flatArray(Config::$dbEngine->select($query));
@@ -118,7 +123,7 @@ class Schema
      *
      * @return array
      */
-    static function getColumns(string $tableName): array
+    public static function getColumns(string $tableName): array
     {
         return Config::$dbEngine->getColumns($tableName);
     }
@@ -261,7 +266,7 @@ class Schema
      * @param string $tableName
      * @return array
      */
-    static function setNormalizedStructure(array $structure, string $tableName): array
+    public static function setNormalizedStructure(array $structure, string $tableName): array
     {
         $ret['keys'] = $structure['keys'] ?? [];
         $ret['values'] = $structure['values'] ?? [];
@@ -445,9 +450,11 @@ class Schema
      * Build the default fields, indexes and values defined in the model.
      *
      * @param string $tableName
+     *
      * @return bool
+     * @throws \DebugBar\DebugBarException
      */
-    static function createTable(string $tableName): bool
+    public static function createTable(string $tableName): bool
     {
         $tabla = Config::$bbddStructure[$tableName];
         $consulta = Self::createFields($tableName, $tabla['fields']);

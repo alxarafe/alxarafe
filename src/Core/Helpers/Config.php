@@ -99,6 +99,8 @@ class Config
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return bool
      */
     public static function configFileExists(): bool
@@ -107,6 +109,8 @@ class Config
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public static function loadConfigurationFile(): array
@@ -192,6 +196,8 @@ class Config
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return array
      */
     public static function getErrors()

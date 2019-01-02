@@ -47,6 +47,8 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public function getTables(): string
@@ -56,6 +58,8 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @return string
      */
     public function getViews(): string
