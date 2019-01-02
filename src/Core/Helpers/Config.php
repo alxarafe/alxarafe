@@ -5,8 +5,9 @@
  */
 namespace Alxarafe\Helpers;
 
-use Symfony\Component\Yaml\Yaml;
 use Alxarafe\Controllers\EditConfig;
+use Alxarafe\Database\Engine;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * All variables and global functions are centralized through the static class Config.
@@ -87,7 +88,7 @@ class Config
     public static function getConfigFileName()// : ?string - NetBeans only supports up to php7.0, for this you need php7.1
     {
         if (isset(self::$configFilename)) {
-            return $self::$configFilename;
+            return self::$configFilename;
         }
         $filename = CONFIGURATION_PATH . '/config.yaml';
         if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {

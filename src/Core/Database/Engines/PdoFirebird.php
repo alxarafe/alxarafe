@@ -32,7 +32,9 @@ class PdoFirebird extends Engine
      * In case of failure, return NULL. If there is no data, return an empty array.
      *
      * @param string $query
-     * @return array
+     *
+     * @return array|null
+     * @throws \DebugBar\DebugBarException
      */
     public static function select(string $query): array
     {

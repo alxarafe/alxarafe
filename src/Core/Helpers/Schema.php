@@ -42,7 +42,7 @@ class Schema
      *
      * @var
      */
-    protected $tablename;
+    protected $tableName;
     /**
      * TODO: Undocummented
      *
@@ -92,14 +92,14 @@ class Schema
     }
 
     /**
-     * Return true if $tablename exists in database
+     * Return true if $tableName exists in database
      * 
-     * @param string $tablename
+     * @param string $tableName
      * @return bool
      */
-    static function tableExists($tablename): bool
+    static function tableExists($tableName): bool
     {
-        return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tablename);
+        return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tableName);
     }
 
     /**
@@ -114,13 +114,13 @@ class Schema
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return array
      */
-    static function getColumns(string $tablename): array
+    static function getColumns(string $tableName): array
     {
-        return Config::$dbEngine->getColumns($tablename);
+        return Config::$dbEngine->getColumns($tableName);
     }
 
     /**
@@ -130,15 +130,15 @@ class Schema
      * It can cause an exception if some vital data is missing, but this should
      * only occur at the design stage.
      *
-     * @param string $tablename
+     * @param string $tableName
      * @param string $field
      * @param array $structure
      * @return array
      */
-    static protected function normalizeField(string $tablename, string $field, array $structure): array
+    static protected function normalizeField(string $tableName, string $field, array $structure): array
     {
         if (!isset($structure['type'])) {
-            Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tablename, $structure);
+            Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
         }
 
         $dbtype = $structure['type'];
@@ -163,7 +163,7 @@ class Schema
             $type = 'datetime-local';
         } else {
             echo "<p>Check Schema.normalizeField if you think that {$dbtype} might be necessary.</p>";
-            die("Type {$dbtype} is not valid for field {$field} of table {$tablename}");
+            die("Type {$dbtype} is not valid for field {$field} of table {$tableName}");
         }
 
         $min = (isset($structure['min'])) ? $structure['min'] : 0;
@@ -258,15 +258,15 @@ class Schema
      * did not exist.
      *
      * @param array $structure
-     * @param string $tablename
+     * @param string $tableName
      * @return array
      */
-    static function setNormalizedStructure(array $structure, string $tablename): array
+    static function setNormalizedStructure(array $structure, string $tableName): array
     {
         $ret['keys'] = $structure['keys'] ?? [];
         $ret['values'] = $structure['values'] ?? [];
         foreach ($structure['fields'] as $key => $value) {
-            $ret['fields'][$key] = self::normalizeField($tablename, $key, $value);
+            $ret['fields'][$key] = self::normalizeField($tableName, $key, $value);
         }
         return $ret;
     }
@@ -331,14 +331,14 @@ class Schema
      * Moreover, it should not be defined if it is auto_increment because it would 
      * generate an error when it already exists.
      * 
-     * @param type $tablename
+     * @param type $tableName
      * @param type $indexname
      * @param type $indexData
      * @return type
      */
-    static protected function createIndex($tablename, $indexname, $indexData)
+    static protected function createIndex($tableName, $indexname, $indexData)
     {
-        $consulta = "ALTER TABLE $tablename ADD CONSTRAINT $indexname ";
+        $consulta = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
 
         $command = '';
         // https://www.w3schools.com/sql/sql_primarykey.asp
@@ -371,15 +371,15 @@ class Schema
                 if (isset($indexData['REFERENCES'])) {
                     $references = $indexData['REFERENCES'];
                     if (!is_array($references)) {
-                        die('Esperaba un array en REFERENCES: ' . $tablename . '/' . $indexname);
+                        die('Esperaba un array en REFERENCES: ' . $tableName . '/' . $indexname);
                     }
                     if (count($references) != 1) {
-                        die('Esperaba un array de 1 elemento en REFERENCES: ' . $tablename . '/' . $indexname);
+                        die('Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname);
                     }
                     $refTable = key($references);
                     $fields = '(' . implode($references, ',') . ')';
                 } else {
-                    die('FOREIGN necesita REFERENCES en ' . $tablename . '/' . $indexname);
+                    die('FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname);
                 }
 
                 $consulta .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
@@ -399,7 +399,7 @@ class Schema
             }
 
             if ($command == 'INDEX ') {
-                $consulta = "CREATE INDEX {$indexname} ON {$tablename}" . $fields;
+                $consulta = "CREATE INDEX {$indexname} ON {$tableName}" . $fields;
             } else {
                 $consulta .= $command . ' ' . $fields;
             }
@@ -411,13 +411,13 @@ class Schema
     /**
      * Create the SQL statements to fill the table with default data.
      *
-     * @param string $tablename
+     * @param string $tableName
      * @param array $values
      * @return string
      */
-    static protected function setValues(string $tablename, array $values): string
+    static protected function setValues(string $tableName, array $values): string
     {
-        $consulta = "INSERT INTO $tablename ";
+        $consulta = "INSERT INTO $tableName ";
         $header = true;
         foreach ($values as $value) {
             $fields = "(";
@@ -444,18 +444,18 @@ class Schema
      * Create a table in the database.
      * Build the default fields, indexes and values defined in the model.
      *
-     * @param string $tablename
+     * @param string $tableName
      * @return bool
      */
-    static function createTable(string $tablename): bool
+    static function createTable(string $tableName): bool
     {
-        $tabla = Config::$bbddStructure[$tablename];
-        $consulta = Self::createFields($tablename, $tabla['fields']);
+        $tabla = Config::$bbddStructure[$tableName];
+        $consulta = Self::createFields($tableName, $tabla['fields']);
 
         foreach ($tabla['keys'] as $name => $index) {
-            $consulta .= self::createIndex($tablename, $name, $index);
+            $consulta .= self::createIndex($tableName, $name, $index);
         }
-        $consulta .= self::setValues($tablename, $tabla['values']);
+        $consulta .= self::setValues($tableName, $tabla['values']);
         return Config::$dbEngine->exec($consulta);
     }
 }

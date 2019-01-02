@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "monolog/monolog": "^1.24",
         "symfony/yaml": "^3.2",
         "components/jquery": "v3.*",

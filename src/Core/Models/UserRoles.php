@@ -14,7 +14,7 @@ use Alxarafe\Base\Table;
  *
  * @package Alxarafe\Models
  */
-class UserRoles extends Alxarafe\Base\Table
+class UserRoles extends Table
 {
 
     /**

@@ -6,8 +6,8 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Helpers\Skin;
 
 /**
  * Class View
@@ -27,7 +27,7 @@ class View
     /**
      * View constructor.
      *
-     * @param null $controller
+     * @param mixed $controller
      */
     public function __construct($controller = null)
     {

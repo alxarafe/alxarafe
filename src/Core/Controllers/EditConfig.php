@@ -6,9 +6,9 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
+use Alxarafe\Database\Engine;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Database\Engine;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -53,7 +53,7 @@ class EditConfig extends Controller
     /**
      * TODO: Undocummented
      */
-    function save()
+    public function save()
     {
         $vars['dbEngineName'] = $_POST['dbEngineName'] ?? '';
         $vars['skin'] = $_POST['skin'] ?? '';

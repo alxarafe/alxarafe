@@ -6,6 +6,7 @@
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Helpers\Config;
 
 /**
  * Personalization of SQL queries to use MySQL.
@@ -28,32 +29,32 @@ class SqlMySql extends SqlHelper
     public function getTables(): string
     {
         // Config::$global['dbName']
-        //return Config::$dbEngine->select('SHOW COLUMNS FROM '.self::quoteTablename($tablaname));
+        //return Config::$dbEngine->select('SHOW COLUMNS FROM '.self::quoteTablename($tableName));
         return 'SHOW TABLES';
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function getIndexes(string $tablename): string
+    public function getIndexes(string $tableName): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tablaname);
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tableName);
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function getColumns(string $tablename): string
+    public function getColumns(string $tableName): string
     {
         /**
          * array (size=6)
@@ -64,17 +65,17 @@ class SqlMySql extends SqlHelper
          * 'Default' => null
          * 'Extra' => string 'auto_increment' (length=14)
          */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTablename($tablename) . ';';
+        return 'SHOW COLUMNS FROM ' . $this->quoteTablename($tableName) . ';';
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function getConstraints(string $tablename): string
+    public function getConstraints(string $tableName): string
     {
         /*
          * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731

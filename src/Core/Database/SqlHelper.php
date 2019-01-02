@@ -39,25 +39,25 @@ abstract class SqlHelper
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function quoteTablename(string $tablename): string
+    public function quoteTablename(string $tableName): string
     {
-        return $this->tableQuote . $tablename . $this->tableQuote;
+        return $this->tableQuote . $tableName . $this->tableQuote;
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param string $fieldname
+     * @param string $fieldName
      *
      * @return string
      */
-    public function quoteFieldname(string $fieldname): string
+    public function quoteFieldname(string $fieldName): string
     {
-        return Config::$sqlHelper->fieldQuote . $fieldname . Config::$sqlHelper->fieldQuote;
+        return Config::$sqlHelper->fieldQuote . $fieldName . Config::$sqlHelper->fieldQuote;
     }
 
     /**
@@ -68,27 +68,27 @@ abstract class SqlHelper
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    abstract public function getColumns(string $tablename): string;
+    abstract public function getColumns(string $tableName): string;
 
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    abstract public function getIndexes(string $tablename): string;
+    abstract public function getIndexes(string $tableName): string;
 
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    abstract public function getConstraints(string $tablename): string;
+    abstract public function getConstraints(string $tableName): string;
 }

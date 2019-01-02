@@ -5,8 +5,8 @@
  */
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Models\Users;
 use Alxarafe\Controllers\Login;
+use Alxarafe\Models\Users;
 
 /**
  * Class Auth
@@ -24,7 +24,7 @@ class Auth extends Users
     /**
      * TODO: Undocumented
      *
-     * @var null
+     * @var Users|null
      */
     private $user = null;
 
@@ -114,7 +114,7 @@ class Auth extends Users
     }
 
     /**
-     * @return |null
+     * @return Users|null
      */
     public function getUser()
     {

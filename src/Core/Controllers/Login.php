@@ -7,9 +7,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Views\Login as LoginView;
 
 /**

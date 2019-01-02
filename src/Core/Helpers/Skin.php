@@ -5,9 +5,9 @@
  */
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Base\View;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
-use Alxarafe\Base\View;
 
 /**
  * Class Skin

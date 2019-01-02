@@ -5,7 +5,6 @@
  */
 namespace Alxarafe\Base;
 
-use Alxarafe\Base\View;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 

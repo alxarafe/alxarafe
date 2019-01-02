@@ -5,10 +5,10 @@
  */
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Utils;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Helpers\Schema;
+use Alxarafe\Helpers\Utils;
 
 /**
  * Class Table allows access to a table using an active record.
@@ -70,7 +70,7 @@ abstract class Table
      * 
      * @var string
      */
-    public $tablename;
+    public $tableName;
 
     /**
      * Build a Table model. $table is the name of the table in the database.
@@ -79,12 +79,12 @@ abstract class Table
      * - idField is the name of the primary key (default id)
      * - nameField is the name of the descriptive field (name by default)
      *
-     * @param string $tablename
+     * @param string $tableName
      * @param array $params
      */
-    public function __construct(string $tablename, array $params = [])
+    public function __construct(string $tableName, array $params = [])
     {
-        $this->tablename = $tablename;
+        $this->tablename = $tableName;
 
         $this->idField = $params['idField'] ?? 'id';
         $this->nameField = $params['nameField'] ?? 'name';

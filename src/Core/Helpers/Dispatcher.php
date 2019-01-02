@@ -5,7 +5,6 @@
  */
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\EditConfig;
 
@@ -105,7 +104,7 @@ class Dispatcher
      *
      * @return mixed
      */
-    function processFolder($path, $call, $method)
+    public function processFolder($path, $call, $method)
     {
         $_className = 'Alxarafe\\Controllers\\' . $call;
         if (class_exists($_className)) {
@@ -126,7 +125,7 @@ class Dispatcher
     /**
      * @return bool
      */
-    function process()
+    public function process()
     {
         foreach ($this->searchDir as $dir) {
             $path = $dir . '/Controllers';
@@ -145,7 +144,7 @@ class Dispatcher
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    function run()
+    public function run()
     {
         if (!$this->process()) {
             $view = new View();

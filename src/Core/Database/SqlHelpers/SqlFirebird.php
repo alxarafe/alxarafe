@@ -25,25 +25,25 @@ class SqlFirebird extends SqlHelper
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function quoteTablename(string $tablename): string
+    public function quoteTablename(string $tableName): string
     {
-        return strtoupper(parent::quoteTablename($tablename));
+        return strtoupper(parent::quoteTablename($tableName));
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param string $fieldname
+     * @param string $fieldName
      *
      * @return string
      */
-    public function quoteFieldname(string $fieldname): string
+    public function quoteFieldname(string $fieldName): string
     {
-        return strtoupper(parent::quoteFieldname($tablename));
+        return strtoupper(parent::quoteFieldname($fieldName));
     }
 
     /**
@@ -67,11 +67,11 @@ class SqlFirebird extends SqlHelper
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function getColumns(string $tablename): string
+    public function getColumns(string $tableName): string
     {
 
 
@@ -90,35 +90,35 @@ INNER JOIN RDB$TYPES d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
 WHERE
 	a.RDB$SYSTEM_FLAG = 0 AND
 	d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
-	b.RDB$RELATION_NAME=' . $this->quoteTablename($tablename) . '
+	b.RDB$RELATION_NAME=' . $this->quoteTablename($tableName) . '
 ORDER BY b.RDB$FIELD_POSITION;
 '; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
 
-        return 'select rdb$field_name from rdb$relation_fields where rdb$relation_name=' . $this->quoteTablename($tablename) . ';';
+        return 'select rdb$field_name from rdb$relation_fields where rdb$relation_name=' . $this->quoteTablename($tableName) . ';';
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function getIndexes(string $tablename): string
+    public function getIndexes(string $tableName): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tablaname);
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tableName);
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param string $tablename
+     * @param string $tableName
      *
      * @return string
      */
-    public function getConstraints(string $tablename): string
+    public function getConstraints(string $tableName): string
     {
         /*
          * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731

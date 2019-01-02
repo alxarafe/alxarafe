@@ -5,13 +5,11 @@
  */
 namespace Alxarafe\Helpers;
 
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\FirePHPHandler;
-use DebugBar\Bridge\Twig;
 use DebugBar\DataCollector\MessagesCollector;
-use DebugBar\DataCollector\PDO as PDODataCollector;
 use DebugBar\StandardDebugBar;
+use Monolog\Handler\FirePHPHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 /**
  * Class Debug
