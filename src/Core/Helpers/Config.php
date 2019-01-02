@@ -160,7 +160,7 @@ class Config
             (new EditConfig())->run();
             die;
         }
-        if (self::$user == null) {
+        if (self::$user === null) {
             self::$user = new Auth();
             self::$username = self::$user->getUser();
             if (self::$username == null) {
