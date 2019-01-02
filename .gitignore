@@ -4,6 +4,7 @@
 /vendor/
 /cache/
 /libraries_/
+.gitconfig
 .DS_Store
 .htaccess
 .vscode
