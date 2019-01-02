@@ -43,7 +43,7 @@ abstract class Engine
      * Represents a prepared statement and, after the statement is executed, 
      * an associated result set.
      *
-     * @var \PDOStatement|false
+     * @var \PDOStatement
      */
     static protected $statement;
 
@@ -171,7 +171,7 @@ abstract class Engine
             return self::exec($inputParameters);
         }
 
-        if (!isset(self::$statement) || !self::$statement) {
+        if (!isset(self::$statement)) {
             return false;
         }
         return self::$statement->execute($inputParameters);
@@ -198,7 +198,7 @@ abstract class Engine
     {
         Debug::addMessage('SQL', 'PDO exec: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement != null && self::$statement) {
+        if (self::$statement != null) {
             return self::$statement->execute([]);
         }
         return false;
@@ -215,7 +215,7 @@ abstract class Engine
     {
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement != null && self::$statement && self::$statement->execute([])) {
+        if (self::$statement != null && self::$statement->execute([])) {
             return $result = self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return null;

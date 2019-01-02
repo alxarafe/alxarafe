@@ -72,6 +72,7 @@ class PdoMySql extends Engine
     {
         $res = [];
         foreach ($columns as $value) {
+            var_dump($value);
             $fullType = self::splitType($value['Type']);
             switch ($fullType['type']) {
                 // Integers
