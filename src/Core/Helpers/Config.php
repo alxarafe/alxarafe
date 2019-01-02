@@ -180,6 +180,8 @@ class Config
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $error
      */
     public static function setError(string $error)

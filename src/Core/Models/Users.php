@@ -24,7 +24,7 @@ class Users extends Table
     }
 
     /**
-     * TODO
+     * TODO: Undocumented
      */
     public function getFields()
     {

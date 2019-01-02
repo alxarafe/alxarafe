@@ -43,6 +43,8 @@ class PdoMySql extends Engine
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $originalType
      *
      * @return array
@@ -74,6 +76,8 @@ class PdoMySql extends Engine
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param array $columns
      *
      * @return array

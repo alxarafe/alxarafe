@@ -18,6 +18,8 @@ class View
 {
 
     /**
+     * TODO: Undocumented
+     *
      * @var array
      */
     private $vars;
@@ -86,6 +88,8 @@ class View
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $name
      * @param $value
      */
@@ -95,6 +99,8 @@ class View
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $name
      * @param $value
      */
@@ -104,6 +110,8 @@ class View
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $name
      *
      * @return array|bool
@@ -161,6 +169,8 @@ class View
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param array $data
      *
      * @return bool

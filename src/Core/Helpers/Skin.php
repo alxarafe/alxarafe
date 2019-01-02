@@ -125,6 +125,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $skin
      *
      * @throws \DebugBar\DebugBarException
@@ -139,6 +141,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $template
      *
      * @throws \DebugBar\DebugBarException
@@ -187,6 +191,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $engine
      */
     public static function setTemplatesEngine($engine)
@@ -203,6 +209,8 @@ class Skin
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $templatesFolder
      *
      * @throws \DebugBar\DebugBarException

@@ -18,6 +18,8 @@ class Dispatcher
 {
 
     /**
+     * TODO: Undocumented
+     *
      * @var array
      */
     public $searchDir;
@@ -95,6 +97,8 @@ class Dispatcher
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $path
      * @param $call
      * @param $method

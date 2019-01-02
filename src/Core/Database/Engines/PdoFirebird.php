@@ -53,6 +53,8 @@ class PdoFirebird extends Engine
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param array $columns
      *
      * @return array

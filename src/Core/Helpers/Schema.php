@@ -112,6 +112,8 @@ class Schema
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return array

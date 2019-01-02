@@ -23,6 +23,8 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -33,6 +35,8 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $fieldname
      *
      * @return string
@@ -61,6 +65,8 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -92,6 +98,8 @@ ORDER BY b.RDB$FIELD_POSITION;
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -104,6 +112,8 @@ ORDER BY b.RDB$FIELD_POSITION;
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string

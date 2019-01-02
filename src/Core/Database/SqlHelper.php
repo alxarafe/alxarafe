@@ -15,10 +15,14 @@ abstract class SqlHelper
 {
 
     /**
+     * TODO: Undocumented
+     *
      * @var string
      */
     protected $tableQuote;
     /**
+     * TODO: Undocumented
+     *
      * @var string
      */
     protected $fieldQuote;
@@ -33,6 +37,8 @@ abstract class SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -43,6 +49,8 @@ abstract class SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $fieldname
      *
      * @return string
@@ -58,6 +66,8 @@ abstract class SqlHelper
     abstract public function getTables(): string;
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -65,6 +75,8 @@ abstract class SqlHelper
     abstract public function getColumns(string $tablename): string;
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -72,6 +84,8 @@ abstract class SqlHelper
     abstract public function getIndexes(string $tablename): string;
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string

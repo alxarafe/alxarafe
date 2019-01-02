@@ -22,6 +22,8 @@ class Auth extends Users
     const COOKIE_EXPIRATION = 0;
 
     /**
+     * TODO: Undocumented
+     *
      * @var null
      */
     private $user = null;
@@ -83,6 +85,8 @@ class Auth extends Users
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $user
      * @param $password
      *

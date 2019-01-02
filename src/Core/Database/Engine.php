@@ -228,6 +228,8 @@ abstract class Engine
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param array $columns
      *
      * @return array
@@ -235,6 +237,8 @@ abstract class Engine
     abstract public static function normalizeColumns(array $columns): array;
 
     /**
+     * TODO: Undocumented
+     *
      * @param $tablename
      *
      * @return mixed

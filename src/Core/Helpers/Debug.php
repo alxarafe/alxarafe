@@ -22,14 +22,20 @@ class Debug
 {
 
     /**
+     * TODO: Undocumented
+     *
      * @var StandardDebugBar
      */
     public static $debugBar;
     /**
+     * TODO: Undocumented
+     *
      * @var \DebugBar\JavascriptRenderer
      */
     private static $render;
     /**
+     * TODO: Undocumented
+     *
      * @var Logger
      */
     private static $logger;
@@ -128,6 +134,8 @@ class Debug
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param $exception
      *
      * @throws \DebugBar\DebugBarException
@@ -142,6 +150,8 @@ class Debug
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $name
      * @param string $message
      *
@@ -154,6 +164,8 @@ class Debug
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $name
      *
      * @throws \DebugBar\DebugBarException
@@ -165,6 +177,8 @@ class Debug
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param      $text
      * @param      $array
      * @param bool $continue

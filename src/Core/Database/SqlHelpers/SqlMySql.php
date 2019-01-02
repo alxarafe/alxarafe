@@ -33,6 +33,8 @@ class SqlMySql extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -45,6 +47,8 @@ class SqlMySql extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
@@ -64,6 +68,8 @@ class SqlMySql extends SqlHelper
     }
 
     /**
+     * TODO: Undocumented
+     *
      * @param string $tablename
      *
      * @return string
