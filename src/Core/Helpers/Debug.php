@@ -13,11 +13,25 @@ use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DataCollector\PDO as PDODataCollector;
 use DebugBar\StandardDebugBar;
 
+/**
+ * Class Debug
+ *
+ * @package Alxarafe\Helpers
+ */
 class Debug
 {
 
+    /**
+     * @var StandardDebugBar
+     */
     public static $debugBar;
+    /**
+     * @var \DebugBar\JavascriptRenderer
+     */
     private static $render;
+    /**
+     * @var Logger
+     */
     private static $logger;
 
     /**
@@ -71,6 +85,10 @@ class Debug
         return self::$debugBar;
     }
 
+    /**
+     * @return string
+     * @throws \DebugBar\DebugBarException
+     */
     public static function getRenderHeader(): string
     {
         if (DEBUG) {
@@ -80,6 +98,10 @@ class Debug
         return '';
     }
 
+    /**
+     * @return string
+     * @throws \DebugBar\DebugBarException
+     */
     public static function getRenderFooter(): string
     {
         if (DEBUG) {
@@ -105,6 +127,11 @@ class Debug
         self::$debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
     }
 
+    /**
+     * @param $exception
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public static function addException($exception): void
     {
         self::checkInstance();
@@ -114,18 +141,34 @@ class Debug
         self::$logger->info('Exception: ' . $exception->getMessage());
     }
 
+    /**
+     * @param string $name
+     * @param string $message
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public static function startTimer(string $name, string $message): void
     {
         self::checkInstance();
         self::$debugBar['time']->startMeasure($name, $message);
     }
 
+    /**
+     * @param string $name
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public static function stopTimer(string $name): void
     {
         self::checkInstance();
         //self::$debugBar['time']->stopMeasure($name);
     }
 
+    /**
+     * @param      $text
+     * @param      $array
+     * @param bool $continue
+     */
     public static function testArray($text, $array, $continue = false)
     {
         echo "<p><strong>$text</strong>:</p><pre>" . print_r((array) $array, true) . '</pre>';

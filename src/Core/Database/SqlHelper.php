@@ -14,30 +14,67 @@ use Alxarafe\Helpers\Config;
 abstract class SqlHelper
 {
 
+    /**
+     * @var string
+     */
     protected $tableQuote;
+    /**
+     * @var string
+     */
     protected $fieldQuote;
 
+    /**
+     * SqlHelper constructor.
+     */
     public function __construct()
     {
         $this->tableQuote = '';
         $this->fieldQuote = '';
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function quoteTablename(string $tablename): string
     {
         return $this->tableQuote . $tablename . $this->tableQuote;
     }
 
+    /**
+     * @param string $fieldname
+     *
+     * @return string
+     */
     public function quoteFieldname(string $fieldname): string
     {
         return Config::$sqlHelper->fieldQuote . $fieldname . Config::$sqlHelper->fieldQuote;
     }
 
+    /**
+     * @return string
+     */
     abstract public function getTables(): string;
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     abstract public function getColumns(string $tablename): string;
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     abstract public function getIndexes(string $tablename): string;
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     abstract public function getConstraints(string $tablename): string;
 }

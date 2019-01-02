@@ -94,6 +94,9 @@ abstract class Engine
         return '';
     }
 
+    /**
+     * @return array
+     */
     public static function getEngines(): array
     {
         $path = BASE_PATH . '/' . ALXARAFE_FOLDER . '/Database/Engines';
@@ -108,6 +111,9 @@ abstract class Engine
         return $ret;
     }
 
+    /**
+     * @return bool
+     */
     public function checkConnection()
     {
         return (self::$dbHandler != Null);
@@ -221,8 +227,18 @@ abstract class Engine
         return null;
     }
 
+    /**
+     * @param array $columns
+     *
+     * @return array
+     */
     abstract public static function normalizeColumns(array $columns): array;
 
+    /**
+     * @param $tablename
+     *
+     * @return mixed
+     */
     public static function getColumns($tablename)
     {
         $query = Config::$sqlHelper->getColumns($tablename);

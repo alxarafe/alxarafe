@@ -8,15 +8,30 @@ namespace Alxarafe\Views;
 use Alxarafe\Base\View;
 use Alxarafe\Helpers\Skin;
 
+/**
+ * Class Login
+ *
+ * @package Alxarafe\Views
+ */
 class Login extends View
 {
 
+    /**
+     * Login constructor.
+     *
+     * @param $ctrl
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public function __construct($ctrl)
     {
         parent::__construct($ctrl);
         Skin::setTemplate('login');
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public function addCss()
     {
         parent::addCss();

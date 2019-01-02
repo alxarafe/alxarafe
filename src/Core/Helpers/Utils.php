@@ -5,6 +5,11 @@
  */
 namespace Alxarafe\Helpers;
 
+/**
+ * Class Utils
+ *
+ * @package Alxarafe\Helpers
+ */
 class Utils
 {
 

@@ -17,11 +17,17 @@ use Alxarafe\Base\Table;
 class UserRoles extends Alxarafe\Base\Table
 {
 
+    /**
+     * UserRoles constructor.
+     */
     public function __construct()
     {
         parent::__construct('user_roles', ['create' => true]);
     }
 
+    /**
+     * @return array
+     */
     public function getFields()
     {
         return [
@@ -34,6 +40,9 @@ class UserRoles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getKeys()
     {
         return [
@@ -43,6 +52,9 @@ class UserRoles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getDefaultValues()
     {
         return [

@@ -52,6 +52,12 @@ class PdoFirebird extends Engine
         return null;
     }
 
+    /**
+     * @param array $columns
+     *
+     * @return array
+     * @throws \DebugBar\DebugBarException
+     */
     public static function normalizeColumns(array $columns): array
     {
         $res = [];

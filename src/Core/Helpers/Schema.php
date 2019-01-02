@@ -14,12 +14,40 @@ use Symfony\Component\Yaml\Yaml;
 class Schema
 {
 
+    /**
+     * TODO: Undocummented
+     */
     const CRLF = "\n\t";
 
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     static protected $databaseStructure;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     static protected $SqlHelper;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     protected $model;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     protected $tablename;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     protected $structure;
 
     /**
@@ -44,6 +72,9 @@ class Schema
         return $ret;
     }
 
+    /**
+     * TODO: Undocummented
+     */
     static function saveStructure()
     {
         $folder = BASE_PATH . '/schema';
@@ -71,12 +102,20 @@ class Schema
         return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tablename);
     }
 
+    /**
+     * @return array
+     */
     static function getTables(): array
     {
         $query = Config::$sqlHelper->getTables();
         return self::flatArray(Config::$dbEngine->select($query));
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return array
+     */
     static function getColumns(string $tablename): array
     {
         return Config::$dbEngine->getColumns($tablename);

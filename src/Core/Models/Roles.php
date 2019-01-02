@@ -18,11 +18,17 @@ use Alxarafe\Base\Table;
 class Roles extends Alxarafe\Base\Table
 {
 
+    /**
+     * Roles constructor.
+     */
     public function __construct()
     {
         parent::__construct('roles', ['create' => true]);
     }
 
+    /**
+     * @return array
+     */
     public function getFields()
     {
         return [
@@ -45,6 +51,9 @@ class Roles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getKeys()
     {
         return [
@@ -54,6 +63,9 @@ class Roles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getDefaultValues()
     {
         return [

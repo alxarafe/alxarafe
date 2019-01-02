@@ -9,11 +9,22 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\EditConfig;
 
+/**
+ * Class Dispatcher
+ *
+ * @package Alxarafe\Helpers
+ */
 class Dispatcher
 {
 
+    /**
+     * @var array
+     */
     public $searchDir;
 
+    /**
+     * Dispatcher constructor.
+     */
     public function __construct()
     {
         $this->getConfiguration();
@@ -22,6 +33,9 @@ class Dispatcher
         $this->searchDir = [BASE_PATH, BASE_PATH . '/' . ALXARAFE_FOLDER];
     }
 
+    /**
+     * TODO: Undocummented
+     */
     private function getConfiguration()
     {
         $this->defineConstants();
@@ -80,6 +94,13 @@ class Dispatcher
         define('DEFAULT_INTEGER_SIZE', 10);
     }
 
+    /**
+     * @param $path
+     * @param $call
+     * @param $method
+     *
+     * @return mixed
+     */
     function processFolder($path, $call, $method)
     {
         $_className = 'Alxarafe\\Controllers\\' . $call;
@@ -98,6 +119,9 @@ class Dispatcher
         }
     }
 
+    /**
+     * @return bool
+     */
     function process()
     {
         foreach ($this->searchDir as $dir) {
@@ -111,6 +135,12 @@ class Dispatcher
         return false;
     }
 
+    /**
+     * @throws \DebugBar\DebugBarException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     function run()
     {
         if (!$this->process()) {

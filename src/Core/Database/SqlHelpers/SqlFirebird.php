@@ -13,34 +13,58 @@ use Alxarafe\Database\SqlHelper;
 class SqlFirebird extends SqlHelper
 {
 
+    /**
+     * SqlFirebird constructor.
+     */
     public function __construct()
     {
         $this->tableQuote = '\'';
         $this->fieldQuote = '';
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function quoteTablename(string $tablename): string
     {
         return strtoupper(parent::quoteTablename($tablename));
     }
 
+    /**
+     * @param string $fieldname
+     *
+     * @return string
+     */
     public function quoteFieldname(string $fieldname): string
     {
         return strtoupper(parent::quoteFieldname($tablename));
     }
 
+    /**
+     * @return string
+     */
     public function getTables(): string
     {
         // http://www.firebirdfaq.org/faq174/
         return 'select rdb$relation_name from rdb$relations where rdb$view_blr is null and (rdb$system_flag is null or rdb$system_flag = 0);';
     }
 
+    /**
+     * @return string
+     */
     public function getViews(): string
     {
         // http://www.firebirdfaq.org/faq174/
         return 'select rdb$relation_name from rdb$relations where rdb$view_blr is not null and (rdb$system_flag is null or rdb$system_flag = 0);';
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function getColumns(string $tablename): string
     {
 
@@ -67,6 +91,11 @@ ORDER BY b.RDB$FIELD_POSITION;
         return 'select rdb$field_name from rdb$relation_fields where rdb$relation_name=' . $this->quoteTablename($tablename) . ';';
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function getIndexes(string $tablename): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
@@ -74,6 +103,11 @@ ORDER BY b.RDB$FIELD_POSITION;
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tablaname);
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function getConstraints(string $tablename): string
     {
         /*

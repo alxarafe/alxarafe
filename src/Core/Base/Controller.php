@@ -9,12 +9,30 @@ use Alxarafe\Base\View;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 
+/**
+ * Class Controller
+ *
+ * @package Alxarafe\Base
+ */
 class Controller
 {
 
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     public $user;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     public $vars;
 
+    /**
+     * Controller constructor.
+     */
     public function __construct()
     {
         if (isset(Config::$user)) {
@@ -26,6 +44,9 @@ class Controller
         }
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public function run()
     {
         Skin::$view->run($this->vars);

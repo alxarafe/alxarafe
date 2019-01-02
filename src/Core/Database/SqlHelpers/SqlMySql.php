@@ -13,11 +13,18 @@ use Alxarafe\Database\SqlHelper;
 class SqlMySql extends SqlHelper
 {
 
+    /**
+     * SqlMySql constructor.
+     */
     public function __construct()
     {
         $this->tableQuote = '`';
         $this->fieldQuote = '`';
     }
+
+    /**
+     * @return string
+     */
     public function getTables(): string
     {
         // Config::$global['dbName']
@@ -25,6 +32,11 @@ class SqlMySql extends SqlHelper
         return 'SHOW TABLES';
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function getIndexes(string $tablename): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
@@ -32,6 +44,11 @@ class SqlMySql extends SqlHelper
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tablaname);
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function getColumns(string $tablename): string
     {
         /**
@@ -46,6 +63,11 @@ class SqlMySql extends SqlHelper
         return 'SHOW COLUMNS FROM ' . $this->quoteTablename($tablename) . ';';
     }
 
+    /**
+     * @param string $tablename
+     *
+     * @return string
+     */
     public function getConstraints(string $tablename): string
     {
         /*

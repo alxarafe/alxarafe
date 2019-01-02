@@ -60,6 +60,9 @@ class Users extends Table
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getKeys()
     {
         return [
@@ -69,6 +72,9 @@ class Users extends Table
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getDefaultValues()
     {
         return [

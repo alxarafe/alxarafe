@@ -8,6 +8,11 @@ namespace Alxarafe\Helpers;
 use Alxarafe\Models\Users;
 use Alxarafe\Controllers\Login;
 
+/**
+ * Class Auth
+ *
+ * @package Alxarafe\Helpers
+ */
 class Auth extends Users
 {
 
@@ -16,14 +21,23 @@ class Auth extends Users
      */
     const COOKIE_EXPIRATION = 0;
 
+    /**
+     * @var null
+     */
     private $user = null;
 
+    /**
+     * Auth constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->getCookieUser();
     }
 
+    /**
+     * TODO: Undocummented
+     */
     private function getCookieUser()
     {
         if ($this->user == null) {
@@ -33,22 +47,34 @@ class Auth extends Users
         }
     }
 
+    /**
+     * TODO: Undocummented
+     */
     private function setCookieUser()
     {
         setcookie('user', $this->user == null ? '' : $this->user, COOKIE_EXPIRATION);
     }
 
+    /**
+     * TODO: Undocummented
+     */
     private function clearCookieUser()
     {
         setcookie('user', '');
         unset($_COOKIE['user']);
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public function login()
     {
         (new Login())->run();
     }
 
+    /**
+     * @throws \DebugBar\DebugBarException
+     */
     public function logout()
     {
         Debug::addMessage('messages', 'Auth::Logout(): ' . ($this->user == null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
@@ -56,6 +82,13 @@ class Auth extends Users
         $this->clearCookieUser();
     }
 
+    /**
+     * @param $user
+     * @param $password
+     *
+     * @return bool
+     * @throws \DebugBar\DebugBarException
+     */
     public function setUser($user, $password)
     {
         $_user = Config::$dbEngine->select("SELECT * FROM {$this->tablename} WHERE username='$user';");
@@ -76,6 +109,9 @@ class Auth extends Users
         return $this->user != null;
     }
 
+    /**
+     * @return |null
+     */
     public function getUser()
     {
         return $this->user;

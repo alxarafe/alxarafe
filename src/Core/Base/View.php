@@ -9,11 +9,24 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Debug;
 
+/**
+ * Class View
+ *
+ * @package Alxarafe\Base
+ */
 class View
 {
 
+    /**
+     * @var array
+     */
     private $vars;
 
+    /**
+     * View constructor.
+     *
+     * @param null $controller
+     */
     public function __construct($controller = null)
     {
         $this->vars = [];
@@ -72,16 +85,29 @@ class View
         return $absPath;
     }
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function setVar($name, $value)
     {
         $this->vars[$name] = $value;
     }
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function addToVar($name, $value)
     {
         $this->vars[$name][] = $value;
     }
 
+    /**
+     * @param $name
+     *
+     * @return array|bool
+     */
     public function getVar($name)
     {
         return isset($this->vars[$name]) ?? [];
@@ -110,21 +136,39 @@ class View
         $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
     }
 
+    /**
+     * @return array
+     */
     public function getErrors()
     {
         return Config::getErrors();
     }
 
+    /**
+     * @return string
+     */
     public function getHeader()
     {
         return Debug::getRenderHeader();
     }
 
+    /**
+     * @return string
+     */
     public function getFooter()
     {
         return Debug::getRenderFooter();
     }
 
+    /**
+     * @param array $data
+     *
+     * @return bool
+     * @throws \DebugBar\DebugBarException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function run(array $data = [])
     {
         if (!Skin::hasTemplate()) {

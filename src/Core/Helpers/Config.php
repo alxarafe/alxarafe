@@ -62,7 +62,17 @@ class Config
      * @var Auth
      */
     static $user;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     static $username;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     static $configFilename;
 
     /**
@@ -86,11 +96,17 @@ class Config
         return null;
     }
 
+    /**
+     * @return bool
+     */
     public static function configFileExists(): bool
     {
         return (file_exists(self::getConfigFileName()));
     }
 
+    /**
+     * @return array
+     */
     public static function loadConfigurationFile(): array
     {
         $filename = self::getConfigFileName();
@@ -106,6 +122,9 @@ class Config
         return null;
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public static function loadViewsConfig()
     {
         Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
@@ -114,6 +133,9 @@ class Config
         Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? BASE_PATH . Skin::COMMON_FOLDER);
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public static function loadConfig()
     {
         self::$global = self::loadConfigurationFile();
@@ -157,11 +179,17 @@ class Config
         return file_put_contents($configFile, YAML::dump(self::$global)) !== FALSE;
     }
 
+    /**
+     * @param string $error
+     */
     public static function setError(string $error)
     {
         self::$errors[] = $error;
     }
 
+    /**
+     * @return array
+     */
     public static function getErrors()
     {
         $errors = self::$errors;
