@@ -2,6 +2,7 @@
 /.idea/
 /nbproject/
 /vendor/
+/docs/
 /cache/
 /libraries_/
 .gitconfig
