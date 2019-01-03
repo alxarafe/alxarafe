@@ -91,14 +91,34 @@ abstract class SqlHelper
     abstract public function getTables(): array;
 
     /**
+     * SQL statement that returns the fields in the table
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    abstract public function getColumnsSql(string $tableName): string;
+
+    /**
+     * Modifies the structure returned by the query generated with
+     * getColumnsSql to the normalized format that returns getColumns
+     *
+     * @param array $fields
+     *
+     * @return array
+     */
+    abstract public function normalizeFields(array $fields): array;
+
+    /**
      * Returns an array with all the columns of a table
      *
      * TODO: Review the types. The variants will depend on type + length.
      *
      * 'name_of_the_field' => {
-     *  (Requiered)
+     *  (Required type and length or bytes)
      *      'type' => (string/integer/float/decimal/boolean/date/datetime/text/blob)
-     *      'length' => It is the number of characters that the field needs
+     *      'length' => It is the number of characters that the field needs (optional if bytes exists)
+     *      'bytes' => Number of bytes occupied by the data (optional if length exists)
      *  (Optional)
      *      'default' => Default value
      *      'nullable' => True if it can be null
@@ -109,9 +129,19 @@ abstract class SqlHelper
      *
      * @param string $tableName
      *
-     * @return string
+     * @return array
      */
-    abstract public function getColumns(string $tableName): array;
+    public function getColumns(string $tableName): array
+    {
+        $query = $this->getColumnsSql($tableName);
+        $data = Config::$dbEngine->select($query);
+        $result = [];
+        foreach ($data as $value) {
+            $row = $this->normalizeFields($value);
+            $result[$row['field']] = $row;
+        }
+        return $result;
+    }
 
     /**
      * TODO: Undocumented

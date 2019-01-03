@@ -101,7 +101,7 @@ abstract class Engine
      */
     public static function getEngines(): array
     {
-        $path = BASE_PATH . '/' . ALXARAFE_FOLDER . '/Database/Engines';
+        $path = ALXARAFE_FOLDER . '/Database/Engines';
         echo "<p>path: $path</p>";
         $engines = scandir($path);
         $ret = [];
@@ -239,15 +239,6 @@ abstract class Engine
         }
         return null;
     }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @param array $columns
-     *
-     * @return array
-     */
-    abstract public static function normalizeColumns(array $columns): array;
 
     /**
      * TODO: Undocumented

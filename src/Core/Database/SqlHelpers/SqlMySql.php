@@ -35,27 +35,13 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * Returns an array with all the columns of a table
-     *
-     * TODO: Review the types. The variants will depend on type + length.
-     *
-     * 'name_of_the_field' => {
-     *  (Requiered)
-     *      'type' => (string/integer/float/decimal/boolean/date/datetime/text/blob)
-     *      'length' => It is the number of characters that the field needs
-     *  (Optional)
-     *      'default' => Default value
-     *      'nullable' => True if it can be null
-     *      'primary' => True if it is the primary key
-     *      'autoincrement' => True if it is an autoincremental number
-     *      'zerofilled' => True if it completes zeros on the left
-     * }
+     * SQL statement that returns the fields in the table
      *
      * @param string $tableName
      *
-     * @return array
+     * @return string
      */
-    public function getColumns(string $tableName): array
+    public function getColumnsSql(string $tableName): string
     {
         /**
          * array (size=6)
@@ -67,6 +53,71 @@ class SqlMySql extends SqlHelper
          * 'Extra' => string 'auto_increment' (length=14)
          */
         return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName) . ';';
+    }
+
+    /**
+     * Divide the data type of a MySQL field into its various components: type,
+     * length, unsigned or zerofill, if applicable.
+     *
+     * @param string $originalType
+     *
+     * @return array
+     */
+    private static function splitType(string $originalType): array
+    {
+        $explode = explode(' ', strtolower($originalType));
+
+        $pos = strpos($explode[0], '(');
+
+        $type = $pos ? substr($explode[0], 0, $pos) : $explode[0];
+        $length = $pos ? intval(substr($explode[0], $pos + 1)) : null;
+
+        $pos = array_search('unsigned', $explode);
+        $unsigned = $pos ? 'unsigned' : null;
+
+        $pos = array_search('zerofill', $explode);
+        $zerofill = $pos ? 'zerofill' : null;
+
+        $pos = array_search('zerofill', $explode);
+        $zerofill = $pos ? 'zerofill' : null;
+
+        return ['type' => $type, 'length' => $length, 'unsigned' => $unsigned, 'zerofill' => $zerofill];
+    }
+
+    /**
+     * Modifies the structure returned by the query generated with
+     * getColumnsSql to the normalized format that returns getColumns
+     *
+     * @param array $fields
+     *
+     * @return array
+     */
+    public function normalizeFields(array $row): array
+    {
+        $result = [];
+        $result['field'] = $row['Field'];
+        $type = $this->splitType($row['Type']);
+        switch ($type['type']) {
+            // Integers
+            case 'int':
+                $result['type'] = 'integer';
+                break;
+            // String
+            case 'varchar':
+                $result['type'] = 'string';
+                break;
+            default:
+                // Others
+                $result['type'] = $type['type'];
+                Debug::addMessage('Deprecated', "Correct the data type '$type' in MySql database");
+        }
+        $result['length'] = $type['length'] ?? null;
+        $result['default'] = $row['Default'] ?? null;
+        $result['nullable'] = $row['Null'];
+        $result['primary'] = $row['Key'];
+        $result['autoincrement'] = $row['Extra'] == 'auto_increment' ? 1 : 0;
+
+        return $result;
     }
 
     /**

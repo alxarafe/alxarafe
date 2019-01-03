@@ -54,42 +54,4 @@ class PdoFirebird extends Engine
         return null;
     }
 
-    /**
-     * TODO: Undocumented
-     *
-     * @param array $columns
-     *
-     * @return array
-     * @throws \DebugBar\DebugBarException
-     */
-    public static function normalizeColumns(array $columns): array
-    {
-        $res = [];
-        foreach ($columns as $value) {
-            switch (trim($value['type'])) {
-                // Integers
-                case 'LONG':
-                    $type = 'integer';
-                    break;
-                // String
-                case 'VARYING':
-                    $type = 'string';
-                    break;
-                default:
-                    // Others
-                    $type = trim($value['type']);
-                    Debug::addMessage('Deprecated', "Correct the data type '$type' in Firebird database");
-            }
-            $data = [];
-            $data['name'] = strtolower(trim($value['field']));
-            $data['type'] = $type;
-            $data['length'] = $value['length'];
-            $data['null'] = $value['nullvalue'];
-            $data['default'] = isset($value['defaultsource']) ? substr($value['defaultsource'], 10) : null;
-            $data['key'] = '';
-            $data['extra'] = '';
-            $res[] = $data;
-        }
-        return $res;
-    }
 }

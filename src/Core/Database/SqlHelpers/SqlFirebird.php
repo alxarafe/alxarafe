@@ -6,6 +6,7 @@
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Helpers\Config;
 
 /**
  * Personalization of SQL queries to use Firebird.
@@ -59,35 +60,21 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
-     * Returns an array with all the columns of a table
-     *
-     * TODO: Review the types. The variants will depend on type + length.
-     *
-     * 'name_of_the_field' => {
-     *  (Requiered)
-     *      'type' => (string/integer/float/decimal/boolean/date/datetime/text/blob)
-     *      'length' => It is the number of characters that the field needs
-     *  (Optional)
-     *      'default' => Default value
-     *      'nullable' => True if it can be null
-     *      'primary' => True if it is the primary key
-     *      'autoincrement' => True if it is an autoincremental number
-     *      'zerofilled' => True if it completes zeros on the left
-     * }
+     * SQL statement that returns the fields in the table
      *
      * @param string $tableName
      *
-     * @return array
+     * @return string
      */
-    public function getColumns(string $tableName): array
+    public function getColumnsSql(string $tableName): string
     {
         return 'SELECT
-            b.RDB$FIELD_NAME as Field,
-            d.RDB$TYPE_NAME as Type,
-            c.RDB$FIELD_LENGTH as Length,
-            b.RDB$DEFAULT_SOURCE AS DefaultSource,
-            b.RDB$DEFAULT_VALUE AS What,
-            b.RDB$NULL_FLAG AS NullValue
+            b.RDB$FIELD_NAME as field,
+            d.RDB$TYPE_NAME as type,
+            c.RDB$FIELD_LENGTH as length,
+            b.RDB$NULL_FLAG AS nullable,
+            b.RDB$DEFAULT_SOURCE AS defaultsource,
+            b.RDB$DEFAULT_VALUE AS What
         FROM RDB$RELATIONS a
         INNER JOIN RDB$RELATION_FIELDS b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
         INNER JOIN RDB$FIELDS c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
@@ -97,6 +84,42 @@ class SqlFirebird extends SqlHelper
             d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
             b.RDB$RELATION_NAME=' . $this->quoteTableName($tableName) . '
         ORDER BY b.RDB$FIELD_POSITION;'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
+    }
+
+    /**
+     * Modifies the structure returned by the query generated with
+     * getColumnsSql to the normalized format that returns getColumns
+     *
+     * @param array $fields
+     *
+     * @return array
+     */
+    public function normalizeFields(array $row): array
+    {
+        $result = [];
+        $result['field'] = strtolower(trim($row['field']));
+        switch (trim($row['type'])) {
+            // Integers
+            case 'LONG':
+                $result['type'] = 'integer';
+                $result['bytes'] = $row['length'];
+                break;
+            // String
+            case 'VARYING':
+                $result['type'] = 'string';
+                $result['length'] = $row['length'];
+                break;
+            default:
+                // Others
+                $result['type'] = trim($value['type']);
+                Debug::addMessage('Deprecated', "Correct the data type '$type' in Firebird database");
+        }
+        $result['default'] = isset($row['defaultsource']) ? substr($row['defaultsource'], 10) : null;
+        $result['nullable'] = $row['nullable'];
+        $result['primary'] = 0;
+        $result['autoincrement'] = 0;
+
+        return $result;
     }
 
     /**

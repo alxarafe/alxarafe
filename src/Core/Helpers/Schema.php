@@ -51,28 +51,6 @@ class Schema
     protected $structure;
 
     /**
-     * Flatten an array to leave it at a single level.
-     * Ignore the value of the indexes of the array, taking only the values.
-     * Remove spaces from the result and convert it to lowercase.
-     *
-     * @param array $array
-     * @return array
-     */
-    static protected function flatArray(array $array): array
-    {
-        $ret = [];
-        foreach ($array as $value) {
-            if (is_array($value)) {
-                // We expect that the indexes will not overlap
-                $ret = array_merge($ret, self::flatArray($value));
-            } else {
-                $ret[] = strtolower(trim($value));
-            }
-        }
-        return $ret;
-    }
-
-    /**
      * TODO: Undocummented
      */
     public static function saveStructure()

@@ -81,13 +81,23 @@ class Dispatcher
          * Must be defined in main index.php file
          */
         if (!defined('VENDOR_FOLDER')) {
-            define('VENDOR_FOLDER', BASE_URI . '/vendor');
+            define('VENDOR_FOLDER', BASE_PATH . '/vendor');
         }
         if (!defined('ALXARAFE_FOLDER')) {
-            define('ALXARAFE_FOLDER', BASE_URI . '/vendor/alxarafe');
+            define('ALXARAFE_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/src/Core');
         }
         if (!defined('DEFAULT_TEMPLATES_FOLDER')) {
             define('DEFAULT_TEMPLATES_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/templates');
+        }
+
+        if (!defined('VENDOR_URI')) {
+            define('VENDOR_URI', BASE_URI . '/vendor');
+        }
+        if (!defined('ALXARAFE_URI')) {
+            define('ALXARAFE_URI', BASE_URI . '/vendor/alxarafe/alxarafe/src/Core');
+        }
+        if (!defined('DEFAULT_TEMPLATES_URI')) {
+            define('DEFAULT_TEMPLATES_URI', BASE_URI . '/vendor/alxarafe/alxarafe/templates');
         }
 
         define('CONFIGURATION_PATH', BASE_PATH . '/config');
