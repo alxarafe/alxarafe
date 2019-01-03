@@ -17,7 +17,8 @@ class Dispatcher
 {
 
     /**
-     * TODO: Undocumented
+     * Array that contains the paths to find the Controllers folder that
+     * contains the controllers
      *
      * @var array
      */
@@ -31,11 +32,12 @@ class Dispatcher
         $this->getConfiguration();
 
         // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
-        $this->searchDir = [BASE_PATH, BASE_PATH . '/' . ALXARAFE_FOLDER];
+        $this->searchDir = [BASE_PATH, ALXARAFE_FOLDER];
     }
 
     /**
-     * TODO: Undocummented
+     * Load the constants and the configuration file.
+     * If the configuration file does not exist, it takes us to the form for its creation.
      */
     private function getConfiguration()
     {
@@ -62,13 +64,8 @@ class Dispatcher
          *
          * define('BASE_PATH', __DIR__);
          */
-        if (!defined('BASE_PATH')) {
-            define('BASE_PATH', __DIR__ . '/../../../..');
-        }
-
-        if (!defined('DEBUG')) {
-            define('DEBUG', false);
-        }
+        Utils::defineIfNotExists('BASE_PATH', __DIR__ . '/../../../..');
+        Utils::defineIfNotExists('DEBUG', false);
 
         define('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
 
@@ -80,25 +77,12 @@ class Dispatcher
         /**
          * Must be defined in main index.php file
          */
-        if (!defined('VENDOR_FOLDER')) {
-            define('VENDOR_FOLDER', BASE_PATH . '/vendor');
-        }
-        if (!defined('ALXARAFE_FOLDER')) {
-            define('ALXARAFE_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/src/Core');
-        }
-        if (!defined('DEFAULT_TEMPLATES_FOLDER')) {
-            define('DEFAULT_TEMPLATES_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/templates');
-        }
-
-        if (!defined('VENDOR_URI')) {
-            define('VENDOR_URI', BASE_URI . '/vendor');
-        }
-        if (!defined('ALXARAFE_URI')) {
-            define('ALXARAFE_URI', BASE_URI . '/vendor/alxarafe/alxarafe/src/Core');
-        }
-        if (!defined('DEFAULT_TEMPLATES_URI')) {
-            define('DEFAULT_TEMPLATES_URI', BASE_URI . '/vendor/alxarafe/alxarafe/templates');
-        }
+        Utils::defineIfNotExists('VENDOR_FOLDER', BASE_PATH . '/vendor');
+        Utils::defineIfNotExists('ALXARAFE_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/src/Core');
+        Utils::defineIfNotExists('DEFAULT_TEMPLATES_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/templates');
+        Utils::defineIfNotExists('VENDOR_URI', BASE_URI . '/vendor');
+        Utils::defineIfNotExists('ALXARAFE_URI', BASE_URI . '/vendor/alxarafe/alxarafe/src/Core');
+        Utils::defineIfNotExists('DEFAULT_TEMPLATES_URI', BASE_URI . '/vendor/alxarafe/alxarafe/templates');
 
         define('CONFIGURATION_PATH', BASE_PATH . '/config');
         define('DEFAULT_STRING_LENGTH', 50);

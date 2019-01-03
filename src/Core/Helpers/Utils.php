@@ -46,4 +46,17 @@ class Utils
     {
         return str_replace($us, '', ucwords($string, $us));
     }
+
+    /**
+     * Define a constant if it does not exist
+     *
+     * @param string $const
+     * @param type $value
+     */
+    static public function defineIfNotExists(string $const, $value)
+    {
+        if (!defined($const)) {
+            define($const, $value);
+        }
+    }
 }

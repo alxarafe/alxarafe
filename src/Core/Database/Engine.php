@@ -235,24 +235,26 @@ abstract class Engine
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement != null && self::$statement && self::$statement->execute([])) {
-            return $result = self::$statement->fetchAll(PDO::FETCH_ASSOC);
+            return self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
-        return null;
+        return [];
     }
 
     /**
-     * TODO: Undocumented
+     * Obtain an array with the table structure with a standardized format.
      *
      * @param $tableName
      *
      * @return mixed
      */
-    public static function getColumns($tableName)
+    public static function getStructure($tableName)
     {
-        $query = Config::$sqlHelper->getColumns($tableName);
-        $columns = Config::$dbEngine->select($query);
-        $columns = Config::$dbEngine->normalizeColumns($columns);
-        return $columns;
+        return [
+            'fields' => Config::$sqlHelper->getColumns($tableName),
+            'indexes' => Config::$sqlHelper->getIndexes($tableName),
+            'constraints' => Config::$sqlHelper->getConstraints($tableName),
+            // 'values' => Config::$sqlHelper->getValues($tableName)
+        ];
     }
     /**
      * Transactions support

@@ -30,9 +30,9 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function quoteTablename(string $tableName): string
+    public function quoteTableName(string $tableName): string
     {
-        return strtoupper(parent::quoteTablename($tableName));
+        return strtoupper(parent::quoteTableName($tableName));
     }
 
     /**
@@ -42,9 +42,9 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function quoteFieldname(string $fieldName): string
+    public function quoteFieldName(string $fieldName): string
     {
-        return strtoupper(parent::quoteFieldname($fieldName));
+        return strtoupper(parent::quoteFieldName($fieldName));
     }
 
     /**
@@ -125,22 +125,11 @@ class SqlFirebird extends SqlHelper
     /**
      * TODO: Undocumented
      *
-     * @return string
-     */
-    public function getViews(): string
-    {
-        // http://www.firebirdfaq.org/faq174/
-        return 'select rdb$relation_name from rdb$relations where rdb$view_blr is not null and (rdb$system_flag is null or rdb$system_flag = 0);';
-    }
-
-    /**
-     * TODO: Undocumented
-     *
      * @param string $tableName
      *
      * @return string
      */
-    public function getIndexes(string $tableName): string
+    public function getIndexesSql(string $tableName): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
@@ -154,7 +143,7 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function getConstraints(string $tableName): string
+    public function getConstraintsSql(string $tableName): string
     {
         /*
          * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731
@@ -163,6 +152,17 @@ class SqlFirebird extends SqlHelper
          * from information_schema.KEY_COLUMN_USAGE
          * where TABLE_NAME = 'table to be checked';
          */
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
+    public function getViewsSql(): string
+    {
+        // http://www.firebirdfaq.org/faq174/
+        return 'select rdb$relation_name from rdb$relations where rdb$view_blr is not null and (rdb$system_flag is null or rdb$system_flag = 0);';
     }
     /**
      *

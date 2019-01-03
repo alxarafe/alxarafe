@@ -116,6 +116,7 @@ abstract class Table
             default:
                 Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params);
         }
+        return '';
     }
 
     /**

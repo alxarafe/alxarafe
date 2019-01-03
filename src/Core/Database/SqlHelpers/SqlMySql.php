@@ -7,6 +7,7 @@ namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 
 /**
  * Personalization of SQL queries to use MySQL.
@@ -20,7 +21,7 @@ class SqlMySql extends SqlHelper
     public function __construct()
     {
         $this->tableQuote = '`';
-        $this->fieldQuote = '`';
+        $this->fieldQuote = '"';
     }
 
     /**
@@ -100,16 +101,26 @@ class SqlMySql extends SqlHelper
         switch ($type['type']) {
             // Integers
             case 'int':
+            case 'tinyint':
                 $result['type'] = 'integer';
                 break;
             // String
             case 'varchar':
                 $result['type'] = 'string';
                 break;
+            case 'double':
+                $result['type'] = 'float';
+                break;
+            case 'date':
+                $result['type'] = 'date';
+                break;
+            case 'datetime':
+                $result['type'] = 'datetime';
+                break;
             default:
                 // Others
                 $result['type'] = $type['type'];
-                Debug::addMessage('Deprecated', "Correct the data type '$type' in MySql database");
+                Debug::addMessage('Deprecated', 'Correct the data type ' . $type['type'] . ' in MySql database');
         }
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
@@ -127,7 +138,7 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function getIndexes(string $tableName): string
+    public function getIndexesSql(string $tableName): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
@@ -141,8 +152,17 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function getConstraints(string $tableName): string
+    public function getConstraintsSql(string $tableName): string
     {
+        return 'SELECT TABLE_NAME,
+       COLUMN_NAME,
+       CONSTRAINT_NAME,
+       REFERENCED_TABLE_NAME,
+       REFERENCED_COLUMN_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_SCHEMA = ' . $this->quoteFieldName(Config::getVar('dbName')) . '
+      AND TABLE_NAME = ' . $this->quoteFieldName($tableName) . '
+      AND REFERENCED_COLUMN_NAME IS NOT NULL;';
         /*
          * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731
          *

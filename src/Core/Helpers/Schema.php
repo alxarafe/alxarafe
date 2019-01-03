@@ -25,24 +25,28 @@ class Schema
      * @var
      */
     static protected $databaseStructure;
+
     /**
      * TODO: Undocummented
      *
      * @var
      */
     static protected $SqlHelper;
+
     /**
      * TODO: Undocummented
      *
      * @var
      */
     protected $model;
+
     /**
      * TODO: Undocummented
      *
      * @var
      */
     protected $tableName;
+
     /**
      * TODO: Undocummented
      *
@@ -101,9 +105,9 @@ class Schema
      *
      * @return array
      */
-    public static function getColumns(string $tableName): array
+    public static function getStructure(string $tableName): array
     {
-        return Config::$dbEngine->getColumns($tableName);
+        return Config::$dbEngine->getStructure($tableName);
     }
 
     /**

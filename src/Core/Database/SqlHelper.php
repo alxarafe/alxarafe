@@ -6,6 +6,7 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 
 /**
  * Engine provides generic support for databases.
@@ -66,7 +67,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    public function quoteTablename(string $tableName): string
+    public function quoteTableName(string $tableName): string
     {
         return $this->tableQuote . $tableName . $this->tableQuote;
     }
@@ -78,7 +79,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    public function quoteFieldname(string $fieldName): string
+    public function quoteFieldName(string $fieldName): string
     {
         return Config::$sqlHelper->fieldQuote . $fieldName . Config::$sqlHelper->fieldQuote;
     }
@@ -150,7 +151,15 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function getIndexes(string $tableName): string;
+    abstract public function getIndexesSql(string $tableName): string;
+
+    public function getIndexes(string $tableName): array
+    {
+        $query = $this->getIndexesSql($tableName);
+        $data = Config::$dbEngine->select($query);
+
+        return $data;
+    }
 
     /**
      * TODO: Undocumented
@@ -159,5 +168,13 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function getConstraints(string $tableName): string;
+    abstract public function getConstraintsSql(string $tableName): string;
+
+    public function getConstraints(string $tableName): array
+    {
+        $query = $this->getConstraintsSql($tableName);
+        $data = Config::$dbEngine->select($query);
+
+        return $data;
+    }
 }
