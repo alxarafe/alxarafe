@@ -5,8 +5,11 @@
  */
 namespace Alxarafe\Helpers;
 
-use Symfony\Component\Yaml\Yaml;
 use Alxarafe\Controllers\EditConfig;
+use Alxarafe\Database\Engine;
+use Alxarafe\Database\SqlHelper;
+use Exception;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * All variables and global functions are centralized through the static class Config.
@@ -36,14 +39,14 @@ class Config
     /**
      * Contains the instance to the database engine (or null)
      * 
-     * @var Engine|null
+     * @var Engine
      */
     static $dbEngine;
 
     /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
-     * @var sqlHelper|null
+     * @var sqlHelper
      */
     static $sqlHelper;
 
@@ -62,7 +65,17 @@ class Config
      * @var Auth
      */
     static $user;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     static $username;
+    /**
+     * TODO: Undocummented
+     *
+     * @var
+     */
     static $configFilename;
 
     /**
@@ -77,7 +90,7 @@ class Config
     public static function getConfigFileName()// : ?string - NetBeans only supports up to php7.0, for this you need php7.1
     {
         if (isset(self::$configFilename)) {
-            return $self::$configFilename;
+            return self::$configFilename;
         }
         $filename = CONFIGURATION_PATH . '/config.yaml';
         if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {
@@ -86,11 +99,21 @@ class Config
         return null;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return bool
+     */
     public static function configFileExists(): bool
     {
         return (file_exists(self::getConfigFileName()));
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public static function loadConfigurationFile(): array
     {
         $filename = self::getConfigFileName();
@@ -106,6 +129,9 @@ class Config
         return null;
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public static function loadViewsConfig()
     {
         Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
@@ -114,6 +140,9 @@ class Config
         Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? BASE_PATH . Skin::COMMON_FOLDER);
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public static function loadConfig()
     {
         self::$global = self::loadConfigurationFile();
@@ -132,7 +161,7 @@ class Config
             (new EditConfig())->run();
             die;
         }
-        if (self::$user == null) {
+        if (self::$user === null) {
             self::$user = new Auth();
             self::$username = self::$user->getUser();
             if (self::$username == null) {
@@ -157,11 +186,21 @@ class Config
         return file_put_contents($configFile, YAML::dump(self::$global)) !== FALSE;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $error
+     */
     public static function setError(string $error)
     {
         self::$errors[] = $error;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public static function getErrors()
     {
         $errors = self::$errors;
@@ -197,6 +236,8 @@ class Config
      * database connection and assigns it to Config::$dbEngine.
      *
      * @return bool
+     *
+     * @throws \DebugBar\DebugBarException
      */
     public static function connectToDatabase(): bool
     {

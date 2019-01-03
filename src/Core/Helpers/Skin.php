@@ -5,14 +5,25 @@
  */
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Base\View;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
-use Alxarafe\Base\View;
 
+/**
+ * Class Skin
+ *
+ * @package Alxarafe\Helpers
+ */
 class Skin
 {
 
+    /**
+     * TODO: Undocummented
+     */
     const SKINS_FOLDER = "/views/templates";
+    /**
+     * TODO: Undocummented
+     */
     const COMMON_FOLDER = "/views/common";
 
     /**
@@ -85,11 +96,21 @@ class Skin
         }
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return bool
+     */
     public static function hasTemplate(): bool
     {
         return (self::$currentTemplate != null);
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public static function getSkins(): array
     {
         $path = BASE_PATH . self::SKINS_FOLDER;
@@ -107,6 +128,13 @@ class Skin
         return $ret;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param $skin
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public static function setSkin($skin)
     {
         if ($skin != self::$currentSkin) {
@@ -116,6 +144,13 @@ class Skin
         Debug::addMessage('messages', "Setting '$skin' skin");
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param $template
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public static function setTemplate($template)
     {
         self::$currentTemplate = $template;
@@ -132,6 +167,11 @@ class Skin
         return (self::$templatesFolder != null);
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
     public static function getTemplatesFolder(): string
     {
         return self::$templatesFolder;
@@ -148,21 +188,43 @@ class Skin
         Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
     public static function getTemplatesEngine(): string
     {
         return self::$templatesEngine;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param $engine
+     */
     public static function setTemplatesEngine($engine)
     {
         self::$templatesEngine = $engine;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
     public static function getCommonTemplatesFolder(): string
     {
         return self::$commonTemplatesFolder;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $templatesFolder
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public static function setCommonTemplatesFolder(string $templatesFolder)
     {
         Debug::addMessage('messages', "Setting '$templatesFolder' common templates folder");
@@ -170,7 +232,7 @@ class Skin
     }
 
     /**
-     * TODO:
+     * TODO: Undocumented
      *
      * @param array $vars
      *
@@ -191,7 +253,7 @@ class Skin
     }
 
     /**
-     * TODO:
+     * TODO: Undocumented
      *
      * @param array $vars
      *

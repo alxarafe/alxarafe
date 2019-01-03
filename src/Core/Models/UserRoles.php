@@ -8,20 +8,28 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * TODO:
+ * TODO: Undocumented
  *
  * Link each user with the assigned roles.
  *
  * @package Alxarafe\Models
  */
-class UserRoles extends Alxarafe\Base\Table
+class UserRoles extends Table
 {
 
+    /**
+     * UserRoles constructor.
+     */
     public function __construct()
     {
         parent::__construct('user_roles', ['create' => true]);
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getFields()
     {
         return [
@@ -34,6 +42,11 @@ class UserRoles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getKeys()
     {
         return [
@@ -43,6 +56,11 @@ class UserRoles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getDefaultValues()
     {
         return [

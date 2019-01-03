@@ -13,68 +13,125 @@ use Alxarafe\Database\SqlHelper;
 class SqlFirebird extends SqlHelper
 {
 
+    /**
+     * SqlFirebird constructor.
+     */
     public function __construct()
     {
         $this->tableQuote = '\'';
         $this->fieldQuote = '';
     }
 
-    public function quoteTablename(string $tablename): string
+    /**
+     * Returns the name of the table in quotes.
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function quoteTablename(string $tableName): string
     {
-        return strtoupper(parent::quoteTablename($tablename));
+        return strtoupper(parent::quoteTablename($tableName));
     }
 
-    public function quoteFieldname(string $fieldname): string
+    /**
+     * Returns the name of the field in quotes.
+     *
+     * @param string $fieldName
+     *
+     * @return string
+     */
+    public function quoteFieldname(string $fieldName): string
     {
-        return strtoupper(parent::quoteFieldname($tablename));
+        return strtoupper(parent::quoteFieldname($fieldName));
     }
 
-    public function getTables(): string
+    /**
+     * Returns an array with the name of all the tables in the database.
+     *
+     * @return array
+     */
+    public function getTables(): array
     {
         // http://www.firebirdfaq.org/faq174/
-        return 'select rdb$relation_name from rdb$relations where rdb$view_blr is null and (rdb$system_flag is null or rdb$system_flag = 0);';
+        $query = 'select rdb$relation_name from rdb$relations where rdb$view_blr is null and (rdb$system_flag is null or rdb$system_flag = 0);';
+        return $this->flatArray(Config::$dbEngine->select($query));
     }
 
+    /**
+     * Returns an array with all the columns of a table
+     *
+     * TODO: Review the types. The variants will depend on type + length.
+     *
+     * 'name_of_the_field' => {
+     *  (Requiered)
+     *      'type' => (string/integer/float/decimal/boolean/date/datetime/text/blob)
+     *      'length' => It is the number of characters that the field needs
+     *  (Optional)
+     *      'default' => Default value
+     *      'nullable' => True if it can be null
+     *      'primary' => True if it is the primary key
+     *      'autoincrement' => True if it is an autoincremental number
+     *      'zerofilled' => True if it completes zeros on the left
+     * }
+     *
+     * @param string $tableName
+     *
+     * @return array
+     */
+    public function getColumns(string $tableName): array
+    {
+        return 'SELECT
+            b.RDB$FIELD_NAME as Field,
+            d.RDB$TYPE_NAME as Type,
+            c.RDB$FIELD_LENGTH as Length,
+            b.RDB$DEFAULT_SOURCE AS DefaultSource,
+            b.RDB$DEFAULT_VALUE AS What,
+            b.RDB$NULL_FLAG AS NullValue
+        FROM RDB$RELATIONS a
+        INNER JOIN RDB$RELATION_FIELDS b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
+        INNER JOIN RDB$FIELDS c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
+        INNER JOIN RDB$TYPES d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
+        WHERE
+            a.RDB$SYSTEM_FLAG = 0 AND
+            d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
+            b.RDB$RELATION_NAME=' . $this->quoteTableName($tableName) . '
+        ORDER BY b.RDB$FIELD_POSITION;'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
     public function getViews(): string
     {
         // http://www.firebirdfaq.org/faq174/
         return 'select rdb$relation_name from rdb$relations where rdb$view_blr is not null and (rdb$system_flag is null or rdb$system_flag = 0);';
     }
 
-    public function getColumns(string $tablename): string
-    {
-
-
-        return '
-SELECT
-	b.RDB$FIELD_NAME as Field,
-	d.RDB$TYPE_NAME as Type,
-	c.RDB$FIELD_LENGTH as Length,
-	b.RDB$DEFAULT_SOURCE AS DefaultSource,
-	b.RDB$DEFAULT_VALUE AS What,
-	b.RDB$NULL_FLAG AS NullValue
-FROM RDB$RELATIONS a
-INNER JOIN RDB$RELATION_FIELDS b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
-INNER JOIN RDB$FIELDS c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
-INNER JOIN RDB$TYPES d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
-WHERE
-	a.RDB$SYSTEM_FLAG = 0 AND
-	d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
-	b.RDB$RELATION_NAME=' . $this->quoteTablename($tablename) . '
-ORDER BY b.RDB$FIELD_POSITION;
-'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
-
-        return 'select rdb$field_name from rdb$relation_fields where rdb$relation_name=' . $this->quoteTablename($tablename) . ';';
-    }
-
-    public function getIndexes(string $tablename): string
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function getIndexes(string $tableName): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tablaname);
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
     }
 
-    public function getConstraints(string $tablename): string
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function getConstraints(string $tableName): string
     {
         /*
          * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731

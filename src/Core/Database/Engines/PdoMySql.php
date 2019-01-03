@@ -42,6 +42,13 @@ class PdoMySql extends Engine
         return $ret;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param $originalType
+     *
+     * @return array
+     */
     private static function splitType($originalType): array
     {
         $explode = explode(' ', strtolower($originalType));
@@ -68,6 +75,14 @@ class PdoMySql extends Engine
         return array('type' => $type, 'length' => $length, 'extra' => trim($extraType));
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param array $columns
+     *
+     * @return array
+     * @throws \DebugBar\DebugBarException
+     */
     public static function normalizeColumns(array $columns): array
     {
         $res = [];

@@ -5,15 +5,27 @@
  */
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\EditConfig;
 
+/**
+ * Class Dispatcher
+ *
+ * @package Alxarafe\Helpers
+ */
 class Dispatcher
 {
 
+    /**
+     * TODO: Undocumented
+     *
+     * @var array
+     */
     public $searchDir;
 
+    /**
+     * Dispatcher constructor.
+     */
     public function __construct()
     {
         $this->getConfiguration();
@@ -22,6 +34,9 @@ class Dispatcher
         $this->searchDir = [BASE_PATH, BASE_PATH . '/' . ALXARAFE_FOLDER];
     }
 
+    /**
+     * TODO: Undocummented
+     */
     private function getConfiguration()
     {
         $this->defineConstants();
@@ -80,7 +95,16 @@ class Dispatcher
         define('DEFAULT_INTEGER_SIZE', 10);
     }
 
-    function processFolder($path, $call, $method)
+    /**
+     * TODO: Undocumented
+     *
+     * @param $path
+     * @param $call
+     * @param $method
+     *
+     * @return mixed
+     */
+    public function processFolder($path, $call, $method)
     {
         $_className = 'Alxarafe\\Controllers\\' . $call;
         if (class_exists($_className)) {
@@ -98,7 +122,12 @@ class Dispatcher
         }
     }
 
-    function process()
+    /**
+     * TODO: Undocumented
+     *
+     * @return bool
+     */
+    public function process()
     {
         foreach ($this->searchDir as $dir) {
             $path = $dir . '/Controllers';
@@ -111,7 +140,13 @@ class Dispatcher
         return false;
     }
 
-    function run()
+    /**
+     * @throws \DebugBar\DebugBarException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function run()
     {
         if (!$this->process()) {
             $view = new View();

@@ -24,7 +24,7 @@ class Users extends Table
     }
 
     /**
-     * TODO
+     * TODO: Undocumented
      */
     public function getFields()
     {
@@ -60,6 +60,11 @@ class Users extends Table
         ];
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getKeys()
     {
         return [
@@ -69,6 +74,11 @@ class Users extends Table
         ];
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getDefaultValues()
     {
         return [

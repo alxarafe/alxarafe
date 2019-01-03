@@ -6,14 +6,29 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Helpers\Skin;
 
+/**
+ * Class View
+ *
+ * @package Alxarafe\Base
+ */
 class View
 {
 
+    /**
+     * TODO: Undocumented
+     *
+     * @var array
+     */
     private $vars;
 
+    /**
+     * View constructor.
+     *
+     * @param mixed $controller
+     */
     public function __construct($controller = null)
     {
         $this->vars = [];
@@ -47,41 +62,60 @@ class View
             // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
                 Debug::addMessage('messages', "Using skin resource $path");
-                return $path;
+                return Skin::getTemplatesUri() . $absPath;
             }
             $path = Skin::getCommonTemplatesFolder() . $absPath;
             // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
                 Debug::addMessage('messages', "Using common resource $path");
-                return $path;
+                return Skin::getCommonTemplatesUri() . $absPath;
             }
             $path = DEFAULT_TEMPLATES_FOLDER . $absPath;
             // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
                 Debug::addMessage('messages', "Using default resource $path");
-                return $path;
+                return DEFAULT_TEMPLATES_URI . $absPath;
             }
             $path = VENDOR_FOLDER . $absPath;
             // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
                 Debug::addMessage('messages', "Using package resource $path");
-                return $path;
+                return VENDOR_URI . $absPath;
             }
         }
         Debug::addMessage('messages', "Using absolute resource $absPath");
         return $absPath;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param $name
+     * @param $value
+     */
     public function setVar($name, $value)
     {
         $this->vars[$name] = $value;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param $name
+     * @param $value
+     */
     public function addToVar($name, $value)
     {
         $this->vars[$name][] = $value;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param $name
+     *
+     * @return array|bool
+     */
     public function getVar($name)
     {
         return isset($this->vars[$name]) ?? [];
@@ -110,21 +144,47 @@ class View
         $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getErrors()
     {
         return Config::getErrors();
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
     public function getHeader()
     {
         return Debug::getRenderHeader();
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
     public function getFooter()
     {
         return Debug::getRenderFooter();
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param array $data
+     *
+     * @return bool
+     * @throws \DebugBar\DebugBarException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function run(array $data = [])
     {
         if (!Skin::hasTemplate()) {

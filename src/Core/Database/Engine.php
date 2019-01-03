@@ -5,11 +5,11 @@
  */
 namespace Alxarafe\Database;
 
-use PDO;
-use PDOException;
-use DebugBar\DataCollector\PDO as PDODataCollector;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
+use DebugBar\DataCollector\PDO as PDODataCollector;
+use PDO;
+use PDOException;
 
 /**
  * Engine provides generic support for databases.
@@ -43,7 +43,7 @@ abstract class Engine
      * Represents a prepared statement and, after the statement is executed, 
      * an associated result set.
      *
-     * @var \PDOStatement
+     * @var \PDOStatement|false
      */
     static protected $statement;
 
@@ -94,6 +94,11 @@ abstract class Engine
         return '';
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public static function getEngines(): array
     {
         $path = BASE_PATH . '/' . ALXARAFE_FOLDER . '/Database/Engines';
@@ -108,6 +113,11 @@ abstract class Engine
         return $ret;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return bool
+     */
     public function checkConnection()
     {
         return (self::$dbHandler != Null);
@@ -117,6 +127,8 @@ abstract class Engine
      * Establish a connection to the database.
      * If a connection already exists, it returns it. It does not establish a new one.
      * Returns true in case of success, assigning the handler to self::$dbHandler.
+     *
+     * @param array $config
      *
      * @return bool
      * @throws \DebugBar\DebugBarException
@@ -160,9 +172,11 @@ abstract class Engine
     /**
      * Executes a prepared statement
      * http://php.net/manual/en/pdostatement.execute.php
-     * 
+     *
      * @param array $inputParameters
+     *
      * @return bool
+     * @throws \DebugBar\DebugBarException
      */
     final public function execute(array $inputParameters = []): bool
     {
@@ -171,7 +185,7 @@ abstract class Engine
             return self::exec($inputParameters);
         }
 
-        if (!isset(self::$statement)) {
+        if (!isset(self::$statement) || !self::$statement) {
             return false;
         }
         return self::$statement->execute($inputParameters);
@@ -179,8 +193,9 @@ abstract class Engine
 
     /**
      * Returns an array containing all of the result set rows
-     * 
-     * @return type
+     *
+     * @return array
+     * @throws \DebugBar\DebugBarException
      */
     final public function _resultSet(): array
     {
@@ -190,15 +205,17 @@ abstract class Engine
 
     /**
      * Execute SQL statements on the database (INSERT, UPDATE or DELETE).
-     * 
+     *
      * @param string $query
+     *
      * @return bool
+     * @throws \DebugBar\DebugBarException
      */
     final public static function exec(string $query): bool
     {
         Debug::addMessage('SQL', 'PDO exec: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement != null) {
+        if (self::$statement != null && self::$statement) {
             return self::$statement->execute([]);
         }
         return false;
@@ -207,25 +224,41 @@ abstract class Engine
     /**
      * Executes a SELECT SQL statement on the database, returning the result in an array.
      * In case of failure, return NULL. If there is no data, return an empty array.
-     * 
+     *
      * @param string $query
+     *
      * @return array
+     * @throws \DebugBar\DebugBarException
      */
     public static function select(string $query): array
     {
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement != null && self::$statement->execute([])) {
+        if (self::$statement != null && self::$statement && self::$statement->execute([])) {
             return $result = self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return null;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param array $columns
+     *
+     * @return array
+     */
     abstract public static function normalizeColumns(array $columns): array;
 
-    public static function getColumns($tablename)
+    /**
+     * TODO: Undocumented
+     *
+     * @param $tableName
+     *
+     * @return mixed
+     */
+    public static function getColumns($tableName)
     {
-        $query = Config::$sqlHelper->getColumns($tablename);
+        $query = Config::$sqlHelper->getColumns($tableName);
         $columns = Config::$dbEngine->select($query);
         $columns = Config::$dbEngine->normalizeColumns($columns);
         return $columns;
@@ -240,6 +273,7 @@ abstract class Engine
      * source: https://www.ibm.com/support/knowledgecenter/es/SSEPGG_9.1.0/com.ibm.db2.udb.apdv.php.doc/doc/t0023166.htm
      *
      * @return bool
+     * @throws \DebugBar\DebugBarException
      */
     final public function beginTransaction(): bool
     {
@@ -260,6 +294,7 @@ abstract class Engine
      * Commit current transaction
      *
      * @return bool
+     * @throws \DebugBar\DebugBarException
      */
     final public function commit()
     {
@@ -280,8 +315,8 @@ abstract class Engine
     /**
      * Rollback current transaction,
      *
-     * @throws PDOException if there is no transaction started
      * @return bool
+     * @throws \DebugBar\DebugBarException|PDOException if there is no transaction started
      */
     final public function rollBack()
     {

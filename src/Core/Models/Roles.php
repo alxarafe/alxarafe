@@ -8,21 +8,29 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * TODO:
+ * TODO: Undocumented
  *
  * Define the roles available in the application. By default, the administrator
  * and the user are defined.
  *
  * @package Alxarafe\Models
  */
-class Roles extends Alxarafe\Base\Table
+class Roles extends Table
 {
 
+    /**
+     * Roles constructor.
+     */
     public function __construct()
     {
         parent::__construct('roles', ['create' => true]);
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getFields()
     {
         return [
@@ -45,6 +53,11 @@ class Roles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getKeys()
     {
         return [
@@ -54,6 +67,11 @@ class Roles extends Alxarafe\Base\Table
         ];
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getDefaultValues()
     {
         return [

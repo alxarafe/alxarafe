@@ -6,6 +6,7 @@
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Helpers\Config;
 
 /**
  * Personalization of SQL queries to use MySQL.
@@ -13,26 +14,48 @@ use Alxarafe\Database\SqlHelper;
 class SqlMySql extends SqlHelper
 {
 
+    /**
+     * SqlMySql constructor.
+     */
     public function __construct()
     {
         $this->tableQuote = '`';
         $this->fieldQuote = '`';
     }
-    public function getTables(): string
+
+    /**
+     * Returns an array with the name of all the tables in the database.
+     *
+     * @return array
+     */
+    public function getTables(): array
     {
-        // Config::$global['dbName']
-        //return Config::$dbEngine->select('SHOW COLUMNS FROM '.self::quoteTablename($tablaname));
-        return 'SHOW TABLES';
+        $query = 'SHOW TABLES';
+        return $this->flatArray(Config::$dbEngine->select($query));
     }
 
-    public function getIndexes(string $tablename): string
-    {
-        // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
-
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTablename($tablaname);
-    }
-
-    public function getColumns(string $tablename): string
+    /**
+     * Returns an array with all the columns of a table
+     *
+     * TODO: Review the types. The variants will depend on type + length.
+     *
+     * 'name_of_the_field' => {
+     *  (Requiered)
+     *      'type' => (string/integer/float/decimal/boolean/date/datetime/text/blob)
+     *      'length' => It is the number of characters that the field needs
+     *  (Optional)
+     *      'default' => Default value
+     *      'nullable' => True if it can be null
+     *      'primary' => True if it is the primary key
+     *      'autoincrement' => True if it is an autoincremental number
+     *      'zerofilled' => True if it completes zeros on the left
+     * }
+     *
+     * @param string $tableName
+     *
+     * @return array
+     */
+    public function getColumns(string $tableName): array
     {
         /**
          * array (size=6)
@@ -43,10 +66,31 @@ class SqlMySql extends SqlHelper
          * 'Default' => null
          * 'Extra' => string 'auto_increment' (length=14)
          */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTablename($tablename) . ';';
+        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName) . ';';
     }
 
-    public function getConstraints(string $tablename): string
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function getIndexes(string $tableName): string
+    {
+        // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
+
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function getConstraints(string $tableName): string
     {
         /*
          * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731

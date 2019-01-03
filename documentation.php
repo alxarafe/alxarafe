@@ -1,15 +1,14 @@
 <?php
+
 /**
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
 
-/**
- * php sami.phar update documentation.php
- */
+// php sami.phar update documentation.php
 
 use Sami\Parser\Filter\TrueFilter;
-use Sami\RemoteRepository\GitLabRemoteRepository;
+use Sami\RemoteRepository\GitHubRemoteRepository;
 use Sami\Sami;
 use Sami\Version\GitVersionCollection;
 use Symfony\Component\Finder\Finder;
@@ -30,7 +29,7 @@ $sam = new Sami(
         'title' => 'alxarafe',
         'build_dir' => __DIR__ . '/docs/',
         'cache_dir' => __DIR__ . '/cache/docs/',
-        'remote_repository' => new GitLabRemoteRepository('alxarafe/alxarafe', ''),
+        'remote_repository' => new GitHubRemoteRepository('alxarafe/alxarafe', ''),
         'default_opened_level' => 2,
     ]
 );

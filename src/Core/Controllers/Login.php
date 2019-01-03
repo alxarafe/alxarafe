@@ -7,14 +7,20 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Views\Login as LoginView;
 
+/**
+ * Class Login
+ *
+ * @package Alxarafe\Controllers
+ */
 class Login extends Controller
 {
 
+    /**
+     * Login constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -27,12 +33,18 @@ class Login extends Controller
         }
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public function run()
     {
         Skin::setView(new LoginView($this));
         //header('Location: ' . BASE_URI);
     }
 
+    /**
+     * TODO: Undocummented
+     */
     public function off()
     {
         Config::$user->logout();

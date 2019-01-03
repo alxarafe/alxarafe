@@ -6,14 +6,22 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
+use Alxarafe\Database\Engine;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Database\Engine;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class EditConfig
+ *
+ * @package Alxarafe\Controllers
+ */
 class EditConfig extends Controller
 {
 
+    /**
+     * EditConfig constructor.
+     */
     public function __construct()
     {
         Skin::setTemplate('config');
@@ -22,6 +30,7 @@ class EditConfig extends Controller
 
         $vars = Config::configFileExists() ? Config::loadConfigurationFile() : [];
 
+        $this->vars = [];
         $this->vars['dbEngines'] = Engine::getEngines();
         $this->vars['skins'] = Skin::getSkins();
 
@@ -42,8 +51,12 @@ class EditConfig extends Controller
         }
     }
 
-    function save()
+    /**
+     * TODO: Undocummented
+     */
+    public function save()
     {
+        $vars = [];
         $vars['dbEngineName'] = $_POST['dbEngineName'] ?? '';
         $vars['skin'] = $_POST['skin'] ?? '';
         $vars['dbUser'] = $_POST['dbUser'] ?? '';
