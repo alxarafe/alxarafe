@@ -128,7 +128,7 @@ class View
      */
     public function addCSS()
     {
-        $this->addToVar('cssCode', $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/css/bootstrap.min', 'css', false));
+        $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min', 'css'));
         $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
     }
 
@@ -139,8 +139,8 @@ class View
      */
     public function addJS()
     {
-        $this->addToVar('jsCode', $this->addResource(VENDOR_FOLDER . '/components/jquery/jquery.min', 'js', false));
-        $this->addToVar('jsCode', $this->addResource(VENDOR_FOLDER . '/twbs/bootstrap/dist/js/bootstrap.min', 'js', false));
+        $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min', 'js'));
+        $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min', 'js'));
         $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
     }
 

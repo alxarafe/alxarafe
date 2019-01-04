@@ -6,6 +6,7 @@
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Helpers\Config;
 
 /**
@@ -56,7 +57,7 @@ class SqlFirebird extends SqlHelper
     {
         // http://www.firebirdfaq.org/faq174/
         $query = 'select rdb$relation_name from rdb$relations where rdb$view_blr is null and (rdb$system_flag is null or rdb$system_flag = 0);';
-        return $this->flatArray(Config::$dbEngine->select($query));
+        return Utils::flatArray(Config::$dbEngine->select($query));
     }
 
     /**
@@ -121,6 +122,33 @@ class SqlFirebird extends SqlHelper
 
         return $result;
     }
+    /**
+     * uniqueConstraints:
+     *      TC_ARTICULOS_CODIGO_U:
+     *          columns:
+     *              - CODIGOARTICULO
+     * indexes:
+     *      FK_ARTICULO_PORCENTAJEIMPUESTO:
+     *          columns:
+     *              - IDPORCENTAJEIMPUESTO
+     *
+     *
+     *
+     * @param array $row
+     * @return array
+     */
+    public function normalizeIndexes(array $row): array
+    {
+        $result = [];
+        /*
+          $result['table'] = $row['TABLE_NAME'];
+          $result['column'] = $row['COLUMN_NAME'];
+          $result['constraint'] = $row['CONSTRAINT_NAME'];
+          $result['referencedtable'] = $row['REFERENCED_TABLE_NAME'];
+          $result['referencedfield'] = $row['REFERENCED_COLUMN_NAME'];
+         */
+        return $result;
+    }
 
     /**
      * TODO: Undocumented
@@ -135,6 +163,28 @@ class SqlFirebird extends SqlHelper
 
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
     }
+    /**
+     * 'TABLE_NAME' => string 'clientes' (length=8)
+     * 'COLUMN_NAME' => string 'codgrupo' (length=8)
+     * 'CONSTRAINT_NAME' => string 'ca_clientes_grupos' (length=18)
+     * 'REFERENCED_TABLE_NAME' => string 'gruposclientes' (length=14)
+     * 'REFERENCED_COLUMN_NAME' => string 'codgrupo' (length=8)
+     *
+     * ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
+     *
+     * @param array $row
+     * @return array
+     */
+    public function normalizeConstraints(array $row): array
+    {
+        $result = [];
+        $result['table'] = $row['TABLE_NAME'];
+        $result['column'] = $row['COLUMN_NAME'];
+        $result['constraint'] = $row['CONSTRAINT_NAME'];
+        $result['referencedtable'] = $row['REFERENCED_TABLE_NAME'];
+        $result['referencedfield'] = $row['REFERENCED_COLUMN_NAME'];
+        return $result;
+    }
 
     /**
      * TODO: Undocumented
@@ -143,16 +193,18 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function getConstraintsSql(string $tableName): string
-    {
-        /*
-         * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731
-         *
-         * select COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME
-         * from information_schema.KEY_COLUMN_USAGE
-         * where TABLE_NAME = 'table to be checked';
-         */
-    }
+    /*
+      public function getConstraintsSql(string $tableName): string
+      {
+      /*
+     * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731
+     *
+     * select COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME
+     * from information_schema.KEY_COLUMN_USAGE
+     * where TABLE_NAME = 'table to be checked';
+     * /
+      }
+     */
 
     /**
      * TODO: Undocumented

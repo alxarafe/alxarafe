@@ -102,7 +102,6 @@ abstract class Engine
     public static function getEngines(): array
     {
         $path = ALXARAFE_FOLDER . '/Database/Engines';
-        echo "<p>path: $path</p>";
         $engines = scandir($path);
         $ret = [];
         foreach ($engines as $engine) {
@@ -252,7 +251,7 @@ abstract class Engine
         return [
             'fields' => Config::$sqlHelper->getColumns($tableName),
             'indexes' => Config::$sqlHelper->getIndexes($tableName),
-            'constraints' => Config::$sqlHelper->getConstraints($tableName),
+            // 'constraints' => Config::$sqlHelper->getConstraints($tableName),
             // 'values' => Config::$sqlHelper->getValues($tableName)
         ];
     }

@@ -21,6 +21,7 @@ class Skin
      * TODO: Undocummented
      */
     const SKINS_FOLDER = "/views/templates";
+
     /**
      * TODO: Undocummented
      */
@@ -174,7 +175,17 @@ class Skin
      */
     public static function getTemplatesFolder(): string
     {
-        return self::$templatesFolder;
+        return BASE_PATH . self::$templatesFolder;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
+    public static function getTemplatesUri(): string
+    {
+        return BASE_URI . self::$templatesFolder;
     }
 
     /**
@@ -184,7 +195,7 @@ class Skin
      */
     public static function setTemplatesFolder(string $template)
     {
-        self::$templatesFolder = BASE_PATH . self::SKINS_FOLDER . ('/' . trim($template, '/'));
+        self::$templatesFolder = self::SKINS_FOLDER . ('/' . trim($template, '/'));
         Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
 
@@ -215,7 +226,17 @@ class Skin
      */
     public static function getCommonTemplatesFolder(): string
     {
-        return self::$commonTemplatesFolder;
+        return BASE_PATH . self::$commonTemplatesFolder;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
+    public static function getCommonTemplatesUri(): string
+    {
+        return BASE_URI . self::$commonTemplatesFolder;
     }
 
     /**
@@ -276,20 +297,16 @@ class Skin
                     'GLOBALS' => $GLOBALS,
                 ]);
 
-                $paths = [
-                    self::$templatesFolder,
-                    Config::getVar('commonTemplatesFolder') ?? BASE_PATH . self::COMMON_FOLDER,
-                    DEFAULT_TEMPLATES_FOLDER,
-                ];
-
-                Debug::addMessage('messages', 'Searching:' . print_r($paths, true));
-
                 // Only use really existing path
                 $usePath = [];
-                foreach ($paths as $path) {
-                    if (file_exists($path)) {
-                        $usePath[] = $path;
-                    }
+                if (file_exists(self::getTemplatesFolder())) {
+                    $usePath[] = self::getTemplatesFolder();
+                }
+                if (file_exists(self::getCommonTemplatesFolder())) {
+                    $usePath[] = self::getCommonTemplatesFolder();
+                }
+                if (file_exists(DEFAULT_TEMPLATES_FOLDER)) {
+                    $usePath[] = DEFAULT_TEMPLATES_FOLDER;
                 }
 
                 Debug::addMessage('messages', 'Using:' . print_r($usePath, true));

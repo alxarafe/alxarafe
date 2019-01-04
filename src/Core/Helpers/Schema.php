@@ -6,6 +6,7 @@
 namespace Alxarafe\Helpers;
 
 use Symfony\Component\Yaml\Yaml;
+use Alxarafe\Helpers\Utils;
 
 /**
  * The Schema class contains static methods that allow you to manipulate the
@@ -64,10 +65,10 @@ class Schema
             mkdir($folder);
         }
         if (is_dir($folder)) {
-            $tables = self::getTables();
+            $tables = Config::$sqlHelper->getTables();
             foreach ($tables as $table) {
                 $filename = $folder . '/' . $table . '.yaml';
-                $data = self::getColumns($table);
+                $data = Config::$dbEngine->getStructure($table);
                 file_put_contents($filename, YAML::dump($data));
             }
         }
@@ -95,7 +96,7 @@ class Schema
     public static function getTables(): array
     {
         $query = Config::$sqlHelper->getTables();
-        return self::flatArray(Config::$dbEngine->select($query));
+        return Utils::flatArray(Config::$dbEngine->select($query));
     }
 
     /**

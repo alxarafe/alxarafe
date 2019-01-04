@@ -30,34 +30,21 @@ abstract class SqlHelper
     protected $fieldQuote;
 
     /**
+     * It contains an associative array in which each index is a type of virtual
+     * field, and its content is each of the types it represents.
+     *
+     * @var array
+     */
+    protected $fieldTypes;
+
+    /**
      * SqlHelper constructor.
      */
     public function __construct()
     {
         $this->tableQuote = '';
         $this->fieldQuote = '';
-    }
-
-    /**
-     * Flatten an array to leave it at a single level.
-     * Ignore the value of the indexes of the array, taking only the values.
-     * Remove spaces from the result and convert it to lowercase.
-     *
-     * @param array $array
-     * @return array
-     */
-    static protected function flatArray(array $array): array
-    {
-        $ret = [];
-        foreach ($array as $value) {
-            if (is_array($value)) {
-                // We expect that the indexes will not overlap
-                $ret = array_merge($ret, self::flatArray($value));
-            } else {
-                $ret[] = strtolower(trim($value));
-            }
-        }
-        return $ret;
+        $this->fieldTypes = [];
     }
 
     /**
@@ -110,6 +97,10 @@ abstract class SqlHelper
      */
     abstract public function normalizeFields(array $fields): array;
 
+    abstract public function normalizeIndexes(array $fields): array;
+
+    //abstract public function normalizeConstraints(array $fields): array;
+
     /**
      * Returns an array with all the columns of a table
      *
@@ -157,8 +148,13 @@ abstract class SqlHelper
     {
         $query = $this->getIndexesSql($tableName);
         $data = Config::$dbEngine->select($query);
+        $result = [];
+        foreach ($data as $value) {
+            $row = $this->normalizeIndexes($value);
+            $result[$row['index']] = $row;
+        }
 
-        return $data;
+        return $result;
     }
 
     /**
@@ -168,13 +164,20 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function getConstraintsSql(string $tableName): string;
+    /*
+      abstract public function getConstraintsSql(string $tableName): string;
 
-    public function getConstraints(string $tableName): array
-    {
-        $query = $this->getConstraintsSql($tableName);
-        $data = Config::$dbEngine->select($query);
+      public function getConstraints(string $tableName): array
+      {
+      $query = $this->getConstraintsSql($tableName);
+      $data = Config::$dbEngine->select($query);
+      $result = [];
+      foreach ($data as $value) {
+      $row = $this->normalizeConstraints($value);
+      $result[$row['constraint']] = $row;
+      }
 
-        return $data;
-    }
+      return $result;
+      }
+     */
 }

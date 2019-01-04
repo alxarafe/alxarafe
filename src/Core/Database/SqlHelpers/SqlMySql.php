@@ -6,6 +6,7 @@
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 
@@ -22,6 +23,13 @@ class SqlMySql extends SqlHelper
     {
         $this->tableQuote = '`';
         $this->fieldQuote = '"';
+        $this->fieldTypes = [
+            'integer' => ['int', 'tinyint'],
+            'string' => ['varchar'],
+            'float' => ['real', 'double'],
+            'date' => ['date'],
+            'datetime' => ['datetime'],
+        ];
     }
 
     /**
@@ -32,7 +40,7 @@ class SqlMySql extends SqlHelper
     public function getTables(): array
     {
         $query = 'SHOW TABLES';
-        return $this->flatArray(Config::$dbEngine->select($query));
+        return Utils::flatArray(Config::$dbEngine->select($query));
     }
 
     /**
@@ -98,29 +106,24 @@ class SqlMySql extends SqlHelper
         $result = [];
         $result['field'] = $row['Field'];
         $type = $this->splitType($row['Type']);
-        switch ($type['type']) {
-            // Integers
-            case 'int':
-            case 'tinyint':
-                $result['type'] = 'integer';
+
+        /**
+         * I thought that this would work
+         * 
+         * $virtualType = array_search($type['type'], $this->fieldTypes);
+         */
+        $virtualType = $type['type'];
+        foreach ($this->fieldTypes as $key => $values) {
+            if (in_array($type['type'], $values)) {
+                $virtualType = $key;
                 break;
-            // String
-            case 'varchar':
-                $result['type'] = 'string';
-                break;
-            case 'double':
-                $result['type'] = 'float';
-                break;
-            case 'date':
-                $result['type'] = 'date';
-                break;
-            case 'datetime':
-                $result['type'] = 'datetime';
-                break;
-            default:
-                // Others
-                $result['type'] = $type['type'];
-                Debug::addMessage('Deprecated', 'Correct the data type ' . $type['type'] . ' in MySql database');
+            }
+        }
+
+        $result['type'] = $virtualType;
+        if ($virtualType === false) {
+            $result['type'] = $type['type'];
+            Debug::addMessage('Deprecated', 'Correct the data type ' . $type['type'] . ' in MySql database');
         }
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
@@ -132,7 +135,90 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * TODO: Undocumented
+     * The data about the constraint that is found in the KEY_COLUMN_USAGE table
+     * is returned.
+     * Attempting to return the consolidated data generates an extremely slow query
+     * in some MySQL installations, so 2 additional simple queries are made.
+     *
+     * @param string $tableName
+     * @param string $constraintName
+     * @return array
+     */
+    private function getConstraintData(string $tableName, string $constraintName): array
+    {
+        return Config::$dbEngine->select('
+SELECT
+	TABLE_NAME,
+	COLUMN_NAME,
+	CONSTRAINT_NAME,
+	REFERENCED_TABLE_NAME,
+	REFERENCED_COLUMN_NAME
+FROM
+	INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE
+	TABLE_SCHEMA = ' . $this->quoteFieldName(Config::getVar('dbName')) . ' AND
+	TABLE_NAME = ' . $this->quoteFieldName($tableName) . ' AND
+	constraint_name = ' . $this->quoteFieldName($constraintName) . ' AND
+	REFERENCED_COLUMN_NAME IS NOT NULL;
+        ');
+    }
+
+    /**
+     * The rules for updating and deleting data with constraint (table
+     * REFERENTIAL_CONSTRAINTS) are returned.
+     * Attempting to return the consolidated data generates an extremely slow query
+     * in some MySQL installations, so 2 additional simple queries are made.
+     *
+     * @param string $tableName
+     * @param string $constraintName
+     * @return array
+     */
+    private function getConstraintRules(string $tableName, string $constraintName): array
+    {
+        return Config::$dbEngine->select('
+SELECT
+	MATCH_OPTION,
+	UPDATE_RULE,
+	DELETE_RULE
+FROM information_schema.REFERENTIAL_CONSTRAINTS
+WHERE
+	constraint_schema = ' . $this->quoteFieldName(Config::getVar('dbName')) . ' AND
+	table_name = ' . $this->quoteFieldName($tableName) . ' AND
+	constraint_name = ' . $this->quoteFieldName($constraintName) . ';
+        ');
+    }
+
+    /**
+     * Returns an array with the index information, and if there are, also constraints.
+     *
+     * @param array $row
+     * @return array
+     */
+    public function normalizeIndexes(array $row): array
+    {
+        $result = [];
+        $result['index'] = $row['Key_name'];
+        $result['column'] = $row['Column_name'];
+        $result['unique'] = $row['Non_unique'] == '0' ? 1 : 0;
+        $result['nullable'] = $row['Null'] == 'YES' ? 1 : 0;
+        $constrait = $this->getConstraintData($row['Table'], $row['Key_name']);
+        if (count($constrait) > 0) {
+            $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
+            $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
+            $result['referencedfield'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
+        }
+        $constrait = $this->getConstraintRules($row['Table'], $row['Key_name']);
+        if (count($constrait) > 0) {
+            $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
+            $result['updaterule'] = $constrait[0]['UPDATE_RULE'];
+            $result['deleterule'] = $constrait[0]['DELETE_RULE'];
+        }
+        return $result;
+    }
+
+    /**
+     * Obtain an array with the basic information about the indexes of the table,
+     * which will be supplemented with the restrictions later.
      *
      * @param string $tableName
      *
@@ -143,32 +229,5 @@ class SqlMySql extends SqlHelper
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @param string $tableName
-     *
-     * @return string
-     */
-    public function getConstraintsSql(string $tableName): string
-    {
-        return 'SELECT TABLE_NAME,
-       COLUMN_NAME,
-       CONSTRAINT_NAME,
-       REFERENCED_TABLE_NAME,
-       REFERENCED_COLUMN_NAME
-FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-WHERE TABLE_SCHEMA = ' . $this->quoteFieldName(Config::getVar('dbName')) . '
-      AND TABLE_NAME = ' . $this->quoteFieldName($tableName) . '
-      AND REFERENCED_COLUMN_NAME IS NOT NULL;';
-        /*
-         * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731
-         *
-         * select COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME
-         * from information_schema.KEY_COLUMN_USAGE
-         * where TABLE_NAME = 'table to be checked';
-         */
     }
 }
