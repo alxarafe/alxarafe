@@ -20,12 +20,12 @@ class Skin
     /**
      * TODO: Undocummented
      */
-    const SKINS_FOLDER = "/views/templates";
+    const SKINS_FOLDER = "/html/templates";
 
     /**
      * TODO: Undocummented
      */
-    const COMMON_FOLDER = "/views/common";
+    const COMMON_FOLDER = "/html/common";
 
     /**
      * It is the name of the template that is being used.
