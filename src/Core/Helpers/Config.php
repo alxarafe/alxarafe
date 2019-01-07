@@ -15,7 +15,7 @@ use Symfony\Component\Yaml\Yaml;
  * All variables and global functions are centralized through the static class Config.
  * The Config class can be instantiated and passed to the class that needs it,
  * sharing the data and methods that are in them.
- * 
+ *
  * @package Alxarafe\Helpers
  */
 class Config
@@ -38,7 +38,7 @@ class Config
 
     /**
      * Contains the instance to the database engine (or null)
-     * 
+     *
      * @var Engine
      */
     static $dbEngine;
@@ -65,12 +65,14 @@ class Config
      * @var Auth
      */
     static $user;
+
     /**
      * TODO: Undocummented
      *
      * @var
      */
     static $username;
+
     /**
      * TODO: Undocummented
      *
@@ -210,7 +212,7 @@ class Config
 
     /**
      * Stores a variable.
-     * 
+     *
      * @param string $name
      * @param string $value
      */

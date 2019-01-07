@@ -396,7 +396,7 @@ abstract class Table
      * @param string $name
      * @return string
      */
-    function getIdByName(string $name): string
+    public function getIdByName(string $name): string
     {
         if ($this->nameField == '') {
             return '';

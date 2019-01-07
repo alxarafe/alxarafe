@@ -90,15 +90,16 @@ class Dispatcher
     }
 
     /**
-     * TODO: Undocumented
+     * Try to locate the $ call class in $ path, and execute the $ method.
+     * Returns true if it locates the class and the method exists,
+     * executing it.
      *
-     * @param $path
-     * @param $call
-     * @param $method
-     *
-     * @return mixed
+     * @param string $path
+     * @param string $call
+     * @param string $method
+     * @return bool
      */
-    public function processFolder($path, $call, $method)
+    public function processFolder(string $path, string $call, string $method): bool
     {
         $_className = 'Alxarafe\\Controllers\\' . $call;
         if (class_exists($_className)) {
@@ -110,14 +111,17 @@ class Dispatcher
         if (file_exists($controllerPath)) {
             require_once $controllerPath;
             if (method_exists($className, $method)) {
-                $controller = new $className();
-                return $controller->{$method}();
+                (new $className())->{$method}();
+                return true;
             }
         }
+        return false;
     }
 
     /**
-     * TODO: Undocumented
+     * Walk the paths specified in $this->searchDir, trying to find the
+     * controller and method to execute.
+     * Returns true if the method is found, and executes it.
      *
      * @return bool
      */
@@ -135,6 +139,8 @@ class Dispatcher
     }
 
     /**
+     * Run the application.
+     *
      * @throws \DebugBar\DebugBarException
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime

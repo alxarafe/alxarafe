@@ -313,7 +313,7 @@ class Skin
 
                 $loader = new Twig_Loader_Filesystem($usePath);
                 // TODO: Would not it be better to use a random constant instead of twig.Twig?
-                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => BASE_PATH . '/tmp/twig.Twig'];
+                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => (BASE_PATH ?? '') . '/tmp/twig.Twig'];
 
                 $twig = new Twig_Environment($loader, $options);
 

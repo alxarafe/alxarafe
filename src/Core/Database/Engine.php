@@ -179,11 +179,6 @@ abstract class Engine
      */
     final public function execute(array $inputParameters = []): bool
     {
-        if (!is_array($inputParameters)) {
-            Debug::addMessage('Deprecated', 'Use exec to execute an SQL command. execute expects an array with a prepared statement.');
-            return self::exec($inputParameters);
-        }
-
         if (!isset(self::$statement) || !self::$statement) {
             return false;
         }
