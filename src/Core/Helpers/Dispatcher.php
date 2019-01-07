@@ -23,6 +23,7 @@ class Dispatcher
      * @var array
      */
     public $searchDir;
+    public $nameSpaces;
 
     /**
      * Dispatcher constructor.
@@ -33,6 +34,7 @@ class Dispatcher
 
         // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
         $this->searchDir = [BASE_PATH, ALXARAFE_FOLDER];
+        $this->nameSpaces = ['Alxarafe'];
     }
 
     /**
@@ -101,11 +103,12 @@ class Dispatcher
      */
     public function processFolder(string $path, string $call, string $method): bool
     {
-        $_className = 'Alxarafe\\Controllers\\' . $call;
-        if (class_exists($_className)) {
-            $className = $_className;
-        } else {
-            $className = $call;
+        $className = $call;
+        foreach ($this->nameSpaces as $nameSpace) {
+            $_className = $nameSpace . '\\Controllers\\' . $call;
+            if (class_exists($_className)) {
+                $className = $_className;
+            }
         }
         $controllerPath = $path . '/' . $call . '.php';
         if (file_exists($controllerPath)) {
