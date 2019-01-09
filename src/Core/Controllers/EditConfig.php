@@ -9,15 +9,19 @@ use Alxarafe\Base\Controller;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\ConfigView;
+use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class EditConfig
+ * Controller for editing database and skin settings
  *
  * @package Alxarafe\Controllers
  */
 class EditConfig extends Controller
 {
 
+    /**
+     * The constructor creates the view
+     */
     public function __construct()
     {
         parent::__construct();
@@ -25,6 +29,12 @@ class EditConfig extends Controller
         Skin::setView(new ConfigView($this));
     }
 
+    /**
+     * Main is invoked if method is not specified.
+     * Check if you have to save changes or just exit
+     *
+     * @return void
+     */
     public function main()
     {
         if (isset($_POST['cancel'])) {
@@ -38,7 +48,9 @@ class EditConfig extends Controller
     }
 
     /**
-     * TODO: Undocummented
+     * Save the form changes in the configuration file
+     *
+     * @return void
      */
     private function save()
     {

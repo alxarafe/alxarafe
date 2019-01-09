@@ -34,18 +34,24 @@ class Login extends Controller
     }
 
     /**
-     * TODO: Undocummented
+     * Main is invoked if method is not specified.
+     * Load the view of the login form, if there is no user identified.
+     *
+     * @return void
      */
     public function main()
     {
-        Skin::setView(new LoginView($this));
-        //header('Location: ' . BASE_URI);
+        if (!isset(Config::$username)) {
+            Skin::setView(new LoginView($this));
+        }
     }
 
     /**
-     * TODO: Undocummented
+     * Close the user session and go to the main page
+     *
+     * @return void
      */
-    public function off()
+    public function logout()
     {
         Config::$user->logout();
         header('Location: ' . BASE_URI);

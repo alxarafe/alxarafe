@@ -18,7 +18,8 @@ class View
 {
 
     /**
-     * TODO: Undocumented
+     * Array that contains the variables that will be passed to the template.
+     * Among others it will contain the user name, the view and the controller.
      *
      * @var array
      */
@@ -105,35 +106,43 @@ class View
     }
 
     /**
-     * TODO: Undocumented
+     * Saves a value in the array that is passed to the template.
      *
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string $value
+     *
+     * @return void
      */
-    public function setVar($name, $value)
+    public function setVar(string $name, string $value)
     {
         $this->vars[$name] = $value;
     }
 
     /**
-     * TODO: Undocumented
+     * Add a new element to a value saved in the array that is passed to the
+     * template.
+     * It is used when what we are saving is an array and we want to add a
+     * new element to that array.
      *
      * @param $name
      * @param $value
+     *
+     * @return void
      */
-    public function addToVar($name, $value)
+    public function addToVar(string $name, string $value)
     {
         $this->vars[$name][] = $value;
     }
 
     /**
-     * TODO: Undocumented
+     * Returns a previously saved value in the array that is passed to the
+     * template.
      *
      * @param $name
      *
-     * @return array|bool
+     * @return array|string:null
      */
-    public function getVar($name)
+    public function getVar(string $name)
     {
         return isset($this->vars[$name]) ?? [];
     }

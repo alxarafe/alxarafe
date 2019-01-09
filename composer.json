@@ -16,8 +16,8 @@
     ],
     "require": {
         "php": "^7.1",
+        "symfony/yaml": "^4.2",
         "monolog/monolog": "^1.24",
-        "symfony/yaml": "^3.2",
         "components/jquery": "v3.*",
         "twbs/bootstrap": "v4.*",
         "maximebf/debugbar": "^1.0",

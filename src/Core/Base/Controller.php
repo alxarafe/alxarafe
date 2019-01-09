@@ -5,9 +5,6 @@
  */
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Skin;
-
 /**
  * Class Controller
  *
@@ -17,40 +14,10 @@ class Controller
 {
 
     /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    public $user;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    public $vars;
-
-    /**
      * Controller constructor.
      */
     public function __construct()
     {
-        if (isset(Config::$user)) {
-            $this->vars['user'] = Config::$user->getUser();
-        }
-
-        /*
-          if (Skin::$view == null) {
-          Skin::$view = new View($this);
-          }
-         */
+        // Nothing to do
     }
-
-    /**
-     * TODO: Undocummented
-    public function _run()
-    {
-        Skin::$view->run($this->vars);
-    }
-     */
 }
