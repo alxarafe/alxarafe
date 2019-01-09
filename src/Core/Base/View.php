@@ -25,18 +25,35 @@ class View
     private $vars;
 
     /**
-     * View constructor.
+     * Load the JS and CSS files and define the ctrl, view and user variables
+     * for the templates.
      *
      * @param mixed $controller
      */
     public function __construct($controller = null)
     {
+        // echo "<p>Constructor de View</p>";
+        // Throw Exception('X');
+
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
         $this->vars['user'] = Config::$username;
         $this->addCSS();
         $this->addJS();
+    }
+
+    /**
+     * Finally render the result.
+     */
+    public function __destruct()
+    {
+        if (!Skin::hasTemplate()) {
+            Skin::setTemplate('default');
+        }
+        $this->vars['errors'] = Config::getErrors();
+
+        echo Skin::render($this->vars);
     }
 
     /**
@@ -145,7 +162,9 @@ class View
     }
 
     /**
-     * TODO: Undocumented
+     * Makes visible Config::getErrors() from templates, using view.getErrors()
+     * Config::getErrors() returns an array with the pending error messages,
+     * and empties the list.
      *
      * @return array
      */
@@ -155,7 +174,8 @@ class View
     }
 
     /**
-     * TODO: Undocumented
+     * Returns the necessary html code in the header of the template, to
+     * display the debug bar.
      *
      * @return string
      */
@@ -165,36 +185,13 @@ class View
     }
 
     /**
-     * TODO: Undocumented
+     * Returns the necessary html code at the footer of the template, to
+     * display the debug bar.
      *
      * @return string
      */
     public function getFooter()
     {
         return Debug::getRenderFooter();
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @param array $data
-     *
-     * @return bool
-     * @throws \DebugBar\DebugBarException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
-    public function run(array $data = [])
-    {
-        if (!Skin::hasTemplate()) {
-            Skin::setTemplate('default');
-        }
-        $this->vars = \array_merge($this->vars, $data);
-        $this->vars['errors'] = Config::getErrors();
-
-        echo Skin::render($this->vars);
-
-        return true;
     }
 }

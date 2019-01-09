@@ -22,6 +22,7 @@ class Controller
      * @var
      */
     public $user;
+
     /**
      * TODO: Undocummented
      *
@@ -38,16 +39,18 @@ class Controller
             $this->vars['user'] = Config::$user->getUser();
         }
 
-        if (Skin::$view == null) {
-            Skin::$view = new View($this);
-        }
+        /*
+          if (Skin::$view == null) {
+          Skin::$view = new View($this);
+          }
+         */
     }
 
     /**
      * TODO: Undocummented
-     */
-    public function run()
+    public function _run()
     {
         Skin::$view->run($this->vars);
     }
+     */
 }

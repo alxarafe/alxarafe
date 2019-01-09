@@ -67,16 +67,16 @@ class Config
     static $user;
 
     /**
-     * TODO: Undocummented
+     * Contains the user's name or null
      *
-     * @var
+     * @var string|null
      */
     static $username;
 
     /**
-     * TODO: Undocummented
+     * Contains the full name of the configuration file or null
      *
-     * @var
+     * @var string::null
      */
     static $configFilename;
 
@@ -96,13 +96,13 @@ class Config
         }
         $filename = CONFIGURATION_PATH . '/config.yaml';
         if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {
-            return $filename;
+            self::$configFilename = $filename;
         }
-        return null;
+        return self::$configFilename;
     }
 
     /**
-     * TODO: Undocumented
+     * Return true y the config file exists
      *
      * @return bool
      */
@@ -112,7 +112,9 @@ class Config
     }
 
     /**
-     * TODO: Undocumented
+     * Returns an array with the configuration defined in the configuration file.
+     * If the configuration file does not exist, take us to the application
+     * configuration form to create it
      *
      * @return array
      */
@@ -120,9 +122,12 @@ class Config
     {
         $filename = self::getConfigFileName();
         if (isset($filename)) {
-            if (!self::configFileExists()) {
-                (new EditConfig())->run();
-            }
+            /*
+              // TODO: Duplicate? It is done in Dispatcher->getConfiguration()
+              if (!self::configFileExists()) {
+              (new EditConfig())->run();
+              }
+             */
             $yaml = file_get_contents($filename);
             if ($yaml) {
                 return YAML::parse($yaml);
@@ -132,7 +137,9 @@ class Config
     }
 
     /**
-     * TODO: Undocummented
+     * Set the display settings.
+     *
+     * @return void
      */
     public static function loadViewsConfig()
     {
@@ -143,7 +150,10 @@ class Config
     }
 
     /**
-     * TODO: Undocummented
+     * Initializes the global variable with the configuration, connects with
+     * the database and authenticates the user.
+     *
+     * @return void
      */
     public static function loadConfig()
     {
@@ -189,7 +199,7 @@ class Config
     }
 
     /**
-     * TODO: Undocumented
+     * Register a new error message
      *
      * @param string $error
      */
@@ -199,7 +209,7 @@ class Config
     }
 
     /**
-     * TODO: Undocumented
+     * Returns an array with the pending error messages, and empties the list.
      *
      * @return array
      */

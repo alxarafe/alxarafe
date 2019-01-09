@@ -33,8 +33,9 @@ class Dispatcher
         $this->getConfiguration();
 
         // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
-        $this->searchDir = [BASE_PATH, ALXARAFE_FOLDER];
-        $this->nameSpaces = ['Alxarafe'];
+        $this->searchDir[] = BASE_PATH;
+        $this->searchDir[] = ALXARAFE_FOLDER;
+        $this->nameSpaces[] = 'Alxarafe';
     }
 
     /**
@@ -44,6 +45,7 @@ class Dispatcher
     private function getConfiguration()
     {
         $this->defineConstants();
+        // First set the display options to be able to show the possible warnings and errors.
         Config::loadViewsConfig();
         $configFile = Config::getConfigFileName();
         if (file_exists($configFile)) {
@@ -92,7 +94,7 @@ class Dispatcher
     }
 
     /**
-     * Try to locate the $ call class in $ path, and execute the $ method.
+     * Try to locate the $call class in $path, and execute the $method.
      * Returns true if it locates the class and the method exists,
      * executing it.
      *
@@ -133,7 +135,7 @@ class Dispatcher
         foreach ($this->searchDir as $dir) {
             $path = $dir . '/Controllers';
             $call = $_GET['call'] ?? 'index';
-            $method = $_GET['run'] ?? 'run';
+            $method = $_GET['run'] ?? 'main';
             if ($this->processFolder($path, $call, $method)) {
                 return true;
             }
@@ -152,8 +154,9 @@ class Dispatcher
     public function run()
     {
         if (!$this->process()) {
-            $view = new View();
-            $view->run();
+            if (Skin::$view == null) {
+                $view = new View();
+            }
         }
     }
 }

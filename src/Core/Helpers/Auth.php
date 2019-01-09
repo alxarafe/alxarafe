@@ -71,7 +71,15 @@ class Auth extends Users
      */
     public function login()
     {
-        (new Login())->run();
+        new Login();
+        /*
+          var_dump($this);
+          var_dump(skin::$view);
+          skin::$view = new \Alxarafe\Views\LoginView($this);
+          // header('Location: ' . BASE_URI . '?call=Login');
+          die;
+         * 
+         */
     }
 
     /**

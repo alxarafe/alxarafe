@@ -103,9 +103,11 @@ abstract class Table
      */
     public function __call(string $method, array $params): string
     {
-        if (method_exists(__CLASS__, $method)) {
-            return $method($params);
-        }
+        /*
+          if (method_exists(__CLASS__, $method)) {
+          return $method($params);
+          }
+         */
         $command = substr($method, 0, 3); // set o get
         $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
         switch ($command) {
@@ -114,9 +116,9 @@ abstract class Table
             case 'get':
                 return $this->newData[$field];
             default:
-                Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params);
+                Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params, true);
+                throw Exception('Program halted!');
         }
-        return '';
     }
 
     /**

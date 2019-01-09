@@ -12,24 +12,24 @@
                 <div class="form-group">
                     <label>Motor de base de datos</label>
                     <select id="dbEngineName" name="dbEngineName" class="form-control">
-                        {% for dbEngine in dbEngines %}
-                            <option {{ post["dbEngineName"]==dbEngine ? "selected":"" }}>{{dbEngine}}</option>
+                        {% for dbEngine in view.dbEngines %}
+                            <option {{ dbEngine==view.dbEngineName ? "selected":"" }}>{{dbEngine}}</option>
                         {% endfor %}
                     </select>
                 </div>
 
-                        {% if skins|length > 0 %}
+                        {% if view.skins|length > 0 %}
                             <div class="form-group">
                                 <label>Plantilla (Skin)</label>
                                 <select id="skin" name="skin" class="form-control">
-                                    {% for skin in skins %}
-                                        <option {{ post["skin"]==skin ? "selected":"" }}>{{skin}}</option>
+                                    {% for skin in view.skins %}
+                                        <option {{ skin==view.skin ? "selected":"" }}>{{skin}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         {% endif %}
 
-                {% for key,var in dbConfig %}
+                {% for key,var in view.dbConfig %}
                     <div class="form-group">
                         <label>{{key}}</label>
                         <input id="{{key}}" name="{{key}}" class="form-control" type="text" value="{{ var }}" />
