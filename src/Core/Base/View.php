@@ -140,7 +140,7 @@ class View
      *
      * @param $name
      *
-     * @return array|string:null
+     * @return array|string|boolean|null
      */
     public function getVar(string $name)
     {
