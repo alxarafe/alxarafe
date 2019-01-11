@@ -6,6 +6,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
+use Alxarafe\Helpers\Config;
 use Alxarafe\Controllers\EditConfig;
 
 /**
