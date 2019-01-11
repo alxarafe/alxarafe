@@ -163,15 +163,17 @@ class Config
             $skinFolder = $templatesFolder . '/' . self::$global['skin'];
             if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
                 Config::setError("Skin folder '$skinFolder' does not exists!");
-                (new EditConfig())->run();
-                die;
+                //(new EditConfig())->run();
+                new EditConfig();
+                return;
             }
             Skin::setSkin(self::$global['skin']);
         }
         if (!self::connectToDataBase()) {
             self::setError('Database Connection error...');
-            (new EditConfig())->run();
-            die;
+            //(new EditConfig())->run();
+            new EditConfig();
+            return;
         }
         if (self::$user === null) {
             self::$user = new Auth();

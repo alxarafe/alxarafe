@@ -33,13 +33,11 @@ class View
      */
     public function __construct($controller = null)
     {
-        // echo "<p>Constructor de View</p>";
-        // Throw Exception('X');
-
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
         $this->vars['user'] = Config::$username;
+        $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->addCSS();
         $this->addJS();
     }
@@ -77,31 +75,26 @@ class View
         $absPath = $resourceName . '.' . $resourceExtension;
         if ($relative) {
             $path = Skin::getTemplatesFolder() . $absPath;
-            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using skin resource $path");
                 return Skin::getTemplatesUri() . $absPath;
             }
             $path = Skin::getCommonTemplatesFolder() . $absPath;
-            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using common resource $path");
                 return Skin::getCommonTemplatesUri() . $absPath;
             }
             $path = DEFAULT_TEMPLATES_FOLDER . $absPath;
-            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using default resource $path");
                 return DEFAULT_TEMPLATES_URI . $absPath;
             }
             $path = VENDOR_FOLDER . $absPath;
-            // Debug::addMessage('messages', "Exists resource '$path'?");
             if (file_exists($path)) {
-                Debug::addMessage('messages', "Using package resource $path");
                 return VENDOR_URI . $absPath;
             }
+            Debug::addMessage('messages', "Relative resource '$path' not found!");
         }
-        Debug::addMessage('messages', "Using absolute resource $absPath");
+        if (!file_exists($path)) {
+            Debug::addMessage('messages', "Absolute resource '$absPath' not found!");
+        }
         return $absPath;
     }
 
@@ -154,8 +147,8 @@ class View
      */
     public function addCSS()
     {
-        $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min', 'css'));
-        $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
+        // $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min', 'css'));
+        // $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
     }
 
     /**
@@ -165,9 +158,9 @@ class View
      */
     public function addJS()
     {
-        $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min', 'js'));
-        $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min', 'js'));
-        $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
+        // $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min', 'js'));
+        // $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min', 'js'));
+        // $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
     }
 
     /**

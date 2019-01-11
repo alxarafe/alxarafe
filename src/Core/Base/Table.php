@@ -160,6 +160,28 @@ abstract class Table
     }
 
     /**
+     * Returns the name of the main key field of the table (PK-Primary Key). By
+     * default it will be id.
+     *
+     * @return string
+     */
+    public function getIdField(): string
+    {
+        return $this->idField;
+    }
+
+    /**
+     * Returns the name of the identification field of the record. By default it
+     * will be name.
+     *
+     * @return string
+     */
+    public function getNameField(): string
+    {
+        return $this->nameField;
+    }
+
+    /**
      * This method is private. Use load instead.
      * Establishes a record as an active record.
      * If found, the $id will be in $this->id and the data in $this->newData.
@@ -210,7 +232,6 @@ abstract class Table
     public function getDataArray(string $id = null): array
     {
         if (isset($id) && ($id != $this->id)) {
-            echo "<p>getData (id=$id, this->id={$this->id}.</p>";
             $this->getData($id);
         }
         return $this->newData;
