@@ -50,8 +50,7 @@ class View
         if (!Skin::hasTemplate()) {
             Skin::setTemplate('default');
         }
-        $this->vars['errors'] = Config::getErrors();
-
+        // $this->vars['errors'] = Config::getErrors();
         echo Skin::render($this->vars);
     }
 

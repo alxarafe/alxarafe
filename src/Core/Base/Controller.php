@@ -18,6 +18,13 @@ class Controller
      */
     public function __construct()
     {
-        // Nothing to do
+        /*
+          try {
+          $this->className = (new \ReflectionClass($this))->getShortName();
+          } catch (\ReflectionException $e) {
+          //echo $e->getCode() . ': ' . $e->getMessage();
+          $this->className = 'Class name not available';
+          }
+         */
     }
 }
