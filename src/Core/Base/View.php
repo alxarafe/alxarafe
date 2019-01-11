@@ -69,32 +69,28 @@ class View
      *
      * @return string the complete path of resource.
      */
-    protected function addResource(string $resourceName, string $resourceExtension = 'css', $relative = true): string
+    public function addResource(string $resourceName, string $resourceExtension = 'css', $relative = true): string
     {
-        $absPath = $resourceName . '.' . $resourceExtension;
+        $path = $resourceName . '.' . $resourceExtension;
         if ($relative) {
-            $path = Skin::getTemplatesFolder() . $absPath;
-            if (file_exists($path)) {
-                return Skin::getTemplatesUri() . $absPath;
+            if (file_exists(Skin::getTemplatesFolder() . $path)) {
+                return Skin::getTemplatesUri() . $path;
             }
-            $path = Skin::getCommonTemplatesFolder() . $absPath;
-            if (file_exists($path)) {
-                return Skin::getCommonTemplatesUri() . $absPath;
+            if (file_exists(Skin::getCommonTemplatesFolder() . $path)) {
+                return Skin::getCommonTemplatesUri() . $path;
             }
-            $path = DEFAULT_TEMPLATES_FOLDER . $absPath;
-            if (file_exists($path)) {
-                return DEFAULT_TEMPLATES_URI . $absPath;
+            if (file_exists(DEFAULT_TEMPLATES_FOLDER . $path)) {
+                return DEFAULT_TEMPLATES_URI . $path;
             }
-            $path = VENDOR_FOLDER . $absPath;
-            if (file_exists($path)) {
-                return VENDOR_URI . $absPath;
+            if (file_exists(VENDOR_FOLDER . $path)) {
+                return VENDOR_URI . $path;
             }
             Debug::addMessage('messages', "Relative resource '$path' not found!");
         }
         if (!file_exists($path)) {
-            Debug::addMessage('messages', "Absolute resource '$absPath' not found!");
+            Debug::addMessage('messages', "Absolute resource '$path' not found!");
         }
-        return $absPath;
+        return $path;
     }
 
     /**

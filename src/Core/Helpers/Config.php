@@ -146,7 +146,7 @@ class Config
         Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
         Skin::setSkin(self::getVar('skin') ?? 'default');
         Skin::setTemplate(self::getVar('template') ?? 'default');
-        Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? BASE_PATH . Skin::COMMON_FOLDER);
+        Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? Skin::COMMON_FOLDER);
     }
 
     /**
