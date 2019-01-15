@@ -56,6 +56,7 @@ class EditConfig extends Controller
     {
         $vars = [];
         $vars['dbEngineName'] = $_POST['dbEngineName'] ?? '';
+        $vars['dbPrefix'] = $_POST['dbPrefix'] ?? '';
         $vars['skin'] = $_POST['skin'] ?? '';
         $vars['dbUser'] = $_POST['dbUser'] ?? '';
         $vars['dbPass'] = $_POST['dbPass'] ?? '';

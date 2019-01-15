@@ -26,7 +26,7 @@ class Users extends Table
     /**
      * TODO: Undocumented
      */
-    public function getFields()
+    public function getFields(): array
     {
         return [
             'id' => array(
@@ -65,7 +65,7 @@ class Users extends Table
      *
      * @return array
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return [
             'user_name' => [
@@ -79,7 +79,7 @@ class Users extends Table
      *
      * @return array
      */
-    public function getDefaultValues()
+    public function getDefaultValues(): array
     {
         return [
             [

@@ -44,6 +44,13 @@ class Config
     static $dbEngine;
 
     /**
+     * Contains a prefix for the database files
+     *
+     * @var string
+     */
+    static $dbPrefix;
+
+    /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
      * @var sqlHelper

@@ -6,6 +6,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
+use Alxarafe\Helpers\Debug;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
@@ -18,35 +19,36 @@ class Skin
 {
 
     /**
-     * TODO: Undocummented
+     * Default: It is the folder that includes the templates.
+     * Each template will be a folder whose name will be the one that will
+     * appear in the template selector.
      */
     const SKINS_FOLDER = "/html/templates";
 
     /**
-     * TODO: Undocummented
+     * Default: Folder of the common code.
+     * It is where the common files will be placed to all the templates. If a
+     * file is not found in the template, then it will be searched in COMMON_FOLDER.
      */
     const COMMON_FOLDER = "/html/common";
 
     /**
      * It is the name of the template that is being used.
      *
-     * Es el nombre de la plantilla que va a dibujarse.
-     *
      * @var string
      */
     private static $currentTemplate;
 
     /**
-     * Es el nombre del skin que se va a usar.
+     * It's the name of the skin that is being used.
      *
      * @var string
      */
     private static $currentSkin;
 
     /**
-     * By default, only the 'twig' template engine is used.
-     *
-     * Es el nombre del motor de plantillas (de momento sólo twig)
+     * It's the name of the template engine.
+     * For now, only the 'twig' template engine is used.
      *
      * @var string
      */
@@ -54,9 +56,6 @@ class Skin
 
     /**
      * It is the skin, that is, the folder that contains the templates.
-     *
-     * Es el nombre del fichero que contiene las plantillas del tema.
-     * Será el primer lugar donde se buscará $currentTemplate.
      *
      * It is the folder where the different skins are located. Each skin uses a
      * folder defined by $template, which contains the templates that will be used.
@@ -69,9 +68,6 @@ class Skin
      * Indicates the folder where the files common to all the templates are located.
      * A file will be searched first in the $templatesFolder, and if it is not, it
      * will be searched in this $commonTemplatesFolder.
-     *
-     * Es la carpeta que contiene las plantillas comunes a todos los skins.
-     * Primero se buscará en templatesFolder y si no está se buscará aquí.
      *
      * @var string
      */
@@ -98,7 +94,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Returns true if a template has been specified
      *
      * @return bool
      */
@@ -108,7 +104,11 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Returns an array with the list of skins (folders inside the folder
+     * specified for the templates)
+     *
+     * TODO: Possible misuse of constant and variable to specify the
+     * template folder.
      *
      * @return array
      */
@@ -195,7 +195,7 @@ class Skin
      */
     public static function setTemplatesFolder(string $template)
     {
-        self::$templatesFolder = self::SKINS_FOLDER . ('/' . trim($template, '/'));
+        self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
         Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
 

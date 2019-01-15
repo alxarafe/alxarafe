@@ -84,6 +84,7 @@ class Schema
      */
     public static function tableExists($tableName): bool
     {
+        $tableName = Config::getVar('dbPrefix') . $tableName;
         return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tableName);
     }
 
@@ -264,13 +265,14 @@ class Schema
      * Build the SQL statement to create the fields in the table.
      * It can also create the primary key if the auto_increment attribute is defined.
      *
-     * @param string $fieldName
+     * @param string $tableName
      * @param array $fieldList
      * @return string
      */
-    static protected function createFields(string $fieldName, array $fieldList): string
+    static protected function createFields(string $tableName, array $fieldList): string
     {
-        $sql = "CREATE TABLE $fieldName ( ";
+        $tableName = Config::getVar('dbPrefix') . $tableName;
+        $sql = "CREATE TABLE $tableName ( ";
         foreach ($fieldList as $index => $col) {
             if (!isset($col['dbtype'])) {
                 die('Tipo no especificado en createTable');
@@ -328,6 +330,7 @@ class Schema
      */
     static protected function createIndex($tableName, $indexname, $indexData)
     {
+        $tableName = Config::getVar('dbPrefix') . $tableName;
         $sql = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
 
         $command = '';
@@ -407,6 +410,7 @@ class Schema
      */
     static protected function setValues(string $tableName, array $values): string
     {
+        $tableName = Config::getVar('dbPrefix') . $tableName;
         $sql = "INSERT INTO $tableName ";
         $header = true;
         foreach ($values as $value) {

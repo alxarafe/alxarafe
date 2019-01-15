@@ -49,6 +49,7 @@ class ConfigView extends View
         $this->dbConfig['dbPass'] = $vars['dbPass'] ?? '';
         $this->dbConfig['dbName'] = $vars['dbName'] ?? 'alxarafe';
         $this->dbConfig['dbHost'] = $vars['dbHost'] ?? 'localhost';
+        $this->dbConfig['dbPrefix'] = $vars['dbPrefix'] ?? '';
         $this->dbConfig['dbPort'] = $vars['dbPort'] ?? '';
     }
 }
