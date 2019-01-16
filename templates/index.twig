@@ -1,14 +1,19 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+#}
 <!DOCTYPE html>
 <html lang="es">
-    <head>
+<head>
     {% block header %}{% include 'master/header.twig' %}{% endblock %}
 </head>
 <body{% if view.protectClose %} onBeforeUnload='return iCanClose()'{% endif %}>
 
 {% block menu %}{% include 'master/menu.twig' %}{% endblock %}
 <div class="container-fluid">
-{% block errors %}{% include 'master/errors.twig' %}{% endblock %}
-    {% block body %}{% endblock %}<hr>
+    {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
+    {% block body %}{% endblock %}
+    <hr>
 </div>
 {% block footer %}{% include 'master/footer.twig' %}{% endblock %}
 </body>

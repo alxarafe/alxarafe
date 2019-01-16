@@ -6,9 +6,11 @@ html,
 body {
     overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
+
 body {
     padding-top: 70px;
 }
+
 footer {
     padding: 30px 0;
 }
@@ -91,7 +93,7 @@ textarea {
 .search-bar {
     background-color: #CCCCCC;
     /*float: left;*/
-    width:100%;
+    width: 100%;
     border-color: #080808;
     min-height: 26px;
     margin-bottom: 0px;
@@ -115,14 +117,14 @@ textarea {
 }
 
 .ui-menu-item a {
-    display:block;
-    width:100%;
+    display: block;
+    width: 100%;
 }
 
-.ui-state-focus	{
+.ui-state-focus {
     background-color: GoldenRod;
     cursor: pointer;
-    color:white;
+    color: white;
 }
 
 .nav.navbar-nav a {
@@ -138,7 +140,7 @@ li.active {
     background: White;
 }
 
-.dropdown-menu li>a:hover {
+.dropdown-menu li > a:hover {
     background: GoldenRod;
 }
 
@@ -156,7 +158,7 @@ li.active {
 }
 */
 
-.cortar{
+.cortar {
     /*
 width:200px;
 height:20px;
@@ -173,7 +175,7 @@ border:1px solid blue;
 .cortar:hover {
     width: auto;
     white-space: initial;
-    overflow:visible;
+    overflow: visible;
     cursor: pointer;
 }
 
@@ -236,7 +238,7 @@ border:1px solid blue;
 }
 
 .copyright a {
-    color: 0066AA;
+    color: 0066 AA;
     text-decoration: none;
 }
 

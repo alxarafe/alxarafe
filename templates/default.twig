@@ -1,10 +1,14 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+#}
 {% extends "index.twig" %}
 
 {% block title %}Default template{% endblock %}
 
 {% block body %}
-    <h1>{{view.title}}</h1>
-    {{view.openForm({action: view.url, message: view.getErrors()}) | raw}}
-    {{view.view() | raw}}
-    {{view.closeForm() | raw}}
+    <h1>{{ view.title }}</h1>
+    {{ view.openForm({action: view.url, message: view.getErrors()}) | raw }}
+    {{ view.view() | raw }}
+    {{ view.closeForm() | raw }}
 {% endblock %}

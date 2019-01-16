@@ -45,7 +45,7 @@ abstract class Engine
      * Represents a prepared statement and, after the statement is executed,
      * an associated result set.
      *
-     * @var \PDOStatement|false
+     * @var \PDOStatement|bool
      */
     static protected $statement;
 
