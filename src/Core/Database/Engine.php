@@ -271,7 +271,7 @@ abstract class Engine
      */
     final public function _resultSet(): array
     {
-        self::execute();
+        $this->execute();
         return self::$statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
