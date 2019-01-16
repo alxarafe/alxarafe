@@ -142,6 +142,12 @@ class Schema
     }
 
     /**
+     * Take the definition of a field, and make sure you have all the information
+     * that is necessary for its creation or maintenance, calculating the missing
+     * data if possible.
+     * It can cause an exception if some vital data is missing, but this should
+     * only occur at the design stage.
+     *
      * @param string $tableName
      * @param string $field
      * @param array  $structure

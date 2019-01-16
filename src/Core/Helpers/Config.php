@@ -144,6 +144,7 @@ class Config
      */
     public static function loadConfig(): void
     {
+        self::$errors = [];
         self::$global = self::loadConfigurationFile();
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;

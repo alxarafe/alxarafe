@@ -163,8 +163,7 @@ abstract class Engine
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
         Debug::addMessage('SQL', 'PDO exec: ' . $query);
-        self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement != null && self::$statement) {
+        if (self::$statement = self::$dbHandler->prepare($query)) {
             return self::$statement->execute([]);
         }
         return false;
@@ -191,15 +190,14 @@ abstract class Engine
      *
      * @param string $query
      *
-     * @return array
+     * @return array|null
      */
-    public static function select(string $query): array
+    public static function select(string $query): ?array
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
         Debug::addMessage('SQL', 'PDO select: ' . $query);
-        self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement != null && self::$statement && self::$statement->execute([])) {
+        if (self::$statement = self::$dbHandler->prepare($query)) {
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return [];
@@ -263,7 +261,7 @@ abstract class Engine
         // Remove extra blankspace to be more readable
         $sql = preg_replace('/\s+/', ' ', $sql);
         self::$statement = self::$dbHandler->prepare($sql, $options);
-        return (self::$statement != false);
+        return (bool) self::$statement;
     }
     /**
      * Transactions support
@@ -309,7 +307,7 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->beginTransaction();
         } else {
-            $exec = $this->exec('SAVEPOINT LEVEL' . self::$transactionDepth . ';');
+            $this->exec('SAVEPOINT LEVEL' . self::$transactionDepth . ';');
         }
 
         self::$transactionDepth++;
