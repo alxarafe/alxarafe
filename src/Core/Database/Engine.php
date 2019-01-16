@@ -163,7 +163,8 @@ abstract class Engine
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
         Debug::addMessage('SQL', 'PDO exec: ' . $query);
-        if (self::$statement = self::$dbHandler->prepare($query)) {
+        self::$statement = self::$dbHandler->prepare($query);
+        if (self::$statement) {
             return self::$statement->execute([]);
         }
         return false;
@@ -199,7 +200,8 @@ abstract class Engine
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
         Debug::addMessage('SQL', 'PDO select: ' . $query);
-        if (self::$statement = self::$dbHandler->prepare($query)) {
+        self::$statement = self::$dbHandler->prepare($query);
+        if (self::$statement && self::$statement->execute([])) {
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return [];
