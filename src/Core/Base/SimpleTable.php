@@ -15,7 +15,7 @@ use Exception;
  * Class SimpleTable has all the basic methods to access and manipulate
  * information, but without modifying its structure.
  */
-abstract class SimpleTable
+class SimpleTable
 {
 
     /**
@@ -34,21 +34,6 @@ abstract class SimpleTable
      * @var string
      */
     protected $idField;
-
-    /**
-     * It is the name of the field name. By default 'name'.
-     * TODO: See if it may not exist, in which case, null or ''?
-     *
-     * @var string
-     */
-    protected $nameField;
-
-    /**
-     * Contains an array with the table structure
-     * 
-     * @var array
-     */
-    protected $tableStructure;
 
     /**
      * It contains the data previous to the modification of the current record
@@ -85,9 +70,17 @@ abstract class SimpleTable
     public function __construct(string $tableName, array $params = [])
     {
         $this->tableName = $tableName;
-        $this->idField = $params['idField'] ?? 'id';
-        $this->nameField = $params['nameField'] ?? 'name';
+        $this->idField = $params['idField'] ?? null;
         $this->setStructure();
+        if (!isset($this->idField)) {
+            $this->idField = 'id';
+            foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
+                if (isset($value['primary']) && ($value['primary'] == 'PRI')) {
+                    $this->idField = $key;
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -149,7 +142,7 @@ abstract class SimpleTable
      */
     public function getTableName(): string
     {
-        return Config::getVar('dbPrefix') . $this->tablename;
+        return Config::getVar('dbPrefix') . $this->tableName;
     }
 
     /**
@@ -175,17 +168,6 @@ abstract class SimpleTable
     public function getIdField(): string
     {
         return $this->idField;
-    }
-
-    /**
-     * Returns the name of the identification field of the record. By default it
-     * will be name.
-     *
-     * @return string
-     */
-    public function getNameField(): string
-    {
-        return $this->nameField;
     }
 
     /**
@@ -371,7 +353,7 @@ abstract class SimpleTable
      */
     public function getFieldsFromTable()
     {
-        return Config::$sqlHelper->getColumns($this->getTableName());
+        return Config::$sqlHelper->getColumns($this->tableName);
     }
 
     /**
@@ -396,26 +378,4 @@ abstract class SimpleTable
         return Config::$dbEngine->select($sql);
     }
 
-    /**
-     * Perform a search of a record by the name, returning the id of the
-     * corresponding record, or '' if it is not found or does not have a
-     * name field.
-     *
-     * @param string $name
-     * @return string
-     */
-    public function getIdByName(string $name): string
-    {
-        if ($this->nameField == '') {
-            return '';
-        }
-
-        $sql = "SELECT {$this->idField} AS id FROM " . Config::getVar('dbPrefix') . $this->tableName . " WHERE {$this->nameField}='$name'";
-        $data = Config::$dbEngine->select($sql);
-        if (!empty($data) && count($data) > 0) {
-            return $data[0]['id'];
-        }
-
-        return '';
-    }
 }

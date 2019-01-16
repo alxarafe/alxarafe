@@ -15,8 +15,15 @@ use Alxarafe\Helpers\Utils;
  * It is recommended to create a descendant for each table of the database,
  * defining its tablename and structure.
  */
-abstract class Table extends SimpleTable
+class Table extends SimpleTable
 {
+    /**
+     * It is the name of the field name. By default 'name'.
+     * TODO: See if it may not exist, in which case, null or ''?
+     *
+     * @var string
+     */
+    protected $nameField;
 
     /**
      * Build a Table model. $table is the name of the table in the database.
@@ -31,8 +38,44 @@ abstract class Table extends SimpleTable
     public function __construct(string $tableName, array $params = [])
     {
         parent::__construct($tableName, $params);
+        $this->nameField = $params['nameField'] ?? null;
+
         $create = $params['create'] ?? false;
         $this->checkStructure($create);
+    }
+
+    /**
+     * Returns the name of the identification field of the record. By default it
+     * will be name.
+     *
+     * @return string
+     */
+    public function getNameField(): string
+    {
+        return $this->nameField;
+    }
+
+    /**
+     * Perform a search of a record by the name, returning the id of the
+     * corresponding record, or '' if it is not found or does not have a
+     * name field.
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getIdByName(string $name): string
+    {
+        if ($this->nameField == '') {
+            return '';
+        }
+
+        $sql = "SELECT {$this->idField} AS id FROM " . Config::getVar('dbPrefix') . $this->tableName . " WHERE {$this->nameField}='$name'";
+        $data = Config::$dbEngine->select($sql);
+        if (!empty($data) && count($data) > 0) {
+            return $data[0]['id'];
+        }
+
+        return '';
     }
 
     /**
@@ -43,7 +86,7 @@ abstract class Table extends SimpleTable
     protected function getStructureArray(): array
     {
         $struct = parent::getStructureArray();
-        $struct['keys'] = method_exists($this, 'getKeys') ? $this->getKeys() : getIndexesFromTable();
+        $struct['keys'] = method_exists($this, 'getKeys') ? $this->getKeys() : $this->getIndexesFromTable();
         $struct['values'] = $this->getDefaultValues();
         $struct['checks'] = $this->getChecks();
         return $struct;
@@ -54,11 +97,11 @@ abstract class Table extends SimpleTable
      * Each final model that needed, must overwrite it.
      *
      * @return array
-     */
     public function getFields(): array
     {
         return parent::getFields();
     }
+     */
 
     /**
      * Return a list of key indexes.
@@ -68,7 +111,7 @@ abstract class Table extends SimpleTable
      */
     public function getIndexesFromTable(): array
     {
-        return Config::$sqlHelper->getIndexes($this->getTableName());
+        return Config::$sqlHelper->getIndexes($this->tableName);
     }
 
     public function getChecks()
@@ -106,29 +149,6 @@ abstract class Table extends SimpleTable
     {
         $sql = 'SELECT * FROM ' . $this->getTableName();
         return Config::$dbEngine->select($sql);
-    }
-
-    /**
-     * Perform a search of a record by the name, returning the id of the
-     * corresponding record, or '' if it is not found or does not have a
-     * name field.
-     *
-     * @param string $name
-     * @return string
-     */
-    public function getIdByName(string $name): string
-    {
-        if ($this->nameField == '') {
-            return '';
-        }
-
-        $sql = "SELECT {$this->idField} AS id FROM " . $this->getTableName() . " WHERE {$this->nameField}='$name'";
-        $data = Config::$dbEngine->select($sql);
-        if (!empty($data) && count($data) > 0) {
-            return $data[0]['id'];
-        }
-
-        return '';
     }
 
     /**

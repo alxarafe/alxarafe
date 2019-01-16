@@ -25,10 +25,11 @@ class SqlMySql extends SqlHelper
         $this->fieldQuote = '"';
         $this->fieldTypes = [
             'integer' => ['int', 'tinyint'],
+            'decimal' => ['decimal'],
             'string' => ['varchar'],
             'float' => ['real', 'double'],
             'date' => ['date'],
-            'datetime' => ['datetime'],
+            'datetime' => ['datetime', 'timestamp'],
         ];
     }
 
@@ -77,20 +78,102 @@ class SqlMySql extends SqlHelper
         $explode = explode(' ', strtolower($originalType));
 
         $pos = strpos($explode[0], '(');
-
-        $type = $pos ? substr($explode[0], 0, $pos) : $explode[0];
-        $length = $pos ? intval(substr($explode[0], $pos + 1)) : null;
+        if ($pos > 0) {
+            $size = $pos + 1;
+            $type = substr($explode[0], 0, $pos);
+            $length = substr($explode[0], $size, strpos($explode[0], ')') - $size);
+        } else {
+            $type = $explode[0];
+            $length = null;
+        }
 
         $pos = array_search('unsigned', $explode);
-        $unsigned = $pos ? 'unsigned' : null;
+        $unsigned = $pos ? true : false;
 
         $pos = array_search('zerofill', $explode);
-        $zerofill = $pos ? 'zerofill' : null;
-
-        $pos = array_search('zerofill', $explode);
-        $zerofill = $pos ? 'zerofill' : null;
+        $zerofill = $pos ? true : false;
 
         return ['type' => $type, 'length' => $length, 'unsigned' => $unsigned, 'zerofill' => $zerofill];
+    }
+
+    public function toNativeForm(array $row): string
+    {
+        /*
+          if ($type == 'string') {
+          if ($max == 0) {
+          $max = DEFAULT_STRING_LENGTH;
+          }
+          $dbType = "$dbType($max)";
+          $ret['pattern'] = '.{' . $min . ',' . $max . '}';
+          } else if ($type == 'number') {
+          if ($default === true) {
+          $default = '1';
+          }
+          if ($max == 0) {
+          $_length = DEFAULT_INTEGER_SIZE;
+          $max = pow(10, $_length) - 1;
+          } else {
+          $_length = strlen($max);
+          }
+
+          if ($min == 0) {
+          $min = $unsigned ? 0 : -$max;
+          } else {
+          if ($_length < strlen($min)) {
+          $_length = strlen($min);
+          }
+          }
+
+          if (isset($structure['decimals'])) {
+          $decimales = $structure['decimals'];
+          $precision = pow(10, -$decimales);
+          $_length += $decimales;
+          $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
+          $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
+          $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
+          } else {
+          $precision = null;
+          $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
+          $ret['min'] = $min;
+          $ret['max'] = $max;
+          }
+          }
+
+          $ret['type'] = $type;
+          $ret['dbtype'] = $dbType;
+          $ret['default'] = $default;
+          $ret['null'] = $null;
+          $ret['label'] = $label;
+          if (isset($precision)) {
+          $ret['step'] = $precision;
+          }
+          if (isset($structure['key'])) {
+          $ret['key'] = $structure['key'];
+          }
+          if (isset($structure['placeholder'])) {
+          $ret['placeholder'] = $structure['placeholder'];
+          }
+          if (isset($structure['extra'])) {
+          $ret['extra'] = $structure['extra'];
+          }
+          if (isset($structure['help'])) {
+          $ret['help'] = $structure['help'];
+          }
+          if (isset($structure['unique']) && $structure['unique']) {
+          $ret['unique'] = $structure['unique'];
+          }
+
+          if (isset($structure['relations'][$field]['table'])) {
+          $ret['relation'] = array(
+          'table' => $structure['relations'][$field]['table'],
+          'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
+          'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
+          );
+          }
+
+          return $ret;
+         * 
+         */
     }
 
     /**
@@ -127,9 +210,15 @@ class SqlMySql extends SqlHelper
         }
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
-        $result['nullable'] = $row['Null'];
-        $result['primary'] = $row['Key'];
-        $result['autoincrement'] = $row['Extra'] == 'auto_increment' ? 1 : 0;
+        $result['nullable'] = $row['Null'] ? 'yes' : 'no';
+        $result['key'] = ($row['Key'] == 'PRI' ? 'primary' : ( $row['Key'] == 'UNI' ? 'unique' : ($row['Key'] == 'MUL' ? 'index' : '' )));
+        $result['autoincrement'] = $row['Extra'] == 'auto_increment' ? 'yes' : 'no';
+        if ($type['unsigned']) {
+            $result['unsigned'] = 'yes';
+        }
+        if ($type['zerofill']) {
+            $result['zerofill'] = 'yes';
+        }
 
         return $result;
     }
