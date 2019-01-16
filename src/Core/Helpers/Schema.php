@@ -69,7 +69,7 @@ class Schema
             $tables = Config::$sqlHelper->getTables();
             foreach ($tables as $table) {
                 $filename = $folder . '/' . $table . '.yaml';
-                $data = Config::$dbEngine->getStructure($table);
+                $data = Config::$dbEngine->getStructure($table, false);
                 file_put_contents($filename, YAML::dump($data));
             }
         }

@@ -55,7 +55,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    public function quoteTableName(string $tableName, $usePrefix = true): string
+    public function quoteTableName(string $tableName, bool $usePrefix = true): string
     {
         return $this->tableQuote .
             ($usePrefix ? Config::getVar('dbPrefix') : '') .
@@ -103,9 +103,9 @@ abstract class SqlHelper
      *
      * @return array
      */
-    public function getColumns(string $tableName): array
+    public function getColumns(string $tableName, bool $usePrefix = true): array
     {
-        $query = $this->getColumnsSql($tableName);
+        $query = $this->getColumnsSql($tableName, $usePrefix);
         $data = Config::$dbEngine->select($query);
         $result = [];
         foreach ($data as $value) {
@@ -122,7 +122,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function getColumnsSql(string $tableName): string;
+    abstract public function getColumnsSql(string $tableName, bool $usePrefix): string;
 
     /**
      * Modifies the structure returned by the query generated with
@@ -136,9 +136,9 @@ abstract class SqlHelper
 
     //abstract public function normalizeConstraints(array $fields): array;
 
-    public function getIndexes(string $tableName): array
+    public function getIndexes(string $tableName, bool $usePrefix): array
     {
-        $query = $this->getIndexesSql($tableName);
+        $query = $this->getIndexesSql($tableName, $usePrefix);
         $data = Config::$dbEngine->select($query);
         $result = [];
         foreach ($data as $value) {
@@ -156,7 +156,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function getIndexesSql(string $tableName): string;
+    abstract public function getIndexesSql(string $tableName, bool $usePrefix = true): string;
 
     abstract public function normalizeIndexes(array $fields): array;
 
@@ -167,7 +167,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function getConstraintsSql(string $tableName): string;
+    abstract public function getConstraintsSql(string $tableName, bool $usePrefix = true): string;
 
     /*
     public function getConstraints(string $tableName): array

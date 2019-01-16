@@ -149,7 +149,7 @@ class Table extends SimpleTable
      */
     public function getIndexesFromTable(): array
     {
-        return Config::$sqlHelper->getIndexes($this->tableName);
+        return Config::$sqlHelper->getIndexes($this->tableName, true);
     }
 
     /**

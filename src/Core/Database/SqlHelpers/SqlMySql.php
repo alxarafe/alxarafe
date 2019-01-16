@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
@@ -54,7 +53,7 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function getColumnsSql(string $tableName): string
+    public function getColumnsSql(string $tableName, bool $prefix): string
     {
         /**
          * array (size=6)
@@ -65,89 +64,89 @@ class SqlMySql extends SqlHelper
          * 'Default' => null
          * 'Extra' => string 'auto_increment' (length=14)
          */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName) . ';';
+        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName, $prefix) . ';';
     }
 
     public function toNativeForm(array $row): string
     {
         return '';
         /*
-        if ($type == 'string') {
-            if ($max == 0) {
-                $max = constant(DEFAULT_STRING_LENGTH);
-            }
-            $dbType = "$dbType($max)";
-            $ret['pattern'] = '.{' . $min . ',' . $max . '}';
-        } else {
-            if ($type == 'number') {
-                if ($default === true) {
-                    $default = '1';
-                }
-                if ($max == 0) {
-                    $_length = constant(DEFAULT_INTEGER_SIZE);
-                    $max = pow(10, $_length) - 1;
-                } else {
-                    $_length = strlen($max);
-                }
+          if ($type == 'string') {
+          if ($max == 0) {
+          $max = constant(DEFAULT_STRING_LENGTH);
+          }
+          $dbType = "$dbType($max)";
+          $ret['pattern'] = '.{' . $min . ',' . $max . '}';
+          } else {
+          if ($type == 'number') {
+          if ($default === true) {
+          $default = '1';
+          }
+          if ($max == 0) {
+          $_length = constant(DEFAULT_INTEGER_SIZE);
+          $max = pow(10, $_length) - 1;
+          } else {
+          $_length = strlen($max);
+          }
 
-                if ($min == 0) {
-                    $min = $unsigned ? 0 : -$max;
-                } else {
-                    if ($_length < strlen($min)) {
-                        $_length = strlen($min);
-                    }
-                }
+          if ($min == 0) {
+          $min = $unsigned ? 0 : -$max;
+          } else {
+          if ($_length < strlen($min)) {
+          $_length = strlen($min);
+          }
+          }
 
-                if (isset($structure['decimals'])) {
-                    $decimales = $structure['decimals'];
-                    $precision = pow(10, -$decimales);
-                    $_length += $decimales;
-                    $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
-                    $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
-                    $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
-                } else {
-                    $precision = null;
-                    $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
-                    $ret['min'] = $min;
-                    $ret['max'] = $max;
-                }
-            }
-        }
+          if (isset($structure['decimals'])) {
+          $decimales = $structure['decimals'];
+          $precision = pow(10, -$decimales);
+          $_length += $decimales;
+          $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
+          $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
+          $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
+          } else {
+          $precision = null;
+          $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
+          $ret['min'] = $min;
+          $ret['max'] = $max;
+          }
+          }
+          }
 
-        $ret['type'] = $type;
-        $ret['dbtype'] = $dbType;
-        $ret['default'] = $default;
-        $ret['null'] = $null;
-        $ret['label'] = $label;
-        if (isset($precision)) {
-            $ret['step'] = $precision;
-        }
-        if (isset($structure['key'])) {
-            $ret['key'] = $structure['key'];
-        }
-        if (isset($structure['placeholder'])) {
-            $ret['placeholder'] = $structure['placeholder'];
-        }
-        if (isset($structure['extra'])) {
-            $ret['extra'] = $structure['extra'];
-        }
-        if (isset($structure['help'])) {
-            $ret['help'] = $structure['help'];
-        }
-        if (isset($structure['unique']) && $structure['unique']) {
-            $ret['unique'] = $structure['unique'];
-        }
+          $ret['type'] = $type;
+          $ret['dbtype'] = $dbType;
+          $ret['default'] = $default;
+          $ret['null'] = $null;
+          $ret['label'] = $label;
+          if (isset($precision)) {
+          $ret['step'] = $precision;
+          }
+          if (isset($structure['key'])) {
+          $ret['key'] = $structure['key'];
+          }
+          if (isset($structure['placeholder'])) {
+          $ret['placeholder'] = $structure['placeholder'];
+          }
+          if (isset($structure['extra'])) {
+          $ret['extra'] = $structure['extra'];
+          }
+          if (isset($structure['help'])) {
+          $ret['help'] = $structure['help'];
+          }
+          if (isset($structure['unique']) && $structure['unique']) {
+          $ret['unique'] = $structure['unique'];
+          }
 
-        if (isset($structure['relations'][$field]['table'])) {
-            $ret['relation'] = [
-                'table' => $structure['relations'][$field]['table'],
-                'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
-                'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
-            ];
-        }
+          if (isset($structure['relations'][$field]['table'])) {
+          $ret['relation'] = [
+          'table' => $structure['relations'][$field]['table'],
+          'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
+          'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
+          ];
+          }
 
-        return $ret;
-        */
+          return $ret;
+         */
     }
 
     /**
@@ -335,11 +334,11 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function getIndexesSql(string $tableName): string
+    public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName, $usePrefix) . ';';
     }
 
     /**
@@ -349,7 +348,7 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function getConstraintsSql(string $tableName): string
+    public function getConstraintsSql(string $tableName, bool $usePrefix = true): string
     {
         // TODO: Implement getConstraintsSql() method.
         return '';

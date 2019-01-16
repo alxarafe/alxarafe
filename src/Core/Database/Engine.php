@@ -98,13 +98,13 @@ abstract class Engine
      *
      * @return array
      */
-    public static function getStructure(string $tableName): array
+    public static function getStructure(string $tableName, bool $usePrefix = true): array
     {
         return [
-            'fields' => Config::$sqlHelper->getColumns($tableName),
-            'indexes' => Config::$sqlHelper->getIndexes($tableName),
-            // 'constraints' => Config::$sqlHelper->getConstraints($tableName),
-            // 'values' => Config::$sqlHelper->getValues($tableName)
+            'fields' => Config::$sqlHelper->getColumns($tableName, $usePrefix),
+            'indexes' => Config::$sqlHelper->getIndexes($tableName, $usePrefix),
+            // 'constraints' => Config::$sqlHelper->getConstraints($tableName, $usePrefix),
+            // 'values' => Config::$sqlHelper->getValues($tableName, $usePrefix)
         ];
     }
 
