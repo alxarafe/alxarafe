@@ -84,8 +84,7 @@ class Schema
      */
     public static function tableExists($tableName): bool
     {
-        $tableName = Config::getVar('dbPrefix') . $tableName;
-        $sql = 'SELECT 1 FROM ' . $tableName . ';';
+        $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
         return (bool) Config::$dbEngine->exec($sql);
     }
 
@@ -358,8 +357,7 @@ class Schema
     static protected function createIndex(string $tableName, string $indexname, array $indexData)
     {
         $fields = '';
-        $tableName = Config::getVar('dbPrefix') . $tableName;
-        $sql = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' ADD CONSTRAINT ' . $indexname;
 
         $command = '';
         // https://www.w3schools.com/sql/sql_primarykey.asp
@@ -448,8 +446,7 @@ class Schema
      */
     static protected function setValues(string $tableName, array $values): string
     {
-        $tableName = Config::getVar('dbPrefix') . $tableName;
-        $sql = "INSERT INTO $tableName ";
+        $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' ';
         $header = true;
         foreach ($values as $value) {
             $fields = "(";

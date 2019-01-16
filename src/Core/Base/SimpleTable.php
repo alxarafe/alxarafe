@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -25,6 +24,7 @@ class SimpleTable
      * @var string
      */
     public $tableName;
+
     /**
      * Value of the main index for the active record.
      * When a record is loaded, this field will contain its id and will be the
@@ -34,18 +34,21 @@ class SimpleTable
      * @var string
      */
     protected $id;
+
     /**
      * It is the name of the main id field. By default 'id'
      *
      * @var string
      */
     protected $idField;
+
     /**
      * It contains the data previous to the modification of the current record
      *
      * @var array
      */
     protected $oldData;
+
     /**
      * Contains the new data of the current record.
      * It will start when loading a record and will be used when making a save.
@@ -244,7 +247,8 @@ class SimpleTable
      */
     public function getTableName(): string
     {
-        return Config::getVar('dbPrefix') . $this->tableName;
+        Debug::addMessage('deprecated', 'Do not use getTableName(), use Config::$sqlHelper->quoteTableName($this->tableName); instead');
+        return Config::$sqlHelper->quoteTableName($this->tableName);
     }
 
     /**
@@ -380,5 +384,4 @@ class SimpleTable
         $sql = 'SELECT * FROM ' . $this->getTableName();
         return Config::$dbEngine->select($sql);
     }
-
 }

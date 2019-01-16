@@ -65,7 +65,7 @@ class SqlMySql extends SqlHelper
          * 'Default' => null
          * 'Extra' => string 'auto_increment' (length=14)
          */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName, true) . ';';
+        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName) . ';';
     }
 
     public function toNativeForm(array $row): string
@@ -339,7 +339,7 @@ class SqlMySql extends SqlHelper
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ';';
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
     }
 
     /**
