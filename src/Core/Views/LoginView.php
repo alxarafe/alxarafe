@@ -10,7 +10,7 @@ use Alxarafe\Base\View;
 use Alxarafe\Helpers\Skin;
 
 /**
- * Class Login
+ * Class LoginView
  *
  * @package Alxarafe\Views
  */

@@ -1,0 +1,24 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+#}
+{% extends "index.twig" %}
+{% block title %}Exportar estructura de la base de datos{% endblock %}
+{% block body %}
+    {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
+    <div class="container">
+        <h3>Exportar estructura de la base de datos</h3>
+    </div>
+    <div class="container">
+        {% if (message) %}{{ message }}{% endif %}
+
+        <form action='?call=ExportStructure' method='post' accept-charset="utf-8">
+            <button name="action" type="submit" class="btn btn-default btn-primary" value="export-all">
+                Exportar todo
+            </button>
+            <button name="action" type="submit" class="btn btn-default btn-danger" value="cancel">
+                Salir
+            </button>
+        </form>
+    </div>
+{% endblock %}

@@ -12,7 +12,7 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 
 /**
- * Class Login
+ * Class ConfigView
  *
  * @package Alxarafe\Views
  */
