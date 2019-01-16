@@ -9,6 +9,7 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Utils;
+use Exception;
 
 /**
  * Class SimpleTable has all the basic methods to access and manipulate
@@ -95,6 +96,7 @@ abstract class SimpleTable
      * @param string $method
      * @param array $params
      * @return string
+     * @throws Exception
      */
     public function __call(string $method, array $params): string
     {
@@ -107,7 +109,7 @@ abstract class SimpleTable
                 return $this->newData[$field];
             default:
                 Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params, true);
-                throw /** @scrutinizer ignore-call */ Exception('Program halted!');
+                throw new Exception('Program halted!');
         }
     }
 
@@ -194,6 +196,7 @@ abstract class SimpleTable
      * contain the data by default.
      *
      * @param string $id
+     *
      * @return bool
      */
     private function getData(string $id): bool
@@ -262,6 +265,7 @@ abstract class SimpleTable
      * $data is an array of assignments of type field=value.
      *
      * @param array $data
+     *
      * @return bool
      */
     private function updateRecord($data): bool
@@ -277,6 +281,7 @@ abstract class SimpleTable
      *
      * @param array $fields
      * @param array $values
+     *
      * @return bool
      */
     private function insertRecord($fields, $values): bool
@@ -292,7 +297,7 @@ abstract class SimpleTable
     /**
      * Saves the changes made to the active record.
      *
-     * @return boolean
+     * @return bool
      */
     public function save(): bool
     {
