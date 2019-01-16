@@ -118,7 +118,7 @@ class Auth extends Users
                 Debug::addMessage('SQL', 'Comprobado hash, en fichero no existe usuario ' . $user);
             }
         }
-        return $this->user != null;
+        return $this->user !== null;
     }
 
     /**
