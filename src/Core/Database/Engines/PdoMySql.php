@@ -3,10 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database\Engines;
 
 use Alxarafe\Database\Engine;
-use Alxarafe\Helpers\Debug;
 use PDO;
 
 /**
@@ -29,8 +29,9 @@ class PdoMySql extends Engine
 
     /**
      * Connect to the database.
-     * 
+     *
      * @param array $config
+     *
      * @return bool
      */
     public function connect(array $config = []): bool

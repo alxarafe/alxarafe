@@ -3,12 +3,11 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
-use Alxarafe\Helpers\Utils;
 
 /**
  * Class Table allows access to a table using an active record.
@@ -33,7 +32,7 @@ class Table extends SimpleTable
      * - nameField is the name of the descriptive field (name by default)
      *
      * @param string $tableName
-     * @param array $params
+     * @param array  $params
      */
     public function __construct(string $tableName, array $params = [])
     {
@@ -42,6 +41,23 @@ class Table extends SimpleTable
 
         $create = $params['create'] ?? false;
         $this->checkStructure($create);
+    }
+
+    /**
+     * Create a new table if it does not exist and it has been passed true as a parameter.
+     *
+     * This should check if there are differences between the defined in bbddStructure
+     * and the physical table, correcting the differences if true is passed as parameter.
+     *
+     * @param bool $create
+     */
+    public function checkStructure(bool $create = false)
+    {
+        if (isset(Config::$bbddStructure[$this->tableName])) {
+            if ($create && !Schema::tableExists($this->tableName)) {
+                Schema::createTable($this->tableName);
+            }
+        }
     }
 
     /**
@@ -61,6 +77,7 @@ class Table extends SimpleTable
      * name field.
      *
      * @param string $name
+     *
      * @return string
      */
     public function getIdByName(string $name): string
@@ -79,56 +96,15 @@ class Table extends SimpleTable
     }
 
     /**
-     * A raw array is built with all the information available in the table, configuration files and code.
-     *
-     * @return array
-     */
-    protected function getStructureArray(): array
-    {
-        $struct = parent::getStructureArray();
-        $struct['keys'] = method_exists($this, 'getKeys') ? $this->getKeys() : $this->getIndexesFromTable();
-        $struct['values'] = $this->getDefaultValues();
-        $struct['checks'] = $this->getChecks();
-        return $struct;
-    }
-
-    /**
      * Return a list of fields and their table structure.
      * Each final model that needed, must overwrite it.
      *
      * @return array
-    public function getFields(): array
-    {
-        return parent::getFields();
-    }
+     * public function getFields(): array
+     * {
+     * return parent::getFields();
+     * }
      */
-
-    /**
-     * Return a list of key indexes.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getIndexesFromTable(): array
-    {
-        return Config::$sqlHelper->getIndexes($this->tableName);
-    }
-
-    public function getChecks()
-    {
-        return [];
-    }
-
-    /**
-     * Return a list of default values.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getDefaultValues()
-    {
-        return [];
-    }
 
     /**
      * Returns the structure of the normalized table
@@ -152,23 +128,43 @@ class Table extends SimpleTable
     }
 
     /**
-     * Create a new table if it does not exist and it has been passed true as a parameter.
+     * A raw array is built with all the information available in the table, configuration files and code.
      *
-     * TODO: Undocumented
-     *
-     * This should check if there are differences between the defined in bbddStructure
-     * and the physical table, correcting the differences if true is passed as parameter.
-     *
-     * @param bool $create
-     *
-     * @throws \DebugBar\DebugBarException
+     * @return array
      */
-    public function checkStructure(bool $create = false)
+    protected function getStructureArray(): array
     {
-        if (isset(Config::$bbddStructure[$this->tableName])) {
-            if ($create && !Schema::tableExists($this->tableName)) {
-                Schema::createTable($this->tableName);
-            }
-        }
+        $struct = parent::getStructureArray();
+        $struct['keys'] = method_exists($this, 'getKeys') ? $this->getKeys() : $this->getIndexesFromTable();
+        $struct['values'] = $this->getDefaultValues();
+        $struct['checks'] = $this->getChecks();
+        return $struct;
+    }
+
+    /**
+     * Return a list of key indexes.
+     * Each final model that needed, must overwrite it.
+     *
+     * @return array
+     */
+    public function getIndexesFromTable(): array
+    {
+        return Config::$sqlHelper->getIndexes($this->tableName);
+    }
+
+    /**
+     * Return a list of default values.
+     * Each final model that needed, must overwrite it.
+     *
+     * @return array
+     */
+    public function getDefaultValues()
+    {
+        return [];
+    }
+
+    public function getChecks()
+    {
+        return [];
     }
 }

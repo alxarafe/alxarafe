@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Controllers\Login;
@@ -52,9 +53,19 @@ class Auth extends Users
     /**
      * TODO: Undocummented
      */
-    private function setCookieUser()
+    public function login()
     {
-        setcookie('user', $this->user === null ? '' : $this->user, self::COOKIE_EXPIRATION);
+        new Login();
+    }
+
+    /**
+     * TODO: Undocumented
+     */
+    public function logout()
+    {
+        Debug::addMessage('messages', 'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
+        $this->user = null;
+        $this->clearCookieUser();
     }
 
     /**
@@ -67,35 +78,27 @@ class Auth extends Users
     }
 
     /**
-     * TODO: Undocummented
+     * TODO: Undocumented
+     *
+     * @return string|null
      */
-    public function login()
+    public function getUser()
     {
-        new Login();
-    }
-
-    /**
-     * @throws \DebugBar\DebugBarException
-     */
-    public function logout()
-    {
-        Debug::addMessage('messages', 'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
-        $this->user = null;
-        $this->clearCookieUser();
+        return $this->user;
     }
 
     /**
      * TODO: Undocumented
      *
-     * @param $user
-     * @param $password
+     * @param string $user
+     * @param string $password
      *
      * @return bool
-     * @throws \DebugBar\DebugBarException
      */
     public function setUser($user, $password)
     {
-        $_user = Config::$dbEngine->select("SELECT * FROM {$this->tableName} WHERE username='$user';");
+        $sql = "SELECT * FROM {$this->tableName} WHERE username='$user';";
+        $_user = Config::$dbEngine->select($sql);
         if (count($_user) > 0 && md5($password) == $_user[0]['password']) {
             $this->user = $user;
             setcookie('user', $user);
@@ -105,21 +108,24 @@ class Auth extends Users
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {
-                Debug::addMessage('SQL', "Comprobado md5:" . md5($password) . ', en fichero: ' . $_user[0]['password']);
+                if (password_verify($password, $_user[0]['password'])) {
+                    $msg = 'contraseña correcta.';
+                } else {
+                    $msg = 'contraseña incorrecta.';
+                }
+                Debug::addMessage('SQL', "Comprobado hash " . $msg);
             } else {
-                Debug::addMessage('SQL', "Comprobado md5:" . md5($password) . ', en fichero no existe usuario ' . $user);
+                Debug::addMessage('SQL', 'Comprobado hash, en fichero no existe usuario ' . $user);
             }
         }
         return $this->user != null;
     }
 
     /**
-     * TODO: Undocumented
-     *
-     * @return string|null
+     * TODO: Undocummented
      */
-    public function getUser()
+    private function setCookieUser()
     {
-        return $this->user;
+        setcookie('user', $this->user === null ? '' : $this->user, self::COOKIE_EXPIRATION);
     }
 }

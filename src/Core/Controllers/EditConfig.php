@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
@@ -37,11 +38,11 @@ class EditConfig extends Controller
      */
     public function main()
     {
-        if (isset($_POST['cancel'])) {
+        if (filter_input(INPUT_POST, 'cancel', FILTER_SANITIZE_ENCODED)) {
             header('Location: ' . BASE_URI);
         }
 
-        if (isset($_POST['submit'])) {
+        if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_ENCODED)) {
             $this->save();
             header('Location: ' . BASE_URI);
         }
@@ -55,14 +56,14 @@ class EditConfig extends Controller
     private function save()
     {
         $vars = [];
-        $vars['dbEngineName'] = $_POST['dbEngineName'] ?? '';
-        $vars['dbPrefix'] = $_POST['dbPrefix'] ?? '';
-        $vars['skin'] = $_POST['skin'] ?? '';
-        $vars['dbUser'] = $_POST['dbUser'] ?? '';
-        $vars['dbPass'] = $_POST['dbPass'] ?? '';
-        $vars['dbName'] = $_POST['dbName'] ?? '';
-        $vars['dbHost'] = $_POST['dbHost'] ?? '';
-        $vars['dbPort'] = $_POST['dbPort'] ?? '';
+        $vars['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_ENCODED);
+        $vars['dbPrefix'] = filter_input(INPUT_POST, 'dbPrefix', FILTER_SANITIZE_ENCODED);
+        $vars['skin'] = filter_input(INPUT_POST, 'skin', FILTER_SANITIZE_ENCODED);
+        $vars['dbUser'] = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_ENCODED);
+        $vars['dbPass'] = filter_input(INPUT_POST, 'dbPass', FILTER_SANITIZE_ENCODED);
+        $vars['dbName'] = filter_input(INPUT_POST, 'dbName', FILTER_SANITIZE_ENCODED);
+        $vars['dbHost'] = filter_input(INPUT_POST, 'dbHost', FILTER_SANITIZE_ENCODED);
+        $vars['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_ENCODED);
 
         $yamlFile = Config::getConfigFileName();
         $yamlData = YAML::dump($vars);

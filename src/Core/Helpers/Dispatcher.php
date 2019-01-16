@@ -3,10 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
-use Alxarafe\Helpers\Config;
 use Alxarafe\Controllers\EditConfig;
 
 /**
@@ -53,7 +53,7 @@ class Dispatcher
             Config::loadConfig();
         } else {
             Config::setError("Creating '$configFile' file...");
-            (new EditConfig())->run();
+            new EditConfig();
             die;
         }
     }
@@ -74,8 +74,8 @@ class Dispatcher
 
         define('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
 
-        define('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME'));
-        define('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME'));
+        define('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
+        define('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
         define('SITE_URL', APP_PROTOCOL . '://' . SERVER_NAME);
         define('BASE_URI', SITE_URL . APP_URI);
 
@@ -95,33 +95,15 @@ class Dispatcher
     }
 
     /**
-     * Try to locate the $call class in $path, and execute the $method.
-     * Returns true if it locates the class and the method exists,
-     * executing it.
-     *
-     * @param string $path
-     * @param string $call
-     * @param string $method
-     * @return bool
+     * Run the application.
      */
-    public function processFolder(string $path, string $call, string $method): bool
+    public function run()
     {
-        $className = $call;
-        foreach ($this->nameSpaces as $nameSpace) {
-            $_className = $nameSpace . '\\Controllers\\' . $call;
-            if (class_exists($_className)) {
-                $className = $_className;
+        if (!$this->process()) {
+            if (Skin::$view == null) {
+                Skin::$view = new View();
             }
         }
-        $controllerPath = $path . '/' . $call . '.php';
-        if (file_exists($controllerPath)) {
-            require_once $controllerPath;
-            if (method_exists($className, $method)) {
-                (new $className())->{$method}();
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -135,8 +117,10 @@ class Dispatcher
     {
         foreach ($this->searchDir as $dir) {
             $path = $dir . '/Controllers';
-            $call = $_GET['call'] ?? 'index';
-            $method = $_GET['run'] ?? 'main';
+            $call = filter_input(INPUT_GET, 'call', FILTER_SANITIZE_ENCODED);
+            $call = !empty($call) ? $call : 'index';
+            $method = filter_input(INPUT_GET, 'run', FILTER_SANITIZE_ENCODED);
+            $method = !empty($method) ? $method : 'main';
             if ($this->processFolder($path, $call, $method)) {
                 return true;
             }
@@ -145,19 +129,33 @@ class Dispatcher
     }
 
     /**
-     * Run the application.
+     * Try to locate the $call class in $path, and execute the $method.
+     * Returns true if it locates the class and the method exists,
+     * executing it.
      *
-     * @throws \DebugBar\DebugBarException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @param string $path
+     * @param string $call
+     * @param string $method
+     *
+     * @return bool
      */
-    public function run()
+    public function processFolder(string $path, string $call, string $method): bool
     {
-        if (!$this->process()) {
-            if (Skin::$view == null) {
-                $view = new View();
+        $className = $call;
+        foreach ($this->nameSpaces as $nameSpace) {
+            $_className = $nameSpace . '\\Controllers\\' . $call;
+            if (class_exists($_className)) {
+                $className = $_className;
             }
         }
+        $controllerPath = $path . '/' . $call . '.php';
+        if (file_exists($controllerPath) && is_file($controllerPath)) {
+            require_once $controllerPath;
+            if (method_exists($className, $method)) {
+                (new $className())->{$method}();
+                return true;
+            }
+        }
+        return false;
     }
 }

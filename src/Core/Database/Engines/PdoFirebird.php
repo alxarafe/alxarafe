@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database\Engines;
 
 use Alxarafe\Database\Engine;
@@ -34,7 +35,6 @@ class PdoFirebird extends Engine
      * @param string $query
      *
      * @return array|null
-     * @throws \DebugBar\DebugBarException
      */
     public static function select(string $query): array
     {

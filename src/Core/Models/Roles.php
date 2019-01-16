@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Models;
 
 use Alxarafe\Base\Table;
@@ -34,22 +35,22 @@ class Roles extends Table
     public function getFields()
     {
         return [
-            'id' => array(
+            'id' => [
                 'label' => 'id',
                 'type' => 'int',
                 'key' => 'PRI',
                 'extra' => 'auto_increment' // It is assumed to be the primary key
-            ),
-            'name' => array(
+            ],
+            'name' => [
                 'label' => 'nombre',
-                'type' => 'varchar'
-            ),
-            'active' => array(
+                'type' => 'varchar',
+            ],
+            'active' => [
                 'label' => 'activo',
                 'type' => 'tinyint',
                 'null' => 'YES',
                 'default' => 0,
-            ),
+            ],
         ];
     }
 

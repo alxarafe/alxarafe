@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
@@ -25,8 +26,10 @@ class Login extends Controller
     {
         parent::__construct();
 
-        if (isset($_POST['login'])) {
-            if (Config::$user->setUser($_POST['username'], $_POST['password'])) {
+        if (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED)) {
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
+            if (Config::$user->setUser($username, $password)) {
                 header('Location: ' . BASE_URI);
             }
             Config::setError('User authentication error. Please check the username and password.');

@@ -3,10 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 
 /**
  * Engine provides generic support for databases.
@@ -56,7 +56,8 @@ abstract class SqlHelper
      */
     public function quoteTableName(string $tableName): string
     {
-        return $this->tableQuote . /* Config::getVar('dbPrefix') . */ $tableName . $this->tableQuote;
+        return $this->tableQuote . /* Config::getVar('dbPrefix') . */
+            $tableName . $this->tableQuote;
     }
 
     /**
@@ -77,29 +78,6 @@ abstract class SqlHelper
      * @return array
      */
     abstract public function getTables(): array;
-
-    /**
-     * SQL statement that returns the fields in the table
-     *
-     * @param string $tableName
-     *
-     * @return string
-     */
-    abstract public function getColumnsSql(string $tableName): string;
-
-    /**
-     * Modifies the structure returned by the query generated with
-     * getColumnsSql to the normalized format that returns getColumns
-     *
-     * @param array $fields
-     *
-     * @return array
-     */
-    abstract public function normalizeFields(array $fields): array;
-
-    abstract public function normalizeIndexes(array $fields): array;
-
-    //abstract public function normalizeConstraints(array $fields): array;
 
     /**
      * Returns an array with all the columns of a table
@@ -136,13 +114,25 @@ abstract class SqlHelper
     }
 
     /**
-     * TODO: Undocumented
+     * SQL statement that returns the fields in the table
      *
      * @param string $tableName
      *
      * @return string
      */
-    abstract public function getIndexesSql(string $tableName): string;
+    abstract public function getColumnsSql(string $tableName): string;
+
+    /**
+     * Modifies the structure returned by the query generated with
+     * getColumnsSql to the normalized format that returns getColumns
+     *
+     * @param array $fields
+     *
+     * @return array
+     */
+    abstract public function normalizeFields(array $fields): array;
+
+    //abstract public function normalizeConstraints(array $fields): array;
 
     public function getIndexes(string $tableName): array
     {
@@ -164,20 +154,31 @@ abstract class SqlHelper
      *
      * @return string
      */
-    /*
-      abstract public function getConstraintsSql(string $tableName): string;
+    abstract public function getIndexesSql(string $tableName): string;
 
-      public function getConstraints(string $tableName): array
-      {
-      $query = $this->getConstraintsSql($tableName);
-      $data = Config::$dbEngine->select($query);
-      $result = [];
-      foreach ($data as $value) {
-      $row = $this->normalizeConstraints($value);
-      $result[$row['constraint']] = $row;
-      }
+    abstract public function normalizeIndexes(array $fields): array;
 
-      return $result;
-      }
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     *
+     * @return string
      */
+    abstract public function getConstraintsSql(string $tableName): string;
+
+    /*
+    public function getConstraints(string $tableName): array
+    {
+        $query = $this->getConstraintsSql($tableName);
+        $data = Config::$dbEngine->select($query);
+        $result = [];
+        foreach ($data as $value) {
+            $row = $this->normalizeConstraints($value);
+            $result[$row['constraint']] = $row;
+        }
+
+        return $result;
+    }
+    */
 }

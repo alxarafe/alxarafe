@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 /**
@@ -18,6 +19,7 @@ class Utils
      *
      * @param string $string
      * @param string $us
+     *
      * @return string
      */
     static public function camelToSnake($string, $us = '_')
@@ -25,7 +27,7 @@ class Utils
         $patterns = [
             '/([a-z]+)([0-9]+)/i',
             '/([a-z]+)([A-Z]+)/',
-            '/([0-9]+)([a-z]+)/i'
+            '/([0-9]+)([a-z]+)/i',
         ];
         $string = preg_replace($patterns, '$1' . $us . '$2', $string);
 
@@ -40,6 +42,7 @@ class Utils
      *
      * @param string $string
      * @param string $us
+     *
      * @return string
      */
     static public function snakeToCamel($string, $us = '_')
@@ -51,7 +54,7 @@ class Utils
      * Define a constant if it does not exist
      *
      * @param string $const
-     * @param type $value
+     * @param        $value
      */
     static public function defineIfNotExists(string $const, $value)
     {
@@ -66,6 +69,7 @@ class Utils
      * Remove spaces from the result and convert it to lowercase.
      *
      * @param array $array
+     *
      * @return array
      */
     static public function flatArray(array $array): array

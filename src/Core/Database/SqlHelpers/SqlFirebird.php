@@ -3,11 +3,13 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\Helpers\Utils;
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
+use Alxarafe\Helpers\Utils;
 
 /**
  * Personalization of SQL queries to use Firebird.
@@ -20,20 +22,9 @@ class SqlFirebird extends SqlHelper
      */
     public function __construct()
     {
-        $this->tableQuote = '\'';
-        $this->fieldQuote = '';
-    }
+        parent::__construct();
 
-    /**
-     * Returns the name of the table in quotes.
-     *
-     * @param string $tableName
-     *
-     * @return string
-     */
-    public function quoteTableName(string $tableName): string
-    {
-        return strtoupper(parent::quoteTableName($tableName));
+        $this->tableQuote = '\'';
     }
 
     /**
@@ -88,10 +79,22 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
+     * Returns the name of the table in quotes.
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function quoteTableName(string $tableName): string
+    {
+        return strtoupper(parent::quoteTableName($tableName));
+    }
+
+    /**
      * Modifies the structure returned by the query generated with
      * getColumnsSql to the normalized format that returns getColumns
      *
-     * @param array $fields
+     * @param array $row
      *
      * @return array
      */
@@ -99,6 +102,7 @@ class SqlFirebird extends SqlHelper
     {
         $result = [];
         $result['field'] = strtolower(trim($row['field']));
+
         switch (trim($row['type'])) {
             // Integers
             case 'LONG':
@@ -112,8 +116,8 @@ class SqlFirebird extends SqlHelper
                 break;
             default:
                 // Others
-                $result['type'] = trim($value['type']);
-                Debug::addMessage('Deprecated', "Correct the data type '$type' in Firebird database");
+                $result['type'] = trim($row['type']);
+                Debug::addMessage('Deprecated', "Correct the data type '" . $result['type'] . "' in Firebird database");
         }
         $result['default'] = isset($row['defaultsource']) ? substr($row['defaultsource'], 10) : null;
         $result['nullable'] = $row['nullable'];
@@ -122,6 +126,7 @@ class SqlFirebird extends SqlHelper
 
         return $result;
     }
+
     /**
      * uniqueConstraints:
      *      TC_ARTICULOS_CODIGO_U:
@@ -135,6 +140,7 @@ class SqlFirebird extends SqlHelper
      *
      *
      * @param array $row
+     *
      * @return array
      */
     public function normalizeIndexes(array $row): array
@@ -163,6 +169,7 @@ class SqlFirebird extends SqlHelper
 
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
     }
+
     /**
      * 'TABLE_NAME' => string 'clientes' (length=8)
      * 'COLUMN_NAME' => string 'codgrupo' (length=8)
@@ -173,6 +180,7 @@ class SqlFirebird extends SqlHelper
      * ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
      *
      * @param array $row
+     *
      * @return array
      */
     public function normalizeConstraints(array $row): array
@@ -223,20 +231,32 @@ class SqlFirebird extends SqlHelper
      *
      * https://firebirdsql.org/refdocs/langrefupd15-create-table.html
      *
-
-      CREATE TABLE people (
-      id integer NOT NULL PRIMARY KEY,
-      name varchar(50) NOT NULL,
-      id_fiscal varchar(10) NOT NULL,
-      age integer NOT NULL
-      );
-      CREATE INDEX person_name ON people(name);
-      ALTER TABLE people ADD CONSTRAINT person_id_fiscal UNIQUE INDEX (id_fiscal);
-      INSERT INTO people
-      (id, name, id_fiscal, age)
+     *
+     * CREATE TABLE people (
+     * id integer NOT NULL PRIMARY KEY,
+     * name varchar(50) NOT NULL,
+     * id_fiscal varchar(10) NOT NULL,
+     * age integer NOT NULL
+     * );
+     * CREATE INDEX person_name ON people(name);
+     * ALTER TABLE people ADD CONSTRAINT person_id_fiscal UNIQUE INDEX (id_fiscal);
+     * INSERT INTO people
+     * (id, name, id_fiscal, age)
      * VALUES
-      ('1', 'Person 1', '11111111X', '21'),
-      ('2', 'Person 2', '22222222Y', '32'),
-      ('3', 'Person 3', '33333333Z', '43');
+     * ('1', 'Person 1', '11111111X', '21'),
+     * ('2', 'Person 2', '22222222Y', '32'),
+     * ('3', 'Person 3', '33333333Z', '43');
      */
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function getConstraintsSql(string $tableName): string
+    {
+        // TODO: Implement getConstraintsSql() method.
+        return '';
+    }
 }

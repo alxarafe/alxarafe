@@ -3,10 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Symfony\Component\Yaml\Yaml;
-use Alxarafe\Helpers\Utils;
 
 /**
  * The Schema class contains static methods that allow you to manipulate the
@@ -78,11 +78,10 @@ class Schema
 
     /**
      * Return true if $tableName exists in database
-     * 
+     *
      * @param string $tableName
      *
      * @return bool
-     * @throws \DebugBar\DebugBarException
      */
     public static function tableExists($tableName): bool
     {
@@ -94,11 +93,12 @@ class Schema
      * TODO: Undocumentend
      *
      * @return array
-     * @throws \DebugBar\DebugBarException
      */
     public static function getTables(): array
     {
         $query = Config::$sqlHelper->getTables();
+        // TODO: Expected string, got array
+        // Inspection info: Invocation parameter types are not compatible with declared.
         return Utils::flatArray(Config::$dbEngine->select($query));
     }
 
@@ -114,6 +114,30 @@ class Schema
         return Config::$dbEngine->getStructure($tableName);
     }
 
+    /**
+     * Normalize an array that has the file structure defined in the model by setStructure,
+     * so that it has fields with all the values it must have. Those that do not exist are
+     * created with the default value, avoiding having to do the check each time, or
+     * calculating their value based on the data provided by the other fields.
+     *
+     * It also ensures that the keys and default values exist as an empty array if they
+     * did not exist.
+     *
+     * @param array  $structure
+     * @param string $tableName
+     *
+     * @return array
+     */
+    public static function setNormalizedStructure(array $structure, string $tableName): array
+    {
+        $ret['keys'] = $structure['keys'] ?? [];
+        $ret['values'] = $structure['values'] ?? [];
+        foreach ($structure['fields'] as $key => $value) {
+            $ret['fields'][$key] = self::normalizeField($tableName, $key, $value);
+        }
+        return $ret;
+    }
+
     static protected function normalizeField(string $tableName, string $field, array $structure): array
     {
         if (!isset($structure['type'])) {
@@ -126,180 +150,55 @@ class Schema
             die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
         }
 
-        $min = (isset($structure['min'])) ? $structure['min'] : 0;
-        $max = (isset($structure['max'])) ? $structure['max'] : 0;
-        $default = (isset($structure['default'])) ? $structure['default'] : Null;
-        $label = (isset($structure['label'])) ? $structure['label'] : $tableName . '-' . $field;
+        $min = $structure['min'] ?? 0;
+        $max = $structure['max'] ?? 0;
+        $default = $structure['default'] ?? null;
+        $label = $structure['label'] ?? $tableName . '-' . $field;
         $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
         $null = ((isset($structure['null'])) && $structure['null'] == true);
 
         return $structure;
         /*
-          $ret = [];
-          if ($type == 'string') {
-          if ($max == 0) {
-          $max = DEFAULT_STRING_LENGTH;
-          }
-          $dbType = "$dbType($max)";
-          $ret['pattern'] = '.{' . $min . ',' . $max . '}';
-          } else if ($type == 'number') {
-          if ($default === true) {
-          $default = '1';
-          }
-          if ($max == 0) {
-          $_length = DEFAULT_INTEGER_SIZE;
-          $max = pow(10, $_length) - 1;
-          } else {
-          $_length = strlen($max);
-          }
-
-          if ($min == 0) {
-          $min = $unsigned ? 0 : -$max;
-          } else {
-          if ($_length < strlen($min)) {
-          $_length = strlen($min);
-          }
-          }
-
-          if (isset($structure['decimals'])) {
-          $decimales = $structure['decimals'];
-          $precision = pow(10, -$decimales);
-          $_length += $decimales;
-          $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
-          $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
-          $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
-          } else {
-          $precision = null;
-          $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
-          $ret['min'] = $min;
-          $ret['max'] = $max;
-          }
-          }
-
-          $ret['type'] = $type;
-          $ret['dbtype'] = $dbType;
-          $ret['default'] = $default;
-          $ret['null'] = $null;
-          $ret['label'] = $label;
-          if (isset($precision)) {
-          $ret['step'] = $precision;
-          }
-          if (isset($structure['key'])) {
-          $ret['key'] = $structure['key'];
-          }
-          if (isset($structure['placeholder'])) {
-          $ret['placeholder'] = $structure['placeholder'];
-          }
-          if (isset($structure['extra'])) {
-          $ret['extra'] = $structure['extra'];
-          }
-          if (isset($structure['help'])) {
-          $ret['help'] = $structure['help'];
-          }
-          if (isset($structure['unique']) && $structure['unique']) {
-          $ret['unique'] = $structure['unique'];
-          }
-
-          if (isset($structure['relations'][$field]['table'])) {
-          $ret['relation'] = array(
-          'table' => $structure['relations'][$field]['table'],
-          'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
-          'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
-          );
-          }
-
-          return $ret;
-         */
-    }
-
-    /**
-     * Take the definition of a field, and make sure you have all the information
-     * that is necessary for its creation or maintenance, calculating the missing
-     * data if possible.
-     * It can cause an exception if some vital data is missing, but this should
-     * only occur at the design stage.
-     *
-     * @param string $tableName
-     * @param string $field
-     * @param array $structure
-     * @return array
-     */
-    static protected function old_normalizeField(string $tableName, string $field, array $structure): array
-    {
-        if (!isset($structure['type'])) {
-            Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
-        }
-
-        $dbType = $structure['type'];
-
-        if ($dbType == 'boolean') {
-            $dbType = 'tinyint';
-            $structure['min'] = 0;
-            $structure['max'] = 1;
-        }
-
-        if ($dbType == 'int' || $dbType == 'tinyint' || $dbType == 'number') {
-            $type = 'number';
-        } else if ($dbType == 'float') {
-            $type = 'float';
-        } else if ($dbType == 'double') {
-            $type = 'double';
-        } else if ($dbType == 'char' || $dbType == 'varchar' || $dbType == 'text') {
-            $type = 'text';
-        } else if ($dbType == 'date') {
-            $type = 'date';
-        } else if ($dbType == 'datetime' || $dbType == 'timestamp') {
-            $type = 'datetime-local';
-        } else {
-            echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
-            die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
-        }
-
-        $min = (isset($structure['min'])) ? $structure['min'] : 0;
-        $max = (isset($structure['max'])) ? $structure['max'] : 0;
-        $default = (isset($structure['default'])) ? $structure['default'] : Null;
-        $label = (isset($structure['label'])) ? $structure['label'] : $field;
-        $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
-        $null = ((isset($structure['null'])) && $structure['null'] == true);
-
         $ret = [];
-        if ($type == 'text') {
+        if ($type == 'string') {
             if ($max == 0) {
                 $max = DEFAULT_STRING_LENGTH;
             }
             $dbType = "$dbType($max)";
             $ret['pattern'] = '.{' . $min . ',' . $max . '}';
-        } else if ($type == 'number') {
-            if ($default === true) {
-                $default = '1';
-            }
-            if ($max == 0) {
-                $_length = DEFAULT_INTEGER_SIZE;
-                $max = pow(10, $_length) - 1;
-            } else {
-                $_length = strlen($max);
-            }
-
-            if ($min == 0) {
-                $min = $unsigned ? 0 : -$max;
-            } else {
-                if ($_length < strlen($min)) {
-                    $_length = strlen($min);
+        } else {
+            if ($type == 'number') {
+                if ($default === true) {
+                    $default = '1';
                 }
-            }
+                if ($max == 0) {
+                    $_length = DEFAULT_INTEGER_SIZE;
+                    $max = pow(10, $_length) - 1;
+                } else {
+                    $_length = strlen($max);
+                }
 
-            if (isset($structure['decimals'])) {
-                $decimales = $structure['decimals'];
-                $precision = pow(10, -$decimales);
-                $_length += $decimales;
-                $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
-                $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
-                $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
-            } else {
-                $precision = null;
-                $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
-                $ret['min'] = $min;
-                $ret['max'] = $max;
+                if ($min == 0) {
+                    $min = $unsigned ? 0 : -$max;
+                } else {
+                    if ($_length < strlen($min)) {
+                        $_length = strlen($min);
+                    }
+                }
+
+                if (isset($structure['decimals'])) {
+                    $decimales = $structure['decimals'];
+                    $precision = pow(10, -$decimales);
+                    $_length += $decimales;
+                    $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
+                    $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
+                    $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
+                } else {
+                    $precision = null;
+                    $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
+                    $ret['min'] = $min;
+                    $ret['max'] = $max;
+                }
             }
         }
 
@@ -328,37 +227,35 @@ class Schema
         }
 
         if (isset($structure['relations'][$field]['table'])) {
-            $ret['relation'] = array(
+            $ret['relation'] = [
                 'table' => $structure['relations'][$field]['table'],
                 'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
                 'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
-            );
+            ];
         }
 
         return $ret;
+        */
     }
 
     /**
-     * Normalize an array that has the file structure defined in the model by setStructure,
-     * so that it has fields with all the values it must have. Those that do not exist are
-     * created with the default value, avoiding having to do the check each time, or
-     * calculating their value based on the data provided by the other fields.
+     * Create a table in the database.
+     * Build the default fields, indexes and values defined in the model.
      *
-     * It also ensures that the keys and default values exist as an empty array if they
-     * did not exist.
-     *
-     * @param array $structure
      * @param string $tableName
-     * @return array
+     *
+     * @return bool
      */
-    public static function setNormalizedStructure(array $structure, string $tableName): array
+    public static function createTable(string $tableName): bool
     {
-        $ret['keys'] = $structure['keys'] ?? [];
-        $ret['values'] = $structure['values'] ?? [];
-        foreach ($structure['fields'] as $key => $value) {
-            $ret['fields'][$key] = self::normalizeField($tableName, $key, $value);
+        $tabla = Config::$bbddStructure[$tableName];
+        $sql = self::createFields($tableName, $tabla['fields']);
+
+        foreach ($tabla['keys'] as $name => $index) {
+            $sql .= self::createIndex($tableName, $name, $index);
         }
-        return $ret;
+        $sql .= self::setValues($tableName, $tabla['values']);
+        return Config::$dbEngine->exec($sql);
     }
 
     /**
@@ -366,7 +263,8 @@ class Schema
      * It can also create the primary key if the auto_increment attribute is defined.
      *
      * @param string $tableName
-     * @param array $fieldList
+     * @param array  $fieldList
+     *
      * @return string
      */
     static protected function createFields(string $tableName, array $fieldList): string
@@ -416,20 +314,21 @@ class Schema
     /**
      * Create the SQL statements for the construction of one index.
      * In the case of the primary index, it is not necessary if it is auto_increment.
-     * 
-     * TODO: 
-     * 
-     * Moreover, it should not be defined if it is auto_increment because it would 
+     *
+     * TODO:
+     *
+     * Moreover, it should not be defined if it is auto_increment because it would
      * generate an error when it already exists.
      *
      * @param string $tableName
      * @param string $indexname
-     * @param array $indexData
+     * @param array  $indexData
      *
      * @return string
      */
     static protected function createIndex($tableName, $indexname, $indexData)
     {
+        $fields = '';
         $tableName = Config::getVar('dbPrefix') . $tableName;
         $sql = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
 
@@ -505,7 +404,8 @@ class Schema
      * Create the SQL statements to fill the table with default data.
      *
      * @param string $tableName
-     * @param array $values
+     * @param array  $values
+     *
      * @return string
      */
     static protected function setValues(string $tableName, array $values): string
@@ -535,23 +435,139 @@ class Schema
     }
 
     /**
-     * Create a table in the database.
-     * Build the default fields, indexes and values defined in the model.
+     * Take the definition of a field, and make sure you have all the information
+     * that is necessary for its creation or maintenance, calculating the missing
+     * data if possible.
+     * It can cause an exception if some vital data is missing, but this should
+     * only occur at the design stage.
      *
      * @param string $tableName
+     * @param string $field
+     * @param array  $structure
      *
-     * @return bool
-     * @throws \DebugBar\DebugBarException
+     * @return array
      */
-    public static function createTable(string $tableName): bool
+    static protected function old_normalizeField(string $tableName, string $field, array $structure): array
     {
-        $tabla = Config::$bbddStructure[$tableName];
-        $sql = self::createFields($tableName, $tabla['fields']);
-
-        foreach ($tabla['keys'] as $name => $index) {
-            $sql .= self::createIndex($tableName, $name, $index);
+        if (!isset($structure['type'])) {
+            Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
         }
-        $sql .= self::setValues($tableName, $tabla['values']);
-        return Config::$dbEngine->exec($sql);
+
+        $dbType = $structure['type'];
+
+        if ($dbType == 'boolean') {
+            $dbType = 'tinyint';
+            $structure['min'] = 0;
+            $structure['max'] = 1;
+        }
+
+        switch ($dbType) {
+            case 'int':
+            case 'tinyint':
+            case 'number':
+                $type = 'number';
+                break;
+            case 'float':
+                $type = 'float';
+                break;
+            case 'double':
+                $type = 'double';
+                break;
+            case 'char':
+            case 'varchar':
+            case 'text':
+                $type = 'text';
+                break;
+            case 'date':
+                $type = 'date';
+                break;
+            case 'datetime':
+            case 'timestamp':
+                $type = 'datetime-local';
+                break;
+            default:
+                echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
+                die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
+                break;
+        }
+
+        $min = $structure['min'] ?? 0;
+        $max = $structure['max'] ?? 0;
+        $default = $structure['default'] ?? null;
+        $label = $structure['label'] ?? $field;
+        $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
+        $null = ((isset($structure['null'])) && $structure['null'] == true);
+
+        $ret = [];
+        if ($type == 'text') {
+            if ($max == 0) {
+                $max = DEFAULT_STRING_LENGTH;
+            }
+            $dbType = "$dbType($max)";
+            $ret['pattern'] = '.{' . $min . ',' . $max . '}';
+        } elseif ($type == 'number') {
+            if ($default === true) {
+                $default = '1';
+            }
+
+            $_length = strlen($max);
+            if ($max == 0) {
+                $_length = DEFAULT_INTEGER_SIZE;
+                $max = pow(10, $_length) - 1;
+            }
+
+            if ($min == 0) {
+                $min = $unsigned ? 0 : -$max;
+            } elseif ($_length < strlen($min)) {
+                $_length = strlen($min);
+            }
+
+            $precision = null;
+            $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
+            $ret['min'] = $min;
+            $ret['max'] = $max;
+            if (isset($structure['decimals'])) {
+                $decimales = $structure['decimals'];
+                $precision = pow(10, -$decimales);
+                $_length += $decimales;
+                $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
+                $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
+                $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
+            }
+        }
+
+        $ret['type'] = $type;
+        $ret['dbtype'] = $dbType;
+        $ret['default'] = $default;
+        $ret['null'] = $null;
+        $ret['label'] = $label;
+        if (isset($precision)) {
+            $ret['step'] = $precision;
+        }
+        if (isset($structure['key'])) {
+            $ret['key'] = $structure['key'];
+        }
+        if (isset($structure['placeholder'])) {
+            $ret['placeholder'] = $structure['placeholder'];
+        }
+        if (isset($structure['extra'])) {
+            $ret['extra'] = $structure['extra'];
+        }
+        if (isset($structure['help'])) {
+            $ret['help'] = $structure['help'];
+        }
+        if (isset($structure['unique']) && $structure['unique']) {
+            $ret['unique'] = $structure['unique'];
+        }
+
+        if (isset($structure['relations'][$field]['table'])) {
+            $ret['relation'] = [
+                'table' => $structure['relations'][$field]['table'],
+                'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
+                'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
+            ];
+        }
+
+        return $ret;
     }
 }

@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Models;
 
 use Alxarafe\Base\Table;
@@ -33,12 +34,12 @@ class UserRoles extends Table
     public function getFields()
     {
         return [
-            'user_id' => array(
+            'user_id' => [
                 'type' => 'int',
-            ),
-            'role_id' => array(
+            ],
+            'role_id' => [
                 'type' => 'int',
-            ),
+            ],
         ];
     }
 

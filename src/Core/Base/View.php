@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -40,6 +41,29 @@ class View
         $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->addCSS();
         $this->addJS();
+    }
+
+    /**
+     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
+     *
+     * @return void
+     */
+    public function addCSS()
+    {
+        // $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min', 'css'));
+        // $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
+    }
+
+    /**
+     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
+     *
+     * @return void
+     */
+    public function addJS()
+    {
+        // $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min', 'js'));
+        // $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min', 'js'));
+        // $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
     }
 
     /**
@@ -126,6 +150,17 @@ class View
      * Returns a previously saved value in the array that is passed to the
      * template.
      *
+     * @return array
+     */
+    public function getVars(): array
+    {
+        return $this->vars;
+    }
+
+    /**
+     * Returns a previously saved value in the array that is passed to the
+     * template.
+     *
      * @param $name
      *
      * @return array|string|boolean|null
@@ -133,29 +168,6 @@ class View
     public function getVar(string $name)
     {
         return isset($this->vars[$name]) ?? [];
-    }
-
-    /**
-     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
-     *
-     * @return void
-     */
-    public function addCSS()
-    {
-        // $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min', 'css'));
-        // $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
-    }
-
-    /**
-     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
-     *
-     * @return void
-     */
-    public function addJS()
-    {
-        // $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min', 'js'));
-        // $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min', 'js'));
-        // $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
     }
 
     /**

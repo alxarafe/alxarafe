@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -19,29 +20,32 @@ class SimpleTable
 {
 
     /**
+     * It is the name of the table.
+     *
+     * @var string
+     */
+    public $tableName;
+    /**
      * Value of the main index for the active record.
      * When a record is loaded, this field will contain its id and will be the
      * one that will be used for in the WHERE clause of the UPDATE.
      * If it does not exist in file it will contain ''.
-     * 
+     *
      * @var string
      */
     protected $id;
-
     /**
      * It is the name of the main id field. By default 'id'
-     * 
+     *
      * @var string
      */
     protected $idField;
-
     /**
      * It contains the data previous to the modification of the current record
      *
      * @var array
      */
     protected $oldData;
-
     /**
      * Contains the new data of the current record.
      * It will start when loading a record and will be used when making a save.
@@ -51,13 +55,6 @@ class SimpleTable
     protected $newData;
 
     /**
-     * It is the name of the table.
-     * 
-     * @var string
-     */
-    public $tableName;
-
-    /**
      * Build a Table model. $table is the name of the table in the database.
      * $params is a parameters array:
      * - create is true if the table is to be created if it does not exist (false by default)
@@ -65,7 +62,7 @@ class SimpleTable
      * - nameField is the name of the descriptive field (name by default)
      *
      * @param string $tableName
-     * @param array $params
+     * @param array  $params
      */
     public function __construct(string $tableName, array $params = [])
     {
@@ -84,10 +81,60 @@ class SimpleTable
     }
 
     /**
+     * Execute a call to setTableStructure with an array containing 3 arrays with
+     * the fields, keys and default values for the table.
+     *
+     * The development will be more ambitious than what is defined.
+     *
+     * Currently Table includes a single table, but the idea is to be able to
+     * relate tables to form complex data models.
+     */
+    public function setStructure()
+    {
+        $this->setTableStructure($this->tableName, $this->getStructureArray());
+    }
+
+    /**
+     * Save the structure of the table in a static array, so that it is available at all times.
+     *
+     * @param string $table
+     * @param array  $structure
+     */
+    protected function setTableStructure(string $table, array $structure)
+    {
+        if (!isset(Config::$bbddStructure[$table])) {
+            Config::$bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
+        }
+    }
+
+    /**
+     * A raw array is built with all the information available in the table, configuration files and code.
+     *
+     * @return array
+     */
+    protected function getStructureArray(): array
+    {
+        $struct['fields'] = method_exists($this, 'getFields') ? $this->getFields() : $this->getFieldsFromTable();
+        return $struct;
+    }
+
+    /**
+     * Return a list of fields and their table structure.
+     * Each final model that needed, must overwrite it.
+     *
+     * @return array
+     */
+    public function getFieldsFromTable()
+    {
+        return Config::$sqlHelper->getColumns($this->tableName);
+    }
+
+    /**
      * Execute a magic method of the setField or getField style
      *
      * @param string $method
-     * @param array $params
+     * @param array  $params
+     *
      * @return string
      * @throws Exception
      */
@@ -112,6 +159,7 @@ class SimpleTable
      * this, we can also use $this->name.
      *
      * @param string $property
+     *
      * @return string
      */
     public function __get(string $property): string
@@ -127,6 +175,7 @@ class SimpleTable
      *
      * @param string $property
      * @param string $value
+     *
      * @return string
      */
     public function __set(string $property, string $value): string
@@ -136,8 +185,60 @@ class SimpleTable
     }
 
     /**
+     * Returns the name of the main key field of the table (PK-Primary Key). By
+     * default it will be id.
+     *
+     * @return string
+     */
+    public function getIdField(): string
+    {
+        return $this->idField;
+    }
+
+    /**
+     * Returns a new instance of the table with the requested record.
+     * As a previous step, a getData of the current instance is made, so both
+     * will point to the same record.
+     * Makes a getData and returns a new instance of the model.
+     *
+     * @param string $id
+     *
+     * @return SimpleTable
+     */
+    public function get(string $id): self
+    {
+        $this->getData($id);
+        return $this;
+    }
+
+    /**
+     * This method is private. Use load instead.
+     * Establishes a record as an active record.
+     * If found, the $id will be in $this->id and the data in $this->newData.
+     * If it is not found, $this->id will contain '' and $this->newData will
+     * contain the data by default.
+     *
+     * @param string $id
+     *
+     * @return bool
+     */
+    private function getData(string $id): bool
+    {
+        $sql = 'SELECT * FROM ' . $this->getTableName() . " WHERE {$this->idField}='$id'";
+        $data = Config::$dbEngine->select($sql);
+        if (!isset($data) || count($data) == 0) {
+            $this->newRecord();
+            return false;
+        }
+        $this->newData = $data[0];
+        $this->oldData = $this->newData;
+        $this->id = $this->newData[$this->idField];
+        return true;
+    }
+
+    /**
      * Get the name of the table (with prefix)
-     * 
+     *
      * @return string
      */
     public function getTableName(): string
@@ -160,57 +261,6 @@ class SimpleTable
     }
 
     /**
-     * Returns the name of the main key field of the table (PK-Primary Key). By
-     * default it will be id.
-     *
-     * @return string
-     */
-    public function getIdField(): string
-    {
-        return $this->idField;
-    }
-
-    /**
-     * This method is private. Use load instead.
-     * Establishes a record as an active record.
-     * If found, the $id will be in $this->id and the data in $this->newData.
-     * If it is not found, $this->id will contain '' and $this->newData will
-     * contain the data by default.
-     *
-     * @param string $id
-     *
-     * @return bool
-     */
-    private function getData(string $id): bool
-    {
-        $sql = 'SELECT * FROM ' . Config::getVar('dbPrefix') . $this->tableName . " WHERE {$this->idField}='$id'";
-        $data = Config::$dbEngine->select($sql);
-        if (!isset($data) || count($data) == 0) {
-            $this->newRecord();
-            return false;
-        }
-        $this->newData = $data[0];
-        $this->oldData = $this->newData;
-        $this->id = $this->newData[$this->idField];
-        return true;
-    }
-
-    /**
-     * Returns a new instance of the table with the requested record.
-     * As a previous step, a getData of the current instance is made, so both
-     * will point to the same record.
-     * Makes a getData and returns a new instance of the model.
-     *
-     * @param string $id
-     * @return Table
-     */
-    public function get(string $id): Table
-    {
-        $this->getData($id);
-        return $this;
-    }
-
-    /**
      * Return an array with the current active record.
      * If an $id is indicated, it searches to change the active record before
      * returning the value.
@@ -218,6 +268,7 @@ class SimpleTable
      * for the new record.
      *
      * @param string $id
+     *
      * @return array
      */
     public function getDataArray(string $id = null): array
@@ -235,45 +286,12 @@ class SimpleTable
      * contain the data by default.
      *
      * @param string $id
+     *
      * @return bool
      */
     public function load(string $id): bool
     {
         return $this->getData($id);
-    }
-
-    /**
-     * Update the modified fields in the active record.
-     * $data is an array of assignments of type field=value.
-     *
-     * @param array $data
-     *
-     * @return bool
-     */
-    private function updateRecord($data): bool
-    {
-        $value = implode(',', $data);
-        return Config::$dbEngine->exec('UPDATE ' . Config::getVar('dbPrefix') . $this->tableName . " SET $value WHERE {$this->idField}='{$this->id}'");
-    }
-
-    /**
-     * Insert a new record.
-     * $fields is an array of fields and $values an array with the values for
-     * each field in the same order.
-     *
-     * @param array $fields
-     * @param array $values
-     *
-     * @return bool
-     */
-    private function insertRecord($fields, $values): bool
-    {
-        $fieldList = implode(',', $fields);
-        $valueList = implode(',', $values);
-        $ret = Config::$dbEngine->exec('INSERT INTO ' . $prefix . $this->tableName . " ($fieldList) VALUES ($valueList)");
-        // Asigna el valor de la clave primaria del registro recién insertado
-        $this->id = $this->newData[$this->idField] ?? Config::$dbEngine->getLastInserted();
-        return $ret;
     }
 
     /**
@@ -308,52 +326,37 @@ class SimpleTable
     }
 
     /**
-     * A raw array is built with all the information available in the table, configuration files and code.
+     * Insert a new record.
+     * $fields is an array of fields and $values an array with the values for
+     * each field in the same order.
      *
-     * @return array
+     * @param array $fields
+     * @param array $values
+     *
+     * @return bool
      */
-    protected function getStructureArray(): array
+    private function insertRecord($fields, $values): bool
     {
-        $struct['fields'] = method_exists($this, 'getFields') ? $this->getFields() : $this->getFieldsFromTable();
-        return $struct;
+        $fieldList = implode(',', $fields);
+        $valueList = implode(',', $values);
+        $ret = Config::$dbEngine->exec('INSERT INTO ' . $this->getTableName() . " ($fieldList) VALUES ($valueList)");
+        // Asigna el valor de la clave primaria del registro recién insertado
+        $this->id = $this->newData[$this->idField] ?? Config::$dbEngine->getLastInserted();
+        return $ret;
     }
 
     /**
-     * Save the structure of the table in a static array, so that it is available at all times.
+     * Update the modified fields in the active record.
+     * $data is an array of assignments of type field=value.
      *
-     * @param string $table
-     * @param array $structure
+     * @param array $data
+     *
+     * @return bool
      */
-    protected function setTableStructure(string $table, array $structure)
+    private function updateRecord($data): bool
     {
-        if (!isset(Config::$bbddStructure[$table])) {
-            Config::$bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
-        }
-    }
-
-    /**
-     * Execute a call to setTableStructure with an array containing 3 arrays with
-     * the fields, keys and default values for the table.
-     *
-     * The development will be more ambitious than what is defined.
-     *
-     * Currently Table includes a single table, but the idea is to be able to
-     * relate tables to form complex data models.
-     */
-    public function setStructure()
-    {
-        $this->setTableStructure($this->tableName, $this->getStructureArray());
-    }
-
-    /**
-     * Return a list of fields and their table structure.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getFieldsFromTable()
-    {
-        return Config::$sqlHelper->getColumns($this->tableName);
+        $value = implode(',', $data);
+        return Config::$dbEngine->exec('UPDATE ' . $this->getTableName() . " SET $value WHERE {$this->idField}='{$this->id}'");
     }
 
     /**
@@ -373,8 +376,7 @@ class SimpleTable
      */
     public function getAllRecords(): array
     {
-        $prefix = Config::getVar('dbPrefix');
-        $sql = 'SELECT * FROM ' . $prefix . $this->tableName;
+        $sql = 'SELECT * FROM ' . $this->getTableName();
         return Config::$dbEngine->select($sql);
     }
 

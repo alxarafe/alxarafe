@@ -3,10 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
-use Alxarafe\Helpers\Debug;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
@@ -31,21 +31,24 @@ class Skin
      * file is not found in the template, then it will be searched in COMMON_FOLDER.
      */
     const COMMON_FOLDER = "/html/common";
-
+    /**
+     * Contains an instance of the view, or the generic view if one is not specified.
+     *
+     * @var View
+     */
+    public static $view;
     /**
      * It is the name of the template that is being used.
      *
      * @var string
      */
     private static $currentTemplate;
-
     /**
      * It's the name of the skin that is being used.
      *
      * @var string
      */
     private static $currentSkin;
-
     /**
      * It's the name of the template engine.
      * For now, only the 'twig' template engine is used.
@@ -53,7 +56,6 @@ class Skin
      * @var string
      */
     private static $templatesEngine;
-
     /**
      * It is the skin, that is, the folder that contains the templates.
      *
@@ -63,7 +65,6 @@ class Skin
      * @var string
      */
     private static $templatesFolder;
-
     /**
      * Indicates the folder where the files common to all the templates are located.
      * A file will be searched first in the $templatesFolder, and if it is not, it
@@ -72,13 +73,6 @@ class Skin
      * @var string
      */
     private static $commonTemplatesFolder;
-
-    /**
-     * Contains an instance of the view, or the generic view if one is not specified.
-     *
-     * @var View
-     */
-    public static $view;
 
     /**
      * Sets the view class that will be used
@@ -91,6 +85,16 @@ class Skin
         if (!self::hasTemplatesFolder()) {
             self::setTemplatesFolder('default');
         }
+    }
+
+    /**
+     * Return the templates folder
+     *
+     * @return bool
+     */
+    public static function hasTemplatesFolder(): bool
+    {
+        return (self::$templatesFolder != null);
     }
 
     /**
@@ -133,8 +137,6 @@ class Skin
      * TODO: Undocumented
      *
      * @param $skin
-     *
-     * @throws \DebugBar\DebugBarException
      */
     public static function setSkin($skin)
     {
@@ -149,33 +151,11 @@ class Skin
      * TODO: Undocumented
      *
      * @param $template
-     *
-     * @throws \DebugBar\DebugBarException
      */
     public static function setTemplate($template)
     {
         self::$currentTemplate = $template;
         Debug::addMessage('messages', "Setting '$template' template");
-    }
-
-    /**
-     * Return the templates folder
-     *
-     * @return bool
-     */
-    public static function hasTemplatesFolder(): bool
-    {
-        return (self::$templatesFolder != null);
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @return string
-     */
-    public static function getTemplatesFolder(): string
-    {
-        return BASE_PATH . self::$templatesFolder;
     }
 
     /**
@@ -186,17 +166,6 @@ class Skin
     public static function getTemplatesUri(): string
     {
         return BASE_URI . self::$templatesFolder;
-    }
-
-    /**
-     * Establish a new template. The parameter must be only de template name, no the path!
-     *
-     * @param string $template
-     */
-    public static function setTemplatesFolder(string $template)
-    {
-        self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
-        Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
 
     /**
@@ -224,16 +193,6 @@ class Skin
      *
      * @return string
      */
-    public static function getCommonTemplatesFolder(): string
-    {
-        return BASE_PATH . self::$commonTemplatesFolder;
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @return string
-     */
     public static function getCommonTemplatesUri(): string
     {
         return BASE_URI . self::$commonTemplatesFolder;
@@ -242,26 +201,9 @@ class Skin
     /**
      * TODO: Undocumented
      *
-     * @param string $templatesFolder
-     *
-     * @throws \DebugBar\DebugBarException
-     */
-    public static function setCommonTemplatesFolder(string $templatesFolder)
-    {
-        Debug::addMessage('messages', "Setting '$templatesFolder' common templates folder");
-        self::$commonTemplatesFolder = $templatesFolder;
-    }
-
-    /**
-     * TODO: Undocumented
-     *
      * @param array $vars
      *
      * @return string
-     * @throws \DebugBar\DebugBarException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public static function render(array $vars): string
     {
@@ -279,13 +221,10 @@ class Skin
      * @param array $vars
      *
      * @return string
-     * @throws \DebugBar\DebugBarException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     private static function renderIt(array $vars): string
     {
+        $return = null;
         Debug::startTimer('render', 'Rendering time');
 
         switch (self::$templatesEngine) {
@@ -319,12 +258,62 @@ class Skin
 
                 $template = (isset($templateVars['template']) ? $templateVars['template'] : Skin::$currentTemplate) . '.twig';
                 Debug::addMessage('messages', "Using '$template' template");
-                $return = $twig->render($template, $templateVars);
+                try {
+                    $return = $twig->render($template, $templateVars);
+                } catch (\Twig_Error_Loader $e) {
+                    Debug::addException($e);
+                } catch (\Twig_Error_Runtime $e) {
+                    Debug::addException($e);
+                } catch (\Twig_Error_Syntax $e) {
+                    Debug::addException($e);
+                }
                 break;
             default :
                 $return = self::$templatesEngine . ' engine is not supported!';
         }
         Debug::stopTimer('render');
         return $return;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
+    public static function getTemplatesFolder(): string
+    {
+        return BASE_PATH . self::$templatesFolder;
+    }
+
+    /**
+     * Establish a new template. The parameter must be only de template name, no the path!
+     *
+     * @param string $template
+     */
+    public static function setTemplatesFolder(string $template)
+    {
+        self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
+        Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @return string
+     */
+    public static function getCommonTemplatesFolder(): string
+    {
+        return BASE_PATH . self::$commonTemplatesFolder;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $templatesFolder
+     */
+    public static function setCommonTemplatesFolder(string $templatesFolder)
+    {
+        Debug::addMessage('messages', "Setting '$templatesFolder' common templates folder");
+        self::$commonTemplatesFolder = $templatesFolder;
     }
 }

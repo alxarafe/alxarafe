@@ -3,10 +3,13 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use DebugBar\DataCollector\MessagesCollector;
+use DebugBar\DebugBarException;
 use DebugBar\StandardDebugBar;
+use Exception;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -40,8 +43,6 @@ class Debug
 
     /**
      * Debug constructor.
-     *
-     * @throws \DebugBar\DebugBarException
      */
     public function __construct()
     {
@@ -50,21 +51,41 @@ class Debug
         }
 
         self::$logger = new Logger('core_logger');
-        self::$logger->pushHandler(new StreamHandler(BASE_PATH . 'core.log', Logger::DEBUG));
+        try {
+            self::$logger->pushHandler(new StreamHandler(BASE_PATH . 'core.log', Logger::DEBUG));
+        } catch (Exception $e) {
+            Debug::addException($e);
+        }
         self::$logger->pushHandler(new FirePHPHandler());
 
         self::$debugBar = new StandardDebugBar();
-        self::$debugBar->addCollector(new MessagesCollector('SQL'));
-        self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
+        try {
+            self::$debugBar->addCollector(new MessagesCollector('SQL'));
+            self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
+        } catch (DebugBarException $e) {
+            Debug::addException($e);
+        }
         $baseUrl = VENDOR_URI . '/maximebf/debugbar/src/DebugBar/Resources';
         self::$render = Debug::getDebugBar()->getJavascriptRenderer($baseUrl, BASE_PATH);
     }
 
     /**
+     * TODO: Undocumented
+     *
+     * @param Exception $exception
+     */
+    public static function addException($exception): void
+    {
+        self::checkInstance();
+        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
+        $caller['file'] = substr($caller['file'], strlen(BASE_PATH));
+        self::$debugBar['exceptions']->addException($exception);
+        self::$logger->info('Exception: ' . $exception->getMessage());
+    }
+
+    /**
      * Check if the class is instanced, and instance it if not.
      * This method can be called, after use self::$debugBar in any method.
-     *
-     * @throws \DebugBar\DebugBarException
      */
     private static function checkInstance()
     {
@@ -81,7 +102,6 @@ class Debug
      * de quedar TOTALMENTE encapsulado en esta clase.
      *
      * @return StandardDebugBar
-     * @throws \DebugBar\DebugBarException
      */
     public static function getDebugBar(): StandardDebugBar
     {
@@ -93,7 +113,6 @@ class Debug
      * TODO: Undocumented
      *
      * @return string
-     * @throws \DebugBar\DebugBarException
      */
     public static function getRenderHeader(): string
     {
@@ -108,7 +127,6 @@ class Debug
      * TODO: Undocumented
      *
      * @return string
-     * @throws \DebugBar\DebugBarException
      */
     public static function getRenderFooter(): string
     {
@@ -124,8 +142,6 @@ class Debug
      *
      * @param string $channel
      * @param string $message
-     *
-     * @throws \DebugBar\DebugBarException
      */
     public static function addMessage(string $channel, string $message): void
     {
@@ -138,26 +154,8 @@ class Debug
     /**
      * TODO: Undocumented
      *
-     * @param $exception
-     *
-     * @throws \DebugBar\DebugBarException
-     */
-    public static function addException($exception): void
-    {
-        self::checkInstance();
-        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(BASE_PATH));
-        self::$debugBar['exceptions']->addException($exception);
-        self::$logger->info('Exception: ' . $exception->getMessage());
-    }
-
-    /**
-     * TODO: Undocumented
-     *
      * @param string $name
      * @param string $message
-     *
-     * @throws \DebugBar\DebugBarException
      */
     public static function startTimer(string $name, string $message): void
     {
@@ -169,13 +167,11 @@ class Debug
      * TODO: Undocumented
      *
      * @param string $name
-     *
-     * @throws \DebugBar\DebugBarException
      */
     public static function stopTimer(string $name): void
     {
         self::checkInstance();
-        //self::$debugBar['time']->stopMeasure($name);
+        self::$debugBar['time']->stopMeasure($name);
     }
 
     /**
