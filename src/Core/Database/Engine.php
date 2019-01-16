@@ -80,7 +80,7 @@ abstract class Engine
      */
     public static function getEngines(): array
     {
-        $path = ALXARAFE_FOLDER . '/Database/Engines';
+        $path = constant('ALXARAFE_FOLDER') . '/Database/Engines';
         $engines = scandir($path);
         $ret = [];
         foreach ($engines as $engine) {

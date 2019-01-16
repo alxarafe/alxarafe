@@ -103,11 +103,11 @@ class View
             if (file_exists(Skin::getCommonTemplatesFolder() . $path)) {
                 return Skin::getCommonTemplatesUri() . $path;
             }
-            if (file_exists(DEFAULT_TEMPLATES_FOLDER . $path)) {
-                return DEFAULT_TEMPLATES_URI . $path;
+            if (file_exists(constant('DEFAULT_TEMPLATES_FOLDER') . $path)) {
+                return constant('DEFAULT_TEMPLATES_URI') . $path;
             }
-            if (file_exists(VENDOR_FOLDER . $path)) {
-                return VENDOR_URI . $path;
+            if (file_exists(constant('VENDOR_FOLDER') . $path)) {
+                return constant('VENDOR_URI') . $path;
             }
             Debug::addMessage('messages', "Relative resource '$path' not found!");
         }

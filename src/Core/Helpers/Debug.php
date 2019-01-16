@@ -52,7 +52,7 @@ class Debug
 
         self::$logger = new Logger('core_logger');
         try {
-            self::$logger->pushHandler(new StreamHandler(BASE_PATH . 'core.log', Logger::DEBUG));
+            self::$logger->pushHandler(new StreamHandler(constant('BASE_PATH') . 'core.log', Logger::DEBUG));
         } catch (Exception $e) {
             Debug::addException($e);
         }
@@ -65,8 +65,8 @@ class Debug
         } catch (DebugBarException $e) {
             Debug::addException($e);
         }
-        $baseUrl = VENDOR_URI . '/maximebf/debugbar/src/DebugBar/Resources';
-        self::$render = Debug::getDebugBar()->getJavascriptRenderer($baseUrl, BASE_PATH);
+        $baseUrl = constant('VENDOR_URI') . '/maximebf/debugbar/src/DebugBar/Resources';
+        self::$render = Debug::getDebugBar()->getJavascriptRenderer($baseUrl, constant('BASE_PATH'));
     }
 
     /**
@@ -78,7 +78,7 @@ class Debug
     {
         self::checkInstance();
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(BASE_PATH));
+        $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
         self::$debugBar['exceptions']->addException($exception);
         self::$logger->info('Exception: ' . $exception->getMessage());
     }
@@ -147,7 +147,7 @@ class Debug
     {
         self::checkInstance();
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(BASE_PATH));
+        $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
         self::$debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
     }
 

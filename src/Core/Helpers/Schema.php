@@ -60,7 +60,7 @@ class Schema
      */
     public static function saveStructure()
     {
-        $folder = BASE_PATH . '/schema';
+        $folder = constant('BASE_PATH') . '/schema';
         if (!is_dir($folder)) {
             mkdir($folder);
         }

@@ -30,7 +30,7 @@ class Login extends Controller
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
             if (Config::$user->setUser($username, $password)) {
-                header('Location: ' . BASE_URI);
+                header('Location: ' . constant('BASE_URI'));
             }
             Config::setError('User authentication error. Please check the username and password.');
         }
@@ -57,6 +57,6 @@ class Login extends Controller
     public function logout()
     {
         Config::$user->logout();
-        header('Location: ' . BASE_URI);
+        header('Location: ' . constant('BASE_URI'));
     }
 }

@@ -8,6 +8,9 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
 use Twig_Environment;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
 use Twig_Loader_Filesystem;
 
 /**
@@ -118,7 +121,7 @@ class Skin
      */
     public static function getSkins(): array
     {
-        $path = BASE_PATH . self::SKINS_FOLDER;
+        $path = constant('BASE_PATH') . self::SKINS_FOLDER;
         if (!is_dir($path)) {
             Config::setError("Directory '$path' does not exists!");
             return [];
@@ -165,7 +168,7 @@ class Skin
      */
     public static function getTemplatesUri(): string
     {
-        return BASE_URI . self::$templatesFolder;
+        return constant('BASE_URI') . self::$templatesFolder;
     }
 
     /**
@@ -195,7 +198,7 @@ class Skin
      */
     public static function getCommonTemplatesUri(): string
     {
-        return BASE_URI . self::$commonTemplatesFolder;
+        return constant('BASE_URI') . self::$commonTemplatesFolder;
     }
 
     /**
@@ -244,15 +247,15 @@ class Skin
                 if (file_exists(self::getCommonTemplatesFolder())) {
                     $usePath[] = self::getCommonTemplatesFolder();
                 }
-                if (file_exists(DEFAULT_TEMPLATES_FOLDER)) {
-                    $usePath[] = DEFAULT_TEMPLATES_FOLDER;
+                if (file_exists(constant('DEFAULT_TEMPLATES_FOLDER'))) {
+                    $usePath[] = constant('DEFAULT_TEMPLATES_FOLDER');
                 }
 
                 Debug::addMessage('messages', 'Using:' . print_r($usePath, true));
 
                 $loader = new Twig_Loader_Filesystem($usePath);
                 // TODO: Would not it be better to use a random constant instead of twig.Twig?
-                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => (BASE_PATH ?? '') . '/tmp/twig.Twig'];
+                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => (constant('BASE_PATH') ?? '') . '/tmp/twig.Twig'];
 
                 $twig = new Twig_Environment($loader, $options);
 
@@ -260,11 +263,11 @@ class Skin
                 Debug::addMessage('messages', "Using '$template' template");
                 try {
                     $return = $twig->render($template, $templateVars);
-                } catch (\Twig_Error_Loader $e) {
+                } catch (Twig_Error_Loader $e) {
                     Debug::addException($e);
-                } catch (\Twig_Error_Runtime $e) {
+                } catch (Twig_Error_Runtime $e) {
                     Debug::addException($e);
-                } catch (\Twig_Error_Syntax $e) {
+                } catch (Twig_Error_Syntax $e) {
                     Debug::addException($e);
                 }
                 break;
@@ -282,7 +285,7 @@ class Skin
      */
     public static function getTemplatesFolder(): string
     {
-        return BASE_PATH . self::$templatesFolder;
+        return constant('BASE_PATH') . self::$templatesFolder;
     }
 
     /**
@@ -303,7 +306,7 @@ class Skin
      */
     public static function getCommonTemplatesFolder(): string
     {
-        return BASE_PATH . self::$commonTemplatesFolder;
+        return constant('BASE_PATH') . self::$commonTemplatesFolder;
     }
 
     /**

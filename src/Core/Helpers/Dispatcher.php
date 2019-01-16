@@ -34,8 +34,8 @@ class Dispatcher
         $this->getConfiguration();
 
         // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
-        $this->searchDir[] = BASE_PATH;
-        $this->searchDir[] = ALXARAFE_FOLDER;
+        $this->searchDir[] = constant('BASE_PATH');
+        $this->searchDir[] = constant('ALXARAFE_FOLDER');
         $this->nameSpaces[] = 'Alxarafe';
     }
 
@@ -76,20 +76,20 @@ class Dispatcher
 
         define('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
         define('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
-        define('SITE_URL', APP_PROTOCOL . '://' . SERVER_NAME);
-        define('BASE_URI', SITE_URL . APP_URI);
+        define('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
+        define('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
 
         /**
          * Must be defined in main index.php file
          */
-        Utils::defineIfNotExists('VENDOR_FOLDER', BASE_PATH . '/vendor');
-        Utils::defineIfNotExists('ALXARAFE_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/src/Core');
-        Utils::defineIfNotExists('DEFAULT_TEMPLATES_FOLDER', BASE_PATH . '/vendor/alxarafe/alxarafe/templates');
-        Utils::defineIfNotExists('VENDOR_URI', BASE_URI . '/vendor');
-        Utils::defineIfNotExists('ALXARAFE_URI', BASE_URI . '/vendor/alxarafe/alxarafe/src/Core');
-        Utils::defineIfNotExists('DEFAULT_TEMPLATES_URI', BASE_URI . '/vendor/alxarafe/alxarafe/templates');
+        Utils::defineIfNotExists('VENDOR_FOLDER', constant('BASE_PATH') . '/vendor');
+        Utils::defineIfNotExists('ALXARAFE_FOLDER', constant('BASE_PATH') . '/vendor/alxarafe/alxarafe/src/Core');
+        Utils::defineIfNotExists('DEFAULT_TEMPLATES_FOLDER', constant('BASE_PATH') . '/vendor/alxarafe/alxarafe/templates');
+        Utils::defineIfNotExists('VENDOR_URI', constant('BASE_URI') . '/vendor');
+        Utils::defineIfNotExists('ALXARAFE_URI', constant('BASE_URI') . '/vendor/alxarafe/alxarafe/src/Core');
+        Utils::defineIfNotExists('DEFAULT_TEMPLATES_URI', constant('BASE_URI') . '/vendor/alxarafe/alxarafe/templates');
 
-        define('CONFIGURATION_PATH', BASE_PATH . '/config');
+        define('CONFIGURATION_PATH', constant('BASE_PATH') . '/config');
         define('DEFAULT_STRING_LENGTH', 50);
         define('DEFAULT_INTEGER_SIZE', 10);
     }

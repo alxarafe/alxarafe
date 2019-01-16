@@ -39,12 +39,12 @@ class EditConfig extends Controller
     public function main()
     {
         if (filter_input(INPUT_POST, 'cancel', FILTER_SANITIZE_ENCODED)) {
-            header('Location: ' . BASE_URI);
+            header('Location: ' . constant('BASE_URI'));
         }
 
         if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_ENCODED)) {
             $this->save();
-            header('Location: ' . BASE_URI);
+            header('Location: ' . constant('BASE_URI'));
         }
     }
 

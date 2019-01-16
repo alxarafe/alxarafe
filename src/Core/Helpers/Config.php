@@ -146,7 +146,7 @@ class Config
     {
         self::$global = self::loadConfigurationFile();
         if (isset(self::$global['skin'])) {
-            $templatesFolder = BASE_PATH . Skin::SKINS_FOLDER;
+            $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;
             $skinFolder = $templatesFolder . '/' . self::$global['skin'];
             if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
                 Config::setError("Skin folder '$skinFolder' does not exists!");
