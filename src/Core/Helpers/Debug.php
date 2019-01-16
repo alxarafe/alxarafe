@@ -116,7 +116,7 @@ class Debug
      */
     public static function getRenderHeader(): string
     {
-        if (DEBUG) {
+        if (constant('DEBUG')) {
             self::checkInstance();
             return self::$render->renderHead();
         }
@@ -130,7 +130,7 @@ class Debug
      */
     public static function getRenderFooter(): string
     {
-        if (DEBUG) {
+        if (constant('DEBUG')) {
             self::checkInstance();
             return self::$render->render();
         }

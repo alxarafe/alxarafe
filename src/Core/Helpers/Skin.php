@@ -232,37 +232,12 @@ class Skin
 
         switch (self::$templatesEngine) {
             case 'twig' :
-                $templateVars = array_merge($vars, [
-                    '_REQUEST' => $_REQUEST,
-                    '_GET' => $_GET,
-                    '_POST' => $_POST,
-                    'GLOBALS' => $GLOBALS,
-                ]);
+                $templateVars = self::getTemplateVars($vars);
+                $loader = new Twig_Loader_Filesystem(self::getPaths());
+                $twig = new Twig_Environment($loader, self::getOptions());
 
-                // Only use really existing path
-                $usePath = [];
-                if (file_exists(self::getTemplatesFolder())) {
-                    $usePath[] = self::getTemplatesFolder();
-                }
-                if (file_exists(self::getCommonTemplatesFolder())) {
-                    $usePath[] = self::getCommonTemplatesFolder();
-                }
-                if (file_exists(constant('DEFAULT_TEMPLATES_FOLDER'))) {
-                    $usePath[] = constant('DEFAULT_TEMPLATES_FOLDER');
-                }
-
-                Debug::addMessage('messages', 'Using: <pre>' . print_r($usePath, true) . '</pre>');
-
-                $loader = new Twig_Loader_Filesystem($usePath);
-                // TODO: Would not it be better to use a random constant instead of twig.Twig?
-                $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => (constant('BASE_PATH') ?? '') . '/tmp/twig.Twig'];
-
-                $twig = new Twig_Environment($loader, $options);
-
-                $template = (isset($templateVars['template']) ? $templateVars['template'] : Skin::$currentTemplate) . '.twig';
-                Debug::addMessage('messages', "Using '$template' template");
                 try {
-                    $return = $twig->render($template, $templateVars);
+                    $return = $twig->render(self::getTemplate(), $templateVars);
                 } catch (Twig_Error_Loader $e) {
                     Debug::addException($e);
                 } catch (Twig_Error_Runtime $e) {
@@ -277,6 +252,73 @@ class Skin
 
         Debug::stopTimer('render');
         return $return;
+    }
+
+    /**
+     * Returns the template file name.
+     *
+     * @return string
+     */
+    private static function getTemplate()
+    {
+        $template = ($templateVars['template'] ?? Skin::$currentTemplate) . '.twig';
+        Debug::addMessage('messages', "Using '$template' template");
+        return $template;
+    }
+
+    /**
+     * Return a list of template vars, merged with $vars,
+     *
+     * @param $vars
+     *
+     * @return array
+     */
+    private static function getTemplateVars(array $vars = [])
+    {
+        return array_merge($vars, [
+            '_REQUEST' => $_REQUEST,
+            '_GET' => $_GET,
+            '_POST' => $_POST,
+            'GLOBALS' => $GLOBALS,
+        ]);
+    }
+
+    /**
+     * Returns a list of options.
+     *
+     * @return array
+     */
+    private static function getOptions()
+    {
+        $options = [];
+        $options['debug'] = (defined('DEBUG') && constant('DEBUG') == true);
+        if (defined('CACHE') && constant('CACHE') == true) {
+            $options['cache'] = (constant('BASE_PATH') ?? '') . '/cache/twig';
+        }
+        return $options;
+    }
+
+    /**
+     * Returns a list of available paths.
+     *
+     * @return array
+     */
+    private static function getPaths()
+    {
+        $usePath = [];
+        $paths = [
+            self::getTemplatesFolder(),
+            self::getCommonTemplatesFolder(),
+            constant('DEFAULT_TEMPLATES_FOLDER'),
+        ];
+        // Only use really existing path
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                $usePath[] = $path;
+            }
+        }
+        Debug::addMessage('messages', 'Using: <pre>' . print_r($usePath, true) . '</pre>');
+        return $usePath;
     }
 
     /**
