@@ -94,11 +94,11 @@ abstract class Engine
     /**
      * Obtain an array with the table structure with a standardized format.
      *
-     * @param $tableName
+     * @param string $tableName
      *
-     * @return mixed
+     * @return array
      */
-    public static function getStructure($tableName)
+    public static function getStructure(string $tableName): array
     {
         return [
             'fields' => Config::$sqlHelper->getColumns($tableName),
@@ -119,7 +119,7 @@ abstract class Engine
     /**
      * Undo all active transactions
      */
-    final private function rollbackTransactions()
+    final private function rollbackTransactions(): void
     {
         while (self::$transactionDepth > 0) {
             $this->rollback();
@@ -131,7 +131,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public function rollBack()
+    final public function rollBack(): bool
     {
         $ret = true;
 
@@ -176,7 +176,7 @@ abstract class Engine
      *
      * @return string
      */
-    final public function getLastInserted()
+    final public function getLastInserted(): string
     {
         $data = $this->select('SELECT @@identity AS id');
         if (count($data) > 0) {
@@ -210,7 +210,7 @@ abstract class Engine
      *
      * @return bool
      */
-    public function checkConnection()
+    public function checkConnection(): bool
     {
         return (self::$dbHandler != null);
     }
@@ -323,7 +323,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public function commit()
+    final public function commit(): bool
     {
         $ret = true;
 

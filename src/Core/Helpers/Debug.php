@@ -87,7 +87,7 @@ class Debug
      * Check if the class is instanced, and instance it if not.
      * This method can be called, after use self::$debugBar in any method.
      */
-    private static function checkInstance()
+    private static function checkInstance(): void
     {
         if (is_null(self::$debugBar)) {
             new self();
@@ -190,7 +190,7 @@ class Debug
      * @param      $array
      * @param bool $continue
      */
-    public static function testArray($text, $array, $continue = false)
+    public static function testArray($text, $array, $continue = false): void
     {
         echo "<p><strong>$text</strong>:</p><pre>" . print_r((array) $array, true) . '</pre>';
         if (!$continue) {

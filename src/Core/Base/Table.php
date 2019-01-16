@@ -51,7 +51,7 @@ class Table extends SimpleTable
      *
      * @param bool $create
      */
-    public function checkStructure(bool $create = false)
+    public function checkStructure(bool $create = false): void
     {
         if (isset(Config::$bbddStructure[$this->tableName])) {
             if ($create && !Schema::tableExists($this->tableName)) {
@@ -158,12 +158,12 @@ class Table extends SimpleTable
      *
      * @return array
      */
-    public function getDefaultValues()
+    public function getDefaultValues(): array
     {
         return [];
     }
 
-    public function getChecks()
+    public function getChecks(): array
     {
         return [];
     }

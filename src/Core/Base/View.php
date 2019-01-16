@@ -48,7 +48,7 @@ class View
      *
      * @return void
      */
-    public function addCSS()
+    public function addCSS(): void
     {
         // $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min', 'css'));
         // $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
@@ -59,7 +59,7 @@ class View
      *
      * @return void
      */
-    public function addJS()
+    public function addJS(): void
     {
         // $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min', 'js'));
         // $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min', 'js'));
@@ -121,11 +121,11 @@ class View
      * Saves a value in the array that is passed to the template.
      *
      * @param string $name
-     * @param string $value
+     * @param        $value
      *
      * @return void
      */
-    public function setVar(string $name, string $value)
+    public function setVar(string $name, $value): void
     {
         $this->vars[$name] = $value;
     }
@@ -136,12 +136,12 @@ class View
      * It is used when what we are saving is an array and we want to add a
      * new element to that array.
      *
-     * @param $name
+     * @param string $name
      * @param $value
      *
      * @return void
      */
-    public function addToVar(string $name, string $value)
+    public function addToVar(string $name, $value): void
     {
         $this->vars[$name][] = $value;
     }
@@ -177,7 +177,7 @@ class View
      *
      * @return array
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return Config::getErrors();
     }
@@ -188,7 +188,7 @@ class View
      *
      * @return string
      */
-    public function getHeader()
+    public function getHeader(): string
     {
         return Debug::getRenderHeader();
     }
@@ -199,7 +199,7 @@ class View
      *
      * @return string
      */
-    public function getFooter()
+    public function getFooter(): string
     {
         return Debug::getRenderFooter();
     }

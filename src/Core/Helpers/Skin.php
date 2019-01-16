@@ -82,7 +82,7 @@ class Skin
      *
      * @param View $view
      */
-    public static function setView(View $view)
+    public static function setView(View $view): void
     {
         self::$view = $view;
         if (!self::hasTemplatesFolder()) {
@@ -141,7 +141,7 @@ class Skin
      *
      * @param $skin
      */
-    public static function setSkin($skin)
+    public static function setSkin($skin): void
     {
         if ($skin != self::$currentSkin) {
             self::$currentSkin = $skin;
@@ -155,7 +155,7 @@ class Skin
      *
      * @param $template
      */
-    public static function setTemplate($template)
+    public static function setTemplate($template): void
     {
         self::$currentTemplate = $template;
         Debug::addMessage('messages', "Setting '$template' template");
@@ -186,7 +186,7 @@ class Skin
      *
      * @param $engine
      */
-    public static function setTemplatesEngine($engine)
+    public static function setTemplatesEngine($engine): void
     {
         self::$templatesEngine = $engine;
     }
@@ -293,7 +293,7 @@ class Skin
      *
      * @param string $template
      */
-    public static function setTemplatesFolder(string $template)
+    public static function setTemplatesFolder(string $template): void
     {
         self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
         Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
@@ -314,7 +314,7 @@ class Skin
      *
      * @param string $templatesFolder
      */
-    public static function setCommonTemplatesFolder(string $templatesFolder)
+    public static function setCommonTemplatesFolder(string $templatesFolder): void
     {
         Debug::addMessage('messages', "Setting '$templatesFolder' common templates folder");
         self::$commonTemplatesFolder = $templatesFolder;

@@ -22,7 +22,7 @@ class Utils
      *
      * @return string
      */
-    static public function camelToSnake($string, $us = '_')
+    static public function camelToSnake($string, $us = '_'): string
     {
         $patterns = [
             '/([a-z]+)([0-9]+)/i',
@@ -45,7 +45,7 @@ class Utils
      *
      * @return string
      */
-    static public function snakeToCamel($string, $us = '_')
+    static public function snakeToCamel($string, $us = '_'): string
     {
         return str_replace($us, '', ucwords($string, $us));
     }
@@ -56,7 +56,7 @@ class Utils
      * @param string $const
      * @param        $value
      */
-    static public function defineIfNotExists(string $const, $value)
+    static public function defineIfNotExists(string $const, $value): void
     {
         if (!defined($const)) {
             define($const, $value);

@@ -65,7 +65,7 @@ class SqlMySql extends SqlHelper
          * 'Default' => null
          * 'Extra' => string 'auto_increment' (length=14)
          */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTableName(Config::getVar('dbPrefix') . $tableName) . ';';
+        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName, true) . ';';
     }
 
     public function toNativeForm(array $row): string
@@ -285,7 +285,7 @@ class SqlMySql extends SqlHelper
                 FROM
                     INFORMATION_SCHEMA.KEY_COLUMN_USAGE
                 WHERE
-                    TABLE_SCHEMA = ' . $this->quoteFieldName(Config::getVar('dbName')) . ' AND
+                    TABLE_SCHEMA = ' . $this->quoteFieldName($this->getTablename()) . ' AND
                     TABLE_NAME = ' . $this->quoteFieldName($tableName) . ' AND
                     constraint_name = ' . $this->quoteFieldName($constraintName) . ' AND
                     REFERENCED_COLUMN_NAME IS NOT NULL;';
@@ -311,10 +311,20 @@ class SqlMySql extends SqlHelper
                     DELETE_RULE
                 FROM information_schema.REFERENTIAL_CONSTRAINTS
                 WHERE
-                    constraint_schema = ' . $this->quoteFieldName(Config::getVar('dbName')) . ' AND
+                    constraint_schema = ' . $this->quoteFieldName($this->getTablename()) . ' AND
                     table_name = ' . $this->quoteFieldName($tableName) . ' AND
                     constraint_name = ' . $this->quoteFieldName($constraintName) . ';';
         return Config::$dbEngine->select($sql);
+    }
+
+    /**
+     * Return the tablename or an empty string.
+     *
+     * @return string
+     */
+    private function getTablename(): string
+    {
+        return Config::getVar('dbName') ?? '';
     }
 
     /**

@@ -42,7 +42,7 @@ class Login extends Controller
      *
      * @return void
      */
-    public function main()
+    public function main(): void
     {
         if (!isset(Config::$username)) {
             Skin::setView(new LoginView($this));
@@ -54,7 +54,7 @@ class Login extends Controller
      *
      * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         Config::$user->logout();
         header('Location: ' . constant('BASE_URI'));

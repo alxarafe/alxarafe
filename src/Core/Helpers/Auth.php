@@ -95,7 +95,7 @@ class Auth extends Users
      *
      * @return bool
      */
-    public function setUser($user, $password)
+    public function setUser($user, $password): bool
     {
         $sql = "SELECT * FROM {$this->tableName} WHERE username='$user';";
         $_user = Config::$dbEngine->select($sql);
@@ -124,7 +124,7 @@ class Auth extends Users
     /**
      * TODO: Undocummented
      */
-    private function setCookieUser()
+    private function setCookieUser(): void
     {
         setcookie('user', $this->user === null ? '' : $this->user, self::COOKIE_EXPIRATION);
     }

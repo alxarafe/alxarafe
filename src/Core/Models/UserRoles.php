@@ -31,7 +31,7 @@ class UserRoles extends Table
      *
      * @return array
      */
-    public function getFields()
+    public function getFields(): array
     {
         return [
             'user_id' => [
@@ -48,7 +48,7 @@ class UserRoles extends Table
      *
      * @return array
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return [
             'role_name' => [
@@ -62,7 +62,7 @@ class UserRoles extends Table
      *
      * @return array
      */
-    public function getDefaultValues()
+    public function getDefaultValues(): array
     {
         return [
             [

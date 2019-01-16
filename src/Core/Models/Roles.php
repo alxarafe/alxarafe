@@ -32,7 +32,7 @@ class Roles extends Table
      *
      * @return array
      */
-    public function getFields()
+    public function getFields(): array
     {
         return [
             'id' => [
@@ -59,7 +59,7 @@ class Roles extends Table
      *
      * @return array
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return [
             'role_name' => [
@@ -73,7 +73,7 @@ class Roles extends Table
      *
      * @return array
      */
-    public function getDefaultValues()
+    public function getDefaultValues(): array
     {
         return [
             [

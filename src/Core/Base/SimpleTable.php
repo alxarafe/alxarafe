@@ -89,7 +89,7 @@ class SimpleTable
      * Currently Table includes a single table, but the idea is to be able to
      * relate tables to form complex data models.
      */
-    public function setStructure()
+    public function setStructure(): void
     {
         $this->setTableStructure($this->tableName, $this->getStructureArray());
     }
@@ -100,7 +100,7 @@ class SimpleTable
      * @param string $table
      * @param array  $structure
      */
-    protected function setTableStructure(string $table, array $structure)
+    protected function setTableStructure(string $table, array $structure): void
     {
         if (!isset(Config::$bbddStructure[$table])) {
             Config::$bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
@@ -125,7 +125,7 @@ class SimpleTable
      *
      * @return array
      */
-    public function getFieldsFromTable()
+    public function getFieldsFromTable(): array
     {
         return Config::$sqlHelper->getColumns($this->tableName);
     }
@@ -251,7 +251,7 @@ class SimpleTable
      * Sets the active record in a new record.
      * Note that changes made to the current active record will be lost.
      */
-    private function newRecord()
+    private function newRecord(): void
     {
         $this->id = '';
         $this->newData = [];
@@ -354,7 +354,7 @@ class SimpleTable
      *
      * @return bool
      */
-    private function updateRecord($data): bool
+    private function updateRecord(array $data): bool
     {
         $value = implode(',', $data);
         return Config::$dbEngine->exec('UPDATE ' . $this->getTableName() . " SET $value WHERE {$this->idField}='{$this->id}';");

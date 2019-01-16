@@ -36,7 +36,7 @@ class EditConfig extends Controller
      *
      * @return void
      */
-    public function main()
+    public function main(): void
     {
         if (filter_input(INPUT_POST, 'cancel', FILTER_SANITIZE_ENCODED)) {
             header('Location: ' . constant('BASE_URI'));
@@ -51,9 +51,9 @@ class EditConfig extends Controller
     /**
      * Save the form changes in the configuration file
      *
-     * @return void
+     * @return bool
      */
-    private function save()
+    private function save(): bool
     {
         $vars = [];
         $vars['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_ENCODED);
@@ -67,6 +67,6 @@ class EditConfig extends Controller
 
         $yamlFile = Config::getConfigFileName();
         $yamlData = YAML::dump($vars);
-        file_put_contents($yamlFile, $yamlData);
+        return (bool) file_put_contents($yamlFile, $yamlData);
     }
 }

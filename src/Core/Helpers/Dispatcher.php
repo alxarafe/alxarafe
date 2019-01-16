@@ -44,7 +44,7 @@ class Dispatcher
      * Load the constants and the configuration file.
      * If the configuration file does not exist, it takes us to the form for its creation.
      */
-    private function getConfiguration()
+    private function getConfiguration(): void
     {
         $this->defineConstants();
         // First set the display options to be able to show the possible warnings and errors.
@@ -65,7 +65,7 @@ class Dispatcher
     /**
      * Define the constants of the application
      */
-    public function defineConstants()
+    public function defineConstants(): void
     {
         /**
          * It is recommended to define BASE_PATH as the first line of the
@@ -101,7 +101,7 @@ class Dispatcher
     /**
      * Run the application.
      */
-    public function run()
+    public function run(): void
     {
         if (!$this->process()) {
             if (Skin::$view == null) {
@@ -117,7 +117,7 @@ class Dispatcher
      *
      * @return bool
      */
-    public function process()
+    public function process(): bool
     {
         foreach ($this->searchDir as $dir) {
             $path = $dir . '/Controllers';

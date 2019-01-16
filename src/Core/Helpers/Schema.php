@@ -59,7 +59,7 @@ class Schema
     /**
      * TODO: Undocummented
      */
-    public static function saveStructure()
+    public static function saveStructure(): void
     {
         $folder = constant('BASE_PATH') . '/schema';
         if (!is_dir($folder)) {
@@ -517,7 +517,6 @@ class Schema
                 $e = new Exception($msg);
                 Debug::addException($e);
                 return null;
-                break;
         }
 
         $min = $structure['min'] ?? 0;

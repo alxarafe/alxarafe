@@ -51,12 +51,14 @@ abstract class SqlHelper
      * Returns the name of the table in quotes.
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */
-    public function quoteTableName(string $tableName): string
+    public function quoteTableName(string $tableName, $usePrefix = false): string
     {
-        return $this->tableQuote . /* Config::getVar('dbPrefix') . */
+        return $this->tableQuote .
+            ($usePrefix ? Config::getVar('dbPrefix') : '') .
             $tableName . $this->tableQuote;
     }
 

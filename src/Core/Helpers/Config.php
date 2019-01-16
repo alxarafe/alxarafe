@@ -116,7 +116,7 @@ class Config
      *
      * @return void
      */
-    public static function loadViewsConfig()
+    public static function loadViewsConfig(): void
     {
         Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
         Skin::setSkin(self::getVar('skin') ?? 'default');
@@ -142,7 +142,7 @@ class Config
      *
      * @return void
      */
-    public static function loadConfig()
+    public static function loadConfig(): void
     {
         self::$global = self::loadConfigurationFile();
         if (isset(self::$global['skin'])) {
@@ -201,7 +201,7 @@ class Config
      *
      * @param string $error
      */
-    public static function setError(string $error)
+    public static function setError(string $error): void
     {
         self::$errors[] = $error;
     }
@@ -263,7 +263,7 @@ class Config
      *
      * @return array
      */
-    public static function getErrors()
+    public static function getErrors(): array
     {
         $errors = self::$errors;
         self::$errors = [];
@@ -276,7 +276,7 @@ class Config
      * @param string $name
      * @param string $value
      */
-    public static function setVar(string $name, string $value)
+    public static function setVar(string $name, string $value): void
     {
         self::$global[$name] = $value;
     }
