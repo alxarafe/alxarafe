@@ -171,7 +171,8 @@ class Debug
     public static function stopTimer(string $name): void
     {
         self::checkInstance();
-        self::$debugBar['time']->stopMeasure($name);
+        // TODO: Needs to check if $name exists before stop it
+        //self::$debugBar['time']->stopMeasure($name);
     }
 
     /**
