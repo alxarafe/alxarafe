@@ -26,7 +26,7 @@ class Login extends Controller
     {
         parent::__construct();
 
-        if (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED)) {
+        if (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
             if (Config::$user->setUser($username, $password)) {

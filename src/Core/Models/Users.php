@@ -96,14 +96,14 @@ class Users extends Table
                 'id' => 1,
                 'username' => 'admin',
                 'email' => 'admin@alxarafe.com',
-                'password' => md5('admin'),
+                'password' => password_hash('admin', PASSWORD_DEFAULT),
                 'active' => 1,
             ],
             [
                 'id' => 2,
                 'username' => 'user',
                 'email' => 'user@alxarafe.com',
-                'password' => md5('user'),
+                'password' => password_hash('user', PASSWORD_DEFAULT),
                 'active' => 1,
             ],
         ];
