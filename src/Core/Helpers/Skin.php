@@ -261,7 +261,7 @@ class Skin
      */
     private static function getTemplate()
     {
-        $template = ($templateVars['template'] ?? Skin::$currentTemplate) . '.twig';
+        $template = (self::getTemplateVars()['template'] ?? Skin::$currentTemplate) . '.twig';
         Debug::addMessage('messages', "Using '$template' template");
         return $template;
     }
