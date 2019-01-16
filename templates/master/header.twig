@@ -2,12 +2,20 @@
  ~ Alxarafe. Development of PHP applications in a flash!
  ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
 #}
+<meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>{{ main.title }}</title>
-<meta name="description" content="{{ main.description | raw }}"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta name="description" content="{{ main.description | raw }}"/>
+<meta name="author" content="{{ main.author | raw }}">
 <meta name="generator" content="Alxarafe"/>
 <link rel="shortcut icon" href="images/favicon.ico"/>
+
+<title>{{ main.title }}</title>
+
+<link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
+
 {% for css in cssCode %}
     <link rel="stylesheet" href="{{ css }}"/>
 {% endfor %}
