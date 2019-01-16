@@ -75,7 +75,7 @@ class SimpleTable
         if (!isset($this->idField)) {
             $this->idField = 'id';
             foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
-                if (isset($value['primary']) && ($value['primary'] == 'PRI')) {
+                if (isset($value['key']) && ($value['key'] == 'primary')) {
                     $this->idField = $key;
                     break;
                 }
