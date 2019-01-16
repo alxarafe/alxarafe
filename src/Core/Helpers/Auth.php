@@ -99,23 +99,23 @@ class Auth extends Users
     {
         $sql = "SELECT * FROM {$this->tableName} WHERE username='$user';";
         $_user = Config::$dbEngine->select($sql);
-        if (count($_user) > 0 && md5($password) == $_user[0]['password']) {
+        if (count($_user) > 0 && password_verify($password, $_user[0]['password'])) {
             $this->user = $user;
             setcookie('user', $user);
-            Debug::addMessage('SQL', "$user autenticado");
+            Debug::addMessage('messages', "$user authenticated");
         } else {
             $this->user = null;
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {
                 if (password_verify($password, $_user[0]['password'])) {
-                    $msg = 'contraseña correcta.';
+                    $msg = 'good password.';
                 } else {
-                    $msg = 'contraseña incorrecta.';
+                    $msg = 'wrong password.';
                 }
-                Debug::addMessage('SQL', "Comprobado hash " . $msg);
+                Debug::addMessage('messages', "Checking hash " . $msg);
             } else {
-                Debug::addMessage('SQL', 'Comprobado hash, en fichero no existe usuario ' . $user);
+                Debug::addMessage('messages', "User '" . $user . "' not founded.");
             }
         }
         return $this->user !== null;
