@@ -145,7 +145,7 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->rollBack();
         } else {
-            $this->exec('ROLLBACK TO SAVEPOINT LEVEL' . self::$transactionDepth);
+            $this->exec('ROLLBACK TO SAVEPOINT LEVEL' . self::$transactionDepth . ';');
         }
 
         return $ret;
@@ -160,6 +160,8 @@ abstract class Engine
      */
     final public static function exec(string $query): bool
     {
+        // Remove extra blankspace to be more readable
+        $query = preg_replace('/\s+/', ' ', $query);
         Debug::addMessage('SQL', 'PDO exec: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement != null && self::$statement) {
@@ -193,6 +195,8 @@ abstract class Engine
      */
     public static function select(string $query): array
     {
+        // Remove extra blankspace to be more readable
+        $query = preg_replace('/\s+/', ' ', $query);
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement != null && self::$statement && self::$statement->execute([])) {
@@ -256,6 +260,8 @@ abstract class Engine
         if (!isset(self::$dbHandler)) {
             return false;
         }
+        // Remove extra blankspace to be more readable
+        $sql = preg_replace('/\s+/', ' ', $sql);
         self::$statement = self::$dbHandler->prepare($sql, $options);
         return (self::$statement != false);
     }
@@ -303,7 +309,7 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->beginTransaction();
         } else {
-            $exec = $this->exec('SAVEPOINT LEVEL' . self::$transactionDepth);
+            $exec = $this->exec('SAVEPOINT LEVEL' . self::$transactionDepth . ';');
         }
 
         self::$transactionDepth++;
@@ -327,7 +333,7 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->commit();
         } else {
-            $this->exec('RELEASE SAVEPOINT LEVEL' . self::$transactionDepth);
+            $this->exec('RELEASE SAVEPOINT LEVEL' . self::$transactionDepth . ';');
         }
 
         return $ret;

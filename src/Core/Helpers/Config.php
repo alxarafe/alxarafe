@@ -97,9 +97,9 @@ class Config
      * define it in the constant CONFIGURATION_PATH before invoking this method,
      * this folder must exist.
      *
-     * @return string|null
+     * @return string
      */
-    public static function getConfigFileName()// : ?string - NetBeans only supports up to php7.0, for this you need php7.1
+    public static function getConfigFileName(): string
     {
         if (isset(self::$configFilename)) {
             return self::$configFilename;
@@ -131,7 +131,7 @@ class Config
      *
      * @return string|null
      */
-    public static function getVar(string $name)// : ?string - NetBeans only supports up to php7.0, for this you need php7.1
+    public static function getVar(string $name): ?string
     {
         return self::$global[$name] ?? null;
     }

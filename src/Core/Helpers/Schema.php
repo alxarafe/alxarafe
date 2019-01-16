@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
+use Exception;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -84,7 +85,8 @@ class Schema
     public static function tableExists($tableName): bool
     {
         $tableName = Config::getVar('dbPrefix') . $tableName;
-        return (bool) Config::$dbEngine->exec('SELECT 1 FROM ' . $tableName);
+        $sql = 'SELECT 1 FROM ' . $tableName . ';';
+        return (bool) Config::$dbEngine->exec($sql);
     }
 
     /**
@@ -94,10 +96,12 @@ class Schema
      */
     public static function getTables(): array
     {
-        $query = Config::$sqlHelper->getTables();
-        // TODO: Expected string, got array
-        // Inspection info: Invocation parameter types are not compatible with declared.
-        return Utils::flatArray(Config::$dbEngine->select($query));
+        $queries = Config::$sqlHelper->getTables();
+        $queryResult = [];
+        foreach ($queries as $query) {
+            $queryResult[] = Config::$dbEngine->select($query);
+        }
+        return Utils::flatArray($queryResult);
     }
 
     /**
@@ -137,7 +141,14 @@ class Schema
         return $ret;
     }
 
-    static protected function normalizeField(string $tableName, string $field, array $structure): array
+    /**
+     * @param string $tableName
+     * @param string $field
+     * @param array  $structure
+     *
+     * @return array|null
+     */
+    static protected function normalizeField(string $tableName, string $field, array $structure): ?array
     {
         if (!isset($structure['type'])) {
             Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
@@ -145,9 +156,11 @@ class Schema
 
         $dbType = $structure['type'];
         if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'float', 'date', 'datetime'])) {
-            echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
-            // TODO: Using exit here is not recommended.
-            die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
+            $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
+            $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
+            $e = new Exception($msg);
+            Debug::addException($e);
+            return null;
         }
 
         // TODO: The assignments are dead and can be removed.
@@ -163,7 +176,7 @@ class Schema
         $ret = [];
         if ($type == 'string') {
             if ($max == 0) {
-                $max = DEFAULT_STRING_LENGTH;
+                $max = constant(DEFAULT_STRING_LENGTH);
             }
             $dbType = "$dbType($max)";
             $ret['pattern'] = '.{' . $min . ',' . $max . '}';
@@ -173,7 +186,7 @@ class Schema
                     $default = '1';
                 }
                 if ($max == 0) {
-                    $_length = DEFAULT_INTEGER_SIZE;
+                    $_length = constant(DEFAULT_INTEGER_SIZE);
                     $max = pow(10, $_length) - 1;
                 } else {
                     $_length = strlen($max);
@@ -266,16 +279,18 @@ class Schema
      * @param string $tableName
      * @param array  $fieldList
      *
-     * @return string
+     * @return string|null
      */
-    static protected function createFields(string $tableName, array $fieldList): string
+    static protected function createFields(string $tableName, array $fieldList): ?string
     {
         $tableName = Config::getVar('dbPrefix') . $tableName;
         $sql = "CREATE TABLE $tableName ( ";
         foreach ($fieldList as $index => $col) {
             if (!isset($col['dbtype'])) {
-                // TODO: Using exit here is not recommended.
-                die('Tipo no especificado en createTable');
+                $msg = 'Tipo no especificado en createTable';
+                $e = new Exception($msg);
+                Debug::addException($e);
+                return null;
             }
 
             $sql .= '`' . $index . '` ' . $col['dbtype'];
@@ -326,9 +341,9 @@ class Schema
      * @param string $indexname
      * @param array  $indexData
      *
-     * @return string
+     * @return string|null
      */
-    static protected function createIndex($tableName, $indexname, $indexData)
+    static protected function createIndex(string $tableName, string $indexname, array $indexData): ?string
     {
         $fields = '';
         $tableName = Config::getVar('dbPrefix') . $tableName;
@@ -365,18 +380,24 @@ class Schema
                 if (isset($indexData['REFERENCES'])) {
                     $references = $indexData['REFERENCES'];
                     if (!is_array($references)) {
-                        // TODO: Using exit here is not recommended.
-                        die('Esperaba un array en REFERENCES: ' . $tableName . '/' . $indexname);
+                        $msg = 'Esperaba un array en REFERENCES: ' . $tableName . '/' . $indexname;
+                        $e = new Exception($msg);
+                        Debug::addException($e);
+                        return null;
                     }
                     if (count($references) != 1) {
-                        // TODO: Using exit here is not recommended.
-                        die('Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname);
+                        $msg = 'Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname;
+                        $e = new Exception($msg);
+                        Debug::addException($e);
+                        return null;
                     }
                     $refTable = key($references);
                     $fields = '(' . implode(',', $references) . ')';
                 } else {
-                    // TODO: Using exit here is not recommended.
-                    die('FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname);
+                    $msg = 'FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname;
+                    $e = new Exception($msg);
+                    Debug::addException($e);
+                    return null;
                 }
 
                 $sql .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
@@ -450,9 +471,9 @@ class Schema
      * @param string $field
      * @param array  $structure
      *
-     * @return array
+     * @return array|null
      */
-    static protected function old_normalizeField(string $tableName, string $field, array $structure): array
+    static protected function old_normalizeField(string $tableName, string $field, array $structure): ?array
     {
         if (!isset($structure['type'])) {
             Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
@@ -491,9 +512,11 @@ class Schema
                 $type = 'datetime-local';
                 break;
             default:
-                echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
-                // TODO: Using exit here is not recommended.
-                die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
+                $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
+                $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}.</p>";
+                $e = new Exception($msg);
+                Debug::addException($e);
+                return null;
                 break;
         }
 
@@ -507,7 +530,7 @@ class Schema
         $ret = [];
         if ($type == 'text') {
             if ($max == 0) {
-                $max = DEFAULT_STRING_LENGTH;
+                $max = constant(DEFAULT_STRING_LENGTH);
             }
             $dbType = "$dbType($max)";
             $ret['pattern'] = '.{' . $min . ',' . $max . '}';
@@ -518,7 +541,7 @@ class Schema
 
             $_length = strlen($max);
             if ($max == 0) {
-                $_length = DEFAULT_INTEGER_SIZE;
+                $_length = constant(DEFAULT_INTEGER_SIZE);
                 $max = pow(10, $_length) - 1;
             }
 

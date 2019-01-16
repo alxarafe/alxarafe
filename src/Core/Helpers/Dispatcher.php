@@ -8,6 +8,7 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\EditConfig;
+use Exception;
 
 /**
  * Class Dispatcher
@@ -52,9 +53,12 @@ class Dispatcher
         if (file_exists($configFile)) {
             Config::loadConfig();
         } else {
-            Config::setError("Creating '$configFile' file...");
+            $msg = "Creating '$configFile' file...";
+            Config::setError($msg);
             new EditConfig();
-            die;
+            $e = new Exception($msg);
+            Debug::addException($e);
+            die($msg);
         }
     }
 

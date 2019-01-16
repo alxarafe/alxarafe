@@ -43,7 +43,7 @@ class SqlMySql extends SqlHelper
      */
     public function getTables(): array
     {
-        $query = 'SHOW TABLES';
+        $query = 'SHOW TABLES;';
         return Utils::flatArray(Config::$dbEngine->select($query));
     }
 
@@ -74,7 +74,7 @@ class SqlMySql extends SqlHelper
         /*
         if ($type == 'string') {
             if ($max == 0) {
-                $max = DEFAULT_STRING_LENGTH;
+                $max = constant(DEFAULT_STRING_LENGTH);
             }
             $dbType = "$dbType($max)";
             $ret['pattern'] = '.{' . $min . ',' . $max . '}';
@@ -84,7 +84,7 @@ class SqlMySql extends SqlHelper
                     $default = '1';
                 }
                 if ($max == 0) {
-                    $_length = DEFAULT_INTEGER_SIZE;
+                    $_length = constant(DEFAULT_INTEGER_SIZE);
                     $max = pow(10, $_length) - 1;
                 } else {
                     $_length = strlen($max);
@@ -329,7 +329,7 @@ class SqlMySql extends SqlHelper
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
     }
 
     /**

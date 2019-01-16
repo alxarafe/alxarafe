@@ -251,7 +251,7 @@ class Skin
                     $usePath[] = constant('DEFAULT_TEMPLATES_FOLDER');
                 }
 
-                Debug::addMessage('messages', 'Using:' . print_r($usePath, true));
+                Debug::addMessage('messages', 'Using: <pre>' . print_r($usePath, true) . '</pre>');
 
                 $loader = new Twig_Loader_Filesystem($usePath);
                 // TODO: Would not it be better to use a random constant instead of twig.Twig?

@@ -47,7 +47,9 @@ class SqlFirebird extends SqlHelper
     public function getTables(): array
     {
         // http://www.firebirdfaq.org/faq174/
-        $query = 'select rdb$relation_name from rdb$relations where rdb$view_blr is null and (rdb$system_flag is null or rdb$system_flag = 0);';
+        $query = 'SELECT RDB$RELATION_NAME
+                  FROM RDB$RELATIONS
+                  WHERE RDB$VIEW_BLR IS NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
         return Utils::flatArray(Config::$dbEngine->select($query));
     }
 
@@ -216,14 +218,15 @@ class SqlFirebird extends SqlHelper
 
     /**
      * TODO: Undocumented
+     * @doc http://www.firebirdfaq.org/faq174/
      *
      * @return string
      */
     public function getViewsSql(): string
     {
-        // http://www.firebirdfaq.org/faq174/
-        return 'select rdb$relation_name from rdb$relations where rdb$view_blr is not null and (rdb$system_flag is null or rdb$system_flag = 0);';
+        return 'SELECT RDB$RELATION_NAME FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
     }
+
     /**
      *
      * Esta consulta funciona... Para tomarla como modelo.
@@ -247,6 +250,7 @@ class SqlFirebird extends SqlHelper
      * ('2', 'Person 2', '22222222Y', '32'),
      * ('3', 'Person 3', '33333333Z', '43');
      */
+
     /**
      * TODO: Undocumented
      *

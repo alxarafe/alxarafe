@@ -340,7 +340,7 @@ class SimpleTable
     {
         $fieldList = implode(',', $fields);
         $valueList = implode(',', $values);
-        $ret = Config::$dbEngine->exec('INSERT INTO ' . $this->getTableName() . " ($fieldList) VALUES ($valueList)");
+        $ret = Config::$dbEngine->exec('INSERT INTO ' . $this->getTableName() . " ($fieldList) VALUES ($valueList);");
         // Asigna el valor de la clave primaria del registro recién insertado
         $this->id = $this->newData[$this->idField] ?? Config::$dbEngine->getLastInserted();
         return $ret;
@@ -357,7 +357,7 @@ class SimpleTable
     private function updateRecord($data): bool
     {
         $value = implode(',', $data);
-        return Config::$dbEngine->exec('UPDATE ' . $this->getTableName() . " SET $value WHERE {$this->idField}='{$this->id}'");
+        return Config::$dbEngine->exec('UPDATE ' . $this->getTableName() . " SET $value WHERE {$this->idField}='{$this->id}';");
     }
 
     /**

@@ -160,7 +160,11 @@ class Debug
     public static function startTimer(string $name, string $message): void
     {
         self::checkInstance();
-        self::$debugBar['time']->startMeasure($name, $message);
+        if (!self::$debugBar['time']->hasStartedMeasure($name)) {
+            self::$debugBar['time']->startMeasure($name, $message);
+        } else {
+            Debug::addMessage('messages', 'Timer ' . $name . ' yet started and trying to start it again.');
+        }
     }
 
     /**
@@ -171,8 +175,12 @@ class Debug
     public static function stopTimer(string $name): void
     {
         self::checkInstance();
-        // TODO: Needs to check if $name exists before stop it
-        //self::$debugBar['time']->stopMeasure($name);
+
+        if (self::$debugBar['time']->hasStartedMeasure($name)) {
+            self::$debugBar['time']->stopMeasure($name);
+        } else {
+            Debug::addMessage('messages', 'Timer ' . $name . ' not yet started and trying to stop it.');
+        }
     }
 
     /**
@@ -186,8 +194,10 @@ class Debug
     {
         echo "<p><strong>$text</strong>:</p><pre>" . print_r((array) $array, true) . '</pre>';
         if (!$continue) {
-            // TODO: Using exit here is not recommended.
-            die('To avoid stopping the program, set a third parameter to Debug::testArray to true');
+            $msg = 'To avoid stopping the program, set a third parameter to Debug::testArray to true';
+            $e = new Exception($msg);
+            Debug::addException($e);
+            die($msg);
         }
     }
 }
