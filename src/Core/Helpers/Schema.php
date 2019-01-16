@@ -390,7 +390,7 @@ class Schema
             }
         } else {
             if (is_array($fields)) {
-                $fields = '(' . implode($fields, ',') . ')';
+                $fields = '(' . implode(',', $fields) . ')';
             } else {
                 $fields = "($fields)";
             }
