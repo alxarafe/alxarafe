@@ -65,7 +65,7 @@ class SqlMySql extends SqlHelper
          * 'Default' => null
          * 'Extra' => string 'auto_increment' (length=14)
          */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName, true) . ';';
+        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName) . ';';
     }
 
     public function toNativeForm(array $row): string

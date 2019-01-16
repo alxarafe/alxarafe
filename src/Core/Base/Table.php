@@ -86,7 +86,7 @@ class Table extends SimpleTable
             return '';
         }
 
-        $sql = "SELECT {$this->idField} AS id FROM " . Config::getVar('dbPrefix') . $this->tableName . " WHERE {$this->nameField}='$name'";
+        $sql = "SELECT {$this->idField} AS id FROM " . Config::$sqlHelper->quoteTableName($this->tableName) . " WHERE {$this->nameField}='$name'";
         $data = Config::$dbEngine->select($sql);
         if (!empty($data) && count($data) > 0) {
             return $data[0]['id'];

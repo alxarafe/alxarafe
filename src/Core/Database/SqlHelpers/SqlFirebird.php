@@ -87,9 +87,9 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function quoteTableName(string $tableName): string
+    public function quoteTableName(string $tableName, $usePrefix = true): string
     {
-        return strtoupper(parent::quoteTableName($tableName));
+        return strtoupper(parent::quoteTableName($tableName, $usePrefix));
     }
 
     /**

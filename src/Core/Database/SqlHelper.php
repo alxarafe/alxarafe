@@ -55,7 +55,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    public function quoteTableName(string $tableName, $usePrefix = false): string
+    public function quoteTableName(string $tableName, $usePrefix = true): string
     {
         return $this->tableQuote .
             ($usePrefix ? Config::getVar('dbPrefix') : '') .
