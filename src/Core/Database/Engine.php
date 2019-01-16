@@ -188,11 +188,13 @@ abstract class Engine
      * Executes a SELECT SQL statement on the database, returning the result in an array.
      * In case of failure, return NULL. If there is no data, return an empty array.
      *
+     * TODO: Netbeans does not support @return ?array
+     *
      * @param string $query
      *
      * @return array|null
      */
-    public static function select(string $query): ?array
+    public static function select(string $query)
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);

@@ -339,7 +339,7 @@ class SqlMySql extends SqlHelper
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
+        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ';';
     }
 
     /**

@@ -127,11 +127,13 @@ class Config
     /**
      * Gets the contents of a variable. If the variable does not exist, return null.
      *
+     * TODO: Netbeans does not support @return ?string
+     *
      * @param string $name
      *
      * @return string|null
      */
-    public static function getVar(string $name): ?string
+    public static function getVar(string $name)
     {
         return self::$global[$name] ?? null;
     }

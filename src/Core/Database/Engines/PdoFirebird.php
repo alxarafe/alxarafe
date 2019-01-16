@@ -32,11 +32,13 @@ class PdoFirebird extends Engine
      * Executes a SELECT SQL statement on the database, returning the result in an array.
      * In case of failure, return NULL. If there is no data, return an empty array.
      *
+     * TODO: Netbeans does not support @return ?array
+     *
      * @param string $query
      *
      * @return array|null
      */
-    public static function select(string $query): ?array
+    public static function select(string $query)
     {
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);

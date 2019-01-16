@@ -148,13 +148,15 @@ class Schema
      * It can cause an exception if some vital data is missing, but this should
      * only occur at the design stage.
      *
+     * TODO: Netbeans does not support @return ?array
+     *
      * @param string $tableName
      * @param string $field
      * @param array  $structure
      *
      * @return array|null
      */
-    static protected function normalizeField(string $tableName, string $field, array $structure): ?array
+    static protected function normalizeField(string $tableName, string $field, array $structure)
     {
         if (!isset($structure['type'])) {
             Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
@@ -282,12 +284,14 @@ class Schema
      * Build the SQL statement to create the fields in the table.
      * It can also create the primary key if the auto_increment attribute is defined.
      *
+     * TODO: Netbeans does not support @return ?string
+     *
      * @param string $tableName
      * @param array  $fieldList
      *
      * @return string|null
      */
-    static protected function createFields(string $tableName, array $fieldList): ?string
+    static protected function createFields(string $tableName, array $fieldList)
     {
         $tableName = Config::getVar('dbPrefix') . $tableName;
         $sql = "CREATE TABLE $tableName ( ";
@@ -343,13 +347,15 @@ class Schema
      * Moreover, it should not be defined if it is auto_increment because it would
      * generate an error when it already exists.
      *
+     * TODO: Netbeans does not support @return ?string
+     *
      * @param string $tableName
      * @param string $indexname
      * @param array  $indexData
      *
      * @return string|null
      */
-    static protected function createIndex(string $tableName, string $indexname, array $indexData): ?string
+    static protected function createIndex(string $tableName, string $indexname, array $indexData)
     {
         $fields = '';
         $tableName = Config::getVar('dbPrefix') . $tableName;
@@ -466,142 +472,4 @@ class Schema
         return substr($sql, 0, -2) . self::CRLF;
     }
 
-    /**
-     * Take the definition of a field, and make sure you have all the information
-     * that is necessary for its creation or maintenance, calculating the missing
-     * data if possible.
-     * It can cause an exception if some vital data is missing, but this should
-     * only occur at the design stage.
-     *
-     * @param string $tableName
-     * @param string $field
-     * @param array  $structure
-     *
-     * @return array|null
-     */
-    static protected function old_normalizeField(string $tableName, string $field, array $structure): ?array
-    {
-        if (!isset($structure['type'])) {
-            Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
-        }
-
-        $dbType = $structure['type'];
-
-        if ($dbType == 'boolean') {
-            $dbType = 'tinyint';
-            $structure['min'] = 0;
-            $structure['max'] = 1;
-        }
-
-        switch ($dbType) {
-            case 'int':
-            case 'tinyint':
-            case 'number':
-                $type = 'number';
-                break;
-            case 'float':
-                $type = 'float';
-                break;
-            case 'double':
-                $type = 'double';
-                break;
-            case 'char':
-            case 'varchar':
-            case 'text':
-                $type = 'text';
-                break;
-            case 'date':
-                $type = 'date';
-                break;
-            case 'datetime':
-            case 'timestamp':
-                $type = 'datetime-local';
-                break;
-            default:
-                $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
-                $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}.</p>";
-                $e = new Exception($msg);
-                Debug::addException($e);
-                return null;
-        }
-
-        $min = $structure['min'] ?? 0;
-        $max = $structure['max'] ?? 0;
-        $default = $structure['default'] ?? null;
-        $label = $structure['label'] ?? $field;
-        $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
-        $null = ((isset($structure['null'])) && $structure['null'] == true);
-
-        $ret = [];
-        if ($type == 'text') {
-            if ($max == 0) {
-                $max = constant(DEFAULT_STRING_LENGTH);
-            }
-            $dbType = "$dbType($max)";
-            $ret['pattern'] = '.{' . $min . ',' . $max . '}';
-        } elseif ($type == 'number') {
-            if ($default === true) {
-                $default = '1';
-            }
-
-            $_length = strlen($max);
-            if ($max == 0) {
-                $_length = constant(DEFAULT_INTEGER_SIZE);
-                $max = pow(10, $_length) - 1;
-            }
-
-            if ($min == 0) {
-                $min = $unsigned ? 0 : -$max;
-            } elseif ($_length < strlen($min)) {
-                $_length = strlen($min);
-            }
-
-            $precision = null;
-            $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
-            $ret['min'] = $min;
-            $ret['max'] = $max;
-            if (isset($structure['decimals'])) {
-                $decimales = $structure['decimals'];
-                $precision = pow(10, -$decimales);
-                $_length += $decimales;
-                $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
-                $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
-                $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
-            }
-        }
-
-        $ret['type'] = $type;
-        $ret['dbtype'] = $dbType;
-        $ret['default'] = $default;
-        $ret['null'] = $null;
-        $ret['label'] = $label;
-        if (isset($precision)) {
-            $ret['step'] = $precision;
-        }
-        if (isset($structure['key'])) {
-            $ret['key'] = $structure['key'];
-        }
-        if (isset($structure['placeholder'])) {
-            $ret['placeholder'] = $structure['placeholder'];
-        }
-        if (isset($structure['extra'])) {
-            $ret['extra'] = $structure['extra'];
-        }
-        if (isset($structure['help'])) {
-            $ret['help'] = $structure['help'];
-        }
-        if (isset($structure['unique']) && $structure['unique']) {
-            $ret['unique'] = $structure['unique'];
-        }
-
-        if (isset($structure['relations'][$field]['table'])) {
-            $ret['relation'] = [
-                'table' => $structure['relations'][$field]['table'],
-                'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
-                'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
-            ];
-        }
-
-        return $ret;
-    }
 }
