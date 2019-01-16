@@ -186,6 +186,7 @@ class Debug
     {
         echo "<p><strong>$text</strong>:</p><pre>" . print_r((array) $array, true) . '</pre>';
         if (!$continue) {
+            // TODO: Using exit here is not recommended.
             die('To avoid stopping the program, set a third parameter to Debug::testArray to true');
         }
     }

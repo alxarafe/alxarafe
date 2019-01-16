@@ -165,7 +165,7 @@ class Config
         if (self::$user === null) {
             self::$user = new Auth();
             self::$username = self::$user->getUser();
-            if (self::$username == null) {
+            if (self::$username === null) {
                 self::$user->login();
             }
         }
@@ -193,7 +193,7 @@ class Config
                 return YAML::parse($yaml);
             }
         }
-        return null;
+        return [];
     }
 
     /**

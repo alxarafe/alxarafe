@@ -114,6 +114,7 @@ class SimpleTable
      */
     protected function getStructureArray(): array
     {
+        $struct = [];
         $struct['fields'] = method_exists($this, 'getFields') ? $this->getFields() : $this->getFieldsFromTable();
         return $struct;
     }

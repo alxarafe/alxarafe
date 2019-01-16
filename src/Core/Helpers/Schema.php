@@ -128,6 +128,7 @@ class Schema
      */
     public static function setNormalizedStructure(array $structure, string $tableName): array
     {
+        $ret = [];
         $ret['keys'] = $structure['keys'] ?? [];
         $ret['values'] = $structure['values'] ?? [];
         foreach ($structure['fields'] as $key => $value) {
@@ -145,9 +146,11 @@ class Schema
         $dbType = $structure['type'];
         if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'float', 'date', 'datetime'])) {
             echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
+            // TODO: Using exit here is not recommended.
             die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
         }
 
+        // TODO: The assignments are dead and can be removed.
         $min = $structure['min'] ?? 0;
         $max = $structure['max'] ?? 0;
         $default = $structure['default'] ?? null;
@@ -271,6 +274,7 @@ class Schema
         $sql = "CREATE TABLE $tableName ( ";
         foreach ($fieldList as $index => $col) {
             if (!isset($col['dbtype'])) {
+                // TODO: Using exit here is not recommended.
                 die('Tipo no especificado en createTable');
             }
 
@@ -361,14 +365,17 @@ class Schema
                 if (isset($indexData['REFERENCES'])) {
                     $references = $indexData['REFERENCES'];
                     if (!is_array($references)) {
+                        // TODO: Using exit here is not recommended.
                         die('Esperaba un array en REFERENCES: ' . $tableName . '/' . $indexname);
                     }
                     if (count($references) != 1) {
+                        // TODO: Using exit here is not recommended.
                         die('Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname);
                     }
                     $refTable = key($references);
-                    $fields = '(' . implode($references, ',') . ')';
+                    $fields = '(' . implode(',', $references) . ')';
                 } else {
+                    // TODO: Using exit here is not recommended.
                     die('FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname);
                 }
 
@@ -485,6 +492,7 @@ class Schema
                 break;
             default:
                 echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
+                // TODO: Using exit here is not recommended.
                 die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
                 break;
         }
