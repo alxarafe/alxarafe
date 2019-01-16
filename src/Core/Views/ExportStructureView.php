@@ -18,41 +18,6 @@ class ExportStructureView extends View
 {
 
     /**
-     * TODO: Undocumented
-     *
-     * @var array
-     */
-    public $dbEngines;
-
-    /**
-     * TODO: Undocumented
-     *
-     * @var mixed|string
-     */
-    public $dbEngineName;
-
-    /**
-     * TODO: Undocumented
-     *
-     * @var array
-     */
-    public $skins;
-
-    /**
-     * TODO: Undocumented
-     *
-     * @var
-     */
-    public $skin;
-
-    /**
-     * TODO: Undocumented
-     *
-     * @var
-     */
-    public $dbConfig;
-
-    /**
      * ExportStructureView constructor.
      *
      * @param $ctrl
