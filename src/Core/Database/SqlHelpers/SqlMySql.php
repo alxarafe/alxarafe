@@ -88,10 +88,10 @@ class SqlMySql extends SqlHelper
         }
 
         $pos = array_search('unsigned', $explode);
-        $unsigned = $pos ? true : false;
+        $unsigned = $pos ? 'yes' : 'no';
 
         $pos = array_search('zerofill', $explode);
-        $zerofill = $pos ? true : false;
+        $zerofill = $pos ? 'yes' : 'no';
 
         return ['type' => $type, 'length' => $length, 'unsigned' => $unsigned, 'zerofill' => $zerofill];
     }
@@ -211,14 +211,20 @@ class SqlMySql extends SqlHelper
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
         $result['nullable'] = $row['Null'] ? 'yes' : 'no';
-        $result['key'] = ($row['Key'] == 'PRI' ? 'primary' : ( $row['Key'] == 'UNI' ? 'unique' : ($row['Key'] == 'MUL' ? 'index' : '' )));
+        switch ($row['Key']) {
+            case 'PRI':
+                $result['key'] = 'primary';
+                break;
+            case 'UNI':
+                $result['key'] = 'unique';
+                break;
+            case 'MUL':
+                $result['key'] = 'index';
+                break;
+        }
+        $result['unsigned'] = $type['unsigned'];
+        $result['zerofill'] = $type['zerofill'];
         $result['autoincrement'] = $row['Extra'] == 'auto_increment' ? 'yes' : 'no';
-        if ($type['unsigned']) {
-            $result['unsigned'] = 'yes';
-        }
-        if ($type['zerofill']) {
-            $result['zerofill'] = 'yes';
-        }
 
         return $result;
     }

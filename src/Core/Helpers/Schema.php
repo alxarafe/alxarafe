@@ -68,9 +68,7 @@ class Schema
             $tables = Config::$sqlHelper->getTables();
             foreach ($tables as $table) {
                 $filename = $folder . '/' . $table . '.yaml';
-                echo "<p>Saving {$filename} structure...</p>";
                 $data = Config::$dbEngine->getStructure($table);
-                var_dump($data);
                 file_put_contents($filename, YAML::dump($data));
             }
         }
