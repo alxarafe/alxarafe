@@ -21,7 +21,8 @@
         "components/jquery": "v3.*",
         "twbs/bootstrap": "^3.4",
         "maximebf/debugbar": "^1.0",
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.0",
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
