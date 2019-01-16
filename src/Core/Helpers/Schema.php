@@ -357,7 +357,7 @@ class Schema
     static protected function createIndex(string $tableName, string $indexname, array $indexData)
     {
         $fields = '';
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' ADD CONSTRAINT ' . $indexname;
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName) . ' ADD CONSTRAINT ' . $indexname;
 
         $command = '';
         // https://www.w3schools.com/sql/sql_primarykey.asp
@@ -446,7 +446,7 @@ class Schema
      */
     static protected function setValues(string $tableName, array $values): string
     {
-        $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' ';
+        $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
         $header = true;
         foreach ($values as $value) {
             $fields = "(";
