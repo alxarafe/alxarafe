@@ -271,7 +271,7 @@ class Skin
             default :
                 $return = self::$templatesEngine . ' engine is not supported!';
         }
-        Debug::stopTimer('render');
+        // Debug::stopTimer('render');
         return $return;
     }
 
