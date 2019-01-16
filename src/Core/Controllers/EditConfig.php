@@ -38,11 +38,11 @@ class EditConfig extends Controller
      */
     public function main(): void
     {
-        if (filter_input(INPUT_POST, 'cancel', FILTER_SANITIZE_ENCODED)) {
+        if (filter_input(INPUT_POST, 'cancel', FILTER_SANITIZE_ENCODED) === 'true') {
             header('Location: ' . constant('BASE_URI'));
         }
 
-        if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_ENCODED)) {
+        if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_ENCODED) === 'true') {
             $this->save();
             header('Location: ' . constant('BASE_URI'));
         }
