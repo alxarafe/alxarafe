@@ -3,9 +3,13 @@
  ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
 #}
 {% extends "index.twig" %}
-{% block title %}Configuración de la base de datos{% endblock %}
+
+{% block title %}{{ ctrl.title }}{% endblock %}
+
 {% block body %}
+    {# TODO: This is not working? #}
     {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
+
     <div class="container">
         <form action='?call=EditConfig' method='post' accept-charset="utf-8">
             <div class="col-xm-4">&nbsp;</div>
@@ -40,10 +44,12 @@
                     </div>
                 {% endfor %}
 
-                <button name="submit" type="submit" class="btn btn-default btn-primary" value="true">Guardar los
-                    cambios
+                <button name="submit" type="submit" class="btn btn-default btn-primary" value="true">
+                    Guardar los cambios
                 </button>
-                <button name="cancel" type="submit" class="btn btn-default btn-danger" value="true">Abandonar</button>
+                <button name="cancel" type="submit" class="btn btn-default btn-danger" value="true">
+                    Abandonar
+                </button>
             </div>
             <div class="col-x-4">&nbsp;</div>
         </form>

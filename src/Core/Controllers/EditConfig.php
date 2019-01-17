@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\Controller;
+use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\ConfigView;
@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @package Alxarafe\Controllers
  */
-class EditConfig extends Controller
+class EditConfig extends PageController
 {
 
     /**
@@ -68,5 +68,19 @@ class EditConfig extends Controller
         $yamlFile = Config::getConfigFileName();
         $yamlData = YAML::dump($vars);
         return (bool) file_put_contents($yamlFile, $yamlData);
+    }
+
+    /**.
+     * Returns the page details
+     */
+    public function pageDetails()
+    {
+        $details = [
+            'title' => 'Editar configuración',
+            'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
+            'description' => 'Desde aquí puedes editar los parámetros de configuración.',
+            'menu' => [],
+        ];
+        return $details;
     }
 }
