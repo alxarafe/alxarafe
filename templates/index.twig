@@ -10,8 +10,17 @@
 <body{% if view.protectClose %} onBeforeUnload='return iCanClose()'{% endif %}>
 
 {% block menu %}{% include 'master/menu.twig' %}{% endblock %}
+
 <div class="container-fluid">
     {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
+
+    {% block bodytitle %}
+        <h4>{{ ctrl.title }}</h4>
+        <small>{{ ctrl.description }}</small>
+    {% endblock %}
+</div>
+
+<div class="container-fluid">
     {% block body %}{% endblock %}
     <hr>
 </div>

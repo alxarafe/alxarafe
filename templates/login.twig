@@ -7,6 +7,9 @@
     Identificación de usuario
 {% endblock %}
 
+{# This remove bodytitle content #}
+{% block bodytitle %}{% endblock %}
+
 {% block body %}
     <div class="container">
         {% if (message) %}<h5>{{ message }}</h5>{% endif %}

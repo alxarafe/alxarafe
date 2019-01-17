@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\Controller;
+use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\LoginView;
@@ -16,7 +16,7 @@ use Alxarafe\Views\LoginView;
  *
  * @package Alxarafe\Controllers
  */
-class Login extends Controller
+class Login extends PageController
 {
 
     /**
@@ -58,5 +58,19 @@ class Login extends Controller
     {
         Config::$user->logout();
         header('Location: ' . constant('BASE_URI'));
+    }
+
+    /**.
+     * Returns the page details
+     */
+    public function pageDetails()
+    {
+        $details = [
+            'title' => 'Identificación de usuario',
+            'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
+            'description' => 'Página de login, para controlar el acceso a la aplicación.',
+            'menu' => [],
+        ];
+        return $details;
     }
 }

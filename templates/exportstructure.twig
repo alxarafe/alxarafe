@@ -3,12 +3,13 @@
  ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
 #}
 {% extends "index.twig" %}
+
 {% block title %}Exportar estructura de la base de datos{% endblock %}
+
 {% block body %}
+    {# TODO: This is not working? #}
     {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
-    <div class="container">
-        <h3>Exportar estructura de la base de datos</h3>
-    </div>
+
     <div class="container">
         {% if (message) %}{{ message }}{% endif %}
 

@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\Controller;
+use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\ExportStructureView;
@@ -16,7 +16,7 @@ use Alxarafe\Views\ExportStructureView;
  *
  * @package Alxarafe\Controllers
  */
-class ExportStructure extends Controller
+class ExportStructure extends PageController
 {
 
     /**
@@ -45,5 +45,19 @@ class ExportStructure extends Controller
                 header('Location: ' . constant('BASE_URI'));
                 break;
         }
+    }
+
+    /**.
+     * Returns the page details
+     */
+    public function pageDetails()
+    {
+        $details = [
+            'title' => 'Exportar estructura de la base de datos',
+            'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
+            'description' => 'Permite exportar la estructura de la base de datos en archivos YAML.',
+            'menu' => [],
+        ];
+        return $details;
     }
 }
