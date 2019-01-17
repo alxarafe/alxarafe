@@ -24,7 +24,7 @@ class Lang
     /**
      * Base folder where languages files are stored.
      */
-    const LANG_FOLDER = BASE_PATH . '/src/Core/Languages';
+    const LANG_FOLDER = '/src/Core/Languages';
 
     /**
      * Default language to use.
@@ -107,14 +107,14 @@ class Lang
     private function locateFiles(string $lang)
     {
         self::$languages[] = $lang;
-        $file = self::LANG_FOLDER . '/' . $lang . self::EXT;
+        $file = $this->getLangFolder() . '/' . $lang . self::EXT;
 
         try {
             Yaml::parseFile($file);
             self::$translator->addResource(self::FORMAT, $file, $lang);
         } catch (ParseException $exception) {
-            die((str_replace(constant('BASE_PATH'), '', $exception->getMessage())));
-            //throw new Exception((str_replace(constant('BASE_PATH'), '', $exception->getMessage())));
+            $msg = (str_replace(constant('BASE_PATH'), '', $exception->getMessage()));
+            Debug::addMessage('messages', $msg);
         }
 
         /**
@@ -184,7 +184,7 @@ class Lang
     public function getAvailableLanguages()
     {
         $languages = [];
-        $dir = self::LANG_FOLDER;
+        $dir = $this->getLangFolder();
         foreach (scandir($dir, SCANDIR_SORT_ASCENDING) as $fileName) {
             if ($fileName !== '.' && $fileName !== '..' && !is_dir($fileName) && substr($fileName, -5) === self::EXT) {
                 $key = substr($fileName, 0, -5);
@@ -258,5 +258,15 @@ class Lang
     public function getUsedStrings()
     {
         return self::$usedStrings;
+    }
+
+    /**
+     * Return the lang folder.
+     *
+     * @return string
+     */
+    public function getLangFolder()
+    {
+        return constant('BASE_PATH') . self::LANG_FOLDER;
     }
 }
