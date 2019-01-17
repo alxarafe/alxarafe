@@ -13,7 +13,6 @@ namespace Alxarafe\Base;
  */
 class Controller
 {
-
     /**
      * Controller constructor.
      */

@@ -21,25 +21,27 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Config
 {
-
     /**
      * Contains the instance to the database engine (or null)
      *
      * @var Engine
      */
     static $dbEngine;
+
     /**
      * Contains a prefix for the database files
      *
      * @var string
      */
     static $dbPrefix;
+
     /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
      * @var sqlHelper
      */
     static $sqlHelper;
+
     /**
      * Contains the database structure data.
      * Each table is a index of the associative array.
@@ -47,6 +49,7 @@ class Config
      * @var array
      */
     static $bbddStructure;
+
     /**
      * It is a static instance of the Auth class that contains the data of the
      * currently identified user.
@@ -54,18 +57,21 @@ class Config
      * @var Auth
      */
     static $user;
+
     /**
      * Contains the user's name or null
      *
      * @var string|null
      */
     static $username;
+
     /**
      * Contains the full name of the configuration file or null
      *
      * @var string::null
      */
     static $configFilename;
+
     /**
      * Contains an array with the variables defined in the configuration file.
      * Use setVar to assign or getVar to access the variables of the array.
@@ -73,12 +79,20 @@ class Config
      * @var array
      */
     static private $global;
+
     /**
      * Contains error messages.
      *
      * @var array
      */
     static private $errors;
+
+    /**
+     * Translator
+     *
+     * @var Lang
+     */
+    static $lang;
 
     /**
      * Return true y the config file exists
@@ -172,6 +186,9 @@ class Config
                 self::$user->login();
             }
         }
+        if (self::$lang === null) {
+            self::$lang = new Lang(constant('LANG'));
+        }
     }
 
     /**
@@ -193,7 +210,7 @@ class Config
             */
             $yaml = file_get_contents($filename);
             if ($yaml) {
-                return YAML::parse($yaml);
+                return Yaml::parse($yaml);
             }
         }
         return [];
@@ -258,7 +275,7 @@ class Config
         if (!isset($configFile)) {
             return false;
         }
-        return file_put_contents($configFile, YAML::dump(self::$global)) !== false;
+        return file_put_contents($configFile, Yaml::dump(self::$global)) !== false;
     }
 
     /**
