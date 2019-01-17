@@ -3,7 +3,7 @@
  ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
 #}
 
-<footer class="footer">
+<footer class="footer" id="footercontent" name="footercontent">
     <div class="container">
         <p class="text-muted">
             <a target="_blank" href="https://alxarafe.es/">Alxarafe</a> 2018-{{ "now"|date("Y") }} &copy; -
@@ -12,15 +12,15 @@
     </div>
 </footer>
 
-<!-- Including jsCode -->
+{# Including jsCode #}
 <script src="vendor/components/jquery/jquery.min.js"></script>
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 {% block javascriptsFooter %}
     {% for js in jsCode %}
         <script type="text/javascript" src="{{ js }}"></script>
     {% endfor %}
-    <!-- start of getFooter -->
+    {# Start of getFooter #}
     {{ view.getFooter() | raw }}
-    <!-- end of getFooter -->
+    {# End of getFooter #}
 {% endblock %}
-<!-- End of jsCode inclusion -->
+{# End of jsCode inclusion #}
