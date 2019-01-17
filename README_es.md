@@ -1,3 +1,8 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/build-status/master)
+[![Build Status](https://travis-ci.org/alxarafe/alxarafe.svg?branch=master)](https://travis-ci.org/alxarafe/alxarafe)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/alxarafe/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
+
 Alxarafe. Development of PHP applications in a flash!
 
 Alxarafe es un paquete, aún en desarrollo, que entre otras, ofrece las siguientes funcionalidades:

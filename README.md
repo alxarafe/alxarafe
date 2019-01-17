@@ -1,6 +1,7 @@
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Alxarafe/Alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/build-status/master)
+[![Build Status](https://travis-ci.org/alxarafe/alxarafe.svg?branch=master)](https://travis-ci.org/alxarafe/alxarafe)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/alxarafe/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
 
 Alxarafe is a package (still in development), which offers the following features:
 - Users identification.
