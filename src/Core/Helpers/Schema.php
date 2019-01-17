@@ -23,41 +23,6 @@ class Schema
 
     /**
      * TODO: Undocummented
-     *
-     * @var
-     */
-    static protected $databaseStructure;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    static protected $SqlHelper;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    protected $model;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    protected $tableName;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    protected $structure;
-
-    /**
-     * TODO: Undocummented
      */
     public static function saveStructure(): void
     {
