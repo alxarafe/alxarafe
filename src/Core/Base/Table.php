@@ -135,7 +135,7 @@ class Table extends SimpleTable
     protected function getStructureArray(): array
     {
         $struct = parent::getStructureArray();
-        $struct['keys'] = method_exists($this, 'getKeys') ? $this->getKeys() : $this->getIndexesFromTable();
+        $struct['keys'] = method_exists($this, 'getKeys') ? /** @scrutinizer ignore-call */ $this->getKeys() : $this->getIndexesFromTable();
         $struct['values'] = $this->getDefaultValues();
         $struct['checks'] = $this->getChecks();
         return $struct;
