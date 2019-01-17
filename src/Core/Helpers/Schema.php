@@ -84,6 +84,47 @@ class Schema
     }
 
     /**
+     * Verify the $fieldData established in the yaml file with the structure 
+     * of the database, creating the missing data and correcting the possible 
+     * errors.
+     * 
+     * Posible data: unique, min, max, length, pattern, placeholder, rowlabel & fieldlabel
+     * 
+     * @param string $field
+     * @param array $values
+     * @param array $fieldData
+     * @return array
+     */
+    protected static function mergeViewField(string $field, array $values, array $fieldData): array
+    {
+        $result = $fieldData ?? [];
+
+        $result['rowlabel'] = $result['rowlabel'] ?? $field;
+        $result['fieldlabel'] = $result['fieldlabel'] ?? $field;
+        $result['placeholder'] = $result['placeholder'] ?? $field;
+        switch ($values['type']) {
+            case 'string':
+                $length = intval($values['length'] ?? constant(DEFAULT_STRING_LENGTH));
+                if (!isset($result['length']) || intval($result['length'] > $length)) {
+                    $result['length'] = $length;
+                }
+                break;
+            case 'integer':
+                $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
+                $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
+                $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
+                if (!isset($result['min']) || intval($result['min'] < $min)) {
+                    $result['min'] = $min;
+                }
+                if (!isset($result['max']) || intval($result['max'] > $max)) {
+                    $result['max'] = $max;
+                }
+                break;
+        }
+        return $result;
+    }
+
+    /**
      * Verify the parameters established in the yaml file with the structure 
      * of the database, creating the missing data and correcting the possible 
      * errors.
@@ -98,29 +139,7 @@ class Schema
     {
         $result = [];
         foreach ($struct['fields'] as $field => $values) {
-            $result[$field] = $data[$field] ?? [];
-            $result[$field]['rowlabel'] = $result[$field]['rowlabel'] ?? $field;
-            $result[$field]['fieldlabel'] = $result[$field]['fieldlabel'] ?? $field;
-            $result[$field]['placeholder'] = $result[$field]['placeholder'] ?? $field;
-            switch ($values['type']) {
-                case 'string':
-                    $length = intval($values['length'] ?? constant(DEFAULT_STRING_LENGTH));
-                    if (!isset($result[$field]['length']) || intval($result[$field]['length'] > $length)) {
-                        $result[$field]['length'] = $length;
-                    }
-                    break;
-                case 'integer':
-                    $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
-                    $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
-                    $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
-                    if (!isset($result[$field]['min']) || intval($result[$field]['min'] < $min)) {
-                        $result[$field]['min'] = $min;
-                    }
-                    if (!isset($result[$field]['max']) || intval($result[$field]['max'] > $max)) {
-                        $result[$field]['max'] = $max;
-                    }
-                    break;
-            }
+            $result[$field] = self::mergeViewField($field, $values, $data['field']);
         }
         return $result;
     }
