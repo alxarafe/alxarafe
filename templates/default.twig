@@ -11,4 +11,7 @@
     {{ view.openForm({action: view.url, message: view.getErrors()}) | raw }}
     {{ view.view() | raw }}
     {{ view.closeForm() | raw }}
+
+    {% include "master/dashboard.twig" %}
+
 {% endblock %}
