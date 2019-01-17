@@ -7,7 +7,6 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
 
 /**
@@ -56,7 +55,7 @@ class Table extends SimpleTable
     {
         if (isset(Config::$bbddStructure[$this->tableName])) {
             if ($create && !SchemaDB::tableExists($this->tableName)) {
-                Schema::createTable($this->tableName);
+                SchemaDB::createTable($this->tableName);
             }
         }
     }
