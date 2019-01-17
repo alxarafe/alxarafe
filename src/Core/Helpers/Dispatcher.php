@@ -50,16 +50,14 @@ class Dispatcher
         // First set the display options to be able to show the possible warnings and errors.
         Config::loadViewsConfig();
         $configFile = Config::getConfigFileName();
-        if (file_exists($configFile)) {
-            Config::loadConfig();
-        } else {
+        if (!file_exists($configFile)) {
             $msg = "Creating '$configFile' file...";
             Config::setError($msg);
             new EditConfig();
             $e = new Exception($msg);
             Debug::addException($e);
-            die($msg);
         }
+        Config::loadConfig();
     }
 
     /**
@@ -74,6 +72,7 @@ class Dispatcher
          * define('BASE_PATH', __DIR__);
          */
         Utils::defineIfNotExists('BASE_PATH', __DIR__ . '/../../../..');
+        Utils::defineIfNotExists('LANG', 'en_EN');
         Utils::defineIfNotExists('DEBUG', false);
 
         define('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));

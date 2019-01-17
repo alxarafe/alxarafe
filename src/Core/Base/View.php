@@ -17,7 +17,6 @@ use Alxarafe\Helpers\Skin;
  */
 class View
 {
-
     /**
      * Array that contains the variables that will be passed to the template.
      * Among others it will contain the user name, the view and the controller.
@@ -39,6 +38,7 @@ class View
         $this->vars['view'] = $this;
         $this->vars['user'] = Config::$username;
         $this->vars['templateuri'] = Skin::getTemplatesUri();
+        $this->vars['lang'] = Config::$lang;
         $this->addCSS();
         $this->addJS();
     }

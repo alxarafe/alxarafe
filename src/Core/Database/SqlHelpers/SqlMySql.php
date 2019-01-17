@@ -67,7 +67,17 @@ class SqlMySql extends SqlHelper
         return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName, $prefix) . ';';
     }
 
-    public function toNativeForm(array $row): string
+    /**
+     * TODO: Undocummented and pending complete.
+     *
+     * @param array $row
+     *
+     * @return string
+     */
+    public function toNativeForm(
+        /** @scrutinizer ignore-unused */
+        array $row = []
+    ): string
     {
         return '';
         /*

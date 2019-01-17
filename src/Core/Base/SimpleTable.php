@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -118,7 +119,8 @@ class SimpleTable
     protected function getStructureArray(): array
     {
         $struct = [];
-        $struct['fields'] = method_exists($this, 'getFields') ? /** @scrutinizer ignore-call */ $this->getFields() : $this->getFieldsFromTable();
+        $struct['fields'] = method_exists($this, 'getFields') ? /** @scrutinizer ignore-call */
+            $this->getFields() : $this->getFieldsFromTable();
         return $struct;
     }
 

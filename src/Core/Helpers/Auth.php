@@ -101,7 +101,7 @@ class Auth extends Users
         $_user = Config::$dbEngine->select($sql);
         if (count($_user) > 0 && password_verify($password, $_user[0]['password'])) {
             $this->user = $user;
-            setcookie('user', $user);
+            $this->setCookieUser();
             Debug::addMessage('messages', "$user authenticated");
         } else {
             $this->user = null;
@@ -122,10 +122,14 @@ class Auth extends Users
     }
 
     /**
-     * TODO: Undocummented
+     * Sets the cookie to the current user.
      */
     private function setCookieUser(): void
     {
-        setcookie('user', $this->user === null ? '' : $this->user, self::COOKIE_EXPIRATION);
+        if ($this->user === null) {
+            $this->clearCookieUser();
+        } else {
+            setcookie('user', $this->user, self::COOKIE_EXPIRATION);
+        }
     }
 }

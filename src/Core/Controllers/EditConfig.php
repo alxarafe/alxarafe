@@ -66,7 +66,7 @@ class EditConfig extends PageController
         $vars['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_ENCODED);
 
         $yamlFile = Config::getConfigFileName();
-        $yamlData = YAML::dump($vars);
+        $yamlData = Yaml::dump($vars);
         return (bool) file_put_contents($yamlFile, $yamlData);
     }
 
