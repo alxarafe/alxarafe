@@ -50,16 +50,14 @@ class Dispatcher
         // First set the display options to be able to show the possible warnings and errors.
         Config::loadViewsConfig();
         $configFile = Config::getConfigFileName();
-        if (file_exists($configFile)) {
-            Config::loadConfig();
-        } else {
+        if (!file_exists($configFile)) {
             $msg = "Creating '$configFile' file...";
             Config::setError($msg);
             new EditConfig();
             $e = new Exception($msg);
             Debug::addException($e);
-            die($msg);
         }
+        Config::loadConfig();
     }
 
     /**

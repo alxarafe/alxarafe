@@ -135,6 +135,8 @@ class Schema
             return null;
         }
 
+        return $structure;
+        /*
         // TODO: The assignments are dead and can be removed.
         $min = $structure['min'] ?? 0;
         $max = $structure['max'] ?? 0;
@@ -143,8 +145,6 @@ class Schema
         $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
         $null = ((isset($structure['null'])) && $structure['null'] == true);
 
-        return $structure;
-        /*
         $ret = [];
         if ($type == 'string') {
             if ($max == 0) {

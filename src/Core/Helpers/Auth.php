@@ -122,7 +122,7 @@ class Auth extends Users
     }
 
     /**
-     * TODO: Undocummented
+     * TODO: Undocummented and pending complete.
      */
     private function setCookieUser(): void
     {
