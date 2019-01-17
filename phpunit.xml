@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        beStrictAboutTestsThatDoNotTestAnything="false"
+        bootstrap="src/Test/bootstrap.php"
+        colors="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false">
+    <testsuites>
+        <testsuite name="Test for Base">
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Test/Core/Base/
+            </directory>
+        </testsuite>
+        <testsuite name="Test for Controllers">
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Test/Core/Controllers/
+            </directory>
+        </testsuite>
+        <testsuite name="Test for DataBase">
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Test/Core/DataBase/
+            </directory>
+        </testsuite>
+        <testsuite name="Test for Helpers">
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Test/Core/Helpers/
+            </directory>
+        </testsuite>
+        <testsuite name="Test for Languages">
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Test/Core/Languages/
+            </directory>
+        </testsuite>
+        <testsuite name="Test for Models">
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Test/Core/Models/
+            </directory>
+        </testsuite>
+        <testsuite name="Test for Views">
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Test/Core/Views/
+            </directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

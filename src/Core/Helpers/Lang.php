@@ -99,7 +99,7 @@ class Lang
     }
 
     /**
-     * Load the translation files following the priority system of FacturaScripts.
+     * Load the translation files following the priorities.
      * In this case, the translator must be provided with the routes in reverse order.
      *
      * @param string $lang
