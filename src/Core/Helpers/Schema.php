@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Exception;
@@ -17,67 +16,114 @@ class Schema
 {
 
     /**
-     * TODO: Undocummented
+     * Carriage return
      */
     const CRLF = "\n\t";
+
+    /**
+     * Folder that contains the files with the structure of the database.
+     */
+    const SCHEMA_FOLDER = BASE_PATH . '/config/schema';
+
+    /**
+     * Folder that contains the files with the display parameters and
+     * restrictions of the tables in the database.
+     */
+    const VIEW_DATA_FOLDER = BASE_PATH . '/config/viewdata';
+
+    /**
+     * Check the existence of the configuration folders that contain the YAML
+     * files, creating them if they do not exist.
+     * Returns true if finally, both folders exist.
+     *
+     * @return bool
+     */
+    protected static function checkConfigFolders(): bool
+    {
+        $ret = true;
+        foreach ([constant('self::SCHEMA_FOLDER'), constant('self::VIEW_DATA_FOLDER')] as $folder) {
+            if (!is_dir($folder)) {
+                mkdir($folder);
+            }
+            $ret &= is_dir($folder);
+        }
+        return $ret;
+    }
+
+    /**
+     * Merge the existing yaml file with the structure of the database,
+     * prevailing the latter.
+     *
+     * @param array $struct current database table structure
+     * @param array $data current yaml file structure
+     * @return array
+     */
+    protected static function mergeSchema(array $struct, array $data): array
+    {
+        return array_merge($data, $struct);
+    }
+
+    /**
+     * Verify the parameters established in the yaml file with the structure 
+     * of the database, creating the missing data and correcting the possible 
+     * errors.
+     * 
+     * Posible data: unique, min, max, length, pattern, placeholder, rowlabel & fieldlabel
+     * 
+     * @param array $struct current database table structure
+     * @param array $data current yaml file data
+     * @return array
+     */
+    protected static function mergeViewData(array $struct, array $data): array
+    {
+        $result = [];
+        foreach ($struct['fields'] as $field => $values) {
+            $result[$field] = $data[$field] ?? [];
+            $result[$field]['rowlabel'] = $result[$field]['rowlabel'] ?? $field;
+            $result[$field]['fieldlabel'] = $result[$field]['fieldlabel'] ?? $field;
+            $result[$field]['placeholder'] = $result[$field]['placeholder'] ?? $field;
+            switch ($values['type']) {
+                case 'string' :
+                    $length = intval($values['length'] ?? constant(DEFAULT_STRING_LENGTH));
+                    if (!isset($result[$field]['length']) || intval($result[$field]['length'] > $length)) {
+                        $result[$field]['length'] = $length;
+                    }
+                    break;
+                case 'integer' :
+                    $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
+                    $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
+                    $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
+                    if (!isset($result[$field]['min']) || intval($result[$field]['min'] < $min)) {
+                        $result[$field]['min'] = $min;
+                    }
+                    if (!isset($result[$field]['max']) || intval($result[$field]['max'] > $max)) {
+                        $result[$field]['max'] = $max;
+                    }
+                    break;
+            }
+        }
+        return $result;
+    }
 
     /**
      * TODO: Undocummented
      */
     public static function saveStructure(): void
     {
-        $folder = constant('BASE_PATH') . '/schema';
-        if (!is_dir($folder)) {
-            mkdir($folder);
-        }
-        if (is_dir($folder)) {
+        if (self::checkConfigFolders()) {
             $tables = Config::$sqlHelper->getTables();
             foreach ($tables as $table) {
-                $filename = $folder . '/' . $table . '.yaml';
-                $data = Config::$dbEngine->getStructure($table, false);
-                file_put_contents($filename, Yaml::dump($data));
+                $filename = constant('self::SCHEMA_FOLDER') . '/' . $table . '.yaml';
+                $structure = Config::$dbEngine->getStructure($table, false);
+                $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
+                $data = self::mergeSchema($structure, $dataFile);
+                file_put_contents($filename, YAML::dump($data, 3));
+                $filename = constant('self::VIEW_DATA_FOLDER') . '/' . $table . '.yaml';
+                $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
+                $data = self::mergeViewData($structure, $dataFile);
+                file_put_contents($filename, YAML::dump($data, 3));
             }
         }
-    }
-
-    /**
-     * Return true if $tableName exists in database
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     */
-    public static function tableExists($tableName): bool
-    {
-        $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
-        return (bool) Config::$dbEngine->exec($sql);
-    }
-
-    /**
-     * TODO: Undocumentend
-     *
-     * @return array
-     */
-    public static function getTables(): array
-    {
-        $queries = Config::$sqlHelper->getTables();
-        $queryResult = [];
-        foreach ($queries as $query) {
-            $queryResult[] = Config::$dbEngine->select($query);
-        }
-        return Utils::flatArray($queryResult);
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @param string $tableName
-     *
-     * @return array
-     */
-    public static function getStructure(string $tableName): array
-    {
-        return Config::$dbEngine->getStructure($tableName);
     }
 
     /**
@@ -136,269 +182,6 @@ class Schema
         }
 
         return $structure;
-        /*
-        // TODO: The assignments are dead and can be removed.
-        $min = $structure['min'] ?? 0;
-        $max = $structure['max'] ?? 0;
-        $default = $structure['default'] ?? null;
-        $label = $structure['label'] ?? $tableName . '-' . $field;
-        $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
-        $null = ((isset($structure['null'])) && $structure['null'] == true);
-
-        $ret = [];
-        if ($type == 'string') {
-            if ($max == 0) {
-                $max = constant(DEFAULT_STRING_LENGTH);
-            }
-            $dbType = "$dbType($max)";
-            $ret['pattern'] = '.{' . $min . ',' . $max . '}';
-        } else {
-            if ($type == 'number') {
-                if ($default === true) {
-                    $default = '1';
-                }
-                if ($max == 0) {
-                    $_length = constant(DEFAULT_INTEGER_SIZE);
-                    $max = pow(10, $_length) - 1;
-                } else {
-                    $_length = strlen($max);
-                }
-
-                if ($min == 0) {
-                    $min = $unsigned ? 0 : -$max;
-                } else {
-                    if ($_length < strlen($min)) {
-                        $_length = strlen($min);
-                    }
-                }
-
-                if (isset($structure['decimals'])) {
-                    $decimales = $structure['decimals'];
-                    $precision = pow(10, -$decimales);
-                    $_length += $decimales;
-                    $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
-                    $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
-                    $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
-                } else {
-                    $precision = null;
-                    $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
-                    $ret['min'] = $min;
-                    $ret['max'] = $max;
-                }
-            }
-        }
-
-        $ret['type'] = $type;
-        $ret['dbtype'] = $dbType;
-        $ret['default'] = $default;
-        $ret['null'] = $null;
-        $ret['label'] = $label;
-        if (isset($precision)) {
-            $ret['step'] = $precision;
-        }
-        if (isset($structure['key'])) {
-            $ret['key'] = $structure['key'];
-        }
-        if (isset($structure['placeholder'])) {
-            $ret['placeholder'] = $structure['placeholder'];
-        }
-        if (isset($structure['extra'])) {
-            $ret['extra'] = $structure['extra'];
-        }
-        if (isset($structure['help'])) {
-            $ret['help'] = $structure['help'];
-        }
-        if (isset($structure['unique']) && $structure['unique']) {
-            $ret['unique'] = $structure['unique'];
-        }
-
-        if (isset($structure['relations'][$field]['table'])) {
-            $ret['relation'] = [
-                'table' => $structure['relations'][$field]['table'],
-                'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
-                'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
-            ];
-        }
-
-        return $ret;
-        */
-    }
-
-    /**
-     * Create a table in the database.
-     * Build the default fields, indexes and values defined in the model.
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     */
-    public static function createTable(string $tableName): bool
-    {
-        $tabla = Config::$bbddStructure[$tableName];
-        $sql = self::createFields($tableName, $tabla['fields']);
-
-        foreach ($tabla['keys'] as $name => $index) {
-            $sql .= self::createIndex($tableName, $name, $index);
-        }
-        $sql .= self::setValues($tableName, $tabla['values']);
-        return Config::$dbEngine->exec($sql);
-    }
-
-    /**
-     * Build the SQL statement to create the fields in the table.
-     * It can also create the primary key if the auto_increment attribute is defined.
-     *
-     * TODO: Netbeans does not support @return ?string
-     *
-     * @param string $tableName
-     * @param array  $fieldList
-     *
-     * @return string|null
-     */
-    static protected function createFields(string $tableName, array $fieldList)
-    {
-        $tableName = Config::getVar('dbPrefix') . $tableName;
-        $sql = "CREATE TABLE $tableName ( ";
-        foreach ($fieldList as $index => $col) {
-            if (!isset($col['dbtype'])) {
-                $msg = 'Tipo no especificado en createTable';
-                $e = new Exception($msg);
-                Debug::addException($e);
-                return null;
-            }
-
-            $sql .= '`' . $index . '` ' . $col['dbtype'];
-            $nulo = isset($col['null']) && $col['null'];
-
-            $sql .= ($nulo ? '' : ' NOT') . ' NULL';
-
-            if (isset($col['extra']) && (strtolower($col['extra']) == 'auto_increment')) {
-                $sql .= ' PRIMARY KEY AUTO_INCREMENT';
-            }
-
-            $_defecto = $col['default'] ?? null;
-            $defecto = '';
-            if (isset($_defecto)) {
-                if ($_defecto == 'CURRENT_TIMESTAMP') {
-                    $defecto = "$_defecto";
-                } else {
-                    $defecto = "'$_defecto'";
-                }
-            } else {
-                if ($nulo) {
-                    $defecto = 'NULL';
-                }
-            }
-
-            if ($defecto != '') {
-                $sql .= ' DEFAULT ' . $defecto;
-            }
-
-            $sql .= ', ';
-        }
-        $sql = substr($sql, 0, -2); // Quitamos la coma y el espacio del final
-        $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
-
-        return $sql;
-    }
-
-    /**
-     * Create the SQL statements for the construction of one index.
-     * In the case of the primary index, it is not necessary if it is auto_increment.
-     *
-     * TODO:
-     *
-     * Moreover, it should not be defined if it is auto_increment because it would
-     * generate an error when it already exists.
-     *
-     * TODO: Netbeans does not support @return ?string
-     *
-     * @param string $tableName
-     * @param string $indexname
-     * @param array  $indexData
-     *
-     * @return string|null
-     */
-    static protected function createIndex(string $tableName, string $indexname, array $indexData)
-    {
-        $fields = '';
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName) . ' ADD CONSTRAINT ' . $indexname;
-
-        $command = '';
-        // https://www.w3schools.com/sql/sql_primarykey.asp
-        // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
-        if (isset($indexData['PRIMARY'])) {
-            $command = 'PRIMARY KEY ';
-            $fields = $indexData['PRIMARY'];
-        }
-
-        // https://www.w3schools.com/sql/sql_create_index.asp
-        // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
-        if (isset($indexData['INDEX'])) {
-            $command = 'INDEX ';
-            $fields = $indexData['INDEX'];
-        }
-
-        // https://www.w3schools.com/sql/sql_unique.asp
-        // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
-        if (isset($indexData['UNIQUE'])) {
-            $command = 'UNIQUE INDEX ';
-            $fields = $indexData['UNIQUE'];
-        }
-
-        if ($command == '') {
-            // https://www.w3schools.com/sql/sql_foreignkey.asp
-            // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
-            if (isset($indexData['FOREIGN'])) {
-                $command = 'FOREIGN KEY ';
-                $foreignField = $indexData['FOREIGN'];
-                if (isset($indexData['REFERENCES'])) {
-                    $references = $indexData['REFERENCES'];
-                    if (!is_array($references)) {
-                        $msg = 'Esperaba un array en REFERENCES: ' . $tableName . '/' . $indexname;
-                        $e = new Exception($msg);
-                        Debug::addException($e);
-                        return null;
-                    }
-                    if (count($references) != 1) {
-                        $msg = 'Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname;
-                        $e = new Exception($msg);
-                        Debug::addException($e);
-                        return null;
-                    }
-                    $refTable = key($references);
-                    $fields = '(' . implode(',', $references) . ')';
-                } else {
-                    $msg = 'FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname;
-                    $e = new Exception($msg);
-                    Debug::addException($e);
-                    return null;
-                }
-
-                $sql .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
-
-                if (isset($indexData['ON']) && is_array($indexData['ON'])) {
-                    foreach ($indexData['ON'] as $key => $value) {
-                        $sql .= ' ON ' . $key . ' ' . $value . ', ';
-                    }
-                    $sql = substr($sql, 0, -2); // Quitamos el ', ' de detrás
-                }
-            }
-        } else {
-            if (is_array($fields)) {
-                $fields = '(' . implode(',', $fields) . ')';
-            } else {
-                $fields = "($fields)";
-            }
-
-            if ($command == 'INDEX ') {
-                $sql = "CREATE INDEX {$indexname} ON {$tableName}" . $fields;
-            } else {
-                $sql .= $command . ' ' . $fields;
-            }
-        }
-
-        return $sql . ';' . self::CRLF;
     }
 
     /**
@@ -433,5 +216,4 @@ class Schema
 
         return substr($sql, 0, -2) . self::CRLF;
     }
-
 }
