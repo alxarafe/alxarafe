@@ -26,8 +26,8 @@
     "twbs/bootstrap": "^3.4",
     "maximebf/debugbar": "^1.0",
     "twig/twig": "^2.0",
-    "ext-pdo": "*",
-    "symfony/translation": "^4.2"
+    "symfony/translation": "^4.2",
+    "ext-pdo": "*"
   },
   "autoload": {
     "psr-4": {
