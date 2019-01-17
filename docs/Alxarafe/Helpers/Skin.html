@@ -1,990 +1,1028 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="index, follow, all" name="robots"/>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
     <title>Alxarafe\Helpers\Skin | alxarafe</title>
 
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-    <link href="../../css/sami.css" rel="stylesheet" type="text/css">
-    <script src="../../js/jquery-1.11.1.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/typeahead.min.js"></script>
-    <script src="../../sami.js"></script>
-    <meta content="width" name="MobileOptimized">
-    <meta content="true" name="HandheldFriendly">
-    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
 
-
-</head>
-
-<body data-name="class:Alxarafe_Helpers_Skin" data-root-path="../../" id="class">
-<div id="content">
-    <div id="left-column">
-        <div id="control-panel">
-            <script>
-                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
-            </script>
-            <form action="../../search.html" id="search-form" method="GET">
-                <span class="glyphicon glyphicon-search"></span>
-                <input class="typeahead form-control"
-                       name="search"
-                       placeholder="Search"
-                       type="search">
-            </form>
-        </div>
-
-        <div id="api-tree"></div>
-
+    <body id="class" data-name="class:Alxarafe_Helpers_Skin" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-    <div id="right-column">
-        <nav class="navbar navbar-default" id="site-nav" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../../index.html">alxarafe</a>
-                </div>
-                <div class="collapse navbar-collapse" id="navbar-elements">
-                    <ul class="nav navbar-nav">
-                        <li><a href="../../classes.html">Classes</a></li>
-                        <li><a href="../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../interfaces.html">Interfaces</a></li>
-                        <li><a href="../../traits.html">Traits</a></li>
-                        <li><a href="../../doc-index.html">Index</a></li>
-                        <li><a href="../../search.html">Search</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-        <div class="namespace-breadcrumbs">
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">alxarafe</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                <li><a href="../../Alxarafe.html">Alxarafe</a></li>
-                <li class="backslash">\</li>
-                <li><a href="../../Alxarafe/Helpers.html">Helpers</a></li>
-                <li class="backslash">\</li>
-                <li>Skin</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Helpers.html">Helpers</a></li><li class="backslash">\</li><li>Skin</li>
             </ol>
         </div>
-        <div id="page-content">
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Skin
+                
+        </h1>
+    </div>
 
-            <div class="page-header">
-                <h1>
-                    Skin
+    <p>    class
+    <strong>Skin</strong>
+</p>
 
-                </h1>
-            </div>
-
-            <p> class
-                <strong>Skin</strong>
-            </p>
-
+        
+    
 
             <div class="description">
-                <p>Class Skin</p></div>
-
-
+            <p>Class Skin</p>                                </div>
+    
+    
             <h2>Constants</h2>
 
             <table class="table table-condensed">
-                <tr>
-                    <td>SKINS_FOLDER</td>
-                    <td class="last">
-                        <p><em>Default: It is the folder that includes the templates.</em></p>
-                        <p>Each template will be a folder whose name will be the one that will
-                            appear in the template selector.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>COMMON_FOLDER</td>
-                    <td class="last">
-                        <p><em>Default: Folder of the common code.</em></p>
-                        <p>It is where the common files will be placed to all the templates. If a
-                            file is not found in the template, then it will be searched in COMMON_FOLDER.</p>
-                    </td>
-                </tr>
+                    <tr>
+                <td>SKINS_FOLDER</td>
+                <td class="last">
+                    <p><em>Default: It is the folder that includes the templates.</em></p>
+                    <p>Each template will be a folder whose name will be the one that will
+appear in the template selector.</p>
+                </td>
+            </tr>
+                    <tr>
+                <td>COMMON_FOLDER</td>
+                <td class="last">
+                    <p><em>Default: Folder of the common code.</em></p>
+                    <p>It is where the common files will be placed to all the templates. If a
+file is not found in the template, then it will be searched in COMMON_FOLDER.</p>
+                </td>
+            </tr>
             </table>
 
-
+    
             <h2>Properties</h2>
 
             <table class="table table-condensed">
-                <tr>
-                    <td class="type" id="property_view">
-                        static <a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                    </td>
-                    <td>$view</td>
-                    <td class="last">Contains an instance of the view, or the generic view if one is not specified.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_currentTemplate">
-                        static private string
-                    </td>
-                    <td>$currentTemplate</td>
-                    <td class="last">It is the name of the template that is being used.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_currentSkin">
-                        static private string
-                    </td>
-                    <td>$currentSkin</td>
-                    <td class="last">It's the name of the skin that is being used.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_templatesEngine">
-                        static private string
-                    </td>
-                    <td>$templatesEngine</td>
-                    <td class="last">It's the name of the template engine.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_templatesFolder">
-                        static private string
-                    </td>
-                    <td>$templatesFolder</td>
-                    <td class="last">It is the skin, that is, the folder that contains the templates.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_commonTemplatesFolder">
-                        static private string
-                    </td>
-                    <td>$commonTemplatesFolder</td>
-                    <td class="last">Indicates the folder where the files common to all the templates are located.</td>
-                    <td></td>
-                </tr>
+                    <tr>
+                <td class="type" id="property_view">
+                    static                                                            <a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a>
+                </td>
+                <td>$view</td>
+                <td class="last">Contains an instance of the view, or the generic view if one is not specified.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_currentTemplate">
+                    static                                        private                    string
+                </td>
+                <td>$currentTemplate</td>
+                <td class="last">It is the name of the template that is being used.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_currentSkin">
+                    static                                        private                    string
+                </td>
+                <td>$currentSkin</td>
+                <td class="last">It's the name of the skin that is being used.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_templatesEngine">
+                    static                                        private                    string
+                </td>
+                <td>$templatesEngine</td>
+                <td class="last">It's the name of the template engine.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_templatesFolder">
+                    static                                        private                    string
+                </td>
+                <td>$templatesFolder</td>
+                <td class="last">It is the skin, that is, the folder that contains the templates.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_commonTemplatesFolder">
+                    static                                        private                    string
+                </td>
+                <td>$commonTemplatesFolder</td>
+                <td class="last">Indicates the folder where the files common to all the templates are located.</td>
+                <td></td>
+            </tr>
             </table>
 
-
+    
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setView">setView</a>(<a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        $view)
-
-                        <p>Sets the view class that will be used</p></div>
-                    <div class="col-md-2"></div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_hasTemplatesFolder">hasTemplatesFolder</a>()
-
-                        <p>Return the templates folder</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_setView">setView</a>(<a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a> $view)
+        
+                                            <p>Sets the view class that will be used</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_hasTemplate">hasTemplate</a>()
-
-                        <p>Returns true if a template has been specified</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_hasTemplatesFolder">hasTemplatesFolder</a>()
+        
+                                            <p>Return the templates folder</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getSkins">getSkins</a>()
-
-                        <p>Returns an array with the list of skins (folders inside the folder
-                            specified for the templates)</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_hasTemplate">hasTemplate</a>()
+        
+                                            <p>Returns true if a template has been specified</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setSkin">setSkin</a>($skin)
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSkins">getSkins</a>()
+        
+                                            <p>Returns an array with the list of skins (folders inside the folder
+specified for the templates)</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setTemplate">setTemplate</a>($template)
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_setSkin">setSkin</a>($skin)
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getTemplatesUri">getTemplatesUri</a>()
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_setTemplate">setTemplate</a>($template)
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getTemplatesEngine">getTemplatesEngine</a>()
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplatesUri">getTemplatesUri</a>()
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setTemplatesEngine">setTemplatesEngine</a>($engine)
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplatesEngine">getTemplatesEngine</a>()
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getCommonTemplatesUri">getCommonTemplatesUri</a>()
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_setTemplatesEngine">setTemplatesEngine</a>($engine)
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_render">render</a>(array $vars)
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCommonTemplatesUri">getCommonTemplatesUri</a>()
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_renderIt">renderIt</a>(array $vars)
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_render">render</a>(array $vars)
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getTemplate">getTemplate</a>()
-
-                        <p>Returns the template file name.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_renderIt">renderIt</a>(array $vars)
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getTemplateVars">getTemplateVars</a>(array $vars = [])
-
-                        <p>Return a list of template vars, merged with $vars,</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplate">getTemplate</a>()
+        
+                                            <p>Returns the template file name.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getOptions">getOptions</a>()
-
-                        <p>Returns a list of options.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplateVars">getTemplateVars</a>(array $vars = [])
+        
+                                            <p>Return a list of template vars, merged with $vars,</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getPaths">getPaths</a>()
-
-                        <p>Returns a list of available paths.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getOptions">getOptions</a>()
+        
+                                            <p>Returns a list of options.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getTemplatesFolder">getTemplatesFolder</a>()
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getPaths">getPaths</a>()
+        
+                                            <p>Returns a list of available paths.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setTemplatesFolder">setTemplatesFolder</a>(string $template)
-
-                        <p>Establish a new template. The parameter must be only de template name, no the path!</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplatesFolder">getTemplatesFolder</a>()
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getCommonTemplatesFolder">getCommonTemplatesFolder</a>()
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_setTemplatesFolder">setTemplatesFolder</a>(string $template)
+        
+                                            <p>Establish a new template. The parameter must be only de template name, no the path!</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setCommonTemplatesFolder">setCommonTemplatesFolder</a>(string $templatesFolder)
-
-                        <p>TODO: Undocumented</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCommonTemplatesFolder">getCommonTemplatesFolder</a>()
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setCommonTemplatesFolder">setCommonTemplatesFolder</a>(string $templatesFolder)
+        
+                                            <p>TODO: Undocumented</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
-            <h2>Details</h2>
+        <h2>Details</h2>
 
             <div id="method-details">
-                <div class="method-item">
+                    <div class="method-item">
                     <h3 id="method_setView">
-                        <div class="location">at line 85</div>
-                        <code> static
-                            <strong>setView</strong>(<a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            $view)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 85</div>
+        <code>        static            
+    <strong>setView</strong>(<a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a> $view)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Sets the view class that will be used</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Sets the view class that will be used</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>
-                                        <a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                                    </td>
-                                    <td>$view</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a></td>
+                <td>$view</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_hasTemplatesFolder">
-                        <div class="location">at line 98</div>
-                        <code> static bool
-                            <strong>hasTemplatesFolder</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 98</div>
+        <code>        static            bool
+    <strong>hasTemplatesFolder</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Return the templates folder</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Return the templates folder</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_hasTemplate">
-                        <div class="location">at line 108</div>
-                        <code> static bool
-                            <strong>hasTemplate</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 108</div>
+        <code>        static            bool
+    <strong>hasTemplate</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns true if a template has been specified</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns true if a template has been specified</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getSkins">
-                        <div class="location">at line 122</div>
-                        <code> static array
-                            <strong>getSkins</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 122</div>
+        <code>        static            array
+    <strong>getSkins</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns an array with the list of skins (folders inside the folder
-                                specified for the templates)</p>
-                            <p>TODO: Possible misuse of constant and variable to specify the
-                                template folder.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns an array with the list of skins (folders inside the folder
+specified for the templates)</p>                    <p>TODO: Possible misuse of constant and variable to specify the
+template folder.</p>                            </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setSkin">
-                        <div class="location">at line 144</div>
-                        <code> static
-                            <strong>setSkin</strong>($skin)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 144</div>
+        <code>        static            
+    <strong>setSkin</strong>($skin)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td></td>
-                                    <td>$skin</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$skin</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setTemplate">
-                        <div class="location">at line 158</div>
-                        <code> static
-                            <strong>setTemplate</strong>($template)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 158</div>
+        <code>        static            
+    <strong>setTemplate</strong>($template)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td></td>
-                                    <td>$template</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$template</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTemplatesUri">
-                        <div class="location">at line 169</div>
-                        <code> static string
-                            <strong>getTemplatesUri</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 169</div>
+        <code>        static            string
+    <strong>getTemplatesUri</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTemplatesEngine">
-                        <div class="location">at line 179</div>
-                        <code> static string
-                            <strong>getTemplatesEngine</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 179</div>
+        <code>        static            string
+    <strong>getTemplatesEngine</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setTemplatesEngine">
-                        <div class="location">at line 189</div>
-                        <code> static
-                            <strong>setTemplatesEngine</strong>($engine)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 189</div>
+        <code>        static            
+    <strong>setTemplatesEngine</strong>($engine)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td></td>
-                                    <td>$engine</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$engine</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getCommonTemplatesUri">
-                        <div class="location">at line 199</div>
-                        <code> static string
-                            <strong>getCommonTemplatesUri</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 199</div>
+        <code>        static            string
+    <strong>getCommonTemplatesUri</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_render">
-                        <div class="location">at line 211</div>
-                        <code> static string
-                            <strong>render</strong>(array $vars)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 211</div>
+        <code>        static            string
+    <strong>render</strong>(array $vars)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td>$vars</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$vars</td>
+                <td></td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_renderIt">
-                        <div class="location">at line 228</div>
-                        <code> static private string
-                            <strong>renderIt</strong>(array $vars)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 228</div>
+        <code>        static        private    string
+    <strong>renderIt</strong>(array $vars)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td>$vars</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$vars</td>
+                <td></td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTemplate">
-                        <div class="location">at line 262</div>
-                        <code> static private string
-                            <strong>getTemplate</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 262</div>
+        <code>        static        private    string
+    <strong>getTemplate</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns the template file name.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns the template file name.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTemplateVars">
-                        <div class="location">at line 276</div>
-                        <code> static private array
-                            <strong>getTemplateVars</strong>(array $vars = [])
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 276</div>
+        <code>        static        private    array
+    <strong>getTemplateVars</strong>(array $vars = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Return a list of template vars, merged with $vars,</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Return a list of template vars, merged with $vars,</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td>$vars</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$vars</td>
+                <td></td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getOptions">
-                        <div class="location">at line 291</div>
-                        <code> static private array
-                            <strong>getOptions</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 291</div>
+        <code>        static        private    array
+    <strong>getOptions</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns a list of options.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns a list of options.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getPaths">
-                        <div class="location">at line 306</div>
-                        <code> static private array
-                            <strong>getPaths</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 306</div>
+        <code>        static        private    array
+    <strong>getPaths</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns a list of available paths.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns a list of available paths.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTemplatesFolder">
-                        <div class="location">at line 329</div>
-                        <code> static string
-                            <strong>getTemplatesFolder</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 329</div>
+        <code>        static            string
+    <strong>getTemplatesFolder</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setTemplatesFolder">
-                        <div class="location">at line 339</div>
-                        <code> static
-                            <strong>setTemplatesFolder</strong>(string $template)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 339</div>
+        <code>        static            
+    <strong>setTemplatesFolder</strong>(string $template)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Establish a new template. The parameter must be only de template name, no the path!</p>
-                        </div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Establish a new template. The parameter must be only de template name, no the path!</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$template</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$template</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getCommonTemplatesFolder">
-                        <div class="location">at line 350</div>
-                        <code> static string
-                            <strong>getCommonTemplatesFolder</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 350</div>
+        <code>        static            string
+    <strong>getCommonTemplatesFolder</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setCommonTemplatesFolder">
-                        <div class="location">at line 360</div>
-                        <code> static
-                            <strong>setCommonTemplatesFolder</strong>(string $templatesFolder)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 360</div>
+        <code>        static            
+    <strong>setCommonTemplatesFolder</strong>(string $templatesFolder)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>TODO: Undocumented</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$templatesFolder</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$templatesFolder</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
+            </div>
             </div>
 
-
-        </div>
-        <div id="footer">
-            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
-        </div>
-
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
     </div>
-</div>
-</body>
+
+        </div>
+    </div>
+    </body>
 
 </html>

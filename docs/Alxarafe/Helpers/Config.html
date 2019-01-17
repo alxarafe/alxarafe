@@ -1,656 +1,672 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="index, follow, all" name="robots"/>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
     <title>Alxarafe\Helpers\Config | alxarafe</title>
 
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-    <link href="../../css/sami.css" rel="stylesheet" type="text/css">
-    <script src="../../js/jquery-1.11.1.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/typeahead.min.js"></script>
-    <script src="../../sami.js"></script>
-    <meta content="width" name="MobileOptimized">
-    <meta content="true" name="HandheldFriendly">
-    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
 
-
-</head>
-
-<body data-name="class:Alxarafe_Helpers_Config" data-root-path="../../" id="class">
-<div id="content">
-    <div id="left-column">
-        <div id="control-panel">
-            <script>
-                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
-            </script>
-            <form action="../../search.html" id="search-form" method="GET">
-                <span class="glyphicon glyphicon-search"></span>
-                <input class="typeahead form-control"
-                       name="search"
-                       placeholder="Search"
-                       type="search">
-            </form>
-        </div>
-
-        <div id="api-tree"></div>
-
+    <body id="class" data-name="class:Alxarafe_Helpers_Config" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-    <div id="right-column">
-        <nav class="navbar navbar-default" id="site-nav" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../../index.html">alxarafe</a>
-                </div>
-                <div class="collapse navbar-collapse" id="navbar-elements">
-                    <ul class="nav navbar-nav">
-                        <li><a href="../../classes.html">Classes</a></li>
-                        <li><a href="../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../interfaces.html">Interfaces</a></li>
-                        <li><a href="../../traits.html">Traits</a></li>
-                        <li><a href="../../doc-index.html">Index</a></li>
-                        <li><a href="../../search.html">Search</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-        <div class="namespace-breadcrumbs">
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">alxarafe</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                <li><a href="../../Alxarafe.html">Alxarafe</a></li>
-                <li class="backslash">\</li>
-                <li><a href="../../Alxarafe/Helpers.html">Helpers</a></li>
-                <li class="backslash">\</li>
-                <li>Config</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Helpers.html">Helpers</a></li><li class="backslash">\</li><li>Config</li>
             </ol>
         </div>
-        <div id="page-content">
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Config
+                
+        </h1>
+    </div>
 
-            <div class="page-header">
-                <h1>
-                    Config
+    <p>    class
+    <strong>Config</strong>
+</p>
 
-                </h1>
-            </div>
-
-            <p> class
-                <strong>Config</strong>
-            </p>
-
+        
+    
 
             <div class="description">
-                <p>All variables and global functions are centralized through the static class Config.</p>
-                <p>The Config class can be instantiated and passed to the class that needs it,
-                    sharing the data and methods that are in them.</p></div>
-
-
+            <p>All variables and global functions are centralized through the static class Config.</p>            <p>The Config class can be instantiated and passed to the class that needs it,
+sharing the data and methods that are in them.</p>                    </div>
+    
+    
+    
             <h2>Properties</h2>
 
             <table class="table table-condensed">
-                <tr>
-                    <td class="type" id="property_dbEngine">
-                        static <a href="../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
-                    </td>
-                    <td>$dbEngine</td>
-                    <td class="last">Contains the instance to the database engine (or null)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_dbPrefix">
-                        static string
-                    </td>
-                    <td>$dbPrefix</td>
-                    <td class="last">Contains a prefix for the database files</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_sqlHelper">
-                        static <abbr title="Alxarafe\Helpers\sqlHelper">sqlHelper</abbr>
-                    </td>
-                    <td>$sqlHelper</td>
-                    <td class="last">Contains the instance to the specific SQL engine helper (or null)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_bbddStructure">
-                        static array
-                    </td>
-                    <td>$bbddStructure</td>
-                    <td class="last">Contains the database structure data.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_user">
-                        static
-                        <a href="../../Alxarafe/Helpers/Auth.html"><abbr title="Alxarafe\Helpers\Auth">Auth</abbr></a>
-                    </td>
-                    <td>$user</td>
-                    <td class="last">It is a static instance of the Auth class that contains the data of the
-                        currently identified user.
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_username">
-                        static string|null
-                    </td>
-                    <td>$username</td>
-                    <td class="last">Contains the user's name or null</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_configFilename">
-                        static <abbr title="Alxarafe\Helpers\string::null">string::null</abbr>
-                    </td>
-                    <td>$configFilename</td>
-                    <td class="last">Contains the full name of the configuration file or null</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_global">
-                        static private array
-                    </td>
-                    <td>$global</td>
-                    <td class="last">Contains an array with the variables defined in the configuration file.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_errors">
-                        static private array
-                    </td>
-                    <td>$errors</td>
-                    <td class="last">Contains error messages.</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="type" id="property_lang">
-                        static
-                        <a href="../../Alxarafe/Helpers/Lang.html"><abbr title="Alxarafe\Helpers\Lang">Lang</abbr></a>
-                    </td>
-                    <td>$lang</td>
-                    <td class="last">Translator</td>
-                    <td></td>
-                </tr>
+                    <tr>
+                <td class="type" id="property_dbEngine">
+                    static                                                            <a href="../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                </td>
+                <td>$dbEngine</td>
+                <td class="last">Contains the instance to the database engine (or null)</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_dbPrefix">
+                    static                                                            string
+                </td>
+                <td>$dbPrefix</td>
+                <td class="last">Contains a prefix for the database files</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_sqlHelper">
+                    static                                                            <abbr title="Alxarafe\Helpers\sqlHelper">sqlHelper</abbr>
+                </td>
+                <td>$sqlHelper</td>
+                <td class="last">Contains the instance to the specific SQL engine helper (or null)</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_bbddStructure">
+                    static                                                            array
+                </td>
+                <td>$bbddStructure</td>
+                <td class="last">Contains the database structure data.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_user">
+                    static                                                            <a href="../../Alxarafe/Helpers/Auth.html"><abbr title="Alxarafe\Helpers\Auth">Auth</abbr></a>
+                </td>
+                <td>$user</td>
+                <td class="last">It is a static instance of the Auth class that contains the data of the
+currently identified user.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_username">
+                    static                                                            string|null
+                </td>
+                <td>$username</td>
+                <td class="last">Contains the user's name or null</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_configFilename">
+                    static                                                            <abbr title="Alxarafe\Helpers\string::null">string::null</abbr>
+                </td>
+                <td>$configFilename</td>
+                <td class="last">Contains the full name of the configuration file or null</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_global">
+                    static                                        private                    array
+                </td>
+                <td>$global</td>
+                <td class="last">Contains an array with the variables defined in the configuration file.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_errors">
+                    static                                        private                    array
+                </td>
+                <td>$errors</td>
+                <td class="last">Contains error messages.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_lang">
+                    static                                                            <a href="../../Alxarafe/Helpers/Lang.html"><abbr title="Alxarafe\Helpers\Lang">Lang</abbr></a>
+                </td>
+                <td>$lang</td>
+                <td class="last">Translator</td>
+                <td></td>
+            </tr>
             </table>
 
-
+    
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_configFileExists">configFileExists</a>()
-
-                        <p>Return true y the config file exists</p></div>
-                    <div class="col-md-2"></div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getConfigFileName">getConfigFileName</a>()
-
-                        <p>Returns the name of the configuration file. By default, create the config
-                            folder and enter the config.yaml file inside it.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_configFileExists">configFileExists</a>()
+        
+                                            <p>Return true y the config file exists</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;void
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_loadViewsConfig">loadViewsConfig</a>()
-
-                        <p>Set the display settings.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getConfigFileName">getConfigFileName</a>()
+        
+                                            <p>Returns the name of the configuration file. By default, create the config
+folder and enter the config.yaml file inside it.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;string|null
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getVar">getVar</a>(string $name)
-
-                        <p>Gets the contents of a variable. If the variable does not exist, return null.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadViewsConfig">loadViewsConfig</a>()
+        
+                                            <p>Set the display settings.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string|null
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;void
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_loadConfig">loadConfig</a>()
-
-                        <p>Initializes the global variable with the configuration, connects with
-                            the database and authenticates the user.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getVar">getVar</a>(string $name)
+        
+                                            <p>Gets the contents of a variable. If the variable does not exist, return null.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;void
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_loadConfigurationFile">loadConfigurationFile</a>()
-
-                        <p>Returns an array with the configuration defined in the configuration file.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadConfig">loadConfig</a>()
+        
+                                            <p>Initializes the global variable with the configuration, connects with
+the database and authenticates the user.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setError">setError</a>(string $error)
-
-                        <p>Register a new error message</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadConfigurationFile">loadConfigurationFile</a>()
+        
+                                            <p>Returns an array with the configuration defined in the configuration file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_connectToDatabase">connectToDatabase</a>()
-
-                        <p>If Config::$dbEngine contain null, create an Engine instance with the
-                            database connection and assigns it to Config::$dbEngine.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_setError">setError</a>(string $error)
+        
+                                            <p>Register a new error message</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_saveConfigFile">saveConfigFile</a>()
-
-                        <p>Stores all the variables in a permanent file so that they can be loaded
-                            later with loadConfigFile()
-                            Returns true if there is no error when saving the file.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_connectToDatabase">connectToDatabase</a>()
+        
+                                            <p>If Config::$dbEngine contain null, create an Engine instance with the
+database connection and assigns it to Config::$dbEngine.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getErrors">getErrors</a>()
-
-                        <p>Returns an array with the pending error messages, and empties the list.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_saveConfigFile">saveConfigFile</a>()
+        
+                                            <p>Stores all the variables in a permanent file so that they can be loaded
+later with loadConfigFile()
+Returns true if there is no error when saving the file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setVar">setVar</a>(string $name, string $value)
-
-                        <p>Stores a variable.</p></div>
-                    <div class="col-md-2"></div>
+                <div class="col-md-8 type">
+                    <a href="#method_getErrors">getErrors</a>()
+        
+                                            <p>Returns an array with the pending error messages, and empties the list.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
                 </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setVar">setVar</a>(string $name, string $value)
+        
+                                            <p>Stores a variable.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
-            <h2>Details</h2>
+        <h2>Details</h2>
 
             <div id="method-details">
-                <div class="method-item">
+                    <div class="method-item">
                     <h3 id="method_configFileExists">
-                        <div class="location">at line 102</div>
-                        <code> static bool
-                            <strong>configFileExists</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 102</div>
+        <code>        static            bool
+    <strong>configFileExists</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Return true y the config file exists</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Return true y the config file exists</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getConfigFileName">
-                        <div class="location">at line 116</div>
-                        <code> static string
-                            <strong>getConfigFileName</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 116</div>
+        <code>        static            string
+    <strong>getConfigFileName</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns the name of the configuration file. By default, create the config
-                                folder and enter the config.yaml file inside it.</p>
-                            <p>If you want to use another folder for the configuration, you will have to
-                                define it in the constant CONFIGURATION_PATH before invoking this method,
-                                this folder must exist.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns the name of the configuration file. By default, create the config
+folder and enter the config.yaml file inside it.</p>                    <p>If you want to use another folder for the configuration, you will have to
+define it in the constant CONFIGURATION_PATH before invoking this method,
+this folder must exist.</p>                            </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_loadViewsConfig">
-                        <div class="location">at line 133</div>
-                        <code> static void
-                            <strong>loadViewsConfig</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 133</div>
+        <code>        static            void
+    <strong>loadViewsConfig</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Set the display settings.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Set the display settings.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>void</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getVar">
-                        <div class="location">at line 150</div>
-                        <code> static string|null
-                            <strong>getVar</strong>(string $name)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 150</div>
+        <code>        static            string|null
+    <strong>getVar</strong>(string $name)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Gets the contents of a variable. If the variable does not exist, return null.</p>
-                            <p>TODO: Netbeans does not support @return ?string</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Gets the contents of a variable. If the variable does not exist, return null.</p>                    <p>TODO: Netbeans does not support @return ?string</p>                            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$name</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string|null</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|null</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_loadConfig">
-                        <div class="location">at line 161</div>
-                        <code> static void
-                            <strong>loadConfig</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 161</div>
+        <code>        static            void
+    <strong>loadConfig</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Initializes the global variable with the configuration, connects with
-                                the database and authenticates the user.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Initializes the global variable with the configuration, connects with
+the database and authenticates the user.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>void</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_loadConfigurationFile">
-                        <div class="location">at line 201</div>
-                        <code> static array
-                            <strong>loadConfigurationFile</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 201</div>
+        <code>        static            array
+    <strong>loadConfigurationFile</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns an array with the configuration defined in the configuration file.</p>
-                            <p>If the configuration file does not exist, take us to the application
-                                configuration form to create it</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns an array with the configuration defined in the configuration file.</p>                    <p>If the configuration file does not exist, take us to the application
+configuration form to create it</p>                            </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setError">
-                        <div class="location">at line 224</div>
-                        <code> static
-                            <strong>setError</strong>(string $error)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 224</div>
+        <code>        static            
+    <strong>setError</strong>(string $error)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Register a new error message</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Register a new error message</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$error</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$error</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_connectToDatabase">
-                        <div class="location">at line 235</div>
-                        <code> static bool
-                            <strong>connectToDatabase</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 235</div>
+        <code>        static            bool
+    <strong>connectToDatabase</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>If Config::$dbEngine contain null, create an Engine instance with the
-                                database connection and assigns it to Config::$dbEngine.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>If Config::$dbEngine contain null, create an Engine instance with the
+database connection and assigns it to Config::$dbEngine.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_saveConfigFile">
-                        <div class="location">at line 272</div>
-                        <code> static bool
-                            <strong>saveConfigFile</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 272</div>
+        <code>        static            bool
+    <strong>saveConfigFile</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Stores all the variables in a permanent file so that they can be loaded
-                                later with loadConfigFile()
-                                Returns true if there is no error when saving the file.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Stores all the variables in a permanent file so that they can be loaded
+later with loadConfigFile()
+Returns true if there is no error when saving the file.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getErrors">
-                        <div class="location">at line 286</div>
-                        <code> static array
-                            <strong>getErrors</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 286</div>
+        <code>        static            array
+    <strong>getErrors</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns an array with the pending error messages, and empties the list.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns an array with the pending error messages, and empties the list.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setVar">
-                        <div class="location">at line 299</div>
-                        <code> static
-                            <strong>setVar</strong>(string $name, string $value)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 299</div>
+        <code>        static            
+    <strong>setVar</strong>(string $name, string $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Stores a variable.</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Stores a variable.</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$name</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>string</td>
-                                    <td>$value</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
+            </div>
             </div>
 
-
-        </div>
-        <div id="footer">
-            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
-        </div>
-
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
     </div>
-</div>
-</body>
+
+        </div>
+    </div>
+    </body>
 
 </html>

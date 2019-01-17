@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Helpers\Dispatcher | alxarafe</title>
+    <title>Alxarafe\Helpers\SchemaDB | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Helpers_Dispatcher" data-root-path="../../">
+    <body id="class" data-name="class:Alxarafe_Helpers_SchemaDB" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,115 +66,105 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Helpers.html">Helpers</a></li><li class="backslash">\</li><li>Dispatcher</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Helpers.html">Helpers</a></li><li class="backslash">\</li><li>SchemaDB</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Dispatcher
+            SchemaDB
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Dispatcher</strong>
+    <strong>SchemaDB</strong>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class Dispatcher</p>                                </div>
+            <p>The SchemaDB class contains static methods that allow you to manipulate the
+database. It is used to create and modify tables and indexes in the database.</p>                                </div>
     
     
-    
-            <h2>Properties</h2>
+            <h2>Constants</h2>
 
             <table class="table table-condensed">
                     <tr>
-                <td class="type" id="property_searchDir">
-                                                                                array
+                <td>CRLF</td>
+                <td class="last">
+                    <p><em>TODO: Undocummented</em></p>
+                    <p></p>
                 </td>
-                <td>$searchDir</td>
-                <td class="last">Array that contains the paths to find the Controllers folder that
-contains the controllers</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_nameSpaces">
-                                                                                
-                </td>
-                <td>$nameSpaces</td>
-                <td class="last"></td>
-                <td></td>
             </tr>
             </table>
 
+    
     
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>()
+                    <a href="#method_tableExists">tableExists</a>(string $tableName)
         
-                                            <p>Dispatcher constructor.</p>                </div>
+                                            <p>Return true if $tableName exists in database</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getConfiguration">getConfiguration</a>()
+                    <a href="#method__getTables">_getTables</a>()
         
-                                            <p>Load the constants and the configuration file.</p>                </div>
+                                            <p>TODO: Undocumentend</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_defineConstants">defineConstants</a>()
+                    <a href="#method__getStructure">_getStructure</a>(string $tableName)
         
-                                            <p>Define the constants of the application</p>                </div>
+                                            <p>TODO: Undocumented</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_run">run</a>()
+                    <a href="#method_createTable">createTable</a>(string $tableName)
         
-                                            <p>Run the application.</p>                </div>
+                                            <p>Create a table in the database.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    bool
+                    static&nbsp;string|null
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_process">process</a>()
+                    <a href="#method_createFields">createFields</a>(string $tableName, array $fieldList)
         
-                                            <p>Walk the paths specified in $this->searchDir, trying to find the
-controller and method to execute.</p>                </div>
+                                            <p>Build the SQL statement to create the fields in the table.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    bool
+                    static&nbsp;string|null
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_processFolder">processFolder</a>(string $path, string $call, string $method)
+                    <a href="#method_createIndex">createIndex</a>(string $tableName, string $indexname, array $indexData)
         
-                                            <p>Try to locate the $call class in $path, and execute the $method.</p>                </div>
+                                            <p>Create the SQL statements for the construction of one index.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -184,10 +174,10 @@ controller and method to execute.</p>                </div>
 
             <div id="method-details">
                     <div class="method-item">
-                    <h3 id="method___construct">
-        <div class="location">at         line 33</div>
-        <code>                    
-    <strong>__construct</strong>()
+                    <h3 id="method_tableExists">
+        <div class="location">at         line 30</div>
+        <code>        static            bool
+    <strong>tableExists</strong>(string $tableName)
         </code>
     </h3>
     <div class="details">
@@ -195,93 +185,18 @@ controller and method to execute.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Dispatcher constructor.</p>                                                </div>
+                                    <p>Return true if $tableName exists in database</p>                                                </div>
                 <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
+                            <h4>Parameters</h4>
 
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getConfiguration">
-        <div class="location">at         line 47</div>
-        <code>                private    
-    <strong>getConfiguration</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+            </table>
 
-                    <div class="method-description">
-                                    <p>Load the constants and the configuration file.</p>                    <p>If the configuration file does not exist, it takes us to the form for its creation.</p>                            </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_defineConstants">
-        <div class="location">at         line 66</div>
-        <code>                    
-    <strong>defineConstants</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Define the constants of the application</p>                                                </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_run">
-        <div class="location">at         line 103</div>
-        <code>                    
-    <strong>run</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Run the application.</p>                                                </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_process">
-        <div class="location">at         line 119</div>
-        <code>                    bool
-    <strong>process</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Walk the paths specified in $this->searchDir, trying to find the
-controller and method to execute.</p>                    <p>Returns true if the method is found, and executes it.</p>                            </div>
-                <div class="tags">
             
                             <h4>Return Value</h4>
 
@@ -299,10 +214,10 @@ controller and method to execute.</p>                    <p>Returns true if the 
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_processFolder">
-        <div class="location">at         line 145</div>
-        <code>                    bool
-    <strong>processFolder</strong>(string $path, string $call, string $method)
+                    <h3 id="method__getTables">
+        <div class="location">at         line 41</div>
+        <code>        static            array
+    <strong>_getTables</strong>()
         </code>
     </h3>
     <div class="details">
@@ -310,25 +225,84 @@ controller and method to execute.</p>                    <p>Returns true if the 
     
 
                     <div class="method-description">
-                                    <p>Try to locate the $call class in $path, and execute the $method.</p>                    <p>Returns true if it locates the class and the method exists,
-executing it.</p>                            </div>
+                                    <p>TODO: Undocumentend</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method__getStructure">
+        <div class="location">at         line 58</div>
+        <code>        static            array
+    <strong>_getStructure</strong>(string $tableName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
                 <td>string</td>
-                <td>$path</td>
+                <td>$tableName</td>
                 <td></td>
             </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createTable">
+        <div class="location">at         line 71</div>
+        <code>        static            bool
+    <strong>createTable</strong>(string $tableName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create a table in the database.</p>                    <p>Build the default fields, indexes and values defined in the model.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
                     <tr>
                 <td>string</td>
-                <td>$call</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>string</td>
-                <td>$method</td>
+                <td>$tableName</td>
                 <td></td>
             </tr>
             </table>
@@ -339,6 +313,110 @@ executing it.</p>                            </div>
                     <table class="table table-condensed">
         <tr>
             <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createFields">
+        <div class="location">at         line 94</div>
+        <code>        static    protected        string|null
+    <strong>createFields</strong>(string $tableName, array $fieldList)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Build the SQL statement to create the fields in the table.</p>                    <p>It can also create the primary key if the auto_increment attribute is defined.</p>
+
+<p>TODO: Netbeans does not support @return ?string</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$fieldList</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createIndex">
+        <div class="location">at         line 158</div>
+        <code>        static    protected        string|null
+    <strong>createIndex</strong>(string $tableName, string $indexname, array $indexData)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create the SQL statements for the construction of one index.</p>                    <p>In the case of the primary index, it is not necessary if it is auto_increment.</p>
+
+<p>TODO:</p>
+
+<p>Moreover, it should not be defined if it is auto_increment because it would
+generate an error when it already exists.</p>
+
+<p>TODO: Netbeans does not support @return ?string</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$indexname</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$indexData</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|null</td>
             <td></td>
         </tr>
     </table>

@@ -1,749 +1,680 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="index, follow, all" name="robots"/>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
     <title>Alxarafe\Views\ExportStructureView | alxarafe</title>
 
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-    <link href="../../css/sami.css" rel="stylesheet" type="text/css">
-    <script src="../../js/jquery-1.11.1.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/typeahead.min.js"></script>
-    <script src="../../sami.js"></script>
-    <meta content="width" name="MobileOptimized">
-    <meta content="true" name="HandheldFriendly">
-    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
 
-
-</head>
-
-<body data-name="class:Alxarafe_Views_ExportStructureView" data-root-path="../../" id="class">
-<div id="content">
-    <div id="left-column">
-        <div id="control-panel">
-            <script>
-                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
-            </script>
-            <form action="../../search.html" id="search-form" method="GET">
-                <span class="glyphicon glyphicon-search"></span>
-                <input class="typeahead form-control"
-                       name="search"
-                       placeholder="Search"
-                       type="search">
-            </form>
-        </div>
-
-        <div id="api-tree"></div>
-
+    <body id="class" data-name="class:Alxarafe_Views_ExportStructureView" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
     </div>
-    <div id="right-column">
-        <nav class="navbar navbar-default" id="site-nav" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../../index.html">alxarafe</a>
-                </div>
-                <div class="collapse navbar-collapse" id="navbar-elements">
-                    <ul class="nav navbar-nav">
-                        <li><a href="../../classes.html">Classes</a></li>
-                        <li><a href="../../namespaces.html">Namespaces</a></li>
-                        <li><a href="../../interfaces.html">Interfaces</a></li>
-                        <li><a href="../../traits.html">Traits</a></li>
-                        <li><a href="../../doc-index.html">Index</a></li>
-                        <li><a href="../../search.html">Search</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-        <div class="namespace-breadcrumbs">
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">alxarafe</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                <li><a href="../../Alxarafe.html">Alxarafe</a></li>
-                <li class="backslash">\</li>
-                <li><a href="../../Alxarafe/Views.html">Views</a></li>
-                <li class="backslash">\</li>
-                <li>ExportStructureView</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Views.html">Views</a></li><li class="backslash">\</li><li>ExportStructureView</li>
             </ol>
         </div>
-        <div id="page-content">
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            ExportStructureView
+                
+        </h1>
+    </div>
 
-            <div class="page-header">
-                <h1>
-                    ExportStructureView
+    <p>    class
+    <strong>ExportStructureView</strong>        extends <a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a>
+</p>
 
-                </h1>
-            </div>
-
-            <p> class
-                <strong>ExportStructureView</strong> extends
-                <a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a>
-            </p>
-
+        
+    
 
             <div class="description">
-                <p>Class ExportStructureView</p></div>
-
-
+            <p>Class ExportStructureView</p>                                </div>
+    
+    
+    
             <h2>Properties</h2>
 
             <table class="table table-condensed">
-                <tr>
-                    <td class="type" id="property_vars">
-                        private array
-                    </td>
-                    <td>$vars</td>
-                    <td class="last">Array that contains the variables that will be passed to the template.</td>
-                    <td>
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#property_vars"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </td>
-                </tr>
+                    <tr>
+                <td class="type" id="property_vars">
+                                                            private                    array
+                </td>
+                <td>$vars</td>
+                <td class="last">Array that contains the variables that will be passed to the template.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_vars"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
             </table>
 
-
+    
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
-                <div class="row">
-                    <div class="col-md-2 type">
-
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method___construct">__construct</a>($ctrl)
-
-                        <p>ExportStructureView constructor.</p></div>
-                    <div class="col-md-2"></div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        void
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_addCSS">addCSS</a>()
-
-                        <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders
-                            templates.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addCSS"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>($ctrl)
+        
+                                            <p>ExportStructureView constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        void
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_addJS">addJS</a>()
-
-                        <p>addJS includes the common JS files to all views templates. Also defines JS folders
-                            templates.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addJS"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addCSS">addCSS</a>()
+        
+                                            <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addCSS"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method___destruct">__destruct</a>()
-
-                        <p>Finally render the result.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method___destruct"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addJS">addJS</a>()
+        
+                                            <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addJS"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_addResource">addResource</a>(string $resourceName, string $resourceExtension =
-                        &#039;css&#039;, boolean $relative = true)
-
-                        <p>Check if the resource is in the application's resource folder (for example, in the css or js
-                            folders
-                            of the skin folder). It's a specific file.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addResource"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method___destruct">__destruct</a>()
+        
+                                            <p>Finally render the result.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method___destruct"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        void
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_setVar">setVar</a>(string $name, $value)
-
-                        <p>Saves a value in the array that is passed to the template.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_setVar"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addResource">addResource</a>(string $resourceName, string $resourceExtension = &#039;css&#039;, boolean $relative = true)
+        
+                                            <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addResource"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        void
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_addToVar">addToVar</a>(string $name, $value)
-
-                        <p>Add a new element to a value saved in the array that is passed to the
-                            template.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addToVar"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setVar">setVar</a>(string $name, $value)
+        
+                                            <p>Saves a value in the array that is passed to the template.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_setVar"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getVars">getVars</a>()
-
-                        <p>Returns a previously saved value in the array that is passed to the
-                            template.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getVars"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addToVar">addToVar</a>(string $name, $value)
+        
+                                            <p>Add a new element to a value saved in the array that is passed to the
+template.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_addToVar"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        array|string|boolean|null
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getVar">getVar</a>(string $name)
-
-                        <p>Returns a previously saved value in the array that is passed to the
-                            template.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getVar"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getVars">getVars</a>()
+        
+                                            <p>Returns a previously saved value in the array that is passed to the
+template.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getVars"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array|string|boolean|null
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getErrors">getErrors</a>()
-
-                        <p>Makes visible Config::getErrors() from templates, using view.getErrors()
-                            Config::getErrors() returns an array with the pending error messages,
-                            and empties the list.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getErrors"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getVar">getVar</a>(string $name)
+        
+                                            <p>Returns a previously saved value in the array that is passed to the
+template.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getVar"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getHeader">getHeader</a>()
-
-                        <p>Returns the necessary html code in the header of the template, to
-                            display the debug bar.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getHeader"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getErrors">getErrors</a>()
+        
+                                            <p>Makes visible Config::getErrors() from templates, using view.getErrors()
+Config::getErrors() returns an array with the pending error messages,
+and empties the list.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getErrors"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getFooter">getFooter</a>()
-
-                        <p>Returns the necessary html code at the footer of the template, to
-                            display the debug bar.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getFooter"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                        </small>
-                    </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getHeader">getHeader</a>()
+        
+                                            <p>Returns the necessary html code in the header of the template, to
+display the debug bar.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getHeader"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
                 </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getFooter">getFooter</a>()
+        
+                                            <p>Returns the necessary html code at the footer of the template, to
+display the debug bar.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getFooter"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+            </div>
             </div>
 
 
-            <h2>Details</h2>
+        <h2>Details</h2>
 
             <div id="method-details">
-                <div class="method-item">
+                    <div class="method-item">
                     <h3 id="method___construct">
-                        <div class="location">at line 25</div>
-                        <code>
-                            <strong>__construct</strong>($ctrl)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">at         line 25</div>
+        <code>                    
+    <strong>__construct</strong>($ctrl)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>ExportStructureView constructor.</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>ExportStructureView constructor.</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td></td>
-                                    <td>$ctrl</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$ctrl</td>
+                <td></td>
+            </tr>
+            </table>
 
-
-                        </div>
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_addCSS">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_addCSS"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 51
-                        </div>
-                        <code> void
-                            <strong>addCSS</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addCSS"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 51</div>
+        <code>                    void
+    <strong>addCSS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders
-                                templates.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>void</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_addJS">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_addJS"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 62
-                        </div>
-                        <code> void
-                            <strong>addJS</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addJS"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 62</div>
+        <code>                    void
+    <strong>addJS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>addJS includes the common JS files to all views templates. Also defines JS folders
-                                templates.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>void</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method___destruct">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method___destruct"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 72
-                        </div>
-                        <code>
-                            <strong>__destruct</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method___destruct"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 72</div>
+        <code>                    
+    <strong>__destruct</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Finally render the result.</p></div>
-                        <div class="tags">
-
-
-                        </div>
+                    <div class="method-description">
+                                    <p>Finally render the result.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_addResource">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_addResource"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 96
-                        </div>
-                        <code> string
-                            <strong>addResource</strong>(string $resourceName, string $resourceExtension = &#039;css&#039;,
-                            boolean $relative = true)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addResource"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 96</div>
+        <code>                    string
+    <strong>addResource</strong>(string $resourceName, string $resourceExtension = &#039;css&#039;, boolean $relative = true)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
+                    <div class="method-description">
+                                    <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                    <p>If it can not be found, check if it is in the templates folder (for example in the css or
+js folders of the templates folder). It's a common file.</p>
 
-                        <div class="method-description">
-                            <p>Check if the resource is in the application's resource folder (for example, in the css or
-                                js folders
-                                of the skin folder). It's a specific file.</p>
-                            <p>If it can not be found, check if it is in the templates folder (for example in the css or
-                                js folders of the templates folder). It's a common file.</p>
-
-                            <p>If it is not in either of the two, no route is specified (it will surely give loading
-                                error).</p></div>
-                        <div class="tags">
+<p>If it is not in either of the two, no route is specified (it will surely give loading error).</p>                            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$resourceName</td>
-                                    <td>, is the name of the file (without extension)</td>
-                                </tr>
-                                <tr>
-                                    <td>string</td>
-                                    <td>$resourceExtension</td>
-                                    <td>, is the extension (type) of the resource (js or css)</td>
-                                </tr>
-                                <tr>
-                                    <td>boolean</td>
-                                    <td>$relative</td>
-                                    <td>, set to false for use an absolute path.</td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$resourceName</td>
+                <td>, is the name of the file (without extension)</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$resourceExtension</td>
+                <td>, is the extension (type) of the resource (js or css)</td>
+            </tr>
+                    <tr>
+                <td>boolean</td>
+                <td>$relative</td>
+                <td>, set to false for use an absolute path.</td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>the complete path of resource.</td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>the complete path of resource.</td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setVar">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_setVar"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 128
-                        </div>
-                        <code> void
-                            <strong>setVar</strong>(string $name, $value)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_setVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 128</div>
+        <code>                    void
+    <strong>setVar</strong>(string $name, $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Saves a value in the array that is passed to the template.</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Saves a value in the array that is passed to the template.</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$name</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>$value</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>void</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_addToVar">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_addToVar"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 144
-                        </div>
-                        <code> void
-                            <strong>addToVar</strong>(string $name, $value)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addToVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 144</div>
+        <code>                    void
+    <strong>addToVar</strong>(string $name, $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Add a new element to a value saved in the array that is passed to the
-                                template.</p>
-                            <p>It is used when what we are saving is an array and we want to add a
-                                new element to that array.</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Add a new element to a value saved in the array that is passed to the
+template.</p>                    <p>It is used when what we are saving is an array and we want to add a
+new element to that array.</p>                            </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$name</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>$value</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>void</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getVars">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_getVars"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 155
-                        </div>
-                        <code> array
-                            <strong>getVars</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getVars"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 155</div>
+        <code>                    array
+    <strong>getVars</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns a previously saved value in the array that is passed to the
-                                template.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns a previously saved value in the array that is passed to the
+template.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getVar">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_getVar"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 168
-                        </div>
-                        <code> array|string|boolean|null
-                            <strong>getVar</strong>(string $name)
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 168</div>
+        <code>                    array|string|boolean|null
+    <strong>getVar</strong>(string $name)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns a previously saved value in the array that is passed to the
-                                template.</p></div>
-                        <div class="tags">
+                    <div class="method-description">
+                                    <p>Returns a previously saved value in the array that is passed to the
+template.</p>                                                </div>
+                <div class="tags">
                             <h4>Parameters</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$name</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
 
-
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array|string|boolean|null</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array|string|boolean|null</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getErrors">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_getErrors"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 180
-                        </div>
-                        <code> array
-                            <strong>getErrors</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getErrors"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 180</div>
+        <code>                    array
+    <strong>getErrors</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Makes visible Config::getErrors() from templates, using view.getErrors()
-                                Config::getErrors() returns an array with the pending error messages,
-                                and empties the list.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Makes visible Config::getErrors() from templates, using view.getErrors()
+Config::getErrors() returns an array with the pending error messages,
+and empties the list.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getHeader">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_getHeader"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 191
-                        </div>
-                        <code> string
-                            <strong>getHeader</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getHeader"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 191</div>
+        <code>                    string
+    <strong>getHeader</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns the necessary html code in the header of the template, to
-                                display the debug bar.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns the necessary html code in the header of the template, to
+display the debug bar.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
-                <div class="method-item">
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getFooter">
-                        <div class="location">in
-                            <a href="../../Alxarafe/Base/View.html#method_getFooter"><abbr title="Alxarafe\Base\View">View</abbr></a>
-                            at line 202
-                        </div>
-                        <code> string
-                            <strong>getFooter</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getFooter"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 202</div>
+        <code>                    string
+    <strong>getFooter</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
 
-
-                        <div class="method-description">
-                            <p>Returns the necessary html code at the footer of the template, to
-                                display the debug bar.</p></div>
-                        <div class="tags">
-
+                    <div class="method-description">
+                                    <p>Returns the necessary html code at the footer of the template, to
+display the debug bar.</p>                                                </div>
+                <div class="tags">
+            
                             <h4>Return Value</h4>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
 
-
-                        </div>
+            
+            
                     </div>
+    </div>
 
-                </div>
+            </div>
             </div>
 
-
-        </div>
-        <div id="footer">
-            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
-        </div>
-
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
     </div>
-</div>
-</body>
+
+        </div>
+    </div>
+    </body>
 
 </html>
