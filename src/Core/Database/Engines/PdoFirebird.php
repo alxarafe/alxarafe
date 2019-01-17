@@ -55,5 +55,4 @@ class PdoFirebird extends Engine
         }
         return null;
     }
-
 }

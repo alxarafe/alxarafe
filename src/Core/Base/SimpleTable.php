@@ -149,7 +149,7 @@ class SimpleTable
         $command = substr($method, 0, 3); // set o get
         $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
         switch ($command) {
-            case 'set' :
+            case 'set':
                 return $this->newData[$field] = $params[0] ?? '';
             case 'get':
                 return $this->newData[$field];

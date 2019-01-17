@@ -6,8 +6,10 @@
 
 namespace Alxarafe\Helpers;
 
-use Symfony\Component\Translation\{Loader\YamlFileLoader, Translator};
-use Symfony\Component\Yaml\{Exception\ParseException, Yaml};
+use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Lang, give support to internationalization.
@@ -92,7 +94,6 @@ class Lang
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
             if ($lang !== self::FALLBACK_LANG) {
                 $this->locateFiles(self::FALLBACK_LANG);
-
             }
             $this->locateFiles($lang);
         }

@@ -38,7 +38,7 @@ class SchemaDB
      *
      * @return array
      */
-    public static function _getTables(): array
+    public static function getTables(): array
     {
         $queries = Config::$sqlHelper->getTables();
         $queryResult = [];
@@ -55,7 +55,7 @@ class SchemaDB
      *
      * @return array
      */
-    public static function _getStructure(string $tableName): array
+    public static function getStructure(string $tableName): array
     {
         return Config::$dbEngine->getStructure($tableName);
     }
@@ -91,7 +91,7 @@ class SchemaDB
      *
      * @return string|null
      */
-    static protected function createFields(string $tableName, array $fieldList)
+    protected static function createFields(string $tableName, array $fieldList)
     {
         $tableName = Config::getVar('dbPrefix') . $tableName;
         $sql = "CREATE TABLE $tableName ( ";
@@ -112,13 +112,13 @@ class SchemaDB
                 $sql .= ' PRIMARY KEY AUTO_INCREMENT';
             }
 
-            $_defecto = $col['default'] ?? null;
+            $defectoTemp = $col['default'] ?? null;
             $defecto = '';
-            if (isset($_defecto)) {
-                if ($_defecto == 'CURRENT_TIMESTAMP') {
-                    $defecto = "$_defecto";
+            if (isset($defectoTemp)) {
+                if ($defectoTemp == 'CURRENT_TIMESTAMP') {
+                    $defecto = "$defectoTemp";
                 } else {
-                    $defecto = "'$_defecto'";
+                    $defecto = "'$defectoTemp'";
                 }
             } else {
                 if ($nulo) {
@@ -155,7 +155,7 @@ class SchemaDB
      *
      * @return string|null
      */
-    static protected function createIndex(string $tableName, string $indexname, array $indexData)
+    protected static function createIndex(string $tableName, string $indexname, array $indexData)
     {
         $fields = '';
         $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName) . ' ADD CONSTRAINT ' . $indexname;
@@ -236,5 +236,4 @@ class SchemaDB
 
         return $sql . ';' . self::CRLF;
     }
-
 }

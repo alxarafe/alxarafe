@@ -231,7 +231,7 @@ class Skin
         Debug::startTimer('render', 'Rendering time');
 
         switch (self::$templatesEngine) {
-            case 'twig' :
+            case 'twig':
                 $templateVars = self::getTemplateVars($vars);
                 $loader = new Twig_Loader_Filesystem(self::getPaths());
                 $twig = new Twig_Environment($loader, self::getOptions());
@@ -246,7 +246,7 @@ class Skin
                     Debug::addException($e);
                 }
                 break;
-            default :
+            default:
                 $return = self::$templatesEngine . ' engine is not supported!';
         }
 

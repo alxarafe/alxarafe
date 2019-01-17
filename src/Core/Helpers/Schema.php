@@ -103,13 +103,13 @@ class Schema
             $result[$field]['fieldlabel'] = $result[$field]['fieldlabel'] ?? $field;
             $result[$field]['placeholder'] = $result[$field]['placeholder'] ?? $field;
             switch ($values['type']) {
-                case 'string' :
+                case 'string':
                     $length = intval($values['length'] ?? constant(DEFAULT_STRING_LENGTH));
                     if (!isset($result[$field]['length']) || intval($result[$field]['length'] > $length)) {
                         $result[$field]['length'] = $length;
                     }
                     break;
-                case 'integer' :
+                case 'integer':
                     $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
                     $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
                     $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
@@ -186,7 +186,7 @@ class Schema
      *
      * @return array|null
      */
-    static protected function normalizeField(string $tableName, string $field, array $structure)
+    protected static function normalizeField(string $tableName, string $field, array $structure)
     {
         if (!isset($structure['type'])) {
             Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
@@ -212,7 +212,7 @@ class Schema
      *
      * @return string
      */
-    static protected function setValues(string $tableName, array $values): string
+    protected static function setValues(string $tableName, array $values): string
     {
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
         $header = true;

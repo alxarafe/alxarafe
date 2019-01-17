@@ -26,21 +26,21 @@ class Config
      *
      * @var Engine
      */
-    static $dbEngine;
+    public static $dbEngine;
 
     /**
      * Contains a prefix for the database files
      *
      * @var string
      */
-    static $dbPrefix;
+    public static $dbPrefix;
 
     /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
      * @var sqlHelper
      */
-    static $sqlHelper;
+    public static $sqlHelper;
 
     /**
      * Contains the database structure data.
@@ -48,7 +48,7 @@ class Config
      *
      * @var array
      */
-    static $bbddStructure;
+    public static $bbddStructure;
 
     /**
      * It is a static instance of the Auth class that contains the data of the
@@ -56,21 +56,21 @@ class Config
      *
      * @var Auth
      */
-    static $user;
+    public static $user;
 
     /**
      * Contains the user's name or null
      *
      * @var string|null
      */
-    static $username;
+    public static $username;
 
     /**
      * Contains the full name of the configuration file or null
      *
      * @var string::null
      */
-    static $configFilename;
+    public static $configFilename;
 
     /**
      * Contains an array with the variables defined in the configuration file.
@@ -78,21 +78,21 @@ class Config
      *
      * @var array
      */
-    static private $global;
+    private static $global;
 
     /**
      * Contains error messages.
      *
      * @var array
      */
-    static private $errors;
+    private static $errors;
 
     /**
      * Translator
      *
      * @var Lang
      */
-    static $lang;
+    public static $lang;
 
     /**
      * Return true y the config file exists

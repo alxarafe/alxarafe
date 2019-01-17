@@ -25,21 +25,21 @@ abstract class Engine
      *
      * @var string
      */
-    static protected $dsn;
+    protected static $dsn;
 
     /**
      * Array that contains the access data to the database.
      *
      * @var array
      */
-    static protected $dbConfig;
+    protected static $dbConfig;
 
     /**
      * The handler of the database.
      *
      * @var PDO
      */
-    static protected $dbHandler;
+    protected static $dbHandler;
 
     /**
      * Represents a prepared statement and, after the statement is executed,
@@ -47,21 +47,21 @@ abstract class Engine
      *
      * @var \PDOStatement|bool
      */
-    static protected $statement;
+    protected static $statement;
 
     /**
      * True if the database engine supports SAVEPOINT in transactions
      *
      * @var bool
      */
-    static protected $savePointsSupport = true;
+    protected static $savePointsSupport = true;
 
     /**
      * Number of transactions in execution
      *
      * @var int
      */
-    static protected $transactionDepth = 0;
+    protected static $transactionDepth = 0;
 
     /**
      * Engine constructor
@@ -277,7 +277,7 @@ abstract class Engine
      *
      * @return array
      */
-    final public function _resultSet(): array
+    final public function resultSet(): array
     {
         $this->execute();
         return self::$statement->fetchAll(PDO::FETCH_ASSOC);
