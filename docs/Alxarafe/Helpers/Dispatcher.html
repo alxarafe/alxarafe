@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="index, follow, all" name="robots"/>
+    <title>Alxarafe\Helpers\Dispatcher | alxarafe</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/sami.css" rel="stylesheet" type="text/css">
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/typeahead.min.js"></script>
+    <script src="../../sami.js"></script>
+    <meta content="width" name="MobileOptimized">
+    <meta content="true" name="HandheldFriendly">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+
+
+</head>
+
+<body data-name="class:Alxarafe_Helpers_Dispatcher" data-root-path="../../" id="class">
+<div id="content">
+    <div id="left-column">
+        <div id="control-panel">
+            <script>
+                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            </script>
+            <form action="../../search.html" id="search-form" method="GET">
+                <span class="glyphicon glyphicon-search"></span>
+                <input class="typeahead form-control"
+                       name="search"
+                       placeholder="Search"
+                       type="search">
+            </form>
+        </div>
+
+        <div id="api-tree"></div>
+
+    </div>
+    <div id="right-column">
+        <nav class="navbar navbar-default" id="site-nav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../index.html">alxarafe</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-elements">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../classes.html">Classes</a></li>
+                        <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                        <li><a href="../../traits.html">Traits</a></li>
+                        <li><a href="../../doc-index.html">Index</a></li>
+                        <li><a href="../../search.html">Search</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                <li><a href="../../Alxarafe.html">Alxarafe</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../Alxarafe/Helpers.html">Helpers</a></li>
+                <li class="backslash">\</li>
+                <li>Dispatcher</li>
+            </ol>
+        </div>
+        <div id="page-content">
+
+            <div class="page-header">
+                <h1>
+                    Dispatcher
+
+                </h1>
+            </div>
+
+            <p> class
+                <strong>Dispatcher</strong>
+            </p>
+
+
+            <div class="description">
+                <p>Class Dispatcher</p></div>
+
+
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                <tr>
+                    <td class="type" id="property_searchDir">
+                        array
+                    </td>
+                    <td>$searchDir</td>
+                    <td class="last">Array that contains the paths to find the Controllers folder that
+                        contains the controllers
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_nameSpaces">
+
+                    </td>
+                    <td>$nameSpaces</td>
+                    <td class="last"></td>
+                    <td></td>
+                </tr>
+            </table>
+
+
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method___construct">__construct</a>()
+
+                        <p>Dispatcher constructor.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getConfiguration">getConfiguration</a>()
+
+                        <p>Load the constants and the configuration file.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_defineConstants">defineConstants</a>()
+
+                        <p>Define the constants of the application</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_run">run</a>()
+
+                        <p>Run the application.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_process">process</a>()
+
+                        <p>Walk the paths specified in $this->searchDir, trying to find the
+                            controller and method to execute.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_processFolder">processFolder</a>(string $path, string $call, string $method)
+
+                        <p>Try to locate the $call class in $path, and execute the $method.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+
+
+            <h2>Details</h2>
+
+            <div id="method-details">
+                <div class="method-item">
+                    <h3 id="method___construct">
+                        <div class="location">at line 33</div>
+                        <code>
+                            <strong>__construct</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Dispatcher constructor.</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getConfiguration">
+                        <div class="location">at line 47</div>
+                        <code> private
+                            <strong>getConfiguration</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Load the constants and the configuration file.</p>
+                            <p>If the configuration file does not exist, it takes us to the form for its creation.</p>
+                        </div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_defineConstants">
+                        <div class="location">at line 66</div>
+                        <code>
+                            <strong>defineConstants</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Define the constants of the application</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_run">
+                        <div class="location">at line 103</div>
+                        <code>
+                            <strong>run</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Run the application.</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_process">
+                        <div class="location">at line 119</div>
+                        <code> bool
+                            <strong>process</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Walk the paths specified in $this->searchDir, trying to find the
+                                controller and method to execute.</p>
+                            <p>Returns true if the method is found, and executes it.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_processFolder">
+                        <div class="location">at line 145</div>
+                        <code> bool
+                            <strong>processFolder</strong>(string $path, string $call, string $method)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Try to locate the $call class in $path, and execute the $method.</p>
+                            <p>Returns true if it locates the class and the method exists,
+                                executing it.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$path</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>$call</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>$method</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div id="footer">
+            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

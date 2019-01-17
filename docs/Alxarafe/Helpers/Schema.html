@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="index, follow, all" name="robots"/>
+    <title>Alxarafe\Helpers\Schema | alxarafe</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/sami.css" rel="stylesheet" type="text/css">
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/typeahead.min.js"></script>
+    <script src="../../sami.js"></script>
+    <meta content="width" name="MobileOptimized">
+    <meta content="true" name="HandheldFriendly">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+
+
+</head>
+
+<body data-name="class:Alxarafe_Helpers_Schema" data-root-path="../../" id="class">
+<div id="content">
+    <div id="left-column">
+        <div id="control-panel">
+            <script>
+                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            </script>
+            <form action="../../search.html" id="search-form" method="GET">
+                <span class="glyphicon glyphicon-search"></span>
+                <input class="typeahead form-control"
+                       name="search"
+                       placeholder="Search"
+                       type="search">
+            </form>
+        </div>
+
+        <div id="api-tree"></div>
+
+    </div>
+    <div id="right-column">
+        <nav class="navbar navbar-default" id="site-nav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../index.html">alxarafe</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-elements">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../classes.html">Classes</a></li>
+                        <li><a href="../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                        <li><a href="../../traits.html">Traits</a></li>
+                        <li><a href="../../doc-index.html">Index</a></li>
+                        <li><a href="../../search.html">Search</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                <li><a href="../../Alxarafe.html">Alxarafe</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../Alxarafe/Helpers.html">Helpers</a></li>
+                <li class="backslash">\</li>
+                <li>Schema</li>
+            </ol>
+        </div>
+        <div id="page-content">
+
+            <div class="page-header">
+                <h1>
+                    Schema
+
+                </h1>
+            </div>
+
+            <p> class
+                <strong>Schema</strong>
+            </p>
+
+
+            <div class="description">
+                <p>The Schema class contains static methods that allow you to manipulate the
+                    database. It is used to create and modify tables and indexes in the database.</p></div>
+
+
+            <h2>Constants</h2>
+
+            <table class="table table-condensed">
+                <tr>
+                    <td>CRLF</td>
+                    <td class="last">
+                        <p><em>TODO: Undocummented</em></p>
+                        <p></p>
+                    </td>
+                </tr>
+            </table>
+
+
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_saveStructure">saveStructure</a>()
+
+                        <p>TODO: Undocummented</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_tableExists">tableExists</a>(string $tableName)
+
+                        <p>Return true if $tableName exists in database</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getTables">getTables</a>()
+
+                        <p>TODO: Undocumentend</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getStructure">getStructure</a>(string $tableName)
+
+                        <p>TODO: Undocumented</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_setNormalizedStructure">setNormalizedStructure</a>(array $structure, string
+                        $tableName)
+
+                        <p>Normalize an array that has the file structure defined in the model by setStructure,
+                            so that it has fields with all the values it must have. Those that do not exist are
+                            created with the default value, avoiding having to do the check each time, or
+                            calculating their value based on the data provided by the other fields.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;array|null
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_normalizeField">normalizeField</a>(string $tableName, string $field, array
+                        $structure)
+
+                        <p>Take the definition of a field, and make sure you have all the information
+                            that is necessary for its creation or maintenance, calculating the missing
+                            data if possible.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_createTable">createTable</a>(string $tableName)
+
+                        <p>Create a table in the database.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;string|null
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_createFields">createFields</a>(string $tableName, array $fieldList)
+
+                        <p>Build the SQL statement to create the fields in the table.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;string|null
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_createIndex">createIndex</a>(string $tableName, string $indexname, array
+                        $indexData)
+
+                        <p>Create the SQL statements for the construction of one index.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;string
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_setValues">setValues</a>(string $tableName, array $values)
+
+                        <p>Create the SQL statements to fill the table with default data.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+
+
+            <h2>Details</h2>
+
+            <div id="method-details">
+                <div class="method-item">
+                    <h3 id="method_saveStructure">
+                        <div class="location">at line 27</div>
+                        <code> static
+                            <strong>saveStructure</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>TODO: Undocummented</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_tableExists">
+                        <div class="location">at line 50</div>
+                        <code> static bool
+                            <strong>tableExists</strong>(string $tableName)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return true if $tableName exists in database</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getTables">
+                        <div class="location">at line 61</div>
+                        <code> static array
+                            <strong>getTables</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>TODO: Undocumentend</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getStructure">
+                        <div class="location">at line 78</div>
+                        <code> static array
+                            <strong>getStructure</strong>(string $tableName)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>TODO: Undocumented</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_setNormalizedStructure">
+                        <div class="location">at line 97</div>
+                        <code> static array
+                            <strong>setNormalizedStructure</strong>(array $structure, string $tableName)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Normalize an array that has the file structure defined in the model by setStructure,
+                                so that it has fields with all the values it must have. Those that do not exist are
+                                created with the default value, avoiding having to do the check each time, or
+                                calculating their value based on the data provided by the other fields.</p>
+                            <p>It also ensures that the keys and default values exist as an empty array if they
+                                did not exist.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td>$structure</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_normalizeField">
+                        <div class="location">at line 123</div>
+                        <code> static protected array|null
+                            <strong>normalizeField</strong>(string $tableName, string $field, array $structure)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Take the definition of a field, and make sure you have all the information
+                                that is necessary for its creation or maintenance, calculating the missing
+                                data if possible.</p>
+                            <p>It can cause an exception if some vital data is missing, but this should
+                                only occur at the design stage.</p>
+
+                            <p>TODO: Netbeans does not support @return ?array</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>$field</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>array</td>
+                                    <td>$structure</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array|null</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_createTable">
+                        <div class="location">at line 235</div>
+                        <code> static bool
+                            <strong>createTable</strong>(string $tableName)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Create a table in the database.</p>
+                            <p>Build the default fields, indexes and values defined in the model.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_createFields">
+                        <div class="location">at line 258</div>
+                        <code> static protected string|null
+                            <strong>createFields</strong>(string $tableName, array $fieldList)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Build the SQL statement to create the fields in the table.</p>
+                            <p>It can also create the primary key if the auto_increment attribute is defined.</p>
+
+                            <p>TODO: Netbeans does not support @return ?string</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>array</td>
+                                    <td>$fieldList</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string|null</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_createIndex">
+                        <div class="location">at line 322</div>
+                        <code> static protected string|null
+                            <strong>createIndex</strong>(string $tableName, string $indexname, array $indexData)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Create the SQL statements for the construction of one index.</p>
+                            <p>In the case of the primary index, it is not necessary if it is auto_increment.</p>
+
+                            <p>TODO:</p>
+
+                            <p>Moreover, it should not be defined if it is auto_increment because it would
+                                generate an error when it already exists.</p>
+
+                            <p>TODO: Netbeans does not support @return ?string</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>$indexname</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>array</td>
+                                    <td>$indexData</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string|null</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_setValues">
+                        <div class="location">at line 412</div>
+                        <code> static protected string
+                            <strong>setValues</strong>(string $tableName, array $values)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Create the SQL statements to fill the table with default data.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>array</td>
+                                    <td>$values</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div id="footer">
+            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

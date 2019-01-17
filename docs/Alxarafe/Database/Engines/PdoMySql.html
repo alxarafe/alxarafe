@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="index, follow, all" name="robots"/>
+    <title>Alxarafe\Database\Engines\PdoMySql | alxarafe</title>
+
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/sami.css" rel="stylesheet" type="text/css">
+    <script src="../../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/typeahead.min.js"></script>
+    <script src="../../../sami.js"></script>
+    <meta content="width" name="MobileOptimized">
+    <meta content="true" name="HandheldFriendly">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+
+
+</head>
+
+<body data-name="class:Alxarafe_Database_Engines_PdoMySql" data-root-path="../../../" id="class">
+<div id="content">
+    <div id="left-column">
+        <div id="control-panel">
+            <script>
+                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            </script>
+            <form action="../../../search.html" id="search-form" method="GET">
+                <span class="glyphicon glyphicon-search"></span>
+                <input class="typeahead form-control"
+                       name="search"
+                       placeholder="Search"
+                       type="search">
+            </form>
+        </div>
+
+        <div id="api-tree"></div>
+
+    </div>
+    <div id="right-column">
+        <nav class="navbar navbar-default" id="site-nav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../../index.html">alxarafe</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-elements">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../../classes.html">Classes</a></li>
+                        <li><a href="../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+                        <li><a href="../../../traits.html">Traits</a></li>
+                        <li><a href="../../../doc-index.html">Index</a></li>
+                        <li><a href="../../../search.html">Search</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                <li><a href="../../../Alxarafe.html">Alxarafe</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../Alxarafe/Database.html">Database</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../Alxarafe/Database/Engines.html">Engines</a></li>
+                <li class="backslash">\</li>
+                <li>PdoMySql</li>
+            </ol>
+        </div>
+        <div id="page-content">
+
+            <div class="page-header">
+                <h1>
+                    PdoMySql
+
+                </h1>
+            </div>
+
+            <p> class
+                <strong>PdoMySql</strong> extends
+                <a href="../../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+            </p>
+
+
+            <div class="description">
+                <p>Personalization of PDO to use MySQL.</p></div>
+
+
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                <tr>
+                    <td class="type" id="property_dsn">
+                        static protected string
+                    </td>
+                    <td>$dsn</td>
+                    <td class="last">Data Source Name</td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#property_dsn"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_dbConfig">
+                        static protected array
+                    </td>
+                    <td>$dbConfig</td>
+                    <td class="last">Array that contains the access data to the database.</td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#property_dbConfig"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_dbHandler">
+                        static protected <a href="http://php.net/PDO" target="_blank">PDO</a>
+                    </td>
+                    <td>$dbHandler</td>
+                    <td class="last">The handler of the database.</td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#property_dbHandler"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_statement">
+                        static protected <a href="http://php.net/PDOStatement" target="_blank">PDOStatement</a>|bool
+                    </td>
+                    <td>$statement</td>
+                    <td class="last">Represents a prepared statement and, after the statement is executed,
+                        an associated result set.
+                    </td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#property_statement"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_savePointsSupport">
+                        static protected bool
+                    </td>
+                    <td>$savePointsSupport</td>
+                    <td class="last">True if the database engine supports SAVEPOINT in transactions</td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#property_savePointsSupport"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_transactionDepth">
+                        static protected int
+                    </td>
+                    <td>$transactionDepth</td>
+                    <td class="last">Number of transactions in execution</td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#property_transactionDepth"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+            </table>
+
+
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method___construct">__construct</a>(array $dbConfig)
+
+                        <p>PdoMySql constructor.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getEngines">getEngines</a>()
+
+                        <p>TODO: Undocumented</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_getEngines"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getStructure">getStructure</a>(string $tableName, bool $usePrefix = true)
+
+                        <p>Obtain an array with the table structure with a standardized format.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_getStructure"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method___destruct">__destruct</a>()
+
+                        <p>Engine destructor</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method___destruct"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_rollbackTransactions">rollbackTransactions</a>()
+
+                        <p>Undo all active transactions</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_rollbackTransactions"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_rollBack">rollBack</a>()
+
+                        <p>Rollback current transaction,</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_rollBack"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_exec">exec</a>(string $query)
+
+                        <p>Execute SQL statements on the database (INSERT, UPDATE or DELETE).</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        string
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getLastInserted">getLastInserted</a>()
+
+                        <p>Returns the id of the last inserted record. Failing that, it
+                            returns ''.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;array|null
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_select">select</a>(string $query)
+
+                        <p>Executes a SELECT SQL statement on the database, returning the result in an array.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_select"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_checkConnection">checkConnection</a>()
+
+                        <p>TODO: Undocumented</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_connect">connect</a>(array $config = [])
+
+                        <p>Connect to the database.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_prepare">prepare</a>(string $sql, array $options = [])
+
+                        <p>Prepares a statement for execution and returns a statement object
+                            http://php.net/manual/en/pdo.prepare.php</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method__resultSet">_resultSet</a>()
+
+                        <p>Returns an array containing all of the result set rows</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method__resultSet"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_execute">execute</a>(array $inputParameters = [])
+
+                        <p>Executes a prepared statement
+                            http://php.net/manual/en/pdostatement.execute.php</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_execute"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_beginTransaction">beginTransaction</a>()
+
+                        <p>Start transaction
+                            source:
+                            https://www.ibm.com/support/knowledgecenter/es/SSEPGG_9.1.0/com.ibm.db2.udb.apdv.php.doc/doc/t0023166.htm</p>
+                    </div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_commit">commit</a>()
+
+                        <p>Commit current transaction</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_commit"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+
+            <h2>Details</h2>
+
+            <div id="method-details">
+                <div class="method-item">
+                    <h3 id="method___construct">
+                        <div class="location">at line 24</div>
+                        <code>
+                            <strong>__construct</strong>(array $dbConfig)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>PdoMySql constructor.</p>
+                            <p>Add aditional parameters to self::$dsn string.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td>$dbConfig</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getEngines">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_getEngines"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 81
+                        </div>
+                        <code> static array
+                            <strong>getEngines</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>TODO: Undocumented</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getStructure">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_getStructure"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 101
+                        </div>
+                        <code> static array
+                            <strong>getStructure</strong>(string $tableName, bool $usePrefix = true)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Obtain an array with the table structure with a standardized format.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$tableName</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>bool</td>
+                                    <td>$usePrefix</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method___destruct">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method___destruct"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 114
+                        </div>
+                        <code>
+                            <strong>__destruct</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Engine destructor</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_rollbackTransactions">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_rollbackTransactions"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 122
+                        </div>
+                        <code>final private
+                            <strong>rollbackTransactions</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Undo all active transactions</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_rollBack">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_rollBack"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 134
+                        </div>
+                        <code>final bool
+                            <strong>rollBack</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Rollback current transaction,</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_exec">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 161
+                        </div>
+                        <code>final static bool
+                            <strong>exec</strong>(string $query)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Execute SQL statements on the database (INSERT, UPDATE or DELETE).</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$query</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getLastInserted">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 179
+                        </div>
+                        <code>final string
+                            <strong>getLastInserted</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Returns the id of the last inserted record. Failing that, it
+                                returns ''.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_select">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_select"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 198
+                        </div>
+                        <code> static array|null
+                            <strong>select</strong>(string $query)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Executes a SELECT SQL statement on the database, returning the result in an array.</p>
+                            <p>In case of failure, return NULL. If there is no data, return an empty array.</p>
+
+                            <p>TODO: Netbeans does not support @return ?array</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$query</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array|null</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_checkConnection">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 215
+                        </div>
+                        <code> bool
+                            <strong>checkConnection</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>TODO: Undocumented</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_connect">
+                        <div class="location">at line 37</div>
+                        <code> bool
+                            <strong>connect</strong>(array $config = [])
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Connect to the database.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td>$config</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_prepare">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 260
+                        </div>
+                        <code>final bool
+                            <strong>prepare</strong>(string $sql, array $options = [])
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Prepares a statement for execution and returns a statement object
+                                http://php.net/manual/en/pdo.prepare.php</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$sql</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>array</td>
+                                    <td>$options</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method__resultSet">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method__resultSet"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 280
+                        </div>
+                        <code>final array
+                            <strong>_resultSet</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Returns an array containing all of the result set rows</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_execute">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_execute"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 294
+                        </div>
+                        <code>final bool
+                            <strong>execute</strong>(array $inputParameters = [])
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Executes a prepared statement
+                                http://php.net/manual/en/pdostatement.execute.php</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td>$inputParameters</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_beginTransaction">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 308
+                        </div>
+                        <code>final bool
+                            <strong>beginTransaction</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Start transaction
+                                source:
+                                https://www.ibm.com/support/knowledgecenter/es/SSEPGG_9.1.0/com.ibm.db2.udb.apdv.php.doc/doc/t0023166.htm</p>
+                        </div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_commit">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Database/Engine.html#method_commit"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                            at line 328
+                        </div>
+                        <code>final bool
+                            <strong>commit</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Commit current transaction</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div id="footer">
+            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>
