@@ -7,7 +7,7 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Schema;
+use Alxarafe\Helpers\SchemaDB;
 
 /**
  * Class Table allows access to a table using an active record.
@@ -54,7 +54,7 @@ class Table extends SimpleTable
     public function checkStructure(bool $create = false): void
     {
         if (isset(Config::$bbddStructure[$this->tableName])) {
-            if ($create && !Schema::tableExists($this->tableName)) {
+            if ($create && !SchemaDB::tableExists($this->tableName)) {
                 Schema::createTable($this->tableName);
             }
         }
