@@ -24,8 +24,7 @@ class ExportStructureView extends View
      */
     public function __construct($ctrl)
     {
-        Skin::setTemplate('exportstructure');
-
         parent::__construct($ctrl);
+        Skin::setTemplate('exportstructure');
     }
 }
