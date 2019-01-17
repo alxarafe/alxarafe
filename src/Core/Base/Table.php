@@ -7,6 +7,7 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
 
 /**

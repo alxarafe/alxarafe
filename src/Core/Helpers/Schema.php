@@ -23,13 +23,33 @@ class Schema
     /**
      * Folder that contains the files with the structure of the database.
      */
-    const SCHEMA_FOLDER = BASE_PATH . '/config/schema';
+    const SCHEMA_FOLDER = '/config/schema';
 
     /**
      * Folder that contains the files with the display parameters and
      * restrictions of the tables in the database.
      */
-    const VIEW_DATA_FOLDER = BASE_PATH . '/config/viewdata';
+    const VIEW_DATA_FOLDER = '/config/viewdata';
+
+    /**
+     * Return the schema folder path.
+     *
+     * @return string
+     */
+    private static function getSchemaFolder()
+    {
+        return constant('BASE_PATH') . self::SCHEMA_FOLDER;
+    }
+
+    /**
+     * Return the view data folder path.
+     *
+     * @return string
+     */
+    private static function getViewDataFolder()
+    {
+        return constant('BASE_PATH') . self::VIEW_DATA_FOLDER;
+    }
 
     /**
      * Check the existence of the configuration folders that contain the YAML
@@ -41,11 +61,11 @@ class Schema
     protected static function checkConfigFolders(): bool
     {
         $ret = true;
-        foreach ([constant('self::SCHEMA_FOLDER'), constant('self::VIEW_DATA_FOLDER')] as $folder) {
+        foreach ([self::getSchemaFolder(), self::getViewDataFolder()] as $folder) {
             if (!is_dir($folder)) {
                 mkdir($folder);
             }
-            $ret &= is_dir($folder);
+            $ret = $ret && is_dir($folder);
         }
         return $ret;
     }
@@ -113,12 +133,12 @@ class Schema
         if (self::checkConfigFolders()) {
             $tables = Config::$sqlHelper->getTables();
             foreach ($tables as $table) {
-                $filename = constant('self::SCHEMA_FOLDER') . '/' . $table . '.yaml';
+                $filename = self::getSchemaFolder() . '/' . $table . '.yaml';
                 $structure = Config::$dbEngine->getStructure($table, false);
                 $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
                 $data = self::mergeSchema($structure, $dataFile);
                 file_put_contents($filename, YAML::dump($data, 3));
-                $filename = constant('self::VIEW_DATA_FOLDER') . '/' . $table . '.yaml';
+                $filename = self::getViewDataFolder() . '/' . $table . '.yaml';
                 $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
                 $data = self::mergeViewData($structure, $dataFile);
                 file_put_contents($filename, YAML::dump($data, 3));

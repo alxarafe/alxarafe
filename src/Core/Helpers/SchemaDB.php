@@ -76,7 +76,7 @@ class SchemaDB
         foreach ($tabla['keys'] as $name => $index) {
             $sql .= self::createIndex($tableName, $name, $index);
         }
-        $sql .= self::setValues($tableName, $tabla['values']);
+        $sql .= Schema::setValues($tableName, $tabla['values']);
         return Config::$dbEngine->exec($sql);
     }
 
