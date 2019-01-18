@@ -226,7 +226,7 @@ class Schema
      *
      * @return string
      */
-    protected static function setValues(string $tableName, array $values): string
+    public static function setValues(string $tableName, array $values): string
     {
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
         $header = true;
