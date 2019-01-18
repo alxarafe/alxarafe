@@ -75,7 +75,8 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function toNativeForm(/** @scrutinizer ignore-unused */array $row = []): string {
+    public function toNativeForm(/** @scrutinizer ignore-unused */array $row = []): string
+    {
         return '';
         /*
           if ($type == 'string') {
