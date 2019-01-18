@@ -110,12 +110,20 @@
                 <td></td>
             </tr>
                     <tr>
+                <td class="type" id="property_literalQuote">
+                                        protected                                        string
+                </td>
+                <td>$literalQuote</td>
+                <td class="last">Character used as quotes to enclose the literal fields</td>
+                <td></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_fieldTypes">
                                         protected                                        array
                 </td>
                 <td>$fieldTypes</td>
-                <td class="last">It contains an associative array in which each index is a type of virtual
-field, and its content is each of the types it represents.</td>
+                <td class="last">It contains an associative array in which each index is a type of virtual field, and its content is each of the
+types it represents.</td>
                 <td></td>
             </tr>
             </table>
@@ -156,12 +164,32 @@ field, and its content is each of the types it represents.</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_quoteLiteral">quoteLiteral</a>(string $fieldName)
+        
+                                            <p>Returns the name of the field in quotes.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getTables">getTables</a>()
         
                                             <p>Returns an array with the name of all the tables in the database.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSQLField">getSQLField</a>(string $fieldName, array $data)
+        
+                                            <p>TODO: Undocummented.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -191,8 +219,8 @@ field, and its content is each of the types it represents.</td>
                 <div class="col-md-8 type">
                     <a href="#method_normalizeFields">normalizeFields</a>(array $fields)
         
-                                            <p>Modifies the structure returned by the query generated with
-getColumnsSql to the normalized format that returns getColumns</p>                </div>
+                                            <p>Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+getColumns</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -213,18 +241,18 @@ getColumnsSql to the normalized format that returns getColumns</p>              
                 <div class="col-md-8 type">
                     <a href="#method_getIndexesSql">getIndexesSql</a>(string $tableName, bool $usePrefix = true)
         
-                                            <p>TODO: Undocumented</p>                </div>
+                                            <p>Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+restrictions later.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_normalizeIndexes">normalizeIndexes</a>(array $fields)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Returns an array with the index information, and if there are, also constraints.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -245,7 +273,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 43</div>
+        <div class="location">at         line 50</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -266,7 +294,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteTableName">
-        <div class="location">at         line 58</div>
+        <div class="location">at         line 66</div>
         <code>                    string
     <strong>quoteTableName</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -311,7 +339,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteFieldName">
-        <div class="location">at         line 72</div>
+        <div class="location">at         line 80</div>
         <code>                    string
     <strong>quoteFieldName</strong>(string $fieldName)
         </code>
@@ -350,8 +378,48 @@ getColumnsSql to the normalized format that returns getColumns</p>              
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_quoteLiteral">
+        <div class="location">at         line 92</div>
+        <code>                    string
+    <strong>quoteLiteral</strong>(string $fieldName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the name of the field in quotes.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fieldName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTables">
-        <div class="location">at         line 82</div>
+        <div class="location">at         line 102</div>
         <code>    abstract                array
     <strong>getTables</strong>()
         </code>
@@ -380,8 +448,53 @@ getColumnsSql to the normalized format that returns getColumns</p>              
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getSQLField">
+        <div class="location">at         line 112</div>
+        <code>    abstract                string
+    <strong>getSQLField</strong>(string $fieldName, array $data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>TODO: Undocummented.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fieldName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getColumns">
-        <div class="location">at         line 106</div>
+        <div class="location">at         line 136</div>
         <code>                    array
     <strong>getColumns</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -439,7 +552,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getColumnsSql">
-        <div class="location">at         line 125</div>
+        <div class="location">at         line 155</div>
         <code>    abstract                string
     <strong>getColumnsSql</strong>(string $tableName, bool $usePrefix)
         </code>
@@ -484,7 +597,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeFields">
-        <div class="location">at         line 135</div>
+        <div class="location">at         line 165</div>
         <code>    abstract                array
     <strong>normalizeFields</strong>(array $fields)
         </code>
@@ -494,8 +607,8 @@ getColumnsSql to the normalized format that returns getColumns</p>              
     
 
                     <div class="method-description">
-                                    <p>Modifies the structure returned by the query generated with
-getColumnsSql to the normalized format that returns getColumns</p>                                                </div>
+                                    <p>Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+getColumns</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -525,7 +638,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexes">
-        <div class="location">at         line 139</div>
+        <div class="location">at         line 169</div>
         <code>                    
     <strong>getIndexes</strong>(string $tableName, bool $usePrefix)
         </code>
@@ -559,7 +672,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesSql">
-        <div class="location">at         line 159</div>
+        <div class="location">at         line 191</div>
         <code>    abstract                string
     <strong>getIndexesSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -569,7 +682,8 @@ getColumnsSql to the normalized format that returns getColumns</p>              
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocumented</p>                                                </div>
+                                    <p>Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+restrictions later.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -604,8 +718,8 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeIndexes">
-        <div class="location">at         line 161</div>
-        <code>    abstract                
+        <div class="location">at         line 200</div>
+        <code>    abstract                array
     <strong>normalizeIndexes</strong>(array $fields)
         </code>
     </h3>
@@ -613,6 +727,8 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             
     
 
+                    <div class="method-description">
+                                    <p>Returns an array with the index information, and if there are, also constraints.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -625,6 +741,15 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -633,7 +758,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 170</div>
+        <div class="location">at         line 209</div>
         <code>    abstract                string
     <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
         </code>

@@ -110,12 +110,20 @@
                 <td><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#property_fieldQuote"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_literalQuote">
+                                        protected                                        string
+                </td>
+                <td>$literalQuote</td>
+                <td class="last">Character used as quotes to enclose the literal fields</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#property_literalQuote"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_fieldTypes">
                                         protected                                        array
                 </td>
                 <td>$fieldTypes</td>
-                <td class="last">It contains an associative array in which each index is a type of virtual
-field, and its content is each of the types it represents.</td>
+                <td class="last">It contains an associative array in which each index is a type of virtual field, and its content is each of the
+types it represents.</td>
                 <td><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#property_fieldTypes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></td>
             </tr>
             </table>
@@ -156,12 +164,32 @@ field, and its content is each of the types it represents.</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_quoteLiteral">quoteLiteral</a>(string $fieldName)
+        
+                                            <p>Returns the name of the field in quotes.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteLiteral"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getTables">getTables</a>()
         
                                             <p>Returns an array with the name of all the tables in the database.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSQLField">getSQLField</a>(string $fieldName, array $data)
+        
+                                            <p>TODO: Undocummented.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -191,8 +219,8 @@ field, and its content is each of the types it represents.</td>
                 <div class="col-md-8 type">
                     <a href="#method_normalizeFields">normalizeFields</a>(array $row)
         
-                                            <p>Modifies the structure returned by the query generated with
-getColumnsSql to the normalized format that returns getColumns</p>                </div>
+                                            <p>Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+getColumns</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -213,16 +241,16 @@ getColumnsSql to the normalized format that returns getColumns</p>              
                 <div class="col-md-8 type">
                     <a href="#method_getIndexesSql">getIndexesSql</a>(string $tableName, bool $usePrefix = true)
         
-                                            <p>Obtain an array with the basic information about the indexes of the table,
-which will be supplemented with the restrictions later.</p>                </div>
+                                            <p>Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+restrictions later.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_normalizeIndexes">normalizeIndexes</a>(array $row)
+                    <a href="#method_normalizeIndexes">normalizeIndexes</a>(array $fields)
         
                                             <p>Returns an array with the index information, and if there are, also constraints.</p>                </div>
                 <div class="col-md-2"></div>
@@ -234,7 +262,7 @@ which will be supplemented with the restrictions later.</p>                </div
                 <div class="col-md-8 type">
                     <a href="#method_getConstraintsSql">getConstraintsSql</a>(string $tableName, bool $usePrefix = true)
         
-                                            <p>TODO: Undocumented</p>                </div>
+                                            <p>TODO: Undocumented and pending complete.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -242,9 +270,9 @@ which will be supplemented with the restrictions later.</p>                </div
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_toNativeForm">toNativeForm</a>(array $row = [])
+                    <a href="#method_toNative">toNative</a>($type, $length = null)
         
-                                            <p>TODO: Undocummented and pending complete.</p>                </div>
+                                            <p>TODO: Undocumented and pending complete.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -254,8 +282,8 @@ which will be supplemented with the restrictions later.</p>                </div
                 <div class="col-md-8 type">
                     <a href="#method_splitType">splitType</a>(string $originalType)
         
-                                            <p>Divide the data type of a MySQL field into its various components: type,
-length, unsigned or zerofill, if applicable.</p>                </div>
+                                            <p>Divide the data type of a MySQL field into its various components: type, length, unsigned or zerofill, if
+applicable.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -265,8 +293,7 @@ length, unsigned or zerofill, if applicable.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_getConstraintData">getConstraintData</a>(string $tableName, string $constraintName)
         
-                                            <p>The data about the constraint that is found in the KEY_COLUMN_USAGE table
-is returned.</p>                </div>
+                                            <p>The data about the constraint that is found in the KEY_COLUMN_USAGE table is returned.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -276,8 +303,7 @@ is returned.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_getConstraintRules">getConstraintRules</a>(string $tableName, string $constraintName)
         
-                                            <p>The rules for updating and deleting data with constraint (table
-REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
+                                            <p>The rules for updating and deleting data with constraint (table REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -298,7 +324,7 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 22</div>
+        <div class="location">at         line 23</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -319,7 +345,7 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteTableName">
-        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteTableName"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 58</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteTableName"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 66</div>
         <code>                    string
     <strong>quoteTableName</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -364,7 +390,7 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteFieldName">
-        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteFieldName"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 72</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteFieldName"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 80</div>
         <code>                    string
     <strong>quoteFieldName</strong>(string $fieldName)
         </code>
@@ -403,8 +429,48 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_quoteLiteral">
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteLiteral"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 92</div>
+        <code>                    string
+    <strong>quoteLiteral</strong>(string $fieldName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the name of the field in quotes.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fieldName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTables">
-        <div class="location">at         line 43</div>
+        <div class="location">at         line 44</div>
         <code>                    array
     <strong>getTables</strong>()
         </code>
@@ -433,8 +499,53 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getSQLField">
+        <div class="location">at         line 113</div>
+        <code>                    string
+    <strong>getSQLField</strong>(string $fieldName, array $data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>TODO: Undocummented.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fieldName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getColumns">
-        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getColumns"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 106</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getColumns"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 136</div>
         <code>                    array
     <strong>getColumns</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -492,7 +603,7 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getColumnsSql">
-        <div class="location">at         line 56</div>
+        <div class="location">at         line 57</div>
         <code>                    string
     <strong>getColumnsSql</strong>(string $tableName, bool $prefix)
         </code>
@@ -537,7 +648,7 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeFields">
-        <div class="location">at         line 170</div>
+        <div class="location">at         line 144</div>
         <code>                    array
     <strong>normalizeFields</strong>(array $row)
         </code>
@@ -547,8 +658,8 @@ REFERENTIAL_CONSTRAINTS) are returned.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Modifies the structure returned by the query generated with
-getColumnsSql to the normalized format that returns getColumns</p>                                                </div>
+                                    <p>Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+getColumns</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -578,7 +689,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexes">
-        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 139</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 169</div>
         <code>                    
     <strong>getIndexes</strong>(string $tableName, bool $usePrefix)
         </code>
@@ -612,7 +723,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesSql">
-        <div class="location">at         line 347</div>
+        <div class="location">at         line 322</div>
         <code>                    string
     <strong>getIndexesSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -622,8 +733,8 @@ getColumnsSql to the normalized format that returns getColumns</p>              
     
 
                     <div class="method-description">
-                                    <p>Obtain an array with the basic information about the indexes of the table,
-which will be supplemented with the restrictions later.</p>                                                </div>
+                                    <p>Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+restrictions later.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -658,9 +769,9 @@ which will be supplemented with the restrictions later.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeIndexes">
-        <div class="location">at         line 253</div>
-        <code>                    
-    <strong>normalizeIndexes</strong>(array $row)
+        <div class="location">at         line 227</div>
+        <code>                    array
+    <strong>normalizeIndexes</strong>(array $fields)
         </code>
     </h3>
     <div class="details">
@@ -675,12 +786,21 @@ which will be supplemented with the restrictions later.</p>                     
                     <table class="table table-condensed">
                     <tr>
                 <td>array</td>
-                <td>$row</td>
+                <td>$fields</td>
                 <td></td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -689,7 +809,7 @@ which will be supplemented with the restrictions later.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 361</div>
+        <div class="location">at         line 334</div>
         <code>                    string
     <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -699,7 +819,7 @@ which will be supplemented with the restrictions later.</p>                     
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocumented</p>                                                </div>
+                                    <p>TODO: Undocumented and pending complete.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -733,10 +853,10 @@ which will be supplemented with the restrictions later.</p>                     
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_toNativeForm">
-        <div class="location">at         line 77</div>
+                    <h3 id="method_toNative">
+        <div class="location">at         line 78</div>
         <code>                    string
-    <strong>toNativeForm</strong>(array $row = [])
+    <strong>toNative</strong>($type, $length = null)
         </code>
     </h3>
     <div class="details">
@@ -744,14 +864,19 @@ which will be supplemented with the restrictions later.</p>                     
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocummented and pending complete.</p>                                                </div>
+                                    <p>TODO: Undocumented and pending complete.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>array</td>
-                <td>$row</td>
+                <td></td>
+                <td>$type</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$length</td>
                 <td></td>
             </tr>
             </table>
@@ -774,7 +899,7 @@ which will be supplemented with the restrictions later.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_splitType">
-        <div class="location">at         line 223</div>
+        <div class="location">at         line 197</div>
         <code>        static        private    array
     <strong>splitType</strong>(string $originalType)
         </code>
@@ -784,8 +909,8 @@ which will be supplemented with the restrictions later.</p>                     
     
 
                     <div class="method-description">
-                                    <p>Divide the data type of a MySQL field into its various components: type,
-length, unsigned or zerofill, if applicable.</p>                                                </div>
+                                    <p>Divide the data type of a MySQL field into its various components: type, length, unsigned or zerofill, if
+applicable.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -815,7 +940,7 @@ length, unsigned or zerofill, if applicable.</p>                                
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintData">
-        <div class="location">at         line 286</div>
+        <div class="location">at         line 259</div>
         <code>                private    array
     <strong>getConstraintData</strong>(string $tableName, string $constraintName)
         </code>
@@ -825,9 +950,8 @@ length, unsigned or zerofill, if applicable.</p>                                
     
 
                     <div class="method-description">
-                                    <p>The data about the constraint that is found in the KEY_COLUMN_USAGE table
-is returned.</p>                    <p>Attempting to return the consolidated data generates an extremely slow query
-in some MySQL installations, so 2 additional simple queries are made.</p>                            </div>
+                                    <p>The data about the constraint that is found in the KEY_COLUMN_USAGE table is returned.</p>                    <p>Attempting to return the consolidated data generates an extremely slow query in some MySQL installations, so 2
+additional simple queries are made.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -862,7 +986,7 @@ in some MySQL installations, so 2 additional simple queries are made.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintRules">
-        <div class="location">at         line 315</div>
+        <div class="location">at         line 287</div>
         <code>                private    array
     <strong>getConstraintRules</strong>(string $tableName, string $constraintName)
         </code>
@@ -872,9 +996,8 @@ in some MySQL installations, so 2 additional simple queries are made.</p>       
     
 
                     <div class="method-description">
-                                    <p>The rules for updating and deleting data with constraint (table
-REFERENTIAL_CONSTRAINTS) are returned.</p>                    <p>Attempting to return the consolidated data generates an extremely slow query
-in some MySQL installations, so 2 additional simple queries are made.</p>                            </div>
+                                    <p>The rules for updating and deleting data with constraint (table REFERENTIAL_CONSTRAINTS) are returned.</p>                    <p>Attempting to return the consolidated data generates an extremely slow query in some MySQL installations, so 2
+additional simple queries are made.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -909,7 +1032,7 @@ in some MySQL installations, so 2 additional simple queries are made.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_getTablename">
-        <div class="location">at         line 334</div>
+        <div class="location">at         line 306</div>
         <code>                private    string
     <strong>getTablename</strong>()
         </code>

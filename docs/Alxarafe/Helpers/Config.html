@@ -86,8 +86,8 @@
     
 
             <div class="description">
-            <p>All variables and global functions are centralized through the static class Config.</p>            <p>The Config class can be instantiated and passed to the class that needs it,
-sharing the data and methods that are in them.</p>                    </div>
+            <p>All variables and global functions are centralized through the static class Config.</p>            <p>The Config class can be instantiated and passed to the class that needs it, sharing the data and methods that are in
+them.</p>                    </div>
     
     
     
@@ -131,8 +131,7 @@ sharing the data and methods that are in them.</p>                    </div>
                     static                                                            <a href="../../Alxarafe/Helpers/Auth.html"><abbr title="Alxarafe\Helpers\Auth">Auth</abbr></a>
                 </td>
                 <td>$user</td>
-                <td class="last">It is a static instance of the Auth class that contains the data of the
-currently identified user.</td>
+                <td class="last">It is a static instance of the Auth class that contains the data of the currently identified user.</td>
                 <td></td>
             </tr>
                     <tr>
@@ -198,8 +197,9 @@ currently identified user.</td>
                 <div class="col-md-8 type">
                     <a href="#method_getConfigFileName">getConfigFileName</a>()
         
-                                            <p>Returns the name of the configuration file. By default, create the config
-folder and enter the config.yaml file inside it.</p>                </div>
+                                            <p>Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
+inside it. If you want to use another folder for the configuration, you will have to define it in the constant
+CONFIGURATION_PATH before invoking this method, this folder must exist.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -229,8 +229,7 @@ folder and enter the config.yaml file inside it.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_loadConfig">loadConfig</a>()
         
-                                            <p>Initializes the global variable with the configuration, connects with
-the database and authenticates the user.</p>                </div>
+                                            <p>Initializes the global variable with the configuration, connects with the database and authenticates the user.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -260,8 +259,8 @@ the database and authenticates the user.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_connectToDatabase">connectToDatabase</a>()
         
-                                            <p>If Config::$dbEngine contain null, create an Engine instance with the
-database connection and assigns it to Config::$dbEngine.</p>                </div>
+                                            <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+Config::$dbEngine.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -271,8 +270,7 @@ database connection and assigns it to Config::$dbEngine.</p>                </di
                 <div class="col-md-8 type">
                     <a href="#method_saveConfigFile">saveConfigFile</a>()
         
-                                            <p>Stores all the variables in a permanent file so that they can be loaded
-later with loadConfigFile()
+                                            <p>Stores all the variables in a permanent file so that they can be loaded later with loadConfigFile()
 Returns true if there is no error when saving the file.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
@@ -304,7 +302,7 @@ Returns true if there is no error when saving the file.</p>                </div
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_configFileExists">
-        <div class="location">at         line 102</div>
+        <div class="location">at         line 101</div>
         <code>        static            bool
     <strong>configFileExists</strong>()
         </code>
@@ -334,7 +332,7 @@ Returns true if there is no error when saving the file.</p>                </div
             </div>
                     <div class="method-item">
                     <h3 id="method_getConfigFileName">
-        <div class="location">at         line 116</div>
+        <div class="location">at         line 113</div>
         <code>        static            string
     <strong>getConfigFileName</strong>()
         </code>
@@ -344,10 +342,9 @@ Returns true if there is no error when saving the file.</p>                </div
     
 
                     <div class="method-description">
-                                    <p>Returns the name of the configuration file. By default, create the config
-folder and enter the config.yaml file inside it.</p>                    <p>If you want to use another folder for the configuration, you will have to
-define it in the constant CONFIGURATION_PATH before invoking this method,
-this folder must exist.</p>                            </div>
+                                    <p>Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
+inside it. If you want to use another folder for the configuration, you will have to define it in the constant
+CONFIGURATION_PATH before invoking this method, this folder must exist.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -367,7 +364,7 @@ this folder must exist.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_loadViewsConfig">
-        <div class="location">at         line 133</div>
+        <div class="location">at         line 130</div>
         <code>        static            void
     <strong>loadViewsConfig</strong>()
         </code>
@@ -397,7 +394,7 @@ this folder must exist.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getVar">
-        <div class="location">at         line 150</div>
+        <div class="location">at         line 145</div>
         <code>        static            string|null
     <strong>getVar</strong>(string $name)
         </code>
@@ -407,7 +404,7 @@ this folder must exist.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Gets the contents of a variable. If the variable does not exist, return null.</p>                    <p>TODO: Netbeans does not support @return ?string</p>                            </div>
+                                    <p>Gets the contents of a variable. If the variable does not exist, return null.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -437,7 +434,7 @@ this folder must exist.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_loadConfig">
-        <div class="location">at         line 161</div>
+        <div class="location">at         line 155</div>
         <code>        static            void
     <strong>loadConfig</strong>()
         </code>
@@ -447,8 +444,7 @@ this folder must exist.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Initializes the global variable with the configuration, connects with
-the database and authenticates the user.</p>                                                </div>
+                                    <p>Initializes the global variable with the configuration, connects with the database and authenticates the user.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -468,7 +464,7 @@ the database and authenticates the user.</p>                                    
             </div>
                     <div class="method-item">
                     <h3 id="method_loadConfigurationFile">
-        <div class="location">at         line 201</div>
+        <div class="location">at         line 194</div>
         <code>        static            array
     <strong>loadConfigurationFile</strong>()
         </code>
@@ -478,8 +474,7 @@ the database and authenticates the user.</p>                                    
     
 
                     <div class="method-description">
-                                    <p>Returns an array with the configuration defined in the configuration file.</p>                    <p>If the configuration file does not exist, take us to the application
-configuration form to create it</p>                            </div>
+                                    <p>Returns an array with the configuration defined in the configuration file.</p>                    <p>If the configuration file does not exist, take us to the application configuration form to create it</p>                            </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -499,7 +494,7 @@ configuration form to create it</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setError">
-        <div class="location">at         line 224</div>
+        <div class="location">at         line 217</div>
         <code>        static            
     <strong>setError</strong>(string $error)
         </code>
@@ -530,7 +525,7 @@ configuration form to create it</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_connectToDatabase">
-        <div class="location">at         line 235</div>
+        <div class="location">at         line 228</div>
         <code>        static            bool
     <strong>connectToDatabase</strong>()
         </code>
@@ -540,8 +535,8 @@ configuration form to create it</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>If Config::$dbEngine contain null, create an Engine instance with the
-database connection and assigns it to Config::$dbEngine.</p>                                                </div>
+                                    <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+Config::$dbEngine.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -561,7 +556,7 @@ database connection and assigns it to Config::$dbEngine.</p>                    
             </div>
                     <div class="method-item">
                     <h3 id="method_saveConfigFile">
-        <div class="location">at         line 272</div>
+        <div class="location">at         line 264</div>
         <code>        static            bool
     <strong>saveConfigFile</strong>()
         </code>
@@ -571,8 +566,7 @@ database connection and assigns it to Config::$dbEngine.</p>                    
     
 
                     <div class="method-description">
-                                    <p>Stores all the variables in a permanent file so that they can be loaded
-later with loadConfigFile()
+                                    <p>Stores all the variables in a permanent file so that they can be loaded later with loadConfigFile()
 Returns true if there is no error when saving the file.</p>                                                </div>
                 <div class="tags">
             
@@ -593,7 +587,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_getErrors">
-        <div class="location">at         line 286</div>
+        <div class="location">at         line 278</div>
         <code>        static            array
     <strong>getErrors</strong>()
         </code>
@@ -623,7 +617,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_setVar">
-        <div class="location">at         line 299</div>
+        <div class="location">at         line 291</div>
         <code>        static            
     <strong>setVar</strong>(string $name, string $value)
         </code>

@@ -110,8 +110,7 @@ database. It is used to create and modify tables and indexes in the database.</p
                     <tr>
                 <td>VIEW_DATA_FOLDER</td>
                 <td class="last">
-                    <p><em>Folder that contains the files with the display parameters and
-restrictions of the tables in the database.</em></p>
+                    <p><em>Folder that contains the files with the display parameters and restrictions of the tables in the database.</em></p>
                     <p></p>
                 </td>
             </tr>
@@ -149,8 +148,7 @@ restrictions of the tables in the database.</em></p>
                 <div class="col-md-8 type">
                     <a href="#method_checkConfigFolders">checkConfigFolders</a>()
         
-                                            <p>Check the existence of the configuration folders that contain the YAML
-files, creating them if they do not exist.</p>                </div>
+                                            <p>Check the existence of the configuration folders that contain the YAML files, creating them if they do not exist.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -160,8 +158,18 @@ files, creating them if they do not exist.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_mergeSchema">mergeSchema</a>(array $struct, array $data)
         
-                                            <p>Merge the existing yaml file with the structure of the database,
-prevailing the latter.</p>                </div>
+                                            <p>Merge the existing yaml file with the structure of the database, prevailing the latter.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_mergeViewField">mergeViewField</a>(string $field, array $values, array $fieldData)
+        
+                                            <p>Verify the $fieldData established in the yaml file with the structure of the database, creating the missing data
+and correcting the possible errors.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -171,9 +179,8 @@ prevailing the latter.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_mergeViewData">mergeViewData</a>(array $struct, array $data)
         
-                                            <p>Verify the parameters established in the yaml file with the structure
-of the database, creating the missing data and correcting the possible
-errors.</p>                </div>
+                                            <p>Verify the parameters established in the yaml file with the structure of the database, creating the missing data
+and correcting the possible errors.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -183,7 +190,7 @@ errors.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_saveStructure">saveStructure</a>()
         
-                                            <p>TODO: Undocummented</p>                </div>
+                                            <p>Save the structure of the schema, also saves the view details.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -193,10 +200,9 @@ errors.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_setNormalizedStructure">setNormalizedStructure</a>(array $structure, string $tableName)
         
-                                            <p>Normalize an array that has the file structure defined in the model by setStructure,
-so that it has fields with all the values it must have. Those that do not exist are
-created with the default value, avoiding having to do the check each time, or
-calculating their value based on the data provided by the other fields.</p>                </div>
+                                            <p>Normalize an array that has the file structure defined in the model by setStructure, so that it has fields with
+all the values it must have. Those that do not exist are created with the default value, avoiding having to do
+the check each time, or calculating their value based on the data provided by the other fields.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -206,9 +212,9 @@ calculating their value based on the data provided by the other fields.</p>     
                 <div class="col-md-8 type">
                     <a href="#method_normalizeField">normalizeField</a>(string $tableName, string $field, array $structure)
         
-                                            <p>Take the definition of a field, and make sure you have all the information
-that is necessary for its creation or maintenance, calculating the missing
-data if possible.</p>                </div>
+                                            <p>Take the definition of a field, and make sure you have all the information that is necessary for its creation or
+maintenance, calculating the missing data if possible. It can cause an exception if some vital data is missing,
+but this should only occur at the design stage.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -289,7 +295,7 @@ data if possible.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkConfigFolders">
-        <div class="location">at         line 61</div>
+        <div class="location">at         line 60</div>
         <code>        static    protected        bool
     <strong>checkConfigFolders</strong>()
         </code>
@@ -299,8 +305,7 @@ data if possible.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Check the existence of the configuration folders that contain the YAML
-files, creating them if they do not exist.</p>                    <p>Returns true if finally, both folders exist.</p>                            </div>
+                                    <p>Check the existence of the configuration folders that contain the YAML files, creating them if they do not exist.</p>                    <p>Returns true if finally, both folders exist.</p>                            </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -320,7 +325,7 @@ files, creating them if they do not exist.</p>                    <p>Returns tru
             </div>
                     <div class="method-item">
                     <h3 id="method_mergeSchema">
-        <div class="location">at         line 81</div>
+        <div class="location">at         line 80</div>
         <code>        static    protected        array
     <strong>mergeSchema</strong>(array $struct, array $data)
         </code>
@@ -330,8 +335,7 @@ files, creating them if they do not exist.</p>                    <p>Returns tru
     
 
                     <div class="method-description">
-                                    <p>Merge the existing yaml file with the structure of the database,
-prevailing the latter.</p>                                                </div>
+                                    <p>Merge the existing yaml file with the structure of the database, prevailing the latter.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -365,8 +369,59 @@ prevailing the latter.</p>                                                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_mergeViewData">
+                    <h3 id="method_mergeViewField">
         <div class="location">at         line 97</div>
+        <code>        static    protected        array
+    <strong>mergeViewField</strong>(string $field, array $values, array $fieldData)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Verify the $fieldData established in the yaml file with the structure of the database, creating the missing data
+and correcting the possible errors.</p>                    <p>Posible data: unique, min, max, length, pattern, placeholder, rowlabel &amp; fieldlabel</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$field</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$values</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$fieldData</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_mergeViewData">
+        <div class="location">at         line 137</div>
         <code>        static    protected        array
     <strong>mergeViewData</strong>(array $struct, array $data)
         </code>
@@ -376,9 +431,8 @@ prevailing the latter.</p>                                                </div>
     
 
                     <div class="method-description">
-                                    <p>Verify the parameters established in the yaml file with the structure
-of the database, creating the missing data and correcting the possible
-errors.</p>                    <p>Posible data: unique, min, max, length, pattern, placeholder, rowlabel &amp; fieldlabel</p>                            </div>
+                                    <p>Verify the parameters established in the yaml file with the structure of the database, creating the missing data
+and correcting the possible errors.</p>                    <p>Posible data: unique, min, max, length, pattern, placeholder, rowlabel &amp; fieldlabel</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -413,7 +467,7 @@ errors.</p>                    <p>Posible data: unique, min, max, length, patter
             </div>
                     <div class="method-item">
                     <h3 id="method_saveStructure">
-        <div class="location">at         line 131</div>
+        <div class="location">at         line 149</div>
         <code>        static            
     <strong>saveStructure</strong>()
         </code>
@@ -423,7 +477,7 @@ errors.</p>                    <p>Posible data: unique, min, max, length, patter
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocummented</p>                                                </div>
+                                    <p>Save the structure of the schema, also saves the view details.</p>                                                </div>
                 <div class="tags">
             
             
@@ -434,7 +488,7 @@ errors.</p>                    <p>Posible data: unique, min, max, length, patter
             </div>
                     <div class="method-item">
                     <h3 id="method_setNormalizedStructure">
-        <div class="location">at         line 163</div>
+        <div class="location">at         line 181</div>
         <code>        static            array
     <strong>setNormalizedStructure</strong>(array $structure, string $tableName)
         </code>
@@ -444,11 +498,9 @@ errors.</p>                    <p>Posible data: unique, min, max, length, patter
     
 
                     <div class="method-description">
-                                    <p>Normalize an array that has the file structure defined in the model by setStructure,
-so that it has fields with all the values it must have. Those that do not exist are
-created with the default value, avoiding having to do the check each time, or
-calculating their value based on the data provided by the other fields.</p>                    <p>It also ensures that the keys and default values exist as an empty array if they
-did not exist.</p>                            </div>
+                                    <p>Normalize an array that has the file structure defined in the model by setStructure, so that it has fields with
+all the values it must have. Those that do not exist are created with the default value, avoiding having to do
+the check each time, or calculating their value based on the data provided by the other fields.</p>                    <p>It also ensures that the keys and default values exist as an empty array if they did not exist.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -483,7 +535,7 @@ did not exist.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeField">
-        <div class="location">at         line 189</div>
+        <div class="location">at         line 203</div>
         <code>        static    protected        array|null
     <strong>normalizeField</strong>(string $tableName, string $field, array $structure)
         </code>
@@ -493,12 +545,9 @@ did not exist.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Take the definition of a field, and make sure you have all the information
-that is necessary for its creation or maintenance, calculating the missing
-data if possible.</p>                    <p>It can cause an exception if some vital data is missing, but this should
-only occur at the design stage.</p>
-
-<p>TODO: Netbeans does not support @return ?array</p>                            </div>
+                                    <p>Take the definition of a field, and make sure you have all the information that is necessary for its creation or
+maintenance, calculating the missing data if possible. It can cause an exception if some vital data is missing,
+but this should only occur at the design stage.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -538,8 +587,8 @@ only occur at the design stage.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setValues">
-        <div class="location">at         line 215</div>
-        <code>        static    protected        string
+        <div class="location">at         line 229</div>
+        <code>        static            string
     <strong>setValues</strong>(string $tableName, array $values)
         </code>
     </h3>

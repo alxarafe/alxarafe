@@ -86,8 +86,8 @@
     
 
             <div class="description">
-            <p>Class SimpleTable has all the basic methods to access and manipulate
-information, but without modifying its structure.</p>                                </div>
+            <p>Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its
+structure.</p>                                </div>
     
     
     
@@ -107,7 +107,9 @@ information, but without modifying its structure.</p>                           
                                         protected                                        string
                 </td>
                 <td>$id</td>
-                <td class="last">Value of the main index for the active record.</td>
+                <td class="last">Value of the main index for the active record. When a record is loaded, this field will contain its id and will
+be the one that will be used for in the WHERE clause of the UPDATE. If it does not exist in file it will contain
+''.</td>
                 <td></td>
             </tr>
                     <tr>
@@ -131,7 +133,8 @@ information, but without modifying its structure.</p>                           
                                         protected                                        array
                 </td>
                 <td>$newData</td>
-                <td class="last">Contains the new data of the current record.</td>
+                <td class="last">Contains the new data of the current record. It will start when loading a record and will be used when making a
+save.</td>
                 <td></td>
             </tr>
             </table>
@@ -157,8 +160,8 @@ information, but without modifying its structure.</p>                           
                 <div class="col-md-8 type">
                     <a href="#method_setStructure">setStructure</a>()
         
-                                            <p>Execute a call to setTableStructure with an array containing 3 arrays with
-the fields, keys and default values for the table.</p>                </div>
+                                            <p>Execute a call to setTableStructure with an array containing 3 arrays with the fields, keys and default values
+for the table.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -188,7 +191,7 @@ the fields, keys and default values for the table.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_getFieldsFromTable">getFieldsFromTable</a>()
         
-                                            <p>Return a list of fields and their table structure.</p>                </div>
+                                            <p>Return a list of fields and their table structure. Each final model that needed, must overwrite it.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -350,7 +353,7 @@ default it will be id.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 71</div>
+        <div class="location">at         line 70</div>
         <code>                    
     <strong>__construct</strong>(string $tableName, array $params = [])
         </code>
@@ -389,7 +392,7 @@ default it will be id.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setStructure">
-        <div class="location">at         line 96</div>
+        <div class="location">at         line 95</div>
         <code>                    
     <strong>setStructure</strong>()
         </code>
@@ -399,11 +402,11 @@ default it will be id.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Execute a call to setTableStructure with an array containing 3 arrays with
-the fields, keys and default values for the table.</p>                    <p>The development will be more ambitious than what is defined.</p>
+                                    <p>Execute a call to setTableStructure with an array containing 3 arrays with the fields, keys and default values
+for the table.</p>                    <p>The development will be more ambitious than what is defined.</p>
 
-<p>Currently Table includes a single table, but the idea is to be able to
-relate tables to form complex data models.</p>                            </div>
+<p>Currently Table includes a single table, but the idea is to be able to relate tables to form complex data
+models.</p>                            </div>
                 <div class="tags">
             
             
@@ -414,7 +417,7 @@ relate tables to form complex data models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setTableStructure">
-        <div class="location">at         line 107</div>
+        <div class="location">at         line 106</div>
         <code>            protected        
     <strong>setTableStructure</strong>(string $table, array $structure)
         </code>
@@ -450,7 +453,7 @@ relate tables to form complex data models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getStructureArray">
-        <div class="location">at         line 119</div>
+        <div class="location">at         line 118</div>
         <code>            protected        array
     <strong>getStructureArray</strong>()
         </code>
@@ -480,7 +483,7 @@ relate tables to form complex data models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFieldsFromTable">
-        <div class="location">at         line 133</div>
+        <div class="location">at         line 131</div>
         <code>                    array
     <strong>getFieldsFromTable</strong>()
         </code>
@@ -490,7 +493,7 @@ relate tables to form complex data models.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Return a list of fields and their table structure.</p>                    <p>Each final model that needed, must overwrite it.</p>                            </div>
+                                    <p>Return a list of fields and their table structure. Each final model that needed, must overwrite it.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -510,7 +513,7 @@ relate tables to form complex data models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___call">
-        <div class="location">at         line 147</div>
+        <div class="location">at         line 145</div>
         <code>                    string
     <strong>__call</strong>(string $method, array $params)
         </code>
@@ -564,7 +567,7 @@ relate tables to form complex data models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___get">
-        <div class="location">at         line 171</div>
+        <div class="location">at         line 168</div>
         <code>                    string
     <strong>__get</strong>(string $property)
         </code>
@@ -574,8 +577,7 @@ relate tables to form complex data models.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>It allows access to a field of the record using the attribute.</p>                    <p>To access the name field, we should use $this->getName(), but thanks to
-this, we can also use $this->name.</p>                            </div>
+                                    <p>It allows access to a field of the record using the attribute.</p>                    <p>To access the name field, we should use $this->getName(), but thanks to this, we can also use $this->name.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -605,7 +607,7 @@ this, we can also use $this->name.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___set">
-        <div class="location">at         line 187</div>
+        <div class="location">at         line 183</div>
         <code>                    string
     <strong>__set</strong>(string $property, string $value)
         </code>
@@ -615,8 +617,7 @@ this, we can also use $this->name.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Allows you to assign value to a field in the record using the attribute.</p>                    <p>De esta forma simulamos del comportamientod e FacturaScript.
-To assign a value to the name field, we should use $this->setName('Pepe'),
+                                    <p>Allows you to assign value to a field in the record using the attribute.</p>                    <p>To assign a value to the name field, we should use $this->setName('Pepe'),
 but thanks to this, we can also use $this->name='Pepe'.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
@@ -652,7 +653,7 @@ but thanks to this, we can also use $this->name='Pepe'.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_getIdField">
-        <div class="location">at         line 199</div>
+        <div class="location">at         line 195</div>
         <code>                    string
     <strong>getIdField</strong>()
         </code>
@@ -683,7 +684,7 @@ default it will be id.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at         line 214</div>
+        <div class="location">at         line 209</div>
         <code>                    <a href="../../Alxarafe/Base/SimpleTable.html"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a>
     <strong>get</strong>(string $id)
         </code>
@@ -693,8 +694,7 @@ default it will be id.</p>                                                </div>
     
 
                     <div class="method-description">
-                                    <p>Returns a new instance of the table with the requested record.</p>                    <p>As a previous step, a getData of the current instance is made, so both
-will point to the same record.
+                                    <p>Returns a new instance of the table with the requested record.</p>                    <p>As a previous step, a getData of the current instance is made, so both will point to the same record.
 Makes a getData and returns a new instance of the model.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
@@ -725,7 +725,7 @@ Makes a getData and returns a new instance of the model.</p>                    
             </div>
                     <div class="method-item">
                     <h3 id="method_getData">
-        <div class="location">at         line 231</div>
+        <div class="location">at         line 225</div>
         <code>                private    bool
     <strong>getData</strong>(string $id)
         </code>
@@ -737,8 +737,7 @@ Makes a getData and returns a new instance of the model.</p>                    
                     <div class="method-description">
                                     <p>This method is private. Use load instead.</p>                    <p>Establishes a record as an active record.
 If found, the $id will be in $this->id and the data in $this->newData.
-If it is not found, $this->id will contain '' and $this->newData will
-contain the data by default.</p>                            </div>
+If it is not found, $this->id will contain '' and $this->newData will contain the data by default.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -768,7 +767,7 @@ contain the data by default.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableName">
-        <div class="location">at         line 250</div>
+        <div class="location">at         line 244</div>
         <code>                    string
     <strong>getTableName</strong>()
         </code>
@@ -798,7 +797,7 @@ contain the data by default.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_newRecord">
-        <div class="location">at         line 260</div>
+        <div class="location">at         line 254</div>
         <code>                private    
     <strong>newRecord</strong>()
         </code>
@@ -819,7 +818,7 @@ contain the data by default.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDataArray">
-        <div class="location">at         line 281</div>
+        <div class="location">at         line 273</div>
         <code>                    array
     <strong>getDataArray</strong>(string $id = null)
         </code>
@@ -829,10 +828,8 @@ contain the data by default.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Return an array with the current active record.</p>                    <p>If an $id is indicated, it searches to change the active record before
-returning the value.
-Warning: If an $id is set, any unsaved data will be lost when searching
-for the new record.</p>                            </div>
+                                    <p>Return an array with the current active record.</p>                    <p>If an $id is indicated, it searches to change the active record before returning the value.
+Warning: If an $id is set, any unsaved data will be lost when searching for the new record.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -862,7 +859,7 @@ for the new record.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_load">
-        <div class="location">at         line 299</div>
+        <div class="location">at         line 290</div>
         <code>                    bool
     <strong>load</strong>(string $id)
         </code>
@@ -873,8 +870,7 @@ for the new record.</p>                            </div>
 
                     <div class="method-description">
                                     <p>Establishes a record as an active record.</p>                    <p>If found, the $id will be in $this->id and the data in $this->newData.
-If it is not found, $this->id will contain '' and $this->newData will
-contain the data by default.</p>                            </div>
+If it is not found, $this->id will contain '' and $this->newData will contain the data by default.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -904,7 +900,7 @@ contain the data by default.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">at         line 309</div>
+        <div class="location">at         line 300</div>
         <code>                    bool
     <strong>save</strong>()
         </code>
@@ -934,7 +930,7 @@ contain the data by default.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_insertRecord">
-        <div class="location">at         line 345</div>
+        <div class="location">at         line 335</div>
         <code>                private    bool
     <strong>insertRecord</strong>(array $fields, array $values)
         </code>
@@ -944,8 +940,7 @@ contain the data by default.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Insert a new record.</p>                    <p>$fields is an array of fields and $values an array with the values for
-each field in the same order.</p>                            </div>
+                                    <p>Insert a new record.</p>                    <p>$fields is an array of fields and $values an array with the values for each field in the same order.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -980,7 +975,7 @@ each field in the same order.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_updateRecord">
-        <div class="location">at         line 363</div>
+        <div class="location">at         line 353</div>
         <code>                private    bool
     <strong>updateRecord</strong>(array $data)
         </code>
@@ -1020,7 +1015,7 @@ each field in the same order.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getStructure">
-        <div class="location">at         line 374</div>
+        <div class="location">at         line 364</div>
         <code>                    array
     <strong>getStructure</strong>()
         </code>
@@ -1050,7 +1045,7 @@ each field in the same order.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAllRecords">
-        <div class="location">at         line 384</div>
+        <div class="location">at         line 374</div>
         <code>                    array
     <strong>getAllRecords</strong>()
         </code>

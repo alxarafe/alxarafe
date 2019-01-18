@@ -110,12 +110,20 @@
                 <td><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#property_fieldQuote"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_literalQuote">
+                                        protected                                        string
+                </td>
+                <td>$literalQuote</td>
+                <td class="last">Character used as quotes to enclose the literal fields</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#property_literalQuote"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_fieldTypes">
                                         protected                                        array
                 </td>
                 <td>$fieldTypes</td>
-                <td class="last">It contains an associative array in which each index is a type of virtual
-field, and its content is each of the types it represents.</td>
+                <td class="last">It contains an associative array in which each index is a type of virtual field, and its content is each of the
+types it represents.</td>
                 <td><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#property_fieldTypes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></td>
             </tr>
             </table>
@@ -152,6 +160,16 @@ field, and its content is each of the types it represents.</td>
                     <a href="#method_quoteFieldName">quoteFieldName</a>(string $fieldName)
         
                                             <p>Returns the name of the field in quotes.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteFieldName"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_quoteLiteral">quoteLiteral</a>(string $fieldName)
+        
+                                            <p>Returns the name of the field in quotes.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -163,6 +181,16 @@ field, and its content is each of the types it represents.</td>
         
                                             <p>Returns an array with the name of all the tables in the database.</p>                </div>
                 <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSQLField">getSQLField</a>(string $fieldName, array $data)
+        
+                                            <p>TODO: Undocummented.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#method_getSQLField"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -179,7 +207,7 @@ field, and its content is each of the types it represents.</td>
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getColumnsSql">getColumnsSql</a>(string $tableName)
+                    <a href="#method_getColumnsSql">getColumnsSql</a>(string $tableName, bool $usePrefix)
         
                                             <p>SQL statement that returns the fields in the table</p>                </div>
                 <div class="col-md-2"></div>
@@ -191,8 +219,8 @@ field, and its content is each of the types it represents.</td>
                 <div class="col-md-8 type">
                     <a href="#method_normalizeFields">normalizeFields</a>(array $row)
         
-                                            <p>Modifies the structure returned by the query generated with
-getColumnsSql to the normalized format that returns getColumns</p>                </div>
+                                            <p>Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+getColumns</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -211,17 +239,18 @@ getColumnsSql to the normalized format that returns getColumns</p>              
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getIndexesSql">getIndexesSql</a>(string $tableName)
+                    <a href="#method_getIndexesSql">getIndexesSql</a>(string $tableName, bool $usePrefix = true)
         
-                                            <p>TODO: Undocumented</p>                </div>
+                                            <p>Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+restrictions later.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_normalizeIndexes">normalizeIndexes</a>(array $row)
+                    <a href="#method_normalizeIndexes">normalizeIndexes</a>(array $fields)
         
                                             <p>uniqueConstraints:
      TC_ARTICULOS_CODIGO_U:
@@ -238,9 +267,9 @@ indexes:
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getConstraintsSql">getConstraintsSql</a>(string $tableName)
+                    <a href="#method_getConstraintsSql">getConstraintsSql</a>(string $tableName, bool $usePrefix = true)
         
-                                            <p>TODO: Undocumented</p>                </div>
+                                            <p>TODO: Undocumented and pending complete.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -248,7 +277,7 @@ indexes:
                     array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_normalizeConstraints">normalizeConstraints</a>(array $row)
+                    <a href="#method_normalizeConstraints">normalizeConstraints</a>(array $fields)
         
                                             <p>'TABLE_NAME' => string 'clientes' (length=8)
 'COLUMN_NAME' => string 'codgrupo' (length=8)
@@ -264,7 +293,7 @@ indexes:
                 <div class="col-md-8 type">
                     <a href="#method_getViewsSql">getViewsSql</a>()
         
-                                            <p>TODO: Undocumented</p>                </div>
+                                            <p>Returns the views from the database.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -341,9 +370,49 @@ indexes:
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteFieldName">
-        <div class="location">at         line 37</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteFieldName"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 80</div>
         <code>                    string
     <strong>quoteFieldName</strong>(string $fieldName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the name of the field in quotes.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fieldName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_quoteLiteral">
+        <div class="location">at         line 37</div>
+        <code>                    string
+    <strong>quoteLiteral</strong>(string $fieldName)
         </code>
     </h3>
     <div class="details">
@@ -410,8 +479,53 @@ indexes:
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getSQLField">
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getSQLField"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 112</div>
+        <code>    abstract                string
+    <strong>getSQLField</strong>(string $fieldName, array $data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>TODO: Undocummented.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fieldName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getColumns">
-        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getColumns"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 106</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getColumns"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 136</div>
         <code>                    array
     <strong>getColumns</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -471,7 +585,7 @@ indexes:
                     <h3 id="method_getColumnsSql">
         <div class="location">at         line 63</div>
         <code>                    string
-    <strong>getColumnsSql</strong>(string $tableName)
+    <strong>getColumnsSql</strong>(string $tableName, bool $usePrefix)
         </code>
     </h3>
     <div class="details">
@@ -487,6 +601,11 @@ indexes:
                     <tr>
                 <td>string</td>
                 <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$usePrefix</td>
                 <td></td>
             </tr>
             </table>
@@ -519,8 +638,8 @@ indexes:
     
 
                     <div class="method-description">
-                                    <p>Modifies the structure returned by the query generated with
-getColumnsSql to the normalized format that returns getColumns</p>                                                </div>
+                                    <p>Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+getColumns</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -550,7 +669,7 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexes">
-        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 139</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 169</div>
         <code>                    
     <strong>getIndexes</strong>(string $tableName, bool $usePrefix)
         </code>
@@ -584,9 +703,9 @@ getColumnsSql to the normalized format that returns getColumns</p>              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesSql">
-        <div class="location">at         line 168</div>
+        <div class="location">at         line 172</div>
         <code>                    string
-    <strong>getIndexesSql</strong>(string $tableName)
+    <strong>getIndexesSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
     </h3>
     <div class="details">
@@ -594,7 +713,8 @@ getColumnsSql to the normalized format that returns getColumns</p>              
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocumented</p>                                                </div>
+                                    <p>Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+restrictions later.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -602,6 +722,11 @@ getColumnsSql to the normalized format that returns getColumns</p>              
                     <tr>
                 <td>string</td>
                 <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$usePrefix</td>
                 <td></td>
             </tr>
             </table>
@@ -625,8 +750,8 @@ getColumnsSql to the normalized format that returns getColumns</p>              
                     <div class="method-item">
                     <h3 id="method_normalizeIndexes">
         <div class="location">at         line 148</div>
-        <code>                    
-    <strong>normalizeIndexes</strong>(array $row)
+        <code>                    array
+    <strong>normalizeIndexes</strong>(array $fields)
         </code>
     </h3>
     <div class="details">
@@ -648,12 +773,21 @@ indexes:
                     <table class="table table-condensed">
                     <tr>
                 <td>array</td>
-                <td>$row</td>
+                <td>$fields</td>
                 <td></td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -662,9 +796,9 @@ indexes:
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 261</div>
+        <div class="location">at         line 264</div>
         <code>                    string
-    <strong>getConstraintsSql</strong>(string $tableName)
+    <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
     </h3>
     <div class="details">
@@ -672,7 +806,7 @@ indexes:
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocumented</p>                                                </div>
+                                    <p>TODO: Undocumented and pending complete.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -680,6 +814,11 @@ indexes:
                     <tr>
                 <td>string</td>
                 <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$usePrefix</td>
                 <td></td>
             </tr>
             </table>
@@ -702,9 +841,9 @@ indexes:
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeConstraints">
-        <div class="location">at         line 188</div>
+        <div class="location">at         line 190</div>
         <code>                    array
-    <strong>normalizeConstraints</strong>(array $row)
+    <strong>normalizeConstraints</strong>(array $fields)
         </code>
     </h3>
     <div class="details">
@@ -723,7 +862,7 @@ indexes:
                     <table class="table table-condensed">
                     <tr>
                 <td>array</td>
-                <td>$row</td>
+                <td>$fields</td>
                 <td></td>
             </tr>
             </table>
@@ -746,7 +885,7 @@ indexes:
             </div>
                     <div class="method-item">
                     <h3 id="method_getViewsSql">
-        <div class="location">at         line 225</div>
+        <div class="location">at         line 228</div>
         <code>                    string
     <strong>getViewsSql</strong>()
         </code>
@@ -756,7 +895,7 @@ indexes:
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocumented</p>                                                </div>
+                                    <p>Returns the views from the database.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
