@@ -34,9 +34,9 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function quoteFieldName(string $fieldName): string
+    public function quoteLiteral(string $fieldName): string
     {
-        return strtoupper(parent::quoteFieldName($fieldName));
+        return strtoupper(parent::quoteLiteral($fieldName));
     }
 
     /**

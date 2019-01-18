@@ -30,6 +30,13 @@ abstract class SqlHelper
     protected $fieldQuote;
 
     /**
+     * Character used as quotes to enclose the literal fields
+     *
+     * @var string
+     */
+    protected $literalQuote;
+
+    /**
      * It contains an associative array in which each index is a type of virtual
      * field, and its content is each of the types it represents.
      *
@@ -44,6 +51,7 @@ abstract class SqlHelper
     {
         $this->tableQuote = '';
         $this->fieldQuote = '';
+        $this->literalQuote = '"';
         $this->fieldTypes = [];
     }
 
@@ -72,6 +80,18 @@ abstract class SqlHelper
     public function quoteFieldName(string $fieldName): string
     {
         return Config::$sqlHelper->fieldQuote . $fieldName . Config::$sqlHelper->fieldQuote;
+    }
+
+    /**
+     * Returns the name of the field in quotes.
+     *
+     * @param string $fieldName
+     *
+     * @return string
+     */
+    public function quoteLiteral(string $fieldName): string
+    {
+        return Config::$sqlHelper->literalQuote . $fieldName . Config::$sqlHelper->literalQuote;
     }
 
     /**

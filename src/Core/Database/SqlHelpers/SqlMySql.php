@@ -24,14 +24,14 @@ class SqlMySql extends SqlHelper
         parent::__construct();
 
         $this->tableQuote = '`';
-        $this->fieldQuote = '"';
+        $this->fieldQuote = '`';
         $this->fieldTypes = [
             'integer' => ['int', 'tinyint'],
             'decimal' => ['decimal'],
-            'string' => ['varchar'],
+            'string' => ['char', 'varchar'],
             'float' => ['real', 'double'],
             'date' => ['date'],
-            'datetime' => ['datetime', 'timestamp'],
+            'datetime' => ['timestamp'],
         ];
     }
 
@@ -74,86 +74,48 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function toNativeForm(/** @scrutinizer ignore-unused */array $row = []): string
+    public function toNative($type, $length = null): string
     {
+        switch ($type) {
+            case 'integer':
+                if ($length == null) {
+                    return 'int';
+                }
+                return (intval($length) > 2) ? 'int(' . $length . ')' : 'tinyint(' . $length . ')';
+            case 'string':
+                return (intval($length) > 6) ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
+            case 'float':
+                return 'double'; // ['real', 'double'],
+            case 'datetime':
+                return 'timestamp';
+            default:
+                return $type;
+        }
+
         return '';
-        /*
-          if ($type == 'string') {
-          if ($max == 0) {
-          $max = constant(DEFAULT_STRING_LENGTH);
-          }
-          $dbType = "$dbType($max)";
-          $ret['pattern'] = '.{' . $min . ',' . $max . '}';
-          } else {
-          if ($type == 'number') {
-          if ($default === true) {
-          $default = '1';
-          }
-          if ($max == 0) {
-          $_length = constant(DEFAULT_INTEGER_SIZE);
-          $max = pow(10, $_length) - 1;
-          } else {
-          $_length = strlen($max);
-          }
+    }
 
-          if ($min == 0) {
-          $min = $unsigned ? 0 : -$max;
-          } else {
-          if ($_length < strlen($min)) {
-          $_length = strlen($min);
-          }
-          }
+    public function getSQLField(string $fieldName, array $data): string
+    {
+        $null = isset($data['nullable']) && ($data['nullable'] == 'yes');
+        $autoincrement = isset($data['autoincrement']) && ($data['autoincrement'] == 'yes');
+        $zerofill = isset($data['zerofill']) && ($data['zerofill'] == 'yes');
+        $default = $data['default'];
+        if (isset($default)) {
+            if ($default != 'CURRENT_TIMESTAMP') {
+                $default = "'$default'";
+            }
+        }
 
-          if (isset($structure['decimals'])) {
-          $decimales = $structure['decimals'];
-          $precision = pow(10, -$decimales);
-          $_length += $decimales;
-          $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
-          $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
-          $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
-          } else {
-          $precision = null;
-          $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
-          $ret['min'] = $min;
-          $ret['max'] = $max;
-          }
-          }
-          }
+        $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length']);
+        $result .= ($null ? '' : ' NOT') . ' NULL';
+        $result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
+        $result .= $zerofill ? ' ZEROFILL' : '';
+        if (isset($default)) {
+            $result .= ' DEFAULT ' . $default;
+        }
 
-          $ret['type'] = $type;
-          $ret['dbtype'] = $dbType;
-          $ret['default'] = $default;
-          $ret['null'] = $null;
-          $ret['label'] = $label;
-          if (isset($precision)) {
-          $ret['step'] = $precision;
-          }
-          if (isset($structure['key'])) {
-          $ret['key'] = $structure['key'];
-          }
-          if (isset($structure['placeholder'])) {
-          $ret['placeholder'] = $structure['placeholder'];
-          }
-          if (isset($structure['extra'])) {
-          $ret['extra'] = $structure['extra'];
-          }
-          if (isset($structure['help'])) {
-          $ret['help'] = $structure['help'];
-          }
-          if (isset($structure['unique']) && $structure['unique']) {
-          $ret['unique'] = $structure['unique'];
-          }
-
-          if (isset($structure['relations'][$field]['table'])) {
-          $ret['relation'] = [
-          'table' => $structure['relations'][$field]['table'],
-          'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
-          'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
-          ];
-          }
-
-          return $ret;
-         */
+        return $result;
     }
 
     /**
@@ -291,9 +253,9 @@ class SqlMySql extends SqlHelper
                 FROM
                     INFORMATION_SCHEMA.KEY_COLUMN_USAGE
                 WHERE
-                    TABLE_SCHEMA = ' . $this->quoteFieldName($this->getTablename()) . ' AND
-                    TABLE_NAME = ' . $this->quoteFieldName($tableName) . ' AND
-                    constraint_name = ' . $this->quoteFieldName($constraintName) . ' AND
+                    TABLE_SCHEMA = ' . $this->quoteLiteral($this->getTablename()) . ' AND
+                    TABLE_NAME = ' . $this->quoteLiteral($tableName) . ' AND
+                    constraint_name = ' . $this->quoteLiteral($constraintName) . ' AND
                     REFERENCED_COLUMN_NAME IS NOT NULL;';
         return Config::$dbEngine->select($sql);
     }
@@ -317,9 +279,9 @@ class SqlMySql extends SqlHelper
                     DELETE_RULE
                 FROM information_schema.REFERENTIAL_CONSTRAINTS
                 WHERE
-                    constraint_schema = ' . $this->quoteFieldName($this->getTablename()) . ' AND
-                    table_name = ' . $this->quoteFieldName($tableName) . ' AND
-                    constraint_name = ' . $this->quoteFieldName($constraintName) . ';';
+                    constraint_schema = ' . $this->quoteLiteral($this->getTablename()) . ' AND
+                    table_name = ' . $this->quoteLiteral($tableName) . ' AND
+                    constraint_name = ' . $this->quoteLiteral($constraintName) . ';';
         return Config::$dbEngine->select($sql);
     }
 

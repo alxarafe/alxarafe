@@ -71,13 +71,28 @@ class SchemaDB
     public static function createTable(string $tableName): bool
     {
         $tabla = Config::$bbddStructure[$tableName];
+        var_dump($tabla);
+
         $sql = self::createFields($tableName, $tabla['fields']);
 
-        foreach ($tabla['keys'] as $name => $index) {
-            $sql .= self::createIndex($tableName, $name, $index);
-        }
-        $sql .= Schema::setValues($tableName, $tabla['values']);
+        /*
+          foreach ($tabla['keys'] as $name => $index) {
+          $sql .= self::createIndex($tableName, $name, $index);
+          }
+          $sql .= Schema::setValues($tableName, $tabla['values']);
+         */
+        echo $sql;
+
         return Config::$dbEngine->exec($sql);
+    }
+
+    protected static function assignFields(array $fieldsList): string
+    {
+        $fields = [];
+        foreach ($fieldsList as $index => $col) {
+            $fields[] = Config::$sqlHelper->getSQLField($index, $col);
+        }
+        return implode(',', $fields);
     }
 
     /**
@@ -87,52 +102,14 @@ class SchemaDB
      * TODO: Netbeans does not support @return ?string
      *
      * @param string $tableName
-     * @param array  $fieldList
+     * @param array  $fieldsList
      *
      * @return string|null
      */
-    protected static function createFields(string $tableName, array $fieldList)
+    protected static function createFields(string $tableName, array $fieldsList)
     {
-        $tableName = Config::getVar('dbPrefix') . $tableName;
-        $sql = "CREATE TABLE $tableName ( ";
-        foreach ($fieldList as $index => $col) {
-            if (!isset($col['dbtype'])) {
-                $msg = 'Tipo no especificado en createTable';
-                $e = new Exception($msg);
-                Debug::addException($e);
-                return null;
-            }
-
-            $sql .= '`' . $index . '` ' . $col['dbtype'];
-            $nulo = isset($col['null']) && $col['null'];
-
-            $sql .= ($nulo ? '' : ' NOT') . ' NULL';
-
-            if (isset($col['extra']) && (strtolower($col['extra']) == 'auto_increment')) {
-                $sql .= ' PRIMARY KEY AUTO_INCREMENT';
-            }
-
-            $defectoTemp = $col['default'] ?? null;
-            $defecto = '';
-            if (isset($defectoTemp)) {
-                if ($defectoTemp == 'CURRENT_TIMESTAMP') {
-                    $defecto = "$defectoTemp";
-                } else {
-                    $defecto = "'$defectoTemp'";
-                }
-            } else {
-                if ($nulo) {
-                    $defecto = 'NULL';
-                }
-            }
-
-            if ($defecto != '') {
-                $sql .= ' DEFAULT ' . $defecto;
-            }
-
-            $sql .= ', ';
-        }
-        $sql = substr($sql, 0, -2); // Quitamos la coma y el espacio del final
+        $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, false) . ' (';
+        $sql .= self::assignFields($fieldsList);
         $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
 
         return $sql;
