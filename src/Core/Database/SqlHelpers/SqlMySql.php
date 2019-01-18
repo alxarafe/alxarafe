@@ -112,9 +112,10 @@ class SqlMySql extends SqlHelper
      */
     public function getSQLField(string $fieldName, array $data): string
     {
-        $null = isset($data['nullable']) && ($data['nullable'] == 'yes');
-        $autoincrement = isset($data['autoincrement']) && ($data['autoincrement'] == 'yes');
-        $zerofill = isset($data['zerofill']) && ($data['zerofill'] == 'yes');
+        $null = $this->isYes($data['nullable']);
+        $autoincrement = $this->isYes($data['autoincrement']);
+        $zerofill = $this->isYes($data['zerofill']);
+
         $default = $data['default'];
         if (isset($default)) {
             if ($default != 'CURRENT_TIMESTAMP') {
@@ -126,11 +127,21 @@ class SqlMySql extends SqlHelper
         $result .= ($null ? '' : ' NOT') . ' NULL';
         $result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
         $result .= $zerofill ? ' ZEROFILL' : '';
-        if (isset($default)) {
-            $result .= ' DEFAULT ' . $default;
-        }
+        $result .= isset($default) ? ' DEFAULT ' . $default : '';
 
         return $result;
+    }
+
+    /**
+     * Return true if $param is setted and is 'yes', otherwise return false.
+     *
+     * @param string $param
+     *
+     * @return bool
+     */
+    private function isYes($param)
+    {
+        return (isset($param) && ($param == 'yes'));
     }
 
     /**
