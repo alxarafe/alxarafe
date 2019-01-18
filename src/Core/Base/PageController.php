@@ -62,7 +62,7 @@ class PageController extends Controller
     }
 
     /**.
-     * Returns the page details
+     * Returns the page details.
      */
     public function pageDetails()
     {

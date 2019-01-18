@@ -29,7 +29,7 @@ class LoginView extends View
     }
 
     /**
-     * TODO: Undocummented
+     * Add new CSS code related to this view.
      */
     public function addCss(): void
     {

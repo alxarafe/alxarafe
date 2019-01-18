@@ -151,8 +151,8 @@ class Lang
     }
 
     /**
-     * Return first exact match, or first partial match with language key identifier,
-     * or it not match founded, return default language.
+     * Return first exact match, or first partial match with language key identifier, or it not match founded, return
+     * default language.
      *
      * @param string $langCode
      *

@@ -11,7 +11,11 @@ use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
 
 /**
- * Class View
+ * Class View, this class is used to manage the common things in a view:
+ * - User
+ * - Lang
+ * - CSS
+ * - JS
  *
  * @package Alxarafe\Base
  */
@@ -26,8 +30,7 @@ class View
     private $vars;
 
     /**
-     * Load the JS and CSS files and define the ctrl, view and user variables
-     * for the templates.
+     * Load the JS and CSS files and define the ctrl, view and user variables for the templates.
      *
      * @param mixed $controller
      */
@@ -87,9 +90,9 @@ class View
      *
      * If it is not in either of the two, no route is specified (it will surely give loading error).
      *
-     * @param string  $resourceName      , is the name of the file (without extension)
-     * @param string  $resourceExtension , is the extension (type) of the resource (js or css)
-     * @param boolean $relative          , set to false for use an absolute path.
+     * @param string  $resourceName      is the name of the file (without extension)
+     * @param string  $resourceExtension is the extension (type) of the resource (js or css)
+     * @param boolean $relative          set to false for use an absolute path.
      *
      * @return string the complete path of resource.
      */
@@ -121,7 +124,7 @@ class View
      * Saves a value in the array that is passed to the template.
      *
      * @param string $name
-     * @param        $value
+     * @param mixed  $value
      *
      * @return void
      */
@@ -131,13 +134,11 @@ class View
     }
 
     /**
-     * Add a new element to a value saved in the array that is passed to the
-     * template.
-     * It is used when what we are saving is an array and we want to add a
-     * new element to that array.
+     * Add a new element to a value saved in the array that is passed to the template.
+     * It is used when what we are saving is an array and we want to add a new element to that array.
      *
      * @param string $name
-     * @param $value
+     * @param mixed  $value
      *
      * @return void
      */
@@ -147,8 +148,7 @@ class View
     }
 
     /**
-     * Returns a previously saved value in the array that is passed to the
-     * template.
+     * Returns a previously saved value in the array that is passed to the template.
      *
      * @return array
      */
@@ -158,8 +158,7 @@ class View
     }
 
     /**
-     * Returns a previously saved value in the array that is passed to the
-     * template.
+     * Returns a previously saved value in the array that is passed to the template.
      *
      * @param $name
      *
@@ -172,8 +171,7 @@ class View
 
     /**
      * Makes visible Config::getErrors() from templates, using view.getErrors()
-     * Config::getErrors() returns an array with the pending error messages,
-     * and empties the list.
+     * Config::getErrors() returns an array with the pending error messages, and empties the list.
      *
      * @return array
      */
@@ -183,8 +181,7 @@ class View
     }
 
     /**
-     * Returns the necessary html code in the header of the template, to
-     * display the debug bar.
+     * Returns the necessary html code in the header of the template, to display the debug bar.
      *
      * @return string
      */
@@ -194,8 +191,7 @@ class View
     }
 
     /**
-     * Returns the necessary html code at the footer of the template, to
-     * display the debug bar.
+     * Returns the necessary html code at the footer of the template, to display the debug bar.
      *
      * @return string
      */

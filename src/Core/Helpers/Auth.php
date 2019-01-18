@@ -18,12 +18,12 @@ class Auth extends Users
 {
 
     /**
-     * TODO: Undocumented
+     * Cookie time expiration.
      */
-    const COOKIE_EXPIRATION = 0;
+    const COOKIE_EXPIRATION = 86400*30; // 30 days
 
     /**
-     * TODO: Undocumented
+     * User in use.
      *
      * @var string|null
      */
@@ -39,19 +39,23 @@ class Auth extends Users
     }
 
     /**
-     * TODO: Undocummented
+     * Returns the cookie from the user
+     *
+     * @return string|null
      */
     private function getCookieUser()
     {
         if ($this->user === null) {
             if (isset($_COOKIE['user'])) {
                 $this->user = $_COOKIE['user'];
+                //return $_COOKIE['user'];
             }
         }
+        return null;
     }
 
     /**
-     * TODO: Undocummented
+     * Login the user.
      */
     public function login()
     {
@@ -59,17 +63,20 @@ class Auth extends Users
     }
 
     /**
-     * TODO: Undocumented
+     * Logout the user.
      */
     public function logout()
     {
-        Debug::addMessage('messages', 'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
+        Debug::addMessage(
+            'messages',
+            'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out')
+        );
         $this->user = null;
         $this->clearCookieUser();
     }
 
     /**
-     * TODO: Undocummented
+     * Clear the cookie user.
      */
     private function clearCookieUser()
     {
@@ -78,7 +85,7 @@ class Auth extends Users
     }
 
     /**
-     * TODO: Undocumented
+     * Returns the user it setted or null.
      *
      * @return string|null
      */

@@ -30,8 +30,8 @@ abstract class SqlHelper
     protected $fieldQuote;
 
     /**
-     * It contains an associative array in which each index is a type of virtual
-     * field, and its content is each of the types it represents.
+     * It contains an associative array in which each index is a type of virtual field, and its content is each of the
+     * types it represents.
      *
      * @var array
      */
@@ -125,8 +125,8 @@ abstract class SqlHelper
     abstract public function getColumnsSql(string $tableName, bool $usePrefix): string;
 
     /**
-     * Modifies the structure returned by the query generated with
-     * getColumnsSql to the normalized format that returns getColumns
+     * Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+     * getColumns
      *
      * @param array $fields
      *
@@ -150,14 +150,23 @@ abstract class SqlHelper
     }
 
     /**
-     * TODO: Undocumented
+     * Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+     * restrictions later.
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */
     abstract public function getIndexesSql(string $tableName, bool $usePrefix = true): string;
 
+    /**
+     * Returns an array with the index information, and if there are, also constraints.
+     *
+     * @param array $fields
+     *
+     * @return array
+     */
     abstract public function normalizeIndexes(array $fields): array;
 
     /**

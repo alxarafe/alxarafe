@@ -16,8 +16,7 @@ class PdoMySql extends Engine
 {
 
     /**
-     * PdoMySql constructor.
-     * Add aditional parameters to self::$dsn string.
+     * PdoMySql constructor. Add aditional parameters to self::$dsn string.
      *
      * @param array $dbConfig
      */

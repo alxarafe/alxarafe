@@ -30,8 +30,7 @@ class ExportStructure extends PageController
     }
 
     /**
-     * Main is invoked if method is not specified.
-     * Check if you have to save changes or just exit
+     * Main is invoked if method is not specified. Check if you have to save changes or just exit
      *
      * @return void
      */
@@ -48,7 +47,7 @@ class ExportStructure extends PageController
     }
 
     /**.
-     * Returns the page details
+     * Returns the page details.
      */
     public function pageDetails()
     {

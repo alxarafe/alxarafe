@@ -9,9 +9,7 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * TODO: Undocumented
- *
- * Link each user with the assigned roles.
+ * Class UserRoles. Link each user with the assigned roles.
  *
  * @package Alxarafe\Models
  */
@@ -27,7 +25,8 @@ class UserRoles extends Table
     }
 
     /**
-     * TODO: Undocumented
+     * Return a list of fields and their table structure.
+     * Each final model that needed, must overwrite it.
      *
      * @return array
      */
@@ -58,7 +57,8 @@ class UserRoles extends Table
     }
 
     /**
-     * TODO: Undocumented
+     * Return a list of default values.
+     * Each final model that needed, must overwrite it.
      *
      * @return array
      */

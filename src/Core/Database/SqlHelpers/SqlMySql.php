@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
@@ -68,14 +69,13 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * TODO: Undocummented and pending complete.
+     * TODO: Undocumented and pending complete.
      *
      * @param array $row
      *
      * @return string
      */
-    public function toNativeForm(/** @scrutinizer ignore-unused */array $row = []): string
-    {
+    public function toNativeForm(/** @scrutinizer ignore-unused */array $row = []): string {
         return '';
         /*
           if ($type == 'string') {
@@ -157,8 +157,8 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * Modifies the structure returned by the query generated with
-     * getColumnsSql to the normalized format that returns getColumns
+     * Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+     * getColumns
      *
      * @param array $fields
      *
@@ -210,8 +210,8 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * Divide the data type of a MySQL field into its various components: type,
-     * length, unsigned or zerofill, if applicable.
+     * Divide the data type of a MySQL field into its various components: type, length, unsigned or zerofill, if
+     * applicable.
      *
      * @param string $originalType
      *
@@ -243,24 +243,24 @@ class SqlMySql extends SqlHelper
     /**
      * Returns an array with the index information, and if there are, also constraints.
      *
-     * @param array $row
+     * @param array $fields
      *
      * @return array
      */
-    public function normalizeIndexes(array $row): array
+    public function normalizeIndexes(array $fields): array
     {
         $result = [];
-        $result['index'] = $row['Key_name'];
-        $result['column'] = $row['Column_name'];
-        $result['unique'] = $row['Non_unique'] == '0' ? 1 : 0;
-        $result['nullable'] = $row['Null'] == 'YES' ? 1 : 0;
-        $constrait = $this->getConstraintData($row['Table'], $row['Key_name']);
+        $result['index'] = $fields['Key_name'];
+        $result['column'] = $fields['Column_name'];
+        $result['unique'] = $fields['Non_unique'] == '0' ? 1 : 0;
+        $result['nullable'] = $fields['Null'] == 'YES' ? 1 : 0;
+        $constrait = $this->getConstraintData($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
             $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
             $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
             $result['referencedfield'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
         }
-        $constrait = $this->getConstraintRules($row['Table'], $row['Key_name']);
+        $constrait = $this->getConstraintRules($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
             $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
             $result['updaterule'] = $constrait[0]['UPDATE_RULE'];
@@ -270,10 +270,9 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * The data about the constraint that is found in the KEY_COLUMN_USAGE table
-     * is returned.
-     * Attempting to return the consolidated data generates an extremely slow query
-     * in some MySQL installations, so 2 additional simple queries are made.
+     * The data about the constraint that is found in the KEY_COLUMN_USAGE table is returned.
+     * Attempting to return the consolidated data generates an extremely slow query in some MySQL installations, so 2
+     * additional simple queries are made.
      *
      * @param string $tableName
      * @param string $constraintName
@@ -299,10 +298,9 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * The rules for updating and deleting data with constraint (table
-     * REFERENTIAL_CONSTRAINTS) are returned.
-     * Attempting to return the consolidated data generates an extremely slow query
-     * in some MySQL installations, so 2 additional simple queries are made.
+     * The rules for updating and deleting data with constraint (table REFERENTIAL_CONSTRAINTS) are returned.
+     * Attempting to return the consolidated data generates an extremely slow query in some MySQL installations, so 2
+     * additional simple queries are made.
      *
      * @param string $tableName
      * @param string $constraintName
@@ -334,22 +332,23 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * Obtain an array with the basic information about the indexes of the table,
-     * which will be supplemented with the restrictions later.
+     * Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+     * restrictions later.
+     *
+     * @doc https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */
     public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
-        // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
-
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName, $usePrefix) . ';';
     }
 
     /**
-     * TODO: Undocumented
+     * TODO: Undocumented and pending complete.
      *
      * @param string $tableName
      *

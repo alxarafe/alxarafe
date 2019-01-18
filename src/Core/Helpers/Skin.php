@@ -23,62 +23,68 @@ class Skin
 
     /**
      * Default: It is the folder that includes the templates.
-     * Each template will be a folder whose name will be the one that will
-     * appear in the template selector.
+     * Each template will be a folder whose name will be the one that will appear in the template selector.
      */
     const SKINS_FOLDER = "/html/templates";
 
     /**
      * Default: Folder of the common code.
-     * It is where the common files will be placed to all the templates. If a
-     * file is not found in the template, then it will be searched in COMMON_FOLDER.
+     * It is where the common files will be placed to all the templates. If a file is not found in the template, then
+     * it will be searched in COMMON_FOLDER.
      */
     const COMMON_FOLDER = "/html/common";
+
     /**
      * Contains an instance of the view, or the generic view if one is not specified.
      *
      * @var View
      */
     public static $view;
+
     /**
      * It is the name of the template that is being used.
      *
      * @var string
      */
     private static $currentTemplate;
+
     /**
      * It's the name of the skin that is being used.
      *
      * @var string
      */
     private static $currentSkin;
+
     /**
      * It's the name of the template engine.
      * For now, only the 'twig' template engine is used.
      *
      * @var string
      */
+
     private static $templatesEngine;
+
     /**
      * It is the skin, that is, the folder that contains the templates.
      *
-     * It is the folder where the different skins are located. Each skin uses a
-     * folder defined by $template, which contains the templates that will be used.
+     * It is the folder where the different skins are located. Each skin uses a folder defined by $template, which
+     * contains the templates that will be used.
      *
      * @var string
      */
     private static $templatesFolder;
+
     /**
      * Indicates the folder where the files common to all the templates are located.
-     * A file will be searched first in the $templatesFolder, and if it is not, it
-     * will be searched in this $commonTemplatesFolder.
+     * A file will be searched first in the $templatesFolder, and if it is not, it will be searched in this
+     * $commonTemplatesFolder.
      *
      * @var string
      */
     private static $commonTemplatesFolder;
 
     /**
-     * Sets the view class that will be used
+     * Sets the view class that will be used.
      *
      * @param View $view
      */
@@ -91,7 +97,7 @@ class Skin
     }
 
     /**
-     * Return the templates folder
+     * Return the templates folder.
      *
      * @return bool
      */
@@ -101,7 +107,7 @@ class Skin
     }
 
     /**
-     * Returns true if a template has been specified
+     * Returns true if a template has been specified.
      *
      * @return bool
      */
@@ -111,11 +117,9 @@ class Skin
     }
 
     /**
-     * Returns an array with the list of skins (folders inside the folder
-     * specified for the templates)
+     * Returns an array with the list of skins (folders inside the folder specified for the templates).
      *
-     * TODO: Possible misuse of constant and variable to specify the
-     * template folder.
+     * TODO: Possible misuse of constant and variable to specify the template folder.
      *
      * @return array
      */
@@ -137,7 +141,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Set a skin.
      *
      * @param $skin
      */
@@ -151,7 +155,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Set a template.
      *
      * @param $template
      */
@@ -162,7 +166,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Return the template uri path.
      *
      * @return string
      */
@@ -172,7 +176,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Return the template engine.
      *
      * @return string
      */
@@ -182,7 +186,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Set another template engine.
      *
      * @param $engine
      */
@@ -192,7 +196,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Returns the common template uri path.
      *
      * @return string
      */
@@ -202,7 +206,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Render the page.
      *
      * @param array $vars
      *
@@ -210,16 +214,19 @@ class Skin
      */
     public static function render(array $vars): string
     {
-        Debug::addMessage('messages', 'Templates engine: ' . self::$templatesEngine);
-        Debug::addMessage('messages', 'Templates folder: ' . self::$templatesFolder);
-        Debug::addMessage('messages', 'Templates common folder: ' . self::$commonTemplatesFolder);
-        Debug::addMessage('messages', 'Current template: ' . self::$currentTemplate);
+        $details = [
+            'Templates engine: ' . self::$templatesEngine,
+            'Templates folder: ' . self::$templatesFolder,
+            'Templates common folder: ' . self::$commonTemplatesFolder,
+            'Current template: ' . self::$currentTemplate,
+        ];
+        Debug::addMessage('messages', '<pre>' . var_export($details, true) . '</pre>');
 
         return self::renderIt($vars);
     }
 
     /**
-     * TODO: Undocumented
+     * Render the page.
      *
      * @param array $vars
      *
@@ -322,7 +329,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Return the template folder path.
      *
      * @return string
      */
@@ -343,7 +350,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Return the common template folder path.
      *
      * @return string
      */
@@ -353,7 +360,7 @@ class Skin
     }
 
     /**
-     * TODO: Undocumented
+     * Sets the common templates folder.
      *
      * @param string $templatesFolder
      */

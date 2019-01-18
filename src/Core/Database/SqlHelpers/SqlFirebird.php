@@ -60,7 +60,7 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function getColumnsSql(string $tableName): string
+    public function getColumnsSql(string $tableName, bool $usePrefix): string
     {
         return 'SELECT
             b.RDB$FIELD_NAME as field,
@@ -76,7 +76,7 @@ class SqlFirebird extends SqlHelper
         WHERE
             a.RDB$SYSTEM_FLAG = 0 AND
             d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
-            b.RDB$RELATION_NAME=' . $this->quoteTableName($tableName) . '
+            b.RDB$RELATION_NAME=' . $this->quoteTableName($tableName, $usePrefix) . '
         ORDER BY b.RDB$FIELD_POSITION;'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
     }
 
@@ -93,8 +93,8 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
-     * Modifies the structure returned by the query generated with
-     * getColumnsSql to the normalized format that returns getColumns
+     * Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
+     * getColumns
      *
      * @param array $row
      *
@@ -141,11 +141,11 @@ class SqlFirebird extends SqlHelper
      *
      *
      *
-     * @param array $row
+     * @param array $fields
      *
      * @return array
      */
-    public function normalizeIndexes(array $row): array
+    public function normalizeIndexes(array $fields): array
     {
         $result = [];
         /*
@@ -159,16 +159,18 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
-     * TODO: Undocumented
+     * Obtain an array with the basic information about the indexes of the table, which will be supplemented with the
+     * restrictions later.
+     *
+     * @doc https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */
-    public function getIndexesSql(string $tableName): string
+    public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
-        // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
-
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
     }
 
@@ -181,23 +183,23 @@ class SqlFirebird extends SqlHelper
      *
      * ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
      *
-     * @param array $row
+     * @param array $fields
      *
      * @return array
      */
-    public function normalizeConstraints(array $row): array
+    public function normalizeConstraints(array $fields): array
     {
         $result = [];
-        $result['table'] = $row['TABLE_NAME'];
-        $result['column'] = $row['COLUMN_NAME'];
-        $result['constraint'] = $row['CONSTRAINT_NAME'];
-        $result['referencedtable'] = $row['REFERENCED_TABLE_NAME'];
-        $result['referencedfield'] = $row['REFERENCED_COLUMN_NAME'];
+        $result['table'] = $fields['TABLE_NAME'];
+        $result['column'] = $fields['COLUMN_NAME'];
+        $result['constraint'] = $fields['CONSTRAINT_NAME'];
+        $result['referencedtable'] = $fields['REFERENCED_TABLE_NAME'];
+        $result['referencedfield'] = $fields['REFERENCED_COLUMN_NAME'];
         return $result;
     }
 
     /**
-     * TODO: Undocumented
+     * TODO: Undocumented and pending complete.
      *
      * @param string $tableName
      *
@@ -217,7 +219,8 @@ class SqlFirebird extends SqlHelper
      */
 
     /**
-     * TODO: Undocumented
+     * Returns the views from the database.
+     *
      * @doc http://www.firebirdfaq.org/faq174/
      *
      * @return string
@@ -252,13 +255,13 @@ class SqlFirebird extends SqlHelper
      */
 
     /**
-     * TODO: Undocumented
+     * TODO: Undocumented and pending complete.
      *
      * @param string $tableName
      *
      * @return string
      */
-    public function getConstraintsSql(string $tableName): string
+    public function getConstraintsSql(string $tableName, bool $usePrefix = true): string
     {
         // TODO: Implement getConstraintsSql() method.
         return '';

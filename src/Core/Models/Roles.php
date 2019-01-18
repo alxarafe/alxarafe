@@ -9,9 +9,7 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * TODO: Undocumented
- *
- * Define the roles available in the application. By default, the administrator
+ * Class Roles. Define the roles available in the application. By default, the administrator
  * and the user are defined.
  *
  * @package Alxarafe\Models
@@ -28,7 +26,8 @@ class Roles extends Table
     }
 
     /**
-     * TODO: Undocumented
+     * Return a list of fields and their table structure.
+     * Each final model that needed, must overwrite it.
      *
      * @return array
      */
@@ -69,7 +68,8 @@ class Roles extends Table
     }
 
     /**
-     * TODO: Undocumented
+     * Return a list of default values.
+     * Each final model that needed, must overwrite it.
      *
      * @return array
      */

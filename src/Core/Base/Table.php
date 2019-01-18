@@ -11,8 +11,7 @@ use Alxarafe\Helpers\SchemaDB;
 
 /**
  * Class Table allows access to a table using an active record.
- * It is recommended to create a descendant for each table of the database,
- * defining its tablename and structure.
+ * It is recommended to create a descendant for each table of the database, defining its tablename and structure.
  */
 class Table extends SimpleTable
 {
@@ -46,8 +45,8 @@ class Table extends SimpleTable
     /**
      * Create a new table if it does not exist and it has been passed true as a parameter.
      *
-     * This should check if there are differences between the defined in bbddStructure
-     * and the physical table, correcting the differences if true is passed as parameter.
+     * This should check if there are differences between the defined in bbddStructure and the physical table,
+     * correcting the differences if true is passed as parameter.
      *
      * @param bool $create
      */
@@ -61,8 +60,7 @@ class Table extends SimpleTable
     }
 
     /**
-     * Returns the name of the identification field of the record. By default it
-     * will be name.
+     * Returns the name of the identification field of the record. By default it will be name.
      *
      * @return string
      */
@@ -72,9 +70,8 @@ class Table extends SimpleTable
     }
 
     /**
-     * Perform a search of a record by the name, returning the id of the
-     * corresponding record, or '' if it is not found or does not have a
-     * name field.
+     * Perform a search of a record by the name, returning the id of the corresponding record, or '' if it is not found
+     * or does not have a name field.
      *
      * @param string $name
      *
@@ -100,14 +97,11 @@ class Table extends SimpleTable
      * Each final model that needed, must overwrite it.
      *
      * @return array
-     * public function getFields(): array
-     * {
-     * return parent::getFields();
-     * }
      */
+    //abstract public function getFields();
 
     /**
-     * Returns the structure of the normalized table
+     * Returns the structure of the normalized table.
      *
      * @return array
      */
@@ -117,7 +111,7 @@ class Table extends SimpleTable
     }
 
     /**
-     * Get an array with all data
+     * Get an array with all data.
      *
      * @return array
      */
@@ -135,7 +129,8 @@ class Table extends SimpleTable
     protected function getStructureArray(): array
     {
         $struct = parent::getStructureArray();
-        $struct['keys'] = method_exists($this, 'getKeys') ? /** @scrutinizer ignore-call */ $this->getKeys() : $this->getIndexesFromTable();
+        $struct['keys'] = method_exists($this, 'getKeys') ? /** @scrutinizer ignore-call */
+            $this->getKeys() : $this->getIndexesFromTable();
         $struct['values'] = $this->getDefaultValues();
         $struct['checks'] = $this->getChecks();
         return $struct;
@@ -144,6 +139,8 @@ class Table extends SimpleTable
     /**
      * Return a list of key indexes.
      * Each final model that needed, must overwrite it.
+     *
+     * TODO: Why "*FromTable()" need to be overwrited on final model? Is not from model definition.
      *
      * @return array
      */
@@ -163,6 +160,12 @@ class Table extends SimpleTable
         return [];
     }
 
+    /**
+     * Returns a list of checks.
+     * Each final model that needed, must overwrite it.
+     *
+     * @return array
+     */
     public function getChecks(): array
     {
         return [];

@@ -19,8 +19,7 @@ class Dispatcher
 {
 
     /**
-     * Array that contains the paths to find the Controllers folder that
-     * contains the controllers
+     * Array that contains the paths to find the Controllers folder that contains the controllers
      *
      * @var array
      */
@@ -66,8 +65,7 @@ class Dispatcher
     public function defineConstants(): void
     {
         /**
-         * It is recommended to define BASE_PATH as the first line of the
-         * index.php file of the application.
+         * It is recommended to define BASE_PATH as the first line of the index.php file of the application.
          *
          * define('BASE_PATH', __DIR__);
          */
@@ -110,8 +108,7 @@ class Dispatcher
     }
 
     /**
-     * Walk the paths specified in $this->searchDir, trying to find the
-     * controller and method to execute.
+     * Walk the paths specified in $this->searchDir, trying to find the controller and method to execute.
      * Returns true if the method is found, and executes it.
      *
      * @return bool
@@ -133,8 +130,7 @@ class Dispatcher
 
     /**
      * Try to locate the $call class in $path, and execute the $method.
-     * Returns true if it locates the class and the method exists,
-     * executing it.
+     * Returns true if it locates the class and the method exists, executing it.
      *
      * @param string $path
      * @param string $call

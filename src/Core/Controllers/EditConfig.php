@@ -13,7 +13,7 @@ use Alxarafe\Views\ConfigView;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Controller for editing database and skin settings
+ * Controller for editing database and skin settings.
  *
  * @package Alxarafe\Controllers
  */
@@ -21,7 +21,7 @@ class EditConfig extends PageController
 {
 
     /**
-     * The constructor creates the view
+     * The constructor creates the view.
      */
     public function __construct()
     {
@@ -31,8 +31,7 @@ class EditConfig extends PageController
     }
 
     /**
-     * Main is invoked if method is not specified.
-     * Check if you have to save changes or just exit
+     * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
      * @return void
      */
@@ -71,7 +70,7 @@ class EditConfig extends PageController
     }
 
     /**.
-     * Returns the page details
+     * Returns the page details.
      */
     public function pageDetails()
     {

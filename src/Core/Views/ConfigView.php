@@ -20,37 +20,37 @@ class ConfigView extends View
 {
 
     /**
-     * TODO: Undocumented
+     * List of engines available.
      *
      * @var array
      */
     public $dbEngines;
 
     /**
-     * TODO: Undocumented
+     * Engine in use.
      *
      * @var mixed|string
      */
     public $dbEngineName;
 
     /**
-     * TODO: Undocumented
+     * List of skins available.
      *
      * @var array
      */
     public $skins;
 
     /**
-     * TODO: Undocumented
+     * Skin in use.
      *
      * @var
      */
     public $skin;
 
     /**
-     * TODO: Undocumented
+     * Database config values.
      *
-     * @var
+     * @var array
      */
     public $dbConfig;
 

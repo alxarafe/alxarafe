@@ -14,8 +14,8 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * All variables and global functions are centralized through the static class Config.
- * The Config class can be instantiated and passed to the class that needs it,
- * sharing the data and methods that are in them.
+ * The Config class can be instantiated and passed to the class that needs it, sharing the data and methods that are in
+ * them.
  *
  * @package Alxarafe\Helpers
  */
@@ -51,8 +51,7 @@ class Config
     public static $bbddStructure;
 
     /**
-     * It is a static instance of the Auth class that contains the data of the
-     * currently identified user.
+     * It is a static instance of the Auth class that contains the data of the currently identified user.
      *
      * @var Auth
      */
@@ -105,11 +104,9 @@ class Config
     }
 
     /**
-     * Returns the name of the configuration file. By default, create the config
-     * folder and enter the config.yaml file inside it.
-     * If you want to use another folder for the configuration, you will have to
-     * define it in the constant CONFIGURATION_PATH before invoking this method,
-     * this folder must exist.
+     * Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
+     * inside it. If you want to use another folder for the configuration, you will have to define it in the constant
+     * CONFIGURATION_PATH before invoking this method, this folder must exist.
      *
      * @return string
      */
@@ -141,8 +138,6 @@ class Config
     /**
      * Gets the contents of a variable. If the variable does not exist, return null.
      *
-     * TODO: Netbeans does not support @return ?string
-     *
      * @param string $name
      *
      * @return string|null
@@ -153,8 +148,7 @@ class Config
     }
 
     /**
-     * Initializes the global variable with the configuration, connects with
-     * the database and authenticates the user.
+     * Initializes the global variable with the configuration, connects with the database and authenticates the user.
      *
      * @return void
      */
@@ -193,8 +187,7 @@ class Config
 
     /**
      * Returns an array with the configuration defined in the configuration file.
-     * If the configuration file does not exist, take us to the application
-     * configuration form to create it
+     * If the configuration file does not exist, take us to the application configuration form to create it
      *
      * @return array
      */
@@ -227,8 +220,8 @@ class Config
     }
 
     /**
-     * If Config::$dbEngine contain null, create an Engine instance with the
-     * database connection and assigns it to Config::$dbEngine.
+     * If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+     * Config::$dbEngine.
      *
      * @return bool
      */
@@ -263,8 +256,7 @@ class Config
     }
 
     /**
-     * Stores all the variables in a permanent file so that they can be loaded
-     * later with loadConfigFile()
+     * Stores all the variables in a permanent file so that they can be loaded later with loadConfigFile()
      * Returns true if there is no error when saving the file.
      *
      * @return bool

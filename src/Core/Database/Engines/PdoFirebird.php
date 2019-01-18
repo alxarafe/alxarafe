@@ -17,8 +17,7 @@ class PdoFirebird extends Engine
 {
 
     /**
-     * PdoMySql constructor.
-     * Add aditional parameters to self::$dsn string.
+     * PdoMySql constructor. Add aditional parameters to self::$dsn string.
      *
      * @param array $dbConfig
      */
@@ -31,8 +30,6 @@ class PdoFirebird extends Engine
     /**
      * Executes a SELECT SQL statement on the database, returning the result in an array.
      * In case of failure, return NULL. If there is no data, return an empty array.
-     *
-     * TODO: Netbeans does not support @return ?array
      *
      * @param string $query
      *

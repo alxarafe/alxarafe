@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Exception;
@@ -26,8 +27,7 @@ class Schema
     const SCHEMA_FOLDER = '/config/schema';
 
     /**
-     * Folder that contains the files with the display parameters and
-     * restrictions of the tables in the database.
+     * Folder that contains the files with the display parameters and restrictions of the tables in the database.
      */
     const VIEW_DATA_FOLDER = '/config/viewdata';
 
@@ -52,8 +52,7 @@ class Schema
     }
 
     /**
-     * Check the existence of the configuration folders that contain the YAML
-     * files, creating them if they do not exist.
+     * Check the existence of the configuration folders that contain the YAML files, creating them if they do not exist.
      * Returns true if finally, both folders exist.
      *
      * @return bool
@@ -71,11 +70,11 @@ class Schema
     }
 
     /**
-     * Merge the existing yaml file with the structure of the database,
-     * prevailing the latter.
+     * Merge the existing yaml file with the structure of the database, prevailing the latter.
      *
      * @param array $struct current database table structure
-     * @param array $data current yaml file structure
+     * @param array $data   current yaml file structure
+     *
      * @return array
      */
     protected static function mergeSchema(array $struct, array $data): array
@@ -84,15 +83,15 @@ class Schema
     }
 
     /**
-     * Verify the $fieldData established in the yaml file with the structure 
-     * of the database, creating the missing data and correcting the possible 
-     * errors.
-     * 
+     * Verify the $fieldData established in the yaml file with the structure of the database, creating the missing data
+     * and correcting the possible errors.
+     *
      * Posible data: unique, min, max, length, pattern, placeholder, rowlabel & fieldlabel
-     * 
+     *
      * @param string $field
-     * @param array $values
-     * @param array $fieldData
+     * @param array  $values
+     * @param array  $fieldData
+     *
      * @return array
      */
     protected static function mergeViewField(string $field, array $values, array $fieldData): array
@@ -125,14 +124,14 @@ class Schema
     }
 
     /**
-     * Verify the parameters established in the yaml file with the structure 
-     * of the database, creating the missing data and correcting the possible 
-     * errors.
-     * 
+     * Verify the parameters established in the yaml file with the structure of the database, creating the missing data
+     * and correcting the possible errors.
+     *
      * Posible data: unique, min, max, length, pattern, placeholder, rowlabel & fieldlabel
-     * 
+     *
      * @param array $struct current database table structure
-     * @param array $data current yaml file data
+     * @param array $data   current yaml file data
+     *
      * @return array
      */
     protected static function mergeViewData(array $struct, array $data): array
@@ -145,18 +144,20 @@ class Schema
     }
 
     /**
-     * TODO: Undocummented
+     * Save the structure of the schema, also saves the view details.
      */
     public static function saveStructure(): void
     {
         if (self::checkConfigFolders()) {
             $tables = Config::$sqlHelper->getTables();
             foreach ($tables as $table) {
+                // Save schema
                 $filename = self::getSchemaFolder() . '/' . $table . '.yaml';
                 $structure = Config::$dbEngine->getStructure($table, false);
                 $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
                 $data = self::mergeSchema($structure, $dataFile);
                 file_put_contents($filename, YAML::dump($data, 3));
+                // Save view data
                 $filename = self::getViewDataFolder() . '/' . $table . '.yaml';
                 $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
                 $data = self::mergeViewData($structure, $dataFile);
@@ -166,13 +167,11 @@ class Schema
     }
 
     /**
-     * Normalize an array that has the file structure defined in the model by setStructure,
-     * so that it has fields with all the values it must have. Those that do not exist are
-     * created with the default value, avoiding having to do the check each time, or
-     * calculating their value based on the data provided by the other fields.
+     * Normalize an array that has the file structure defined in the model by setStructure, so that it has fields with
+     * all the values it must have. Those that do not exist are created with the default value, avoiding having to do
+     * the check each time, or calculating their value based on the data provided by the other fields.
      *
-     * It also ensures that the keys and default values exist as an empty array if they
-     * did not exist.
+     * It also ensures that the keys and default values exist as an empty array if they did not exist.
      *
      * @param array  $structure
      * @param string $tableName
@@ -191,13 +190,9 @@ class Schema
     }
 
     /**
-     * Take the definition of a field, and make sure you have all the information
-     * that is necessary for its creation or maintenance, calculating the missing
-     * data if possible.
-     * It can cause an exception if some vital data is missing, but this should
-     * only occur at the design stage.
-     *
-     * TODO: Netbeans does not support @return ?array
+     * Take the definition of a field, and make sure you have all the information that is necessary for its creation or
+     * maintenance, calculating the missing data if possible. It can cause an exception if some vital data is missing,
+     * but this should only occur at the design stage.
      *
      * @param string $tableName
      * @param string $field

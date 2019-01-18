@@ -74,7 +74,7 @@ abstract class Engine
     }
 
     /**
-     * TODO: Undocumented
+     * Return a list of available database engines.
      *
      * @return array
      */
@@ -95,6 +95,7 @@ abstract class Engine
      * Obtain an array with the table structure with a standardized format.
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return array
      */
@@ -189,8 +190,6 @@ abstract class Engine
      * Executes a SELECT SQL statement on the database, returning the result in an array.
      * In case of failure, return NULL. If there is no data, return an empty array.
      *
-     * TODO: Netbeans does not support @return ?array
-     *
      * @param string $query
      *
      * @return array|null
@@ -208,7 +207,7 @@ abstract class Engine
     }
 
     /**
-     * TODO: Undocumented
+     * Returns if a database connection exists or not.
      *
      * @return bool
      */
@@ -250,7 +249,8 @@ abstract class Engine
 
     /**
      * Prepares a statement for execution and returns a statement object
-     * http://php.net/manual/en/pdo.prepare.php
+     *
+     * @doc http://php.net/manual/en/pdo.prepare.php
      *
      * @param string $sql
      * @param array  $options
@@ -269,7 +269,8 @@ abstract class Engine
     }
     /**
      * Transactions support
-     * https://coderwall.com/p/rml5fa/nested-pdo-transactions
+     *
+     * @doc https://coderwall.com/p/rml5fa/nested-pdo-transactions
      */
 
     /**
@@ -285,7 +286,8 @@ abstract class Engine
 
     /**
      * Executes a prepared statement
-     * http://php.net/manual/en/pdostatement.execute.php
+     *
+     * @doc http://php.net/manual/en/pdostatement.execute.php
      *
      * @param array $inputParameters
      *
@@ -301,7 +303,8 @@ abstract class Engine
 
     /**
      * Start transaction
-     * source: https://www.ibm.com/support/knowledgecenter/es/SSEPGG_9.1.0/com.ibm.db2.udb.apdv.php.doc/doc/t0023166.htm
+     *
+     * @doc https://www.ibm.com/support/knowledgecenter/es/SSEPGG_9.1.0/com.ibm.db2.udb.apdv.php.doc/doc/t0023166.htm
      *
      * @return bool
      */

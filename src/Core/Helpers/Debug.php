@@ -8,6 +8,7 @@ namespace Alxarafe\Helpers;
 
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBarException;
+use DebugBar\JavascriptRenderer;
 use DebugBar\StandardDebugBar;
 use Exception;
 use Monolog\Handler\FirePHPHandler;
@@ -23,19 +24,21 @@ class Debug
 {
 
     /**
-     * TODO: Undocumented
+     * The debug bar.
      *
      * @var StandardDebugBar
      */
     public static $debugBar;
+
     /**
-     * TODO: Undocumented
+     * The JS renderer.
      *
-     * @var \DebugBar\JavascriptRenderer
+     * @var JavascriptRenderer
      */
     private static $render;
+
     /**
-     * TODO: Undocumented
+     * The logger.
      *
      * @var Logger
      */
@@ -70,7 +73,7 @@ class Debug
     }
 
     /**
-     * TODO: Undocumented
+     * Add a new exception to the debug bar.
      *
      * @param Exception $exception
      */
@@ -98,8 +101,8 @@ class Debug
      * Return the internal debug instance for get the html code.
      *
      * TODO: Analizar qué funciones harían falta para el html y retornar el html.
-     * Tal y como está ahora mismo sería dependiente de DebugBar. DebugBar debería
-     * de quedar TOTALMENTE encapsulado en esta clase.
+     * Tal y como está ahora mismo sería dependiente de DebugBar. DebugBar debería de quedar TOTALMENTE encapsulado en
+     * esta clase.
      *
      * @return StandardDebugBar
      */
@@ -110,7 +113,7 @@ class Debug
     }
 
     /**
-     * TODO: Undocumented
+     * Return the render header needed when debug is enabled. Otherwise return an empty string.
      *
      * @return string
      */
@@ -124,7 +127,7 @@ class Debug
     }
 
     /**
-     * TODO: Undocumented
+     * Return the render footer needed when debug is enabled. Otherwise return an empty string.
      *
      * @return string
      */
@@ -186,11 +189,11 @@ class Debug
     /**
      * TODO: Undocumented
      *
-     * @param      $text
-     * @param      $array
-     * @param bool $continue
+     * @param string $text
+     * @param array  $array
+     * @param bool   $continue
      */
-    public static function testArray($text, $array, $continue = false): void
+    public static function testArray(string $text, array $array, $continue = false): void
     {
         echo "<p><strong>$text</strong>:</p><pre>" . print_r((array) $array, true) . '</pre>';
         if (!$continue) {

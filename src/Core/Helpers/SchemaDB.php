@@ -16,7 +16,7 @@ class SchemaDB
 {
 
     /**
-     * TODO: Undocummented
+     * Symbols for "carry return" and "line feed"
      */
     const CRLF = "\n\t";
 
@@ -34,7 +34,7 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumentend
+     * Return the tables on the database.
      *
      * @return array
      */
@@ -49,15 +49,16 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Obtain an array with the table structure with a standardized format.
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return array
      */
-    public static function getStructure(string $tableName): array
+    public static function getStructure(string $tableName, bool $usePrefix = true): array
     {
-        return Config::$dbEngine->getStructure($tableName);
+        return Config::$dbEngine->getStructure($tableName, $usePrefix);
     }
 
     /**
@@ -83,8 +84,6 @@ class SchemaDB
     /**
      * Build the SQL statement to create the fields in the table.
      * It can also create the primary key if the auto_increment attribute is defined.
-     *
-     * TODO: Netbeans does not support @return ?string
      *
      * @param string $tableName
      * @param array  $fieldList
@@ -146,8 +145,6 @@ class SchemaDB
      *
      * Moreover, it should not be defined if it is auto_increment because it would
      * generate an error when it already exists.
-     *
-     * TODO: Netbeans does not support @return ?string
      *
      * @param string $tableName
      * @param string $indexname

@@ -13,8 +13,8 @@ use Alxarafe\Helpers\Utils;
 use Exception;
 
 /**
- * Class SimpleTable has all the basic methods to access and manipulate
- * information, but without modifying its structure.
+ * Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its
+ * structure.
  */
 class SimpleTable
 {
@@ -27,10 +27,9 @@ class SimpleTable
     public $tableName;
 
     /**
-     * Value of the main index for the active record.
-     * When a record is loaded, this field will contain its id and will be the
-     * one that will be used for in the WHERE clause of the UPDATE.
-     * If it does not exist in file it will contain ''.
+     * Value of the main index for the active record. When a record is loaded, this field will contain its id and will
+     * be the one that will be used for in the WHERE clause of the UPDATE. If it does not exist in file it will contain
+     * ''.
      *
      * @var string
      */
@@ -51,8 +50,8 @@ class SimpleTable
     protected $oldData;
 
     /**
-     * Contains the new data of the current record.
-     * It will start when loading a record and will be used when making a save.
+     * Contains the new data of the current record. It will start when loading a record and will be used when making a
+     * save.
      *
      * @var array
      */
@@ -85,13 +84,13 @@ class SimpleTable
     }
 
     /**
-     * Execute a call to setTableStructure with an array containing 3 arrays with
-     * the fields, keys and default values for the table.
+     * Execute a call to setTableStructure with an array containing 3 arrays with the fields, keys and default values
+     * for the table.
      *
      * The development will be more ambitious than what is defined.
      *
-     * Currently Table includes a single table, but the idea is to be able to
-     * relate tables to form complex data models.
+     * Currently Table includes a single table, but the idea is to be able to relate tables to form complex data
+     * models.
      */
     public function setStructure(): void
     {
@@ -125,8 +124,7 @@ class SimpleTable
     }
 
     /**
-     * Return a list of fields and their table structure.
-     * Each final model that needed, must overwrite it.
+     * Return a list of fields and their table structure. Each final model that needed, must overwrite it.
      *
      * @return array
      */
@@ -161,8 +159,7 @@ class SimpleTable
 
     /**
      * It allows access to a field of the record using the attribute.
-     * To access the name field, we should use $this->getName(), but thanks to
-     * this, we can also use $this->name.
+     * To access the name field, we should use $this->getName(), but thanks to this, we can also use $this->name.
      *
      * @param string $property
      *
@@ -175,7 +172,6 @@ class SimpleTable
 
     /**
      * Allows you to assign value to a field in the record using the attribute.
-     * De esta forma simulamos del comportamientod e FacturaScript.
      * To assign a value to the name field, we should use $this->setName('Pepe'),
      * but thanks to this, we can also use $this->name='Pepe'.
      *
@@ -203,8 +199,7 @@ class SimpleTable
 
     /**
      * Returns a new instance of the table with the requested record.
-     * As a previous step, a getData of the current instance is made, so both
-     * will point to the same record.
+     * As a previous step, a getData of the current instance is made, so both will point to the same record.
      * Makes a getData and returns a new instance of the model.
      *
      * @param string $id
@@ -221,8 +216,7 @@ class SimpleTable
      * This method is private. Use load instead.
      * Establishes a record as an active record.
      * If found, the $id will be in $this->id and the data in $this->newData.
-     * If it is not found, $this->id will contain '' and $this->newData will
-     * contain the data by default.
+     * If it is not found, $this->id will contain '' and $this->newData will contain the data by default.
      *
      * @param string $id
      *
@@ -269,10 +263,8 @@ class SimpleTable
 
     /**
      * Return an array with the current active record.
-     * If an $id is indicated, it searches to change the active record before
-     * returning the value.
-     * Warning: If an $id is set, any unsaved data will be lost when searching
-     * for the new record.
+     * If an $id is indicated, it searches to change the active record before returning the value.
+     * Warning: If an $id is set, any unsaved data will be lost when searching for the new record.
      *
      * @param string $id
      *
@@ -289,8 +281,7 @@ class SimpleTable
     /**
      * Establishes a record as an active record.
      * If found, the $id will be in $this->id and the data in $this->newData.
-     * If it is not found, $this->id will contain '' and $this->newData will
-     * contain the data by default.
+     * If it is not found, $this->id will contain '' and $this->newData will contain the data by default.
      *
      * @param string $id
      *
@@ -334,8 +325,7 @@ class SimpleTable
 
     /**
      * Insert a new record.
-     * $fields is an array of fields and $values an array with the values for
-     * each field in the same order.
+     * $fields is an array of fields and $values an array with the values for each field in the same order.
      *
      * @param array $fields
      * @param array $values
@@ -347,7 +337,7 @@ class SimpleTable
         $fieldList = implode(',', $fields);
         $valueList = implode(',', $values);
         $ret = Config::$dbEngine->exec('INSERT INTO ' . $this->getTableName() . " ($fieldList) VALUES ($valueList);");
-        // Asigna el valor de la clave primaria del registro recién insertado
+        // Assign the value of the primary key of the newly inserted record
         $this->id = $this->newData[$this->idField] ?? Config::$dbEngine->getLastInserted();
         return $ret;
     }

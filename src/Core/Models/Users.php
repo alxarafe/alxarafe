@@ -29,7 +29,10 @@ class Users extends Table
     }
 
     /**
-     * TODO: Undocumented
+     * Return a list of fields and their table structure.
+     * Each final model that needed, must overwrite it.
+     *
+     * @return array
      */
     /*
     public function getFields(): array
@@ -84,7 +87,8 @@ class Users extends Table
     */
 
     /**
-     * TODO: Undocumented
+     * Return a list of default values.
+     * Each final model that needed, must overwrite it.
      *
      * @return array
      */

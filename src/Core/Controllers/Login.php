@@ -30,10 +30,12 @@ class Login extends PageController
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
             if (Config::$user->setUser($username, $password)) {
+                // TODO: If user is trying to go to another place, go to it.
                 header('Location: ' . constant('BASE_URI'));
             }
             Config::setError('User authentication error. Please check the username and password.');
         }
+        $this->main();
     }
 
     /**
@@ -61,7 +63,7 @@ class Login extends PageController
     }
 
     /**.
-     * Returns the page details
+     * Returns the page details.
      */
     public function pageDetails()
     {
