@@ -80,22 +80,36 @@ class SqlMySql extends SqlHelper
         switch ($type) {
             case 'integer':
                 if ($length == null) {
-                    return 'int';
+                    $return = 'int';
+                    break;
                 }
-                return (intval($length) > 2) ? 'int(' . $length . ')' : 'tinyint(' . $length . ')';
+                $return = (intval($length) > 2) ? 'int(' . $length . ')' : 'tinyint(' . $length . ')';
+                break;
             case 'string':
-                return (intval($length) > 6) ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
+                $return = (intval($length) > 6) ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
+                break;
             case 'float':
-                return 'double'; // ['real', 'double'],
+                $return = 'double'; // ['real', 'double'],
+                break;
             case 'datetime':
-                return 'timestamp';
+                $return = 'timestamp';
+                break;
             default:
-                return $type;
+                $return = $type;
+                break;
         }
 
-        return '';
+        return $return;
     }
 
+    /**
+     * TODO: Undocummented.
+     *
+     * @param string $fieldName
+     * @param array  $data
+     *
+     * @return string
+     */
     public function getSQLField(string $fieldName, array $data): string
     {
         $null = isset($data['nullable']) && ($data['nullable'] == 'yes');

@@ -72,7 +72,7 @@ class SchemaDB
     public static function createTable(string $tableName): bool
     {
         $tabla = Config::$bbddStructure[$tableName];
-        var_dump($tabla);
+        Debug::addMessage('messages', "var_dump: <pre>" . var_export($tabla, true) . "</pre>");
 
         $sql = self::createFields($tableName, $tabla['fields']);
 

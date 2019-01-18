@@ -102,6 +102,16 @@ abstract class SqlHelper
     abstract public function getTables(): array;
 
     /**
+     * TODO: Undocummented.
+     *
+     * @param string $fieldName
+     * @param array  $data
+     *
+     * @return string
+     */
+    abstract public function getSQLField(string $fieldName, array $data): string;
+
+    /**
      * Returns an array with all the columns of a table
      *
      * TODO: Review the types. The variants will depend on type + length.
