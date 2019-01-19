@@ -30,6 +30,7 @@ class SqlMySql extends SqlHelper
             'integer' => ['int', 'tinyint'],
             'decimal' => ['decimal'],
             'string' => ['char', 'varchar'],
+            'text' => ['text', 'blob'],
             'float' => ['real', 'double'],
             'date' => ['date'],
             'datetime' => ['timestamp'],
@@ -89,7 +90,7 @@ class SqlMySql extends SqlHelper
                 $return = (intval($length) > 6) ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
                 break;
             case 'float':
-                $return = 'double'; // ['real', 'double'],
+                $return = 'double'; // real use 4 bytes and double 8 bytes
                 break;
             case 'datetime':
                 $return = 'timestamp';

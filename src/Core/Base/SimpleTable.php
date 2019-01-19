@@ -117,9 +117,12 @@ class SimpleTable
      */
     protected function getStructureArray(): array
     {
-        $struct = [];
+        $struct = Schema::getStructureFromFile($this->tableName);
+        if (count($struct) > 0) {
+            return $struct;
+        }
         $struct['fields'] = method_exists($this, 'getFields') ? /** @scrutinizer ignore-call */
-            $this->getFields() : $this->getFieldsFromTable();
+            $this->getFields() : ($this->getFieldsFromTable());
         return $struct;
     }
 

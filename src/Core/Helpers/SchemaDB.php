@@ -76,13 +76,12 @@ class SchemaDB
 
         $sql = self::createFields($tableName, $tabla['fields']);
 
-        /*
           foreach ($tabla['keys'] as $name => $index) {
-          $sql .= self::createIndex($tableName, $name, $index);
+            $sql .= self::createIndex($tableName, $name, $index);
           }
           $sql .= Schema::setValues($tableName, $tabla['values']);
-         */
-        echo $sql;
+
+          echo $sql;
 
         return Config::$dbEngine->exec($sql);
     }
@@ -114,6 +113,18 @@ class SchemaDB
         return $sql;
     }
 
+    protected static function createPrimaryIndex(string $tableName, array $indexData, bool $autoincrement)
+    {
+        // https://www.w3schools.com/sql/sql_primarykey.asp
+        // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
+        // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' ADD PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        if ($autoincrement) {
+            $sql .= ' AUTO_INCREMENT';
+        }
+        return $sql . ';' . self::CRLF;
+    }
+
     /**
      * Create the SQL statements for the construction of one index.
      * In the case of the primary index, it is not necessary if it is auto_increment.
@@ -131,6 +142,16 @@ class SchemaDB
      */
     protected static function createIndex(string $tableName, string $indexname, array $indexData)
     {
+        $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
+        if ($indexName == 'PRIMARY') {
+            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
+            return self::createPrimaryIndex($tableName, $indexData, $autoincrement);
+        }
+        $indexType = $fields = '';
+
+        //$sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName) . ' ADD CONSTRAINT ' . $indexname;
+
+        return '';
         $fields = '';
         $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName) . ' ADD CONSTRAINT ' . $indexname;
 

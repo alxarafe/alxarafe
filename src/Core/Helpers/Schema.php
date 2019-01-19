@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Exception;
@@ -52,7 +51,8 @@ class Schema
     }
 
     /**
-     * Check the existence of the configuration folders that contain the YAML files, creating them if they do not exist.
+     * Check the existence of the configuration folders that contain the YAML
+     * files, creating them if they do not exist.
      * Returns true if finally, both folders exist.
      *
      * @return bool
@@ -70,7 +70,8 @@ class Schema
     }
 
     /**
-     * Merge the existing yaml file with the structure of the database, prevailing the latter.
+     * Merge the existing yaml file with the structure of the database,
+     * prevailing the latter.
      *
      * @param array $struct current database table structure
      * @param array $data   current yaml file structure
@@ -83,8 +84,8 @@ class Schema
     }
 
     /**
-     * Verify the $fieldData established in the yaml file with the structure of the database, creating the missing data
-     * and correcting the possible errors.
+     * Verify the $fieldData established in the yaml file with the structure of
+     * the database, creating the missing data and correcting the possible errors.
      *
      * Posible data: unique, min, max, length, pattern, placeholder, rowlabel & fieldlabel
      *
@@ -138,9 +139,21 @@ class Schema
     {
         $result = [];
         foreach ($struct['fields'] as $field => $values) {
-            $result[$field] = self::mergeViewField($field, $values, $data['field']);
+            $result[$field] = self::mergeViewField($field, $values, $data);
         }
         return $result;
+    }
+
+    public static function getStructureFromFile(string $tableName)
+    {
+        $filename = self::getSchemaFolder() . '/' . $tableName . '.yaml';
+        return file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
+    }
+
+    public static function getDataViewFromFile(string $tableName)
+    {
+        $filename = self::getViewDataFolder() . '/' . $tableName . '.yaml';
+        return file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
     }
 
     /**
@@ -152,14 +165,12 @@ class Schema
             $tables = Config::$sqlHelper->getTables();
             foreach ($tables as $table) {
                 // Save schema
-                $filename = self::getSchemaFolder() . '/' . $table . '.yaml';
                 $structure = Config::$dbEngine->getStructure($table, false);
-                $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
+                $dataFile = self::getStructureFromFile($table);
                 $data = self::mergeSchema($structure, $dataFile);
                 file_put_contents($filename, YAML::dump($data, 3));
                 // Save view data
-                $filename = self::getViewDataFolder() . '/' . $table . '.yaml';
-                $dataFile = file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
+                $dataFile = self::getDataViewFromFile($table);
                 $data = self::mergeViewData($structure, $dataFile);
                 file_put_contents($filename, YAML::dump($data, 3));
             }
@@ -207,7 +218,7 @@ class Schema
         }
 
         $dbType = $structure['type'];
-        if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'float', 'date', 'datetime'])) {
+        if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'text', 'float', 'date', 'datetime'])) {
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);
