@@ -239,7 +239,7 @@ class Schema
      */
     public static function setValues(string $tableName, array $values): string
     {
-        return '';
+        // TODO: Pending of revision
 
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
         $header = true;
