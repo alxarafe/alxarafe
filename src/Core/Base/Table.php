@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -15,6 +14,7 @@ use Alxarafe\Helpers\SchemaDB;
  */
 class Table extends SimpleTable
 {
+
     /**
      * It is the name of the field name. By default 'name'.
      * TODO: See if it may not exist, in which case, null or ''?
@@ -91,7 +91,6 @@ class Table extends SimpleTable
 
         return '';
     }
-
     /**
      * Return a list of fields and their table structure.
      * Each final model that needed, must overwrite it.
@@ -129,10 +128,13 @@ class Table extends SimpleTable
     protected function getStructureArray(): array
     {
         $struct = parent::getStructureArray();
-        $struct['keys'] = method_exists($this, 'getKeys') ? /** @scrutinizer ignore-call */
-            $this->getKeys() : $this->getIndexesFromTable();
-        $struct['values'] = $this->getDefaultValues();
-        $struct['checks'] = $this->getChecks();
+        // If indexes exists, it's loaded from yaml file
+        if (!isset($struct['indexes'])) {
+            $struct['indexes'] = method_exists($this, 'getKeys') ? /** @scrutinizer ignore-call */
+                $this->getKeys() : $this->getIndexesFromTable();
+            $struct['values'] = $this->getDefaultValues();
+            $struct['checks'] = $this->getChecks();
+        }
         return $struct;
     }
 

@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Exception;
@@ -72,16 +71,17 @@ class SchemaDB
     public static function createTable(string $tableName): bool
     {
         $tabla = Config::$bbddStructure[$tableName];
+        var_dump($tabla);
         Debug::addMessage('messages', "var_dump: <pre>" . var_export($tabla, true) . "</pre>");
 
         $sql = self::createFields($tableName, $tabla['fields']);
 
-          foreach ($tabla['keys'] as $name => $index) {
+        foreach ($tabla['indexes'] as $name => $index) {
             $sql .= self::createIndex($tableName, $name, $index);
-          }
-          $sql .= Schema::setValues($tableName, $tabla['values']);
+        }
+        $sql .= Schema::setValues($tableName, $tabla['values']);
 
-          echo $sql;
+        echo $sql;
 
         return Config::$dbEngine->exec($sql);
     }
@@ -125,6 +125,44 @@ class SchemaDB
         return $sql . ';' . self::CRLF;
     }
 
+    protected static function createStandardIndex(string $tableName, array $indexData)
+    {
+        // https://www.w3schools.com/sql/sql_create_index.asp
+        // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
+        // CREATE UNIQUE INDEX idx_pname ON Persons (LastName, FirstName);
+        // $sql = 'CREATE ' . ($unique ? 'UNIQUE ' : '') . 'INDEX ' . $indexData['name'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        $sql = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        return $sql . ';' . self::CRLF;
+    }
+
+    protected static function createUniqueIndex(string $tableName, array $indexData)
+    {
+        // https://www.w3schools.com/sql/sql_unique.asp
+        // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) .
+            ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        return $sql . ';' . self::CRLF;
+    }
+
+    protected static function createConstraint(string $tableName, array $indexData)
+    {
+            // https://www.w3schools.com/sql/sql_foreignkey.asp
+        // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) .
+            ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
+            ') REFERENCES ' . $indexData['referencedtable'] . ' (' . $indexData['referencedfield'] . ')';
+
+        if ($indexData['updaterule'] != '') {
+            $sql .= ' ON UPDATE ' . $indexData['updaterule'];
+        }
+
+        if ($indexData['deleterule'] != '') {
+            $sql .= ' ON DELETE ' . $indexData['deleterule'];
+        }
+
+        return $sql . ';' . self::CRLF;
+    }
+
     /**
      * Create the SQL statements for the construction of one index.
      * In the case of the primary index, it is not necessary if it is auto_increment.
@@ -140,95 +178,24 @@ class SchemaDB
      *
      * @return string|null
      */
-    protected static function createIndex(string $tableName, string $indexname, array $indexData)
+    protected static function createIndex(string $tableName, string $indexName, array $indexData)
     {
         $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
         if ($indexName == 'PRIMARY') {
             $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
             return self::createPrimaryIndex($tableName, $indexData, $autoincrement);
         }
-        $indexType = $fields = '';
 
-        //$sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName) . ' ADD CONSTRAINT ' . $indexname;
+        $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
+        //$nullable = isset($indexData['nullable']) && ($indexData['nullable'] == 'yes');
+        $constraint = $indexData['constraint'] ?? false;
 
-        return '';
-        $fields = '';
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName) . ' ADD CONSTRAINT ' . $indexname;
-
-        $command = '';
-        // https://www.w3schools.com/sql/sql_primarykey.asp
-        // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
-        if (isset($indexData['PRIMARY'])) {
-            $command = 'PRIMARY KEY ';
-            $fields = $indexData['PRIMARY'];
+        if ($constraint) {
+            return self::createConstraint($tableName, $indexData);
         }
 
-        // https://www.w3schools.com/sql/sql_create_index.asp
-        // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
-        if (isset($indexData['INDEX'])) {
-            $command = 'INDEX ';
-            $fields = $indexData['INDEX'];
-        }
-
-        // https://www.w3schools.com/sql/sql_unique.asp
-        // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
-        if (isset($indexData['UNIQUE'])) {
-            $command = 'UNIQUE INDEX ';
-            $fields = $indexData['UNIQUE'];
-        }
-
-        if ($command == '') {
-            // https://www.w3schools.com/sql/sql_foreignkey.asp
-            // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
-            if (isset($indexData['FOREIGN'])) {
-                $command = 'FOREIGN KEY ';
-                $foreignField = $indexData['FOREIGN'];
-                if (isset($indexData['REFERENCES'])) {
-                    $references = $indexData['REFERENCES'];
-                    if (!is_array($references)) {
-                        $msg = 'Esperaba un array en REFERENCES: ' . $tableName . '/' . $indexname;
-                        $e = new Exception($msg);
-                        Debug::addException($e);
-                        return null;
-                    }
-                    if (count($references) != 1) {
-                        $msg = 'Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname;
-                        $e = new Exception($msg);
-                        Debug::addException($e);
-                        return null;
-                    }
-                    $refTable = key($references);
-                    $fields = '(' . implode(',', $references) . ')';
-                } else {
-                    $msg = 'FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname;
-                    $e = new Exception($msg);
-                    Debug::addException($e);
-                    return null;
-                }
-
-                $sql .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
-
-                if (isset($indexData['ON']) && is_array($indexData['ON'])) {
-                    foreach ($indexData['ON'] as $key => $value) {
-                        $sql .= ' ON ' . $key . ' ' . $value . ', ';
-                    }
-                    $sql = substr($sql, 0, -2); // Quitamos el ', ' de detrás
-                }
-            }
-        } else {
-            if (is_array($fields)) {
-                $fields = '(' . implode(',', $fields) . ')';
-            } else {
-                $fields = "($fields)";
-            }
-
-            if ($command == 'INDEX ') {
-                $sql = "CREATE INDEX {$indexname} ON {$tableName}" . $fields;
-            } else {
-                $sql .= $command . ' ' . $fields;
-            }
-        }
-
-        return $sql . ';' . self::CRLF;
+        return $unique ?
+            self::createUniqueIndex($tableName, $indexData) :
+            self::createStandardIndex($tableName, $indexData);
     }
 }

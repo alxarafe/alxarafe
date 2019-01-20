@@ -192,7 +192,7 @@ class Schema
     public static function setNormalizedStructure(array $structure, string $tableName): array
     {
         $ret = [];
-        $ret['keys'] = $structure['keys'] ?? [];
+        $ret['indexes'] = $structure['indexes'] ?? [];
         $ret['values'] = $structure['values'] ?? [];
         foreach ($structure['fields'] as $key => $value) {
             $ret['fields'][$key] = self::normalizeField($tableName, $key, $value);
@@ -239,6 +239,8 @@ class Schema
      */
     public static function setValues(string $tableName, array $values): string
     {
+        return '';
+
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
         $header = true;
         foreach ($values as $value) {

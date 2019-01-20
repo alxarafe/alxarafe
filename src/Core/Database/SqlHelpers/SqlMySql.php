@@ -241,8 +241,8 @@ class SqlMySql extends SqlHelper
         $result = [];
         $result['index'] = $fields['Key_name'];
         $result['column'] = $fields['Column_name'];
-        $result['unique'] = $fields['Non_unique'] == '0' ? 1 : 0;
-        $result['nullable'] = $fields['Null'] == 'YES' ? 1 : 0;
+        $result['unique'] = $fields['Non_unique'] == '0' ? 'yes' : 'no';
+        $result['nullable'] = $fields['Null'] == 'YES' ? 'yes' : 'no';
         $constrait = $this->getConstraintData($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
             $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
