@@ -274,7 +274,6 @@ class Skin
             $twig->addExtension(new Twig_Extension_Debug());
         }
         // Always available
-
     }
 
     /**
