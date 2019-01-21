@@ -11,6 +11,7 @@ use Twig_Environment;
 use Twig_Error_Loader;
 use Twig_Error_Runtime;
 use Twig_Error_Syntax;
+use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
 
 /**
@@ -242,7 +243,7 @@ class Skin
                 $templateVars = self::getTemplateVars($vars);
                 $loader = new Twig_Loader_Filesystem(self::getPaths());
                 $twig = new Twig_Environment($loader, self::getOptions());
-
+                self::addSkinExtensions($twig);
                 try {
                     $return = $twig->render(self::getTemplate(), $templateVars);
                 } catch (Twig_Error_Loader $e) {
@@ -259,6 +260,21 @@ class Skin
 
         Debug::stopTimer('render');
         return $return;
+    }
+
+    /**
+     * Add extensions to skin render.
+     *
+     * @param Twig_Environment $twig
+     */
+    private static function addSkinExtensions($twig)
+    {
+        if (self::getOptions()['debug']) {
+            // Only available in debug mode
+            $twig->addExtension(new Twig_Extension_Debug());
+        }
+        // Always available
+
     }
 
     /**

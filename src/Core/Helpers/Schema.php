@@ -51,7 +51,7 @@ class Schema
     {
         $path = constant('BASE_PATH') . '/config/' . $type;
         if (!is_dir($path)) {
-            \mkdir($path, '0777', true);
+            \mkdir($path, 0777, true);
         }
         $path .= '/' . $tableName . '.yaml';
         return file_put_contents($path, YAML::dump($data, 3)) !== false;
@@ -156,12 +156,26 @@ class Schema
     {
         $tables = Config::$sqlHelper->getTables();
         foreach ($tables as $table) {
-            $structure = Config::$dbEngine->getStructure($table, false);
-            foreach (['schema', 'viewdata'] as $type) {
-                $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
-                self::saveSchemaFileName($data, $table, $type);
-            }
+            self::saveTableStructure($table);
         }
+    }
+
+    /**
+     * Return true if complete table structure was saved, otherwise return false.
+     *
+     * @param string $table
+     *
+     * @return bool
+     */
+    public static function saveTableStructure(string $table): bool
+    {
+        $result = true;
+        $structure = Config::$dbEngine->getStructure($table, false);
+        foreach (['schema', 'viewdata'] as $type) {
+            $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
+            $result = $result && self::saveSchemaFileName($data, $table, $type);
+        }
+        return $result;
     }
 
     /**
