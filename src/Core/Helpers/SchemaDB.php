@@ -119,11 +119,11 @@ class SchemaDB
         // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
         // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
 
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' ADD (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
         if ($autoincrement) {
             $sql .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
         }
-        $sql .= $sql . 'PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');' . self::CRLF;
+        $sql .= ' PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');' . self::CRLF;
         return $sql;
     }
 
