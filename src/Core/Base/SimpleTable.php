@@ -72,7 +72,7 @@ class SimpleTable
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->setStructure();
-        if (!isset($this->idField)) {
+        if (!isset($this->idField) && isset(Config::$bbddStructure[$this->tableName]['fields'])) {
             $this->idField = 'id';
             foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
                 if (isset($value['key']) && ($value['key'] == 'primary')) {
@@ -117,7 +117,8 @@ class SimpleTable
      */
     protected function getStructureArray(): array
     {
-        $struct = Schema::getStructureFromFile($this->tableName);
+        //$struct = Schema::getStructureFromFile($this->tableName);
+        $struct = Schema::getFromYamlFile($this->tableName);
         if (count($struct) > 0) {
             return $struct;
         }

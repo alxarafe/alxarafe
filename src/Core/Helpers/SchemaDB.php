@@ -117,11 +117,14 @@ class SchemaDB
         // https://www.w3schools.com/sql/sql_primarykey.asp
         // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
         // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' ADD PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
+
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' ADD (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
         if ($autoincrement) {
-            $sql .= ' AUTO_INCREMENT';
+            $sql .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
         }
-        return $sql . ';' . self::CRLF;
+        $sql .= $sql . 'PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');' . self::CRLF;
+        return $sql;
     }
 
     protected static function createStandardIndex(string $tableName, array $indexData)

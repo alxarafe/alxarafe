@@ -132,7 +132,7 @@ class Table extends SimpleTable
         if (!isset($struct['indexes'])) {
             $struct['indexes'] = method_exists($this, 'getKeys') ? /** @scrutinizer ignore-call */
                 $this->getKeys() : $this->getIndexesFromTable();
-            $struct['values'] = $this->getDefaultValues();
+            $struct['values'] = method_exists($this, 'getDefaultValues') ? $this->getDefaultValues() : $this->getValuesFromTable();
             $struct['checks'] = $this->getChecks();
         }
         return $struct;
@@ -149,6 +149,11 @@ class Table extends SimpleTable
     public function getIndexesFromTable(): array
     {
         return Config::$sqlHelper->getIndexes($this->tableName, true);
+    }
+
+    public function getValuesFromTable(): array
+    {
+        return Config::$sqlHelper->getValues($this->tableName, true);
     }
 
     /**

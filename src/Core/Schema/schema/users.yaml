@@ -1,0 +1,81 @@
+fields:
+    id:
+        field: id
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'yes'
+        key: primary
+        unsigned: 'yes'
+        zerofill: 'no'
+        autoincrement: 'yes'
+    username:
+        field: username
+        type: string
+        length: '50'
+        default: null
+        nullable: 'yes'
+        key: index
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
+    email:
+        field: email
+        type: string
+        length: '50'
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
+    password:
+        field: password
+        type: string
+        length: '255'
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
+    register_date:
+        field: register_date
+        type: datetime
+        length: null
+        default: CURRENT_TIMESTAMP
+        nullable: 'yes'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
+    active:
+        field: active
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+        zerofill: 'no'
+        autoincrement: 'no'
+indexes:
+    PRIMARY:
+        index: PRIMARY
+        column: id
+        unique: 'yes'
+        nullable: 'no'
+    user_name:
+        index: user_name
+        column: username
+        unique: 'no'
+        nullable: 'no'
+values:
+    1:
+        id: 1
+        username: 'admin'
+        email: 'admin@alxarafe.com'
+        password: '$2y$10$bjbKpk7rLjxIzgZ6jjVbhOSWkdM7McOtr6Vs8NtXmrc.bSvLVe4TG'
+        active: 'yes'
+    2:
+        id: 2
+        username: 'user'
+        email: 'user@alxarafe.com'
+        password: '$2y$10$bjbKpk7rLjxIzgZ6jjVbhOSWkdM7McOtr6Vs8NtXmrc.bSvLVe4TG'
+        active: 'yes'

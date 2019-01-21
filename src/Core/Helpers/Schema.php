@@ -21,66 +21,40 @@ class Schema
     const CRLF = "\n\t";
 
     /**
-     * Folder that contains the files with the structure of the database.
-     */
-    const SCHEMA_FOLDER = '/config/schema';
-
-    /**
-     * Folder that contains the files with the display parameters and restrictions of the tables in the database.
-     */
-    const VIEW_DATA_FOLDER = '/config/viewdata';
-
-    /**
-     * Return the schema folder path.
+     * Returns the path to the specified file, or empty string if it does not exist.
      *
+     * @param string $tableName name of the file without extension (assumes .yaml)
+     * @param string $type It's the foldername (in lowercase). It's usually schema (by default) or viewdata.
      * @return string
      */
-    private static function getSchemaFolder()
+    private static function getSchemaFileName(string $tableName, string $type = 'schema'): string
     {
-        return constant('BASE_PATH') . self::SCHEMA_FOLDER;
+        // First, it is checked if it exists in the core
+        $path = constant('ALXARAFE_FOLDER') . '/Schema/' . $type . '/' . $tableName . '.yaml';
+        if (file_exists($path)) {
+            return $path;
+        }
+        // And then if it exists in the application
+        $path = constant('BASE_PATH') . '/config/' . $type . '/' . $tableName . '.yaml';
+        return file_exists($path) ? $path : '';
     }
 
     /**
-     * Return the view data folder path.
-     *
-     * @return string
-     */
-    private static function getViewDataFolder()
-    {
-        return constant('BASE_PATH') . self::VIEW_DATA_FOLDER;
-    }
-
-    /**
-     * Check the existence of the configuration folders that contain the YAML
-     * files, creating them if they do not exist.
-     * Returns true if finally, both folders exist.
-     *
+     * Save the data array in a .yaml file
+     * 
+     * @param array $data
+     * @param string $tableName
+     * @param string $type
      * @return bool
      */
-    protected static function checkConfigFolders(): bool
+    private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
     {
-        $ret = true;
-        foreach ([self::getSchemaFolder(), self::getViewDataFolder()] as $folder) {
-            if (!is_dir($folder)) {
-                mkdir($folder);
-            }
-            $ret = $ret && is_dir($folder);
+        $path = constant('BASE_PATH') . '/config/' . $type;
+        if (!is_dir($path)) {
+            \mkdir($path, '0777', true);
         }
-        return $ret;
-    }
-
-    /**
-     * Merge the existing yaml file with the structure of the database,
-     * prevailing the latter.
-     *
-     * @param array $struct current database table structure
-     * @param array $data   current yaml file structure
-     *
-     * @return array
-     */
-    protected static function mergeSchema(array $struct, array $data): array
-    {
-        return array_merge($data, $struct);
+        $path .= '/' . $tableName . '.yaml';
+        return file_put_contents($path, YAML::dump($data, 3)) !== false;
     }
 
     /**
@@ -144,35 +118,48 @@ class Schema
         return $result;
     }
 
-    public static function getStructureFromFile(string $tableName)
+    /**
+     * Merge the existing yaml file with the structure of the database,
+     * prevailing the latter.
+     *
+     * @param array $struct current database table structure
+     * @param array $data   current yaml file structure
+     *
+     * @return array
+     */
+    protected static function mergeArray(array $struct, array $data, $isView = false): array
     {
-        $filename = self::getSchemaFolder() . '/' . $tableName . '.yaml';
-        return file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
-    }
-
-    public static function getDataViewFromFile(string $tableName)
-    {
-        $filename = self::getViewDataFolder() . '/' . $tableName . '.yaml';
-        return file_exists($filename) ? YAML::parse(file_get_contents($filename)) : [];
+        if ($isView) {
+            return self::mergeViewData($struct, $data);
+        }
+        return array_merge($data, $struct);
     }
 
     /**
-     * Save the structure of the schema, also saves the view details.
+     * Returns an array with data from the specefied yaml file
+     *
+     * @param string $tableName
+     * @param type $type
+     * @return array
+     */
+    public static function getFromYamlFile(string $tableName, $type = 'schema'): array
+    {
+        $fileName = self::getSchemaFileName($tableName, $type);
+        return $fileName == '' ? [] : YAML::parse(file_get_contents($fileName));
+    }
+
+    /**
+     * It collects the information from the database and creates files in YAML format
+     * for the reconstruction of its structure. Also save the view structure.
      */
     public static function saveStructure(): void
     {
-        if (self::checkConfigFolders()) {
-            $tables = Config::$sqlHelper->getTables();
-            foreach ($tables as $table) {
-                // Save schema
-                $structure = Config::$dbEngine->getStructure($table, false);
-                $dataFile = self::getStructureFromFile($table);
-                $data = self::mergeSchema($structure, $dataFile);
-                file_put_contents($filename, YAML::dump($data, 3));
-                // Save view data
-                $dataFile = self::getDataViewFromFile($table);
-                $data = self::mergeViewData($structure, $dataFile);
-                file_put_contents($filename, YAML::dump($data, 3));
+        $tables = Config::$sqlHelper->getTables();
+        foreach ($tables as $table) {
+            $structure = Config::$dbEngine->getStructure($table, false);
+            foreach (['schema', 'viewdata'] as $type) {
+                $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
+                self::saveSchemaFileName($data, $table, $type);
             }
         }
     }
