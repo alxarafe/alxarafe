@@ -10,48 +10,60 @@
     {# TODO: This is not working? #}
     {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
 
-    <div class="container">
+    <div class="container-fluid">
         <form action='?call=EditConfig' method='post' accept-charset="utf-8">
-            <div class="col-xm-4">&nbsp;</div>
-            <div class="col-xm-4">
-
-                {% if (message) %}{{ message }}{% endif %}
-
-                <div class="form-group">
-                    <label>Motor de base de datos</label>
-                    <select id="dbEngineName" name="dbEngineName" class="form-control">
-                        {% for dbEngine in view.dbEngines %}
-                            <option {{ dbEngine==view.dbEngineName ? "selected":"" }}>{{ dbEngine }}</option>
-                        {% endfor %}
-                    </select>
+            <div class="row">
+                <div class="col-xs-12">
+                    {% if (message) %}{{ message }}{% endif %}
                 </div>
-
-                {% if view.skins|length > 0 %}
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="form-group">
-                        <label>Plantilla (Skin)</label>
-                        <select id="skin" name="skin" class="form-control">
-                            {% for skin in view.skins %}
-                                <option {{ skin==view.skin ? "selected":"" }}>{{ skin }}</option>
+                        <label>Motor de base de datos</label>
+                        <select id="dbEngineName" name="dbEngineName" class="form-control">
+                            {% for dbEngine in view.dbEngines %}
+                                <option {{ dbEngine==view.dbEngineName ? "selected":"" }}>{{ dbEngine }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                {% endif %}
-
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    {% if view.skins|length > 0 %}
+                        <div class="form-group">
+                            <label>Plantilla (Skin)</label>
+                            <select id="skin" name="skin" class="form-control">
+                                {% for skin in view.skins %}
+                                    <option {{ skin==view.skin ? "selected":"" }}>{{ skin }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                </div>
                 {% for key,var in view.dbConfig %}
-                    <div class="form-group">
-                        <label>{{ key }}</label>
-                        <input id="{{ key }}" name="{{ key }}" class="form-control" type="text" value="{{ var }}"/>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label>{{ key }}</label>
+                            <input id="{{ key }}" name="{{ key }}" class="form-control" type="text" value="{{ var }}"/>
+                        </div>
                     </div>
                 {% endfor %}
-
-                <button name="submit" type="submit" class="btn btn-default btn-primary" value="true">
-                    Guardar los cambios
-                </button>
-                <button name="cancel" type="submit" class="btn btn-default btn-danger" value="true">
-                    Abandonar
-                </button>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    &nbsp;
+                </div>
             </div>
-            <div class="col-x-4">&nbsp;</div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button name="cancel" type="submit" class="btn btn-default btn-danger" value="true">
+                        Abandonar
+                    </button>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <button name="submit" type="submit" class="btn btn-default btn-primary" value="true">
+                        Guardar los cambios
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 {% endblock %}

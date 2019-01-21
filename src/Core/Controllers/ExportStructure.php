@@ -40,6 +40,12 @@ class ExportStructure extends PageController
             case 'export-all':
                 Schema::saveStructure();
                 break;
+            case 'export-selected':
+                $tables = filter_input(INPUT_POST, 'tables', FILTER_SANITIZE_ENCODED, FILTER_REQUIRE_ARRAY);
+                foreach ($tables as $table) {
+                    Schema::saveTableStructure($table);
+                }
+                break;
             case 'cancel':
                 header('Location: ' . constant('BASE_URI'));
                 break;
