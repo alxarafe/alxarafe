@@ -94,7 +94,9 @@ class Lang
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
             if ($lang !== self::FALLBACK_LANG) {
                 $this->locateFiles(self::FALLBACK_LANG);
+                Debug::addMessage('messages', "Language '" . self::FALLBACK_LANG . "' (fallback), at least all strings must exists here.");
             }
+            Debug::addMessage('messages', "NOTE: at least all strings must exists on '" . self::FALLBACK_LANG . "'.");
             $this->locateFiles($lang);
         }
     }
