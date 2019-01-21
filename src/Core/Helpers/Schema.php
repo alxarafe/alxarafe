@@ -139,10 +139,10 @@ class Schema
      * Returns an array with data from the specefied yaml file
      *
      * @param string $tableName
-     * @param type $type
+     * @param string $type must be 'schema' or 'viewdata'
      * @return array
      */
-    public static function getFromYamlFile(string $tableName, $type = 'schema'): array
+    public static function getFromYamlFile(string $tableName, string $type = 'schema'): array
     {
         $fileName = self::getSchemaFileName($tableName, $type);
         return $fileName == '' ? [] : YAML::parse(file_get_contents($fileName));
@@ -226,8 +226,6 @@ class Schema
      */
     public static function setValues(string $tableName, array $values): string
     {
-        // TODO: Pending of revision
-
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
         $header = true;
         foreach ($values as $value) {
