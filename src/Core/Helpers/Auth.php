@@ -48,10 +48,9 @@ class Auth extends Users
         if ($this->user === null) {
             if (isset($_COOKIE['user'])) {
                 $this->user = $_COOKIE['user'];
-                //return $_COOKIE['user'];
             }
         }
-        return null;
+        return $this->user;
     }
 
     /**

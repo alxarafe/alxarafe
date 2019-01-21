@@ -15,11 +15,13 @@
             </a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
+            {% if user %}
             <ul class="nav navbar-nav">
                 <li>
                     <a href="?call=ExportStructure">Exportar estructura</a>
                 </li>
             </ul>
+            {% endif %}
             <ul class="nav navbar-nav navbar-right">
                 {% if user %}
                     <li class="dropdown">
