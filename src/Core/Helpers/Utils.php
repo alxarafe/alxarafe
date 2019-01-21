@@ -93,7 +93,7 @@ class Utils
      *
      * @return bool
      */
-    public function isTrue($param)
+    public static function isTrue($param)
     {
         return (isset($param) && (in_array($param, ['yes', 'true', '1', 1])));
     }

@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
@@ -69,6 +68,19 @@ class SqlMySql extends SqlHelper
         return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName, $prefix) . ';';
     }
 
+    private function toInteger(int $length = 0): string
+    {
+        // https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
+        // TODO: Integer Types - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT
+        $type = ($length > 2) ? 'int' : 'tinyint';
+        return ($length > 0) ? $type . '(' . $length . ')' : $type;
+    }
+
+    private function toString(int $length = 0): string
+    {
+        return $length > 6 ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
+    }
+
     /**
      * TODO: Undocumented and pending complete.
      *
@@ -76,18 +88,14 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function toNative($type, $length = null): string
+    public function toNative(string $type, int $length = 0): string
     {
         switch ($type) {
             case 'integer':
-                if ($length == null) {
-                    $return = 'int';
-                    break;
-                }
-                $return = (intval($length) > 2) ? 'int(' . $length . ')' : 'tinyint(' . $length . ')';
+                $return = $this->toInteger($length);
                 break;
             case 'string':
-                $return = (intval($length) > 6) ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
+                $return = $this->toString($length);
                 break;
             case 'float':
                 $return = 'double'; // real use 4 bytes and double 8 bytes
