@@ -136,7 +136,7 @@ class Auth extends Users
         if ($this->user === null) {
             $this->clearCookieUser();
         } else {
-            setcookie('user', $this->user, self::COOKIE_EXPIRATION);
+            setcookie('user', $this->user, time() + self::COOKIE_EXPIRATION);
         }
     }
 }
