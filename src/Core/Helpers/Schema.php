@@ -54,7 +54,7 @@ class Schema
             \mkdir($path, 0777, true);
         }
         $path .= '/' . $tableName . '.yaml';
-        return file_put_contents($path, YAML::dump($data, 3)) !== false;
+        return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }
 
     /**
@@ -145,7 +145,7 @@ class Schema
     public static function getFromYamlFile(string $tableName, string $type = 'schema'): array
     {
         $fileName = self::getSchemaFileName($tableName, $type);
-        return $fileName == '' ? [] : YAML::parse(file_get_contents($fileName));
+        return $fileName == '' ? [] : Yaml::parse(file_get_contents($fileName));
     }
 
     /**
