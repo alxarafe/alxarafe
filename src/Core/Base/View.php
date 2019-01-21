@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -21,6 +20,7 @@ use Alxarafe\Helpers\Skin;
  */
 class View
 {
+
     /**
      * Array that contains the variables that will be passed to the template.
      * Among others it will contain the user name, the view and the controller.
@@ -82,6 +82,30 @@ class View
     }
 
     /**
+     * Check different possible locations for the file and return the
+     * corresponding URI, if it exists.
+     *
+     * @param string $path
+     * @return string
+     */
+    private function getResourceUri(string $path): string
+    {
+        if (file_exists(Skin::getTemplatesFolder() . $path)) {
+            return Skin::getTemplatesUri() . $path;
+        }
+        if (file_exists(Skin::getCommonTemplatesFolder() . $path)) {
+            return Skin::getCommonTemplatesUri() . $path;
+        }
+        if (file_exists(constant('DEFAULT_TEMPLATES_FOLDER') . $path)) {
+            return constant('DEFAULT_TEMPLATES_URI') . $path;
+        }
+        if (file_exists(constant('VENDOR_FOLDER') . $path)) {
+            return constant('VENDOR_URI') . $path;
+        }
+        return '';
+    }
+
+    /**
      * Check if the resource is in the application's resource folder (for example, in the css or js folders
      * of the skin folder). It's a specific file.
      *
@@ -100,17 +124,9 @@ class View
     {
         $path = $resourceName . '.' . $resourceExtension;
         if ($relative) {
-            if (file_exists(Skin::getTemplatesFolder() . $path)) {
-                return Skin::getTemplatesUri() . $path;
-            }
-            if (file_exists(Skin::getCommonTemplatesFolder() . $path)) {
-                return Skin::getCommonTemplatesUri() . $path;
-            }
-            if (file_exists(constant('DEFAULT_TEMPLATES_FOLDER') . $path)) {
-                return constant('DEFAULT_TEMPLATES_URI') . $path;
-            }
-            if (file_exists(constant('VENDOR_FOLDER') . $path)) {
-                return constant('VENDOR_URI') . $path;
+            $uri = self::getResourceUri($path);
+            if ($uri != '') {
+                return $uri;
             }
             Debug::addMessage('messages', "Relative resource '$path' not found!");
         }

@@ -34,6 +34,6 @@ class ExportStructureView extends View
         parent::__construct($ctrl);
         Skin::setTemplate('exportstructure');
 
-        $this->tables = Config::$sqlHelper->getTables();;
+        $this->tables = Config::$sqlHelper->getTables();
     }
 }

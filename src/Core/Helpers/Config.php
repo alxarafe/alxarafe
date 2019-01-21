@@ -245,7 +245,6 @@ class Config
                     'dbHost' => self::$global['dbHost'],
                     'dbPort' => self::$global['dbPort'],
                 ]);
-                return isset(self::$dbEngine) && self::$dbEngine->connect() && Config::$dbEngine->checkConnection();
             } catch (Exception $e) {
                 Debug::addException($e);
                 return false;
