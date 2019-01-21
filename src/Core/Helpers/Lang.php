@@ -26,7 +26,7 @@ class Lang
     /**
      * Base folder where languages files are stored.
      */
-    const LANG_FOLDER = '/src/Core/Languages';
+    const LANG_FOLDER = '/Languages';
 
     /**
      * Default language to use.
@@ -114,7 +114,7 @@ class Lang
             Yaml::parseFile($file);
             self::$translator->addResource(self::FORMAT, $file, $lang);
         } catch (ParseException $exception) {
-            $msg = (str_replace(constant('BASE_PATH'), '', $exception->getMessage()));
+            $msg = (str_replace(constant('ALXARAFE_FOLDER'), '', $exception->getMessage()));
             Debug::addMessage('messages', $msg);
         }
 
@@ -268,6 +268,6 @@ class Lang
      */
     public function getLangFolder()
     {
-        return constant('BASE_PATH') . self::LANG_FOLDER;
+        return constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
     }
 }
