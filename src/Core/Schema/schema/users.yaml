@@ -72,10 +72,10 @@ values:
         username: 'admin'
         email: 'admin@alxarafe.com'
         password: '$2y$10$bjbKpk7rLjxIzgZ6jjVbhOSWkdM7McOtr6Vs8NtXmrc.bSvLVe4TG'
-        active: 'yes'
+        active: 1
     2:
         id: 2
         username: 'user'
         email: 'user@alxarafe.com'
         password: '$2y$10$bjbKpk7rLjxIzgZ6jjVbhOSWkdM7McOtr6Vs8NtXmrc.bSvLVe4TG'
-        active: 'yes'
+        active: 1
