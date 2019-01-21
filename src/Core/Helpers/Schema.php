@@ -79,20 +79,14 @@ class Schema
         switch ($values['type']) {
             case 'string':
                 $length = intval($values['length'] ?? constant(DEFAULT_STRING_LENGTH));
-                if (!isset($result['length']) || intval($result['length'] > $length)) {
-                    $result['length'] = $length;
-                }
+                $result['length'] = max([intval($result['length']) ?? 0, $length]);
                 break;
             case 'integer':
                 $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
                 $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
                 $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
-                if (!isset($result['min']) || intval($result['min'] < $min)) {
-                    $result['min'] = $min;
-                }
-                if (!isset($result['max']) || intval($result['max'] > $max)) {
-                    $result['max'] = $max;
-                }
+                $result['min'] = min([intval($result['min'] ?? 0), $min]);
+                $result['max'] = max([intval($result['min'] ?? 0), $max]);
                 break;
         }
         return $result;
@@ -113,7 +107,7 @@ class Schema
     {
         $result = [];
         foreach ($struct['fields'] as $field => $values) {
-            $result[$field] = self::mergeViewField($field, $values, $data);
+            $result[$field] = self::mergeViewField($field, $values, $data[$field] ?? []);
         }
         return $result;
     }

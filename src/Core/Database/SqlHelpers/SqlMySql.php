@@ -113,9 +113,9 @@ class SqlMySql extends SqlHelper
      */
     public function getSQLField(string $fieldName, array $data): string
     {
-        $null = $this->isYes($data['nullable']);
-        $autoincrement = $this->isYes($data['autoincrement']);
-        $zerofill = $this->isYes($data['zerofill']);
+        $null = Utils::isTrue($data['nullable']);
+        $autoincrement = Utils::isTrue($data['autoincrement']);
+        $zerofill = Utils::isTrue($data['zerofill']);
 
         $default = $data['default'];
         if (isset($default)) {
@@ -131,18 +131,6 @@ class SqlMySql extends SqlHelper
         $result .= isset($default) ? ' DEFAULT ' . $default : '';
 
         return $result;
-    }
-
-    /**
-     * Return true if $param is setted and is 'yes', otherwise return false.
-     *
-     * @param string $param
-     *
-     * @return bool
-     */
-    private function isYes($param)
-    {
-        return (isset($param) && ($param == 'yes'));
     }
 
     /**

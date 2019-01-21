@@ -85,4 +85,16 @@ class Utils
         }
         return $ret;
     }
+
+    /**
+     * Return true if $param is setted and is 'yes', otherwise return false.
+     *
+     * @param string $param
+     *
+     * @return bool
+     */
+    public function isTrue($param)
+    {
+        return (isset($param) && (in_array($param, ['yes', 'true', '1', 1])));
+    }
 }
