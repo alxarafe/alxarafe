@@ -143,7 +143,7 @@ class Dispatcher
      *
      * @return bool
      */
-    public function processFolder(string $path, string $call, string $method): bool
+    public function processFolder(string $path, string $call, string $method = 'run'): bool
     {
         $className = $call;
         foreach ($this->nameSpaces as $nameSpace) {

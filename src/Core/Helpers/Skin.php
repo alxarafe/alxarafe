@@ -247,11 +247,11 @@ class Skin
                 try {
                     $return = $twig->render(self::getTemplate(), $templateVars);
                 } catch (Twig_Error_Loader $e) {
-                    self::error_details($e);
+                    self::errorDetails($e);
                 } catch (Twig_Error_Runtime $e) {
-                    self::error_details($e);
+                    self::errorDetails($e);
                 } catch (Twig_Error_Syntax $e) {
-                    self::error_details($e);
+                    self::errorDetails($e);
                 }
                 break;
             default:
@@ -270,7 +270,7 @@ class Skin
      *
      * @return string
      */
-    private static function error_details($e, $return = false)
+    private static function errorDetails($e, $return = false)
     {
         $msg = '<h3>Fatal error</h3>';
         $msg .= '<b>File:</b> ' . $e->getFile() . '<br/>';
