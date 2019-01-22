@@ -54,8 +54,8 @@ class Table extends SimpleTable
     public function checkStructure(bool $create = false): void
     {
         if (isset(Config::$bbddStructure[$this->tableName])) {
-            if ($create && !SchemaDB::tableExists($this->tableName)) {
-                SchemaDB::createTable($this->tableName);
+            if ($create && !SchemaDB::tableExists(Config::getVar('dbPrefix') . $this->tableName)) {
+                SchemaDB::createTable(Config::getVar('dbPrefix') . $this->tableName);
             }
         }
     }
@@ -137,10 +137,10 @@ class Table extends SimpleTable
                 if (!isset($struct['values'])) {
                     $struct['values'] = [];
                 }
-                $struct['values'] = array_merge($struct['values'], $this->getDefaultValues());
+                $struct['values'] = array_merge($struct['values'], /** @scrutinizer ignore-call */ $this->getDefaultValues());
             }
         }
-        $struct['checks'] = method_exists($this, 'getChecks') ? $this->getChecks() : $this->getChecksFromTable();
+        $struct['checks'] = method_exists($this, 'getChecks') ? /** @scrutinizer ignore-call */ $this->getChecks() : $this->getChecksFromTable();
         return $struct;
     }
 
@@ -172,5 +172,4 @@ class Table extends SimpleTable
     {
         return [];
     }
-
 }
