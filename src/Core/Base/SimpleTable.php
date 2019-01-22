@@ -180,11 +180,11 @@ class SimpleTable
      * but thanks to this, we can also use $this->name='Pepe'.
      *
      * @param string $property
-     * @param string $value
+     * @param mixed  $value
      *
-     * @return string
+     * @return mixed
      */
-    public function __set(string $property, string $value): string
+    public function __set(string $property, $value)
     {
         $this->newData[$property] = $value;
         return $this->newData[$property];
@@ -229,6 +229,47 @@ class SimpleTable
     private function getData(string $id): bool
     {
         $sql = 'SELECT * FROM ' . $this->getTableName() . " WHERE {$this->idField}='$id'";
+        $data = Config::$dbEngine->select($sql);
+        if (!isset($data) || count($data) == 0) {
+            $this->newRecord();
+            return false;
+        }
+        $this->newData = $data[0];
+        $this->oldData = $this->newData;
+        $this->id = $this->newData[$this->idField];
+        return true;
+    }
+
+    /**
+     * Returns a new instance of the table with the requested record.
+     * As a previous step, a getDataBy of the current instance is made, so both will point to the same record.
+     * Makes a getDataBy and returns a new instance of the model.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return SimpleTable
+     */
+    public function getBy(string $key, $value): self
+    {
+        $this->getDataBy($key, $value);
+        return $this;
+    }
+
+    /**
+     * This method is private. Use getBy instead.
+     * Establishes a record as an active record.
+     * If found the pair $key-$value the data will be in $this->newData.
+     * If it is not found, $this->id will contain '' and $this->newData will contain the data by default.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return bool
+     */
+    private function getDataBy(string $key, $value): bool
+    {
+        $sql = 'SELECT * FROM ' . $this->getTableName() . " WHERE {$key}='$value'";
         $data = Config::$dbEngine->select($sql);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();

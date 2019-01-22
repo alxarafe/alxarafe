@@ -20,7 +20,7 @@ class Auth extends Users
     /**
      * Cookie time expiration.
      */
-    const COOKIE_EXPIRATION = 86400*30; // 30 days
+    const COOKIE_EXPIRATION = 86400 * 30; // 30 days
 
     /**
      * User in use.
@@ -28,6 +28,13 @@ class Auth extends Users
      * @var string|null
      */
     private $user = null;
+
+    /**
+     * User log key.
+     *
+     * @var string|null
+     */
+    public $logkey = null;
 
     /**
      * Auth constructor.
@@ -46,9 +53,14 @@ class Auth extends Users
     private function getCookieUser()
     {
         if ($this->user === null) {
-            if (isset($_COOKIE['user'])) {
-                $this->user = $_COOKIE['user'];
+            if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && !$this->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
+                $this->login();
             }
+        } else {
+            Debug::addMessage(
+                'messages',
+                'Auth::user yet setted (' . $_COOKIE['user'] . ', ' . $_COOKIE['logkey'] . '): '
+            );
         }
         return $this->user;
     }
@@ -70,7 +82,14 @@ class Auth extends Users
             'messages',
             'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out')
         );
+
+        $user = new Users();
+        $user->getBy('username', $this->user);
+        $user->logkey = null;
+        $user->save();
+
         $this->user = null;
+
         $this->clearCookieUser();
     }
 
@@ -79,8 +98,10 @@ class Auth extends Users
      */
     private function clearCookieUser()
     {
-        setcookie('user', '');
+        setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         unset($_COOKIE['user']);
+        unset($_COOKIE['logkey']);
     }
 
     /**
@@ -96,32 +117,35 @@ class Auth extends Users
     /**
      * TODO: Undocumented
      *
-     * @param string $user
+     * @param string $userName
      * @param string $password
      *
      * @return bool
      */
-    public function setUser($user, $password): bool
+    public function setUser($userName, $password): bool
     {
-        $sql = "SELECT * FROM {$this->tableName} WHERE username='$user';";
-        $_user = Config::$dbEngine->select($sql);
-        if (count($_user) > 0 && password_verify($password, $_user[0]['password'])) {
-            $this->user = $user;
+        $user = new Users();
+        $user->getBy('username', $userName);
+
+        if ($user !== false && password_verify($password, $user->password)) {
+            $this->user = $user->username;
             $this->setCookieUser();
-            Debug::addMessage('messages', "$user authenticated");
+            Debug::addMessage('messages', "$userName authenticated");
         } else {
             $this->user = null;
-            setcookie('user', '');
+            setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+            setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
             unset($_COOKIE['user']);
-            if (isset($_user[0])) {
-                if (password_verify($password, $_user[0]['password'])) {
+            unset($_COOKIE['logkey']);
+            if ($user !== false) {
+                if (password_verify($password, $user->password)) {
                     $msg = 'good password.';
                 } else {
                     $msg = 'wrong password.';
                 }
                 Debug::addMessage('messages', "Checking hash " . $msg);
             } else {
-                Debug::addMessage('messages', "User '" . $user . "' not founded.");
+                Debug::addMessage('messages', "User '" . $userName . "' not founded.");
             }
         }
         return $this->user !== null;
@@ -135,7 +159,57 @@ class Auth extends Users
         if ($this->user === null) {
             $this->clearCookieUser();
         } else {
-            setcookie('user', $this->user, time() + self::COOKIE_EXPIRATION);
+            setcookie('user', $this->user, time() + self::COOKIE_EXPIRATION, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+            setcookie('logkey', $this->generateLogKey(), time() + self::COOKIE_EXPIRATION, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         }
+    }
+
+    /**
+     * Generate a log key.
+     *
+     * @param string $ip
+     * @param bool   $unique
+     *
+     * @return string
+     */
+    public function generateLogKey(string $ip = '', bool $unique = true)
+    {
+        $logkey = '';
+        if (!empty($_COOKIE['user'])) {
+            $user = new Users();
+            $user->getBy('username', $_COOKIE['user']);
+            $text = $this->user;
+            if ($unique) {
+                $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
+            }
+            $text .= '|' . Utils::randomString();
+            $logkey = password_hash($text, PASSWORD_DEFAULT);
+
+            $user->logkey = $logkey;
+            $user->save();
+        }
+
+        return $logkey;
+    }
+
+    /**
+     * Verify is log key is correct.
+     *
+     * @param string $userName
+     * @param string $hash
+     *
+     * @return bool
+     */
+    public function verifyLogKey(string $userName, string $hash)
+    {
+        $status = false;
+        $user = new Users();
+        $user->getBy('username', $userName);
+        if ($user !== false && $hash === $user->logkey) {
+            $this->user = $user->username;
+            $this->logkey = $user->logkey;
+            $status = true;
+        }
+        return $status;
     }
 }

@@ -33,6 +33,7 @@ class EditConfig extends PageController
      */
     public function run()
     {
+        parent::run();
         Skin::setView(new ConfigView($this));
     }
 

@@ -52,6 +52,14 @@ class PageController extends Controller
     }
 
     /**
+     * Start point
+     */
+    public function run()
+    {
+        parent::run();
+    }
+
+    /**
      * Set the page details.
      */
     protected function setPageDetails()

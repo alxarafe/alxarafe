@@ -32,6 +32,7 @@ class ExportStructure extends PageController
      */
     public function run()
     {
+        parent::run();
         Skin::setView(new ExportStructureView($this));
     }
 

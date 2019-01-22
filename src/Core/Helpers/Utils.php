@@ -97,4 +97,28 @@ class Utils
     {
         return (isset($param) && (in_array($param, ['yes', 'true', '1', 1])));
     }
+
+    /**
+     * Generate a random string for a given length.
+     * Tries to generate from most secure random text to less.
+     *
+     * @param int $length
+     *
+     * @return bool|string
+     */
+    public static function randomString($length = 16)
+    {
+        if (function_exists("openssl_random_pseudo_bytes")) {
+            $bytes = openssl_random_pseudo_bytes($length);
+        } elseif (function_exists("random_bytes")) {
+            try {
+                $bytes = random_bytes($length);
+            } catch (\Exception $e) {
+                self::randomString($length);
+            }
+        } else {
+            return mb_substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $length);
+        }
+        return bin2hex($bytes);
+    }
 }

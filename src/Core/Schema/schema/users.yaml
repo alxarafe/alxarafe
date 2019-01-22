@@ -55,6 +55,15 @@ fields:
         unsigned: 'yes'
         zerofill: 'no'
         autoincrement: 'no'
+    logkey:
+        field: logkey
+        type: string
+        length: '128'
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
 indexes:
     PRIMARY:
         index: PRIMARY
