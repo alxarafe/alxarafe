@@ -28,7 +28,7 @@ class SchemaDB
      */
     public static function tableExists($tableName): bool
     {
-        $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
+        $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ';';
         return (bool) Config::$dbEngine->exec($sql);
     }
 
@@ -71,7 +71,7 @@ class SchemaDB
     public static function createTable(string $tableName): bool
     {
         $tabla = Config::$bbddStructure[$tableName];
-        Debug::addMessage('messages', "var_dump: <pre>" . var_export($tabla, true) . "</pre>");
+        Debug::addMessage('messages', "Table creation: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
 
         $sql = self::createFields($tableName, $tabla['fields']);
 
@@ -79,8 +79,6 @@ class SchemaDB
             $sql .= self::createIndex($tableName, $name, $index);
         }
         $sql .= Schema::setValues($tableName, $tabla['values']);
-
-        echo $sql;
 
         return Config::$dbEngine->exec($sql);
     }
@@ -105,7 +103,7 @@ class SchemaDB
      */
     protected static function createFields(string $tableName, array $fieldsList)
     {
-        $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, false) . ' (';
+        $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (';
         $sql .= self::assignFields($fieldsList);
         $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
 
@@ -119,7 +117,7 @@ class SchemaDB
         // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
         // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
 
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
         if ($autoincrement) {
             $sql .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
         }
@@ -132,8 +130,7 @@ class SchemaDB
         // https://www.w3schools.com/sql/sql_create_index.asp
         // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
         // CREATE UNIQUE INDEX idx_pname ON Persons (LastName, FirstName);
-        // $sql = 'CREATE ' . ($unique ? 'UNIQUE ' : '') . 'INDEX ' . $indexData['name'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
-        $sql = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        $sql = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
         return $sql . ';' . self::CRLF;
     }
 
@@ -141,7 +138,7 @@ class SchemaDB
     {
         // https://www.w3schools.com/sql/sql_unique.asp
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) .
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
         return $sql . ';' . self::CRLF;
     }
@@ -150,7 +147,7 @@ class SchemaDB
     {
             // https://www.w3schools.com/sql/sql_foreignkey.asp
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, /* quitar false */ false) .
+        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
             ') REFERENCES ' . $indexData['referencedtable'] . ' (' . $indexData['referencedfield'] . ')';
 
