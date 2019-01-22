@@ -247,11 +247,11 @@ class Skin
                 try {
                     $return = $twig->render(self::getTemplate(), $templateVars);
                 } catch (Twig_Error_Loader $e) {
-                    Debug::addException($e);
+                    self::error_details($e);
                 } catch (Twig_Error_Runtime $e) {
-                    Debug::addException($e);
+                    self::error_details($e);
                 } catch (Twig_Error_Syntax $e) {
-                    Debug::addException($e);
+                    self::error_details($e);
                 }
                 break;
             default:
@@ -260,6 +260,28 @@ class Skin
 
         Debug::stopTimer('render');
         return $return;
+    }
+
+    /**
+     * Dump details on fail.
+     *
+     * @param      $e
+     * @param bool $return
+     *
+     * @return string
+     */
+    private static function error_details($e, $return = false)
+    {
+        $msg = '<h3>Fatal error</h3>';
+        $msg .= '<b>File:</b> ' . $e->getFile() . '<br/>';
+        $msg .= '<b>Line:</b> ' . $e->getLine() . '<br/>';
+        $msg .= '<b>Message:</b> ' . $e->getMessage() . '<br/>';
+
+        if ($return) {
+            return $msg;
+        } else {
+            echo $msg;
+        }
     }
 
     /**
