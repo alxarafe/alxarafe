@@ -120,7 +120,7 @@ class Dispatcher
             $call = filter_input(INPUT_GET, 'call', FILTER_SANITIZE_ENCODED);
             $call = !empty($call) ? $call : 'index';
             $method = filter_input(INPUT_GET, 'run', FILTER_SANITIZE_ENCODED);
-            $method = !empty($method) ? $method : 'main';
+            $method = !empty($method) ? $method : 'run';
             if ($this->processFolder($path, $call, $method)) {
                 return true;
             }
@@ -138,7 +138,7 @@ class Dispatcher
      *
      * @return bool
      */
-    public function processFolder(string $path, string $call, string $method): bool
+    public function processFolder(string $path, string $call, string $method = 'run'): bool
     {
         $className = $call;
         foreach ($this->nameSpaces as $nameSpace) {

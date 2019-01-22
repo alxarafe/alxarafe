@@ -25,7 +25,13 @@ class Login extends PageController
     public function __construct()
     {
         parent::__construct();
+    }
 
+    /**
+     * Start point
+     */
+    public function run()
+    {
         if (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
