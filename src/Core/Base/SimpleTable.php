@@ -247,7 +247,7 @@ class SimpleTable
      */
     public function getTableName(): string
     {
-        Debug::addMessage('deprecated', 'Do not use getTableName(), use Config::$sqlHelper->quoteTableName($this->tableName); instead');
+        Debug::addMessage('Deprecated', 'Do not use getTableName(), use Config::$sqlHelper->quoteTableName($this->tableName); instead');
         return Config::$sqlHelper->quoteTableName($this->tableName);
     }
 

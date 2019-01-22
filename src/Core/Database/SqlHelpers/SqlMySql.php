@@ -132,7 +132,7 @@ class SqlMySql extends SqlHelper
             }
         }
 
-        $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length']);
+        $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length'] ?? 0);
         $result .= ($null ? '' : ' NOT') . ' NULL';
         //$result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
         $result .= $zerofill ? ' ZEROFILL' : '';
