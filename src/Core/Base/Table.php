@@ -6,6 +6,7 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
 
 /**
@@ -66,7 +67,7 @@ class Table extends SimpleTable
      */
     public function getNameField(): string
     {
-        return $this->nameField;
+        return $this->nameField ?? '';
     }
 
     /**
@@ -136,10 +137,10 @@ class Table extends SimpleTable
                 if (!isset($struct['values'])) {
                     $struct['values'] = [];
                 }
-                $struct['values'] = array_merge($struct['values'], $this->getDefaultValues());
+                $struct['values'] = array_merge($struct['values'], /** @scrutinizer ignore-call */ $this->getDefaultValues());
             }
-            $struct['checks'] = $this->getChecks();
         }
+        $struct['checks'] = method_exists($this, 'getChecks') ? /** @scrutinizer ignore-call */ $this->getChecks() : $this->getChecksFromTable();
         return $struct;
     }
 
@@ -156,6 +157,11 @@ class Table extends SimpleTable
         return Config::$sqlHelper->getIndexes($this->tableName, true);
     }
 
+    public function getChecksFromTable(): array
+    {
+        return Schema::getFromYamlFile($this->tableName, 'viewdata');
+    }
+
     /**
      * Return a list of default values.
      * Each final model that needed, must overwrite it.
@@ -163,17 +169,6 @@ class Table extends SimpleTable
      * @return array
      */
     public function getDefaultValues(): array
-    {
-        return [];
-    }
-
-    /**
-     * Returns a list of checks.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getChecks(): array
     {
         return [];
     }
