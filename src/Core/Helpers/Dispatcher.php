@@ -93,6 +93,11 @@ class Dispatcher
         define('CONFIGURATION_PATH', constant('BASE_PATH') . '/config');
         define('DEFAULT_STRING_LENGTH', 50);
         define('DEFAULT_INTEGER_SIZE', 10);
+
+        define('CALL_CONTROLLER', 'call');
+        define('METHOD_CONTROLLER', 'run');
+        define('DEFAULT_CONTROLLER', 'index');
+        define('DEFAULT_METHOD', 'main');
     }
 
     /**
@@ -117,10 +122,10 @@ class Dispatcher
     {
         foreach ($this->searchDir as $dir) {
             $path = $dir . '/Controllers';
-            $call = filter_input(INPUT_GET, 'call', FILTER_SANITIZE_ENCODED);
-            $call = !empty($call) ? $call : 'index';
-            $method = filter_input(INPUT_GET, 'run', FILTER_SANITIZE_ENCODED);
-            $method = !empty($method) ? $method : 'main';
+            $call = filter_input(INPUT_GET, CALL_CONTROLLER, FILTER_SANITIZE_ENCODED);
+            $call = !empty($call) ? $call : DEFAULT_CONTROLLER;
+            $method = filter_input(INPUT_GET, METHOD_CONTROLLER, FILTER_SANITIZE_ENCODED);
+            $method = !empty($method) ? $method : DEFAULT_METHOD;
             if ($this->processFolder($path, $call, $method)) {
                 return true;
             }
