@@ -11,7 +11,7 @@
     {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
 
     <div class="container-fluid">
-        <form action="{{ constant('BASE_URI') }}/index.php?call=EditConfig" method='post' accept-charset="utf-8">
+        <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig" method='post' accept-charset="utf-8">
             <div class="row">
                 <div class="col-xs-12">
                     {% if (message) %}{{ message }}{% endif %}

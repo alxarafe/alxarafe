@@ -149,6 +149,14 @@ class Dispatcher
      */
     public function processFolder(string $path, string $call, string $method = 'index'): bool
     {
+        if (empty(Config::loadConfigurationFile()) || !Config::connectToDataBase()) {
+            if ($call !== 'CreateConfig' || $method !== 'main') {
+                Config::setError('Database Connection error...');
+                (new CreateConfig())->index();
+                return true;
+            }
+        }
+
         $className = $call;
         foreach ($this->nameSpaces as $nameSpace) {
             $_className = $nameSpace . '\\Controllers\\' . $call;

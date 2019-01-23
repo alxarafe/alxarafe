@@ -10,7 +10,7 @@
     {# TODO: This is not working? #}
     {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
 
-    <form action="{{ constant('BASE_URI') }}/index.php?call=ExportStructure' method='post' accept-charset="utf-8">
+    <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=ExportStructure' method='post' accept-charset="utf-8">
         <div class="container-fluid">
             {% if (message) %}{{ message }}{% endif %}
 

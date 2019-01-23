@@ -63,7 +63,7 @@ class Login extends PageController
      */
     private function redirectToController(): void
     {
-        $where = constant('BASE_URI') . '/index.php?call=' . constant('DEFAULT_CONTROLLER');
+        $where = constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=' . constant('DEFAULT_CONTROLLER');
         if (!empty($this->redirect)) {
             $where = base64_decode(urldecode($this->redirect));
         }
@@ -81,7 +81,6 @@ class Login extends PageController
     {
         if (!isset($this->userName)) {
             Skin::setView(new LoginView($this));
-            //header('Location: ' . constant('BASE_URI') . '/index.php?call=Login');
         } else {
             $this->redirectToController();
         }
