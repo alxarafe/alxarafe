@@ -248,12 +248,11 @@ class SimpleTable
      * @param string $key
      * @param mixed  $value
      *
-     * @return SimpleTable
+     * @return SimpleTable|null
      */
-    public function getBy(string $key, $value): self
+    public function getBy(string $key, $value)
     {
-        $this->getDataBy($key, $value);
-        return $this;
+        return ($this->getDataBy($key, $value) ? $this : null);
     }
 
     /**

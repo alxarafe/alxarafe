@@ -86,7 +86,7 @@ class Auth extends Users
 
         $user = new Users();
         $user->getBy('username', $this->username);
-        $user->logkey = null;
+        $user->setLogkey(null);
         $user->save();
 
         $this->username = null;
@@ -127,30 +127,29 @@ class Auth extends Users
     public function setUser($userName, $password): bool
     {
         $user = new Users();
-        $user->getBy('username', $userName);
 
-        if ($user !== false && password_verify($password, $user->password)) {
-            $this->username = $user->username;
-            $this->setCookieUser();
-            Debug::addMessage('messages', "$userName authenticated");
-        } else {
-            $this->username = null;
-            setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-            setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-            unset($_COOKIE['user']);
-            unset($_COOKIE['logkey']);
-            if ($user !== false) {
+        if ($user->getBy('username', $userName) !== null) {
+            if (password_verify($password, $user->getPassword())) {
+                $this->setUsername($user->getUsername());
+                $this->setCookieUser();
+                Debug::addMessage('messages', "$userName authenticated");
+            } else {
+                $this->setUsername(null);
+                setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+                setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+                unset($_COOKIE['user']);
+                unset($_COOKIE['logkey']);
                 if (password_verify($password, $user->password)) {
                     $msg = 'good password.';
                 } else {
                     $msg = 'wrong password.';
                 }
                 Debug::addMessage('messages', "Checking hash " . $msg);
-            } else {
-                Debug::addMessage('messages', "User '" . $userName . "' not founded.");
             }
+        } else {
+            Debug::addMessage('messages', "User '" . $userName . "' not founded.");
         }
-        return $this->username !== null;
+        return $this->getUsername() !== null;
     }
 
     /**
@@ -187,7 +186,7 @@ class Auth extends Users
             $text .= '|' . Utils::randomString();
             $logkey = password_hash($text, PASSWORD_DEFAULT);
 
-            $user->logkey = $logkey;
+            $user->setLogkey($logkey);
             $user->save();
         }
 
@@ -206,10 +205,9 @@ class Auth extends Users
     {
         $status = false;
         $user = new Users();
-        $user->getBy('username', $userName);
-        if ($user !== false && $hash === $user->logkey) {
-            $this->username = $user->username;
-            $this->logkey = $user->logkey;
+        if ($user->getBy('username', $userName) !== null && $hash === $user->getLogkey()) {
+            $this->username = $user->getUsername();
+            $this->logkey = $user->getLogkey();
             $status = true;
         }
         return $status;

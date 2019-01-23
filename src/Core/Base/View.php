@@ -128,7 +128,7 @@ class View
         $path = $resourceName . '.' . $resourceExtension;
         if ($relative) {
             $uri = $this->getResourceUri($path);
-            if ($uri != '') {
+            if ($uri !== '') {
                 return $uri;
             }
             Debug::addMessage('messages', "Relative resource '$path' not found!");
