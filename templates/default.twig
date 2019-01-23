@@ -12,6 +12,12 @@
     {{ view.view() | raw }}
     {{ view.closeForm() | raw }}
 
-    {% include "master/dashboard.twig" %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                This view doesn't have a controller
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
