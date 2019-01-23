@@ -31,6 +31,5 @@ class Controller
      */
     public function index()
     {
-
     }
 }
