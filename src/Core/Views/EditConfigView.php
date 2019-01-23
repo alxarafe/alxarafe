@@ -69,9 +69,9 @@ class EditConfigView extends View
 
         $this->dbEngines = Engine::getEngines();
         $this->skins = Skin::getSkins();
+        $this->skin = $vars['skin'] ?? $this->skins[0] ?? '';
 
         $this->dbEngineName = $vars['dbEngineName'] ?? $this->dbEngines[0] ?? '';
-        $this->setVar('skin', $vars['skin'] ?? $this->skins[0] ?? '');
 
         $this->dbConfig['dbUser'] = $vars['dbUser'] ?? 'root';
         $this->dbConfig['dbPass'] = $vars['dbPass'] ?? '';
