@@ -31,34 +31,20 @@ class Controller
      */
     public function run()
     {
-        $this->username = Config::$user->getUser();
+        $this->username = Config::$user->getUserName();
         if ($this->username) {
-            Debug::addMessage('messages', "User '" . $this->username . "' logged in");
+            Debug::addMessage('messages', "User '" . $this->username . "' logged in.");
+            $perms = [
+                'Access' => ($this->canAccess($this->username) ? 'yes' : 'no'),
+                'Create' => ($this->canCreate($this->username) ? 'yes' : 'no'),
+                'Read' => ($this->canRead($this->username) ? 'yes' : 'no'),
+                'Update' => ($this->canUpdate($this->username) ? 'yes' : 'no'),
+                'Delete' => ($this->canDelete($this->username) ? 'yes' : 'no'),
+            ];
             Debug::addMessage(
                 'messages',
-                "User '" . $this->username . "' can access? " . ($this->canCreate($this->username) ? 'yes' : 'no')
+                "Perms for user '" . $this->username . "': <pre>" . var_export($perms, true) . "</pre>"
             );
-            if ($this->canAccess($this->username)) {
-                var_dump($this->username);
-            }
-
-            Debug::addMessage(
-                'messages',
-                "User '" . $this->username . "' can create? " . ($this->canCreate($this->username) ? 'yes' : 'no')
-            );
-            Debug::addMessage(
-                'messages',
-                "User '" . $this->username . "' can read? " . ($this->canRead($this->username) ? 'yes' : 'no')
-            );
-            Debug::addMessage(
-                'messages',
-                "User '" . $this->username . "' can update? " . ($this->canUpdate($this->username) ? 'yes' : 'no')
-            );
-            Debug::addMessage(
-                'messages',
-                "User '" . $this->username . "' can delete? " . ($this->canDelete($this->username) ? 'yes' : 'no')
-            );
-
             return;
         }
         Debug::addMessage('messages', 'User must log in!');
