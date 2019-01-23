@@ -6,6 +6,9 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Helpers\Auth;
+use Alxarafe\Helpers\Debug;
+
 /**
  * Class PageController, all controllers that needs to be accessed as a page must extends from this.
  *
@@ -42,6 +45,20 @@ class PageController extends Controller
     public $menu;
 
     /**
+     * Contains the data of the currently identified user.
+     *
+     * @var Auth
+     */
+    public $userAuth;
+
+    /**
+     * Contains the user's name or null
+     *
+     * @var string|null
+     */
+    public $userName;
+
+    /**
      * PageController constructor.
      */
     public function __construct()
@@ -56,7 +73,41 @@ class PageController extends Controller
      */
     public function run()
     {
-        parent::run();
+        if ($this->ensureLogin()) {
+            parent::run();
+        }
+    }
+
+    /**
+     * Check if user is logged in, and redirect to this controller if needed.
+     *
+     * @return bool
+     */
+    private function ensureLogin()
+    {
+        if ($this->userAuth === null) {
+            $this->userAuth = new Auth();
+            $this->userName = $this->userAuth->getUserName();
+        }
+        if ($this->userName) {
+            Debug::addMessage('messages', "User '" . $this->userName . "' logged in.");
+            $perms = [
+                'Access' => ($this->canAccess($this->userName) ? 'yes' : 'no'),
+                'Create' => ($this->canCreate($this->userName) ? 'yes' : 'no'),
+                'Read' => ($this->canRead($this->userName) ? 'yes' : 'no'),
+                'Update' => ($this->canUpdate($this->userName) ? 'yes' : 'no'),
+                'Delete' => ($this->canDelete($this->userName) ? 'yes' : 'no'),
+            ];
+            Debug::addMessage(
+                'messages',
+                "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
+            );
+            return true;
+        } else {
+            $this->userAuth->login();
+            Debug::addMessage('messages', 'User must log in!');
+            return false;
+        }
     }
 
     /**
@@ -94,5 +145,65 @@ class PageController extends Controller
         }
         ksort($pageDetails);
         return $pageDetails;
+    }
+
+    /**
+     * Returns if user can access this controller.
+     *
+     * @param string $username
+     *
+     * @return bool
+     */
+    public function canAccess(string $username): bool
+    {
+        return true;
+    }
+
+    /**
+     * Returns if user can create on this controller.
+     *
+     * @param string $username
+     *
+     * @return bool
+     */
+    public function canCreate(string $username): bool
+    {
+        return true;
+    }
+
+    /**
+     * Returns if user can read on this controller.
+     *
+     * @param string $username
+     *
+     * @return bool
+     */
+    public function canRead(string $username): bool
+    {
+        return true;
+    }
+
+    /**
+     * Returns if user can update on this controller.
+     *
+     * @param string $username
+     *
+     * @return bool
+     */
+    public function canUpdate(string $username): bool
+    {
+        return true;
+    }
+
+    /**
+     * Return if user can delete on this controller.
+     *
+     * @param string $username
+     *
+     * @return bool
+     */
+    public function canDelete(string $username): bool
+    {
+        return false;
     }
 }

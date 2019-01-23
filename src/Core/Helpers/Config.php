@@ -51,20 +51,6 @@ class Config
     public static $bbddStructure;
 
     /**
-     * It is a static instance of the Auth class that contains the data of the currently identified user.
-     *
-     * @var Auth
-     */
-    public static $user;
-
-    /**
-     * Contains the user's name or null
-     *
-     * @var string|null
-     */
-    public static $username;
-
-    /**
      * Contains the full name of the configuration file or null
      *
      * @var string::null

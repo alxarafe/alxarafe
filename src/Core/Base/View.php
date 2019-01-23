@@ -39,7 +39,10 @@ class View
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
-        $this->vars['user'] = Config::$username;
+        $this->vars['user'] = null;
+        if ($controller !== null && isset($controller->userAuth)) {
+            $this->vars['user'] = $controller->userAuth->getUserName();
+        }
         $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->vars['lang'] = Config::$lang;
         $this->addCSS();
@@ -72,7 +75,7 @@ class View
     /**
      * Finally render the result.
      */
-    public function __destruct()
+    public function render()
     {
         if (!Skin::hasTemplate()) {
             Skin::setTemplate('default');

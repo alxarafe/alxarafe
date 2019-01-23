@@ -97,7 +97,7 @@ class Dispatcher
         define('CALL_CONTROLLER', 'call');
         define('METHOD_CONTROLLER', 'run');
         define('DEFAULT_CONTROLLER', 'index');
-        define('DEFAULT_METHOD', 'main');
+        define('DEFAULT_METHOD', 'run');
     }
 
     /**
@@ -109,6 +109,10 @@ class Dispatcher
             if (Skin::$view == null) {
                 Skin::$view = new View();
             }
+        }
+
+        if (Skin::$view !== null) {
+            Skin::$view->render();
         }
     }
 
@@ -122,10 +126,10 @@ class Dispatcher
     {
         foreach ($this->searchDir as $dir) {
             $path = $dir . '/Controllers';
-            $call = filter_input(INPUT_GET, CALL_CONTROLLER, FILTER_SANITIZE_ENCODED);
-            $call = !empty($call) ? $call : DEFAULT_CONTROLLER;
-            $method = filter_input(INPUT_GET, METHOD_CONTROLLER, FILTER_SANITIZE_ENCODED);
-            $method = !empty($method) ? $method : DEFAULT_METHOD;
+            $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_ENCODED);
+            $call = !empty($call) ? $call : constant('DEFAULT_CONTROLLER');
+            $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_ENCODED);
+            $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
             if ($this->processFolder($path, $call, $method)) {
                 return true;
             }

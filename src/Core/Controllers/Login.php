@@ -7,6 +7,7 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
+use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\LoginView;
@@ -32,17 +33,18 @@ class Login extends PageController
      */
     public function run()
     {
-        parent::run();
         if (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
-            if (Config::$user->setUser($username, $password)) {
+            $this->userAuth = new Auth();
+            if ($this->userAuth->setUser($username, $password)) {
                 // TODO: If user is trying to go to another place, go to it.
-                header('Location: ' . constant('BASE_URI'));
+                header('Location: ' . constant('BASE_URI') . '/index.php?call=' . constant(DEFAULT_CONTROLLER));
             }
             Config::setError('User authentication error. Please check the username and password.');
         }
         $this->main();
+        //parent::run();
     }
 
     /**
@@ -53,8 +55,9 @@ class Login extends PageController
      */
     public function main(): void
     {
-        if (!isset(Config::$username)) {
+        if (!isset($this->userName)) {
             Skin::setView(new LoginView($this));
+            //header('Location: ' . constant('BASE_URI') . '/index.php?call=Login');
         }
     }
 
@@ -65,7 +68,9 @@ class Login extends PageController
      */
     public function logout(): void
     {
-        Config::$user->logout();
+        if ($this->userAuth) {
+            $this->userAuth->logout();
+        }
         header('Location: ' . constant('BASE_URI'));
     }
 

@@ -70,7 +70,7 @@ class Auth extends Users
      */
     public function login()
     {
-        new Login();
+        (new Login())->run();
     }
 
     /**
