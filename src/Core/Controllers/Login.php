@@ -39,7 +39,7 @@ class Login extends PageController
             $this->userAuth = new Auth();
             if ($this->userAuth->setUser($username, $password)) {
                 // TODO: If user is trying to go to another place, go to it.
-                header('Location: ' . constant('BASE_URI') . '/index.php?call=' . constant(DEFAULT_CONTROLLER));
+                header('Location: ' . constant('BASE_URI') . '/index.php?call=' . constant('DEFAULT_CONTROLLER'));
             }
             Config::setError('User authentication error. Please check the username and password.');
         }
