@@ -9,7 +9,7 @@
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="{{ constant('BASE_URI') }}/index.php">
                 <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                 &nbsp; Alxarafe
             </a>
@@ -18,7 +18,7 @@
             {% if user %}
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="?call=ExportStructure">Exportar estructura</a>
+                    <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=ExportStructure">Exportar estructura</a>
                 </li>
             </ul>
             {% endif %}
@@ -32,13 +32,13 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="?call=EditConfig">
+                                <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig">
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     &nbsp; Editar configuración
                                 </a>
                             </li>
                             <li>
-                                <a href="?call=Login&run=logout">
+                                <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=logout">
                                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                                     &nbsp; Logout
                                 </a>
@@ -47,7 +47,7 @@
                     </li>
                 {% else %}
                     <li class="dropdown">
-                        <a href="?call=Login">
+                        <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login">
                             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                             &nbsp; Login
                         </a>

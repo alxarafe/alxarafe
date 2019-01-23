@@ -9,6 +9,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\LoginView;
 
@@ -37,7 +38,7 @@ class Login extends PageController
     /**
      * Start point
      */
-    public function run()
+    public function index()
     {
         $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
 
@@ -62,10 +63,11 @@ class Login extends PageController
      */
     private function redirectToController(): void
     {
-        $where = constant('BASE_URI') . '/index.php?call=' . constant('DEFAULT_CONTROLLER');
+        $where = constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=' . constant('DEFAULT_CONTROLLER');
         if (!empty($this->redirect)) {
-            $where = urldecode(base64_decode($this->redirect));
+            $where = base64_decode(urldecode($this->redirect));
         }
+        Debug::addMessage('messages', $where);
         header('Location: ' . $where);
     }
 
@@ -79,7 +81,6 @@ class Login extends PageController
     {
         if (!isset($this->userName)) {
             Skin::setView(new LoginView($this));
-            //header('Location: ' . constant('BASE_URI') . '/index.php?call=Login');
         } else {
             $this->redirectToController();
         }
@@ -92,7 +93,7 @@ class Login extends PageController
      */
     public function logout(): void
     {
-        $this->run();
+        $this->index();
         $this->userAuth->logout();
     }
 
@@ -105,7 +106,7 @@ class Login extends PageController
             'title' => 'Identificación de usuario',
             'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
             'description' => 'Página de login, para controlar el acceso a la aplicación.',
-            'menu' => [],
+            'menu' => '',
         ];
         return $details;
     }

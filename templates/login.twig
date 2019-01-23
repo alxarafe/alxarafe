@@ -15,7 +15,11 @@
         {% if (message) %}<h5>{{ message }}</h5>{% endif %}
     </div>
     <div class="container-fluid">
-        <form class="form-signin" method="post" action="{{ constant('BASE_URI') }}/index.php?call=Login{% if ctrl.redirect is not empty %}&redirect={{ ctrl.redirect }}{% endif %}">
+        {% set redirect = '' %}
+        {% if ctrl.redirect is not empty %}
+            {% set redirect = '&redirect=' ~ ctrl.redirect %}
+        {% endif %}
+        <form class="form-signin" method="post" action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login{{ redirect }}">
             <h2 class="form-signin-heading">Acceso a la aplicación</h2>
             <div class="thumbnail">
                 <img src="{{ constant('DEFAULT_TEMPLATES_URI') }}/img/login.png" alt="">

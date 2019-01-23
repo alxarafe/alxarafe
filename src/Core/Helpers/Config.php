@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Controllers\EditConfig;
+use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
 use Exception;
@@ -86,7 +86,7 @@ class Config
      */
     public static function configFileExists(): bool
     {
-        return (file_exists(self::getConfigFileName()));
+        return (file_exists(self::getConfigFileName()) && is_file(self::getConfigFileName()));
     }
 
     /**
@@ -147,16 +147,14 @@ class Config
             $skinFolder = $templatesFolder . '/' . self::$global['skin'];
             if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
                 Config::setError("Skin folder '$skinFolder' does not exists!");
-                //(new EditConfig())->run();
-                new EditConfig();
+                (new CreateConfig())->index();
                 return;
             }
             Skin::setSkin(self::$global['skin']);
         }
-        if (!self::connectToDataBase()) {
+        if (empty(self::$global) || !self::connectToDataBase()) {
             self::setError('Database Connection error...');
-            //(new EditConfig())->run();
-            new EditConfig();
+            (new CreateConfig())->index();
             return;
         }
         if (self::$lang === null) {
@@ -172,14 +170,12 @@ class Config
      */
     public static function loadConfigurationFile(): array
     {
+        if (!self::configFileExists()) {
+            (new CreateConfig())->index();
+        }
+
         $filename = self::getConfigFileName();
-        if (isset($filename)) {
-            /*
-            // TODO: Duplicate? It is done in Dispatcher->getConfiguration()
-            if (!self::configFileExists()) {
-                (new EditConfig())->run();
-            }
-            */
+        if (isset($filename) && file_exists($filename) && is_file($filename)) {
             $yaml = file_get_contents($filename);
             if ($yaml) {
                 return Yaml::parse($yaml);

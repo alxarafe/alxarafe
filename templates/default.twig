@@ -11,13 +11,4 @@
     {{ view.openForm({action: view.url, message: view.getErrors()}) | raw }}
     {{ view.view() | raw }}
     {{ view.closeForm() | raw }}
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                This view doesn't have a controller
-            </div>
-        </div>
-    </div>
-
 {% endblock %}

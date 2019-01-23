@@ -71,10 +71,10 @@ class PageController extends Controller
     /**
      * Start point
      */
-    public function run()
+    public function index()
     {
         if ($this->ensureLogin()) {
-            parent::run();
+            parent::index();
         }
     }
 
@@ -117,7 +117,8 @@ class PageController extends Controller
             $this->{$property} = $value;
         }
     }
-    /*     * .
+
+    /**
      * Returns the page details.
      */
 
@@ -127,7 +128,7 @@ class PageController extends Controller
             'title' => 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX),
             'icon' => '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>',
             'description' => 'If you can read this, you are missing pageDetails() on your page class.',
-            'menu' => [],
+            'menu' => 'default',
         ];
         return $details;
     }
