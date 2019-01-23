@@ -173,13 +173,6 @@ class Config
             new EditConfig();
             return;
         }
-        if (self::$user === null) {
-            self::$user = new Auth();
-            self::$username = self::$user->getUser();
-            if (self::$username === null) {
-                self::$user->login();
-            }
-        }
         if (self::$lang === null) {
             self::$lang = new Lang(constant('LANG'));
         }

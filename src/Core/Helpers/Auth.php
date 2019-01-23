@@ -27,7 +27,7 @@ class Auth extends Users
      *
      * @var string|null
      */
-    private $user = null;
+    private $username = null;
 
     /**
      * User log key.
@@ -52,7 +52,7 @@ class Auth extends Users
      */
     private function getCookieUser()
     {
-        if ($this->user === null) {
+        if ($this->username === null) {
             if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && !$this->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
                 $this->login();
             }
@@ -62,7 +62,7 @@ class Auth extends Users
                 'Auth::user yet setted (' . $_COOKIE['user'] . ', ' . $_COOKIE['logkey'] . '): '
             );
         }
-        return $this->user;
+        return $this->username;
     }
 
     /**
@@ -80,15 +80,15 @@ class Auth extends Users
     {
         Debug::addMessage(
             'messages',
-            'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out')
+            'Auth::Logout(): ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out')
         );
 
         $user = new Users();
-        $user->getBy('username', $this->user);
+        $user->getBy('username', $this->username);
         $user->logkey = null;
         $user->save();
 
-        $this->user = null;
+        $this->username = null;
 
         $this->clearCookieUser();
     }
@@ -105,13 +105,13 @@ class Auth extends Users
     }
 
     /**
-     * Returns the user it setted or null.
+     * Returns the user name if setted or null.
      *
      * @return string|null
      */
-    public function getUser()
+    public function getUserName()
     {
-        return $this->user;
+        return $this->username;
     }
 
     /**
@@ -128,11 +128,11 @@ class Auth extends Users
         $user->getBy('username', $userName);
 
         if ($user !== false && password_verify($password, $user->password)) {
-            $this->user = $user->username;
+            $this->username = $user->username;
             $this->setCookieUser();
             Debug::addMessage('messages', "$userName authenticated");
         } else {
-            $this->user = null;
+            $this->username = null;
             setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
             setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
             unset($_COOKIE['user']);
@@ -148,7 +148,7 @@ class Auth extends Users
                 Debug::addMessage('messages', "User '" . $userName . "' not founded.");
             }
         }
-        return $this->user !== null;
+        return $this->username !== null;
     }
 
     /**
@@ -156,10 +156,10 @@ class Auth extends Users
      */
     private function setCookieUser(): void
     {
-        if ($this->user === null) {
+        if ($this->username === null) {
             $this->clearCookieUser();
         } else {
-            setcookie('user', $this->user, time() + self::COOKIE_EXPIRATION, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+            setcookie('user', $this->username, time() + self::COOKIE_EXPIRATION, constant('APP_URI'), $_SERVER['HTTP_HOST']);
             setcookie('logkey', $this->generateLogKey(), time() + self::COOKIE_EXPIRATION, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         }
     }
@@ -178,7 +178,7 @@ class Auth extends Users
         if (!empty($_COOKIE['user'])) {
             $user = new Users();
             $user->getBy('username', $_COOKIE['user']);
-            $text = $this->user;
+            $text = $this->username;
             if ($unique) {
                 $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
             }
@@ -206,7 +206,7 @@ class Auth extends Users
         $user = new Users();
         $user->getBy('username', $userName);
         if ($user !== false && $hash === $user->logkey) {
-            $this->user = $user->username;
+            $this->username = $user->username;
             $this->logkey = $user->logkey;
             $status = true;
         }
