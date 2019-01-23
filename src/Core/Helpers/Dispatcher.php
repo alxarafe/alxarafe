@@ -96,7 +96,7 @@ class Dispatcher
 
         define('CALL_CONTROLLER', 'call');
         define('METHOD_CONTROLLER', 'run');
-        define('DEFAULT_CONTROLLER', 'index');
+        define('DEFAULT_CONTROLLER', 'EditConfig');
         define('DEFAULT_METHOD', 'run');
     }
 
