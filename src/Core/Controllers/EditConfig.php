@@ -31,9 +31,9 @@ class EditConfig extends PageController
     /**
      * Start point
      */
-    public function run()
+    public function index()
     {
-        parent::run();
+        parent::index();
         Skin::setView(new ConfigView($this));
     }
 

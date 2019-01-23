@@ -71,10 +71,10 @@ class PageController extends Controller
     /**
      * Start point
      */
-    public function run()
+    public function index()
     {
         if ($this->ensureLogin()) {
-            parent::run();
+            parent::index();
         }
     }
 

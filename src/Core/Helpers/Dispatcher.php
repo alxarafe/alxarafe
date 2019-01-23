@@ -95,9 +95,9 @@ class Dispatcher
         define('DEFAULT_INTEGER_SIZE', 10);
 
         define('CALL_CONTROLLER', 'call');
-        define('METHOD_CONTROLLER', 'run');
+        define('METHOD_CONTROLLER', 'method');
         define('DEFAULT_CONTROLLER', 'EditConfig');
-        define('DEFAULT_METHOD', 'run');
+        define('DEFAULT_METHOD', 'index');
     }
 
     /**
@@ -147,7 +147,7 @@ class Dispatcher
      *
      * @return bool
      */
-    public function processFolder(string $path, string $call, string $method = 'run'): bool
+    public function processFolder(string $path, string $call, string $method = 'index'): bool
     {
         $className = $call;
         foreach ($this->nameSpaces as $nameSpace) {

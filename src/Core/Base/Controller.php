@@ -29,7 +29,7 @@ class Controller
     /**
      * Start point
      */
-    public function run()
+    public function index()
     {
 
     }

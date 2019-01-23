@@ -38,7 +38,7 @@ class Login extends PageController
     /**
      * Start point
      */
-    public function run()
+    public function index()
     {
         $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
 
