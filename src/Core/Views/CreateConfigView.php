@@ -12,11 +12,11 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 
 /**
- * Class ConfigView
+ * Class CreateConfigView
  *
  * @package Alxarafe\Views
  */
-class ConfigView extends View
+class CreateConfigView extends View
 {
 
     /**
@@ -61,7 +61,7 @@ class ConfigView extends View
      */
     public function __construct($ctrl)
     {
-        Skin::setTemplate('config');
+        Skin::setTemplate('createconfig');
 
         parent::__construct($ctrl);
 

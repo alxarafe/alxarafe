@@ -65,7 +65,7 @@ class Login extends PageController
     {
         $where = constant('BASE_URI') . '/index.php?call=' . constant('DEFAULT_CONTROLLER');
         if (!empty($this->redirect)) {
-            $where = urldecode(base64_decode($this->redirect));
+            $where = base64_decode(urldecode($this->redirect));
         }
         Debug::addMessage('messages', $where);
         header('Location: ' . $where);
@@ -94,7 +94,7 @@ class Login extends PageController
      */
     public function logout(): void
     {
-        $this->run();
+        $this->index();
         $this->userAuth->logout();
     }
 

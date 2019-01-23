@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Controllers\EditConfig;
+use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
 use Exception;
@@ -147,14 +147,14 @@ class Config
             $skinFolder = $templatesFolder . '/' . self::$global['skin'];
             if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
                 Config::setError("Skin folder '$skinFolder' does not exists!");
-                (new EditConfig())->index();
+                (new CreateConfig())->index();
                 return;
             }
             Skin::setSkin(self::$global['skin']);
         }
         if (empty(self::$global) || !self::connectToDataBase()) {
             self::setError('Database Connection error...');
-            (new EditConfig())->index();
+            (new CreateConfig())->index();
             return;
         }
         if (self::$lang === null) {
@@ -171,7 +171,7 @@ class Config
     public static function loadConfigurationFile(): array
     {
         if (!self::configFileExists()) {
-            (new EditConfig())->index();
+            (new CreateConfig())->index();
         }
 
         $filename = self::getConfigFileName();

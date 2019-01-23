@@ -6,10 +6,10 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\PageController;
+use Alxarafe\Base\Controller;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Views\EditConfigView;
+use Alxarafe\Views\CreateConfigView;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @package Alxarafe\Controllers
  */
-class EditConfig extends PageController
+class CreateConfig extends Controller
 {
 
     /**
@@ -34,7 +34,11 @@ class EditConfig extends PageController
     public function index()
     {
         parent::index();
-        Skin::setView(new EditConfigView($this));
+        if (!Config::configFileExists()) {
+            Skin::setView(new CreateConfigView($this));
+        } else {
+            header('Location: ' . constant('BASE_URI'));
+        }
     }
 
     /**

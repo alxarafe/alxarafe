@@ -7,7 +7,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
-use Alxarafe\Controllers\EditConfig;
+use Alxarafe\Controllers\CreateConfig;
 use Exception;
 
 /**
@@ -52,7 +52,7 @@ class Dispatcher
         if (!file_exists($configFile)) {
             $msg = "Creating '$configFile' file...";
             Config::setError($msg);
-            new EditConfig();
+            new CreateConfig();
             $e = new Exception($msg);
             Debug::addException($e);
         }
@@ -96,7 +96,7 @@ class Dispatcher
 
         define('CALL_CONTROLLER', 'call');
         define('METHOD_CONTROLLER', 'method');
-        define('DEFAULT_CONTROLLER', 'EditConfig');
+        define('DEFAULT_CONTROLLER', (Config::configFileExists() ? 'EditConfig' : 'CreateConfig'));
         define('DEFAULT_METHOD', 'index');
     }
 

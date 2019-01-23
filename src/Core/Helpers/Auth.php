@@ -70,7 +70,7 @@ class Auth extends Users
      */
     public function login()
     {
-        $redirectTo = '&redirect=' . base64_encode(urlencode($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
+        $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
         header('Location: ' . constant('BASE_URI') . '/index.php?call=Login' . $redirectTo);
     }
 
