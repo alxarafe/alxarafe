@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Controllers\Login;
 use Alxarafe\Models\Users;
 
 /**
@@ -86,7 +85,7 @@ class Auth extends Users
 
         $user = new Users();
         $user->getBy('username', $this->username);
-        $user->setLogkey(null);
+        $user->logkey = null;
         $user->save();
 
         $this->username = null;
@@ -127,29 +126,24 @@ class Auth extends Users
     public function setUser($userName, $password): bool
     {
         $user = new Users();
+        $this->username = null;
 
         if ($user->getBy('username', $userName) !== null) {
-            if (password_verify($password, $user->getPassword())) {
-                $this->setUsername($user->getUsername());
+            if (password_verify($password, $user->password)) {
+                $this->username = $user->username;
                 $this->setCookieUser();
-                Debug::addMessage('messages', "$userName authenticated");
+                Debug::addMessage('messages', "$user->username authenticated");
             } else {
-                $this->setUsername(null);
                 setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
                 setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
                 unset($_COOKIE['user']);
                 unset($_COOKIE['logkey']);
-                if (password_verify($password, $user->password)) {
-                    $msg = 'good password.';
-                } else {
-                    $msg = 'wrong password.';
-                }
-                Debug::addMessage('messages', "Checking hash " . $msg);
+                Debug::addMessage('messages', "Checking hash wrong password");
             }
         } else {
             Debug::addMessage('messages', "User '" . $userName . "' not founded.");
         }
-        return $this->getUsername() !== null;
+        return $this->username !== null;
     }
 
     /**
@@ -186,7 +180,7 @@ class Auth extends Users
             $text .= '|' . Utils::randomString();
             $logkey = password_hash($text, PASSWORD_DEFAULT);
 
-            $user->setLogkey($logkey);
+            $user->logkey = $logkey;
             $user->save();
         }
 
@@ -205,9 +199,9 @@ class Auth extends Users
     {
         $status = false;
         $user = new Users();
-        if ($user->getBy('username', $userName) !== null && $hash === $user->getLogkey()) {
-            $this->username = $user->getUsername();
-            $this->logkey = $user->getLogkey();
+        if ($user->getBy('username', $userName) !== null && $hash === $user->logkey) {
+            $this->username = $user->username;
+            $this->logkey = $user->logkey;
             $status = true;
         }
         return $status;
