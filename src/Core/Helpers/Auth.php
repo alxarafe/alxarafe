@@ -50,7 +50,7 @@ class Auth extends Users
      *
      * @return string|null
      */
-    private function getCookieUser()
+    public function getCookieUser()
     {
         if ($this->username === null) {
             if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && !$this->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
@@ -70,7 +70,8 @@ class Auth extends Users
      */
     public function login()
     {
-        (new Login())->run();
+        $redirectTo = '&redirect=' . base64_encode(urlencode($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
+        header('Location: ' . constant('BASE_URI') . '/index.php?call=Login' . $redirectTo);
     }
 
     /**
@@ -91,6 +92,7 @@ class Auth extends Users
         $this->username = null;
 
         $this->clearCookieUser();
+        header('Location: ' . constant('BASE_URI') . '/index.php');
     }
 
     /**

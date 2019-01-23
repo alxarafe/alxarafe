@@ -19,6 +19,12 @@ use Alxarafe\Views\LoginView;
  */
 class Login extends PageController
 {
+    /**
+     * Where to redirect if needed.
+     *
+     * @var string|null
+     */
+    public $redirect;
 
     /**
      * Login constructor.
@@ -33,18 +39,34 @@ class Login extends PageController
      */
     public function run()
     {
-        if (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
+        $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
+
+        if (isset($_COOKIE ['user']) && isset($_COOKIE ['logkey'])) {
+            $this->userAuth = new Auth();
+            $this->userName = $this->userAuth->getCookieUser();
+        } elseif (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
             $this->userAuth = new Auth();
             if ($this->userAuth->setUser($username, $password)) {
-                // TODO: If user is trying to go to another place, go to it.
-                header('Location: ' . constant('BASE_URI') . '/index.php?call=' . constant('DEFAULT_CONTROLLER'));
+                $this->redirectToController();
             }
             Config::setError('User authentication error. Please check the username and password.');
         }
         $this->main();
         //parent::run();
+    }
+
+    /**
+     * Redirect to controller, default or selected by the user.
+     */
+    private function redirectToController(): void
+    {
+        $where = constant('BASE_URI') . '/index.php?call=' . constant('DEFAULT_CONTROLLER');
+        if (!empty($this->redirect)) {
+            $where = urldecode(base64_decode($this->redirect));
+        }
+        header('Location: ' . $where);
     }
 
     /**
@@ -58,6 +80,8 @@ class Login extends PageController
         if (!isset($this->userName)) {
             Skin::setView(new LoginView($this));
             //header('Location: ' . constant('BASE_URI') . '/index.php?call=Login');
+        } else {
+            $this->redirectToController();
         }
     }
 
@@ -68,10 +92,8 @@ class Login extends PageController
      */
     public function logout(): void
     {
-        if ($this->userAuth) {
-            $this->userAuth->logout();
-        }
-        header('Location: ' . constant('BASE_URI'));
+        $this->run();
+        $this->userAuth->logout();
     }
 
     /**.
