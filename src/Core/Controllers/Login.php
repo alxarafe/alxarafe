@@ -9,6 +9,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\LoginView;
 
@@ -66,6 +67,7 @@ class Login extends PageController
         if (!empty($this->redirect)) {
             $where = urldecode(base64_decode($this->redirect));
         }
+        Debug::addMessage('messages', $where);
         header('Location: ' . $where);
     }
 
@@ -105,7 +107,7 @@ class Login extends PageController
             'title' => 'Identificación de usuario',
             'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
             'description' => 'Página de login, para controlar el acceso a la aplicación.',
-            'menu' => [],
+            'menu' => '',
         ];
         return $details;
     }

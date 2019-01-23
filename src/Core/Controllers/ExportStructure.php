@@ -68,7 +68,7 @@ class ExportStructure extends PageController
             'title' => 'Exportar estructura de la base de datos',
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
             'description' => 'Permite exportar la estructura de la base de datos en archivos YAML.',
-            'menu' => [],
+            'menu' => 'dev-tools',
         ];
         return $details;
     }
