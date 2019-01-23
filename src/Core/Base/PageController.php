@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Auth;
@@ -16,6 +15,7 @@ use Alxarafe\Helpers\Debug;
  */
 class PageController extends Controller
 {
+
     /**
      * Page title.
      *
@@ -99,15 +99,13 @@ class PageController extends Controller
                 'Delete' => ($this->canDelete($this->userName) ? 'yes' : 'no'),
             ];
             Debug::addMessage(
-                'messages',
-                "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
+                'messages', "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
             );
             return true;
-        } else {
-            $this->userAuth->login();
-            Debug::addMessage('messages', 'User must log in!');
-            return false;
         }
+        $this->userAuth->login();
+        Debug::addMessage('messages', 'User must log in!');
+        return false;
     }
 
     /**
@@ -119,10 +117,10 @@ class PageController extends Controller
             $this->{$property} = $value;
         }
     }
-
-    /**.
+    /*     * .
      * Returns the page details.
      */
+
     public function pageDetails()
     {
         $details = [
