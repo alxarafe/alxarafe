@@ -127,7 +127,7 @@ class View
     {
         $path = $resourceName . '.' . $resourceExtension;
         if ($relative) {
-            $uri = self::getResourceUri($path);
+            $uri = $this->getResourceUri($path);
             if ($uri != '') {
                 return $uri;
             }
