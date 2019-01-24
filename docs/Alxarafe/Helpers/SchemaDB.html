@@ -170,10 +170,54 @@ database. It is used to create and modify tables and indexes in the database.</p
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createPrimaryIndex">createPrimaryIndex</a>(string $tableName, array $indexData, bool $autoincrement)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createStandardIndex">createStandardIndex</a>(string $tableName, array $indexData)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createUniqueIndex">createUniqueIndex</a>(string $tableName, array $indexData)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createConstraint">createConstraint</a>(string $tableName, array $indexData)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;string|null
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_createIndex">createIndex</a>(string $tableName, string $indexname, array $indexData)
+                    <a href="#method_createIndex">createIndex</a>(string $tableName, string $indexName, array $indexData)
         
                                             <p>Create the SQL statements for the construction of one index.</p>                </div>
                 <div class="col-md-2"></div>
@@ -186,7 +230,7 @@ database. It is used to create and modify tables and indexes in the database.</p
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_tableExists">
-        <div class="location">at         line 30</div>
+        <div class="location">at         line 28</div>
         <code>        static            bool
     <strong>tableExists</strong>(string $tableName)
         </code>
@@ -226,7 +270,7 @@ database. It is used to create and modify tables and indexes in the database.</p
             </div>
                     <div class="method-item">
                     <h3 id="method_getTables">
-        <div class="location">at         line 41</div>
+        <div class="location">at         line 39</div>
         <code>        static            array
     <strong>getTables</strong>()
         </code>
@@ -256,7 +300,7 @@ database. It is used to create and modify tables and indexes in the database.</p
             </div>
                     <div class="method-item">
                     <h3 id="method_getStructure">
-        <div class="location">at         line 59</div>
+        <div class="location">at         line 57</div>
         <code>        static            array
     <strong>getStructure</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -301,7 +345,7 @@ database. It is used to create and modify tables and indexes in the database.</p
             </div>
                     <div class="method-item">
                     <h3 id="method_createTable">
-        <div class="location">at         line 72</div>
+        <div class="location">at         line 70</div>
         <code>        static            bool
     <strong>createTable</strong>(string $tableName)
         </code>
@@ -341,7 +385,7 @@ database. It is used to create and modify tables and indexes in the database.</p
             </div>
                     <div class="method-item">
                     <h3 id="method_assignFields">
-        <div class="location">at         line 90</div>
+        <div class="location">at         line 85</div>
         <code>        static    protected        
     <strong>assignFields</strong>(array $fieldsList)
         </code>
@@ -370,7 +414,7 @@ database. It is used to create and modify tables and indexes in the database.</p
             </div>
                     <div class="method-item">
                     <h3 id="method_createFields">
-        <div class="location">at         line 108</div>
+        <div class="location">at         line 103</div>
         <code>        static    protected        string|null
     <strong>createFields</strong>(string $tableName, array $fieldsList)
         </code>
@@ -414,10 +458,151 @@ database. It is used to create and modify tables and indexes in the database.</p
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_createPrimaryIndex">
+        <div class="location">at         line 112</div>
+        <code>        static    protected        
+    <strong>createPrimaryIndex</strong>(string $tableName, array $indexData, bool $autoincrement)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$indexData</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$autoincrement</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createStandardIndex">
+        <div class="location">at         line 127</div>
+        <code>        static    protected        
+    <strong>createStandardIndex</strong>(string $tableName, array $indexData)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$indexData</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createUniqueIndex">
+        <div class="location">at         line 136</div>
+        <code>        static    protected        
+    <strong>createUniqueIndex</strong>(string $tableName, array $indexData)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$indexData</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createConstraint">
+        <div class="location">at         line 145</div>
+        <code>        static    protected        
+    <strong>createConstraint</strong>(string $tableName, array $indexData)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$indexData</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_createIndex">
-        <div class="location">at         line 132</div>
+        <div class="location">at         line 179</div>
         <code>        static    protected        string|null
-    <strong>createIndex</strong>(string $tableName, string $indexname, array $indexData)
+    <strong>createIndex</strong>(string $tableName, string $indexName, array $indexData)
         </code>
     </h3>
     <div class="details">
@@ -442,7 +627,7 @@ generate an error when it already exists.</p>                            </div>
             </tr>
                     <tr>
                 <td>string</td>
-                <td>$indexname</td>
+                <td>$indexName</td>
                 <td></td>
             </tr>
                     <tr>

@@ -98,6 +98,14 @@
 
             <table class="table table-condensed">
                     <tr>
+                <td class="type" id="property_title">
+                                                                                string
+                </td>
+                <td>$title</td>
+                <td class="last">Page title.</td>
+                <td></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_vars">
                                                             private                    array
                 </td>
@@ -146,9 +154,20 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___destruct">__destruct</a>()
+                    <a href="#method_render">render</a>()
         
                                             <p>Finally render the result.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getResourceUri">getResourceUri</a>(string $path)
+        
+                                            <p>Check different possible locations for the file and return the
+corresponding URI, if it exists.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -241,7 +260,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 37</div>
+        <div class="location">at         line 44</div>
         <code>                    
     <strong>__construct</strong>(mixed $controller = null)
         </code>
@@ -272,7 +291,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_addCSS">
-        <div class="location">at         line 54</div>
+        <div class="location">at         line 65</div>
         <code>                    void
     <strong>addCSS</strong>()
         </code>
@@ -302,7 +321,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_addJS">
-        <div class="location">at         line 65</div>
+        <div class="location">at         line 76</div>
         <code>                    void
     <strong>addJS</strong>()
         </code>
@@ -331,10 +350,10 @@ Config::getErrors() returns an array with the pending error messages, and emptie
 
             </div>
                     <div class="method-item">
-                    <h3 id="method___destruct">
-        <div class="location">at         line 75</div>
+                    <h3 id="method_render">
+        <div class="location">at         line 86</div>
         <code>                    
-    <strong>__destruct</strong>()
+    <strong>render</strong>()
         </code>
     </h3>
     <div class="details">
@@ -352,8 +371,49 @@ Config::getErrors() returns an array with the pending error messages, and emptie
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getResourceUri">
+        <div class="location">at         line 102</div>
+        <code>                private    string
+    <strong>getResourceUri</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check different possible locations for the file and return the
+corresponding URI, if it exists.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_addResource">
-        <div class="location">at         line 99</div>
+        <div class="location">at         line 134</div>
         <code>                    string
     <strong>addResource</strong>(string $resourceName, string $resourceExtension = &#039;css&#039;, boolean $relative = true)
         </code>
@@ -407,7 +467,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setVar">
-        <div class="location">at         line 131</div>
+        <div class="location">at         line 158</div>
         <code>                    void
     <strong>setVar</strong>(string $name, mixed $value)
         </code>
@@ -452,7 +512,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_addToVar">
-        <div class="location">at         line 145</div>
+        <div class="location">at         line 172</div>
         <code>                    void
     <strong>addToVar</strong>(string $name, mixed $value)
         </code>
@@ -497,7 +557,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getVars">
-        <div class="location">at         line 155</div>
+        <div class="location">at         line 182</div>
         <code>                    array
     <strong>getVars</strong>()
         </code>
@@ -527,7 +587,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getVar">
-        <div class="location">at         line 167</div>
+        <div class="location">at         line 194</div>
         <code>                    array|string|boolean|null
     <strong>getVar</strong>(string $name)
         </code>
@@ -567,7 +627,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getErrors">
-        <div class="location">at         line 178</div>
+        <div class="location">at         line 205</div>
         <code>                    array
     <strong>getErrors</strong>()
         </code>
@@ -598,7 +658,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_getHeader">
-        <div class="location">at         line 188</div>
+        <div class="location">at         line 215</div>
         <code>                    string
     <strong>getHeader</strong>()
         </code>
@@ -628,7 +688,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_getFooter">
-        <div class="location">at         line 198</div>
+        <div class="location">at         line 225</div>
         <code>                    string
     <strong>getFooter</strong>()
         </code>

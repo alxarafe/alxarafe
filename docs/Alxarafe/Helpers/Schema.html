@@ -100,20 +100,6 @@ database. It is used to create and modify tables and indexes in the database.</p
                     <p></p>
                 </td>
             </tr>
-                    <tr>
-                <td>SCHEMA_FOLDER</td>
-                <td class="last">
-                    <p><em>Folder that contains the files with the structure of the database.</em></p>
-                    <p></p>
-                </td>
-            </tr>
-                    <tr>
-                <td>VIEW_DATA_FOLDER</td>
-                <td class="last">
-                    <p><em>Folder that contains the files with the display parameters and restrictions of the tables in the database.</em></p>
-                    <p></p>
-                </td>
-            </tr>
             </table>
 
     
@@ -126,19 +112,9 @@ database. It is used to create and modify tables and indexes in the database.</p
                     static&nbsp;string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getSchemaFolder">getSchemaFolder</a>()
+                    <a href="#method_getSchemaFileName">getSchemaFileName</a>(string $tableName, string $type = &#039;schema&#039;)
         
-                                            <p>Return the schema folder path.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getViewDataFolder">getViewDataFolder</a>()
-        
-                                            <p>Return the view data folder path.</p>                </div>
+                                            <p>Returns the path to the specified file, or empty string if it does not exist.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -146,19 +122,9 @@ database. It is used to create and modify tables and indexes in the database.</p
                     static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_checkConfigFolders">checkConfigFolders</a>()
+                    <a href="#method_saveSchemaFileName">saveSchemaFileName</a>(array $data, string $tableName, string $type = &#039;schema&#039;)
         
-                                            <p>Check the existence of the configuration folders that contain the YAML files, creating them if they do not exist.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;array
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_mergeSchema">mergeSchema</a>(array $struct, array $data)
-        
-                                            <p>Merge the existing yaml file with the structure of the database, prevailing the latter.</p>                </div>
+                                            <p>Save the data array in a .yaml file</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -168,8 +134,8 @@ database. It is used to create and modify tables and indexes in the database.</p
                 <div class="col-md-8 type">
                     <a href="#method_mergeViewField">mergeViewField</a>(string $field, array $values, array $fieldData)
         
-                                            <p>Verify the $fieldData established in the yaml file with the structure of the database, creating the missing data
-and correcting the possible errors.</p>                </div>
+                                            <p>Verify the $fieldData established in the yaml file with the structure of
+the database, creating the missing data and correcting the possible errors.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -185,12 +151,44 @@ and correcting the possible errors.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_mergeArray">mergeArray</a>(array $struct, array $data, $isView = false)
+        
+                                            <p>Merge the existing yaml file with the structure of the database,
+prevailing the latter.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getFromYamlFile">getFromYamlFile</a>(string $tableName, string $type = &#039;schema&#039;)
+        
+                                            <p>Returns an array with data from the specefied yaml file</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_saveStructure">saveStructure</a>()
         
-                                            <p>Save the structure of the schema, also saves the view details.</p>                </div>
+                                            <p>It collects the information from the database and creates files in YAML format
+for the reconstruction of its structure. Also save the view structure.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_saveTableStructure">saveTableStructure</a>(string $table)
+        
+                                            <p>Return true if complete table structure was saved, otherwise return false.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -234,10 +232,10 @@ but this should only occur at the design stage.</p>                </div>
 
             <div id="method-details">
                     <div class="method-item">
-                    <h3 id="method_getSchemaFolder">
-        <div class="location">at         line 39</div>
+                    <h3 id="method_getSchemaFileName">
+        <div class="location">at         line 30</div>
         <code>        static        private    string
-    <strong>getSchemaFolder</strong>()
+    <strong>getSchemaFileName</strong>(string $tableName, string $type = &#039;schema&#039;)
         </code>
     </h3>
     <div class="details">
@@ -245,8 +243,23 @@ but this should only occur at the design stage.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Return the schema folder path.</p>                                                </div>
+                                    <p>Returns the path to the specified file, or empty string if it does not exist.</p>                                                </div>
                 <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td>name of the file without extension (assumes .yaml)</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$type</td>
+                <td>It's the foldername (in lowercase). It's usually schema (by default) or viewdata.</td>
+            </tr>
+            </table>
+
             
                             <h4>Return Value</h4>
 
@@ -264,10 +277,10 @@ but this should only occur at the design stage.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getViewDataFolder">
-        <div class="location">at         line 49</div>
-        <code>        static        private    string
-    <strong>getViewDataFolder</strong>()
+                    <h3 id="method_saveSchemaFileName">
+        <div class="location">at         line 50</div>
+        <code>        static        private    bool
+    <strong>saveSchemaFileName</strong>(array $data, string $tableName, string $type = &#039;schema&#039;)
         </code>
     </h3>
     <div class="details">
@@ -275,38 +288,28 @@ but this should only occur at the design stage.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Return the view data folder path.</p>                                                </div>
+                                    <p>Save the data array in a .yaml file</p>                                                </div>
                 <div class="tags">
-            
-                            <h4>Return Value</h4>
+                            <h4>Parameters</h4>
 
                     <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$type</td>
+                <td></td>
+            </tr>
+            </table>
 
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_checkConfigFolders">
-        <div class="location">at         line 60</div>
-        <code>        static    protected        bool
-    <strong>checkConfigFolders</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Check the existence of the configuration folders that contain the YAML files, creating them if they do not exist.</p>                    <p>Returns true if finally, both folders exist.</p>                            </div>
-                <div class="tags">
             
                             <h4>Return Value</h4>
 
@@ -324,53 +327,8 @@ but this should only occur at the design stage.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_mergeSchema">
-        <div class="location">at         line 80</div>
-        <code>        static    protected        array
-    <strong>mergeSchema</strong>(array $struct, array $data)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Merge the existing yaml file with the structure of the database, prevailing the latter.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$struct</td>
-                <td>current database table structure</td>
-            </tr>
-                    <tr>
-                <td>array</td>
-                <td>$data</td>
-                <td>current yaml file structure</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_mergeViewField">
-        <div class="location">at         line 97</div>
+        <div class="location">at         line 72</div>
         <code>        static    protected        array
     <strong>mergeViewField</strong>(string $field, array $values, array $fieldData)
         </code>
@@ -380,8 +338,8 @@ but this should only occur at the design stage.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Verify the $fieldData established in the yaml file with the structure of the database, creating the missing data
-and correcting the possible errors.</p>                    <p>Posible data: unique, min, max, length, pattern, placeholder, rowlabel &amp; fieldlabel</p>                            </div>
+                                    <p>Verify the $fieldData established in the yaml file with the structure of
+the database, creating the missing data and correcting the possible errors.</p>                    <p>Posible data: unique, min, max, length, pattern, placeholder, rowlabel &amp; fieldlabel</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -421,7 +379,7 @@ and correcting the possible errors.</p>                    <p>Posible data: uniq
             </div>
                     <div class="method-item">
                     <h3 id="method_mergeViewData">
-        <div class="location">at         line 137</div>
+        <div class="location">at         line 106</div>
         <code>        static    protected        array
     <strong>mergeViewData</strong>(array $struct, array $data)
         </code>
@@ -466,6 +424,102 @@ and correcting the possible errors.</p>                    <p>Posible data: uniq
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_mergeArray">
+        <div class="location">at         line 124</div>
+        <code>        static    protected        array
+    <strong>mergeArray</strong>(array $struct, array $data, $isView = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Merge the existing yaml file with the structure of the database,
+prevailing the latter.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$struct</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$isView</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getFromYamlFile">
+        <div class="location">at         line 139</div>
+        <code>        static            array
+    <strong>getFromYamlFile</strong>(string $tableName, string $type = &#039;schema&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns an array with data from the specefied yaml file</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$type</td>
+                <td>must be 'schema' or 'viewdata'</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_saveStructure">
         <div class="location">at         line 149</div>
         <code>        static            
@@ -477,7 +531,8 @@ and correcting the possible errors.</p>                    <p>Posible data: uniq
     
 
                     <div class="method-description">
-                                    <p>Save the structure of the schema, also saves the view details.</p>                                                </div>
+                                    <p>It collects the information from the database and creates files in YAML format
+for the reconstruction of its structure. Also save the view structure.</p>                                                </div>
                 <div class="tags">
             
             
@@ -487,8 +542,48 @@ and correcting the possible errors.</p>                    <p>Posible data: uniq
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_saveTableStructure">
+        <div class="location">at         line 164</div>
+        <code>        static            bool
+    <strong>saveTableStructure</strong>(string $table)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return true if complete table structure was saved, otherwise return false.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$table</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setNormalizedStructure">
-        <div class="location">at         line 181</div>
+        <div class="location">at         line 187</div>
         <code>        static            array
     <strong>setNormalizedStructure</strong>(array $structure, string $tableName)
         </code>
@@ -535,7 +630,7 @@ the check each time, or calculating their value based on the data provided by th
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeField">
-        <div class="location">at         line 203</div>
+        <div class="location">at         line 210</div>
         <code>        static    protected        array|null
     <strong>normalizeField</strong>(string $tableName, string $field, array $structure)
         </code>
@@ -587,7 +682,7 @@ but this should only occur at the design stage.</p>                             
             </div>
                     <div class="method-item">
                     <h3 id="method_setValues">
-        <div class="location">at         line 229</div>
+        <div class="location">at         line 236</div>
         <code>        static            string
     <strong>setValues</strong>(string $tableName, array $values)
         </code>

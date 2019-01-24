@@ -267,10 +267,32 @@ restrictions later.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_toInteger">toInteger</a>(int $length = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_toString">toString</a>(int $length = 0)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_toNative">toNative</a>($type, $length = null)
+                    <a href="#method_toNative">toNative</a>(string $type, int $length = 0)
         
                                             <p>TODO: Undocumented and pending complete.</p>                </div>
                 <div class="col-md-2"></div>
@@ -324,7 +346,7 @@ applicable.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 23</div>
+        <div class="location">at         line 22</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -500,7 +522,7 @@ applicable.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSQLField">
-        <div class="location">at         line 113</div>
+        <div class="location">at         line 122</div>
         <code>                    string
     <strong>getSQLField</strong>(string $fieldName, array $data)
         </code>
@@ -648,7 +670,7 @@ applicable.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeFields">
-        <div class="location">at         line 144</div>
+        <div class="location">at         line 152</div>
         <code>                    array
     <strong>normalizeFields</strong>(array $row)
         </code>
@@ -723,7 +745,7 @@ getColumns</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesSql">
-        <div class="location">at         line 322</div>
+        <div class="location">at         line 330</div>
         <code>                    string
     <strong>getIndexesSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -769,7 +791,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeIndexes">
-        <div class="location">at         line 227</div>
+        <div class="location">at         line 235</div>
         <code>                    array
     <strong>normalizeIndexes</strong>(array $fields)
         </code>
@@ -809,7 +831,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 334</div>
+        <div class="location">at         line 342</div>
         <code>                    string
     <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -853,10 +875,68 @@ restrictions later.</p>                                                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_toInteger">
+        <div class="location">at         line 71</div>
+        <code>                private    
+    <strong>toInteger</strong>(int $length = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$length</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_toString">
+        <div class="location">at         line 79</div>
+        <code>                private    
+    <strong>toString</strong>(int $length = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$length</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_toNative">
-        <div class="location">at         line 78</div>
+        <div class="location">at         line 91</div>
         <code>                    string
-    <strong>toNative</strong>($type, $length = null)
+    <strong>toNative</strong>(string $type, int $length = 0)
         </code>
     </h3>
     <div class="details">
@@ -870,12 +950,12 @@ restrictions later.</p>                                                </div>
 
                     <table class="table table-condensed">
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$type</td>
                 <td></td>
             </tr>
                     <tr>
-                <td></td>
+                <td>int</td>
                 <td>$length</td>
                 <td></td>
             </tr>
@@ -899,7 +979,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_splitType">
-        <div class="location">at         line 197</div>
+        <div class="location">at         line 205</div>
         <code>        static        private    array
     <strong>splitType</strong>(string $originalType)
         </code>
@@ -940,7 +1020,7 @@ applicable.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintData">
-        <div class="location">at         line 259</div>
+        <div class="location">at         line 267</div>
         <code>                private    array
     <strong>getConstraintData</strong>(string $tableName, string $constraintName)
         </code>
@@ -986,7 +1066,7 @@ additional simple queries are made.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintRules">
-        <div class="location">at         line 287</div>
+        <div class="location">at         line 295</div>
         <code>                private    array
     <strong>getConstraintRules</strong>(string $tableName, string $constraintName)
         </code>
@@ -1032,7 +1112,7 @@ additional simple queries are made.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTablename">
-        <div class="location">at         line 306</div>
+        <div class="location">at         line 314</div>
         <code>                private    string
     <strong>getTablename</strong>()
         </code>

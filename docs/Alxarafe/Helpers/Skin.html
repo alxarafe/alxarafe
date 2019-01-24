@@ -292,6 +292,26 @@ it will be searched in COMMON_FOLDER.</p>
                     static&nbsp;string
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_errorDetails">errorDetails</a>($e, bool $return = false)
+        
+                                            <p>Dump details on fail.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addSkinExtensions">addSkinExtensions</a>(Twig_Environment $twig)
+        
+                                            <p>Add extensions to skin render.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getTemplate">getTemplate</a>()
         
                                             <p>Returns the template file name.</p>                </div>
@@ -375,7 +395,7 @@ it will be searched in COMMON_FOLDER.</p>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_setView">
-        <div class="location">at         line 91</div>
+        <div class="location">at         line 92</div>
         <code>        static            
     <strong>setView</strong>(<a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a> $view)
         </code>
@@ -406,7 +426,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_hasTemplatesFolder">
-        <div class="location">at         line 104</div>
+        <div class="location">at         line 105</div>
         <code>        static            bool
     <strong>hasTemplatesFolder</strong>()
         </code>
@@ -436,7 +456,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_hasTemplate">
-        <div class="location">at         line 114</div>
+        <div class="location">at         line 115</div>
         <code>        static            bool
     <strong>hasTemplate</strong>()
         </code>
@@ -466,7 +486,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSkins">
-        <div class="location">at         line 126</div>
+        <div class="location">at         line 127</div>
         <code>        static            array
     <strong>getSkins</strong>()
         </code>
@@ -496,7 +516,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setSkin">
-        <div class="location">at         line 148</div>
+        <div class="location">at         line 149</div>
         <code>        static            
     <strong>setSkin</strong>($skin)
         </code>
@@ -527,7 +547,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setTemplate">
-        <div class="location">at         line 162</div>
+        <div class="location">at         line 163</div>
         <code>        static            
     <strong>setTemplate</strong>($template)
         </code>
@@ -558,7 +578,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTemplatesUri">
-        <div class="location">at         line 173</div>
+        <div class="location">at         line 174</div>
         <code>        static            string
     <strong>getTemplatesUri</strong>()
         </code>
@@ -588,7 +608,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTemplatesEngine">
-        <div class="location">at         line 183</div>
+        <div class="location">at         line 184</div>
         <code>        static            string
     <strong>getTemplatesEngine</strong>()
         </code>
@@ -618,7 +638,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setTemplatesEngine">
-        <div class="location">at         line 193</div>
+        <div class="location">at         line 194</div>
         <code>        static            
     <strong>setTemplatesEngine</strong>($engine)
         </code>
@@ -649,7 +669,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getCommonTemplatesUri">
-        <div class="location">at         line 203</div>
+        <div class="location">at         line 204</div>
         <code>        static            string
     <strong>getCommonTemplatesUri</strong>()
         </code>
@@ -679,7 +699,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_render">
-        <div class="location">at         line 215</div>
+        <div class="location">at         line 216</div>
         <code>        static            string
     <strong>render</strong>(array $vars)
         </code>
@@ -719,7 +739,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_renderIt">
-        <div class="location">at         line 235</div>
+        <div class="location">at         line 236</div>
         <code>        static        private    string
     <strong>renderIt</strong>(array $vars)
         </code>
@@ -758,8 +778,84 @@ it will be searched in COMMON_FOLDER.</p>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_errorDetails">
+        <div class="location">at         line 273</div>
+        <code>        static        private    string
+    <strong>errorDetails</strong>($e, bool $return = false)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Dump details on fail.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$e</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$return</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addSkinExtensions">
+        <div class="location">at         line 292</div>
+        <code>        static        private    
+    <strong>addSkinExtensions</strong>(Twig_Environment $twig)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Add extensions to skin render.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>Twig_Environment</td>
+                <td>$twig</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTemplate">
-        <div class="location">at         line 269</div>
+        <div class="location">at         line 306</div>
         <code>        static        private    string
     <strong>getTemplate</strong>()
         </code>
@@ -789,7 +885,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTemplateVars">
-        <div class="location">at         line 283</div>
+        <div class="location">at         line 320</div>
         <code>        static        private    array
     <strong>getTemplateVars</strong>(array $vars = [])
         </code>
@@ -829,7 +925,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getOptions">
-        <div class="location">at         line 298</div>
+        <div class="location">at         line 335</div>
         <code>        static        private    array
     <strong>getOptions</strong>()
         </code>
@@ -859,7 +955,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getPaths">
-        <div class="location">at         line 313</div>
+        <div class="location">at         line 350</div>
         <code>        static        private    array
     <strong>getPaths</strong>()
         </code>
@@ -889,7 +985,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTemplatesFolder">
-        <div class="location">at         line 336</div>
+        <div class="location">at         line 373</div>
         <code>        static            string
     <strong>getTemplatesFolder</strong>()
         </code>
@@ -919,7 +1015,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setTemplatesFolder">
-        <div class="location">at         line 346</div>
+        <div class="location">at         line 383</div>
         <code>        static            
     <strong>setTemplatesFolder</strong>(string $template)
         </code>
@@ -950,7 +1046,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getCommonTemplatesFolder">
-        <div class="location">at         line 357</div>
+        <div class="location">at         line 394</div>
         <code>        static            string
     <strong>getCommonTemplatesFolder</strong>()
         </code>
@@ -980,7 +1076,7 @@ it will be searched in COMMON_FOLDER.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setCommonTemplatesFolder">
-        <div class="location">at         line 367</div>
+        <div class="location">at         line 404</div>
         <code>        static            
     <strong>setCommonTemplatesFolder</strong>(string $templatesFolder)
         </code>
