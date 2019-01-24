@@ -192,10 +192,12 @@ class Dispatcher
 
     /**
      * Instantiate all available models
+     *
+     * TODO: This must be executed only when update/upgrade the core. At this moment is forced if DEBUG is enabled.
      */
     private function instantiateModels()
     {
-        // Don't have schema/*.yaml, must be controller from the parents of the models to not crash
+        // TODO: Don't have schema/*.yaml, must be controller from the parents of the models to not crash
         $exclude = ['UserRoles', 'Roles'];
         $models = Finder::create()
             ->files()
@@ -215,6 +217,9 @@ class Dispatcher
 
     /**
      * Check all clases that extends from PageController, an store it to pages table.
+     * We needed to generate the user menu.
+     *
+     * TODO: This must be checked only when update/upgrade the core.
      */
     private function checkPageControllers()
     {
