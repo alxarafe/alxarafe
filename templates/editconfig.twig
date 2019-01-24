@@ -8,7 +8,7 @@
 
 {% block body %}
     {# TODO: This is not working? #}
-    {{ view.newRow(view.blockContainer(view.title('Configuración general de la aplicación')))|raw }}
+    {{ view.newRow(view.blockContainer(main.title))|raw }}
 
     <div class="container-fluid">
         <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig" method='post' accept-charset="utf-8">
