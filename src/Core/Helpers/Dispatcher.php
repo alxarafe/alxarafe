@@ -239,6 +239,7 @@ class Dispatcher
                 $page->description = $newClass->description;
                 $page->menu = $newClass->menu;
                 $page->active = 1;
+                $page->updated_date = date('Y-m-d H:i:s');
                 if ($page->save()) {
                     Debug::addMessage('messages', 'Page data added or updated to table');
                 } else {

@@ -55,6 +55,33 @@ fields:
         unsigned: 'yes'
         zerofill: 'no'
         autoincrement: 'no'
+    plugin:
+        field: plugin
+        type: string
+        length: '50'
+        default: 'Core'
+        nullable: 'no'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
+    inserted_date:
+        field: updated_date
+        type: datetime
+        length: null
+        default: CURRENT_TIMESTAMP
+        nullable: 'yes'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
+    updated_date:
+        field: updated_date
+        type: datetime
+        length: null
+        default: CURRENT_TIMESTAMP
+        nullable: 'yes'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
 indexes:
     PRIMARY:
         index: PRIMARY
