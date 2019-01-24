@@ -214,7 +214,6 @@ class Dispatcher
         }
     }
 
-
     /**
      * Check all clases that extends from PageController, an store it to pages table.
      * We needed to generate the user menu.
