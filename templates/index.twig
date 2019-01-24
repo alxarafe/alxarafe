@@ -7,7 +7,7 @@
 <head>
     {% block header %}{% include 'master/header.twig' %}{% endblock %}
 </head>
-<body{% if view.protectClose %} onBeforeUnload='return iCanClose()'{% endif %}>
+<body>
 
 {% block menu %}{% include 'master/menu.twig' %}{% endblock %}
 
