@@ -199,9 +199,9 @@ class Dispatcher
                 ->name('*.php')
                 ->in($dir = $baseDir . '/Models');
             foreach ($models as $modelFile) {
-                $class = str_replace([$dir . '/', '.php'], ['', ''], $modelFile);
+                $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
                 $class = '\\' . $namespace . '\\Models\\' . $class;
-                require_once $modelFile;
+                // require_once $modelFile;
                 new $class();
             }
         }
