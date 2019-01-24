@@ -198,7 +198,7 @@ class Dispatcher
     private function instantiateModels()
     {
         // TODO: Don't have schema/*.yaml, must be controller from the parents of the models to not crash
-        $exclude = ['UserRoles', 'Roles'];
+        $exclude = [];
         $models = Finder::create()
             ->files()
             ->name('*.php')

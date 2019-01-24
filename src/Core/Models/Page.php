@@ -20,10 +20,13 @@ class Page extends Table
      */
     public function __construct()
     {
-        parent::__construct('pages', [
-            'idField' => 'id',
-            'nameField' => 'controller',
-            'create' => true,
-        ]);
+        parent::__construct(
+            'pages',
+            [
+                'idField' => 'id',
+                'nameField' => 'controller',
+                'create' => true,
+            ]
+        );
     }
 }

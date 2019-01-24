@@ -1,0 +1,41 @@
+fields:
+    id:
+        field: id
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'yes'
+        key: primary
+        unsigned: 'yes'
+        zerofill: 'no'
+        autoincrement: 'yes'
+    name:
+        field: name
+        type: string
+        length: '50'
+        default: ''
+        nullable: 'no'
+        key: index
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
+    active:
+        field: active
+        type: integer
+        length: '1'
+        default: '0'
+        nullable: 'no'
+        unsigned: 'yes'
+        zerofill: 'no'
+        autoincrement: 'no'
+indexes:
+    PRIMARY:
+        index: PRIMARY
+        column: id
+        unique: 'yes'
+        nullable: 'no'
+    name:
+        index: name
+        column: name
+        unique: 'yes'
+        nullable: 'no'

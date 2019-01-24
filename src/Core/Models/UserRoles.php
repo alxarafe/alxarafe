@@ -15,60 +15,18 @@ use Alxarafe\Base\Table;
  */
 class UserRoles extends Table
 {
-
     /**
      * UserRoles constructor.
      */
     public function __construct()
     {
-        parent::__construct('user_roles', ['create' => true]);
-    }
-
-    /**
-     * Return a list of fields and their table structure.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getFields(): array
-    {
-        return [
-            'user_id' => [
-                'type' => 'integer',
-            ],
-            'role_id' => [
-                'type' => 'integer',
-            ],
-        ];
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @return array
-     */
-    public function getKeys(): array
-    {
-        return [
-            'role_name' => [
-                'INDEX' => 'name',
-            ],
-        ];
-    }
-
-    /**
-     * Return a list of default values.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getDefaultValues(): array
-    {
-        return [
+        parent::__construct(
+            'user_roles',
             [
-                'user_id' => 1,
-                'role_id' => 1,
-            ],
-        ];
+                'idField' => 'id',
+                'nameField' => 'id',
+                'create' => true,
+            ]
+        );
     }
 }

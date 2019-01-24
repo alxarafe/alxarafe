@@ -1,0 +1,47 @@
+fields:
+    id:
+        field: id
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'yes'
+        key: primary
+        unsigned: 'yes'
+        zerofill: 'no'
+        autoincrement: 'yes'
+    user_id:
+        field: user_id
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'yes'
+        key: primary
+        unsigned: 'yes'
+        zerofill: 'no'
+        autoincrement: 'yes'
+    role_id:
+        field: role_id
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'yes'
+        key: primary
+        unsigned: 'yes'
+        zerofill: 'no'
+        autoincrement: 'yes'
+indexes:
+    PRIMARY:
+        index: PRIMARY
+        column: id
+        unique: 'yes'
+        nullable: 'no'
+    user_id:
+        index: user_id
+        column: user_id
+        unique: 'no'
+        nullable: 'no'
+    role_id:
+        index: role_id
+        column: role_id
+        unique: 'no'
+        nullable: 'no'
