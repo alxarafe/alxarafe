@@ -48,14 +48,15 @@ class Login extends PageController
         } elseif (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
+            $remember = filter_input(INPUT_POST, 'remember-me', FILTER_SANITIZE_ENCODED);
+            $remember = isset($remember);
             $this->userAuth = new Auth();
-            if ($this->userAuth->setUser($username, $password)) {
+            if ($this->userAuth->setUser($username, $password, $remember)) {
                 $this->redirectToController();
             }
             Config::setError('User authentication error. Please check the username and password.');
         }
         $this->main();
-        //parent::run();
     }
 
     /**
