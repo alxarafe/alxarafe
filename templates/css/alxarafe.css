@@ -1,9 +1,12 @@
-/* Sticky footer styles
--------------------------------------------------- */
+/**
+ * Sticky footer styles
+ */
+
 html {
     position: relative;
     min-height: 100%;
 }
+
 body {
     margin-bottom: 60px; /* Margin bottom by footer height */
 }
@@ -16,10 +19,10 @@ body {
     background-color: #f5f5f5;
 }
 
-
-/* Custom page CSS
+/**
+ * Custom page CSS
  * Not required for template or sticky footer method.
- * -------------------------------------------------- */
+ */
 
 body > .container,
 body > .container-fluid {
@@ -39,4 +42,12 @@ body > .container-fluid {
 
 code {
     font-size: 80%;
+}
+
+/**
+ * Used to render var_dump messages with sticky navbar
+ */
+
+body > .xdebug-var-dump {
+    margin: 55px 0;
 }
