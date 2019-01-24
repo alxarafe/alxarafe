@@ -48,13 +48,15 @@ class CreateConfig extends Controller
      */
     public function main(): void
     {
-        if (filter_input(INPUT_POST, 'cancel', FILTER_SANITIZE_ENCODED) === 'true') {
-            header('Location: ' . constant('BASE_URI'));
-        }
-
-        if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_ENCODED) === 'true') {
-            $this->save();
-            header('Location: ' . constant('BASE_URI'));
+        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
+        switch ($action) {
+            case 'save':
+                $this->save();
+                header('Location: ' . constant('BASE_URI'));
+                break;
+            case 'cancel':
+            default:header('Location: ' . constant('BASE_URI'));
+                break;
         }
     }
 

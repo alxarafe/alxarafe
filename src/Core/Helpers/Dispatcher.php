@@ -246,9 +246,9 @@ class Dispatcher
                 $page->active = 1;
                 $page->updated_date = date('Y-m-d H:i:s');
                 if ($page->save()) {
-                    Debug::addMessage('messages', 'Page data added or updated to table');
+                    Debug::addMessage('messages', 'Page ' . $className . ' data added or updated to table');
                 } else {
-                    Debug::addMessage('messages', 'Page can be saved to table <pre>' . var_export($page, true) . '</pre>');
+                    Debug::addMessage('messages', 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>');
                 }
             }
         }
