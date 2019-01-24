@@ -74,8 +74,10 @@ class Auth extends Users
      */
     public function login()
     {
-        $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_URI']));
-        header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
+        if (strpos($_SERVER['REQUEST_URI'], constant('CALL_CONTROLLER') . '=Login') === false) {
+            $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_URI']));
+            header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
+        }
     }
 
     /**
