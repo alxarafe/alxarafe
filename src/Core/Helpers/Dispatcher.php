@@ -8,7 +8,9 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\CreateConfig;
+use Alxarafe\Models\Page;
 use Exception;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class Dispatcher
@@ -156,7 +158,7 @@ class Dispatcher
                 return true;
             }
         }
-
+        $this->regenerateData();
         $className = $call;
         foreach ($this->nameSpaces as $nameSpace) {
             $_className = $nameSpace . '\\Controllers\\' . $call;
@@ -173,5 +175,82 @@ class Dispatcher
             }
         }
         return false;
+    }
+
+    /**
+     * Regenerate some needed data.
+     *
+     * TODO: Some parts must be moved to another parts on a near future.
+     */
+    private function regenerateData()
+    {
+        if (constant('DEBUG') === true) {
+            $this->instantiateModels();
+        }
+        $this->checkPageControllers();
+    }
+
+    /**
+     * Instantiate all available models
+     *
+     * TODO: This must be executed only when update/upgrade the core. At this moment is forced if DEBUG is enabled.
+     */
+    private function instantiateModels()
+    {
+        // TODO: Don't have schema/*.yaml, must be controller from the parents of the models to not crash
+        $exclude = ['UserRoles', 'Roles'];
+        $models = Finder::create()
+            ->files()
+            ->name('*.php')
+            ->in($dir = constant('ALXARAFE_FOLDER') . '/Models');
+        foreach ($models as $modelFile) {
+            $class = str_replace([$dir . '/', '.php'], ['', ''], $modelFile);
+            if (in_array($class, $exclude)) {
+                continue;
+            }
+            $class = '\Alxarafe\Models\\' . $class;
+            require_once $modelFile;
+            new $class();
+        }
+    }
+
+
+    /**
+     * Check all clases that extends from PageController, an store it to pages table.
+     * We needed to generate the user menu.
+     *
+     * TODO: This must be checked only when update/upgrade the core.
+     */
+    private function checkPageControllers()
+    {
+        // Don't have schema/*.yaml, must be controller from the parents of the models to not crash
+        $controllers = Finder::create()
+            ->files()
+            ->name('*.php')
+            ->in($dir = constant('ALXARAFE_FOLDER') . '/Controllers');
+        foreach ($controllers as $controllerFile) {
+            $className = str_replace([$dir . '/', '.php'], ['', ''], $controllerFile);
+            $class = '\Alxarafe\Controllers\\' . $className;
+            require_once $controllerFile;
+            $newClass = new $class();
+            $parents = class_parents($newClass);
+            if (in_array('Alxarafe\Base\PageController', $parents)) {
+                $page = new Page();
+                if (!$page->getBy('controller', $className)) {
+                    $page = new Page();
+                }
+                $page->controller = $className;
+                $page->title = $newClass->title;
+                $page->description = $newClass->description;
+                $page->menu = $newClass->menu;
+                $page->active = 1;
+                $page->updated_date = date('Y-m-d H:i:s');
+                if ($page->save()) {
+                    Debug::addMessage('messages', 'Page ' . $className . ' data added or updated to table');
+                } else {
+                    Debug::addMessage('messages', 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>');
+                }
+            }
+        }
     }
 }

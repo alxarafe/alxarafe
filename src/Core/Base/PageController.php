@@ -35,7 +35,7 @@ class PageController extends Controller
      *
      * @var string
      */
-    public $descripcion;
+    public $description;
 
     /**
      * Page menu place.

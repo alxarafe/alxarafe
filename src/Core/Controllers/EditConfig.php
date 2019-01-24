@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\EditConfigView;
 use Symfony\Component\Yaml\Yaml;
@@ -44,13 +45,19 @@ class EditConfig extends PageController
      */
     public function main(): void
     {
-        if (filter_input(INPUT_POST, 'cancel', FILTER_SANITIZE_ENCODED) === 'true') {
-            header('Location: ' . constant('BASE_URI'));
-        }
-
-        if (filter_input(INPUT_POST, 'submit', FILTER_SANITIZE_ENCODED) === 'true') {
-            $this->save();
-            header('Location: ' . constant('BASE_URI'));
+        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
+        switch ($action) {
+            case 'save':
+                Debug::addMessage(
+                    'messages',
+                    ($this->save() ? 'Changes stored' : 'Changes not stored')
+                );
+                $this->index();
+                break;
+            case 'cancel':
+            default:
+                header('Location: ' . constant('BASE_URI'));
+                break;
         }
     }
 

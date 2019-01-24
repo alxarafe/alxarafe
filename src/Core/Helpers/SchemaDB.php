@@ -3,9 +3,8 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-namespace Alxarafe\Helpers;
 
-use Exception;
+namespace Alxarafe\Helpers;
 
 /**
  * The SchemaDB class contains static methods that allow you to manipulate the
@@ -145,7 +144,7 @@ class SchemaDB
 
     protected static function createConstraint(string $tableName, array $indexData)
     {
-            // https://www.w3schools.com/sql/sql_foreignkey.asp
+        // https://www.w3schools.com/sql/sql_foreignkey.asp
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
         $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .

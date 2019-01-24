@@ -11,7 +11,7 @@
     {{ view.newRow(view.blockContainer(main.title))|raw }}
 
     <div class="container-fluid">
-        <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig" method='post' accept-charset="utf-8">
+        <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig&{{ constant('METHOD_CONTROLLER') }}=main" method='post' accept-charset="utf-8">
             <div class="row">
                 <div class="col-xs-12">
                     {% if (message) %}{{ message }}{% endif %}
@@ -54,12 +54,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <button name="cancel" type="submit" class="btn btn-default btn-danger" value="true">
-                        Abandonar
+                    <button name="action" type="submit" class="btn btn-default btn-danger" value="cancel">
+                        Salir
                     </button>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-                    <button name="submit" type="submit" class="btn btn-default btn-primary" value="true">
+                    <button name="action" type="submit" class="btn btn-default btn-primary" value="save">
                         Guardar los cambios
                     </button>
                 </div>
