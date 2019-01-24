@@ -22,6 +22,13 @@ class View
 {
 
     /**
+     * Page title.
+     *
+     * @var string
+     */
+    public $title;
+
+    /**
      * Array that contains the variables that will be passed to the template.
      * Among others it will contain the user name, the view and the controller.
      *
@@ -45,6 +52,7 @@ class View
         }
         $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->vars['lang'] = Config::$lang;
+        $this->title = isset($controller->title) ? $controller->title : 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX);
         $this->addCSS();
         $this->addJS();
     }
