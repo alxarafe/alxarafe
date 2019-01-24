@@ -34,10 +34,10 @@ class UserRoles extends Table
     {
         return [
             'user_id' => [
-                'type' => 'int',
+                'type' => 'integer',
             ],
             'role_id' => [
-                'type' => 'int',
+                'type' => 'integer',
             ],
         ];
     }

@@ -40,7 +40,7 @@ class Users extends Table
         return [
             'id' => [
                 'label' => 'id',
-                'type' => 'int',
+                'type' => 'integer',
                 'extra' => 'auto_increment' // It is assumed to be the primary key
             ],
             'username' => [
