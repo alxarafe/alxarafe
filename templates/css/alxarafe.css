@@ -24,13 +24,13 @@ body {
  * Not required for template or sticky footer method.
  */
 
-body > .container,
-body > .container-fluid {
+body > .container:first-of-type,
+body > .container-fluid:first-of-type {
     padding: 60px 15px 0;
 }
 
-.container .text-muted,
-.container-fluid .text-muted {
+.container:first-of-type .text-muted,
+.container-fluid:first-of-type .text-muted {
     margin: 20px 0;
 }
 
@@ -48,6 +48,6 @@ code {
  * Used to render var_dump messages with sticky navbar
  */
 
-body > .xdebug-var-dump {
+body > .xdebug-var-dump:first-of-type {
     margin: 55px 0;
 }
