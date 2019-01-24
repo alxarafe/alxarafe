@@ -234,10 +234,11 @@ class Dispatcher
                 if (!$page->getBy('controller', $className)) {
                     $page = new Page();
                 }
-                $page->controller = $class;
+                $page->controller = $className;
                 $page->title = $newClass->title;
                 $page->description = $newClass->description;
                 $page->menu = $newClass->menu;
+                $page->active = 1;
                 if ($page->save()) {
                     Debug::addMessage('messages', 'Page data added or updated to table');
                 } else {
