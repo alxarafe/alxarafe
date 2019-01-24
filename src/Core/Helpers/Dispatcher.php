@@ -26,7 +26,6 @@ class Dispatcher
      * @var array
      */
     public $searchDir;
-    public $nameSpaces;
 
     /**
      * Dispatcher constructor.
@@ -36,9 +35,7 @@ class Dispatcher
         $this->getConfiguration();
 
         // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
-        $this->searchDir[] = constant('BASE_PATH');
-        $this->searchDir[] = constant('ALXARAFE_FOLDER');
-        $this->nameSpaces[] = 'Alxarafe';
+        $this->searchDir = ['Alxarafe' => constant('ALXARAFE_FOLDER')];
     }
 
     /**
@@ -126,7 +123,7 @@ class Dispatcher
      */
     public function process(): bool
     {
-        foreach ($this->searchDir as $dir) {
+        foreach ($this->searchDir as $namespace => $dir) {
             $path = $dir . '/Controllers';
             $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_ENCODED);
             $call = !empty($call) ? $call : constant('DEFAULT_CONTROLLER');
@@ -160,15 +157,14 @@ class Dispatcher
         }
         $this->regenerateData();
         $className = $call;
-        foreach ($this->nameSpaces as $nameSpace) {
-            $_className = $nameSpace . '\\Controllers\\' . $call;
+        foreach ($this->searchDir as $nameSpace => $dirPath) {
+            $_className = '\\' . $nameSpace . '\\Controllers\\' . $call;
             if (class_exists($_className)) {
                 $className = $_className;
             }
         }
         $controllerPath = $path . '/' . $call . '.php';
         if (file_exists($controllerPath) && is_file($controllerPath)) {
-            require_once $controllerPath;
             if (method_exists($className, $method)) {
                 (new $className())->{$method}();
                 return true;
@@ -197,20 +193,17 @@ class Dispatcher
      */
     private function instantiateModels()
     {
-        // TODO: Don't have schema/*.yaml, must be controller from the parents of the models to not crash
-        $exclude = [];
-        $models = Finder::create()
-            ->files()
-            ->name('*.php')
-            ->in($dir = constant('ALXARAFE_FOLDER') . '/Models');
-        foreach ($models as $modelFile) {
-            $class = str_replace([$dir . '/', '.php'], ['', ''], $modelFile);
-            if (in_array($class, $exclude)) {
-                continue;
+        foreach ($this->searchDir as $namespace => $baseDir) {
+            $models = Finder::create()
+                ->files()
+                ->name('*.php')
+                ->in($dir = $baseDir . '/Models');
+            foreach ($models as $modelFile) {
+                $class = str_replace([$dir . '/', '.php'], ['', ''], $modelFile);
+                $class = '\\' . $namespace . '\\Models\\' . $class;
+                require_once $modelFile;
+                new $class();
             }
-            $class = '\Alxarafe\Models\\' . $class;
-            require_once $modelFile;
-            new $class();
         }
     }
 
@@ -223,31 +216,33 @@ class Dispatcher
     private function checkPageControllers()
     {
         // Don't have schema/*.yaml, must be controller from the parents of the models to not crash
-        $controllers = Finder::create()
-            ->files()
-            ->name('*.php')
-            ->in($dir = constant('ALXARAFE_FOLDER') . '/Controllers');
-        foreach ($controllers as $controllerFile) {
-            $className = str_replace([$dir . '/', '.php'], ['', ''], $controllerFile);
-            $class = '\Alxarafe\Controllers\\' . $className;
-            require_once $controllerFile;
-            $newClass = new $class();
-            $parents = class_parents($newClass);
-            if (in_array('Alxarafe\Base\PageController', $parents)) {
-                $page = new Page();
-                if (!$page->getBy('controller', $className)) {
+        foreach ($this->searchDir as $namespace => $baseDir) {
+            $controllers = Finder::create()
+                ->files()
+                ->name('*.php')
+                ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
+            foreach ($controllers as $controllerFile) {
+                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
+                $class = '\\' . $namespace . '\\Controllers\\' . $className;
+                $newClass = new $class();
+                $parents = class_parents($newClass);
+                if (in_array('Alxarafe\Base\PageController', $parents)) {
                     $page = new Page();
-                }
-                $page->controller = $className;
-                $page->title = $newClass->title;
-                $page->description = $newClass->description;
-                $page->menu = $newClass->menu;
-                $page->active = 1;
-                $page->updated_date = date('Y-m-d H:i:s');
-                if ($page->save()) {
-                    Debug::addMessage('messages', 'Page ' . $className . ' data added or updated to table');
-                } else {
-                    Debug::addMessage('messages', 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>');
+                    if (!$page->getBy('controller', $className)) {
+                        $page = new Page();
+                    }
+                    $page->controller = $className;
+                    $page->title = $newClass->title;
+                    $page->description = $newClass->description;
+                    $page->menu = $newClass->menu;
+                    $page->plugin = $namespace;
+                    $page->active = 1;
+                    $page->updated_date = date('Y-m-d H:i:s');
+                    if ($page->save()) {
+                        Debug::addMessage('messages', 'Page ' . $className . ' data added or updated to table');
+                    } else {
+                        Debug::addMessage('messages', 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>');
+                    }
                 }
             }
         }
