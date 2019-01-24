@@ -55,7 +55,8 @@ class CreateConfig extends Controller
                 header('Location: ' . constant('BASE_URI'));
                 break;
             case 'cancel':
-            default:header('Location: ' . constant('BASE_URI'));
+            default:
+                header('Location: ' . constant('BASE_URI'));
                 break;
         }
     }
