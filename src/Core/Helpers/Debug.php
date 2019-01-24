@@ -55,7 +55,7 @@ class Debug
 
         self::$logger = new Logger('core_logger');
         try {
-            self::$logger->pushHandler(new StreamHandler(constant('BASE_PATH') . 'core.log', Logger::DEBUG));
+            self::$logger->pushHandler(new StreamHandler(constant('BASE_PATH') . '/core.log', Logger::DEBUG));
         } catch (Exception $e) {
             Debug::addException($e);
         }

@@ -19,7 +19,12 @@ class Auth extends Users
     /**
      * Cookie time expiration.
      */
-    const COOKIE_EXPIRATION = 86400 * 30; // 30 days
+    const COOKIE_EXPIRATION = 86400 * 30;   // 30 days
+
+    /**
+     * Minimum cookie time expiration.
+     */
+    const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
 
     /**
      * User in use.
@@ -69,7 +74,7 @@ class Auth extends Users
      */
     public function login()
     {
-        $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']));
+        $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_URI']));
         header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
     }
 
@@ -95,12 +100,24 @@ class Auth extends Users
     }
 
     /**
+     * Adjust auth cookie user.
+     */
+    private function adjustCookieUser($time = 0)
+    {
+        if ($time == 0) {
+            $time = time() - 3600;
+        }
+        $this->logkey = $this->generateLogKey();
+        setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+    }
+
+    /**
      * Clear the cookie user.
      */
     private function clearCookieUser()
     {
-        setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-        setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        $this->adjustCookieUser();
         unset($_COOKIE['user']);
         unset($_COOKIE['logkey']);
     }
@@ -120,10 +137,11 @@ class Auth extends Users
      *
      * @param string $userName
      * @param string $password
+     * @param bool   $remember
      *
      * @return bool
      */
-    public function setUser($userName, $password): bool
+    public function setUser($userName, $password, $remember = false): bool
     {
         $user = new Users();
         $this->username = null;
@@ -131,32 +149,17 @@ class Auth extends Users
         if ($user->getBy('username', $userName) !== null) {
             if (password_verify($password, $user->password)) {
                 $this->username = $user->username;
-                $this->setCookieUser();
+                $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
+                $this->adjustCookieUser($time);
                 Debug::addMessage('messages', "$user->username authenticated");
             } else {
-                setcookie('user', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-                setcookie('logkey', '', 0, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-                unset($_COOKIE['user']);
-                unset($_COOKIE['logkey']);
+                $this->clearCookieUser();
                 Debug::addMessage('messages', "Checking hash wrong password");
             }
         } else {
             Debug::addMessage('messages', "User '" . $userName . "' not founded.");
         }
         return $this->username !== null;
-    }
-
-    /**
-     * Sets the cookie to the current user.
-     */
-    private function setCookieUser(): void
-    {
-        if ($this->username === null) {
-            $this->clearCookieUser();
-        } else {
-            setcookie('user', $this->username, time() + self::COOKIE_EXPIRATION, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-            setcookie('logkey', $this->generateLogKey(), time() + self::COOKIE_EXPIRATION, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-        }
     }
 
     /**
