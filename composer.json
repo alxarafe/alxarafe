@@ -28,7 +28,8 @@
     "twig/twig": "^2.0",
     "symfony/translation": "^4.2",
     "ext-pdo": "*",
-    "ext-openssl": "*"
+    "ext-openssl": "*",
+    "symfony/finder": "^4.2"
   },
   "autoload": {
     "psr-4": {
