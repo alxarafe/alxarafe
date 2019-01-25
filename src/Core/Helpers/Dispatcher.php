@@ -193,6 +193,9 @@ class Dispatcher
      */
     private function instantiateModels()
     {
+        // Start DB transaction
+        Config::$dbEngine->beginTransaction();
+
         foreach ($this->searchDir as $namespace => $baseDir) {
             $models = Finder::create()
                 ->files()
@@ -201,10 +204,12 @@ class Dispatcher
             foreach ($models as $modelFile) {
                 $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
                 $class = '\\' . $namespace . '\\Models\\' . $class;
-                // require_once $modelFile;
                 new $class();
             }
         }
+
+        // End DB transaction
+        Config::$dbEngine->commit();
     }
 
     /**
@@ -215,7 +220,9 @@ class Dispatcher
      */
     private function checkPageControllers()
     {
-        // Don't have schema/*.yaml, must be controller from the parents of the models to not crash
+        // Start DB transaction
+        Config::$dbEngine->beginTransaction();
+
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
                 ->files()
@@ -238,13 +245,15 @@ class Dispatcher
                     $page->plugin = $namespace;
                     $page->active = 1;
                     $page->updated_date = date('Y-m-d H:i:s');
-                    if ($page->save()) {
-                        Debug::addMessage('messages', 'Page ' . $className . ' data added or updated to table');
-                    } else {
-                        Debug::addMessage('messages', 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>');
-                    }
+
+                    $msgSuccess = 'Page ' . $className . ' data added or updated to table';
+                    $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
+                    Debug::addMessage('messages', ($page->save() ? $msgSuccess : $msgError));
                 }
             }
         }
+
+        // End DB transaction
+        Config::$dbEngine->commit();
     }
 }
