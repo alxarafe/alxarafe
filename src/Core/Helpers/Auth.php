@@ -6,14 +6,14 @@
 
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Models\Users;
+use Alxarafe\Models\User;
 
 /**
  * Class Auth
  *
  * @package Alxarafe\Helpers
  */
-class Auth extends Users
+class Auth extends User
 {
 
     /**
@@ -90,7 +90,7 @@ class Auth extends Users
             'Auth::Logout(): ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out')
         );
 
-        $user = new Users();
+        $user = new User();
         $user->getBy('username', $this->username);
         $user->logkey = null;
         $user->save();
@@ -145,7 +145,7 @@ class Auth extends Users
      */
     public function setUser($userName, $password, $remember = false): bool
     {
-        $user = new Users();
+        $user = new User();
         $this->username = null;
 
         if ($user->getBy('username', $userName) !== null) {
@@ -176,7 +176,7 @@ class Auth extends Users
     {
         $logkey = '';
         if (!empty($_COOKIE['user'])) {
-            $user = new Users();
+            $user = new User();
             $user->getBy('username', $_COOKIE['user']);
             $text = $this->username;
             if ($unique) {
@@ -203,7 +203,7 @@ class Auth extends Users
     public function verifyLogKey(string $userName, string $hash)
     {
         $status = false;
-        $user = new Users();
+        $user = new User();
         if ($user->getBy('username', $userName) !== null && $hash === $user->logkey) {
             $this->username = $user->username;
             $this->logkey = $user->logkey;

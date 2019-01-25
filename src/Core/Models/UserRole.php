@@ -9,23 +9,22 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * Class Roles. Define the roles available in the application. By default, the administrator
- * and the user are defined.
+ * Class UserRoles. Link each user with the assigned roles.
  *
  * @package Alxarafe\Models
  */
-class Roles extends Table
+class UserRole extends Table
 {
     /**
-     * Roles constructor.
+     * UserRoles constructor.
      */
     public function __construct()
     {
         parent::__construct(
-            'roles',
+            'user_roles',
             [
                 'idField' => 'id',
-                'nameField' => 'name',
+                'nameField' => 'id',
                 'create' => true,
             ]
         );

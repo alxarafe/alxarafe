@@ -13,7 +13,7 @@ use Alxarafe\Base\Table;
  *
  * @package Alxarafe\Models
  */
-class Users extends Table
+class User extends Table
 {
     /**
      * User constructor.

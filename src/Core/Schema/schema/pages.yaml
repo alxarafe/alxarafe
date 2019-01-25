@@ -65,7 +65,7 @@ fields:
         zerofill: 'no'
         autoincrement: 'no'
     inserted_date:
-        field: updated_date
+        field: inserted_date
         type: datetime
         length: null
         default: CURRENT_TIMESTAMP
