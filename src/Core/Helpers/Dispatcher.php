@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
@@ -96,7 +95,7 @@ class Dispatcher
         define('CALL_CONTROLLER', 'call');
         define('METHOD_CONTROLLER', 'method');
         define('DEFAULT_CONTROLLER', (Config::configFileExists() ? 'EditConfig' : 'CreateConfig'));
-        define('DEFAULT_METHOD', 'index');
+        define('DEFAULT_METHOD', 'run');
     }
 
     /**
@@ -123,6 +122,7 @@ class Dispatcher
      */
     public function process(): bool
     {
+        $this->regenerateData();
         foreach ($this->searchDir as $namespace => $dir) {
             $path = $dir . '/Controllers';
             $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_ENCODED);
@@ -155,7 +155,6 @@ class Dispatcher
                 return true;
             }
         }
-        $this->regenerateData();
         $className = $call;
         foreach ($this->searchDir as $nameSpace => $dirPath) {
             $_className = '\\' . $nameSpace . '\\Controllers\\' . $call;
@@ -166,7 +165,9 @@ class Dispatcher
         $controllerPath = $path . '/' . $call . '.php';
         if (file_exists($controllerPath) && is_file($controllerPath)) {
             if (method_exists($className, $method)) {
-                (new $className())->{$method}();
+                $theClass = new $className();
+                $theClass->index();
+                $theClass->{$method}();
                 return true;
             }
         }

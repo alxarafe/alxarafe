@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
@@ -20,6 +19,7 @@ use Alxarafe\Views\LoginView;
  */
 class Login extends PageController
 {
+
     /**
      * Where to redirect if needed.
      *
@@ -97,10 +97,10 @@ class Login extends PageController
         $this->index();
         $this->userAuth->logout();
     }
-
-    /**.
+    /*     * .
      * Returns the page details.
      */
+
     public function pageDetails()
     {
         $details = [
