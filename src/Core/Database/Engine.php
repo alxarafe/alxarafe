@@ -112,16 +112,16 @@ abstract class Engine
      */
     public function __destruct()
     {
-        $this->rollbackTransactions();
+        $this->rollBackTransactions();
     }
 
     /**
      * Undo all active transactions
      */
-    final private function rollbackTransactions(): void
+    final private function rollBackTransactions(): void
     {
         while (self::$transactionDepth > 0) {
-            $this->rollback();
+            $this->rollBack();
         }
     }
 
