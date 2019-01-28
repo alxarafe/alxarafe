@@ -61,6 +61,11 @@ class CreateConfig extends Controller
         }
     }
 
+    public function run(): void
+    {
+        $this->index();
+    }
+
     /**
      * Save the form changes in the configuration file
      *

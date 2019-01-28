@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
@@ -87,6 +88,11 @@ class Login extends PageController
         }
     }
 
+    public function run(): void
+    {
+        $this->index();
+    }
+
     /**
      * Close the user session and go to the main page
      *
@@ -97,6 +103,7 @@ class Login extends PageController
         $this->index();
         $this->userAuth->logout();
     }
+
     /*     * .
      * Returns the page details.
      */

@@ -59,6 +59,11 @@ class ExportStructure extends PageController
         }
     }
 
+    public function run(): void
+    {
+        $this->index();
+    }
+
     /**.
      * Returns the page details.
      */
