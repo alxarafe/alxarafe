@@ -243,6 +243,7 @@ class Dispatcher
                     $page->title = $newClass->title;
                     $page->description = $newClass->description;
                     $page->menu = $newClass->menu;
+                    $page->icon = $newClass->icon;
                     $page->plugin = $namespace;
                     $page->active = 1;
                     $page->updated_date = date('Y-m-d H:i:s');

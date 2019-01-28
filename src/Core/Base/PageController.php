@@ -3,10 +3,12 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Models\Page;
 
 /**
  * Class PageController, all controllers that needs to be accessed as a page must extends from this.
@@ -15,6 +17,10 @@ use Alxarafe\Helpers\Debug;
  */
 class PageController extends Controller
 {
+    /**
+     * Symbol to split menu/submenu items.
+     */
+    const MENU_DELIMITER = '|';
 
     /**
      * Page title.
@@ -204,5 +210,37 @@ class PageController extends Controller
     public function canDelete(string $username): bool
     {
         return false;
+    }
+
+    /**
+     * Return a list of pages for generate user menu.
+     *
+     * @return array
+     */
+    public function getUserMenu()
+    {
+        $list = [];
+        $pages = (new Page())->getAllRecords();
+        foreach ($pages as $page) {
+            // Ignore item if menu is empty
+            if (empty($page['menu'])) {
+                continue;
+            }
+            // Add every page to list
+            $pos = '$list';
+            $positions = explode(self::MENU_DELIMITER, $page['menu']);
+            foreach ($positions as $position) {
+                $pos .= "['$position']";
+            }
+            $pos .= "[]";
+            $pageDetails = [
+                'controller' => $page['controller'],
+                'title' => $page['title'],
+                'description' => $page['description'],
+                'icon' => $page['icon'],
+            ];
+            eval("$pos=" . var_export($pageDetails, true) . ";");
+        }
+        return $list;
     }
 }
