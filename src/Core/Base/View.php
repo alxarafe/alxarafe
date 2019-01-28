@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -97,21 +98,24 @@ class View
      * corresponding URI, if it exists.
      *
      * @param string $path
+     *
      * @return string
      */
     private function getResourceUri(string $path): string
     {
-        if (file_exists(Skin::getTemplatesFolder() . $path)) {
-            return Skin::getTemplatesUri() . $path;
-        }
-        if (file_exists(Skin::getCommonTemplatesFolder() . $path)) {
-            return Skin::getCommonTemplatesUri() . $path;
-        }
-        if (file_exists(constant('DEFAULT_TEMPLATES_FOLDER') . $path)) {
-            return constant('DEFAULT_TEMPLATES_URI') . $path;
-        }
-        if (file_exists(constant('VENDOR_FOLDER') . $path)) {
-            return constant('VENDOR_URI') . $path;
+        $paths = [
+            Skin::getTemplatesFolder() . '/' . $path => Skin::getTemplatesUri() . $path,
+            Skin::getCommonTemplatesFolder() . '/' . $path => Skin::getCommonTemplatesUri() . $path,
+            constant('DEFAULT_TEMPLATES_FOLDER') . '/' . $path => constant('DEFAULT_TEMPLATES_URI') . $path,
+            constant('VENDOR_FOLDER') . '/' . $path => constant('VENDOR_URI') . $path,
+        ];
+
+        Debug::addMessage('messages', "Looking for '$path':");
+        foreach ($paths as $fullPath => $uriPath) {
+            if (file_exists($fullPath)) {
+                return $uriPath;
+            }
+            Debug::addMessage('messages', "File '$fullPath' not found!");
         }
         return '';
     }
@@ -125,8 +129,8 @@ class View
      *
      * If it is not in either of the two, no route is specified (it will surely give loading error).
      *
-     * @param string  $resourceName      is the name of the file (with extension)
-     * @param boolean $relative          set to false for use an absolute path.
+     * @param string  $resourceName is the name of the file (with extension)
+     * @param boolean $relative     set to false for use an absolute path.
      *
      * @return string the complete path of resource.
      */
@@ -141,6 +145,8 @@ class View
         }
         if (!file_exists($resourceName)) {
             Debug::addMessage('messages', "Absolute resource '$resourceName' not found!");
+            Debug::addMessage('messages', "File '$resourceName' not found!");
+            return '';
         }
         return $resourceName;
     }
@@ -161,6 +167,7 @@ class View
     /**
      * Add a new element to a value saved in the array that is passed to the template.
      * It is used when what we are saving is an array and we want to add a new element to that array.
+     * IMPORTANT: The element only is added if is not empty.
      *
      * @param string $name
      * @param mixed  $value
@@ -169,7 +176,9 @@ class View
      */
     public function addToVar(string $name, $value): void
     {
-        $this->vars[$name][] = $value;
+        if (!empty($value)) {
+            $this->vars[$name][] = $value;
+        }
     }
 
     /**
