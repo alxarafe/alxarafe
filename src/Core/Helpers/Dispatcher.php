@@ -186,9 +186,10 @@ class Dispatcher
     private function regenerateData()
     {
         if (constant('DEBUG') === true) {
+            Debug::addMessage('messages', 'This calls must be in another place a near future.');
             $this->instantiateModels();
+            $this->checkPageControllers();
         }
-        $this->checkPageControllers();
     }
 
     /**
@@ -222,6 +223,7 @@ class Dispatcher
      * We needed to generate the user menu.
      *
      * TODO: This must be checked only when update/upgrade the core.
+     * WARNING: At this moment are generating 3 extra SQL queries per table.
      */
     private function checkPageControllers()
     {
@@ -248,9 +250,9 @@ class Dispatcher
                         $page = new Page();
                     }
                     $page->controller = $className;
-                    $page->title = Config::$lang->trans($newClass->title);
-                    $page->description = Config::$lang->trans($newClass->description);
-                    $page->menu = Config::$lang->trans($newClass->menu);
+                    $page->title = $newClass->title;
+                    $page->description = $newClass->description;
+                    $page->menu = $newClass->menu;
                     $page->icon = $newClass->icon;
                     $page->plugin = $namespace;
                     $page->active = 1;

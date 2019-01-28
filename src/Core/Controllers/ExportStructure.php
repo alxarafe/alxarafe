@@ -7,6 +7,7 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
+use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\ExportStructureView;
@@ -73,9 +74,9 @@ class ExportStructure extends PageController
     public function pageDetails()
     {
         $details = [
-            'title' => 'Exportar estructura de la base de datos',
+            'title' => Config::$lang->trans('export-db-estructure'),
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
-            'description' => 'Permite exportar la estructura de la base de datos en archivos YAML.',
+            'description' => Config::$lang->trans('export-db-estructure-description'),
             'menu' => 'dev-tools',
         ];
         return $details;

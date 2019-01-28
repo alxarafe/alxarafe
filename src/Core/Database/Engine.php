@@ -161,7 +161,8 @@ abstract class Engine
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
-        Debug::addMessage('SQL', 'PDO exec: ' . $query);
+        // TODO: Debugbar is collecting from PDO, is really needed here??
+        //Debug::addMessage('SQL', 'PDO exec: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement) {
             return self::$statement->execute([]);
@@ -196,7 +197,8 @@ abstract class Engine
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
-        Debug::addMessage('SQL', 'PDO select: ' . $query);
+        // TODO: Debugbar is collecting from PDO, is really needed here??
+        //Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement && self::$statement->execute([])) {
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);

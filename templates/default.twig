@@ -4,7 +4,7 @@
 #}
 {% extends "index.twig" %}
 
-{% block title %}Default template{% endblock %}
+{% block title %}{{ lang.trans('default-template') }}{% endblock %}
 
 {% block body %}
     {% if main.title is not empty %}<h1>{{ main.title }}</h1>{% endif %}

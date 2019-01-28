@@ -15,8 +15,8 @@
     {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
 
     {% block bodytitle %}
-        {% if ctrl.title is not empty %}<h4>{{ ctrl.title }}</h4>{% endif %}
-        {% if ctrl.description is not empty %}<small>{{ ctrl.description }}</small>{% endif %}
+        {% if ctrl.title is not empty %}<h4>{{ lang.trans(ctrl.title) }}</h4>{% endif %}
+        {% if ctrl.description is not empty %}<small>{{ lang.trans(ctrl.description) }}</small>{% endif %}
     {% endblock %}
 </div>
 

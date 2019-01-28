@@ -91,15 +91,15 @@ class EditConfig extends PageController
         return (bool) file_put_contents($yamlFile, $yamlData);
     }
 
-    /**.
+    /**
      * Returns the page details.
      */
     public function pageDetails()
     {
         $details = [
-            'title' => 'Editar configuración',
+            'title' => Config::$lang->trans('edit-configuration'),
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
-            'description' => 'Desde aquí puedes editar los parámetros de configuración.',
+            'description' => Config::$lang->trans('edit-configuration-description'),
             //'menu' => 'admin|edit-config',
             'menu' => 'admin',
         ];

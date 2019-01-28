@@ -107,16 +107,15 @@ class Login extends PageController
         $this->userAuth->logout();
     }
 
-    /*     * .
+    /**
      * Returns the page details.
      */
-
     public function pageDetails()
     {
         $details = [
-            'title' => 'Identificación de usuario',
+            'title' => Config::$lang->trans('user-authentication'),
             'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
-            'description' => 'Página de login, para controlar el acceso a la aplicación.',
+            'description' => Config::$lang->trans('user-authentication-description'),
             'menu' => '',
         ];
         return $details;
