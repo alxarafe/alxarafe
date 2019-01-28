@@ -99,6 +99,22 @@ class Utils
     }
 
     /**
+     * Given an array of parameters, an index and a possible default value,
+     * returns a literal of the form: index = 'value'.
+     * It is used, for example, to assign attributes to an html statement.
+     *
+     * @param array $itemsArray
+     * @param string $itemIndex
+     * @param string|null $defaultValue
+     * @return string
+     */
+    public static function getItem(array $itemsArray, string $itemIndex, $defaultValue = null): string
+    {
+        $res = $itemsArray[$itemIndex] ?? $defaultValue;
+        return isset($res) ? " $itemIndex='$res'" : '';
+    }
+
+    /**
      * Generate a random string for a given length.
      * Tries to generate from most secure random text to less.
      *
