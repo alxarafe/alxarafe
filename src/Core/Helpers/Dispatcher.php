@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
@@ -233,6 +234,7 @@ class Dispatcher
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $class = '\\' . $namespace . '\\Controllers\\' . $className;
+                Debug::addMessage('messages', 'Instantiation of class ' . $className . ' extending PageController');
                 $newClass = new $class();
                 $parents = class_parents($newClass);
                 if (in_array('Alxarafe\Base\PageController', $parents)) {
@@ -244,6 +246,7 @@ class Dispatcher
                     $page->title = $newClass->title;
                     $page->description = $newClass->description;
                     $page->menu = $newClass->menu;
+                    $page->icon = $newClass->icon;
                     $page->plugin = $namespace;
                     $page->active = 1;
                     $page->updated_date = date('Y-m-d H:i:s');

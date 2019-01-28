@@ -266,4 +266,17 @@ class SqlFirebird extends SqlHelper
         // TODO: Implement getConstraintsSql() method.
         return '';
     }
+
+    /**
+     * TODO: Undocummented.
+     *
+     * @param string $fieldName
+     * @param array  $data
+     *
+     * @return string
+     */
+    public function getSQLField(string $fieldName, array $data): string
+    {
+        return '';
+    }
 }

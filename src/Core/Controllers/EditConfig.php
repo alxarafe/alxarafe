@@ -92,7 +92,8 @@ class EditConfig extends PageController
             'title' => 'Editar configuración',
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
             'description' => 'Desde aquí puedes editar los parámetros de configuración.',
-            'menu' => 'admin|edit-config',
+            //'menu' => 'admin|edit-config',
+            'menu' => 'admin',
         ];
         return $details;
     }

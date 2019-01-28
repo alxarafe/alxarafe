@@ -46,6 +46,15 @@ fields:
         unsigned: 'no'
         zerofill: 'no'
         autoincrement: 'no'
+    icon:
+        field: icon
+        type: string
+        length: '255'
+        default: ''
+        nullable: 'no'
+        unsigned: 'no'
+        zerofill: 'no'
+        autoincrement: 'no'
     active:
         field: active
         type: integer
