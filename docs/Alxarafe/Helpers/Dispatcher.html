@@ -101,14 +101,6 @@
                 <td class="last">Array that contains the paths to find the Controllers folder that contains the controllers</td>
                 <td></td>
             </tr>
-                    <tr>
-                <td class="type" id="property_nameSpaces">
-                                                                                
-                </td>
-                <td>$nameSpaces</td>
-                <td class="last"></td>
-                <td></td>
-            </tr>
             </table>
 
     
@@ -170,7 +162,7 @@
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_processFolder">processFolder</a>(string $path, string $call, string $method = &#039;index&#039;)
+                    <a href="#method_processFolder">processFolder</a>(string $path, string $call, string $method = null)
         
                                             <p>Try to locate the $call class in $path, and execute the $method.</p>                </div>
                 <div class="col-md-2"></div>
@@ -213,7 +205,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 34</div>
+        <div class="location">at         line 33</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -234,7 +226,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getConfiguration">
-        <div class="location">at         line 48</div>
+        <div class="location">at         line 45</div>
         <code>                private    
     <strong>getConfiguration</strong>()
         </code>
@@ -255,7 +247,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_defineConstants">
-        <div class="location">at         line 67</div>
+        <div class="location">at         line 64</div>
         <code>                    
     <strong>defineConstants</strong>()
         </code>
@@ -276,7 +268,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">at         line 108</div>
+        <div class="location">at         line 105</div>
         <code>                    
     <strong>run</strong>()
         </code>
@@ -297,7 +289,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_process">
-        <div class="location">at         line 127</div>
+        <div class="location">at         line 124</div>
         <code>                    bool
     <strong>process</strong>()
         </code>
@@ -327,9 +319,9 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_processFolder">
-        <div class="location">at         line 152</div>
+        <div class="location">at         line 150</div>
         <code>                    bool
-    <strong>processFolder</strong>(string $path, string $call, string $method = &#039;index&#039;)
+    <strong>processFolder</strong>(string $path, string $call, string $method = null)
         </code>
     </h3>
     <div class="details">
@@ -377,7 +369,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_regenerateData">
-        <div class="location">at         line 185</div>
+        <div class="location">at         line 186</div>
         <code>                private    
     <strong>regenerateData</strong>()
         </code>
@@ -398,7 +390,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_instantiateModels">
-        <div class="location">at         line 198</div>
+        <div class="location">at         line 200</div>
         <code>                private    
     <strong>instantiateModels</strong>()
         </code>
@@ -419,7 +411,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_checkPageControllers">
-        <div class="location">at         line 224</div>
+        <div class="location">at         line 228</div>
         <code>                private    
     <strong>checkPageControllers</strong>()
         </code>
@@ -431,7 +423,8 @@
                     <div class="method-description">
                                     <p>Check all clases that extends from PageController, an store it to pages table.</p>                    <p>We needed to generate the user menu.</p>
 
-<p>TODO: This must be checked only when update/upgrade the core.</p>                            </div>
+<p>TODO: This must be checked only when update/upgrade the core.
+WARNING: At this moment are generating 3 extra SQL queries per table.</p>                            </div>
                 <div class="tags">
             
             
