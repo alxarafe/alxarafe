@@ -88,6 +88,9 @@ class Login extends PageController
         }
     }
 
+    /**
+     * Run the class.
+     */
     public function run(): void
     {
         $this->index();

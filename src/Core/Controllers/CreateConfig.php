@@ -61,6 +61,9 @@ class CreateConfig extends Controller
         }
     }
 
+    /**
+     * Run the class.
+     */
     public function run(): void
     {
         $this->index();
