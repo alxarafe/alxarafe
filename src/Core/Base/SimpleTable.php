@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -362,6 +361,7 @@ class SimpleTable
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->id == '') ? $this->insertRecord($fields, $values) : $this->updateRecord($assigns);
         if ($ret) {
+            $this->newData[$this->idField] = $this->id;
             $this->oldData = $this->newData;
         }
         return $ret;
@@ -382,7 +382,7 @@ class SimpleTable
         $valueList = implode(',', $values);
         $ret = Config::$dbEngine->exec('INSERT INTO ' . $this->getTableName() . " ($fieldList) VALUES ($valueList);");
         // Assign the value of the primary key of the newly inserted record
-        $this->id = $this->newData[$this->idField] ?? Config::$dbEngine->getLastInserted();
+        $this->id = Config::$dbEngine->getLastInserted();
         return $ret;
     }
 
