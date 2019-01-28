@@ -117,7 +117,7 @@ class Table extends SimpleTable
      */
     public function getAllRecords(): array
     {
-        $sql = 'SELECT * FROM ' . $this->getTableName();
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName);
         return Config::$dbEngine->select($sql);
     }
 

@@ -169,7 +169,9 @@ class Dispatcher
         $controllerPath = $path . '/' . $call . '.php';
         if (file_exists($controllerPath) && is_file($controllerPath) && method_exists($className, $method)) {
             $theClass = new $className();
+            Debug::addMessage('messages', 'Executing: ' . $call . '->index()');
             $theClass->index();
+            Debug::addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
             $theClass->{$method}();
             return true;
         }
@@ -246,9 +248,9 @@ class Dispatcher
                         $page = new Page();
                     }
                     $page->controller = $className;
-                    $page->title = $newClass->title;
-                    $page->description = $newClass->description;
-                    $page->menu = $newClass->menu;
+                    $page->title = Config::$lang->trans($newClass->title);
+                    $page->description = Config::$lang->trans($newClass->description);
+                    $page->menu = Config::$lang->trans($newClass->menu);
                     $page->icon = $newClass->icon;
                     $page->plugin = $namespace;
                     $page->active = 1;

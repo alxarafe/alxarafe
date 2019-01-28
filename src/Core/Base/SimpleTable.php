@@ -227,7 +227,7 @@ class SimpleTable
      */
     private function getData(string $id): bool
     {
-        $sql = 'SELECT * FROM ' . $this->getTableName() . " WHERE {$this->idField}='$id'";
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . " WHERE {$this->idField}='$id'";
         $data = Config::$dbEngine->select($sql);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
@@ -267,7 +267,7 @@ class SimpleTable
      */
     private function getDataBy(string $key, $value): bool
     {
-        $sql = 'SELECT * FROM ' . $this->getTableName() . " WHERE {$key}='$value'";
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . " WHERE {$key}='$value'";
         $data = Config::$dbEngine->select($sql);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
@@ -380,7 +380,7 @@ class SimpleTable
     {
         $fieldList = implode(',', $fields);
         $valueList = implode(',', $values);
-        $ret = Config::$dbEngine->exec('INSERT INTO ' . $this->getTableName() . " ($fieldList) VALUES ($valueList);");
+        $ret = Config::$dbEngine->exec('INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);");
         // Assign the value of the primary key of the newly inserted record
         $this->id = Config::$dbEngine->getLastInserted();
         return $ret;
@@ -397,7 +397,7 @@ class SimpleTable
     private function updateRecord(array $data): bool
     {
         $value = implode(',', $data);
-        return Config::$dbEngine->exec('UPDATE ' . $this->getTableName() . " SET $value WHERE {$this->idField}='{$this->id}';");
+        return Config::$dbEngine->exec('UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $value WHERE {$this->idField}='{$this->id}';");
     }
 
     /**
@@ -417,7 +417,7 @@ class SimpleTable
      */
     public function getAllRecords(): array
     {
-        $sql = 'SELECT * FROM ' . $this->getTableName();
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName);
         return Config::$dbEngine->select($sql);
     }
 }
