@@ -4,12 +4,8 @@
 #}
 {% extends "index.twig" %}
 
-{% block title %}{{ ctrl.title }}{% endblock %}
-
 {% block body %}
-    {# TODO: This is not working? #}
-    {{ view.newRow(view.blockContainer(main.title))|raw }}
-
+    {{ parent() }}
     <div class="container-fluid">
         <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig&{{ constant('METHOD_CONTROLLER') }}=main" method='post' accept-charset="utf-8">
             <div class="row">

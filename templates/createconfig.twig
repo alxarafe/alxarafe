@@ -4,14 +4,8 @@
 #}
 {% extends "index.twig" %}
 
-{% block title %}{{ ctrl.title }}{% endblock %}
-
 {% block body %}
-    <div class="container-fluid" id="titlecontent" name="titlecontent">
-        <h4>Configuración inicial</h4>
-        <small>Rellena los datos de configuración.</small>
-    </div>
-
+    {{ parent() }}
     <div class="container-fluid">
         <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=CreateConfig&{{ constant('METHOD_CONTROLLER') }}=main" method='post' accept-charset="utf-8">
             <div class="row">

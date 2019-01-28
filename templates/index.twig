@@ -15,10 +15,15 @@
     {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
 
     {% block bodytitle %}
-        {% if ctrl.title is not empty %}<h4>{{ lang.trans(ctrl.title) }}</h4>{% endif %}
-        {% if ctrl.description is not empty %}<small>{{ lang.trans(ctrl.description) }}</small>{% endif %}
+        {% if ctrl.title is not empty %}
+            <h3>{{ lang.trans(ctrl.title) }}</h3>
+        {% endif %}
+        {% if ctrl.description is not empty %}
+            <small>{{ lang.trans(ctrl.description) }}</small>{% endif %}
     {% endblock %}
 </div>
+
+<br/>
 
 <div class="container-fluid" id="bodycontent" name="bodycontent">
     {% block body %}{% endblock %}
