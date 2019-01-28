@@ -13,8 +13,13 @@ Alxarafe is a package (still in development), which offers the following feature
 Its modularity, allows to easily change the tools used to provide his functionalities.
 
 You can find Alxarafe in the following repositories:
-https://github.com/alxarafe/alxarafe
-https://packagist.org/packages/alxarafe/alxarafe
+- https://github.com/alxarafe/alxarafe
+- https://packagist.org/packages/alxarafe/alxarafe
+
+##Documentation
+https://alxarafe.github.io/alxarafe/
+
+##Integration
 
 To integrate it into your application you will need to install composer and execute
 the following command:
