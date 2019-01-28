@@ -89,6 +89,18 @@
             <p>Controller for editing database and skin settings.</p>                                </div>
     
     
+            <h2>Constants</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td>MENU_DELIMITER</td>
+                <td class="last">
+                    <p><em>Symbol to split menu/submenu items.</em></p>
+                    <p></p>
+                </td>
+            </tr>
+            </table>
+
     
             <h2>Properties</h2>
 
@@ -267,12 +279,32 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getUserMenu">getUserMenu</a>()
+        
+                                            <p>Return a list of pages for generate user menu.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_main">main</a>()
         
                                             <p>Main is invoked if method is not specified. Check if you have to save changes or just exit.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_run">run</a>()
+        
+                                            <p>Run the class.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -335,7 +367,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_ensureLogin">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 86</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 93</div>
         <code>                private    bool
     <strong>ensureLogin</strong>()
         </code>
@@ -365,7 +397,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 114</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 121</div>
         <code>            protected        
     <strong>setPageDetails</strong>()
         </code>
@@ -386,7 +418,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 89</div>
+        <div class="location">at         line 97</div>
         <code>                    
     <strong>pageDetails</strong>()
         </code>
@@ -407,7 +439,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 139</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 146</div>
         <code>            protected        
     <strong>getPageDetails</strong>()
         </code>
@@ -428,7 +460,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canAccess">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAccess"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 156</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAccess"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 163</div>
         <code>                    bool
     <strong>canAccess</strong>(string $username)
         </code>
@@ -468,7 +500,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canCreate">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canCreate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 168</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canCreate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 175</div>
         <code>                    bool
     <strong>canCreate</strong>(string $username)
         </code>
@@ -508,7 +540,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canRead">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canRead"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 180</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canRead"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 187</div>
         <code>                    bool
     <strong>canRead</strong>(string $username)
         </code>
@@ -548,7 +580,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canUpdate">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canUpdate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 192</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canUpdate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 199</div>
         <code>                    bool
     <strong>canUpdate</strong>(string $username)
         </code>
@@ -588,7 +620,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canDelete">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canDelete"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 204</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canDelete"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 211</div>
         <code>                    bool
     <strong>canDelete</strong>(string $username)
         </code>
@@ -616,6 +648,36 @@
                     <table class="table table-condensed">
         <tr>
             <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getUserMenu">
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 221</div>
+        <code>                    array
+    <strong>getUserMenu</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return a list of pages for generate user menu.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
             <td></td>
         </tr>
     </table>
@@ -657,8 +719,29 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_run">
+        <div class="location">at         line 67</div>
+        <code>                    
+    <strong>run</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Run the class.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">at         line 69</div>
+        <div class="location">at         line 77</div>
         <code>                private    bool
     <strong>save</strong>()
         </code>

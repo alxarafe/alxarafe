@@ -175,7 +175,7 @@ corresponding URI, if it exists.</p>                </div>
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_addResource">addResource</a>(string $resourceName, string $resourceExtension = &#039;css&#039;, boolean $relative = true)
+                    <a href="#method_addResource">addResource</a>(string $resourceName, boolean $relative = true)
         
                                             <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
 of the skin folder). It's a specific file.</p>                </div>
@@ -260,7 +260,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 44</div>
+        <div class="location">at         line 45</div>
         <code>                    
     <strong>__construct</strong>(mixed $controller = null)
         </code>
@@ -291,7 +291,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_addCSS">
-        <div class="location">at         line 65</div>
+        <div class="location">at         line 66</div>
         <code>                    void
     <strong>addCSS</strong>()
         </code>
@@ -321,7 +321,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_addJS">
-        <div class="location">at         line 76</div>
+        <div class="location">at         line 77</div>
         <code>                    void
     <strong>addJS</strong>()
         </code>
@@ -351,7 +351,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_render">
-        <div class="location">at         line 86</div>
+        <div class="location">at         line 87</div>
         <code>                    
     <strong>render</strong>()
         </code>
@@ -372,7 +372,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_getResourceUri">
-        <div class="location">at         line 102</div>
+        <div class="location">at         line 104</div>
         <code>                private    string
     <strong>getResourceUri</strong>(string $path)
         </code>
@@ -413,9 +413,9 @@ corresponding URI, if it exists.</p>                                            
             </div>
                     <div class="method-item">
                     <h3 id="method_addResource">
-        <div class="location">at         line 134</div>
+        <div class="location">at         line 137</div>
         <code>                    string
-    <strong>addResource</strong>(string $resourceName, string $resourceExtension = &#039;css&#039;, boolean $relative = true)
+    <strong>addResource</strong>(string $resourceName, boolean $relative = true)
         </code>
     </h3>
     <div class="details">
@@ -435,12 +435,7 @@ js folders of the templates folder). It's a common file.</p>
                     <tr>
                 <td>string</td>
                 <td>$resourceName</td>
-                <td>is the name of the file (without extension)</td>
-            </tr>
-                    <tr>
-                <td>string</td>
-                <td>$resourceExtension</td>
-                <td>is the extension (type) of the resource (js or css)</td>
+                <td>is the name of the file (with extension)</td>
             </tr>
                     <tr>
                 <td>boolean</td>
@@ -467,7 +462,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setVar">
-        <div class="location">at         line 158</div>
+        <div class="location">at         line 162</div>
         <code>                    void
     <strong>setVar</strong>(string $name, mixed $value)
         </code>
@@ -512,7 +507,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_addToVar">
-        <div class="location">at         line 172</div>
+        <div class="location">at         line 177</div>
         <code>                    void
     <strong>addToVar</strong>(string $name, mixed $value)
         </code>
@@ -522,7 +517,8 @@ js folders of the templates folder). It's a common file.</p>
     
 
                     <div class="method-description">
-                                    <p>Add a new element to a value saved in the array that is passed to the template.</p>                    <p>It is used when what we are saving is an array and we want to add a new element to that array.</p>                            </div>
+                                    <p>Add a new element to a value saved in the array that is passed to the template.</p>                    <p>It is used when what we are saving is an array and we want to add a new element to that array.
+IMPORTANT: The element only is added if is not empty.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -557,7 +553,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getVars">
-        <div class="location">at         line 182</div>
+        <div class="location">at         line 189</div>
         <code>                    array
     <strong>getVars</strong>()
         </code>
@@ -587,7 +583,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getVar">
-        <div class="location">at         line 194</div>
+        <div class="location">at         line 201</div>
         <code>                    array|string|boolean|null
     <strong>getVar</strong>(string $name)
         </code>
@@ -627,7 +623,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getErrors">
-        <div class="location">at         line 205</div>
+        <div class="location">at         line 212</div>
         <code>                    array
     <strong>getErrors</strong>()
         </code>
@@ -658,7 +654,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_getHeader">
-        <div class="location">at         line 215</div>
+        <div class="location">at         line 222</div>
         <code>                    string
     <strong>getHeader</strong>()
         </code>
@@ -688,7 +684,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_getFooter">
-        <div class="location">at         line 225</div>
+        <div class="location">at         line 232</div>
         <code>                    string
     <strong>getFooter</strong>()
         </code>
