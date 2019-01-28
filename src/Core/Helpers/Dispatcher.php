@@ -146,8 +146,11 @@ class Dispatcher
      *
      * @return bool
      */
-    public function processFolder(string $path, string $call, string $method = 'index'): bool
+    public function processFolder(string $path, string $call, string $method = null): bool
     {
+        if ($method === null) {
+            $method = constant('DEFAULT_METHOD');
+        }
         if (empty(Config::loadConfigurationFile()) || !Config::connectToDataBase()) {
             if ($call !== 'CreateConfig' || $method !== 'main') {
                 Config::setError('Database Connection error...');
@@ -163,13 +166,11 @@ class Dispatcher
             }
         }
         $controllerPath = $path . '/' . $call . '.php';
-        if (file_exists($controllerPath) && is_file($controllerPath)) {
-            if (method_exists($className, $method)) {
-                $theClass = new $className();
-                $theClass->index();
-                $theClass->{$method}();
-                return true;
-            }
+        if (file_exists($controllerPath) && is_file($controllerPath) && method_exists($className, $method)) {
+            $theClass = new $className();
+            $theClass->index();
+            $theClass->{$method}();
+            return true;
         }
         return false;
     }
