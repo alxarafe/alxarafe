@@ -357,11 +357,10 @@ class SimpleTable
         if (count($fields) == 0) {
             return true;
         }
-
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->id == '') ? $this->insertRecord($fields, $values) : $this->updateRecord($assigns);
         if ($ret) {
-            $this->newData[$this->idField] = $this->id;
+            $this->id = $this->newData[$this->idField];
             $this->oldData = $this->newData;
         }
         return $ret;
