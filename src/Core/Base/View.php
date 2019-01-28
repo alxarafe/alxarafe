@@ -125,26 +125,24 @@ class View
      *
      * If it is not in either of the two, no route is specified (it will surely give loading error).
      *
-     * @param string  $resourceName      is the name of the file (without extension)
-     * @param string  $resourceExtension is the extension (type) of the resource (js or css)
+     * @param string  $resourceName      is the name of the file (with extension)
      * @param boolean $relative          set to false for use an absolute path.
      *
      * @return string the complete path of resource.
      */
-    public function addResource(string $resourceName, string $resourceExtension = 'css', $relative = true): string
+    public function addResource(string $resourceName, $relative = true): string
     {
-        $path = $resourceName . '.' . $resourceExtension;
         if ($relative) {
-            $uri = $this->getResourceUri($path);
+            $uri = $this->getResourceUri($resourceName);
             if ($uri !== '') {
                 return $uri;
             }
-            Debug::addMessage('messages', "Relative resource '$path' not found!");
+            Debug::addMessage('messages', "Relative resource '$resourceName' not found!");
         }
-        if (!file_exists($path)) {
-            Debug::addMessage('messages', "Absolute resource '$path' not found!");
+        if (!file_exists($resourceName)) {
+            Debug::addMessage('messages', "Absolute resource '$resourceName' not found!");
         }
-        return $path;
+        return $resourceName;
     }
 
     /**
