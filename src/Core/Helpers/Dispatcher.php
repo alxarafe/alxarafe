@@ -236,6 +236,9 @@ class Dispatcher
                 Debug::addMessage('messages', 'Instantiation of class ' . $className . ' extending PageController');
                 $newClass = new $class();
                 $parents = class_parents($newClass);
+                if (in_array('Xfs\Base\XfsController', $parents)) {
+                    Debug::addMessage('messages', 'Class ' . $className . ' also extends from XfsController');
+                }
                 if (in_array('Alxarafe\Base\PageController', $parents)) {
                     $page = new Page();
                     if (!$page->getBy('controller', $className)) {
