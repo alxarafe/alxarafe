@@ -213,7 +213,7 @@ an associated result set.</td>
                     static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_splitExec">splitExec</a>(string $query)
+                    <a href="#method_splitQuery">splitQuery</a>(string $query)
         
                                             <p>TODO: Undocumented</p>                </div>
                 <div class="col-md-2"></div>
@@ -223,7 +223,7 @@ an associated result set.</td>
                     static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_exec">exec</a>(string $query)
+                    <a href="#method_exec">exec</a>(array $query)
         
                                             <p>Execute SQL statements on the database (INSERT, UPDATE or DELETE).</p>                </div>
                 <div class="col-md-2"></div>
@@ -504,10 +504,10 @@ returns ''.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_splitExec">
+                    <h3 id="method_splitQuery">
         <div class="location">at         line 159</div>
         <code>        static        private    bool
-    <strong>splitExec</strong>(string $query)
+    <strong>splitQuery</strong>(string $query)
         </code>
     </h3>
     <div class="details">
@@ -547,7 +547,7 @@ returns ''.</p>                </div>
                     <h3 id="method_exec">
         <div class="location">at         line 183</div>
         <code>final        static            bool
-    <strong>exec</strong>(string $query)
+    <strong>exec</strong>(array $query)
         </code>
     </h3>
     <div class="details">
@@ -561,7 +561,7 @@ returns ''.</p>                </div>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
+                <td>array</td>
                 <td>$query</td>
                 <td></td>
             </tr>
@@ -585,7 +585,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getLastInserted">
-        <div class="location">at         line 202</div>
+        <div class="location">at         line 201</div>
         <code>final                    string
     <strong>getLastInserted</strong>()
         </code>
@@ -616,7 +616,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_select">
-        <div class="location">at         line 219</div>
+        <div class="location">at         line 218</div>
         <code>        static            array|null
     <strong>select</strong>(string $query)
         </code>
@@ -656,7 +656,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkConnection">
-        <div class="location">at         line 237</div>
+        <div class="location">at         line 236</div>
         <code>                    bool
     <strong>checkConnection</strong>()
         </code>
@@ -686,7 +686,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_connect">
-        <div class="location">at         line 251</div>
+        <div class="location">at         line 250</div>
         <code>                    bool
     <strong>connect</strong>(array $config = [])
         </code>
@@ -727,7 +727,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_prepare">
-        <div class="location">at         line 283</div>
+        <div class="location">at         line 282</div>
         <code>final                    bool
     <strong>prepare</strong>(string $sql, array $options = [])
         </code>
@@ -772,7 +772,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_resultSet">
-        <div class="location">at         line 304</div>
+        <div class="location">at         line 303</div>
         <code>final                    array
     <strong>resultSet</strong>()
         </code>
@@ -802,7 +802,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_execute">
-        <div class="location">at         line 319</div>
+        <div class="location">at         line 318</div>
         <code>final                    bool
     <strong>execute</strong>(array $inputParameters = [])
         </code>
@@ -842,7 +842,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_beginTransaction">
-        <div class="location">at         line 334</div>
+        <div class="location">at         line 333</div>
         <code>final                    bool
     <strong>beginTransaction</strong>()
         </code>
@@ -872,7 +872,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_commit">
-        <div class="location">at         line 354</div>
+        <div class="location">at         line 353</div>
         <code>final                    bool
     <strong>commit</strong>()
         </code>
