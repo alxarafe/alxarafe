@@ -76,7 +76,7 @@ class SqlFirebird extends SqlHelper
         WHERE
             a.RDB$SYSTEM_FLAG = 0 AND
             d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
-            b.RDB$RELATION_NAME=' . $this->quoteTableName($tableName, $usePrefix) . '
+            b.RDB$RELATION_NAME = ' . $this->quoteTableName($tableName, $usePrefix) . '
         ORDER BY b.RDB$FIELD_POSITION;'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
     }
 

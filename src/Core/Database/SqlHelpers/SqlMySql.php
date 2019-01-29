@@ -267,18 +267,18 @@ class SqlMySql extends SqlHelper
     private function getConstraintData(string $tableName, string $constraintName): array
     {
         $sql = 'SELECT
-                    TABLE_NAME,
-                    COLUMN_NAME,
-                    CONSTRAINT_NAME,
-                    REFERENCED_TABLE_NAME,
-                    REFERENCED_COLUMN_NAME
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ',
+                    ' . Config::$sqlHelper->quoteFieldName('COLUMN_NAME') . ',
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ',
+                    ' . Config::$sqlHelper->quoteFieldName('REFERENCED_TABLE_NAME') . ',
+                    ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . '
                 FROM
-                    INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+                    ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('KEY_COLUMN_USAGE') . '
                 WHERE
-                    TABLE_SCHEMA = ' . $this->quoteLiteral($this->getTablename()) . ' AND
-                    TABLE_NAME = ' . $this->quoteLiteral($tableName) . ' AND
-                    constraint_name = ' . $this->quoteLiteral($constraintName) . ' AND
-                    REFERENCED_COLUMN_NAME IS NOT NULL;';
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
         return Config::$dbEngine->select($sql);
     }
 
@@ -295,14 +295,14 @@ class SqlMySql extends SqlHelper
     private function getConstraintRules(string $tableName, string $constraintName): array
     {
         $sql = 'SELECT
-                    MATCH_OPTION,
-                    UPDATE_RULE,
-                    DELETE_RULE
-                FROM information_schema.REFERENTIAL_CONSTRAINTS
+                    ' . Config::$sqlHelper->quoteFieldName('MATCH_OPTION') . ',
+                    ' . Config::$sqlHelper->quoteFieldName('UPDATE_RULE') . ',
+                    ' . Config::$sqlHelper->quoteFieldName('DELETE_RULE') . '
+                FROM ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
                 WHERE
-                    constraint_schema = ' . $this->quoteLiteral($this->getTablename()) . ' AND
-                    table_name = ' . $this->quoteLiteral($tableName) . ' AND
-                    constraint_name = ' . $this->quoteLiteral($constraintName) . ';';
+                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('table_name') . ' = ' . $this->quoteLiteral($tableName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ';';
         return Config::$dbEngine->select($sql);
     }
 

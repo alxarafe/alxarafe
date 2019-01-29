@@ -85,13 +85,13 @@ abstract class SqlHelper
     /**
      * Returns the name of the field in quotes.
      *
-     * @param string $fieldName
+     * @param string|null $fieldName
      *
      * @return string
      */
-    public function quoteLiteral(string $fieldName): string
+    public function quoteLiteral($fieldName): string
     {
-        return Config::$sqlHelper->literalQuote . $fieldName . Config::$sqlHelper->literalQuote;
+        return is_null($fieldName) ? 'NULL' : Config::$sqlHelper->literalQuote . $fieldName . Config::$sqlHelper->literalQuote;
     }
 
     /**

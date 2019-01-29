@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Exception;
@@ -24,7 +25,8 @@ class Schema
      * Returns the path to the specified file, or empty string if it does not exist.
      *
      * @param string $tableName name of the file without extension (assumes .yaml)
-     * @param string $type It's the foldername (in lowercase). It's usually schema (by default) or viewdata.
+     * @param string $type      It's the foldername (in lowercase). It's usually schema (by default) or viewdata.
+     *
      * @return string
      */
     private static function getSchemaFileName(string $tableName, string $type = 'schema'): string
@@ -41,10 +43,11 @@ class Schema
 
     /**
      * Save the data array in a .yaml file
-     * 
-     * @param array $data
+     *
+     * @param array  $data
      * @param string $tableName
      * @param string $type
+     *
      * @return bool
      */
     private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
@@ -134,6 +137,7 @@ class Schema
      *
      * @param string $tableName
      * @param string $type must be 'schema' or 'viewdata'
+     *
      * @return array
      */
     public static function getFromYamlFile(string $tableName, string $type = 'schema'): array
@@ -235,17 +239,22 @@ class Schema
      */
     public static function setValues(string $tableName, array $values): string
     {
+        if (empty($values)) {
+            return '/* BAD QUERY -> */' . 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
+        }
+
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
         $header = true;
+        $sep = '';
         foreach ($values as $value) {
             $fields = "(";
-            $datos = "(";
+            $datos = $sep . "(";
             foreach ($value as $fname => $fvalue) {
-                $fields .= $fname . ", ";
-                $datos .= "'$fvalue'" . ", ";
+                $fields .= Config::$sqlHelper->quoteFieldName($fname) . ", ";
+                $datos .= Config::$sqlHelper->quoteLiteral($fvalue) . ", ";
             }
-            $fields = substr($fields, 0, -2) . ") ";
-            $datos = substr($datos, 0, -2) . "), ";
+            $fields = substr($fields, 0, -2) . ")";
+            $datos = substr($datos, 0, -2) . ")";
 
             if ($header) {
                 $sql .= $fields . " VALUES ";
@@ -253,8 +262,9 @@ class Schema
             }
 
             $sql .= $datos;
+            $sep = ', ';
         }
 
-        return substr($sql, 0, -2) . self::CRLF;
+        return $sql . ';' . self::CRLF;
     }
 }

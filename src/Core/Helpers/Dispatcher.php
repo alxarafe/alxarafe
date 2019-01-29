@@ -209,6 +209,7 @@ class Dispatcher
                 ->in($dir = $baseDir . '/Models');
             foreach ($models as $modelFile) {
                 $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
+                Debug::addMessage('messages', 'Instantiate model: ' . $class);
                 $class = '\\' . $namespace . '\\Models\\' . $class;
                 new $class();
             }

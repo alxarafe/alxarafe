@@ -112,7 +112,7 @@ class Utils
     public static function getItem(array $itemsArray, string $itemIndex, $defaultValue = null): string
     {
         $res = $itemsArray[$itemIndex] ?? $defaultValue;
-        return isset($res) ? " $itemIndex='$res'" : '';
+        return isset($res) ? " $itemIndex = '$res'" : '';
     }
 
     /**

@@ -227,7 +227,8 @@ class SimpleTable
      */
     private function getData(string $id): bool
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . " WHERE {$this->idField}='$id'";
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($id) . ';';
         $data = Config::$dbEngine->select($sql);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
@@ -267,7 +268,8 @@ class SimpleTable
      */
     private function getDataBy(string $key, $value): bool
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . " WHERE {$key}='$value'";
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = ' . Config::$sqlHelper->quoteLiteral($value) . ';';
         $data = Config::$dbEngine->select($sql);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
@@ -349,7 +351,7 @@ class SimpleTable
             if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
                 $fields[] = $field;
                 $values[] = "'$data'";
-                $assigns[] = "$field='$data'";
+                $assigns[] = "$field = '$data'";
             }
         }
 
@@ -379,7 +381,8 @@ class SimpleTable
     {
         $fieldList = implode(',', $fields);
         $valueList = implode(',', $values);
-        $ret = Config::$dbEngine->exec('INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);");
+        $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);";
+        $ret = Config::$dbEngine->exec($sql);
         // Assign the value of the primary key of the newly inserted record
         $this->id = Config::$dbEngine->getLastInserted();
         return $ret;
@@ -396,7 +399,9 @@ class SimpleTable
     private function updateRecord(array $data): bool
     {
         $value = implode(',', $data);
-        return Config::$dbEngine->exec('UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $value WHERE {$this->idField}='{$this->id}';");
+        $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $value"
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($this->id) . ';';
+        return Config::$dbEngine->exec($sql);
     }
 
     /**
@@ -416,7 +421,7 @@ class SimpleTable
      */
     public function getAllRecords(): array
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName);
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ';';
         return Config::$dbEngine->select($sql);
     }
 }
