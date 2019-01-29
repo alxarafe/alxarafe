@@ -27,7 +27,7 @@ class SchemaDB
     public static function tableExists($tableName): bool
     {
         $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ';';
-        return (bool) Config::$dbEngine->exec($sql);
+        return (bool) Config::$dbEngine->exec([$sql]);
     }
 
     /**
@@ -79,9 +79,9 @@ class SchemaDB
         $sql = self::createFields($tableName, $tabla['fields']);
 
         foreach ($tabla['indexes'] as $name => $index) {
-            $sql .= self::createIndex($tableName, $name, $index);
+            $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
         }
-        $sql .= Schema::setValues($tableName, $tabla['values']);
+        $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
 
         return Config::$dbEngine->exec($sql);
     }
@@ -133,9 +133,9 @@ class SchemaDB
      * @param string $tableName
      * @param array  $fieldsList
      *
-     * @return string|null
+     * @return array
      */
-    protected static function createFields(string $tableName, array $fieldsList)
+    protected static function createFields(string $tableName, array $fieldsList): array
     {
         // If the table exists
         if (self::tableExists($tableName)) {
@@ -148,7 +148,7 @@ class SchemaDB
                 $sql .= $fields . ';';
                 $sql .= self::CRLF;
             }
-            return $sql;
+            return [$sql];
         }
 
         // If the table does not exists
@@ -156,74 +156,75 @@ class SchemaDB
         $sql .= self::assignFields($fieldsList);
         $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
 
-        return $sql;
+        return [$sql];
     }
 
-    protected static function createPrimaryIndex(string $tableName, array $indexData, bool $autoincrement, bool $exists = false)
+    protected static function createPrimaryIndex(string $tableName, array $indexData, bool $autoincrement, bool $exists = false): array
     {
         // https://www.w3schools.com/sql/sql_primarykey.asp
         // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
         // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
         // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
-        $sql = '';
+        $sql = [];
         if ($exists) {
-            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
         }
-        $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
+        $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
         if ($autoincrement) {
-            $sql .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
+            $query .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
         }
-        $sql .= ' PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');' . self::CRLF;
+        $query .= ' PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');' . self::CRLF;
+        $sql[] = $query;
         return $sql;
     }
 
-    protected static function createStandardIndex(string $tableName, array $indexData, bool $exists = false)
+    protected static function createStandardIndex(string $tableName, array $indexData, bool $exists = false): array
     {
         // https://www.w3schools.com/sql/sql_create_index.asp
         // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
         // CREATE UNIQUE INDEX idx_pname ON Persons (LastName, FirstName);
-        $sql = '';
+        $sql = [];
         if ($exists) {
-            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
         }
-        $sql .= 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
-        return $sql . ';' . self::CRLF;
+        $sql[] = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        return $sql;
     }
 
-    protected static function createUniqueIndex(string $tableName, array $indexData, bool $exists = false)
+    protected static function createUniqueIndex(string $tableName, array $indexData, bool $exists = false): array
     {
         // https://www.w3schools.com/sql/sql_unique.asp
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
-        $sql = '';
+        $sql = [];
         if ($exists) {
-            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP ' . $indexData['index'] . ' KEY;' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP ' . $indexData['index'] . ' KEY;' . self::CRLF;
         }
-        $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
+        $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
-        return $sql . ';' . self::CRLF;
+        return $sql;
     }
 
     protected static function createConstraint(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_foreignkey.asp
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
-        $sql = '';
+        $sql = [];
         if ($exists) {
-            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
         }
-        $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
+        $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
             ') REFERENCES ' . $indexData['referencedtable'] . ' (' . $indexData['referencedfield'] . ')';
 
         if ($indexData['updaterule'] != '') {
-            $sql .= ' ON UPDATE ' . $indexData['updaterule'];
+            $query .= ' ON UPDATE ' . $indexData['updaterule'];
         }
 
         if ($indexData['deleterule'] != '') {
-            $sql .= ' ON DELETE ' . $indexData['deleterule'];
+            $query .= ' ON DELETE ' . $indexData['deleterule'];
         }
-
-        return $sql . ';' . self::CRLF;
+        $sql[] = $query;
+        return $sql;
     }
 
     /**
@@ -239,16 +240,16 @@ class SchemaDB
      * @param string $indexname
      * @param array  $indexData
      *
-     * @return string|null
+     * @return array
      */
-    protected static function createIndex(string $tableName, string $indexName, array $indexData)
+    protected static function createIndex(string $tableName, string $indexName, array $indexData): array
     {
         $tableIndexes = Config::$sqlHelper->getIndexes($tableName);
         $indexDiff = array_diff($tableIndexes[$indexName], $indexData);
         $existsIndex = isset($tableIndexes[$indexName]);
         $changedIndex = (count($indexDiff) > 0);
         if (!$changedIndex) {
-            return '';
+            return [];
         }
 
         $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];

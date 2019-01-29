@@ -235,12 +235,12 @@ class Schema
      * @param string $tableName
      * @param array  $values
      *
-     * @return string
+     * @return array
      */
-    public static function setValues(string $tableName, array $values): string
+    public static function setValues(string $tableName, array $values): array
     {
         if (empty($values)) {
-            return '/* BAD QUERY -> */' . 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';';
+            return ['/* BAD QUERY -> */' . 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';'];
         }
 
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
@@ -265,6 +265,6 @@ class Schema
             $sep = ', ';
         }
 
-        return $sql . ';' . self::CRLF;
+        return [$sql . ';' . self::CRLF];
     }
 }

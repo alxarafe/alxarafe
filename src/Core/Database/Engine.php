@@ -149,7 +149,7 @@ abstract class Engine
         return $ret;
     }
 
-    private static function splitExec(string $query): bool
+    private static function splitQuery(string $query): bool
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query) . ';';
@@ -173,14 +173,13 @@ abstract class Engine
      *
      * @return bool
      */
-    final public static function exec(string $query): bool
+    final public static function exec(array $query): bool
     {
         $ok = true;
-        $aQuery = explode(';', $query);
-        foreach ($aQuery as $qry) {
-            $qry = trim($qry);
+        foreach ($query as $sentence) {
+            $qry = trim($sentence);
             if ($qry != '') {
-                $ok &= self::splitExec($qry);
+                $ok &= self::splitQuery($qry);
             }
         }
         return $ok;

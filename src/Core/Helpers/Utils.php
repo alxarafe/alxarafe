@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 /**
@@ -82,6 +81,22 @@ class Utils
             } else {
                 $ret[] = strtolower(trim($value));
             }
+        }
+        return $ret;
+    }
+
+    /**
+     * Add the elements of the 2nd array behind those of the first.
+     * 
+     * @param array $intialArray
+     * @param array $nextArray
+     * @return array
+     */
+    public static function addToArray(array $initialArray, array $nextArray): array
+    {
+        $ret = $initialArray;
+        foreach ($nextArray as $value) {
+            $ret[] = $value;
         }
         return $ret;
     }

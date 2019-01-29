@@ -401,7 +401,7 @@ class SimpleTable
         $value = implode(',', $data);
         $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $value"
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($this->id) . ';';
-        return Config::$dbEngine->exec($sql);
+        return Config::$dbEngine->exec([$sql]);
     }
 
     /**
