@@ -121,9 +121,9 @@ class SqlMySql extends SqlHelper
      */
     public function getSQLField(string $fieldName, array $data): string
     {
-        $null = Utils::isTrue($data['nullable'] ?? null);
-        $autoincrement = Utils::isTrue($data['autoincrement'] ?? null);
-        $zerofill = Utils::isTrue($data['zerofill'] ?? null);
+        $null = Utils::isTrue($data, 'nullable') ?? null;
+        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
+        $zerofill = Utils::isTrue($data, 'zerofill') ?? null;
 
         $default = $data['default'];
         if (isset($default)) {

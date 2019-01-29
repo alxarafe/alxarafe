@@ -89,13 +89,14 @@ class Utils
     /**
      * Return true if $param is setted and is 'yes', otherwise return false.
      *
-     * @param string $param
+     * @param array $param
+     * @param string $key
      *
      * @return bool
      */
-    public static function isTrue($param)
+    public static function isTrue(array $param, $key)
     {
-        return (isset($param) && (in_array($param, ['yes', 'true', '1', 1])));
+        return (isset($param[$key]) && (in_array($param[$key], ['yes', 'true', '1', 1])));
     }
 
     /**
