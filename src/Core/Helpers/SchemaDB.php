@@ -165,7 +165,7 @@ class SchemaDB
         // If the table does not exists
         $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (';
         $sql .= self::assignFields($fieldsList);
-        $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
+        $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;';
 
         return [$sql];
     }
@@ -188,13 +188,13 @@ class SchemaDB
         // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
         if ($autoincrement) {
             $query .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
         }
-        $query .= ' PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');' . self::CRLF;
+        $query .= ' PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
         $sql[] = $query;
         return $sql;
     }
@@ -215,9 +215,9 @@ class SchemaDB
         // CREATE UNIQUE INDEX idx_pname ON Persons (LastName, FirstName);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
-        $sql[] = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        $sql[] = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
         return $sql;
     }
 
@@ -236,7 +236,7 @@ class SchemaDB
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP ' . $indexData['index'] . ' KEY;' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP ' . $indexData['index'] . ' KEY;';
         }
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
@@ -250,15 +250,15 @@ class SchemaDB
      * @param array  $indexData
      * @param bool   $exists
      *
-     * @return string
+     * @return array
      */
-    protected static function createConstraint(string $tableName, array $indexData, bool $exists = false)
+    protected static function createConstraint(string $tableName, array $indexData, bool $exists = false): array
     {
         // https://www.w3schools.com/sql/sql_foreignkey.asp
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .

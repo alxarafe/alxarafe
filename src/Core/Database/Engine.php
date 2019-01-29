@@ -159,7 +159,7 @@ abstract class Engine
     private static function splitQuery(string $query): bool
     {
         // Remove extra blankspace to be more readable
-        $query = preg_replace('/\s+/', ' ', $query) . ';';
+        $query = preg_replace('/\s+/', ' ', $query);
         // TODO: Debugbar is collecting from PDO, is really needed here??
         // Debug::addMessage('SQL', 'PDO exec: ' . $query);
         $ok = false;

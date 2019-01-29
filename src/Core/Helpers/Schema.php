@@ -265,6 +265,6 @@ class Schema
             $sep = ', ';
         }
 
-        return [$sql . ';' . self::CRLF];
+        return [$sql . ';'];
     }
 }
