@@ -10,6 +10,10 @@ use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Models\Page;
+use Alxarafe\Models\RolePage;
+use Alxarafe\Models\User;
+use Alxarafe\Models\UserRole;
+use ReflectionClass;
 
 /**
  * Class PageController, all controllers that needs to be accessed as a page must extends from this.
@@ -154,6 +158,52 @@ class PageController extends Controller
     }
 
     /**
+     * Verify if this user can do an action.
+     *
+     * @param string $username
+     * @param string $action
+     *
+     * @return bool
+     */
+    private function canAction(string $username, string $action): bool
+    {
+        $pages = [];
+        $user = new User();
+        try {
+            $className = (new ReflectionClass($this))->getShortName();
+        } catch (\ReflectionException $e) {
+            // $this must exists always, this exception must never success
+            Debug::addException($e);
+        }
+        if ($user->getBy('username', $username)) {
+            $roles = (new UserRole())->getAllRecordsBy('user_id', $user->id);
+            if (!empty($roles)) {
+                foreach ($roles as $pos => $role) {
+                    // If it's in role superadmin or admin
+                    $allowedRoles = [1, 2];
+                    if (in_array($role['id'], $allowedRoles)) {
+                        return true;
+                    }
+                    $pagesAccess = new RolePage();
+                    if ($pagesAccess->getAllRecordsBy('role_id', $role['id'])) {
+                        $pages = array_merge($pages, $pagesAccess);
+                    }
+                }
+            }
+        }
+
+        Debug::addMessage('messages', "Available '" . $action . "' pages for '" . $username . "': <pre>" . var_export($pages, true) . "</pre>");
+        $action = 'can_' . $action;
+        foreach ($pages as $page) {
+            if ($page->controller == $className && $page->{$action} == 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns if user can access this controller.
      *
      * @param string $username
@@ -162,7 +212,7 @@ class PageController extends Controller
      */
     public function canAccess(string $username): bool
     {
-        return true;
+        return $this->canAction($username, 'access');
     }
 
     /**
@@ -174,7 +224,7 @@ class PageController extends Controller
      */
     public function canCreate(string $username): bool
     {
-        return true;
+        return $this->canAction($username, 'create');
     }
 
     /**
@@ -186,7 +236,7 @@ class PageController extends Controller
      */
     public function canRead(string $username): bool
     {
-        return true;
+        return $this->canAction($username, 'read');
     }
 
     /**
@@ -198,7 +248,7 @@ class PageController extends Controller
      */
     public function canUpdate(string $username): bool
     {
-        return true;
+        return $this->canAction($username, 'update');
     }
 
     /**
@@ -210,7 +260,7 @@ class PageController extends Controller
      */
     public function canDelete(string $username): bool
     {
-        return false;
+        return $this->canAction($username, 'delete');
     }
 
     /**

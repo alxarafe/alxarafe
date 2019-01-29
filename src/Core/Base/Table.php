@@ -122,6 +122,21 @@ class Table extends SimpleTable
     }
 
     /**
+     * Get an array with all data.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return array
+     */
+    public function getAllRecordsBy(string $key, $value): array
+    {
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . '=' . Config::$sqlHelper->quoteLiteral($value) . ';';
+        return Config::$dbEngine->select($sql);
+    }
+
+    /**
      * A raw array is built with all the information available in the table, configuration files and code.
      *
      * @return array
