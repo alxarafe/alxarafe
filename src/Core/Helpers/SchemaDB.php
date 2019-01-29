@@ -76,12 +76,16 @@ class SchemaDB
 
         Debug::addMessage('messages', "Table creation: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
 
+        $tableExists = self::tableExists($tableName);
         $sql = self::createFields($tableName, $tabla['fields']);
 
         foreach ($tabla['indexes'] as $name => $index) {
             $sql .= self::createIndex($tableName, $name, $index);
         }
-        $sql .= Schema::setValues($tableName, $tabla['values']);
+
+        if(!$tableExists) {
+            $sql .= Schema::setValues($tableName, $tabla['values']);
+        }
 
         return Config::$dbEngine->exec($sql);
     }
