@@ -168,6 +168,16 @@ class SchemaDB
         return [$sql];
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $autoincrement
+     * @param bool   $exists
+     *
+     * @return array
+     */
     protected static function createPrimaryIndex(string $tableName, array $indexData, bool $autoincrement, bool $exists = false): array
     {
         // https://www.w3schools.com/sql/sql_primarykey.asp
@@ -187,6 +197,15 @@ class SchemaDB
         return $sql;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $exists
+     *
+     * @return array
+     */
     protected static function createStandardIndex(string $tableName, array $indexData, bool $exists = false): array
     {
         // https://www.w3schools.com/sql/sql_create_index.asp
@@ -200,6 +219,15 @@ class SchemaDB
         return $sql;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $exists
+     *
+     * @return array
+     */
     protected static function createUniqueIndex(string $tableName, array $indexData, bool $exists = false): array
     {
         // https://www.w3schools.com/sql/sql_unique.asp
