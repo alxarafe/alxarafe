@@ -65,8 +65,9 @@ class View
      */
     public function addCSS(): void
     {
-        // $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min', 'css'));
-        // $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
+        $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min.css'));
+        $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap-theme.min.css'));
+        $this->addToVar('cssCode', $this->addResource('/js/datatables.net-bs/css/dataTables.bootstrap.min.css'));
     }
 
     /**
@@ -76,9 +77,8 @@ class View
      */
     public function addJS(): void
     {
-        // $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min', 'js'));
-        // $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min', 'js'));
-        // $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
+        $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min.js'));
+        $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min.js'));
     }
 
     /**

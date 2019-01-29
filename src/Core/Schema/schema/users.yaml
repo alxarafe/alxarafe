@@ -78,12 +78,18 @@ indexes:
 values:
     1:
         id: 1
-        username: 'admin'
-        email: 'admin@alxarafe.com'
+        username: 'superadmin'
+        email: 'superadmin@alxarafe.com'
         password: '$2y$10$bjbKpk7rLjxIzgZ6jjVbhOSWkdM7McOtr6Vs8NtXmrc.bSvLVe4TG'
         active: 1
     2:
         id: 2
+        username: 'admin'
+        email: 'admin@alxarafe.com'
+        password: '$2y$10$bjbKpk7rLjxIzgZ6jjVbhOSWkdM7McOtr6Vs8NtXmrc.bSvLVe4TG'
+        active: 1
+    3:
+        id: 3
         username: 'user'
         email: 'user@alxarafe.com'
         password: '$2y$10$bjbKpk7rLjxIzgZ6jjVbhOSWkdM7McOtr6Vs8NtXmrc.bSvLVe4TG'
