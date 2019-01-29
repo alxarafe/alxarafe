@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 /**
@@ -54,22 +53,24 @@ class SchemaDB
      *
      * @return array
      */
-    public static function getStructure(string $tableName, bool $usePrefix = true): array
+    public static function NotUsed_getStructure(string $tableName, bool $usePrefix = true): array
     {
         return Config::$dbEngine->getStructure($tableName, $usePrefix);
     }
 
     /**
-     * Create a table in the database.
-     * Build the default fields, indexes and values defined in the model.
+     * Create or update the structure of the table.
+     * It does not destroy fields of the structure, it only creates, adds or modifies the existing ones.
+     * NOTE: It could happen that when modifying the structure of a field, information could be lost.
      *
      * @param string $tableName
      *
      * @return bool
      */
-    public static function createTable(string $tableName): bool
+    public static function checkTableStructure(string $tableName): bool
     {
         $tabla = Config::$bbddStructure[$tableName];
+
         Debug::addMessage('messages', "Table creation: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
 
         $sql = self::createFields($tableName, $tabla['fields']);
@@ -82,11 +83,22 @@ class SchemaDB
         return Config::$dbEngine->exec($sql);
     }
 
-    protected static function assignFields(array $fieldsList): string
+    /**
+     * Convert an array of fields into a string to be added to an SQL command, CREATE TABLE or ALTER TABLE.
+     * You can add a prefix field operation (usually ADD or MODIFY) that will be added at begin of each field.
+     *
+     * @param array $fieldsList
+     * @param string $fieldOperation (usually ADD, MODIFY or empty string)
+     * @return string
+     */
+    protected static function assignFields(array $fieldsList, string $fieldOperation = ''): string
     {
         $fields = [];
         foreach ($fieldsList as $index => $col) {
-            $fields[] = Config::$sqlHelper->getSQLField($index, $col);
+            $field = Config::$sqlHelper->getSQLField($index, $col);
+            if ($field != '') {
+                $fields[] = trim($fieldOperation . ' ' . $field);
+            }
         }
         return implode(',', $fields);
     }
@@ -102,6 +114,35 @@ class SchemaDB
      */
     protected static function createFields(string $tableName, array $fieldsList)
     {
+        // If the table exists
+        if (self::tableExists($tableName)) {
+            // $tableFields is structrure in current database
+            $tableFields = Config::$sqlHelper->getColumns($tableName);
+            $newFields = [];
+            $modifiedFields = [];
+            foreach ($fieldsList as $key => $fields) {
+                if (!isset($tableFields[$key])) {
+                    $newFields[$key] = $fields;
+                } else {
+                    if (count(array_diff($fields, $tableFields[$key])) > 0) {
+                        $modifiedFields[$key] = $fields;
+                    }
+                }
+            }
+            $sql1 = self::assignFields($modifiedFields, 'MODIFY COLUMN');
+            $sql2 = self::assignFields($newFields, 'ADD COLUMN');
+
+            $fields = ($sql1 == '') ? $sql2 : $sql1 . ($sql2 == '' ? '' : ',' . $sql2);
+
+            $sql = '';
+            if ($fields != '') {
+                $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ';
+                $sql .= $fields . ';';
+                $sql .= self::CRLF;
+            }
+            return $sql;
+        }
+        // If the table does not exists
         $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (';
         $sql .= self::assignFields($fieldsList);
         $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
@@ -109,14 +150,17 @@ class SchemaDB
         return $sql;
     }
 
-    protected static function createPrimaryIndex(string $tableName, array $indexData, bool $autoincrement)
+    protected static function createPrimaryIndex(string $tableName, array $indexData, bool $autoincrement, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_primarykey.asp
         // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
         // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
         // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
-
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
+        $sql = '';
+        if ($exists) {
+            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+        }
+        $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
         if ($autoincrement) {
             $sql .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
         }
@@ -124,29 +168,41 @@ class SchemaDB
         return $sql;
     }
 
-    protected static function createStandardIndex(string $tableName, array $indexData)
+    protected static function createStandardIndex(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_create_index.asp
         // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
         // CREATE UNIQUE INDEX idx_pname ON Persons (LastName, FirstName);
-        $sql = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+        $sql = '';
+        if ($exists) {
+            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+        }
+        $sql .= 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
         return $sql . ';' . self::CRLF;
     }
 
-    protected static function createUniqueIndex(string $tableName, array $indexData)
+    protected static function createUniqueIndex(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_unique.asp
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
+        $sql = '';
+        if ($exists) {
+            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+        }
+        $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
         return $sql . ';' . self::CRLF;
     }
 
-    protected static function createConstraint(string $tableName, array $indexData)
+    protected static function createConstraint(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_foreignkey.asp
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
-        $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
+        $sql = '';
+        if ($exists) {
+            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';' . self::CRLF;
+        }
+        $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
             ') REFERENCES ' . $indexData['referencedtable'] . ' (' . $indexData['referencedfield'] . ')';
 
@@ -178,10 +234,12 @@ class SchemaDB
      */
     protected static function createIndex(string $tableName, string $indexName, array $indexData)
     {
+        $tableIndexes = Config::$sqlHelper->getIndexes($tableName);
+
         $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
         if ($indexName == 'PRIMARY') {
             $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
-            return self::createPrimaryIndex($tableName, $indexData, $autoincrement);
+            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, isset($tableIndexes[$indexName]));
         }
 
         $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
@@ -189,11 +247,11 @@ class SchemaDB
         $constraint = $indexData['constraint'] ?? false;
 
         if ($constraint) {
-            return self::createConstraint($tableName, $indexData);
+            return self::createConstraint($tableName, $indexData, isset($tableIndexes[$indexName]));
         }
 
         return $unique ?
-            self::createUniqueIndex($tableName, $indexData) :
-            self::createStandardIndex($tableName, $indexData);
+            self::createUniqueIndex($tableName, $indexData, isset($tableIndexes[$indexName])) :
+            self::createStandardIndex($tableName, $indexData, isset($tableIndexes[$indexName]));
     }
 }

@@ -54,8 +54,8 @@ class Table extends SimpleTable
     public function checkStructure(bool $create = false): void
     {
         if (isset(Config::$bbddStructure[$this->tableName])) {
-            if ($create && !SchemaDB::tableExists($this->tableName)) {
-                SchemaDB::createTable($this->tableName);
+            if ($create) {
+                SchemaDB::checkTableStructure($this->tableName, SchemaDB::tableExists($this->tableName));
             }
         }
     }
