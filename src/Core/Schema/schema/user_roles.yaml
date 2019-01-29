@@ -39,12 +39,12 @@ indexes:
         index: user_id
         column: user_id
         unique: 'no'
-        nullable: 'no'
+        nullable: 'yes'
     role_id:
         index: role_id
         column: role_id
         unique: 'no'
-        nullable: 'no'
+        nullable: 'yes'
 values:
     1:
         id: 1

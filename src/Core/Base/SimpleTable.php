@@ -379,8 +379,8 @@ class SimpleTable
      */
     private function insertRecord($fields, $values): bool
     {
-        $fieldList = implode(',', $fields);
-        $valueList = implode(',', $values);
+        $fieldList = implode(', ', $fields);
+        $valueList = implode(', ', $values);
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);";
         $ret = Config::$dbEngine->exec($sql);
         // Assign the value of the primary key of the newly inserted record
@@ -398,7 +398,7 @@ class SimpleTable
      */
     private function updateRecord(array $data): bool
     {
-        $value = implode(',', $data);
+        $value = implode(', ', $data);
         $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $value"
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($this->id) . ';';
         return Config::$dbEngine->exec([$sql]);

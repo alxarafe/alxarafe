@@ -193,6 +193,21 @@ abstract class Engine
     }
 
     /**
+     * Execute SQL statements on the cache
+     *
+     * @param array  $query
+     * @param string $cachedName
+     *
+     * @return bool
+     */
+    final public static function execCache(array $query, string $cachedName): bool
+    {
+        // TODO: Use Memcache
+        self::exec($query);
+        return false;
+    }
+
+    /**
      * Returns the id of the last inserted record. Failing that, it
      * returns ''.
      *

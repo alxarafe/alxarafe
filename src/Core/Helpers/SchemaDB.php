@@ -74,14 +74,19 @@ class SchemaDB
     {
         $tabla = Config::$bbddStructure[$tableName];
 
-        Debug::addMessage('messages', "Table creation: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
-
         $tableExists = self::tableExists($tableName);
-        $sql = self::createFields($tableName, $tabla['fields']);
+        if ($tableExists) {
+            Debug::addMessage('messages', "Update table: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
+            $sql = self::updateFields($tableName, $tabla['fields']);
+        } else {
+            Debug::addMessage('messages', "Create table: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
+            $sql = self::createFields($tableName, $tabla['fields']);
+        }
 
         foreach ($tabla['indexes'] as $name => $index) {
             $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
         }
+
         if(!$tableExists) {
             $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
         }
@@ -106,7 +111,7 @@ class SchemaDB
                 $fields[] = trim($fieldOperation . ' ' . $field);
             }
         }
-        return implode(',', $fields);
+        return implode(', ', $fields);
     }
 
     /**
@@ -148,26 +153,32 @@ class SchemaDB
      */
     protected static function createFields(string $tableName, array $fieldsList): array
     {
-        // If the table exists
-        if (self::tableExists($tableName)) {
-            // $tableFields is structrure in current database
-            $fields = self::modifyFields($tableName, $fieldsList);
-
-            $sql = '';
-            if ($fields != '') {
-                $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ';
-                $sql .= $fields . ';';
-                $sql .= self::CRLF;
-            }
-            return [$sql];
-        }
-
         // If the table does not exists
         $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (';
         $sql .= self::assignFields($fieldsList);
         $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;';
 
         return [$sql];
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $fieldsList
+     *
+     * @return array
+     */
+    protected static function updateFields(string $tableName, array $fieldsList): array
+    {
+        // $tableFields is structrure in current database
+        $fields = self::modifyFields($tableName, $fieldsList);
+        $sql = '';
+        if ($fields !== '') {
+            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ';
+            $sql .= $fields . ';';
+        }
+        return ($fields !== '') ? [] : [$sql];
     }
 
     /**
