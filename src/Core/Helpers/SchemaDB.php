@@ -44,7 +44,6 @@ class SchemaDB
         }
         return Utils::flatArray($queryResult);
     }
-
     /**
      * Obtain an array with the table structure with a standardized format.
      *
@@ -53,10 +52,14 @@ class SchemaDB
      *
      * @return array
      */
-    public static function NotUsed_getStructure(string $tableName, bool $usePrefix = true): array
-    {
-        return Config::$dbEngine->getStructure($tableName, $usePrefix);
-    }
+    /*
+     * Delete y really not used!
+      public static function getStructure(string $tableName, bool $usePrefix = true): array
+      {
+      return Config::$dbEngine->getStructure($tableName, $usePrefix);
+      }
+     * 
+     */
 
     /**
      * Create or update the structure of the table.
@@ -241,11 +244,17 @@ class SchemaDB
     protected static function createIndex(string $tableName, string $indexName, array $indexData)
     {
         $tableIndexes = Config::$sqlHelper->getIndexes($tableName);
+        $indexDiff = array_diff($tableIndexes[$indexName], $indexData);
+        $existsIndex = isset($tableIndexes[$indexName]);
+        $changedIndex = (count($indexDiff) > 0);
+        if (!$changedIndex) {
+            return '';
+        }
 
         $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
         if ($indexName == 'PRIMARY') {
             $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
-            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, isset($tableIndexes[$indexName]));
+            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
         }
 
         $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
@@ -253,11 +262,11 @@ class SchemaDB
         $constraint = $indexData['constraint'] ?? false;
 
         if ($constraint) {
-            return self::createConstraint($tableName, $indexData, isset($tableIndexes[$indexName]));
+            return self::createConstraint($tableName, $indexData, $existsIndex);
         }
 
         return $unique ?
-            self::createUniqueIndex($tableName, $indexData, isset($tableIndexes[$indexName])) :
-            self::createStandardIndex($tableName, $indexData, isset($tableIndexes[$indexName]));
+            self::createUniqueIndex($tableName, $indexData, $existsIndex) :
+            self::createStandardIndex($tableName, $indexData, $existsIndex);
     }
 }

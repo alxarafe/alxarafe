@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
@@ -150,6 +149,23 @@ abstract class Engine
         return $ret;
     }
 
+    private static function splitExec(string $query): bool
+    {
+        // Remove extra blankspace to be more readable
+        $query = preg_replace('/\s+/', ' ', $query) . ';';
+        // TODO: Debugbar is collecting from PDO, is really needed here??
+        // Debug::addMessage('SQL', 'PDO exec: ' . $query);
+        $ok = false;
+        self::$statement = self::$dbHandler->prepare($query);
+        if (self::$statement) {
+            $ok = self::$statement->execute([]);
+        }
+        if (!$ok) {
+            Debug::addMessage('SQL', 'PDO ERROR in exec: ' . $query);
+        }
+        return $ok;
+    }
+
     /**
      * Execute SQL statements on the database (INSERT, UPDATE or DELETE).
      *
@@ -159,15 +175,15 @@ abstract class Engine
      */
     final public static function exec(string $query): bool
     {
-        // Remove extra blankspace to be more readable
-        $query = preg_replace('/\s+/', ' ', $query);
-        // TODO: Debugbar is collecting from PDO, is really needed here??
-        //Debug::addMessage('SQL', 'PDO exec: ' . $query);
-        self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement) {
-            return self::$statement->execute([]);
+        $ok = true;
+        $aQuery = explode(';', $query);
+        foreach ($aQuery as $qry) {
+            $qry = trim($qry);
+            if ($qry != '') {
+                $ok &= self::splitExec($qry);
+            }
         }
-        return false;
+        return $ok;
     }
 
     /**
