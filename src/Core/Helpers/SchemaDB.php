@@ -103,6 +103,26 @@ class SchemaDB
         return implode(',', $fields);
     }
 
+    private static function modifyFields(string $tableName, array $fieldsList): string
+    {
+        $tableFields = Config::$sqlHelper->getColumns($tableName);
+        $newFields = [];
+        $modifiedFields = [];
+        foreach ($fieldsList as $key => $fields) {
+            if (!isset($tableFields[$key])) {
+                $newFields[$key] = $fields;
+            } else {
+                if (count(array_diff($fields, $tableFields[$key])) > 0) {
+                    $modifiedFields[$key] = $fields;
+                }
+            }
+        }
+        $sql1 = self::assignFields($modifiedFields, 'MODIFY COLUMN');
+        $sql2 = self::assignFields($newFields, 'ADD COLUMN');
+
+        return ($sql1 == '') ? $sql2 : $sql1 . ($sql2 == '' ? '' : ',' . $sql2);
+    }
+
     /**
      * Build the SQL statement to create the fields in the table.
      * It can also create the primary key if the auto_increment attribute is defined.
@@ -117,31 +137,17 @@ class SchemaDB
         // If the table exists
         if (self::tableExists($tableName)) {
             // $tableFields is structrure in current database
-            $tableFields = Config::$sqlHelper->getColumns($tableName);
-            $newFields = [];
-            $modifiedFields = [];
-            foreach ($fieldsList as $key => $fields) {
-                if (!isset($tableFields[$key])) {
-                    $newFields[$key] = $fields;
-                } else {
-                    if (count(array_diff($fields, $tableFields[$key])) > 0) {
-                        $modifiedFields[$key] = $fields;
-                    }
-                }
-            }
-            $sql1 = self::assignFields($modifiedFields, 'MODIFY COLUMN');
-            $sql2 = self::assignFields($newFields, 'ADD COLUMN');
-
-            $fields = ($sql1 == '') ? $sql2 : $sql1 . ($sql2 == '' ? '' : ',' . $sql2);
+            $fields = self::modifyFields($tableName, $fieldsList);
 
             $sql = '';
             if ($fields != '') {
-                $sql = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ';
+                $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ';
                 $sql .= $fields . ';';
                 $sql .= self::CRLF;
             }
             return $sql;
         }
+
         // If the table does not exists
         $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (';
         $sql .= self::assignFields($fieldsList);
