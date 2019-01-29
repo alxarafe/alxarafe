@@ -110,6 +110,14 @@ class SchemaDB
         return implode(',', $fields);
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $fieldsList
+     *
+     * @return string
+     */
     private static function modifyFields(string $tableName, array $fieldsList): string
     {
         $tableFields = Config::$sqlHelper->getColumns($tableName);
@@ -163,6 +171,16 @@ class SchemaDB
         return $sql;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $autoincrement
+     * @param bool   $exists
+     *
+     * @return string
+     */
     protected static function createPrimaryIndex(string $tableName, array $indexData, bool $autoincrement, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_primarykey.asp
@@ -181,6 +199,15 @@ class SchemaDB
         return $sql;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $exists
+     *
+     * @return string
+     */
     protected static function createStandardIndex(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_create_index.asp
@@ -194,6 +221,15 @@ class SchemaDB
         return $sql . ';' . self::CRLF;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $exists
+     *
+     * @return string
+     */
     protected static function createUniqueIndex(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_unique.asp
@@ -207,6 +243,15 @@ class SchemaDB
         return $sql . ';' . self::CRLF;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $exists
+     *
+     * @return string
+     */
     protected static function createConstraint(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_foreignkey.asp

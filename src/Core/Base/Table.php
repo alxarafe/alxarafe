@@ -173,6 +173,11 @@ class Table extends SimpleTable
         return Config::$sqlHelper->getIndexes($this->tableName, true);
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
     public function getChecksFromTable(): array
     {
         return Schema::getFromYamlFile($this->tableName, 'viewdata');

@@ -149,6 +149,13 @@ abstract class Engine
         return $ret;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $query
+     *
+     * @return bool
+     */
     private static function splitExec(string $query): bool
     {
         // Remove extra blankspace to be more readable
