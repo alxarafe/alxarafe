@@ -82,7 +82,9 @@ class SchemaDB
         foreach ($tabla['indexes'] as $name => $index) {
             $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
         }
-        $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
+        if(!$tableExists) {
+            $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
+        }
 
         return Config::$dbEngine->exec($sql);
     }
