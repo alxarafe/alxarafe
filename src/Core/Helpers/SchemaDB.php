@@ -76,6 +76,7 @@ class SchemaDB
 
         Debug::addMessage('messages', "Table creation: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
 
+        $tableExists = self::tableExists($tableName);
         $sql = self::createFields($tableName, $tabla['fields']);
 
         foreach ($tabla['indexes'] as $name => $index) {
@@ -106,6 +107,14 @@ class SchemaDB
         return implode(',', $fields);
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $fieldsList
+     *
+     * @return string
+     */
     private static function modifyFields(string $tableName, array $fieldsList): string
     {
         $tableFields = Config::$sqlHelper->getColumns($tableName);
@@ -204,6 +213,15 @@ class SchemaDB
         return $sql;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $exists
+     *
+     * @return string
+     */
     protected static function createConstraint(string $tableName, array $indexData, bool $exists = false)
     {
         // https://www.w3schools.com/sql/sql_foreignkey.asp

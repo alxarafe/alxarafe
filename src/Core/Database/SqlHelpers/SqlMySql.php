@@ -68,6 +68,13 @@ class SqlMySql extends SqlHelper
         return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName, $prefix) . ';';
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param int $length
+     *
+     * @return string
+     */
     private function toInteger(int $length = 0): string
     {
         // https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
@@ -76,6 +83,13 @@ class SqlMySql extends SqlHelper
         return ($length > 0) ? $type . '(' . $length . ')' : $type;
     }
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param int $length
+     *
+     * @return string
+     */
     private function toString(int $length = 0): string
     {
         return $length > 6 ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
