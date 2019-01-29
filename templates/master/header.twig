@@ -14,8 +14,6 @@
 <title>{% block title %}{{ lang.trans(ctrl.title) }}{% endblock %} - Alxarafe</title>
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="vendor/alxarafe/alxarafe/templates/css/alxarafe.css">
     {% for css in cssCode %}
         <link rel="stylesheet" href="{{ css }}"/>
