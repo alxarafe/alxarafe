@@ -19,10 +19,10 @@ Puede encontrar Alxarafe en los siguientes repositorios:
 - https://github.com/alxarafe/alxarafe
 - https://packagist.org/packages/alxarafe/alxarafe
 
-##Documentación
+## Documentación
 https://alxarafe.github.io/alxarafe/
 
-##¿Cómo integrar Alxarafe en mi aplicación?
+## ¿Cómo integrar Alxarafe en mi aplicación?
 
 Para integrarlo en su aplicación necesitará instalar composer y ejecutar el siguiente comando:
 

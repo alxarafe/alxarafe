@@ -16,10 +16,10 @@ You can find Alxarafe in the following repositories:
 - https://github.com/alxarafe/alxarafe
 - https://packagist.org/packages/alxarafe/alxarafe
 
-##Documentation
+## Documentation
 https://alxarafe.github.io/alxarafe/
 
-##Integration
+## Integration
 
 To integrate it into your application you will need to install composer and execute
 the following command:
