@@ -166,7 +166,7 @@ abstract class SqlHelper
 
     //abstract public function normalizeConstraints(array $fields): array;
 
-    public function getIndexes(string $tableName, bool $usePrefix): array
+    public function getIndexes(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getIndexesSql($tableName, $usePrefix);
         $data = Config::$dbEngine->select($query);
