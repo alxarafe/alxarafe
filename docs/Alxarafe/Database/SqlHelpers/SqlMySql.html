@@ -167,7 +167,7 @@ types it represents.</td>
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_quoteLiteral">quoteLiteral</a>(string $fieldName)
+                    <a href="#method_quoteLiteral">quoteLiteral</a>(string|null $fieldName)
         
                                             <p>Returns the name of the field in quotes.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteLiteral"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></div>
@@ -228,7 +228,7 @@ getColumns</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getIndexes">getIndexes</a>(string $tableName, bool $usePrefix)
+                    <a href="#method_getIndexes">getIndexes</a>(string $tableName, bool $usePrefix = true)
         
                                             <p class="no-description">No description</p>
                                     </div>
@@ -267,24 +267,22 @@ restrictions later.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    string
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_toInteger">toInteger</a>(int $length = 0)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>TODO: Undocumented</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    string
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_toString">toString</a>(int $length = 0)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>TODO: Undocumented</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -454,7 +452,7 @@ applicable.</p>                </div>
                     <h3 id="method_quoteLiteral">
         <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_quoteLiteral"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 92</div>
         <code>                    string
-    <strong>quoteLiteral</strong>(string $fieldName)
+    <strong>quoteLiteral</strong>(string|null $fieldName)
         </code>
     </h3>
     <div class="details">
@@ -468,7 +466,7 @@ applicable.</p>                </div>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
+                <td>string|null</td>
                 <td>$fieldName</td>
                 <td></td>
             </tr>
@@ -522,7 +520,7 @@ applicable.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSQLField">
-        <div class="location">at         line 122</div>
+        <div class="location">at         line 136</div>
         <code>                    string
     <strong>getSQLField</strong>(string $fieldName, array $data)
         </code>
@@ -670,7 +668,7 @@ applicable.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeFields">
-        <div class="location">at         line 152</div>
+        <div class="location">at         line 166</div>
         <code>                    array
     <strong>normalizeFields</strong>(array $row)
         </code>
@@ -713,7 +711,7 @@ getColumns</p>                                                </div>
                     <h3 id="method_getIndexes">
         <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 169</div>
         <code>                    
-    <strong>getIndexes</strong>(string $tableName, bool $usePrefix)
+    <strong>getIndexes</strong>(string $tableName, bool $usePrefix = true)
         </code>
     </h3>
     <div class="details">
@@ -745,7 +743,7 @@ getColumns</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesSql">
-        <div class="location">at         line 330</div>
+        <div class="location">at         line 344</div>
         <code>                    string
     <strong>getIndexesSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -791,7 +789,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeIndexes">
-        <div class="location">at         line 235</div>
+        <div class="location">at         line 249</div>
         <code>                    array
     <strong>normalizeIndexes</strong>(array $fields)
         </code>
@@ -831,7 +829,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 342</div>
+        <div class="location">at         line 356</div>
         <code>                    string
     <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -876,8 +874,8 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_toInteger">
-        <div class="location">at         line 71</div>
-        <code>                private    
+        <div class="location">at         line 78</div>
+        <code>                private    string
     <strong>toInteger</strong>(int $length = 0)
         </code>
     </h3>
@@ -885,6 +883,8 @@ restrictions later.</p>                                                </div>
             
     
 
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -897,6 +897,15 @@ restrictions later.</p>                                                </div>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -905,8 +914,8 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_toString">
-        <div class="location">at         line 79</div>
-        <code>                private    
+        <div class="location">at         line 93</div>
+        <code>                private    string
     <strong>toString</strong>(int $length = 0)
         </code>
     </h3>
@@ -914,6 +923,8 @@ restrictions later.</p>                                                </div>
             
     
 
+                    <div class="method-description">
+                                    <p>TODO: Undocumented</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -926,6 +937,15 @@ restrictions later.</p>                                                </div>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -934,7 +954,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_toNative">
-        <div class="location">at         line 91</div>
+        <div class="location">at         line 105</div>
         <code>                    string
     <strong>toNative</strong>(string $type, int $length = 0)
         </code>
@@ -979,7 +999,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_splitType">
-        <div class="location">at         line 205</div>
+        <div class="location">at         line 219</div>
         <code>        static        private    array
     <strong>splitType</strong>(string $originalType)
         </code>
@@ -1020,7 +1040,7 @@ applicable.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintData">
-        <div class="location">at         line 267</div>
+        <div class="location">at         line 281</div>
         <code>                private    array
     <strong>getConstraintData</strong>(string $tableName, string $constraintName)
         </code>
@@ -1066,7 +1086,7 @@ additional simple queries are made.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintRules">
-        <div class="location">at         line 295</div>
+        <div class="location">at         line 309</div>
         <code>                private    array
     <strong>getConstraintRules</strong>(string $tableName, string $constraintName)
         </code>
@@ -1112,7 +1132,7 @@ additional simple queries are made.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTablename">
-        <div class="location">at         line 314</div>
+        <div class="location">at         line 328</div>
         <code>                private    string
     <strong>getTablename</strong>()
         </code>

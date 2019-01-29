@@ -167,7 +167,7 @@ types it represents.</td>
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_quoteLiteral">quoteLiteral</a>(string $fieldName)
+                    <a href="#method_quoteLiteral">quoteLiteral</a>(string|null $fieldName)
         
                                             <p>Returns the name of the field in quotes.</p>                </div>
                 <div class="col-md-2"></div>
@@ -228,7 +228,7 @@ getColumns</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getIndexes">getIndexes</a>(string $tableName, bool $usePrefix)
+                    <a href="#method_getIndexes">getIndexes</a>(string $tableName, bool $usePrefix = true)
         
                                             <p class="no-description">No description</p>
                                     </div>
@@ -412,7 +412,7 @@ indexes:
                     <h3 id="method_quoteLiteral">
         <div class="location">at         line 37</div>
         <code>                    string
-    <strong>quoteLiteral</strong>(string $fieldName)
+    <strong>quoteLiteral</strong>(string|null $fieldName)
         </code>
     </h3>
     <div class="details">
@@ -426,7 +426,7 @@ indexes:
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
+                <td>string|null</td>
                 <td>$fieldName</td>
                 <td></td>
             </tr>
@@ -671,7 +671,7 @@ getColumns</p>                                                </div>
                     <h3 id="method_getIndexes">
         <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 169</div>
         <code>                    
-    <strong>getIndexes</strong>(string $tableName, bool $usePrefix)
+    <strong>getIndexes</strong>(string $tableName, bool $usePrefix = true)
         </code>
     </h3>
     <div class="details">
