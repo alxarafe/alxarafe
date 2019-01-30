@@ -262,9 +262,9 @@ class Dispatcher
                     $page->active = 1;
                     $page->updated_date = date('Y-m-d H:i:s');
 
-                    $msgSuccess = 'Page ' . $className . ' data added or updated to table';
-                    $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
                     $page->save();
+//                    $msgSuccess = 'Page ' . $className . ' data added or updated to table';
+//                    $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
 //                    Debug::addMessage('messages', ($page->save() ? $msgSuccess : $msgError));
                 }
             }
