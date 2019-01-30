@@ -87,7 +87,7 @@ class SchemaDB
             $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
         }
 
-        if(!$tableExists) {
+        if (!$tableExists) {
             $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
         }
 
@@ -304,17 +304,12 @@ class SchemaDB
     protected static function createIndex(string $tableName, string $indexName, array $indexData): array
     {
         $tableIndexes = Config::$sqlHelper->getIndexes($tableName);
-        $indexDiff = array_diff($tableIndexes[$indexName], $indexData);
+        $tableIndex = $tableIndexes[$indexName] ?? [];
+        $indexDiff = array_diff($indexData, $tableIndex);
         $existsIndex = isset($tableIndexes[$indexName]);
         $changedIndex = (count($indexDiff) > 0);
         if (!$changedIndex) {
             return [];
-        }
-
-        $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
-        if ($indexName == 'PRIMARY') {
-            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
-            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
         }
 
         $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
