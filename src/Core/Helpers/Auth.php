@@ -144,7 +144,7 @@ class Auth extends User
     /**
      * Returns the user if setted or null.
      *
-     * @return string|null
+     * @return User|null
      */
     public function getUser()
     {

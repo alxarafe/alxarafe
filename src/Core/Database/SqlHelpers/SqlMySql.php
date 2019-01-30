@@ -138,7 +138,7 @@ class SqlMySql extends SqlHelper
     public function getSQLField(string $fieldName, array $data): string
     {
         $null = Utils::isTrue($data, 'nullable') ?? null;
-        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
+//        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
         $zerofill = Utils::isTrue($data, 'zerofill') ?? null;
 
         $default = $data['default'];
@@ -150,7 +150,7 @@ class SqlMySql extends SqlHelper
 
         $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length'] ?? 0);
         $result .= ($null ? '' : ' NOT') . ' NULL';
-        //$result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
+//        $result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
         $result .= $zerofill ? ' ZEROFILL' : '';
         $result .= isset($default) ? ' DEFAULT ' . $default : '';
 

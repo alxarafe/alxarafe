@@ -34,6 +34,6 @@ class LoginView extends View
     public function addCss(): void
     {
         parent::addCss();
-        $this->addToVar('cssCode', $this->addResource('/css/login', 'css'));
+        $this->addToVar('cssCode', $this->addResource('/css/login.css'));
     }
 }

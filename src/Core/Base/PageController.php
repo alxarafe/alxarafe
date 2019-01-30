@@ -14,7 +14,6 @@ use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
 use ReflectionClass;
-use Xfs\Controllers\UsersRoles;
 
 /**
  * Class PageController, all controllers that needs to be accessed as a page must extends from this.
@@ -115,7 +114,7 @@ class PageController extends Controller
     /**
      * The roles where user is assigned.
      *
-     * @var UsersRoles
+     * @var UserRole
      */
     public $roles;
 
@@ -243,8 +242,8 @@ class PageController extends Controller
                 if (in_array($role['id'], $allowedRoles)) {
                     return true;
                 }
-                $pagesAccess = new RolePage();
-                if ($pagesAccess->getAllRecordsBy('role_id', $role['id'])) {
+
+                if ($pagesAccess = (new RolePage())->getAllRecordsBy('role_id', $role['id'])) {
                     $pages = array_merge($pages, $pagesAccess);
                 }
             }

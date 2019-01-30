@@ -144,7 +144,8 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->rollBack();
         } else {
-            $this->exec('ROLLBACK TO SAVEPOINT LEVEL' . self::$transactionDepth . ';');
+            $sql = 'ROLLBACK TO SAVEPOINT LEVEL' . self::$transactionDepth . ';';
+            $this->exec([$sql]);
         }
 
         return $ret;
@@ -177,20 +178,20 @@ abstract class Engine
     /**
      * Execute SQL statements on the database (INSERT, UPDATE or DELETE).
      *
-     * @param string $query
+     * @param string $queries
      *
      * @return bool
      */
-    final public static function exec(array $query): bool
+    final public static function exec(array $queries): bool
     {
         $ok = true;
-        foreach ($query as $sentence) {
-            $qry = trim($sentence);
-            if ($qry != '') {
-                $ok &= self::splitQuery($qry);
+        foreach ($queries as $query) {
+            $query = trim($query);
+            if ($query != '') {
+                $ok &= self::splitQuery($query);
             }
         }
-        return $ok;
+        return (bool) $ok;
     }
 
     /**
@@ -383,7 +384,8 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->beginTransaction();
         } else {
-            $this->exec('SAVEPOINT LEVEL' . self::$transactionDepth . ';');
+            $sql = 'SAVEPOINT LEVEL' . self::$transactionDepth . ';';
+            $this->exec([$sql]);
         }
 
         self::$transactionDepth++;
@@ -407,7 +409,8 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->commit();
         } else {
-            $this->exec('RELEASE SAVEPOINT LEVEL' . self::$transactionDepth . ';');
+            $sql = 'RELEASE SAVEPOINT LEVEL' . self::$transactionDepth . ';';
+            $this->exec([$sql]);
         }
 
         return $ret;
