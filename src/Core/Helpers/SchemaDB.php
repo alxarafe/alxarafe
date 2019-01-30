@@ -26,8 +26,8 @@ class SchemaDB
      */
     public static function tableExists($tableName): bool
     {
-        $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ';';
-        return (bool) Config::$dbEngine->exec([$sql]);
+        $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
+        return (bool) Config::$dbEngine->selectCoreCache($sql, $tableName. '-exists');
     }
 
     /**
@@ -40,10 +40,11 @@ class SchemaDB
         $queries = Config::$sqlHelper->getTables();
         $queryResult = [];
         foreach ($queries as $query) {
-            $queryResult[] = Config::$dbEngine->select($query);
+            $queryResult[] = Config::$dbEngine->selectCoreCache($query, 'tables');
         }
         return Utils::flatArray($queryResult);
     }
+
     /**
      * Obtain an array with the table structure with a standardized format.
      *

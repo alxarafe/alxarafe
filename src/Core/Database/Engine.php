@@ -239,16 +239,25 @@ abstract class Engine
      */
     final public static function selectCoreCache(string $query, string $cachedName)
     {
-        $cacheEngine = (new CacheCore())->getEngine();
-        $cacheItem = $cacheEngine->getItem($cachedName);
-        if (!$cacheItem->isHit()) {
-            $result = self::exec($query);
-            $cacheItem->set($result);
-            $cacheEngine->save($cacheItem);
+        if (constant('CORE_CACHE_ENABLED') === true) {
+            $cacheEngine = (new CacheCore())->getEngine();
+            $cacheItem = $cacheEngine->getItem($cachedName);
+            if (!$cacheItem->isHit()) {
+                $cacheItem->set(self::select($query));
+                if ($cacheEngine->save($cacheItem)) {
+                    Debug::addMessage('messages', 'Cache data saved.');
+                } else {
+                    Debug::addMessage('messages', 'Cache data not saved.');
+                }
+            }
+            if ($cacheEngine->hasItem($cachedName)) {
+                Debug::addMessage('messages', 'Using data from cache for: <pre>' . var_export($query, true) . '</pre>');
+                $item = $cacheItem->get();
+                return $item;
+            }
+            return [];
         }
-        if ($cacheEngine->hasItem($cachedName)) {
-            return $cacheItem->get();
-        }
+        return self::select($query);
     }
 
     /**

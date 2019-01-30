@@ -7,6 +7,7 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 
 /**
  * Engine provides generic support for databases.
@@ -136,7 +137,9 @@ abstract class SqlHelper
     public function getColumns(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getColumnsSql($tableName, $usePrefix);
-        $data = Config::$dbEngine->select($query);
+        //$data = Config::$dbEngine->select($query);
+        $data = Config::$dbEngine->selectCoreCache($query, $tableName . '-columns');
+        Debug::addMessage('messages', "Query data: <pre>" . var_export($data, true) . "</pre>");
         $result = [];
         foreach ($data as $value) {
             $row = $this->normalizeFields($value);
@@ -169,7 +172,9 @@ abstract class SqlHelper
     public function getIndexes(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getIndexesSql($tableName, $usePrefix);
-        $data = Config::$dbEngine->select($query);
+        //$data = Config::$dbEngine->select($query);
+        $data = Config::$dbEngine->selectCoreCache($query, $tableName . '-indexes');
+        Debug::addMessage('messages', "Query data: <pre>" . var_export($data, true) . "</pre>");
         $result = [];
         foreach ($data as $value) {
             $row = $this->normalizeIndexes($value);

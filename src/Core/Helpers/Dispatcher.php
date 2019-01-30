@@ -97,6 +97,9 @@ class Dispatcher
         define('METHOD_CONTROLLER', 'method');
         define('DEFAULT_CONTROLLER', (Config::configFileExists() ? 'EditConfig' : 'CreateConfig'));
         define('DEFAULT_METHOD', 'run');
+
+        // Use cache on Core
+        define('CORE_CACHE_ENABLED', true);
     }
 
     /**

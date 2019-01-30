@@ -44,7 +44,9 @@ class SqlMySql extends SqlHelper
     public function getTables(): array
     {
         $query = 'SHOW TABLES;';
-        return Utils::flatArray(Config::$dbEngine->select($query));
+        //$result = Config::$dbEngine->select($query);
+        $result = Config::$dbEngine->selectCoreCache($query, 'tables');
+        return Utils::flatArray($result);
     }
 
     /**
@@ -293,7 +295,9 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
-        return Config::$dbEngine->select($sql);
+        //$result = Config::$dbEngine->select($sql);
+        $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraint-' . $constraintName);
+        return $result;
     }
 
     /**
@@ -317,7 +321,9 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('table_name') . ' = ' . $this->quoteLiteral($tableName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ';';
-        return Config::$dbEngine->select($sql);
+        //$result = Config::$dbEngine->select($sql);
+        $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraints');
+        return $result;
     }
 
     /**
