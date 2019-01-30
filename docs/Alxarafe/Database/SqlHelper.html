@@ -184,6 +184,16 @@ types it represents.</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_tableExists">tableExists</a>(string $tableName)
+        
+                                            <p>Returns if table exists in the database.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
                 </div>
                 <div class="col-md-8 type">
@@ -273,7 +283,7 @@ restrictions later.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 50</div>
+        <div class="location">at         line 51</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -294,7 +304,7 @@ restrictions later.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteTableName">
-        <div class="location">at         line 66</div>
+        <div class="location">at         line 67</div>
         <code>                    string
     <strong>quoteTableName</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -339,7 +349,7 @@ restrictions later.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteFieldName">
-        <div class="location">at         line 80</div>
+        <div class="location">at         line 81</div>
         <code>                    string
     <strong>quoteFieldName</strong>(string $fieldName)
         </code>
@@ -379,7 +389,7 @@ restrictions later.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_quoteLiteral">
-        <div class="location">at         line 92</div>
+        <div class="location">at         line 93</div>
         <code>                    string
     <strong>quoteLiteral</strong>(string|null $fieldName)
         </code>
@@ -419,7 +429,7 @@ restrictions later.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTables">
-        <div class="location">at         line 102</div>
+        <div class="location">at         line 103</div>
         <code>    abstract                array
     <strong>getTables</strong>()
         </code>
@@ -448,8 +458,48 @@ restrictions later.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getSQLField">
+                    <h3 id="method_tableExists">
         <div class="location">at         line 112</div>
+        <code>    abstract                bool
+    <strong>tableExists</strong>(string $tableName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns if table exists in the database.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSQLField">
+        <div class="location">at         line 122</div>
         <code>    abstract                string
     <strong>getSQLField</strong>(string $fieldName, array $data)
         </code>
@@ -494,7 +544,7 @@ restrictions later.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getColumns">
-        <div class="location">at         line 136</div>
+        <div class="location">at         line 146</div>
         <code>                    array
     <strong>getColumns</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -552,7 +602,7 @@ restrictions later.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getColumnsSql">
-        <div class="location">at         line 155</div>
+        <div class="location">at         line 168</div>
         <code>    abstract                string
     <strong>getColumnsSql</strong>(string $tableName, bool $usePrefix)
         </code>
@@ -597,7 +647,7 @@ restrictions later.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeFields">
-        <div class="location">at         line 165</div>
+        <div class="location">at         line 178</div>
         <code>    abstract                array
     <strong>normalizeFields</strong>(array $fields)
         </code>
@@ -638,7 +688,7 @@ getColumns</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexes">
-        <div class="location">at         line 169</div>
+        <div class="location">at         line 182</div>
         <code>                    
     <strong>getIndexes</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -672,7 +722,7 @@ getColumns</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesSql">
-        <div class="location">at         line 191</div>
+        <div class="location">at         line 206</div>
         <code>    abstract                string
     <strong>getIndexesSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -718,7 +768,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeIndexes">
-        <div class="location">at         line 200</div>
+        <div class="location">at         line 215</div>
         <code>    abstract                array
     <strong>normalizeIndexes</strong>(array $fields)
         </code>
@@ -758,7 +808,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 209</div>
+        <div class="location">at         line 224</div>
         <code>    abstract                string
     <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
         </code>

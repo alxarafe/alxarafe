@@ -146,6 +146,14 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_menu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_user">
+                                                                                <a href="../../Alxarafe/Models/User.html"><abbr title="Alxarafe\Models\User">User</abbr></a>
+                </td>
+                <td>$user</td>
+                <td class="last">The user logged.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_user"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_userAuth">
                                                                                 <a href="../../Alxarafe/Helpers/Auth.html"><abbr title="Alxarafe\Helpers\Auth">Auth</abbr></a>
                 </td>
@@ -160,6 +168,54 @@
                 <td>$userName</td>
                 <td class="last">Contains the user's name or null</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_userName"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canAccess">
+                                                                                bool
+                </td>
+                <td>$canAccess</td>
+                <td class="last">Can user access?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canAccess"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canCreate">
+                                                                                bool
+                </td>
+                <td>$canCreate</td>
+                <td class="last">Can user create?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canCreate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canRead">
+                                                                                bool
+                </td>
+                <td>$canRead</td>
+                <td class="last">Can user read?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canRead"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canUpdate">
+                                                                                bool
+                </td>
+                <td>$canUpdate</td>
+                <td class="last">Can user update?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canUpdate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canDelete">
+                                                                                bool
+                </td>
+                <td>$canDelete</td>
+                <td class="last">Can user delete?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canDelete"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_roles">
+                                                                                <abbr title="Xfs\Controllers\UsersRoles">UsersRoles</abbr>
+                </td>
+                <td>$roles</td>
+                <td class="last">The roles where user is assigned.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_roles"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
             </tr>
             </table>
 
@@ -236,56 +292,6 @@
         
                                             <p>Verify if this user can do an action.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_canAccess">canAccess</a>(string $username)
-        
-                                            <p>Returns if user can access this controller.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_canAccess"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_canCreate">canCreate</a>(string $username)
-        
-                                            <p>Returns if user can create on this controller.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_canCreate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_canRead">canRead</a>(string $username)
-        
-                                            <p>Returns if user can read on this controller.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_canRead"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_canUpdate">canUpdate</a>(string $username)
-        
-                                            <p>Returns if user can update on this controller.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_canUpdate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_canDelete">canDelete</a>(string $username)
-        
-                                            <p>Return if user can delete on this controller.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_canDelete"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -367,7 +373,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_ensureLogin">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 97</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 155</div>
         <code>                private    bool
     <strong>ensureLogin</strong>()
         </code>
@@ -397,7 +403,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 125</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 184</div>
         <code>            protected        
     <strong>setPageDetails</strong>()
         </code>
@@ -439,7 +445,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 150</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 209</div>
         <code>            protected        
     <strong>getPageDetails</strong>()
         </code>
@@ -460,7 +466,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 168</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 227</div>
         <code>                private    bool
     <strong>canAction</strong>(string $username, string $action)
         </code>
@@ -504,208 +510,8 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_canAccess">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAccess"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 213</div>
-        <code>                    bool
-    <strong>canAccess</strong>(string $username)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns if user can access this controller.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_canCreate">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canCreate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 225</div>
-        <code>                    bool
-    <strong>canCreate</strong>(string $username)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns if user can create on this controller.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_canRead">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canRead"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 237</div>
-        <code>                    bool
-    <strong>canRead</strong>(string $username)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns if user can read on this controller.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_canUpdate">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canUpdate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 249</div>
-        <code>                    bool
-    <strong>canUpdate</strong>(string $username)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns if user can update on this controller.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_canDelete">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canDelete"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 261</div>
-        <code>                    bool
-    <strong>canDelete</strong>(string $username)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return if user can delete on this controller.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 271</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 270</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
