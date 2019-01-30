@@ -198,16 +198,19 @@ class SchemaDB
         // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
         // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
         // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
+        // 
+        // TODO: Check dependencies of MySQL
         $sql = [];
         if ($exists) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
-        $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']);
+        $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
+            ' ADD PRIMARY KEY ' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ';';
         if ($autoincrement) {
-            $query .= ' INT UNSIGNED AUTO_INCREMENT, ADD';
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
+                ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
+                ' INT UNSIGNED AUTO_INCREMENT';
         }
-        $query .= ' PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
-        $sql[] = $query;
         return $sql;
     }
 
