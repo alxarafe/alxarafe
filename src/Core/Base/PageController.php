@@ -114,7 +114,7 @@ class PageController extends Controller
     /**
      * The roles where user is assigned.
      *
-     * @var UserRole
+     * @var UserRole[]
      */
     public $roles;
 
