@@ -14,6 +14,7 @@ use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
 use ReflectionClass;
+use Xfs\Controllers\UsersRoles;
 
 /**
  * Class PageController, all controllers that needs to be accessed as a page must extends from this.
@@ -56,6 +57,13 @@ class PageController extends Controller
     public $menu;
 
     /**
+     * The user logged.
+     *
+     * @var User
+     */
+    public $user;
+
+    /**
      * Contains the data of the currently identified user.
      *
      * @var Auth
@@ -68,6 +76,48 @@ class PageController extends Controller
      * @var string|null
      */
     public $userName;
+
+    /**
+     * Can user access?
+     *
+     * @var bool
+     */
+    public $canAccess;
+
+    /**
+     * Can user create?
+     *
+     * @var bool
+     */
+    public $canCreate;
+
+    /**
+     * Can user read?
+     *
+     * @var bool
+     */
+    public $canRead;
+
+    /**
+     * Can user update?
+     *
+     * @var bool
+     */
+    public $canUpdate;
+
+    /**
+     * Can user delete?
+     *
+     * @var bool
+     */
+    public $canDelete;
+
+    /**
+     * The roles where user is assigned.
+     *
+     * @var UsersRoles
+     */
+    public $roles;
 
     /**
      * PageController constructor.
@@ -85,7 +135,15 @@ class PageController extends Controller
     public function index()
     {
         if ($this->ensureLogin()) {
+            // Stored to avoid duplicate queries
+            $this->canAccess = $this->canAction($this->userName, 'access');
+            $this->canCreate = $this->canAction($this->userName, 'create');
+            $this->canRead = $this->canAction($this->userName, 'read');
+            $this->canUpdate = $this->canAction($this->userName, 'update');
+            $this->canDelete = $this->canAction($this->userName, 'delete');
+
             parent::index();
+
         }
     }
 
@@ -99,15 +157,16 @@ class PageController extends Controller
         if ($this->userAuth === null) {
             $this->userAuth = new Auth();
             $this->userName = $this->userAuth->getUserName();
+            $this->user = $this->userAuth->getUser();
         }
         if ($this->userName) {
             Debug::addMessage('messages', "User '" . $this->userName . "' logged in.");
             $perms = [
-                'Access' => ($this->canAccess($this->userName) ? 'yes' : 'no'),
-                'Create' => ($this->canCreate($this->userName) ? 'yes' : 'no'),
-                'Read' => ($this->canRead($this->userName) ? 'yes' : 'no'),
-                'Update' => ($this->canUpdate($this->userName) ? 'yes' : 'no'),
-                'Delete' => ($this->canDelete($this->userName) ? 'yes' : 'no'),
+                'Access' => ($this->canAccess ? 'yes' : 'no'),
+                'Create' => ($this->canCreate ? 'yes' : 'no'),
+                'Read' => ($this->canRead ? 'yes' : 'no'),
+                'Update' => ($this->canUpdate ? 'yes' : 'no'),
+                'Delete' => ($this->canDelete ? 'yes' : 'no'),
             ];
             Debug::addMessage(
                 'messages', "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
@@ -168,26 +227,26 @@ class PageController extends Controller
     private function canAction(string $username, string $action): bool
     {
         $pages = [];
-        $user = new User();
         try {
             $className = (new ReflectionClass($this))->getShortName();
         } catch (\ReflectionException $e) {
             // $this must exists always, this exception must never success
             Debug::addException($e);
         }
-        if ($user->getBy('username', $username)) {
-            $roles = (new UserRole())->getAllRecordsBy('user_id', $user->id);
-            if (!empty($roles)) {
-                foreach ($roles as $pos => $role) {
-                    // If it's in role superadmin or admin
-                    $allowedRoles = [1, 2];
-                    if (in_array($role['id'], $allowedRoles)) {
-                        return true;
-                    }
-                    $pagesAccess = new RolePage();
-                    if ($pagesAccess->getAllRecordsBy('role_id', $role['id'])) {
-                        $pages = array_merge($pages, $pagesAccess);
-                    }
+
+        if ($this->roles === null) {
+            $this->roles = (new UserRole())->getAllRecordsBy('user_id', $this->user->id);
+        }
+        if (!empty($this->roles)) {
+            foreach ($this->roles as $pos => $role) {
+                // If it's in role superadmin or admin
+                $allowedRoles = [1, 2];
+                if (in_array($role['id'], $allowedRoles)) {
+                    return true;
+                }
+                $pagesAccess = new RolePage();
+                if ($pagesAccess->getAllRecordsBy('role_id', $role['id'])) {
+                    $pages = array_merge($pages, $pagesAccess);
                 }
             }
         }
@@ -201,66 +260,6 @@ class PageController extends Controller
         }
 
         return false;
-    }
-
-    /**
-     * Returns if user can access this controller.
-     *
-     * @param string $username
-     *
-     * @return bool
-     */
-    public function canAccess(string $username): bool
-    {
-        return $this->canAction($username, 'access');
-    }
-
-    /**
-     * Returns if user can create on this controller.
-     *
-     * @param string $username
-     *
-     * @return bool
-     */
-    public function canCreate(string $username): bool
-    {
-        return $this->canAction($username, 'create');
-    }
-
-    /**
-     * Returns if user can read on this controller.
-     *
-     * @param string $username
-     *
-     * @return bool
-     */
-    public function canRead(string $username): bool
-    {
-        return $this->canAction($username, 'read');
-    }
-
-    /**
-     * Returns if user can update on this controller.
-     *
-     * @param string $username
-     *
-     * @return bool
-     */
-    public function canUpdate(string $username): bool
-    {
-        return $this->canAction($username, 'update');
-    }
-
-    /**
-     * Return if user can delete on this controller.
-     *
-     * @param string $username
-     *
-     * @return bool
-     */
-    public function canDelete(string $username): bool
-    {
-        return $this->canAction($username, 'delete');
     }
 
     /**

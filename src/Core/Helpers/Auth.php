@@ -27,11 +27,18 @@ class Auth extends User
     const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
 
     /**
-     * User in use.
+     * Username in use.
      *
      * @var string|null
      */
     private $username = null;
+
+    /**
+     * User in use.
+     *
+     * @var User|null
+     */
+    private $user = null;
 
     /**
      * User log key.
@@ -90,10 +97,10 @@ class Auth extends User
             'Auth::Logout(): ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out')
         );
 
-        $user = new User();
-        $user->getBy('username', $this->username);
-        $user->logkey = null;
-        $user->save();
+        $this->user = new User();
+        $this->user->getBy('username', $this->username);
+        $this->user->logkey = null;
+        $this->user->save();
 
         $this->username = null;
 
@@ -135,6 +142,16 @@ class Auth extends User
     }
 
     /**
+     * Returns the user if setted or null.
+     *
+     * @return string|null
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
      * TODO: Undocumented
      *
      * @param string $userName
@@ -145,15 +162,15 @@ class Auth extends User
      */
     public function setUser($userName, $password, $remember = false): bool
     {
-        $user = new User();
+        $this->user = new User();
         $this->username = null;
 
-        if ($user->getBy('username', $userName) !== null) {
-            if (password_verify($password, $user->password)) {
-                $this->username = $user->username;
+        if ($this->user->getBy('username', $userName) !== null) {
+            if (password_verify($password, $this->user->password)) {
+                $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time);
-                Debug::addMessage('messages', "$user->username authenticated");
+                Debug::addMessage('messages', "$this->user->username authenticated");
             } else {
                 $this->clearCookieUser();
                 Debug::addMessage('messages', "Checking hash wrong password");
@@ -176,8 +193,8 @@ class Auth extends User
     {
         $logkey = '';
         if (!empty($_COOKIE['user'])) {
-            $user = new User();
-            $user->getBy('username', $_COOKIE['user']);
+            $this->user = new User();
+            $this->user->getBy('username', $_COOKIE['user']);
             $text = $this->username;
             if ($unique) {
                 $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
@@ -185,8 +202,8 @@ class Auth extends User
             $text .= '|' . Utils::randomString();
             $logkey = password_hash($text, PASSWORD_DEFAULT);
 
-            $user->logkey = $logkey;
-            $user->save();
+            $this->user->logkey = $logkey;
+            $this->user->save();
         }
 
         return $logkey;
@@ -203,10 +220,10 @@ class Auth extends User
     public function verifyLogKey(string $userName, string $hash)
     {
         $status = false;
-        $user = new User();
-        if ($user->getBy('username', $userName) !== null && $hash === $user->logkey) {
-            $this->username = $user->username;
-            $this->logkey = $user->logkey;
+        $this->user = new User();
+        if ($this->user->getBy('username', $userName) !== null && $hash === $this->user->logkey) {
+            $this->username = $this->user->username;
+            $this->logkey = $this->user->logkey;
             $status = true;
         }
         return $status;

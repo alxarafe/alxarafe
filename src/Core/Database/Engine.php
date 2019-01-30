@@ -252,8 +252,8 @@ abstract class Engine
             }
             if ($cacheEngine->hasItem($cachedName)) {
                 $item = $cacheItem->get();
-                Debug::addMessage('messages', 'Using data from cache for: <pre>' . var_export($query, true) . '</pre>');
-                Debug::addMessage('messages', 'Data: <pre>' . var_export($item, true) . '</pre>');
+//                Debug::addMessage('messages', 'Using data from cache for: <pre>' . var_export($query, true) . '</pre>');
+//                Debug::addMessage('messages', 'Data: <pre>' . var_export($item, true) . '</pre>');
                 return $item;
             }
             return [];

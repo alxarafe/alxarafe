@@ -110,12 +110,12 @@ class View
             constant('VENDOR_FOLDER') . '/' . $path => constant('VENDOR_URI') . $path,
         ];
 
-        Debug::addMessage('messages', "Looking for '$path':");
+//        Debug::addMessage('messages', "Looking for '$path':");
         foreach ($paths as $fullPath => $uriPath) {
             if (file_exists($fullPath)) {
                 return $uriPath;
             }
-            Debug::addMessage('messages', "File '$fullPath' not found!");
+//            Debug::addMessage('messages', "File '$fullPath' not found!");
         }
         return '';
     }

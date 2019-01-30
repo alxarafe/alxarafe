@@ -189,7 +189,7 @@ class Dispatcher
     private function regenerateData()
     {
         if (constant('DEBUG') === true) {
-            Debug::addMessage('messages', 'This calls must be in another place a near future.');
+//            Debug::addMessage('messages', 'This calls must be in another place a near future.');
             $this->instantiateModels();
             $this->checkPageControllers();
         }
@@ -212,7 +212,7 @@ class Dispatcher
                 ->in($dir = $baseDir . '/Models');
             foreach ($models as $modelFile) {
                 $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
-                Debug::addMessage('messages', 'Instantiate model: ' . $class);
+//                Debug::addMessage('messages', 'Instantiate model: ' . $class);
                 $class = '\\' . $namespace . '\\Models\\' . $class;
                 new $class();
             }
@@ -242,12 +242,12 @@ class Dispatcher
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $class = '\\' . $namespace . '\\Controllers\\' . $className;
-                Debug::addMessage('messages', 'Instantiation of class ' . $className . ' extending PageController');
+//                Debug::addMessage('messages', 'Instantiation of class ' . $className . ' extending PageController');
                 $newClass = new $class();
                 $parents = class_parents($newClass);
-                if (in_array('Xfs\Base\XfsController', $parents)) {
-                    Debug::addMessage('messages', 'Class ' . $className . ' also extends from XfsController');
-                }
+//                if (in_array('Xfs\Base\XfsController', $parents)) {
+//                    Debug::addMessage('messages', 'Class ' . $className . ' also extends from XfsController');
+//                }
                 if (in_array('Alxarafe\Base\PageController', $parents)) {
                     $page = new Page();
                     if (!$page->getBy('controller', $className)) {
@@ -264,7 +264,7 @@ class Dispatcher
 
                     $msgSuccess = 'Page ' . $className . ' data added or updated to table';
                     $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
-                    Debug::addMessage('messages', ($page->save() ? $msgSuccess : $msgError));
+//                    Debug::addMessage('messages', ($page->save() ? $msgSuccess : $msgError));
                 }
             }
         }
