@@ -28,7 +28,7 @@ class SchemaDB
     {
         //$sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
         $sql = Config::$sqlHelper->tableExists($tableName);
-        return !empty(Config::$dbEngine->selectCoreCache($sql, $tableName. '-exists'));
+        return !empty(Config::$dbEngine->selectCoreCache($sql, $tableName . '-exists'));
     }
 
     /**
