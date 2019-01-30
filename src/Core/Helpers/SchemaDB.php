@@ -201,7 +201,7 @@ class SchemaDB
         // TODO: Check dependencies of MySQL
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP PRIMARY KEY;';
         }
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
