@@ -223,7 +223,7 @@ an associated result set.</td>
                     static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_exec">exec</a>(array $query)
+                    <a href="#method_exec">exec</a>(array $queries)
         
                                             <p>Execute SQL statements on the database (INSERT, UPDATE or DELETE).</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
@@ -525,7 +525,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_splitQuery">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_splitQuery"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 160</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_splitQuery"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 161</div>
         <code>        static        private    bool
     <strong>splitQuery</strong>(string $query)
         </code>
@@ -565,9 +565,9 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_exec">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 184</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 185</div>
         <code>final        static            bool
-    <strong>exec</strong>(array $query)
+    <strong>exec</strong>(array $queries)
         </code>
     </h3>
     <div class="details">
@@ -582,7 +582,7 @@ returns ''.</p>                </div>
                     <table class="table table-condensed">
                     <tr>
                 <td>array</td>
-                <td>$query</td>
+                <td>$queries</td>
                 <td></td>
             </tr>
             </table>
@@ -605,7 +605,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getLastInserted">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 202</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 203</div>
         <code>final                    string
     <strong>getLastInserted</strong>()
         </code>
@@ -676,7 +676,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_selectCoreCache">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_selectCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 240</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_selectCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 241</div>
         <code>final        static            array
     <strong>selectCoreCache</strong>(string $query, string $cachedName)
         </code>
@@ -721,7 +721,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_clearCoreCache">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_clearCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 272</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_clearCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 273</div>
         <code>final        static            bool
     <strong>clearCoreCache</strong>(string $cachedName)
         </code>
@@ -770,7 +770,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkConnection">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 283</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 284</div>
         <code>                    bool
     <strong>checkConnection</strong>()
         </code>
@@ -800,7 +800,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_connect">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_connect"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 297</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_connect"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 298</div>
         <code>                    bool
     <strong>connect</strong>(array $config = [])
         </code>
@@ -841,7 +841,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_prepare">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 329</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 330</div>
         <code>final                    bool
     <strong>prepare</strong>(string $sql, array $options = [])
         </code>
@@ -886,7 +886,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_resultSet">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_resultSet"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 350</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_resultSet"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 351</div>
         <code>final                    array
     <strong>resultSet</strong>()
         </code>
@@ -916,7 +916,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_execute">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_execute"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 365</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_execute"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 366</div>
         <code>final                    bool
     <strong>execute</strong>(array $inputParameters = [])
         </code>
@@ -956,7 +956,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_beginTransaction">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 380</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 381</div>
         <code>final                    bool
     <strong>beginTransaction</strong>()
         </code>
@@ -986,7 +986,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_commit">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_commit"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 400</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_commit"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 402</div>
         <code>final                    bool
     <strong>commit</strong>()
         </code>
