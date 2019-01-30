@@ -103,6 +103,15 @@ abstract class SqlHelper
     abstract public function getTables(): array;
 
     /**
+     * Returns if table exists in the database.
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     */
+    abstract public function tableExists(string $tableName): string;
+
+    /**
      * TODO: Undocummented.
      *
      * @param string $fieldName
@@ -139,6 +148,7 @@ abstract class SqlHelper
         $query = $this->getColumnsSql($tableName, $usePrefix);
         //$data = Config::$dbEngine->select($query);
         $data = Config::$dbEngine->selectCoreCache($query, $tableName . '-columns');
+        Debug::addMessage('messages', "Query SQL: <pre>" . var_export($query, true) . "</pre>");
         Debug::addMessage('messages', "Query data: <pre>" . var_export($data, true) . "</pre>");
         $result = [];
         foreach ($data as $value) {

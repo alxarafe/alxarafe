@@ -245,14 +245,15 @@ abstract class Engine
             if (!$cacheItem->isHit()) {
                 $cacheItem->set(self::select($query));
                 if ($cacheEngine->save($cacheItem)) {
-                    Debug::addMessage('messages', 'Cache data saved.');
+                    Debug::addMessage('messages', "Cache data saved to '" . $cachedName . "'.");
                 } else {
                     Debug::addMessage('messages', 'Cache data not saved.');
                 }
             }
             if ($cacheEngine->hasItem($cachedName)) {
-                Debug::addMessage('messages', 'Using data from cache for: <pre>' . var_export($query, true) . '</pre>');
                 $item = $cacheItem->get();
+                Debug::addMessage('messages', 'Using data from cache for: <pre>' . var_export($query, true) . '</pre>');
+                Debug::addMessage('messages', 'Data: <pre>' . var_export($item, true) . '</pre>');
                 return $item;
             }
             return [];

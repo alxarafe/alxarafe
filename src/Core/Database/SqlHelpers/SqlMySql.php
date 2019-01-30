@@ -364,4 +364,21 @@ class SqlMySql extends SqlHelper
         // TODO: Implement getConstraintsSql() method.
         return '';
     }
+
+    /**
+     * Returns if table exists in the database.
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function tableExists(string $tableName): string
+    {
+        $sql = 'SELECT *  FROM '
+            . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('TABLES')
+            . ' WHERE '
+            . Config::$sqlHelper->quoteFieldName('TABLE_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename())
+            . ' AND ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ';';
+        return $sql;
+    }
 }

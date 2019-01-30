@@ -279,4 +279,17 @@ class SqlFirebird extends SqlHelper
     {
         return '';
     }
+
+    /**
+     * Returns if table exists in the database.
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     */
+    public function tableExists(string $tableName): string
+    {
+        // TODO: Implement tableExists() method.
+        return '';
+    }
 }

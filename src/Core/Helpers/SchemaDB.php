@@ -26,8 +26,9 @@ class SchemaDB
      */
     public static function tableExists($tableName): bool
     {
-        $sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
-        return (bool) Config::$dbEngine->selectCoreCache($sql, $tableName. '-exists');
+        //$sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
+        $sql = Config::$sqlHelper->tableExists($tableName);
+        return !empty(Config::$dbEngine->selectCoreCache($sql, $tableName. '-exists'));
     }
 
     /**
@@ -77,10 +78,10 @@ class SchemaDB
 
         $tableExists = self::tableExists($tableName);
         if ($tableExists) {
-            Debug::addMessage('messages', "Update table: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
+            Debug::addMessage('messages', "Update table '" . $tableName . "' fields: <pre>" . var_export($tabla, true) . "</pre>");
             $sql = self::updateFields($tableName, $tabla['fields']);
         } else {
-            Debug::addMessage('messages', "Create table: var_dump: <pre>" . var_export($tabla, true) . "</pre>");
+            Debug::addMessage('messages', "Create table '" . $tableName . "' : <pre>" . var_export($tabla, true) . "</pre>");
             $sql = self::createFields($tableName, $tabla['fields']);
         }
 
