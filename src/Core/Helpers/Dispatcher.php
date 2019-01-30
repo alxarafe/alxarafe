@@ -264,6 +264,7 @@ class Dispatcher
 
                     $msgSuccess = 'Page ' . $className . ' data added or updated to table';
                     $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
+                    $page->save();
 //                    Debug::addMessage('messages', ($page->save() ? $msgSuccess : $msgError));
                 }
             }
