@@ -203,10 +203,10 @@ class SchemaDB
         // TODO: Check dependencies of MySQL
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP PRIMARY KEY;';
         }
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD PRIMARY KEY ' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ';';
+            ' ADD PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
         if ($autoincrement) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
                 ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
@@ -315,6 +315,12 @@ class SchemaDB
         $changedIndex = (count($indexDiff) > 0);
         if (!$changedIndex) {
             return [];
+        }
+
+        if ($indexName == 'PRIMARY') {
+            $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
+            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
+            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
         }
 
         $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
