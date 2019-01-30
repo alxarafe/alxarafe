@@ -143,7 +143,6 @@ class PageController extends Controller
             $this->canDelete = $this->canAction($this->userName, 'delete');
 
             parent::index();
-
         }
     }
 
