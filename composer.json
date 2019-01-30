@@ -29,7 +29,8 @@
     "symfony/translation": "^4.2",
     "ext-pdo": "*",
     "ext-openssl": "*",
-    "symfony/finder": "^4.2"
+    "symfony/finder": "^4.2",
+    "symfony/cache": "^4.2"
   },
   "autoload": {
     "psr-4": {
