@@ -170,7 +170,7 @@ class Auth extends User
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time);
-                Debug::addMessage('messages', "$this->user->username authenticated");
+                Debug::addMessage('messages', $this->user->username . " authenticated");
             } else {
                 $this->clearCookieUser();
                 Debug::addMessage('messages', "Checking hash wrong password");
