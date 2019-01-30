@@ -5,6 +5,7 @@
  */
 namespace Alxarafe\Database;
 
+use Alxarafe\Base\CacheCore;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use DebugBar\DataCollector\PDO as PDODataCollector;
@@ -193,21 +194,6 @@ abstract class Engine
     }
 
     /**
-     * Execute SQL statements on the cache
-     *
-     * @param array  $query
-     * @param string $cachedName
-     *
-     * @return bool
-     */
-    final public static function execCache(array $query, string $cachedName): bool
-    {
-        // TODO: Use Memcache
-        self::exec($query);
-        return false;
-    }
-
-    /**
      * Returns the id of the last inserted record. Failing that, it
      * returns ''.
      *
@@ -241,6 +227,42 @@ abstract class Engine
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return [];
+    }
+
+    /**
+     * Executes a SELECT SQL statement on the core cache.
+     *
+     * @param string $query
+     * @param string $cachedName
+     *
+     * @return array
+     */
+    final public static function selectCoreCache(string $query, string $cachedName)
+    {
+        $cacheEngine = (new CacheCore())->getEngine();
+        $cacheItem = $cacheEngine->getItem($cachedName);
+        if (!$cacheItem->isHit()) {
+            $result = self::exec($query);
+            $cacheItem->set($result);
+            $cacheEngine->save($cacheItem);
+        }
+        if ($cacheEngine->hasItem($cachedName)) {
+            return $cacheItem->get();
+        }
+    }
+
+    /**
+     * Clear item from cache.
+     *
+     * @param string $cachedName
+     *
+     * @return bool
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
+    final public static function clearCoreCache(string $cachedName): bool
+    {
+        $cacheEngine = (new CacheCore())->getEngine();
+        return $cacheEngine->deleteItem($cachedName);
     }
 
     /**
