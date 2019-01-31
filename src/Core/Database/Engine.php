@@ -241,7 +241,7 @@ abstract class Engine
     final public static function selectCoreCache(string $query, string $cachedName)
     {
         if (constant('CORE_CACHE_ENABLED') === true) {
-            $cacheEngine = (new CacheCore())->getEngine();
+            $cacheEngine = Config::getCacheCoreEngine();
             $cacheItem = $cacheEngine->getItem($cachedName);
             if (!$cacheItem->isHit()) {
                 $cacheItem->set(self::select($query));
@@ -272,7 +272,7 @@ abstract class Engine
      */
     final public static function clearCoreCache(string $cachedName): bool
     {
-        $cacheEngine = (new CacheCore())->getEngine();
+        $cacheEngine = Config::getCacheCoreEngine();
         return $cacheEngine->deleteItem($cachedName);
     }
 

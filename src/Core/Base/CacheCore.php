@@ -40,7 +40,7 @@ class CacheCore
     /**
      * CacheCore constructor.
      *
-     * @param int    $lifeTime
+     * @param int $lifeTime
      */
     public function __construct($lifeTime = self::DEFAULT_LIFE_TIME)
     {
@@ -60,7 +60,7 @@ class CacheCore
      */
     private function connectPhpArray()
     {
-        $file = constant('BASE_PATH') . '/core.cache';
+        $file = constant('BASE_PATH') . constant('DIRECTORY_SEPARATOR') . 'core.cache';
         $this->engine = new PhpArrayAdapter(
             $file,
             new FilesystemAdapter()

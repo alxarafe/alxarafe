@@ -6,10 +6,12 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Base\CacheCore;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
 use Exception;
+use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -78,6 +80,13 @@ class Config
      * @var Lang
      */
     public static $lang;
+
+    /**
+     * Cache core engine.
+     *
+     * @var PhpArrayAdapter
+     */
+    public static $cacheEngine;
 
     /**
      * Return true y the config file exists
@@ -157,9 +166,22 @@ class Config
             (new CreateConfig())->index();
             return;
         }
+
+        self::$cacheEngine = (new CacheCore())->getEngine();
+
         if (self::$lang === null) {
             self::$lang = new Lang(constant('LANG'));
         }
+    }
+
+    /**
+     * Return the default Cache Core.
+     *
+     * @return PhpArrayAdapter
+     */
+    public static function getCacheCoreEngine()
+    {
+        return self::$cacheEngine;
     }
 
     /**
