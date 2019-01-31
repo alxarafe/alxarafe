@@ -54,6 +54,8 @@ class View
         $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->vars['lang'] = Config::$lang;
         $this->title = isset($controller->title) ? $controller->title : 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX);
+
+        // TODO: We have twig blocks, we really needed here??
         $this->addCSS();
         $this->addJS();
     }
@@ -65,9 +67,7 @@ class View
      */
     public function addCSS(): void
     {
-        $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap.min.css'));
-        $this->addToVar('cssCode', $this->addResource('/twbs/bootstrap/dist/css/bootstrap-theme.min.css'));
-        $this->addToVar('cssCode', $this->addResource('/js/datatables.net-bs/css/dataTables.bootstrap.min.css'));
+        //$this->addToVar('cssCode', $this->addResource('/.css'));
     }
 
     /**
@@ -77,8 +77,7 @@ class View
      */
     public function addJS(): void
     {
-        $this->addToVar('jsCode', $this->addResource('/components/jquery/jquery.min.js'));
-        $this->addToVar('jsCode', $this->addResource('/twbs/bootstrap/dist/js/bootstrap.min.js'));
+        //$this->addToVar('jsCode', $this->addResource('/.js'));
     }
 
     /**

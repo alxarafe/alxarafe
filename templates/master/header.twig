@@ -14,10 +14,13 @@
 <title>{% block title %}{{ lang.trans(ctrl.title) }}{% endblock %} - Alxarafe</title>
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="vendor/alxarafe/alxarafe/templates/css/alxarafe.css">
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="html/templates/default/js/datatables.net-bs/js/dataTables.bootstrap.js">
     {% for css in cssCode %}
         <link rel="stylesheet" href="{{ css }}"/>
     {% endfor %}
+    <link rel="stylesheet" href="vendor/alxarafe/alxarafe/templates/css/alxarafe.css">
     {# start of getHeader #}
     {{ view.getHeader() | raw }}
     {# end of getHeader #}
