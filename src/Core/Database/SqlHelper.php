@@ -179,6 +179,14 @@ abstract class SqlHelper
 
     //abstract public function normalizeConstraints(array $fields): array;
 
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param bool   $usePrefix
+     *
+     * @return array
+     */
     public function getIndexes(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getIndexesSql($tableName, $usePrefix);

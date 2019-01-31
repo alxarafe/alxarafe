@@ -74,8 +74,10 @@ class Auth extends User
 
     /**
      * Login the user.
+     *
+     * @return void
      */
-    public function login()
+    public function login(): void
     {
         if (strpos($_SERVER['REQUEST_URI'], constant('CALL_CONTROLLER') . '=Login') === false) {
             $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_URI']));
@@ -85,8 +87,10 @@ class Auth extends User
 
     /**
      * Logout the user.
+     *
+     * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         Debug::addMessage(
             'messages',
@@ -106,8 +110,10 @@ class Auth extends User
 
     /**
      * Adjust auth cookie user.
+     *
+     * @return void
      */
-    private function adjustCookieUser($time = 0)
+    private function adjustCookieUser($time = 0): void
     {
         if ($time == 0) {
             $time = time() - 3600;
@@ -119,8 +125,10 @@ class Auth extends User
 
     /**
      * Clear the cookie user.
+     *
+     * @return void
      */
-    private function clearCookieUser()
+    private function clearCookieUser(): void
     {
         $this->adjustCookieUser();
         unset($_COOKIE['user']);
@@ -185,7 +193,7 @@ class Auth extends User
      *
      * @return string
      */
-    public function generateLogKey(string $ip = '', bool $unique = true)
+    public function generateLogKey(string $ip = '', bool $unique = true): string
     {
         $logkey = '';
         if (!empty($this->username)) {
@@ -213,7 +221,7 @@ class Auth extends User
      *
      * @return bool
      */
-    public function verifyLogKey(string $userName, string $hash)
+    public function verifyLogKey(string $userName, string $hash): bool
     {
         $status = false;
         $this->user = new User();

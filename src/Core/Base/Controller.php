@@ -16,6 +16,11 @@ use ReflectionClass;
  */
 class Controller
 {
+    /**
+     * TODO: Undocumented
+     *
+     * @var null
+     */
     public $username;
 
     /**
@@ -31,8 +36,10 @@ class Controller
 
     /**
      * Start point
+     *
+     * @return void
      */
-    public function index()
+    public function index(): void
     {
     }
 }

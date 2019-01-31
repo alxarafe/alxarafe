@@ -33,23 +33,22 @@ class PdoFirebird extends Engine
      *
      * @param string $query
      *
-     * @return array|null
+     * @return array
      */
-    public static function select(string $query)
+    public static function select(string $query): array
     {
         Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
+        $result = [];
         if (self::$statement !== false && self::$statement->execute([])) {
             // Se podría retornar directamente $_result si no fuese porque FIREBIRD retorna mayúsculas
             $_result = self::$statement->fetchAll(PDO::FETCH_ASSOC);
-            $result = [];
             foreach ($_result as $idx => $records) {
                 foreach ($records as $key => $value) {
                     $result[$idx][strtolower($key)] = $value;
                 }
             }
-            return $result;
         }
-        return null;
+        return $result;
     }
 }

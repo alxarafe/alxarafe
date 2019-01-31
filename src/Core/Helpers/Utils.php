@@ -109,7 +109,7 @@ class Utils
      *
      * @return bool
      */
-    public static function isTrue(array $param, $key)
+    public static function isTrue(array $param, $key): bool
     {
         return (isset($param[$key]) && (in_array($param[$key], ['yes', 'true', '1', 1])));
     }
@@ -136,9 +136,9 @@ class Utils
      *
      * @param int $length
      *
-     * @return bool|string
+     * @return string
      */
-    public static function randomString($length = 16)
+    public static function randomString($length = 16): string
     {
         if (function_exists("openssl_random_pseudo_bytes")) {
             $bytes = openssl_random_pseudo_bytes($length);

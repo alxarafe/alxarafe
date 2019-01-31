@@ -30,8 +30,10 @@ class ExportStructure extends PageController
 
     /**
      * Start point
+     *
+     * @return void
      */
-    public function index()
+    public function index(): void
     {
         parent::index();
         Skin::setView(new ExportStructureView($this));
@@ -62,6 +64,8 @@ class ExportStructure extends PageController
 
     /**
      * Run the class.
+     *
+     * @return void
      */
     public function run(): void
     {
@@ -70,8 +74,10 @@ class ExportStructure extends PageController
 
     /**.
      * Returns the page details.
+     *
+     * @return array
      */
-    public function pageDetails()
+    public function pageDetails(): array
     {
         $details = [
             'title' => Config::$lang->trans('export-db-estructure'),

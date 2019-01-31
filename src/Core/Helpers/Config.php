@@ -179,7 +179,7 @@ class Config
      *
      * @return PhpArrayAdapter
      */
-    public static function getCacheCoreEngine()
+    public static function getCacheCoreEngine(): PhpArrayAdapter
     {
         return self::$cacheEngine;
     }

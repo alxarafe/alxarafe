@@ -215,9 +215,9 @@ abstract class Engine
      *
      * @param string $query
      *
-     * @return array|null
+     * @return array
      */
-    public static function select(string $query)
+    public static function select(string $query): array
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
@@ -238,7 +238,7 @@ abstract class Engine
      *
      * @return array
      */
-    final public static function selectCoreCache(string $query, string $cachedName)
+    final public static function selectCoreCache(string $query, string $cachedName): array
     {
         if (constant('CORE_CACHE_ENABLED') === true) {
             $cacheEngine = Config::getCacheCoreEngine();

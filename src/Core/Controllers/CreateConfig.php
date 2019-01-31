@@ -30,8 +30,10 @@ class CreateConfig extends Controller
 
     /**
      * Start point
+     *
+     * @return void
      */
-    public function index()
+    public function index(): void
     {
         parent::index();
         if (!Config::configFileExists()) {
@@ -63,6 +65,8 @@ class CreateConfig extends Controller
 
     /**
      * Run the class.
+     *
+     * @return void
      */
     public function run(): void
     {
@@ -93,8 +97,10 @@ class CreateConfig extends Controller
 
     /**.
      * Returns the page details.
+     *
+     * @return array
      */
-    public function pageDetails()
+    public function pageDetails(): array
     {
         $details = [
             'title' => Config::$lang->trans('edit-configuration'),

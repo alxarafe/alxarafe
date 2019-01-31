@@ -106,8 +106,10 @@ class Lang
      * In this case, the translator must be provided with the routes in reverse order.
      *
      * @param string $lang
+     *
+     * @return void
      */
-    private function locateFiles(string $lang)
+    private function locateFiles(string $lang): void
     {
         self::$languages[] = $lang;
         $file = $this->getLangFolder() . '/' . $lang . self::EXT;
@@ -137,7 +139,7 @@ class Lang
      *
      * @return string
      */
-    public function getLangCode()
+    public function getLangCode(): string
     {
         return self::$defaultLang;
     }
@@ -146,8 +148,10 @@ class Lang
      * Sets the language code in use.
      *
      * @param string $lang
+     *
+     * @return void
      */
-    public function setLangCode(string $lang)
+    public function setLangCode(string $lang): void
     {
         self::$defaultLang = $this->firstMatch($lang);
     }
@@ -184,7 +188,7 @@ class Lang
      *
      * @return array
      */
-    public function getAvailableLanguages()
+    public function getAvailableLanguages(): array
     {
         $languages = [];
         $dir = $this->getLangFolder();
@@ -205,7 +209,7 @@ class Lang
      *
      * @return string
      */
-    public function trans($txt, array $parameters = [])
+    public function trans($txt, array $parameters = []): string
     {
         if (is_null($txt)) {
             return '';
@@ -226,7 +230,7 @@ class Lang
      *
      * @return string
      */
-    public function customTrans(string $lang, string $txt, array $parameters = [])
+    public function customTrans(string $lang, string $txt, array $parameters = []): string
     {
         if (!in_array($lang, self::$languages)) {
             $this->locateFiles($lang);
@@ -248,7 +252,7 @@ class Lang
      *
      * @return array
      */
-    public function getMissingStrings()
+    public function getMissingStrings(): array
     {
         return self::$missingStrings;
     }
@@ -258,7 +262,7 @@ class Lang
      *
      * @return array
      */
-    public function getUsedStrings()
+    public function getUsedStrings(): array
     {
         return self::$usedStrings;
     }
@@ -268,7 +272,7 @@ class Lang
      *
      * @return string
      */
-    public function getLangFolder()
+    public function getLangFolder(): string
     {
         return constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
     }
