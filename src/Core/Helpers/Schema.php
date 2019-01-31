@@ -64,7 +64,7 @@ class Schema
      * Verify the $fieldData established in the yaml file with the structure of
      * the database, creating the missing data and correcting the possible errors.
      *
-     * Posible data: unique, min, max, length, pattern, placeholder, rowlabel & fieldlabel
+     * Posible data: unique, min, max, length, pattern, placeholder, label & shortlabel
      *
      * @param string $field
      * @param array  $values
@@ -76,8 +76,8 @@ class Schema
     {
         $result = $fieldData ?? [];
 
-        $result['rowlabel'] = $result['rowlabel'] ?? $field;
-        $result['fieldlabel'] = $result['fieldlabel'] ?? $field;
+        $result['label'] = $result['label'] ?? $field;
+        $result['shortlabel'] = $result['shortlabel'] ?? $field;
         $result['placeholder'] = $result['placeholder'] ?? $field;
         switch ($values['type']) {
             case 'string':
@@ -99,7 +99,7 @@ class Schema
      * Verify the parameters established in the yaml file with the structure of the database, creating the missing data
      * and correcting the possible errors.
      *
-     * Posible data: unique, min, max, length, pattern, placeholder, rowlabel & fieldlabel
+     * Posible data: unique, min, max, length, pattern, placeholder, label & shortlabel
      *
      * @param array $struct current database table structure
      * @param array $data   current yaml file data

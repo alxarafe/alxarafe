@@ -82,6 +82,7 @@ class SchemaDB
             $sql = self::updateFields($tableName, $tabla['fields']);
         } else {
 //            Debug::addMessage('messages', "Create table '" . $tableName . "' : <pre>" . var_export($tabla, true) . "</pre>");
+            Config::$dbEngine->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
         }
 
@@ -202,6 +203,7 @@ class SchemaDB
         // 
         // TODO: Check dependencies of MySQL
         $sql = [];
+        Config::addMessage('SQL', $tableName . ($exists ? '' : ' no') . ' existe');
         if ($exists) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP PRIMARY KEY;';
         }
