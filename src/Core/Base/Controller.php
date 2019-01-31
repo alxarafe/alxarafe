@@ -6,8 +6,8 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
+use ReflectionClass;
 
 /**
  * Class Controller
@@ -23,7 +23,9 @@ class Controller
      */
     public function __construct()
     {
+        Debug::startTimer('controller', (new ReflectionClass($this))->getShortName() . ' Constructor');
         $this->username = null;
+        Debug::stopTimer('controller');
     }
 
     /**
