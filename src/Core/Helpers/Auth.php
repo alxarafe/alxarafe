@@ -53,7 +53,7 @@ class Auth extends User
     public function __construct()
     {
         parent::__construct();
-        $this->getCookieUser();
+        $this->username = $this->getCookieUser();
     }
 
     /**
@@ -68,11 +68,6 @@ class Auth extends User
                 $this->clearCookieUser();
                 $this->login();
             }
-        } else {
-            Debug::addMessage(
-                'messages',
-                'Auth::user yet setted (' . $_COOKIE['user'] . ', ' . $_COOKIE['logkey'] . '): '
-            );
         }
         return $this->username;
     }
@@ -117,8 +112,8 @@ class Auth extends User
         if ($time == 0) {
             $time = time() - 3600;
         }
-        $this->logkey = $this->generateLogKey();
         setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        $this->logkey = $this->generateLogKey();
         setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
     }
 
@@ -193,9 +188,9 @@ class Auth extends User
     public function generateLogKey(string $ip = '', bool $unique = true)
     {
         $logkey = '';
-        if (!empty($_COOKIE['user'])) {
+        if (!empty($this->username)) {
             $this->user = new User();
-            $this->user->getBy('username', $_COOKIE['user']);
+            $this->user->getBy('username', $this->username);
             $text = $this->username;
             if ($unique) {
                 $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');

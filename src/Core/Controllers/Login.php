@@ -42,16 +42,15 @@ class Login extends PageController
     public function index()
     {
         $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
+        $this->userAuth = new Auth();
 
         if (isset($_COOKIE ['user']) && isset($_COOKIE ['logkey'])) {
-            $this->userAuth = new Auth();
             $this->userName = $this->userAuth->getCookieUser();
         } elseif (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
             $remember = filter_input(INPUT_POST, 'remember-me', FILTER_SANITIZE_ENCODED);
             $remember = isset($remember);
-            $this->userAuth = new Auth();
             if ($this->userAuth->setUser($username, $password, $remember)) {
                 $this->redirectToController();
             }
