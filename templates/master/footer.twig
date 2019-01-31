@@ -6,8 +6,13 @@
 <footer class="footer" id="footercontent" name="footercontent">
     <div class="container">
         <p class="text-muted">
-            <a target="_blank" href="https://alxarafe.es/">Alxarafe</a> 2018-{{ "now"|date("Y") }} &copy; -
-            <a target="_blank" href="https://github.com/alxarafe/alxarafe">GitHub</a>
+            <span>
+                <a target="_blank" href="https://alxarafe.es/">Alxarafe</a> 2018-{{ "now"|date("Y") }} &copy; -
+                <a target="_blank" href="https://github.com/alxarafe/alxarafe">GitHub</a>
+            </span>
+            <span>
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ debugbarTime.collect().duration_str }}
+            </span>
         </p>
     </div>
 </footer>

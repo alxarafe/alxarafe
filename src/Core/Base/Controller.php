@@ -23,9 +23,10 @@ class Controller
      */
     public function __construct()
     {
-        Debug::startTimer('controller', (new ReflectionClass($this))->getShortName() . ' Constructor');
+        $shortName = (new ReflectionClass($this))->getShortName();
+        Debug::startTimer($shortName, $shortName . ' Controller Constructor');
         $this->username = null;
-        Debug::stopTimer('controller');
+        Debug::stopTimer($shortName);
     }
 
     /**

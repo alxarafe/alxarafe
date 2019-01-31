@@ -53,6 +53,7 @@ class View
         }
         $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->vars['lang'] = Config::$lang;
+        $this->vars['debugbarTime'] = Debug::$debugBar['time'];
         $this->title = isset($controller->title) ? $controller->title : 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX);
 
         // TODO: We have twig blocks, we really needed here??
@@ -89,7 +90,9 @@ class View
             Skin::setTemplate('default');
         }
         // $this->vars['errors'] = Config::getErrors();
+        // TODO: End full execution timer
         echo Skin::render($this->vars);
+        Debug::stopTimer('full-execution');
     }
 
     /**

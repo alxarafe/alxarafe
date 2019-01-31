@@ -10,6 +10,7 @@ use Alxarafe\Base\View;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Models\Page;
 use Exception;
+use ReflectionClass;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -33,7 +34,7 @@ class Dispatcher
     public function __construct()
     {
         $this->getConfiguration();
-
+        Debug::startTimer('full-execution', 'Complete execution');
         // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
         $this->searchDir = ['Alxarafe' => constant('ALXARAFE_FOLDER')];
     }
@@ -173,9 +174,16 @@ class Dispatcher
         if (file_exists($controllerPath) && is_file($controllerPath) && method_exists($className, $method)) {
             $theClass = new $className();
             Debug::addMessage('messages', 'Executing: ' . $call . '->index()');
+            $shortName = (new ReflectionClass($theClass))->getShortName();
+
+            Debug::startTimer($shortName . '->index()', $shortName . '->index()');
             $theClass->index();
+            Debug::stopTimer($shortName . '->index()');
+
             Debug::addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
+            Debug::startTimer($shortName, $shortName . '->' . $method . '()');
             $theClass->{$method}();
+            Debug::stopTimer($shortName . '->' . $method . '()');
             return true;
         }
         return false;

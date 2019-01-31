@@ -6,8 +6,10 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
+use ReflectionClass;
 
 /**
  * Class Table allows access to a table using an active record.
@@ -37,10 +39,13 @@ class Table extends SimpleTable
     public function __construct(string $tableName, array $params = [])
     {
         parent::__construct($tableName, $params);
+        $shortName = (new ReflectionClass($this))->getShortName();
+        Debug::startTimer($shortName, $shortName . ' Table Constructor');
         $this->nameField = $params['nameField'] ?? null;
 
         $create = $params['create'] ?? false;
         $this->checkStructure($create);
+        Debug::stopTimer($shortName);
     }
 
     /**

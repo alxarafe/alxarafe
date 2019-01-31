@@ -10,6 +10,7 @@ use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Utils;
 use Exception;
+use ReflectionClass;
 
 /**
  * Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its
@@ -68,6 +69,8 @@ class SimpleTable
      */
     public function __construct(string $tableName, array $params = [])
     {
+        $shortName = (new ReflectionClass($this))->getShortName();
+        Debug::startTimer($shortName, $shortName . ' Simple Constructor');
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->setStructure();
@@ -80,6 +83,7 @@ class SimpleTable
                 }
             }
         }
+        Debug::stopTimer($shortName);
     }
 
     /**
