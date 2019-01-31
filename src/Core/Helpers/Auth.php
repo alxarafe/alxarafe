@@ -65,6 +65,7 @@ class Auth extends User
     {
         if ($this->username === null) {
             if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && !$this->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
+                $this->clearCookieUser();
                 $this->login();
             }
         } else {
