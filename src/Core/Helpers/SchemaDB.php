@@ -45,7 +45,6 @@ class SchemaDB
         }
         return Utils::flatArray($queryResult);
     }
-
     /**
      * Obtain an array with the table structure with a standardized format.
      *
@@ -174,14 +173,11 @@ class SchemaDB
      */
     protected static function updateFields(string $tableName, array $fieldsList): array
     {
-        // $tableFields is structrure in current database
         $fields = self::modifyFields($tableName, $fieldsList);
-        $sql = '';
-        if ($fields !== '') {
-            $sql .= 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ';
-            $sql .= $fields . ';';
+        if ($fields === '') {
+            return [];
         }
-        return ($fields !== '') ? [] : [$sql];
+        return ['ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ' . $fields . ';'];
     }
 
     /**
@@ -203,7 +199,6 @@ class SchemaDB
         // 
         // TODO: Check dependencies of MySQL
         $sql = [];
-        Config::addMessage('SQL', $tableName . ($exists ? '' : ' no') . ' existe');
         if ($exists) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP PRIMARY KEY;';
         }
@@ -276,8 +271,12 @@ class SchemaDB
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . $indexData['index'] . ';';
         }
+
+        // Delete (if exists) and create the index related to the constraint
+        $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
+
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
             ') REFERENCES ' . $indexData['referencedtable'] . ' (' . $indexData['referencedfield'] . ')';
@@ -290,6 +289,7 @@ class SchemaDB
             $query .= ' ON DELETE ' . $indexData['deleterule'];
         }
         $sql[] = $query;
+
         return $sql;
     }
 

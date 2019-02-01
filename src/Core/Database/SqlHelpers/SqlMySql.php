@@ -291,13 +291,11 @@ class SqlMySql extends SqlHelper
                 FROM
                     ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('KEY_COLUMN_USAGE') . '
                 WHERE
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
-        //$result = Config::$dbEngine->select($sql);
-        $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraint-' . $constraintName);
-        return $result;
+        return Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraint-' . $constraintName);
     }
 
     /**
@@ -318,16 +316,19 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteFieldName('DELETE_RULE') . '
                 FROM ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
                 WHERE
-                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('table_name') . ' = ' . $this->quoteLiteral($tableName) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ';';
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral($constraintName) . ';';
         //$result = Config::$dbEngine->select($sql);
+        echo "<p>$sql</p>";
         $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraints');
         return $result;
     }
 
     /**
-     * Return the tablename or an empty string.
+     * Return the DataBaseName or an empty string.
+     *
+     * TODO: It's not getTablename, it's actually getDbName
      *
      * @return string
      */
@@ -350,19 +351,6 @@ class SqlMySql extends SqlHelper
     public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
         return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName, $usePrefix) . ';';
-    }
-
-    /**
-     * TODO: Undocumented and pending complete.
-     *
-     * @param string $tableName
-     *
-     * @return string
-     */
-    public function getConstraintsSql(string $tableName, bool $usePrefix = true): string
-    {
-        // TODO: Implement getConstraintsSql() method.
-        return '';
     }
 
     /**

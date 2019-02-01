@@ -3,11 +3,11 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Helpers\Utils;
 
 /**
  * Engine provides generic support for databases.
@@ -177,16 +177,22 @@ abstract class SqlHelper
      */
     abstract public function normalizeFields(array $fields): array;
 
-    //abstract public function normalizeConstraints(array $fields): array;
-
+    /**
+     * Obtains information about the indices of the table in a normalized array 
+     * and independent of the database engine
+     * 
+     * @param string $tableName
+     * @param bool $usePrefix
+     * @return array
+     */
     public function getIndexes(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getIndexesSql($tableName, $usePrefix);
-        //$data = Config::$dbEngine->select($query);
         $data = Config::$dbEngine->selectCoreCache($query, $tableName . '-indexes');
-//        Debug::addMessage('messages', "Query data: <pre>" . var_export($data, true) . "</pre>");
+
         $result = [];
-        foreach ($data as $value) {
+
+        foreach ($data as $key => $value) {
             $row = $this->normalizeIndexes($value);
             $result[$row['index']] = $row;
         }
@@ -213,28 +219,4 @@ abstract class SqlHelper
      * @return array
      */
     abstract public function normalizeIndexes(array $fields): array;
-
-    /**
-     * TODO: Undocumented
-     *
-     * @param string $tableName
-     *
-     * @return string
-     */
-    abstract public function getConstraintsSql(string $tableName, bool $usePrefix = true): string;
-
-    /*
-    public function getConstraints(string $tableName): array
-    {
-        $query = $this->getConstraintsSql($tableName);
-        $data = Config::$dbEngine->select($query);
-        $result = [];
-        foreach ($data as $value) {
-            $row = $this->normalizeConstraints($value);
-            $result[$row['constraint']] = $row;
-        }
-
-        return $result;
-    }
-    */
 }
