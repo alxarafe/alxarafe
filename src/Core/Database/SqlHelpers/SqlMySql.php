@@ -319,8 +319,6 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral($constraintName) . ';';
-        //$result = Config::$dbEngine->select($sql);
-        echo "<p>$sql</p>";
         $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraints');
         return $result;
     }
