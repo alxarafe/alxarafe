@@ -268,7 +268,7 @@ class Skin
      * @param      $e
      * @param bool $return
      *
-     * @return string
+     * @return string|void
      */
     private static function errorDetails($e, $return = false)
     {
@@ -288,8 +288,10 @@ class Skin
      * Add extensions to skin render.
      *
      * @param Twig_Environment $twig
+     *
+     * @return void
      */
-    private static function addSkinExtensions($twig)
+    private static function addSkinExtensions($twig): void
     {
         if (self::getOptions()['debug']) {
             // Only available in debug mode
@@ -303,7 +305,7 @@ class Skin
      *
      * @return string
      */
-    private static function getTemplate()
+    private static function getTemplate(): string
     {
         $template = (self::getTemplateVars()['template'] ?? Skin::$currentTemplate) . '.twig';
         Debug::addMessage('messages', "Using '$template' template");
@@ -317,7 +319,7 @@ class Skin
      *
      * @return array
      */
-    private static function getTemplateVars(array $vars = [])
+    private static function getTemplateVars(array $vars = []): array
     {
         return array_merge($vars, [
             '_REQUEST' => $_REQUEST,
@@ -332,7 +334,7 @@ class Skin
      *
      * @return array
      */
-    private static function getOptions()
+    private static function getOptions(): array
     {
         $options = [];
         $options['debug'] = (defined('DEBUG') && constant('DEBUG') == true);
@@ -347,7 +349,7 @@ class Skin
      *
      * @return array
      */
-    private static function getPaths()
+    private static function getPaths(): array
     {
         $usePath = [];
         $paths = [

@@ -130,8 +130,10 @@ class PageController extends Controller
 
     /**
      * Start point
+     *
+     * @return void
      */
-    public function index()
+    public function index(): void
     {
         if ($this->ensureLogin()) {
             // Stored to avoid duplicate queries
@@ -150,7 +152,7 @@ class PageController extends Controller
      *
      * @return bool
      */
-    private function ensureLogin()
+    private function ensureLogin(): bool
     {
         if ($this->userAuth === null) {
             $this->userAuth = new Auth();
@@ -178,8 +180,10 @@ class PageController extends Controller
 
     /**
      * Set the page details.
+     *
+     * @return void
      */
-    protected function setPageDetails()
+    protected function setPageDetails(): void
     {
         foreach ($this->pageDetails() as $property => $value) {
             $this->{$property} = $value;
@@ -188,9 +192,10 @@ class PageController extends Controller
 
     /**
      * Returns the page details.
+     *
+     * @return array
      */
-
-    public function pageDetails()
+    public function pageDetails(): array
     {
         $details = [
             'title' => Config::$lang->trans('Default title ') . random_int(PHP_INT_MIN, PHP_INT_MAX),
@@ -203,8 +208,10 @@ class PageController extends Controller
 
     /**
      * Returns the page details as array.
+     *
+     * @return array
      */
-    protected function getPageDetails()
+    protected function getPageDetails(): array
     {
         $pageDetails = [];
         foreach ($this->pageDetails() as $property => $value) {
@@ -265,7 +272,7 @@ class PageController extends Controller
      *
      * @return array
      */
-    public function getUserMenu()
+    public function getUserMenu(): array
     {
         $list = [];
         $pages = (new Page())->getAllRecords();

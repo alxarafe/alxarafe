@@ -36,11 +36,15 @@ class Cache
     private $engine;
 
     /**
+     * TODO: Undocumented
+     *
      * @var
      */
     private $prefix;
 
     /**
+     * TODO: Undocumented
+     *
      * @var
      */
     private $defaultLifeTime;
@@ -75,8 +79,10 @@ class Cache
      * Sets Memcache engine. Requires ext-memcached
      *
      * @doc https://symfony.com/doc/current/components/cache/adapters/memcached_adapter.html
+     *
+     * @return void
      */
-    private function connectMemcache()
+    private function connectMemcache(): void
     {
         if (constant('CACHE_HOST') !== '' && \class_exists('Memcache')) {
             try {
@@ -98,8 +104,10 @@ class Cache
      * Sets PDO engine.
      *
      * @doc https://symfony.com/doc/current/components/cache/adapters/pdo_doctrine_dbal_adapter.html
+     *
+     * @return void
      */
-    private function connectPDO()
+    private function connectPDO(): void
     {
         $dsn = '';
         $this->engine = new PdoAdapter(
@@ -113,8 +121,10 @@ class Cache
      * Sets PHP Files engine.
      *
      * @doc https://symfony.com/doc/current/components/cache/adapters/php_files_adapter.html
+     *
+     * @return void
      */
-    private function connectPhpFiles()
+    private function connectPhpFiles(): void
     {
         $directory = null;
         try {
@@ -132,8 +142,10 @@ class Cache
      * Sets Filesystem engine.
      *
      * @doc https://symfony.com/doc/current/components/cache/adapters/filesystem_adapter.html
+     *
+     * @return void
      */
-    private function connectFilesystem()
+    private function connectFilesystem(): void
     {
         $directory = null;
         $this->engine = new FilesystemAdapter(

@@ -57,8 +57,10 @@ class CacheCore
      * Sets PhpArray engine.
      *
      * @doc https://symfony.com/doc/current/components/cache/adapters/php_array_cache_adapter.html
+     *
+     * @return void
      */
-    private function connectPhpArray()
+    private function connectPhpArray(): void
     {
         $file = constant('BASE_PATH') . constant('DIRECTORY_SEPARATOR') . 'core.cache';
         $this->engine = new PhpArrayAdapter(
@@ -72,7 +74,7 @@ class CacheCore
      *
      * @return PhpArrayAdapter
      */
-    public function getEngine()
+    public function getEngine(): PhpArrayAdapter
     {
         return $this->engine;
     }

@@ -105,6 +105,8 @@ class Dispatcher
 
     /**
      * Run the application.
+     *
+     * @return void
      */
     public function run(): void
     {
@@ -193,8 +195,10 @@ class Dispatcher
      * Regenerate some needed data.
      *
      * TODO: Some parts must be moved to another parts on a near future.
+     *
+     * @return void
      */
-    private function regenerateData()
+    private function regenerateData(): void
     {
         if (constant('DEBUG') === true) {
 //            Debug::addMessage('messages', 'This calls must be in another place a near future.');
@@ -207,8 +211,10 @@ class Dispatcher
      * Instantiate all available models
      *
      * TODO: This must be executed only when update/upgrade the core. At this moment is forced if DEBUG is enabled.
+     *
+     * @return void
      */
-    private function instantiateModels()
+    private function instantiateModels(): void
     {
         // Start DB transaction
         Config::$dbEngine->beginTransaction();
@@ -236,8 +242,10 @@ class Dispatcher
      *
      * TODO: This must be checked only when update/upgrade the core.
      * WARNING: At this moment are generating 3 extra SQL queries per table.
+     *
+     * @return void
      */
-    private function checkPageControllers()
+    private function checkPageControllers(): void
     {
         // Start DB transaction
         Config::$dbEngine->beginTransaction();
