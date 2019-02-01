@@ -101,6 +101,12 @@ class Dispatcher
 
         // Use cache on Core
         define('CORE_CACHE_ENABLED', true);
+
+        // Default number of rows per page.
+        define('DEFAULT_ROWS_PER_PAGE', 25);
+
+        // Carry Return (retorno de carro) & Line Feed (salto de línea).
+        define('CRLF', "\n\t");
     }
 
     /**
