@@ -189,7 +189,7 @@ class Dispatcher
             Debug::stopTimer($shortName . '->index()');
 
             Debug::addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
-            Debug::startTimer($shortName, $shortName . '->' . $method . '()');
+            Debug::startTimer($shortName . '->' . $method . '()', $shortName . '->' . $method . '()');
             $theClass->{$method}();
             Debug::stopTimer($shortName . '->' . $method . '()');
             return true;

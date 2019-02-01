@@ -1,3 +1,4 @@
+'add-new': 'Add'
 'admin': 'Administration'
 'database-engine': 'Database engine'
 'dbHost': 'Database host'
@@ -8,6 +9,7 @@
 'dbUser': 'Database user'
 'default': 'Default'
 'default-skin': 'Default skin'
+'delete': 'Delete'
 'dev-tools': 'Development tools'
 'edit-configuration': 'Edit configuration'
 'edit-configuration-description': 'From here you can edit the configuration parameters.'

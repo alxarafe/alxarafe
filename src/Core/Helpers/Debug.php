@@ -166,7 +166,7 @@ class Debug
         if (!self::$debugBar['time']->hasStartedMeasure($name)) {
             self::$debugBar['time']->startMeasure($name, $message);
         } else {
-            Debug::addMessage('messages', 'Timer ' . $name . ' yet started and trying to start it again.');
+            Debug::addMessage('messages', "Timer '" . $name . "' yet started and trying to start it again.");
         }
     }
 
@@ -182,7 +182,7 @@ class Debug
         if (self::$debugBar['time']->hasStartedMeasure($name)) {
             self::$debugBar['time']->stopMeasure($name);
         } else {
-            Debug::addMessage('messages', 'Timer ' . $name . ' not yet started and trying to stop it.');
+            Debug::addMessage('messages', "Timer '" . $name . "' not yet started and trying to stop it.");
         }
     }
 
