@@ -135,13 +135,23 @@ class Dispatcher
      */
     public function process(): bool
     {
+        $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_ENCODED);
+        $call = !empty($call) ? $call : constant('DEFAULT_CONTROLLER');
+        $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_ENCODED);
+        $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
+
+        if (empty(Config::loadConfigurationFile()) || !Config::connectToDataBase()) {
+            if ($call !== 'CreateConfig' || $method !== 'main') {
+                Config::setError('Database Connection error...');
+                (new CreateConfig())->index();
+                return true;
+            }
+        }
+
         $this->regenerateData();
+
         foreach ($this->searchDir as $namespace => $dir) {
             $path = $dir . '/Controllers';
-            $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_ENCODED);
-            $call = !empty($call) ? $call : constant('DEFAULT_CONTROLLER');
-            $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_ENCODED);
-            $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
             if ($this->processFolder($path, $call, $method)) {
                 return true;
             }
@@ -163,13 +173,6 @@ class Dispatcher
     {
         if ($method === null) {
             $method = constant('DEFAULT_METHOD');
-        }
-        if (empty(Config::loadConfigurationFile()) || !Config::connectToDataBase()) {
-            if ($call !== 'CreateConfig' || $method !== 'main') {
-                Config::setError('Database Connection error...');
-                (new CreateConfig())->index();
-                return true;
-            }
         }
         $className = $call;
         foreach ($this->searchDir as $nameSpace => $dirPath) {
