@@ -278,8 +278,8 @@ class SchemaDB
         $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
 
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
-            ') REFERENCES ' . $indexData['referencedtable'] . ' (' . $indexData['referencedfield'] . ')';
+            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
+            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($indexData['referencedtable']) . ' (' . $indexData['referencedfield'] . ')';
 
         if ($indexData['updaterule'] != '') {
             $query .= ' ON UPDATE ' . $indexData['updaterule'];
