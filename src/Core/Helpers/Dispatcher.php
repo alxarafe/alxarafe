@@ -209,6 +209,12 @@ class Dispatcher
      */
     private function regenerateData(): void
     {
+        // It may occur during the creation of the configuration file
+        if (!isset(Config::$dbEngine)) {
+            Debug::addMessage('messages', 'Uninitialized database engine');
+            return;
+        }
+
         if (constant('DEBUG') === true) {
 //            Debug::addMessage('messages', 'This calls must be in another place a near future.');
             $this->instantiateModels();

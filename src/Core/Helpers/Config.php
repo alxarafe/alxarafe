@@ -166,7 +166,6 @@ class Config
             (new CreateConfig())->index();
             return;
         }
-
         self::$cacheEngine = (new CacheCore())->getEngine();
 
         if (self::$lang === null) {
