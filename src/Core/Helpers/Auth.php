@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
@@ -31,6 +30,7 @@ class Auth extends User
      *
      * @var string|null
      */
+
     private $username = null;
 
     /**
@@ -93,14 +93,15 @@ class Auth extends User
     public function logout(): void
     {
         Debug::addMessage(
-            'messages',
-            'Auth::Logout(): ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out')
+            'messages', 'Auth::Logout(): ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out')
         );
 
-        $this->user = new User();
-        $this->user->getBy('username', $this->username);
-        $this->user->logkey = null;
-        $this->user->save();
+        /*
+          $this->user = new User();
+          $this->user->getBy('username', $this->username);
+          $this->user->logkey = null;
+          $this->user->save();
+         */
 
         $this->username = null;
 
