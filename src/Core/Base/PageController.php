@@ -136,13 +136,6 @@ class PageController extends Controller
     public function index(): void
     {
         if ($this->ensureLogin()) {
-            // Stored to avoid duplicate queries
-            $this->canAccess = $this->canAction($this->userName, 'access');
-            $this->canCreate = $this->canAction($this->userName, 'create');
-            $this->canRead = $this->canAction($this->userName, 'read');
-            $this->canUpdate = $this->canAction($this->userName, 'update');
-            $this->canDelete = $this->canAction($this->userName, 'delete');
-
             parent::index();
         }
     }
@@ -161,6 +154,12 @@ class PageController extends Controller
         }
         if ($this->userName) {
             Debug::addMessage('messages', "User '" . $this->userName . "' logged in.");
+            // Stored to avoid duplicate queries
+            $this->canAccess = $this->canAction($this->userName, 'access');
+            $this->canCreate = $this->canAction($this->userName, 'create');
+            $this->canRead = $this->canAction($this->userName, 'read');
+            $this->canUpdate = $this->canAction($this->userName, 'update');
+            $this->canDelete = $this->canAction($this->userName, 'delete');
             $perms = [
                 'Access' => ($this->canAccess ? 'yes' : 'no'),
                 'Create' => ($this->canCreate ? 'yes' : 'no'),
