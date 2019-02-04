@@ -19,8 +19,8 @@
 
 {# Including jsCode #}
 {% block javascriptsFooter %}
-    <script src="vendor/components/jquery/jquery.min.js"></script>
-    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ view.getResourceUri('components/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ view.getResourceUri('twbs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     {% for js in jsCode %}
         <script type="text/javascript" src="{{ js }}"></script>
     {% endfor %}

@@ -103,13 +103,13 @@ class View
      *
      * @return string
      */
-    private function getResourceUri(string $path): string
+    public function getResourceUri(string $path): string
     {
         $paths = [
-            Skin::getTemplatesFolder() . '/' . $path => Skin::getTemplatesUri() . $path,
-            Skin::getCommonTemplatesFolder() . '/' . $path => Skin::getCommonTemplatesUri() . $path,
-            constant('DEFAULT_TEMPLATES_FOLDER') . '/' . $path => constant('DEFAULT_TEMPLATES_URI') . $path,
-            constant('VENDOR_FOLDER') . '/' . $path => constant('VENDOR_URI') . $path,
+            Skin::getTemplatesFolder() . '/' . $path => Skin::getTemplatesUri() . '/' . $path,
+            Skin::getCommonTemplatesFolder() . '/' . $path => Skin::getCommonTemplatesUri() . '/' . $path,
+            constant('DEFAULT_TEMPLATES_FOLDER') . '/' . $path => constant('DEFAULT_TEMPLATES_URI') . '/' . $path,
+            constant('VENDOR_FOLDER') . '/' . $path => constant('VENDOR_URI') . '/' . $path,
         ];
 
 //        Debug::addMessage('messages', "Looking for '$path':");
