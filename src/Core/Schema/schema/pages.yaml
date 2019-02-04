@@ -15,7 +15,7 @@ fields:
         length: '50'
         default: ''
         nullable: 'no'
-        key: index
+        key: unique
         unsigned: 'no'
         zerofill: 'no'
         autoincrement: 'no'

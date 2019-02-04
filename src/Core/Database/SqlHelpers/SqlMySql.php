@@ -191,7 +191,7 @@ class SqlMySql extends SqlHelper
         }
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
-        $result['nullable'] = $row['Null'] ? 'yes' : 'no';
+        $result['nullable'] = $row['Null'] === 'YES' ? 'yes' : 'no';
         switch ($row['Key']) {
             case 'PRI':
                 $result['key'] = 'primary';
