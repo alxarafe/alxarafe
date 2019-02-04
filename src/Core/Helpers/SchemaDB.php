@@ -252,7 +252,7 @@ class SchemaDB
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName('c_' . $indexData['index']) . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
         return $sql;
     }
 
