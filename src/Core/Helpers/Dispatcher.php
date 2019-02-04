@@ -142,8 +142,7 @@ class Dispatcher
 
         if (empty(Config::loadConfigurationFile()) || !Config::connectToDataBase()) {
             if ($call !== 'CreateConfig' || $method !== 'main') {
-                Config::setError('Database Connection error...');
-                (new CreateConfig())->index();
+                $this->processFolder(constant('BASE_PATH') . '/Controllers', 'CreateConfig', constant('DEFAULT_METHOD'));
                 return true;
             }
         }

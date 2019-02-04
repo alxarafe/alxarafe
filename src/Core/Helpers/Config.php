@@ -151,6 +151,10 @@ class Config
     {
         self::$errors = [];
         self::$global = self::loadConfigurationFile();
+
+        if (self::$lang === null) {
+            self::$lang = new Lang(constant('LANG'));
+        }
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;
             $skinFolder = $templatesFolder . '/' . self::$global['skin'];
@@ -167,10 +171,6 @@ class Config
             return;
         }
         self::$cacheEngine = (new CacheCore())->getEngine();
-
-        if (self::$lang === null) {
-            self::$lang = new Lang(constant('LANG'));
-        }
     }
 
     /**
