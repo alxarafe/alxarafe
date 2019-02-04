@@ -230,7 +230,7 @@ class SchemaDB
         if ($exists) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
-        $sql[] = 'CREATE INDEX ' . $indexData['index'] . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
+        $sql[] = 'CREATE INDEX ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
         return $sql;
     }
 
@@ -252,7 +252,7 @@ class SchemaDB
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . $indexData['index'] . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName('c_' . $indexData['index']) . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
         return $sql;
     }
 
@@ -271,7 +271,7 @@ class SchemaDB
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . ('c_' . $indexData['index']) . ';';
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName('c_' . $indexData['index']) . ';';
         }
 
         // Delete (if exists) and create the index related to the constraint
