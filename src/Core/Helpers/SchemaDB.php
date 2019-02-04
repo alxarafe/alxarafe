@@ -271,14 +271,14 @@ class SchemaDB
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . $indexData['index'] . ';';
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . ('c_' . $indexData['index']) . ';';
         }
 
         // Delete (if exists) and create the index related to the constraint
         $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
 
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
+            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName('c_' . $indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
             ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($indexData['referencedtable']) . ' (' . $indexData['referencedfield'] . ')';
 
         if ($indexData['updaterule'] != '') {

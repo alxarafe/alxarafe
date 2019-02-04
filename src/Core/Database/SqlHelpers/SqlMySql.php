@@ -282,7 +282,6 @@ class SqlMySql extends SqlHelper
      */
     private function getConstraintData(string $tableName, string $constraintName): array
     {
-        $tableNameWithPrefix = Config::getVar('dbPrefix') . $tableName;
         $sql = 'SELECT
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ',
                     ' . Config::$sqlHelper->quoteFieldName('COLUMN_NAME') . ',
@@ -293,8 +292,8 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('KEY_COLUMN_USAGE') . '
                 WHERE
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral('c_' . $constraintName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
         return Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraint-' . $constraintName);
     }
@@ -320,7 +319,7 @@ class SqlMySql extends SqlHelper
                 WHERE
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral($constraintName) . ';';
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral('c_' . $constraintName) . ';';
         $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraints');
         return $result;
     }
