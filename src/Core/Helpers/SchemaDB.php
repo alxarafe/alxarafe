@@ -228,7 +228,7 @@ class SchemaDB
         // CREATE UNIQUE INDEX idx_pname ON Persons (LastName, FirstName);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
         }
         $sql[] = 'CREATE INDEX ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
         return $sql;
@@ -270,24 +270,25 @@ class SchemaDB
         // https://www.w3schools.com/sql/sql_foreignkey.asp
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
         $sql = [];
-        if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName('c_' . $indexData['index']) . ';';
+        if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '' )) {
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
         }
 
         // Delete (if exists) and create the index related to the constraint
         $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
 
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName('c_' . $indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
-            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($indexData['referencedtable']) . ' (' . $indexData['referencedfield'] . ')';
-
-        if ($indexData['updaterule'] != '') {
-            $query .= ' ON UPDATE ' . $indexData['updaterule'];
-        }
+            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
+            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($indexData['referencedtable']) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
 
         if ($indexData['deleterule'] != '') {
             $query .= ' ON DELETE ' . $indexData['deleterule'];
         }
+
+        if ($indexData['updaterule'] != '') {
+            $query .= ' ON UPDATE ' . $indexData['updaterule'] . ';';
+        }
+
         $sql[] = $query;
 
         return $sql;

@@ -149,6 +149,7 @@ class SqlMySql extends SqlHelper
         }
 
         $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length'] ?? 0);
+        $result .= ($data['unsigned'] === 'yes' ? ' UNSIGNED' : '');
         $result .= ($null ? '' : ' NOT') . ' NULL';
 //        $result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
         $result .= $zerofill ? ' ZEROFILL' : '';
@@ -205,7 +206,7 @@ class SqlMySql extends SqlHelper
         }
         $result['unsigned'] = $type['unsigned'];
         $result['zerofill'] = $type['zerofill'];
-        $result['autoincrement'] = $row['Extra'] == 'auto_increment' ? 'yes' : 'no';
+        $result['autoincrement'] = $row['Extra'] === 'auto_increment' ? 'yes' : 'no';
 
         return $result;
     }
@@ -293,7 +294,7 @@ class SqlMySql extends SqlHelper
                 WHERE
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral('c_' . $constraintName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
         return Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraint-' . $constraintName);
     }
@@ -319,7 +320,7 @@ class SqlMySql extends SqlHelper
                 WHERE
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral('c_' . $constraintName) . ';';
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral($constraintName) . ';';
         $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraints');
         return $result;
     }

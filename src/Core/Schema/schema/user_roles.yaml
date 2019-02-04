@@ -18,7 +18,7 @@ fields:
         key: primary
         unsigned: 'yes'
         zerofill: 'no'
-        autoincrement: 'yes'
+        autoincrement: 'no'
     role_id:
         field: role_id
         type: integer
@@ -28,7 +28,7 @@ fields:
         key: primary
         unsigned: 'yes'
         zerofill: 'no'
-        autoincrement: 'yes'
+        autoincrement: 'no'
 indexes:
     PRIMARY:
         index: PRIMARY
