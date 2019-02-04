@@ -3,6 +3,8 @@
 'add-new': 'Añadir'
 'admin': 'Administración'
 'back': 'Volver'
+'col-id': 'Id.'
+'col-name': 'Nombre'
 'database-engine': 'Motor de base de datos'
 'dbHost': 'Servidor de base de datos'
 'dbName': 'Nombre de base de datos'

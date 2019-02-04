@@ -3,6 +3,8 @@
 'add-new': 'Add'
 'admin': 'Administration'
 'back': 'Back'
+'col-id': 'Id.'
+'col-name': 'Name'
 'database-engine': 'Database engine'
 'dbHost': 'Database host'
 'dbName': 'Database name'
