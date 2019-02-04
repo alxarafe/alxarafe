@@ -83,12 +83,30 @@ abstract class Engine
         $path = constant('ALXARAFE_FOLDER') . '/Database/Engines';
         $engines = scandir($path);
         $ret = [];
+        // Unset engines not fully supported
+        $unsupported = self::unsupportedEngines();
         foreach ($engines as $engine) {
             if ($engine != '.' && $engine != '..' && substr($engine, -4) == '.php') {
-                $ret[] = substr($engine, 0, strlen($engine) - 4);
+                $engine = substr($engine, 0, strlen($engine) - 4);
+                if (in_array($engine, $unsupported)) {
+                    continue;
+                }
+                $ret[] = $engine;
             }
         }
         return $ret;
+    }
+
+    /**
+     * Returns a list of unsupported engines.
+     * The unsupported engines here are the not fully supported yet.
+     *
+     * @return array
+     */
+    public static function unsupportedEngines()
+    {
+        //return [];
+        return ['PdoFirebird'];
     }
 
     /**
