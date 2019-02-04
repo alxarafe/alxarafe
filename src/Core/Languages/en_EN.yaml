@@ -1,6 +1,7 @@
 'action': 'Action'
 'add-new': 'Add'
 'admin': 'Administration'
+'back': 'Back'
 'database-engine': 'Database engine'
 'dbHost': 'Database host'
 'dbName': 'Database name'

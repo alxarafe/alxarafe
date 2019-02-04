@@ -1,6 +1,7 @@
 'action': 'Acción'
 'add-new': 'Añadir'
 'admin': 'Administración'
+'back': 'Volver'
 'database-engine': 'Motor de base de datos'
 'dbHost': 'Servidor de base de datos'
 'dbName': 'Nombre de base de datos'
