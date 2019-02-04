@@ -54,7 +54,9 @@ class EditConfig extends PageController
                     'messages',
                     ($this->save() ? 'Changes stored' : 'Changes not stored')
                 );
-                $this->index();
+                // The database or prefix may have been changed and have to be regenerated.
+                Config::$cacheEngine->clear();
+                $this->userAuth->logout();
                 break;
             case 'cancel':
             default:

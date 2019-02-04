@@ -289,7 +289,7 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteFieldName('REFERENCED_TABLE_NAME') . ',
                     ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . '
                 FROM
-                    ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('KEY_COLUMN_USAGE') . '
+                    ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('KEY_COLUMN_USAGE') . '
                 WHERE
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
@@ -314,7 +314,7 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteFieldName('MATCH_OPTION') . ',
                     ' . Config::$sqlHelper->quoteFieldName('UPDATE_RULE') . ',
                     ' . Config::$sqlHelper->quoteFieldName('DELETE_RULE') . '
-                FROM ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
+                FROM ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
                 WHERE
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
@@ -360,11 +360,12 @@ class SqlMySql extends SqlHelper
      */
     public function tableExists(string $tableName): string
     {
+        $tableNameWithPrefix = Config::getVar('dbPrefix') . $tableName;
         $sql = 'SELECT *  FROM '
-            . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA') . '.' . Config::$sqlHelper->quoteFieldName('TABLES')
+            . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('TABLES')
             . ' WHERE '
             . Config::$sqlHelper->quoteFieldName('TABLE_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename())
-            . ' AND ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ';';
+            . ' AND ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ';';
         return $sql;
     }
 }
