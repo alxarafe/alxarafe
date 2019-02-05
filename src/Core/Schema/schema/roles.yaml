@@ -26,11 +26,9 @@ fields:
         unsigned: 'yes'
 indexes:
     PRIMARY:
-        index: PRIMARY
         column: id
         unique: 'yes'
     name:
-        index: name
         column: name
         unique: 'yes'
 values:

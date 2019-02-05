@@ -44,11 +44,9 @@ fields:
         unsigned: 'no'
 indexes:
     PRIMARY:
-        index: PRIMARY
         column: id
         unique: 'yes'
     user_name:
-        index: user_name
         column: username
         unique: 'no'
 values:

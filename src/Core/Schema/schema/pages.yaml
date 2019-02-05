@@ -62,10 +62,8 @@ fields:
         unsigned: 'no'
 indexes:
     PRIMARY:
-        index: PRIMARY
         column: id
         unique: 'yes'
     controller:
-        index: controller
         column: controller
         unique: 'yes'

@@ -20,15 +20,12 @@ fields:
         unsigned: 'yes'
 indexes:
     PRIMARY:
-        index: PRIMARY
         column: id
         unique: 'yes'
     user_id:
-        index: user_id
         column: user_id
         unique: 'no'
     role_id:
-        index: role_id
         column: role_id
         unique: 'no'
 values:

@@ -56,15 +56,11 @@ fields:
         unsigned: 'yes'
 indexes:
     PRIMARY:
-        index: PRIMARY
         column: id
         unique: 'yes'
-        nullable: 'no'
     role_page:
-        index: role_page
         column: role_id,page_id
         unique: 'yes'
-        nullable: 'no'
 values:
     1:
         id: 1
