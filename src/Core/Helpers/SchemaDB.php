@@ -79,17 +79,20 @@ class SchemaDB
         if ($tableExists) {
 //            Debug::addMessage('messages', "Update table '" . $tableName . "' fields: <pre>" . var_export($tabla, true) . "</pre>");
             $sql = self::updateFields($tableName, $tabla['fields']);
+            // TODO: Needs to be added call to updated indexes.
         } else {
 //            Debug::addMessage('messages', "Create table '" . $tableName . "' : <pre>" . var_export($tabla, true) . "</pre>");
             Config::$dbEngine->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
-        }
 
-        foreach ($tabla['indexes'] as $name => $index) {
-            $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
-        }
+            if (!Config::$dbEngine->exec($sql)) {
+                return false;
+            }
 
-        if (!$tableExists) {
+            $sql = [];
+            foreach ($tabla['indexes'] as $name => $index) {
+                $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
+            }
             $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
         }
 
@@ -130,11 +133,16 @@ class SchemaDB
         $newFields = [];
         $modifiedFields = [];
         foreach ($fieldsList as $key => $fields) {
+            unset($fields['key']);
+            unset($tableFields[$key]['key']);
             if (!isset($tableFields[$key])) {
                 $newFields[$key] = $fields;
             } else {
                 if (count(array_diff($fields, $tableFields[$key])) > 0) {
                     $modifiedFields[$key] = $fields;
+                    var_dump($tableName);
+                    var_dump($fields);
+                    var_dump($tableFields[$key]);
                 }
             }
         }
@@ -205,9 +213,10 @@ class SchemaDB
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
         if ($autoincrement) {
+            $length = Config::$bbddStructure[$tableName]['fields'][$indexData['column']]['length'];
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
                 ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
-                ' INT UNSIGNED AUTO_INCREMENT';
+                ' INT(' . $length . ') UNSIGNED AUTO_INCREMENT';
         }
         return $sql;
     }

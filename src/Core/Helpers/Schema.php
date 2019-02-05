@@ -88,6 +88,7 @@ class Schema
                 $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
                 $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
                 $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
+                $result['length'] = max([intval($result['length']) ?? 0, $length]);
                 $result['min'] = min([intval($result['min'] ?? 0), $min]);
                 $result['max'] = max([intval($result['min'] ?? 0), $max]);
                 break;

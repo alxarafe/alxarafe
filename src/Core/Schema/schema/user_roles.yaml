@@ -13,9 +13,9 @@ fields:
         field: user_id
         type: integer
         length: '10'
-        default: null
-        nullable: 'yes'
-        key: primary
+        default: '0'
+        nullable: 'no'
+        key: index
         unsigned: 'yes'
         zerofill: 'no'
         autoincrement: 'no'
@@ -24,8 +24,8 @@ fields:
         type: integer
         length: '10'
         default: null
-        nullable: 'yes'
-        key: primary
+        nullable: 'no'
+        key: index
         unsigned: 'yes'
         zerofill: 'no'
         autoincrement: 'no'
@@ -39,12 +39,12 @@ indexes:
         index: user_id
         column: user_id
         unique: 'no'
-        nullable: 'yes'
+        nullable: 'no'
     role_id:
         index: role_id
         column: role_id
         unique: 'no'
-        nullable: 'yes'
+        nullable: 'no'
 values:
     1:
         id: 1

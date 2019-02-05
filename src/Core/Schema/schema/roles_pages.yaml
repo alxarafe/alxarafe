@@ -15,7 +15,7 @@ fields:
         length: '10'
         default: null
         nullable: 'no'
-        key: primary
+        key: index
         unsigned: 'yes'
         zerofill: 'no'
         autoincrement: 'no'
@@ -25,7 +25,7 @@ fields:
         length: '10'
         default: null
         nullable: 'yes'
-        key: primary
+        key: index
         unsigned: 'yes'
         zerofill: 'no'
     can_access:
@@ -74,7 +74,7 @@ fields:
         zerofill: 'no'
         autoincrement: 'no'
     locked:
-        field: active
+        field: locked
         type: integer
         length: '1'
         default: '0'
