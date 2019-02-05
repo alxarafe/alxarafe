@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Exception;
@@ -15,11 +14,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Schema
 {
-
-    /**
-     * Carriage return
-     */
-    const CRLF = "\n\t";
 
     /**
      * Returns the path to the specified file, or empty string if it does not exist.
@@ -82,13 +76,13 @@ class Schema
         switch ($values['type']) {
             case 'string':
                 $length = intval($values['length'] ?? constant(DEFAULT_STRING_LENGTH));
-                $result['length'] = max([intval($result['length']) ?? 0, $length]);
+                $result['length'] = max([intval($result['length'] ?? 0), $length]);
                 break;
             case 'integer':
                 $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
                 $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
                 $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
-                $result['length'] = max([intval($result['length']) ?? 0, $length]);
+                $result['length'] = max([intval($result['length'] ?? 0), $length]);
                 $result['min'] = min([intval($result['min'] ?? 0), $min]);
                 $result['max'] = max([intval($result['min'] ?? 0), $max]);
                 break;
@@ -161,6 +155,8 @@ class Schema
 
     /**
      * Return true if complete table structure was saved, otherwise return false.
+     * If the name of the table includes the prefix used in the database, it is
+     * removed from the name of the table.
      *
      * @param string $table
      *
@@ -169,10 +165,13 @@ class Schema
     public static function saveTableStructure(string $table): bool
     {
         $result = true;
-        $structure = Config::$dbEngine->getStructure($table, false);
+        $prefix = Config::getVar('dbPrefix');
+        $usePrefix = substr($table, 0, strlen($prefix)) == $prefix;
+        $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
+        $structure = Config::$dbEngine->getStructure($tableName, $usePrefix);
         foreach (['schema', 'viewdata'] as $type) {
             $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
-            $result = $result && self::saveSchemaFileName($data, $table, $type);
+            $result = $result && self::saveSchemaFileName($data, $tableName, $type);
         }
         return $result;
     }

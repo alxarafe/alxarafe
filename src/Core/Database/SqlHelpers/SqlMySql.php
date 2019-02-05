@@ -193,20 +193,24 @@ class SqlMySql extends SqlHelper
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
         $result['nullable'] = $row['Null'] === 'YES' ? 'yes' : 'no';
-        switch ($row['Key']) {
-            case 'PRI':
-                $result['key'] = 'primary';
-                break;
-            case 'UNI':
-                $result['key'] = 'unique';
-                break;
-            case 'MUL':
-                $result['key'] = 'index';
-                break;
-        }
+        /*
+          switch ($row['Key']) {
+          case 'PRI':
+          $result['key'] = 'primary';
+          break;
+          case 'UNI':
+          $result['key'] = 'unique';
+          break;
+          case 'MUL':
+          $result['key'] = 'index';
+          break;
+          }
+         */
         $result['unsigned'] = $type['unsigned'];
-        $result['zerofill'] = $type['zerofill'];
-        $result['autoincrement'] = $row['Extra'] === 'auto_increment' ? 'yes' : 'no';
+        // $result['zerofill'] = $type['zerofill'];
+        if ($row['Extra'] === 'auto_increment') {
+            $result['autoincrement'] = 'yes';
+        }
 
         return $result;
     }
@@ -255,7 +259,6 @@ class SqlMySql extends SqlHelper
         $result['index'] = $fields['Key_name'];
         $result['column'] = $fields['Column_name'];
         $result['unique'] = $fields['Non_unique'] == '0' ? 'yes' : 'no';
-        $result['nullable'] = $fields['Null'] == 'YES' ? 'yes' : 'no';
         $constrait = $this->getConstraintData($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
             $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];

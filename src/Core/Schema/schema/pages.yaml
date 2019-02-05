@@ -1,104 +1,71 @@
 fields:
     id:
-        field: id
         type: integer
         length: '10'
         default: null
-        nullable: 'yes'
-        key: primary
+        nullable: 'no'
         unsigned: 'yes'
-        zerofill: 'no'
         autoincrement: 'yes'
     controller:
-        field: controller
         type: string
         length: '50'
         default: ''
         nullable: 'no'
-        key: unique
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
     title:
-        field: title
         type: string
         length: '50'
         default: ''
         nullable: 'no'
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
     description:
-        field: description
         type: string
         length: '255'
         default: ''
         nullable: 'no'
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
     menu:
-        field: menu
         type: string
         length: '255'
         default: ''
         nullable: 'no'
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
     icon:
-        field: icon
         type: string
         length: '255'
         default: ''
         nullable: 'no'
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
     active:
-        field: active
         type: integer
         length: '1'
         default: '0'
         nullable: 'no'
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
     plugin:
-        field: plugin
         type: string
         length: '50'
-        default: 'Core'
+        default: Core
         nullable: 'no'
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
     inserted_date:
-        field: inserted_date
         type: datetime
         length: null
         default: CURRENT_TIMESTAMP
         nullable: 'yes'
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
     updated_date:
-        field: updated_date
         type: datetime
         length: null
         default: CURRENT_TIMESTAMP
         nullable: 'yes'
         unsigned: 'no'
-        zerofill: 'no'
-        autoincrement: 'no'
 indexes:
     PRIMARY:
         index: PRIMARY
         column: id
         unique: 'yes'
-        nullable: 'no'
     controller:
         index: controller
         column: controller
         unique: 'yes'
-        nullable: 'no'
