@@ -153,7 +153,9 @@ abstract class SqlHelper
         $result = [];
         foreach ($data as $value) {
             $row = $this->normalizeFields($value);
-            $result[$row['field']] = $row;
+            $field = $row['field'];
+            unset($row['field']);
+            $result[$field] = $row;
         }
         return $result;
     }
@@ -192,11 +194,15 @@ abstract class SqlHelper
 
         $result = [];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             $row = $this->normalizeIndexes($value);
-            $result[$row['index']] = $row;
+            // If there exists is a composite index
+            if (isset($result[$row['index']])) {
+                $result[$row['index']]['column'] .= ',' . $row['column'];
+            } else {
+                $result[$row['index']] = $row;
+            }
         }
-
         return $result;
     }
 

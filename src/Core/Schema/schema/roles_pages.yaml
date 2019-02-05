@@ -1,99 +1,70 @@
 fields:
     id:
-        field: id
-        type: integer
-        length: '10'
-        default: null
-        nullable: 'yes'
-        key: primary
-        unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'yes'
-    role_id:
-        field: role_id
         type: integer
         length: '10'
         default: null
         nullable: 'no'
-        key: index
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
+        autoincrement: 'yes'
+    role_id:
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
     page_id:
-        field: page_id
         type: integer
         length: '10'
         default: null
         nullable: 'yes'
-        key: index
         unsigned: 'yes'
-        zerofill: 'no'
     can_access:
-        field: can_access
         type: integer
         length: '10'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
     can_create:
-        field: can_create
         type: integer
         length: '10'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
     can_read:
-        field: can_read
         type: integer
         length: '10'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
     can_update:
-        field: can_update
         type: integer
         length: '10'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
     can_delete:
-        field: can_delete
         type: integer
         length: '10'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
     locked:
-        field: locked
         type: integer
         length: '1'
         default: '0'
         nullable: 'no'
         unsigned: 'yes'
-        zerofill: 'no'
-        autoincrement: 'no'
 indexes:
     PRIMARY:
         index: PRIMARY
         column: id
         unique: 'yes'
         nullable: 'no'
-#    # At this moment this is not working
-#    role_page:
-#        index: role_page
-#        column: role_id, page_id
-#        unique: 'yes'
-#        nullable: 'no'
+    role_page:
+        index: role_page
+        column: role_id,page_id
+        unique: 'yes'
+        nullable: 'no'
 values:
     1:
         id: 1

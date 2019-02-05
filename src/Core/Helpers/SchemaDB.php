@@ -11,12 +11,6 @@ namespace Alxarafe\Helpers;
  */
 class SchemaDB
 {
-
-    /**
-     * Symbols for "carry return" and "line feed"
-     */
-    const CRLF = "\n\t";
-
     /**
      * Return true if $tableName exists in database
      *
@@ -45,22 +39,6 @@ class SchemaDB
         }
         return Utils::flatArray($queryResult);
     }
-    /**
-     * Obtain an array with the table structure with a standardized format.
-     *
-     * @param string $tableName
-     * @param bool   $usePrefix
-     *
-     * @return array
-     */
-    /*
-     * Delete y really not used!
-      public static function getStructure(string $tableName, bool $usePrefix = true): array
-      {
-      return Config::$dbEngine->getStructure($tableName, $usePrefix);
-      }
-     * 
-     */
 
     /**
      * Create or update the structure of the table.
@@ -140,9 +118,6 @@ class SchemaDB
             } else {
                 if (count(array_diff($fields, $tableFields[$key])) > 0) {
                     $modifiedFields[$key] = $fields;
-                    var_dump($tableName);
-                    var_dump($fields);
-                    var_dump($tableFields[$key]);
                 }
             }
         }
@@ -256,12 +231,19 @@ class SchemaDB
     {
         // https://www.w3schools.com/sql/sql_unique.asp
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
+        $columnsArray = explode(',', $indexData['column']);
+        $columns = '';
+        foreach ($columnsArray as $key => $column) {
+            $columnsArray[$key] = Config::$sqlHelper->quoteFieldName($column);
+        }
+        $columns = implode(',', $columnsArray);
+
         $sql = [];
         if ($exists) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' UNIQUE (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ')';
+            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' UNIQUE (' . $columns . ')';
         return $sql;
     }
 
