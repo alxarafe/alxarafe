@@ -196,6 +196,41 @@ class Table extends SimpleTable
      */
     public function getDefaultValues(): array
     {
-        return [];
+        $items = [];
+        foreach ($this->getStructure()['fields'] as $key => $value) {
+            $items[$key] = $value['default'] ?? '';
+            if ($items[$key] === '' && $value['nullable'] === 'no') {
+                switch ($value['type']) {
+                    case 'integer':
+                    case 'number':
+                    case 'email':
+                        $items[$key] = 0;
+                        break;
+                    case 'checkbox':
+                        $items[$key] = false;
+                        break;
+                    case 'date':
+                        $items[$key] = date('Y-m-d');
+                        break;
+                    case 'datetime':
+                        $items[$key] = date('Y-m-d H:i:s');
+                        break;
+                    case 'time':
+                        $items[$key] = date('H:i:s');
+                        break;
+                    case 'string':
+                    case 'text':
+                    case 'textarea':
+                    case 'blob':
+                    case 'data':
+                    case 'link':
+                        $items[$key] = '';
+                        break;
+                    default:
+                        $items[$key] = $value['default'];
+                }
+            }
+        }
+        return $items;
     }
 }
