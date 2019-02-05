@@ -24,14 +24,21 @@ class Controller
     public $username;
 
     /**
+     * Class short name.
+     *
+     * @var string
+     */
+    public $shortName;
+
+    /**
      * Controller constructor.
      */
     public function __construct()
     {
-        $shortName = (new ReflectionClass($this))->getShortName();
-        Debug::startTimer($shortName, $shortName . ' Controller Constructor');
+        $this->shortName = (new ReflectionClass($this))->getShortName();
+        Debug::startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->username = null;
-        Debug::stopTimer($shortName);
+        Debug::stopTimer($this->shortName);
     }
 
     /**

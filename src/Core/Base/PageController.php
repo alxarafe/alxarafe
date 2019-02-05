@@ -119,11 +119,20 @@ class PageController extends Controller
     public $roles;
 
     /**
+     * Contiene la url que se usará en el formulario.
+     *
+     * @var string
+     */
+    public $url;
+
+    /**
      * PageController constructor.
      */
     public function __construct()
     {
         parent::__construct();
+
+        $this->url = constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName;
 
         $this->setPageDetails();
     }
