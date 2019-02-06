@@ -226,6 +226,8 @@ class Table extends SimpleTable
                     case 'link':
                         $items[$key] = '';
                         break;
+                    case '':
+                        break;
                     default:
                         $items[$key] = $value['default'];
                 }

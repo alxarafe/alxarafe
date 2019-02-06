@@ -220,6 +220,27 @@ class SimpleTable
     }
 
     /**
+     * Deletes the active record.
+     *
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        if (empty($this->id)) {
+            return false;
+        }
+        $sql = 'DELETE FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($this->id) . ';';
+        $result = Config::$dbEngine->exec([$sql]);
+        if ($result) {
+            $this->id = null;
+            $this->newData = null;
+            $this->oldData = null;
+        }
+        return $result;
+    }
+
+    /**
      * This method is private. Use load instead.
      * Establishes a record as an active record.
      * If found, the $id will be in $this->id and the data in $this->newData.
@@ -427,5 +448,25 @@ class SimpleTable
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ';';
         return Config::$dbEngine->select($sql);
+    }
+
+    /**
+     * Return oldData details.
+     *
+     * @return array
+     */
+    public function getOldData(): array
+    {
+        return $this->oldData;
+    }
+
+    /**
+     * Return newData details.
+     *
+     * @return array
+     */
+    public function getNewData(): array
+    {
+        return $this->newData;
     }
 }
