@@ -157,7 +157,7 @@ class SimpleTable
             case 'set':
                 return $this->newData[$field] = $params[0] ?? '';
             case 'get':
-                return $this->newData[$field];
+                return $this->newData[$field] ?? null;
             default:
                 Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params, true);
                 throw new Exception('Program halted!');
