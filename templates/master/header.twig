@@ -9,17 +9,17 @@
 <meta name="description" content="{{ main.description | raw }}"/>
 <meta name="author" content="{{ main.author | raw }}">
 <meta name="generator" content="Alxarafe"/>
-<link rel="shortcut icon" href="{{ view.getResourceUri('alxarafe/templates/img/favicon.ico') }}"/>
+<link rel="shortcut icon" href="{{ view.getResourceUri('/alxarafe/templates/img/favicon.ico') }}"/>
 
 <title>{% block title %}{{ lang.trans(ctrl.title) }}{% endblock %} - Alxarafe</title>
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('twbs/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('twbs/bootstrap/dist/css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('/twbs/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('/twbs/bootstrap/dist/css/bootstrap-theme.min.css') }}">
     {% for css in cssCode %}
         <link rel="stylesheet" type="text/css" href="{{ css }}"/>
     {% endfor %}
-    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('alxarafe/templates/css/alxarafe.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('/alxarafe/templates/css/alxarafe.css') }}">
     {# start of getHeader #}
     {{ view.getHeader() | raw }}
     {# end of getHeader #}
