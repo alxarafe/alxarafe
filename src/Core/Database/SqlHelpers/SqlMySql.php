@@ -267,7 +267,7 @@ class SqlMySql extends SqlHelper
         }
         $constrait = $this->getConstraintRules($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
-            // $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
+            $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
             $result['updaterule'] = $constrait[0]['UPDATE_RULE'];
             $result['deleterule'] = $constrait[0]['DELETE_RULE'];
         }
@@ -314,7 +314,6 @@ class SqlMySql extends SqlHelper
      */
     private function getConstraintRules(string $tableName, string $constraintName): array
     {
-        $tableNameWithPrefix = Config::getVar('dbPrefix') . $tableName;
         $sql = 'SELECT
                     ' . Config::$sqlHelper->quoteFieldName('MATCH_OPTION') . ',
                     ' . Config::$sqlHelper->quoteFieldName('UPDATE_RULE') . ',
@@ -322,9 +321,9 @@ class SqlMySql extends SqlHelper
                 FROM ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
                 WHERE
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
                     ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral($constraintName) . ';';
-        $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraints');
+        $result = Config::$dbEngine->selectCoreCache($sql, $tableName . '-constraints-' . $constraintName);
         return $result;
     }
 
