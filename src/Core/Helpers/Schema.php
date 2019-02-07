@@ -131,7 +131,7 @@ class Schema
     }
 
     /**
-     * Returns an array with data from the specefied yaml file
+     * Returns an array with data from the specified yaml file
      *
      * @param string $tableName
      * @param string $type must be 'schema' or 'viewdata'
@@ -140,19 +140,37 @@ class Schema
      */
     public static function getFromYamlFile(string $tableName, string $type = 'schema'): array
     {
-        $fileName = self::getSchemaFileName($tableName, $type);
-        if ($fileName == '') {
-            return [];
-        }
+        switch ($type) {
+            /** @noinspection PhpMissingBreakStatementInspection */
+            case 'values':
+                $fileName = self::getSchemaFileName($tableName, $type);
+                $data = self::loadDataFromCsv($fileName);
+                if (!empty($data)) {
+                    return $data;
+                }
+                // no-break
 
-        if ($type == 'values') {
-            $csv = new Csv();
-            $csv->auto($fileName);
-            var_dump($csv);
-            return $csv->data;
+            default:
+                $fileName = self::getSchemaFileName($tableName, $type);
+                if ($fileName == '') {
+                    return [];
+                }
+                return Yaml::parse(file_get_contents($fileName));
         }
+    }
 
-        return Yaml::parse(file_get_contents($fileName));
+    /**
+     * Load default data for a table if exists.
+     *
+     * @param string $fileName
+     *
+     * @return array
+     */
+    public static function loadDataFromCsv(string $fileName)
+    {
+        $csv = new Csv();
+        $csv->auto($fileName);
+        return $csv->data;
     }
 
     /**
