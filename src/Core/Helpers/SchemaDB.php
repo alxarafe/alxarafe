@@ -11,6 +11,7 @@ namespace Alxarafe\Helpers;
  */
 class SchemaDB
 {
+
     /**
      * Return true if $tableName exists in database
      *
@@ -71,6 +72,8 @@ class SchemaDB
             foreach ($tabla['indexes'] as $name => $index) {
                 $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
             }
+
+            $values = Utils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
             $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
         }
 

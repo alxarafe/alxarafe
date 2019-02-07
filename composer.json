@@ -30,7 +30,8 @@
     "ext-pdo": "*",
     "ext-openssl": "*",
     "symfony/finder": "^4.2",
-    "symfony/cache": "^4.2"
+    "symfony/cache": "^4.2",
+    "parsecsv/php-parsecsv": "^1.1"
   },
   "autoload": {
     "psr-4": {

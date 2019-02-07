@@ -7,6 +7,7 @@ namespace Alxarafe\Helpers;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml;
+use ParseCsv\Csv;
 
 /**
  * The Schema class contains static methods that allow you to manipulate the
@@ -18,20 +19,22 @@ class Schema
     /**
      * Returns the path to the specified file, or empty string if it does not exist.
      *
-     * @param string $tableName name of the file without extension (assumes .yaml)
+     * @param string $tableName name of the file without extension (assumes .yaml or .csv according to the type)
      * @param string $type      It's the foldername (in lowercase). It's usually schema (by default) or viewdata.
      *
      * @return string
      */
     private static function getSchemaFileName(string $tableName, string $type = 'schema'): string
     {
+        $extension = $type == 'values' ? '.csv' : '.yaml';
+
         // First, it is checked if it exists in the core
-        $path = constant('ALXARAFE_FOLDER') . '/Schema/' . $type . '/' . $tableName . '.yaml';
+        $path = constant('ALXARAFE_FOLDER') . '/Schema/' . $type . '/' . $tableName . $extension;
         if (file_exists($path)) {
             return $path;
         }
         // And then if it exists in the application
-        $path = constant('BASE_PATH') . '/config/' . $type . '/' . $tableName . '.yaml';
+        $path = constant('BASE_PATH') . '/config/' . $type . '/' . $tableName . $extension;
         return file_exists($path) ? $path : '';
     }
 
@@ -138,7 +141,17 @@ class Schema
     public static function getFromYamlFile(string $tableName, string $type = 'schema'): array
     {
         $fileName = self::getSchemaFileName($tableName, $type);
-        return $fileName == '' ? [] : Yaml::parse(file_get_contents($fileName));
+        if ($fileName == '') {
+            return [];
+        }
+
+        if ($type == 'values') {
+            $csv = new Csv($fileName);
+            var_dump($csv);
+            return $csv->data;
+        }
+
+        return Yaml::parse(file_get_contents($fileName));
     }
 
     /**

@@ -49,7 +49,7 @@ class CacheCore
         }
         if ($this->engine === null) {
             $this->connectPhpArray();
-            // $this->engine->clear();
+            $this->engine->clear();
         }
     }
 

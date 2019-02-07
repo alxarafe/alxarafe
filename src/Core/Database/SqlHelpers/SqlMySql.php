@@ -261,13 +261,13 @@ class SqlMySql extends SqlHelper
         $result['unique'] = $fields['Non_unique'] == '0' ? 'yes' : 'no';
         $constrait = $this->getConstraintData($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
-            $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
+            $result['constraint'] = 'yes'; // $constrait[0]['CONSTRAINT_NAME'];
             $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
             $result['referencedfield'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
         }
         $constrait = $this->getConstraintRules($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
-            $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
+            // $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
             $result['updaterule'] = $constrait[0]['UPDATE_RULE'];
             $result['deleterule'] = $constrait[0]['DELETE_RULE'];
         }
