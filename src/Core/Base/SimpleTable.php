@@ -538,15 +538,18 @@ class SimpleTable
             }
         }
 
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' WHERE (';
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName);
         $sep = '';
-        foreach ($columns as $pos => $col) {
-            if ($col !== null && $col !== 'col-action' ) {
-                $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
-                $sep = ' OR ';
+        if (!empty($columns) && !empty($query)) {
+            $sql .= ' WHERE (';
+            foreach ($columns as $pos => $col) {
+                if ($col !== null && $col !== 'col-action' ) {
+                    $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
+                    $sep = ' OR ';
+                }
             }
+            $sql .= ')';
         }
-        $sql .= ')';
 
         return $sql;
     }
@@ -571,7 +574,7 @@ class SimpleTable
 
         $sql .= ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
 
-        return Config::$dbEngine->select($sql);;
+        return Config::$dbEngine->select($sql);
     }
 
     /**
