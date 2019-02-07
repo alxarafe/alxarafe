@@ -74,7 +74,7 @@ class SchemaDB
             }
 
             $values = Utils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
-            $sql = Utils::addToArray($sql, Schema::setValues($tableName, $tabla['values']));
+            $sql = Utils::addToArray($sql, Schema::setValues($tableName, $values));
         }
 
         return Config::$dbEngine->exec($sql);
