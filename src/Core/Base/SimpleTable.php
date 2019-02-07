@@ -529,7 +529,9 @@ class SimpleTable
 
         if ($this->getNameField() !== null) {
             if (empty($columns)) {
-                $columns = [0 => $this->getNameField()];
+                $columns = [
+                    0 => $this->getNameField()
+                ];
             }
             if (empty($order)) {
                 $order = ' lower(' . Config::$sqlHelper->quoteFieldName($this->getNameField()) . ') ASC';
@@ -538,9 +540,11 @@ class SimpleTable
 
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' WHERE (';
         $sep = '';
-        foreach ($columns as $col) {
-            $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
-            $sep = ' OR ';
+        foreach ($columns as $pos => $col) {
+            if ($col !== null ) {
+                $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
+                $sep = ' OR ';
+            }
         }
         $sql .= ')';
 
@@ -579,12 +583,12 @@ class SimpleTable
      * @param int    $offset    By default 0
      * @param string $order     By default the main name field if defined
      *
-     * @return array
+     * @return int
      */
-    public function searchCount(string $query, array $columns = [], int $offset = 0, string $order = ''): array
+    public function searchCount(string $query, array $columns = [], int $offset = 0, string $order = ''): int
     {
         $sql = $this->searchQuery($query, $columns);
-        $sql = str_replace('SELECT * ', 'SELECT COUNT(' . Config::$sqlHelper->quoteFieldName($this->getIdField()) . ') ', $sql);
+        $sql = str_replace('SELECT * ', 'SELECT COUNT(' . Config::$sqlHelper->quoteFieldName($this->getIdField()) . ') AS total ', $sql);
         $data = Config::$dbEngine->select($sql);
         return empty($data) ? 0 : intval($data[0]['total']);
     }
