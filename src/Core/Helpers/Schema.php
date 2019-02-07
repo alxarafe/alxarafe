@@ -3,11 +3,13 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Exception;
-use Symfony\Component\Yaml\Yaml;
 use ParseCsv\Csv;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * The Schema class contains static methods that allow you to manipulate the
@@ -131,7 +133,7 @@ class Schema
     }
 
     /**
-     * Returns an array with data from the specefied yaml file
+     * Returns an array with data from the specified yaml file
      *
      * @param string $tableName
      * @param string $type must be 'schema' or 'viewdata'
@@ -141,18 +143,58 @@ class Schema
     public static function getFromYamlFile(string $tableName, string $type = 'schema'): array
     {
         $fileName = self::getSchemaFileName($tableName, $type);
-        if ($fileName == '') {
+        if ($fileName === '') {
             return [];
         }
+        switch ($type) {
+            /** @noinspection PhpMissingBreakStatementInspection */
+            case 'values':
+                $data = self::loadDataFromCsv($fileName);
+                if (!empty($data)) {
+                    return $data;
+                }
+            // no-break
 
-        if ($type == 'values') {
+            default:
+                return self::loadDataFromYaml($fileName);
+        }
+    }
+
+    /**
+     * Load data from CSV file.
+     *
+     * @param string $fileName
+     *
+     * @return array
+     */
+    public static function loadDataFromCsv(string $fileName): array
+    {
+        if (file_exists($fileName)) {
             $csv = new Csv();
             $csv->auto($fileName);
-            var_dump($csv);
             return $csv->data;
         }
+        return [];
+    }
 
-        return Yaml::parse(file_get_contents($fileName));
+    /**
+     * Load data from Yaml file.
+     *
+     * @param string $fileName
+     *
+     * @return array
+     */
+    public static function loadDataFromYaml(string $fileName): array
+    {
+        if (file_exists($fileName)) {
+            try {
+                return Yaml::parse(file_get_contents($fileName));
+            } catch (ParseException $e) {
+                Debug::addMessage('messages', $e->getMessage());
+                return [];
+            }
+        }
+        return [];
     }
 
     /**
