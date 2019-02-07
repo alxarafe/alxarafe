@@ -541,7 +541,7 @@ class SimpleTable
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' WHERE (';
         $sep = '';
         foreach ($columns as $pos => $col) {
-            if ($col !== null ) {
+            if ($col !== null && $col !== 'col-action' ) {
                 $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
                 $sep = ' OR ';
             }

@@ -296,7 +296,7 @@ class Schema
     public static function setValues(string $tableName, array $values): array
     {
         if (empty($values)) {
-            return ['/* BAD QUERY -> */' . 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';'];
+            return ['/* BAD QUERY empty list for table ' . $tableName . '-> */' . 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';'];
         }
 
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
@@ -307,6 +307,10 @@ class Schema
             $datos = $sep . "(";
             foreach ($value as $fname => $fvalue) {
                 $fields .= Config::$sqlHelper->quoteFieldName($fname) . ", ";
+                $definitionDataField = Config::$bbddStructure[$tableName]['fields'][$fname];
+                if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
+                    $fvalue = $definitionDataField['default'] ?? null;
+                }
                 $datos .= Config::$sqlHelper->quoteLiteral($fvalue) . ", ";
             }
             $fields = substr($fields, 0, -2) . ")";
