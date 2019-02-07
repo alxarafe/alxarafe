@@ -203,6 +203,10 @@ abstract class SqlHelper
                 $result[$row['index']] = $row;
             }
         }
+        // Field index it's not necessary!
+        foreach ($result as $key => $value) {
+            unset($result[$key]['index']);
+        }
         return $result;
     }
 
