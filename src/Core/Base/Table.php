@@ -17,15 +17,6 @@ use ReflectionClass;
  */
 class Table extends SimpleTable
 {
-
-    /**
-     * It is the name of the field name. By default 'name'.
-     * TODO: See if it may not exist, in which case, null or ''?
-     *
-     * @var string
-     */
-    protected $nameField;
-
     /**
      * Build a Table model. $table is the name of the table in the database.
      * $params is a parameters array:
@@ -41,7 +32,6 @@ class Table extends SimpleTable
         parent::__construct($tableName, $params);
         $shortName = (new ReflectionClass($this))->getShortName();
         Debug::startTimer($shortName, $shortName . ' Table Constructor');
-        $this->nameField = $params['nameField'] ?? null;
 
         $create = $params['create'] ?? false;
         $this->checkStructure($create);
@@ -63,16 +53,6 @@ class Table extends SimpleTable
                 SchemaDB::checkTableStructure($this->tableName);
             }
         }
-    }
-
-    /**
-     * Returns the name of the identification field of the record. By default it will be name.
-     *
-     * @return string
-     */
-    public function getNameField(): string
-    {
-        return $this->nameField ?? '';
     }
 
     /**

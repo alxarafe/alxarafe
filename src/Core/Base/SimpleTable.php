@@ -43,6 +43,14 @@ class SimpleTable
     protected $idField;
 
     /**
+     * It is the name of the field name. By default 'name'.
+     * TODO: See if it may not exist, in which case, null or ''?
+     *
+     * @var string
+     */
+    protected $nameField;
+
+    /**
      * It contains the data previous to the modification of the current record
      *
      * @var array
@@ -73,6 +81,7 @@ class SimpleTable
         Debug::startTimer($shortName, $shortName . ' Simple Constructor');
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
+        $this->nameField = $params['nameField'] ?? null;
         $this->setStructure();
         if (!isset($this->idField) && isset(Config::$bbddStructure[$this->tableName]['fields'])) {
             $this->idField = 'id';
@@ -202,6 +211,16 @@ class SimpleTable
     public function getIdField(): string
     {
         return $this->idField;
+    }
+
+    /**
+     * Returns the name of the identification field of the record. By default it will be name.
+     *
+     * @return string
+     */
+    public function getNameField(): string
+    {
+        return $this->nameField ?? '';
     }
 
     /**
@@ -440,13 +459,39 @@ class SimpleTable
     }
 
     /**
-     * Get an array with all data
+     * Get an array with all data in table.
+     * WARNING: This could be dangerous with a big table.
      *
      * @return array
      */
     public function getAllRecords(): array
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ';';
+        return Config::$dbEngine->select($sql);
+    }
+
+    /**
+     * Count all registers in table.
+     *
+     * @return int
+     */
+    public function countAllRecords(): int
+    {
+        $sql = 'SELECT COUNT(' . Config::$sqlHelper->quoteFieldName($this->getIdField()) . ') AS total FROM '
+            . Config::$sqlHelper->quoteTableName($this->tableName) . ';';
+        $data = Config::$dbEngine->select($sql);
+        return empty($data) ? 0 : intval($data[0]['total']);
+    }
+
+    /**
+     * Get an array with all data per page.
+     *
+     * @return array
+     */
+    public function getAllRecordsPaged($offset = 0): array
+    {
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
+            . ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset. ';';
         return Config::$dbEngine->select($sql);
     }
 
@@ -468,5 +513,79 @@ class SimpleTable
     public function getNewData(): array
     {
         return $this->newData;
+    }
+
+    /**
+     * Return the main part of the search SQL query.
+     *
+     * @param string $query
+     * @param array  $columns
+     *
+     * @return string
+     */
+    public function searchQuery(string $query, array $columns = []): string
+    {
+        $query = str_replace(' ', '%', $query);
+
+        if ($this->getNameField() !== null) {
+            if (empty($columns)) {
+                $columns = [0 => $this->getNameField()];
+            }
+            if (empty($order)) {
+                $order = ' lower(' . Config::$sqlHelper->quoteFieldName($this->getNameField()) . ') ASC';
+            }
+        }
+
+        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ' WHERE (';
+        $sep = '';
+        foreach ($columns as $col) {
+            $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
+            $sep = ' OR ';
+        }
+        $sql .= ')';
+
+        return $sql;
+    }
+
+    /**
+     * Do a search to a table.
+     * Returns the result per page.
+     *
+     * @param string $query     What to look for
+     * @param array  $columns   For example: [0 => 'name']
+     * @param int    $offset    By default 0
+     * @param string $order     By default the main name field if defined
+     *
+     * @return array
+     */
+    public function search(string $query, array $columns = [], int $offset = 0, string $order = ''): array
+    {
+        $sql = $this->searchQuery($query, $columns);
+        if (!empty($order)) {
+            $sql .= ' ORDER BY ' . $order;
+        }
+
+        $sql .= ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
+
+        return Config::$dbEngine->select($sql);;
+    }
+
+    /**
+     * Do a search to a table.
+     * Returns the result per page.
+     *
+     * @param string $query     What to look for
+     * @param array  $columns   For example: [0 => 'name']
+     * @param int    $offset    By default 0
+     * @param string $order     By default the main name field if defined
+     *
+     * @return array
+     */
+    public function searchCount(string $query, array $columns = [], int $offset = 0, string $order = ''): array
+    {
+        $sql = $this->searchQuery($query, $columns);
+        $sql = str_replace('SELECT * ', 'SELECT COUNT(' . Config::$sqlHelper->quoteFieldName($this->getIdField()) . ') ', $sql);
+        $data = Config::$dbEngine->select($sql);
+        return empty($data) ? 0 : intval($data[0]['total']);
     }
 }
