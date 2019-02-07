@@ -146,7 +146,8 @@ class Schema
         }
 
         if ($type == 'values') {
-            $csv = new Csv($fileName);
+            $csv = new Csv();
+            $csv->auto($fileName);
             var_dump($csv);
             return $csv->data;
         }
