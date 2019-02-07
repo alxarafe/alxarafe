@@ -491,7 +491,7 @@ class SimpleTable
     public function getAllRecordsPaged($offset = 0): array
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset. ';';
+            . ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
         return Config::$dbEngine->select($sql);
     }
 
