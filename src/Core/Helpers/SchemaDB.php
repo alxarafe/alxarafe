@@ -273,7 +273,7 @@ class SchemaDB
 
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
-            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName(Config::getVar('dbPrefix') . $indexData['referencedtable']) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
+            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($indexData['referencedtable']) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
 
         if ($indexData['deleterule'] != '') {
             $query .= ' ON DELETE ' . $indexData['deleterule'];
