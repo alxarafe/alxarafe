@@ -3,6 +3,7 @@
 'add-new': 'Add'
 'admin': 'Administration'
 'back': 'Back'
+'clear-cache': 'Clear cache'
 'col-id': 'Id.'
 'col-name': 'Name'
 'database-engine': 'Database engine'

@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
+use Alxarafe\Base\CacheCore;
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
@@ -49,6 +50,10 @@ class EditConfig extends PageController
     {
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
+            case 'clear-cache':
+                $engine = (new CacheCore())->getEngine();
+                $engine->clear();
+                break;
             case 'save':
                 Debug::addMessage(
                     'messages',

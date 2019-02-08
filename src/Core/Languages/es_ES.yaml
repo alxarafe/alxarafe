@@ -3,6 +3,7 @@
 'add-new': 'Añadir'
 'admin': 'Administración'
 'back': 'Volver'
+  'clear-cache': 'Limpiar caché'
 'col-id': 'Id.'
 'col-name': 'Nombre'
 'database-engine': 'Motor de base de datos'
