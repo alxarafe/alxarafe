@@ -472,7 +472,7 @@ class SimpleTable
      */
     public function setOldData(array $data)
     {
-        $this->{$this->idField} = $data[$this->getIdField()] ?? null;
+        $this->id = $data[$this->getIdField()] ?? null;
         $this->oldData = $data;
     }
 
@@ -483,7 +483,7 @@ class SimpleTable
      */
     public function setNewData(array $data)
     {
-        $this->{$this->idField} = $data[$this->getIdField()] ?? null;
+        $this->id = $data[$this->getIdField()] ?? null;
         $this->newData = $data;
     }
 
