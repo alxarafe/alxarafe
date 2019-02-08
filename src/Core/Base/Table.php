@@ -9,6 +9,7 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
+use Alxarafe\Models\TableModel;
 use ReflectionClass;
 
 /**
@@ -17,6 +18,7 @@ use ReflectionClass;
  */
 class Table extends SimpleTable
 {
+
     /**
      * Build a Table model. $table is the name of the table in the database.
      * $params is a parameters array:
@@ -48,11 +50,18 @@ class Table extends SimpleTable
      */
     public function checkStructure(bool $create = false): void
     {
-        if (isset(Config::$bbddStructure[$this->tableName])) {
-            if ($create) {
-                SchemaDB::checkTableStructure($this->tableName);
+        if (!$create || !isset(Config::$bbddStructure[$this->tableName])) {
+            return;
+        }
+        if ($this->modelName != 'TableModel') {
+            $tableModel = new TableModel();
+            if (!$tableModel->load($this->tableName)) {
+                $tableModel->tablename = $this->tableName;
+                $tableModel->model = $this->modelName;
+                $tableModel->save();
             }
         }
+        SchemaDB::checkTableStructure($this->tableName);
     }
 
     /**

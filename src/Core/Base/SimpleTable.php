@@ -27,6 +27,13 @@ class SimpleTable
     public $tableName;
 
     /**
+     * It's the name of the model associated with the table
+     *
+     * @var string
+     */
+    public $modelName;
+
+    /**
      * Value of the main index for the active record. When a record is loaded, this field will contain its id and will
      * be the one that will be used for in the WHERE clause of the UPDATE. If it does not exist in file it will contain
      * ''.
@@ -77,8 +84,8 @@ class SimpleTable
      */
     public function __construct(string $tableName, array $params = [])
     {
-        $shortName = (new ReflectionClass($this))->getShortName();
-        Debug::startTimer($shortName, $shortName . ' Simple Constructor');
+        $this->modelName = (new ReflectionClass($this))->getShortName();
+        Debug::startTimer($this->modelName, $this->modelName . ' Simple Constructor');
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->nameField = $params['nameField'] ?? null;
@@ -92,7 +99,7 @@ class SimpleTable
                 }
             }
         }
-        Debug::stopTimer($shortName);
+        Debug::stopTimer($this->modelName);
     }
 
     /**
