@@ -235,7 +235,6 @@ class SchemaDB
         // https://www.w3schools.com/sql/sql_unique.asp
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
         $columnsArray = explode(',', $indexData['column']);
-        $columns = '';
         foreach ($columnsArray as $key => $column) {
             $columnsArray[$key] = Config::$sqlHelper->quoteFieldName($column);
         }
