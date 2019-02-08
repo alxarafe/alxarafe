@@ -78,6 +78,7 @@ class SchemaDB
             $values = Utils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
             $sql = Utils::addToArray($sql, Schema::setValues($tableName, $values));
         }
+        $sql = Utils::addToArray($sql, self::createTableView($tableName));
 
         return Config::$dbEngine->exec($sql);
     }
@@ -268,8 +269,6 @@ class SchemaDB
         $referencedTableWithoutPrefix = $indexData['referencedtable'];
         $referencedTable = Config::getVar('dbPrefix') . $referencedTableWithoutPrefix;
 
-        $model = (new TableModel())->get($referencedTableWithoutPrefix);
-
         $sql = [];
         if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '' )) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
@@ -340,5 +339,45 @@ class SchemaDB
         return $unique ?
             self::createUniqueIndex($tableName, $indexData, $existsIndex) :
             self::createStandardIndex($tableName, $indexData, $existsIndex);
+    }
+
+    /**
+     * Create a tableView
+     *
+     * @param string $tableName
+     */
+    protected static function createTableView(string $tableName): array
+    {
+        $tabla = Config::$bbddStructure[$tableName];
+        $fields = $tabla['fields'];
+        $indexes = $tabla['indexes'];
+
+        // Ignore indexes that aren't constraints
+        foreach ($indexes as $indexName => $index) {
+            if (!isset($index['constraint'])) {
+                unset($indexes[$indexName]);
+            }
+        }
+
+        //$model = (new TableModel())->get($referencedTableWithoutPrefix);
+        $sqlView = 'CREATE OR REPLACE VIEW ' . Config::$sqlHelper->quoteTableName('view_' . $tableName, true) . ' AS';
+        $sqlView .= ' SELECT ';
+        $sep = '';
+        foreach ($fields as $fieldName => $fieldData) {
+            $sqlView .= $sep . Config::$sqlHelper->quoteTableName($tableName, true) . '.' . Config::$sqlHelper->quoteFieldName($fieldName);
+            $sep = ', ';
+        }
+        foreach ($indexes as $indexName => $indexData) {
+            $sqlView .= $sep . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($indexName);
+            $sep = ', ';
+        }
+        $sqlView .= ' FROM ' . Config::$sqlHelper->quoteTableName($tableName, true);
+        foreach ($indexes as $indexName => $indexData) {
+            $model = (new TableModel())->get($indexData['referencedtable']);
+            $nameReferencedTable = $model->getNameField();
+            $sqlView .= ' LEFT JOIN ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . '.' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ' = ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($nameReferencedTable);
+        }
+        $sqlView .= ';';
+        return [$sqlView];
     }
 }
