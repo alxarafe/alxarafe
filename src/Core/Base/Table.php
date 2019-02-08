@@ -53,7 +53,7 @@ class Table extends SimpleTable
         if (!$create || !isset(Config::$bbddStructure[$this->tableName])) {
             return;
         }
-        if ($this->modelName != 'TableModel') {
+        if (!SchemaDB::tableExists($this->tableName) && $this->modelName != 'TableModel') {
             $tableModel = new TableModel();
             if (!$tableModel->load($this->tableName)) {
                 $tableModel->tablename = $this->tableName;
