@@ -58,6 +58,7 @@ class Table extends SimpleTable
             if (!$tableModel->load($this->tableName)) {
                 $tableModel->tablename = $this->tableName;
                 $tableModel->model = $this->modelName;
+                $tableModel->namespace = addslashes((new ReflectionClass($this))->getName());
                 $tableModel->save();
             }
         }

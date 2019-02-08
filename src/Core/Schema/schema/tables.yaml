@@ -11,6 +11,12 @@ fields:
         default: ''
         nullable: 'no'
         unsigned: 'no'
+    namespace:
+        type: string
+        length: '250'
+        default: ''
+        nullable: 'no'
+        unsigned: 'no'
 indexes:
     PRIMARY:
         column: tablename

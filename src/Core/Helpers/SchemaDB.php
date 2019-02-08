@@ -345,6 +345,8 @@ class SchemaDB
      * Create a tableView
      *
      * @param string $tableName
+     *
+     * @return array
      */
     protected static function createTableView(string $tableName): array
     {
@@ -353,13 +355,24 @@ class SchemaDB
         $indexes = $tabla['indexes'];
 
         // Ignore indexes that aren't constraints
-        foreach ($indexes as $indexName => $index) {
-            if (!isset($index['constraint'])) {
+        foreach ($indexes as $indexName => $indexData) {
+            if (isset($indexData['constraint'])) {
+                $table = (new TableModel())->get($indexData['referencedtable']);
+                $class = $table->namespace;
+                $class = new $class();
+                $tableNameIndex = $table->tablename;
+                $tableIndex[$indexName] = Config::$bbddStructure[$tableNameIndex];
+                $primaryColumn[$indexName] = $tabla['indexes']['PRIMARY']['column'];
+                $nameColumn[$indexName] = $class->getNameField();
+            } else {
                 unset($indexes[$indexName]);
             }
         }
+        // If no indexes for constraints, we don't need a related view
+        if (empty($indexes)) {
+            return [];
+        }
 
-        //$model = (new TableModel())->get($referencedTableWithoutPrefix);
         $sqlView = 'CREATE OR REPLACE VIEW ' . Config::$sqlHelper->quoteTableName('view_' . $tableName, true) . ' AS';
         $sqlView .= ' SELECT ';
         $sep = '';
@@ -368,14 +381,12 @@ class SchemaDB
             $sep = ', ';
         }
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= $sep . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($indexName);
+            $sqlView .= $sep . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($nameColumn[$indexName]) . ' AS ' . $indexData['referencedtable'] . '_' . $nameColumn[$indexName];
             $sep = ', ';
         }
         $sqlView .= ' FROM ' . Config::$sqlHelper->quoteTableName($tableName, true);
         foreach ($indexes as $indexName => $indexData) {
-            $model = (new TableModel())->get($indexData['referencedtable']);
-            $nameReferencedTable = $model->getNameField();
-            $sqlView .= ' LEFT JOIN ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . '.' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ' = ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($nameReferencedTable);
+            $sqlView .= ' LEFT JOIN ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . '.' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ' = ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($primaryColumn[$indexName]);
         }
         $sqlView .= ';';
         return [$sqlView];

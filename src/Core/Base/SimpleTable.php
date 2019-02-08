@@ -237,7 +237,7 @@ class SimpleTable
      */
     public function getNameField(): string
     {
-        return $this->nameField ?? '';
+        return $this->nameField ?? 'name';
     }
 
     /**
