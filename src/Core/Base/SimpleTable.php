@@ -466,6 +466,28 @@ class SimpleTable
     }
 
     /**
+     * Assign oldData from an array.
+     *
+     * @param array $data
+     */
+    public function setOldData(array $data)
+    {
+        $this->{$this->idField} = $data[$this->getIdField()] ?? null;
+        $this->oldData = $data;
+    }
+
+    /**
+     * Assign newData from an array.
+     *
+     * @param array $data
+     */
+    public function setNewData(array $data)
+    {
+        $this->{$this->idField} = $data[$this->getIdField()] ?? null;
+        $this->newData = $data;
+    }
+
+    /**
      * Returns the structure of the normalized table
      *
      * @return array
@@ -519,7 +541,7 @@ class SimpleTable
      */
     public function getOldData(): array
     {
-        return $this->oldData;
+        return $this->oldData ?? [];
     }
 
     /**
@@ -529,7 +551,7 @@ class SimpleTable
      */
     public function getNewData(): array
     {
-        return $this->newData;
+        return $this->newData ?? [];
     }
 
     /**

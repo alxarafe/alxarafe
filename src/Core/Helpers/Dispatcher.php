@@ -278,6 +278,14 @@ class Dispatcher
 //                if (in_array('Xfs\Base\XfsController', $parents)) {
 //                    Debug::addMessage('messages', 'Class ' . $className . ' also extends from XfsController');
 //                }
+
+//                $pages = (new Page())->getAllRecords();
+//                foreach ($pages as $pos => $page) {
+//                    $pageDelete = new Page();
+//                    $pageDelete->setOldData($page);
+//                    Config::setError(($pageDelete->delete() ? 'ok': 'fail'));
+//                }
+
                 if (in_array('Alxarafe\Base\PageController', $parents)) {
                     $page = new Page();
                     if (!$page->getBy('controller', $className)) {
@@ -292,10 +300,12 @@ class Dispatcher
                     $page->active = 1;
                     $page->updated_date = date('Y-m-d H:i:s');
 
-                    $page->save();
+                    if (count(array_diff($page->getOldData(), $page->getNewData())) > 1) {
+                        $page->save();
 //                    $msgSuccess = 'Page ' . $className . ' data added or updated to table';
 //                    $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
 //                    Config::setError(($page->save() ? $msgSuccess : $msgError));
+                    }
                 }
             }
         }
