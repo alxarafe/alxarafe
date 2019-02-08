@@ -155,10 +155,10 @@ class SimpleTable
      * @param string $method
      * @param array  $params
      *
-     * @return string
+     * @return string|null
      * @throws Exception
      */
-    public function __call(string $method, array $params): string
+    public function __call(string $method, array $params)
     {
         $command = substr($method, 0, 3); // set o get
         $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
@@ -211,6 +211,16 @@ class SimpleTable
     public function getIdField(): string
     {
         return $this->idField;
+    }
+
+    /**
+     * Return the value of id.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

@@ -248,7 +248,7 @@ class PageController extends Controller
         }
 
         if ($this->roles === null) {
-            $this->roles = (new UserRole())->getAllRecordsBy('user_id', $this->user->id);
+            $this->roles = (new UserRole())->getAllRecordsBy('user_id', $this->user->getId());
         }
         if (!empty($this->roles)) {
             foreach ($this->roles as $pos => $role) {
