@@ -278,39 +278,50 @@ class Dispatcher
 //                if (in_array('Xfs\Base\XfsController', $parents)) {
 //                    Debug::addMessage('messages', 'Class ' . $className . ' also extends from XfsController');
 //                }
-
-//                $pages = (new Page())->getAllRecords();
-//                foreach ($pages as $pos => $page) {
-//                    $pageDelete = new Page();
-//                    $pageDelete->setOldData($page);
-//                    Config::setError(($pageDelete->delete() ? 'ok': 'fail'));
-//                }
-
                 if (in_array('Alxarafe\Base\PageController', $parents)) {
-                    $page = new Page();
-                    if (!$page->getBy('controller', $className)) {
-                        $page = new Page();
-                    }
-                    $page->controller = $className;
-                    $page->title = $newClass->title;
-                    $page->description = $newClass->description;
-                    $page->menu = $newClass->menu;
-                    $page->icon = $newClass->icon;
-                    $page->plugin = $namespace;
-                    $page->active = 1;
-                    $page->updated_date = date('Y-m-d H:i:s');
-
-                    if (count(array_diff($page->getOldData(), $page->getNewData())) > 1) {
-                        $page->save();
-//                    $msgSuccess = 'Page ' . $className . ' data added or updated to table';
-//                    $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
-//                    Config::setError(($page->save() ? $msgSuccess : $msgError));
-                    }
+                    $this->updatePageData($className, $namespace, $newClass);
                 }
             }
         }
 
         // End DB transaction
         Config::$dbEngine->commit();
+    }
+
+    /**
+     * Updates the page data if needed.
+     *
+     * @param string $className
+     * @param        $namespace
+     * @param        $newPage
+     */
+    private function updatePageData(string $className, $namespace, $newPage)
+    {
+//            $pages = (new Page())->getAllRecords();
+//            foreach ($pages as $pos => $page) {
+//                $pageDelete = new Page();
+//                $pageDelete->setOldData($page);
+//                Config::setError(($pageDelete->delete() ? 'ok': 'fail'));
+//            }
+
+            $page = new Page();
+            if (!$page->getBy('controller', $className)) {
+                $page = new Page();
+            }
+            $page->controller = $className;
+            $page->title = $newPage->title;
+            $page->description = $newPage->description;
+            $page->menu = $newPage->menu;
+            $page->icon = $newPage->icon;
+            $page->plugin = $namespace;
+            $page->active = 1;
+            $page->updated_date = date('Y-m-d H:i:s');
+
+            if (count(array_diff($page->getOldData(), $page->getNewData())) > 1) {
+                $page->save();
+//                $msgSuccess = 'Page ' . $className . ' data added or updated to table';
+//                $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
+//                Config::setError(($page->save() ? $msgSuccess : $msgError));
+            }
     }
 }
