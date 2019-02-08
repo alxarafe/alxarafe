@@ -527,14 +527,11 @@ class SimpleTable
     {
         $query = str_replace(' ', '%', $query);
 
-        if ($this->getNameField() !== null) {
+        if ($this->getNameField() !== '') {
             if (empty($columns)) {
                 $columns = [
                     0 => $this->getNameField()
                 ];
-            }
-            if (empty($order)) {
-                $order = ' lower(' . Config::$sqlHelper->quoteFieldName($this->getNameField()) . ') ASC';
             }
         }
 
@@ -583,12 +580,10 @@ class SimpleTable
      *
      * @param string $query     What to look for
      * @param array  $columns   For example: [0 => 'name']
-     * @param int    $offset    By default 0
-     * @param string $order     By default the main name field if defined
      *
      * @return int
      */
-    public function searchCount(string $query, array $columns = [], int $offset = 0, string $order = ''): int
+    public function searchCount(string $query, array $columns = []): int
     {
         $sql = $this->searchQuery($query, $columns);
         $sql = str_replace('SELECT * ', 'SELECT COUNT(' . Config::$sqlHelper->quoteFieldName($this->getIdField()) . ') AS total ', $sql);
