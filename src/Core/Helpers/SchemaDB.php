@@ -5,6 +5,8 @@
  */
 namespace Alxarafe\Helpers;
 
+use \Alxarafe\Models\TableModel;
+
 /**
  * The SchemaDB class contains static methods that allow you to manipulate the
  * database. It is used to create and modify tables and indexes in the database.
@@ -262,6 +264,12 @@ class SchemaDB
     {
         // https://www.w3schools.com/sql/sql_foreignkey.asp
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
+
+        $referencedTableWithoutPrefix = $indexData['referencedtable'];
+        $referencedTable = Config::getVar('dbPrefix') . $referencedTableWithoutPrefix;
+
+        $model = (new TableModel())->get($referencedTableWithoutPrefix);
+
         $sql = [];
         if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '' )) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
@@ -272,7 +280,7 @@ class SchemaDB
 
         $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
-            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($indexData['referencedtable']) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
+            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($referencedTable) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
 
         if ($indexData['deleterule'] != '') {
             $query .= ' ON DELETE ' . $indexData['deleterule'];
