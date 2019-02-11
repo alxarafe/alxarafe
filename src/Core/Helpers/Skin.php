@@ -247,14 +247,16 @@ class Skin
                 $twig = new Twig_Environment($loader, self::getOptions());
 
                 // Add support for additional filters
+                // Is instanciated because maybe need to set something on construct
                 $twigFilters = new Twig_SimpleFilter('TwigFilters', function ($method, $params = []) {
-                    return TwigFilters::$method($params);
+                    return (new TwigFilters)->$method($params);
                 });
                 $twig->addFilter($twigFilters);
 
                 // Add support for additional functions
+                // Is instanciated because maybe need to set something on construct
                 $twigFunctions = new Twig_SimpleFunction('TwigFunctions', function ($method, $params = []) {
-                    return TwigFunctions::$method($params);
+                    return (new TwigFunctions)->$method($params);
                 });
                 $twig->addFunction($twigFunctions);
 
