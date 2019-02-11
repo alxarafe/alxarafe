@@ -169,6 +169,9 @@ class SimpleTable
     {
         $command = substr($method, 0, 3); // set o get
         $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
+        if (method_exists($this, $method)) {
+            $this->{$method}($params);
+        }
         switch ($command) {
             case 'set':
                 return $this->newData[$field] = $params[0] ?? '';
@@ -411,8 +414,8 @@ class SimpleTable
             // The first condition is to prevent nulls from becoming empty strings
             if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
                 $fields[] = $field;
-                $values[] = "'$data'";
-                $assigns[] = "$field = '$data'";
+                $values[] = Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
+                $assigns[] = "$field = " . Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
             }
         }
 
@@ -427,6 +430,18 @@ class SimpleTable
             $this->oldData = $this->newData;
         }
         return $ret;
+    }
+
+    /**
+     * Sanitize field before save.
+     *
+     * @param $data
+     *
+     * @return string
+     */
+    public function sanitizeField($data)
+    {
+        return strip_tags(trim($data));
     }
 
     /**
