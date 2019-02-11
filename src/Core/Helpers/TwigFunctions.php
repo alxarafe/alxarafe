@@ -52,4 +52,12 @@ class TwigFunctions
 
         return null;
     }
+
+    /**
+     * @return string
+     */
+    public function copyright()
+    {
+        return '<a target="_blank" href="https://alxarafe.es/">Alxarafe</a> 2018-' . date('Y') . ' &copy;';
+    }
 }
