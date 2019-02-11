@@ -13,6 +13,8 @@ use Twig_Error_Runtime;
 use Twig_Error_Syntax;
 use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 
 /**
  * Class Skin
@@ -243,6 +245,19 @@ class Skin
                 $templateVars = self::getTemplateVars($vars);
                 $loader = new Twig_Loader_Filesystem(self::getPaths());
                 $twig = new Twig_Environment($loader, self::getOptions());
+
+                // Add support for additional filters
+                $twigFilters = new Twig_SimpleFilter('TwigFilters', function ($method, $params = []) {
+                    return TwigFilters::$method($params);
+                });
+                $twig->addFilter($twigFilters);
+
+                // Add support for additional functions
+                $twigFunctions = new Twig_SimpleFunction('TwigFunctions', function ($method, $params = []) {
+                    return TwigFunctions::$method($params);
+                });
+                $twig->addFunction($twigFunctions);
+
                 self::addSkinExtensions($twig);
                 try {
                     $return = $twig->render(self::getTemplate(), $templateVars);
