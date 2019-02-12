@@ -270,7 +270,8 @@ class SimpleTable
         }
         $sql = 'DELETE FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($this->id) . ';';
-        $result = Config::$dbEngine->exec([$sql]);
+
+        $result = Config::$dbEngine->_exec([$sql]);
         if ($result) {
             $this->id = null;
             $this->newData = null;
@@ -455,10 +456,21 @@ class SimpleTable
      */
     private function insertRecord($fields, $values): bool
     {
-        $fieldList = implode(', ', $fields);
-        $valueList = implode(', ', $values);
+        $fieldNames = [];
+        $fieldVars = [];
+        $vars = [];
+        foreach ($fields as $key => $fieldName) {
+            $fieldNames[$key] = trim($fieldName, '`');
+            $fieldVars[$key] = ':' . $fieldNames[$key];
+            $vars[$fieldNames[$key]] = trim($values[$key], '"');
+        }
+
+        $fieldList = implode(', ', $fieldNames);
+        $valueList = implode(', ', $fieldVars);
+
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);";
-        $ret = Config::$dbEngine->exec([$sql]);
+        $ret = Config::$dbEngine->exec($sql, $vars);
+
         // Assign the value of the primary key of the newly inserted record
         $this->id = Config::$dbEngine->getLastInserted();
         return $ret;
@@ -476,8 +488,9 @@ class SimpleTable
     {
         $value = implode(', ', $data);
         $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $value"
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($this->id) . ';';
-        return Config::$dbEngine->exec([$sql]);
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
+        $vars['id'] = $this->id;
+        return Config::$dbEngine->exec($sql, $vars);
     }
 
     /**

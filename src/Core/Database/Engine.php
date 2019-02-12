@@ -176,7 +176,7 @@ abstract class Engine
      *
      * @return bool
      */
-    private static function splitQuery(string $query): bool
+    final public static function exec(string $query, $vars = []): bool
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
@@ -185,7 +185,7 @@ abstract class Engine
         $ok = false;
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement) {
-            $ok = self::$statement->execute([]);
+            $ok = self::$statement->execute($vars);
         }
         if (!$ok) {
             Debug::addMessage('SQL', 'PDO ERROR in exec: ' . $query);
@@ -200,13 +200,14 @@ abstract class Engine
      *
      * @return bool
      */
-    final public static function exec(array $queries): bool
+    final public static function batchExec(array $queries): bool
     {
         $ok = true;
         foreach ($queries as $query) {
             $query = trim($query);
             if ($query != '') {
-                $ok &= self::splitQuery($query);
+                // TODO: The same variables are passed for all queries.
+                $ok &= self::exec($query);
             }
         }
         return (bool) $ok;
