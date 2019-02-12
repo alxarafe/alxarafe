@@ -413,7 +413,7 @@ class SimpleTable
         foreach ($this->newData as $field => $data) {
             // The first condition is to prevent nulls from becoming empty strings
             if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
-                $fields[] = $field;
+                $fields[] = Config::$sqlHelper->quoteFieldName($field);
                 $values[] = Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
                 $assigns[] = "$field = " . Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
             }
@@ -441,7 +441,7 @@ class SimpleTable
      */
     public function sanitizeField($data)
     {
-        return strip_tags(trim($data));
+        return htmlspecialchars($data);
     }
 
     /**

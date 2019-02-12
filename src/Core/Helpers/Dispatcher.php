@@ -317,7 +317,7 @@ class Dispatcher
             $page->active = 1;
             $page->updated_date = date('Y-m-d H:i:s');
 
-            if (count(array_diff($page->getOldData(), $page->getNewData())) > 1) {
+            if (count(array_diff($page->getNewData(), $page->getOldData())) > 1) {
                 $page->save();
 //                $msgSuccess = 'Page ' . $className . ' data added or updated to table';
 //                $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';

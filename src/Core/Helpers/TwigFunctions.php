@@ -60,4 +60,16 @@ class TwigFunctions
     {
         return '<a target="_blank" href="https://alxarafe.es/">Alxarafe</a> 2018-' . date('Y') . ' &copy;';
     }
+
+    /**
+     * Unescape html entities.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public function unescape(string $value)
+    {
+        return html_entity_decode($value);
+    }
 }
