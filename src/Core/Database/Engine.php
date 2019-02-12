@@ -232,17 +232,16 @@ abstract class Engine
      * In case of failure, return NULL. If there is no data, return an empty array.
      *
      * @param string $query
+     * @param array $vars
      *
      * @return array
      */
-    public static function select(string $query): array
+    public static function select(string $query, $vars = []): array
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
-        // TODO: Debugbar is collecting from PDO, is really needed here??
-        //Debug::addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement && self::$statement->execute([])) {
+        if (self::$statement && self::$statement->execute($vars)) {
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return [];
@@ -253,16 +252,17 @@ abstract class Engine
      *
      * @param string $query
      * @param string $cachedName
+     * @param array $vars
      *
      * @return array
      */
-    final public static function selectCoreCache(string $cachedName, string $query): array
+    final public static function selectCoreCache(string $cachedName, string $query, array $vars = []): array
     {
         if (constant('CORE_CACHE_ENABLED') === true) {
             $cacheEngine = Config::getCacheCoreEngine();
             $cacheItem = $cacheEngine->getItem($cachedName);
             if (!$cacheItem->isHit()) {
-                $cacheItem->set(self::select($query));
+                $cacheItem->set(self::select($query, $vars));
                 if ($cacheEngine->save($cacheItem)) {
                     Debug::addMessage('messages', "Cache data saved to '" . $cachedName . "'.");
                 } else {
@@ -277,7 +277,7 @@ abstract class Engine
             }
             return [];
         }
-        return self::select($query);
+        return self::select($query, $vars);
     }
 
     /**
