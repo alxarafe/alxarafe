@@ -66,7 +66,7 @@ class SchemaDB
             Config::$dbEngine->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
 
-            if (!Config::$dbEngine->exec($sql)) {
+            if (!Config::$dbEngine->batchExec($sql)) {
                 return false;
             }
 
@@ -80,7 +80,7 @@ class SchemaDB
             $sql = Utils::addToArray($sql, self::createTableView($tableName));
         }
 
-        return Config::$dbEngine->exec($sql);
+        return Config::$dbEngine->batchExec($sql);
     }
 
     /**
