@@ -25,7 +25,7 @@ class SchemaDB
     {
         //$sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
         $sql = Config::$sqlHelper->tableExists($tableName);
-        return !empty(Config::$dbEngine->selectCoreCache($sql, $tableName . '-exists'));
+        return !empty(Config::$dbEngine->selectCoreCache($tableName . '-exists', $sql));
     }
 
     /**
@@ -38,7 +38,7 @@ class SchemaDB
         $queries = Config::$sqlHelper->getTables();
         $queryResult = [];
         foreach ($queries as $query) {
-            $queryResult[] = Config::$dbEngine->selectCoreCache($query, 'tables');
+            $queryResult[] = Config::$dbEngine->selectCoreCache('tables', $query);
         }
         return Utils::flatArray($queryResult);
     }

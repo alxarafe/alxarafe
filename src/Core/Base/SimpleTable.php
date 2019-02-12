@@ -292,8 +292,8 @@ class SimpleTable
     private function getData(string $id): bool
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($id) . ';';
-        $data = Config::$dbEngine->select($sql);
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
+        $data = Config::$dbEngine->select($sql, ['id' => $id]);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
             return false;
@@ -333,8 +333,8 @@ class SimpleTable
     private function getDataBy(string $key, $value): bool
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = ' . Config::$sqlHelper->quoteLiteral($value) . ';';
-        $data = Config::$dbEngine->select($sql);
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' =:value;';
+        $data = Config::$dbEngine->select($sql, ['value' => $value]);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
             return false;
@@ -594,7 +594,7 @@ class SimpleTable
         if (!empty($columns) && !empty($query)) {
             $sql .= ' WHERE (';
             foreach ($columns as $pos => $col) {
-                if ($col !== null && $col !== 'col-action' ) {
+                if ($col !== null && $col !== 'col-action') {
                     $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
                     $sep = ' OR ';
                 }
