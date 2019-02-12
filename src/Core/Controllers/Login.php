@@ -54,9 +54,11 @@ class Login extends PageController
             $remember = filter_input(INPUT_POST, 'remember-me', FILTER_SANITIZE_ENCODED);
             $remember = isset($remember);
             if ($this->userAuth->setUser($username, $password, $remember)) {
+                Config::setInfo('User login successfully.');
                 $this->redirectToController();
+            } else {
+                Config::setError('User authentication error. Please check the username and password.');
             }
-            Config::setError('User authentication error. Please check the username and password.');
         }
         $this->main();
     }

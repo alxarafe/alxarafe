@@ -26,6 +26,12 @@
 <br/>
 
 <div class="container-fluid" id="bodycontent" name="bodycontent">
+
+    {{ TwigFunctions('flash', ['msgError', 'danger']) | raw }}
+    {{ TwigFunctions('flash', ['msgWarning', 'warning']) | raw }}
+    {{ TwigFunctions('flash', ['msgInfo', 'info']) | raw }}
+    {{ TwigFunctions('flash', ['msgSuccess', 'success']) | raw }}
+
     {% block body %}{% endblock %}
 </div>
 {% block footer %}{% include 'master/footer.twig' %}{% endblock %}

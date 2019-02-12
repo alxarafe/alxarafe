@@ -25,7 +25,7 @@ class TwigFunctions
      */
     public function __construct()
     {
-        $this->session = (new Session())->getSession();
+        $this->session = Config::$session->getSingleton();
     }
 
     /**
@@ -37,20 +37,23 @@ class TwigFunctions
      */
     public function flash(array $params)
     {
-        $flash = $this->session->getSegment()->getFlash($params[0]);
-        if ($flash) {
-            if ($params[0] === 'post') {
-                return $flash;
+        $return = null;
+        foreach ($params as $pos => $param) {
+            $flash = $this->session->getFlash($param);
+            if ($flash) {
+                $return =  sprintf(
+                    '<div style="width: %s" class="alert alert-%s">%s</div>',
+                    '100%',
+                    $params[1],
+                    $flash
+                );
+                if ($param === 'post') {
+                    $return =  $flash;
+                }
             }
-            return sprintf(
-                '<div style="width: %s" class="alert alert-%s">%s</div>',
-                '100%',
-                $params[1],
-                $flash
-            );
         }
 
-        return null;
+        return $return;
     }
 
     /**

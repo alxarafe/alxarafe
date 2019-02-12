@@ -48,12 +48,18 @@ class Auth extends User
     public $logkey = null;
 
     /**
+     * @var \Alxarafe\Helpers\Session
+     */
+    protected $session;
+
+    /**
      * Auth constructor.
      */
     public function __construct()
     {
         parent::__construct();
         $this->username = $this->getCookieUser();
+        $this->session = Config::$session->getSingleton();
     }
 
     /**
@@ -95,13 +101,7 @@ class Auth extends User
         Debug::addMessage(
             'messages', 'Auth::Logout(): ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out')
         );
-
-        /*
-          $this->user = new User();
-          $this->user->getBy('username', $this->username);
-          $this->user->logkey = null;
-          $this->user->save();
-         */
+        $this->session->setFlash('msgInfo', 'User logged out.');
 
         $this->username = null;
 

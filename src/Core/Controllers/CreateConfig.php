@@ -53,7 +53,12 @@ class CreateConfig extends Controller
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
             case 'save':
-                $this->save();
+                $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
+                Debug::addMessage(
+                    'messages',
+                    $msg
+                );
+                Config::setInfo($msg);
                 header('Location: ' . constant('BASE_URI'));
                 break;
             case 'cancel':
