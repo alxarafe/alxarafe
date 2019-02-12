@@ -17,15 +17,17 @@ class User extends Table
 {
     /**
      * User constructor.
+     *
+     * @param bool $create
      */
-    public function __construct()
+    public function __construct(bool $create = true)
     {
         parent::__construct(
             'users',
             [
                 'idField' => 'id',
                 'nameField' => 'username',
-                'create' => true,
+                'create' => $create,
             ]
         );
     }

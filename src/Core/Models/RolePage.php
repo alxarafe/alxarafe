@@ -17,15 +17,17 @@ class RolePage extends Table
 {
     /**
      * RolePage constructor.
+     *
+     * @param bool $create
      */
-    public function __construct()
+    public function __construct(bool $create = true)
     {
         parent::__construct(
             'roles_pages',
             [
                 'idField' => 'id',
                 'nameField' => 'id',
-                'create' => true,
+                'create' => $create,
             ]
         );
     }

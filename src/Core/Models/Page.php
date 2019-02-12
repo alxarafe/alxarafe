@@ -17,15 +17,17 @@ class Page extends Table
 {
     /**
      * Page constructor.
+     *
+     * @param bool $create
      */
-    public function __construct()
+    public function __construct(bool $create = true)
     {
         parent::__construct(
             'pages',
             [
                 'idField' => 'id',
                 'nameField' => 'controller',
-                'create' => true,
+                'create' => $create,
             ]
         );
     }

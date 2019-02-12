@@ -8,7 +8,7 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * Class Page
+ * Class TableModel
  *
  * @package Alxarafe\Models
  */
@@ -16,15 +16,17 @@ class TableModel extends Table
 {
 
     /**
-     * Page constructor.
+     * TableModel constructor.
+     *
+     * @param bool $create
      */
-    public function __construct()
+    public function __construct(bool $create = true)
     {
         parent::__construct(
             'tables', [
             'idField' => 'tablename',
             'nameField' => 'model',
-            'create' => true,
+            'create' => $create,
             ]
         );
     }

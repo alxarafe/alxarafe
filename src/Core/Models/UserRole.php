@@ -16,16 +16,18 @@ use Alxarafe\Base\Table;
 class UserRole extends Table
 {
     /**
-     * UserRoles constructor.
+     * UserRole constructor.
+     *
+     * @param bool $create
      */
-    public function __construct()
+    public function __construct(bool $create = true)
     {
         parent::__construct(
             'user_roles',
             [
                 'idField' => 'id',
                 'nameField' => 'id',
-                'create' => true,
+                'create' => $create,
             ]
         );
     }
