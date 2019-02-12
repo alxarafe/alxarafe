@@ -46,11 +46,7 @@ class TwigFunctions
             return  $flash;
         }
         if (!empty($flash)) {
-            foreach ($flash as $pos => $messageData) {
-                if ($flash) {
-                    $return[] = $messageData;
-                }
-            }
+            $return = $flash;
         }
         return $return;
     }
