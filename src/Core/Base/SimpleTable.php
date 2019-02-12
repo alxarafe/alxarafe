@@ -269,9 +269,9 @@ class SimpleTable
             return false;
         }
         $sql = 'DELETE FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = ' . Config::$sqlHelper->quoteLiteral($this->id) . ';';
-
-        $result = Config::$dbEngine->_exec([$sql]);
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
+        $vars['id'] = $this->id;
+        $result = Config::$dbEngine->exec($sql, $vars);
         if ($result) {
             $this->id = null;
             $this->newData = null;
@@ -410,13 +410,12 @@ class SimpleTable
     public function save(): bool
     {
         // We create separate arrays with the modified fields
-        $fields = $values = $assigns = [];
+        $fields = $values = [];
         foreach ($this->newData as $field => $data) {
             // The first condition is to prevent nulls from becoming empty strings
             if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
-                $fields[] = Config::$sqlHelper->quoteFieldName($field);
-                $values[] = Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
-                $assigns[] = "$field = " . Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
+                $values[$field] = $data; //$this->sanitizeField($data);
+                //$assigns[] = "$field = " . Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
             }
         }
 
@@ -425,7 +424,7 @@ class SimpleTable
             return true;
         }
         // Insert or update the data as appropriate (insert if $this->id == '')
-        $ret = ($this->id == '') ? $this->insertRecord($fields, $values) : $this->updateRecord($assigns);
+        $ret = ($this->id == '') ? $this->insertRecord($values) : $this->updateRecord($values);
         if ($ret) {
             $this->id = $this->newData[$this->idField] ?? null;
             $this->oldData = $this->newData;
@@ -449,20 +448,19 @@ class SimpleTable
      * Insert a new record.
      * $fields is an array of fields and $values an array with the values for each field in the same order.
      *
-     * @param array $fields
      * @param array $values
      *
      * @return bool
      */
-    private function insertRecord($fields, $values): bool
+    private function insertRecord($values): bool
     {
         $fieldNames = [];
         $fieldVars = [];
         $vars = [];
-        foreach ($fields as $key => $fieldName) {
-            $fieldNames[$key] = trim($fieldName, '`');
-            $fieldVars[$key] = ':' . $fieldNames[$key];
-            $vars[$fieldNames[$key]] = trim($values[$key], '"');
+        foreach ($fields as $fieldName => $value) {
+            $fieldNames[$fieldName] = $fieldName;
+            $fieldVars[$key] = ':' . $fieldName;
+            $vars[$fieldName] = $value;
         }
 
         $fieldList = implode(', ', $fieldNames);
@@ -486,8 +484,17 @@ class SimpleTable
      */
     private function updateRecord(array $data): bool
     {
-        $value = implode(', ', $data);
-        $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $value"
+        $fieldNames = [];
+        $fieldVars = [];
+        $vars = [];
+        foreach ($fields as $fieldName => $value) {
+            $fieldNames[] = Config::$sqlHelper->quoteFieldName($fieldName) . ' = ' . Config::$sqlHelper->quoteLiteral(':' . $fieldName);
+            $vars[$fieldName] = $value;
+        }
+
+        $fieldList = implode(', ', $fieldNames);
+
+        $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $fieldList"
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
         $vars['id'] = $this->id;
         return Config::$dbEngine->exec($sql, $vars);
