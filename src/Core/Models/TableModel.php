@@ -30,4 +30,14 @@ class TableModel extends Table
             ]
         );
     }
+
+    /**
+     * Return class dependencies
+     */
+    public function getDependencies()
+    {
+        return [
+            'Alxarafe\\Models\\Page',
+        ];
+    }
 }

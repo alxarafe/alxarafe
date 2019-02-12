@@ -9,7 +9,7 @@ namespace Alxarafe\Models;
 use Alxarafe\Base\Table;
 
 /**
- * Class Roles. Define the roles available in the application. By default, the administrator
+ * Class Role. Define the roles available in the application. By default, the administrator
  * and the user are defined.
  *
  * @package Alxarafe\Models
@@ -17,16 +17,18 @@ use Alxarafe\Base\Table;
 class Role extends Table
 {
     /**
-     * Roles constructor.
+     * Role constructor.
+     *
+     * @param bool $create
      */
-    public function __construct()
+    public function __construct(bool $create = true)
     {
         parent::__construct(
             'roles',
             [
                 'idField' => 'id',
                 'nameField' => 'name',
-                'create' => true,
+                'create' => $create,
             ]
         );
     }
