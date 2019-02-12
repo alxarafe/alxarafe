@@ -460,7 +460,7 @@ class SimpleTable
         $vars = [];
 
         foreach ($values as $fieldName => $value) {
-            $fieldNames[$fieldName] = $fieldName;
+            $fieldNames[$fieldName] = Config::$sqlHelper->quoteFieldName($fieldName);
             $fieldVars[$fieldName] = ':' . $fieldName;
             $vars[$fieldName] = $value;
         }
@@ -490,8 +490,8 @@ class SimpleTable
         $fieldNames = [];
         $fieldVars = [];
         $vars = [];
-        foreach ($fields as $fieldName => $value) {
-            $fieldNames[] = Config::$sqlHelper->quoteFieldName($fieldName) . ' = ' . Config::$sqlHelper->quoteLiteral(':' . $fieldName);
+        foreach ($data as $fieldName => $value) {
+            $fieldNames[] = Config::$sqlHelper->quoteFieldName($fieldName) . ' = :' . $fieldName;
             $vars[$fieldName] = $value;
         }
 
