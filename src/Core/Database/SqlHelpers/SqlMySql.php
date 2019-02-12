@@ -295,11 +295,16 @@ class SqlMySql extends SqlHelper
                 FROM
                     ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('KEY_COLUMN_USAGE') . '
                 WHERE
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = ' . $this->quoteLiteral($constraintName) . ' AND
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = :table_name AND
+                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = :constraint_name AND
                     ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
-        return Config::$dbEngine->selectCoreCache($tableName . '-constraint-' . $constraintName, $sql);
+        $vars = [
+            'constraint_schema' => $this->getTablename(),
+            'table_name' => $tableName,
+            'constraint_name' => $constraintName,
+        ];
+        return Config::$dbEngine->selectCoreCache($tableName . '-constraint-' . $constraintName, $sql, $vars);
     }
 
     /**
@@ -320,10 +325,15 @@ class SqlMySql extends SqlHelper
                     ' . Config::$sqlHelper->quoteFieldName('DELETE_RULE') . '
                 FROM ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
                 WHERE
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename()) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableName) . ' AND
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = ' . $this->quoteLiteral($constraintName) . ';';
-        $result = Config::$dbEngine->selectCoreCache($tableName . '-constraints-' . $constraintName, $sql);
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
+                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = :table_name AND
+                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = :constraint_name;';
+        $vars = [
+            'constraint_schema' => $this->getTablename(),
+            'table_name' => $tableName,
+            'constraint_name' => $constraintName,
+        ];
+        $result = Config::$dbEngine->selectCoreCache($tableName . '-constraints-' . $constraintName, $sql, $vars);
         return $result;
     }
 
