@@ -334,7 +334,7 @@ class SimpleTable
     private function getDataBy(string $key, $value): bool
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' =:value;';
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = :value;';
         $data = Config::$dbEngine->select($sql, ['value' => $value]);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
