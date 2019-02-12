@@ -6,13 +6,13 @@ fields:
         nullable: 'no'
         unsigned: 'yes'
         autoincrement: 'yes'
-    user_id:
+    id_user:
         type: integer
         length: '10'
         default: null
         nullable: 'yes'
         unsigned: 'yes'
-    role_id:
+    id_role:
         type: integer
         length: '10'
         default: null
@@ -22,22 +22,22 @@ indexes:
     PRIMARY:
         column: id
         unique: 'yes'
-    user_id:
-        column: user_id
+    id_user:
+        column: id_user
         unique: 'no'
-    role_id:
-        column: role_id
+    id_role:
+        column: id_role
         unique: 'no'
 values:
     1:
         id: 1
-        user_id: 1
-        role_id: 1
+        id_user: 1
+        id_role: 1
     2:
         id: 2
-        user_id: 2
-        role_id: 2
+        id_user: 2
+        id_role: 2
     3:
         id: 3
-        user_id: 3
-        role_id: 3
+        id_user: 3
+        id_role: 3

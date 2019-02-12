@@ -246,7 +246,7 @@ class PageController extends Controller
         }
 
         if ($this->roles === null) {
-            $this->roles = (new UserRole())->getAllRecordsBy('user_id', $this->user->getId());
+            $this->roles = (new UserRole())->getAllRecordsBy('id_user', $this->user->getId());
         }
         if (!empty($this->roles)) {
             foreach ($this->roles as $pos => $role) {
@@ -256,7 +256,7 @@ class PageController extends Controller
                     return true;
                 }
 
-                if ($pagesAccess = (new RolePage())->getAllRecordsBy('role_id', $role['id'])) {
+                if ($pagesAccess = (new RolePage())->getAllRecordsBy('id_role', $role['id'])) {
                     $pages = array_merge($pages, $pagesAccess);
                 }
             }

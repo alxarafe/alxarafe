@@ -6,13 +6,13 @@ fields:
         nullable: 'no'
         unsigned: 'yes'
         autoincrement: 'yes'
-    role_id:
+    id_role:
         type: integer
         length: '10'
         default: null
         nullable: 'no'
         unsigned: 'yes'
-    page_id:
+    id_page:
         type: integer
         length: '10'
         default: null
@@ -59,13 +59,13 @@ indexes:
         column: id
         unique: 'yes'
     role_page:
-        column: role_id,page_id
+        column: id_role,id_page
         unique: 'yes'
 values:
     1:
         id: 1
-        role_id: 1
-        page_id: null
+        id_role: 1
+        id_page: null
         can_access: 1
         can_create: 1
         can_read: 1
