@@ -147,7 +147,7 @@ abstract class SqlHelper
     {
         $query = $this->getColumnsSql($tableName, $usePrefix);
         //$data = Config::$dbEngine->select($query);
-        $data = Config::$dbEngine->selectCoreCache($query, $tableName . '-columns');
+        $data = Config::$dbEngine->selectCoreCache($tableName . '-columns', $query);
 //        Debug::addMessage('messages', "Query SQL: <pre>" . var_export($query, true) . "</pre>");
 //        Debug::addMessage('messages', "Query data: <pre>" . var_export($data, true) . "</pre>");
         $result = [];
@@ -190,7 +190,7 @@ abstract class SqlHelper
     public function getIndexes(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getIndexesSql($tableName, $usePrefix);
-        $data = Config::$dbEngine->selectCoreCache($query, $tableName . '-indexes');
+        $data = Config::$dbEngine->selectCoreCache($tableName . '-indexes', $query);
 
         $result = [];
 

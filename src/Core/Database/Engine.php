@@ -256,7 +256,7 @@ abstract class Engine
      *
      * @return array
      */
-    final public static function selectCoreCache(string $query, string $cachedName): array
+    final public static function selectCoreCache(string $cachedName, string $query): array
     {
         if (constant('CORE_CACHE_ENABLED') === true) {
             $cacheEngine = Config::getCacheCoreEngine();
