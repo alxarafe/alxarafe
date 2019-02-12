@@ -18,6 +18,5 @@ class TwigFilters
      */
     public function __construct()
     {
-
     }
 }

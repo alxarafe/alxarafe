@@ -100,7 +100,6 @@ class Login extends PageController
      */
     public function run(): void
     {
-
     }
 
     /**
