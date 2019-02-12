@@ -6,7 +6,9 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Helpers\Session;
 use ReflectionClass;
 
 /**
@@ -31,10 +33,16 @@ class Controller
     public $shortName;
 
     /**
+     * @var Session
+     */
+    public $session;
+
+    /**
      * Controller constructor.
      */
     public function __construct()
     {
+        $this->session = Config::$session->getSingleton();
         $this->shortName = (new ReflectionClass($this))->getShortName();
         Debug::startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->username = null;

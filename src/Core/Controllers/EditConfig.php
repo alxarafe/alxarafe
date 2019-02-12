@@ -53,12 +53,15 @@ class EditConfig extends PageController
             case 'clear-cache':
                 $engine = (new CacheCore())->getEngine();
                 $engine->clear();
+                Config::setInfo('Cache cleared successfully.');
                 break;
             case 'save':
+                $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 Debug::addMessage(
                     'messages',
-                    ($this->save() ? 'Changes stored' : 'Changes not stored')
+                    $msg
                 );
+                Config::setInfo($msg);
                 // The database or prefix may have been changed and have to be regenerated.
                 Config::$cacheEngine->clear();
                 $this->userAuth->logout();

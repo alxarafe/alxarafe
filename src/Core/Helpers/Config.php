@@ -72,7 +72,28 @@ class Config
      *
      * @var array
      */
-    private static $errors;
+    private static $errorList;
+
+    /**
+     * Contains warning messages.
+     *
+     * @var array
+     */
+    private static $warningList;
+
+    /**
+     * Contains infos messages.
+     *
+     * @var array
+     */
+    private static $infoList;
+
+    /**
+     * Contains success messages.
+     *
+     * @var array
+     */
+    private static $successList;
 
     /**
      * Translator
@@ -87,6 +108,11 @@ class Config
      * @var PhpArrayAdapter
      */
     public static $cacheEngine;
+
+    /**
+     * @var Session
+     */
+    public static $session;
 
     /**
      * Return true y the config file exists
@@ -149,7 +175,7 @@ class Config
      */
     public static function loadConfig(): void
     {
-        self::$errors = [];
+        self::$errorList = [];
         self::$global = self::loadConfigurationFile();
 
         if (self::$lang === null) {
@@ -171,6 +197,8 @@ class Config
             return;
         }
         self::$cacheEngine = (new CacheCore())->getEngine();
+
+        self::$session = (new Session())->getSingleton();
     }
 
     /**
@@ -208,11 +236,45 @@ class Config
     /**
      * Register a new error message
      *
+     * @param string $msg
+     */
+    public static function setError(string $msg): void
+    {
+        self::$errorList[] = $msg;
+        self::$session->setFlash('msgError', $msg);
+    }
+
+    /**
+     * Register a new warning message
+     *
+     * @param string $msg
+     */
+    public static function setWarning(string $msg): void
+    {
+        self::$warningList[] = $msg;
+        self::$session->setFlash('msgWarning', $msg);
+    }
+
+    /**
+     * Register a new info message
+     *
      * @param string $error
      */
-    public static function setError(string $error): void
+    public static function setInfo(string $msg): void
     {
-        self::$errors[] = $error;
+        self::$infoList[] = $msg;
+        self::$session->setFlash('msgInfo', $msg);
+    }
+
+    /**
+     * Register a new error message
+     *
+     * @param string $msg
+     */
+    public static function setSuccess(string $msg): void
+    {
+        self::$successList[] = $msg;
+        self::$session->setFlash('msgSuccess', $msg);
     }
 
     /**
@@ -272,9 +334,45 @@ class Config
      */
     public static function getErrors(): array
     {
-        $errors = self::$errors;
-        self::$errors = [];
-        return $errors;
+        $list = self::$errorList;
+        self::$errorList = [];
+        return $list;
+    }
+
+    /**
+     * Returns an array with the pending warning messages, and empties the list.
+     *
+     * @return array
+     */
+    public static function getWarnings(): array
+    {
+        $list = self::$warningList;
+        self::$warningList = [];
+        return $list;
+    }
+
+    /**
+     * Returns an array with the pending info messages, and empties the list.
+     *
+     * @return array
+     */
+    public static function getInfos(): array
+    {
+        $list = self::$infoList;
+        self::$infoList = [];
+        return $list;
+    }
+
+    /**
+     * Returns an array with the pending success messages, and empties the list.
+     *
+     * @return array
+     */
+    public static function getSuccesses(): array
+    {
+        $list = self::$successList;
+        self::$successList = [];
+        return $list;
     }
 
     /**

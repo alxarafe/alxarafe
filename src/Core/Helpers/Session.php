@@ -35,7 +35,21 @@ class Session
      */
     public function __construct()
     {
+        // If is not yet started, started now
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $this->session = (new SessionFactory())->newInstance($_COOKIE);
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return $this
+     */
+    public function getSingleton(): self
+    {
+        return $this;
     }
 
     /**
