@@ -241,7 +241,7 @@ class Config
     public static function setError(string $msg): void
     {
         self::$errorList[] = $msg;
-        self::$session->setFlash('msgError', $msg);
+        self::$session->setFlash('msgError', join('<br/>', self::$errorList));
     }
 
     /**
@@ -252,7 +252,7 @@ class Config
     public static function setWarning(string $msg): void
     {
         self::$warningList[] = $msg;
-        self::$session->setFlash('msgWarning', $msg);
+        self::$session->setFlash('msgWarning', join('<br/>', self::$warningList));
     }
 
     /**
@@ -263,7 +263,7 @@ class Config
     public static function setInfo(string $msg): void
     {
         self::$infoList[] = $msg;
-        self::$session->setFlash('msgInfo', $msg);
+        self::$session->setFlash('msgInfo', join('<br/>', self::$infoList));
     }
 
     /**
@@ -274,7 +274,7 @@ class Config
     public static function setSuccess(string $msg): void
     {
         self::$successList[] = $msg;
-        self::$session->setFlash('msgSuccess', $msg);
+        self::$session->setFlash('msgSuccess', join('<br/>', self::$successList));
     }
 
     /**

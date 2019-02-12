@@ -33,30 +33,29 @@ class TwigFunctions
      *
      * @param array  $params
      *
-     * @return mixed
+     * @return array|mixed
      */
     public function flash(array $params)
     {
-        $return = null;
+        $return = [];
         foreach ($params as $pos => $param) {
-            $flash = $this->session->getFlash($param);
+            $flash = $this->session->getFlash($param[0]);
             if ($flash) {
-                $return =  sprintf(
-                    '<div style="width: %s" class="alert alert-%s">%s</div>',
-                    '100%',
-                    $params[1],
-                    $flash
-                );
-                if ($param === 'post') {
-                    $return =  $flash;
+                $return[$pos] = [
+                    'type' => $param[1],
+                    'msg' => $flash
+                ];
+                if ($params[0] === 'post') {
+                    return  $flash;
                 }
             }
         }
-
         return $return;
     }
 
     /**
+     * Returns the copyright content.
+     *
      * @return string
      */
     public function copyright()

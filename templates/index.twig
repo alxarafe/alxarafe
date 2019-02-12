@@ -27,10 +27,16 @@
 
 <div class="container-fluid" id="bodycontent" name="bodycontent">
 
-    {{ TwigFunctions('flash', ['msgError', 'danger']) | raw }}
-    {{ TwigFunctions('flash', ['msgWarning', 'warning']) | raw }}
-    {{ TwigFunctions('flash', ['msgInfo', 'info']) | raw }}
-    {{ TwigFunctions('flash', ['msgSuccess', 'success']) | raw }}
+    {% set messages = TwigFunctions('flash', [['msgError', 'danger'], ['msgWarning', 'warning'], ['msgInfo', 'info'], ['msgSuccess', 'success']]) %}
+    {% if messages is not empty %}
+        {% for pos, messageData in messages %}
+            <div style="width: 100%" class="alert alert-{{ messageData.type }}">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>{{ lang.trans('title-messages-' ~ messageData.type) }}</h4>
+                {{ messageData.msg | raw }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     {% block body %}{% endblock %}
 </div>
