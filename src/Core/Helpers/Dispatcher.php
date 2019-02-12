@@ -8,10 +8,8 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\CreateConfig;
-use Alxarafe\Models\Page;
 use Exception;
 use ReflectionClass;
-use Symfony\Component\Finder\Finder;
 
 /**
  * Class Dispatcher
@@ -147,8 +145,6 @@ class Dispatcher
             }
         }
 
-        $this->regenerateData();
-
         foreach ($this->searchDir as $namespace => $dir) {
             $path = $dir . '/Controllers';
             if ($this->processFolder($path, $call, $method)) {
@@ -197,131 +193,5 @@ class Dispatcher
             return true;
         }
         return false;
-    }
-
-    /**
-     * Regenerate some needed data.
-     *
-     * TODO: Some parts must be moved to another parts on a near future.
-     *
-     * @return void
-     */
-    private function regenerateData(): void
-    {
-        // It may occur during the creation of the configuration file
-        if (!isset(Config::$dbEngine)) {
-            Debug::addMessage('messages', 'Uninitialized database engine');
-            return;
-        }
-
-        if (constant('DEBUG') === true) {
-//            Debug::addMessage('messages', 'This calls must be in another place a near future.');
-            $this->instantiateModels();
-            $this->checkPageControllers();
-        }
-    }
-
-    /**
-     * Instantiate all available models
-     *
-     * TODO: This must be executed only when update/upgrade the core. At this moment is forced if DEBUG is enabled.
-     *
-     * @return void
-     */
-    private function instantiateModels(): void
-    {
-        // Start DB transaction
-        Config::$dbEngine->beginTransaction();
-
-        foreach ($this->searchDir as $namespace => $baseDir) {
-            $models = Finder::create()
-                ->files()
-                ->name('*.php')
-                ->in($dir = $baseDir . '/Models');
-            foreach ($models as $modelFile) {
-                $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
-//                Debug::addMessage('messages', 'Instantiate model: ' . $class);
-                $class = '\\' . $namespace . '\\Models\\' . $class;
-                new $class();
-            }
-        }
-
-        // End DB transaction
-        Config::$dbEngine->commit();
-    }
-
-    /**
-     * Check all clases that extends from PageController, an store it to pages table.
-     * We needed to generate the user menu.
-     *
-     * TODO: This must be checked only when update/upgrade the core.
-     * WARNING: At this moment are generating 3 extra SQL queries per table.
-     *
-     * @return void
-     */
-    private function checkPageControllers(): void
-    {
-        // Start DB transaction
-        Config::$dbEngine->beginTransaction();
-
-        foreach ($this->searchDir as $namespace => $baseDir) {
-            $controllers = Finder::create()
-                ->files()
-                ->name('*.php')
-                ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
-            foreach ($controllers as $controllerFile) {
-                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
-                $class = '\\' . $namespace . '\\Controllers\\' . $className;
-//                Debug::addMessage('messages', 'Instantiation of class ' . $className . ' extending PageController');
-                $newClass = new $class();
-                $parents = class_parents($newClass);
-//                if (in_array('Xfs\Base\XfsController', $parents)) {
-//                    Debug::addMessage('messages', 'Class ' . $className . ' also extends from XfsController');
-//                }
-                if (in_array('Alxarafe\Base\PageController', $parents)) {
-                    $this->updatePageData($className, $namespace, $newClass);
-                }
-            }
-        }
-
-        // End DB transaction
-        Config::$dbEngine->commit();
-    }
-
-    /**
-     * Updates the page data if needed.
-     *
-     * @param string $className
-     * @param        $namespace
-     * @param        $newPage
-     */
-    private function updatePageData(string $className, $namespace, $newPage)
-    {
-//            $pages = (new Page())->getAllRecords();
-//            foreach ($pages as $pos => $page) {
-//                $pageDelete = new Page();
-//                $pageDelete->setOldData($page);
-//                Config::setError(($pageDelete->delete() ? 'ok': 'fail'));
-//            }
-
-            $page = new Page();
-            if (!$page->getBy('controller', $className)) {
-                $page = new Page();
-            }
-            $page->controller = $className;
-            $page->title = $newPage->title;
-            $page->description = $newPage->description;
-            $page->menu = $newPage->menu;
-            $page->icon = $newPage->icon;
-            $page->plugin = $namespace;
-            $page->active = 1;
-            $page->updated_date = date('Y-m-d H:i:s');
-
-            if (count(array_diff($page->getNewData(), $page->getOldData())) > 1) {
-                $page->save();
-//                $msgSuccess = 'Page ' . $className . ' data added or updated to table';
-//                $msgError = 'Page ' . $className . ' can be saved to table <pre>' . var_export($page, true) . '</pre>';
-//                Config::setError(($page->save() ? $msgSuccess : $msgError));
-            }
     }
 }

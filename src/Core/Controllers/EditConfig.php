@@ -11,7 +11,9 @@ use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Models\Page;
 use Alxarafe\Views\EditConfigView;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -21,13 +23,20 @@ use Symfony\Component\Yaml\Yaml;
  */
 class EditConfig extends PageController
 {
-
+    /**
+     * @var array
+     */
+    protected $searchDir;
     /**
      * The constructor creates the view.
      */
     public function __construct()
     {
         parent::__construct();
+        $this->searchDir = [
+            'Alxarafe' => constant('ALXARAFE_FOLDER'),
+            'Xfs' => constant('BASE_PATH'),
+        ];
     }
 
     /**
@@ -51,9 +60,14 @@ class EditConfig extends PageController
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
             case 'clear-cache':
-                $engine = (new CacheCore())->getEngine();
-                $engine->clear();
+                Config::$cacheEngine->clear();
                 Config::setInfo('Cache cleared successfully.');
+                break;
+            case 'regenerate-data':
+                Config::$cacheEngine->clear();
+                Config::setInfo('Cache cleared successfully.');
+
+                $this->regenerateData();
                 break;
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
@@ -120,5 +134,135 @@ class EditConfig extends PageController
             'menu' => 'admin',
         ];
         return $details;
+    }
+
+    /**
+     * Regenerate some needed data.
+     *
+     * @return void
+     */
+    private function regenerateData(): void
+    {
+        $this->instantiateModels();
+        $this->checkPageControllers();
+    }
+
+    /**
+     * Instantiate all available models
+     *
+     * TODO: This must be executed only when update/upgrade the core. At this moment is forced if DEBUG is enabled.
+     *
+     * @return void
+     */
+    private function instantiateModels(): void
+    {
+        // Start DB transaction
+        Config::$dbEngine->beginTransaction();
+
+        $loadedDep = [];
+        $list = [];
+        foreach ($this->searchDir as $namespace => $baseDir) {
+            $models = Finder::create()
+                ->files()
+                ->name('*.php')
+                ->in($dir = $baseDir . '/Models');
+            foreach ($models->getIterator() as $modelFile) {
+                $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
+                $list[] = $namespace . '\\Models\\' . $class;
+            }
+
+            // Instanciate dependencies and after the main class
+            foreach ($list as $class) {
+                if (method_exists($class, 'getDependencies')) {
+                    $deps = (new $class())->getDependencies();
+                    foreach ($deps as $dep) {
+                        if (!in_array($dep, $loadedDep)) {
+                            $loadedDep[] = $dep;
+                            new $dep(true);
+                        }
+                    }
+                    if (!in_array($class, $loadedDep)) {
+                        $loadedDep[] = $class;
+                        new $class(true);
+                    }
+                }
+            }
+        }
+
+        foreach ($list as $class) {
+            if (!in_array($class, $loadedDep)) {
+                $loadedDep[] = $class;
+                new $class(true);
+            }
+        }
+
+        // End DB transaction
+        if (Config::$dbEngine->commit()) {
+            Config::setInfo('Re-instanciated model class successfully');
+        } else {
+            Config::setError('Errors re-instanciating model class.');
+        }
+    }
+
+    /**
+     * Check all clases that extends from PageController, an store it to pages table.
+     * We needed to generate the user menu.
+     *
+     * TODO: This must be checked only when update/upgrade the core.
+     * WARNING: At this moment are generating 3 extra SQL queries per table.
+     *
+     * @return void
+     */
+    private function checkPageControllers(): void
+    {
+        // Start DB transaction
+        Config::$dbEngine->beginTransaction();
+
+        foreach ($this->searchDir as $namespace => $baseDir) {
+            $controllers = Finder::create()
+                ->files()
+                ->name('*.php')
+                ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
+            foreach ($controllers as $controllerFile) {
+                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
+                $class = '\\' . $namespace . '\\Controllers\\' . $className;
+                $newClass = new $class();
+                $parents = class_parents($class);
+                if (in_array('Alxarafe\Base\PageController', $parents)) {
+                    $this->updatePageData($className, $namespace, $newClass);
+                }
+            }
+        }
+
+        // End DB transaction
+        if (Config::$dbEngine->commit()) {
+            Config::setInfo('Re-instanciated page controller class successfully');
+        } else {
+            Config::setError('Errors re-instanciating page controller class.');
+        }
+    }
+
+    /**
+     * Updates the page data if needed.
+     *
+     * @param string $className
+     * @param        $namespace
+     * @param        $newPage
+     */
+    private function updatePageData(string $className, $namespace, $newPage)
+    {
+        $page = new Page();
+        if (!$page->getBy('controller', $className)) {
+            $page = new Page();
+        }
+        $page->controller = $className;
+        $page->title = $newPage->title;
+        $page->description = $newPage->description;
+        $page->menu = $newPage->menu;
+        $page->icon = $newPage->icon;
+        $page->plugin = $namespace;
+        $page->active = 1;
+        $page->updated_date = date('Y-m-d H:i:s');
+        $page->save();
     }
 }
