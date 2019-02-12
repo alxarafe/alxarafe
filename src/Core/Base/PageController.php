@@ -162,7 +162,6 @@ class PageController extends Controller
             $this->user = $this->userAuth->getUser();
         }
         if ($this->userName) {
-            Debug::addMessage('messages', "User '" . $this->userName . "' logged in.");
             // Stored to avoid duplicate queries
             $this->canAccess = $this->canAction($this->userName, 'access');
             $this->canCreate = $this->canAction($this->userName, 'create');
@@ -182,7 +181,6 @@ class PageController extends Controller
             return true;
         }
         $this->userAuth->login();
-        Debug::addMessage('messages', 'User must log in!');
         return false;
     }
 

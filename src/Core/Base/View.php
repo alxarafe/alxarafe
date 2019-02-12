@@ -89,8 +89,6 @@ class View
         if (!Skin::hasTemplate()) {
             Skin::setTemplate('default');
         }
-        // $this->vars['errors'] = Config::getErrors();
-        // TODO: End full execution timer
         echo Skin::render($this->vars);
         Debug::stopTimer('full-execution');
     }
@@ -206,14 +204,14 @@ class View
     }
 
     /**
-     * Makes visible Config::getErrors() from templates, using view.getErrors()
-     * Config::getErrors() returns an array with the pending error messages, and empties the list.
+     * Makes visible Config::getMessages() from templates, using view.getMessages()
+     * Config::getMessages() returns an array with the pending error messages, and empties the list.
      *
      * @return array
      */
-    public function getErrors(): array
+    public function getMessages(): array
     {
-        return Config::getErrors();
+        return Config::getMessages();
     }
 
     /**

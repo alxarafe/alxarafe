@@ -98,10 +98,7 @@ class Auth extends User
      */
     public function logout(): void
     {
-        Debug::addMessage(
-            'messages', 'Auth::Logout(): ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out')
-        );
-        $this->session->setFlash('msgInfo', 'User logged out.');
+        Config::setInfo('Logout: ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out'));
 
         $this->username = null;
 
@@ -132,8 +129,6 @@ class Auth extends User
     private function clearCookieUser(): void
     {
         $this->adjustCookieUser();
-        unset($_COOKIE['user']);
-        unset($_COOKIE['logkey']);
     }
 
     /**

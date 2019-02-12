@@ -25,9 +25,8 @@
 
 <br/>
 
-<div class="container-fluid" id="bodycontent" name="bodycontent">
-
-    {% set messages = TwigFunctions('flash', [['msgError', 'danger'], ['msgWarning', 'warning'], ['msgInfo', 'info'], ['msgSuccess', 'success']]) %}
+<div class="container-fluid" id="messagescontent" name="messagescontent">
+    {% set messages = TwigFunctions('flash', ['messages']) %}
     {% if messages is not empty %}
         {% for pos, messageData in messages %}
             <div style="width: 100%" class="alert alert-{{ messageData.type }}">
@@ -37,7 +36,9 @@
             </div>
         {% endfor %}
     {% endif %}
+</div>
 
+<div class="container-fluid" id="bodycontent" name="bodycontent">
     {% block body %}{% endblock %}
 </div>
 {% block footer %}{% include 'master/footer.twig' %}{% endblock %}

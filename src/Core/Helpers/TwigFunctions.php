@@ -29,7 +29,7 @@ class TwigFunctions
     }
 
     /**
-     * Returns data from flash information.
+     * Returns data messages from flash information.
      *
      * @param array  $params
      *
@@ -38,15 +38,17 @@ class TwigFunctions
     public function flash(array $params)
     {
         $return = [];
-        foreach ($params as $pos => $param) {
-            $flash = $this->session->getFlash($param[0]);
-            if ($flash) {
-                $return[$pos] = [
-                    'type' => $param[1],
-                    'msg' => $flash
-                ];
-                if ($params[0] === 'post') {
-                    return  $flash;
+        $flashType = $params[0];
+//        var_dump($flashType);
+        $flash = $this->session->getFlash($flashType);
+//        var_dump($flash);
+        if ($flashType === 'post') {
+            return  $flash;
+        }
+        if (!empty($flash)) {
+            foreach ($flash as $pos => $messageData) {
+                if ($flash) {
+                    $return[] = $messageData;
                 }
             }
         }
