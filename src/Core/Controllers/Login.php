@@ -48,6 +48,7 @@ class Login extends PageController
 
         if (isset($_COOKIE ['user']) && isset($_COOKIE ['logkey'])) {
             $this->userName = $this->userAuth->getCookieUser();
+            var_dump($this);
         } elseif (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
@@ -74,6 +75,7 @@ class Login extends PageController
         }
         Debug::addMessage('messages', $where);
         header('Location: ' . $where);
+        exit;
     }
 
     /**

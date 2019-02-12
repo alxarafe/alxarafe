@@ -420,9 +420,10 @@ class SimpleTable
         }
 
         // If there are no modifications, we leave without error.
-        if (count($fields) == 0) {
+        if (count($values) == 0) {
             return true;
         }
+
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->id == '') ? $this->insertRecord($values) : $this->updateRecord($values);
         if ($ret) {
@@ -457,9 +458,10 @@ class SimpleTable
         $fieldNames = [];
         $fieldVars = [];
         $vars = [];
-        foreach ($fields as $fieldName => $value) {
+
+        foreach ($values as $fieldName => $value) {
             $fieldNames[$fieldName] = $fieldName;
-            $fieldVars[$key] = ':' . $fieldName;
+            $fieldVars[$fieldName] = ':' . $fieldName;
             $vars[$fieldName] = $value;
         }
 
@@ -467,6 +469,7 @@ class SimpleTable
         $valueList = implode(', ', $fieldVars);
 
         $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);";
+
         $ret = Config::$dbEngine->exec($sql, $vars);
 
         // Assign the value of the primary key of the newly inserted record
@@ -497,6 +500,7 @@ class SimpleTable
         $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $fieldList"
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
         $vars['id'] = $this->id;
+
         return Config::$dbEngine->exec($sql, $vars);
     }
 
