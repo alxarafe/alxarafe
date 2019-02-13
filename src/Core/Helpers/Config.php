@@ -160,7 +160,7 @@ class Config
         self::$global = self::loadConfigurationFile();
 
         if (self::$lang === null) {
-            self::$lang = new Lang(constant('LANG'));
+            self::$lang = new Lang(Config::$global['lang'] ?? constant('LANG'));
         }
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;

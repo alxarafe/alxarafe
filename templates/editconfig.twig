@@ -44,8 +44,17 @@
                         </div>
                     </div>
                 {% endfor %}
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    &nbsp;
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    {% if view.languages|length > 0 %}
+                        <div class="form-group">
+                            <label>{{ lang.trans('default-language') }}</label>
+                            <select id="language" name="skin" class="form-control">
+                                {% for lang in view.languages %}
+                                    <option {{ lang==view.language ? "selected":"" }}>{{ lang }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
