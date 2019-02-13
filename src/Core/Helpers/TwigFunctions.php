@@ -39,9 +39,7 @@ class TwigFunctions
     {
         $return = [];
         $flashType = $params[0];
-//        var_dump($flashType);
         $flash = $this->session->getFlash($flashType);
-//        var_dump($flash);
         if ($flashType === 'post') {
             return  $flash;
         }
