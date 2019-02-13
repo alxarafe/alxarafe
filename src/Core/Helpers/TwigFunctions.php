@@ -72,4 +72,16 @@ class TwigFunctions
     {
         return html_entity_decode($value);
     }
+
+    /**
+     * Returns the string to camel case format.
+     *
+     * @param string $toCamel
+     *
+     * @return string
+     */
+    public function snakeToCamel(string $toCamel)
+    {
+        return Utils::snakeToCamel($toCamel);
+    }
 }

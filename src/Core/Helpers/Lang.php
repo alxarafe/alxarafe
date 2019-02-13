@@ -119,6 +119,8 @@ class Lang
             self::$translator->addResource(self::FORMAT, $file, $lang);
         } catch (ParseException $exception) {
             $msg = (str_replace(constant('ALXARAFE_FOLDER'), '', $exception->getMessage()));
+            Config::setError($msg);
+            // TODO: This second message must be removed, previous is showing to user
             Debug::addMessage('language', $msg);
         }
 
@@ -240,11 +242,11 @@ class Lang
             self::$usedStrings[$txt] = $catalogue->get($txt);
             return self::$translator->trans($txt, $parameters, null, $lang);
         }
-        self::$missingStrings[$txt] = $txt;
-        Debug::addMessage('language', 'Missing string ' . $lang . ': ' . $txt);
         if ($lang === self::FALLBACK_LANG) {
             return $txt;
         }
+        self::$missingStrings[$txt] = $txt;
+        Debug::addMessage('language', 'Missing string ' . $lang . ': ' . $txt);
         return $this->customTrans(self::FALLBACK_LANG, $txt, $parameters);
     }
 

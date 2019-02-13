@@ -12,21 +12,54 @@
         <div class="container-fluid">
             {% if (message) %}{{ message }}{% endif %}
 
-
             <div class="row">
                 <div class="col-sm-12">
-                    {{ lang.trans('select-tables-to-export') }}
+                    {{ lang.trans('select-tables-to-generate-models-controllers') }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">&nbsp;</div>
             </div>
             <div class="row">
-                {% for table in view.tables %}
+                <div class="col-sm-2">
+                    <b>{{ lang.trans('table-name') }}</b>
+                </div>
+                <div class="col-sm-3">
+                    <b>{{ lang.trans('path-to-file') }}</b>
+                </div>
+                <div class="col-sm-3">
+                    <b>{{ lang.trans('model-name') }}</b>
+                </div>
+                <div class="col-sm-3">
+                    <b>{{ lang.trans('controller-name') }}</b>
+                </div>
+                <div class="col-sm-1">
+                    <b>{{ lang.trans('selected') }}</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">&nbsp;</div>
+            </div>
+            <div class="row">
+                {% for tableName, filePath in ctrl.tables %}
+                    {% set modelName = TwigFunctions('snakeToCamel', tableName) %}
+                    {% set controllerName = TwigFunctions('snakeToCamel', tableName) %}
                     <div class="col-sm-2">
+                            <input type="text" class="form-control" name="tables[]" value="{{ tableName }}">
+                    </div>
+                    <div class="col-sm-3">
+                            <input type="text" class="form-control" name="files[]" value="{{ filePath }}">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" name="models[]" value="{{ modelName }}">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" name="controllers[]" value="{{ controllerName }}">
+                    </div>
+                    <div class="col-sm-1">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="tables[]" value="{{ table }}"> {{ table }}
+                                <input type="checkbox" name="selected[]" value="{{ table }}">
                             </label>
                         </div>
                     </div>
@@ -43,10 +76,10 @@
                 </div>
                 <div class="col-sm-6 text-right">
                     <button name="action" type="submit" class="btn btn-default btn-primary" value="export-selected">
-                        {{ lang.trans('export-selected') }}
+                        {{ lang.trans('generate-selected') }}
                     </button>
                     <button name="action" type="submit" class="btn btn-default btn-primary" value="export-all">
-                        {{ lang.trans('export-all') }}
+                        {{ lang.trans('generate-all') }}
                     </button>
                 </div>
             </div>

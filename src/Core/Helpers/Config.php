@@ -154,6 +154,8 @@ class Config
      */
     public static function loadConfig(): void
     {
+        self::$session = (new Session())->getSingleton();
+
         self::$messagesList = [];
         self::$global = self::loadConfigurationFile();
 
@@ -176,8 +178,6 @@ class Config
             return;
         }
         self::$cacheEngine = (new CacheCore())->getEngine();
-
-        self::$session = (new Session())->getSingleton();
     }
 
     /**

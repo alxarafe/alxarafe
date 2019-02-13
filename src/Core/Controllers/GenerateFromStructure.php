@@ -8,8 +8,11 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Models\TableModel;
 use Alxarafe\Views\GenerateFromStructureView;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class for generate models and controllers from table structure.
@@ -18,6 +21,7 @@ use Alxarafe\Views\GenerateFromStructureView;
  */
 class GenerateFromStructure extends PageController
 {
+    public $tables;
 
     /**
      * The constructor creates the view
@@ -36,6 +40,8 @@ class GenerateFromStructure extends PageController
     {
         parent::index();
         Skin::setView(new GenerateFromStructureView($this));
+
+        $this->loadDefaultData();
     }
 
     /**
@@ -46,8 +52,11 @@ class GenerateFromStructure extends PageController
     public function main(): void
     {
         switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED)) {
-            case 'export-all':
-
+            case 'generate-all':
+                //Schema::loadDataFromYaml();
+                break;
+            case 'generate-for-table':
+                //Schema::loadDataFromYaml();
                 break;
             case 'cancel':
                 header('Location: ' . constant('BASE_URI'));
@@ -75,9 +84,39 @@ class GenerateFromStructure extends PageController
         $details = [
             'title' => Config::$lang->trans('generate-from-structure'),
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
-            'description' => Config::$lang->trans('generate-from-estructure-description'),
+            'description' => Config::$lang->trans('generate-from-structure-description'),
             'menu' => 'dev-tools',
         ];
         return $details;
+    }
+
+    /**
+     * Load default data for this controller.
+     */
+    private function loadDefaultData()
+    {
+        $dirs = [
+            'Xfs' => constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'config/schema',
+        ];
+
+        $this->tables = [];
+        // Load all files from schema folder
+        foreach ($dirs as $namespace => $baseDir) {
+            $models = Finder::create()
+                ->files()
+                ->name('*.yaml')
+                ->in($baseDir);
+            foreach ($models->getIterator() as $modelFile) {
+                $fileName = str_replace('.yaml', '', $modelFile->getFilename());
+                $this->tables[$fileName] = $modelFile->getPathname();
+            }
+        }
+
+        // Exclude all files that are already in use (don't need to be generated)
+        foreach ((new TableModel())->getAllRecords() as $pos => $data) {
+            if (array_key_exists($data['tablename'], $this->tables)) {
+                unset($this->tables[$data['tablename']]);
+            }
+        }
     }
 }
