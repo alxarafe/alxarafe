@@ -222,6 +222,13 @@ class EditConfig extends PageController
         // Start DB transaction
         Config::$dbEngine->beginTransaction();
 
+        $pages = (new Page())->getAllRecords();
+        foreach ($pages as $pos => $oldPage) {
+            $page = new Page();
+            $page->setOldData($oldPage);
+            $page->delete();
+        }
+
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
                 ->files()

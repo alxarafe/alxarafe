@@ -198,7 +198,7 @@ class Lang
         foreach (scandir($dir, SCANDIR_SORT_ASCENDING) as $fileName) {
             if ($fileName !== '.' && $fileName !== '..' && !is_dir($fileName) && substr($fileName, -5) === self::EXT) {
                 $key = substr($fileName, 0, -5);
-                $languages[$key] = $this->trans('languages-' . substr($fileName, 0, -5));
+                $languages[$key] = $this->trans('language-' . substr($fileName, 0, -5));
             }
         }
         return $languages;
