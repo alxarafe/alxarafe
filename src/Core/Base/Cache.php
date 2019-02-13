@@ -6,8 +6,8 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
-use ErrorException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\MemcachedAdapter;
 use Symfony\Component\Cache\Adapter\PdoAdapter;
@@ -85,18 +85,14 @@ class Cache
     private function connectMemcache(): void
     {
         if (constant('CACHE_HOST') !== '' && \class_exists('Memcache')) {
-            try {
-                $client = MemcachedAdapter::createConnection(
-                    'memcached://' . constant('CACHE_HOST') . ':' . constant('CACHE_PORT')
-                );
-                $this->engine = new MemcachedAdapter(
-                    $client,
-                    $this->prefix,
-                    $this->defaultLifeTime
-                );
-            } catch (ErrorException $e) {
-                Debug::addException($e);
-            }
+            $client = MemcachedAdapter::createConnection(
+                'memcached://' . constant('CACHE_HOST') . ':' . constant('CACHE_PORT')
+            );
+            $this->engine = new MemcachedAdapter(
+                $client,
+                $this->prefix,
+                $this->defaultLifeTime
+            );
         }
     }
 
@@ -135,6 +131,7 @@ class Cache
             );
         } catch (CacheException $e) {
             Debug::addException($e);
+            Config::setError($e->getMessage());
         }
     }
 

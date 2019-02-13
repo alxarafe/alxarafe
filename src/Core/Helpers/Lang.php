@@ -118,8 +118,8 @@ class Lang
         try {
             Yaml::parseFile($file);
             self::$translator->addResource(self::FORMAT, $file, $lang);
-        } catch (ParseException $exception) {
-            $msg = (str_replace(constant('ALXARAFE_FOLDER'), '', $exception->getMessage()));
+        } catch (ParseException $e) {
+            $msg = (str_replace(constant('ALXARAFE_FOLDER'), '', $e->getMessage()));
             Config::setError($msg);
             // TODO: This second message must be removed, previous is showing to user
             Debug::addMessage('language', $msg);

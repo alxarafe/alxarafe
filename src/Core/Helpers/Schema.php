@@ -191,6 +191,7 @@ class Schema
                 return Yaml::parse(file_get_contents($fileName));
             } catch (ParseException $e) {
                 Debug::addMessage('messages', $e->getMessage());
+                Config::setError($e->getMessage());
                 return [];
             }
         }

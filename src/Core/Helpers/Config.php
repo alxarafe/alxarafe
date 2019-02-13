@@ -296,6 +296,7 @@ class Config
                 ]);
             } catch (Exception $e) {
                 Debug::addException($e);
+                Config::setError($e->getMessage());
                 return false;
             }
         }

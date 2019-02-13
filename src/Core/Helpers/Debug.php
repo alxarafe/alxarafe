@@ -58,6 +58,7 @@ class Debug
             self::$logger->pushHandler(new StreamHandler(constant('BASE_PATH') . '/core.log', Logger::DEBUG));
         } catch (Exception $e) {
             Debug::addException($e);
+            Config::setError($e->getMessage());
         }
         self::$logger->pushHandler(new FirePHPHandler());
 
@@ -68,6 +69,7 @@ class Debug
             self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
         } catch (DebugBarException $e) {
             Debug::addException($e);
+            Config::setError($e->getMessage());
         }
         $baseUrl = constant('VENDOR_URI') . '/maximebf/debugbar/src/DebugBar/Resources';
         self::$render = Debug::getDebugBar()->getJavascriptRenderer($baseUrl, constant('BASE_PATH'));

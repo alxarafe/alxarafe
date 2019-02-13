@@ -328,9 +328,11 @@ abstract class Engine
             Debug::$debugBar->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
             Debug::addException($e);
+            Config::setError($e->getMessage());
             return false;
         } catch (DebugBarException $e) {
             Debug::addException($e);
+            Config::setError($e->getMessage());
             return false;
         }
         return isset(self::$dbHandler);

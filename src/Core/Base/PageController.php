@@ -243,6 +243,7 @@ class PageController extends Controller
         } catch (\ReflectionException $e) {
             // $this must exists always, this exception must never success
             Debug::addException($e);
+            Config::setError($e->getMessage());
         }
 
         if ($this->roles === null) {
