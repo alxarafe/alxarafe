@@ -10,7 +10,6 @@ use Alxarafe\Base\View;
 use Alxarafe\Database\Engine;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
-//use Alxarafe\Helpers\Lang;
 
 /**
  * Class EditConfigView
