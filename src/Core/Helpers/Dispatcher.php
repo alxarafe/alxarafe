@@ -179,12 +179,12 @@ class Dispatcher
         $controllerPath = $path . '/' . $call . '.php';
         if (file_exists($controllerPath) && is_file($controllerPath) && method_exists($className, $method)) {
             $theClass = new $className();
-            Debug::addMessage('messages', 'Executing: ' . $call . '->index()');
+            Debug::addMessage('messages', 'Executing: ' . $call . '->run()');
             $shortName = (new ReflectionClass($theClass))->getShortName();
 
-            Debug::startTimer($shortName . '->index()', $shortName . '->index()');
-            $theClass->index();
-            Debug::stopTimer($shortName . '->index()');
+            Debug::startTimer($shortName . '->run()', $shortName . '->run()');
+            $theClass->run();
+            Debug::stopTimer($shortName . '->run()');
 
             Debug::addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
             Debug::startTimer($shortName . '->' . $method . '()', $shortName . '->' . $method . '()');
