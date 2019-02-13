@@ -70,6 +70,8 @@ class CreateConfigView extends View
         $this->dbEngines = Engine::getEngines();
         $this->skins = Skin::getSkins();
         $this->skin = $vars['skin'] ?? $this->skins[0] ?? '';
+        $this->languages = Config::$lang->getAvailableLanguages();
+        $this->language = $vars['language'] ?? $this->languages[0] ?? '';
 
         $this->dbEngineName = $vars['dbEngineName'] ?? $this->dbEngines[0] ?? '';
 
