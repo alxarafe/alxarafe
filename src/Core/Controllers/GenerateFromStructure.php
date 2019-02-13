@@ -118,7 +118,7 @@ class GenerateFromStructure extends PageController
                 Skin::setTemplate('code/xfscontroller.php');
                 break;
             case 'cancel':
-                header('Location: ' . constant('BASE_URI'));
+                header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
     }
@@ -140,9 +140,9 @@ class GenerateFromStructure extends PageController
     public function pageDetails(): array
     {
         $details = [
-            'title' => Config::$lang->trans('generate-from-structure'),
+            'title' => 'generate-from-structure',
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
-            'description' => Config::$lang->trans('generate-from-structure-description'),
+            'description' => 'generate-from-structure-description',
             'menu' => 'dev-tools',
         ];
         return $details;

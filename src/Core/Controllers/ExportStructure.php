@@ -57,7 +57,7 @@ class ExportStructure extends PageController
                 }
                 break;
             case 'cancel':
-                header('Location: ' . constant('BASE_URI'));
+                header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
     }
@@ -80,9 +80,9 @@ class ExportStructure extends PageController
     public function pageDetails(): array
     {
         $details = [
-            'title' => Config::$lang->trans('export-db-estructure'),
+            'title' => 'export-db-estructure',
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
-            'description' => Config::$lang->trans('export-db-estructure-description'),
+            'description' => 'export-db-estructure-description',
             'menu' => 'dev-tools',
         ];
         return $details;

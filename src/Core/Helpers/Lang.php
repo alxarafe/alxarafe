@@ -243,11 +243,17 @@ class Lang
             self::$usedStrings[$txt] = $catalogue->get($txt);
             return self::$translator->trans($txt, $parameters, null, $lang);
         }
-        if ($lang === self::FALLBACK_LANG) {
-            return $txt;
-        }
+
         self::$missingStrings[$txt] = $txt;
         Debug::addMessage('language', 'Missing string ' . $lang . ': ' . $txt);
+        // If we are debugging, need to see if there are missing strings
+        if (constant('DEBUG') === true) {
+            Config::setWarning("Missing string '" . $lang . "': " . $txt);
+        }
+
+        if ($lang === self::FALLBACK_LANG) {
+            return '#' . $txt . '#';
+        }
         return $this->customTrans(self::FALLBACK_LANG, $txt, $parameters);
     }
 
