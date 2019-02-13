@@ -48,7 +48,7 @@
                     {% if view.languages|length > 0 %}
                         <div class="form-group">
                             <label>{{ lang.trans('default-language') }}</label>
-                            <select id="language" name="skin" class="form-control">
+                            <select id="language" name="language" class="form-control">
                                 {% for lang in view.languages %}
                                     <option {{ lang==view.language ? "selected":"" }}>{{ lang }}</option>
                                 {% endfor %}
