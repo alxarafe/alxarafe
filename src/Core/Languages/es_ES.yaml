@@ -43,6 +43,7 @@
 'logout': 'Cerrar sesión'
 'model-name': 'Nombre del modelo'
 'path-to-file': 'Ruta al archivo'
+'no-access': 'Sin acceso'
 'regenerate-data': 'Regenerar datos'
 'regional-info': 'Información regional'
 'register-deleted': 'Registro eliminado'

@@ -158,9 +158,9 @@ class Dispatcher
      * Try to locate the $call class in $path, and execute the $method.
      * Returns true if it locates the class and the method exists, executing it.
      *
-     * @param string $path
-     * @param string $call
-     * @param string $method
+     * @param string      $path
+     * @param string      $call
+     * @param string|null $method
      *
      * @return bool
      */
@@ -179,12 +179,17 @@ class Dispatcher
         $controllerPath = $path . '/' . $call . '.php';
         if (file_exists($controllerPath) && is_file($controllerPath) && method_exists($className, $method)) {
             $theClass = new $className();
-            Debug::addMessage('messages', 'Executing: ' . $call . '->run()');
-            $shortName = (new ReflectionClass($theClass))->getShortName();
+            Debug::addMessage('messages', 'Executing: ' . $call . '->index()');
+            try {
+                $shortName = (new ReflectionClass($theClass))->getShortName();
+            } catch (\ReflectionException $e) {
+                $shortName = null;
+                Config::setError($e->getMessage());
+            }
 
-            Debug::startTimer($shortName . '->run()', $shortName . '->run()');
-            $theClass->run();
-            Debug::stopTimer($shortName . '->run()');
+            Debug::startTimer($shortName . '->index()', $shortName . '->index()');
+            $theClass->index();
+            Debug::stopTimer($shortName . '->index()');
 
             Debug::addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
             Debug::startTimer($shortName . '->' . $method . '()', $shortName . '->' . $method . '()');

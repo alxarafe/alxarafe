@@ -101,6 +101,7 @@
 'login': 'Login'
 'logout': 'Logout'
 'model-name': 'Model name'
+'no-access': 'No access'
 'path-to-file': 'Path to file'
 'regenerate-data': 'Regenerate data'
 'regional-info': 'Regional info'
