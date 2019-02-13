@@ -64,6 +64,7 @@ class Debug
         self::$debugBar = new StandardDebugBar();
         try {
             self::$debugBar->addCollector(new MessagesCollector('SQL'));
+            self::$debugBar->addCollector(new MessagesCollector('language'));
             self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
         } catch (DebugBarException $e) {
             Debug::addException($e);

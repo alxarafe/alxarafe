@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Symfony\Component\Translation\Loader\YamlFileLoader;
@@ -18,6 +17,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Lang
 {
+
     /**
      * Default language to use if language file not exists.
      */
@@ -94,9 +94,9 @@ class Lang
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
             if ($lang !== self::FALLBACK_LANG) {
                 $this->locateFiles(self::FALLBACK_LANG);
-                Debug::addMessage('messages', "Language '" . self::FALLBACK_LANG . "' (fallback), at least all strings must exists here.");
+                Debug::addMessage('language', "Language '" . self::FALLBACK_LANG . "' (fallback), at least all strings must exists here.");
             }
-            Debug::addMessage('messages', "NOTE: at least all strings must exists on '" . self::FALLBACK_LANG . "'.");
+            Debug::addMessage('language', "NOTE: at least all strings must exists on '" . self::FALLBACK_LANG . "'.");
             $this->locateFiles($lang);
         }
     }
@@ -119,7 +119,7 @@ class Lang
             self::$translator->addResource(self::FORMAT, $file, $lang);
         } catch (ParseException $exception) {
             $msg = (str_replace(constant('ALXARAFE_FOLDER'), '', $exception->getMessage()));
-            Debug::addMessage('messages', $msg);
+            Debug::addMessage('language', $msg);
         }
 
         /**
@@ -241,6 +241,7 @@ class Lang
             return self::$translator->trans($txt, $parameters, null, $lang);
         }
         self::$missingStrings[$txt] = $txt;
+        Debug::addMessage('language', 'Missing string ' . $lang . ': ' . $txt);
         if ($lang === self::FALLBACK_LANG) {
             return $txt;
         }
