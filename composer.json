@@ -22,8 +22,6 @@
     "php": "^7.1",
     "symfony/yaml": "^4.2",
     "monolog/monolog": "^1.24",
-    "components/jquery": "^3.3",
-    "twbs/bootstrap": "^3.4",
     "maximebf/debugbar": "^1.0",
     "twig/twig": "^2.0",
     "symfony/translation": "^4.2",
