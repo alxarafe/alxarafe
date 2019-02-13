@@ -10,6 +10,7 @@ use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Models\TableModel;
 use Alxarafe\Views\GenerateFromStructureView;
 use Symfony\Component\Finder\Finder;
@@ -21,7 +22,52 @@ use Symfony\Component\Finder\Finder;
  */
 class GenerateFromStructure extends PageController
 {
+    /**
+     * List of available table schema.
+     *
+     * @var array
+     */
     public $tables;
+
+    /**
+     * The table name.
+     *
+     * @var string
+     */
+    public $tableName;
+
+    /**
+     * @var
+     */
+    public $tableSchema;
+
+    /**
+     * The full path from schema table file.
+     *
+     * @var string
+     */
+    public $fileName;
+
+    /**
+     * The name to use to generate the model.
+     *
+     * @var string
+     */
+    public $modelName;
+
+    /**
+     * The name to use to generate the controller.
+     *
+     * @var string
+     */
+    public $controllerName;
+
+    /**
+     * List of model dependencies.
+     *
+     * @var array
+     */
+    public $modelDeps;
 
     /**
      * The constructor creates the view
@@ -51,12 +97,25 @@ class GenerateFromStructure extends PageController
      */
     public function main(): void
     {
+        $this->tableName = filter_input(INPUT_POST, 'table', FILTER_SANITIZE_STRING);
+        $this->fileName = filter_input(INPUT_POST, 'file', FILTER_SANITIZE_STRING);
+        $this->modelName = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING);
+        $this->controllerName = filter_input(INPUT_POST, 'controller', FILTER_SANITIZE_STRING);
+
         switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED)) {
-            case 'generate-all':
-                //Schema::loadDataFromYaml();
+            case 'generate-model':
+                $this->tableSchema = Schema::loadDataFromYaml($this->fileName);
+                $this->modelDeps = [];
+                foreach ($this->tableSchema['indexes'] as $key => $details) {
+                    if (isset($details['referencedtable'])) {
+                        $this->modelDeps[] = 'Xfs\\Models\\' . Utils::snakeToCamel($details['referencedtable']);
+                    }
+                }
+                Skin::setTemplate('code/xfsmodel.php');
                 break;
-            case 'generate-for-table':
-                //Schema::loadDataFromYaml();
+            case 'generate-controller':
+                $this->tableSchema = Schema::loadDataFromYaml($this->fileName);
+                Skin::setTemplate('code/xfscontroller.php');
                 break;
             case 'cancel':
                 header('Location: ' . constant('BASE_URI'));

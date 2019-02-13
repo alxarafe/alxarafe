@@ -1,0 +1,58 @@
+<pre>
+{#
+<?php
+/**
+ * Alxarafe. Development of PHP applications in a flash!
+ * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ */
+#}
+namespace Xfs\Controllers;
+
+use Xfs\Base\XfsController;
+use Xfs\Base\XfsView;
+use Alxarafe\Models\{{ ctrl.modelName }};
+
+/**
+ * Class {{ ctrl.controllerName }}
+ *
+ * @package Xfs\Controllers
+ */
+class {{ ctrl.controllerName }} extends XfsController
+{
+
+    /**
+     * {{ ctrl.controllerName }} constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct(new {{ ctrl.modelName }}());
+    }
+
+    /**
+     * Run es el punto de entrada del controlador. Es a donde hay que llamar.
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        $this->setView(new XfsView($this));
+        parent::run();
+    }
+
+    /**
+     * Returns the page details.
+     *
+     * @return array
+     */
+    public function pageDetails(): array
+    {
+        $details = [
+            'title' => '{{ ctrl.controllerName }}',
+            'icon' => '<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>',
+            'description' => '{{ ctrl.controllerName }}',
+            'menu' => 'auto-generated',
+        ];
+        return $details;
+    }
+}
+</pre>
