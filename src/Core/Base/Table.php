@@ -128,8 +128,9 @@ class Table extends SimpleTable
     public function getAllRecordsBy(string $key, $value): array
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = ' . Config::$sqlHelper->quoteLiteral($value) . ';';
-        return Config::$dbEngine->select($sql);
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = :value;';
+        $vars['value'] = $value;
+        return Config::$dbEngine->select($sql, $vars);
     }
 
     /**
