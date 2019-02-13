@@ -88,6 +88,7 @@ class Lang
         if (self::$translator === null) {
             self::$defaultLang = $lang;
             Debug::addMessage('messages', "Language '$lang' (default)");
+            Debug::addMessage('language', "Language '$lang' (default)");
             self::$missingStrings = [];
             self::$usedStrings = [];
             self::$translator = new Translator($lang);
