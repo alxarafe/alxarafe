@@ -15,6 +15,7 @@
 'dbPrefix': 'Prefijo de tablas'
 'dbUser': 'Usuario de base de datos'
 'default': 'Por defecto'
+'default-language': 'Idioma por defecto'
 'default-skin': 'Plantilla por defecto'
 'delete': 'Eliminar'
 'dev-tools': 'Herramientas de desarrollo'

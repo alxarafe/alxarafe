@@ -74,6 +74,7 @@
 'dbPrefix': 'Table prefix'
 'dbUser': 'Database user'
 'default': 'Default'
+'default-language': 'Default language'
 'default-skin': 'Default skin'
 'delete': 'Delete'
 'dev-tools': 'Development tools'
