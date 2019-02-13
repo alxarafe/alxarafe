@@ -108,7 +108,7 @@ class Dispatcher
     }
 
     /**
-     * Run the application.
+     * The start point of the controller.
      *
      * @return void
      */

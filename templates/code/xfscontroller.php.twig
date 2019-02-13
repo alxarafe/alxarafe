@@ -29,7 +29,7 @@ class {{ ctrl.controllerName }} extends XfsController
     }
 
     /**
-     * Run es el punto de entrada del controlador. Es a donde hay que llamar.
+     * The start point of the controller.
      *
      * @return void
      */
@@ -47,9 +47,9 @@ class {{ ctrl.controllerName }} extends XfsController
     public function pageDetails(): array
     {
         $details = [
-            'title' => '{{ ctrl.controllerName }}',
+            'title' => 'controller-{{ ctrl.tableName | replace({'_': '-'}) }}-title',
             'icon' => '<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>',
-            'description' => '{{ ctrl.controllerName }}',
+            'description' => 'controller-{{ ctrl.tableName }}-description',
             'menu' => 'auto-generated',
         ];
         return $details;

@@ -92,7 +92,7 @@ class Login extends PageController
     }
 
     /**
-     * Run the class.
+     * The start point of the controller.
      *
      * @return void
      */
