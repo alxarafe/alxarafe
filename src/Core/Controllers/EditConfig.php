@@ -143,6 +143,9 @@ class EditConfig extends PageController
      */
     private function regenerateData(): void
     {
+        if (!set_time_limit(0)) {
+            Config::setError('cant-increase-time-limit');
+        }
         $this->instantiateModels();
         $this->checkPageControllers();
     }
