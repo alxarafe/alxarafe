@@ -82,7 +82,7 @@ class EditConfig extends PageController
                 break;
             case 'cancel':
             default:
-                header('Location: ' . constant('BASE_URI'));
+                header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
     }
@@ -128,9 +128,9 @@ class EditConfig extends PageController
     public function pageDetails(): array
     {
         $details = [
-            'title' => Config::$lang->trans('edit-configuration'),
+            'title' => 'edit-configuration',
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
-            'description' => Config::$lang->trans('edit-configuration-description'),
+            'description' => 'edit-configuration-description',
             //'menu' => 'admin|edit-config',
             'menu' => 'admin',
         ];

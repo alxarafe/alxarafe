@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Helpers\Config;
+use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Views\CreateConfigView;
 use Symfony\Component\Yaml\Yaml;
@@ -39,7 +40,7 @@ class CreateConfig extends Controller
         if (!Config::configFileExists()) {
             Skin::setView(new CreateConfigView($this));
         } else {
-            header('Location: ' . constant('BASE_URI'));
+            header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login');
         }
     }
 
@@ -54,16 +55,13 @@ class CreateConfig extends Controller
         switch ($action) {
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
-                Debug::addMessage(
-                    'messages',
-                    $msg
-                );
+                Debug::addMessage('messages', $msg);
                 Config::setInfo($msg);
-                header('Location: ' . constant('BASE_URI'));
+                header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
             case 'cancel':
             default:
-                header('Location: ' . constant('BASE_URI'));
+                header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
     }
@@ -108,9 +106,9 @@ class CreateConfig extends Controller
     public function pageDetails(): array
     {
         $details = [
-            'title' => Config::$lang->trans('edit-configuration'),
+            'title' => 'edit-configuration',
             'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
-            'description' => Config::$lang->trans('edit-configuration-description'),
+            'description' => 'edit-configuration-description',
             'menu' => 'admin|edit-config',
         ];
         return $details;

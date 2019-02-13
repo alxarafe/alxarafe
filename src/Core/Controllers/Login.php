@@ -74,7 +74,6 @@ class Login extends PageController
         }
         Debug::addMessage('messages', $where);
         header('Location: ' . $where);
-        exit;
     }
 
     /**
@@ -119,9 +118,9 @@ class Login extends PageController
     public function pageDetails(): array
     {
         $details = [
-            'title' => Config::$lang->trans('user-authentication'),
+            'title' => 'user-authentication',
             'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
-            'description' => Config::$lang->trans('user-authentication-description'),
+            'description' => 'user-authentication-description',
             'menu' => '',
         ];
         return $details;

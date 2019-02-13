@@ -204,9 +204,9 @@ class PageController extends Controller
     public function pageDetails(): array
     {
         $details = [
-            'title' => Config::$lang->trans('Default title ') . random_int(PHP_INT_MIN, PHP_INT_MAX),
+            'title' => 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX),
             'icon' => '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>',
-            'description' => Config::$lang->trans('If you can read this, you are missing pageDetails() on your page class.'),
+            'description' => 'If you can read this, you are missing pageDetails() on your page class.',
             'menu' => 'default',
         ];
         return $details;
