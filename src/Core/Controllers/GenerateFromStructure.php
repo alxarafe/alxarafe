@@ -71,7 +71,6 @@ class GenerateFromStructure extends PageController
      */
     public function run(): void
     {
-
     }
 
     /**.
