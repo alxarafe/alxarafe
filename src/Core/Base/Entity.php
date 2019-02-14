@@ -9,6 +9,7 @@ namespace Alxarafe\Base;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Utils;
 use Exception;
+use ReflectionClass;
 
 /**
  * Class Entity
