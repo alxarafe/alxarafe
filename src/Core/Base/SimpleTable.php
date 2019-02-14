@@ -287,7 +287,7 @@ class SimpleTable extends Entity
         foreach ($this->newData as $field => $data) {
             // The first condition is to prevent nulls from becoming empty strings
             if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
-                $values[$field] = $data; //$this->sanitizeField($data);
+                $values[$field] = $data;
             }
         }
 
@@ -303,18 +303,6 @@ class SimpleTable extends Entity
             $this->oldData = $this->newData;
         }
         return $ret;
-    }
-
-    /**
-     * Sanitize field before save.
-     *
-     * @param $data
-     *
-     * @return string
-     */
-    public function sanitizeField($data)
-    {
-        return htmlspecialchars($data);
     }
 
     /**
