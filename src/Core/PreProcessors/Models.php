@@ -47,38 +47,16 @@ class Models
         $loadedDep = [];
         $list = [];
         foreach ($this->searchDir as $namespace => $baseDir) {
-            $models = Finder::create()
-                ->files()
-                ->name('*.php')
-                ->in($dir = $baseDir . '/Models');
-            foreach ($models->getIterator() as $modelFile) {
-                $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
-                $list[] = $namespace . '\\Models\\' . $class;
-            }
+            $this->fillList($namespace, $baseDir, $list);
 
             // Instanciate dependencies and after the main class
             foreach ($list as $class) {
-                if (method_exists($class, 'getDependencies')) {
-                    $deps = (new $class())->getDependencies();
-                    foreach ($deps as $dep) {
-                        if (!in_array($dep, $loadedDep)) {
-                            $loadedDep[] = $dep;
-                            new $dep(true);
-                        }
-                    }
-                    if (!in_array($class, $loadedDep)) {
-                        $loadedDep[] = $class;
-                        new $class(true);
-                    }
-                }
+                $this->loadClassDependencies($loadedDep, $class);
             }
         }
 
         foreach ($list as $class) {
-            if (!in_array($class, $loadedDep)) {
-                $loadedDep[] = $class;
-                new $class(true);
-            }
+            $this->loadClassIfNeeded($loadedDep, $class);
         }
 
         // End DB transaction
@@ -86,6 +64,56 @@ class Models
             Config::setInfo('Re-instanciated model class successfully');
         } else {
             Config::setError('Errors re-instanciating model class.');
+        }
+    }
+
+    /**
+     * Fill list of classes.
+     *
+     * @param string $namespace
+     * @param string $baseDir
+     * @param array  $list
+     */
+    private function fillList(string $namespace, string $baseDir, array &$list)
+    {
+        $models = Finder::create()
+            ->files()
+            ->name('*.php')
+            ->in($dir = $baseDir . '/Models');
+        foreach ($models->getIterator() as $modelFile) {
+            $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
+            $list[] = $namespace . '\\Models\\' . $class;
+        }
+    }
+
+    /**
+     * Load class dependencies before load direct class.
+     *
+     * @param array  $loadedDep
+     * @param string $class
+     */
+    private function loadClassDependencies(array &$loadedDep, string $class)
+    {
+        if (method_exists($class, 'getDependencies')) {
+            $deps = (new $class())->getDependencies();
+            foreach ($deps as $dep) {
+                $this->loadClassIfNeeded($loadedDep, $dep);
+            }
+            $this->loadClassIfNeeded($loadedDep, $class);
+        }
+    }
+
+    /**
+     * Load class only if not yet loaded.
+     *
+     * @param array  $loadedDep
+     * @param string $class
+     */
+    private function loadClassIfNeeded(array &$loadedDep, string $class)
+    {
+        if (!in_array($class, $loadedDep)) {
+            $loadedDep[] = $class;
+            new $class(true);
         }
     }
 }

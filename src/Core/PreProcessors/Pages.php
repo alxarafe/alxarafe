@@ -47,12 +47,7 @@ class Pages
         // Start DB transaction
         Config::$dbEngine->beginTransaction();
 
-        $pages = (new Page())->getAllRecords();
-        foreach ($pages as $pos => $oldPage) {
-            $page = new Page();
-            $page->setOldData($oldPage);
-            $page->delete();
-        }
+        $this->cleanPages();
 
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
@@ -61,12 +56,7 @@ class Pages
                 ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
-                $class = '\\' . $namespace . '\\Controllers\\' . $className;
-                $newClass = new $class();
-                $parents = class_parents($class);
-                if (in_array('Alxarafe\Base\PageController', $parents)) {
-                    $this->updatePageData($className, $namespace, $newClass);
-                }
+                $this->instanciateClass($namespace, $className);
             }
         }
 
@@ -79,13 +69,42 @@ class Pages
     }
 
     /**
+     * Instanciate class and update page data if needed.
+     *
+     * @param string $namespace
+     * @param string $className
+     */
+    private function instanciateClass(string $namespace, string $className)
+    {
+        $class = '\\' . $namespace . '\\Controllers\\' . $className;
+        $newClass = new $class();
+        $parents = class_parents($class);
+        if (in_array('Alxarafe\Base\PageController', $parents)) {
+            $this->updatePageData($className, $namespace, $newClass);
+        }
+    }
+
+    /**
+     * Clean all pages.
+     */
+    private function cleanPages()
+    {
+        $pages = (new Page())->getAllRecords();
+        foreach ($pages as $pos => $oldPage) {
+            $page = new Page();
+            $page->setOldData($oldPage);
+            $page->delete();
+        }
+    }
+
+    /**
      * Updates the page data if needed.
      *
      * @param string $className
-     * @param        $namespace
+     * @param string $namespace
      * @param        $newPage
      */
-    private function updatePageData(string $className, $namespace, $newPage)
+    private function updatePageData(string $className, string $namespace, $newPage)
     {
         $page = new Page();
         if (!$page->getBy('controller', $className)) {
