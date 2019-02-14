@@ -141,7 +141,7 @@ abstract class Entity
      * @param string $method
      * @param array  $params
      *
-     * @return string|null
+     * @return $this|mixed|null
      * @throws Exception
      */
     public function __call(string $method, array $params)
@@ -158,7 +158,7 @@ abstract class Entity
             case 'get':
                 return $this->newData[$field] ?? null;
             default:
-                Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params, true);
+                Debug::testArray("Review $method in " . (new ReflectionClass($this))->getShortName() . ". Error collecting the '$command/$field' attribute", $params, true);
                 throw new Exception('Program halted!');
         }
     }
