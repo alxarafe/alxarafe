@@ -129,6 +129,7 @@ class Table extends SimpleTable
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = :value;';
+        $vars = [];
         $vars['value'] = $value;
         return Config::$dbEngine->select($sql, $vars);
     }

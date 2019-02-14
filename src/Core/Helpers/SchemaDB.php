@@ -348,6 +348,8 @@ class SchemaDB
      */
     protected static function createTableView(string $tableName): array
     {
+        $primaryColumn = [];
+        $nameColumn = [];
         $tabla = Config::$bbddStructure[$tableName];
         $fields = $tabla['fields'];
         $indexes = $tabla['indexes'];

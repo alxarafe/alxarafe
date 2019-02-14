@@ -163,7 +163,7 @@ abstract class Engine
             $ret = self::$dbHandler->rollBack();
         } else {
             $sql = 'ROLLBACK TO SAVEPOINT LEVEL' . self::$transactionDepth . ';';
-            $this->exec([$sql]);
+            $this->exec($sql);
         }
 
         return $ret;
@@ -402,7 +402,7 @@ abstract class Engine
             $ret = self::$dbHandler->beginTransaction();
         } else {
             $sql = 'SAVEPOINT LEVEL' . self::$transactionDepth . ';';
-            $this->exec([$sql]);
+            $this->exec($sql);
         }
 
         self::$transactionDepth++;
@@ -427,7 +427,7 @@ abstract class Engine
             $ret = self::$dbHandler->commit();
         } else {
             $sql = 'RELEASE SAVEPOINT LEVEL' . self::$transactionDepth . ';';
-            $this->exec([$sql]);
+            $this->exec($sql);
         }
 
         return $ret;

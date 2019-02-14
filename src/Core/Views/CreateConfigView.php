@@ -55,6 +55,18 @@ class CreateConfigView extends View
     public $dbConfig;
 
     /**
+     * List of available languages.
+     *
+     * @var array
+     */
+    public $languages;
+
+    /**
+     * @var mixed|string
+     */
+    public $language;
+
+    /**
      * Login constructor.
      *
      * @param $ctrl

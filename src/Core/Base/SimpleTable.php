@@ -270,6 +270,7 @@ class SimpleTable
         }
         $sql = 'DELETE FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
+        $vars = [];
         $vars['id'] = $this->id;
         $result = Config::$dbEngine->exec($sql, $vars);
         if ($result) {
@@ -410,7 +411,6 @@ class SimpleTable
     public function save(): bool
     {
         // We create separate arrays with the modified fields
-        $fields = $values = [];
         foreach ($this->newData as $field => $data) {
             // The first condition is to prevent nulls from becoming empty strings
             if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
@@ -488,7 +488,6 @@ class SimpleTable
     private function updateRecord(array $data): bool
     {
         $fieldNames = [];
-        $fieldVars = [];
         $vars = [];
         foreach ($data as $fieldName => $value) {
             $fieldNames[] = Config::$sqlHelper->quoteFieldName($fieldName) . ' = :' . $fieldName;

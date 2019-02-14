@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Symfony\Component\Finder\Finder;
@@ -154,9 +155,8 @@ class Lang
      * Stores if translation is used and if is missing.
      *
      * @param $lang
-     * @param $langFallback
      */
-    private function verifyMissing($lang, $langFallback)
+    private function verifyMissing($lang)
     {
         self::$usedStrings[] = $lang;
 
@@ -171,18 +171,16 @@ class Lang
      * Translate the text into the default language.
      *
      * @param null|string $txt
-     * @param array $parameters
-     * @param null  $domain
-     * @param null  $locale
+     * @param array       $parameters
+     * @param             $domain
+     * @param             $locale
      *
      * @return string
      */
     public function trans($txt, array $parameters = [], $domain = null, $locale = null): string
     {
         $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
-        $langFallback = self::$translator->trans($txt, $parameters, $domain, self::FALLBACK_LANG);
-
-        $this->verifyMissing($lang, $langFallback);
+        $this->verifyMissing($lang);
 
         return $lang;
     }
@@ -193,17 +191,15 @@ class Lang
      * @param       $txt
      * @param       $number
      * @param array $parameters
-     * @param null  $domain
-     * @param null  $locale
+     * @param       $domain
+     * @param       $locale
      *
      * @return string
      */
     public function transChoice($txt, $number, array $parameters = [], $domain = null, $locale = null): string
     {
         $lang = self::$translator->transChoice($txt, $number, $parameters, $domain, $locale);
-        $langFallback = self::$translator->transChoice($txt, $number, $parameters, $domain, self::FALLBACK_LANG);
-
-        $this->verifyMissing($lang, $langFallback);
+        $this->verifyMissing($lang);
 
         return $lang;
     }
