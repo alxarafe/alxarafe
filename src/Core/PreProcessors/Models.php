@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shawe
- * Date: 14/02/19
- * Time: 15:45
+ * Alxarafe. Development of PHP applications in a flash!
+ * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\PreProcessors;
