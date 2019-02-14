@@ -284,6 +284,7 @@ class Lang
      */
     public function getLangFolder(): string
     {
-        return constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
+        return BASE_PATH . '/config/languages';
+        // return constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
     }
 }
