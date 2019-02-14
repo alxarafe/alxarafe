@@ -148,8 +148,6 @@ abstract class SqlHelper
         $query = $this->getColumnsSql($tableName, $usePrefix);
         //$data = Config::$dbEngine->select($query);
         $data = Config::$dbEngine->selectCoreCache($tableName . '-columns', $query);
-//        Debug::addMessage('messages', "Query SQL: <pre>" . var_export($query, true) . "</pre>");
-//        Debug::addMessage('messages', "Query data: <pre>" . var_export($data, true) . "</pre>");
         $result = [];
         foreach ($data as $value) {
             $row = $this->normalizeFields($value);

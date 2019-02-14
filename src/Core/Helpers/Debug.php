@@ -69,7 +69,9 @@ class Debug
             self::$debugBar->addCollector(new MessagesCollector('SQL'));
             self::$debugBar->addCollector(new PhpCollector());
             self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
-            //self::$debugBar->addCollector(new TranslatorCollector(Config::$lang));
+            // TODO This cause a circular dependecy
+            // Engine class adds another collector
+            // Config class adds another collector
         } catch (DebugBarException $e) {
             Debug::addException($e);
             Config::setError($e->getMessage());
@@ -184,7 +186,6 @@ class Debug
     public static function stopTimer(string $name): void
     {
         self::checkInstance();
-
         if (self::$debugBar['time']->hasStartedMeasure($name)) {
             self::$debugBar['time']->stopMeasure($name);
         } else {

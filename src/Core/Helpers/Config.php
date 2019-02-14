@@ -10,6 +10,7 @@ use Alxarafe\Base\CacheCore;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\DebugBarCollectors\TranslatorCollector;
 use Exception;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 use Symfony\Component\Yaml\Yaml;
@@ -161,6 +162,7 @@ class Config
 
         if (self::$lang === null) {
             self::$lang = new Lang(Config::$global['language'] ?? constant('LANG'));
+            //Debug::$debugBar->addCollector(new TranslatorCollector(self::$lang));
         }
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;
@@ -280,9 +282,6 @@ class Config
             $dbEngineName = self::$global['dbEngineName'] ?? 'PdoMySql';
             $helperName = 'Sql' . substr($dbEngineName, 3);
 
-            Debug::addMessage('SQL', "Using '$dbEngineName' engine.");
-            Debug::addMessage('SQL', "Using '$helperName' SQL helper engine.");
-
             $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
             $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
             try {
@@ -295,7 +294,6 @@ class Config
                     'dbPort' => self::$global['dbPort'],
                 ]);
             } catch (Exception $e) {
-                Debug::addException($e);
                 Config::setError($e->getMessage());
                 return false;
             }

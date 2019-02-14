@@ -180,8 +180,6 @@ abstract class Engine
     {
         // Remove extra blankspace to be more readable
         $query = preg_replace('/\s+/', ' ', $query);
-        // TODO: Debugbar is collecting from PDO, is really needed here??
-        // Debug::addMessage('SQL', 'PDO exec: ' . $query);
         $ok = false;
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement) {
@@ -272,8 +270,6 @@ abstract class Engine
             }
             if ($cacheEngine->hasItem($cachedName)) {
                 $item = $cacheItem->get();
-//                Debug::addMessage('messages', 'Using data from cache for: <pre>' . var_export($query, true) . '</pre>');
-//                Debug::addMessage('messages', 'Data: <pre>' . var_export($item, true) . '</pre>');
                 return $item;
             }
             return [];

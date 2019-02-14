@@ -8,7 +8,6 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\PreProcessors;
 use Alxarafe\Views\EditConfigView;
@@ -70,10 +69,6 @@ class EditConfig extends PageController
                 break;
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
-                Debug::addMessage(
-                    'messages',
-                    $msg
-                );
                 Config::setInfo($msg);
                 // The database or prefix may have been changed and have to be regenerated.
                 Config::$cacheEngine->clear();

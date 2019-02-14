@@ -58,11 +58,9 @@ class SchemaDB
 
         $tableExists = self::tableExists($tableName);
         if ($tableExists) {
-//            Debug::addMessage('messages', "Update table '" . $tableName . "' fields: <pre>" . var_export($tabla, true) . "</pre>");
             $sql = self::updateFields($tableName, $tabla['fields']);
             // TODO: Needs to be added call to updated indexes.
         } else {
-//            Debug::addMessage('messages', "Create table '" . $tableName . "' : <pre>" . var_export($tabla, true) . "</pre>");
             Config::$dbEngine->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
 
