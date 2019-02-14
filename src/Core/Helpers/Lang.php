@@ -5,10 +5,9 @@
  */
 namespace Alxarafe\Helpers;
 
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Lang, give support to internationalization.
@@ -21,7 +20,7 @@ class Lang
     /**
      * Default language to use if language file not exists.
      */
-    const FALLBACK_LANG = 'en_EN';
+    const FALLBACK_LANG = 'en';
 
     /**
      * Base folder where languages files are stored.
@@ -44,27 +43,6 @@ class Lang
     const FORMAT = 'yaml';
 
     /**
-     * Default language.
-     *
-     * @var string
-     */
-    private static $defaultLang;
-
-    /**
-     * Loaded languages.
-     *
-     * @var array
-     */
-    private static $languages;
-
-    /**
-     * List of strings without translation.
-     *
-     * @var array
-     */
-    private static $missingStrings;
-
-    /**
      * The Symfony translator.
      *
      * @var Translator
@@ -79,6 +57,13 @@ class Lang
     private static $usedStrings;
 
     /**
+     * List of strings without translation.
+     *
+     * @var array
+     */
+    private static $missingStrings;
+
+    /**
      * Lang constructor.
      *
      * @param string $lang
@@ -86,19 +71,15 @@ class Lang
     public function __construct(string $lang = self::FALLBACK_LANG)
     {
         if (self::$translator === null) {
-            self::$defaultLang = $lang;
-            Debug::addMessage('messages', "Language '$lang' (default)");
-            Debug::addMessage('language', "Language '$lang' (default)");
-            self::$missingStrings = [];
-            self::$usedStrings = [];
             self::$translator = new Translator($lang);
+            Debug::addMessage('messages', "Language '" . self::FALLBACK_LANG . "' (fallback)");
+            self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
+            Debug::addMessage('messages', "Language '$lang' (default)");
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
-            if ($lang !== self::FALLBACK_LANG) {
-                $this->locateFiles(self::FALLBACK_LANG);
-                Debug::addMessage('language', "Language '" . self::FALLBACK_LANG . "' (fallback), at least all strings must exists here.");
-            }
-            Debug::addMessage('language', "NOTE: at least all strings must exists on '" . self::FALLBACK_LANG . "'.");
-            $this->locateFiles($lang);
+            self::$usedStrings = [];
+            self::$missingStrings = [];
+
+            $this->loadLangFiles();
         }
     }
 
@@ -106,35 +87,19 @@ class Lang
      * Load the translation files following the priorities.
      * In this case, the translator must be provided with the routes in reverse order.
      *
-     * @param string $lang
-     *
      * @return void
      */
-    private function locateFiles(string $lang): void
+    private function loadLangFiles(): void
     {
-        self::$languages[] = $lang;
-        $file = $this->getLangFolder() . '/' . $lang . self::EXT;
-
-        try {
-            Yaml::parseFile($file);
-            self::$translator->addResource(self::FORMAT, $file, $lang);
-        } catch (ParseException $e) {
-            $msg = (str_replace(constant('ALXARAFE_FOLDER'), '', $e->getMessage()));
-            Config::setError($msg);
-            // TODO: This second message must be removed, previous is showing to user
-            Debug::addMessage('language', $msg);
+        $langFiles = Finder::create()
+            ->files()
+            ->name('*' . self::EXT)
+            ->in($this->getLangFolders())
+            ->sortByName();
+        foreach ($langFiles as $langFile) {
+            $langCode = str_replace(self::EXT, '', $langFile->getRelativePathName());
+            self::$translator->addResource(self::FORMAT, $langFile->getPathName(), $langCode);
         }
-
-        /**
-         * TODO: Esperando a ver como cargaremos los plugins
-         * $pluginManager = new PluginManager();
-         * foreach ($pluginManager->enabledPlugins() as $pluginName) {
-         *     $file = constant('BASE_PATH') . '/Plugins/' . $pluginName . '/Translation/' . $lang . self::EXT;
-         *     if (file_exists($file)) {
-         *         self::$translator->addResource(self::FORMAT', $file, $lang);
-         *     }
-         * }
-         */
     }
 
     /**
@@ -142,9 +107,9 @@ class Lang
      *
      * @return string
      */
-    public function getLangCode(): string
+    public function getLocale(): string
     {
-        return self::$defaultLang;
+        return self::$translator->getLocale();
     }
 
     /**
@@ -154,36 +119,9 @@ class Lang
      *
      * @return void
      */
-    public function setLangCode(string $lang): void
+    public function setlocale(string $lang): void
     {
-        self::$defaultLang = $this->firstMatch($lang);
-    }
-
-    /**
-     * Return first exact match, or first partial match with language key identifier, or it not match founded, return
-     * default language.
-     *
-     * @param string $langCode
-     *
-     * @return string
-     */
-    private function firstMatch(string $langCode): string
-    {
-        $finalKey = null;
-        // First match is with default lang? (Avoid match with variants)
-        if (0 === strpos(self::LANG, $langCode)) {
-            return self::LANG;
-        }
-        // If not, check with all available languages
-        foreach ($this->getAvailableLanguages() as $key => $language) {
-            if ($key === $langCode) {
-                return $key;
-            }
-            if ($finalKey === null && 0 === strpos($key, $langCode)) {
-                $finalKey = $key;
-            }
-        }
-        return $finalKey ?? self::LANG;
+        self::$translator->setLocale($lang);
     }
 
     /**
@@ -194,72 +132,80 @@ class Lang
     public function getAvailableLanguages(): array
     {
         $languages = [];
-        $dir = $this->getLangFolder();
+        $dir = $this->getBaseLangFolder();
 
         if (!is_dir($dir)) {
             \mkdir($dir, 0777, true);
         }
+        $langFiles = Finder::create()
+            ->files()
+            ->name('*' . self::EXT)
+            ->in($dir)
+            ->sortByName();
 
-        foreach (scandir($dir, SCANDIR_SORT_ASCENDING) as $fileName) {
-            if ($fileName !== '.' && $fileName !== '..' && !is_dir($fileName) && substr($fileName, -5) === self::EXT) {
-                $key = substr($fileName, 0, -5);
-                $languages[$key] = $this->trans('language-' . substr($fileName, 0, -5));
-            }
+        foreach ($langFiles as $langFile) {
+            $langCode = str_replace(self::EXT, '', $langFile->getRelativePathName());
+            $languages[$langCode] = $this->trans('language-' . $langCode);
         }
         return $languages;
+    }
+
+    /**
+     * Stores if translation is used and if is missing.
+     *
+     * @param $lang
+     * @param $langFallback
+     */
+    private function verifyMissing($lang, $langFallback)
+    {
+        self::$usedStrings[] = $lang;
+
+        if ($this->getLocale() !== self::FALLBACK_LANG) {
+            if (!self::$translator->getCatalogue()->has($lang)) {
+                self::$missingStrings[] = $lang;
+            }
+        }
     }
 
     /**
      * Translate the text into the default language.
      *
      * @param null|string $txt
-     * @param array       $parameters
+     * @param array $parameters
+     * @param null  $domain
+     * @param null  $locale
      *
      * @return string
      */
-    public function trans($txt, array $parameters = []): string
+    public function trans($txt, array $parameters = [], $domain = null, $locale = null): string
     {
-        if (is_null($txt)) {
-            return '';
-        }
+        $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
+        $langFallback = self::$translator->trans($txt, $parameters, $domain, self::FALLBACK_LANG);
 
-        if (empty($txt)) {
-            return '';
-        }
-        return $this->customTrans(self::$defaultLang, $txt, $parameters);
+        $this->verifyMissing($lang, $langFallback);
+
+        return $lang;
     }
 
     /**
-     * Translate the text into the selected language.
+     * Translate the text into the default language, but using choice.
      *
-     * @param string $lang
-     * @param string $txt
-     * @param array  $parameters
+     * @param       $txt
+     * @param       $number
+     * @param array $parameters
+     * @param null  $domain
+     * @param null  $locale
      *
      * @return string
      */
-    public function customTrans(string $lang, string $txt, array $parameters = []): string
+    public function transChoice($txt, $number, array $parameters = [], $domain = null, $locale = null): string
     {
-        if (!in_array($lang, self::$languages)) {
-            $this->locateFiles($lang);
-        }
-        $catalogue = self::$translator->getCatalogue($lang);
-        if ($catalogue->has($txt)) {
-            self::$usedStrings[$txt] = $catalogue->get($txt);
-            return self::$translator->trans($txt, $parameters, null, $lang);
-        }
+        $lang = self::$translator->transChoice($txt, $number, $parameters, $domain, $locale);
+        $langFallback = self::$translator->transChoice($txt, $number, $parameters, $domain, self::FALLBACK_LANG);
 
-        self::$missingStrings[$txt] = $txt;
-        Debug::addMessage('language', 'Missing string ' . $lang . ': ' . $txt);
-        // If we are debugging, need to see if there are missing strings
-        if (constant('DEBUG') === true) {
-            Config::setWarning("Missing string '" . $lang . "': " . $txt);
-        }
+        $this->verifyMissing($lang, $langFallback);
 
-        if ($lang === self::FALLBACK_LANG) {
-            return '#' . $txt . '#';
-        }
-        return $this->customTrans(self::FALLBACK_LANG, $txt, $parameters);
+        return $lang;
     }
 
     /**
@@ -283,13 +229,28 @@ class Lang
     }
 
     /**
-     * Return the lang folder.
+     * Returns the base lang folder.
      *
      * @return string
      */
-    public function getLangFolder(): string
+    public function getBaseLangFolder(): string
     {
-        return BASE_PATH . '/config/languages';
-        // return constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
+        return constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
+    }
+
+    /**
+     * Return the lang folders.
+     *
+     * @return array
+     */
+    public function getLangFolders(): array
+    {
+        $morePaths = [
+            //BASE_PATH . '/config/languages',
+        ];
+        return array_merge(
+            [$this->getBaseLangFolder()],
+            $morePaths
+        );
     }
 }

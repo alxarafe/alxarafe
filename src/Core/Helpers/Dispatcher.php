@@ -68,7 +68,7 @@ class Dispatcher
          * define('BASE_PATH', __DIR__);
          */
         Utils::defineIfNotExists('BASE_PATH', __DIR__ . '/../../../..');
-        Utils::defineIfNotExists('LANG', 'en_EN');
+        Utils::defineIfNotExists('LANG', 'en');
         Utils::defineIfNotExists('DEBUG', false);
 
         define('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));

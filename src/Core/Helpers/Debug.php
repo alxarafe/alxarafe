@@ -6,6 +6,8 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\DebugBarCollectors\PhpCollector;
+use Alxarafe\DebugBarCollectors\TranslatorCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBarException;
 use DebugBar\JavascriptRenderer;
@@ -65,8 +67,9 @@ class Debug
         self::$debugBar = new StandardDebugBar();
         try {
             self::$debugBar->addCollector(new MessagesCollector('SQL'));
-            self::$debugBar->addCollector(new MessagesCollector('language'));
+            self::$debugBar->addCollector(new PhpCollector());
             self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
+            //self::$debugBar->addCollector(new TranslatorCollector(Config::$lang));
         } catch (DebugBarException $e) {
             Debug::addException($e);
             Config::setError($e->getMessage());
