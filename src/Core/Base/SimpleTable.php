@@ -3,22 +3,20 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
-use Alxarafe\Helpers\Utils;
-use Exception;
 use ReflectionClass;
 
 /**
  * Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its
  * structure.
  */
-class SimpleTable
+class SimpleTable extends Entity
 {
-
     /**
      * It is the name of the table.
      *
@@ -32,45 +30,6 @@ class SimpleTable
      * @var string
      */
     public $modelName;
-
-    /**
-     * Value of the main index for the active record. When a record is loaded, this field will contain its id and will
-     * be the one that will be used for in the WHERE clause of the UPDATE. If it does not exist in file it will contain
-     * ''.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * It is the name of the main id field. By default 'id'
-     *
-     * @var string
-     */
-    protected $idField;
-
-    /**
-     * It is the name of the field name. By default 'name'.
-     * TODO: See if it may not exist, in which case, null or ''?
-     *
-     * @var string
-     */
-    protected $nameField;
-
-    /**
-     * It contains the data previous to the modification of the current record
-     *
-     * @var array
-     */
-    protected $oldData;
-
-    /**
-     * Contains the new data of the current record. It will start when loading a record and will be used when making a
-     * save.
-     *
-     * @var array
-     */
-    protected $newData;
 
     /**
      * Build a Table model. $table is the name of the table in the database.
@@ -157,93 +116,6 @@ class SimpleTable
     }
 
     /**
-     * Execute a magic method of the setField or getField style
-     *
-     * @param string $method
-     * @param array  $params
-     *
-     * @return string|null
-     * @throws Exception
-     */
-    public function __call(string $method, array $params)
-    {
-        $command = substr($method, 0, 3); // set o get
-        $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
-        if (method_exists($this, $method)) {
-            $this->{$method}($params);
-        }
-        switch ($command) {
-            case 'set':
-                return $this->newData[$field] = $params[0] ?? '';
-            case 'get':
-                return $this->newData[$field] ?? null;
-            default:
-                Debug::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params, true);
-                throw new Exception('Program halted!');
-        }
-    }
-
-    /**
-     * It allows access to a field of the record using the attribute.
-     * To access the name field, we should use $this->getName(), but thanks to this, we can also use $this->name.
-     *
-     * @param string $property
-     *
-     * @return string
-     */
-    public function __get(string $property): string
-    {
-        return $this->newData[$property] ?? '';
-    }
-
-    /**
-     * Allows you to assign value to a field in the record using the attribute.
-     * To assign a value to the name field, we should use $this->setName('Pepe'),
-     * but thanks to this, we can also use $this->name='Pepe'.
-     *
-     * @param string $property
-     * @param mixed  $value
-     *
-     * @return mixed
-     */
-    public function __set(string $property, $value)
-    {
-        $this->newData[$property] = $value;
-        return $this->newData[$property];
-    }
-
-    /**
-     * Returns the name of the main key field of the table (PK-Primary Key). By
-     * default it will be id.
-     *
-     * @return string
-     */
-    public function getIdField(): string
-    {
-        return $this->idField;
-    }
-
-    /**
-     * Return the value of id.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Returns the name of the identification field of the record. By default it will be name.
-     *
-     * @return string
-     */
-    public function getNameField(): string
-    {
-        return $this->nameField ?? 'name';
-    }
-
-    /**
      * Returns a new instance of the table with the requested record.
      * As a previous step, a getData of the current instance is made, so both will point to the same record.
      * Makes a getData and returns a new instance of the model.
@@ -254,7 +126,7 @@ class SimpleTable
      */
     public function get(string $id): self
     {
-        $this->getData($id);
+        $this->getDataById($id);
         return $this;
     }
 
@@ -291,7 +163,7 @@ class SimpleTable
      *
      * @return bool
      */
-    private function getData(string $id): bool
+    private function getDataById(string $id): bool
     {
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
             . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
@@ -384,7 +256,7 @@ class SimpleTable
     public function getDataArray(string $id = null): array
     {
         if (isset($id) && ($id != $this->id)) {
-            $this->getData($id);
+            $this->getDataById($id);
         }
         return $this->newData;
     }
@@ -400,7 +272,7 @@ class SimpleTable
      */
     public function load(string $id): bool
     {
-        return $this->getData($id);
+        return $this->getDataById($id);
     }
 
     /**
@@ -504,28 +376,6 @@ class SimpleTable
     }
 
     /**
-     * Assign oldData from an array.
-     *
-     * @param array $data
-     */
-    public function setOldData(array $data)
-    {
-        $this->id = $data[$this->getIdField()] ?? null;
-        $this->oldData = $data;
-    }
-
-    /**
-     * Assign newData from an array.
-     *
-     * @param array $data
-     */
-    public function setNewData(array $data)
-    {
-        $this->id = $data[$this->getIdField()] ?? null;
-        $this->newData = $data;
-    }
-
-    /**
      * Returns the structure of the normalized table
      *
      * @return array
@@ -570,26 +420,6 @@ class SimpleTable
         $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
             . ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
         return Config::$dbEngine->select($sql);
-    }
-
-    /**
-     * Return oldData details.
-     *
-     * @return array
-     */
-    public function getOldData(): array
-    {
-        return $this->oldData ?? [];
-    }
-
-    /**
-     * Return newData details.
-     *
-     * @return array
-     */
-    public function getNewData(): array
-    {
-        return $this->newData ?? [];
     }
 
     /**
