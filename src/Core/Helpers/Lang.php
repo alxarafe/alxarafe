@@ -195,6 +195,11 @@ class Lang
     {
         $languages = [];
         $dir = $this->getLangFolder();
+
+        if (!is_dir($dir)) {
+            \mkdir($dir, 0777, true);
+        }
+
         foreach (scandir($dir, SCANDIR_SORT_ASCENDING) as $fileName) {
             if ($fileName !== '.' && $fileName !== '..' && !is_dir($fileName) && substr($fileName, -5) === self::EXT) {
                 $key = substr($fileName, 0, -5);
