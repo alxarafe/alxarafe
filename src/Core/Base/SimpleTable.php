@@ -410,12 +410,12 @@ class SimpleTable
      */
     public function save(): bool
     {
+        $values = [];
         // We create separate arrays with the modified fields
         foreach ($this->newData as $field => $data) {
             // The first condition is to prevent nulls from becoming empty strings
             if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
                 $values[$field] = $data; //$this->sanitizeField($data);
-                //$assigns[] = "$field = " . Config::$sqlHelper->quoteLiteral($this->sanitizeField($data));
             }
         }
 

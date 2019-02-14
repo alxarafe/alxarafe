@@ -181,7 +181,6 @@ class Lang
     {
         $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
         $this->verifyMissing($lang);
-
         return $lang;
     }
 
@@ -200,7 +199,6 @@ class Lang
     {
         $lang = self::$translator->transChoice($txt, $number, $parameters, $domain, $locale);
         $this->verifyMissing($lang);
-
         return $lang;
     }
 
