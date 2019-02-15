@@ -49,7 +49,9 @@ class CacheCore
         }
         if ($this->engine === null) {
             $this->connectPhpArray();
-            // $this->engine->clear();
+            if (constant('CORE_CACHE_ENABLED') !== true) {
+                $this->engine->clear();
+            }
         }
     }
 

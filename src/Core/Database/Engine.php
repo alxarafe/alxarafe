@@ -3,15 +3,16 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database;
 
-use Alxarafe\Base\CacheCore;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use DebugBar\DataCollector\PDO as PDODataCollector;
 use DebugBar\DebugBarException;
 use PDO;
 use PDOException;
+use Psr\Cache\InvalidArgumentException;
 
 /**
  * Engine provides generic support for databases.
@@ -212,8 +213,7 @@ abstract class Engine
     }
 
     /**
-     * Returns the id of the last inserted record. Failing that, it
-     * returns ''.
+     * Returns the id of the last inserted record. Failing that, it returns ''.
      *
      * @return string
      */
@@ -231,7 +231,7 @@ abstract class Engine
      * In case of failure, return NULL. If there is no data, return an empty array.
      *
      * @param string $query
-     * @param array $vars
+     * @param array  $vars
      *
      * @return array
      */
@@ -251,7 +251,7 @@ abstract class Engine
      *
      * @param string $query
      * @param string $cachedName
-     * @param array $vars
+     * @param array  $vars
      *
      * @return array
      */
@@ -259,7 +259,12 @@ abstract class Engine
     {
         if (constant('CORE_CACHE_ENABLED') === true) {
             $cacheEngine = Config::getCacheCoreEngine();
-            $cacheItem = $cacheEngine->getItem($cachedName);
+            try {
+                $cacheItem = $cacheEngine->getItem($cachedName);
+            } catch (InvalidArgumentException $e) {
+                Debug::addException($e);
+                Config::setError($e->getMessage());
+            }
             if (!$cacheItem->isHit()) {
                 $cacheItem->set(self::select($query, $vars));
                 if ($cacheEngine->save($cacheItem)) {
@@ -283,7 +288,6 @@ abstract class Engine
      * @param string $cachedName
      *
      * @return bool
-     * @throws \Psr\Cache\InvalidArgumentException
      */
     final public static function clearCoreCache(string $cachedName): bool
     {
