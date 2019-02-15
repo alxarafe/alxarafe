@@ -46,8 +46,6 @@ class CacheCore
     {
         if ($this->engine === null) {
             $this->defaultLifeTime = $lifeTime;
-        }
-        if ($this->engine === null) {
             $this->connectPhpArray();
             if (constant('CORE_CACHE_ENABLED') !== true) {
                 $this->engine->clear();
@@ -65,10 +63,7 @@ class CacheCore
     private function connectPhpArray(): void
     {
         $file = constant('BASE_PATH') . constant('DIRECTORY_SEPARATOR') . 'core.cache';
-        $this->engine = new PhpArrayAdapter(
-            $file,
-            new FilesystemAdapter()
-        );
+        $this->engine = new PhpArrayAdapter($file, new FilesystemAdapter());
     }
 
     /**

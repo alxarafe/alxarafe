@@ -171,9 +171,10 @@ abstract class Engine
     }
 
     /**
-     * TODO: Undocumented
+     * Prepare and execute the query.
      *
      * @param string $query
+     * @param array  $vars
      *
      * @return bool
      */
@@ -292,7 +293,10 @@ abstract class Engine
     final public static function clearCoreCache(string $cachedName): bool
     {
         $cacheEngine = Config::getCacheCoreEngine();
-        return $cacheEngine->deleteItem($cachedName);
+        if (isset($cacheEngine)) {
+            return $cacheEngine->deleteItem($cachedName);
+        }
+        return false;
     }
 
     /**
@@ -358,11 +362,6 @@ abstract class Engine
         self::$statement = self::$dbHandler->prepare($sql, $options);
         return (bool) self::$statement;
     }
-    /**
-     * Transactions support
-     *
-     * @doc https://coderwall.com/p/rml5fa/nested-pdo-transactions
-     */
 
     /**
      * Returns an array containing all of the result set rows
@@ -396,6 +395,8 @@ abstract class Engine
      * Start transaction
      *
      * @doc https://www.ibm.com/support/knowledgecenter/es/SSEPGG_9.1.0/com.ibm.db2.udb.apdv.php.doc/doc/t0023166.htm
+     * Transactions support
+     * @doc https://coderwall.com/p/rml5fa/nested-pdo-transactions
      *
      * @return bool
      */

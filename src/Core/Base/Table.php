@@ -189,42 +189,56 @@ class Table extends SimpleTable
     public function getDefaultValues(): array
     {
         $items = [];
-        foreach ($this->getStructure()['fields'] as $key => $value) {
-            $items[$key] = $value['default'] ?? '';
-            if ($items[$key] === '' && $value['nullable'] === 'no') {
-                switch ($value['type']) {
-                    case 'integer':
-                    case 'number':
-                    case 'email':
-                        $items[$key] = 0;
-                        break;
-                    case 'checkbox':
-                        $items[$key] = false;
-                        break;
-                    case 'date':
-                        $items[$key] = date('Y-m-d');
-                        break;
-                    case 'datetime':
-                        $items[$key] = date('Y-m-d H:i:s');
-                        break;
-                    case 'time':
-                        $items[$key] = date('H:i:s');
-                        break;
-                    case 'string':
-                    case 'text':
-                    case 'textarea':
-                    case 'blob':
-                    case 'data':
-                    case 'link':
-                        $items[$key] = '';
-                        break;
-                    case '':
-                        break;
-                    default:
-                        $items[$key] = $value['default'];
-                }
-            }
+        foreach ($this->getStructure()['fields'] as $key => $valueData) {
+            $items[$key] = $valueData['default'] ?? '';
+            $items[$key] = $this->getDefaultValue($valueData);
         }
         return $items;
+    }
+
+    /**
+     * Get default value data for this valueData.
+     *
+     * @param array $valueData
+     *
+     * @return bool|false|int|string
+     */
+    private function getDefaultValue(array $valueData)
+    {
+        $item = '';
+        if ($item === '' && $valueData['nullable'] === 'no') {
+            switch ($valueData['type']) {
+                case 'integer':
+                case 'number':
+                case 'email':
+                    $item = 0;
+                    break;
+                case 'checkbox':
+                    $item = false;
+                    break;
+                case 'date':
+                    $item = date('Y-m-d');
+                    break;
+                case 'datetime':
+                    $item = date('Y-m-d H:i:s');
+                    break;
+                case 'time':
+                    $item = date('H:i:s');
+                    break;
+                case 'string':
+                case 'text':
+                case 'textarea':
+                case 'blob':
+                case 'data':
+                case 'link':
+                    $item = '';
+                    break;
+                case '':
+                    break;
+                default:
+                    $item = $valueData['default'];
+            }
+        }
+        return $item;
     }
 }

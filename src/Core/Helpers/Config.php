@@ -245,7 +245,7 @@ class Config
     /**
      * Register a new info message
      *
-     * @param string $error
+     * @param string $msg
      */
     public static function setInfo(string $msg): void
     {

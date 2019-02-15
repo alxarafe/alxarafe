@@ -3,13 +3,14 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
-use \Alxarafe\Models\TableModel;
+use Alxarafe\Models\TableModel;
 
 /**
- * The SchemaDB class contains static methods that allow you to manipulate the
- * database. It is used to create and modify tables and indexes in the database.
+ * The SchemaDB class contains static methods that allow you to manipulate the database. It is used to create and
+ * modify tables and indexes in the database.
  */
 class SchemaDB
 {
@@ -85,8 +86,9 @@ class SchemaDB
      * Convert an array of fields into a string to be added to an SQL command, CREATE TABLE or ALTER TABLE.
      * You can add a prefix field operation (usually ADD or MODIFY) that will be added at begin of each field.
      *
-     * @param array $fieldsList
+     * @param array  $fieldsList
      * @param string $fieldOperation (usually ADD, MODIFY or empty string)
+     *
      * @return string
      */
     protected static function assignFields(array $fieldsList, string $fieldOperation = ''): string
@@ -268,7 +270,7 @@ class SchemaDB
         $referencedTable = Config::getVar('dbPrefix') . $referencedTableWithoutPrefix;
 
         $sql = [];
-        if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '' )) {
+        if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '')) {
             $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
         }
 
