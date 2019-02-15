@@ -226,7 +226,7 @@ class SimpleTable extends Entity
      */
     public function getTableName(): string
     {
-        Debug::addMessage('Deprecated', 'Do not use getTableName(), use Config::$sqlHelper->quoteTableName($this->tableName); instead');
+        trigger_error('Do not use getTableName(), use Config::$sqlHelper->quoteTableName($this->tableName); instead', E_ERROR);
         return Config::$sqlHelper->quoteTableName($this->tableName);
     }
 

@@ -119,7 +119,7 @@ class SqlFirebird extends SqlHelper
             default:
                 // Others
                 $result['type'] = trim($row['type']);
-                Debug::addMessage('Deprecated', "Correct the data type '" . $result['type'] . "' in Firebird database");
+                trigger_error("Correct the data type '" . $result['type'] . "' in Firebird database", E_ERROR);
         }
         $result['default'] = isset($row['defaultsource']) ? substr($row['defaultsource'], 10) : null;
         $result['nullable'] = $row['nullable'];

@@ -68,10 +68,10 @@ class Debug
         try {
             self::$debugBar->addCollector(new MessagesCollector('SQL'));
             self::$debugBar->addCollector(new PhpCollector());
-            self::$debugBar->addCollector(new MessagesCollector('Deprecated'));
             // TODO This cause a circular dependecy
             // Engine class adds another collector
             // Config class adds another collector
+            @set_exception_handler(array($this, 'exceptionHandler'));
         } catch (DebugBarException $e) {
             Debug::addException($e);
             Config::setError($e->getMessage());
@@ -91,7 +91,20 @@ class Debug
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
         self::$debugBar['exceptions']->addException($exception);
-        self::$logger->info('Exception: ' . $exception->getMessage());
+        self::exceptionHandler($exception);
+    }
+
+    /**
+     * Catch the exception handler and adds to logger.
+     *
+     * @param Exception $e
+     */
+    public static function exceptionHandler($e) {
+        self::$logger->info(
+            'Exception [' . $e->getCode() . ']: ' . $e->getMessage() . PHP_EOL
+            . $e->getFile() . ':' . $e->getLine() . PHP_EOL
+            . $e->getTraceAsString()
+        );
     }
 
     /**

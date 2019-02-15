@@ -188,7 +188,7 @@ class SqlMySql extends SqlHelper
         $result['type'] = $virtualType;
         if ($virtualType === false) {
             $result['type'] = $type['type'];
-            Debug::addMessage('Deprecated', 'Correct the data type ' . $type['type'] . ' in MySql database');
+            trigger_error('Correct the data type ' . $type['type'] . ' in MySql database', E_ERROR);
         }
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
