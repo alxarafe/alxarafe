@@ -10,6 +10,7 @@ use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\PreProcessors;
+use Alxarafe\Providers\Container;
 use Alxarafe\Views\EditConfigView;
 use Symfony\Component\Yaml\Yaml;
 
@@ -26,11 +27,13 @@ class EditConfig extends PageController
     protected $searchDir;
 
     /**
-     * The constructor creates the view.
+     * EditConfig constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct();
+        parent::__construct($container);
         $this->searchDir = [
             'Alxarafe' => constant('ALXARAFE_FOLDER'),
         ];

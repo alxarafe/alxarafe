@@ -11,6 +11,7 @@ use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Providers\Container;
 use Alxarafe\Views\LoginView;
 
 /**
@@ -30,10 +31,12 @@ class Login extends PageController
 
     /**
      * Login constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct();
+        parent::__construct($container);
     }
 
     /**

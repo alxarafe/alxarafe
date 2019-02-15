@@ -100,7 +100,8 @@ class Debug
      *
      * @param Exception $e
      */
-    public static function exceptionHandler($e) {
+    public static function exceptionHandler($e)
+    {
         self::$logger->info(
             'Exception [' . $e->getCode() . ']: ' . $e->getMessage() . PHP_EOL
             . $e->getFile() . ':' . $e->getLine() . PHP_EOL

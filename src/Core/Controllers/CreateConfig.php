@@ -10,6 +10,7 @@ use Alxarafe\Base\Controller;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Providers\Container;
 use Alxarafe\Views\CreateConfigView;
 use Symfony\Component\Yaml\Yaml;
 
@@ -22,11 +23,13 @@ class CreateConfig extends Controller
 {
 
     /**
-     * The constructor creates the view.
+     * CreateConfig constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct();
+        parent::__construct($container);
     }
 
     /**

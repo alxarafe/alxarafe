@@ -7,6 +7,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
+use Alxarafe\Providers\Container;
 
 /**
  * Class Models
@@ -17,11 +18,13 @@ class Tables extends Controller
 {
 
     /**
-     * Countries constructor.
+     * Tables constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct(new TableModel());
+        parent::__construct($container, new TableModel());
     }
 
     /**
