@@ -7,6 +7,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
+use Alxarafe\Models\TableModel;
 use Alxarafe\Providers\Container;
 
 /**
