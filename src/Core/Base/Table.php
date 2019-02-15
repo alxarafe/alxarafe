@@ -206,7 +206,7 @@ class Table extends SimpleTable
     private function getDefaultValue(array $valueData)
     {
         $item = '';
-        if ($item === '' && $valueData['nullable'] === 'no') {
+        if ($valueData['nullable'] === 'no') {
             switch ($valueData['type']) {
                 case 'integer':
                 case 'number':
@@ -232,8 +232,6 @@ class Table extends SimpleTable
                 case 'data':
                 case 'link':
                     $item = '';
-                    break;
-                case '':
                     break;
                 default:
                     $item = $valueData['default'];
