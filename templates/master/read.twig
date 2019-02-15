@@ -1,0 +1,55 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+#}
+{% extends "index.twig" %}
+
+{% block title %}{{ lang.trans('showing') }} {{ ctrl.title }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('/css/common.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% import "master/autoforms.twig" as forms %}
+
+    {% set encType = '' %}
+    {% if ctrl.encType is not empty %}
+        {% set encType = 'enctype="' ~ ctrl.encType ~ '"' %}
+    {% endif %}
+    <form action="{{ ctrl.url }}" method="post" accept-charset="utf-8" {{ encType }}>
+        {% set listFields = ctrl.getListFields() %}
+
+        {% for regKey, registers in listFields %}
+            {% for itemKey, item in registers %}
+                <div class="row">
+                    {{ forms.generateField(item, false, true, true) }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <a name="cancel" href="{{ ctrl.url }}" class="btn btn-danger btn-sm" type="submit" onClick="allowClose();" formnovalidate>
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    {{ lang.trans('back') }}
+                </a>
+            </div>
+            <div class="col-xs-6 text-right">
+                <button name="action" value="accept" class="btn btn-primary btn-sm" type="submit" onClick="allowClose();" formnovalidate>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    {{ lang.trans('accept') }}
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block javascriptsFooter %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ view.getResourceUri('/js/common.js') }}"></script>
+{% endblock %}

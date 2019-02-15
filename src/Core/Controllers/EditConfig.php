@@ -33,7 +33,6 @@ class EditConfig extends PageController
         parent::__construct();
         $this->searchDir = [
             'Alxarafe' => constant('ALXARAFE_FOLDER'),
-            'Xfs' => constant('BASE_PATH'),
         ];
     }
 
