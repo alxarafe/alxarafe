@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Providers;
 
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -47,10 +48,16 @@ class Router
      *
      * @return array
      */
-    public function getRoutes()
+    public function getRoutes(): array
     {
         if (file_exists($this->filePath) && is_file($this->filePath)) {
-            return Yaml::parseFile($this->filePath);
+            try {
+                $fileContent = Yaml::parseFile($this->filePath);
+            } catch (ParseException $e) {
+                $fileContent = [];
+            }
+
+            return $fileContent;
         }
 
         return $this->getDefaultRoutes();

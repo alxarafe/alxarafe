@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
@@ -52,6 +53,11 @@ abstract class Controller extends PageController
      * @var array
      */
     protected $oldData;
+
+    /**
+     * @var array
+     */
+    protected $fieldsStruct;
 
     /**
      * Contiene la clave primaria del registro en curso.
@@ -136,7 +142,7 @@ abstract class Controller extends PageController
      * }
      *
      * @param Container|null $container
-     * @param Table|Table $model
+     * @param Table|Table    $model
      *
      * @return void
      */
@@ -348,12 +354,12 @@ abstract class Controller extends PageController
             }
         }
 
-        $json_data = array(
+        $json_data = [
             "draw" => intval($requestData['draw'] ?? null),
             "recordsTotal" => $recordsTotal ?? null,
             "recordsFiltered" => $recordsFiltered ?? null,
-            "data" => $data ?? null
-        );
+            "data" => $data ?? null,
+        ];
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
         $json = json_encode($json_data, $print);

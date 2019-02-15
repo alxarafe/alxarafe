@@ -285,7 +285,7 @@ class SqlFirebird extends SqlHelper
      *
      * @param string $tableName
      *
-     * @return bool
+     * @return string
      */
     public function tableExists(string $tableName): string
     {

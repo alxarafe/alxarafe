@@ -14,6 +14,11 @@ use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Utils;
 use ReflectionClass;
 
+/**
+ * Class View
+ *
+ * @package Alxarafe\Base
+ */
 class View extends SimpleView
 {
 
@@ -138,6 +143,21 @@ class View extends SimpleView
      * @var string
      */
     public $code;
+
+    /**
+     * @var
+     */
+    public $btnAdd;
+
+    /**
+     * @var
+     */
+    public $btnSave;
+
+    /**
+     * @var
+     */
+    public $btnCancel;
 
     /**
      * Constructor de la vista
