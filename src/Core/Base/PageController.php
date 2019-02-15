@@ -20,7 +20,7 @@ use ReflectionClass;
  *
  * @package Alxarafe\Base
  */
-class PageController extends Controller
+class PageController extends SimpleController
 {
     /**
      * Symbol to split menu/submenu items.
