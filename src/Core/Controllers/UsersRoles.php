@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
 use Alxarafe\Models\UserRole;
+use Alxarafe\Providers\Container;
 
 /**
  * Class UsersRoles
@@ -19,10 +20,12 @@ class UsersRoles extends Controller
 
     /**
      * UsersRoles constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct(new UserRole());
+        parent::__construct($container, new UserRole());
     }
 
     /**

@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
 use Alxarafe\Models\RolePage;
+use Alxarafe\Providers\Container;
 
 /**
  * Class RolesPages
@@ -19,10 +20,12 @@ class RolesPages extends Controller
 
     /**
      * RolesPages constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct(new RolePage());
+        parent::__construct($container, new RolePage());
     }
 
     /**

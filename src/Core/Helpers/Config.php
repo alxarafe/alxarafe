@@ -338,4 +338,36 @@ class Config
     {
         self::$global[$name] = $value;
     }
+
+    /**
+     * @param $dbEngine
+     */
+    public static function setDbEngine($dbEngine)
+    {
+        self::$dbEngine = $dbEngine;
+    }
+
+    /**
+     * @param $globals
+     */
+    public static function setGlobals($globals)
+    {
+        self::$global = $globals;
+    }
+
+    /**
+     * @param $lang
+     */
+    public static function setLang($lang)
+    {
+        self::$lang = $lang;
+    }
+
+    /**
+     * @param $session
+     */
+    public static function setSession($session)
+    {
+        self::$session = $session;
+    }
 }

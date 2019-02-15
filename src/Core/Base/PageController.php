@@ -13,6 +13,7 @@ use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
+use Alxarafe\Providers\Container;
 use ReflectionClass;
 
 /**
@@ -127,10 +128,12 @@ class PageController extends SimpleController
 
     /**
      * PageController constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct();
+        parent::__construct($container);
 
         $this->url = constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName;
 

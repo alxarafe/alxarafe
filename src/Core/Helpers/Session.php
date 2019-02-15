@@ -35,11 +35,10 @@ class Session
      */
     public function __construct()
     {
-        // If is not yet started, started now
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
         $this->session = (new SessionFactory())->newInstance($_COOKIE);
+        $this->session->start();
+
+        // https://github.com/auraphp/Aura.Session#cross-site-request-forgery
     }
 
     /**

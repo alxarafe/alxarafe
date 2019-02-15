@@ -9,6 +9,7 @@ use Alxarafe\Models\Page;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Providers\Container;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -21,10 +22,12 @@ class Languages extends Controller
 
     /**
      * Languages constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct(new Language());
+        parent::__construct($container, new Language());
         $this->main();
     }
 

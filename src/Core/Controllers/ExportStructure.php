@@ -7,9 +7,9 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Providers\Container;
 use Alxarafe\Views\ExportStructureView;
 
 /**
@@ -21,11 +21,13 @@ class ExportStructure extends PageController
 {
 
     /**
-     * The constructor creates the view
+     * ExportStructure constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct();
+        parent::__construct($container);
     }
 
     /**

@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
 use Alxarafe\Models\User;
+use Alxarafe\Providers\Container;
 
 /**
  * Class Users
@@ -19,10 +20,12 @@ class Users extends Controller
 
     /**
      * Users constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct(new User());
+        parent::__construct($container, new User());
     }
 
     /**

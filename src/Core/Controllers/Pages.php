@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Models\Page;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
+use Alxarafe\Providers\Container;
 
 /**
  * Class Pages
@@ -19,10 +20,12 @@ class Pages extends Controller
 
     /**
      * Pages constructor.
+     *
+     * @param Container|null $container
      */
-    public function __construct()
+    public function __construct(Container $container = null)
     {
-        parent::__construct(new Page());
+        parent::__construct($container, new Page());
     }
 
     /**

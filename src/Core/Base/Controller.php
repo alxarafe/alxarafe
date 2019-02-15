@@ -5,12 +5,11 @@
  */
 namespace Alxarafe\Base;
 
-use Alxarafe\Base\PageController;
-use Alxarafe\Base\Table;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\Container;
 
 /**
  * TODO: Undocumented
@@ -136,16 +135,17 @@ abstract class Controller extends PageController
      *      parent::run($method);
      * }
      *
+     * @param Container|null $container
      * @param Table|Table $model
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct(Container $container, $model)
     {
         // Se inicia el controlador...
         $this->model = $model;
         $this->tableName = $this->model->tableName;
-        parent::__construct();
+        parent::__construct($container);
         $this->newButtons = $this->getNewButtons();
     }
 

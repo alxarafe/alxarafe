@@ -43,6 +43,8 @@ class Lang
      */
     const FORMAT = 'yaml';
 
+    protected $basePath;
+
     /**
      * The Symfony translator.
      *
@@ -68,10 +70,12 @@ class Lang
      * Lang constructor.
      *
      * @param string $lang
+     * @param string $basePath
      */
-    public function __construct(string $lang = self::FALLBACK_LANG)
+    public function __construct(string $lang = self::FALLBACK_LANG, string $basePath = ALXARAFE_FOLDER)
     {
         if (self::$translator === null) {
+            $this->basePath = $basePath;
             self::$translator = new Translator($lang);
             self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
@@ -227,7 +231,7 @@ class Lang
      */
     public function getBaseLangFolder(): string
     {
-        return constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
+        return $this->basePath . self::LANG_FOLDER;
     }
 
     /**
