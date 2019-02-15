@@ -5,7 +5,7 @@
  */
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Models\Page;
+use Alxarafe\Models\Language;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
 use Alxarafe\Helpers\Debug;
