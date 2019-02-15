@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\Controller;
+use Alxarafe\Base\SimpleController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @package Alxarafe\Controllers
  */
-class CreateConfig extends Controller
+class CreateConfig extends SimpleController
 {
 
     /**
