@@ -71,7 +71,8 @@ class Debug
             // TODO This cause a circular dependecy
             // Engine class adds another collector
             // Config class adds another collector
-            @set_exception_handler(array($this, 'exceptionHandler'));
+            //Debug::$debugBar->addCollector(new TranslatorCollector(self::$lang));
+            set_exception_handler(array($this, 'exceptionHandler'));
         } catch (DebugBarException $e) {
             Debug::addException($e);
             Config::setError($e->getMessage());

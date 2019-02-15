@@ -73,9 +73,7 @@ class Lang
     {
         if (self::$translator === null) {
             self::$translator = new Translator($lang);
-            Debug::addMessage('messages', "Language '" . self::FALLBACK_LANG . "' (fallback)");
             self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
-            Debug::addMessage('messages', "Language '$lang' (default)");
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
             self::$usedStrings = [];
             self::$missingStrings = [];

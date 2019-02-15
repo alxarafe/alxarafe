@@ -162,7 +162,6 @@ class Config
 
         if (self::$lang === null) {
             self::$lang = new Lang(Config::$global['language'] ?? constant('LANG'));
-            //Debug::$debugBar->addCollector(new TranslatorCollector(self::$lang));
         }
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;
