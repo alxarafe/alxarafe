@@ -190,7 +190,6 @@ class Table extends SimpleTable
     {
         $items = [];
         foreach ($this->getStructure()['fields'] as $key => $valueData) {
-            $items[$key] = $valueData['default'] ?? '';
             $items[$key] = $this->getDefaultValue($valueData);
         }
         return $items;
@@ -205,7 +204,7 @@ class Table extends SimpleTable
      */
     private function getDefaultValue(array $valueData)
     {
-        $item = '';
+        $item = $valueData['default'] ?? '';
         if ($valueData['nullable'] === 'no') {
             switch ($valueData['type']) {
                 case 'integer':
