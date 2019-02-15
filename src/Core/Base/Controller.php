@@ -142,11 +142,9 @@ abstract class Controller extends PageController
      * }
      *
      * @param Container|null $container
-     * @param Table|Table    $model
-     *
-     * @return void
+     * @param Table|null     $model
      */
-    public function __construct(Container $container, $model)
+    public function __construct(Container $container = null, $model = null)
     {
         // Se inicia el controlador...
         $this->model = $model;

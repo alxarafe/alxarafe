@@ -39,7 +39,7 @@ class SimpleController
     public $session;
 
     /**
-     * @var Container
+     * @var Container|null
      */
     protected $container;
 

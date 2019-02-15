@@ -242,7 +242,7 @@ class Lang
     public function getLangFolders(): array
     {
         $morePaths = [
-            //BASE_PATH . '/config/languages',
+            //constant('BASE_PATH') . '/config/languages',
         ];
         return array_merge(
             [$this->getBaseLangFolder()],

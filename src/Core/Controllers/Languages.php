@@ -73,11 +73,11 @@ class Languages extends Controller
     {
         $subfolder = '/Languages';
         $sourceFolders = [
-            ALXARAFE_FOLDER . $subfolder,
-            BASE_PATH . $subfolder,
+            constant('ALXARAFE_FOLDER') . $subfolder,
+            constant('BASE_PATH') . $subfolder,
         ];
 
-        $destinationFolder = BASE_PATH . '/config/languages';
+        $destinationFolder = constant('BASE_PATH') . '/config/languages';
         if (!is_dir($destinationFolder)) {
             \mkdir($destinationFolder, 0777, true);
         }
