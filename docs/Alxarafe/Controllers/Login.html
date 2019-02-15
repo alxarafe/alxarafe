@@ -107,11 +107,27 @@
             <table class="table table-condensed">
                     <tr>
                 <td class="type" id="property_username">
-                                                                                
+                                                                                null
                 </td>
                 <td>$username</td>
-                <td class="last"></td>
+                <td class="last">TODO: Undocumented</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_username"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_shortName">
+                                                                                string
+                </td>
+                <td>$shortName</td>
+                <td class="last">Class short name.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_shortName"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_session">
+                                                                                <a href="../../Alxarafe/Helpers/Session.html"><abbr title="Alxarafe\Helpers\Session">Session</abbr></a>
+                </td>
+                <td>$session</td>
+                <td class="last"></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_session"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_title">
@@ -218,6 +234,14 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_roles"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_url">
+                                                                                string
+                </td>
+                <td>$url</td>
+                <td class="last">Contiene la url que se usará en el formulario.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_url"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_redirect">
                                                                                 string|null
                 </td>
@@ -243,7 +267,7 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_index">index</a>()
@@ -263,7 +287,7 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_setPageDetails">setPageDetails</a>()
@@ -273,7 +297,7 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_pageDetails">pageDetails</a>()
@@ -283,7 +307,7 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getPageDetails">getPageDetails</a>()
@@ -333,12 +357,12 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_run">run</a>()
         
-                                            <p>Run the class.</p>                </div>
+                                            <p>The start point of the controller.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -380,8 +404,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_index">
-        <div class="location">at         line 42</div>
-        <code>                    
+        <div class="location">at         line 44</div>
+        <code>                    void
     <strong>index</strong>()
         </code>
     </h3>
@@ -393,6 +417,15 @@
                                     <p>Start point</p>                                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -401,7 +434,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_ensureLogin">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 153</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 157</div>
         <code>                private    bool
     <strong>ensureLogin</strong>()
         </code>
@@ -431,8 +464,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 182</div>
-        <code>            protected        
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 192</div>
+        <code>            protected        void
     <strong>setPageDetails</strong>()
         </code>
     </h3>
@@ -444,6 +477,15 @@
                                     <p>Set the page details.</p>                                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -452,8 +494,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 113</div>
-        <code>                    
+        <div class="location">at         line 119</div>
+        <code>                    array
     <strong>pageDetails</strong>()
         </code>
     </h3>
@@ -465,6 +507,15 @@
                                     <p>Returns the page details.</p>                                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -473,8 +524,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 207</div>
-        <code>            protected        
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 220</div>
+        <code>            protected        array
     <strong>getPageDetails</strong>()
         </code>
     </h3>
@@ -486,6 +537,15 @@
                                     <p>Returns the page details as array.</p>                                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -494,7 +554,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 225</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 238</div>
         <code>                private    bool
     <strong>canAction</strong>(string $username, string $action)
         </code>
@@ -539,7 +599,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 268</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 282</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
@@ -569,7 +629,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_redirectToController">
-        <div class="location">at         line 66</div>
+        <div class="location">at         line 69</div>
         <code>                private    
     <strong>redirectToController</strong>()
         </code>
@@ -590,7 +650,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_main">
-        <div class="location">at         line 82</div>
+        <div class="location">at         line 85</div>
         <code>                    void
     <strong>main</strong>()
         </code>
@@ -620,8 +680,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">at         line 94</div>
-        <code>                    
+        <div class="location">at         line 99</div>
+        <code>                    void
     <strong>run</strong>()
         </code>
     </h3>
@@ -630,9 +690,18 @@
     
 
                     <div class="method-description">
-                                    <p>Run the class.</p>                                                </div>
+                                    <p>The start point of the controller.</p>                                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -641,7 +710,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_logout">
-        <div class="location">at         line 104</div>
+        <div class="location">at         line 109</div>
         <code>                    void
     <strong>logout</strong>()
         </code>

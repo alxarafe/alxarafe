@@ -235,13 +235,13 @@ getColumns</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getIndexes">getIndexes</a>(string $tableName, bool $usePrefix = true)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Obtains information about the indices of the table in a normalized array
+and independent of the database engine</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -263,16 +263,6 @@ restrictions later.</p>                </div>
                     <a href="#method_normalizeIndexes">normalizeIndexes</a>(array $fields)
         
                                             <p>Returns an array with the index information, and if there are, also constraints.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getConstraintsSql">getConstraintsSql</a>(string $tableName, bool $usePrefix = true)
-        
-                                            <p>TODO: Undocumented</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -688,8 +678,8 @@ getColumns</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexes">
-        <div class="location">at         line 182</div>
-        <code>                    
+        <div class="location">at         line 188</div>
+        <code>                    array
     <strong>getIndexes</strong>(string $tableName, bool $usePrefix = true)
         </code>
     </h3>
@@ -697,6 +687,9 @@ getColumns</p>                                                </div>
             
     
 
+                    <div class="method-description">
+                                    <p>Obtains information about the indices of the table in a normalized array
+and independent of the database engine</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -714,6 +707,15 @@ getColumns</p>                                                </div>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -722,7 +724,7 @@ getColumns</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesSql">
-        <div class="location">at         line 206</div>
+        <div class="location">at         line 220</div>
         <code>    abstract                string
     <strong>getIndexesSql</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -768,7 +770,7 @@ restrictions later.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeIndexes">
-        <div class="location">at         line 215</div>
+        <div class="location">at         line 229</div>
         <code>    abstract                array
     <strong>normalizeIndexes</strong>(array $fields)
         </code>
@@ -796,51 +798,6 @@ restrictions later.</p>                                                </div>
                     <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 224</div>
-        <code>    abstract                string
-    <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>TODO: Undocumented</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$tableName</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>bool</td>
-                <td>$usePrefix</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
             <td></td>
         </tr>
     </table>

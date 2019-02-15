@@ -142,6 +142,22 @@
                 <td></td>
             </tr>
                     <tr>
+                <td class="type" id="property_languages">
+                                                                                array
+                </td>
+                <td>$languages</td>
+                <td class="last">List of available languages</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_language">
+                                                                                string
+                </td>
+                <td>$language</td>
+                <td class="last">Selected language</td>
+                <td></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_dbConfig">
                                                                                 array
                 </td>
@@ -262,11 +278,11 @@ of the skin folder). It's a specific file.</p>                </div>
                     array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getErrors">getErrors</a>()
+                    <a href="#method_getMessages">getMessages</a>()
         
-                                            <p>Makes visible Config::getErrors() from templates, using view.getErrors()
-Config::getErrors() returns an array with the pending error messages, and empties the list.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getErrors"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
+                                            <p>Makes visible Config::getMessages() from templates, using view.getMessages()
+Config::getMessages() returns an array with the pending error messages, and empties the list.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#method_getMessages"><abbr title="Alxarafe\Base\View">View</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -296,7 +312,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 62</div>
+        <div class="location">at         line 76</div>
         <code>                    
     <strong>__construct</strong>($ctrl)
         </code>
@@ -327,7 +343,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_addCSS">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addCSS"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 66</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addCSS"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 69</div>
         <code>                    void
     <strong>addCSS</strong>()
         </code>
@@ -357,7 +373,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_addJS">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addJS"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 78</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addJS"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 79</div>
         <code>                    void
     <strong>addJS</strong>()
         </code>
@@ -409,7 +425,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
                     <div class="method-item">
                     <h3 id="method_getResourceUri">
         <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getResourceUri"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 104</div>
-        <code>                private    string
+        <code>                    string
     <strong>getResourceUri</strong>(string $path)
         </code>
     </h3>
@@ -449,7 +465,7 @@ corresponding URI, if it exists.</p>                                            
             </div>
                     <div class="method-item">
                     <h3 id="method_addResource">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addResource"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 137</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addResource"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 136</div>
         <code>                    string
     <strong>addResource</strong>(string $resourceName, boolean $relative = true)
         </code>
@@ -498,7 +514,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setVar">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_setVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 162</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_setVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 161</div>
         <code>                    void
     <strong>setVar</strong>(string $name, mixed $value)
         </code>
@@ -543,7 +559,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_addToVar">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addToVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 177</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_addToVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 176</div>
         <code>                    void
     <strong>addToVar</strong>(string $name, mixed $value)
         </code>
@@ -589,7 +605,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getVars">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getVars"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 189</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getVars"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 188</div>
         <code>                    array
     <strong>getVars</strong>()
         </code>
@@ -619,7 +635,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getVar">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 201</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getVar"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 200</div>
         <code>                    array|string|boolean|null
     <strong>getVar</strong>(string $name)
         </code>
@@ -658,10 +674,10 @@ IMPORTANT: The element only is added if is not empty.</p>                       
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getErrors">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getErrors"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 212</div>
+                    <h3 id="method_getMessages">
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getMessages"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 211</div>
         <code>                    array
-    <strong>getErrors</strong>()
+    <strong>getMessages</strong>()
         </code>
     </h3>
     <div class="details">
@@ -669,8 +685,8 @@ IMPORTANT: The element only is added if is not empty.</p>                       
     
 
                     <div class="method-description">
-                                    <p>Makes visible Config::getErrors() from templates, using view.getErrors()
-Config::getErrors() returns an array with the pending error messages, and empties the list.</p>                                                </div>
+                                    <p>Makes visible Config::getMessages() from templates, using view.getMessages()
+Config::getMessages() returns an array with the pending error messages, and empties the list.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -690,7 +706,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_getHeader">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getHeader"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 222</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getHeader"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 221</div>
         <code>                    string
     <strong>getHeader</strong>()
         </code>
@@ -720,7 +736,7 @@ Config::getErrors() returns an array with the pending error messages, and emptie
             </div>
                     <div class="method-item">
                     <h3 id="method_getFooter">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getFooter"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 232</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_getFooter"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 231</div>
         <code>                    string
     <strong>getFooter</strong>()
         </code>

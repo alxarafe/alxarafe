@@ -94,14 +94,6 @@
 
             <table class="table table-condensed">
                     <tr>
-                <td class="type" id="property_tableName">
-                                                                                string
-                </td>
-                <td>$tableName</td>
-                <td class="last">It is the name of the table.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#property_tableName"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></td>
-            </tr>
-                    <tr>
                 <td class="type" id="property_id">
                                         protected                                        string
                 </td>
@@ -109,7 +101,7 @@
                 <td class="last">Value of the main index for the active record. When a record is loaded, this field will contain its id and will
 be the one that will be used for in the WHERE clause of the UPDATE. If it does not exist in file it will contain
 ''.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#property_id"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#property_id"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_idField">
@@ -117,15 +109,15 @@ be the one that will be used for in the WHERE clause of the UPDATE. If it does n
                 </td>
                 <td>$idField</td>
                 <td class="last">It is the name of the main id field. By default 'id'</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#property_idField"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#property_idField"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_oldData">
-                                        protected                                        array
+                <td class="type" id="property_nameField">
+                                        protected                                        string
                 </td>
-                <td>$oldData</td>
-                <td class="last">It contains the data previous to the modification of the current record</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#property_oldData"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></td>
+                <td>$nameField</td>
+                <td class="last">It is the name of the field name. By default 'name'.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#property_nameField"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_newData">
@@ -134,15 +126,31 @@ be the one that will be used for in the WHERE clause of the UPDATE. If it does n
                 <td>$newData</td>
                 <td class="last">Contains the new data of the current record. It will start when loading a record and will be used when making a
 save.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#property_newData"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#property_newData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_nameField">
-                                        protected                                        string
+                <td class="type" id="property_oldData">
+                                        protected                                        array
                 </td>
-                <td>$nameField</td>
-                <td class="last">It is the name of the field name. By default 'name'.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Table.html#property_nameField"><abbr title="Alxarafe\Base\Table">Table</abbr></a></small></td>
+                <td>$oldData</td>
+                <td class="last">It contains the data previous to the modification of the current record</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#property_oldData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_tableName">
+                                                                                string
+                </td>
+                <td>$tableName</td>
+                <td class="last">It is the name of the table.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#property_tableName"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_modelName">
+                                                                                string
+                </td>
+                <td>$modelName</td>
+                <td class="last">It's the name of the model associated with the table</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#property_modelName"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></td>
             </tr>
             </table>
 
@@ -152,10 +160,121 @@ save.</td>
             <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getId">getId</a>()
+        
+                                            <p>Return the value of id.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method_getId"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getNameField">getNameField</a>()
+        
+                                            <p>Returns the name of the identification field of the record. By default it will be name.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method_getNameField"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Alxarafe\Base\$this">$this</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setData">setData</a>(array $data)
+        
+                                            <p>Assign newData from $data.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method_setData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getIdField">getIdField</a>()
+        
+                                            <p>Returns the name of the main key field of the table (PK-Primary Key). By
+default it will be id.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method_getIdField"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getData">getData</a>()
+        
+                                            <p>Return newData details.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method_getData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getOldData">getOldData</a>()
+        
+                                            <p>Return oldData details.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method_getOldData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Alxarafe\Base\$this">$this</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setOldData">setOldData</a>(array $data)
+        
+                                            <p>Assign oldData from an array.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method_setOldData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Alxarafe\Base\$this">$this</abbr>|mixed|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___call">__call</a>(string $method, array $params)
+        
+                                            <p>Execute a magic method of the setField or getField style</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method___call"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___get">__get</a>(string $propertyName)
+        
+                                            <p>Magic getter.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method___get"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Alxarafe\Base\$this">$this</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___set">__set</a>(string $propertyName, mixed $propertyValue)
+        
+                                            <p>Magic setter.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method___set"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___isset">__isset</a>(string $propertyName)
+        
+                                            <p>Magic isset.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Entity.html#method___isset"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>()
+                    <a href="#method___construct">__construct</a>(bool $create = true)
         
                                             <p>RolePage constructor.</p>                </div>
                 <div class="col-md-2"></div>
@@ -203,47 +322,6 @@ for the table.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method___call">__call</a>(string $method, array $params)
-        
-                                            <p>Execute a magic method of the setField or getField style</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method___call"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method___get">__get</a>(string $property)
-        
-                                            <p>It allows access to a field of the record using the attribute.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method___get"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method___set">__set</a>(string $property, mixed $value)
-        
-                                            <p>Allows you to assign value to a field in the record using the attribute.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method___set"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getIdField">getIdField</a>()
-        
-                                            <p>Returns the name of the main key field of the table (PK-Primary Key). By
-default it will be id.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_getIdField"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     <a href="../../Alxarafe/Base/SimpleTable.html"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a>
                 </div>
                 <div class="col-md-8 type">
@@ -257,10 +335,20 @@ default it will be id.</p>                </div>
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getData">getData</a>(string $id)
+                    <a href="#method_delete">delete</a>()
+        
+                                            <p>Deletes the active record.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_delete"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDataById">getDataById</a>(string $id)
         
                                             <p>This method is private. Use load instead.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_getData"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_getDataById"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -337,7 +425,7 @@ default it will be id.</p>                </div>
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_insertRecord">insertRecord</a>(array $fields, array $values)
+                    <a href="#method_insertRecord">insertRecord</a>(array $values)
         
                                             <p>Insert a new record.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_insertRecord"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
@@ -374,6 +462,56 @@ default it will be id.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_countAllRecords">countAllRecords</a>()
+        
+                                            <p>Count all registers in table.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_countAllRecords"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAllRecordsPaged">getAllRecordsPaged</a>($offset = 0)
+        
+                                            <p>Get an array with all data per page.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_getAllRecordsPaged"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_searchQuery">searchQuery</a>(string $query, array $columns = [])
+        
+                                            <p>Return the main part of the search SQL query.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_searchQuery"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_search">search</a>(string $query, array $columns = [], int $offset = 0, string $order = &#039;&#039;)
+        
+                                            <p>Do a search to a table.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_search"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    int
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_searchCount">searchCount</a>(string $query, array $columns = [])
+        
+                                            <p>Do a search to a table.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleTable.html#method_searchCount"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
                 </div>
                 <div class="col-md-8 type">
@@ -381,16 +519,6 @@ default it will be id.</p>                </div>
         
                                             <p>Create a new table if it does not exist and it has been passed true as a parameter.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Table.html#method_checkStructure"><abbr title="Alxarafe\Base\Table">Table</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getNameField">getNameField</a>()
-        
-                                            <p>Returns the name of the identification field of the record. By default it will be name.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Table.html#method_getNameField"><abbr title="Alxarafe\Base\Table">Table</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -443,6 +571,16 @@ or does not have a name field.</p>                </div>
                                             <p>Return a list of default values.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Table.html#method_getDefaultValues"><abbr title="Alxarafe\Base\Table">Table</abbr></a></small></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool|<abbr title="Alxarafe\Base\false">false</abbr>|int|string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDefaultValue">getDefaultValue</a>(array $valueData)
+        
+                                            <p>Get default value data for this valueData.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Table.html#method_getDefaultValue"><abbr title="Alxarafe\Base\Table">Table</abbr></a></small></div>
+            </div>
             </div>
 
 
@@ -450,10 +588,423 @@ or does not have a name field.</p>                </div>
 
             <div id="method-details">
                     <div class="method-item">
+                    <h3 id="method_getId">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method_getId"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 65</div>
+        <code>                    string
+    <strong>getId</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the value of id.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getNameField">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method_getNameField"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 75</div>
+        <code>                    string
+    <strong>getNameField</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the name of the identification field of the record. By default it will be name.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setData">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method_setData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 87</div>
+        <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>
+    <strong>setData</strong>(array $data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Assign newData from $data.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Alxarafe\Base\$this">$this</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getIdField">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method_getIdField"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 100</div>
+        <code>                    string
+    <strong>getIdField</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the name of the main key field of the table (PK-Primary Key). By
+default it will be id.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getData">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method_getData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 110</div>
+        <code>                    array
+    <strong>getData</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return newData details.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getOldData">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method_getOldData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 120</div>
+        <code>                    array
+    <strong>getOldData</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return oldData details.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setOldData">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method_setOldData"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 132</div>
+        <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>
+    <strong>setOldData</strong>(array $data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Assign oldData from an array.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Alxarafe\Base\$this">$this</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method___call">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method___call"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 148</div>
+        <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>|mixed|null
+    <strong>__call</strong>(string $method, array $params)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Execute a magic method of the setField or getField style</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$method</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$params</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Alxarafe\Base\$this">$this</abbr>|mixed|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/Exception">Exception</a></td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method___get">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method___get"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 176</div>
+        <code>                    mixed
+    <strong>__get</strong>(string $propertyName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Magic getter.</p>                    <p>It allows access to a field of the record using the attribute.
+To access the name field, we should use $this->getName(), but thanks to this, we can also use $this->name.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$propertyName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>mixed</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method___set">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method___set"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 196</div>
+        <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>
+    <strong>__set</strong>(string $propertyName, mixed $propertyValue)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Magic setter.</p>                    <p>Allows you to assign value to a field in the record using the attribute.
+To assign a value to the name field, we should use $this->setName('Pepe'),
+but thanks to this, we can also use $this->name='Pepe'.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$propertyName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$propertyValue</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Alxarafe\Base\$this">$this</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method___isset">
+        <div class="location">in <a href="../../Alxarafe/Base/Entity.html#method___isset"><abbr title="Alxarafe\Base\Entity">Entity</abbr></a> at         line 213</div>
+        <code>                    bool
+    <strong>__isset</strong>(string $propertyName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Magic isset.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$propertyName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 21</div>
+        <div class="location">at         line 23</div>
         <code>                    
-    <strong>__construct</strong>()
+    <strong>__construct</strong>(bool $create = true)
         </code>
     </h3>
     <div class="details">
@@ -463,6 +1014,16 @@ or does not have a name field.</p>                </div>
                     <div class="method-description">
                                     <p>RolePage constructor.</p>                                                </div>
                 <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>bool</td>
+                <td>$create</td>
+                <td></td>
+            </tr>
+            </table>
+
             
             
             
@@ -472,7 +1033,7 @@ or does not have a name field.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setStructure">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_setStructure"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 94</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_setStructure"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 73</div>
         <code>                    
     <strong>setStructure</strong>()
         </code>
@@ -497,7 +1058,7 @@ models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setTableStructure">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_setTableStructure"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 105</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_setTableStructure"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 84</div>
         <code>            protected        
     <strong>setTableStructure</strong>(string $table, array $structure)
         </code>
@@ -533,7 +1094,7 @@ models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getStructureArray">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getStructureArray"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 145</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getStructureArray"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 142</div>
         <code>            protected        array
     <strong>getStructureArray</strong>()
         </code>
@@ -563,7 +1124,7 @@ models.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFieldsFromTable">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getFieldsFromTable"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 134</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getFieldsFromTable"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 113</div>
         <code>                    array
     <strong>getFieldsFromTable</strong>()
         </code>
@@ -592,179 +1153,8 @@ models.</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method___call">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method___call"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 148</div>
-        <code>                    string
-    <strong>__call</strong>(string $method, array $params)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Execute a magic method of the setField or getField style</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$method</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>array</td>
-                <td>$params</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a target="_blank" href="http://php.net/Exception">Exception</a></td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method___get">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method___get"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 171</div>
-        <code>                    string
-    <strong>__get</strong>(string $property)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>It allows access to a field of the record using the attribute.</p>                    <p>To access the name field, we should use $this->getName(), but thanks to this, we can also use $this->name.</p>                            </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$property</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method___set">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method___set"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 186</div>
-        <code>                    mixed
-    <strong>__set</strong>(string $property, mixed $value)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Allows you to assign value to a field in the record using the attribute.</p>                    <p>To assign a value to the name field, we should use $this->setName('Pepe'),
-but thanks to this, we can also use $this->name='Pepe'.</p>                            </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$property</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$value</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getIdField">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getIdField"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 198</div>
-        <code>                    string
-    <strong>getIdField</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns the name of the main key field of the table (PK-Primary Key). By
-default it will be id.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_get"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 212</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_get"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 127</div>
         <code>                    <a href="../../Alxarafe/Base/SimpleTable.html"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a>
     <strong>get</strong>(string $id)
         </code>
@@ -804,10 +1194,40 @@ Makes a getData and returns a new instance of the model.</p>                    
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getData">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getData"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 228</div>
+                    <h3 id="method_delete">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_delete"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 138</div>
+        <code>                    bool
+    <strong>delete</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Deletes the active record.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDataById">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getDataById"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 166</div>
         <code>                private    bool
-    <strong>getData</strong>(string $id)
+    <strong>getDataById</strong>(string $id)
         </code>
     </h3>
     <div class="details">
@@ -847,7 +1267,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_getBy">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getBy"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 253</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getBy"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 191</div>
         <code>                    <a href="../../Alxarafe/Base/SimpleTable.html"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a>|null
     <strong>getBy</strong>(string $key, mixed $value)
         </code>
@@ -893,7 +1313,7 @@ Makes a getDataBy and returns a new instance of the model.</p>                  
             </div>
                     <div class="method-item">
                     <h3 id="method_getDataBy">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getDataBy"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 269</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getDataBy"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 207</div>
         <code>                private    bool
     <strong>getDataBy</strong>(string $key, mixed $value)
         </code>
@@ -940,7 +1360,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableName">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getTableName"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 289</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getTableName"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 227</div>
         <code>                    string
     <strong>getTableName</strong>()
         </code>
@@ -970,7 +1390,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_newRecord">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_newRecord"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 299</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_newRecord"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 237</div>
         <code>                private    
     <strong>newRecord</strong>()
         </code>
@@ -991,7 +1411,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_getDataArray">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getDataArray"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 318</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getDataArray"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 256</div>
         <code>                    array
     <strong>getDataArray</strong>(string $id = null)
         </code>
@@ -1032,7 +1452,7 @@ Warning: If an $id is set, any unsaved data will be lost when searching for the 
             </div>
                     <div class="method-item">
                     <h3 id="method_load">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_load"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 335</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_load"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 273</div>
         <code>                    bool
     <strong>load</strong>(string $id)
         </code>
@@ -1073,7 +1493,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_save"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 345</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_save"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 283</div>
         <code>                    bool
     <strong>save</strong>()
         </code>
@@ -1103,9 +1523,9 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_insertRecord">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_insertRecord"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 380</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_insertRecord"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 316</div>
         <code>                private    bool
-    <strong>insertRecord</strong>(array $fields, array $values)
+    <strong>insertRecord</strong>(array $values)
         </code>
     </h3>
     <div class="details">
@@ -1118,11 +1538,6 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$fields</td>
-                <td></td>
-            </tr>
                     <tr>
                 <td>array</td>
                 <td>$values</td>
@@ -1148,7 +1563,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_updateRecord">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_updateRecord"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 399</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_updateRecord"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 348</div>
         <code>                private    bool
     <strong>updateRecord</strong>(array $data)
         </code>
@@ -1188,7 +1603,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_getStructure">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getStructure"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 109</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getStructure"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 104</div>
         <code>                    array
     <strong>getStructure</strong>()
         </code>
@@ -1218,7 +1633,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_getAllRecords">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getAllRecords"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 119</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getAllRecords"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 114</div>
         <code>                    array
     <strong>getAllRecords</strong>()
         </code>
@@ -1247,8 +1662,223 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_countAllRecords">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_countAllRecords"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 393</div>
+        <code>                    int
+    <strong>countAllRecords</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Count all registers in table.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAllRecordsPaged">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_getAllRecordsPaged"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 406</div>
+        <code>                    array
+    <strong>getAllRecordsPaged</strong>($offset = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get an array with all data per page.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$offset</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_searchQuery">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_searchQuery"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 421</div>
+        <code>                    string
+    <strong>searchQuery</strong>(string $query, array $columns = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the main part of the search SQL query.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$query</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$columns</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_search">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_search"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 460</div>
+        <code>                    array
+    <strong>search</strong>(string $query, array $columns = [], int $offset = 0, string $order = &#039;&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Do a search to a table.</p>                    <p>Returns the result per page.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$query</td>
+                <td>What to look for</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$columns</td>
+                <td>For example: [0 => 'name']</td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$offset</td>
+                <td>By default 0</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$order</td>
+                <td>By default the main name field if defined</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_searchCount">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleTable.html#method_searchCount"><abbr title="Alxarafe\Base\SimpleTable">SimpleTable</abbr></a> at         line 481</div>
+        <code>                    int
+    <strong>searchCount</strong>(string $query, array $columns = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Do a search to a table.</p>                    <p>Returns the result per page.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$query</td>
+                <td>What to look for</td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$columns</td>
+                <td>For example: [0 => 'name']</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>int</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_checkStructure">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_checkStructure"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 54</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_checkStructure"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 51</div>
         <code>                    
     <strong>checkStructure</strong>(bool $create = false)
         </code>
@@ -1279,38 +1909,8 @@ correcting the differences if true is passed as parameter.</p>                  
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getNameField">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getNameField"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 68</div>
-        <code>                    string
-    <strong>getNameField</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns the name of the identification field of the record. By default it will be name.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_getIdByName">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getIdByName"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 81</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getIdByName"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 76</div>
         <code>                    string
     <strong>getIdByName</strong>(string $name)
         </code>
@@ -1351,7 +1951,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getAllRecordsBy">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getAllRecordsBy"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 133</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getAllRecordsBy"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 128</div>
         <code>                    array
     <strong>getAllRecordsBy</strong>(string $key, mixed $value)
         </code>
@@ -1396,7 +1996,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesFromTable">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getIndexesFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 171</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getIndexesFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 168</div>
         <code>                    array
     <strong>getIndexesFromTable</strong>()
         </code>
@@ -1428,7 +2028,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getChecksFromTable">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getChecksFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 181</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getChecksFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 178</div>
         <code>                    array
     <strong>getChecksFromTable</strong>()
         </code>
@@ -1458,7 +2058,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValues">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getDefaultValues"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 192</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getDefaultValues"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 189</div>
         <code>                    array
     <strong>getDefaultValues</strong>()
         </code>
@@ -1476,6 +2076,46 @@ or does not have a name field.</p>                                              
                     <table class="table table-condensed">
         <tr>
             <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDefaultValue">
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getDefaultValue"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 205</div>
+        <code>                private    bool|<abbr title="Alxarafe\Base\false">false</abbr>|int|string
+    <strong>getDefaultValue</strong>(array $valueData)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Get default value data for this valueData.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$valueData</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool|<abbr title="Alxarafe\Base\false">false</abbr>|int|string</td>
             <td></td>
         </tr>
     </table>

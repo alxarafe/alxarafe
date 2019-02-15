@@ -139,12 +139,12 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_run">run</a>()
         
-                                            <p>Run the application.</p>                </div>
+                                            <p>The start point of the controller.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -167,36 +167,6 @@
                                             <p>Try to locate the $call class in $path, and execute the $method.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_regenerateData">regenerateData</a>()
-        
-                                            <p>Regenerate some needed data.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_instantiateModels">instantiateModels</a>()
-        
-                                            <p>Instantiate all available models</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_checkPageControllers">checkPageControllers</a>()
-        
-                                            <p>Check all clases that extends from PageController, an store it to pages table.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
@@ -205,7 +175,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 33</div>
+        <div class="location">at         line 32</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -226,7 +196,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getConfiguration">
-        <div class="location">at         line 45</div>
+        <div class="location">at         line 44</div>
         <code>                private    
     <strong>getConfiguration</strong>()
         </code>
@@ -247,7 +217,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_defineConstants">
-        <div class="location">at         line 64</div>
+        <div class="location">at         line 63</div>
         <code>                    
     <strong>defineConstants</strong>()
         </code>
@@ -268,8 +238,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">at         line 108</div>
-        <code>                    
+        <div class="location">at         line 115</div>
+        <code>                    void
     <strong>run</strong>()
         </code>
     </h3>
@@ -278,9 +248,18 @@
     
 
                     <div class="method-description">
-                                    <p>Run the application.</p>                                                </div>
+                                    <p>The start point of the controller.</p>                                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -289,7 +268,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_process">
-        <div class="location">at         line 127</div>
+        <div class="location">at         line 134</div>
         <code>                    bool
     <strong>process</strong>()
         </code>
@@ -319,7 +298,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_processFolder">
-        <div class="location">at         line 153</div>
+        <div class="location">at         line 167</div>
         <code>                    bool
     <strong>processFolder</strong>(string $path, string $call, string $method = null)
         </code>
@@ -361,72 +340,6 @@
         </tr>
     </table>
 
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_regenerateData">
-        <div class="location">at         line 189</div>
-        <code>                private    
-    <strong>regenerateData</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Regenerate some needed data.</p>                    <p>TODO: Some parts must be moved to another parts on a near future.</p>                            </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_instantiateModels">
-        <div class="location">at         line 203</div>
-        <code>                private    
-    <strong>instantiateModels</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Instantiate all available models</p>                    <p>TODO: This must be executed only when update/upgrade the core. At this moment is forced if DEBUG is enabled.</p>                            </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_checkPageControllers">
-        <div class="location">at         line 232</div>
-        <code>                private    
-    <strong>checkPageControllers</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Check all clases that extends from PageController, an store it to pages table.</p>                    <p>We needed to generate the user menu.</p>
-
-<p>TODO: This must be checked only when update/upgrade the core.
-WARNING: At this moment are generating 3 extra SQL queries per table.</p>                            </div>
-                <div class="tags">
-            
             
             
                     </div>

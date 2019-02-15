@@ -134,30 +134,6 @@
 
             <table class="table table-condensed">
                     <tr>
-                <td class="type" id="property_defaultLang">
-                    static                                        private                    string
-                </td>
-                <td>$defaultLang</td>
-                <td class="last">Default language.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_languages">
-                    static                                        private                    array
-                </td>
-                <td>$languages</td>
-                <td class="last">Loaded languages.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_missingStrings">
-                    static                                        private                    array
-                </td>
-                <td>$missingStrings</td>
-                <td class="last">List of strings without translation.</td>
-                <td></td>
-            </tr>
-                    <tr>
                 <td class="type" id="property_translator">
                     static                                        private                    <abbr title="Symfony\Component\Translation\Translator">Translator</abbr>
                 </td>
@@ -171,6 +147,14 @@
                 </td>
                 <td>$usedStrings</td>
                 <td class="last">List of used strings.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_missingStrings">
+                    static                                        private                    array
+                </td>
+                <td>$missingStrings</td>
+                <td class="last">List of strings without translation.</td>
                 <td></td>
             </tr>
             </table>
@@ -191,10 +175,10 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_locateFiles">locateFiles</a>(string $lang)
+                    <a href="#method_loadLangFiles">loadLangFiles</a>()
         
                                             <p>Load the translation files following the priorities.</p>                </div>
                 <div class="col-md-2"></div>
@@ -204,30 +188,19 @@
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getLangCode">getLangCode</a>()
+                    <a href="#method_getLocale">getLocale</a>()
         
                                             <p>Returns the language code in use.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setLangCode">setLangCode</a>(string $lang)
+                    <a href="#method_setlocale">setlocale</a>(string $lang)
         
                                             <p>Sets the language code in use.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_firstMatch">firstMatch</a>(string $langCode)
-        
-                                            <p>Return first exact match, or first partial match with language key identifier, or it not match founded, return
-default language.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -242,10 +215,20 @@ default language.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_verifyMissing">verifyMissing</a>($lang)
+        
+                                            <p>Stores if translation is used and if is missing.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_trans">trans</a>(null|string $txt, array $parameters = [])
+                    <a href="#method_trans">trans</a>(null|string $txt, array $parameters = [], $domain = null, $locale = null)
         
                                             <p>Translate the text into the default language.</p>                </div>
                 <div class="col-md-2"></div>
@@ -255,9 +238,9 @@ default language.</p>                </div>
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_customTrans">customTrans</a>(string $lang, string $txt, array $parameters = [])
+                    <a href="#method_transChoice">transChoice</a>($txt, $number, array $parameters = [], $domain = null, $locale = null)
         
-                                            <p>Translate the text into the selected language.</p>                </div>
+                                            <p>Translate the text into the default language, but using choice.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -285,9 +268,19 @@ default language.</p>                </div>
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getLangFolder">getLangFolder</a>()
+                    <a href="#method_getBaseLangFolder">getBaseLangFolder</a>()
         
-                                            <p>Return the lang folder.</p>                </div>
+                                            <p>Returns the base lang folder.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getLangFolders">getLangFolders</a>()
+        
+                                            <p>Return the lang folders.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -298,7 +291,7 @@ default language.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 86</div>
+        <div class="location">at         line 72</div>
         <code>                    
     <strong>__construct</strong>(string $lang = self::FALLBACK_LANG)
         </code>
@@ -328,10 +321,10 @@ default language.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_locateFiles">
-        <div class="location">at         line 110</div>
-        <code>                private    
-    <strong>locateFiles</strong>(string $lang)
+                    <h3 id="method_loadLangFiles">
+        <div class="location">at         line 93</div>
+        <code>                private    void
+    <strong>loadLangFiles</strong>()
         </code>
     </h3>
     <div class="details">
@@ -341,17 +334,16 @@ default language.</p>                </div>
                     <div class="method-description">
                                     <p>Load the translation files following the priorities.</p>                    <p>In this case, the translator must be provided with the routes in reverse order.</p>                            </div>
                 <div class="tags">
-                            <h4>Parameters</h4>
+            
+                            <h4>Return Value</h4>
 
                     <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$lang</td>
-                <td></td>
-            </tr>
-            </table>
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
 
-            
             
             
                     </div>
@@ -359,10 +351,10 @@ default language.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getLangCode">
-        <div class="location">at         line 140</div>
+                    <h3 id="method_getLocale">
+        <div class="location">at         line 111</div>
         <code>                    string
-    <strong>getLangCode</strong>()
+    <strong>getLocale</strong>()
         </code>
     </h3>
     <div class="details">
@@ -389,10 +381,10 @@ default language.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setLangCode">
-        <div class="location">at         line 150</div>
-        <code>                    
-    <strong>setLangCode</strong>(string $lang)
+                    <h3 id="method_setlocale">
+        <div class="location">at         line 123</div>
+        <code>                    void
+    <strong>setlocale</strong>(string $lang)
         </code>
     </h3>
     <div class="details">
@@ -413,43 +405,11 @@ default language.</p>                </div>
             </table>
 
             
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_firstMatch">
-        <div class="location">at         line 163</div>
-        <code>                private    string
-    <strong>firstMatch</strong>(string $langCode)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return first exact match, or first partial match with language key identifier, or it not match founded, return
-default language.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$langCode</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td>string</td>
+            <td>void</td>
             <td></td>
         </tr>
     </table>
@@ -462,7 +422,7 @@ default language.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAvailableLanguages">
-        <div class="location">at         line 187</div>
+        <div class="location">at         line 133</div>
         <code>                    array
     <strong>getAvailableLanguages</strong>()
         </code>
@@ -491,10 +451,41 @@ default language.</p>                                                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_verifyMissing">
+        <div class="location">at         line 159</div>
+        <code>                private    
+    <strong>verifyMissing</strong>($lang)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Stores if translation is used and if is missing.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$lang</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_trans">
-        <div class="location">at         line 208</div>
+        <div class="location">at         line 180</div>
         <code>                    string
-    <strong>trans</strong>(null|string $txt, array $parameters = [])
+    <strong>trans</strong>(null|string $txt, array $parameters = [], $domain = null, $locale = null)
         </code>
     </h3>
     <div class="details">
@@ -517,6 +508,16 @@ default language.</p>                                                </div>
                 <td>$parameters</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td></td>
+                <td>$domain</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$locale</td>
+                <td></td>
+            </tr>
             </table>
 
             
@@ -536,10 +537,10 @@ default language.</p>                                                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_customTrans">
-        <div class="location">at         line 229</div>
+                    <h3 id="method_transChoice">
+        <div class="location">at         line 198</div>
         <code>                    string
-    <strong>customTrans</strong>(string $lang, string $txt, array $parameters = [])
+    <strong>transChoice</strong>($txt, $number, array $parameters = [], $domain = null, $locale = null)
         </code>
     </h3>
     <div class="details">
@@ -547,24 +548,34 @@ default language.</p>                                                </div>
     
 
                     <div class="method-description">
-                                    <p>Translate the text into the selected language.</p>                                                </div>
+                                    <p>Translate the text into the default language, but using choice.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
-                <td>$lang</td>
+                <td></td>
+                <td>$txt</td>
                 <td></td>
             </tr>
                     <tr>
-                <td>string</td>
-                <td>$txt</td>
+                <td></td>
+                <td>$number</td>
                 <td></td>
             </tr>
                     <tr>
                 <td>array</td>
                 <td>$parameters</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$domain</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$locale</td>
                 <td></td>
             </tr>
             </table>
@@ -587,7 +598,7 @@ default language.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getMissingStrings">
-        <div class="location">at         line 251</div>
+        <div class="location">at         line 210</div>
         <code>                    array
     <strong>getMissingStrings</strong>()
         </code>
@@ -617,7 +628,7 @@ default language.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getUsedStrings">
-        <div class="location">at         line 261</div>
+        <div class="location">at         line 220</div>
         <code>                    array
     <strong>getUsedStrings</strong>()
         </code>
@@ -646,10 +657,10 @@ default language.</p>                                                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getLangFolder">
-        <div class="location">at         line 271</div>
+                    <h3 id="method_getBaseLangFolder">
+        <div class="location">at         line 230</div>
         <code>                    string
-    <strong>getLangFolder</strong>()
+    <strong>getBaseLangFolder</strong>()
         </code>
     </h3>
     <div class="details">
@@ -657,7 +668,7 @@ default language.</p>                                                </div>
     
 
                     <div class="method-description">
-                                    <p>Return the lang folder.</p>                                                </div>
+                                    <p>Returns the base lang folder.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -665,6 +676,36 @@ default language.</p>                                                </div>
                     <table class="table table-condensed">
         <tr>
             <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getLangFolders">
+        <div class="location">at         line 240</div>
+        <code>                    array
+    <strong>getLangFolders</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the lang folders.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
             <td></td>
         </tr>
     </table>

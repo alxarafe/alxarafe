@@ -173,6 +173,16 @@ an associated result set.</td>
                     static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_unsupportedEngines">unsupportedEngines</a>()
+        
+                                            <p>Returns a list of unsupported engines.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_unsupportedEngines"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getStructure">getStructure</a>(string $tableName, bool $usePrefix = true)
         
                                             <p>Obtain an array with the table structure with a standardized format.</p>                </div>
@@ -213,20 +223,20 @@ an associated result set.</td>
                     static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_splitQuery">splitQuery</a>(string $query)
+                    <a href="#method_exec">exec</a>(string $query, array $vars = [])
         
-                                            <p>TODO: Undocumented</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_splitQuery"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
+                                            <p>Prepare and execute the query.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
                     static&nbsp;bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_exec">exec</a>(array $queries)
+                    <a href="#method_batchExec">batchExec</a>(array $queries)
         
                                             <p>Execute SQL statements on the database (INSERT, UPDATE or DELETE).</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_batchExec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -235,13 +245,12 @@ an associated result set.</td>
                 <div class="col-md-8 type">
                     <a href="#method_getLastInserted">getLastInserted</a>()
         
-                                            <p>Returns the id of the last inserted record. Failing that, it
-returns ''.</p>                </div>
+                                            <p>Returns the id of the last inserted record. Failing that, it returns ''.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    static&nbsp;array|null
+                    static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_select">select</a>(string $query)
@@ -254,7 +263,7 @@ returns ''.</p>                </div>
                     static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_selectCoreCache">selectCoreCache</a>(string $query, string $cachedName)
+                    <a href="#method_selectCoreCache">selectCoreCache</a>(string $cachedName, string $query, array $vars = [])
         
                                             <p>Executes a SELECT SQL statement on the core cache.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/Engine.html#method_selectCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></small></div>
@@ -378,7 +387,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEngines">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getEngines"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 81</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getEngines"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 82</div>
         <code>        static            array
     <strong>getEngines</strong>()
         </code>
@@ -407,8 +416,38 @@ returns ''.</p>                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_unsupportedEngines">
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_unsupportedEngines"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 107</div>
+        <code>        static            array
+    <strong>unsupportedEngines</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of unsupported engines.</p>                    <p>The unsupported engines here are the not fully supported yet.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getStructure">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getStructure"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 102</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getStructure"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 121</div>
         <code>        static            array
     <strong>getStructure</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -453,7 +492,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___destruct">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method___destruct"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 113</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method___destruct"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 132</div>
         <code>                    
     <strong>__destruct</strong>()
         </code>
@@ -474,7 +513,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_rollBackTransactions">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_rollBackTransactions"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 121</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_rollBackTransactions"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 140</div>
         <code>final                private    
     <strong>rollBackTransactions</strong>()
         </code>
@@ -495,7 +534,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_rollBack">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_rollBack"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 133</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_rollBack"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 152</div>
         <code>final                    bool
     <strong>rollBack</strong>()
         </code>
@@ -524,10 +563,10 @@ returns ''.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_splitQuery">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_splitQuery"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 161</div>
-        <code>        static        private    bool
-    <strong>splitQuery</strong>(string $query)
+                    <h3 id="method_exec">
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 181</div>
+        <code>final        static            bool
+    <strong>exec</strong>(string $query, array $vars = [])
         </code>
     </h3>
     <div class="details">
@@ -535,7 +574,7 @@ returns ''.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>TODO: Undocumented</p>                                                </div>
+                                    <p>Prepare and execute the query.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -543,6 +582,11 @@ returns ''.</p>                </div>
                     <tr>
                 <td>string</td>
                 <td>$query</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$vars</td>
                 <td></td>
             </tr>
             </table>
@@ -564,10 +608,10 @@ returns ''.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_exec">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_exec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 185</div>
+                    <h3 id="method_batchExec">
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_batchExec"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 203</div>
         <code>final        static            bool
-    <strong>exec</strong>(array $queries)
+    <strong>batchExec</strong>(array $queries)
         </code>
     </h3>
     <div class="details">
@@ -605,7 +649,7 @@ returns ''.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getLastInserted">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 203</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 221</div>
         <code>final                    string
     <strong>getLastInserted</strong>()
         </code>
@@ -615,8 +659,7 @@ returns ''.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Returns the id of the last inserted record. Failing that, it
-returns ''.</p>                                                </div>
+                                    <p>Returns the id of the last inserted record. Failing that, it returns ''.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -637,7 +680,7 @@ returns ''.</p>                                                </div>
                     <div class="method-item">
                     <h3 id="method_select">
         <div class="location">at         line 38</div>
-        <code>        static            array|null
+        <code>        static            array
     <strong>select</strong>(string $query)
         </code>
     </h3>
@@ -663,7 +706,7 @@ returns ''.</p>                                                </div>
 
                     <table class="table table-condensed">
         <tr>
-            <td>array|null</td>
+            <td>array</td>
             <td></td>
         </tr>
     </table>
@@ -676,9 +719,9 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_selectCoreCache">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_selectCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 241</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_selectCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 259</div>
         <code>final        static            array
-    <strong>selectCoreCache</strong>(string $query, string $cachedName)
+    <strong>selectCoreCache</strong>(string $cachedName, string $query, array $vars = [])
         </code>
     </h3>
     <div class="details">
@@ -693,12 +736,17 @@ returns ''.</p>                                                </div>
                     <table class="table table-condensed">
                     <tr>
                 <td>string</td>
-                <td>$query</td>
+                <td>$cachedName</td>
                 <td></td>
             </tr>
                     <tr>
                 <td>string</td>
-                <td>$cachedName</td>
+                <td>$query</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$vars</td>
                 <td></td>
             </tr>
             </table>
@@ -721,7 +769,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_clearCoreCache">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_clearCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 273</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_clearCoreCache"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 293</div>
         <code>final        static            bool
     <strong>clearCoreCache</strong>(string $cachedName)
         </code>
@@ -754,15 +802,6 @@ returns ''.</p>                                                </div>
     </table>
 
             
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><abbr title="Psr\Cache\InvalidArgumentException">InvalidArgumentException</abbr></td>
-                <td></td>
-            </tr>
-            </table>
-
             
                     </div>
     </div>
@@ -770,7 +809,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkConnection">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 284</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 307</div>
         <code>                    bool
     <strong>checkConnection</strong>()
         </code>
@@ -800,7 +839,7 @@ returns ''.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_connect">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_connect"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 298</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_connect"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 321</div>
         <code>                    bool
     <strong>connect</strong>(array $config = [])
         </code>
@@ -841,7 +880,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_prepare">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 330</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 355</div>
         <code>final                    bool
     <strong>prepare</strong>(string $sql, array $options = [])
         </code>
@@ -886,7 +925,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_resultSet">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_resultSet"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 351</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_resultSet"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 371</div>
         <code>final                    array
     <strong>resultSet</strong>()
         </code>
@@ -916,7 +955,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_execute">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_execute"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 366</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_execute"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 386</div>
         <code>final                    bool
     <strong>execute</strong>(array $inputParameters = [])
         </code>
@@ -956,7 +995,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_beginTransaction">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 381</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 403</div>
         <code>final                    bool
     <strong>beginTransaction</strong>()
         </code>
@@ -986,7 +1025,7 @@ Returns true in case of success, assigning the handler to self::$dbHandler.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_commit">
-        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_commit"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 402</div>
+        <div class="location">in <a href="../../../Alxarafe/Database/Engine.html#method_commit"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a> at         line 424</div>
         <code>final                    bool
     <strong>commit</strong>()
         </code>

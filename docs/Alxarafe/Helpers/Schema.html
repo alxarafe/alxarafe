@@ -90,18 +90,6 @@
 database. It is used to create and modify tables and indexes in the database.</p>                                </div>
     
     
-            <h2>Constants</h2>
-
-            <table class="table table-condensed">
-                    <tr>
-                <td>CRLF</td>
-                <td class="last">
-                    <p><em>Carriage return</em></p>
-                    <p></p>
-                </td>
-            </tr>
-            </table>
-
     
     
             <h2>Methods</h2>
@@ -167,7 +155,27 @@ prevailing the latter.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_getFromYamlFile">getFromYamlFile</a>(string $tableName, string $type = &#039;schema&#039;)
         
-                                            <p>Returns an array with data from the specefied yaml file</p>                </div>
+                                            <p>Returns an array with data from the specified yaml file</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadDataFromCsv">loadDataFromCsv</a>(string $fileName)
+        
+                                            <p>Load data from CSV file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadDataFromYaml">loadDataFromYaml</a>(string $fileName)
+        
+                                            <p>Load data from Yaml file.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -233,7 +241,7 @@ but this should only occur at the design stage.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getSchemaFileName">
-        <div class="location">at         line 32</div>
+        <div class="location">at         line 29</div>
         <code>        static        private    string
     <strong>getSchemaFileName</strong>(string $tableName, string $type = &#039;schema&#039;)
         </code>
@@ -251,7 +259,7 @@ but this should only occur at the design stage.</p>                </div>
                     <tr>
                 <td>string</td>
                 <td>$tableName</td>
-                <td>name of the file without extension (assumes .yaml)</td>
+                <td>name of the file without extension (assumes .yaml or .csv according to the type)</td>
             </tr>
                     <tr>
                 <td>string</td>
@@ -278,7 +286,7 @@ but this should only occur at the design stage.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_saveSchemaFileName">
-        <div class="location">at         line 53</div>
+        <div class="location">at         line 52</div>
         <code>        static        private    bool
     <strong>saveSchemaFileName</strong>(array $data, string $tableName, string $type = &#039;schema&#039;)
         </code>
@@ -328,7 +336,7 @@ but this should only occur at the design stage.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_mergeViewField">
-        <div class="location">at         line 75</div>
+        <div class="location">at         line 74</div>
         <code>        static    protected        array
     <strong>mergeViewField</strong>(string $field, array $values, array $fieldData)
         </code>
@@ -486,7 +494,7 @@ prevailing the latter.</p>                                                </div>
     
 
                     <div class="method-description">
-                                    <p>Returns an array with data from the specefied yaml file</p>                                                </div>
+                                    <p>Returns an array with data from the specified yaml file</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -520,8 +528,88 @@ prevailing the latter.</p>                                                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_loadDataFromCsv">
+        <div class="location">at         line 170</div>
+        <code>        static            array
+    <strong>loadDataFromCsv</strong>(string $fileName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Load data from CSV file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fileName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadDataFromYaml">
+        <div class="location">at         line 187</div>
+        <code>        static            array
+    <strong>loadDataFromYaml</strong>(string $fileName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Load data from Yaml file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fileName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_saveStructure">
-        <div class="location">at         line 153</div>
+        <div class="location">at         line 205</div>
         <code>        static            
     <strong>saveStructure</strong>()
         </code>
@@ -543,7 +631,7 @@ for the reconstruction of its structure. Also save the view structure.</p>      
             </div>
                     <div class="method-item">
                     <h3 id="method_saveTableStructure">
-        <div class="location">at         line 168</div>
+        <div class="location">at         line 222</div>
         <code>        static            bool
     <strong>saveTableStructure</strong>(string $table)
         </code>
@@ -553,7 +641,8 @@ for the reconstruction of its structure. Also save the view structure.</p>      
     
 
                     <div class="method-description">
-                                    <p>Return true if complete table structure was saved, otherwise return false.</p>                                                </div>
+                                    <p>Return true if complete table structure was saved, otherwise return false.</p>                    <p>If the name of the table includes the prefix used in the database, it is
+removed from the name of the table.</p>                            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -583,7 +672,7 @@ for the reconstruction of its structure. Also save the view structure.</p>      
             </div>
                     <div class="method-item">
                     <h3 id="method_setNormalizedStructure">
-        <div class="location">at         line 191</div>
+        <div class="location">at         line 248</div>
         <code>        static            array
     <strong>setNormalizedStructure</strong>(array $structure, string $tableName)
         </code>
@@ -630,7 +719,7 @@ the check each time, or calculating their value based on the data provided by th
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeField">
-        <div class="location">at         line 214</div>
+        <div class="location">at         line 271</div>
         <code>        static    protected        array|null
     <strong>normalizeField</strong>(string $tableName, string $field, array $structure)
         </code>
@@ -682,7 +771,7 @@ but this should only occur at the design stage.</p>                             
             </div>
                     <div class="method-item">
                     <h3 id="method_setValues">
-        <div class="location">at         line 240</div>
+        <div class="location">at         line 297</div>
         <code>        static            array
     <strong>setValues</strong>(string $tableName, array $values)
         </code>

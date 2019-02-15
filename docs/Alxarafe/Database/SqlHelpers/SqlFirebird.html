@@ -235,13 +235,13 @@ getColumns</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getIndexes">getIndexes</a>(string $tableName, bool $usePrefix = true)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Obtains information about the indices of the table in a normalized array
+and independent of the database engine</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -274,16 +274,6 @@ indexes:
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getConstraintsSql">getConstraintsSql</a>(string $tableName, bool $usePrefix = true)
-        
-                                            <p>TODO: Undocumented and pending complete.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     array
                 </div>
                 <div class="col-md-8 type">
@@ -304,6 +294,16 @@ indexes:
                     <a href="#method_getViewsSql">getViewsSql</a>()
         
                                             <p>Returns the views from the database.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getConstraintsSql">getConstraintsSql</a>(string $tableName, bool $usePrefix = true)
+        
+                                            <p>TODO: Undocumented and pending complete.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -719,8 +719,8 @@ getColumns</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexes">
-        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 182</div>
-        <code>                    
+        <div class="location">in <a href="../../../Alxarafe/Database/SqlHelper.html#method_getIndexes"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a> at         line 188</div>
+        <code>                    array
     <strong>getIndexes</strong>(string $tableName, bool $usePrefix = true)
         </code>
     </h3>
@@ -728,6 +728,9 @@ getColumns</p>                                                </div>
             
     
 
+                    <div class="method-description">
+                                    <p>Obtains information about the indices of the table in a normalized array
+and independent of the database engine</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -745,6 +748,15 @@ getColumns</p>                                                </div>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -845,51 +857,6 @@ indexes:
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getConstraintsSql">
-        <div class="location">at         line 264</div>
-        <code>                    string
-    <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>TODO: Undocumented and pending complete.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$tableName</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>bool</td>
-                <td>$usePrefix</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_normalizeConstraints">
         <div class="location">at         line 190</div>
         <code>                    array
@@ -947,6 +914,51 @@ indexes:
                     <div class="method-description">
                                     <p>Returns the views from the database.</p>                                                </div>
                 <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getConstraintsSql">
+        <div class="location">at         line 264</div>
+        <code>                    string
+    <strong>getConstraintsSql</strong>(string $tableName, bool $usePrefix = true)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>TODO: Undocumented and pending complete.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$tableName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$usePrefix</td>
+                <td></td>
+            </tr>
+            </table>
+
             
                             <h4>Return Value</h4>
 
