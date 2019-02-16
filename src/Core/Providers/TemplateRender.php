@@ -60,6 +60,16 @@ class TemplateRender
     private $currentSkin;
 
     /**
+     * It is the skin, that is, the folder that contains the templates.
+     *
+     * It is the folder where the different skins are located. Each skin uses a folder defined by $template, which
+     * contains the templates that will be used.
+     *
+     * @var string
+     */
+    private $templatesFolder;
+
+    /**
      * View constructor.
      */
     public function __construct()
@@ -131,7 +141,7 @@ class TemplateRender
     private function getOptions(): array
     {
         $options = [];
-        $options['debug'] = ((defined('DEBUG') && constant('DEBUG')) == true);
+        $options['debug'] = ((defined('DEBUG') && constant('DEBUG')) === true);
         if (defined('CACHE') && constant('CACHE') == true) {
             $options['cache'] = (constant('BASE_PATH') ?? '') . '/cache/twig';
         }
