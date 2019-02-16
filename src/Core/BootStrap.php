@@ -138,7 +138,7 @@ class BootStrap
 
         $this->session = new Session();
         $this->router = new Router($this->routeFile);
-        $this->configData = $this->configManager->getConfig();
+        $this->configData = $this->configManager->getConfigContent();
         if (empty($this->configData)) {
             $this->configData = $this->getDefaultConfig();
         }
