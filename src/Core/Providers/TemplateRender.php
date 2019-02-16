@@ -26,7 +26,7 @@ class TemplateRender
      * Default: It is the folder that includes the templates.
      * Each template will be a folder whose name will be the one that will appear in the template selector.
      */
-    const SKINS_FOLDER = "/html/templates";
+    const SKINS_FOLDER = "/resources/skins";
 
     /**
      * @var Twig_Environment
@@ -70,11 +70,30 @@ class TemplateRender
     private $templatesFolder;
 
     /**
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * Contains the template vars.
+     *
+     * @var array
+     */
+    private $templateVars;
+
+    /**
      * View constructor.
      */
-    public function __construct()
+    public function __construct(Container $container)
     {
+        $this->container = $container;
         $this->template = null;
+        $this->templateVars = [
+            '_REQUEST' => $_REQUEST,
+            '_GET' => $_GET,
+            '_POST' => $_POST,
+            'GLOBALS' => $GLOBALS,
+        ];
         $this->commonTemplatesFolder = $this->getTemplatesFolder();
         $loader = new Twig_Loader_Filesystem($this->getPaths());
         $this->twig = new Twig_Environment($loader, $this->getOptions());
@@ -87,7 +106,7 @@ class TemplateRender
      *
      * @return array
      */
-    private function getPaths(): array
+    public function getPaths(): array
     {
         $usePath = [];
         $paths = [
@@ -111,7 +130,7 @@ class TemplateRender
      */
     private function getTemplatesFolder(): string
     {
-        return basePath('/templates');
+        return basePath('resources/templates');
     }
 
     /**
@@ -164,7 +183,8 @@ class TemplateRender
 
         // Add support for additional functions
         $twigFunctions = new Twig_SimpleFunction('TwigFunctions', function ($method, $params = []) {
-            return TwigFunctions::$method($params);
+            $twigFunctionsClass = new TwigFunctions($this->container);
+            return $twigFunctionsClass->$method($params);
         });
         $this->twig->addFunction($twigFunctions);
 
@@ -207,9 +227,9 @@ class TemplateRender
      */
     public function render(array $data = [])
     {
-        $templateVars = $this->getTemplateVars($data);
+        $render = null;
         try {
-            return $this->twig->render($this->getTemplate(), $templateVars);
+            $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
         } catch (\Twig_Error_Loader $e) {
             Kint::dump($e->getMessage());
         } catch (\Twig_Error_Runtime $e) {
@@ -217,6 +237,17 @@ class TemplateRender
         } catch (\Twig_Error_Syntax $e) {
             Kint::dump($e->getMessage());
         }
+        echo $render;
+    }
+
+    /**
+     * Add vars to template vars.
+     *
+     * @param array $vars
+     */
+    public function addVars(array $vars = [])
+    {
+        $this->templateVars = array_merge($vars, $this->templateVars);
     }
 
     /**
@@ -228,12 +259,7 @@ class TemplateRender
      */
     private function getTemplateVars(array $vars = []): array
     {
-        return array_merge($vars, [
-            '_REQUEST' => $_REQUEST,
-            '_GET' => $_GET,
-            '_POST' => $_POST,
-            'GLOBALS' => $GLOBALS,
-        ]);
+        return array_merge($vars, $this->templateVars);
     }
 
     /**
@@ -300,6 +326,6 @@ class TemplateRender
      */
     public function setTemplatesFolder(string $template)
     {
-        $this->templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
+        $this->templatesFolder = basePath(self::SKINS_FOLDER) . '/' . trim($template, '/');
     }
 }

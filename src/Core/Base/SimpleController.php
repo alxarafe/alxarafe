@@ -45,7 +45,7 @@ class SimpleController
      *
      * @var TemplateRender
      */
-    public $render;
+    public $renderer;
 
     /**
      * Contains dependencies.
@@ -63,8 +63,10 @@ class SimpleController
     {
         $this->container = $container;
         $this->session = $this->container->get('session');
-        $this->render = $this->container->get('render');
+        $this->renderer = $this->container->get('render');
+        $this->renderer->addVars(['ctrl' => $this]);
         $this->shortName = (new ReflectionClass($this))->getShortName();
+        $this->renderer->setTemplate(strtolower($this->shortName));
         Debug::startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->username = null;
         Debug::stopTimer($this->shortName);

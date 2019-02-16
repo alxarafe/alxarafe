@@ -90,6 +90,7 @@ class EditConfig extends PageController
      */
     public function run(): void
     {
+        $this->renderer->render();
         $this->index();
     }
 

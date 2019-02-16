@@ -6,6 +6,8 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\Container;
+
 /**
  * Class TwigFunctions
  *
@@ -23,9 +25,9 @@ class TwigFunctions
     /**
      * TwigFunctions constructor.
      */
-    public function __construct()
+    public function __construct(Container $container)
     {
-        $this->session = Config::$session->getSingleton();
+        $this->session = $container->get('session')->getSingleton();
     }
 
     /**

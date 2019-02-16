@@ -128,6 +128,8 @@ class BootStrap
         $this->basePath = $basePath;
         $this->isDebug = $debug;
 
+        $this->container = new Container();
+
         $this->configManager = new ConfigurationManager($this->basePath . '/config');
 
         $this->configManager->setConfigFile('config.yaml');
@@ -147,8 +149,7 @@ class BootStrap
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
         $this->translator = new Lang($this->defaultLang, constant('ALXARAFE_FOLDER'));
         $this->database = new Database($this->configData['database']);
-        $this->render = new TemplateRender();
-        $this->container = new Container();
+        $this->render = new TemplateRender($this->container);
     }
 
     /**
@@ -241,18 +242,20 @@ class BootStrap
             $controllerName = $this->router->getRoute($call);
             if (method_exists($controllerName, $method)) {
                 $controller = new $controllerName($this->container);
-
-                Kint::dump($this->container);
-
                 $controller->{$method}();
-                return;
             } else {
                 $msg = 'Method not available';
             }
         } else {
             $msg = 'Route not found';
         }
-        echo $msg;
+
+        $this->render->setTemplate('error');
+        $vars = [
+            'ctrl' => $this,
+            'msg' => $msg,
+        ];
+        $this->render->render($vars);
         return;
     }
 }
