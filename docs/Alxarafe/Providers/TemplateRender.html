@@ -89,6 +89,18 @@
             <p>Class TemplateRender</p>                                </div>
     
     
+            <h2>Constants</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td>SKINS_FOLDER</td>
+                <td class="last">
+                    <p><em>Default: It is the folder that includes the templates.</em></p>
+                    <p>Each template will be a folder whose name will be the one that will appear in the template selector.</p>
+                </td>
+            </tr>
+            </table>
+
     
             <h2>Properties</h2>
 
@@ -102,11 +114,43 @@
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_viewName">
+                <td class="type" id="property_template">
+                                        protected                                        string|null
+                </td>
+                <td>$template</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_skin">
+                                        protected                                        string|null
+                </td>
+                <td>$skin</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_commonTemplatesFolder">
                                         protected                                        string
                 </td>
-                <td>$viewName</td>
-                <td class="last"></td>
+                <td>$commonTemplatesFolder</td>
+                <td class="last">Indicates the folder where the files common to all the templates are located.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_currentSkin">
+                                                            private                    string
+                </td>
+                <td>$currentSkin</td>
+                <td class="last">It's the name of the skin that is being used.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_templatesFolder">
+                                                            private                    string
+                </td>
+                <td>$templatesFolder</td>
+                <td class="last">It is the skin, that is, the folder that contains the templates.</td>
                 <td></td>
             </tr>
             </table>
@@ -127,13 +171,72 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getPaths">getPaths</a>()
+        
+                                            <p>Returns a list of available paths.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplatesFolder">getTemplatesFolder</a>()
+        
+                                            <p>Return the template folder path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCommonTemplatesFolder">getCommonTemplatesFolder</a>()
+        
+                                            <p>Return the common template folder path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setCommonTemplatesFolder">setCommonTemplatesFolder</a>(string $templatesFolder)
+        
+                                            <p>Sets the common templates folder.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getOptions">getOptions</a>()
+        
+                                            <p>Returns a list of options.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addExtensions">addExtensions</a>()
+        
+                                            <p>Add extensions to skin render.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     Twig_Environment
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getTwig">getTwig</a>()
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Return the full twig environtment.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -143,8 +246,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_setTwig">setTwig</a>(Twig_Environment $twig)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Sets a new twig environment.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -152,10 +254,29 @@
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getViewName">getViewName</a>()
+                    <a href="#method_render">render</a>(array $data = [])
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Renders a template.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplateVars">getTemplateVars</a>(array $vars = [])
+        
+                                            <p>Return a list of template vars, merged with $vars,</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTemplate">getTemplate</a>()
+        
+                                            <p>Return the assigned template to use.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -163,20 +284,39 @@
                     <abbr title="Alxarafe\Providers\$this">$this</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setViewName">setViewName</a>(string $viewName)
+                    <a href="#method_setTemplate">setTemplate</a>(string|null $template)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Sets the new template to use.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
+                    array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_render">render</a>(string $viewName, array $data = [])
+                    <a href="#method_getSkins">getSkins</a>()
         
-                                            <p>Renders a template.</p>                </div>
+                                            <p>Returns an array with the list of skins (folders inside the folder specified for the templates).</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setSkin">setSkin</a>(string $skin)
+        
+                                            <p>Set a skin.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setTemplatesFolder">setTemplatesFolder</a>(string $template)
+        
+                                            <p>Establish a new template. The parameter must be only de template name, no the path!</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -187,7 +327,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 37</div>
+        <div class="location">at         line 75</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -207,8 +347,189 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getPaths">
+        <div class="location">at         line 89</div>
+        <code>                private    array
+    <strong>getPaths</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of available paths.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTemplatesFolder">
+        <div class="location">at         line 111</div>
+        <code>                private    string
+    <strong>getTemplatesFolder</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the template folder path.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCommonTemplatesFolder">
+        <div class="location">at         line 121</div>
+        <code>                    string
+    <strong>getCommonTemplatesFolder</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the common template folder path.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setCommonTemplatesFolder">
+        <div class="location">at         line 131</div>
+        <code>                    
+    <strong>setCommonTemplatesFolder</strong>(string $templatesFolder)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets the common templates folder.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$templatesFolder</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getOptions">
+        <div class="location">at         line 141</div>
+        <code>                private    array
+    <strong>getOptions</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of options.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addExtensions">
+        <div class="location">at         line 156</div>
+        <code>                private    void
+    <strong>addExtensions</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Add extensions to skin render.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTwig">
-        <div class="location">at         line 59</div>
+        <div class="location">at         line 182</div>
         <code>                    Twig_Environment
     <strong>getTwig</strong>()
         </code>
@@ -217,6 +538,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Return the full twig environtment.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -236,7 +559,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setTwig">
-        <div class="location">at         line 69</div>
+        <div class="location">at         line 194</div>
         <code>                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
     <strong>setTwig</strong>(Twig_Environment $twig)
         </code>
@@ -245,6 +568,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Sets a new twig environment.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -273,23 +598,75 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getViewName">
-        <div class="location">at         line 78</div>
+                    <h3 id="method_render">
+        <div class="location">at         line 207</div>
         <code>                    string
-    <strong>getViewName</strong>()
+    <strong>render</strong>(array $data = [])
         </code>
     </h3>
     <div class="details">
             
     
 
+                    <div class="method-description">
+                                    <p>Renders a template.</p>                                                </div>
                 <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td>An array of parameters to pass to the template</td>
+            </tr>
+            </table>
+
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
             <td>string</td>
+            <td>The rendered template</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTemplateVars">
+        <div class="location">at         line 228</div>
+        <code>                private    array
+    <strong>getTemplateVars</strong>(array $vars = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return a list of template vars, merged with $vars,</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$vars</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
             <td></td>
         </tr>
     </table>
@@ -301,23 +678,55 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setViewName">
-        <div class="location">at         line 88</div>
-        <code>                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
-    <strong>setViewName</strong>(string $viewName)
+                    <h3 id="method_getTemplate">
+        <div class="location">at         line 243</div>
+        <code>                    string|null
+    <strong>getTemplate</strong>()
         </code>
     </h3>
     <div class="details">
             
     
 
+                    <div class="method-description">
+                                    <p>Return the assigned template to use.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setTemplate">
+        <div class="location">at         line 255</div>
+        <code>                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
+    <strong>setTemplate</strong>(string|null $template)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets the new template to use.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
-                <td>$viewName</td>
+                <td>string|null</td>
+                <td>$template</td>
                 <td></td>
             </tr>
             </table>
@@ -339,10 +748,10 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_render">
-        <div class="location">at         line 102</div>
-        <code>                    string
-    <strong>render</strong>(string $viewName, array $data = [])
+                    <h3 id="method_getSkins">
+        <div class="location">at         line 266</div>
+        <code>                    array
+    <strong>getSkins</strong>()
         </code>
     </h3>
     <div class="details">
@@ -350,33 +759,80 @@
     
 
                     <div class="method-description">
-                                    <p>Renders a template.</p>                                                </div>
+                                    <p>Returns an array with the list of skins (folders inside the folder specified for the templates).</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setSkin">
+        <div class="location">at         line 287</div>
+        <code>                    
+    <strong>setSkin</strong>(string $skin)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set a skin.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
                 <td>string</td>
-                <td>$viewName</td>
-                <td>The template name</td>
-            </tr>
-                    <tr>
-                <td>array</td>
-                <td>$data</td>
-                <td>An array of parameters to pass to the template</td>
+                <td>$skin</td>
+                <td></td>
             </tr>
             </table>
 
             
-                            <h4>Return Value</h4>
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setTemplatesFolder">
+        <div class="location">at         line 300</div>
+        <code>                    
+    <strong>setTemplatesFolder</strong>(string $template)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Establish a new template. The parameter must be only de template name, no the path!</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
 
                     <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td>The rendered template</td>
-        </tr>
-    </table>
+                    <tr>
+                <td>string</td>
+                <td>$template</td>
+                <td></td>
+            </tr>
+            </table>
 
+            
             
             
                     </div>
