@@ -244,18 +244,18 @@ class BootStrap
                 $controller = new $controllerName($this->container);
                 $controller->{$method}();
             } else {
-                $msg = 'Method not available';
+                $msg = $this->translator->trans('method-not-available');
             }
         } else {
-            $msg = 'Route not found';
+            $msg = $this->translator->trans('route-not-found');
         }
 
         $this->render->setTemplate('error');
         $vars = [
             'ctrl' => $this,
+            'title' => $this->translator->trans('error'),
             'msg' => $msg,
         ];
         $this->render->render($vars);
-        return;
     }
 }

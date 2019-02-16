@@ -4,10 +4,10 @@
 #}
 {% extends "index.twig" %}
 
-{% block title %}{{ lang.trans('error') }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    {% if main.title is empty %}<h1>{{ lang.trans('error') }}</h1>{% endif %}
+    {% if main.title is empty %}<h1>{{ title }}</h1>{% endif %}
     <div class="row">
         <div class="col-sm-12">
             {{ msg }}
