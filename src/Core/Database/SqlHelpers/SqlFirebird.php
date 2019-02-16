@@ -8,7 +8,6 @@ namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Utils;
 
 /**
@@ -25,6 +24,15 @@ class SqlFirebird extends SqlHelper
         parent::__construct();
 
         $this->tableQuote = '\'';
+        $this->fieldTypes = [
+            'integer' => ['int', 'tinyint'],
+            'decimal' => ['decimal'],
+            'string' => ['char', 'varchar'],
+            'text' => ['text', 'blob'],
+            'float' => ['real', 'double'],
+            'date' => ['date'],
+            'datetime' => ['timestamp'],
+        ];
     }
 
     /**
@@ -47,9 +55,11 @@ class SqlFirebird extends SqlHelper
     public function getTables(): array
     {
         // http://www.firebirdfaq.org/faq174/
-        $query = 'SELECT RDB$RELATION_NAME
-                  FROM RDB$RELATIONS
-                  WHERE RDB$VIEW_BLR IS NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
+        $query = 'SELECT ' . Config::$sqlHelper->quoteFieldName('RDB$RELATION_NAME') . '
+                  FROM ' . Config::$sqlHelper->quoteTableName('RDB$RELATIONS', false) . '
+                  WHERE ' . Config::$sqlHelper->quoteFieldName('RDB$VIEW_BLR') . ' IS NULL
+                   AND (' . Config::$sqlHelper->quoteFieldName('RDB$SYSTEM_FLAG') . ' IS NULL
+                    OR ' . Config::$sqlHelper->quoteFieldName('RDB$SYSTEM_FLAG') . ' = 0);';
         return Utils::flatArray(Config::$dbEngine->select($query));
     }
 
@@ -69,10 +79,10 @@ class SqlFirebird extends SqlHelper
             b.RDB$NULL_FLAG AS nullable,
             b.RDB$DEFAULT_SOURCE AS defaultsource,
             b.RDB$DEFAULT_VALUE AS What
-        FROM RDB$RELATIONS a
-        INNER JOIN RDB$RELATION_FIELDS b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
-        INNER JOIN RDB$FIELDS c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
-        INNER JOIN RDB$TYPES d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
+        FROM ' . Config::$sqlHelper->quoteTableName('RDB$RELATIONS', false) . ' a
+        INNER JOIN ' . Config::$sqlHelper->quoteTableName('RDB$RELATION_FIELDS', false) . ' b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
+        INNER JOIN ' . Config::$sqlHelper->quoteTableName('RDB$FIELDS', false) . ' c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
+        INNER JOIN ' . Config::$sqlHelper->quoteTableName('RDB$TYPES', false) . ' d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
         WHERE
             a.RDB$SYSTEM_FLAG = 0 AND
             d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
@@ -199,26 +209,6 @@ class SqlFirebird extends SqlHelper
     }
 
     /**
-     * TODO: Undocumented and pending complete.
-     *
-     * @param string $tableName
-     *
-     * @return string
-     */
-    /*
-      public function getConstraintsSql(string $tableName): string
-      {
-      /*
-     * https://stackoverflow.com/questions/5094948/mysql-how-can-i-see-all-constraints-on-a-table/36750731
-     *
-     * select COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_COLUMN_NAME, REFERENCED_TABLE_NAME
-     * from information_schema.KEY_COLUMN_USAGE
-     * where TABLE_NAME = 'table to be checked';
-     * /
-      }
-     */
-
-    /**
      * Returns the views from the database.
      *
      * @doc http://www.firebirdfaq.org/faq174/
@@ -227,7 +217,7 @@ class SqlFirebird extends SqlHelper
      */
     public function getViewsSql(): string
     {
-        return 'SELECT RDB$RELATION_NAME FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
+        return 'SELECT ' . Config::$sqlHelper->quoteFieldName('RDB$RELATION_NAME') . ' FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
     }
 
     /**
@@ -263,8 +253,21 @@ class SqlFirebird extends SqlHelper
      */
     public function getConstraintsSql(string $tableName, bool $usePrefix = true): string
     {
-        // TODO: Implement getConstraintsSql() method.
-        return '';
+        // TODO: Not tested
+        // https://stackoverflow.com/questions/20699310/how-to-get-foreign-key-referenced-table-in-firebird
+        return 'SELECT
+                    detail_index_segments.rdb$field_name AS field_name,
+                    master_relation_constraints.rdb$relation_name AS reference_table,
+                    master_index_segments.rdb$field_name AS fk_field
+                FROM
+                    rdb$relation_constraints detail_relation_constraints
+                    JOIN rdb$index_segments detail_index_segments ON detail_relation_constraints.rdb$index_name = detail_index_segments.rdb$index_name 
+                    JOIN rdb$ref_constraints ON detail_relation_constraints.rdb$constraint_name = rdb$ref_constraints.rdb$constraint_name -- Master indeksas
+                    JOIN rdb$relation_constraints master_relation_constraints ON rdb$ref_constraints.rdb$const_name_uq = master_relation_constraints.rdb$constraint_name
+                    JOIN rdb$index_segments master_index_segments ON master_relation_constraints.rdb$index_name = master_index_segments.rdb$index_name 
+                WHERE
+                    detail_relation_constraints.rdb$constraint_type = \'FOREIGN KEY\'
+                    AND detail_relation_constraints.rdb$relation_name = ' . Config::$sqlHelper->quoteTableName($tableName, $usePrefix) . '';
     }
 
     /**
