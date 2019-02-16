@@ -7,6 +7,7 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Helpers\Lang;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\TemplateRender;
@@ -55,7 +56,12 @@ class SimpleController
     protected $container;
 
     /**
-     * Controller constructor.
+     * @var Lang
+     */
+    protected $translator;
+
+    /**
+     * SimpleController constructor.
      *
      * @param Container|null $container
      */
@@ -64,7 +70,11 @@ class SimpleController
         $this->container = $container;
         $this->session = $this->container->get('session');
         $this->renderer = $this->container->get('render');
-        $this->renderer->addVars(['ctrl' => $this]);
+        $this->translator = $this->container->get('translator');
+        $this->renderer->addVars([
+            'ctrl' => $this,
+            'lang' => $this->translator,
+        ]);
         $this->shortName = (new ReflectionClass($this))->getShortName();
         $this->renderer->setTemplate(strtolower($this->shortName));
         Debug::startTimer($this->shortName, $this->shortName . ' Controller Constructor');
