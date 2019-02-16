@@ -71,6 +71,7 @@ class Router
     public function setRoutes(array $routes = [])
     {
         $this->routes = $routes;
+        $this->saveRoutes();
     }
 
     /**
@@ -112,6 +113,7 @@ class Router
         if (!isset($this->routes[$key]) || $force) {
             $this->routes[$key] = $value;
             $return = true;
+            $this->saveRoutes();
         }
 
         return $return;

@@ -6,16 +6,15 @@
 
 namespace Alxarafe;
 
-use Alxarafe\Base\View;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Lang;
 use Alxarafe\Helpers\Session;
-use Alxarafe\Helpers\Skin;
-use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\ConfigurationManager;
 use Alxarafe\Providers\Container;
+use Alxarafe\Providers\Database;
 use Alxarafe\Providers\Router;
+use Alxarafe\Providers\TemplateRender;
 use Kint\Kint;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class BootStrap
@@ -114,6 +113,11 @@ class BootStrap
     protected $container;
 
     /**
+     * @var ConfigurationManager
+     */
+    protected $configManager;
+
+    /**
      * BootStrap constructor.
      *
      * @param string $basePath
@@ -122,44 +126,29 @@ class BootStrap
     public function __construct($basePath = __DIR__ . '/..', $debug = false)
     {
         $this->basePath = $basePath;
-        $this->configFile = $this->basePath . '/config/config.yaml';
         $this->isDebug = $debug;
+
+        $this->configManager = new ConfigurationManager($this->basePath . '/config');
+
+        $this->configManager->setConfigFile($this->configManager->getBasePath() . '/config.yaml');
+        $this->configFile = $this->configManager->getConfigFile();
+
+        $this->configManager->setRouteFile($this->configManager->getBasePath() . '/routes.yaml');
+        $this->routeFile = $this->configManager->getRouteFile();
+
         $this->session = new Session();
-        $this->routeFile = $this->basePath . '/config/routes.yaml';
         $this->router = new Router($this->routeFile);
-        $this->configData = $this->loadConfigurationFile();
-        $this->loadConstants();
+        $this->configData = $this->configManager->getConfig();
+        if (empty($this->configData)) {
+            $this->configData = $this->getDefaultConfig();
+        }
+
+        $this->configManager->loadConstants();
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
         $this->translator = new Lang($this->defaultLang, constant('ALXARAFE_FOLDER'));
-        $this->database = null;
-        $this->render = Skin::$view = new View();
+        $this->database = new Database($this->configData['database']);
+        $this->render = new TemplateRender();
         $this->container = new Container();
-    }
-
-    /**
-     * Returns an array with the configuration defined in the configuration file.
-     *
-     * @return array
-     */
-    private function loadConfigurationFile(): array
-    {
-        if ($this->fileExists($this->configFile)) {
-            $yaml = file_get_contents($this->configFile);
-            if ($yaml) {
-                return Yaml::parse($yaml);
-            }
-        }
-        return $this->getDefaultConfig();
-    }
-
-    /**
-     * @param $filename
-     *
-     * @return bool
-     */
-    private function fileExists($filename)
-    {
-        return (isset($filename) && file_exists($filename) && is_file($filename));
     }
 
     /**
@@ -170,39 +159,20 @@ class BootStrap
     private function getDefaultConfig()
     {
         $defaultData = [
-            'dbEngineName' => 'PdoMySql',
-            'dbPrefix' => '',
-            'dbUser' => 'dbUser',
-            'dbPass' => 'dbPass',
-            'dbName' => 'dbName',
-            'dbHost' => 'localhost',
-            'dbPort' => '',
+            'database' => [
+                'dbEngineName' => 'PdoMySql',
+                'dbPrefix' => '',
+                'dbUser' => 'dbUser',
+                'dbPass' => 'dbPass',
+                'dbName' => 'dbName',
+                'dbHost' => 'localhost',
+                'dbPort' => '',
+            ],
             'skin' => 'default',
             'language' => 'es_ES',
         ];
-
-
-
+        $this->configManager->setConfigContent($defaultData);
         return $defaultData;
-    }
-
-    /**
-     *
-     */
-    private function loadConstants()
-    {
-        define('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
-
-        define('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
-        define('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
-        define('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
-        define('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
-
-        Utils::defineIfNotExists('ALXARAFE_FOLDER', constant('BASE_PATH') . '/src/Core');
-        Utils::defineIfNotExists('CALL_CONTROLLER', 'call');
-        Utils::defineIfNotExists('METHOD_CONTROLLER', 'method');
-        Utils::defineIfNotExists('DEFAULT_CONTROLLER', ($this->fileExists($this->configFile) ? 'EditConfig' : 'CreateConfig'));
-        Utils::defineIfNotExists('DEFAULT_METHOD', 'run');
     }
 
     /**
@@ -224,19 +194,18 @@ class BootStrap
         Config::setDbEngine($this->database);
         Config::setGlobals([
             'language' => $this->defaultLang,
-            'dbEngineName' => $this->configData['dbEngineName'],
-            'dbPrefix' => $this->configData['dbPrefix'],
-            'dbUser' => $this->configData['dbUser'],
-            'dbPass' => $this->configData['dbPass'],
-            'dbName' => $this->configData['dbName'],
-            'dbHost' => $this->configData['dbHost'],
-            'dbPort' => $this->configData['dbPort'],
+            'dbEngineName' => $this->configData['database']['dbEngineName'],
+            'dbPrefix' => $this->configData['database']['dbPrefix'],
+            'dbUser' => $this->configData['database']['dbUser'],
+            'dbPass' => $this->configData['database']['dbPass'],
+            'dbName' => $this->configData['database']['dbName'],
+            'dbHost' => $this->configData['database']['dbHost'],
+            'dbPort' => $this->configData['database']['dbPort'],
         ]);
         Config::setLang($this->translator);
         Config::setSession($this->session);
-        Config::connectToDatabase();
         Config::setDbEngine(Config::$dbEngine);
-        $this->database = Config::$dbEngine;
+        //Config::connectToDatabase();
     }
 
     /**
