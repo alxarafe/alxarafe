@@ -130,10 +130,10 @@ class BootStrap
 
         $this->configManager = new ConfigurationManager($this->basePath . '/config');
 
-        $this->configManager->setConfigFile($this->configManager->getBasePath() . '/config.yaml');
+        $this->configManager->setConfigFile('config.yaml');
         $this->configFile = $this->configManager->getConfigFile();
 
-        $this->configManager->setRouteFile($this->configManager->getBasePath() . '/routes.yaml');
+        $this->configManager->setRouteFile('routes.yaml');
         $this->routeFile = $this->configManager->getRouteFile();
 
         $this->session = new Session();

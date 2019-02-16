@@ -17,16 +17,21 @@ use Symfony\Component\Yaml\Yaml;
 class ConfigurationManager
 {
     /**
-     * @var
+     * The base path where config files are placed.
+     *
+     * @var string
      */
     protected $basePath;
 
     /**
+     * Full path to config file-
+     *
      * @var string
      */
     protected $configFile;
 
     /**
+     *
      * @var array
      */
     protected $configContent;
@@ -82,7 +87,7 @@ class ConfigurationManager
      */
     public function setConfigFile($configFile): void
     {
-        $this->configFile = $configFile;
+        $this->configFile = $this->basePath . constant(DIRECTORY_SEPARATOR) . $configFile;
     }
 
     /**
@@ -98,7 +103,7 @@ class ConfigurationManager
      */
     public function setRouteFile(string $routeFile): void
     {
-        $this->routeFile = $routeFile;
+        $this->routeFile = $this->basePath . constant(DIRECTORY_SEPARATOR) . $routeFile;
     }
 
     /**
