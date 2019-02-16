@@ -1,0 +1,31 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+#}
+
+<footer class="footer" id="footercontent" name="footercontent">
+    <div class="container">
+        <p class="text-muted">
+            <span>
+                {{ TwigFunctions('copyright') | raw }} -
+                <a target="_blank" href="https://github.com/alxarafe/alxarafe">GitHub</a>
+            </span>
+            <span>
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ debugbarTime.collect().duration_str }}
+            </span>
+        </p>
+    </div>
+</footer>
+
+{# Including jsCode #}
+{% block javascriptsFooter %}
+    <script type="text/javascript" src="{{ view.getResourceUri('/html/bower_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ view.getResourceUri('/html/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    {% for js in jsCode %}
+        <script type="text/javascript" src="{{ js }}"></script>
+    {% endfor %}
+    {# Start of getFooter #}
+    {{ view.getFooter() | raw }}
+    {# End of getFooter #}
+{% endblock %}
+{# End of jsCode inclusion #}

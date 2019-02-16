@@ -1,0 +1,16 @@
+{#
+    @file glyphicon.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Glyphicon component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       btn-default, btn-success, btn-info, btn-warning, btn-danger or button sizes
+
+    How to use it:
+        {% include "Components/BS3/glyphicon.twig" with {id:'myGlyphiconId', name:'myGlyphiconName', class: 'glyphicon glyphicon-asterisk'} %}
+#}
+
+<span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+        class="glyphicon{% if class is defined %} {{ class }}{% endif %}" aria-hidden="true"></span>

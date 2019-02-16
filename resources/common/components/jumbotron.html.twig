@@ -1,0 +1,28 @@
+{#
+    @file jumbotron.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Jumbotron component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var type:        container or null
+    @var text:        Your text
+
+    How to use it:
+        {% include "Components/BS3/jumbotron.twig" with {id: 'myJumbotronId', name: 'myJumbotronName', type: 'container', text: '<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>'} %}
+        {% include "Components/BS3/jumbotron.twig" with {id: 'myJumbotronId', name: 'myJumbotronName', type: null, text: '<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>'} %}
+#}
+
+<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+        class="jumbotron">
+    {% if type is defined and type == 'container' %}
+        <div class="container">
+    {% endif %}
+    {% if text is defined %}
+        {{ text | raw }}
+    {% endif %}
+    {% if type is defined and type == 'container' %}
+        </div>
+    {% endif %}
+</div>

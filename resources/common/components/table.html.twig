@@ -1,0 +1,64 @@
+{#
+    @file table.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Table component.
+
+    @var id:              Your id
+    @var name:            Your name
+    @var tableClass:      Main table class
+    @var theadClass:      Main thead class
+    @var tbodyClasses:    Main tr class
+    @var tfootClass:      Main tfoot class
+    @var thead:           Array of rows items
+    @var tbody:           Array of rows items
+    @var tfoot:           Array of rows items
+    @var first:           true/false
+
+    How to use it:
+        {% include "Components/BS3/table.twig" with {id:'myTableId', name:'myTableName', tableClass: '', theadClass: '', tbodyClass: '', tfootClass: '', thead: '', tbody: '', tfoot: '', first: ''} %}
+#}
+
+{% import _self as table %}
+
+<table class="table{% if tableClass is defined %} {{ tableClass }}{% endif %}"{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}>
+    {% if thead is defined %}
+        <thead{% if theadClass is defined %} class="{{ theadClass }}"{% endif %}>
+            {{ table.generateContent(thead, first, 'th', []) }}
+        </thead>
+    {% endif %}
+    {% if tbody is defined %}
+        <tbody>
+        {% set classes = [] %}
+        {% if tbodyClasses is defined %}
+            {% set classes = tbodyClasses %}
+        {% endif %}
+        {{ table.generateContent(tbody, first, 'td', classes) }}
+        </tbody>
+    {% endif %}
+    {% if tfoot is defined %}
+        <tfoot{% if tfootClass is defined %} class="{{ tfootClass }}"{% endif %}>
+            {{ table.generateContent(tfoot, first, 'th', []) }}
+        </tfoot>
+    {% endif %}
+</table>
+
+{% macro generateContent(table, first, type, classes) %}
+    {% for rows in table %}
+        {% if classes is not empty %}
+            {% set class = ' class="table-active"' %}
+            {% if classes[loop.index0] is defined %}
+                {% set class = ' class="' ~ classes[loop.index0] ~ '"' %}
+            {% endif %}
+        {% endif %}
+    <tr{{ class | raw }}>
+        {% for col in rows %}
+            {% if first == true and loop.first %}
+                <th scope="row">{{ col | raw }}</th>
+            {% else %}
+                <{{ type }}>{{ col | raw }}</{{ type }}>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+{% endmacro %}

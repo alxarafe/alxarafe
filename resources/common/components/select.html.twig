@@ -1,0 +1,23 @@
+{#
+    @file select.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Select component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       input-sm, input-lg
+    @var multiple:    true or flase
+    @var texts:       Array of texts
+    @var values:      Array of values
+
+    How to use it:
+        {% include "Components/BS3/select.twig" with {id:'mySelectId', name:'mySelectName', class: 'input-sm', multiple: true} %}
+#}
+
+<select{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}{% if multiple is defined and multiple==true %} multiple{% endif %}
+        class="form-control{% if class is defined %} {{ class }}{% endif %}">
+    {% for i in texts %}
+        <option{% if values[loop.index0] is defined %} value="{{ values[loop.index0] }}"{% endif %}>{% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}</option>
+    {% endfor %}
+</select>

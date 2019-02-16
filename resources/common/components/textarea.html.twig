@@ -1,0 +1,17 @@
+{#
+    @file textarea.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Textarea component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var rows:        Your rows number
+    @var text:        Your text
+
+    How to use it:
+        {% include "Components/BS3/textarea.twig" with {id:'myTextareaId', name:'myTextareaName', rows:'3', text: 'My sample text'} %}
+#}
+
+<textarea{% if id is defined %} id="{{ id }}"{% endif %}{% if name %} name="{{ name }}"{% endif %}
+        class="form-control"{% if rows is defined %} rows="{{ rows }}"{% endif %}>{% if text is defined %}{{ text | raw }}{% endif %}</textarea>

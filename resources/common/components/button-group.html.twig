@@ -1,0 +1,28 @@
+{#
+    @file button-group.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Button Group component.
+
+    @var class:       btn-group-lg, btn-group-sm, btn-group-xs, btn-group-vertical
+    @var ids:         Array of ids
+    @var names:       Array of names
+    @var texts:       Array of texts
+    @var classes:     Array of classes, btn-default, btn-success, btn-info, btn-warning, btn-danger or button sizes
+
+    WARNING: Length of arrays (must be the same)
+
+    How to use it:
+        {% include "Components/BS3/button-group.twig" with {ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']} %}
+#}
+
+<div class="btn-group {% if class is defined %}{{ class }}{% endif %}" role="toolbar" aria-label="...">
+    {% for id in ids %}
+        <button{% if ids[loop.index0] is defined %} id="{{ ids[loop.index0] }}"{% endif %}{% if names[loop.index0] is defined %} name="{{ names[loop.index0] }}"{% endif %}
+                type="button" class="btn{% if classes[loop.index0] is defined %} {{ classes[loop.index0] }}{% endif %}">
+            {% if texts[loop.index0] is defined %}
+                {{ texts[loop.index0] | raw }}
+            {% endif %}
+        </button>
+    {% endfor %}
+</div>

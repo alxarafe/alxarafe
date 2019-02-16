@@ -1,0 +1,42 @@
+{#
+    @file modal.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Modal component.
+
+    @var id:           Your id
+    @var name:         Your name
+    @var imageAlt:     Your alt image
+    @var modalTitle:    Your modal title
+    @var modalText:     Your modal text
+    @var modalButtons:  Your modal buttons
+
+    How to use it:
+        {% include "Components/BS3/modal.twig" with {id:'myModalId1', name:'myModalName1', modalText: 'Esto es un placeholder', modalTitle: 'Title'} %}
+        {% include "Components/BS3/modal.twig" with {id:'myModalId2', name:'myModalName2', modalText: 'Acepto', modalTitle: 'Title'} %}
+#}
+
+<div class="modal" tabindex="-1" role="dialog"{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                {% if modalTitle is defined %}
+                    <h5 class="modal-title">{{ modalTitle | raw }}</h5>
+                {% endif %}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if modalText is defined %}
+                    <p class="modal-text">{{ modalText | raw }}</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                {% if modalButtons is defined %}
+                    {{ modalButtons | raw }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

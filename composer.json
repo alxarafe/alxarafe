@@ -27,6 +27,7 @@
     "symfony/translation": "^4.2",
     "ext-pdo": "*",
     "ext-openssl": "*",
+    "ext-json": "*",
     "symfony/finder": "^4.2",
     "symfony/cache": "^4.2",
     "parsecsv/php-parsecsv": "^1.1",
@@ -44,5 +45,13 @@
   "require-dev": {
     "phpunit/phpunit": "^7.5",
     "squizlabs/php_codesniffer": "^3.4"
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "bower update"
+    ],
+    "post-install-cmd": [
+      "bower install"
+    ]
   }
 }

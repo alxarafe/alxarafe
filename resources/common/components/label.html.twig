@@ -1,0 +1,21 @@
+{#
+    @file label.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Labels component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       label-default, label-success, label-info, label-warning, label-danger or label sizes
+    @var text:        Your text
+
+    How to use it:
+        {% include "Components/BS3/label.twig" with {id:'myLabelId', name:'myLabelName', class: 'label-primary', text: 'My text label'} %}
+#}
+
+<span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+        class="label{% if class is defined %} {{ class }}{% endif %}">
+    {% if text is defined %}
+        {{ text | raw }}
+    {% endif %}
+</span>

@@ -1,0 +1,18 @@
+{#
+    @file badge.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Badge component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       Your class
+    @var badge:       Your value
+
+    How to use it:
+        {% include "Components/BS3/badge.twig" with {id:'myBadgeId', name:'myBadgeName', badge: '3'} %}
+#}
+
+<span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %} class="badge{% if class is defined %} {{ class }}{% endif %}">
+    {% if badge is defined %}{{ badge }}{% endif %}
+</span>

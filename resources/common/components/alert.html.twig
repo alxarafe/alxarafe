@@ -1,0 +1,28 @@
+{#
+    @file alert.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Alert component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       alert-success, alert-info, alert-warning, alert-danger
+    @var dismissible: bool
+    @var message:     Your text message
+
+    How to use it:
+        {% include "Components/BS3/alert.twig" with {id:'myAlertId', name:'myAlertName', class: 'alert-success', dismissible: true, message: '<strong>Hello World</strong> Testing templating BS components with Twig!'} %}
+#}
+
+<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+        class="alert{% if class is defined %} {{ class }}{% endif %}{% if dismissible is defined and dismissible==true %} alert-dismissible fade in{% endif %}"
+        role="alert">
+    {% if dismissible is defined and dismissible==true %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="{{ i18n.trans('close') }}">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    {% endif %}
+    {% if message is defined %}
+        {{ message | raw }}
+    {% endif %}
+</div>

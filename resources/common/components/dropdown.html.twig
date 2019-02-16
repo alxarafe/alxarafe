@@ -1,0 +1,50 @@
+{#
+    @file dropdown.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Dropdown component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       btn-default, btn-success, btn-info, btn-warning, btn-danger or button sizes
+    @var type:        dropdown, dropup
+    @var text:        Your button text
+    @var alignement:  dropdown-menu-left, dropdown-menu-right
+    @var texts:       Array of texts      text or null
+    @var links:       Array of links:     link or null
+    @var classes:     Array of classes:   dropdown-header, divider, disabled or null
+
+    How to use it:
+        {% include "Components/BS3/dropdown.twig" with { id:'myDropdownMenuId', name:'myDropdownMenuName', class: 'btn-default', type: 'dropdown', text: 'Dropdown button', alignement: 'dropdown-menu-right', texts: ['Dropdown header', 'Action1', 'Another action', 'Something else here', null, 'Dropdown header', 'Separated link'], links: [null, '#action1', '#another_action', '#something_else_here', null, null, '#separated_link'], classes: ['dropdown-header', null, null, null, 'divider', 'dropdown-header', null]} %}
+#}
+
+<div{% if type is defined %} class="{{ type }}"{% endif %}>
+    <button class="btn{% if class is defined %} {{ class }}{% endif %} dropdown-toggle"
+            type="button"{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+            data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+        {{ text }}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu{% if alignement is defined %} {{ alignement }}{% endif %}" aria-labelledby="{{ id }}">
+        {% for id in texts %}
+            {% if classes[loop.index0] is defined and classes[loop.index0] == 'dropdown-header' %}
+                <li class="dropdown-header">
+                    {% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}
+                </li>
+            {% elseif classes[loop.index0] is defined and classes[loop.index0] == 'divider' %}
+                <li role="separator" class="divider"></li>
+            {% elseif classes[loop.index0] is defined and classes[loop.index0] == 'disabled' %}
+                <li class="disabled">
+                    {% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}
+                </li>
+            {% elseif classes[loop.index0] is defined and classes[loop.index0] == null %}
+                <li>
+                    <a{% if links[loop.index0] is defined %} href="{{ links[loop.index0] }}"{% endif %}>{% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}</a>
+                </li>
+            {% else %}
+                Something is wrong with your code!
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

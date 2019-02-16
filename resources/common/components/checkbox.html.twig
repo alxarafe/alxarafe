@@ -1,0 +1,33 @@
+{#
+    @file checkbox.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Checkbox component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var text:        Button text
+    @var type:        input, label
+
+    How to use it:
+        <input>
+            {% include "Components/BS3/checkbox.twig" with {id:'myCheckboxId1', name:'myCheckboxName1', text: 'Esto es un placeholder', type: 'input'} %}
+        <label>
+            {% include "Components/BS3/checkbox.twig" with {id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'} %}
+#}
+{% if type is defined and type == 'input' %}
+    <div class="input-group">
+          <span class="input-group-addon">
+            <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+                    type="checkbox"
+                    aria-label="...">
+          </span>
+        <input type="text" class="form-control" {% if text is defined %}placeholder="{{ text | raw }}"{% endif %}
+               aria-label="...">
+    </div>
+{% elseif type is defined and type == 'label' %}
+    <label>
+        <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+                type="checkbox"> {% if text is defined %}{{ text | raw }}{% endif %}
+    </label>
+{% endif %}

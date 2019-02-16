@@ -1,0 +1,48 @@
+{#
+    @file panel.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Panel component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       panel-default, panel-primary, panel-success, panel-info, panel-warning, panel-danger
+    @var header:      Your header type: h1, h2, h3, ...
+    @var header_text: Your text header
+    @var body_text:   Your text body
+    @var footer_text: Your text footer
+
+    How to use it:
+        {% include "Components/BS3/panel.twig" with {id:'myPanelId1', name:'myPanelName1', class:'panel-default', header: 'h2', header_text: 'Title', body_text: 'Body', footer_text: 'Footer'} %}
+#}
+
+<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+        class="panel{% if class is defined %} {{ class }}{% endif %}">
+    {% if header_text is defined and header_text != '' %}
+        <div class="panel-heading">
+            {% if header is defined and header != '' %}
+                <{{ header }}>
+            {% else %}
+                <h1>
+            {% endif %}
+            {% if header_text is defined and header_text != '' %}
+                {{ header_text | raw }}
+            {% endif %}
+            {% if header is defined and header != '' %}
+                </{{ header }}>
+            {% else %}
+                </h1>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if body_text is defined and body_text != '' %}
+        <div class="panel-body">
+            {{ body_text | raw }}
+        </div>
+    {% endif %}
+    {% if footer_text is defined and footer_text != '' %}
+        <div class="panel-footer">
+            {{ footer_text | raw }}
+        </div>
+    {% endif %}
+</div>

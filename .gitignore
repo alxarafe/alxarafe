@@ -3,6 +3,7 @@
 /nbproject/
 /vendor/
 /cache/
+/resources/skins/default/bower_modules/
 /libraries_/
 .gitconfig
 .DS_Store

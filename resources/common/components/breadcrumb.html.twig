@@ -1,0 +1,36 @@
+{#
+    @file breadcrumb.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap Breadcrumb component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var texts:       Array of texts
+    @var links:       Array of links, link or null
+    @var classes:     Array of classes, 'active' or null
+
+    WARNING: Length of arrays (must be the same)
+
+    How to use it:
+        {% include "Components/BS3/breadcrumb.twig" with {id:'myBreadcrumbId', name:'myBreadcrumbName', texts: texts, links: links, classes: classes, length: length} %}
+#}
+
+<nav aria-label="breadcrumb">
+    <ol{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+            class="breadcrumb">
+        {% for i in texts %}
+            <li{% if classes[loop.index0] is defined and classes[loop.index0]=='active' %} class="{{ classes[loop.index0] }}"{% endif %}>
+                {% if links[loop.index0] is defined and links[loop.index0]!=null %}
+                    <a href="{{ links[loop.index0] }}">
+                {% endif %}
+                {% if texts[loop.index0] is defined %}
+                    {{ texts[loop.index0] | raw }}
+                {% endif %}
+                {% if links[loop.index0] is defined and links[loop.index0]!=null %}
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>

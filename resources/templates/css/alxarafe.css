@@ -1,0 +1,53 @@
+/**
+ * Sticky footer styles
+ */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px; /* Margin bottom by footer height */
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    background-color: #f5f5f5;
+}
+
+/**
+ * Custom page CSS
+ * Not required for template or sticky footer method.
+ */
+
+body > .container:first-of-type,
+body > .container-fluid:first-of-type {
+    padding: 60px 15px 0;
+}
+
+.container:first-of-type .text-muted,
+.container-fluid:first-of-type .text-muted {
+    margin: 20px 0;
+}
+
+.footer > .container,
+.footer > .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+code {
+    font-size: 80%;
+}
+
+/**
+ * Used to render var_dump messages with sticky navbar
+ */
+
+body > .xdebug-var-dump:first-of-type {
+    margin: 55px 0;
+}

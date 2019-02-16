@@ -1,0 +1,46 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+#}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% block header %}{% include 'master/header.twig' %}{% endblock %}
+</head>
+<body>
+
+{% block menu %}{% include 'master/menu.twig' %}{% endblock %}
+
+<div class="container-fluid" id="titlecontent" name="titlecontent">
+    {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
+
+    {% block bodytitle %}
+        {% if ctrl.title is not empty %}
+            <h3>{{ lang.trans(ctrl.title) }}</h3>
+        {% endif %}
+        {% if ctrl.description is not empty %}
+            <small>{{ lang.trans(ctrl.description) }}</small>{% endif %}
+    {% endblock %}
+</div>
+
+<br/>
+
+<div class="container-fluid" id="messagescontent" name="messagescontent">
+    {% set messages = TwigFunctions('flash', ['messages']) %}
+    {% if messages is not empty %}
+        {% for pos, messageData in messages %}
+            <div style="width: 100%" class="alert alert-{{ messageData.type }}">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>{{ lang.trans('title-messages-' ~ messageData.type) }}</h4>
+                {{ messageData.msg | raw }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class="container-fluid" id="bodycontent" name="bodycontent">
+    {% block body %}{% endblock %}
+</div>
+{% block footer %}{% include 'master/footer.twig' %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,51 @@
+{#
+    @file list-group.twig
+    @author Alxarafe <info@alxarafe.com>
+
+    Default theme implementation to display a Bootstrap List Group component.
+
+    @var id:          Your id
+    @var name:        Your name
+    @var class:       Your main class
+    @var texts:       Array of texts
+    @var links:       Array of links, link or null
+    @var classes:     Array of classes, list-group-item-sucess, list-group-item-info, list-group-item-warning, list-group-item-danter or null
+    @var type         list, link, button
+
+    WARNING: Length of arrays (must be the same)
+
+    How to use it:
+        {% include "Components/BS3/list-group.twig" with {id:'myListGroupId', name:'myListGroupName', texts: texts, links: links, classes: classes, length: length} %}
+#}
+
+<ul{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+        class="list-group{% if class is defined %} {{ class }}"{% endif %}">
+{% for i in texts %}
+    {% if type is defined and type == 'list' %}
+        <li{% if id is defined %} id="{{ id }}_item_{{ loop.index0 }}"{% endif %}{% if name is defined %} name="{{ name }}_item_{{ loop.index0 }}"{% endif %}
+                class="list-group-item{% if classes[loop.index0] is defined %} {{ classes[loop.index0] }}{% endif %}">
+            {% if texts[loop.index0] is defined %}
+                {{ texts[loop.index0] | raw }}
+            {% endif %}
+        </li>
+    {% elseif type is defined and type == 'link' %}
+        <a{% if id is defined %} id="{{ id }}_item_{{ loop.index0 }}"{% endif %}{% if name is defined %} name="{{ name }}_item_{{ loop.index0 }}"{% endif %}
+                href="{{ links[loop.index0] }}"
+                class="list-group-item{% if classes[loop.index0] is defined %} {{ classes[loop.index0] }}{% endif %}">
+            {% if texts[loop.index0] is defined %}
+                {{ texts[loop.index0] | raw }}
+            {% endif %}
+        </a>
+    {% elseif type is defined and type == 'button' %}
+        <button{% if id is defined %} id="{{ id }}_item_{{ loop.index0 }}"{% endif %}{% if name is defined %} name="{{ name }}_item_{{ loop.index0 }}"{% endif %}
+                type="button"
+                class="list-group-item{% if classes[loop.index0] is defined %} {{ classes[loop.index0] }}{% endif %}">
+            {% if texts[loop.index0] is defined %}
+                {{ texts[loop.index0] | raw }}
+            {% endif %}
+        </button>
+    {% else %}
+        Something is wrong with your code!
+    {% endif %}
+{% endfor %}
+</ul>
