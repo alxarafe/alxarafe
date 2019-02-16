@@ -238,16 +238,14 @@ class BootStrap
         $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_ENCODED);
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
+        $msg = $this->translator->trans('route-not-found');
         if ($this->router->hasRoute($call)) {
             $controllerName = $this->router->getRoute($call);
+            $msg = $this->translator->trans('method-not-available');
             if (method_exists($controllerName, $method)) {
                 $controller = new $controllerName($this->container);
                 $controller->{$method}();
-            } else {
-                $msg = $this->translator->trans('method-not-available');
             }
-        } else {
-            $msg = $this->translator->trans('route-not-found');
         }
 
         $this->render->setTemplate('error');
