@@ -75,6 +75,7 @@ class TemplateRender
     public function __construct()
     {
         $this->template = null;
+        $this->commonTemplatesFolder = $this->getTemplatesFolder();
         $loader = new Twig_Loader_Filesystem($this->getPaths());
         $this->twig = new Twig_Environment($loader, $this->getOptions());
 

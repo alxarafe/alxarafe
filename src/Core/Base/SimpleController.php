@@ -6,10 +6,10 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Container;
+use Alxarafe\Providers\TemplateRender;
 use ReflectionClass;
 
 /**
@@ -34,11 +34,22 @@ class SimpleController
     public $shortName;
 
     /**
+     * To manage PHP Sessions.
+     *
      * @var Session
      */
     public $session;
 
     /**
+     * Manage the render.
+     *
+     * @var TemplateRender
+     */
+    public $render;
+
+    /**
+     * Contains dependencies.
+     *
      * @var Container|null
      */
     protected $container;
@@ -51,7 +62,8 @@ class SimpleController
     public function __construct(Container $container = null)
     {
         $this->container = $container;
-        $this->session = Config::$session->getSingleton();
+        $this->session = $this->container->get('session');
+        $this->render = $this->container->get('render');
         $this->shortName = (new ReflectionClass($this))->getShortName();
         Debug::startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->username = null;
