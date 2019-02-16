@@ -24,24 +24,29 @@ class ConfigurationManager
     protected $basePath;
 
     /**
-     * Full path to config file-
+     * Full path to config file.
      *
      * @var string
      */
     protected $configFile;
 
     /**
+     * Contains the config content.
      *
      * @var array
      */
     protected $configContent;
 
     /**
+     * Full path to route file.
+     *
      * @var string
      */
     protected $routeFile;
 
     /**
+     * Containts the routes content.
+     *
      * @var array
      */
     protected $routeContent;
@@ -59,7 +64,9 @@ class ConfigurationManager
     }
 
     /**
-     * @return mixed
+     * Returns the base path.
+     *
+     * @return string
      */
     public function getBasePath()
     {
@@ -67,7 +74,9 @@ class ConfigurationManager
     }
 
     /**
-     * @param mixed $basePath
+     * Sets the base path.
+     *
+     * @param string $basePath
      */
     public function setBasePath($basePath): void
     {
@@ -75,7 +84,9 @@ class ConfigurationManager
     }
 
     /**
-     * @return mixed
+     * Return the full config file path.
+     *
+     * @return string
      */
     public function getConfigFile()
     {
@@ -83,14 +94,18 @@ class ConfigurationManager
     }
 
     /**
-     * @param mixed $configFile
+     * Sets the config file.
+     *
+     * @param string $configFile
      */
-    public function setConfigFile($configFile): void
+    public function setConfigFile(string $configFile): void
     {
         $this->configFile = $this->basePath . constant('DIRECTORY_SEPARATOR') . $configFile;
     }
 
     /**
+     * Returns the full route file path.
+     *
      * @return string
      */
     public function getRouteFile(): string
@@ -99,6 +114,8 @@ class ConfigurationManager
     }
 
     /**
+     * Sets the route file path.
+     *
      * @param string $routeFile
      */
     public function setRouteFile(string $routeFile): void
@@ -107,43 +124,7 @@ class ConfigurationManager
     }
 
     /**
-     * @return array
-     */
-    public function getConfig()
-    {
-        return $this->getFile($this->configFile);
-    }
-
-    /**
-     * Returns an array with the configuration defined in the configuration file.
-     * If file not exists, return empty data
-     *
-     * @return array
-     */
-    private function getFile($fileName): array
-    {
-        $file = $this->basePath . $fileName;
-        if ($this->fileExists($file)) {
-            $yaml = file_get_contents($file);
-            if ($yaml) {
-                return Yaml::parse($yaml);
-            }
-        }
-        return [];
-    }
-
-    /**
-     * @param $filename
-     *
-     * @return bool
-     */
-    private function fileExists($filename)
-    {
-        return (isset($filename) && file_exists($filename) && is_file($filename));
-    }
-
-    /**
-     *
+     * Loads some constants.
      */
     public function loadConstants()
     {
@@ -162,20 +143,61 @@ class ConfigurationManager
     }
 
     /**
+     * Returns if file exists.
+     *
+     * @param string $filename
+     *
+     * @return bool
+     */
+    private function fileExists(string $filename)
+    {
+        return (isset($filename) && file_exists($filename) && is_file($filename));
+    }
+
+    /**
+     * Returns the config content.
+     * If config content is empty, load from file.
+     * Otherwise return data from property.
+     *
      * @return array
      */
-    public function getConfigContent(): array
+    public function getConfigContent()
     {
+        if (empty($this->configContent)) {
+            $this->configContent = $this->getFile($this->configFile);
+        }
         return $this->configContent;
     }
 
     /**
+     * Sets new config content and store to config file.
+     *
      * @param array $configContent
      */
     public function setConfigContent(array $configContent): void
     {
         $this->configContent = $configContent;
         $this->saveFile($this->configFile, $configContent);
+    }
+
+    /**
+     * Returns an array with the configuration defined in the configuration file.
+     * If file not exists, return empty data
+     *
+     * @param string $fileName
+     *
+     * @return array
+     */
+    private function getFile(string $fileName): array
+    {
+        $file = $this->basePath . $fileName;
+        if ($this->fileExists($file)) {
+            $yaml = file_get_contents($file);
+            if ($yaml) {
+                return Yaml::parse($yaml);
+            }
+        }
+        return [];
     }
 
     /**
@@ -193,14 +215,23 @@ class ConfigurationManager
     }
 
     /**
+     * Returns the route content.
+     * If route content is empty, load from file.
+     * Otherwise return data from property.
+     *
      * @return array
      */
     public function getRouteContent(): array
     {
+        if (empty($this->routeContent)) {
+            $this->routeContent = $this->getFile($this->routeFile);
+        }
         return $this->routeContent;
     }
 
     /**
+     * Sets new route content and store to config file.
+
      * @param array $routeContent
      */
     public function setRouteContent(array $routeContent): void
