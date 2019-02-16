@@ -87,7 +87,7 @@ class ConfigurationManager
      */
     public function setConfigFile($configFile): void
     {
-        $this->configFile = $this->basePath . constant(DIRECTORY_SEPARATOR) . $configFile;
+        $this->configFile = $this->basePath . constant('DIRECTORY_SEPARATOR') . $configFile;
     }
 
     /**
@@ -103,7 +103,7 @@ class ConfigurationManager
      */
     public function setRouteFile(string $routeFile): void
     {
-        $this->routeFile = $this->basePath . constant(DIRECTORY_SEPARATOR) . $routeFile;
+        $this->routeFile = $this->basePath . constant('DIRECTORY_SEPARATOR') . $routeFile;
     }
 
     /**
