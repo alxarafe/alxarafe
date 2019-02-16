@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="index, follow, all" name="robots" />
+    <title>Alxarafe\Providers\ConfigurationManager | alxarafe</title>
+
+            <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+        <link href="../../css/sami.css" rel="stylesheet" type="text/css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta content="width" name="MobileOptimized">
+        <meta content="true" name="HandheldFriendly">
+        <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+    
+    
+    </head>
+
+    <body data-name="class:Alxarafe_Providers_ConfigurationManager" data-root-path="../../" id="class">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form action="../../search.html" id="search-form" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input class="typeahead form-control"
+                   name="search"
+                   placeholder="Search"
+                   type="search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav class="navbar navbar-default" id="site-nav" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">alxarafe</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li><li>ConfigurationManager</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            ConfigurationManager
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>ConfigurationManager</strong>
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>Class ConfigurationManager</p>                                </div>
+    
+    
+    
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td class="type" id="property_basePath">
+                                        protected                                        string
+                </td>
+                <td>$basePath</td>
+                <td class="last">The base path where config files are placed.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_configFile">
+                                        protected                                        string
+                </td>
+                <td>$configFile</td>
+                <td class="last">Full path to config file.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_configContent">
+                                        protected                                        array
+                </td>
+                <td>$configContent</td>
+                <td class="last">Contains the config content.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_routeFile">
+                                        protected                                        string
+                </td>
+                <td>$routeFile</td>
+                <td class="last">Full path to route file.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_routeContent">
+                                        protected                                        array
+                </td>
+                <td>$routeContent</td>
+                <td class="last">Containts the routes content.</td>
+                <td></td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>($basePath)
+        
+                                            <p>ConfigurationManager constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getBasePath">getBasePath</a>()
+        
+                                            <p>Returns the base path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setBasePath">setBasePath</a>(string $basePath)
+        
+                                            <p>Sets the base path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getConfigFile">getConfigFile</a>()
+        
+                                            <p>Return the full config file path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setConfigFile">setConfigFile</a>(string $configFile)
+        
+                                            <p>Sets the config file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getRouteFile">getRouteFile</a>()
+        
+                                            <p>Returns the full route file path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setRouteFile">setRouteFile</a>(string $routeFile)
+        
+                                            <p>Sets the route file path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadConstants">loadConstants</a>()
+        
+                                            <p>Loads some constants.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_fileExists">fileExists</a>(string $filename)
+        
+                                            <p>Returns if file exists.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getConfigContent">getConfigContent</a>()
+        
+                                            <p>Returns the config content.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setConfigContent">setConfigContent</a>(array $configContent)
+        
+                                            <p>Sets new config content and store to config file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getFile">getFile</a>(string $fileName)
+        
+                                            <p>Returns an array with the configuration defined in the configuration file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_saveFile">saveFile</a>(string $fileName, array $content)
+        
+                                            <p>Stores all the variables in a permanent file so that they can be loaded later with loadConfigFile()
+Returns true if there is no error when saving the file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getRouteContent">getRouteContent</a>()
+        
+                                            <p>Returns the route content.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setRouteContent">setRouteContent</a>(array $routeContent)
+        
+                                            <p>Sets new route content and store to config file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at         line 59</div>
+        <code>                    
+    <strong>__construct</strong>($basePath)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>ConfigurationManager constructor.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$basePath</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getBasePath">
+        <div class="location">at         line 71</div>
+        <code>                    string
+    <strong>getBasePath</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the base path.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setBasePath">
+        <div class="location">at         line 81</div>
+        <code>                    
+    <strong>setBasePath</strong>(string $basePath)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets the base path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$basePath</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getConfigFile">
+        <div class="location">at         line 91</div>
+        <code>                    string
+    <strong>getConfigFile</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the full config file path.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setConfigFile">
+        <div class="location">at         line 101</div>
+        <code>                    
+    <strong>setConfigFile</strong>(string $configFile)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets the config file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$configFile</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRouteFile">
+        <div class="location">at         line 111</div>
+        <code>                    string
+    <strong>getRouteFile</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the full route file path.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setRouteFile">
+        <div class="location">at         line 121</div>
+        <code>                    
+    <strong>setRouteFile</strong>(string $routeFile)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets the route file path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$routeFile</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadConstants">
+        <div class="location">at         line 129</div>
+        <code>                    
+    <strong>loadConstants</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Loads some constants.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_fileExists">
+        <div class="location">at         line 152</div>
+        <code>                private    bool
+    <strong>fileExists</strong>(string $filename)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns if file exists.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$filename</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getConfigContent">
+        <div class="location">at         line 164</div>
+        <code>                    array
+    <strong>getConfigContent</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the config content.</p>                    <p>If config content is empty, load from file.
+Otherwise return data from property.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setConfigContent">
+        <div class="location">at         line 177</div>
+        <code>                    
+    <strong>setConfigContent</strong>(array $configContent)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets new config content and store to config file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$configContent</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getFile">
+        <div class="location">at         line 191</div>
+        <code>                private    array
+    <strong>getFile</strong>(string $fileName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns an array with the configuration defined in the configuration file.</p>                    <p>If file not exists, return empty data</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fileName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_saveFile">
+        <div class="location">at         line 212</div>
+        <code>                private    bool
+    <strong>saveFile</strong>(string $fileName, array $content)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Stores all the variables in a permanent file so that they can be loaded later with loadConfigFile()
+Returns true if there is no error when saving the file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fileName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$content</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRouteContent">
+        <div class="location">at         line 224</div>
+        <code>                    array
+    <strong>getRouteContent</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the route content.</p>                    <p>If route content is empty, load from file.
+Otherwise return data from property.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setRouteContent">
+        <div class="location">at         line 237</div>
+        <code>                    
+    <strong>setRouteContent</strong>(array $routeContent)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets new route content and store to config file.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$routeContent</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

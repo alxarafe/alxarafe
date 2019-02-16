@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta content="index, follow, all" name="robots" />
-    <title>Alxarafe\Helpers\Session | alxarafe</title>
+    <title>Alxarafe\Providers\TemplateRender | alxarafe</title>
 
             <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body data-name="class:Alxarafe_Helpers_Session" data-root-path="../../" id="class">
+    <body data-name="class:Alxarafe_Providers_TemplateRender" data-root-path="../../" id="class">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Helpers.html">Helpers</a></li><li class="backslash">\</li><li>Session</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li><li>TemplateRender</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Session
+            TemplateRender
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Session</strong>
+    <strong>TemplateRender</strong>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class Session.</p>            <p>Tools for managing sessions, including session segments and read-once messages</p>                    </div>
+            <p>Class TemplateRender</p>                                </div>
     
     
     
@@ -94,19 +94,19 @@
 
             <table class="table table-condensed">
                     <tr>
-                <td class="type" id="property_session">
-                                        protected                                        <abbr title="Aura\Session\Session">Session</abbr>
+                <td class="type" id="property_twig">
+                                        protected                                        Twig_Environment
                 </td>
-                <td>$session</td>
-                <td class="last">Session info from cookie.</td>
+                <td>$twig</td>
+                <td class="last"></td>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_segmentName">
+                <td class="type" id="property_viewName">
                                         protected                                        string
                 </td>
-                <td>$segmentName</td>
-                <td class="last">Segment name.</td>
+                <td>$viewName</td>
+                <td class="last"></td>
                 <td></td>
             </tr>
             </table>
@@ -122,87 +122,61 @@
                 <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
         
-                                            <p>Session constructor.</p>                </div>
+                                            <p>View constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Alxarafe\Helpers\$this">$this</abbr>
+                    Twig_Environment
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getSingleton">getSingleton</a>()
+                    <a href="#method_getTwig">getTwig</a>()
         
-                                            <p>Return this instance.</p>                </div>
+                                            <p class="no-description">No description</p>
+                                    </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Aura\Session\Session">Session</abbr>
+                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getSession">getSession</a>()
+                    <a href="#method_setTwig">setTwig</a>(Twig_Environment $twig)
         
-                                            <p>Return this session.</p>                </div>
+                                            <p class="no-description">No description</p>
+                                    </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setSegment">setSegment</a>(string $segmentName)
+                    <a href="#method_getViewName">getViewName</a>()
         
-                                            <p>Sets segment name.</p>                </div>
+                                            <p class="no-description">No description</p>
+                                    </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Aura\Session\Segment">Segment</abbr>
+                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getSegment">getSegment</a>()
+                    <a href="#method_setViewName">setViewName</a>(string $viewName)
         
-                                            <p>Return segment session.</p>                </div>
+                                            <p class="no-description">No description</p>
+                                    </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    mixed
+                    string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_get">get</a>(string $key)
+                    <a href="#method_render">render</a>(string $viewName, array $data = [])
         
-                                            <p>Get data from segment.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_set">set</a>(string $key, mixed $value)
-        
-                                            <p>Set data key.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getFlash">getFlash</a>(string $key)
-        
-                                            <p>Get flash data by key.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_setFlash">setFlash</a>(string $key, mixed $value)
-        
-                                            <p>Sets flash data by key.</p>                </div>
+                                            <p>Renders a template.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -213,7 +187,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 36</div>
+        <div class="location">at         line 37</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -223,7 +197,7 @@
     
 
                     <div class="method-description">
-                                    <p>Session constructor.</p>                                                </div>
+                                    <p>View constructor.</p>                                                </div>
                 <div class="tags">
             
             
@@ -233,55 +207,23 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getSingleton">
-        <div class="location">at         line 49</div>
-        <code>                    <abbr title="Alxarafe\Helpers\$this">$this</abbr>
-    <strong>getSingleton</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return this instance.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Alxarafe\Helpers\$this">$this</abbr></td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getSession">
+                    <h3 id="method_getTwig">
         <div class="location">at         line 59</div>
-        <code>                    <abbr title="Aura\Session\Session">Session</abbr>
-    <strong>getSession</strong>()
+        <code>                    Twig_Environment
+    <strong>getTwig</strong>()
         </code>
     </h3>
     <div class="details">
             
     
 
-                    <div class="method-description">
-                                    <p>Return this session.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td><abbr title="Aura\Session\Session">Session</abbr></td>
+            <td>Twig_Environment</td>
             <td></td>
         </tr>
     </table>
@@ -293,56 +235,33 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setSegment">
+                    <h3 id="method_setTwig">
         <div class="location">at         line 69</div>
-        <code>                    
-    <strong>setSegment</strong>(string $segmentName)
+        <code>                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
+    <strong>setTwig</strong>(Twig_Environment $twig)
         </code>
     </h3>
     <div class="details">
             
     
 
-                    <div class="method-description">
-                                    <p>Sets segment name.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
-                <td>$segmentName</td>
+                <td>Twig_Environment</td>
+                <td>$twig</td>
                 <td></td>
             </tr>
             </table>
 
             
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getSegment">
-        <div class="location">at         line 79</div>
-        <code>                    <abbr title="Aura\Session\Segment">Segment</abbr>
-    <strong>getSegment</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return segment session.</p>                                                </div>
-                <div class="tags">
-            
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td><abbr title="Aura\Session\Segment">Segment</abbr></td>
+            <td><abbr title="Alxarafe\Providers\$this">$this</abbr></td>
             <td></td>
         </tr>
     </table>
@@ -354,35 +273,23 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_get">
-        <div class="location">at         line 91</div>
-        <code>                    mixed
-    <strong>get</strong>(string $key)
+                    <h3 id="method_getViewName">
+        <div class="location">at         line 78</div>
+        <code>                    string
+    <strong>getViewName</strong>()
         </code>
     </h3>
     <div class="details">
             
     
 
-                    <div class="method-description">
-                                    <p>Get data from segment.</p>                                                </div>
                 <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-            </table>
-
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td>mixed</td>
+            <td>string</td>
             <td></td>
         </tr>
     </table>
@@ -394,10 +301,48 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_set">
+                    <h3 id="method_setViewName">
+        <div class="location">at         line 88</div>
+        <code>                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
+    <strong>setViewName</strong>(string $viewName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$viewName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Alxarafe\Providers\$this">$this</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_render">
         <div class="location">at         line 102</div>
-        <code>                    
-    <strong>set</strong>(string $key, mixed $value)
+        <code>                    string
+    <strong>render</strong>(string $viewName, array $data = [])
         </code>
     </h3>
     <div class="details">
@@ -405,51 +350,20 @@
     
 
                     <div class="method-description">
-                                    <p>Set data key.</p>                                                </div>
+                                    <p>Renders a template.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
                 <td>string</td>
-                <td>$key</td>
-                <td></td>
+                <td>$viewName</td>
+                <td>The template name</td>
             </tr>
                     <tr>
-                <td>mixed</td>
-                <td>$value</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getFlash">
-        <div class="location">at         line 114</div>
-        <code>                    mixed
-    <strong>getFlash</strong>(string $key)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Get flash data by key.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
+                <td>array</td>
+                <td>$data</td>
+                <td>An array of parameters to pass to the template</td>
             </tr>
             </table>
 
@@ -458,47 +372,11 @@
 
                     <table class="table table-condensed">
         <tr>
-            <td>mixed</td>
-            <td></td>
+            <td>string</td>
+            <td>The rendered template</td>
         </tr>
     </table>
 
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setFlash">
-        <div class="location">at         line 125</div>
-        <code>                    
-    <strong>setFlash</strong>(string $key, mixed $value)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Sets flash data by key.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$value</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
             
             
                     </div>

@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Models | alxarafe</title>
+    <meta content="index, follow, all" name="robots" />
+    <title>Alxarafe\Providers | alxarafe</title>
 
-            <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="../css/sami.css">
+            <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+        <link href="../css/sami.css" rel="stylesheet" type="text/css">
         <script src="../js/jquery-1.11.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/typeahead.min.js"></script>
         <script src="../sami.js"></script>
-        <meta name="MobileOptimized" content="width">
-        <meta name="HandheldFriendly" content="true">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+        <meta content="width" name="MobileOptimized">
+        <meta content="true" name="HandheldFriendly">
+        <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
     
     
     </head>
 
-    <body id="namespace" data-name="namespace:Alxarafe_Models" data-root-path="../">
+    <body data-name="namespace:Alxarafe_Providers" data-root-path="../" id="namespace">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
                 <script>
             $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
         </script>
-        <form id="search-form" action="../search.html" method="GET">
+        <form action="../search.html" id="search-form" method="GET">
             <span class="glyphicon glyphicon-search"></span>
-            <input name="search"
-                   class="typeahead form-control"
-                   type="search"
-                   placeholder="Search">
+            <input class="typeahead form-control"
+                   name="search"
+                   placeholder="Search"
+                   type="search">
         </form>
     </div>
 
@@ -39,10 +39,10 @@
 
         </div>
         <div id="right-column">
-                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+                <nav class="navbar navbar-default" id="site-nav" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -66,13 +66,13 @@
                 <div class="namespace-breadcrumbs">
         <ol class="breadcrumb">
             <li><span class="label label-default">Namespace</span></li>
-                    <li><a href="../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../Alxarafe/Models.html">Models</a></li><li class="backslash">\</li>
+                    <li><a href="../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li>
         </ol>
     </div>
             <div id="page-content">
                 
     <div class="page-header">
-        <h1>Alxarafe\Models</h1>
+        <h1>Alxarafe\Providers</h1>
     </div>
 
     
@@ -81,66 +81,48 @@
     <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-6">
-                                            <a href="../Alxarafe/Models/Language.html"><abbr title="Alxarafe\Models\Language">Language</abbr></a>
+                                            <a href="../Alxarafe/Providers/ConfigurationManager.html"><abbr title="Alxarafe\Providers\ConfigurationManager">ConfigurationManager</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
-                    Class Language
+                    Class ConfigurationManager
                 </div>
             </div>
                     <div class="row">
                 <div class="col-md-6">
-                                            <a href="../Alxarafe/Models/Page.html"><abbr title="Alxarafe\Models\Page">Page</abbr></a>
+                                            <a href="../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
-                    Class Page
+                    Class Container
                 </div>
             </div>
                     <div class="row">
                 <div class="col-md-6">
-                                            <a href="../Alxarafe/Models/Role.html"><abbr title="Alxarafe\Models\Role">Role</abbr></a>
+                                            <a href="../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
-                    Class Role. Define the roles available in the application. By default, the administrator
-and the user are defined.
+                    Class Database
                 </div>
             </div>
                     <div class="row">
                 <div class="col-md-6">
-                                            <a href="../Alxarafe/Models/RolePage.html"><abbr title="Alxarafe\Models\RolePage">RolePage</abbr></a>
+                                            <a href="../Alxarafe/Providers/Router.html"><abbr title="Alxarafe\Providers\Router">Router</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
-                    Class RolePage. Link each role with the assigned page.
+                    Class Routes
+A route is a pair key => value, where key is the short name of the controller and the value the FQCN
                 </div>
             </div>
                     <div class="row">
                 <div class="col-md-6">
-                                            <a href="../Alxarafe/Models/TableModel.html"><abbr title="Alxarafe\Models\TableModel">TableModel</abbr></a>
+                                            <a href="../Alxarafe/Providers/TemplateRender.html"><abbr title="Alxarafe\Providers\TemplateRender">TemplateRender</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
-                    Class TableModel
-                </div>
-            </div>
-                    <div class="row">
-                <div class="col-md-6">
-                                            <a href="../Alxarafe/Models/User.html"><abbr title="Alxarafe\Models\User">User</abbr></a>
-                                            
-                </div>
-                <div class="col-md-6">
-                    Class Users
-                </div>
-            </div>
-                    <div class="row">
-                <div class="col-md-6">
-                                            <a href="../Alxarafe/Models/UserRole.html"><abbr title="Alxarafe\Models\UserRole">UserRole</abbr></a>
-                                            
-                </div>
-                <div class="col-md-6">
-                    Class UserRoles. Link each user with the assigned roles.
+                    Class TemplateRender
                 </div>
             </div>
             </div>

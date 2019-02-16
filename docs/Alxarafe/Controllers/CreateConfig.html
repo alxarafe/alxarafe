@@ -79,7 +79,7 @@
     </div>
 
     <p>    class
-    <strong>CreateConfig</strong>        extends <a href="../../Alxarafe/Base/Controller.html"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a>
+    <strong>CreateConfig</strong>        extends <a href="../../Alxarafe/Base/SimpleController.html"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a>
 </p>
 
         
@@ -99,7 +99,7 @@
                 </td>
                 <td>$username</td>
                 <td class="last">TODO: Undocumented</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_username"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_username"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_shortName">
@@ -107,7 +107,7 @@
                 </td>
                 <td>$shortName</td>
                 <td class="last">Class short name.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_shortName"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_shortName"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_session">
@@ -115,7 +115,15 @@
                 </td>
                 <td>$session</td>
                 <td class="last"></td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_session"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_session"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_container">
+                                        protected                                        <a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a>|null
+                </td>
+                <td>$container</td>
+                <td class="last"></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_container"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
             </table>
 
@@ -128,9 +136,9 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>()
+                    <a href="#method___construct">__construct</a>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null)
         
-                                            <p>The constructor creates the view.</p>                </div>
+                                            <p>CreateConfig constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -192,9 +200,9 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 27</div>
+        <div class="location">at         line 30</div>
         <code>                    
-    <strong>__construct</strong>()
+    <strong>__construct</strong>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null)
         </code>
     </h3>
     <div class="details">
@@ -202,8 +210,18 @@
     
 
                     <div class="method-description">
-                                    <p>The constructor creates the view.</p>                                                </div>
+                                    <p>CreateConfig constructor.</p>                                                </div>
                 <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a></td>
+                <td>$container</td>
+                <td></td>
+            </tr>
+            </table>
+
             
             
             
@@ -213,7 +231,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_index">
-        <div class="location">at         line 37</div>
+        <div class="location">at         line 40</div>
         <code>                    void
     <strong>index</strong>()
         </code>
@@ -243,7 +261,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_main">
-        <div class="location">at         line 52</div>
+        <div class="location">at         line 55</div>
         <code>                    void
     <strong>main</strong>()
         </code>
@@ -273,7 +291,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">at         line 74</div>
+        <div class="location">at         line 77</div>
         <code>                    void
     <strong>run</strong>()
         </code>
@@ -303,7 +321,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">at         line 84</div>
+        <div class="location">at         line 87</div>
         <code>                private    bool
     <strong>save</strong>()
         </code>
@@ -333,7 +351,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 106</div>
+        <div class="location">at         line 109</div>
         <code>                    
     <strong>pageDetails</strong>()
         </code>

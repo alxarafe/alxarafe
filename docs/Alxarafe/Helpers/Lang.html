@@ -134,6 +134,14 @@
 
             <table class="table table-condensed">
                     <tr>
+                <td class="type" id="property_basePath">
+                                        protected                                        
+                </td>
+                <td>$basePath</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_translator">
                     static                                        private                    <abbr title="Symfony\Component\Translation\Translator">Translator</abbr>
                 </td>
@@ -168,7 +176,7 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(string $lang = self::FALLBACK_LANG)
+                    <a href="#method___construct">__construct</a>(string $lang = self::FALLBACK_LANG, string $basePath = ALXARAFE_FOLDER)
         
                                             <p>Lang constructor.</p>                </div>
                 <div class="col-md-2"></div>
@@ -291,9 +299,9 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 72</div>
+        <div class="location">at         line 75</div>
         <code>                    
-    <strong>__construct</strong>(string $lang = self::FALLBACK_LANG)
+    <strong>__construct</strong>(string $lang = self::FALLBACK_LANG, string $basePath = ALXARAFE_FOLDER)
         </code>
     </h3>
     <div class="details">
@@ -311,6 +319,11 @@
                 <td>$lang</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td>string</td>
+                <td>$basePath</td>
+                <td></td>
+            </tr>
             </table>
 
             
@@ -322,7 +335,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_loadLangFiles">
-        <div class="location">at         line 93</div>
+        <div class="location">at         line 95</div>
         <code>                private    void
     <strong>loadLangFiles</strong>()
         </code>
@@ -352,7 +365,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getLocale">
-        <div class="location">at         line 111</div>
+        <div class="location">at         line 113</div>
         <code>                    string
     <strong>getLocale</strong>()
         </code>
@@ -382,7 +395,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setlocale">
-        <div class="location">at         line 123</div>
+        <div class="location">at         line 125</div>
         <code>                    void
     <strong>setlocale</strong>(string $lang)
         </code>
@@ -422,7 +435,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getAvailableLanguages">
-        <div class="location">at         line 133</div>
+        <div class="location">at         line 135</div>
         <code>                    array
     <strong>getAvailableLanguages</strong>()
         </code>
@@ -452,7 +465,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_verifyMissing">
-        <div class="location">at         line 159</div>
+        <div class="location">at         line 161</div>
         <code>                private    
     <strong>verifyMissing</strong>($lang)
         </code>
@@ -483,7 +496,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_trans">
-        <div class="location">at         line 180</div>
+        <div class="location">at         line 182</div>
         <code>                    string
     <strong>trans</strong>(null|string $txt, array $parameters = [], $domain = null, $locale = null)
         </code>
@@ -538,7 +551,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_transChoice">
-        <div class="location">at         line 198</div>
+        <div class="location">at         line 200</div>
         <code>                    string
     <strong>transChoice</strong>($txt, $number, array $parameters = [], $domain = null, $locale = null)
         </code>
@@ -598,7 +611,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getMissingStrings">
-        <div class="location">at         line 210</div>
+        <div class="location">at         line 212</div>
         <code>                    array
     <strong>getMissingStrings</strong>()
         </code>
@@ -628,7 +641,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getUsedStrings">
-        <div class="location">at         line 220</div>
+        <div class="location">at         line 222</div>
         <code>                    array
     <strong>getUsedStrings</strong>()
         </code>
@@ -658,7 +671,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getBaseLangFolder">
-        <div class="location">at         line 230</div>
+        <div class="location">at         line 232</div>
         <code>                    string
     <strong>getBaseLangFolder</strong>()
         </code>
@@ -688,7 +701,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getLangFolders">
-        <div class="location">at         line 240</div>
+        <div class="location">at         line 242</div>
         <code>                    array
     <strong>getLangFolders</strong>()
         </code>

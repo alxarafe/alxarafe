@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="index, follow, all" name="robots" />
+    <title>Alxarafe\Providers\Database | alxarafe</title>
+
+            <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+        <link href="../../css/sami.css" rel="stylesheet" type="text/css">
+        <script src="../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../sami.js"></script>
+        <meta content="width" name="MobileOptimized">
+        <meta content="true" name="HandheldFriendly">
+        <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+    
+    
+    </head>
+
+    <body data-name="class:Alxarafe_Providers_Database" data-root-path="../../" id="class">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form action="../../search.html" id="search-form" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input class="typeahead form-control"
+                   name="search"
+                   placeholder="Search"
+                   type="search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav class="navbar navbar-default" id="site-nav" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">alxarafe</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                                            <li><a href="../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li><li>Database</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Database
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>Database</strong>
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>Class Database</p>                                </div>
+    
+    
+    
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td class="type" id="property_dbEngine">
+                                        protected                                        <a href="../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                </td>
+                <td>$dbEngine</td>
+                <td class="last">Contains the instance to the database engine (or null)</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_sqlHelper">
+                                        protected                                        <abbr title="Alxarafe\Providers\sqlHelper">sqlHelper</abbr>
+                </td>
+                <td>$sqlHelper</td>
+                <td class="last">Contains the instance to the specific SQL engine helper (or null)</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_config">
+                                        protected                                        array
+                </td>
+                <td>$config</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>(array $config)
+        
+                                            <p>Database constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_connectToDatabase">connectToDatabase</a>()
+        
+                                            <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+Config::$dbEngine.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDbEngine">getDbEngine</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Alxarafe/Database/SqlHelper.html"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getSqlHelper">getSqlHelper</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at         line 42</div>
+        <code>                    
+    <strong>__construct</strong>(array $config)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Database constructor.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$config</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_connectToDatabase">
+        <div class="location">at         line 72</div>
+        <code>                    bool
+    <strong>connectToDatabase</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+Config::$dbEngine.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDbEngine">
+        <div class="location">at         line 80</div>
+        <code>                    <a href="../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
+    <strong>getDbEngine</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSqlHelper">
+        <div class="location">at         line 88</div>
+        <code>                    <a href="../../Alxarafe/Database/SqlHelper.html"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a>
+    <strong>getSqlHelper</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Alxarafe/Database/SqlHelper.html"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

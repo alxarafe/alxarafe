@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Base\Controller | alxarafe</title>
+    <meta content="index, follow, all" name="robots" />
+    <title>Alxarafe\Controllers\Pages | alxarafe</title>
 
-            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
+            <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+        <link href="../../css/sami.css" rel="stylesheet" type="text/css">
         <script src="../../js/jquery-1.11.1.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>
         <script src="../../js/typeahead.min.js"></script>
         <script src="../../sami.js"></script>
-        <meta name="MobileOptimized" content="width">
-        <meta name="HandheldFriendly" content="true">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+        <meta content="width" name="MobileOptimized">
+        <meta content="true" name="HandheldFriendly">
+        <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
     
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Base_Controller" data-root-path="../../">
+    <body data-name="class:Alxarafe_Controllers_Pages" data-root-path="../../" id="class">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
                 <script>
             $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
         </script>
-        <form id="search-form" action="../../search.html" method="GET">
+        <form action="../../search.html" id="search-form" method="GET">
             <span class="glyphicon glyphicon-search"></span>
-            <input name="search"
-                   class="typeahead form-control"
-                   type="search"
-                   placeholder="Search">
+            <input class="typeahead form-control"
+                   name="search"
+                   placeholder="Search"
+                   type="search">
         </form>
     </div>
 
@@ -39,10 +39,10 @@
 
         </div>
         <div id="right-column">
-                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+                <nav class="navbar navbar-default" id="site-nav" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Base.html">Base</a></li><li class="backslash">\</li><li>Controller</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Controllers.html">Controllers</a></li><li class="backslash">\</li><li>Pages</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Controller
+            Pages
                 
         </h1>
     </div>
 
-    <p>abstract     class
-    <strong>Controller</strong>        extends <a href="../../Alxarafe/Base/PageController.html"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a>
+    <p>    class
+    <strong>Pages</strong>        extends <a href="../../Alxarafe/Base/Controller.html"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class Controller</p>                                </div>
+            <p>Class Pages</p>                                </div>
     
     
             <h2>Constants</h2>
@@ -256,7 +256,7 @@
                 <td>$postData</td>
                 <td class="last">Contiene los datos que hay en $_POST. Es un array con el formato:
 $this->postData[nombre_tabla][id_registro][nombre_campo]=valor</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_postData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_oldData">
@@ -265,7 +265,7 @@ $this->postData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 <td>$oldData</td>
                 <td class="last">Contiene los datos que hay actualmente en disco. Es un array con el formato:
 $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_oldData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_fieldsStruct">
@@ -273,7 +273,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$fieldsStruct</td>
                 <td class="last"></td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_fieldsStruct"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_currentId">
@@ -281,7 +281,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$currentId</td>
                 <td class="last">Contiene la clave primaria del registro en curso.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_currentId"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_status">
@@ -289,7 +289,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$status</td>
                 <td class="last">Puede contener 3 valores: listing, adding o editing.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_status"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_model">
@@ -297,7 +297,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$model</td>
                 <td class="last">La tabla principal del mantenimiento</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_model"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_tableName">
@@ -305,7 +305,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$tableName</td>
                 <td class="last">The table relate to the model.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_tableName"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_viewData">
@@ -313,7 +313,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$viewData</td>
                 <td class="last">The data view details for each data field.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_viewData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_encType">
@@ -321,7 +321,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$encType</td>
                 <td class="last">Type of encryption for form.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_encType"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_tableData">
@@ -329,7 +329,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$tableData</td>
                 <td class="last">Data received or sended in post.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_tableData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_code">
@@ -337,7 +337,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$code</td>
                 <td class="last">Code to table id.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_code"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_newButtons">
@@ -345,7 +345,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 </td>
                 <td>$newButtons</td>
                 <td class="last">Contains additional buttons info</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_newButtons"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
             </table>
 
@@ -358,9 +358,9 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null, <a href="../../Alxarafe/Base/Table.html"><abbr title="Alxarafe\Base\Table">Table</abbr></a>|null $model = null)
+                    <a href="#method___construct">__construct</a>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null)
         
-                                            <p>Se le pasa el modelo principal del controlador y la vista a utilizar.</p>                </div>
+                                            <p>Pages constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -371,7 +371,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                     <a href="#method_index">index</a>()
         
                                             <p>El punto de entrada es run.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_index"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -401,7 +401,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                     <a href="#method_pageDetails">pageDetails</a>()
         
                                             <p>Returns the page details.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_pageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -442,7 +442,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
         
                                             <p class="no-description">No description</p>
                                     </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getNewButtons"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -453,7 +453,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
         
                                             <p>Retorna el estado en el que se encuentra la edición en estos momentos:
 listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getStatus"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -463,7 +463,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_initialize">initialize</a>()
         
                                             <p>Initialize common properties</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_initialize"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -473,7 +473,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_listData">listData</a>()
         
                                             <p>List all records on model.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_listData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -483,7 +483,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_create">create</a>()
         
                                             <p>Create new record.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_create"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -493,7 +493,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_show">show</a>()
         
                                             <p>Show existing record.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_show"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -503,7 +503,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_edit">edit</a>()
         
                                             <p>Edit existing record.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_edit"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -513,7 +513,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_delete">delete</a>()
         
                                             <p>Delete existing record.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_delete"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -523,7 +523,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_getDefaultColumnsSearch">getDefaultColumnsSearch</a>()
         
                                             <p>Return a default list of col.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getDefaultColumnsSearch"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -533,7 +533,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_ajaxTableData">ajaxTableData</a>()
         
                                             <p>Return the table data using AJAX</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_ajaxTableData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -543,7 +543,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_accessDenied">accessDenied</a>()
         
                                             <p>Access denied page.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_accessDenied"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -553,7 +553,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_setView">setView</a>(<a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a> $view)
         
                                             <p>Establece la vista que va a ser utilizada por el controlador.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_setView"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -563,7 +563,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     <a href="#method_cancel">cancel</a>()
         
                                             <p>Cancela la edición regresando al controlador/registro que corresponda</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_cancel"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -575,7 +575,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                                             <p>Obtiene un array con los datos del registro especificado en $this->currentId
 Si el registro no existe, se retorna un registro en blanco con los datos por
 defecto.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getRecordData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -585,7 +585,7 @@ defecto.</p>                </div>
                     <a href="#method_getDataPost">getDataPost</a>()
         
                                             <p>Devuelve los datos enviados por POST</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getDataPost"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -595,7 +595,7 @@ defecto.</p>                </div>
                     <a href="#method_save">save</a>()
         
                                             <p>Guarda los datos, y si tiene éxito, recarga la página.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_save"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -616,7 +616,7 @@ defecto.</p>                </div>
         
                                             <p>Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
 falten con los datos por defecto.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_setDefaults"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -626,7 +626,7 @@ falten con los datos por defecto.</p>                </div>
                     <a href="#method_getTableHeader">getTableHeader</a>()
         
                                             <p>TODO: Undocumented</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getTableHeader"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -636,7 +636,7 @@ falten con los datos por defecto.</p>                </div>
                     <a href="#method_getTableBody">getTableBody</a>()
         
                                             <p>TODO: Undocumented</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getTableBody"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -646,7 +646,7 @@ falten con los datos por defecto.</p>                </div>
                     <a href="#method_getListFields">getListFields</a>()
         
                                             <p>TODO: Undocumented</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getListFields"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -656,7 +656,7 @@ falten con los datos por defecto.</p>                </div>
                     <a href="#method_getTableFooter">getTableFooter</a>()
         
                                             <p>TODO: Undocumented</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_getTableFooter"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
             </div>
 
@@ -666,9 +666,9 @@ falten con los datos por defecto.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 147</div>
+        <div class="location">at         line 26</div>
         <code>                    
-    <strong>__construct</strong>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null, <a href="../../Alxarafe/Base/Table.html"><abbr title="Alxarafe\Base\Table">Table</abbr></a>|null $model = null)
+    <strong>__construct</strong>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null)
         </code>
     </h3>
     <div class="details">
@@ -676,18 +676,7 @@ falten con los datos por defecto.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Se le pasa el modelo principal del controlador y la vista a utilizar.</p>                    <p>Se invoca de la forma:</p>
-
-<p>public function __construct()
-{
-     parent::__construct(new Person());  // Se el pasa el modelo
-}</p>
-
-<p>public function run(): void
-{
-     $this->setView(new View($this)); // Se le pasa el propio controlador
-     parent::run($method);
-}</p>                            </div>
+                                    <p>Pages constructor.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -695,11 +684,6 @@ falten con los datos por defecto.</p>                </div>
                     <tr>
                 <td><a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a></td>
                 <td>$container</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td><a href="../../Alxarafe/Base/Table.html"><abbr title="Alxarafe\Base\Table">Table</abbr></a>|null</td>
-                <td>$model</td>
                 <td></td>
             </tr>
             </table>
@@ -713,7 +697,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_index">
-        <div class="location">at         line 178</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_index"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 178</div>
         <code>                    void
     <strong>index</strong>()
         </code>
@@ -803,7 +787,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_pageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 207</div>
+        <div class="location">at         line 47</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -938,7 +922,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getNewButtons">
-        <div class="location">at         line 156</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getNewButtons"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 156</div>
         <code>                    
     <strong>getNewButtons</strong>()
         </code>
@@ -957,7 +941,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getStatus">
-        <div class="location">at         line 167</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getStatus"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 167</div>
         <code>                    string
     <strong>getStatus</strong>()
         </code>
@@ -988,7 +972,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_initialize">
-        <div class="location">at         line 193</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_initialize"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 193</div>
         <code>                    
     <strong>initialize</strong>()
         </code>
@@ -1009,7 +993,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_listData">
-        <div class="location">at         line 211</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_listData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 211</div>
         <code>                    
     <strong>listData</strong>()
         </code>
@@ -1030,7 +1014,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_create">
-        <div class="location">at         line 225</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_create"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 225</div>
         <code>                    
     <strong>create</strong>()
         </code>
@@ -1051,7 +1035,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_show">
-        <div class="location">at         line 239</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_show"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 239</div>
         <code>                    
     <strong>show</strong>()
         </code>
@@ -1072,7 +1056,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_edit">
-        <div class="location">at         line 254</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_edit"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 254</div>
         <code>                    
     <strong>edit</strong>()
         </code>
@@ -1093,7 +1077,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_delete">
-        <div class="location">at         line 279</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_delete"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 279</div>
         <code>                    
     <strong>delete</strong>()
         </code>
@@ -1114,7 +1098,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultColumnsSearch">
-        <div class="location">at         line 301</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getDefaultColumnsSearch"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 301</div>
         <code>                    array
     <strong>getDefaultColumnsSearch</strong>()
         </code>
@@ -1144,7 +1128,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_ajaxTableData">
-        <div class="location">at         line 316</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_ajaxTableData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 316</div>
         <code>                    
     <strong>ajaxTableData</strong>()
         </code>
@@ -1165,7 +1149,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_accessDenied">
-        <div class="location">at         line 370</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_accessDenied"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 370</div>
         <code>                    
     <strong>accessDenied</strong>()
         </code>
@@ -1186,7 +1170,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setView">
-        <div class="location">at         line 382</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_setView"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 382</div>
         <code>                    void
     <strong>setView</strong>(<a href="../../Alxarafe/Base/View.html"><abbr title="Alxarafe\Base\View">View</abbr></a> $view)
         </code>
@@ -1226,7 +1210,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_cancel">
-        <div class="location">at         line 392</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_cancel"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 392</div>
         <code>            protected        void
     <strong>cancel</strong>()
         </code>
@@ -1256,7 +1240,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getRecordData">
-        <div class="location">at         line 410</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getRecordData"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 410</div>
         <code>            protected        array
     <strong>getRecordData</strong>()
         </code>
@@ -1288,7 +1272,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getDataPost">
-        <div class="location">at         line 431</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getDataPost"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 431</div>
         <code>            protected        void
     <strong>getDataPost</strong>()
         </code>
@@ -1318,7 +1302,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">at         line 450</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_save"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 450</div>
         <code>            protected        
     <strong>save</strong>()
         </code>
@@ -1341,7 +1325,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">at         line 466</div>
+        <div class="location">at         line 36</div>
         <code>                    void
     <strong>run</strong>()
         </code>
@@ -1371,7 +1355,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_setDefaults">
-        <div class="location">at         line 483</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_setDefaults"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 483</div>
         <code>            protected        array
     <strong>setDefaults</strong>(array $record)
         </code>
@@ -1412,7 +1396,7 @@ falten con los datos por defecto.</p>                                           
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableHeader">
-        <div class="location">at         line 499</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getTableHeader"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 499</div>
         <code>                    
     <strong>getTableHeader</strong>()
         </code>
@@ -1433,7 +1417,7 @@ falten con los datos por defecto.</p>                                           
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableBody">
-        <div class="location">at         line 522</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getTableBody"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 522</div>
         <code>                    
     <strong>getTableBody</strong>()
         </code>
@@ -1454,7 +1438,7 @@ falten con los datos por defecto.</p>                                           
             </div>
                     <div class="method-item">
                     <h3 id="method_getListFields">
-        <div class="location">at         line 553</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getListFields"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 553</div>
         <code>                    
     <strong>getListFields</strong>()
         </code>
@@ -1475,7 +1459,7 @@ falten con los datos por defecto.</p>                                           
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableFooter">
-        <div class="location">at         line 589</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_getTableFooter"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 589</div>
         <code>                    
     <strong>getTableFooter</strong>()
         </code>
