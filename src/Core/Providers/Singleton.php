@@ -64,8 +64,6 @@ class Singleton
             self::$className = $this;
         }
         self::$basePath = basePath('config/');
-        $config = self::getConfig();
-        var_dump($config);
     }
 
     /**
@@ -138,7 +136,7 @@ class Singleton
     {
         $yamlArray = [];
 
-        $file = self::$basePath . (self::$separateConfigFile ? self::$className : 'config') . '.yaml';
+        $file = self::$basePath . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
         if ($this->fileExists($file)) {
             $yaml = file_get_contents($file);
             $yamlArray = Yaml::parse($yaml) ?? [];

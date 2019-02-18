@@ -34,32 +34,24 @@ class Router extends Singleton
         parent::__construct();
         // The class uses its own configuration file
         self::$separateConfigFile = true;
-        $this->routes = $this->getConfig();
-        if (count($this->routes) == 0) {
-            $this->routes = $this->getDefaultRoutes();
-            $this->setConfig($this->routes);
-        }
+        $this->routes = $this->getRoutes();
+        var_dump($this->routes);
     }
 
     /**
      * Return a list of routes
      *
      * @return array
+     */
     public function getRoutes(): array
     {
-        if (file_exists($this->filePath) && is_file($this->filePath)) {
-            try {
-                $fileContent = Yaml::parseFile($this->filePath);
-            } catch (ParseException $e) {
-                $fileContent = [];
-            }
-
-            return $fileContent;
+        $routes = $this->getConfig();
+        if (empty($routes)) {
+            $routes = $this->getDefaultRoutes();
         }
-
-        return $this->getDefaultRoutes();
+        return $routes;
     }
-     */
+
     /**
      * Set a new list of routes.
      *
