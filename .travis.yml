@@ -18,8 +18,11 @@ services:
 addons:
   mariadb: '10.0'
 
-before_script:
+before_install:
   - npm install -g bower
+  - bower install
+
+before_script:
   - mysql -e 'DROP DATABASE IF EXISTS alxarafe;'
   - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
 
