@@ -56,14 +56,14 @@ class Singleton
     /**
      * The private constructor prevents instantiation through new.
      */
-    public function __construct()
+    protected function __construct()
     {
         try {
             self::$className = (new ReflectionClass($this))->getShortName();
         } catch (\ReflectionException $e) {
             self::$className = $this;
         }
-        self::$basePath = basePath('config/');
+        self::$basePath = basePath('config');
     }
 
     /**
@@ -96,11 +96,6 @@ class Singleton
 
         if (!isset(self::$instance[$index])) {
             self::$instance[$index] = new $class();
-            try {
-                self::$className = (new ReflectionClass(self::$instance[$index]))->getShortName();
-            } catch (\ReflectionException $e) {
-                self::$className = $class;
-            }
         }
 
         return self::$instance[$index];
@@ -113,7 +108,7 @@ class Singleton
      */
     protected function getConfig(): array
     {
-        $file = self::$basePath . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
+        $file = self::$basePath . '/' . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
         if ($this->fileExists($file)) {
             $yaml = file_get_contents($file);
             if ($yaml) {
@@ -136,7 +131,7 @@ class Singleton
     {
         $yamlArray = [];
 
-        $file = self::$basePath . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
+        $file = self::$basePath . '/' . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
         if ($this->fileExists($file)) {
             $yaml = file_get_contents($file);
             $yamlArray = Yaml::parse($yaml) ?? [];

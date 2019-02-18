@@ -6,9 +6,6 @@
 
 namespace Alxarafe\Providers;
 
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
-
 /**
  * Class Routes
  * A route is a pair key => value, where key is the short name of the controller and the value the FQCN
@@ -26,16 +23,13 @@ class Router extends Singleton
 
     /**
      * Routes constructor.
-     *
-     * @param string $filePath
      */
-    public function __construct()
+    protected function __construct()
     {
-        parent::__construct();
         // The class uses its own configuration file
         self::$separateConfigFile = true;
-        $this->routes = $this->getRoutes();
-        var_dump($this->routes);
+        parent::__construct();
+        $this->getRoutes();
     }
 
     /**
@@ -45,23 +39,23 @@ class Router extends Singleton
      */
     public function getRoutes(): array
     {
-        $routes = $this->getConfig();
-        if (empty($routes)) {
-            $routes = $this->getDefaultRoutes();
+        $this->routes = $this->getConfig();
+        if (empty($this->routes)) {
+            $this->routes = $this->getDefaultRoutes();
         }
-        return $routes;
+        return $this->routes;
     }
 
     /**
      * Set a new list of routes.
      *
      * @param array $routes
+     */
     public function setRoutes(array $routes = [])
     {
         $this->routes = $routes;
-        $this->saveRoutes();
+        $this->setConfig(['router' => $this->routes]);
     }
-     */
 
     /**
      * Return a list of essential controllers.
@@ -76,15 +70,6 @@ class Router extends Singleton
             'Login' => 'Alxarafe\\Controllers\\Login',
         ];
     }
-
-    /**
-     * Persist routes to file.
-    public function saveRoutes()
-    {
-        $yamlData = Yaml::dump($this->routes);
-        return (bool) file_put_contents($this->filePath, $yamlData);
-    }
-     */
 
     /**
      * Add a new route if is not yet added.
