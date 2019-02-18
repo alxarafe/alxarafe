@@ -29,11 +29,11 @@ class Router extends Singleton
      *
      * @param string $filePath
      */
-    private function __construct()
+    public function __construct()
     {
-        parent::__construct;
+        parent::__construct();
         // The class uses its own configuration file
-        $this->separateConfigFile = true;
+        self::$separateConfigFile = true;
         $this->routes = $this->getConfig();
         if (count($this->routes) == 0) {
             $this->routes = $this->getDefaultRoutes();

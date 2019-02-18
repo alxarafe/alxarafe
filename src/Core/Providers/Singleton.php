@@ -3,9 +3,11 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Providers;
 
 use ReflectionClass;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Singleton
@@ -17,7 +19,7 @@ class Singleton
 
     /**
      * Name of the class
-     * 
+     *
      * @var string
      */
     private static $className;
@@ -31,7 +33,7 @@ class Singleton
 
     /**
      * Set to true if you want to save configuration in a separate file
-     * 
+     *
      * @var bool
      */
     protected static $separateConfigFile = false;
@@ -54,16 +56,14 @@ class Singleton
     /**
      * The private constructor prevents instantiation through new.
      */
-    private function __construct()
+    public function __construct()
     {
         try {
             self::$className = (new ReflectionClass($this))->getShortName();
         } catch (\ReflectionException $e) {
-            // $this must exists always, this exception must never success
-            var_dump($e);
-            die('Singelton constructor: $this must exists always, this exception must never success');
+            self::$className = $this;
         }
-        self::$basePath = constant('BASE_PATH') . '/config';
+        self::$basePath = basePath('config/');
         $config = self::getConfig();
         var_dump($config);
     }
@@ -84,42 +84,61 @@ class Singleton
      * index passed to getInstance
      *
      * @param string $index
-     * @return type
+     *
+     * @return self
      */
     public static function getInstance(string $index = 'main')
     {
+        $class = get_called_class();
+        self::$instance = [];
+
         if (!self::$singletonArray) {
             $index = 'main';
         }
 
         if (!isset(self::$instance[$index])) {
-            self::$instance[$index] = new self();
+            self::$instance[$index] = new $class();
+            try {
+                self::$className = (new ReflectionClass(self::$instance[$index]))->getShortName();
+            } catch (\ReflectionException $e) {
+                self::$className = $class;
+            }
         }
 
         return self::$instance[$index];
     }
 
-    protected function getConfig()
+    /**
+     * Returns the yaml config params.
+     *
+     * @return array
+     */
+    protected function getConfig(): array
     {
-        $file = $this->basePath . (self::$separateConfigFile ? self::$className : 'config') . '.yaml';
+        $file = self::$basePath . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
         if ($this->fileExists($file)) {
             $yaml = file_get_contents($file);
             if ($yaml) {
-                $yamlArray = Yaml::parse($yaml);
+                $content = Yaml::parse($yaml);
                 if (self::$separateConfigFile) {
-                    return $yamlArray;
+                    return $content;
                 }
-                return $yamlArray[self::$className] ?? [];
+                return $content[self::$className] ?? [];
             }
         }
         return [];
     }
 
+    /**
+     * @param array $params
+     *
+     * @return bool
+     */
     protected function setConfig(array $params)
     {
         $yamlArray = [];
 
-        $file = $this->basePath . (self::$separateConfigFile ? self::$className : 'config') . '.yaml';
+        $file = self::$basePath . (self::$separateConfigFile ? self::$className : 'config') . '.yaml';
         if ($this->fileExists($file)) {
             $yaml = file_get_contents($file);
             $yamlArray = Yaml::parse($yaml) ?? [];
@@ -128,5 +147,17 @@ class Singleton
         $content = array_merge($yamlArray, $params);
 
         return file_put_contents($file, Yaml::dump($content)) !== false;
+    }
+
+    /**
+     * Returns if file exists.
+     *
+     * @param string $filename
+     *
+     * @return bool
+     */
+    private function fileExists(string $filename)
+    {
+        return (isset($filename) && file_exists($filename) && is_file($filename));
     }
 }
