@@ -19,7 +19,8 @@ addons:
   mariadb: '10.0'
 
 before_install:
-  - npm install -g bower
+  - npm -i -g npm
+  - npm -i -g bower
   - bower install
 
 before_script:

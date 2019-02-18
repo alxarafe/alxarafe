@@ -38,20 +38,6 @@ class ConfigurationManager
     protected $configContent;
 
     /**
-     * Full path to route file.
-     *
-     * @var string
-     */
-    protected $_routeFile;
-
-    /**
-     * Containts the routes content.
-     *
-     * @var array
-     */
-    protected $_routeContent;
-
-    /**
      * ConfigurationManager constructor.
      *
      * @param $basePath
@@ -101,26 +87,6 @@ class ConfigurationManager
     public function setConfigFile(string $configFile): void
     {
         $this->configFile = $this->basePath . constant('DIRECTORY_SEPARATOR') . $configFile;
-    }
-
-    /**
-     * Returns the full route file path.
-     *
-     * @return string
-     */
-    public function _getRouteFile(): string
-    {
-        return $this->routeFile;
-    }
-
-    /**
-     * Sets the route file path.
-     *
-     * @param string $routeFile
-     */
-    public function _setRouteFile(string $routeFile): void
-    {
-        $this->routeFile = $this->basePath . constant('DIRECTORY_SEPARATOR') . $routeFile;
     }
 
     /**
