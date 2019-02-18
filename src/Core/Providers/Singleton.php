@@ -7,6 +7,7 @@
 namespace Alxarafe\Providers;
 
 use ReflectionClass;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -108,18 +109,11 @@ class Singleton
      */
     protected function getConfig(): array
     {
-        $file = self::$basePath . '/' . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
-        if ($this->fileExists($file)) {
-            $yaml = file_get_contents($file);
-            if ($yaml) {
-                $content = Yaml::parse($yaml);
-                if (self::$separateConfigFile) {
-                    return $content;
-                }
-                return $content[self::$className] ?? [];
-            }
+        $content = $this->getYamlContent();
+        if (self::$separateConfigFile) {
+            return $content;
         }
-        return [];
+        return $content[self::$className] ?? [];
     }
 
     /**
@@ -129,17 +123,9 @@ class Singleton
      */
     protected function setConfig(array $params)
     {
-        $yamlArray = [];
-
-        $file = self::$basePath . '/' . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
-        if ($this->fileExists($file)) {
-            $yaml = file_get_contents($file);
-            $yamlArray = Yaml::parse($yaml) ?? [];
-        }
-
-        $content = array_merge($yamlArray, $params);
-
-        return file_put_contents($file, Yaml::dump($content)) !== false;
+        $content = $this->getYamlContent();
+        $content = array_merge($content, $params);
+        return file_put_contents($this->getFilePath(), Yaml::dump($content)) !== false;
     }
 
     /**
@@ -152,5 +138,34 @@ class Singleton
     private function fileExists(string $filename)
     {
         return (isset($filename) && file_exists($filename) && is_file($filename));
+    }
+
+    /**
+     * Return the full file config path.
+     *
+     * @return string
+     */
+    private function getFilePath()
+    {
+        return self::$basePath . '/' . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
+    }
+
+    /**
+     * Returns the content of the Yaml file.
+     *
+     * @return array
+     */
+    private function getYamlContent()
+    {
+        $yamlContent = [];
+        $file = $this->getFilePath();
+        if ($this->fileExists($file)) {
+            try {
+                $yamlContent = Yaml::parse($file);
+            } catch (ParseException $e) {
+                $yamlContent = [];
+            }
+        }
+        return $yamlContent;
     }
 }
