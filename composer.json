@@ -32,7 +32,8 @@
     "symfony/cache": "^4.2",
     "parsecsv/php-parsecsv": "^1.1",
     "aura/session": "^2.1",
-    "kint-php/kint": "^3.1"
+    "kint-php/kint": "^3.1",
+    "symfony/http-foundation": "^4.2"
   },
   "autoload": {
     "psr-4": {

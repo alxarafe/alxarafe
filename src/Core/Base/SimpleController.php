@@ -12,6 +12,8 @@ use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\TemplateRender;
 use ReflectionClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Controller
@@ -49,6 +51,20 @@ class SimpleController
     public $renderer;
 
     /**
+     * Request from client.
+     *
+     * @var Request
+     */
+    public $request;
+
+    /**
+     * Response to client.
+     *
+     * @var Response
+     */
+    public $response;
+
+    /**
      * Contains dependencies.
      *
      * @var Container|null
@@ -68,6 +84,8 @@ class SimpleController
     public function __construct(Container $container = null)
     {
         $this->container = $container;
+        $this->request = $this->container->get('request');
+        $this->response = $this->container->get('response');
         $this->session = $this->container->get('session');
         $this->renderer = $this->container->get('render');
         $this->translator = $this->container->get('translator');

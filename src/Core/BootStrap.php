@@ -15,6 +15,8 @@ use Alxarafe\Providers\Database;
 use Alxarafe\Providers\Router;
 use Alxarafe\Providers\TemplateRender;
 use Kint\Kint;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class BootStrap
@@ -118,6 +120,20 @@ class BootStrap
     protected $configManager;
 
     /**
+     * Request from client.
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * Response to client.
+     *
+     * @var Response
+     */
+    protected $response;
+
+    /**
      * BootStrap constructor.
      *
      * @param string $basePath
@@ -129,6 +145,9 @@ class BootStrap
         $this->isDebug = $debug;
 
         $this->container = new Container();
+
+        $this->request = Request::createFromGlobals();
+        $this->response = new Response();
 
         $this->configManager = new ConfigurationManager($this->basePath . '/config');
 
@@ -226,6 +245,8 @@ class BootStrap
         $this->container->add('translator', $this->translator);
         $this->container->add('database', $this->database);
         $this->container->add('render', $this->render);
+        $this->container->add('request', $this->request);
+        $this->container->add('response', $this->response);
     }
 
     /**
@@ -238,22 +259,31 @@ class BootStrap
         $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_ENCODED);
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
+        $controller = null;
         $msg = $this->translator->trans('route-not-found');
+        $this->response->setStatusCode(Response::HTTP_NOT_FOUND);
         if ($this->router->hasRoute($call)) {
             $controllerName = $this->router->getRoute($call);
             $msg = $this->translator->trans('method-not-available');
+            $this->response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
             if (method_exists($controllerName, $method)) {
                 $controller = new $controllerName($this->container);
-                $controller->{$method}();
+                $reply = $controller->{$method}();
+                $this->response->setStatusCode(Response::HTTP_OK);
             }
         }
 
-        $this->render->setTemplate('error');
-        $vars = [
-            'ctrl' => $this,
-            'title' => $this->translator->trans('error'),
-            'msg' => $msg,
-        ];
-        $this->render->render($vars);
+        if ($controller === null) {
+            $this->render->setTemplate('error');
+            $vars = [
+                'ctrl' => $controller,
+                'title' => $this->translator->trans('error'),
+                'msg' => $msg,
+            ];
+            $reply = $this->render->render($vars);
+        }
+
+        $this->response->setContent($reply);
+        $this->response->send();
     }
 }

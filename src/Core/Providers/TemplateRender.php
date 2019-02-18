@@ -225,7 +225,7 @@ class TemplateRender
      *
      * @return string The rendered template
      */
-    public function render(array $data = [])
+    public function render(array $data = []): string
     {
         $render = null;
         try {
@@ -237,7 +237,7 @@ class TemplateRender
         } catch (\Twig_Error_Syntax $e) {
             Kint::dump($e->getMessage());
         }
-        echo $render;
+        return $render;
     }
 
     /**
