@@ -154,11 +154,17 @@ class BootStrap
         $this->configManager->setConfigFile('config.yaml');
         $this->configFile = $this->configManager->getConfigFile();
 
-        $this->configManager->setRouteFile('routes.yaml');
-        $this->routeFile = $this->configManager->getRouteFile();
+        /*
+          $this->configManager->setRouteFile('routes.yaml');
+          $this->routeFile = $this->configManager->getRouteFile();
 
+          $this->session = new Session();
+          $this->router = new Router($this->routeFile);
+         */
         $this->session = new Session();
-        $this->router = new Router($this->routeFile);
+
+        $this->router = Router::getInstance();
+
         $this->configData = $this->configManager->getConfigContent();
         if (empty($this->configData)) {
             $this->configData = $this->getDefaultConfig();

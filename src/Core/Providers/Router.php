@@ -15,15 +15,8 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @package Alxarafe\Providers
  */
-class Router
+class Router extends Singleton
 {
-    /**
-     * Path where routes are stored.
-     *
-     * @var string
-     */
-    private $filePath;
-
     /**
      * Contains all routes.
      *
@@ -36,18 +29,22 @@ class Router
      *
      * @param string $filePath
      */
-    public function __construct(string $filePath)
+    private function __construct()
     {
-        $this->routes = [];
-        $this->filePath = $filePath;
-        $this->setRoutes($this->getRoutes());
+        parent::__construct;
+        // The class uses its own configuration file
+        $this->separateConfigFile = true;
+        $this->routes = $this->getConfig();
+        if (count($this->routes) == 0) {
+            $this->routes = $this->getDefaultRoutes();
+            $this->setConfig($this->routes);
+        }
     }
 
     /**
      * Return a list of routes
      *
      * @return array
-     */
     public function getRoutes(): array
     {
         if (file_exists($this->filePath) && is_file($this->filePath)) {
@@ -62,17 +59,17 @@ class Router
 
         return $this->getDefaultRoutes();
     }
-
+     */
     /**
      * Set a new list of routes.
      *
      * @param array $routes
-     */
     public function setRoutes(array $routes = [])
     {
         $this->routes = $routes;
         $this->saveRoutes();
     }
+     */
 
     /**
      * Return a list of essential controllers.
@@ -90,12 +87,12 @@ class Router
 
     /**
      * Persist routes to file.
-     */
     public function saveRoutes()
     {
         $yamlData = Yaml::dump($this->routes);
         return (bool) file_put_contents($this->filePath, $yamlData);
     }
+     */
 
     /**
      * Add a new route if is not yet added.
@@ -113,7 +110,7 @@ class Router
         if (!isset($this->routes[$key]) || $force) {
             $this->routes[$key] = $value;
             $return = true;
-            $this->saveRoutes();
+            $this->setConfig($this->routes);
         }
 
         return $return;

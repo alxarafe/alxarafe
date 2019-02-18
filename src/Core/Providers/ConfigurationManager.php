@@ -42,14 +42,14 @@ class ConfigurationManager
      *
      * @var string
      */
-    protected $routeFile;
+    protected $_routeFile;
 
     /**
      * Containts the routes content.
      *
      * @var array
      */
-    protected $routeContent;
+    protected $_routeContent;
 
     /**
      * ConfigurationManager constructor.
@@ -108,7 +108,7 @@ class ConfigurationManager
      *
      * @return string
      */
-    public function getRouteFile(): string
+    public function _getRouteFile(): string
     {
         return $this->routeFile;
     }
@@ -118,7 +118,7 @@ class ConfigurationManager
      *
      * @param string $routeFile
      */
-    public function setRouteFile(string $routeFile): void
+    public function _setRouteFile(string $routeFile): void
     {
         $this->routeFile = $this->basePath . constant('DIRECTORY_SEPARATOR') . $routeFile;
     }
