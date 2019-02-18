@@ -86,12 +86,12 @@ class EditConfig extends PageController
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return string
      */
-    public function run(): void
+    public function run()
     {
-        $this->renderer->render();
-        $this->index();
+        return $this->renderer->render();
+        //$this->index();
     }
 
     /**
