@@ -29,47 +29,19 @@ class Router extends Singleton
      *
      * @param string $filePath
      */
-    public function __construct()
+    protected function __construct()
     {
-        parent::__construct();
         // The class uses its own configuration file
         self::$separateConfigFile = true;
+
+        parent::__construct();
+
         $this->routes = $this->getConfig();
         if (count($this->routes) == 0) {
             $this->routes = $this->getDefaultRoutes();
             $this->setConfig($this->routes);
         }
     }
-
-    /**
-     * Return a list of routes
-     *
-     * @return array
-    public function getRoutes(): array
-    {
-        if (file_exists($this->filePath) && is_file($this->filePath)) {
-            try {
-                $fileContent = Yaml::parseFile($this->filePath);
-            } catch (ParseException $e) {
-                $fileContent = [];
-            }
-
-            return $fileContent;
-        }
-
-        return $this->getDefaultRoutes();
-    }
-     */
-    /**
-     * Set a new list of routes.
-     *
-     * @param array $routes
-    public function setRoutes(array $routes = [])
-    {
-        $this->routes = $routes;
-        $this->saveRoutes();
-    }
-     */
 
     /**
      * Return a list of essential controllers.
@@ -84,15 +56,6 @@ class Router extends Singleton
             'Login' => 'Alxarafe\\Controllers\\Login',
         ];
     }
-
-    /**
-     * Persist routes to file.
-    public function saveRoutes()
-    {
-        $yamlData = Yaml::dump($this->routes);
-        return (bool) file_put_contents($this->filePath, $yamlData);
-    }
-     */
 
     /**
      * Add a new route if is not yet added.
