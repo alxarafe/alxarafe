@@ -25,9 +25,11 @@ class Container
      */
     public function __construct()
     {
-        $this->separateConfigFile = true;
-        $this->initSingleton();
-        self::$container = [];
+        if (self::$container === null) {
+            $this->separateConfigFile = true;
+            $this->initSingleton();
+            self::$container = [];
+        }
     }
 
     /**
@@ -42,8 +44,8 @@ class Container
      * Add new object to the container.
      *
      * @param string $key
-     * @param mixed $object
-     * @param bool $force
+     * @param mixed  $object
+     * @param bool   $force
      *
      * @return bool
      */

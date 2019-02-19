@@ -10,7 +10,6 @@ use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\PreProcessors;
-use Alxarafe\Providers\Container;
 use Alxarafe\Views\EditConfigView;
 use Symfony\Component\Yaml\Yaml;
 

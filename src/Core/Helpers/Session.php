@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\Singleton;
 use Aura\Session\SessionFactory;
 
 /**
@@ -16,6 +17,8 @@ use Aura\Session\SessionFactory;
  */
 class Session
 {
+    use Singleton;
+
     /**
      * Session info from cookie.
      *
@@ -35,20 +38,13 @@ class Session
      */
     public function __construct()
     {
-        $this->session = (new SessionFactory())->newInstance($_COOKIE);
-        $this->session->start();
-
-        // https://github.com/auraphp/Aura.Session#cross-site-request-forgery
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return $this
-     */
-    public function getSingleton(): self
-    {
-        return $this;
+        if ($this->session === null) {
+            $this->session = (new SessionFactory())->newInstance($_COOKIE);
+            if (session_status() == PHP_SESSION_NONE) {
+                $this->session->start();
+            }
+            // https://github.com/auraphp/Aura.Session#cross-site-request-forgery
+        }
     }
 
     /**

@@ -16,9 +16,9 @@ if (!function_exists('basePath')) {
      *
      * @return string
      */
-    function basePath(string $path): string
+    function basePath(string $path = ''): string
     {
-        return constant('BASE_PATH') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+        return constant('BASE_PATH') . (empty($path) ? $path : DIRECTORY_SEPARATOR . $path);
     }
 }
 

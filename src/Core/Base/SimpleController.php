@@ -85,7 +85,7 @@ class SimpleController
         $this->request = $this->container::get('request');
         $this->response = $this->container::get('response');
         $this->session = $this->container::get('session');
-        $this->renderer = $this->container::get('render');
+        $this->renderer = $this->container::get('renderer');
         $this->translator = $this->container::get('translator');
         $this->renderer->addVars([
             'ctrl' => $this,

@@ -25,9 +25,9 @@ class TwigFunctions
     /**
      * TwigFunctions constructor.
      */
-    public function __construct(Container $container)
+    public function __construct()
     {
-        $this->session = $container->get('session')->getSingleton();
+        $this->session = Container::getInstance()::get('session');
     }
 
     /**

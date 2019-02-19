@@ -238,7 +238,7 @@ class Skin
     private static function renderIt(array $vars): string
     {
         $return = null;
-        Debug::startTimer('render', 'Rendering time');
+        Debug::startTimer('renderer', 'Rendering time');
 
         switch (self::$templatesEngine) {
             case 'twig':
@@ -275,7 +275,7 @@ class Skin
                 $return = self::$templatesEngine . ' engine is not supported!';
         }
 
-        Debug::stopTimer('render');
+        Debug::stopTimer('renderer');
         return $return;
     }
 

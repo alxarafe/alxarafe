@@ -92,11 +92,11 @@ class BootStrap
     protected $configData;
 
     /**
-     * Manage the render.
+     * Manage the renderer.
      *
      * @var
      */
-    protected $render;
+    protected $renderer;
 
     /**
      * Contains dependencies.
@@ -147,12 +147,12 @@ class BootStrap
             $this->configData = $this->getDefaultConfig();
         }
 
-        $this->session = new Session();
+        $this->session = Session::getInstance();
         $this->router = Router::getInstance();
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
         $this->translator = Lang::getInstance();
         $this->database = Database::getInstance();
-        $this->render = new TemplateRender($this->container);
+        $this->renderer = TemplateRender::getInstance();
     }
 
     /**
@@ -204,7 +204,7 @@ class BootStrap
         $this->container::add('defaultLang', $this->defaultLang);
         $this->container::add('translator', $this->translator);
         $this->container::add('database', $this->database);
-        $this->container::add('render', $this->render);
+        $this->container::add('renderer', $this->renderer);
         $this->container::add('request', $this->request);
         $this->container::add('response', $this->response);
     }
@@ -235,13 +235,13 @@ class BootStrap
         }
 
         if ($controller === null) {
-            $this->render->setTemplate('error');
+            $this->renderer->setTemplate('error');
             $vars = [
                 'ctrl' => $controller,
                 'title' => $this->translator->trans('error'),
                 'msg' => $msg,
             ];
-            $reply = $this->render->render($vars);
+            $reply = $this->renderer->render($vars);
         }
 
         $this->response->setContent($reply);

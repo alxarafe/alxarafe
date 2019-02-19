@@ -22,6 +22,8 @@ use Twig_SimpleFunction;
  */
 class TemplateRender
 {
+    use Singleton;
+
     /**
      * Default: It is the folder that includes the templates.
      * Each template will be a folder whose name will be the one that will appear in the template selector.
@@ -70,11 +72,6 @@ class TemplateRender
     private $templatesFolder;
 
     /**
-     * @var Container
-     */
-    private $container;
-
-    /**
      * Contains the template vars.
      *
      * @var array
@@ -83,12 +80,10 @@ class TemplateRender
 
     /**
      * TemplateRender constructor.
-     *
-     * @param Container $container
      */
-    public function __construct(Container $container)
+    public function __construct()
     {
-        $this->container = $container;
+        $this->initSingleton();
         $this->template = null;
         $this->templateVars = [
             '_REQUEST' => $_REQUEST,
@@ -185,7 +180,7 @@ class TemplateRender
 
         // Add support for additional functions
         $twigFunctions = new Twig_SimpleFunction('TwigFunctions', function ($method, $params = []) {
-            $twigFunctionsClass = new TwigFunctions($this->container);
+            $twigFunctionsClass = new TwigFunctions();
             return $twigFunctionsClass->$method($params);
         });
         $this->twig->addFunction($twigFunctions);
@@ -230,13 +225,19 @@ class TemplateRender
     public function render(array $data = []): string
     {
         $render = null;
+        Kint::dump($this->getTemplate());
+        Kint::dump($this->getTemplateVars($data));
         try {
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
+            Kint::dump($render);
         } catch (\Twig_Error_Loader $e) {
+            // When the template cannot be found
             Kint::dump($e->getMessage());
         } catch (\Twig_Error_Runtime $e) {
+            // When an error occurred during rendering
             Kint::dump($e->getMessage());
         } catch (\Twig_Error_Syntax $e) {
+            // When an error occurred during compilation
             Kint::dump($e->getMessage());
         }
         return $render;
