@@ -53,6 +53,7 @@ class Logger
      */
     public static function exceptionHandler($e)
     {
+        Kint::$enabled_mode = constant('DEBUG');
         Kint::dump($e);
         self::$logger->info(
             'Exception [' . $e->getCode() . ']: ' . $e->getMessage() . PHP_EOL
