@@ -23,7 +23,6 @@ define('IDSEPARATOR', '~');
  */
 abstract class Controller extends PageController
 {
-
     /**
      * Contiene los datos que hay en $_POST. Es un array con el formato:
      * $this->postData[nombre_tabla][id_registro][nombre_campo]=valor
@@ -31,48 +30,56 @@ abstract class Controller extends PageController
      * @var array
      */
     public $postData;
+
     /**
      * La tabla principal del mantenimiento
      *
      * @var Table
      */
     public $model;
+
     /**
      * The table relate to the model.
      *
      * @var string
      */
     public $tableName;
+
     /**
      * The data view details for each data field.
      *
      * @var array
      */
     public $viewData;
+
     /**
      * Type of encryption for form.
      *
      * @var string
      */
     public $encType;
+
     /**
      * Data received or sended in post.
      *
      * @var array
      */
     public $tableData;
+
     /**
      * Code to table id.
      *
      * @var string
      */
     public $code;
+
     /**
      * Contains additional buttons info
      *
      * @var array
      */
     public $newButtons;
+
     /**
      * Contiene los datos que hay actualmente en disco. Es un array con el formato:
      * $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor
@@ -93,10 +100,12 @@ abstract class Controller extends PageController
      * @var array
      */
     protected $oldData;
+
     /**
      * @var array
      */
     protected $fieldsStruct;
+
     /**
      * Contiene la clave primaria del registro en curso.
      * En el caso de alta contendrá cadena vacía '' o 0.
@@ -107,6 +116,7 @@ abstract class Controller extends PageController
      * @var string|null
      */
     protected $currentId;
+
     /**
      * Puede contener 3 valores: listing, adding o editing.
      *

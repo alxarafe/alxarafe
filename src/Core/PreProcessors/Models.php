@@ -17,6 +17,8 @@ use Symfony\Component\Finder\Finder;
 class Models
 {
     /**
+     * Array that contains the paths to search.
+     *
      * @var array
      */
     protected $searchDir;

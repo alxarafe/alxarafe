@@ -60,22 +60,28 @@ class Config
      * @var string::null
      */
     public static $configFilename;
+
     /**
      * Translator
      *
      * @var Translator
      */
     public static $lang;
+
     /**
      * Cache core engine.
      *
      * @var PhpArrayAdapter
      */
     public static $cacheEngine;
+
     /**
+     * To manage PHP Sessions.
+     *
      * @var Session
      */
     public static $session;
+
     /**
      * Contains an array with the variables defined in the configuration file.
      * Use setVar to assign or getVar to access the variables of the array.
@@ -83,6 +89,7 @@ class Config
      * @var array
      */
     private static $global;
+
     /**
      * Contains a message list.
      *

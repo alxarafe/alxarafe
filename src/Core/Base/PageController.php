@@ -221,11 +221,7 @@ class PageController extends SimpleController
     private function canAction(string $username, string $action): bool
     {
         $pages = [];
-        try {
-            $className = (new ReflectionClass($this))->getShortName();
-        } catch (\ReflectionException $e) {
-            $className = get_called_class();
-        }
+        $className = (new ReflectionClass($this))->getShortName();
 
         if ($this->roles === null) {
             $this->roles = (new UserRole())->getAllRecordsBy('id_user', $this->user->getId());

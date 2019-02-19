@@ -25,16 +25,21 @@ class Auth extends User
      * Minimum cookie time expiration.
      */
     const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
+
     /**
      * User log key.
      *
      * @var string|null
      */
     public $logkey = null;
+
     /**
+     * To manage PHP Sessions.
+     *
      * @var \Alxarafe\Helpers\Session
      */
     protected $session;
+
     /**
      * Username in use.
      *
@@ -42,6 +47,7 @@ class Auth extends User
      */
 
     private $username = null;
+
     /**
      * User in use.
      *

@@ -34,6 +34,8 @@ class Database
     protected $sqlHelper;
 
     /**
+     * Array of config data
+     *
      * @var array
      */
     protected $config;
@@ -79,6 +81,8 @@ class Database
     }
 
     /**
+     * Returns the database engine.
+     *
      * @return Engine
      */
     public function getDbEngine(): Engine
@@ -87,6 +91,8 @@ class Database
     }
 
     /**
+     * Return the sql helper for the engine in use.
+     *
      * @return SqlHelper
      */
     public function getSqlHelper(): SqlHelper

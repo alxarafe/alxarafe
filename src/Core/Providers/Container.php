@@ -16,6 +16,8 @@ class Container
     use Singleton;
 
     /**
+     * Contains all items added.
+     *
      * @var array
      */
     protected static $container;
@@ -33,6 +35,8 @@ class Container
     }
 
     /**
+     * Return the full container.
+     *
      * @return array
      */
     public static function getContainer(): array

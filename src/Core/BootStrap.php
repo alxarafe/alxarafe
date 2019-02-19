@@ -73,7 +73,7 @@ class BootStrap
     protected $defaultLang;
 
     /**
-     * The translator class.
+     * The translator manager.
      *
      * @var Translator
      */
@@ -96,7 +96,7 @@ class BootStrap
     /**
      * Manage the renderer.
      *
-     * @var
+     * @var TemplateRender
      */
     protected $renderer;
 

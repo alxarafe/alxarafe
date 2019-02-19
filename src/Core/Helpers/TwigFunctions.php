@@ -20,11 +20,15 @@ use Twig\TwigFunction;
 class TwigFunctions extends AbstractExtension
 {
     /**
+     * To manage PHP Sessions.
+     *
      * @var Session
      */
     private $session;
 
     /**
+     * Manage the renderer.
+     *
      * @var TemplateRender
      */
     private $renderer;

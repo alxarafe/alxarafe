@@ -44,7 +44,7 @@ class SimpleController
     public $session;
 
     /**
-     * Manage the render.
+     * Manage the renderer.
      *
      * @var TemplateRender
      */
@@ -79,6 +79,8 @@ class SimpleController
     protected $container;
 
     /**
+     * The translator manager.
+     *
      * @var Translator
      */
     protected $translator;
@@ -88,11 +90,7 @@ class SimpleController
      */
     public function __construct()
     {
-        try {
-            $this->shortName = (new ReflectionClass($this))->getShortName();
-        } catch (\ReflectionException $e) {
-            $this->shortName = get_called_class();
-        }
+        $this->shortName = (new ReflectionClass($this))->getShortName();
         $this->container = Container::getInstance();
         $this->debugTool = $this->container::get('debugTool');
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Controller Constructor');

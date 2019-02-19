@@ -32,11 +32,7 @@ class Table extends SimpleTable
     public function __construct(string $tableName, array $params = [])
     {
         parent::__construct($tableName, $params);
-        try {
-            $shortName = (new ReflectionClass($this))->getShortName();
-        } catch (\ReflectionException $e) {
-            $shortName = get_called_class();
-        }
+        $shortName = (new ReflectionClass($this))->getShortName();
         $this->debugTool->startTimer($shortName, $shortName . ' Table Constructor');
 
         $create = $params['create'] ?? false;

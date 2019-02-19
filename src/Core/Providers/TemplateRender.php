@@ -28,16 +28,22 @@ class TemplateRender
     const SKINS_FOLDER = "/resources/skins";
 
     /**
+     * The renderer.
+     *
      * @var Twig_Environment
      */
     protected $twig;
 
     /**
+     * The template to use.
+     *
      * @var string|null
      */
     protected $template;
 
     /**
+     * The skin to use.
+     *
      * @var string|null
      */
     protected $skin;

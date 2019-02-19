@@ -74,6 +74,8 @@ class EditConfig extends PageController
     public $dbConfig;
 
     /**
+     * Array that contains the paths to search.
+     *
      * @var array
      */
     protected $searchDir;

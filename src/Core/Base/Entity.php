@@ -171,11 +171,7 @@ abstract class Entity
             case 'get':
                 return $this->newData[$field] ?? null;
             default:
-                try {
-                    $shortName = (new ReflectionClass($this))->getShortName();
-                } catch (\ReflectionException $e) {
-                    $shortName = get_called_class();
-                }
+                $shortName = (new ReflectionClass($this))->getShortName();
 
                 Kint::dump("Review $method in " . $shortName . ". Error collecting the '$command/$field' attribute", $params, true);
                 throw new Exception('Program halted!');

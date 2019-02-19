@@ -20,7 +20,6 @@ use ReflectionClass;
  */
 class View extends SimpleView
 {
-
     /**
      * True si se desea proteger la página de un cierre accidental mediante JS.
      *
@@ -38,54 +37,64 @@ class View extends SimpleView
      * @var bool
      */
     public $protectClose;
+
     /**
      * Table fields structure.
      *
      * @var
      */
     public $fieldsStruct;
+
     /**
      * Data received or sended in post.
      *
      * @var array
      */
     public $tableData;
+
     /**
      * The descendant of PageController that is accessed as page.
      *
      * @var PageController
      */
     public $controller;
+
     /**
      * The controller name, without namespace (the call controller value).
      *
      * @var string
      */
     public $controllerName;
+
     /**
      * Used on form to set a default value.
      *
      * @var string
      */
     public $encType;
+
     /**
      * Random code used to identify table/s by ID.
      *
      * @var string
      */
     public $code;
+
     /**
      * @var
      */
     public $btnAdd;
+
     /**
      * @var
      */
     public $btnSave;
+
     /**
      * @var
      */
     public $btnCancel;
+
     /**
      * Es el id que estamos editando:
      * - null sería en modo listado (consulta)
@@ -95,6 +104,7 @@ class View extends SimpleView
      * @var null|string
      */
     protected $currentId;
+
     /**
      * Es el estado de edición:
      * - listing cuando se muestra la lista de registros.
@@ -104,36 +114,42 @@ class View extends SimpleView
      * @var string
      */
     protected $status;
+
     /**
      * The model related to this view.
      *
      * @var mixed
      */
     protected $model;
+
     /**
      * The table relate to the model.
      *
      * @var string
      */
     protected $tableName;
+
     /**
      * Path for button "new"
      *
      * @var string
      */
     protected $pathnew;
+
     /**
      * Path for button "edit"
      *
      * @var string
      */
     protected $pathedit;
+
     /**
      * The data view details for each data field.
      *
      * @var array
      */
     protected $viewData;
+
     /**
      * Array of config data
      *
