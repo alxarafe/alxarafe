@@ -294,7 +294,7 @@ class Config
                     'dbPort' => self::$global['dbPort'],
                 ]);
             } catch (Exception $e) {
-                Logger::getInstance()->exceptionHandler($e);
+                Logger::getInstance()::exceptionHandler($e);
                 Config::setError($e->getMessage());
                 return false;
             }

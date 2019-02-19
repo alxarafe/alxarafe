@@ -265,13 +265,13 @@ class Skin
                 try {
                     $return = $twig->render(self::getTemplate(), $templateVars);
                 } catch (Twig_Error_Loader $e) {
-                    Logger::getInstance()->exceptionHandler($e);
+                    Logger::getInstance()::exceptionHandler($e);
                     self::errorDetails($e);
                 } catch (Twig_Error_Runtime $e) {
-                    Logger::getInstance()->exceptionHandler($e);
+                    Logger::getInstance()::exceptionHandler($e);
                     self::errorDetails($e);
                 } catch (Twig_Error_Syntax $e) {
-                    Logger::getInstance()->exceptionHandler($e);
+                    Logger::getInstance()::exceptionHandler($e);
                     self::errorDetails($e);
                 }
                 break;

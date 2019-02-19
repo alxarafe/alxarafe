@@ -264,7 +264,7 @@ abstract class Engine
             try {
                 $cacheItem = $cacheEngine->getItem($cachedName);
             } catch (InvalidArgumentException $e) {
-                Logger::getInstance()->exceptionHandler($e);
+                Logger::getInstance()::exceptionHandler($e);
             }
             if (!$cacheItem->isHit()) {
                 $cacheItem->set(self::select($query, $vars));
@@ -331,11 +331,11 @@ abstract class Engine
             self::$dbHandler = new PDODataCollector\TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
             Debug::$debugBar->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
             return false;
         } catch (DebugBarException $e) {
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
             return false;
         }

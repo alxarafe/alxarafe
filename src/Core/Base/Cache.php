@@ -130,7 +130,7 @@ class Cache
                 $directory
             );
         } catch (CacheException $e) {
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
         }
     }

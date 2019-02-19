@@ -191,7 +191,7 @@ class Schema
             try {
                 return Yaml::parse(file_get_contents($fileName));
             } catch (ParseException $e) {
-                Logger::getInstance()->exceptionHandler($e);
+                Logger::getInstance()::exceptionHandler($e);
                 Config::setError($e->getMessage());
                 return [];
             }

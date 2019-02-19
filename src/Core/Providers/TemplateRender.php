@@ -240,13 +240,13 @@ class TemplateRender
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
         } catch (\Twig_Error_Loader $e) {
             // When the template cannot be found
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
         } catch (\Twig_Error_Runtime $e) {
             // When an error occurred during rendering
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
         } catch (\Twig_Error_Syntax $e) {
             // When an error occurred during compilation
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
         }
         return $render;
     }

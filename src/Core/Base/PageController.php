@@ -243,7 +243,7 @@ class PageController extends SimpleController
             $className = (new ReflectionClass($this))->getShortName();
         } catch (\ReflectionException $e) {
             // $this must exists always, this exception must never success
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
         }
 

@@ -151,7 +151,7 @@ class Utils
             try {
                 $bytes = random_bytes($length);
             } catch (\Exception $e) {
-                Logger::getInstance()->exceptionHandler($e);
+                Logger::getInstance()::exceptionHandler($e);
                 self::randomString($length);
             }
         } else {

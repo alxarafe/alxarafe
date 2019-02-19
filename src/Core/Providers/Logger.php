@@ -26,23 +26,23 @@ class Logger
      *
      * @var Logger
      */
-    private $logger;
+    private static $logger;
 
     /**
      * Logger constructor.
      */
     public function __construct()
     {
-        if ($this->logger === null) {
+        if (self::$logger === null) {
             $this->initSingleton();
-            $this->logger = new MonologLogger('core_logger');
+            self::$logger = new MonologLogger('core_logger');
             set_exception_handler([$this, 'exceptionHandler']);
             try {
-                $this->logger->pushHandler(new StreamHandler(basePath('/config/core.log'), MonologLogger::DEBUG));
+                self::$logger->pushHandler(new StreamHandler(basePath('/config/core.log'), MonologLogger::DEBUG));
             } catch (\Exception $e) {
                 Kint::dump($e);
             }
-            $this->logger->pushHandler(new FirePHPHandler());
+            self::$logger->pushHandler(new FirePHPHandler());
         }
     }
 
@@ -51,10 +51,10 @@ class Logger
      *
      * @param Exception $e
      */
-    public function exceptionHandler($e)
+    public static function exceptionHandler($e)
     {
         Kint::dump($e);
-        $this->logger->info(
+        self::$logger->info(
             'Exception [' . $e->getCode() . ']: ' . $e->getMessage() . PHP_EOL
             . $e->getFile() . ':' . $e->getLine() . PHP_EOL
             . $e->getTraceAsString()

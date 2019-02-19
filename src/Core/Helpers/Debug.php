@@ -60,7 +60,7 @@ class Debug
         try {
             self::$logger->pushHandler(new StreamHandler(constant('BASE_PATH') . '/core.log', Logger::DEBUG));
         } catch (Exception $e) {
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
         }
         self::$logger->pushHandler(new FirePHPHandler());
@@ -75,7 +75,7 @@ class Debug
             // Config class adds another collector
             set_exception_handler([$this, 'exceptionHandler']);
         } catch (DebugBarException $e) {
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
         }
         $baseUrl = constant('VENDOR_URI') . '/maximebf/debugbar/src/DebugBar/Resources';

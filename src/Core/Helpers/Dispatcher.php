@@ -184,7 +184,7 @@ class Dispatcher
             try {
                 $shortName = (new ReflectionClass($theClass))->getShortName();
             } catch (\ReflectionException $e) {
-                Logger::getInstance()->exceptionHandler($e);
+                Logger::getInstance()::exceptionHandler($e);
                 $shortName = null;
                 Config::setError($e->getMessage());
             }

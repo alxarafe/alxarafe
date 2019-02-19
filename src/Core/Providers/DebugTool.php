@@ -58,7 +58,7 @@ class DebugTool
                 //$this->debugTool->addCollector(new PhpCollector());
                 //$this->debugTool->addCollector(new TranslatorCollector(Translator::getInstance()));
             } catch (DebugBarException $e) {
-                $this->logger->exceptionHandler($e);
+                $this->logger::exceptionHandler($e);
             }
             $baseUrl = basePath('vendor/maximebf/debugbar/src/DebugBar/Resources');
             $this->jsRender = $this->debugTool->getJavascriptRenderer($baseUrl, basePath());
@@ -75,7 +75,7 @@ class DebugTool
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
         $this->debugTool['exceptions']->addException($e);
-        $this->logger->exceptionHandler($e);
+        $this->logger::exceptionHandler($e);
     }
 
     /**

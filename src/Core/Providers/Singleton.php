@@ -77,7 +77,7 @@ trait Singleton
         try {
             $className = (new ReflectionClass($class))->getShortName();
         } catch (\ReflectionException $e) {
-            Logger::getInstance()->exceptionHandler($e);
+            Logger::getInstance()::exceptionHandler($e);
             $className = $class;
         }
         return $className;
@@ -193,7 +193,7 @@ trait Singleton
             try {
                 $yamlContent = Yaml::parseFile($file);
             } catch (ParseException $e) {
-                Logger::getInstance()->exceptionHandler($e);
+                Logger::getInstance()::exceptionHandler($e);
                 $yamlContent = [];
             }
         }
