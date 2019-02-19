@@ -1,12 +1,14 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\Container;
+use Alxarafe\Providers\DebugTool;
 use Exception;
 use Kint\Kint;
 use ReflectionClass;
@@ -19,6 +21,12 @@ use ReflectionClass;
 abstract class Entity
 {
     /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    public $debugTool;
+    /**
      * Value of the main index for the active record. When a record is loaded, this field will contain its id and will
      * be the one that will be used for in the WHERE clause of the UPDATE. If it does not exist in file it will contain
      * ''.
@@ -26,14 +34,12 @@ abstract class Entity
      * @var string
      */
     protected $id;
-
     /**
      * It is the name of the main id field. By default 'id'
      *
      * @var string
      */
     protected $idField;
-
     /**
      * It is the name of the field name. By default 'name'.
      * TODO: See if it may not exist, in which case, null or ''?
@@ -41,7 +47,6 @@ abstract class Entity
      * @var string
      */
     protected $nameField;
-
     /**
      * Contains the new data of the current record. It will start when loading a record and will be used when making a
      * save.
@@ -49,13 +54,20 @@ abstract class Entity
      * @var array
      */
     protected $newData;
-
     /**
      * It contains the data previous to the modification of the current record
      *
      * @var array
      */
     protected $oldData;
+
+    /**
+     * Entity constructor.
+     */
+    public function __construct()
+    {
+        $this->debugTool = Container::getInstance()::get('debugTool');
+    }
 
     /**
      * Return the value of id.
@@ -159,7 +171,13 @@ abstract class Entity
             case 'get':
                 return $this->newData[$field] ?? null;
             default:
-                Kint::dump("Review $method in " . (new ReflectionClass($this))->getShortName() . ". Error collecting the '$command/$field' attribute", $params, true);
+                try {
+                    $shortName = (new ReflectionClass($this))->getShortName();
+                } catch (\ReflectionException $e) {
+                    $shortName = get_called_class();
+                }
+
+                Kint::dump("Review $method in " . $shortName . ". Error collecting the '$command/$field' attribute", $params, true);
                 throw new Exception('Program halted!');
         }
     }

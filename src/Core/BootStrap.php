@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe;
@@ -225,6 +225,8 @@ class BootStrap
         $this->container::add('renderer', $this->renderer);
         $this->container::add('request', $this->request);
         $this->container::add('response', $this->response);
+        $this->container::add('debugTool', $this->debugTool);
+        $this->container::add('log', $this->log);
     }
 
     /**

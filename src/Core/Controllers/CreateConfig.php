@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Controllers;
@@ -9,7 +9,6 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\SimpleController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Providers\DebugTool;
 use Alxarafe\Views\CreateConfigView;
 use Symfony\Component\Yaml\Yaml;
 
@@ -40,7 +39,7 @@ class CreateConfig extends SimpleController
         switch ($action) {
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
-                DebugTool::getInstance()->addMessage('messages', $msg);
+                $this->debugTool->addMessage('messages', $msg);
                 Config::setInfo($msg);
                 header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;

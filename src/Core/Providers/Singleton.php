@@ -112,6 +112,43 @@ trait Singleton
     }
 
     /**
+     * Returns the class name.
+     */
+    private static function getClassName()
+    {
+        $class = get_called_class();
+        try {
+            $className = (new ReflectionClass($class))->getShortName();
+        } catch (\ReflectionException $e) {
+            Logger::getInstance()::exceptionHandler($e);
+            $className = $class;
+        }
+        return $className;
+    }
+
+    /**
+     * The object is created from within the class itself only if the class
+     * has no instance.
+     *
+     * We opted to use an array to make several singletons according to the
+     * index passed to getInstance
+     *
+     * @param string $index
+     *
+     * @return self
+     */
+    public static function getInstance(string $index = 'main'): self
+    {
+        if (!self::$singletonArray) {
+            $index = 'main';
+        }
+        if (!isset(self::$instances[self::getClassName()][$index])) {
+            self::$instances[self::getClassName()][$index] = new static();
+        }
+        return self::$instances[self::getClassName()][$index];
+    }
+
+    /**
      * Returns if file exists.
      *
      * @param string $filename
@@ -158,42 +195,5 @@ trait Singleton
         self::$instances = [];
         self::$className = self::getClassName();
         self::$basePath = basePath('config');
-    }
-
-    /**
-     * Returns the class name.
-     */
-    private static function getClassName()
-    {
-        $class = get_called_class();
-        try {
-            $className = (new ReflectionClass($class))->getShortName();
-        } catch (\ReflectionException $e) {
-            Logger::getInstance()::exceptionHandler($e);
-            $className = $class;
-        }
-        return $className;
-    }
-
-    /**
-     * The object is created from within the class itself only if the class
-     * has no instance.
-     *
-     * We opted to use an array to make several singletons according to the
-     * index passed to getInstance
-     *
-     * @param string $index
-     *
-     * @return self
-     */
-    public static function getInstance(string $index = 'main'): self
-    {
-        if (!self::$singletonArray) {
-            $index = 'main';
-        }
-        if (!isset(self::$instances[self::getClassName()][$index])) {
-            self::$instances[self::getClassName()][$index] = new static();
-        }
-        return self::$instances[self::getClassName()][$index];
     }
 }

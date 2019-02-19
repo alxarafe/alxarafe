@@ -1,12 +1,13 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
+use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use DebugBar\DataCollector\PDO as PDODataCollector;
@@ -23,26 +24,29 @@ abstract class Engine
 {
 
     /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    public static $debugTool;
+    /**
      * Data Source Name
      *
      * @var string
      */
     protected static $dsn;
-
     /**
      * Array that contains the access data to the database.
      *
      * @var array
      */
     protected static $dbConfig;
-
     /**
      * The handler of the database.
      *
      * @var PDO
      */
     protected static $dbHandler;
-
     /**
      * Represents a prepared statement and, after the statement is executed,
      * an associated result set.
@@ -50,14 +54,12 @@ abstract class Engine
      * @var \PDOStatement|bool
      */
     protected static $statement;
-
     /**
      * True if the database engine supports SAVEPOINT in transactions
      *
      * @var bool
      */
     protected static $savePointsSupport = true;
-
     /**
      * Number of transactions in execution
      *
@@ -73,6 +75,7 @@ abstract class Engine
     public function __construct(array $dbConfig)
     {
         self::$dbConfig = $dbConfig;
+        self::$debugTool = Container::getInstance()::get('debugTool');
     }
 
     /**
@@ -148,6 +151,29 @@ abstract class Engine
     }
 
     /**
+     * Prepare and execute the query.
+     *
+     * @param string $query
+     * @param array  $vars
+     *
+     * @return bool
+     */
+    final public static function exec(string $query, $vars = []): bool
+    {
+        // Remove extra blankspace to be more readable
+        $query = preg_replace('/\s+/', ' ', $query);
+        $ok = false;
+        self::$statement = self::$dbHandler->prepare($query);
+        if (self::$statement) {
+            $ok = self::$statement->execute($vars);
+        }
+        if (!$ok) {
+            self::$debugTool->addMessage('SQL', 'PDO ERROR in exec: ' . $query);
+        }
+        return $ok;
+    }
+
+    /**
      * Executes a SELECT SQL statement on the core cache.
      *
      * @param string $query
@@ -168,9 +194,9 @@ abstract class Engine
             if (!$cacheItem->isHit()) {
                 $cacheItem->set(self::select($query, $vars));
                 if ($cacheEngine->save($cacheItem)) {
-                    DebugTool::getInstance()->addMessage('messages', "Cache data saved to '" . $cachedName . "'.");
+                    self::$debugTool->addMessage('messages', "Cache data saved to '" . $cachedName . "'.");
                 } else {
-                    DebugTool::getInstance()->addMessage('messages', 'Cache data not saved.');
+                    self::$debugTool->addMessage('messages', 'Cache data not saved.');
                 }
             }
             if ($cacheEngine->hasItem($cachedName)) {
@@ -180,6 +206,26 @@ abstract class Engine
             return [];
         }
         return self::select($query, $vars);
+    }
+
+    /**
+     * Executes a SELECT SQL statement on the database, returning the result in an array.
+     * In case of failure, return NULL. If there is no data, return an empty array.
+     *
+     * @param string $query
+     * @param array  $vars
+     *
+     * @return array
+     */
+    public static function select(string $query, array $vars = []): array
+    {
+        // Remove extra blankspace to be more readable
+        $query = preg_replace('/\s+/', ' ', $query);
+        self::$statement = self::$dbHandler->prepare($query);
+        if (self::$statement && self::$statement->execute($vars)) {
+            return self::$statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return [];
     }
 
     /**
@@ -229,7 +275,7 @@ abstract class Engine
             throw new PDOException('Rollback error : There is no transaction started');
         }
 
-        DebugTool::getInstance()->addMessage('SQL', 'Rollback, savepoint LEVEL' . self::$transactionDepth);
+        self::$debugTool->addMessage('SQL', 'Rollback, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
@@ -240,29 +286,6 @@ abstract class Engine
         }
 
         return $ret;
-    }
-
-    /**
-     * Prepare and execute the query.
-     *
-     * @param string $query
-     * @param array  $vars
-     *
-     * @return bool
-     */
-    final public static function exec(string $query, $vars = []): bool
-    {
-        // Remove extra blankspace to be more readable
-        $query = preg_replace('/\s+/', ' ', $query);
-        $ok = false;
-        self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement) {
-            $ok = self::$statement->execute($vars);
-        }
-        if (!$ok) {
-            DebugTool::getInstance()->addMessage('SQL', 'PDO ERROR in exec: ' . $query);
-        }
-        return $ok;
     }
 
     /**
@@ -277,26 +300,6 @@ abstract class Engine
             return $data[0]['id'];
         }
         return '';
-    }
-
-    /**
-     * Executes a SELECT SQL statement on the database, returning the result in an array.
-     * In case of failure, return NULL. If there is no data, return an empty array.
-     *
-     * @param string $query
-     * @param array  $vars
-     *
-     * @return array
-     */
-    public static function select(string $query, $vars = []): array
-    {
-        // Remove extra blankspace to be more readable
-        $query = preg_replace('/\s+/', ' ', $query);
-        self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement && self::$statement->execute($vars)) {
-            return self::$statement->fetchAll(PDO::FETCH_ASSOC);
-        }
-        return [];
     }
 
     /**
@@ -321,15 +324,15 @@ abstract class Engine
     public function connect(array $config = []): bool
     {
         if (self::$dbHandler != null) {
-            DebugTool::getInstance()->addMessage('SQL', "PDO: Already connected " . self::$dsn);
+            self::$debugTool->addMessage('SQL', "PDO: Already connected " . self::$dsn);
             return true;
         }
-        DebugTool::getInstance()->addMessage('SQL', "PDO: " . self::$dsn);
+        self::$debugTool->addMessage('SQL', "PDO: " . self::$dsn);
         try {
             // Logs SQL queries. You need to wrap your PDO object into a DebugBar\DataCollector\PDO\TraceablePDO object.
             // http://phpdebugbar.com/docs/base-collectors.html
             self::$dbHandler = new PDODataCollector\TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
-            DebugTool::getInstance()->getDebugTool()->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
+            self::$debugTool->getDebugTool()->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
             Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
@@ -411,7 +414,7 @@ abstract class Engine
         }
 
         self::$transactionDepth++;
-        DebugTool::getInstance()->addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
+        self::$debugTool->addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
 
         return $ret;
     }
@@ -425,7 +428,7 @@ abstract class Engine
     {
         $ret = true;
 
-        DebugTool::getInstance()->addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
+        self::$debugTool->addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {

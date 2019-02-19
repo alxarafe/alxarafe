@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Helpers;
@@ -30,12 +30,20 @@ class TwigFunctions extends AbstractExtension
     private $renderer;
 
     /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    private $debugTool;
+
+    /**
      * TwigFunctions constructor.
      */
     public function __construct()
     {
         $this->session = Container::getInstance()::get('session');
         $this->renderer = Container::getInstance()::get('renderer');
+        $this->debugTool = Container::getInstance()::get('debugTool');
     }
 
     /**
@@ -132,7 +140,7 @@ class TwigFunctions extends AbstractExtension
      */
     public function getHeader(): string
     {
-        return DebugTool::getInstance()->getRenderHeader();
+        return $this->debugTool->getRenderHeader();
     }
 
     /**
@@ -142,6 +150,6 @@ class TwigFunctions extends AbstractExtension
      */
     public function getFooter(): string
     {
-        return DebugTool::getInstance()->getRenderFooter();
+        return $this->debugTool->getRenderFooter();
     }
 }

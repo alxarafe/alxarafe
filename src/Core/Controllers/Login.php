@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Controllers;
@@ -10,7 +10,6 @@ use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Providers\DebugTool;
 use Alxarafe\Views\LoginView;
 
 /**
@@ -82,7 +81,7 @@ class Login extends PageController
         if (!empty($this->redirect)) {
             $where = base64_decode(urldecode($this->redirect));
         }
-        DebugTool::getInstance()->addMessage('messages', $where);
+        $this->debugTool->addMessage('messages', $where);
         header('Location: ' . $where);
     }
 

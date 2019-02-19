@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Providers;
@@ -14,13 +14,14 @@ use DebugBar\StandardDebugBar;
 use Exception;
 
 /**
- * Class DebugBar
+ * Class DebugTool
  *
  * @package Alxarafe\Providers
  */
 class DebugTool
 {
     use Singleton;
+
     /**
      * The debug bar.
      *

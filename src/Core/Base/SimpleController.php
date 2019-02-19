@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Base;
@@ -65,6 +65,13 @@ class SimpleController
     public $response;
 
     /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    public $debugTool;
+
+    /**
      * Contains dependencies.
      *
      * @var Container|null
@@ -81,7 +88,14 @@ class SimpleController
      */
     public function __construct()
     {
+        try {
+            $this->shortName = (new ReflectionClass($this))->getShortName();
+        } catch (\ReflectionException $e) {
+            $this->shortName = get_called_class();
+        }
         $this->container = Container::getInstance();
+        $this->debugTool = $this->container::get('debugTool');
+        $this->debugTool->startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->request = $this->container::get('request');
         $this->response = $this->container::get('response');
         $this->session = $this->container::get('session');
@@ -91,11 +105,9 @@ class SimpleController
             'ctrl' => $this,
             'lang' => $this->translator,
         ]);
-        $this->shortName = (new ReflectionClass($this))->getShortName();
         $this->renderer->setTemplate(strtolower($this->shortName));
-        DebugTool::getInstance()->startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->username = null;
-        DebugTool::getInstance()->stopTimer($this->shortName);
+        $this->debugTool->stopTimer($this->shortName);
     }
 
     /**

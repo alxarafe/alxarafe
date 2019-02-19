@@ -1,14 +1,13 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
-use Alxarafe\Providers\DebugTool;
 use ReflectionClass;
 
 /**
@@ -43,8 +42,13 @@ class SimpleTable extends Entity
      */
     public function __construct(string $tableName, array $params = [])
     {
-        $this->modelName = (new ReflectionClass($this))->getShortName();
-        DebugTool::getInstance()->startTimer($this->modelName, $this->modelName . ' Simple Constructor');
+        parent::__construct();
+        $this->debugTool->startTimer($this->modelName, $this->modelName . ' Simple Constructor');
+        try {
+            $this->modelName = (new ReflectionClass($this))->getShortName();
+        } catch (\ReflectionException $e) {
+            $this->modelName = get_called_class();
+        }
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->nameField = $params['nameField'] ?? null;
@@ -58,7 +62,7 @@ class SimpleTable extends Entity
                 }
             }
         }
-        DebugTool::getInstance()->stopTimer($this->modelName);
+        $this->debugTool->stopTimer($this->modelName);
     }
 
     /**

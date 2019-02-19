@@ -1,13 +1,14 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
 
 /**
@@ -28,7 +29,12 @@ class SimpleView
      * @var string
      */
     public $title;
-
+    /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    public $debugTool;
     /**
      * Array that contains the variables that will be passed to the template.
      * Among others it will contain the user name, the view and the controller.
@@ -44,6 +50,7 @@ class SimpleView
      */
     public function __construct($controller = null)
     {
+        $this->debugTool = Container::getInstance()::get('debugTool');
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
@@ -90,7 +97,7 @@ class SimpleView
             Skin::setTemplate('default');
         }
         echo Skin::render($this->vars);
-        DebugTool::getInstance()->stopTimer('full-execution');
+        $this->debugTool->stopTimer('full-execution');
     }
 
     /**
@@ -114,11 +121,11 @@ class SimpleView
             if ($uri !== '') {
                 return $uri;
             }
-            DebugTool::getInstance()->addMessage('messages', "Relative resource '$resourceName' not found!");
+            $this->debugTool->addMessage('messages', "Relative resource '$resourceName' not found!");
         }
         if (!file_exists($resourceName)) {
-            DebugTool::getInstance()->addMessage('messages', "Absolute resource '$resourceName' not found!");
-            DebugTool::getInstance()->addMessage('messages', "File '$resourceName' not found!");
+            $this->debugTool->addMessage('messages', "Absolute resource '$resourceName' not found!");
+            $this->debugTool->addMessage('messages', "File '$resourceName' not found!");
             return '';
         }
         return $resourceName;
@@ -220,7 +227,7 @@ class SimpleView
      */
     public function getHeader(): string
     {
-        return DebugTool::getInstance()->getRenderHeader();
+        return $this->debugTool->getRenderHeader();
     }
 
     /**
@@ -230,6 +237,6 @@ class SimpleView
      */
     public function getFooter(): string
     {
-        return DebugTool::getInstance()->getRenderFooter();
+        return $this->debugTool->getRenderFooter();
     }
 }

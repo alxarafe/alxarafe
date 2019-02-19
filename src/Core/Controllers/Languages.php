@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Controllers;
@@ -9,7 +9,6 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
 use Alxarafe\Models\Language;
-use Alxarafe\Providers\DebugTool;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -75,7 +74,7 @@ class Languages extends Controller
             }
 
             $fileName = $lang['language'] . '_' . $lang['variant'];
-            DebugTool::getInstance()->addMessage('messages', 'Processing ' . $fileName . ' language');
+            $this->debugTool->addMessage('messages', 'Processing ' . $fileName . ' language');
             // echo '<p>Processing ' . $lang['language'] . '_' . $lang['variant'] . ' language</p>';
 
             $subLanguage = null;

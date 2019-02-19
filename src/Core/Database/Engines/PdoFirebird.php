@@ -1,13 +1,12 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Database\Engines;
 
 use Alxarafe\Database\Engine;
-use Alxarafe\Providers\DebugTool;
 use PDO;
 
 /**
@@ -32,12 +31,13 @@ class PdoFirebird extends Engine
      * In case of failure, return NULL. If there is no data, return an empty array.
      *
      * @param string $query
+     * @param array  $vars
      *
      * @return array
      */
-    public static function select(string $query, array $vars = []): array
+    public static function select(string $cachedName, array $vars = []): array
     {
-        DebugTool::getInstance()->addMessage('SQL', 'PDO select: ' . $query);
+        self::$debugTool->addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         $result = [];
         if (self::$statement !== false && self::$statement->execute([])) {

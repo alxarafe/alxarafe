@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Base;
@@ -10,7 +10,6 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
 use Alxarafe\Models\TableModel;
-use Alxarafe\Providers\DebugTool;
 use ReflectionClass;
 
 /**
@@ -33,12 +32,16 @@ class Table extends SimpleTable
     public function __construct(string $tableName, array $params = [])
     {
         parent::__construct($tableName, $params);
-        $shortName = (new ReflectionClass($this))->getShortName();
-        DebugTool::getInstance()->startTimer($shortName, $shortName . ' Table Constructor');
+        try {
+            $shortName = (new ReflectionClass($this))->getShortName();
+        } catch (\ReflectionException $e) {
+            $shortName = get_called_class();
+        }
+        $this->debugTool->startTimer($shortName, $shortName . ' Table Constructor');
 
         $create = $params['create'] ?? false;
         $this->checkStructure($create);
-        DebugTool::getInstance()->stopTimer($shortName);
+        $this->debugTool->stopTimer($shortName);
     }
 
     /**

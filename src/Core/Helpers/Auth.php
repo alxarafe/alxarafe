@@ -1,13 +1,12 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
-use Alxarafe\Providers\DebugTool;
 
 /**
  * Class Auth
@@ -216,13 +215,13 @@ class Auth extends User
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time);
-                DebugTool::getInstance()->addMessage('messages', $this->user->username . " authenticated");
+                $this->debugTool->addMessage('messages', $this->user->username . " authenticated");
             } else {
                 $this->clearCookieUser();
-                DebugTool::getInstance()->addMessage('messages', "Checking hash wrong password");
+                $this->debugTool->addMessage('messages', "Checking hash wrong password");
             }
         } else {
-            DebugTool::getInstance()->addMessage('messages', "User '" . $userName . "' not founded.");
+            $this->debugTool->addMessage('messages', "User '" . $userName . "' not founded.");
         }
         return $this->username !== null;
     }

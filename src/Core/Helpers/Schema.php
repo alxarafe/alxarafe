@@ -1,11 +1,12 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use Exception;
@@ -20,6 +21,20 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Schema
 {
+    /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    private static $debugTool;
+
+    /**
+     * Schema constructor.
+     */
+    public function __construct()
+    {
+        self::$debugTool = Container::getInstance()::get('debugTool');
+    }
 
     /**
      * It collects the information from the database and creates files in YAML format
@@ -282,7 +297,7 @@ class Schema
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);
-            DebugTool::getInstance()->addException($e);
+            self::$debugTool->addException($e);
             return null;
         }
 

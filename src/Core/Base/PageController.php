@@ -1,19 +1,16 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Auth;
-use Alxarafe\Helpers\Config;
 use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
-use Alxarafe\Providers\DebugTool;
-use Alxarafe\Providers\Logger;
 use ReflectionClass;
 
 /**
@@ -204,7 +201,7 @@ class PageController extends SimpleController
                 'Update' => ($this->canUpdate ? 'yes' : 'no'),
                 'Delete' => ($this->canDelete ? 'yes' : 'no'),
             ];
-            DebugTool::getInstance()->addMessage(
+            $this->debugTool->addMessage(
                 'messages', "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
             );
             return true;
@@ -227,9 +224,7 @@ class PageController extends SimpleController
         try {
             $className = (new ReflectionClass($this))->getShortName();
         } catch (\ReflectionException $e) {
-            // $this must exists always, this exception must never success
-            Logger::getInstance()::exceptionHandler($e);
-            Config::setError($e->getMessage());
+            $className = get_called_class();
         }
 
         if ($this->roles === null) {
@@ -249,7 +244,7 @@ class PageController extends SimpleController
             }
         }
 
-        DebugTool::getInstance()->addMessage('messages', "Available '" . $action . "' pages for '" . $username . "': <pre>" . var_export($pages, true) . "</pre>");
+        $this->debugTool->addMessage('messages', "Available '" . $action . "' pages for '" . $username . "': <pre>" . var_export($pages, true) . "</pre>");
         $action = 'can_' . $action;
         foreach ($pages as $page) {
             if ($page->controller == $className && $page->{$action} == 1) {
