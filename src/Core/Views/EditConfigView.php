@@ -8,8 +8,10 @@ namespace Alxarafe\Views;
 
 use Alxarafe\Base\View;
 use Alxarafe\Database\Engine;
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Providers\Database;
+use Alxarafe\Providers\TemplateRender;
+use Alxarafe\Providers\Translator;
 
 /**
  * Class EditConfigView
@@ -75,25 +77,32 @@ class EditConfigView extends View
      */
     public function __construct($ctrl)
     {
-        Skin::setTemplate('editconfig');
-
         parent::__construct($ctrl);
+        Skin::setTemplate('editconfig');
+        $this->setDefaultData();
+    }
 
-        $vars = Config::configFileExists() ? Config::loadConfigurationFile() : [];
+    /**
+     * Sets default data values
+     */
+    private function setDefaultData()
+    {
+        $langConfig = Translator::getInstance()->getConfig();
+        $skinConfig = TemplateRender::getInstance()->getConfig();
+        $dbConfig = Database::getInstance()->getConfig();
 
         $this->dbEngines = Engine::getEngines();
-        $this->skins = Skin::getSkins();
-        $this->skin = $vars['skin'] ?? $this->skins[0] ?? '';
-        $this->languages = Config::$lang->getAvailableLanguages();
-        $this->language = $vars['language'] ?? $this->languages[0] ?? '';
+        $this->skins = TemplateRender::getInstance()->getSkins();
+        $this->skin = $skinConfig['skin'] ?? $this->skins[0] ?? '';
+        $this->languages = Translator::getInstance()->getAvailableLanguages();
+        $this->language = $langConfig['language'] ?? $this->languages[0] ?? '';
 
-        $this->dbEngineName = $vars['dbEngineName'] ?? $this->dbEngines[0] ?? '';
-
-        $this->dbConfig['dbUser'] = $vars['dbUser'] ?? 'root';
-        $this->dbConfig['dbPass'] = $vars['dbPass'] ?? '';
-        $this->dbConfig['dbName'] = $vars['dbName'] ?? 'alxarafe';
-        $this->dbConfig['dbHost'] = $vars['dbHost'] ?? 'localhost';
-        $this->dbConfig['dbPrefix'] = $vars['dbPrefix'] ?? '';
-        $this->dbConfig['dbPort'] = $vars['dbPort'] ?? '';
+        $this->dbEngineName = $dbConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
+        $this->dbConfig['dbUser'] = $dbConfig['dbUser'] ?? 'root';
+        $this->dbConfig['dbPass'] = $dbConfig['dbPass'] ?? '';
+        $this->dbConfig['dbName'] = $dbConfig['dbName'] ?? 'alxarafe';
+        $this->dbConfig['dbHost'] = $dbConfig['dbHost'] ?? 'localhost';
+        $this->dbConfig['dbPrefix'] = $dbConfig['dbPrefix'] ?? '';
+        $this->dbConfig['dbPort'] = $dbConfig['dbPort'] ?? '';
     }
 }
