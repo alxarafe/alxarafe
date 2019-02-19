@@ -225,11 +225,8 @@ class TemplateRender
     public function render(array $data = []): string
     {
         $render = null;
-        Kint::dump($this->getTemplate());
-        Kint::dump($this->getTemplateVars($data));
         try {
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
-            Kint::dump($render);
         } catch (\Twig_Error_Loader $e) {
             // When the template cannot be found
             Kint::dump($e->getMessage());
