@@ -159,15 +159,16 @@ class Translator
     /**
      * Stores if translation is used and if is missing.
      *
-     * @param $lang
+     * @param string $reference
+     * @param string $translation
      */
-    private function verifyMissing($lang)
+    private function verifyMissing($reference, $translation)
     {
-        self::$usedStrings[] = $lang;
+        self::$usedStrings[] = $reference;
 
         if ($this->getLocale() !== self::FALLBACK_LANG) {
-            if (!self::$translator->getCatalogue()->has($lang)) {
-                self::$missingStrings[] = $lang;
+            if (!self::$translator->getCatalogue()->has($reference)) {
+                self::$missingStrings[$reference] = $translation;
             }
         }
     }
@@ -185,7 +186,7 @@ class Translator
     public function trans($txt, array $parameters = [], $domain = null, $locale = null): string
     {
         $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
-        $this->verifyMissing($lang);
+        $this->verifyMissing($txt, $lang);
         return $lang;
     }
 
@@ -203,7 +204,7 @@ class Translator
     public function transChoice($txt, $number, array $parameters = [], $domain = null, $locale = null): string
     {
         $lang = self::$translator->transChoice($txt, $number, $parameters, $domain, $locale);
-        $this->verifyMissing($lang);
+        $this->verifyMissing($txt, $lang);
         return $lang;
     }
 
