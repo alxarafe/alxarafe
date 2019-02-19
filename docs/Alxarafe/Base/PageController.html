@@ -126,16 +126,56 @@
                                                                                 <a href="../../Alxarafe/Helpers/Session.html"><abbr title="Alxarafe\Helpers\Session">Session</abbr></a>
                 </td>
                 <td>$session</td>
-                <td class="last"></td>
+                <td class="last">To manage PHP Sessions.</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_session"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_renderer">
+                                                                                <a href="../../Alxarafe/Providers/TemplateRender.html"><abbr title="Alxarafe\Providers\TemplateRender">TemplateRender</abbr></a>
+                </td>
+                <td>$renderer</td>
+                <td class="last">Manage the render.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_renderer"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_request">
+                                                                                <abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr>
+                </td>
+                <td>$request</td>
+                <td class="last">Request from client.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_request"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_response">
+                                                                                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </td>
+                <td>$response</td>
+                <td class="last">Response to client.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_response"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_debugTool">
+                                                                                <a href="../../Alxarafe/Providers/DebugTool.html"><abbr title="Alxarafe\Providers\DebugTool">DebugTool</abbr></a>
+                </td>
+                <td>$debugTool</td>
+                <td class="last">The debug tool used.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_debugTool"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_container">
                                         protected                                        <a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a>|null
                 </td>
                 <td>$container</td>
-                <td class="last"></td>
+                <td class="last">Contains dependencies.</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_container"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_translator">
+                                        protected                                        <a href="../../Alxarafe/Providers/Translator.html"><abbr title="Alxarafe\Providers\Translator">Translator</abbr></a>
+                </td>
+                <td>$translator</td>
+                <td class="last"></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_translator"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_title">
@@ -260,7 +300,7 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null)
+                    <a href="#method___construct">__construct</a>()
         
                                             <p>PageController constructor.</p>                </div>
                 <div class="col-md-2"></div>
@@ -273,16 +313,6 @@
                     <a href="#method_index">index</a>()
         
                                             <p>Start point</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_ensureLogin">ensureLogin</a>()
-        
-                                            <p>Check if user is logged in, and redirect to this controller if needed.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -307,12 +337,12 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    array
+                    bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getPageDetails">getPageDetails</a>()
+                    <a href="#method_ensureLogin">ensureLogin</a>()
         
-                                            <p>Returns the page details as array.</p>                </div>
+                                            <p>Check if user is logged in, and redirect to this controller if needed.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -335,6 +365,16 @@
                                             <p>Return a list of pages for generate user menu.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getPageDetails">getPageDetails</a>()
+        
+                                            <p>Returns the page details as array.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -343,9 +383,9 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 134</div>
+        <div class="location">at         line 129</div>
         <code>                    
-    <strong>__construct</strong>(<a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a> $container = null)
+    <strong>__construct</strong>()
         </code>
     </h3>
     <div class="details">
@@ -355,16 +395,6 @@
                     <div class="method-description">
                                     <p>PageController constructor.</p>                                                </div>
                 <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a></td>
-                <td>$container</td>
-                <td></td>
-            </tr>
-            </table>
-
             
             
             
@@ -374,7 +404,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_index">
-        <div class="location">at         line 148</div>
+        <div class="location">at         line 171</div>
         <code>                    void
     <strong>index</strong>()
         </code>
@@ -403,38 +433,8 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_ensureLogin">
-        <div class="location">at         line 160</div>
-        <code>                private    bool
-    <strong>ensureLogin</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Check if user is logged in, and redirect to this controller if needed.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">at         line 195</div>
+        <div class="location">at         line 143</div>
         <code>            protected        void
     <strong>setPageDetails</strong>()
         </code>
@@ -464,7 +464,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 207</div>
+        <div class="location">at         line 155</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -493,10 +493,10 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getPageDetails">
-        <div class="location">at         line 223</div>
-        <code>            protected        array
-    <strong>getPageDetails</strong>()
+                    <h3 id="method_ensureLogin">
+        <div class="location">at         line 183</div>
+        <code>                private    bool
+    <strong>ensureLogin</strong>()
         </code>
     </h3>
     <div class="details">
@@ -504,14 +504,14 @@
     
 
                     <div class="method-description">
-                                    <p>Returns the page details as array.</p>                                                </div>
+                                    <p>Check if user is logged in, and redirect to this controller if needed.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td>array</td>
+            <td>bool</td>
             <td></td>
         </tr>
     </table>
@@ -524,7 +524,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">at         line 241</div>
+        <div class="location">at         line 221</div>
         <code>                private    bool
     <strong>canAction</strong>(string $username, string $action)
         </code>
@@ -569,7 +569,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">at         line 285</div>
+        <div class="location">at         line 263</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
@@ -580,6 +580,36 @@
 
                     <div class="method-description">
                                     <p>Return a list of pages for generate user menu.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getPageDetails">
+        <div class="location">at         line 295</div>
+        <code>            protected        array
+    <strong>getPageDetails</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the page details as array.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>

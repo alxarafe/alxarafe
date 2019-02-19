@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Helpers\Session | alxarafe</title>
+    <title>Alxarafe\Providers\DebugTool | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Helpers_Session" data-root-path="../../">
+    <body id="class" data-name="class:Alxarafe_Providers_DebugTool" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Helpers.html">Helpers</a></li><li class="backslash">\</li><li>Session</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li><li>DebugTool</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Session
+            DebugTool
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Session</strong>
+    <strong>DebugTool</strong>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class Session.</p>            <p>Tools for managing sessions, including session segments and read-once messages</p>                    </div>
+            <p>Class DebugTool</p>                                </div>
     
             <h2>Traits</h2>
 
@@ -150,19 +150,27 @@ param in getInstance</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#property_separateConfigFile"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_session">
-                                        protected                                        <abbr title="Aura\Session\Session">Session</abbr>
+                <td class="type" id="property_debugTool">
+                                                            private                    <abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr>
                 </td>
-                <td>$session</td>
-                <td class="last">Session info from cookie.</td>
+                <td>$debugTool</td>
+                <td class="last">The debug bar.</td>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_segmentName">
-                                        protected                                        string
+                <td class="type" id="property_jsRender">
+                                                            private                    <abbr title="DebugBar\JavascriptRenderer">JavascriptRenderer</abbr>
                 </td>
-                <td>$segmentName</td>
-                <td class="last">Segment name.</td>
+                <td>$jsRender</td>
+                <td class="last">The JS renderer.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_logger">
+                                                            private                    <a href="../../Alxarafe/Providers/Logger.html"><abbr title="Alxarafe\Providers\Logger">Logger</abbr></a>
+                </td>
+                <td>$logger</td>
+                <td class="last">The logger.</td>
                 <td></td>
             </tr>
             </table>
@@ -279,17 +287,7 @@ has no instance.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
         
-                                            <p>Session constructor.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    <abbr title="Aura\Session\Session">Session</abbr>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getSession">getSession</a>()
-        
-                                            <p>Return this session.</p>                </div>
+                                            <p>DebugTool constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -297,49 +295,39 @@ has no instance.</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setSegment">setSegment</a>(string $segmentName)
+                    <a href="#method_addException">addException</a>($e)
         
-                                            <p>Sets segment name.</p>                </div>
+                                            <p>Add a new exception to the debug bar.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    mixed
+                    <abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_get">get</a>(string $key)
+                    <a href="#method_getDebugTool">getDebugTool</a>()
         
-                                            <p>Get data from segment.</p>                </div>
+                                            <p>Return the internal debug instance for get the html code.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Aura\Session\Segment">Segment</abbr>
+                    string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getSegment">getSegment</a>()
+                    <a href="#method_getRenderHeader">getRenderHeader</a>()
         
-                                            <p>Return segment session.</p>                </div>
+                                            <p>Return the render header needed when debug is enabled. Otherwise return an empty string.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_set">set</a>(string $key, mixed $value)
+                    <a href="#method_getRenderFooter">getRenderFooter</a>()
         
-                                            <p>Set data key.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getFlash">getFlash</a>(string $key)
-        
-                                            <p>Get flash data by key.</p>                </div>
+                                            <p>Return the render footer needed when debug is enabled. Otherwise return an empty string.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -347,9 +335,29 @@ has no instance.</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setFlash">setFlash</a>(string $key, mixed $value)
+                    <a href="#method_startTimer">startTimer</a>(string $name, string $message = &#039;Timer started&#039;)
         
-                                            <p>Sets flash data by key.</p>                </div>
+                                            <p>Start a timer by name and message</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addMessage">addMessage</a>(string $channel, string $message)
+        
+                                            <p>Write a message in a channel (tab) of the debug bar.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_stopTimer">stopTimer</a>(string $name)
+        
+                                            <p>Stop a timer by name.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -689,7 +697,7 @@ index passed to getInstance</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 39</div>
+        <div class="location">at         line 49</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -699,7 +707,7 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Session constructor.</p>                                                </div>
+                                    <p>DebugTool constructor.</p>                                                </div>
                 <div class="tags">
             
             
@@ -709,40 +717,10 @@ index passed to getInstance</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getSession">
-        <div class="location">at         line 55</div>
-        <code>                    <abbr title="Aura\Session\Session">Session</abbr>
-    <strong>getSession</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return this session.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Aura\Session\Session">Session</abbr></td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setSegment">
-        <div class="location">at         line 65</div>
+                    <h3 id="method_addException">
+        <div class="location">at         line 76</div>
         <code>                    
-    <strong>setSegment</strong>(string $segmentName)
+    <strong>addException</strong>($e)
         </code>
     </h3>
     <div class="details">
@@ -750,14 +728,14 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Sets segment name.</p>                                                </div>
+                                    <p>Add a new exception to the debug bar.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
-                <td>$segmentName</td>
+                <td></td>
+                <td>$e</td>
                 <td></td>
             </tr>
             </table>
@@ -770,10 +748,10 @@ index passed to getInstance</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_get">
-        <div class="location">at         line 77</div>
-        <code>                    mixed
-    <strong>get</strong>(string $key)
+                    <h3 id="method_getDebugTool">
+        <div class="location">at         line 93</div>
+        <code>                    <abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr>
+    <strong>getDebugTool</strong>()
         </code>
     </h3>
     <div class="details">
@@ -781,24 +759,16 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Get data from segment.</p>                                                </div>
+                                    <p>Return the internal debug instance for get the html code.</p>                    <p>TODO: Analizar qué funciones harían falta para el html y retornar el html.
+Tal y como está ahora mismo sería dependiente de DebugBar. DebugBar debería de quedar TOTALMENTE encapsulado en
+esta clase.</p>                            </div>
                 <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-            </table>
-
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td>mixed</td>
+            <td><abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr></td>
             <td></td>
         </tr>
     </table>
@@ -810,10 +780,10 @@ index passed to getInstance</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getSegment">
-        <div class="location">at         line 87</div>
-        <code>                    <abbr title="Aura\Session\Segment">Segment</abbr>
-    <strong>getSegment</strong>()
+                    <h3 id="method_getRenderHeader">
+        <div class="location">at         line 103</div>
+        <code>                    string
+    <strong>getRenderHeader</strong>()
         </code>
     </h3>
     <div class="details">
@@ -821,14 +791,14 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Return segment session.</p>                                                </div>
+                                    <p>Return the render header needed when debug is enabled. Otherwise return an empty string.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td><abbr title="Aura\Session\Segment">Segment</abbr></td>
+            <td>string</td>
             <td></td>
         </tr>
     </table>
@@ -840,10 +810,40 @@ index passed to getInstance</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_set">
-        <div class="location">at         line 98</div>
+                    <h3 id="method_getRenderFooter">
+        <div class="location">at         line 116</div>
+        <code>                    string
+    <strong>getRenderFooter</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the render footer needed when debug is enabled. Otherwise return an empty string.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_startTimer">
+        <div class="location">at         line 130</div>
         <code>                    
-    <strong>set</strong>(string $key, mixed $value)
+    <strong>startTimer</strong>(string $name, string $message = &#039;Timer started&#039;)
         </code>
     </h3>
     <div class="details">
@@ -851,19 +851,19 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Set data key.</p>                                                </div>
+                                    <p>Start a timer by name and message</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
                 <td>string</td>
-                <td>$key</td>
+                <td>$name</td>
                 <td></td>
             </tr>
                     <tr>
-                <td>mixed</td>
-                <td>$value</td>
+                <td>string</td>
+                <td>$message</td>
                 <td></td>
             </tr>
             </table>
@@ -876,50 +876,10 @@ index passed to getInstance</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getFlash">
-        <div class="location">at         line 110</div>
-        <code>                    mixed
-    <strong>getFlash</strong>(string $key)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Get flash data by key.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setFlash">
-        <div class="location">at         line 121</div>
+                    <h3 id="method_addMessage">
+        <div class="location">at         line 145</div>
         <code>                    
-    <strong>setFlash</strong>(string $key, mixed $value)
+    <strong>addMessage</strong>(string $channel, string $message)
         </code>
     </h3>
     <div class="details">
@@ -927,19 +887,50 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Sets flash data by key.</p>                                                </div>
+                                    <p>Write a message in a channel (tab) of the debug bar.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
                 <td>string</td>
-                <td>$key</td>
+                <td>$channel</td>
                 <td></td>
             </tr>
                     <tr>
-                <td>mixed</td>
-                <td>$value</td>
+                <td>string</td>
+                <td>$message</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_stopTimer">
+        <div class="location">at         line 157</div>
+        <code>                    
+    <strong>stopTimer</strong>(string $name)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Stop a timer by name.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
                 <td></td>
             </tr>
             </table>

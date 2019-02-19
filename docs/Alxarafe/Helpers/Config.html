@@ -135,24 +135,8 @@ them.</p>                    </div>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_global">
-                    static                                        private                    array
-                </td>
-                <td>$global</td>
-                <td class="last">Contains an array with the variables defined in the configuration file.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_messagesList">
-                    static                                        private                    array
-                </td>
-                <td>$messagesList</td>
-                <td class="last">Contains a message list.</td>
-                <td></td>
-            </tr>
-                    <tr>
                 <td class="type" id="property_lang">
-                    static                                                            <a href="../../Alxarafe/Helpers/Lang.html"><abbr title="Alxarafe\Helpers\Lang">Lang</abbr></a>
+                    static                                                            <a href="../../Alxarafe/Providers/Translator.html"><abbr title="Alxarafe\Providers\Translator">Translator</abbr></a>
                 </td>
                 <td>$lang</td>
                 <td class="last">Translator</td>
@@ -174,34 +158,28 @@ them.</p>                    </div>
                 <td class="last"></td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type" id="property_global">
+                    static                                        private                    array
+                </td>
+                <td>$global</td>
+                <td class="last">Contains an array with the variables defined in the configuration file.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_messagesList">
+                    static                                        private                    array
+                </td>
+                <td>$messagesList</td>
+                <td class="last">Contains a message list.</td>
+                <td></td>
+            </tr>
             </table>
 
     
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_configFileExists">configFileExists</a>()
-        
-                                            <p>Return true y the config file exists</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getConfigFileName">getConfigFileName</a>()
-        
-                                            <p>Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
-inside it. If you want to use another folder for the configuration, you will have to define it in the constant
-CONFIGURATION_PATH before invoking this method, this folder must exist.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
                     <div class="row">
                 <div class="col-md-2 type">
                     static&nbsp;void
@@ -234,16 +212,6 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    static&nbsp;<abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getCacheCoreEngine">getCacheCoreEngine</a>()
-        
-                                            <p>Return the default Cache Core.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
@@ -254,12 +222,55 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_configFileExists">configFileExists</a>()
+        
+                                            <p>Return true y the config file exists</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getConfigFileName">getConfigFileName</a>()
+        
+                                            <p>Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
+inside it. If you want to use another folder for the configuration, you will have to define it in the constant
+CONFIGURATION_PATH before invoking this method, this folder must exist.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     static&nbsp;
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_setError">setError</a>(string $msg)
         
                                             <p>Register a new error message</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_connectToDatabase">connectToDatabase</a>()
+        
+                                            <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+Config::$dbEngine.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCacheCoreEngine">getCacheCoreEngine</a>()
+        
+                                            <p>Return the default Cache Core.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -290,17 +301,6 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
                     <a href="#method_setSuccess">setSuccess</a>(string $msg)
         
                                             <p>Register a new error message</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_connectToDatabase">connectToDatabase</a>()
-        
-                                            <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
-Config::$dbEngine.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -385,70 +385,8 @@ Returns true if there is no error when saving the file.</p>                </div
 
             <div id="method-details">
                     <div class="method-item">
-                    <h3 id="method_configFileExists">
-        <div class="location">at         line 102</div>
-        <code>        static            bool
-    <strong>configFileExists</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return true y the config file exists</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getConfigFileName">
-        <div class="location">at         line 114</div>
-        <code>        static            string
-    <strong>getConfigFileName</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
-inside it. If you want to use another folder for the configuration, you will have to define it in the constant
-CONFIGURATION_PATH before invoking this method, this folder must exist.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_loadViewsConfig">
-        <div class="location">at         line 131</div>
+        <div class="location">at         line 98</div>
         <code>        static            void
     <strong>loadViewsConfig</strong>()
         </code>
@@ -478,7 +416,7 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
             </div>
                     <div class="method-item">
                     <h3 id="method_getVar">
-        <div class="location">at         line 146</div>
+        <div class="location">at         line 113</div>
         <code>        static            string|null
     <strong>getVar</strong>(string $name)
         </code>
@@ -518,7 +456,7 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
             </div>
                     <div class="method-item">
                     <h3 id="method_loadConfig">
-        <div class="location">at         line 156</div>
+        <div class="location">at         line 123</div>
         <code>        static            void
     <strong>loadConfig</strong>()
         </code>
@@ -547,38 +485,8 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getCacheCoreEngine">
-        <div class="location">at         line 189</div>
-        <code>        static            <abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr>
-    <strong>getCacheCoreEngine</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return the default Cache Core.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr></td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_loadConfigurationFile">
-        <div class="location">at         line 200</div>
+        <div class="location">at         line 157</div>
         <code>        static            array
     <strong>loadConfigurationFile</strong>()
         </code>
@@ -607,8 +515,70 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_configFileExists">
+        <div class="location">at         line 178</div>
+        <code>        static            bool
+    <strong>configFileExists</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return true y the config file exists</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getConfigFileName">
+        <div class="location">at         line 190</div>
+        <code>        static            string
+    <strong>getConfigFileName</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
+inside it. If you want to use another folder for the configuration, you will have to define it in the constant
+CONFIGURATION_PATH before invoking this method, this folder must exist.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setError">
-        <div class="location">at         line 221</div>
+        <div class="location">at         line 207</div>
         <code>        static            
     <strong>setError</strong>(string $msg)
         </code>
@@ -638,8 +608,69 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_connectToDatabase">
+        <div class="location">at         line 222</div>
+        <code>        static            bool
+    <strong>connectToDatabase</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+Config::$dbEngine.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCacheCoreEngine">
+        <div class="location">at         line 254</div>
+        <code>        static            <abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr>
+    <strong>getCacheCoreEngine</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the default Cache Core.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setWarning">
-        <div class="location">at         line 235</div>
+        <div class="location">at         line 264</div>
         <code>        static            
     <strong>setWarning</strong>(string $msg)
         </code>
@@ -670,7 +701,7 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
             </div>
                     <div class="method-item">
                     <h3 id="method_setInfo">
-        <div class="location">at         line 249</div>
+        <div class="location">at         line 278</div>
         <code>        static            
     <strong>setInfo</strong>(string $msg)
         </code>
@@ -701,7 +732,7 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
             </div>
                     <div class="method-item">
                     <h3 id="method_setSuccess">
-        <div class="location">at         line 263</div>
+        <div class="location">at         line 292</div>
         <code>        static            
     <strong>setSuccess</strong>(string $msg)
         </code>
@@ -731,39 +762,8 @@ CONFIGURATION_PATH before invoking this method, this folder must exist.</p>     
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_connectToDatabase">
-        <div class="location">at         line 278</div>
-        <code>        static            bool
-    <strong>connectToDatabase</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
-Config::$dbEngine.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_saveConfigFile">
-        <div class="location">at         line 310</div>
+        <div class="location">at         line 307</div>
         <code>        static            bool
     <strong>saveConfigFile</strong>()
         </code>
@@ -794,7 +794,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_getMessages">
-        <div class="location">at         line 324</div>
+        <div class="location">at         line 321</div>
         <code>        static            array
     <strong>getMessages</strong>()
         </code>
@@ -824,7 +824,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_setVar">
-        <div class="location">at         line 337</div>
+        <div class="location">at         line 334</div>
         <code>        static            
     <strong>setVar</strong>(string $name, string $value)
         </code>
@@ -860,7 +860,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_setDbEngine">
-        <div class="location">at         line 345</div>
+        <div class="location">at         line 342</div>
         <code>        static            
     <strong>setDbEngine</strong>($dbEngine)
         </code>
@@ -889,7 +889,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_setGlobals">
-        <div class="location">at         line 353</div>
+        <div class="location">at         line 350</div>
         <code>        static            
     <strong>setGlobals</strong>($globals)
         </code>
@@ -918,7 +918,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_setLang">
-        <div class="location">at         line 361</div>
+        <div class="location">at         line 358</div>
         <code>        static            
     <strong>setLang</strong>($lang)
         </code>
@@ -947,7 +947,7 @@ Returns true if there is no error when saving the file.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method_setSession">
-        <div class="location">at         line 369</div>
+        <div class="location">at         line 366</div>
         <code>        static            
     <strong>setSession</strong>($session)
         </code>

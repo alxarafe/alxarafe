@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta content="index, follow, all" name="robots" />
+    <meta name="robots" content="index, follow, all" />
     <title>Alxarafe\Providers | alxarafe</title>
 
-            <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-        <link href="../css/sami.css" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sami.css">
         <script src="../js/jquery-1.11.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/typeahead.min.js"></script>
         <script src="../sami.js"></script>
-        <meta content="width" name="MobileOptimized">
-        <meta content="true" name="HandheldFriendly">
-        <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     
     
     </head>
 
-    <body data-name="namespace:Alxarafe_Providers" data-root-path="../" id="namespace">
+    <body id="namespace" data-name="namespace:Alxarafe_Providers" data-root-path="../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
                 <script>
             $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
         </script>
-        <form action="../search.html" id="search-form" method="GET">
+        <form id="search-form" action="../search.html" method="GET">
             <span class="glyphicon glyphicon-search"></span>
-            <input class="typeahead form-control"
-                   name="search"
-                   placeholder="Search"
-                   type="search">
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
         </form>
     </div>
 
@@ -39,10 +39,10 @@
 
         </div>
         <div id="right-column">
-                <nav class="navbar navbar-default" id="site-nav" role="navigation">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -81,7 +81,7 @@
     <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-6">
-                                            <a href="../Alxarafe/Providers/ConfigurationManager.html"><abbr title="Alxarafe\Providers\ConfigurationManager">ConfigurationManager</abbr></a>
+                                            <a href="../Alxarafe/Providers/Config.html"><abbr title="Alxarafe\Providers\Config">Config</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
@@ -108,6 +108,24 @@
             </div>
                     <div class="row">
                 <div class="col-md-6">
+                                            <a href="../Alxarafe/Providers/DebugTool.html"><abbr title="Alxarafe\Providers\DebugTool">DebugTool</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    Class DebugTool
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Alxarafe/Providers/Logger.html"><abbr title="Alxarafe\Providers\Logger">Logger</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    Class Logger
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
                                             <a href="../Alxarafe/Providers/Router.html"><abbr title="Alxarafe\Providers\Router">Router</abbr></a>
                                             
                 </div>
@@ -118,11 +136,30 @@ A route is a pair key => value, where key is the short name of the controller an
             </div>
                     <div class="row">
                 <div class="col-md-6">
+                                            <a href="../Alxarafe/Providers/Singleton.html"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    Trait Singleton, This class ensures that all class that use this have only one instance of itself if called as:
+Class::getInstance()
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
                                             <a href="../Alxarafe/Providers/TemplateRender.html"><abbr title="Alxarafe\Providers\TemplateRender">TemplateRender</abbr></a>
                                             
                 </div>
                 <div class="col-md-6">
                     Class TemplateRender
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../Alxarafe/Providers/Translator.html"><abbr title="Alxarafe\Providers\Translator">Translator</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    Class Lang, give support to internationalization.
                 </div>
             </div>
             </div>

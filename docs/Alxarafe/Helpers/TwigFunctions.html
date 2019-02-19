@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta content="index, follow, all" name="robots" />
+    <meta name="robots" content="index, follow, all" />
     <title>Alxarafe\Helpers\TwigFunctions | alxarafe</title>
 
-            <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-        <link href="../../css/sami.css" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
         <script src="../../js/jquery-1.11.1.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>
         <script src="../../js/typeahead.min.js"></script>
         <script src="../../sami.js"></script>
-        <meta content="width" name="MobileOptimized">
-        <meta content="true" name="HandheldFriendly">
-        <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     
     
     </head>
 
-    <body data-name="class:Alxarafe_Helpers_TwigFunctions" data-root-path="../../" id="class">
+    <body id="class" data-name="class:Alxarafe_Helpers_TwigFunctions" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
                 <script>
             $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
         </script>
-        <form action="../../search.html" id="search-form" method="GET">
+        <form id="search-form" action="../../search.html" method="GET">
             <span class="glyphicon glyphicon-search"></span>
-            <input class="typeahead form-control"
-                   name="search"
-                   placeholder="Search"
-                   type="search">
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
         </form>
     </div>
 
@@ -39,10 +39,10 @@
 
         </div>
         <div id="right-column">
-                <nav class="navbar navbar-default" id="site-nav" role="navigation">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -79,7 +79,7 @@
     </div>
 
     <p>    class
-    <strong>TwigFunctions</strong>
+    <strong>TwigFunctions</strong>        extends <abbr title="Twig\Extension\AbstractExtension">AbstractExtension</abbr>
 </p>
 
         
@@ -95,10 +95,26 @@
             <table class="table table-condensed">
                     <tr>
                 <td class="type" id="property_session">
-                                        protected                                        <a href="../../Alxarafe/Helpers/Session.html"><abbr title="Alxarafe\Helpers\Session">Session</abbr></a>
+                                                            private                    <a href="../../Alxarafe/Helpers/Session.html"><abbr title="Alxarafe\Helpers\Session">Session</abbr></a>
                 </td>
                 <td>$session</td>
-                <td class="last">Session info from cookie.</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_renderer">
+                                                            private                    <a href="../../Alxarafe/Providers/TemplateRender.html"><abbr title="Alxarafe\Providers\TemplateRender">TemplateRender</abbr></a>
+                </td>
+                <td>$renderer</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_debugTool">
+                                                            private                    <a href="../../Alxarafe/Providers/DebugTool.html"><abbr title="Alxarafe\Providers\DebugTool">DebugTool</abbr></a>
+                </td>
+                <td>$debugTool</td>
+                <td class="last">The debug tool used.</td>
                 <td></td>
             </tr>
             </table>
@@ -115,6 +131,16 @@
                     <a href="#method___construct">__construct</a>()
         
                                             <p>TwigFunctions constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Twig\TwigFunction">TwigFunction</abbr>[]
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getFunctions">getFunctions</a>()
+        
+                                            <p>Return a list of functions.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -157,6 +183,37 @@
                                             <p>Returns the string to camel case format.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getResourceUri">getResourceUri</a>(string $path)
+        
+                                            <p>Check different possible locations for the file and return the
+corresponding URI, if it exists.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getHeader">getHeader</a>()
+        
+                                            <p>Returns the necessary html code in the header of the template, to display the debug bar.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getFooter">getFooter</a>()
+        
+                                            <p>Returns the necessary html code at the footer of the template, to display the debug bar.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -165,7 +222,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 26</div>
+        <div class="location">at         line 42</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -185,8 +242,38 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getFunctions">
+        <div class="location">at         line 54</div>
+        <code>                    <abbr title="Twig\TwigFunction">TwigFunction</abbr>[]
+    <strong>getFunctions</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return a list of functions.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Twig\TwigFunction">TwigFunction</abbr>[]</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_flash">
-        <div class="location">at         line 38</div>
+        <div class="location">at         line 75</div>
         <code>                    array|mixed
     <strong>flash</strong>(array $params)
         </code>
@@ -226,7 +313,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_copyright">
-        <div class="location">at         line 57</div>
+        <div class="location">at         line 94</div>
         <code>                    string
     <strong>copyright</strong>()
         </code>
@@ -256,7 +343,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_unescape">
-        <div class="location">at         line 69</div>
+        <div class="location">at         line 106</div>
         <code>                    string
     <strong>unescape</strong>(string $value)
         </code>
@@ -296,7 +383,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_snakeToCamel">
-        <div class="location">at         line 81</div>
+        <div class="location">at         line 118</div>
         <code>                    string
     <strong>snakeToCamel</strong>(string $toCamel)
         </code>
@@ -318,6 +405,107 @@
             </tr>
             </table>
 
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getResourceUri">
+        <div class="location">at         line 131</div>
+        <code>                    string
+    <strong>getResourceUri</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check different possible locations for the file and return the
+corresponding URI, if it exists.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getHeader">
+        <div class="location">at         line 141</div>
+        <code>                    string
+    <strong>getHeader</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the necessary html code in the header of the template, to display the debug bar.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getFooter">
+        <div class="location">at         line 151</div>
+        <code>                    string
+    <strong>getFooter</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the necessary html code at the footer of the template, to display the debug bar.</p>                                                </div>
+                <div class="tags">
             
                             <h4>Return Value</h4>
 

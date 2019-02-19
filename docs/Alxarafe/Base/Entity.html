@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta content="index, follow, all" name="robots" />
+    <meta name="robots" content="index, follow, all" />
     <title>Alxarafe\Base\Entity | alxarafe</title>
 
-            <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-        <link href="../../css/sami.css" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sami.css">
         <script src="../../js/jquery-1.11.1.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>
         <script src="../../js/typeahead.min.js"></script>
         <script src="../../sami.js"></script>
-        <meta content="width" name="MobileOptimized">
-        <meta content="true" name="HandheldFriendly">
-        <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     
     
     </head>
 
-    <body data-name="class:Alxarafe_Base_Entity" data-root-path="../../" id="class">
+    <body id="class" data-name="class:Alxarafe_Base_Entity" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
                 <script>
             $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
         </script>
-        <form action="../../search.html" id="search-form" method="GET">
+        <form id="search-form" action="../../search.html" method="GET">
             <span class="glyphicon glyphicon-search"></span>
-            <input class="typeahead form-control"
-                   name="search"
-                   placeholder="Search"
-                   type="search">
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
         </form>
     </div>
 
@@ -39,10 +39,10 @@
 
         </div>
         <div id="right-column">
-                <nav class="navbar navbar-default" id="site-nav" role="navigation">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -94,6 +94,14 @@
 
             <table class="table table-condensed">
                     <tr>
+                <td class="type" id="property_debugTool">
+                                                                                <a href="../../Alxarafe/Providers/DebugTool.html"><abbr title="Alxarafe\Providers\DebugTool">DebugTool</abbr></a>
+                </td>
+                <td>$debugTool</td>
+                <td class="last">The debug tool used.</td>
+                <td></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_id">
                                         protected                                        string
                 </td>
@@ -142,6 +150,16 @@ save.</td>
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>()
+        
+                                            <p>Entity constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
                     <div class="row">
                 <div class="col-md-2 type">
                     string
@@ -260,8 +278,29 @@ default it will be id.</p>                </div>
 
             <div id="method-details">
                     <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at         line 67</div>
+        <code>                    
+    <strong>__construct</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Entity constructor.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getId">
-        <div class="location">at         line 65</div>
+        <div class="location">at         line 77</div>
         <code>                    string
     <strong>getId</strong>()
         </code>
@@ -291,7 +330,7 @@ default it will be id.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getNameField">
-        <div class="location">at         line 75</div>
+        <div class="location">at         line 87</div>
         <code>                    string
     <strong>getNameField</strong>()
         </code>
@@ -321,7 +360,7 @@ default it will be id.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setData">
-        <div class="location">at         line 87</div>
+        <div class="location">at         line 99</div>
         <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>
     <strong>setData</strong>(array $data)
         </code>
@@ -361,7 +400,7 @@ default it will be id.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getIdField">
-        <div class="location">at         line 100</div>
+        <div class="location">at         line 112</div>
         <code>                    string
     <strong>getIdField</strong>()
         </code>
@@ -392,7 +431,7 @@ default it will be id.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getData">
-        <div class="location">at         line 110</div>
+        <div class="location">at         line 122</div>
         <code>                    array
     <strong>getData</strong>()
         </code>
@@ -422,7 +461,7 @@ default it will be id.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getOldData">
-        <div class="location">at         line 120</div>
+        <div class="location">at         line 132</div>
         <code>                    array
     <strong>getOldData</strong>()
         </code>
@@ -452,7 +491,7 @@ default it will be id.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setOldData">
-        <div class="location">at         line 132</div>
+        <div class="location">at         line 144</div>
         <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>
     <strong>setOldData</strong>(array $data)
         </code>
@@ -492,7 +531,7 @@ default it will be id.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___call">
-        <div class="location">at         line 148</div>
+        <div class="location">at         line 160</div>
         <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>|mixed|null
     <strong>__call</strong>(string $method, array $params)
         </code>
@@ -534,7 +573,7 @@ default it will be id.</p>                                                </div>
 
                     <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/Exception" target="_blank">Exception</a></td>
+                <td><a target="_blank" href="http://php.net/Exception">Exception</a></td>
                 <td></td>
             </tr>
             </table>
@@ -546,7 +585,7 @@ default it will be id.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___get">
-        <div class="location">at         line 176</div>
+        <div class="location">at         line 194</div>
         <code>                    mixed
     <strong>__get</strong>(string $propertyName)
         </code>
@@ -587,7 +626,7 @@ To access the name field, we should use $this->getName(), but thanks to this, we
             </div>
                     <div class="method-item">
                     <h3 id="method___set">
-        <div class="location">at         line 196</div>
+        <div class="location">at         line 214</div>
         <code>                    <abbr title="Alxarafe\Base\$this">$this</abbr>
     <strong>__set</strong>(string $propertyName, mixed $propertyValue)
         </code>
@@ -634,7 +673,7 @@ but thanks to this, we can also use $this->name='Pepe'.</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method___isset">
-        <div class="location">at         line 213</div>
+        <div class="location">at         line 231</div>
         <code>                    bool
     <strong>__isset</strong>(string $propertyName)
         </code>

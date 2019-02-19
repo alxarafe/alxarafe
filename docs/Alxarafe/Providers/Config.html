@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Helpers\Session | alxarafe</title>
+    <title>Alxarafe\Providers\Config | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Helpers_Session" data-root-path="../../">
+    <body id="class" data-name="class:Alxarafe_Providers_Config" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Helpers.html">Helpers</a></li><li class="backslash">\</li><li>Session</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li><li>Config</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Session
+            Config
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Session</strong>
+    <strong>Config</strong>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class Session.</p>            <p>Tools for managing sessions, including session segments and read-once messages</p>                    </div>
+            <p>Class ConfigurationManager</p>                                </div>
     
             <h2>Traits</h2>
 
@@ -150,19 +150,11 @@ param in getInstance</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#property_separateConfigFile"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_session">
-                                        protected                                        <abbr title="Aura\Session\Session">Session</abbr>
+                <td class="type" id="property_configContent">
+                                        protected                                        array
                 </td>
-                <td>$session</td>
-                <td class="last">Session info from cookie.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_segmentName">
-                                        protected                                        string
-                </td>
-                <td>$segmentName</td>
-                <td class="last">Segment name.</td>
+                <td>$configContent</td>
+                <td class="last">Contains the config content.</td>
                 <td></td>
             </tr>
             </table>
@@ -279,47 +271,17 @@ has no instance.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
         
-                                            <p>Session constructor.</p>                </div>
+                                            <p>ConfigurationManager constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Aura\Session\Session">Session</abbr>
+                    array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getSession">getSession</a>()
+                    <a href="#method_getConfigContent">getConfigContent</a>()
         
-                                            <p>Return this session.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_setSegment">setSegment</a>(string $segmentName)
-        
-                                            <p>Sets segment name.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_get">get</a>(string $key)
-        
-                                            <p>Get data from segment.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    <abbr title="Aura\Session\Segment">Segment</abbr>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getSegment">getSegment</a>()
-        
-                                            <p>Return segment session.</p>                </div>
+                                            <p>Returns the config content.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -327,29 +289,9 @@ has no instance.</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_set">set</a>(string $key, mixed $value)
+                    <a href="#method_loadConstants">loadConstants</a>()
         
-                                            <p>Set data key.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    mixed
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getFlash">getFlash</a>(string $key)
-        
-                                            <p>Get flash data by key.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_setFlash">setFlash</a>(string $key, mixed $value)
-        
-                                            <p>Sets flash data by key.</p>                </div>
+                                            <p>Loads some constants.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -689,7 +631,7 @@ index passed to getInstance</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 39</div>
+        <div class="location">at         line 32</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -699,7 +641,7 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Session constructor.</p>                                                </div>
+                                    <p>ConfigurationManager constructor.</p>                                                </div>
                 <div class="tags">
             
             
@@ -709,10 +651,10 @@ index passed to getInstance</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getSession">
-        <div class="location">at         line 55</div>
-        <code>                    <abbr title="Aura\Session\Session">Session</abbr>
-    <strong>getSession</strong>()
+                    <h3 id="method_getConfigContent">
+        <div class="location">at         line 46</div>
+        <code>                    array
+    <strong>getConfigContent</strong>()
         </code>
     </h3>
     <div class="details">
@@ -720,14 +662,15 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Return this session.</p>                                                </div>
+                                    <p>Returns the config content.</p>                    <p>If config content is empty, load from file.
+Otherwise return data from property.</p>                            </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td><abbr title="Aura\Session\Session">Session</abbr></td>
+            <td>array</td>
             <td></td>
         </tr>
     </table>
@@ -739,10 +682,10 @@ index passed to getInstance</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setSegment">
-        <div class="location">at         line 65</div>
+                    <h3 id="method_loadConstants">
+        <div class="location">at         line 58</div>
         <code>                    
-    <strong>setSegment</strong>(string $segmentName)
+    <strong>loadConstants</strong>()
         </code>
     </h3>
     <div class="details">
@@ -750,200 +693,8 @@ index passed to getInstance</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Sets segment name.</p>                                                </div>
+                                    <p>Loads some constants.</p>                                                </div>
                 <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$segmentName</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_get">
-        <div class="location">at         line 77</div>
-        <code>                    mixed
-    <strong>get</strong>(string $key)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Get data from segment.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getSegment">
-        <div class="location">at         line 87</div>
-        <code>                    <abbr title="Aura\Session\Segment">Segment</abbr>
-    <strong>getSegment</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return segment session.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Aura\Session\Segment">Segment</abbr></td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_set">
-        <div class="location">at         line 98</div>
-        <code>                    
-    <strong>set</strong>(string $key, mixed $value)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Set data key.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$value</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getFlash">
-        <div class="location">at         line 110</div>
-        <code>                    mixed
-    <strong>getFlash</strong>(string $key)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Get flash data by key.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setFlash">
-        <div class="location">at         line 121</div>
-        <code>                    
-    <strong>setFlash</strong>(string $key, mixed $value)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Sets flash data by key.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$key</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>mixed</td>
-                <td>$value</td>
-                <td></td>
-            </tr>
-            </table>
-
             
             
             

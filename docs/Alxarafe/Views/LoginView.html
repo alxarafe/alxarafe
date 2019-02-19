@@ -102,6 +102,14 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#property_title"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_debugTool">
+                                                                                <a href="../../Alxarafe/Providers/DebugTool.html"><abbr title="Alxarafe\Providers\DebugTool">DebugTool</abbr></a>
+                </td>
+                <td>$debugTool</td>
+                <td class="last">The debug tool used.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#property_debugTool"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_vars">
                                                             private                    array
                 </td>
@@ -118,34 +126,6 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_protectClose"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_currentId">
-                                        protected                                        null|string
-                </td>
-                <td>$currentId</td>
-                <td class="last">Es el id que estamos editando:
-- null sería en modo listado (consulta)
-- '' sería en modo alta (preguntando código)
-- '0' sería en modo alta (código automático)</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_currentId"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_status">
-                                        protected                                        string
-                </td>
-                <td>$status</td>
-                <td class="last">Es el estado de edición:
-- listing cuando se muestra la lista de registros.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_status"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_model">
-                                        protected                                        mixed
-                </td>
-                <td>$model</td>
-                <td class="last">The model related to this view.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_model"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
                 <td class="type" id="property_fieldsStruct">
                                                                                 
                 </td>
@@ -154,44 +134,12 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_fieldsStruct"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_tableName">
-                                        protected                                        string
-                </td>
-                <td>$tableName</td>
-                <td class="last">The table relate to the model.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_tableName"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
                 <td class="type" id="property_tableData">
                                                                                 array
                 </td>
                 <td>$tableData</td>
                 <td class="last">Data received or sended in post.</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_tableData"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_pathnew">
-                                        protected                                        string
-                </td>
-                <td>$pathnew</td>
-                <td class="last">Path for button "new"</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_pathnew"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_pathedit">
-                                        protected                                        string
-                </td>
-                <td>$pathedit</td>
-                <td class="last">Path for button "edit"</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_pathedit"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_viewData">
-                                        protected                                        array
-                </td>
-                <td>$viewData</td>
-                <td class="last">The data view details for each data field.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_viewData"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_controller">
@@ -208,14 +156,6 @@
                 <td>$controllerName</td>
                 <td class="last">The controller name, without namespace (the call controller value).</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_controllerName"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_config">
-                                        protected                                        array
-                </td>
-                <td>$config</td>
-                <td class="last">Array of config data</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_config"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_encType">
@@ -256,6 +196,74 @@
                 <td>$btnCancel</td>
                 <td class="last"></td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_btnCancel"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_currentId">
+                                        protected                                        null|string
+                </td>
+                <td>$currentId</td>
+                <td class="last">Es el id que estamos editando:
+- null sería en modo listado (consulta)
+- '' sería en modo alta (preguntando código)
+- '0' sería en modo alta (código automático)</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_currentId"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_status">
+                                        protected                                        string
+                </td>
+                <td>$status</td>
+                <td class="last">Es el estado de edición:
+- listing cuando se muestra la lista de registros.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_status"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_model">
+                                        protected                                        mixed
+                </td>
+                <td>$model</td>
+                <td class="last">The model related to this view.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_model"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_tableName">
+                                        protected                                        string
+                </td>
+                <td>$tableName</td>
+                <td class="last">The table relate to the model.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_tableName"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_pathnew">
+                                        protected                                        string
+                </td>
+                <td>$pathnew</td>
+                <td class="last">Path for button "new"</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_pathnew"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_pathedit">
+                                        protected                                        string
+                </td>
+                <td>$pathedit</td>
+                <td class="last">Path for button "edit"</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_pathedit"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_viewData">
+                                        protected                                        array
+                </td>
+                <td>$viewData</td>
+                <td class="last">The data view details for each data field.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_viewData"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_config">
+                                        protected                                        array
+                </td>
+                <td>$config</td>
+                <td class="last">Array of config data</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/View.html#property_config"><abbr title="Alxarafe\Base\View">View</abbr></a></small></td>
             </tr>
             </table>
 
@@ -308,22 +316,22 @@
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getResourceUri">getResourceUri</a>(string $path)
+                    <a href="#method_addResource">addResource</a>(string $resourceName, boolean $relative = true)
         
-                                            <p>Check different possible locations for the file and return the
-corresponding URI, if it exists.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#method_getResourceUri"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></div>
+                                            <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#method_addResource"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
                     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_addResource">addResource</a>(string $resourceName, boolean $relative = true)
+                    <a href="#method_getResourceUri">getResourceUri</a>(string $path)
         
-                                            <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
-of the skin folder). It's a specific file.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#method_addResource"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></div>
+                                            <p>Check different possible locations for the file and return the
+corresponding URI, if it exists.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#method_getResourceUri"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -455,7 +463,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_addCSS">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addCSS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 69</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addCSS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 76</div>
         <code>                    void
     <strong>addCSS</strong>()
         </code>
@@ -485,7 +493,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_addJS">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addJS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 79</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addJS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 86</div>
         <code>                    void
     <strong>addJS</strong>()
         </code>
@@ -515,7 +523,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_render">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_render"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 87</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_render"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 94</div>
         <code>                    
     <strong>render</strong>()
         </code>
@@ -535,49 +543,8 @@ Config::getMessages() returns an array with the pending error messages, and empt
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getResourceUri">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getResourceUri"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 104</div>
-        <code>                    string
-    <strong>getResourceUri</strong>(string $path)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Check different possible locations for the file and return the
-corresponding URI, if it exists.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$path</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_addResource">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addResource"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 136</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addResource"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 117</div>
         <code>                    string
     <strong>addResource</strong>(string $resourceName, boolean $relative = true)
         </code>
@@ -625,8 +592,49 @@ js folders of the templates folder). It's a common file.</p>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getResourceUri">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getResourceUri"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 142</div>
+        <code>                    string
+    <strong>getResourceUri</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check different possible locations for the file and return the
+corresponding URI, if it exists.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setVar">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_setVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 161</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_setVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 168</div>
         <code>                    void
     <strong>setVar</strong>(string $name, mixed $value)
         </code>
@@ -671,7 +679,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_addToVar">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addToVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 176</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addToVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 183</div>
         <code>                    void
     <strong>addToVar</strong>(string $name, mixed $value)
         </code>
@@ -717,7 +725,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getVars">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVars"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 188</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVars"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 195</div>
         <code>                    array
     <strong>getVars</strong>()
         </code>
@@ -747,7 +755,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getVar">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 200</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 207</div>
         <code>                    array|string|boolean|null
     <strong>getVar</strong>(string $name)
         </code>
@@ -787,7 +795,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getMessages">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getMessages"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 211</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getMessages"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 218</div>
         <code>                    array
     <strong>getMessages</strong>()
         </code>
@@ -818,7 +826,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_getHeader">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getHeader"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 221</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getHeader"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 228</div>
         <code>                    string
     <strong>getHeader</strong>()
         </code>
@@ -848,7 +856,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_getFooter">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getFooter"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 231</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getFooter"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 238</div>
         <code>                    string
     <strong>getFooter</strong>()
         </code>
@@ -878,7 +886,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_run"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 190</div>
+        <div class="location">in <a href="../../Alxarafe/Base/View.html#method_run"><abbr title="Alxarafe\Base\View">View</abbr></a> at         line 172</div>
         <code>                    void
     <strong>run</strong>(array $data = null, array $params = [])
         </code>
