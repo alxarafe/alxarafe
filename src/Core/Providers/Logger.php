@@ -61,4 +61,14 @@ class Logger
             . $e->getTraceAsString()
         );
     }
+
+    /**
+     * Returns the logger.
+     *
+     * @return MonologLogger
+     */
+    public function getLogger()
+    {
+        return self::$logger;
+    }
 }

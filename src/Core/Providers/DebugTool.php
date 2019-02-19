@@ -7,6 +7,7 @@
 namespace Alxarafe\Providers;
 
 use Alxarafe\DebugBarCollectors\TranslatorCollector;
+use DebugBar\Bridge\MonologCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBarException;
 use DebugBar\JavascriptRenderer;
@@ -56,6 +57,8 @@ class DebugTool
             $this->debugTool = new StandardDebugBar();
             $this->logger = Logger::getInstance();
             try {
+                $logger = Logger::getInstance();
+                $this->debugTool->addCollector(new MonologCollector($logger->getLogger()));
                 $this->debugTool->addCollector(new MessagesCollector('SQL'));
                 //$this->debugTool->addCollector(new PhpCollector());
                 $translator = Translator::getInstance();
