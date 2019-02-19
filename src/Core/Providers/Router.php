@@ -12,8 +12,10 @@ namespace Alxarafe\Providers;
  *
  * @package Alxarafe\Providers
  */
-class Router extends Singleton
+class Router
 {
+    use Singleton;
+
     /**
      * Contains all routes.
      *
@@ -27,8 +29,8 @@ class Router extends Singleton
     protected function __construct()
     {
         // The class uses its own configuration file
-        self::$separateConfigFile = true;
-        parent::__construct();
+        $this->separateConfigFile = true;
+        $this->initSingleton();
         $this->getRoutes();
     }
 

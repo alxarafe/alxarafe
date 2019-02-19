@@ -11,11 +11,15 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class Singleton
+ * Trait Singleton, This class ensures that all class that use this have only one instance of itself if called as:
+ * Class::getInstance()
+ *
+ * If any specific class need more than one instance (for example database connection), can add a reference name to the
+ * function to have a separate configuration using this reference name.
  *
  * @package Alxarafe\Providers
  */
-class Singleton
+trait Singleton
 {
 
     /**
@@ -26,18 +30,18 @@ class Singleton
     private static $className;
 
     /**
-     * Hold the class instance.
+     * Hold the classes on instance.
      *
      * @var array
      */
-    private static $instance = [];
+    private static $instances = [];
 
     /**
      * Set to true if you want to save configuration in a separate file
      *
      * @var bool
      */
-    protected static $separateConfigFile = false;
+    protected $separateConfigFile = false;
 
     /**
      * Set to true if you want use more that one singleton using and index
@@ -48,38 +52,34 @@ class Singleton
     protected static $singletonArray = false;
 
     /**
-     * Configuration path
+     * The base path where config files are placed.
      *
      * @var string
      */
     protected static $basePath;
 
     /**
-     * The private constructor prevents instantiation through new.
+     * Initialization, equivalent to __construct and must be called from main class.
      */
-    protected function __construct()
+    protected function initSingleton()
     {
-        self::$instance = [];
+        self::$instances = [];
+        self::$className = self::getClassName();
         self::$basePath = basePath('config');
+    }
+
+    /**
+     * Returns the class name.
+     */
+    private static function getClassName()
+    {
+        $class = get_called_class();
         try {
-            self::$className = (new ReflectionClass($this))->getShortName();
+            $className = (new ReflectionClass($class))->getShortName();
         } catch (\ReflectionException $e) {
-            self::$className = $this;
+            $className = $class;
         }
-    }
-
-    /**
-     *
-     */
-    protected function __clone()
-    {
-    }
-
-    /**
-     *
-     */
-    protected function __wakeup()
-    {
+        return $className;
     }
 
     /**
@@ -93,41 +93,44 @@ class Singleton
      *
      * @return self
      */
-    public static function getInstance(string $index = 'main')
+    public static function getInstance(string $index = 'main'): self
     {
         if (!self::$singletonArray) {
             $index = 'main';
         }
-
-        if (!isset(self::$instance[$index])) {
-            self::$instance[$index] = new static();
+        if (!isset(self::$instances[self::getClassName()][$index])) {
+            self::$instances[self::getClassName()][$index] = new static();
         }
-
-        return self::$instance[$index];
+        return self::$instances[self::getClassName()][$index];
     }
 
     /**
      * Returns the yaml config params.
      *
+     * @param string $index
+     *
      * @return array
      */
-    protected function getConfig(): array
+    public function getConfig(string $index = 'main'): array
     {
-        $content = $this->getYamlContent();
-        if (self::$separateConfigFile) {
-            return $content;
-        }
-        return $content[self::$className] ?? [];
+        $yamlContent = $this->getYamlContent();
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index];
+        return $content ?? [];
     }
 
     /**
-     * @param array $params
+     * Save config to file.
+     *
+     * @param array  $params
+     * @param string $index
      *
      * @return bool
      */
-    protected function setConfig(array $params)
+    public function setConfig(array $params, string $index = 'main')
     {
-        $content = $this->getYamlContent();
+        $yamlContent = [];
+        $yamlContent[self::getClassName()] = $this->getYamlContent();
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[self::getClassName()][$index];
         $content = array_merge($content, $params);
         return file_put_contents($this->getFilePath(), Yaml::dump($content)) !== false;
     }
@@ -139,7 +142,7 @@ class Singleton
      *
      * @return bool
      */
-    private function fileExists(string $filename)
+    protected function fileExists(string $filename)
     {
         return (isset($filename) && file_exists($filename) && is_file($filename));
     }
@@ -149,17 +152,39 @@ class Singleton
      *
      * @return string
      */
-    private function getFilePath()
+    public function getFilePath()
     {
-        return self::$basePath . '/' . (self::$separateConfigFile ? strtolower(self::$className) : 'config') . '.yaml';
+        return self::$basePath . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
+    }
+
+    /**
+     * Return the file name.
+     *
+     * @return string
+     */
+    public function getFileName()
+    {
+        return ($this->separateConfigFile ? strtolower(self::getClassName()) : 'config');
+    }
+
+    /**
+     * Return the base path.
+     *
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return self::$basePath;
     }
 
     /**
      * Returns the content of the Yaml file.
      *
+     * @param string $index
+     *
      * @return array
      */
-    private function getYamlContent()
+    private function getYamlContent(): array
     {
         $yamlContent = [];
         $file = $this->getFilePath();
@@ -167,9 +192,11 @@ class Singleton
             try {
                 $yamlContent = Yaml::parseFile($file);
             } catch (ParseException $e) {
+                echo 'Error: ' . $e->getMessage();
                 $yamlContent = [];
             }
         }
-        return $yamlContent;
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[strtolower(self::getClassName())];
+        return $content ?? [];
     }
 }

@@ -13,25 +13,29 @@ namespace Alxarafe\Providers;
  */
 class Container
 {
+    use Singleton;
+
     /**
      * @var array
      */
-    protected $container;
+    protected static $container;
 
     /**
      * Container constructor.
      */
     public function __construct()
     {
-        $this->container = [];
+        $this->separateConfigFile = true;
+        $this->initSingleton();
+        self::$container = [];
     }
 
     /**
      * @return array
      */
-    public function getContainer(): array
+    public static function getContainer(): array
     {
-        return $this->container;
+        return self::$container;
     }
 
     /**
@@ -43,11 +47,11 @@ class Container
      *
      * @return bool
      */
-    public function add(string $key, $object, bool $force = false)
+    public static function add(string $key, $object, bool $force = false)
     {
         $result = false;
-        if (!isset($this->container[$key]) || $force) {
-            $this->container[$key] = $object;
+        if (!isset(self::$container[$key]) || $force) {
+            self::$container[$key] = $object;
             $result = true;
         }
         return $result;
@@ -60,8 +64,8 @@ class Container
      *
      * @return mixed|null
      */
-    public function get(string $key)
+    public static function get(string $key)
     {
-        return $this->container[$key] ?? null;
+        return self::$container[$key] ?? null;
     }
 }

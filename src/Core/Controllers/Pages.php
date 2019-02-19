@@ -20,12 +20,10 @@ class Pages extends Controller
 
     /**
      * Pages constructor.
-     *
-     * @param Container|null $container
      */
-    public function __construct(Container $container = null)
+    public function __construct()
     {
-        parent::__construct($container, new Page());
+        parent::__construct(new Page());
     }
 
     /**

@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\Singleton;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator;
@@ -17,6 +18,7 @@ use Symfony\Component\Translation\Translator;
  */
 class Lang
 {
+    use Singleton;
 
     /**
      * Default language to use if language file not exists.
@@ -43,8 +45,6 @@ class Lang
      */
     const FORMAT = 'yaml';
 
-    protected $basePath;
-
     /**
      * The Symfony translator.
      *
@@ -67,16 +67,20 @@ class Lang
     private static $missingStrings;
 
     /**
-     * Lang constructor.
-     *
-     * @param string $lang
-     * @param string $basePath
+     * @var string
      */
-    public function __construct(string $lang = self::FALLBACK_LANG, string $basePath = ALXARAFE_FOLDER)
+    private static $languageFolder;
+
+    /**
+     * Lang constructor.
+     */
+    public function __construct()
     {
         if (self::$translator === null) {
-            $this->basePath = $basePath;
-            self::$translator = new Translator($lang);
+            $this->initSingleton();
+            $config = $this->getConfig();
+            self::$languageFolder = constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
+            self::$translator = new Translator($config['language'] ?? self::FALLBACK_LANG);
             self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
             self::$usedStrings = [];
@@ -231,7 +235,7 @@ class Lang
      */
     public function getBaseLangFolder(): string
     {
-        return $this->basePath . self::LANG_FOLDER;
+        return self::$languageFolder;
     }
 
     /**

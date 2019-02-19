@@ -17,6 +17,8 @@ use Exception;
  */
 class Database
 {
+    use Singleton;
+
     /**
      * Contains the instance to the database engine (or null)
      *
@@ -39,10 +41,11 @@ class Database
     /**
      * Database constructor.
      */
-    public function __construct(array $config)
+    public function __construct()
     {
         if ($this->dbEngine === null) {
-            $this->config = $config;
+            $this->initSingleton();
+            $this->config = $this->getConfig();
             $dbEngineName = $this->config['dbEngineName'] ?? 'PdoMySql';
             $helperName = 'Sql' . substr($dbEngineName, 3);
 
@@ -51,11 +54,11 @@ class Database
             try {
                 $this->sqlHelper = new $sqlEngine();
                 $this->dbEngine = new $engine([
-                    'dbUser' => $this->config['dbUser'],
-                    'dbPass' => $this->config['dbPass'],
-                    'dbName' => $this->config['dbName'],
-                    'dbHost' => $this->config['dbHost'],
-                    'dbPort' => $this->config['dbPort'],
+                    'dbUser' => $this->config['dbUser'] ?? '',
+                    'dbPass' => $this->config['dbPass'] ?? '',
+                    'dbName' => $this->config['dbName'] ?? '',
+                    'dbHost' => $this->config['dbHost'] ?? '',
+                    'dbPort' => $this->config['dbPort'] ?? '',
                 ]);
             } catch (Exception $e) {
                 return false;

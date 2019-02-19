@@ -28,12 +28,10 @@ class EditConfig extends PageController
 
     /**
      * EditConfig constructor.
-     *
-     * @param Container|null $container
      */
-    public function __construct(Container $container = null)
+    public function __construct()
     {
-        parent::__construct($container);
+        parent::__construct();
         $this->searchDir = [
             'Alxarafe' => constant('ALXARAFE_FOLDER'),
         ];

@@ -82,7 +82,9 @@ class TemplateRender
     private $templateVars;
 
     /**
-     * View constructor.
+     * TemplateRender constructor.
+     *
+     * @param Container $container
      */
     public function __construct(Container $container)
     {

@@ -141,15 +141,14 @@ abstract class Controller extends PageController
      *      parent::run($method);
      * }
      *
-     * @param Container|null $container
      * @param Table|null     $model
      */
-    public function __construct(Container $container = null, $model = null)
+    public function __construct($model = null)
     {
         // Se inicia el controlador...
         $this->model = $model;
         $this->tableName = $this->model->tableName;
-        parent::__construct($container);
+        parent::__construct();
         $this->newButtons = $this->getNewButtons();
     }
 

@@ -20,12 +20,10 @@ class RolesPages extends Controller
 
     /**
      * RolesPages constructor.
-     *
-     * @param Container|null $container
      */
-    public function __construct(Container $container = null)
+    public function __construct()
     {
-        parent::__construct($container, new RolePage());
+        parent::__construct(new RolePage());
     }
 
     /**

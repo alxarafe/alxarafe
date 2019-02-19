@@ -22,12 +22,10 @@ class Languages extends Controller
 
     /**
      * Languages constructor.
-     *
-     * @param Container|null $container
      */
-    public function __construct(Container $container = null)
+    public function __construct()
     {
-        parent::__construct($container, new Language());
+        parent::__construct(new Language());
         $this->main();
     }
 

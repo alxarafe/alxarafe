@@ -6,10 +6,9 @@
 
 namespace Alxarafe;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Lang;
 use Alxarafe\Helpers\Session;
-use Alxarafe\Providers\ConfigurationManager;
+use Alxarafe\Providers\Config;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\Router;
@@ -86,13 +85,6 @@ class BootStrap
     protected $database;
 
     /**
-     * The full config file path.
-     *
-     * @var string
-     */
-    protected $configFile;
-
-    /**
      * The list of config value from file.
      *
      * @var array
@@ -114,7 +106,7 @@ class BootStrap
     protected $container;
 
     /**
-     * @var ConfigurationManager
+     * @var Config
      */
     protected $configManager;
 
@@ -143,28 +135,23 @@ class BootStrap
         $this->basePath = $basePath;
         $this->isDebug = $debug;
 
-        $this->container = new Container();
+        $this->container = Container::getInstance();
 
         $this->request = Request::createFromGlobals();
         $this->response = new Response();
 
-        $this->configManager = new ConfigurationManager($this->basePath . '/config');
-
-        $this->configManager->setConfigFile('config.yaml');
-        $this->configFile = $this->configManager->getConfigFile();
-
-        $this->session = new Session();
-        $this->router = Router::getInstance();
-
+        $this->configManager = Config::getInstance();
+        $this->configManager->loadConstants();
         $this->configData = $this->configManager->getConfigContent();
         if (empty($this->configData)) {
             $this->configData = $this->getDefaultConfig();
         }
 
-        $this->configManager->loadConstants();
+        $this->session = new Session();
+        $this->router = Router::getInstance();
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
-        $this->translator = new Lang($this->defaultLang, constant('ALXARAFE_FOLDER'));
-        $this->database = new Database($this->configData['database']);
+        $this->translator = Lang::getInstance();
+        $this->database = Database::getInstance();
         $this->render = new TemplateRender($this->container);
     }
 
@@ -188,7 +175,7 @@ class BootStrap
             'skin' => 'default',
             'language' => 'es_ES',
         ];
-        $this->configManager->setConfigContent($defaultData);
+        $this->configManager->setConfig($defaultData);
         return $defaultData;
     }
 
@@ -197,32 +184,8 @@ class BootStrap
      */
     public function init()
     {
-        $this->toConfig();
         $this->toContainer();
         $this->run();
-    }
-
-    /**
-     * To set some values to Config (retro-compatibility)
-     */
-    private function toConfig()
-    {
-        new Config();
-        Config::setDbEngine($this->database);
-        Config::setGlobals([
-            'language' => $this->defaultLang,
-            'dbEngineName' => $this->configData['database']['dbEngineName'],
-            'dbPrefix' => $this->configData['database']['dbPrefix'],
-            'dbUser' => $this->configData['database']['dbUser'],
-            'dbPass' => $this->configData['database']['dbPass'],
-            'dbName' => $this->configData['database']['dbName'],
-            'dbHost' => $this->configData['database']['dbHost'],
-            'dbPort' => $this->configData['database']['dbPort'],
-        ]);
-        Config::setLang($this->translator);
-        Config::setSession($this->session);
-        Config::setDbEngine(Config::$dbEngine);
-        //Config::connectToDatabase();
     }
 
     /**
@@ -231,19 +194,19 @@ class BootStrap
     private function toContainer()
     {
         $configFiles = [
-            'config' => $this->configFile,
-            'router' => $this->routeFile,
+            'config' => $this->configManager->getFilePath(),
+            'router' => $this->router->getFilePath(),
         ];
-        $this->container->add('configFiles', $configFiles);
-        $this->container->add('config', $this->configData);
-        $this->container->add('session', $this->session);
-        $this->container->add('router', $this->router);
-        $this->container->add('defaultLang', $this->defaultLang);
-        $this->container->add('translator', $this->translator);
-        $this->container->add('database', $this->database);
-        $this->container->add('render', $this->render);
-        $this->container->add('request', $this->request);
-        $this->container->add('response', $this->response);
+        $this->container::add('configFiles', $configFiles);
+        $this->container::add('config', $this->configData);
+        $this->container::add('session', $this->session);
+        $this->container::add('router', $this->router);
+        $this->container::add('defaultLang', $this->defaultLang);
+        $this->container::add('translator', $this->translator);
+        $this->container::add('database', $this->database);
+        $this->container::add('render', $this->render);
+        $this->container::add('request', $this->request);
+        $this->container::add('response', $this->response);
     }
 
     /**
@@ -257,6 +220,7 @@ class BootStrap
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
         $controller = null;
+        $reply = '';
         $msg = $this->translator->trans('route-not-found');
         $this->response->setStatusCode(Response::HTTP_NOT_FOUND);
         if ($this->router->hasRoute($call)) {
@@ -264,7 +228,7 @@ class BootStrap
             $msg = $this->translator->trans('method-not-available');
             $this->response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
             if (method_exists($controllerName, $method)) {
-                $controller = new $controllerName($this->container);
+                $controller = new $controllerName();
                 $reply = $controller->{$method}();
                 $this->response->setStatusCode(Response::HTTP_OK);
             }
