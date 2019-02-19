@@ -160,7 +160,7 @@ class Singleton
         $file = $this->getFilePath();
         if ($this->fileExists($file)) {
             try {
-                $yamlContent = Yaml::parse($file);
+                $yamlContent = Yaml::parseFile($file);
             } catch (ParseException $e) {
                 $yamlContent = [];
             }
