@@ -24,7 +24,7 @@ class Logger
     /**
      * The logger.
      *
-     * @var Logger
+     * @var MonologLogger
      */
     private static $logger;
 
