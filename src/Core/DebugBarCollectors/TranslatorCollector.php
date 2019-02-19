@@ -6,7 +6,7 @@
 
 namespace Alxarafe\DebugBarCollectors;
 
-use Alxarafe\Helpers\Lang;
+use Alxarafe\Providers\Translator;
 use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
@@ -22,7 +22,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
     /**
      * Translation engine
      *
-     * @var Lang
+     * @var Translator
      */
     protected static $translator;
     /**
@@ -35,7 +35,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
     /**
      * TranslationCollector constructor.
      *
-     * @param Lang $translator
+     * @param Translator $translator
      */
     public function __construct(&$translator)
     {

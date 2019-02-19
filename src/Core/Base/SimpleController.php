@@ -7,10 +7,10 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Debug;
-use Alxarafe\Helpers\Lang;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\TemplateRender;
+use Alxarafe\Providers\Translator;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,7 +72,7 @@ class SimpleController
     protected $container;
 
     /**
-     * @var Lang
+     * @var Translator
      */
     protected $translator;
 

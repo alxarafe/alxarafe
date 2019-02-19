@@ -8,6 +8,7 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\DebugBarCollectors\PhpCollector;
 use Alxarafe\DebugBarCollectors\TranslatorCollector;
+use Alxarafe\Providers\Translator;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBarException;
 use DebugBar\JavascriptRenderer;
@@ -68,10 +69,10 @@ class Debug
         try {
             self::$debugBar->addCollector(new MessagesCollector('SQL'));
             self::$debugBar->addCollector(new PhpCollector());
+            self::$debugBar->addCollector(new TranslatorCollector(Translator::getInstance()));
             // TODO This cause a circular dependecy
             // Engine class adds another collector
             // Config class adds another collector
-            //Debug::$debugBar->addCollector(new TranslatorCollector(self::$lang));
             set_exception_handler(array($this, 'exceptionHandler'));
         } catch (DebugBarException $e) {
             Debug::addException($e);

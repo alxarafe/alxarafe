@@ -6,7 +6,7 @@
 
 namespace Alxarafe;
 
-use Alxarafe\Helpers\Lang;
+use Alxarafe\Providers\Translator;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Config;
 use Alxarafe\Providers\Container;
@@ -73,7 +73,7 @@ class BootStrap
     /**
      * The translator class.
      *
-     * @var Lang
+     * @var Translator
      */
     protected $translator;
 
@@ -150,7 +150,7 @@ class BootStrap
         $this->session = Session::getInstance();
         $this->router = Router::getInstance();
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
-        $this->translator = Lang::getInstance();
+        $this->translator = Translator::getInstance();
         $this->database = Database::getInstance();
         $this->renderer = TemplateRender::getInstance();
     }

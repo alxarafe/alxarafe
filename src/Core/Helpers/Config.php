@@ -10,7 +10,7 @@ use Alxarafe\Base\CacheCore;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\DebugBarCollectors\TranslatorCollector;
+use Alxarafe\Providers\Translator;
 use Exception;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 use Symfony\Component\Yaml\Yaml;
@@ -78,7 +78,7 @@ class Config
     /**
      * Translator
      *
-     * @var Lang
+     * @var Translator
      */
     public static $lang;
 
@@ -161,7 +161,7 @@ class Config
         self::$global = self::loadConfigurationFile();
 
         if (self::$lang === null) {
-            self::$lang = new Lang(Config::$global['language'] ?? constant('LANG'));
+            self::$lang = new Translator(Config::$global['language'] ?? constant('LANG'));
         }
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;
@@ -222,7 +222,7 @@ class Config
     {
         self::$messagesList[] = [
             'type' => 'danger',
-            'msg' => $msg
+            'msg' => $msg,
         ];
         self::$session->setFlash('messages', self::$messagesList);
     }
@@ -236,7 +236,7 @@ class Config
     {
         self::$messagesList[] = [
             'type' => 'warning',
-            'msg' => $msg
+            'msg' => $msg,
         ];
         self::$session->setFlash('messages', self::$messagesList);
     }
@@ -250,7 +250,7 @@ class Config
     {
         self::$messagesList[] = [
             'type' => 'info',
-            'msg' => $msg
+            'msg' => $msg,
         ];
         self::$session->setFlash('messages', self::$messagesList);
     }
@@ -264,7 +264,7 @@ class Config
     {
         self::$messagesList[] = [
             'type' => 'success',
-            'msg' => $msg
+            'msg' => $msg,
         ];
         self::$session->setFlash('messages', self::$messagesList);
     }

@@ -4,19 +4,18 @@
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Helpers;
+namespace Alxarafe\Providers;
 
-use Alxarafe\Providers\Singleton;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Translator as SymfonyTranslator;
 
 /**
  * Class Lang, give support to internationalization.
  *
  * @package Alxarafe\Helpers
  */
-class Lang
+class Translator
 {
     use Singleton;
 
@@ -48,7 +47,7 @@ class Lang
     /**
      * The Symfony translator.
      *
-     * @var Translator
+     * @var SymfonyTranslator
      */
     private static $translator;
 
@@ -80,7 +79,7 @@ class Lang
             $this->initSingleton();
             $config = $this->getConfig();
             self::$languageFolder = constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
-            self::$translator = new Translator($config['language'] ?? self::FALLBACK_LANG);
+            self::$translator = new SymfonyTranslator($config['language'] ?? self::FALLBACK_LANG);
             self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
             self::$usedStrings = [];
@@ -252,5 +251,15 @@ class Lang
             [$this->getBaseLangFolder()],
             $morePaths
         );
+    }
+
+    /**
+     * Returns the original translator.
+     *
+     * @return SymfonyTranslator
+     */
+    public function getTranslator()
+    {
+        return self::$translator;
     }
 }
