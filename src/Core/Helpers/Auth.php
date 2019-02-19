@@ -7,6 +7,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
+use Alxarafe\Providers\Container;
 
 /**
  * Class Auth
@@ -62,7 +63,7 @@ class Auth extends User
     {
         parent::__construct();
         $this->username = $this->getCookieUser();
-        $this->session = Config::$session->getSingleton();
+        $this->session = Container::getInstance()::get('session');
     }
 
     /**

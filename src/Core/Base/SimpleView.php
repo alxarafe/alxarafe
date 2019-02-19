@@ -60,7 +60,7 @@ class SimpleView
         }
         $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->vars['lang'] = Config::$lang;
-        $this->vars['debugbarTime'] = DebugTool::getInstance()->getDebugTool()['time'];
+        $this->vars['debugbarTime'] = $this->debugTool->getDebugTool()['time'];
         $this->title = isset($controller->title) ? $controller->title : 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX);
 
         // TODO: We have twig blocks, we really needed here??

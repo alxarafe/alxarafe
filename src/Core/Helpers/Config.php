@@ -10,6 +10,7 @@ use Alxarafe\Base\CacheCore;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Providers\Container;
 use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Translator;
 use Exception;
@@ -129,13 +130,13 @@ class Config
      */
     public static function loadConfig(): void
     {
-        self::$session = (new Session())->getSingleton();
+        self::$session = Container::getInstance()::get('session');
 
         self::$messagesList = [];
         self::$global = self::loadConfigurationFile();
 
         if (self::$lang === null) {
-            self::$lang = new Translator(Config::$global['language'] ?? constant('LANG'));
+            self::$lang = Container::getInstance()::get('translator');
         }
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;

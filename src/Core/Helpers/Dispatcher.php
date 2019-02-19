@@ -29,12 +29,20 @@ class Dispatcher
     public $searchDir;
 
     /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    private $debugTool;
+
+    /**
      * Dispatcher constructor.
      */
     public function __construct()
     {
         $this->getConfiguration();
-        DebugTool::getInstance()->startTimer('full-execution', 'Complete execution');
+        $this->debugTool = DebugTool::getInstance();
+        $this->debugTool->startTimer('full-execution', 'Complete execution');
         // Search controllers in BASE_PATH/Controllers and ALXARAFE_FOLDER/Controllers
         $this->searchDir = ['Alxarafe' => constant('ALXARAFE_FOLDER')];
     }
@@ -54,7 +62,7 @@ class Dispatcher
             Config::setError($msg);
             new CreateConfig();
             $e = new Exception($msg);
-            DebugTool::getInstance()->addException($e);
+            $this->debugTool->addException($e);
         }
         Config::loadConfig();
     }
@@ -181,7 +189,7 @@ class Dispatcher
         $controllerPath = $path . '/' . $call . '.php';
         if (file_exists($controllerPath) && is_file($controllerPath) && method_exists($className, $method)) {
             $theClass = new $className();
-            DebugTool::getInstance()->addMessage('messages', 'Executing: ' . $call . '->index()');
+            $this->debugTool->addMessage('messages', 'Executing: ' . $call . '->index()');
             try {
                 $shortName = (new ReflectionClass($theClass))->getShortName();
             } catch (\ReflectionException $e) {
@@ -190,14 +198,14 @@ class Dispatcher
                 Config::setError($e->getMessage());
             }
 
-            DebugTool::getInstance()->startTimer($shortName . '->index()', $shortName . '->index()');
+            $this->debugTool->startTimer($shortName . '->index()', $shortName . '->index()');
             $theClass->index();
-            DebugTool::getInstance()->stopTimer($shortName . '->index()');
+            $this->debugTool->stopTimer($shortName . '->index()');
 
-            DebugTool::getInstance()->addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
-            DebugTool::getInstance()->startTimer($shortName . '->' . $method . '()', $shortName . '->' . $method . '()');
+            $this->debugTool->addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
+            $this->debugTool->startTimer($shortName . '->' . $method . '()', $shortName . '->' . $method . '()');
             $theClass->{$method}();
-            DebugTool::getInstance()->stopTimer($shortName . '->' . $method . '()');
+            $this->debugTool->stopTimer($shortName . '->' . $method . '()');
             return true;
         }
         return false;
