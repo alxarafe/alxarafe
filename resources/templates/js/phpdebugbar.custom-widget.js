@@ -245,7 +245,4 @@
 
     });
 
-    // Like:
-    // phpdebugbar.addIndicator("Documentación", new LinkIndicator({ href: "https://www.facturascripts.com/documentacion", title: "Documentación" }));
-
 })(PhpDebugBar.$);
