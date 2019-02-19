@@ -19,13 +19,13 @@
 
 {# Including jsCode #}
 {% block javascriptsFooter %}
-    <script type="text/javascript" src="{{ view.getResourceUri('/html/bower_modules/jquery/dist/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ view.getResourceUri('/html/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     {% for js in jsCode %}
         <script type="text/javascript" src="{{ js }}"></script>
     {% endfor %}
     {# Start of getFooter #}
-    {{ view.getFooter() | raw }}
+    {{ getFooter() | raw }}
     {# End of getFooter #}
 {% endblock %}
 {# End of jsCode inclusion #}

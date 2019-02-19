@@ -50,6 +50,9 @@ class TwigFunctions extends AbstractExtension
             new TwigFunction('unescape', [$this, 'unescape']),
             new TwigFunction('snakeToCamel', [$this, 'snakeToCamel']),
             new TwigFunction('getResourceUri', [$this, 'getResourceUri']),
+            new TwigFunction('getHeader', [$this, 'getHeader']),
+            new TwigFunction('getFooter', [$this, 'getFooter']),
+
         ];
     }
 
@@ -79,7 +82,7 @@ class TwigFunctions extends AbstractExtension
      *
      * @return string
      */
-    public function copyright()
+    public function copyright(): string
     {
         return '<a target="_blank" href="https://alxarafe.es/">Alxarafe</a> 2018-' . date('Y') . ' &copy;';
     }
@@ -91,7 +94,7 @@ class TwigFunctions extends AbstractExtension
      *
      * @return string
      */
-    public function unescape(string $value)
+    public function unescape(string $value): string
     {
         return html_entity_decode($value);
     }
@@ -103,7 +106,7 @@ class TwigFunctions extends AbstractExtension
      *
      * @return string
      */
-    public function snakeToCamel(string $toCamel)
+    public function snakeToCamel(string $toCamel): string
     {
         return Utils::snakeToCamel($toCamel);
     }
@@ -116,21 +119,28 @@ class TwigFunctions extends AbstractExtension
      *
      * @return string
      */
-    public function getResourceUri(string $path)
+    public function getResourceUri(string $path): string
     {
-        $paths = [
-            $this->renderer->getTemplatesFolder() . $path => $this->renderer->getTemplatesUri() . $path,
-            $this->renderer->getCommonTemplatesFolder() . $path => $this->renderer->getCommonTemplatesUri() . $path,
-            constant('DEFAULT_TEMPLATES_FOLDER') . $path => constant('DEFAULT_TEMPLATES_URI') . $path,
-            constant('VENDOR_FOLDER') . $path => constant('VENDOR_URI') . $path,
-            constant('BASE_PATH') . $path => constant('BASE_URI') . $path,
-        ];
+        return $this->renderer->getResourceUri($path);
+    }
 
-        foreach ($paths as $fullPath => $uriPath) {
-            if (file_exists($fullPath)) {
-                return $uriPath;
-            }
-        }
-        return '';
+    /**
+     * Returns the necessary html code in the header of the template, to display the debug bar.
+     *
+     * @return string
+     */
+    public function getHeader(): string
+    {
+        return Debug::getRenderHeader();
+    }
+
+    /**
+     * Returns the necessary html code at the footer of the template, to display the debug bar.
+     *
+     * @return string
+     */
+    public function getFooter(): string
+    {
+        return Debug::getRenderFooter();
     }
 }

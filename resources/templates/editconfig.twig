@@ -18,25 +18,25 @@
                     <div class="form-group">
                         <label>{{ lang.trans('database-engine') }}</label>
                         <select id="dbEngineName" name="dbEngineName" class="form-control">
-                            {% for dbEngine in view.dbEngines %}
-                                <option {{ dbEngine==view.dbEngineName ? "selected":"" }}>{{ dbEngine }}</option>
+                            {% for dbEngine in ctrl.dbEngines %}
+                                <option {{ dbEngine==ctrl.dbEngineName ? "selected":"" }}>{{ dbEngine }}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4">
-                    {% if view.skins|length > 0 %}
+                    {% if ctrl.skins|length > 0 %}
                         <div class="form-group">
                             <label>{{ lang.trans('default-skin') }}</label>
                             <select id="skin" name="skin" class="form-control">
-                                {% for skin in view.skins %}
-                                    <option {{ skin==view.skin ? "selected":"" }}>{{ skin }}</option>
+                                {% for skin in ctrl.skins %}
+                                    <option {{ skin==ctrl.skin ? "selected":"" }}>{{ skin }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     {% endif %}
                 </div>
-                {% for key,var in view.dbConfig %}
+                {% for key,var in ctrl.dbConfig %}
                     <div class="col-xs-12 col-sm-6 col-md-4">
                         <div class="form-group">
                             <label>{{ lang.trans(key) }}</label>
@@ -45,12 +45,12 @@
                     </div>
                 {% endfor %}
                 <div class="col-xs-12 col-sm-6 col-md-4">
-                    {% if view.languages|length > 0 %}
+                    {% if ctrl.languages|length > 0 %}
                         <div class="form-group">
                             <label>{{ lang.trans('default-language') }}</label>
                             <select id="language" name="language" class="form-control">
-                                {% for lang in view.languages|keys %}
-                                    <option {{ lang==view.language ? "selected":"" }}>{{ lang }}</option>
+                                {% for lang in ctrl.languages|keys %}
+                                    <option {{ lang==ctrl.language ? "selected":"" }}>{{ lang }}</option>
                                 {% endfor %}
                             </select>
                         </div>

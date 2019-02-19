@@ -340,4 +340,31 @@ class TemplateRender
     {
         $this->templatesFolder = basePath(self::SKINS_FOLDER) . '/' . trim($template, '/');
     }
+
+
+    /**
+     * Check different possible locations for the file and return the
+     * corresponding URI, if it exists.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function getResourceUri(string $path)
+    {
+        $paths = [
+            $this->getTemplatesFolder() . $path => $this->getTemplatesUri() . $path,
+            $this->getCommonTemplatesFolder() . $path => $this->getCommonTemplatesUri() . $path,
+            constant('DEFAULT_TEMPLATES_FOLDER') . $path => constant('DEFAULT_TEMPLATES_URI') . $path,
+            constant('VENDOR_FOLDER') . $path => constant('VENDOR_URI') . $path,
+            constant('BASE_PATH') . $path => constant('BASE_URI') . $path,
+        ];
+
+        foreach ($paths as $fullPath => $uriPath) {
+            if (file_exists($fullPath)) {
+                return $uriPath;
+            }
+        }
+        return constant('DEBUG') ? '#' . $path . '#' : '';
+    }
 }

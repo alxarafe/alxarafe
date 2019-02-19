@@ -84,8 +84,8 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
     public function getAssets()
     {
         return [
-            'css' => constant('VENDOR_FOLDER') . '/alxarafe/alxarafe/templates/js/phpdebugbar.custom-widget.css',
-            'js' => constant('VENDOR_FOLDER') . '/alxarafe/alxarafe/templates/js/phpdebugbar.custom-widget.js',
+            'css' => baseUrl('/templates/js/phpdebugbar.custom-widget.css'),
+            'js' => baseUrl('/templates/js/phpdebugbar.custom-widget.js'),
         ];
     }
 
