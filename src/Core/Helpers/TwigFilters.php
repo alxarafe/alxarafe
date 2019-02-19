@@ -6,17 +6,35 @@
 
 namespace Alxarafe\Helpers;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
 /**
  * Class TwigFilters.
  *
  * @package Alxarafe\Helpers
  */
-class TwigFilters
+class TwigFilters extends AbstractExtension
 {
     /**
-     * TwigFilters constructor.
+     * Return a list of filters.
+     *
+     * @return \Twig_SimpleFilter[]
      */
-    public function __construct()
+    public function getFilters()
     {
+        return [
+            new TwigFilter('test', [$this, 'test']),
+        ];
+    }
+
+    /**
+     * A sample filter.
+     *
+     * @return string
+     */
+    public function test(): string
+    {
+        return 'test';
     }
 }

@@ -7,20 +7,26 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Providers\Container;
+use Alxarafe\Providers\TemplateRender;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Class TwigFunctions
  *
  * @package Alxarafe\Helpers
  */
-class TwigFunctions
+class TwigFunctions extends AbstractExtension
 {
     /**
-     * Session info from cookie.
-     *
      * @var Session
      */
-    protected $session;
+    private $session;
+
+    /**
+     * @var TemplateRender
+     */
+    private $renderer;
 
     /**
      * TwigFunctions constructor.
@@ -28,12 +34,29 @@ class TwigFunctions
     public function __construct()
     {
         $this->session = Container::getInstance()::get('session');
+        $this->renderer = Container::getInstance()::get('renderer');
+    }
+
+    /**
+     * Return a list of functions.
+     *
+     * @return TwigFunction[]
+     */
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('flash', [$this, 'flash']),
+            new TwigFunction('copyright', [$this, 'copyright']),
+            new TwigFunction('unescape', [$this, 'unescape']),
+            new TwigFunction('snakeToCamel', [$this, 'snakeToCamel']),
+            new TwigFunction('getResourceUri', [$this, 'getResourceUri']),
+        ];
     }
 
     /**
      * Returns data messages from flash information.
      *
-     * @param array  $params
+     * @param array $params
      *
      * @return array|mixed
      */
@@ -43,7 +66,7 @@ class TwigFunctions
         $flashType = $params[0];
         $flash = $this->session->getFlash($flashType);
         if ($flashType === 'post') {
-            return  $flash;
+            return $flash;
         }
         if (!empty($flash)) {
             $return = $flash;
@@ -83,5 +106,31 @@ class TwigFunctions
     public function snakeToCamel(string $toCamel)
     {
         return Utils::snakeToCamel($toCamel);
+    }
+
+    /**
+     * Check different possible locations for the file and return the
+     * corresponding URI, if it exists.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function getResourceUri(string $path)
+    {
+        $paths = [
+            $this->renderer->getTemplatesFolder() . $path => $this->renderer->getTemplatesUri() . $path,
+            $this->renderer->getCommonTemplatesFolder() . $path => $this->renderer->getCommonTemplatesUri() . $path,
+            constant('DEFAULT_TEMPLATES_FOLDER') . $path => constant('DEFAULT_TEMPLATES_URI') . $path,
+            constant('VENDOR_FOLDER') . $path => constant('VENDOR_URI') . $path,
+            constant('BASE_PATH') . $path => constant('BASE_URI') . $path,
+        ];
+
+        foreach ($paths as $fullPath => $uriPath) {
+            if (file_exists($fullPath)) {
+                return $uriPath;
+            }
+        }
+        return '';
     }
 }

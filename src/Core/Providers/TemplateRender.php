@@ -12,8 +12,6 @@ use Kint\Kint;
 use Twig_Environment;
 use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
 
 /**
  * Class TemplateRender
@@ -83,19 +81,19 @@ class TemplateRender
      */
     public function __construct()
     {
-        $this->initSingleton();
-        $this->template = null;
-        $this->templateVars = [
-            '_REQUEST' => $_REQUEST,
-            '_GET' => $_GET,
-            '_POST' => $_POST,
-            'GLOBALS' => $GLOBALS,
-        ];
-        $this->commonTemplatesFolder = $this->getTemplatesFolder();
-        $loader = new Twig_Loader_Filesystem($this->getPaths());
-        $this->twig = new Twig_Environment($loader, $this->getOptions());
-
-        $this->addExtensions();
+        if ($this->twig === null) {
+            $this->initSingleton();
+            $this->template = null;
+            $this->templateVars = [
+                '_REQUEST' => $_REQUEST,
+                '_GET' => $_GET,
+                '_POST' => $_POST,
+                'GLOBALS' => $GLOBALS,
+            ];
+            $this->commonTemplatesFolder = $this->getTemplatesFolder();
+            $loader = new Twig_Loader_Filesystem($this->getPaths());
+            $this->twig = new Twig_Environment($loader, $this->getOptions());
+        }
     }
 
     /**
@@ -125,9 +123,19 @@ class TemplateRender
      *
      * @return string
      */
-    private function getTemplatesFolder(): string
+    public function getTemplatesFolder(): string
     {
         return basePath('resources/templates');
+    }
+
+    /**
+     * Return the template folder path from uri.
+     *
+     * @return string
+     */
+    public function getTemplatesUri(): string
+    {
+        return baseUrl('resources/templates');
     }
 
     /**
@@ -138,6 +146,16 @@ class TemplateRender
     public function getCommonTemplatesFolder(): string
     {
         return basePath($this->commonTemplatesFolder);
+    }
+
+    /**
+     * Return the common template folder path from uri.
+     *
+     * @return string
+     */
+    public function getCommonTemplatesUri(): string
+    {
+        return baseUrl($this->commonTemplatesFolder);
     }
 
     /**
@@ -173,17 +191,10 @@ class TemplateRender
     private function addExtensions(): void
     {
         // Add support for additional filters
-        $twigFilters = new Twig_SimpleFilter('TwigFilters', function ($method, $params = []) {
-            return TwigFilters::$method($params);
-        });
-        $this->twig->addFilter($twigFilters);
+        $this->twig->addExtension(new TwigFilters());
 
         // Add support for additional functions
-        $twigFunctions = new Twig_SimpleFunction('TwigFunctions', function ($method, $params = []) {
-            $twigFunctionsClass = new TwigFunctions();
-            return $twigFunctionsClass->$method($params);
-        });
-        $this->twig->addFunction($twigFunctions);
+        $this->twig->addExtension(new TwigFunctions());
 
         $isDebug = $this->getOptions()['debug'];
         if ($isDebug) {
@@ -224,18 +235,19 @@ class TemplateRender
      */
     public function render(array $data = []): string
     {
+        $this->addExtensions();
         $render = null;
         try {
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
         } catch (\Twig_Error_Loader $e) {
             // When the template cannot be found
-            Kint::dump($e->getMessage());
+            Kint::dump($e);
         } catch (\Twig_Error_Runtime $e) {
             // When an error occurred during rendering
-            Kint::dump($e->getMessage());
+            Kint::dump($e);
         } catch (\Twig_Error_Syntax $e) {
             // When an error occurred during compilation
-            Kint::dump($e->getMessage());
+            Kint::dump($e);
         }
         return $render;
     }

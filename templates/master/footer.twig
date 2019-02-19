@@ -7,7 +7,7 @@
     <div class="container">
         <p class="text-muted">
             <span>
-                {{ TwigFunctions('copyright') | raw }} -
+                {{ copyright() | raw }} -
                 <a target="_blank" href="https://github.com/alxarafe/alxarafe">GitHub</a>
             </span>
             <span>
@@ -19,8 +19,8 @@
 
 {# Including jsCode #}
 {% block javascriptsFooter %}
-    <script type="text/javascript" src="{{ view.getResourceUri('/html/bower_modules/jquery/dist/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ view.getResourceUri('/html/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     {% for js in jsCode %}
         <script type="text/javascript" src="{{ js }}"></script>
     {% endfor %}

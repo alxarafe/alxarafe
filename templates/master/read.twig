@@ -8,7 +8,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ view.getResourceUri('/css/common.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ getResourceUri('/css/common.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -51,5 +51,5 @@
 
 {% block javascriptsFooter %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ view.getResourceUri('/js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/js/common.js') }}"></script>
 {% endblock %}

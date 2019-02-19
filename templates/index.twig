@@ -26,7 +26,7 @@
 <br/>
 
 <div class="container-fluid" id="messagescontent" name="messagescontent">
-    {% set messages = TwigFunctions('flash', ['messages']) %}
+    {% set messages = flash(['messages']) %}
     {% if messages is not empty %}
         {% for pos, messageData in messages %}
             <div style="width: 100%" class="alert alert-{{ messageData.type }}">
