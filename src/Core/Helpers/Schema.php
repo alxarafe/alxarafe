@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\Logger;
 use Exception;
 use ParseCsv\Csv;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -190,7 +191,7 @@ class Schema
             try {
                 return Yaml::parse(file_get_contents($fileName));
             } catch (ParseException $e) {
-                Debug::addMessage('messages', $e->getMessage());
+                Logger::getInstance()->exceptionHandler($e);
                 Config::setError($e->getMessage());
                 return [];
             }

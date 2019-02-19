@@ -3,7 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
+
+use Alxarafe\Providers\Logger;
 
 /**
  * Class Utils
@@ -87,9 +90,10 @@ class Utils
 
     /**
      * Add the elements of the 2nd array behind those of the first.
-     * 
+     *
      * @param array $intialArray
      * @param array $nextArray
+     *
      * @return array
      */
     public static function addToArray(array $initialArray, array $nextArray): array
@@ -104,7 +108,7 @@ class Utils
     /**
      * Return true if $param is setted and is 'yes', otherwise return false.
      *
-     * @param array $param
+     * @param array  $param
      * @param string $key
      *
      * @return bool
@@ -119,9 +123,10 @@ class Utils
      * returns a literal of the form: index = 'value'.
      * It is used, for example, to assign attributes to an html statement.
      *
-     * @param array $itemsArray
-     * @param string $itemIndex
+     * @param array       $itemsArray
+     * @param string      $itemIndex
      * @param string|null $defaultValue
+     *
      * @return string
      */
     public static function getItem(array $itemsArray, string $itemIndex, $defaultValue = null): string
@@ -146,6 +151,7 @@ class Utils
             try {
                 $bytes = random_bytes($length);
             } catch (\Exception $e) {
+                Logger::getInstance()->exceptionHandler($e);
                 self::randomString($length);
             }
         } else {

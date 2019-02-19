@@ -13,7 +13,7 @@ use Symfony\Component\Translation\Translator as SymfonyTranslator;
 /**
  * Class Lang, give support to internationalization.
  *
- * @package Alxarafe\Helpers
+ * @package Alxarafe\Providers
  */
 class Translator
 {

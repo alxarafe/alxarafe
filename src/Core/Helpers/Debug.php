@@ -60,7 +60,7 @@ class Debug
         try {
             self::$logger->pushHandler(new StreamHandler(constant('BASE_PATH') . '/core.log', Logger::DEBUG));
         } catch (Exception $e) {
-            Debug::addException($e);
+            Logger::getInstance()->exceptionHandler($e);
             Config::setError($e->getMessage());
         }
         self::$logger->pushHandler(new FirePHPHandler());
@@ -73,9 +73,9 @@ class Debug
             // TODO This cause a circular dependecy
             // Engine class adds another collector
             // Config class adds another collector
-            set_exception_handler(array($this, 'exceptionHandler'));
+            set_exception_handler([$this, 'exceptionHandler']);
         } catch (DebugBarException $e) {
-            Debug::addException($e);
+            Logger::getInstance()->exceptionHandler($e);
             Config::setError($e->getMessage());
         }
         $baseUrl = constant('VENDOR_URI') . '/maximebf/debugbar/src/DebugBar/Resources';

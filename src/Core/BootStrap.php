@@ -6,13 +6,15 @@
 
 namespace Alxarafe;
 
-use Alxarafe\Providers\Translator;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Config;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\Database;
+use Alxarafe\Providers\DebugTool;
+use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Router;
 use Alxarafe\Providers\TemplateRender;
+use Alxarafe\Providers\Translator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -125,6 +127,20 @@ class BootStrap
     protected $response;
 
     /**
+     * The logger.
+     *
+     * @var Logger
+     */
+    private $log;
+
+    /**
+     * The debug tool used.
+     *
+     * @var DebugTool
+     */
+    private $debugTool;
+
+    /**
      * BootStrap constructor.
      *
      * @param string $basePath
@@ -135,6 +151,7 @@ class BootStrap
         $this->basePath = $basePath;
         $this->isDebug = $debug;
 
+        $this->log = Logger::getInstance();
         $this->container = Container::getInstance();
 
         $this->request = Request::createFromGlobals();
@@ -152,6 +169,7 @@ class BootStrap
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
         $this->translator = Translator::getInstance();
         $this->database = Database::getInstance();
+        $this->debugTool = DebugTool::getInstance();
         $this->renderer = TemplateRender::getInstance();
     }
 

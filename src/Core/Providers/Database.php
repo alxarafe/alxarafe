@@ -61,6 +61,7 @@ class Database
                     'dbPort' => $this->config['dbPort'] ?? '',
                 ]);
             } catch (Exception $e) {
+                Logger::getInstance()->exceptionHandler($e);
                 return false;
             }
         }

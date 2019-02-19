@@ -8,6 +8,7 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\CreateConfig;
+use Alxarafe\Providers\Logger;
 use Exception;
 use ReflectionClass;
 
@@ -183,6 +184,7 @@ class Dispatcher
             try {
                 $shortName = (new ReflectionClass($theClass))->getShortName();
             } catch (\ReflectionException $e) {
+                Logger::getInstance()->exceptionHandler($e);
                 $shortName = null;
                 Config::setError($e->getMessage());
             }

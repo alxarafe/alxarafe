@@ -8,6 +8,7 @@ namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Debug;
+use Alxarafe\Providers\Logger;
 use DebugBar\DataCollector\PDO as PDODataCollector;
 use DebugBar\DebugBarException;
 use PDO;
@@ -263,8 +264,7 @@ abstract class Engine
             try {
                 $cacheItem = $cacheEngine->getItem($cachedName);
             } catch (InvalidArgumentException $e) {
-                Debug::addException($e);
-                Config::setError($e->getMessage());
+                Logger::getInstance()->exceptionHandler($e);
             }
             if (!$cacheItem->isHit()) {
                 $cacheItem->set(self::select($query, $vars));
@@ -331,11 +331,11 @@ abstract class Engine
             self::$dbHandler = new PDODataCollector\TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
             Debug::$debugBar->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
-            Debug::addException($e);
+            Logger::getInstance()->exceptionHandler($e);
             Config::setError($e->getMessage());
             return false;
         } catch (DebugBarException $e) {
-            Debug::addException($e);
+            Logger::getInstance()->exceptionHandler($e);
             Config::setError($e->getMessage());
             return false;
         }

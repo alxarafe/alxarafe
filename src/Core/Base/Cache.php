@@ -7,7 +7,7 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
+use Alxarafe\Providers\Logger;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\MemcachedAdapter;
 use Symfony\Component\Cache\Adapter\PdoAdapter;
@@ -130,7 +130,7 @@ class Cache
                 $directory
             );
         } catch (CacheException $e) {
-            Debug::addException($e);
+            Logger::getInstance()->exceptionHandler($e);
             Config::setError($e->getMessage());
         }
     }

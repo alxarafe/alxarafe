@@ -13,7 +13,7 @@ use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
-use Alxarafe\Providers\Container;
+use Alxarafe\Providers\Logger;
 use ReflectionClass;
 
 /**
@@ -243,7 +243,7 @@ class PageController extends SimpleController
             $className = (new ReflectionClass($this))->getShortName();
         } catch (\ReflectionException $e) {
             // $this must exists always, this exception must never success
-            Debug::addException($e);
+            Logger::getInstance()->exceptionHandler($e);
             Config::setError($e->getMessage());
         }
 

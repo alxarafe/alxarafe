@@ -8,7 +8,6 @@ namespace Alxarafe\Providers;
 
 use Alxarafe\Helpers\TwigFilters;
 use Alxarafe\Helpers\TwigFunctions;
-use Kint\Kint;
 use Twig_Environment;
 use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
@@ -241,13 +240,13 @@ class TemplateRender
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
         } catch (\Twig_Error_Loader $e) {
             // When the template cannot be found
-            Kint::dump($e);
+            Logger::getInstance()->exceptionHandler($e);
         } catch (\Twig_Error_Runtime $e) {
             // When an error occurred during rendering
-            Kint::dump($e);
+            Logger::getInstance()->exceptionHandler($e);
         } catch (\Twig_Error_Syntax $e) {
             // When an error occurred during compilation
-            Kint::dump($e);
+            Logger::getInstance()->exceptionHandler($e);
         }
         return $render;
     }

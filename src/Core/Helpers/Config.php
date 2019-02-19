@@ -10,6 +10,7 @@ use Alxarafe\Base\CacheCore;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Translator;
 use Exception;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
@@ -293,6 +294,7 @@ class Config
                     'dbPort' => self::$global['dbPort'],
                 ]);
             } catch (Exception $e) {
+                Logger::getInstance()->exceptionHandler($e);
                 Config::setError($e->getMessage());
                 return false;
             }

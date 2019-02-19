@@ -7,6 +7,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
+use Alxarafe\Providers\Logger;
 use Twig_Environment;
 use Twig_Error_Loader;
 use Twig_Error_Runtime;
@@ -264,10 +265,13 @@ class Skin
                 try {
                     $return = $twig->render(self::getTemplate(), $templateVars);
                 } catch (Twig_Error_Loader $e) {
+                    Logger::getInstance()->exceptionHandler($e);
                     self::errorDetails($e);
                 } catch (Twig_Error_Runtime $e) {
+                    Logger::getInstance()->exceptionHandler($e);
                     self::errorDetails($e);
                 } catch (Twig_Error_Syntax $e) {
+                    Logger::getInstance()->exceptionHandler($e);
                     self::errorDetails($e);
                 }
                 break;
