@@ -33,17 +33,42 @@ class Router extends Singleton
     }
 
     /**
-     * Return a list of routes
+     * Load routes from configuration file.
      *
      * @return array
      */
-    public function getRoutes(): array
+    public function loadRoutes()
     {
         $this->routes = $this->getConfig();
         if (empty($this->routes)) {
             $this->routes = $this->getDefaultRoutes();
         }
         return $this->routes;
+    }
+
+    /**
+     * Saves routes to configuration file.
+     *
+     * @return bool
+     */
+    public function saveRoutes()
+    {
+        return $this->setConfig($this->routes);
+    }
+
+
+    /**
+     * Return a list of routes.
+     *
+     * @return array
+     */
+    public function getRoutes(): array
+    {
+        if (isset($this->routes)) {
+            return $this->routes;
+        }
+
+        return $this->loadRoutes();
     }
 
     /**
@@ -54,7 +79,6 @@ class Router extends Singleton
     public function setRoutes(array $routes = [])
     {
         $this->routes = $routes;
-        $this->setConfig(['router' => $this->routes]);
     }
 
     /**
@@ -87,9 +111,7 @@ class Router extends Singleton
         if (!isset($this->routes[$key]) || $force) {
             $this->routes[$key] = $value;
             $return = true;
-            $this->setConfig($this->routes);
         }
-
         return $return;
     }
 

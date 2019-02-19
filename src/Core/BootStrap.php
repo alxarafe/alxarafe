@@ -14,7 +14,6 @@ use Alxarafe\Providers\Container;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\Router;
 use Alxarafe\Providers\TemplateRender;
-use Kint\Kint;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -154,15 +153,7 @@ class BootStrap
         $this->configManager->setConfigFile('config.yaml');
         $this->configFile = $this->configManager->getConfigFile();
 
-        /*
-          $this->configManager->setRouteFile('routes.yaml');
-          $this->routeFile = $this->configManager->getRouteFile();
-
-          $this->session = new Session();
-          $this->router = new Router($this->routeFile);
-         */
         $this->session = new Session();
-
         $this->router = Router::getInstance();
 
         $this->configData = $this->configManager->getConfigContent();

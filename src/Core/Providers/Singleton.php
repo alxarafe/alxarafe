@@ -59,18 +59,26 @@ class Singleton
      */
     protected function __construct()
     {
+        self::$instance = [];
+        self::$basePath = basePath('config');
         try {
             self::$className = (new ReflectionClass($this))->getShortName();
         } catch (\ReflectionException $e) {
             self::$className = $this;
         }
-        self::$basePath = basePath('config');
     }
 
     /**
-     * Clone is forbidden
+     *
      */
-    private function __clone()
+    protected function __clone()
+    {
+    }
+
+    /**
+     *
+     */
+    protected function __wakeup()
     {
     }
 
@@ -87,15 +95,12 @@ class Singleton
      */
     public static function getInstance(string $index = 'main')
     {
-        $class = get_called_class();
-        self::$instance = [];
-
         if (!self::$singletonArray) {
             $index = 'main';
         }
 
         if (!isset(self::$instance[$index])) {
-            self::$instance[$index] = new $class();
+            self::$instance[$index] = new static();
         }
 
         return self::$instance[$index];
