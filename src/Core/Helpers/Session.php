@@ -68,16 +68,6 @@ class Session
     }
 
     /**
-     * Return segment session.
-     *
-     * @return \Aura\Session\Segment
-     */
-    public function getSegment()
-    {
-        return $this->session->getSegment($this->segmentName);
-    }
-
-    /**
      * Get data from segment.
      *
      * @param string $key
@@ -87,6 +77,16 @@ class Session
     public function get(string $key)
     {
         return $this->getSegment()->get($key);
+    }
+
+    /**
+     * Return segment session.
+     *
+     * @return \Aura\Session\Segment
+     */
+    public function getSegment()
+    {
+        return $this->session->getSegment($this->segmentName);
     }
 
     /**

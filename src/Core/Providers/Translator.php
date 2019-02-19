@@ -109,13 +109,29 @@ class Translator
     }
 
     /**
-     * Returns the language code in use.
+     * Return the lang folders.
+     *
+     * @return array
+     */
+    public function getLangFolders(): array
+    {
+        $morePaths = [
+            //constant('BASE_PATH') . '/config/languages',
+        ];
+        return array_merge(
+            [$this->getBaseLangFolder()],
+            $morePaths
+        );
+    }
+
+    /**
+     * Returns the base lang folder.
      *
      * @return string
      */
-    public function getLocale(): string
+    public function getBaseLangFolder(): string
     {
-        return self::$translator->getLocale();
+        return self::$languageFolder;
     }
 
     /**
@@ -157,6 +173,23 @@ class Translator
     }
 
     /**
+     * Translate the text into the default language.
+     *
+     * @param null|string $txt
+     * @param array       $parameters
+     * @param             $domain
+     * @param             $locale
+     *
+     * @return string
+     */
+    public function trans($txt, array $parameters = [], $domain = null, $locale = null): string
+    {
+        $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
+        $this->verifyMissing($txt, $lang);
+        return $lang;
+    }
+
+    /**
      * Stores if translation is used and if is missing.
      *
      * @param string $reference
@@ -174,20 +207,13 @@ class Translator
     }
 
     /**
-     * Translate the text into the default language.
-     *
-     * @param null|string $txt
-     * @param array       $parameters
-     * @param             $domain
-     * @param             $locale
+     * Returns the language code in use.
      *
      * @return string
      */
-    public function trans($txt, array $parameters = [], $domain = null, $locale = null): string
+    public function getLocale(): string
     {
-        $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
-        $this->verifyMissing($txt, $lang);
-        return $lang;
+        return self::$translator->getLocale();
     }
 
     /**
@@ -226,32 +252,6 @@ class Translator
     public function getUsedStrings(): array
     {
         return self::$usedStrings;
-    }
-
-    /**
-     * Returns the base lang folder.
-     *
-     * @return string
-     */
-    public function getBaseLangFolder(): string
-    {
-        return self::$languageFolder;
-    }
-
-    /**
-     * Return the lang folders.
-     *
-     * @return array
-     */
-    public function getLangFolders(): array
-    {
-        $morePaths = [
-            //constant('BASE_PATH') . '/config/languages',
-        ];
-        return array_merge(
-            [$this->getBaseLangFolder()],
-            $morePaths
-        );
     }
 
     /**

@@ -3,11 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
-use Alxarafe\Helpers\Utils;
 
 /**
  * Engine provides generic support for databases.
@@ -178,11 +177,12 @@ abstract class SqlHelper
     abstract public function normalizeFields(array $fields): array;
 
     /**
-     * Obtains information about the indices of the table in a normalized array 
+     * Obtains information about the indices of the table in a normalized array
      * and independent of the database engine
-     * 
+     *
      * @param string $tableName
-     * @param bool $usePrefix
+     * @param bool   $usePrefix
+     *
      * @return array
      */
     public function getIndexes(string $tableName, bool $usePrefix = true): array

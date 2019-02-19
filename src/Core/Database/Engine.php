@@ -7,7 +7,7 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use DebugBar\DataCollector\PDO as PDODataCollector;
 use DebugBar\DebugBarException;
@@ -128,6 +128,77 @@ abstract class Engine
     }
 
     /**
+     * Execute SQL statements on the database (INSERT, UPDATE or DELETE).
+     *
+     * @param string $queries
+     *
+     * @return bool
+     */
+    final public static function batchExec(array $queries): bool
+    {
+        $ok = true;
+        foreach ($queries as $query) {
+            $query = trim($query);
+            if ($query != '') {
+                // TODO: The same variables are passed for all queries.
+                $ok &= self::exec($query);
+            }
+        }
+        return (bool) $ok;
+    }
+
+    /**
+     * Executes a SELECT SQL statement on the core cache.
+     *
+     * @param string $query
+     * @param string $cachedName
+     * @param array  $vars
+     *
+     * @return array
+     */
+    final public static function selectCoreCache(string $cachedName, string $query, array $vars = []): array
+    {
+        if (constant('CORE_CACHE_ENABLED') === true) {
+            $cacheEngine = Config::getCacheCoreEngine();
+            try {
+                $cacheItem = $cacheEngine->getItem($cachedName);
+            } catch (InvalidArgumentException $e) {
+                Logger::getInstance()::exceptionHandler($e);
+            }
+            if (!$cacheItem->isHit()) {
+                $cacheItem->set(self::select($query, $vars));
+                if ($cacheEngine->save($cacheItem)) {
+                    DebugTool::getInstance()->addMessage('messages', "Cache data saved to '" . $cachedName . "'.");
+                } else {
+                    DebugTool::getInstance()->addMessage('messages', 'Cache data not saved.');
+                }
+            }
+            if ($cacheEngine->hasItem($cachedName)) {
+                $item = $cacheItem->get();
+                return $item;
+            }
+            return [];
+        }
+        return self::select($query, $vars);
+    }
+
+    /**
+     * Clear item from cache.
+     *
+     * @param string $cachedName
+     *
+     * @return bool
+     */
+    final public static function clearCoreCache(string $cachedName): bool
+    {
+        $cacheEngine = Config::getCacheCoreEngine();
+        if (isset($cacheEngine)) {
+            return $cacheEngine->deleteItem($cachedName);
+        }
+        return false;
+    }
+
+    /**
      * Engine destructor
      */
     public function __destruct()
@@ -158,7 +229,7 @@ abstract class Engine
             throw new PDOException('Rollback error : There is no transaction started');
         }
 
-        Debug::addMessage('SQL', 'Rollback, savepoint LEVEL' . self::$transactionDepth);
+        DebugTool::getInstance()->addMessage('SQL', 'Rollback, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
@@ -189,29 +260,9 @@ abstract class Engine
             $ok = self::$statement->execute($vars);
         }
         if (!$ok) {
-            Debug::addMessage('SQL', 'PDO ERROR in exec: ' . $query);
+            DebugTool::getInstance()->addMessage('SQL', 'PDO ERROR in exec: ' . $query);
         }
         return $ok;
-    }
-
-    /**
-     * Execute SQL statements on the database (INSERT, UPDATE or DELETE).
-     *
-     * @param string $queries
-     *
-     * @return bool
-     */
-    final public static function batchExec(array $queries): bool
-    {
-        $ok = true;
-        foreach ($queries as $query) {
-            $query = trim($query);
-            if ($query != '') {
-                // TODO: The same variables are passed for all queries.
-                $ok &= self::exec($query);
-            }
-        }
-        return (bool) $ok;
     }
 
     /**
@@ -249,57 +300,6 @@ abstract class Engine
     }
 
     /**
-     * Executes a SELECT SQL statement on the core cache.
-     *
-     * @param string $query
-     * @param string $cachedName
-     * @param array  $vars
-     *
-     * @return array
-     */
-    final public static function selectCoreCache(string $cachedName, string $query, array $vars = []): array
-    {
-        if (constant('CORE_CACHE_ENABLED') === true) {
-            $cacheEngine = Config::getCacheCoreEngine();
-            try {
-                $cacheItem = $cacheEngine->getItem($cachedName);
-            } catch (InvalidArgumentException $e) {
-                Logger::getInstance()::exceptionHandler($e);
-            }
-            if (!$cacheItem->isHit()) {
-                $cacheItem->set(self::select($query, $vars));
-                if ($cacheEngine->save($cacheItem)) {
-                    Debug::addMessage('messages', "Cache data saved to '" . $cachedName . "'.");
-                } else {
-                    Debug::addMessage('messages', 'Cache data not saved.');
-                }
-            }
-            if ($cacheEngine->hasItem($cachedName)) {
-                $item = $cacheItem->get();
-                return $item;
-            }
-            return [];
-        }
-        return self::select($query, $vars);
-    }
-
-    /**
-     * Clear item from cache.
-     *
-     * @param string $cachedName
-     *
-     * @return bool
-     */
-    final public static function clearCoreCache(string $cachedName): bool
-    {
-        $cacheEngine = Config::getCacheCoreEngine();
-        if (isset($cacheEngine)) {
-            return $cacheEngine->deleteItem($cachedName);
-        }
-        return false;
-    }
-
-    /**
      * Returns if a database connection exists or not.
      *
      * @return bool
@@ -321,15 +321,15 @@ abstract class Engine
     public function connect(array $config = []): bool
     {
         if (self::$dbHandler != null) {
-            Debug::addMessage('SQL', "PDO: Already connected " . self::$dsn);
+            DebugTool::getInstance()->addMessage('SQL', "PDO: Already connected " . self::$dsn);
             return true;
         }
-        Debug::addMessage('SQL', "PDO: " . self::$dsn);
+        DebugTool::getInstance()->addMessage('SQL', "PDO: " . self::$dsn);
         try {
             // Logs SQL queries. You need to wrap your PDO object into a DebugBar\DataCollector\PDO\TraceablePDO object.
             // http://phpdebugbar.com/docs/base-collectors.html
             self::$dbHandler = new PDODataCollector\TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
-            Debug::$debugBar->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
+            DebugTool::getInstance()->getDebugTool()->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
             Logger::getInstance()::exceptionHandler($e);
             Config::setError($e->getMessage());
@@ -411,7 +411,7 @@ abstract class Engine
         }
 
         self::$transactionDepth++;
-        Debug::addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
+        DebugTool::getInstance()->addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
 
         return $ret;
     }
@@ -425,7 +425,7 @@ abstract class Engine
     {
         $ret = true;
 
-        Debug::addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
+        DebugTool::getInstance()->addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {

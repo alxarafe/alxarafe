@@ -16,20 +16,6 @@ class SchemaDB
 {
 
     /**
-     * Return true if $tableName exists in database
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     */
-    public static function tableExists($tableName): bool
-    {
-        //$sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
-        $sql = Config::$sqlHelper->tableExists($tableName);
-        return !empty(Config::$dbEngine->selectCoreCache($tableName . '-exists', $sql));
-    }
-
-    /**
      * Return the tables on the database.
      *
      * @return array
@@ -83,24 +69,34 @@ class SchemaDB
     }
 
     /**
-     * Convert an array of fields into a string to be added to an SQL command, CREATE TABLE or ALTER TABLE.
-     * You can add a prefix field operation (usually ADD or MODIFY) that will be added at begin of each field.
+     * Return true if $tableName exists in database
      *
-     * @param array  $fieldsList
-     * @param string $fieldOperation (usually ADD, MODIFY or empty string)
+     * @param string $tableName
      *
-     * @return string
+     * @return bool
      */
-    protected static function assignFields(array $fieldsList, string $fieldOperation = ''): string
+    public static function tableExists($tableName): bool
     {
-        $fields = [];
-        foreach ($fieldsList as $index => $col) {
-            $field = Config::$sqlHelper->getSQLField($index, $col);
-            if ($field != '') {
-                $fields[] = trim($fieldOperation . ' ' . $field);
-            }
+        //$sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
+        $sql = Config::$sqlHelper->tableExists($tableName);
+        return !empty(Config::$dbEngine->selectCoreCache($tableName . '-exists', $sql));
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $fieldsList
+     *
+     * @return array
+     */
+    protected static function updateFields(string $tableName, array $fieldsList): array
+    {
+        $fields = self::modifyFields($tableName, $fieldsList);
+        if ($fields === '') {
+            return [];
         }
-        return implode(', ', $fields);
+        return ['ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ' . $fields . ';'];
     }
 
     /**
@@ -134,6 +130,27 @@ class SchemaDB
     }
 
     /**
+     * Convert an array of fields into a string to be added to an SQL command, CREATE TABLE or ALTER TABLE.
+     * You can add a prefix field operation (usually ADD or MODIFY) that will be added at begin of each field.
+     *
+     * @param array  $fieldsList
+     * @param string $fieldOperation (usually ADD, MODIFY or empty string)
+     *
+     * @return string
+     */
+    protected static function assignFields(array $fieldsList, string $fieldOperation = ''): string
+    {
+        $fields = [];
+        foreach ($fieldsList as $index => $col) {
+            $field = Config::$sqlHelper->getSQLField($index, $col);
+            if ($field != '') {
+                $fields[] = trim($fieldOperation . ' ' . $field);
+            }
+        }
+        return implode(', ', $fields);
+    }
+
+    /**
      * Build the SQL statement to create the fields in the table.
      * It can also create the primary key if the auto_increment attribute is defined.
      *
@@ -153,20 +170,50 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Create the SQL statements for the construction of one index.
+     * In the case of the primary index, it is not necessary if it is auto_increment.
+     *
+     * TODO:
+     *
+     * Moreover, it should not be defined if it is auto_increment because it would
+     * generate an error when it already exists.
      *
      * @param string $tableName
-     * @param array  $fieldsList
+     * @param string $indexname
+     * @param array  $indexData
      *
      * @return array
      */
-    protected static function updateFields(string $tableName, array $fieldsList): array
+    protected static function createIndex(string $tableName, string $indexName, array $indexData): array
     {
-        $fields = self::modifyFields($tableName, $fieldsList);
-        if ($fields === '') {
+        $tableIndexes = Config::$sqlHelper->getIndexes($tableName);
+        $tableIndex = $tableIndexes[$indexName] ?? [];
+        $indexDiff = array_diff($indexData, $tableIndex);
+        $existsIndex = isset($tableIndexes[$indexName]);
+        $changedIndex = (count($indexDiff) > 0);
+        if (!$changedIndex) {
             return [];
         }
-        return ['ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ' . $fields . ';'];
+
+        $indexData['index'] = $indexName;
+
+        if ($indexName == 'PRIMARY') {
+            $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
+            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
+            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
+        }
+
+        $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
+        //$nullable = isset($indexData['nullable']) && ($indexData['nullable'] == 'yes');
+        $constraint = $indexData['constraint'] ?? false;
+
+        if ($constraint) {
+            return self::createConstraint($tableName, $indexData, $existsIndex);
+        }
+
+        return $unique ?
+            self::createUniqueIndex($tableName, $indexData, $existsIndex) :
+            self::createStandardIndex($tableName, $indexData, $existsIndex);
     }
 
     /**
@@ -185,7 +232,7 @@ class SchemaDB
         // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
         // 'ADD PRIMARY KEY ('id') AUTO_INCREMENT' is specific of MySQL?
         // ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (c);
-        // 
+        //
         // TODO: Check dependencies of MySQL
         $sql = [];
         if ($exists) {
@@ -199,6 +246,48 @@ class SchemaDB
                 ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
                 ' INT(' . $length . ') UNSIGNED AUTO_INCREMENT';
         }
+        return $sql;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $tableName
+     * @param array  $indexData
+     * @param bool   $exists
+     *
+     * @return array
+     */
+    protected static function createConstraint(string $tableName, array $indexData, bool $exists = false): array
+    {
+        // https://www.w3schools.com/sql/sql_foreignkey.asp
+        // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
+
+        $referencedTableWithoutPrefix = $indexData['referencedtable'];
+        $referencedTable = Config::getVar('dbPrefix') . $referencedTableWithoutPrefix;
+
+        $sql = [];
+        if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '')) {
+            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
+        }
+
+        // Delete (if exists) and create the index related to the constraint
+        $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
+
+        $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
+            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
+            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($referencedTable) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
+
+        if ($indexData['deleterule'] != '') {
+            $query .= ' ON DELETE ' . $indexData['deleterule'];
+        }
+
+        if ($indexData['updaterule'] != '') {
+            $query .= ' ON UPDATE ' . $indexData['updaterule'] . ';';
+        }
+
+        $sql[] = $query;
+
         return $sql;
     }
 
@@ -250,95 +339,6 @@ class SchemaDB
         $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
             ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' UNIQUE (' . $columns . ')';
         return $sql;
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @param string $tableName
-     * @param array  $indexData
-     * @param bool   $exists
-     *
-     * @return array
-     */
-    protected static function createConstraint(string $tableName, array $indexData, bool $exists = false): array
-    {
-        // https://www.w3schools.com/sql/sql_foreignkey.asp
-        // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
-
-        $referencedTableWithoutPrefix = $indexData['referencedtable'];
-        $referencedTable = Config::getVar('dbPrefix') . $referencedTableWithoutPrefix;
-
-        $sql = [];
-        if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '')) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
-        }
-
-        // Delete (if exists) and create the index related to the constraint
-        $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
-
-        $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
-            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($referencedTable) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
-
-        if ($indexData['deleterule'] != '') {
-            $query .= ' ON DELETE ' . $indexData['deleterule'];
-        }
-
-        if ($indexData['updaterule'] != '') {
-            $query .= ' ON UPDATE ' . $indexData['updaterule'] . ';';
-        }
-
-        $sql[] = $query;
-
-        return $sql;
-    }
-
-    /**
-     * Create the SQL statements for the construction of one index.
-     * In the case of the primary index, it is not necessary if it is auto_increment.
-     *
-     * TODO:
-     *
-     * Moreover, it should not be defined if it is auto_increment because it would
-     * generate an error when it already exists.
-     *
-     * @param string $tableName
-     * @param string $indexname
-     * @param array  $indexData
-     *
-     * @return array
-     */
-    protected static function createIndex(string $tableName, string $indexName, array $indexData): array
-    {
-        $tableIndexes = Config::$sqlHelper->getIndexes($tableName);
-        $tableIndex = $tableIndexes[$indexName] ?? [];
-        $indexDiff = array_diff($indexData, $tableIndex);
-        $existsIndex = isset($tableIndexes[$indexName]);
-        $changedIndex = (count($indexDiff) > 0);
-        if (!$changedIndex) {
-            return [];
-        }
-
-        $indexData['index'] = $indexName;
-
-        if ($indexName == 'PRIMARY') {
-            $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
-            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
-            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
-        }
-
-        $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
-        //$nullable = isset($indexData['nullable']) && ($indexData['nullable'] == 'yes');
-        $constraint = $indexData['constraint'] ?? false;
-
-        if ($constraint) {
-            return self::createConstraint($tableName, $indexData, $existsIndex);
-        }
-
-        return $unique ?
-            self::createUniqueIndex($tableName, $indexData, $existsIndex) :
-            self::createStandardIndex($tableName, $indexData, $existsIndex);
     }
 
     /**

@@ -23,19 +23,30 @@ trait Singleton
 {
 
     /**
+     * Set to true if you want use more that one singleton using and index
+     * param in getInstance
+     *
+     * @var bool
+     */
+    protected static $singletonArray = false;
+    /**
+     * The base path where config files are placed.
+     *
+     * @var string
+     */
+    protected static $basePath;
+    /**
      * Name of the class
      *
      * @var string
      */
     private static $className;
-
     /**
      * Hold the classes on instance.
      *
      * @var array
      */
     private static $instances = [];
-
     /**
      * Set to true if you want to save configuration in a separate file
      *
@@ -44,19 +55,100 @@ trait Singleton
     protected $separateConfigFile = false;
 
     /**
-     * Set to true if you want use more that one singleton using and index
-     * param in getInstance
+     * Returns the yaml config params.
      *
-     * @var bool
+     * @param string $index
+     *
+     * @return array
      */
-    protected static $singletonArray = false;
+    public function getConfig(string $index = 'main'): array
+    {
+        $yamlContent = $this->getYamlContent();
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index];
+        return $content ?? [];
+    }
 
     /**
-     * The base path where config files are placed.
+     * Returns the content of the Yaml file.
      *
-     * @var string
+     * @param string $index
+     *
+     * @return array
      */
-    protected static $basePath;
+    private function getYamlContent(): array
+    {
+        $yamlContent = [];
+        $file = $this->getFilePath();
+        if ($this->fileExists($file)) {
+            try {
+                $yamlContent = Yaml::parseFile($file);
+            } catch (ParseException $e) {
+                Logger::getInstance()::exceptionHandler($e);
+                $yamlContent = [];
+            }
+        }
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[strtolower(self::getClassName())];
+        return $content ?? [];
+    }
+
+    /**
+     * Return the full file config path.
+     *
+     * @return string
+     */
+    public function getFilePath()
+    {
+        return self::$basePath . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
+    }
+
+    /**
+     * Return the file name.
+     *
+     * @return string
+     */
+    public function getFileName()
+    {
+        return ($this->separateConfigFile ? strtolower(self::getClassName()) : 'config');
+    }
+
+    /**
+     * Returns if file exists.
+     *
+     * @param string $filename
+     *
+     * @return bool
+     */
+    protected function fileExists(string $filename)
+    {
+        return (isset($filename) && file_exists($filename) && is_file($filename));
+    }
+
+    /**
+     * Save config to file.
+     *
+     * @param array  $params
+     * @param string $index
+     *
+     * @return bool
+     */
+    public function setConfig(array $params, string $index = 'main')
+    {
+        $yamlContent = [];
+        $yamlContent[self::getClassName()] = $this->getYamlContent();
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[self::getClassName()][$index];
+        $content = array_merge($content, $params);
+        return file_put_contents($this->getFilePath(), Yaml::dump($content)) !== false;
+    }
+
+    /**
+     * Return the base path.
+     *
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return self::$basePath;
+    }
 
     /**
      * Initialization, equivalent to __construct and must be called from main class.
@@ -103,101 +195,5 @@ trait Singleton
             self::$instances[self::getClassName()][$index] = new static();
         }
         return self::$instances[self::getClassName()][$index];
-    }
-
-    /**
-     * Returns the yaml config params.
-     *
-     * @param string $index
-     *
-     * @return array
-     */
-    public function getConfig(string $index = 'main'): array
-    {
-        $yamlContent = $this->getYamlContent();
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index];
-        return $content ?? [];
-    }
-
-    /**
-     * Save config to file.
-     *
-     * @param array  $params
-     * @param string $index
-     *
-     * @return bool
-     */
-    public function setConfig(array $params, string $index = 'main')
-    {
-        $yamlContent = [];
-        $yamlContent[self::getClassName()] = $this->getYamlContent();
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[self::getClassName()][$index];
-        $content = array_merge($content, $params);
-        return file_put_contents($this->getFilePath(), Yaml::dump($content)) !== false;
-    }
-
-    /**
-     * Returns if file exists.
-     *
-     * @param string $filename
-     *
-     * @return bool
-     */
-    protected function fileExists(string $filename)
-    {
-        return (isset($filename) && file_exists($filename) && is_file($filename));
-    }
-
-    /**
-     * Return the full file config path.
-     *
-     * @return string
-     */
-    public function getFilePath()
-    {
-        return self::$basePath . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
-    }
-
-    /**
-     * Return the file name.
-     *
-     * @return string
-     */
-    public function getFileName()
-    {
-        return ($this->separateConfigFile ? strtolower(self::getClassName()) : 'config');
-    }
-
-    /**
-     * Return the base path.
-     *
-     * @return string
-     */
-    public function getBasePath()
-    {
-        return self::$basePath;
-    }
-
-    /**
-     * Returns the content of the Yaml file.
-     *
-     * @param string $index
-     *
-     * @return array
-     */
-    private function getYamlContent(): array
-    {
-        $yamlContent = [];
-        $file = $this->getFilePath();
-        if ($this->fileExists($file)) {
-            try {
-                $yamlContent = Yaml::parseFile($file);
-            } catch (ParseException $e) {
-                Logger::getInstance()::exceptionHandler($e);
-                $yamlContent = [];
-            }
-        }
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[strtolower(self::getClassName())];
-        return $content ?? [];
     }
 }

@@ -60,7 +60,22 @@ class Config
      * @var string::null
      */
     public static $configFilename;
-
+    /**
+     * Translator
+     *
+     * @var Translator
+     */
+    public static $lang;
+    /**
+     * Cache core engine.
+     *
+     * @var PhpArrayAdapter
+     */
+    public static $cacheEngine;
+    /**
+     * @var Session
+     */
+    public static $session;
     /**
      * Contains an array with the variables defined in the configuration file.
      * Use setVar to assign or getVar to access the variables of the array.
@@ -68,61 +83,12 @@ class Config
      * @var array
      */
     private static $global;
-
     /**
      * Contains a message list.
      *
      * @var array
      */
     private static $messagesList;
-
-    /**
-     * Translator
-     *
-     * @var Translator
-     */
-    public static $lang;
-
-    /**
-     * Cache core engine.
-     *
-     * @var PhpArrayAdapter
-     */
-    public static $cacheEngine;
-
-    /**
-     * @var Session
-     */
-    public static $session;
-
-    /**
-     * Return true y the config file exists
-     *
-     * @return bool
-     */
-    public static function configFileExists(): bool
-    {
-        return (file_exists(self::getConfigFileName()) && is_file(self::getConfigFileName()));
-    }
-
-    /**
-     * Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
-     * inside it. If you want to use another folder for the configuration, you will have to define it in the constant
-     * CONFIGURATION_PATH before invoking this method, this folder must exist.
-     *
-     * @return string
-     */
-    public static function getConfigFileName(): string
-    {
-        if (isset(self::$configFilename)) {
-            return self::$configFilename;
-        }
-        $filename = CONFIGURATION_PATH . '/config.yaml';
-        if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {
-            self::$configFilename = $filename;
-        }
-        return self::$configFilename;
-    }
 
     /**
      * Set the display settings.
@@ -183,16 +149,6 @@ class Config
     }
 
     /**
-     * Return the default Cache Core.
-     *
-     * @return PhpArrayAdapter
-     */
-    public static function getCacheCoreEngine(): PhpArrayAdapter
-    {
-        return self::$cacheEngine;
-    }
-
-    /**
      * Returns an array with the configuration defined in the configuration file.
      * If the configuration file does not exist, take us to the application configuration form to create it
      *
@@ -215,6 +171,35 @@ class Config
     }
 
     /**
+     * Return true y the config file exists
+     *
+     * @return bool
+     */
+    public static function configFileExists(): bool
+    {
+        return (file_exists(self::getConfigFileName()) && is_file(self::getConfigFileName()));
+    }
+
+    /**
+     * Returns the name of the configuration file. By default, create the config folder and enter the config.yaml file
+     * inside it. If you want to use another folder for the configuration, you will have to define it in the constant
+     * CONFIGURATION_PATH before invoking this method, this folder must exist.
+     *
+     * @return string
+     */
+    public static function getConfigFileName(): string
+    {
+        if (isset(self::$configFilename)) {
+            return self::$configFilename;
+        }
+        $filename = CONFIGURATION_PATH . '/config.yaml';
+        if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {
+            self::$configFilename = $filename;
+        }
+        return self::$configFilename;
+    }
+
+    /**
      * Register a new error message
      *
      * @param string $msg
@@ -226,6 +211,49 @@ class Config
             'msg' => $msg,
         ];
         self::$session->setFlash('messages', self::$messagesList);
+    }
+
+    /**
+     * If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
+     * Config::$dbEngine.
+     *
+     * @return bool
+     */
+    public static function connectToDatabase(): bool
+    {
+        if (self::$dbEngine == null) {
+            $dbEngineName = self::$global['dbEngineName'] ?? 'PdoMySql';
+            $helperName = 'Sql' . substr($dbEngineName, 3);
+
+            $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
+            $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
+            try {
+                Config::$sqlHelper = new $sqlEngine();
+                Config::$dbEngine = new $engine([
+                    'dbUser' => self::$global['dbUser'],
+                    'dbPass' => self::$global['dbPass'],
+                    'dbName' => self::$global['dbName'],
+                    'dbHost' => self::$global['dbHost'],
+                    'dbPort' => self::$global['dbPort'],
+                ]);
+            } catch (Exception $e) {
+                Logger::getInstance()::exceptionHandler($e);
+                Config::setError($e->getMessage());
+                return false;
+            }
+        }
+
+        return isset(self::$dbEngine) && self::$dbEngine->connect() && Config::$dbEngine->checkConnection();
+    }
+
+    /**
+     * Return the default Cache Core.
+     *
+     * @return PhpArrayAdapter
+     */
+    public static function getCacheCoreEngine(): PhpArrayAdapter
+    {
+        return self::$cacheEngine;
     }
 
     /**
@@ -268,39 +296,6 @@ class Config
             'msg' => $msg,
         ];
         self::$session->setFlash('messages', self::$messagesList);
-    }
-
-    /**
-     * If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
-     * Config::$dbEngine.
-     *
-     * @return bool
-     */
-    public static function connectToDatabase(): bool
-    {
-        if (self::$dbEngine == null) {
-            $dbEngineName = self::$global['dbEngineName'] ?? 'PdoMySql';
-            $helperName = 'Sql' . substr($dbEngineName, 3);
-
-            $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
-            $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
-            try {
-                Config::$sqlHelper = new $sqlEngine();
-                Config::$dbEngine = new $engine([
-                    'dbUser' => self::$global['dbUser'],
-                    'dbPass' => self::$global['dbPass'],
-                    'dbName' => self::$global['dbName'],
-                    'dbHost' => self::$global['dbHost'],
-                    'dbPort' => self::$global['dbPort'],
-                ]);
-            } catch (Exception $e) {
-                Logger::getInstance()::exceptionHandler($e);
-                Config::setError($e->getMessage());
-                return false;
-            }
-        }
-
-        return isset(self::$dbEngine) && self::$dbEngine->connect() && Config::$dbEngine->checkConnection();
     }
 
     /**

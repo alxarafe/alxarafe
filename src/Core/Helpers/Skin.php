@@ -7,6 +7,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use Twig_Environment;
 use Twig_Error_Loader;
@@ -155,7 +156,7 @@ class Skin
             self::$currentSkin = $skin;
             self::setTemplatesFolder($skin);
         }
-        Debug::addMessage('messages', "Setting '$skin' skin");
+        DebugTool::getInstance()->addMessage('messages', "Setting '$skin' skin");
     }
 
     /**
@@ -166,7 +167,7 @@ class Skin
     public static function setTemplate($template): void
     {
         self::$currentTemplate = $template;
-        Debug::addMessage('messages', "Setting '$template' template");
+        DebugTool::getInstance()->addMessage('messages', "Setting '$template' template");
     }
 
     /**
@@ -224,7 +225,7 @@ class Skin
             'Templates common folder: ' . self::$commonTemplatesFolder,
             'Current template: ' . self::$currentTemplate,
         ];
-        Debug::addMessage('messages', '<pre>' . var_export($details, true) . '</pre>');
+        DebugTool::getInstance()->addMessage('messages', '<pre>' . var_export($details, true) . '</pre>');
 
         return self::renderIt($vars);
     }
@@ -239,7 +240,7 @@ class Skin
     private static function renderIt(array $vars): string
     {
         $return = null;
-        Debug::startTimer('renderer', 'Rendering time');
+        DebugTool::getInstance()->startTimer('renderer', 'Rendering time');
 
         switch (self::$templatesEngine) {
             case 'twig':
@@ -279,30 +280,105 @@ class Skin
                 $return = self::$templatesEngine . ' engine is not supported!';
         }
 
-        Debug::stopTimer('renderer');
+        DebugTool::getInstance()->stopTimer('renderer');
         return $return;
     }
 
     /**
-     * Dump details on fail.
+     * Return a list of template vars, merged with $vars,
      *
-     * @param      $e
-     * @param bool $return
+     * @param $vars
      *
-     * @return string|void
+     * @return array
      */
-    private static function errorDetails($e, $return = false)
+    private static function getTemplateVars(array $vars = []): array
     {
-        $msg = '<h3>Fatal error</h3>';
-        $msg .= '<b>File:</b> ' . $e->getFile() . '<br/>';
-        $msg .= '<b>Line:</b> ' . $e->getLine() . '<br/>';
-        $msg .= '<b>Message:</b> ' . $e->getMessage() . '<br/>';
+        return array_merge($vars, [
+            '_REQUEST' => $_REQUEST,
+            '_GET' => $_GET,
+            '_POST' => $_POST,
+            'GLOBALS' => $GLOBALS,
+        ]);
+    }
 
-        if ($return) {
-            return $msg;
-        } else {
-            echo $msg;
+    /**
+     * Returns a list of available paths.
+     *
+     * @return array
+     */
+    private static function getPaths(): array
+    {
+        $usePath = [];
+        $paths = [
+            self::getTemplatesFolder(),
+            self::getCommonTemplatesFolder(),
+            constant('DEFAULT_TEMPLATES_FOLDER'),
+        ];
+        // Only use really existing path
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                $usePath[] = $path;
+            }
         }
+        DebugTool::getInstance()->addMessage('messages', 'Using: <pre>' . print_r($usePath, true) . '</pre>');
+        return $usePath;
+    }
+
+    /**
+     * Return the template folder path.
+     *
+     * @return string
+     */
+    public static function getTemplatesFolder(): string
+    {
+        return constant('BASE_PATH') . self::$templatesFolder;
+    }
+
+    /**
+     * Establish a new template. The parameter must be only de template name, no the path!
+     *
+     * @param string $template
+     */
+    public static function setTemplatesFolder(string $template): void
+    {
+        self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
+        DebugTool::getInstance()->addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
+    }
+
+    /**
+     * Return the common template folder path.
+     *
+     * @return string
+     */
+    public static function getCommonTemplatesFolder(): string
+    {
+        return constant('BASE_PATH') . self::$commonTemplatesFolder;
+    }
+
+    /**
+     * Sets the common templates folder.
+     *
+     * @param string $templatesFolder
+     */
+    public static function setCommonTemplatesFolder(string $templatesFolder): void
+    {
+        DebugTool::getInstance()->addMessage('messages', "Setting '$templatesFolder' common templates folder");
+        self::$commonTemplatesFolder = $templatesFolder;
+    }
+
+    /**
+     * Returns a list of options.
+     *
+     * @return array
+     */
+    private static function getOptions(): array
+    {
+        $options = [];
+        $options['debug'] = (defined('DEBUG') && constant('DEBUG') == true);
+        if (defined('CACHE') && constant('CACHE') == true) {
+            $options['cache'] = (constant('BASE_PATH') ?? '') . '/cache/twig';
+        }
+        return $options;
     }
 
     /**
@@ -329,104 +405,29 @@ class Skin
     private static function getTemplate(): string
     {
         $template = (self::getTemplateVars()['template'] ?? Skin::$currentTemplate) . '.twig';
-        Debug::addMessage('messages', "Using '$template' template");
+        DebugTool::getInstance()->addMessage('messages', "Using '$template' template");
         return $template;
     }
 
     /**
-     * Return a list of template vars, merged with $vars,
+     * Dump details on fail.
      *
-     * @param $vars
+     * @param      $e
+     * @param bool $return
      *
-     * @return array
+     * @return string|void
      */
-    private static function getTemplateVars(array $vars = []): array
+    private static function errorDetails($e, $return = false)
     {
-        return array_merge($vars, [
-            '_REQUEST' => $_REQUEST,
-            '_GET' => $_GET,
-            '_POST' => $_POST,
-            'GLOBALS' => $GLOBALS,
-        ]);
-    }
+        $msg = '<h3>Fatal error</h3>';
+        $msg .= '<b>File:</b> ' . $e->getFile() . '<br/>';
+        $msg .= '<b>Line:</b> ' . $e->getLine() . '<br/>';
+        $msg .= '<b>Message:</b> ' . $e->getMessage() . '<br/>';
 
-    /**
-     * Returns a list of options.
-     *
-     * @return array
-     */
-    private static function getOptions(): array
-    {
-        $options = [];
-        $options['debug'] = (defined('DEBUG') && constant('DEBUG') == true);
-        if (defined('CACHE') && constant('CACHE') == true) {
-            $options['cache'] = (constant('BASE_PATH') ?? '') . '/cache/twig';
+        if ($return) {
+            return $msg;
+        } else {
+            echo $msg;
         }
-        return $options;
-    }
-
-    /**
-     * Returns a list of available paths.
-     *
-     * @return array
-     */
-    private static function getPaths(): array
-    {
-        $usePath = [];
-        $paths = [
-            self::getTemplatesFolder(),
-            self::getCommonTemplatesFolder(),
-            constant('DEFAULT_TEMPLATES_FOLDER'),
-        ];
-        // Only use really existing path
-        foreach ($paths as $path) {
-            if (file_exists($path)) {
-                $usePath[] = $path;
-            }
-        }
-        Debug::addMessage('messages', 'Using: <pre>' . print_r($usePath, true) . '</pre>');
-        return $usePath;
-    }
-
-    /**
-     * Return the template folder path.
-     *
-     * @return string
-     */
-    public static function getTemplatesFolder(): string
-    {
-        return constant('BASE_PATH') . self::$templatesFolder;
-    }
-
-    /**
-     * Establish a new template. The parameter must be only de template name, no the path!
-     *
-     * @param string $template
-     */
-    public static function setTemplatesFolder(string $template): void
-    {
-        self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
-        Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
-    }
-
-    /**
-     * Return the common template folder path.
-     *
-     * @return string
-     */
-    public static function getCommonTemplatesFolder(): string
-    {
-        return constant('BASE_PATH') . self::$commonTemplatesFolder;
-    }
-
-    /**
-     * Sets the common templates folder.
-     *
-     * @param string $templatesFolder
-     */
-    public static function setCommonTemplatesFolder(string $templatesFolder): void
-    {
-        Debug::addMessage('messages', "Setting '$templatesFolder' common templates folder");
-        self::$commonTemplatesFolder = $templatesFolder;
     }
 }

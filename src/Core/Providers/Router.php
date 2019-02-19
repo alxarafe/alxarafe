@@ -35,31 +35,6 @@ class Router
     }
 
     /**
-     * Load routes from configuration file.
-     *
-     * @return array
-     */
-    public function loadRoutes()
-    {
-        $this->routes = $this->getConfig();
-        if (empty($this->routes)) {
-            $this->routes = $this->getDefaultRoutes();
-        }
-        return $this->routes;
-    }
-
-    /**
-     * Saves routes to configuration file.
-     *
-     * @return bool
-     */
-    public function saveRoutes()
-    {
-        return $this->setConfig($this->routes);
-    }
-
-
-    /**
      * Return a list of routes.
      *
      * @return array
@@ -84,6 +59,20 @@ class Router
     }
 
     /**
+     * Load routes from configuration file.
+     *
+     * @return array
+     */
+    public function loadRoutes()
+    {
+        $this->routes = $this->getConfig();
+        if (empty($this->routes)) {
+            $this->routes = $this->getDefaultRoutes();
+        }
+        return $this->routes;
+    }
+
+    /**
      * Return a list of essential controllers.
      *
      * @return array
@@ -95,6 +84,16 @@ class Router
             'EditConfig' => 'Alxarafe\\Controllers\\EditConfig',
             'Login' => 'Alxarafe\\Controllers\\Login',
         ];
+    }
+
+    /**
+     * Saves routes to configuration file.
+     *
+     * @return bool
+     */
+    public function saveRoutes()
+    {
+        return $this->setConfig($this->routes);
     }
 
     /**

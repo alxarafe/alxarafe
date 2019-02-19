@@ -3,9 +3,11 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
+use Alxarafe\Providers\DebugTool;
 
 /**
  * Class Auth
@@ -24,7 +26,16 @@ class Auth extends User
      * Minimum cookie time expiration.
      */
     const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
-
+    /**
+     * User log key.
+     *
+     * @var string|null
+     */
+    public $logkey = null;
+    /**
+     * @var \Alxarafe\Helpers\Session
+     */
+    protected $session;
     /**
      * Username in use.
      *
@@ -32,25 +43,12 @@ class Auth extends User
      */
 
     private $username = null;
-
     /**
      * User in use.
      *
      * @var User|null
      */
     private $user = null;
-
-    /**
-     * User log key.
-     *
-     * @var string|null
-     */
-    public $logkey = null;
-
-    /**
-     * @var \Alxarafe\Helpers\Session
-     */
-    protected $session;
 
     /**
      * Auth constructor.
@@ -79,6 +77,79 @@ class Auth extends User
     }
 
     /**
+     * Verify is log key is correct.
+     *
+     * @param string $userName
+     * @param string $hash
+     *
+     * @return bool
+     */
+    public function verifyLogKey(string $userName, string $hash): bool
+    {
+        $status = false;
+        $this->user = new User();
+        if ($this->user->getBy('username', $userName) !== null && $hash === $this->user->logkey) {
+            $this->username = $this->user->username;
+            $this->logkey = $this->user->logkey;
+            $status = true;
+        }
+        return $status;
+    }
+
+    /**
+     * Clear the cookie user.
+     *
+     * @return void
+     */
+    private function clearCookieUser(): void
+    {
+        $this->adjustCookieUser();
+    }
+
+    /**
+     * Adjust auth cookie user.
+     *
+     * @return void
+     */
+    private function adjustCookieUser($time = 0): void
+    {
+        if ($time == 0) {
+            $time = time() - 3600;
+        }
+        setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        $this->logkey = $this->generateLogKey();
+        setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+    }
+
+    /**
+     * Generate a log key.
+     *
+     * @param string $ip
+     * @param bool   $unique
+     *
+     * @return string
+     */
+    public function generateLogKey(string $ip = '', bool $unique = true): string
+    {
+        $logkey = '';
+        if (!empty($this->username)) {
+            $this->user = new User();
+            $this->user->getBy('username', $this->username);
+            $text = $this->username;
+            if ($unique) {
+                $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
+            }
+            $text .= '|' . Utils::randomString();
+            $logkey = password_hash($text, PASSWORD_DEFAULT);
+
+            $this->user->logkey = $logkey;
+            $this->user->save();
+        }
+
+        return $logkey;
+    }
+
+    /**
      * Login the user.
      *
      * @return void
@@ -104,31 +175,6 @@ class Auth extends User
 
         $this->clearCookieUser();
         header('Location: ' . constant('BASE_URI') . '/index.php');
-    }
-
-    /**
-     * Adjust auth cookie user.
-     *
-     * @return void
-     */
-    private function adjustCookieUser($time = 0): void
-    {
-        if ($time == 0) {
-            $time = time() - 3600;
-        }
-        setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-        $this->logkey = $this->generateLogKey();
-        setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-    }
-
-    /**
-     * Clear the cookie user.
-     *
-     * @return void
-     */
-    private function clearCookieUser(): void
-    {
-        $this->adjustCookieUser();
     }
 
     /**
@@ -170,62 +216,14 @@ class Auth extends User
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time);
-                Debug::addMessage('messages', $this->user->username . " authenticated");
+                DebugTool::getInstance()->addMessage('messages', $this->user->username . " authenticated");
             } else {
                 $this->clearCookieUser();
-                Debug::addMessage('messages', "Checking hash wrong password");
+                DebugTool::getInstance()->addMessage('messages', "Checking hash wrong password");
             }
         } else {
-            Debug::addMessage('messages', "User '" . $userName . "' not founded.");
+            DebugTool::getInstance()->addMessage('messages', "User '" . $userName . "' not founded.");
         }
         return $this->username !== null;
-    }
-
-    /**
-     * Generate a log key.
-     *
-     * @param string $ip
-     * @param bool   $unique
-     *
-     * @return string
-     */
-    public function generateLogKey(string $ip = '', bool $unique = true): string
-    {
-        $logkey = '';
-        if (!empty($this->username)) {
-            $this->user = new User();
-            $this->user->getBy('username', $this->username);
-            $text = $this->username;
-            if ($unique) {
-                $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
-            }
-            $text .= '|' . Utils::randomString();
-            $logkey = password_hash($text, PASSWORD_DEFAULT);
-
-            $this->user->logkey = $logkey;
-            $this->user->save();
-        }
-
-        return $logkey;
-    }
-
-    /**
-     * Verify is log key is correct.
-     *
-     * @param string $userName
-     * @param string $hash
-     *
-     * @return bool
-     */
-    public function verifyLogKey(string $userName, string $hash): bool
-    {
-        $status = false;
-        $this->user = new User();
-        if ($this->user->getBy('username', $userName) !== null && $hash === $this->user->logkey) {
-            $this->username = $this->user->username;
-            $this->logkey = $this->user->logkey;
-            $status = true;
-        }
-        return $status;
     }
 }

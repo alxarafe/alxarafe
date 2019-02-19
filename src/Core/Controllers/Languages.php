@@ -3,13 +3,13 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Models\Language;
 use Alxarafe\Base\Controller;
 use Alxarafe\Base\View;
-use Alxarafe\Helpers\Debug;
-use Alxarafe\Providers\Container;
+use Alxarafe\Models\Language;
+use Alxarafe\Providers\DebugTool;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -27,29 +27,6 @@ class Languages extends Controller
     {
         parent::__construct(new Language());
         $this->main();
-    }
-
-    public function getNewButtons()
-    {
-        $return = [];
-        $return[] = [
-            'link' => $this->url . '&action=regenerate',
-            'icon' => 'glyphicon-refresh',
-            'text' => 'regenerate-data',
-            'type' => 'info',
-        ];
-        return $return;
-    }
-
-    /**
-     * The start point of the controller.
-     *
-     * @return void
-     */
-    public function run(): void
-    {
-        $this->setView(new View($this));
-        parent::run();
     }
 
     /**
@@ -98,7 +75,7 @@ class Languages extends Controller
             }
 
             $fileName = $lang['language'] . '_' . $lang['variant'];
-            Debug::addMessage('messages', 'Processing ' . $fileName . ' language');
+            DebugTool::getInstance()->addMessage('messages', 'Processing ' . $fileName . ' language');
             // echo '<p>Processing ' . $lang['language'] . '_' . $lang['variant'] . ' language</p>';
 
             $subLanguage = null;
@@ -139,6 +116,29 @@ class Languages extends Controller
             ksort($allData);
             file_put_contents($destinationFolder . '/' . $fileName . '.yaml', Yaml::dump($allData));
         }
+    }
+
+    public function getNewButtons()
+    {
+        $return = [];
+        $return[] = [
+            'link' => $this->url . '&action=regenerate',
+            'icon' => 'glyphicon-refresh',
+            'text' => 'regenerate-data',
+            'type' => 'info',
+        ];
+        return $return;
+    }
+
+    /**
+     * The start point of the controller.
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        $this->setView(new View($this));
+        parent::run();
     }
 
     /**

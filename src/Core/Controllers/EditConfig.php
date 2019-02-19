@@ -159,14 +159,18 @@ class EditConfig extends PageController
     }
 
     /**
-     * The start point of the controller.
+     * Regenerate some needed data.
      *
-     * @return string
+     * @return void
      */
-    public function run()
+    private function regenerateData(): void
     {
-        return $this->renderer->render();
-        //$this->index();
+        if (!set_time_limit(0)) {
+            Config::setError('cant-increase-time-limit');
+        }
+
+        new PreProcessors\Models($this->searchDir);
+        new PreProcessors\Pages($this->searchDir);
     }
 
     /**
@@ -193,6 +197,17 @@ class EditConfig extends PageController
     }
 
     /**
+     * The start point of the controller.
+     *
+     * @return string
+     */
+    public function run()
+    {
+        return $this->renderer->render();
+        //$this->index();
+    }
+
+    /**
      * Returns the page details.
      *
      * @return array
@@ -207,20 +222,5 @@ class EditConfig extends PageController
             'menu' => 'admin',
         ];
         return $details;
-    }
-
-    /**
-     * Regenerate some needed data.
-     *
-     * @return void
-     */
-    private function regenerateData(): void
-    {
-        if (!set_time_limit(0)) {
-            Config::setError('cant-increase-time-limit');
-        }
-
-        new PreProcessors\Models($this->searchDir);
-        new PreProcessors\Pages($this->searchDir);
     }
 }

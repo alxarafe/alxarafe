@@ -9,7 +9,6 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Providers\Container;
 use Alxarafe\Views\ExportStructureView;
 
 /**
@@ -26,17 +25,6 @@ class ExportStructure extends PageController
     public function __construct()
     {
         parent::__construct();
-    }
-
-    /**
-     * Start point
-     *
-     * @return void
-     */
-    public function index(): void
-    {
-        parent::index();
-        Skin::setView(new ExportStructureView($this));
     }
 
     /**
@@ -70,6 +58,17 @@ class ExportStructure extends PageController
     public function run(): void
     {
         $this->index();
+    }
+
+    /**
+     * Start point
+     *
+     * @return void
+     */
+    public function index(): void
+    {
+        parent::index();
+        Skin::setView(new ExportStructureView($this));
     }
 
     /**.

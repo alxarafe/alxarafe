@@ -53,7 +53,7 @@
 'register-not-deleted': 'Registro no eliminado'
 'save-changes': 'Guardar los cambios'
 'select-tables-to-export': 'Selecciona que tablas quieres exportar:'
-'select-tables-to-generate-models-controllers' : 'Selecciona que tablas quieres generar sus modelos y controladores'
+'select-tables-to-generate-models-controllers': 'Selecciona que tablas quieres generar sus modelos y controladores'
 'selected': 'Seleccionado'
 'show': 'Mostrar'
 'table-name': 'Nombre de tabla'

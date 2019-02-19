@@ -3,13 +3,14 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
 use Alxarafe\Models\TableModel;
+use Alxarafe\Providers\DebugTool;
 use ReflectionClass;
 
 /**
@@ -33,11 +34,11 @@ class Table extends SimpleTable
     {
         parent::__construct($tableName, $params);
         $shortName = (new ReflectionClass($this))->getShortName();
-        Debug::startTimer($shortName, $shortName . ' Table Constructor');
+        DebugTool::getInstance()->startTimer($shortName, $shortName . ' Table Constructor');
 
         $create = $params['create'] ?? false;
         $this->checkStructure($create);
-        Debug::stopTimer($shortName);
+        DebugTool::getInstance()->stopTimer($shortName);
     }
 
     /**
@@ -97,16 +98,6 @@ class Table extends SimpleTable
     //abstract public function getFields();
 
     /**
-     * Returns the structure of the normalized table.
-     *
-     * @return array
-     */
-    public function getStructure(): array
-    {
-        return Config::$bbddStructure[$this->tableName];
-    }
-
-    /**
      * Get an array with all data.
      *
      * @return array
@@ -150,10 +141,13 @@ class Table extends SimpleTable
                 if (!isset($struct['values'])) {
                     $struct['values'] = [];
                 }
-                $struct['values'] = array_merge($struct['values'], /** @scrutinizer ignore-call */ $this->getDefaultValues());
+                $struct['values'] = array_merge(
+                    $struct['values'], /** @scrutinizer ignore-call */
+                    $this->getDefaultValues());
             }
         }
-        $struct['checks'] = method_exists($this, 'getChecks') ? /** @scrutinizer ignore-call */ $this->getChecks() : $this->getChecksFromTable();
+        $struct['checks'] = method_exists($this, 'getChecks') ? /** @scrutinizer ignore-call */
+            $this->getChecks() : $this->getChecksFromTable();
         return $struct;
     }
 
@@ -171,16 +165,6 @@ class Table extends SimpleTable
     }
 
     /**
-     * TODO: Undocumented
-     *
-     * @return array
-     */
-    public function getChecksFromTable(): array
-    {
-        return Schema::getFromYamlFile($this->tableName, 'viewdata');
-    }
-
-    /**
      * Return a list of default values.
      * Each final model that needed, must overwrite it.
      *
@@ -193,6 +177,16 @@ class Table extends SimpleTable
             $items[$key] = $this->getDefaultValue($valueData);
         }
         return $items;
+    }
+
+    /**
+     * Returns the structure of the normalized table.
+     *
+     * @return array
+     */
+    public function getStructure(): array
+    {
+        return Config::$bbddStructure[$this->tableName];
     }
 
     /**
@@ -237,5 +231,15 @@ class Table extends SimpleTable
             }
         }
         return $item;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @return array
+     */
+    public function getChecksFromTable(): array
+    {
+        return Schema::getFromYamlFile($this->tableName, 'viewdata');
     }
 }

@@ -1,69 +1,69 @@
 fields:
-    id:
-        type: integer
-        length: '10'
-        default: null
-        nullable: 'no'
-        unsigned: 'yes'
-        autoincrement: 'yes'
-    controller:
-        type: string
-        length: '50'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
-    title:
-        type: string
-        length: '50'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
-    description:
-        type: string
-        length: '255'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
-    menu:
-        type: string
-        length: '255'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
-    icon:
-        type: string
-        length: '255'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
-    active:
-        type: integer
-        length: '1'
-        default: '0'
-        nullable: 'no'
-        unsigned: 'yes'
-    plugin:
-        type: string
-        length: '50'
-        default: Core
-        nullable: 'no'
-        unsigned: 'no'
-    inserted_date:
-        type: datetime
-        length: null
-        default: CURRENT_TIMESTAMP
-        nullable: 'yes'
-        unsigned: 'no'
-    updated_date:
-        type: datetime
-        length: null
-        default: CURRENT_TIMESTAMP
-        nullable: 'yes'
-        unsigned: 'no'
+  id:
+    type: integer
+    length: '10'
+    default: null
+    nullable: 'no'
+    unsigned: 'yes'
+    autoincrement: 'yes'
+  controller:
+    type: string
+    length: '50'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
+  title:
+    type: string
+    length: '50'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
+  description:
+    type: string
+    length: '255'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
+  menu:
+    type: string
+    length: '255'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
+  icon:
+    type: string
+    length: '255'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
+  active:
+    type: integer
+    length: '1'
+    default: '0'
+    nullable: 'no'
+    unsigned: 'yes'
+  plugin:
+    type: string
+    length: '50'
+    default: Core
+    nullable: 'no'
+    unsigned: 'no'
+  inserted_date:
+    type: datetime
+    length: null
+    default: CURRENT_TIMESTAMP
+    nullable: 'yes'
+    unsigned: 'no'
+  updated_date:
+    type: datetime
+    length: null
+    default: CURRENT_TIMESTAMP
+    nullable: 'yes'
+    unsigned: 'no'
 indexes:
-    PRIMARY:
-        column: id
-        unique: 'yes'
-    controller:
-        column: controller
-        unique: 'yes'
+  PRIMARY:
+    column: id
+    unique: 'yes'
+  controller:
+    column: controller
+    unique: 'yes'

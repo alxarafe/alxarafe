@@ -6,9 +6,9 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Utils;
 use Exception;
+use Kint\Kint;
 use ReflectionClass;
 
 /**
@@ -159,7 +159,7 @@ abstract class Entity
             case 'get':
                 return $this->newData[$field] ?? null;
             default:
-                Debug::testArray("Review $method in " . (new ReflectionClass($this))->getShortName() . ". Error collecting the '$command/$field' attribute", $params, true);
+                Kint::dump("Review $method in " . (new ReflectionClass($this))->getShortName() . ". Error collecting the '$command/$field' attribute", $params, true);
                 throw new Exception('Program halted!');
         }
     }

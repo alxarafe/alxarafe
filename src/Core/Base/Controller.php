@@ -10,7 +10,6 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Utils;
-use Alxarafe\Providers\Container;
 
 /**
  * TODO: Undocumented
@@ -32,7 +31,48 @@ abstract class Controller extends PageController
      * @var array
      */
     public $postData;
-
+    /**
+     * La tabla principal del mantenimiento
+     *
+     * @var Table
+     */
+    public $model;
+    /**
+     * The table relate to the model.
+     *
+     * @var string
+     */
+    public $tableName;
+    /**
+     * The data view details for each data field.
+     *
+     * @var array
+     */
+    public $viewData;
+    /**
+     * Type of encryption for form.
+     *
+     * @var string
+     */
+    public $encType;
+    /**
+     * Data received or sended in post.
+     *
+     * @var array
+     */
+    public $tableData;
+    /**
+     * Code to table id.
+     *
+     * @var string
+     */
+    public $code;
+    /**
+     * Contains additional buttons info
+     *
+     * @var array
+     */
+    public $newButtons;
     /**
      * Contiene los datos que hay actualmente en disco. Es un array con el formato:
      * $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor
@@ -53,12 +93,10 @@ abstract class Controller extends PageController
      * @var array
      */
     protected $oldData;
-
     /**
      * @var array
      */
     protected $fieldsStruct;
-
     /**
      * Contiene la clave primaria del registro en curso.
      * En el caso de alta contendrá cadena vacía '' o 0.
@@ -69,62 +107,12 @@ abstract class Controller extends PageController
      * @var string|null
      */
     protected $currentId;
-
     /**
      * Puede contener 3 valores: listing, adding o editing.
      *
      * @var string
      */
     protected $status;
-
-    /**
-     * La tabla principal del mantenimiento
-     *
-     * @var Table
-     */
-    public $model;
-
-    /**
-     * The table relate to the model.
-     *
-     * @var string
-     */
-    public $tableName;
-
-    /**
-     * The data view details for each data field.
-     *
-     * @var array
-     */
-    public $viewData;
-
-    /**
-     * Type of encryption for form.
-     *
-     * @var string
-     */
-    public $encType;
-
-    /**
-     * Data received or sended in post.
-     *
-     * @var array
-     */
-    public $tableData;
-
-    /**
-     * Code to table id.
-     *
-     * @var string
-     */
-    public $code;
-
-    /**
-     * Contains additional buttons info
-     *
-     * @var array
-     */
-    public $newButtons;
 
     /**
      * Se le pasa el modelo principal del controlador y la vista a utilizar.
@@ -141,7 +129,7 @@ abstract class Controller extends PageController
      *      parent::run($method);
      * }
      *
-     * @param Table|null     $model
+     * @param Table|null $model
      */
     public function __construct($model = null)
     {
@@ -169,21 +157,17 @@ abstract class Controller extends PageController
     }
 
     /**
-     * El punto de entrada es run.
-     * Index realiza los procesos necesarios una vez instanciada la clase.
-     *
-     * @return void
+     * Create new record.
      */
-    public function index(): void
+    public function create()
     {
-        parent::index();
-        if ($this->canAccess) {
+        if ($this->canAccess && $this->canUpdate) {
             $this->initialize();
-            $this->listData();
+            $this->status = 'adding';
+            Skin::setTemplate('master/create');
         } else {
             $this->accessDenied();
         }
-        $this->run();
     }
 
     /**
@@ -205,31 +189,34 @@ abstract class Controller extends PageController
     }
 
     /**
-     * List all records on model.
+     * Obtiene un array con los datos del registro especificado en $this->currentId
+     * Si el registro no existe, se retorna un registro en blanco con los datos por
+     * defecto.
+     *
+     * Este método haría cosas adicionales en el caso mantienimientos complejos.
+     *
+     * @return array
      */
-    public function listData()
+    protected function getRecordData(): array
     {
-        if ($this->canAccess && $this->canRead) {
-            $this->status = 'listing';
-            $this->code = Utils::randomString(10);
-            Skin::setTemplate('master/list');
+        $ret = [];
+        if ($this->currentId == '' || $this->currentId == '0') {
+            $ret[$this->model->tableName][0] = $this->model->getDefaultValues();
+            $ret[$this->model->tableName][0][$this->model->idField] = '';
         } else {
-            $this->accessDenied();
+            $value = $this->model->getDataArray($this->currentId);
+            // TODO: ¿Y si hay más de un campo formando el índice principal?
+            $ret[$this->model->tableName][$this->currentId] = $value;
         }
+        return $ret;
     }
 
     /**
-     * Create new record.
+     * Access denied page.
      */
-    public function create()
+    public function accessDenied()
     {
-        if ($this->canAccess && $this->canUpdate) {
-            $this->initialize();
-            $this->status = 'adding';
-            Skin::setTemplate('master/create');
-        } else {
-            $this->accessDenied();
-        }
+        Skin::setTemplate('master/noaccess');
     }
 
     /**
@@ -242,6 +229,20 @@ abstract class Controller extends PageController
             $this->postData = $this->getRecordData();
             $this->status = 'showing';
             $this->run();
+        } else {
+            $this->accessDenied();
+        }
+    }
+
+    /**
+     * The start point of the controller.
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        if ($this->canAccess) {
+            Skin::$view->run($this->postData);
         } else {
             $this->accessDenied();
         }
@@ -273,6 +274,55 @@ abstract class Controller extends PageController
     }
 
     /**
+     * Cancela la edición regresando al controlador/registro que corresponda
+     *
+     * @return void
+     */
+    protected function cancel(): void
+    {
+        // Si no hay puesto id estaba en la pantalla del listado de registros...
+        if ($this->status == 'listing') {
+            header('Location: ' . BASE_URI);
+        }
+        header('Location: ' . $this->url);
+    }
+
+    /**
+     * Devuelve los datos enviados por POST
+     *
+     * Este método haría cosas adicionales en el caso mantienimientos complejos.
+     *
+     * @return void
+     */
+    protected function getDataPost(): void
+    {
+        $this->postData = [];
+        foreach ($_POST as $key => $value) {
+            if (substr_count($key, constant('IDSEPARATOR')) == 2) {
+                $field = explode(constant('IDSEPARATOR'), $key);
+                $this->postData[$field[0]][$field[1]][$field[2]] = is_array($value) ? array_values($value)[0] : $value;
+            }
+        }
+    }
+
+    /**
+     * Guarda los datos, y si tiene éxito, recarga la página.
+     * Este método haría cosas adicionales en el caso mantienimientos complejos.
+     *
+     * TODO: Al recargar la página, no es posible enviar mensaje informando del éxito.
+     */
+    protected function save(): void
+    {
+        if ($this->model->saveRecord($this->postData)) {
+            $this->currentId = $this->model->{$this->model->getIdField()};
+            $this->postData = $this->getRecordData();
+            Config::setError(Config::$lang->trans('register-saved'));
+            //header('Location: ' . $this->url . '&' . $this->model->getIdField() . '=' . $id);
+        }
+        //$_POST['id'] = $this->currentId;
+    }
+
+    /**
      * Delete existing record.
      */
     public function delete()
@@ -293,20 +343,35 @@ abstract class Controller extends PageController
     }
 
     /**
-     * Return a default list of col.
+     * El punto de entrada es run.
+     * Index realiza los procesos necesarios una vez instanciada la clase.
      *
-     * @return array
+     * @return void
      */
-    public function getDefaultColumnsSearch(): array
+    public function index(): void
     {
-        $list = [];
-        $i = 0;
-        foreach ($this->viewData as $key => $value) {
-            $list[$i] = $key;
-            $i++;
+        parent::index();
+        if ($this->canAccess) {
+            $this->initialize();
+            $this->listData();
+        } else {
+            $this->accessDenied();
         }
-        $list[$i] = 'col-action';
-        return $list;
+        $this->run();
+    }
+
+    /**
+     * List all records on model.
+     */
+    public function listData()
+    {
+        if ($this->canAccess && $this->canRead) {
+            $this->status = 'listing';
+            $this->code = Utils::randomString(10);
+            Skin::setTemplate('master/list');
+        } else {
+            $this->accessDenied();
+        }
     }
 
     /**
@@ -364,11 +429,20 @@ abstract class Controller extends PageController
     }
 
     /**
-     * Access denied page.
+     * Return a default list of col.
+     *
+     * @return array
      */
-    public function accessDenied()
+    public function getDefaultColumnsSearch(): array
     {
-        Skin::setTemplate('master/noaccess');
+        $list = [];
+        $i = 0;
+        foreach ($this->viewData as $key => $value) {
+            $list[$i] = $key;
+            $i++;
+        }
+        $list[$i] = 'col-action';
+        return $list;
     }
 
     /**
@@ -381,115 +455,6 @@ abstract class Controller extends PageController
     public function setView(View $view): void
     {
         Skin::setView($view);
-    }
-
-    /**
-     * Cancela la edición regresando al controlador/registro que corresponda
-     *
-     * @return void
-     */
-    protected function cancel(): void
-    {
-        // Si no hay puesto id estaba en la pantalla del listado de registros...
-        if ($this->status == 'listing') {
-            header('Location: ' . BASE_URI);
-        }
-        header('Location: ' . $this->url);
-    }
-
-    /**
-     * Obtiene un array con los datos del registro especificado en $this->currentId
-     * Si el registro no existe, se retorna un registro en blanco con los datos por
-     * defecto.
-     *
-     * Este método haría cosas adicionales en el caso mantienimientos complejos.
-     *
-     * @return array
-     */
-    protected function getRecordData(): array
-    {
-        $ret = [];
-        if ($this->currentId == '' || $this->currentId == '0') {
-            $ret[$this->model->tableName][0] = $this->model->getDefaultValues();
-            $ret[$this->model->tableName][0][$this->model->idField] = '';
-        } else {
-            $value = $this->model->getDataArray($this->currentId);
-            // TODO: ¿Y si hay más de un campo formando el índice principal?
-            $ret[$this->model->tableName][$this->currentId] = $value;
-        }
-        return $ret;
-    }
-
-    /**
-     * Devuelve los datos enviados por POST
-     *
-     * Este método haría cosas adicionales en el caso mantienimientos complejos.
-     *
-     * @return void
-     */
-    protected function getDataPost(): void
-    {
-        //Debug::testArray('POST', $_POST, true);
-        $this->postData = [];
-        foreach ($_POST as $key => $value) {
-            if (substr_count($key, constant('IDSEPARATOR')) == 2) {
-                $field = explode(constant('IDSEPARATOR'), $key);
-                $this->postData[$field[0]][$field[1]][$field[2]] = is_array($value) ? array_values($value)[0] : $value;
-            }
-        }
-        // Debug::testArray('$this->postData:', $this->postData, true);
-    }
-
-    /**
-     * Guarda los datos, y si tiene éxito, recarga la página.
-     * Este método haría cosas adicionales en el caso mantienimientos complejos.
-     *
-     * TODO: Al recargar la página, no es posible enviar mensaje informando del éxito.
-     */
-    protected function save(): void
-    {
-        if ($this->model->saveRecord($this->postData)) {
-            $this->currentId = $this->model->{$this->model->getIdField()};
-            $this->postData = $this->getRecordData();
-            Config::setError(Config::$lang->trans('register-saved'));
-            //header('Location: ' . $this->url . '&' . $this->model->getIdField() . '=' . $id);
-        }
-        //$_POST['id'] = $this->currentId;
-    }
-
-    /**
-     * The start point of the controller.
-     *
-     * @return void
-     */
-    public function run(): void
-    {
-        if ($this->canAccess) {
-            Skin::$view->run($this->postData);
-        } else {
-            $this->accessDenied();
-        }
-    }
-
-    /**
-     * Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
-     * falten con los datos por defecto.
-     *
-     * @param array $record
-     *
-     * @return array
-     */
-    protected function setDefaults(array $record): array
-    {
-        $ret = [];
-        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $struct) {
-            if (isset($record[$key])) {
-                $ret[$key] = $record[$key];
-            } else {
-                $ret[$key] = $struct['default'] ?? '';
-            }
-        }
-        return $ret;
     }
 
     /**
@@ -604,5 +569,26 @@ abstract class Controller extends PageController
           ];
          */
         return $list;
+    }
+
+    /**
+     * Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
+     * falten con los datos por defecto.
+     *
+     * @param array $record
+     *
+     * @return array
+     */
+    protected function setDefaults(array $record): array
+    {
+        $ret = [];
+        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $struct) {
+            if (isset($record[$key])) {
+                $ret[$key] = $record[$key];
+            } else {
+                $ret[$key] = $struct['default'] ?? '';
+            }
+        }
+        return $ret;
     }
 }

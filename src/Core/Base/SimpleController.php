@@ -6,9 +6,9 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Container;
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\TemplateRender;
 use Alxarafe\Providers\Translator;
 use ReflectionClass;
@@ -93,9 +93,9 @@ class SimpleController
         ]);
         $this->shortName = (new ReflectionClass($this))->getShortName();
         $this->renderer->setTemplate(strtolower($this->shortName));
-        Debug::startTimer($this->shortName, $this->shortName . ' Controller Constructor');
+        DebugTool::getInstance()->startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->username = null;
-        Debug::stopTimer($this->shortName);
+        DebugTool::getInstance()->stopTimer($this->shortName);
     }
 
     /**

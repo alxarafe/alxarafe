@@ -7,8 +7,8 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Providers\DebugTool;
 
 /**
  * Class SimpleView, this class is used to manage the common things in a view:
@@ -53,7 +53,7 @@ class SimpleView
         }
         $this->vars['templateuri'] = Skin::getTemplatesUri();
         $this->vars['lang'] = Config::$lang;
-        $this->vars['debugbarTime'] = Debug::$debugBar['time'];
+        $this->vars['debugbarTime'] = DebugTool::getInstance()->getDebugTool()['time'];
         $this->title = isset($controller->title) ? $controller->title : 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX);
 
         // TODO: We have twig blocks, we really needed here??
@@ -90,7 +90,38 @@ class SimpleView
             Skin::setTemplate('default');
         }
         echo Skin::render($this->vars);
-        Debug::stopTimer('full-execution');
+        DebugTool::getInstance()->stopTimer('full-execution');
+    }
+
+    /**
+     * Check if the resource is in the application's resource folder (for example, in the css or js folders
+     * of the skin folder). It's a specific file.
+     *
+     * If it can not be found, check if it is in the templates folder (for example in the css or
+     * js folders of the templates folder). It's a common file.
+     *
+     * If it is not in either of the two, no route is specified (it will surely give loading error).
+     *
+     * @param string  $resourceName is the name of the file (with extension)
+     * @param boolean $relative     set to false for use an absolute path.
+     *
+     * @return string the complete path of resource.
+     */
+    public function addResource(string $resourceName, $relative = true): string
+    {
+        if ($relative) {
+            $uri = $this->getResourceUri($resourceName);
+            if ($uri !== '') {
+                return $uri;
+            }
+            DebugTool::getInstance()->addMessage('messages', "Relative resource '$resourceName' not found!");
+        }
+        if (!file_exists($resourceName)) {
+            DebugTool::getInstance()->addMessage('messages', "Absolute resource '$resourceName' not found!");
+            DebugTool::getInstance()->addMessage('messages', "File '$resourceName' not found!");
+            return '';
+        }
+        return $resourceName;
     }
 
     /**
@@ -117,37 +148,6 @@ class SimpleView
             }
         }
         return '';
-    }
-
-    /**
-     * Check if the resource is in the application's resource folder (for example, in the css or js folders
-     * of the skin folder). It's a specific file.
-     *
-     * If it can not be found, check if it is in the templates folder (for example in the css or
-     * js folders of the templates folder). It's a common file.
-     *
-     * If it is not in either of the two, no route is specified (it will surely give loading error).
-     *
-     * @param string  $resourceName is the name of the file (with extension)
-     * @param boolean $relative     set to false for use an absolute path.
-     *
-     * @return string the complete path of resource.
-     */
-    public function addResource(string $resourceName, $relative = true): string
-    {
-        if ($relative) {
-            $uri = $this->getResourceUri($resourceName);
-            if ($uri !== '') {
-                return $uri;
-            }
-            Debug::addMessage('messages', "Relative resource '$resourceName' not found!");
-        }
-        if (!file_exists($resourceName)) {
-            Debug::addMessage('messages', "Absolute resource '$resourceName' not found!");
-            Debug::addMessage('messages', "File '$resourceName' not found!");
-            return '';
-        }
-        return $resourceName;
     }
 
     /**
@@ -220,7 +220,7 @@ class SimpleView
      */
     public function getHeader(): string
     {
-        return Debug::getRenderHeader();
+        return DebugTool::getInstance()->getRenderHeader();
     }
 
     /**
@@ -230,6 +230,6 @@ class SimpleView
      */
     public function getFooter(): string
     {
-        return Debug::getRenderFooter();
+        return DebugTool::getInstance()->getRenderFooter();
     }
 }

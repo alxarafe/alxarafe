@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Models;
 
 use Alxarafe\Base\Table;
@@ -24,9 +25,9 @@ class TableModel extends Table
     {
         parent::__construct(
             'tables', [
-            'idField' => 'tablename',
-            'nameField' => 'model',
-            'create' => $create,
+                'idField' => 'tablename',
+                'nameField' => 'model',
+                'create' => $create,
             ]
         );
     }

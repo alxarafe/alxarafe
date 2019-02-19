@@ -8,9 +8,8 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\SimpleController;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Providers\Container;
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Views\CreateConfigView;
 use Symfony\Component\Yaml\Yaml;
 
@@ -31,21 +30,6 @@ class CreateConfig extends SimpleController
     }
 
     /**
-     * Start point
-     *
-     * @return void
-     */
-    public function index(): void
-    {
-        parent::index();
-        if (!Config::configFileExists()) {
-            Skin::setView(new CreateConfigView($this));
-        } else {
-            header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login');
-        }
-    }
-
-    /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
      * @return void
@@ -56,7 +40,7 @@ class CreateConfig extends SimpleController
         switch ($action) {
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
-                Debug::addMessage('messages', $msg);
+                DebugTool::getInstance()->addMessage('messages', $msg);
                 Config::setInfo($msg);
                 header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
@@ -65,16 +49,6 @@ class CreateConfig extends SimpleController
                 header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
-    }
-
-    /**
-     * The start point of the controller.
-     *
-     * @return void
-     */
-    public function run(): void
-    {
-        $this->index();
     }
 
     /**
@@ -97,6 +71,31 @@ class CreateConfig extends SimpleController
         $yamlFile = Config::getConfigFileName();
         $yamlData = Yaml::dump($vars);
         return (bool) file_put_contents($yamlFile, $yamlData);
+    }
+
+    /**
+     * The start point of the controller.
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        $this->index();
+    }
+
+    /**
+     * Start point
+     *
+     * @return void
+     */
+    public function index(): void
+    {
+        parent::index();
+        if (!Config::configFileExists()) {
+            Skin::setView(new CreateConfigView($this));
+        } else {
+            header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login');
+        }
     }
 
     /**.

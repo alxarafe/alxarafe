@@ -96,6 +96,26 @@ class TemplateRender
     }
 
     /**
+     * Return the template folder path.
+     *
+     * @return string
+     */
+    public function getTemplatesFolder(): string
+    {
+        return basePath('resources/templates');
+    }
+
+    /**
+     * Establish a new template. The parameter must be only de template name, no the path!
+     *
+     * @param string $template
+     */
+    public function setTemplatesFolder(string $template)
+    {
+        $this->templatesFolder = basePath(self::SKINS_FOLDER) . '/' . trim($template, '/');
+    }
+
+    /**
      * Returns a list of available paths.
      *
      * @return array
@@ -118,26 +138,6 @@ class TemplateRender
     }
 
     /**
-     * Return the template folder path.
-     *
-     * @return string
-     */
-    public function getTemplatesFolder(): string
-    {
-        return basePath('resources/templates');
-    }
-
-    /**
-     * Return the template folder path from uri.
-     *
-     * @return string
-     */
-    public function getTemplatesUri(): string
-    {
-        return baseUrl('resources/templates');
-    }
-
-    /**
      * Return the common template folder path.
      *
      * @return string
@@ -145,16 +145,6 @@ class TemplateRender
     public function getCommonTemplatesFolder(): string
     {
         return basePath($this->commonTemplatesFolder);
-    }
-
-    /**
-     * Return the common template folder path from uri.
-     *
-     * @return string
-     */
-    public function getCommonTemplatesUri(): string
-    {
-        return baseUrl($this->commonTemplatesFolder);
     }
 
     /**
@@ -180,26 +170,6 @@ class TemplateRender
             $options['cache'] = (constant('BASE_PATH') ?? '') . '/cache/twig';
         }
         return $options;
-    }
-
-    /**
-     * Add extensions to skin render.
-     *
-     * @return void
-     */
-    private function addExtensions(): void
-    {
-        // Add support for additional filters
-        $this->twig->addExtension(new TwigFilters());
-
-        // Add support for additional functions
-        $this->twig->addExtension(new TwigFunctions());
-
-        $isDebug = $this->getOptions()['debug'];
-        if ($isDebug) {
-            // Only available in debug mode
-            $this->twig->addExtension(new Twig_Extension_Debug());
-        }
     }
 
     /**
@@ -252,25 +222,23 @@ class TemplateRender
     }
 
     /**
-     * Add vars to template vars.
+     * Add extensions to skin render.
      *
-     * @param array $vars
+     * @return void
      */
-    public function addVars(array $vars = [])
+    private function addExtensions(): void
     {
-        $this->templateVars = array_merge($vars, $this->templateVars);
-    }
+        // Add support for additional filters
+        $this->twig->addExtension(new TwigFilters());
 
-    /**
-     * Return a list of template vars, merged with $vars,
-     *
-     * @param $vars
-     *
-     * @return array
-     */
-    private function getTemplateVars(array $vars = []): array
-    {
-        return array_merge($vars, $this->templateVars);
+        // Add support for additional functions
+        $this->twig->addExtension(new TwigFunctions());
+
+        $isDebug = $this->getOptions()['debug'];
+        if ($isDebug) {
+            // Only available in debug mode
+            $this->twig->addExtension(new Twig_Extension_Debug());
+        }
     }
 
     /**
@@ -294,6 +262,28 @@ class TemplateRender
     {
         $this->template = $template;
         return $this;
+    }
+
+    /**
+     * Return a list of template vars, merged with $vars,
+     *
+     * @param $vars
+     *
+     * @return array
+     */
+    private function getTemplateVars(array $vars = []): array
+    {
+        return array_merge($vars, $this->templateVars);
+    }
+
+    /**
+     * Add vars to template vars.
+     *
+     * @param array $vars
+     */
+    public function addVars(array $vars = [])
+    {
+        $this->templateVars = array_merge($vars, $this->templateVars);
     }
 
     /**
@@ -331,17 +321,6 @@ class TemplateRender
     }
 
     /**
-     * Establish a new template. The parameter must be only de template name, no the path!
-     *
-     * @param string $template
-     */
-    public function setTemplatesFolder(string $template)
-    {
-        $this->templatesFolder = basePath(self::SKINS_FOLDER) . '/' . trim($template, '/');
-    }
-
-
-    /**
      * Check different possible locations for the file and return the
      * corresponding URI, if it exists.
      *
@@ -365,5 +344,25 @@ class TemplateRender
             }
         }
         return constant('DEBUG') ? '#' . $path . '#' : '';
+    }
+
+    /**
+     * Return the template folder path from uri.
+     *
+     * @return string
+     */
+    public function getTemplatesUri(): string
+    {
+        return baseUrl('resources/templates');
+    }
+
+    /**
+     * Return the common template folder path from uri.
+     *
+     * @return string
+     */
+    public function getCommonTemplatesUri(): string
+    {
+        return baseUrl($this->commonTemplatesFolder);
     }
 }

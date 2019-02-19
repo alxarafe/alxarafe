@@ -45,20 +45,13 @@ if (!function_exists('baseUrl')) {
     function baseUrl(string $url = ''): string
     {
         $folder = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
-        $baseUrl = sprintf(
-            "%s://%s:%s",
-            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-            $_SERVER['SERVER_NAME'],
-            $_SERVER['SERVER_PORT']
-        );
-
-        if (!empty($url)) {
-            if (!empty($folder)) {
-                return sprintf('%s%s/%s', $baseUrl, $folder, $url);
-            }
-            return sprintf('%s/%s', $baseUrl, $url);
+        $port = '';
+        if (!in_array($_SERVER['SERVER_PORT'], ['80', '443'])) {
+            $port = ':' . $_SERVER['SERVER_PORT'];
         }
+        $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http')
+            . '://' . $_SERVER['SERVER_NAME'] . $port . $folder;
 
-        return $baseUrl;
+        return empty($url) ? $baseUrl : $baseUrl . '/' . $url;
     }
 }

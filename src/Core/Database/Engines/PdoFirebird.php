@@ -7,7 +7,7 @@
 namespace Alxarafe\Database\Engines;
 
 use Alxarafe\Database\Engine;
-use Alxarafe\Helpers\Debug;
+use Alxarafe\Providers\DebugTool;
 use PDO;
 
 /**
@@ -35,9 +35,9 @@ class PdoFirebird extends Engine
      *
      * @return array
      */
-    public static function select(string $query): array
+    public static function select(string $query, array $vars = []): array
     {
-        Debug::addMessage('SQL', 'PDO select: ' . $query);
+        DebugTool::getInstance()->addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         $result = [];
         if (self::$statement !== false && self::$statement->execute([])) {

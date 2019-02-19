@@ -1,26 +1,26 @@
 fields:
-    tablename:
-        type: string
-        length: '50'
-        default: null
-        nullable: 'no'
-        unsigned: 'no'
-    model:
-        type: string
-        length: '50'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
-    namespace:
-        type: string
-        length: '250'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
+  tablename:
+    type: string
+    length: '50'
+    default: null
+    nullable: 'no'
+    unsigned: 'no'
+  model:
+    type: string
+    length: '50'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
+  namespace:
+    type: string
+    length: '250'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
 indexes:
-    PRIMARY:
-        column: tablename
-        unique: 'yes'
-    tables_model:
-        column: model
-        unique: 'yes'
+  PRIMARY:
+    column: tablename
+    unique: 'yes'
+  tables_model:
+    column: model
+    unique: 'yes'

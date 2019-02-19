@@ -6,8 +6,10 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use Exception;
+use Kint\Kint;
 use ParseCsv\Csv;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
@@ -20,44 +22,75 @@ class Schema
 {
 
     /**
-     * Returns the path to the specified file, or empty string if it does not exist.
-     *
-     * @param string $tableName name of the file without extension (assumes .yaml or .csv according to the type)
-     * @param string $type      It's the foldername (in lowercase). It's usually schema (by default) or viewdata.
-     *
-     * @return string
+     * It collects the information from the database and creates files in YAML format
+     * for the reconstruction of its structure. Also save the view structure.
      */
-    private static function getSchemaFileName(string $tableName, string $type = 'schema'): string
+    public static function saveStructure(): void
     {
-        $extension = $type == 'values' ? '.csv' : '.yaml';
-
-        // First, it is checked if it exists in the core
-        $path = constant('ALXARAFE_FOLDER') . '/Schema/' . $type . '/' . $tableName . $extension;
-        if (file_exists($path)) {
-            return $path;
+        $tables = Config::$sqlHelper->getTables();
+        foreach ($tables as $table) {
+            self::saveTableStructure($table);
         }
-        // And then if it exists in the application
-        $path = constant('BASE_PATH') . '/config/' . $type . '/' . $tableName . $extension;
-        return file_exists($path) ? $path : '';
     }
 
     /**
-     * Save the data array in a .yaml file
+     * Return true if complete table structure was saved, otherwise return false.
+     * If the name of the table includes the prefix used in the database, it is
+     * removed from the name of the table.
      *
-     * @param array  $data
-     * @param string $tableName
-     * @param string $type
+     * @param string $table
      *
      * @return bool
      */
-    private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
+    public static function saveTableStructure(string $table): bool
     {
-        $path = constant('BASE_PATH') . '/config/' . $type;
-        if (!is_dir($path)) {
-            \mkdir($path, 0777, true);
+        $result = true;
+        $prefix = Config::getVar('dbPrefix');
+        $usePrefix = substr($table, 0, strlen($prefix)) == $prefix;
+        $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
+        $structure = Config::$dbEngine->getStructure($tableName, $usePrefix);
+        foreach (['schema', 'viewdata'] as $type) {
+            $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
+            $result = $result && self::saveSchemaFileName($data, $tableName, $type);
         }
-        $path .= '/' . $tableName . '.yaml';
-        return file_put_contents($path, Yaml::dump($data, 3)) !== false;
+        return $result;
+    }
+
+    /**
+     * Merge the existing yaml file with the structure of the database,
+     * prevailing the latter.
+     *
+     * @param array $struct current database table structure
+     * @param array $data   current yaml file structure
+     *
+     * @return array
+     */
+    protected static function mergeArray(array $struct, array $data, $isView = false): array
+    {
+        if ($isView) {
+            return self::mergeViewData($struct, $data);
+        }
+        return array_merge($data, $struct);
+    }
+
+    /**
+     * Verify the parameters established in the yaml file with the structure of the database, creating the missing data
+     * and correcting the possible errors.
+     *
+     * Posible data: unique, min, max, length, pattern, placeholder, label & shortlabel
+     *
+     * @param array $struct current database table structure
+     * @param array $data   current yaml file data
+     *
+     * @return array
+     */
+    protected static function mergeViewData(array $struct, array $data): array
+    {
+        $result = [];
+        foreach ($struct['fields'] as $field => $values) {
+            $result[$field] = self::mergeViewField($field, $values, $data[$field] ?? []);
+        }
+        return $result;
     }
 
     /**
@@ -97,43 +130,6 @@ class Schema
     }
 
     /**
-     * Verify the parameters established in the yaml file with the structure of the database, creating the missing data
-     * and correcting the possible errors.
-     *
-     * Posible data: unique, min, max, length, pattern, placeholder, label & shortlabel
-     *
-     * @param array $struct current database table structure
-     * @param array $data   current yaml file data
-     *
-     * @return array
-     */
-    protected static function mergeViewData(array $struct, array $data): array
-    {
-        $result = [];
-        foreach ($struct['fields'] as $field => $values) {
-            $result[$field] = self::mergeViewField($field, $values, $data[$field] ?? []);
-        }
-        return $result;
-    }
-
-    /**
-     * Merge the existing yaml file with the structure of the database,
-     * prevailing the latter.
-     *
-     * @param array $struct current database table structure
-     * @param array $data   current yaml file structure
-     *
-     * @return array
-     */
-    protected static function mergeArray(array $struct, array $data, $isView = false): array
-    {
-        if ($isView) {
-            return self::mergeViewData($struct, $data);
-        }
-        return array_merge($data, $struct);
-    }
-
-    /**
      * Returns an array with data from the specified yaml file
      *
      * @param string $tableName
@@ -159,6 +155,28 @@ class Schema
             default:
                 return self::loadDataFromYaml($fileName);
         }
+    }
+
+    /**
+     * Returns the path to the specified file, or empty string if it does not exist.
+     *
+     * @param string $tableName name of the file without extension (assumes .yaml or .csv according to the type)
+     * @param string $type      It's the foldername (in lowercase). It's usually schema (by default) or viewdata.
+     *
+     * @return string
+     */
+    private static function getSchemaFileName(string $tableName, string $type = 'schema'): string
+    {
+        $extension = $type == 'values' ? '.csv' : '.yaml';
+
+        // First, it is checked if it exists in the core
+        $path = constant('ALXARAFE_FOLDER') . '/Schema/' . $type . '/' . $tableName . $extension;
+        if (file_exists($path)) {
+            return $path;
+        }
+        // And then if it exists in the application
+        $path = constant('BASE_PATH') . '/config/' . $type . '/' . $tableName . $extension;
+        return file_exists($path) ? $path : '';
     }
 
     /**
@@ -200,38 +218,22 @@ class Schema
     }
 
     /**
-     * It collects the information from the database and creates files in YAML format
-     * for the reconstruction of its structure. Also save the view structure.
-     */
-    public static function saveStructure(): void
-    {
-        $tables = Config::$sqlHelper->getTables();
-        foreach ($tables as $table) {
-            self::saveTableStructure($table);
-        }
-    }
-
-    /**
-     * Return true if complete table structure was saved, otherwise return false.
-     * If the name of the table includes the prefix used in the database, it is
-     * removed from the name of the table.
+     * Save the data array in a .yaml file
      *
-     * @param string $table
+     * @param array  $data
+     * @param string $tableName
+     * @param string $type
      *
      * @return bool
      */
-    public static function saveTableStructure(string $table): bool
+    private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
     {
-        $result = true;
-        $prefix = Config::getVar('dbPrefix');
-        $usePrefix = substr($table, 0, strlen($prefix)) == $prefix;
-        $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
-        $structure = Config::$dbEngine->getStructure($tableName, $usePrefix);
-        foreach (['schema', 'viewdata'] as $type) {
-            $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
-            $result = $result && self::saveSchemaFileName($data, $tableName, $type);
+        $path = constant('BASE_PATH') . '/config/' . $type;
+        if (!is_dir($path)) {
+            \mkdir($path, 0777, true);
         }
-        return $result;
+        $path .= '/' . $tableName . '.yaml';
+        return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }
 
     /**
@@ -272,7 +274,7 @@ class Schema
     protected static function normalizeField(string $tableName, string $field, array $structure)
     {
         if (!isset($structure['type'])) {
-            Debug::testArray("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
+            Kint::dump("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
         }
 
         $dbType = $structure['type'];
@@ -280,7 +282,7 @@ class Schema
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);
-            Debug::addException($e);
+            DebugTool::getInstance()->addException($e);
             return null;
         }
 

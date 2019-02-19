@@ -8,11 +8,11 @@ namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use ReflectionClass;
 
@@ -139,6 +139,34 @@ class PageController extends SimpleController
     }
 
     /**
+     * Set the page details.
+     *
+     * @return void
+     */
+    protected function setPageDetails(): void
+    {
+        foreach ($this->pageDetails() as $property => $value) {
+            $this->{$property} = $value;
+        }
+    }
+
+    /**
+     * Returns the page details.
+     *
+     * @return array
+     */
+    public function pageDetails(): array
+    {
+        $details = [
+            'title' => 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX),
+            'icon' => '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>',
+            'description' => 'If you can read this, you are missing pageDetails() on your page class.',
+            'menu' => 'default',
+        ];
+        return $details;
+    }
+
+    /**
      * Start point
      *
      * @return void
@@ -176,56 +204,13 @@ class PageController extends SimpleController
                 'Update' => ($this->canUpdate ? 'yes' : 'no'),
                 'Delete' => ($this->canDelete ? 'yes' : 'no'),
             ];
-            Debug::addMessage(
+            DebugTool::getInstance()->addMessage(
                 'messages', "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
             );
             return true;
         }
         $this->userAuth->login();
         return false;
-    }
-
-    /**
-     * Set the page details.
-     *
-     * @return void
-     */
-    protected function setPageDetails(): void
-    {
-        foreach ($this->pageDetails() as $property => $value) {
-            $this->{$property} = $value;
-        }
-    }
-
-    /**
-     * Returns the page details.
-     *
-     * @return array
-     */
-    public function pageDetails(): array
-    {
-        $details = [
-            'title' => 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX),
-            'icon' => '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>',
-            'description' => 'If you can read this, you are missing pageDetails() on your page class.',
-            'menu' => 'default',
-        ];
-        return $details;
-    }
-
-    /**
-     * Returns the page details as array.
-     *
-     * @return array
-     */
-    protected function getPageDetails(): array
-    {
-        $pageDetails = [];
-        foreach ($this->pageDetails() as $property => $value) {
-            $pageDetails[$property] = $this->{$property};
-        }
-        ksort($pageDetails);
-        return $pageDetails;
     }
 
     /**
@@ -264,7 +249,7 @@ class PageController extends SimpleController
             }
         }
 
-        Debug::addMessage('messages', "Available '" . $action . "' pages for '" . $username . "': <pre>" . var_export($pages, true) . "</pre>");
+        DebugTool::getInstance()->addMessage('messages', "Available '" . $action . "' pages for '" . $username . "': <pre>" . var_export($pages, true) . "</pre>");
         $action = 'can_' . $action;
         foreach ($pages as $page) {
             if ($page->controller == $className && $page->{$action} == 1) {
@@ -305,5 +290,20 @@ class PageController extends SimpleController
             eval("$pos=" . var_export($pageDetails, true) . ";");
         }
         return $list;
+    }
+
+    /**
+     * Returns the page details as array.
+     *
+     * @return array
+     */
+    protected function getPageDetails(): array
+    {
+        $pageDetails = [];
+        foreach ($this->pageDetails() as $property => $value) {
+            $pageDetails[$property] = $this->{$property};
+        }
+        ksort($pageDetails);
+        return $pageDetails;
     }
 }

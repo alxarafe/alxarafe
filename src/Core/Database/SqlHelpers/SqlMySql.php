@@ -3,11 +3,11 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Utils;
 
 /**
@@ -71,30 +71,34 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * TODO: Undocumented
+     * TODO: Undocummented.
      *
-     * @param int $length
+     * @param string $fieldName
+     * @param array  $data
      *
      * @return string
      */
-    private function toInteger(int $length = 0): string
+    public function getSQLField(string $fieldName, array $data): string
     {
-        // https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
-        // TODO: Integer Types - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT
-        $type = ($length > 2) ? 'int' : 'tinyint';
-        return ($length > 0) ? $type . '(' . $length . ')' : $type;
-    }
+        $null = Utils::isTrue($data, 'nullable') ?? null;
+//        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
+        $zerofill = Utils::isTrue($data, 'zerofill') ?? null;
 
-    /**
-     * TODO: Undocumented
-     *
-     * @param int $length
-     *
-     * @return string
-     */
-    private function toString(int $length = 0): string
-    {
-        return $length > 6 ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
+        $default = $data['default'];
+        if (isset($default)) {
+            if ($default != 'CURRENT_TIMESTAMP') {
+                $default = "'$default'";
+            }
+        }
+
+        $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length'] ?? 0);
+        $result .= ($data['unsigned'] === 'yes' ? ' UNSIGNED' : '');
+        $result .= ($null ? '' : ' NOT') . ' NULL';
+//        $result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
+        $result .= $zerofill ? ' ZEROFILL' : '';
+        $result .= isset($default) ? ' DEFAULT ' . $default : '';
+
+        return $result;
     }
 
     /**
@@ -128,34 +132,30 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * TODO: Undocummented.
+     * TODO: Undocumented
      *
-     * @param string $fieldName
-     * @param array  $data
+     * @param int $length
      *
      * @return string
      */
-    public function getSQLField(string $fieldName, array $data): string
+    private function toInteger(int $length = 0): string
     {
-        $null = Utils::isTrue($data, 'nullable') ?? null;
-//        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
-        $zerofill = Utils::isTrue($data, 'zerofill') ?? null;
+        // https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
+        // TODO: Integer Types - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT
+        $type = ($length > 2) ? 'int' : 'tinyint';
+        return ($length > 0) ? $type . '(' . $length . ')' : $type;
+    }
 
-        $default = $data['default'];
-        if (isset($default)) {
-            if ($default != 'CURRENT_TIMESTAMP') {
-                $default = "'$default'";
-            }
-        }
-
-        $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length'] ?? 0);
-        $result .= ($data['unsigned'] === 'yes' ? ' UNSIGNED' : '');
-        $result .= ($null ? '' : ' NOT') . ' NULL';
-//        $result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
-        $result .= $zerofill ? ' ZEROFILL' : '';
-        $result .= isset($default) ? ' DEFAULT ' . $default : '';
-
-        return $result;
+    /**
+     * TODO: Undocumented
+     *
+     * @param int $length
+     *
+     * @return string
+     */
+    private function toString(int $length = 0): string
+    {
+        return $length > 6 ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
     }
 
     /**
@@ -308,6 +308,18 @@ class SqlMySql extends SqlHelper
     }
 
     /**
+     * Return the DataBaseName or an empty string.
+     *
+     * TODO: It's not getTablename, it's actually getDbName
+     *
+     * @return string
+     */
+    private function getTablename(): string
+    {
+        return Config::getVar('dbName') ?? '';
+    }
+
+    /**
      * The rules for updating and deleting data with constraint (table REFERENTIAL_CONSTRAINTS) are returned.
      * Attempting to return the consolidated data generates an extremely slow query in some MySQL installations, so 2
      * additional simple queries are made.
@@ -335,18 +347,6 @@ class SqlMySql extends SqlHelper
         ];
         $result = Config::$dbEngine->selectCoreCache($tableName . '-constraints-' . $constraintName, $sql, $vars);
         return $result;
-    }
-
-    /**
-     * Return the DataBaseName or an empty string.
-     *
-     * TODO: It's not getTablename, it's actually getDbName
-     *
-     * @return string
-     */
-    private function getTablename(): string
-    {
-        return Config::getVar('dbName') ?? '';
     }
 
     /**

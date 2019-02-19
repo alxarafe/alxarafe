@@ -9,9 +9,8 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Skin;
-use Alxarafe\Providers\Container;
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Views\LoginView;
 
 /**
@@ -35,6 +34,16 @@ class Login extends PageController
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * The start point of the controller.
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        $this->index();
     }
 
     /**
@@ -73,7 +82,7 @@ class Login extends PageController
         if (!empty($this->redirect)) {
             $where = base64_decode(urldecode($this->redirect));
         }
-        Debug::addMessage('messages', $where);
+        DebugTool::getInstance()->addMessage('messages', $where);
         header('Location: ' . $where);
     }
 
@@ -90,16 +99,6 @@ class Login extends PageController
         } else {
             $this->redirectToController();
         }
-    }
-
-    /**
-     * The start point of the controller.
-     *
-     * @return void
-     */
-    public function run(): void
-    {
-        $this->index();
     }
 
     /**

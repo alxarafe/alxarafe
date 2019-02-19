@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Providers;
 
+use Alxarafe\DebugBarCollectors\TranslatorCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBarException;
 use DebugBar\JavascriptRenderer;
@@ -56,12 +57,13 @@ class DebugTool
             try {
                 $this->debugTool->addCollector(new MessagesCollector('SQL'));
                 //$this->debugTool->addCollector(new PhpCollector());
-                //$this->debugTool->addCollector(new TranslatorCollector(Translator::getInstance()));
+                $translator = Translator::getInstance();
+                $this->debugTool->addCollector(new TranslatorCollector($translator));
             } catch (DebugBarException $e) {
                 $this->logger::exceptionHandler($e);
             }
-            $baseUrl = basePath('vendor/maximebf/debugbar/src/DebugBar/Resources');
-            $this->jsRender = $this->debugTool->getJavascriptRenderer($baseUrl, basePath());
+            $baseUrl = baseUrl('vendor/maximebf/debugbar/src/DebugBar/Resources');
+            $this->jsRender = $this->debugTool->getJavascriptRenderer($baseUrl, constant('BASE_PATH'));
         }
     }
 

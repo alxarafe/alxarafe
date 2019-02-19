@@ -7,6 +7,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Providers\Container;
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\TemplateRender;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -131,7 +132,7 @@ class TwigFunctions extends AbstractExtension
      */
     public function getHeader(): string
     {
-        return Debug::getRenderHeader();
+        return DebugTool::getInstance()->getRenderHeader();
     }
 
     /**
@@ -141,6 +142,6 @@ class TwigFunctions extends AbstractExtension
      */
     public function getFooter(): string
     {
-        return Debug::getRenderFooter();
+        return DebugTool::getInstance()->getRenderFooter();
     }
 }

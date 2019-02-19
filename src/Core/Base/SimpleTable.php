@@ -7,8 +7,8 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Debug;
 use Alxarafe\Helpers\Schema;
+use Alxarafe\Providers\DebugTool;
 use ReflectionClass;
 
 /**
@@ -44,7 +44,7 @@ class SimpleTable extends Entity
     public function __construct(string $tableName, array $params = [])
     {
         $this->modelName = (new ReflectionClass($this))->getShortName();
-        Debug::startTimer($this->modelName, $this->modelName . ' Simple Constructor');
+        DebugTool::getInstance()->startTimer($this->modelName, $this->modelName . ' Simple Constructor');
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->nameField = $params['nameField'] ?? null;
@@ -58,7 +58,7 @@ class SimpleTable extends Entity
                 }
             }
         }
-        Debug::stopTimer($this->modelName);
+        DebugTool::getInstance()->stopTimer($this->modelName);
     }
 
     /**
@@ -131,29 +131,6 @@ class SimpleTable extends Entity
     }
 
     /**
-     * Deletes the active record.
-     *
-     * @return bool
-     */
-    public function delete(): bool
-    {
-        if (empty($this->id)) {
-            return false;
-        }
-        $sql = 'DELETE FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
-        $vars = [];
-        $vars['id'] = $this->id;
-        $result = Config::$dbEngine->exec($sql, $vars);
-        if ($result) {
-            $this->id = null;
-            $this->newData = null;
-            $this->oldData = null;
-        }
-        return $result;
-    }
-
-    /**
      * This method is private. Use load instead.
      * Establishes a record as an active record.
      * If found, the $id will be in $this->id and the data in $this->newData.
@@ -176,6 +153,43 @@ class SimpleTable extends Entity
         $this->oldData = $this->newData;
         $this->id = $this->newData[$this->idField];
         return true;
+    }
+
+    /**
+     * Sets the active record in a new record.
+     * Note that changes made to the current active record will be lost.
+     */
+    private function newRecord(): void
+    {
+        $this->id = '';
+        $this->newData = [];
+        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
+            $this->newData[$key] = $value['default'] ?? '';
+        }
+        $this->oldData = $this->newData;
+    }
+
+    /**
+     * Deletes the active record.
+     *
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        if (empty($this->id)) {
+            return false;
+        }
+        $sql = 'DELETE FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
+            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
+        $vars = [];
+        $vars['id'] = $this->id;
+        $result = Config::$dbEngine->exec($sql, $vars);
+        if ($result) {
+            $this->id = null;
+            $this->newData = null;
+            $this->oldData = null;
+        }
+        return $result;
     }
 
     /**
@@ -228,20 +242,6 @@ class SimpleTable extends Entity
     {
         trigger_error('Do not use getTableName(), use Config::$sqlHelper->quoteTableName($this->tableName); instead', E_ERROR);
         return Config::$sqlHelper->quoteTableName($this->tableName);
-    }
-
-    /**
-     * Sets the active record in a new record.
-     * Note that changes made to the current active record will be lost.
-     */
-    private function newRecord(): void
-    {
-        $this->id = '';
-        $this->newData = [];
-        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
-            $this->newData[$key] = $value['default'] ?? '';
-        }
-        $this->oldData = $this->newData;
     }
 
     /**
@@ -411,6 +411,29 @@ class SimpleTable extends Entity
     }
 
     /**
+     * Do a search to a table.
+     * Returns the result per page.
+     *
+     * @param string $query   What to look for
+     * @param array  $columns For example: [0 => 'name']
+     * @param int    $offset  By default 0
+     * @param string $order   By default the main name field if defined
+     *
+     * @return array
+     */
+    public function search(string $query, array $columns = [], int $offset = 0, string $order = ''): array
+    {
+        $sql = $this->searchQuery($query, $columns);
+        if (!empty($order)) {
+            $sql .= ' ORDER BY ' . $order;
+        }
+
+        $sql .= ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
+
+        return Config::$dbEngine->select($sql);
+    }
+
+    /**
      * Return the main part of the search SQL query.
      *
      * @param string $query
@@ -425,7 +448,7 @@ class SimpleTable extends Entity
         if ($this->getNameField() !== '') {
             if (empty($columns)) {
                 $columns = [
-                    0 => $this->getNameField()
+                    0 => $this->getNameField(),
                 ];
             }
         }
@@ -450,31 +473,8 @@ class SimpleTable extends Entity
      * Do a search to a table.
      * Returns the result per page.
      *
-     * @param string $query     What to look for
-     * @param array  $columns   For example: [0 => 'name']
-     * @param int    $offset    By default 0
-     * @param string $order     By default the main name field if defined
-     *
-     * @return array
-     */
-    public function search(string $query, array $columns = [], int $offset = 0, string $order = ''): array
-    {
-        $sql = $this->searchQuery($query, $columns);
-        if (!empty($order)) {
-            $sql .= ' ORDER BY ' . $order;
-        }
-
-        $sql .= ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
-
-        return Config::$dbEngine->select($sql);
-    }
-
-    /**
-     * Do a search to a table.
-     * Returns the result per page.
-     *
-     * @param string $query     What to look for
-     * @param array  $columns   For example: [0 => 'name']
+     * @param string $query   What to look for
+     * @param array  $columns For example: [0 => 'name']
      *
      * @return int
      */

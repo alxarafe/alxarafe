@@ -69,6 +69,19 @@ class Pages
     }
 
     /**
+     * Clean all pages.
+     */
+    private function cleanPages()
+    {
+        $pages = (new Page())->getAllRecords();
+        foreach ($pages as $pos => $oldPage) {
+            $page = new Page();
+            $page->setOldData($oldPage);
+            $page->delete();
+        }
+    }
+
+    /**
      * Instanciate class and update page data if needed.
      *
      * @param string $namespace
@@ -81,19 +94,6 @@ class Pages
         $parents = class_parents($class);
         if (in_array('Alxarafe\Base\PageController', $parents)) {
             $this->updatePageData($className, $namespace, $newClass);
-        }
-    }
-
-    /**
-     * Clean all pages.
-     */
-    private function cleanPages()
-    {
-        $pages = (new Page())->getAllRecords();
-        foreach ($pages as $pos => $oldPage) {
-            $page = new Page();
-            $page->setOldData($oldPage);
-            $page->delete();
         }
     }
 

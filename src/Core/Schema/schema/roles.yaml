@@ -1,54 +1,54 @@
 fields:
-    id:
-        type: integer
-        length: '10'
-        default: null
-        nullable: 'no'
-        unsigned: 'yes'
-        autoincrement: 'yes'
-    name:
-        type: string
-        length: '50'
-        default: ''
-        nullable: 'no'
-        unsigned: 'no'
-    active:
-        type: integer
-        length: '1'
-        default: '0'
-        nullable: 'no'
-        unsigned: 'yes'
-    locked:
-        type: integer
-        length: '1'
-        default: '0'
-        nullable: 'no'
-        unsigned: 'yes'
+  id:
+    type: integer
+    length: '10'
+    default: null
+    nullable: 'no'
+    unsigned: 'yes'
+    autoincrement: 'yes'
+  name:
+    type: string
+    length: '50'
+    default: ''
+    nullable: 'no'
+    unsigned: 'no'
+  active:
+    type: integer
+    length: '1'
+    default: '0'
+    nullable: 'no'
+    unsigned: 'yes'
+  locked:
+    type: integer
+    length: '1'
+    default: '0'
+    nullable: 'no'
+    unsigned: 'yes'
 indexes:
-    PRIMARY:
-        column: id
-        unique: 'yes'
-    name:
-        column: name
-        unique: 'yes'
+  PRIMARY:
+    column: id
+    unique: 'yes'
+  name:
+    column: name
+    unique: 'yes'
 values:
-    1:
-        id: 1
-        name: 'superadmin'
-        active: 1
-        locked: 1
-    2:
-        id: 2
-        name: 'admin'
-        active: 1
-        locked: 1
-    3:
-        id: 3
-        name: 'user'
-        active: 1
-        locked: 0
-    4:
-        id: 4
-        name: 'customer'
-        active: 0
-        locked: 0
+  1:
+    id: 1
+    name: 'superadmin'
+    active: 1
+    locked: 1
+  2:
+    id: 2
+    name: 'admin'
+    active: 1
+    locked: 1
+  3:
+    id: 3
+    name: 'user'
+    active: 1
+    locked: 0
+  4:
+    id: 4
+    name: 'customer'
+    active: 0
+    locked: 0
