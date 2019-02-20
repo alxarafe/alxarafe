@@ -11,7 +11,7 @@ use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use Exception;
-use ReflectionClass;
+use ReflectionException;
 
 /**
  * Class Dispatcher
@@ -190,22 +190,15 @@ class Dispatcher
         if (file_exists($controllerPath) && is_file($controllerPath) && method_exists($className, $method)) {
             $theClass = new $className();
             $this->debugTool->addMessage('messages', 'Executing: ' . $call . '->index()');
-            try {
-                $shortName = (new ReflectionClass($theClass))->getShortName();
-            } catch (\ReflectionException $e) {
-                Logger::getInstance()::exceptionHandler($e);
-                $shortName = null;
-                Config::setError($e->getMessage());
-            }
 
-            $this->debugTool->startTimer($shortName . '->index()', $shortName . '->index()');
+            $this->debugTool->startTimer($theClass->shortName . '->index()', $theClass->shortName . '->index()');
             $theClass->index();
-            $this->debugTool->stopTimer($shortName . '->index()');
+            $this->debugTool->stopTimer($theClass->shortName . '->index()');
 
             $this->debugTool->addMessage('messages', 'Executing: ' . $call . '->' . $method . '()');
-            $this->debugTool->startTimer($shortName . '->' . $method . '()', $shortName . '->' . $method . '()');
+            $this->debugTool->startTimer($theClass->shortName . '->' . $method . '()', $theClass->shortName . '->' . $method . '()');
             $theClass->{$method}();
-            $this->debugTool->stopTimer($shortName . '->' . $method . '()');
+            $this->debugTool->stopTimer($theClass->shortName . '->' . $method . '()');
             return true;
         }
         return false;

@@ -7,9 +7,9 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
+use Alxarafe\Providers\TemplateRender;
 
 /**
  * Class SimpleView, this class is used to manage the common things in a view:
@@ -29,12 +29,21 @@ class SimpleView
      * @var string
      */
     public $title;
+
     /**
      * The debug tool used.
      *
      * @var DebugTool
      */
     public $debugTool;
+
+    /**
+     * Manage the renderer.
+     *
+     * @var TemplateRender
+     */
+    public $renderer;
+
     /**
      * Array that contains the variables that will be passed to the template.
      * Among others it will contain the user name, the view and the controller.
@@ -51,6 +60,7 @@ class SimpleView
     public function __construct($controller = null)
     {
         $this->debugTool = Container::getInstance()::get('debugTool');
+        $this->renderer = Container::getInstance()::get('renderer');
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
@@ -58,7 +68,7 @@ class SimpleView
         if ($controller !== null && isset($controller->userAuth)) {
             $this->vars['user'] = $controller->userAuth->getUserName();
         }
-        $this->vars['templateuri'] = Skin::getTemplatesUri();
+        $this->vars['templateuri'] = $this->renderer->getTemplatesUri();
         $this->vars['lang'] = Config::$lang;
         $this->vars['debugbarTime'] = $this->debugTool->getDebugTool()['time'];
         $this->title = isset($controller->title) ? $controller->title : 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX);
@@ -93,10 +103,11 @@ class SimpleView
      */
     public function render()
     {
-        if (!Skin::hasTemplate()) {
-            Skin::setTemplate('default');
+        if (!$this->renderer->hasTemplate()) {
+            // TODO: Why impose a template?
+            $this->renderer->setTemplate('default');
         }
-        echo Skin::render($this->vars);
+        echo $this->renderer->render($this->vars);
         $this->debugTool->stopTimer('full-execution');
     }
 
@@ -129,32 +140,6 @@ class SimpleView
             return '';
         }
         return $resourceName;
-    }
-
-    /**
-     * Check different possible locations for the file and return the
-     * corresponding URI, if it exists.
-     *
-     * @param string $path
-     *
-     * @return string
-     */
-    public function getResourceUri(string $path): string
-    {
-        $paths = [
-            Skin::getTemplatesFolder() . '/' . $path => Skin::getTemplatesUri() . $path,
-            Skin::getCommonTemplatesFolder() . '/' . $path => Skin::getCommonTemplatesUri() . $path,
-            constant('DEFAULT_TEMPLATES_FOLDER') . '/' . $path => constant('DEFAULT_TEMPLATES_URI') . $path,
-            constant('VENDOR_FOLDER') . '/' . $path => constant('VENDOR_URI') . $path,
-            constant('BASE_PATH') . '/' . $path => constant('BASE_URI') . $path,
-        ];
-
-        foreach ($paths as $fullPath => $uriPath) {
-            if (file_exists($fullPath)) {
-                return $uriPath;
-            }
-        }
-        return '';
     }
 
     /**

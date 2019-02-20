@@ -7,6 +7,7 @@
 namespace Alxarafe\Providers;
 
 use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -96,7 +97,7 @@ trait Singleton
      *
      * @return string
      */
-    public function getFilePath()
+    public function getFilePath(): string
     {
         return self::$basePath . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
     }
@@ -106,20 +107,22 @@ trait Singleton
      *
      * @return string
      */
-    public function getFileName()
+    public function getFileName(): string
     {
         return ($this->separateConfigFile ? strtolower(self::getClassName()) : 'config');
     }
 
     /**
      * Returns the class name.
+     *
+     * @return string
      */
-    private static function getClassName()
+    private static function getClassName(): string
     {
         $class = get_called_class();
         try {
             $className = (new ReflectionClass($class))->getShortName();
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             Logger::getInstance()::exceptionHandler($e);
             $className = $class;
         }
@@ -155,7 +158,7 @@ trait Singleton
      *
      * @return bool
      */
-    protected function fileExists(string $filename)
+    protected function fileExists(string $filename): bool
     {
         return (isset($filename) && file_exists($filename) && is_file($filename));
     }
@@ -168,7 +171,7 @@ trait Singleton
      *
      * @return bool
      */
-    public function setConfig(array $params, string $index = 'main')
+    public function setConfig(array $params, string $index = 'main'): bool
     {
         $yamlContent = [];
         $yamlContent[self::getClassName()] = $this->getYamlContent();
@@ -182,7 +185,7 @@ trait Singleton
      *
      * @return string
      */
-    public function getBasePath()
+    public function getBasePath(): string
     {
         return self::$basePath;
     }

@@ -214,15 +214,15 @@ class TemplateRender
         try {
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
         } catch (\Twig_Error_Loader $e) {
-            $render = null;
+            $render = '';
             // When the template cannot be found
             Logger::getInstance()::exceptionHandler($e);
         } catch (\Twig_Error_Runtime $e) {
-            $render = null;
+            $render = '';
             // When an error occurred during rendering
             Logger::getInstance()::exceptionHandler($e);
         } catch (\Twig_Error_Syntax $e) {
-            $render = null;
+            $render = '';
             // When an error occurred during compilation
             Logger::getInstance()::exceptionHandler($e);
         }
@@ -270,6 +270,16 @@ class TemplateRender
     {
         $this->template = $template;
         return $this;
+    }
+
+    /**
+     * Returns true if a template has been specified.
+     *
+     * @return bool
+     */
+    public function hasTemplate(): bool
+    {
+        return ($this->template != null);
     }
 
     /**

@@ -8,10 +8,8 @@ namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\DebugTool;
-use ReflectionClass;
 
 /**
  * Class View
@@ -161,8 +159,8 @@ class View extends SimpleView
      * Constructor de la vista
      * Solo garantiza la instancia. El código se traspasa al método run.
      *
-     * @param PageController $controller
-     * @param array          $config
+     * @param SimpleController $controller
+     * @param array            $config
      */
     public function __construct($controller, array $config = [])
     {
@@ -172,7 +170,7 @@ class View extends SimpleView
         parent::__construct($controller);
 
         $this->controller = $controller;
-        $this->controllerName = (new ReflectionClass($this->controller))->getShortName();
+        $this->controllerName = $this->controller->shortName;
         $this->config = $config;
     }
 
@@ -215,17 +213,17 @@ class View extends SimpleView
         // Apply the related skin to each status
         switch ($this->status) {
             case 'adding':
-                Skin::setTemplate('master/create');
+                $this->renderer->setTemplate('master/create');
                 break;
             case 'showing':
-                Skin::setTemplate('master/read');
+                $this->renderer->setTemplate('master/read');
                 break;
             case 'editing':
-                Skin::setTemplate('master/update');
+                $this->renderer->setTemplate('master/update');
                 break;
             case 'listing':
             default:
-                Skin::setTemplate('master/list');
+                $this->renderer->setTemplate('master/list');
                 break;
         }
     }

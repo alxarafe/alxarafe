@@ -221,7 +221,6 @@ class PageController extends SimpleController
     private function canAction(string $username, string $action): bool
     {
         $pages = [];
-        $className = (new ReflectionClass($this))->getShortName();
 
         if ($this->roles === null) {
             $this->roles = (new UserRole())->getAllRecordsBy('id_user', $this->user->getId());
@@ -243,7 +242,7 @@ class PageController extends SimpleController
         $this->debugTool->addMessage('messages', "Available '" . $action . "' pages for '" . $username . "': <pre>" . var_export($pages, true) . "</pre>");
         $action = 'can_' . $action;
         foreach ($pages as $page) {
-            if ($page->controller == $className && $page->{$action} == 1) {
+            if ($page->controller == $this->shortName && $page->{$action} == 1) {
                 return true;
             }
         }

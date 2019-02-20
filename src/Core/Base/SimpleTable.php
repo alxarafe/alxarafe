@@ -44,7 +44,7 @@ class SimpleTable extends Entity
     {
         parent::__construct();
         $this->debugTool->startTimer($this->modelName, $this->modelName . ' Simple Constructor');
-        $this->modelName = (new ReflectionClass($this))->getShortName();
+        $this->modelName = $this->shortName;
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->nameField = $params['nameField'] ?? null;
