@@ -15,6 +15,10 @@ use ReflectionClass;
 /**
  * Class Table allows access to a table using an active record.
  * It is recommended to create a descendant for each table of the database, defining its tablename and structure.
+ *
+ * @property string $locked This field can exist or not (added here to avoid scrutinizer "property not exists")
+ *
+ * @package Alxarafe\Base
  */
 class Table extends SimpleTable
 {
