@@ -15,6 +15,10 @@ use Kint\Kint;
 /**
  * Class Entity
  *
+ * @property int $id
+ * @property string $idField
+ * @property string $nameField
+ *
  * @package Alxarafe\Base
  */
 abstract class Entity

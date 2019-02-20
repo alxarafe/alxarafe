@@ -161,7 +161,7 @@ class View extends SimpleView
      * @param Controller $controller
      * @param array      $config
      */
-    public function __construct($controller, array $config = [])
+    public function __construct($controller = null, array $config = [])
     {
         if (!($controller instanceof PageController)) {
             $this->debugTool->addMessage('messages', 'Must be a PageController descendent: <pre>' . var_export($controller, true) . '</pre>');

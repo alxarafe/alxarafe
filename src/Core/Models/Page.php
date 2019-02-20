@@ -19,8 +19,8 @@ use Alxarafe\Base\Table;
  * @property string    $icon
  * @property int       $active
  * @property string    $plugin
- * @property \DateTime $inserted_date
- * @property \DateTime $updated_date
+ * @property string $inserted_date
+ * @property string $updated_date
  *
  * @package Alxarafe\Models
  */

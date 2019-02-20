@@ -11,13 +11,13 @@ use Alxarafe\Base\Table;
 /**
  * Class Users
  *
- * @property int       $id
- * @property string    $username
- * @property string    $email
- * @property string    $password
- * @property \DateTime $register_date
- * @property int       $active
- * @property string    $logkey
+ * @property int    $id
+ * @property string $username
+ * @property string $email
+ * @property string $password
+ * @property string $register_date
+ * @property int    $active
+ * @property string $logkey
  *
  * @package Alxarafe\Models
  */

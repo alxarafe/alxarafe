@@ -8,6 +8,7 @@ namespace Alxarafe\PreProcessors;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Models\Page;
+use DateTime;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -119,7 +120,7 @@ class Pages
         $page->icon = $newPage->icon;
         $page->plugin = $namespace;
         $page->active = 1;
-        $page->updated_date = date('Y-m-d H:i:s');
+        $page->updated_date = (new DateTime('now'))->format('Y-m-d H:i:s');
         $page->save();
     }
 }
