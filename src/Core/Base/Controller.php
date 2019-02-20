@@ -339,6 +339,7 @@ abstract class Controller extends PageController
     {
         if ($this->canAccess && $this->canDelete) {
             $this->initialize();
+            // This 'locked' field can exists or not, if exist is used to not allow delete it.
             if (property_exists($this->model, 'locked') && $this->model->locked) {
                 Config::setError(Config::$lang->trans('register-locked'));
             } elseif ($this->model->delete()) {
