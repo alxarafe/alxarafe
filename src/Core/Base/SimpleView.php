@@ -128,7 +128,7 @@ class SimpleView
     public function addResource(string $resourceName, $relative = true): string
     {
         if ($relative) {
-            $uri = $this->getResourceUri($resourceName);
+            $uri = $this->renderer->getResourceUri($resourceName);
             if ($uri !== '') {
                 return $uri;
             }

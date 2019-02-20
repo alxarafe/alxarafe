@@ -11,6 +11,17 @@ use Alxarafe\Base\Table;
 /**
  * Class Page
  *
+ * @property int       $id
+ * @property string    $controller
+ * @property string    $title
+ * @property string    $description
+ * @property string    $menu
+ * @property string    $icon
+ * @property int       $active
+ * @property string    $plugin
+ * @property \DateTime $inserted_date
+ * @property \DateTime $updated_date
+ *
  * @package Alxarafe\Models
  */
 class Page extends Table

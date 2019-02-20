@@ -9,7 +9,6 @@ namespace Alxarafe\Base;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Utils;
-use Alxarafe\Providers\DebugTool;
 
 /**
  * Class View
@@ -53,7 +52,7 @@ class View extends SimpleView
     /**
      * The descendant of PageController that is accessed as page.
      *
-     * @var PageController
+     * @var SimpleController
      */
     public $controller;
 
@@ -165,7 +164,7 @@ class View extends SimpleView
     public function __construct($controller, array $config = [])
     {
         if (!($controller instanceof PageController)) {
-            DebugTool::getInstance()->addMessage('messages', 'Must be a PageController descendent: <pre>' . var_export($controller, true) . '</pre>');
+            $this->debugTool->addMessage('messages', 'Must be a PageController descendent: <pre>' . var_export($controller, true) . '</pre>');
         }
         parent::__construct($controller);
 

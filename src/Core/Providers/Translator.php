@@ -200,6 +200,11 @@ class Translator
         self::$usedStrings[] = $reference;
 
         if ($this->getLocale() !== self::FALLBACK_LANG) {
+            // Is missing for the language configured?
+//            if (!self::$translator->getCatalogue($this->getLocale())->has($reference)) {
+//                self::$missingStrings[$reference] = $translation;
+//            }
+            // Is missing on full catalogue?
             if (!self::$translator->getCatalogue()->has($reference)) {
                 self::$missingStrings[$reference] = $translation;
             }
