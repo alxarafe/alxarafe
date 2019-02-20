@@ -211,16 +211,18 @@ class TemplateRender
     public function render(array $data = []): string
     {
         $this->addExtensions();
-        $render = null;
         try {
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
         } catch (\Twig_Error_Loader $e) {
+            $render = null;
             // When the template cannot be found
             Logger::getInstance()::exceptionHandler($e);
         } catch (\Twig_Error_Runtime $e) {
+            $render = null;
             // When an error occurred during rendering
             Logger::getInstance()::exceptionHandler($e);
         } catch (\Twig_Error_Syntax $e) {
+            $render = null;
             // When an error occurred during compilation
             Logger::getInstance()::exceptionHandler($e);
         }

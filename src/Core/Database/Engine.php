@@ -75,7 +75,7 @@ abstract class Engine
     public function __construct(array $dbConfig)
     {
         self::$dbConfig = $dbConfig;
-        self::$debugTool = Container::getInstance()::get('debugTool');
+        self::$debugTool = DebugTool::getInstance();
     }
 
     /**

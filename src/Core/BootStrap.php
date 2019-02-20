@@ -167,9 +167,10 @@ class BootStrap
         $this->session = Session::getInstance();
         $this->router = Router::getInstance();
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
+        $this->debugTool = DebugTool::getInstance();
         $this->translator = Translator::getInstance();
         $this->database = Database::getInstance();
-        $this->debugTool = DebugTool::getInstance();
+        $this->database->connectToDatabase();
         $this->renderer = TemplateRender::getInstance();
     }
 

@@ -217,24 +217,6 @@ class Translator
     }
 
     /**
-     * Translate the text into the default language, but using choice.
-     *
-     * @param       $txt
-     * @param       $number
-     * @param array $parameters
-     * @param       $domain
-     * @param       $locale
-     *
-     * @return string
-     */
-    public function transChoice($txt, $number, array $parameters = [], $domain = null, $locale = null): string
-    {
-        $lang = self::$translator->transChoice($txt, $number, $parameters, $domain, $locale);
-        $this->verifyMissing($txt, $lang);
-        return $lang;
-    }
-
-    /**
      * Returns the missing strings.
      *
      * @return array
