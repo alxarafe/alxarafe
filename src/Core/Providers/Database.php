@@ -47,7 +47,7 @@ class Database
      */
     public function __construct()
     {
-        if ($this->dbEngine === null) {
+        if (!isset($this->dbEngine)) {
             $this->initSingleton();
             $this->config = $this->getConfig();
             $dbEngineName = $this->config['dbEngineName'] ?? 'PdoMySql';

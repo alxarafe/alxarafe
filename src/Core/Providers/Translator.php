@@ -77,7 +77,7 @@ class Translator
      */
     public function __construct()
     {
-        if (self::$translator === null) {
+        if (!isset(self::$translator)) {
             $this->initSingleton();
             $config = $this->getConfig();
             self::$languageFolder = constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;

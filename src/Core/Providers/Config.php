@@ -33,9 +33,11 @@ class Config
      */
     public function __construct()
     {
-        $this->separateConfigFile = true;
-        $this->initSingleton();
-        $this->getConfigContent();
+        if (!isset($this->configContent)) {
+            $this->separateConfigFile = true;
+            $this->initSingleton();
+            $this->getConfigContent();
+        }
     }
 
     /**

@@ -30,10 +30,12 @@ class Router
      */
     protected function __construct()
     {
-        // The class uses its own configuration file
-        $this->separateConfigFile = true;
-        $this->initSingleton();
-        $this->getRoutes();
+        if (!isset($this->routes)) {
+            // The class uses its own configuration file
+            $this->separateConfigFile = true;
+            $this->initSingleton();
+            $this->getRoutes();
+        }
     }
 
     /**

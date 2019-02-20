@@ -35,7 +35,7 @@ class Logger
      */
     public function __construct()
     {
-        if (self::$logger === null) {
+        if (!isset(self::$logger)) {
             $this->initSingleton();
             self::$logger = new MonologLogger('core_logger');
             set_exception_handler([$this, 'exceptionHandler']);

@@ -88,7 +88,7 @@ class TemplateRender
      */
     public function __construct()
     {
-        if ($this->twig === null) {
+        if (!isset($this->twig)) {
             $this->initSingleton();
             $this->template = null;
             $this->templateVars = [

@@ -51,7 +51,7 @@ class DebugTool
      */
     public function __construct()
     {
-        if ($this->debugTool === null) {
+        if (!isset($this->debugTool)) {
             $this->initSingleton();
             if (!defined('DEBUG')) {
                 define('DEBUG', false);
