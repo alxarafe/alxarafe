@@ -86,24 +86,6 @@ class Table extends SimpleTable
 
         return '';
     }
-    /**
-     * Return a list of fields and their table structure.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    //abstract public function getFields();
-
-    /**
-     * Get an array with all data.
-     *
-     * @return array
-     */
-    public function getAllRecords(): array
-    {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ';';
-        return Config::$dbEngine->select($sql);
-    }
 
     /**
      * Get an array with all data.
@@ -120,32 +102,6 @@ class Table extends SimpleTable
         $vars = [];
         $vars['value'] = $value;
         return Config::$dbEngine->select($sql, $vars);
-    }
-
-    /**
-     * A raw array is built with all the information available in the table, configuration files and code.
-     *
-     * @return array
-     */
-    protected function getStructureArray(): array
-    {
-        $struct = parent::getStructureArray();
-        // If indexes exists, it's loaded from yaml file
-        if (!isset($struct['indexes'])) {
-            $struct['indexes'] = method_exists($this, 'getKeys') ? /** @scrutinizer ignore-call */
-                $this->getKeys() : $this->getIndexesFromTable();
-            if (method_exists($this, 'getDefaultValues')) {
-                if (!isset($struct['values'])) {
-                    $struct['values'] = [];
-                }
-                $struct['values'] = array_merge(
-                    $struct['values'], /** @scrutinizer ignore-call */
-                    $this->getDefaultValues());
-            }
-        }
-        $struct['checks'] = method_exists($this, 'getChecks') ? /** @scrutinizer ignore-call */
-            $this->getChecks() : $this->getChecksFromTable();
-        return $struct;
     }
 
     /**
@@ -174,16 +130,6 @@ class Table extends SimpleTable
             $items[$key] = $this->getDefaultValue($valueData);
         }
         return $items;
-    }
-
-    /**
-     * Returns the structure of the normalized table.
-     *
-     * @return array
-     */
-    public function getStructure(): array
-    {
-        return Config::$bbddStructure[$this->tableName];
     }
 
     /**
@@ -295,13 +241,13 @@ class Table extends SimpleTable
     }
 
     /**
-     * TODO: Undocumented
+     * Try to save the data and return true/false based on the result.
      *
-     * @param $data
+     * @param array $data
      *
      * @return bool
      */
-    protected function saveData($data): bool
+    protected function saveData(array $data): bool
     {
         $ret = true;
         foreach ($data[$this->tableName] as $key => $value) {
@@ -309,17 +255,17 @@ class Table extends SimpleTable
             $this->newData = $value;
             $ret &= $this->save();
         }
-        return $ret;
+        return (bool) $ret;
     }
 
     /**
-     * TODO: Undocumented
+     * Save the data to a record if pass the test and returns true/false based on the result.
      *
-     * @param $data
+     * @param array $data
      *
      * @return bool
      */
-    public function saveRecord($data): bool
+    public function saveRecord(array $data): bool
     {
         if ($ret = $this->testData($data)) {
             $ret = $this->saveData($data);

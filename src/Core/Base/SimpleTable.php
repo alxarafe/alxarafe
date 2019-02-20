@@ -95,7 +95,6 @@ class SimpleTable extends Entity
      */
     protected function getStructureArray(): array
     {
-        //$struct = Schema::getStructureFromFile($this->tableName);
         $struct = Schema::getFromYamlFile($this->tableName);
         if (count($struct) > 0) {
             return $struct;
