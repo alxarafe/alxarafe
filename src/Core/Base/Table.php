@@ -239,4 +239,91 @@ class Table extends SimpleTable
     {
         return Schema::getFromYamlFile($this->tableName, 'viewdata');
     }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param $data
+     *
+     * @return bool
+     */
+    protected function testData($data): bool
+    {
+        $ok = true;
+        foreach ($data as $tableName => $block) {   // Recorrer tablas
+            foreach ($block as $blockId => $record) {            // Recorrer registros de la tabla (seguramente uno)
+                foreach (Config::$bbddStructure[$tableName]['checks'] as $fieldName => $fieldStructure) {
+                    $length = $fieldStructure['length'] ?? null;
+                    if (isset($length) && $length > 0) {
+                        if (strlen($record[$fieldName]) > $length) {
+                            Config::setError("$tableName-$fieldName: Longitud máxima {$length}.");
+                            $ok = false;
+                        }
+                    }
+                    $min = $fieldStructure['min'] ?? null;
+                    if (isset($min)) {
+                        if ($min > intval($record[$fieldName])) {
+                            Config::setError("$tableName-$fieldName: Supera el mínimo de {$min}.");
+                            $ok = false;
+                        }
+                    }
+                    $max = $fieldStructure['max'] ?? null;
+                    if (isset($max)) {
+                        if ($max < intval($record[$fieldName])) {
+                            Config::setError("$tableName-$fieldName: Supera el máximo {$max}.");
+                            $ok = false;
+                        }
+                    }
+                    if (isset($fieldStructure['unique']) && ($fieldStructure['unique'] == 'yes')) {
+                        // $fullTableName = $this->getTableName();
+                        $fullTableName = Config::$sqlHelper->quoteTableName($this->tableName);
+                        $bad = Config::$dbEngine->select("SELECT * FROM {$fullTableName} WHERE $fieldName='{$data[$tableName][$blockId][$fieldName]}'");
+                        if ($bad && count($bad) > 0) {
+                            foreach ($bad as $badrecord) {
+                                // TODO: Estoy utilizando 'id', pero tendría que ser el $this->idField del modelo correspondiente
+                                if ($badrecord['id'] != $data[$tableName][$blockId]['id']) {
+                                    Config::setError("$tableName-$fieldName: Valor '{$data[$tableName][$blockId][$fieldName]}' duplicado con registro {$badrecord['id']}.");
+                                    $ok = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $ok;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param $data
+     *
+     * @return bool
+     */
+    protected function saveData($data): bool
+    {
+        $ret = true;
+        foreach ($data[$this->tableName] as $key => $value) {
+            $this->load($key);
+            $this->newData = $value;
+            $ret &= $this->save();
+        }
+        return $ret;
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param $data
+     *
+     * @return bool
+     */
+    public function saveRecord($data): bool
+    {
+        if ($ret = $this->testData($data)) {
+            $ret = $this->saveData($data);
+        }
+        return $ret;
+    }
 }
