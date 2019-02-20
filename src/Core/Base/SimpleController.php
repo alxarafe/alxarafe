@@ -92,13 +92,13 @@ class SimpleController
     {
         $this->shortName = Utils::getShortName($this, get_called_class());
         $this->container = Container::getInstance();
-        $this->debugTool = $this->container::get('debugTool');
+        $this->debugTool = DebugTool::getInstance();
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->request = $this->container::get('request');
         $this->response = $this->container::get('response');
-        $this->session = $this->container::get('session');
-        $this->renderer = $this->container::get('renderer');
-        $this->translator = $this->container::get('translator');
+        $this->session = Session::getInstance();
+        $this->renderer = TemplateRender::getInstance();
+        $this->translator = Translator::getInstance();
         $this->renderer->addVars([
             'ctrl' => $this,
             'lang' => $this->translator,

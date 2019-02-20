@@ -218,16 +218,9 @@ class BootStrap
         ];
         $this->container::add('configFiles', $configFiles);
         $this->container::add('config', $this->configData);
-        $this->container::add('session', $this->session);
-        $this->container::add('router', $this->router);
         $this->container::add('defaultLang', $this->defaultLang);
-        $this->container::add('translator', $this->translator);
-        $this->container::add('database', $this->database);
-        $this->container::add('renderer', $this->renderer);
         $this->container::add('request', $this->request);
         $this->container::add('response', $this->response);
-        $this->container::add('debugTool', $this->debugTool);
-        $this->container::add('log', $this->log);
     }
 
     /**
