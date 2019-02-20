@@ -63,7 +63,7 @@ class Auth extends User
     {
         parent::__construct();
         $this->username = $this->getCookieUser();
-        $this->session = Container::getInstance()::get('session');
+        $this->session = Session::getInstance();
     }
 
     /**

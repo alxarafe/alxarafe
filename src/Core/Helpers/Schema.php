@@ -33,7 +33,7 @@ class Schema
      */
     public function __construct()
     {
-        self::$debugTool = Container::getInstance()::get('debugTool');
+        self::$debugTool = DebugTool::getInstance();
     }
 
     /**

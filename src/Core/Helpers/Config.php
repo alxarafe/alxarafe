@@ -130,13 +130,13 @@ class Config
      */
     public static function loadConfig(): void
     {
-        self::$session = Container::getInstance()::get('session');
+        self::$session = Session::getInstance();
 
         self::$messagesList = [];
         self::$global = self::loadConfigurationFile();
 
         if (self::$lang === null) {
-            self::$lang = Container::getInstance()::get('translator');
+            self::$lang = Translator::getInstance();
         }
         if (isset(self::$global['skin'])) {
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;

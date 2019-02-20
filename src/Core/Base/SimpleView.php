@@ -59,8 +59,8 @@ class SimpleView
      */
     public function __construct($controller = null)
     {
-        $this->debugTool = Container::getInstance()::get('debugTool');
-        $this->renderer = Container::getInstance()::get('renderer');
+        $this->debugTool = DebugTool::getInstance();
+        $this->renderer = TemplateRender::getInstance();
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;

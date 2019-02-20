@@ -83,7 +83,7 @@ abstract class Entity
      */
     public function __construct()
     {
-        $this->debugTool = Container::getInstance()::get('debugTool');
+        $this->debugTool = DebugTool::getInstance();
         $this->shortName = Utils::getShortName($this, get_called_class());
     }
 

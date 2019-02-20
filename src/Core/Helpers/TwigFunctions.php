@@ -45,9 +45,9 @@ class TwigFunctions extends AbstractExtension
      */
     public function __construct()
     {
-        $this->session = Container::getInstance()::get('session');
-        $this->renderer = Container::getInstance()::get('renderer');
-        $this->debugTool = Container::getInstance()::get('debugTool');
+        $this->session = Session::getInstance();
+        $this->renderer = TemplateRender::getInstance();
+        $this->debugTool = DebugTool::getInstance();
     }
 
     /**
