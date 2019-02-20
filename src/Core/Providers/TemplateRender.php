@@ -281,7 +281,7 @@ class TemplateRender
      */
     public function hasTemplate(): bool
     {
-        return ($this->template != null);
+        return ($this->template !== null);
     }
 
     /**
