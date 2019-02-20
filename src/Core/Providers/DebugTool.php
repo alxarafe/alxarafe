@@ -82,7 +82,7 @@ class DebugTool
     {
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
-        $this->debugTool['exceptions']->addException($e);
+        $this->debugTool->getCollector('exceptions')->addException($e);
         $this->logger::exceptionHandler($e);
     }
 
@@ -134,8 +134,8 @@ class DebugTool
      */
     public function startTimer(string $name, string $message = 'Timer started'): void
     {
-        if (!$this->debugTool['time']->hasStartedMeasure($name)) {
-            $this->debugTool['time']->startMeasure($name, $message);
+        if (!$this->debugTool->getCollector('time')->hasStartedMeasure($name)) {
+            $this->debugTool->getCollector('time')->startMeasure($name, $message);
         } else {
             $this->addMessage('messages', "Timer '" . $name . "' yet started and trying to start it again.");
         }
@@ -151,7 +151,7 @@ class DebugTool
     {
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
-        $this->debugTool[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
+        $this->debugTool->getCollector($channel)->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
     }
 
     /**
@@ -161,8 +161,8 @@ class DebugTool
      */
     public function stopTimer(string $name): void
     {
-        if ($this->debugTool['time']->hasStartedMeasure($name)) {
-            $this->debugTool['time']->stopMeasure($name);
+        if ($this->debugTool->getCollector('time')->hasStartedMeasure($name)) {
+            $this->debugTool->getCollector('time')->stopMeasure($name);
         } else {
             $this->addMessage('messages', "Timer '" . $name . "' not yet started and trying to stop it.");
         }
