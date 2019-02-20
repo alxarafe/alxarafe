@@ -110,6 +110,14 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#property_debugTool"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_renderer">
+                                                                                <a href="../../Alxarafe/Providers/TemplateRender.html"><abbr title="Alxarafe\Providers\TemplateRender">TemplateRender</abbr></a>
+                </td>
+                <td>$renderer</td>
+                <td class="last">Manage the renderer.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#property_renderer"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_vars">
                                                             private                    array
                 </td>
@@ -143,7 +151,7 @@
             </tr>
                     <tr>
                 <td class="type" id="property_controller">
-                                                                                <a href="../../Alxarafe/Base/PageController.html"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a>
+                                                                                <a href="../../Alxarafe/Base/Controller.html"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a>
                 </td>
                 <td>$controller</td>
                 <td class="last">The descendant of PageController that is accessed as page.</td>
@@ -325,17 +333,6 @@ of the skin folder). It's a specific file.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getResourceUri">getResourceUri</a>(string $path)
-        
-                                            <p>Check different possible locations for the file and return the
-corresponding URI, if it exists.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleView.html#method_getResourceUri"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     void
                 </div>
                 <div class="col-md-8 type">
@@ -423,7 +420,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 167</div>
+        <div class="location">at         line 164</div>
         <code>                    
     <strong>__construct</strong>(mixed $controller, array $config = [])
         </code>
@@ -460,7 +457,7 @@ Solo garantiza la instancia. El código se traspasa al método run.</p>         
             </div>
                     <div class="method-item">
                     <h3 id="method_addCSS">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addCSS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 76</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addCSS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 86</div>
         <code>                    void
     <strong>addCSS</strong>()
         </code>
@@ -490,7 +487,7 @@ Solo garantiza la instancia. El código se traspasa al método run.</p>         
             </div>
                     <div class="method-item">
                     <h3 id="method_addJS">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addJS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 86</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addJS"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 96</div>
         <code>                    void
     <strong>addJS</strong>()
         </code>
@@ -520,7 +517,7 @@ Solo garantiza la instancia. El código se traspasa al método run.</p>         
             </div>
                     <div class="method-item">
                     <h3 id="method_render">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_render"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 94</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_render"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 104</div>
         <code>                    
     <strong>render</strong>()
         </code>
@@ -541,7 +538,7 @@ Solo garantiza la instancia. El código se traspasa al método run.</p>         
             </div>
                     <div class="method-item">
                     <h3 id="method_addResource">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addResource"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 117</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addResource"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 128</div>
         <code>                    string
     <strong>addResource</strong>(string $resourceName, boolean $relative = true)
         </code>
@@ -589,49 +586,8 @@ js folders of the templates folder). It's a common file.</p>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getResourceUri">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getResourceUri"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 142</div>
-        <code>                    string
-    <strong>getResourceUri</strong>(string $path)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Check different possible locations for the file and return the
-corresponding URI, if it exists.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$path</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_setVar">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_setVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 168</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_setVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 153</div>
         <code>                    void
     <strong>setVar</strong>(string $name, mixed $value)
         </code>
@@ -676,7 +632,7 @@ corresponding URI, if it exists.</p>                                            
             </div>
                     <div class="method-item">
                     <h3 id="method_addToVar">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addToVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 183</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_addToVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 168</div>
         <code>                    void
     <strong>addToVar</strong>(string $name, mixed $value)
         </code>
@@ -722,7 +678,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getVars">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVars"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 195</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVars"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 180</div>
         <code>                    array
     <strong>getVars</strong>()
         </code>
@@ -752,7 +708,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getVar">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 207</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getVar"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 192</div>
         <code>                    array|string|boolean|null
     <strong>getVar</strong>(string $name)
         </code>
@@ -792,7 +748,7 @@ IMPORTANT: The element only is added if is not empty.</p>                       
             </div>
                     <div class="method-item">
                     <h3 id="method_getMessages">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getMessages"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 218</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getMessages"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 203</div>
         <code>                    array
     <strong>getMessages</strong>()
         </code>
@@ -823,7 +779,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_getHeader">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getHeader"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 228</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getHeader"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 213</div>
         <code>                    string
     <strong>getHeader</strong>()
         </code>
@@ -853,7 +809,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_getFooter">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getFooter"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 238</div>
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleView.html#method_getFooter"><abbr title="Alxarafe\Base\SimpleView">SimpleView</abbr></a> at         line 223</div>
         <code>                    string
     <strong>getFooter</strong>()
         </code>
@@ -883,7 +839,7 @@ Config::getMessages() returns an array with the pending error messages, and empt
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">at         line 188</div>
+        <div class="location">at         line 185</div>
         <code>                    void
     <strong>run</strong>(array $data = null, array $params = [])
         </code>
