@@ -7,7 +7,6 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Logger;
 use DebugBar\DataCollector\PDO as PDODataCollector;

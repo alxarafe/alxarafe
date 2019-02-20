@@ -74,7 +74,7 @@ class Models
      *
      * @param string $namespace
      * @param string $baseDir
-     * @param array  $list
+     * @param string[]  $list
      */
     private function fillList(string $namespace, string $baseDir, array &$list)
     {
@@ -101,7 +101,7 @@ class Models
             foreach ($deps as $dep) {
                 $this->loadClassIfNeeded($loadedDep, $dep);
             }
-            $this->loadClassIfNeeded($loadedDep, $class);
+            $this->loadClassIfNeeded($loadedDep, (string) $class);
         }
     }
 

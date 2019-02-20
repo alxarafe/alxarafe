@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Helpers;
 
-use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\TemplateRender;
 use Twig\Extension\AbstractExtension;

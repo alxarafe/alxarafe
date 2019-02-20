@@ -7,7 +7,6 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
-use Alxarafe\Providers\Container;
 
 /**
  * Class Auth

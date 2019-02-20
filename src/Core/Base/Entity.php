@@ -7,7 +7,6 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Utils;
-use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
 use Exception;
 use Kint\Kint;
@@ -18,8 +17,8 @@ use Kint\Kint;
  * @property string $id
  * @property string $idField
  * @property string $nameField
- * @property array $newData
- * @property array $oldData
+ * @property array  $newData
+ * @property array  $oldData
  *
  * @package Alxarafe\Base
  */

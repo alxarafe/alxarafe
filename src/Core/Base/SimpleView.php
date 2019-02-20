@@ -7,7 +7,6 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
-use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\TemplateRender;
 
