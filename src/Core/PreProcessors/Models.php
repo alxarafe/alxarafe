@@ -101,7 +101,7 @@ class Models
             foreach ($deps as $dep) {
                 $this->loadClassIfNeeded($loadedDep, $dep);
             }
-            $this->loadClassIfNeeded($loadedDep, $class);
+            $this->loadClassIfNeeded($loadedDep, (string) $class);
         }
     }
 
