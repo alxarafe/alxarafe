@@ -391,8 +391,8 @@ class TemplateRender
      *
      * @return TemplateRender
      */
-    public function getInstance(): self
+    public static function getInstance(): self
     {
-        return $this::getInstanceTrait();
+        return self::getInstanceTrait();
     }
 }

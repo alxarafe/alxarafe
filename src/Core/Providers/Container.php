@@ -82,8 +82,8 @@ class Container
      *
      * @return Container
      */
-    public function getInstance(): self
+    public static function getInstance(): self
     {
-        return $this::getInstanceTrait();
+        return self::getInstanceTrait();
     }
 }

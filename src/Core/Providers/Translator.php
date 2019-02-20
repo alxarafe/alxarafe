@@ -258,8 +258,8 @@ class Translator
      *
      * @return Translator
      */
-    public function getInstance(): self
+    public static function getInstance(): self
     {
-        return $this::getInstanceTrait();
+        return self::getInstanceTrait();
     }
 }
