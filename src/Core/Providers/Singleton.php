@@ -6,8 +6,7 @@
 
 namespace Alxarafe\Providers;
 
-use ReflectionClass;
-use ReflectionException;
+use Alxarafe\Helpers\Utils;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -30,24 +29,28 @@ trait Singleton
      * @var bool
      */
     protected static $singletonArray = false;
+
     /**
      * The base path where config files are placed.
      *
      * @var string
      */
     protected static $basePath;
+
     /**
      * Name of the class
      *
      * @var string
      */
     private static $className;
+
     /**
      * Hold the classes on instance.
      *
      * @var array
      */
     private static $instances = [];
+
     /**
      * Set to true if you want to save configuration in a separate file
      *
@@ -120,13 +123,7 @@ trait Singleton
     private static function getClassName(): string
     {
         $class = get_called_class();
-        try {
-            $className = (new ReflectionClass($class))->getShortName();
-        } catch (ReflectionException $e) {
-            Logger::getInstance()::exceptionHandler($e);
-            $className = $class;
-        }
-        return $className;
+        return Utils::getShortName($class, $class);
     }
 
     /**

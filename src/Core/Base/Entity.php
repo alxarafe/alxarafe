@@ -9,11 +9,8 @@ namespace Alxarafe\Base;
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
-use Alxarafe\Providers\Logger;
 use Exception;
 use Kint\Kint;
-use ReflectionClass;
-use ReflectionException;
 
 /**
  * Class Entity
@@ -81,12 +78,7 @@ abstract class Entity
     public function __construct()
     {
         $this->debugTool = Container::getInstance()::get('debugTool');
-        try {
-            $this->shortName = (new ReflectionClass($this))->getShortName();
-        } catch (ReflectionException $e) {
-            Logger::getInstance()::exceptionHandler($e);
-            $this->shortName = get_called_class();;
-        }
+        $this->shortName = Utils::getShortName($this, get_called_class());
     }
 
     /**

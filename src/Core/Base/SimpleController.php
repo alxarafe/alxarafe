@@ -7,13 +7,11 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Session;
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
-use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\TemplateRender;
 use Alxarafe\Providers\Translator;
-use ReflectionClass;
-use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -92,12 +90,7 @@ class SimpleController
      */
     public function __construct()
     {
-        try {
-            $this->shortName = (new ReflectionClass($this))->getShortName();
-        } catch (ReflectionException $e) {
-            Logger::getInstance()::exceptionHandler($e);
-            $this->shortName = get_called_class();;
-        }
+        $this->shortName = Utils::getShortName($this, get_called_class());
         $this->container = Container::getInstance();
         $this->debugTool = $this->container::get('debugTool');
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Controller Constructor');

@@ -7,6 +7,8 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Providers\Logger;
+use ReflectionClass;
+use ReflectionException;
 
 /**
  * Class Utils
@@ -158,5 +160,24 @@ class Utils
             return mb_substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $length);
         }
         return bin2hex($bytes);
+    }
+
+    /**
+     * Returns the short name of the class.
+     *
+     * @param $objectClass
+     * @param $calledClass
+     *
+     * @return string
+     */
+    public static function getShortName($objectClass, $calledClass)
+    {
+        try {
+            $shortName = (new ReflectionClass($objectClass))->getShortName();
+        } catch (ReflectionException $e) {
+            Logger::getInstance()::exceptionHandler($e);
+            $shortName = $calledClass;
+        }
+        return $shortName;
     }
 }
