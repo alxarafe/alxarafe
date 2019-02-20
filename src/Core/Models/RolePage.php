@@ -11,6 +11,16 @@ use Alxarafe\Base\Table;
 /**
  * Class RolePage. Link each role with the assigned page.
  *
+ * @property int $id
+ * @property int $id_role
+ * @property int $id_page
+ * @property int $can_access
+ * @property int $can_create
+ * @property int $can_read
+ * @property int $can_update
+ * @property int $can_delete
+ * @property int $locked
+ *
  * @package Alxarafe\Models
  */
 class RolePage extends Table

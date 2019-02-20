@@ -11,6 +11,11 @@ use Alxarafe\Base\Table;
 /**
  * Class Language
  *
+ * @property int    $id
+ * @property string $name
+ * @property string $language
+ * @property string $variant
+ *
  * @package Alxarafe\Models
  */
 class Language extends Table

@@ -11,6 +11,10 @@ use Alxarafe\Base\Table;
 /**
  * Class UserRoles. Link each user with the assigned roles.
  *
+ * @property int $id
+ * @property int $id_user
+ * @property int $id_role
+ *
  * @package Alxarafe\Models
  */
 class UserRole extends Table

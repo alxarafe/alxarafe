@@ -11,6 +11,10 @@ use Alxarafe\Base\Table;
 /**
  * Class TableModel
  *
+ * @property string $tablename
+ * @property string $model
+ * @property string $namespace
+ *
  * @package Alxarafe\Models
  */
 class TableModel extends Table

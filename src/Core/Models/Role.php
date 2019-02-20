@@ -12,6 +12,11 @@ use Alxarafe\Base\Table;
  * Class Role. Define the roles available in the application. By default, the administrator
  * and the user are defined.
  *
+ * @property int    $id
+ * @property string $name
+ * @property int    $active
+ * @property int    $locked
+ *
  * @package Alxarafe\Models
  */
 class Role extends Table
