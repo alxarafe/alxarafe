@@ -17,7 +17,9 @@ use Symfony\Component\Translation\Translator as SymfonyTranslator;
  */
 class Translator
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * Default language to use if language file not exists.
@@ -249,5 +251,15 @@ class Translator
     public function getTranslator()
     {
         return self::$translator;
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Translator
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

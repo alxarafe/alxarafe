@@ -15,7 +15,9 @@ use Alxarafe\Helpers\Utils;
  */
 class Config
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * Contains the config content.
@@ -100,5 +102,15 @@ class Config
 
         // Carry Return (retorno de carro) & Line Feed (salto de línea).
         define('CRLF', "\n\t");
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Config
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

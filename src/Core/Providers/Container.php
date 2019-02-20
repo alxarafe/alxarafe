@@ -13,7 +13,9 @@ namespace Alxarafe\Providers;
  */
 class Container
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * Contains all items added.
@@ -73,5 +75,15 @@ class Container
     public static function get(string $key)
     {
         return self::$container[$key] ?? null;
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Container
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

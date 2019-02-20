@@ -52,7 +52,7 @@ class View extends SimpleView
     /**
      * The descendant of PageController that is accessed as page.
      *
-     * @var SimpleController
+     * @var Controller
      */
     public $controller;
 
@@ -158,8 +158,8 @@ class View extends SimpleView
      * Constructor de la vista
      * Solo garantiza la instancia. El código se traspasa al método run.
      *
-     * @param SimpleController $controller
-     * @param array            $config
+     * @param Controller $controller
+     * @param array      $config
      */
     public function __construct($controller, array $config = [])
     {

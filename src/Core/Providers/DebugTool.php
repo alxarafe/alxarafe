@@ -21,7 +21,9 @@ use Exception;
  */
 class DebugTool
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * The debug bar.
@@ -164,5 +166,15 @@ class DebugTool
         } else {
             $this->addMessage('messages', "Timer '" . $name . "' not yet started and trying to stop it.");
         }
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return DebugTool
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

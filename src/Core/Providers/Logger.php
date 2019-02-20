@@ -19,7 +19,9 @@ use Monolog\Logger as MonologLogger;
  */
 class Logger
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * The logger.
@@ -70,5 +72,15 @@ class Logger
     public function getLogger()
     {
         return self::$logger;
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Logger
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

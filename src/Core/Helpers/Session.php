@@ -17,7 +17,9 @@ use Aura\Session\SessionFactory;
  */
 class Session
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * Session info from cookie.
@@ -121,5 +123,15 @@ class Session
     public function setFlash(string $key, $value)
     {
         $this->getSegment()->setFlash($key, $value);
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Session
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

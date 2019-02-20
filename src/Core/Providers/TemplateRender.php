@@ -19,7 +19,9 @@ use Twig_Loader_Filesystem;
  */
 class TemplateRender
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * Default: It is the folder that includes the templates.
@@ -382,5 +384,15 @@ class TemplateRender
     public function getCommonTemplatesUri(): string
     {
         return baseUrl($this->commonTemplatesFolder);
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return TemplateRender
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

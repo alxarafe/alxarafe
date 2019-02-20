@@ -14,7 +14,9 @@ namespace Alxarafe\Providers;
  */
 class Router
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * Contains all routes.
@@ -138,5 +140,15 @@ class Router
     public function getRoute(string $key)
     {
         return $this->routes[$key] ?? null;
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Router
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }

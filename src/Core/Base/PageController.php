@@ -265,7 +265,7 @@ class PageController extends SimpleController
                 continue;
             }
             // Add every page to list
-            $pos = '$list';
+            $pos = 'list';
             $positions = explode(self::MENU_DELIMITER, $page['menu']);
             foreach ($positions as $position) {
                 $pos .= "['$position']";
@@ -277,7 +277,8 @@ class PageController extends SimpleController
                 'description' => $page['description'],
                 'icon' => $page['icon'],
             ];
-            eval("$pos=" . var_export($pageDetails, true) . ";");
+            //eval("$pos=" . var_export($pageDetails, true) . ";");
+            ${$pos} = var_export($pageDetails, true);
         }
         return $list;
     }

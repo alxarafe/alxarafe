@@ -135,9 +135,9 @@ trait Singleton
      *
      * @param string $index
      *
-     * @return self
+     * @return mixed
      */
-    public static function getInstance(string $index = 'main'): self
+    public static function getInstance(string $index = 'main')
     {
         if (!self::$singletonArray) {
             $index = 'main';

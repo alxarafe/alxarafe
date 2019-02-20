@@ -17,7 +17,9 @@ use Exception;
  */
 class Database
 {
-    use Singleton;
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
 
     /**
      * Contains the instance to the database engine (or null)
@@ -98,5 +100,15 @@ class Database
     public function getSqlHelper(): SqlHelper
     {
         return $this->sqlHelper;
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Database
+     */
+    public function getInstance(): self
+    {
+        return $this::getInstanceTrait();
     }
 }
