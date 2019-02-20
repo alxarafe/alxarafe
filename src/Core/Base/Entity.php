@@ -15,7 +15,7 @@ use Kint\Kint;
 /**
  * Class Entity
  *
- * @property int $id
+ * @property string $id
  * @property string $idField
  * @property string $nameField
  *
