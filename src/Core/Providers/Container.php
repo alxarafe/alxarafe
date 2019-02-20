@@ -29,7 +29,7 @@ class Container
      */
     public function __construct()
     {
-        if (self::$container === null) {
+        if (!isset(self::$container)) {
             $this->separateConfigFile = true;
             $this->initSingleton();
             self::$container = [];
