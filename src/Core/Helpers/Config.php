@@ -10,7 +10,6 @@ use Alxarafe\Base\CacheCore;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\Providers\Container;
 use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Translator;
 use Exception;

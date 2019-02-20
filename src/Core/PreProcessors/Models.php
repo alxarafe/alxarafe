@@ -74,7 +74,7 @@ class Models
      *
      * @param string $namespace
      * @param string $baseDir
-     * @param array  $list
+     * @param string[]  $list
      */
     private function fillList(string $namespace, string $baseDir, array &$list)
     {
