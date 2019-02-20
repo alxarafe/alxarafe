@@ -18,6 +18,8 @@ use Kint\Kint;
  * @property string $id
  * @property string $idField
  * @property string $nameField
+ * @property array $newData
+ * @property array $oldData
  *
  * @package Alxarafe\Base
  */
