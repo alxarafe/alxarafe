@@ -121,6 +121,7 @@ class EditConfig extends PageController
                 header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
+        $this->sendTemplateResponse();
     }
 
     /**
@@ -164,22 +165,22 @@ class EditConfig extends PageController
     /**
      * The start point of the controller.
      *
-     * @return string
+     * @return void
      */
-    public function run(): string
+    public function run(): void
     {
-        return $this->index();
+        $this->index();
     }
 
     /**
-     * @return string
+     * @return void
      */
-    public function index(): string
+    public function index(): void
     {
         parent::index();
         //Skin::setView(new EditConfigView($this));
         $this->setDefaultData();
-        return $this->renderer->render();
+        $this->sendTemplateResponse();
     }
 
     /**

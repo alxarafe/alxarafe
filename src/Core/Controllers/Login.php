@@ -36,19 +36,19 @@ class Login extends PageController
     /**
      * The start point of the controller.
      *
-     * @return string
+     * @return void
      */
-    public function run(): string
+    public function run(): void
     {
-        return $this->index();
+        $this->index();
     }
 
     /**
      * Start point
      *
-     * @return string
+     * @return void
      */
-    public function index(): string
+    public function index(): void
     {
         $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
         $this->userAuth = new Auth();
@@ -67,7 +67,7 @@ class Login extends PageController
                 FlashMessages::getInstance()::setError('User authentication error. Please check the username and password.');
             }
         }
-        return $this->main();
+        $this->main();
     }
 
     /**
@@ -93,7 +93,7 @@ class Login extends PageController
     {
         if (!isset($this->userName)) {
             $this->renderer->setTemplate('login');
-            return $this->renderer->render(['ctrl' => $this]);
+            $this->sendTemplateResponse();
         } else {
             $this->redirectToController();
         }

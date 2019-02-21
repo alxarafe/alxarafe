@@ -358,9 +358,9 @@ abstract class Controller extends PageController
      * El punto de entrada es run.
      * Index realiza los procesos necesarios una vez instanciada la clase.
      *
-     * @return string
+     * @return void
      */
-    public function index(): string
+    public function index(): void
     {
         parent::index();
         if ($this->canAccess) {

@@ -63,9 +63,9 @@ class ExportStructure extends PageController
     /**
      * Start point
      *
-     * @return string
+     * @return void
      */
-    public function index(): string
+    public function index(): void
     {
         parent::index();
         Skin::setView(new ExportStructureView($this));

@@ -49,6 +49,7 @@ class CreateConfig extends SimpleController
                 header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
+        $this->sendTemplateResponse();
     }
 
     /**
@@ -86,9 +87,9 @@ class CreateConfig extends SimpleController
     /**
      * Start point
      *
-     * @return string
+     * @return void
      */
-    public function index(): string
+    public function index(): void
     {
         parent::index();
         if (!Config::configFileExists()) {
@@ -96,6 +97,7 @@ class CreateConfig extends SimpleController
         } else {
             header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login');
         }
+        $this->sendTemplateResponse();
     }
 
     /**.

@@ -165,9 +165,9 @@ class PageController extends SimpleController
     /**
      * Start point
      *
-     * @return string
+     * @return void
      */
-    public function index(): string
+    public function index(): void
     {
         if ($this->ensureLogin()) {
             parent::index();

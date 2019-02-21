@@ -111,9 +111,28 @@ class SimpleController
     /**
      * Start point
      *
-     * @return string
+     * @return void
      */
-    public function index(): string
+    public function index(): void
     {
+    }
+
+    /**
+     * @param $reply
+     */
+    public function sendResponse($reply)
+    {
+        $this->response->setContent($reply);
+        $this->response->send();
+    }
+
+    /**
+     *
+     * @param array $data
+     */
+    public function sendTemplateResponse(array $data = [])
+    {
+        $data = array_merge($data, ['ctrl' => $this]);
+        $this->sendResponse($this->renderer->render($data));
     }
 }
