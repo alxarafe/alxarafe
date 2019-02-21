@@ -129,7 +129,7 @@ class PageController extends SimpleController
     {
         parent::__construct();
 
-        $this->url = constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName;
+        $this->url = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName);
 
         $this->setPageDetails();
     }

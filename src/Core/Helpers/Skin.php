@@ -185,7 +185,7 @@ class Skin
     public static function getTemplatesUri(): string
     {
         trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
-        return constant('BASE_URI') . self::$templatesFolder;
+        return baseUrl(self::$templatesFolder);
     }
 
     /**
@@ -218,7 +218,7 @@ class Skin
     public static function getCommonTemplatesUri(): string
     {
         trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
-        return constant('BASE_URI') . self::$commonTemplatesFolder;
+        return baseUrl(self::$commonTemplatesFolder);
     }
 
     /**

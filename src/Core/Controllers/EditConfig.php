@@ -104,7 +104,6 @@ class EditConfig extends PageController
             case 'regenerate-data':
                 CacheCore::getInstance()->getEngine()->clear();
                 FlashMessages::getInstance()::setInfo('Cache cleared successfully.');
-
                 $this->regenerateData();
                 break;
             case 'save':
@@ -115,7 +114,7 @@ class EditConfig extends PageController
                 $this->userAuth->logout();
                 break;
             case 'cancel':
-                $this->redirect(constant('BASE_URI') . '/index.php');
+                $this->redirect(baseUrl('index.php'));
                 break;
             default:
                 break;

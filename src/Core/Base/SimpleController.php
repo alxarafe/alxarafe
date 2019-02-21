@@ -148,8 +148,11 @@ class SimpleController
      *
      * @param string $destiny
      */
-    public function redirect(string $destiny)
+    public function redirect(string $destiny = '')
     {
+        if (empty($destiny)) {
+            $destiny = baseUrl('index.php');
+        }
         Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
         (new RedirectResponse($destiny))->send();
     }

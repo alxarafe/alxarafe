@@ -121,7 +121,7 @@ class Session
      */
     public function getFlash(string $key)
     {
-        return $this->getSegment()->getFlashNext($key);
+        return $this->getSegment()->getFlash($key);
     }
 
     /**

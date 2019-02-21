@@ -76,7 +76,7 @@ class Login extends PageController
      */
     private function redirectToController(): void
     {
-        $where = constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=' . constant('DEFAULT_CONTROLLER');
+        $where = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . constant('DEFAULT_CONTROLLER'));
         if (!empty($this->redirect)) {
             $where = base64_decode(urldecode($this->redirect));
         }

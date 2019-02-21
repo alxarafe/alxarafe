@@ -8,6 +8,8 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Logger;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class Auth
@@ -164,7 +166,7 @@ class Auth extends User
     {
         if (strpos($_SERVER['REQUEST_URI'], constant('CALL_CONTROLLER') . '=Login') === false) {
             $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_URI']));
-            header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
+            $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo));
         }
     }
 
@@ -180,7 +182,7 @@ class Auth extends User
         $this->username = null;
 
         $this->clearCookieUser();
-        header('Location: ' . constant('BASE_URI') . '/index.php');
+        $this->redirect(baseUrl('index.php'));
     }
 
     /**
@@ -231,5 +233,19 @@ class Auth extends User
             $this->debugTool->addMessage('messages', "User '" . $userName . "' not founded.");
         }
         return $this->username !== null;
+    }
+
+    /**
+     * Send a RedirectResponse to destiny receive.
+     *
+     * @param string $destiny
+     */
+    public function redirect(string $destiny = '')
+    {
+        if (empty($destiny)) {
+            $destiny = baseUrl('index.php');
+        }
+        Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
+        (new RedirectResponse($destiny))->send();
     }
 }

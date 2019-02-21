@@ -43,7 +43,7 @@ class ExportStructure extends PageController
                 }
                 break;
             case 'cancel':
-                header('Location: ' . constant('BASE_URI') . '/index.php');
+                $this->redirect(baseUrl('index.php'));
                 break;
         }
         $this->sendTemplateResponse();

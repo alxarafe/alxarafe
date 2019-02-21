@@ -291,9 +291,9 @@ abstract class Controller extends PageController
     {
         // Si no hay puesto id estaba en la pantalla del listado de registros...
         if ($this->status == 'listing') {
-            header('Location: ' . BASE_URI);
+            $this->redirect(baseUrl('index.php'));
         }
-        header('Location: ' . $this->url);
+        $this->redirect($this->url);
     }
 
     /**
@@ -326,7 +326,7 @@ abstract class Controller extends PageController
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
             FlashMessages::getInstance()::setError(Config::$lang->trans('register-saved'));
-            //header('Location: ' . $this->url . '&' . $this->model->getIdField() . '=' . $id);
+            //$this->redirect($this->url . '&' . $this->model->getIdField() . '=' . $this->currentId);
         }
         //$_POST['id'] = $this->currentId;
     }

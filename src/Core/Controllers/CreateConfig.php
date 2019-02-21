@@ -40,11 +40,11 @@ class CreateConfig extends SimpleController
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 $this->debugTool->addMessage('messages', $msg);
                 FlashMessages::getInstance()::setInfo($msg);
-                header('Location: ' . constant('BASE_URI') . '/index.php');
+                $this->redirect(baseUrl('index.php'));
                 break;
             case 'cancel':
             default:
-                header('Location: ' . constant('BASE_URI') . '/index.php');
+            $this->redirect(baseUrl('index.php'));
                 break;
         }
         $this->sendTemplateResponse();
@@ -93,7 +93,7 @@ class CreateConfig extends SimpleController
         if (!Config::configFileExists()) {
             $this->renderer->setTemplate('createconfig');
         } else {
-            header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login');
+            $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login'));
         }
         $this->sendTemplateResponse();
     }

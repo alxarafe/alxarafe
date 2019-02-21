@@ -190,13 +190,13 @@ class View extends SimpleView
         $this->status = $this->controller->getStatus();
 
         // Rutas para los botones nuevo, edición e impresión
-        $this->pathnew = constant('BASE_URI') . '?' .
+        $this->pathnew = baseUrl('index.php?' .
             constant('CALL_CONTROLLER') . '=' . filter_input(INPUT_GET, constant('CALL_CONTROLLER')) .
-            '&' . constant('METHOD_CONTROLLER') . '=add';
-        $this->pathedit = constant('BASE_URI') . '?' .
+            '&' . constant('METHOD_CONTROLLER') . '=add');
+        $this->pathedit = baseUrl('index.php?' .
             constant('CALL_CONTROLLER') . '=' . filter_input(INPUT_GET, constant('CALL_CONTROLLER')) .
             '&' . constant('METHOD_CONTROLLER') . '=edit' .
-            '&id=#';
+            '&id=#');
 
         $this->protectClose = ($this->status == 'editing');
 
