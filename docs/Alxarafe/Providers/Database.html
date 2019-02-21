@@ -181,6 +181,16 @@ param in getInstance</td>
             <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-2 type">
+                    static&nbsp;<a href="../../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getInstance">getInstance</a>()
+        
+                                            <p>Return this instance.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
                 </div>
                 <div class="col-md-8 type">
@@ -228,16 +238,6 @@ param in getInstance</td>
         
                                             <p>Returns the class name.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_getClassName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getInstance">getInstance</a>()
-        
-                                            <p>Return this instance.</p>                </div>
-                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -296,8 +296,8 @@ param in getInstance</td>
                 <div class="col-md-8 type">
                     <a href="#method_connectToDatabase">connectToDatabase</a>()
         
-                                            <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
-Config::$dbEngine.</p>                </div>
+                                            <p>If Database::getInstance()->getDbEngine() contain null, create an Engine instance with the database connection
+and assigns it to Database::getInstance()->getDbEngine().</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -327,8 +327,38 @@ Config::$dbEngine.</p>                </div>
 
             <div id="method-details">
                     <div class="method-item">
+                    <h3 id="method_getInstance">
+        <div class="location">at         line 79</div>
+        <code>        static            <a href="../../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a>
+    <strong>getInstance</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return this instance.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getConfig">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 68</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 90</div>
         <code>                    array
     <strong>getConfig</strong>(string $index = &#039;main&#039;)
         </code>
@@ -368,7 +398,7 @@ Config::$dbEngine.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getYamlContent">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 82</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 104</div>
         <code>                private    array
     <strong>getYamlContent</strong>()
         </code>
@@ -398,7 +428,7 @@ Config::$dbEngine.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFilePath">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 103</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 125</div>
         <code>                    string
     <strong>getFilePath</strong>()
         </code>
@@ -428,7 +458,7 @@ Config::$dbEngine.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFileName">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 113</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 135</div>
         <code>                    string
     <strong>getFileName</strong>()
         </code>
@@ -458,7 +488,7 @@ Config::$dbEngine.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getClassName">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getClassName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 123</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getClassName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 145</div>
         <code>        static        private    string
     <strong>getClassName</strong>()
         </code>
@@ -476,36 +506,6 @@ Config::$dbEngine.</p>                </div>
                     <table class="table table-condensed">
         <tr>
             <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getInstance">
-        <div class="location">at         line 110</div>
-        <code>        static            <a href="../../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a>
-    <strong>getInstance</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return this instance.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a></td>
             <td></td>
         </tr>
     </table>
@@ -675,7 +675,7 @@ Config::$dbEngine.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_connectToDatabase">
-        <div class="location">at         line 80</div>
+        <div class="location">at         line 90</div>
         <code>                    bool
     <strong>connectToDatabase</strong>()
         </code>
@@ -685,8 +685,8 @@ Config::$dbEngine.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
-Config::$dbEngine.</p>                                                </div>
+                                    <p>If Database::getInstance()->getDbEngine() contain null, create an Engine instance with the database connection
+and assigns it to Database::getInstance()->getDbEngine().</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -706,7 +706,7 @@ Config::$dbEngine.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDbEngine">
-        <div class="location">at         line 90</div>
+        <div class="location">at         line 100</div>
         <code>                    <a href="../../Alxarafe/Database/Engine.html"><abbr title="Alxarafe\Database\Engine">Engine</abbr></a>
     <strong>getDbEngine</strong>()
         </code>
@@ -736,7 +736,7 @@ Config::$dbEngine.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSqlHelper">
-        <div class="location">at         line 100</div>
+        <div class="location">at         line 110</div>
         <code>                    <a href="../../Alxarafe/Database/SqlHelper.html"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a>
     <strong>getSqlHelper</strong>()
         </code>
