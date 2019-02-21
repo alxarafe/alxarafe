@@ -11,6 +11,7 @@ use Kint\Kint;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger as MonologLogger;
+use DateTimeZone;
 
 /**
  * Class Logger
@@ -40,6 +41,8 @@ class Logger
             self::$logger = new MonologLogger('core_logger');
             set_exception_handler([$this, 'exceptionHandler']);
             try {
+                // TODO: At the moment, the time zone of the application is not selected anywhere.
+                self::$logger->setTimezone(new DateTimeZone('Europe/Madrid'));
                 self::$logger->pushHandler(new StreamHandler(basePath('/config/core.log'), MonologLogger::DEBUG));
             } catch (\Exception $e) {
                 Kint::dump($e);
