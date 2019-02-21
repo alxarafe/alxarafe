@@ -265,7 +265,7 @@ class SchemaDB
         // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
 
         $referencedTableWithoutPrefix = $indexData['referencedtable'];
-        $referencedTable = Config::getVar('dbPrefix') . $referencedTableWithoutPrefix;
+        $referencedTable = Database::getInstance()->getConnectionData()['dbPrefix'] . $referencedTableWithoutPrefix;
 
         $sql = [];
         if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '')) {

@@ -111,4 +111,14 @@ class Database
     {
         return $this->sqlHelper;
     }
+
+    /**
+     * Returns the connections data details.
+     *
+     * @return array
+     */
+    public function getConnectionData(): array
+    {
+        return $this->config;
+    }
 }

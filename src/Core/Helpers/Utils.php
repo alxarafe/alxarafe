@@ -197,10 +197,8 @@ class Utils
         foreach ($array2 as $key => &$value) {
             if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
                 $merged[$key] = self::arrayMergeRecursiveEx($merged[$key], $value);
-            } elseif (is_numeric($key)) {
-                if (!in_array($value, $merged)) {
-                    $merged[] = $value;
-                }
+            } elseif (is_numeric($key) && !in_array($value, $merged)) {
+                $merged[] = $value;
             } else {
                 $merged[$key] = $value;
             }

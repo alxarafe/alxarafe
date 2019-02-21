@@ -67,7 +67,7 @@ abstract class SqlHelper
     public function quoteTableName(string $tableName, bool $usePrefix = true): string
     {
         return $this->tableQuote .
-            ($usePrefix ? Config::getVar('dbPrefix') : '') .
+            ($usePrefix ? Database::getInstance()->getConnectionData()['dbPrefix'] : '') .
             $tableName . $this->tableQuote;
     }
 

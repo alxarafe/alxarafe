@@ -317,7 +317,7 @@ class SqlMySql extends SqlHelper
      */
     private function getTablename(): string
     {
-        return Config::getVar('dbName') ?? '';
+        return Database::getInstance()->getConnectionData()['dbName'] ?? '';
     }
 
     /**
@@ -375,7 +375,7 @@ class SqlMySql extends SqlHelper
      */
     public function tableExists(string $tableName): string
     {
-        $tableNameWithPrefix = Config::getVar('dbPrefix') . $tableName;
+        $tableNameWithPrefix = Database::getInstance()->getConnectionData()['dbPrefix'] . $tableName;
         $sql = 'SELECT *  FROM '
             . Database::getInstance()->getSqlHelper()->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLES')
             . ' WHERE '

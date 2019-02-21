@@ -80,12 +80,12 @@ class Config
         Utils::defineIfNotExists('LANG', 'en');
         Utils::defineIfNotExists('DEBUG', false);
 
-        define('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
+        Utils::defineIfNotExists('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
 
-        define('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
-        define('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
-        define('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
-        define('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
+        Utils::defineIfNotExists('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
+        Utils::defineIfNotExists('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
+        Utils::defineIfNotExists('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
+        Utils::defineIfNotExists('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
 
         /**
          * Must be defined in main index.php file
@@ -97,9 +97,9 @@ class Config
         Utils::defineIfNotExists('ALXARAFE_URI', constant('BASE_URI') . '/vendor/alxarafe/alxarafe/src/Core');
         Utils::defineIfNotExists('DEFAULT_TEMPLATES_URI', constant('BASE_URI') . '/vendor/alxarafe/alxarafe/templates');
 
-        define('CONFIGURATION_PATH', constant('BASE_PATH') . '/config');
-        define('DEFAULT_STRING_LENGTH', 50);
-        define('DEFAULT_INTEGER_SIZE', 10);
+        Utils::defineIfNotExists('CONFIGURATION_PATH', constant('BASE_PATH') . '/config');
+        Utils::defineIfNotExists('DEFAULT_STRING_LENGTH', 50);
+        Utils::defineIfNotExists('DEFAULT_INTEGER_SIZE', 10);
 
         Utils::defineIfNotExists('CALL_CONTROLLER', 'call');
         Utils::defineIfNotExists('METHOD_CONTROLLER', 'method');
@@ -107,12 +107,12 @@ class Config
         Utils::defineIfNotExists('DEFAULT_METHOD', 'run');
 
         // Use cache on Core
-        define('CORE_CACHE_ENABLED', true);
+        Utils::defineIfNotExists('CORE_CACHE_ENABLED', true);
 
         // Default number of rows per page.
-        define('DEFAULT_ROWS_PER_PAGE', 25);
+        Utils::defineIfNotExists('DEFAULT_ROWS_PER_PAGE', 25);
 
         // Carry Return (retorno de carro) & Line Feed (salto de línea).
-        define('CRLF', "\n\t");
+        Utils::defineIfNotExists('CRLF', "\n\t");
     }
 }

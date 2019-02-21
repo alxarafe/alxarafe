@@ -61,7 +61,7 @@ class Schema
     public static function saveTableStructure(string $table): bool
     {
         $result = true;
-        $prefix = Config::getVar('dbPrefix');
+        $prefix = Database::getInstance()->getConnectionData()['dbPrefix'];
         $usePrefix = substr($table, 0, strlen($prefix)) == $prefix;
         $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
         $structure = Database::getInstance()->getDbEngine()->getStructure($tableName, $usePrefix);

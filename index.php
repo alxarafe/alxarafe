@@ -5,6 +5,7 @@
  */
 define('BASE_PATH', __DIR__);
 define('DEBUG', true);
+//define('CORE_CACHE_ENABLED', true);
 
 $autoload = constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
