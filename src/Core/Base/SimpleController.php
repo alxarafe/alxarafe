@@ -118,15 +118,7 @@ class SimpleController
     }
 
     /**
-     * @param $reply
-     */
-    public function sendResponse($reply)
-    {
-        $this->response->setContent($reply);
-        $this->response->send();
-    }
-
-    /**
+     * Add new vars to render, render the template and send the Response.
      *
      * @param array $data
      */
@@ -134,5 +126,16 @@ class SimpleController
     {
         $data = array_merge($data, ['ctrl' => $this]);
         $this->sendResponse($this->renderer->render($data));
+    }
+
+    /**
+     * Send the Response with data received.
+     *
+     * @param $reply
+     */
+    public function sendResponse($reply)
+    {
+        $this->response->setContent($reply);
+        $this->response->send();
     }
 }
