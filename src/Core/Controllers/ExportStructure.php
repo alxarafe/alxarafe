@@ -8,8 +8,6 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Schema;
-use Alxarafe\Helpers\Skin;
-use Alxarafe\Views\ExportStructureView;
 
 /**
  * Controller for editing database and skin settings

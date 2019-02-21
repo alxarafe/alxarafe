@@ -132,14 +132,21 @@ class BootStrap
      *
      * @var Logger
      */
-    private $log;
+    protected $log;
 
     /**
      * The debug tool used.
      *
      * @var DebugTool
      */
-    private $debugTool;
+    protected $debugTool;
+
+    /**
+     * The caché core engine adapter.
+     *
+     * @var \Symfony\Component\Cache\Adapter\PhpArrayAdapter
+     */
+    protected $cacheEngine;
 
     /**
      * BootStrap constructor.

@@ -81,6 +81,17 @@ trait Singleton
     }
 
     /**
+     * Returns the class name.
+     *
+     * @return string
+     */
+    private static function getClassName(): string
+    {
+        $class = get_called_class();
+        return Utils::getShortName($class, $class);
+    }
+
+    /**
      * Returns the yaml config params.
      *
      * @param string $index
@@ -135,17 +146,6 @@ trait Singleton
     public function getFileName(): string
     {
         return ($this->separateConfigFile ? strtolower(self::getClassName()) : 'config');
-    }
-
-    /**
-     * Returns the class name.
-     *
-     * @return string
-     */
-    private static function getClassName(): string
-    {
-        $class = get_called_class();
-        return Utils::getShortName($class, $class);
     }
 
     /**
