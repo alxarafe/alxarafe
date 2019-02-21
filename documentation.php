@@ -34,7 +34,7 @@ $sam = new Sami(
     ]
 );
 // document all methods and properties
-$sam['filter'] = function() {
+$sam['filter'] = function () {
     return new TrueFilter();
 };
 

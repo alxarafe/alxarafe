@@ -7,7 +7,6 @@
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Database;
 

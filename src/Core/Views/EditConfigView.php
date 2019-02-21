@@ -8,7 +8,6 @@ namespace Alxarafe\Views;
 
 use Alxarafe\Base\View;
 use Alxarafe\Database\Engine;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\TemplateRender;
 use Alxarafe\Providers\Translator;
@@ -78,7 +77,7 @@ class EditConfigView extends View
     public function __construct($ctrl)
     {
         parent::__construct($ctrl);
-        Skin::setTemplate('editconfig');
+        $this->renderer->setTemplate('editconfig');
         $this->setDefaultData();
     }
 

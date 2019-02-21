@@ -7,7 +7,6 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
-use Alxarafe\Base\View;
 use Alxarafe\Models\Role;
 
 /**
@@ -33,7 +32,6 @@ class Roles extends Controller
      */
     public function run(): void
     {
-        $this->setView(new View($this));
         parent::run();
     }
 

@@ -6,12 +6,12 @@
 
 namespace Alxarafe\Providers;
 
+use DateTimeZone;
 use Exception;
 use Kint\Kint;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger as MonologLogger;
-use DateTimeZone;
 
 /**
  * Class Logger

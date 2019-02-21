@@ -13,6 +13,7 @@ use Alxarafe\Database\SqlHelper;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
+use Alxarafe\Providers\TemplateRender;
 use Alxarafe\Providers\Translator;
 use Exception;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
@@ -106,10 +107,10 @@ class Config
      */
     public static function loadViewsConfig(): void
     {
-        Skin::setTemplatesEngine(self::getVar('templatesEngine') ?? 'twig');
-        Skin::setSkin(self::getVar('skin') ?? 'default');
-        Skin::setTemplate(self::getVar('template') ?? 'default');
-        Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? Skin::COMMON_FOLDER);
+        TemplateRender::getInstance()->setTemplate(self::getVar('templatesEngine') ?? 'twig');
+        //Skin::setSkin(self::getVar('skin') ?? 'default');
+        TemplateRender::getInstance()->setTemplate(self::getVar('template') ?? 'default');
+        //Skin::setCommonTemplatesFolder(self::getVar('commonTemplatesFolder') ?? Skin::COMMON_FOLDER);
     }
 
     /**
@@ -147,7 +148,7 @@ class Config
                 (new CreateConfig())->index();
                 return;
             }
-            Skin::setSkin(self::$global['skin']);
+            //Skin::setSkin(self::$global['skin']);
         }
         if (empty(self::$global) || !self::connectToDataBase()) {
             FlashMessages::getInstance()::setError('Database Connection error...');

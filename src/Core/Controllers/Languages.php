@@ -7,7 +7,6 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
-use Alxarafe\Base\View;
 use Alxarafe\Models\Language;
 use Symfony\Component\Yaml\Yaml;
 
@@ -25,7 +24,6 @@ class Languages extends Controller
     public function __construct()
     {
         parent::__construct(new Language());
-        $this->main();
     }
 
     /**
@@ -137,7 +135,6 @@ class Languages extends Controller
      */
     public function run(): void
     {
-        $this->setView(new View($this));
         parent::run();
     }
 

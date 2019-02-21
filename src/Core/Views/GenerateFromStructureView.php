@@ -7,7 +7,6 @@
 namespace Alxarafe\Views;
 
 use Alxarafe\Base\View;
-use Alxarafe\Helpers\Skin;
 
 /**
  * Class GenerateFromStructureView
@@ -23,7 +22,7 @@ class GenerateFromStructureView extends View
      */
     public function __construct($ctrl)
     {
-        Skin::setTemplate('generatefromstructure');
+        $this->renderer->setTemplate('generatefromstructure');
 
         parent::__construct($ctrl);
     }

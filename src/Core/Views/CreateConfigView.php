@@ -73,7 +73,7 @@ class CreateConfigView extends View
      */
     public function __construct($ctrl)
     {
-        Skin::setTemplate('createconfig');
+        $this->renderer->setTemplate('createconfig');
 
         parent::__construct($ctrl);
 

@@ -8,7 +8,6 @@ namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\FlashMessages;
 
@@ -175,7 +174,7 @@ abstract class Controller extends PageController
         if ($this->canAccess && $this->canUpdate) {
             $this->initialize();
             $this->status = 'adding';
-            Skin::setTemplate('master/create');
+            $this->renderer->setTemplate('master/create');
         } else {
             $this->accessDenied();
         }
@@ -227,7 +226,7 @@ abstract class Controller extends PageController
      */
     public function accessDenied()
     {
-        Skin::setTemplate('master/noaccess');
+        $this->renderer->setTemplate('master/noaccess');
     }
 
     /**
@@ -253,7 +252,7 @@ abstract class Controller extends PageController
     public function run(): void
     {
         if ($this->canAccess) {
-            Skin::$view->run($this->postData);
+
         } else {
             $this->accessDenied();
         }
@@ -380,7 +379,7 @@ abstract class Controller extends PageController
         if ($this->canAccess && $this->canRead) {
             $this->status = 'listing';
             $this->code = Utils::randomString(10);
-            Skin::setTemplate('master/list');
+            $this->renderer->setTemplate('master/list');
         } else {
             $this->accessDenied();
         }
@@ -392,7 +391,7 @@ abstract class Controller extends PageController
     public function ajaxTableData()
     {
         parent::index();
-        Skin::setTemplate('json');
+        $this->renderer->setTemplate('json');
         // Para acceder de forma más simplificada y unificada a los valores
         $requestData = $_REQUEST;
         $recordsTotal = 0;
@@ -455,18 +454,6 @@ abstract class Controller extends PageController
         }
         $list[$i] = 'col-action';
         return $list;
-    }
-
-    /**
-     * Establece la vista que va a ser utilizada por el controlador.
-     *
-     * @param View $view
-     *
-     * @return void
-     */
-    public function setView(View $view): void
-    {
-        Skin::setView($view);
     }
 
     /**

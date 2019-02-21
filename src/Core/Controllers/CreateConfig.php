@@ -8,9 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\SimpleController;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\Providers\FlashMessages;
-use Alxarafe\Views\CreateConfigView;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -93,7 +91,7 @@ class CreateConfig extends SimpleController
     {
         parent::index();
         if (!Config::configFileExists()) {
-            Skin::setView(new CreateConfigView($this));
+            $this->renderer->setTemplate('createconfig');
         } else {
             header('Location: ' . constant('BASE_URI') . '/index.php?' . constant('CALL_CONTROLLER') . '=Login');
         }

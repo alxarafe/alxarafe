@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Database;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Providers\Database;
 
 /**

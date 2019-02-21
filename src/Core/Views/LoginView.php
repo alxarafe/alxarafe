@@ -7,7 +7,6 @@
 namespace Alxarafe\Views;
 
 use Alxarafe\Base\View;
-use Alxarafe\Helpers\Skin;
 
 /**
  * Class LoginView
@@ -25,7 +24,7 @@ class LoginView extends View
     public function __construct($ctrl)
     {
         parent::__construct($ctrl);
-        Skin::setTemplate('login');
+        $this->renderer->setTemplate('login');
     }
 
     /**

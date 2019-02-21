@@ -7,7 +7,6 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
-use Alxarafe\Base\View;
 use Alxarafe\Models\TableModel;
 
 /**
@@ -33,7 +32,6 @@ class Tables extends Controller
      */
     public function run(): void
     {
-        $this->setView(new View($this));
         parent::run();
     }
 

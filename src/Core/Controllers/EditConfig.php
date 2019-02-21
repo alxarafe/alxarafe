@@ -195,7 +195,6 @@ class EditConfig extends PageController
     public function index(): void
     {
         parent::index();
-        //Skin::setView(new EditConfigView($this));
         $this->setDefaultData();
         $this->sendTemplateResponse();
     }

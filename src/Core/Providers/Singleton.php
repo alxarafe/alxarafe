@@ -92,16 +92,6 @@ trait Singleton
     }
 
     /**
-     * Return the classname for yaml file.
-     *
-     * @return string
-     */
-    public static function yamlName(): string
-    {
-        return strtolower(self::getClassName());
-    }
-
-    /**
      * Returns the yaml config params.
      *
      * @param string $index
@@ -156,6 +146,16 @@ trait Singleton
     public function getFileName(): string
     {
         return ($this->separateConfigFile ? self::yamlName() : 'config');
+    }
+
+    /**
+     * Return the classname for yaml file.
+     *
+     * @return string
+     */
+    public static function yamlName(): string
+    {
+        return strtolower(self::getClassName());
     }
 
     /**
