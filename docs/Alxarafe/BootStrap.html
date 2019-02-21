@@ -219,7 +219,7 @@
             </tr>
                     <tr>
                 <td class="type" id="property_log">
-                                                            private                    <a href="../Alxarafe/Providers/Logger.html"><abbr title="Alxarafe\Providers\Logger">Logger</abbr></a>
+                                        protected                                        <a href="../Alxarafe/Providers/Logger.html"><abbr title="Alxarafe\Providers\Logger">Logger</abbr></a>
                 </td>
                 <td>$log</td>
                 <td class="last">The logger.</td>
@@ -227,10 +227,18 @@
             </tr>
                     <tr>
                 <td class="type" id="property_debugTool">
-                                                            private                    <a href="../Alxarafe/Providers/DebugTool.html"><abbr title="Alxarafe\Providers\DebugTool">DebugTool</abbr></a>
+                                        protected                                        <a href="../Alxarafe/Providers/DebugTool.html"><abbr title="Alxarafe\Providers\DebugTool">DebugTool</abbr></a>
                 </td>
                 <td>$debugTool</td>
                 <td class="last">The debug tool used.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_cacheEngine">
+                                        protected                                        <abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr>
+                </td>
+                <td>$cacheEngine</td>
+                <td class="last">The caché core engine adapter.</td>
                 <td></td>
             </tr>
             </table>
@@ -298,7 +306,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 150</div>
+        <div class="location">at         line 157</div>
         <code>                    
     <strong>__construct</strong>(string $basePath = __DIR__ . &#039;/..&#039;, bool $debug = false)
         </code>
@@ -334,7 +342,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultConfig">
-        <div class="location">at         line 184</div>
+        <div class="location">at         line 191</div>
         <code>                private    array
     <strong>getDefaultConfig</strong>()
         </code>
@@ -364,7 +372,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_init">
-        <div class="location">at         line 206</div>
+        <div class="location">at         line 213</div>
         <code>                    
     <strong>init</strong>()
         </code>
@@ -385,7 +393,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_toContainer">
-        <div class="location">at         line 215</div>
+        <div class="location">at         line 222</div>
         <code>                private    
     <strong>toContainer</strong>()
         </code>
@@ -406,7 +414,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_run">
-        <div class="location">at         line 231</div>
+        <div class="location">at         line 238</div>
         <code>                    
     <strong>run</strong>()
         </code>
