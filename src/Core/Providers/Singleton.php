@@ -92,6 +92,16 @@ trait Singleton
     }
 
     /**
+     * Return the classname for yaml file.
+     *
+     * @return string
+     */
+    public static function yamlName(): string
+    {
+        return strtolower(self::getClassName());
+    }
+
+    /**
      * Returns the yaml config params.
      *
      * @param string $index
@@ -101,7 +111,7 @@ trait Singleton
     public function getConfig(string $index = 'main'): array
     {
         $yamlContent = $this->getYamlContent();
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index];
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? [];
         return $content ?? [];
     }
 
@@ -124,7 +134,7 @@ trait Singleton
                 $yamlContent = [];
             }
         }
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[strtolower(self::getClassName())];
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[self::yamlName()] ?? [];
         return $content ?? [];
     }
 
@@ -145,7 +155,7 @@ trait Singleton
      */
     public function getFileName(): string
     {
-        return ($this->separateConfigFile ? strtolower(self::getClassName()) : 'config');
+        return ($this->separateConfigFile ? self::yamlName() : 'config');
     }
 
     /**
@@ -171,10 +181,18 @@ trait Singleton
     public function setConfig(array $params, string $index = 'main'): bool
     {
         $yamlContent = [];
-        $yamlContent[self::getClassName()] = $this->getYamlContent();
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[self::getClassName()][$index];
-        $content = array_merge($content, $params);
-        return file_put_contents($this->getFilePath(), Yaml::dump($content)) !== false;
+        $yamlContent[self::yamlName()] = $this->getYamlContent();
+        $content = Config::getInstance()->getConfigContent();
+        $paramsToSave = [];
+        if ($this->separateConfigFile) {
+            $content[$index] = $yamlContent[$index];
+            $paramsToSave[$index] = $params;
+        } else {
+            $content[self::yamlName()][$index] = $yamlContent[self::yamlName()][$index] ?? [];
+            $paramsToSave[self::yamlName()][$index] = $params;
+        }
+        $content = Utils::arrayMergeRecursiveEx($content, $paramsToSave);
+        return file_put_contents($this->getFilePath(), Yaml::dump($content, 3)) !== false;
     }
 
     /**

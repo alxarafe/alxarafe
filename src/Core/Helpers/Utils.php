@@ -180,4 +180,31 @@ class Utils
         }
         return $shortName;
     }
+
+    /**
+     * Array recursive merge excluding duplicate values.
+     *
+     * @source https://github.com/manusreload/GLFramework/blob/master/src/functions.php#L292
+     *
+     * @param array $array1
+     * @param array $array2
+     *
+     * @return array
+     */
+    public static function arrayMergeRecursiveEx(array & $array1, array & $array2)
+    {
+        $merged = $array1;
+        foreach ($array2 as $key => & $value) {
+            if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
+                $merged[$key] = self::arrayMergeRecursiveEx($merged[$key], $value);
+            } elseif (is_numeric($key)) {
+                if (!in_array($value, $merged)) {
+                    $merged[] = $value;
+                }
+            } else {
+                $merged[$key] = $value;
+            }
+        }
+        return $merged;
+    }
 }

@@ -9,12 +9,10 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\CacheCore;
 use Alxarafe\Base\PageController;
 use Alxarafe\Database\Engine;
-use Alxarafe\Helpers\Config;
 use Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Translator;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Controller for editing database and skin settings.
@@ -146,20 +144,39 @@ class EditConfig extends PageController
      */
     private function save(): bool
     {
-        $vars = [];
-        $vars['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_ENCODED);
-        $vars['dbPrefix'] = filter_input(INPUT_POST, 'dbPrefix', FILTER_SANITIZE_ENCODED);
-        $vars['skin'] = filter_input(INPUT_POST, 'skin', FILTER_SANITIZE_ENCODED);
-        $vars['language'] = filter_input(INPUT_POST, 'language', FILTER_SANITIZE_ENCODED);
-        $vars['dbUser'] = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_ENCODED);
-        $vars['dbPass'] = filter_input(INPUT_POST, 'dbPass', FILTER_SANITIZE_ENCODED);
-        $vars['dbName'] = filter_input(INPUT_POST, 'dbName', FILTER_SANITIZE_ENCODED);
-        $vars['dbHost'] = filter_input(INPUT_POST, 'dbHost', FILTER_SANITIZE_ENCODED);
-        $vars['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_ENCODED);
+        $result = true;
+        $translatorConfig = Translator::getInstance()->getConfig();
+        $translatorConfig['language'] = filter_input(INPUT_POST, 'language', FILTER_SANITIZE_ENCODED);
+        if (!Translator::getInstance()->setConfig($translatorConfig)) {
+            FlashMessages::getInstance()::setError('language-data-not-changed');
+            $result = false;
+        }
 
-        $yamlFile = Config::getConfigFileName();
-        $yamlData = Yaml::dump($vars);
-        return (bool) file_put_contents($yamlFile, $yamlData);
+        $templateRenderConfig = $this->renderer->getConfig();
+        $templateRenderConfig['skin'] = filter_input(INPUT_POST, 'skin', FILTER_SANITIZE_ENCODED);
+        if (!$this->renderer->setConfig($templateRenderConfig)) {
+            FlashMessages::getInstance()::setError('templaterender-data-not-changed');
+            $result = false;
+        }
+
+        $databaseConfig = Database::getInstance()->getConfig();
+        $databaseConfig['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_ENCODED);
+        $databaseConfig['dbUser'] = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_ENCODED);
+        $databaseConfig['dbPass'] = filter_input(INPUT_POST, 'dbPass', FILTER_SANITIZE_ENCODED);
+        $databaseConfig['dbName'] = filter_input(INPUT_POST, 'dbName', FILTER_SANITIZE_ENCODED);
+        $databaseConfig['dbHost'] = filter_input(INPUT_POST, 'dbHost', FILTER_SANITIZE_ENCODED);
+        $databaseConfig['dbPrefix'] = filter_input(INPUT_POST, 'dbPrefix', FILTER_SANITIZE_ENCODED);
+        $databaseConfig['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_ENCODED);
+        if (!Database::getInstance()->setConfig($databaseConfig)) {
+            FlashMessages::getInstance()::setError('database-data-not-changed');
+            $result = false;
+        }
+
+        if ($result) {
+            FlashMessages::getInstance()::setSuccess('configuration-updated-successfully');
+        }
+
+        return $result;
     }
 
     /**
