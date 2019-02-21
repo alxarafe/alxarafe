@@ -201,16 +201,6 @@ param in getInstance</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    static&nbsp;string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_yamlName">yamlName</a>()
-        
-                                            <p>Return the classname for yaml file.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     array
                 </div>
                 <div class="col-md-8 type">
@@ -248,6 +238,16 @@ param in getInstance</td>
         
                                             <p>Return the file name.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_yamlName">yamlName</a>()
+        
+                                            <p>Return the classname for yaml file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -330,6 +330,16 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
                                             <p>Return the sql helper for the engine in use.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getConnectionData">getConnectionData</a>()
+        
+                                            <p>Returns the connections data details.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -397,38 +407,8 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_yamlName">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 99</div>
-        <code>        static            string
-    <strong>yamlName</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return the classname for yaml file.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_getConfig">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 111</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 101</div>
         <code>                    array
     <strong>getConfig</strong>(string $index = &#039;main&#039;)
         </code>
@@ -468,7 +448,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_getYamlContent">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 125</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 115</div>
         <code>                private    array
     <strong>getYamlContent</strong>()
         </code>
@@ -498,7 +478,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_getFilePath">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 146</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 136</div>
         <code>                    string
     <strong>getFilePath</strong>()
         </code>
@@ -528,7 +508,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_getFileName">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 156</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 146</div>
         <code>                    string
     <strong>getFileName</strong>()
         </code>
@@ -539,6 +519,36 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
 
                     <div class="method-description">
                                     <p>Return the file name.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_yamlName">
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 156</div>
+        <code>        static            string
+    <strong>yamlName</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the classname for yaml file.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -794,6 +804,36 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                   
                     <table class="table table-condensed">
         <tr>
             <td><a href="../../Alxarafe/Database/SqlHelper.html"><abbr title="Alxarafe\Database\SqlHelper">SqlHelper</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getConnectionData">
+        <div class="location">at         line 120</div>
+        <code>                    array
+    <strong>getConnectionData</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the connections data details.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
             <td></td>
         </tr>
     </table>
