@@ -31,9 +31,9 @@ class Languages extends Controller
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return string
+     * @return void
      */
-    public function main(): string
+    public function main(): void
     {
         $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
@@ -41,6 +41,7 @@ class Languages extends Controller
                 $this->regenerate();
                 break;
         }
+        $this->sendTemplateResponse();
     }
 
     public function regenerate()

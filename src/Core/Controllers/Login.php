@@ -89,7 +89,7 @@ class Login extends PageController
      *
      * @return void
      */
-    public function main(): string
+    public function main(): void
     {
         if (!isset($this->userName)) {
             $this->renderer->setTemplate('login');

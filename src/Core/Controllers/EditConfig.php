@@ -93,9 +93,9 @@ class EditConfig extends PageController
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return string
+     * @return void
      */
-    public function main(): string
+    public function main(): void
     {
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
