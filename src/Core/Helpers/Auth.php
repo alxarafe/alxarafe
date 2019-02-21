@@ -7,6 +7,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
+use Alxarafe\Providers\FlashMessages;
 
 /**
  * Class Auth
@@ -174,7 +175,7 @@ class Auth extends User
      */
     public function logout(): void
     {
-        Config::setInfo('Logout: ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out'));
+        FlashMessages::getInstance()::setInfo('Logout: ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out'));
 
         $this->username = null;
 

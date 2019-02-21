@@ -6,6 +6,7 @@
 
 namespace Alxarafe;
 
+use Alxarafe\Base\CacheCore;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Config;
 use Alxarafe\Providers\Container;
@@ -169,6 +170,7 @@ class BootStrap
         $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
         $this->debugTool = DebugTool::getInstance();
         $this->translator = Translator::getInstance();
+        $this->cacheEngine = CacheCore::getInstance()->getEngine();
         $this->database = Database::getInstance();
         $this->database->connectToDatabase();
         $this->renderer = TemplateRender::getInstance();

@@ -65,16 +65,6 @@ class Logger
     }
 
     /**
-     * Returns the logger.
-     *
-     * @return MonologLogger
-     */
-    public function getLogger()
-    {
-        return self::$logger;
-    }
-
-    /**
      * Return this instance.
      *
      * @return Logger
@@ -82,5 +72,15 @@ class Logger
     public static function getInstance(): self
     {
         return self::getInstanceTrait();
+    }
+
+    /**
+     * Returns the logger.
+     *
+     * @return MonologLogger
+     */
+    public function getLogger()
+    {
+        return self::$logger;
     }
 }

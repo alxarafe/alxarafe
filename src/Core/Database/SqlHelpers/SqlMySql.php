@@ -9,6 +9,7 @@ namespace Alxarafe\Database\SqlHelpers;
 use Alxarafe\Database\SqlHelper;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\Database;
 
 /**
  * Personalization of SQL queries to use MySQL.
@@ -44,8 +45,8 @@ class SqlMySql extends SqlHelper
     public function getTables(): array
     {
         $query = 'SHOW TABLES;';
-        //$result = Config::$dbEngine->select($query);
-        $result = Config::$dbEngine->selectCoreCache('tables', $query);
+        //$result = Database::getInstance()->getDbEngine()->select($query);
+        $result = Database::getInstance()->getDbEngine()->selectCoreCache('tables', $query);
         return Utils::flatArray($result);
     }
 
@@ -287,24 +288,24 @@ class SqlMySql extends SqlHelper
     private function getConstraintData(string $tableName, string $constraintName): array
     {
         $sql = 'SELECT
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ',
-                    ' . Config::$sqlHelper->quoteFieldName('COLUMN_NAME') . ',
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ',
-                    ' . Config::$sqlHelper->quoteFieldName('REFERENCED_TABLE_NAME') . ',
-                    ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . '
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ',
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('COLUMN_NAME') . ',
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_NAME') . ',
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENCED_TABLE_NAME') . ',
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENCED_COLUMN_NAME') . '
                 FROM
-                    ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('KEY_COLUMN_USAGE') . '
+                    ' . Database::getInstance()->getSqlHelper()->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName('KEY_COLUMN_USAGE') . '
                 WHERE
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = :table_name AND
-                    ' . Config::$sqlHelper->quoteFieldName('constraint_name') . ' = :constraint_name AND
-                    ' . Config::$sqlHelper->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ' = :table_name AND
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('constraint_name') . ' = :constraint_name AND
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
         $vars = [
             'constraint_schema' => $this->getTablename(),
             'table_name' => $tableName,
             'constraint_name' => $constraintName,
         ];
-        return Config::$dbEngine->selectCoreCache($tableName . '-constraint-' . $constraintName, $sql, $vars);
+        return Database::getInstance()->getDbEngine()->selectCoreCache($tableName . '-constraint-' . $constraintName, $sql, $vars);
     }
 
     /**
@@ -332,20 +333,20 @@ class SqlMySql extends SqlHelper
     private function getConstraintRules(string $tableName, string $constraintName): array
     {
         $sql = 'SELECT
-                    ' . Config::$sqlHelper->quoteFieldName('MATCH_OPTION') . ',
-                    ' . Config::$sqlHelper->quoteFieldName('UPDATE_RULE') . ',
-                    ' . Config::$sqlHelper->quoteFieldName('DELETE_RULE') . '
-                FROM ' . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('MATCH_OPTION') . ',
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('UPDATE_RULE') . ',
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('DELETE_RULE') . '
+                FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
                 WHERE
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
-                    ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = :table_name AND
-                    ' . Config::$sqlHelper->quoteFieldName('CONSTRAINT_NAME') . ' = :constraint_name;';
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ' = :table_name AND
+                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_NAME') . ' = :constraint_name;';
         $vars = [
             'constraint_schema' => $this->getTablename(),
             'table_name' => $tableName,
             'constraint_name' => $constraintName,
         ];
-        $result = Config::$dbEngine->selectCoreCache($tableName . '-constraints-' . $constraintName, $sql, $vars);
+        $result = Database::getInstance()->getDbEngine()->selectCoreCache($tableName . '-constraints-' . $constraintName, $sql, $vars);
         return $result;
     }
 
@@ -362,7 +363,7 @@ class SqlMySql extends SqlHelper
      */
     public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName, $usePrefix) . ';';
+        return 'SHOW INDEX FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix) . ';';
     }
 
     /**
@@ -376,10 +377,10 @@ class SqlMySql extends SqlHelper
     {
         $tableNameWithPrefix = Config::getVar('dbPrefix') . $tableName;
         $sql = 'SELECT *  FROM '
-            . Config::$sqlHelper->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Config::$sqlHelper->quoteFieldName('TABLES')
+            . Database::getInstance()->getSqlHelper()->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLES')
             . ' WHERE '
-            . Config::$sqlHelper->quoteFieldName('TABLE_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename())
-            . ' AND ' . Config::$sqlHelper->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ';';
+            . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename())
+            . ' AND ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ';';
         return $sql;
     }
 }

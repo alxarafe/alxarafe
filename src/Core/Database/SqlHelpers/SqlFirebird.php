@@ -7,8 +7,8 @@
 namespace Alxarafe\Database\SqlHelpers;
 
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\Database;
 
 /**
  * Personalization of SQL queries to use Firebird.
@@ -55,12 +55,12 @@ class SqlFirebird extends SqlHelper
     public function getTables(): array
     {
         // http://www.firebirdfaq.org/faq174/
-        $query = 'SELECT ' . Config::$sqlHelper->quoteFieldName('RDB$RELATION_NAME') . '
-                  FROM ' . Config::$sqlHelper->quoteTableName('RDB$RELATIONS', false) . '
-                  WHERE ' . Config::$sqlHelper->quoteFieldName('RDB$VIEW_BLR') . ' IS NULL
-                   AND (' . Config::$sqlHelper->quoteFieldName('RDB$SYSTEM_FLAG') . ' IS NULL
-                    OR ' . Config::$sqlHelper->quoteFieldName('RDB$SYSTEM_FLAG') . ' = 0);';
-        return Utils::flatArray(Config::$dbEngine->select($query));
+        $query = 'SELECT ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$RELATION_NAME') . '
+                  FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$RELATIONS', false) . '
+                  WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$VIEW_BLR') . ' IS NULL
+                   AND (' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$SYSTEM_FLAG') . ' IS NULL
+                    OR ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$SYSTEM_FLAG') . ' = 0);';
+        return Utils::flatArray(Database::getInstance()->getDbEngine()->select($query));
     }
 
     /**
@@ -79,10 +79,10 @@ class SqlFirebird extends SqlHelper
             b.RDB$NULL_FLAG AS nullable,
             b.RDB$DEFAULT_SOURCE AS defaultsource,
             b.RDB$DEFAULT_VALUE AS What
-        FROM ' . Config::$sqlHelper->quoteTableName('RDB$RELATIONS', false) . ' a
-        INNER JOIN ' . Config::$sqlHelper->quoteTableName('RDB$RELATION_FIELDS', false) . ' b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
-        INNER JOIN ' . Config::$sqlHelper->quoteTableName('RDB$FIELDS', false) . ' c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
-        INNER JOIN ' . Config::$sqlHelper->quoteTableName('RDB$TYPES', false) . ' d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
+        FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$RELATIONS', false) . ' a
+        INNER JOIN ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$RELATION_FIELDS', false) . ' b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
+        INNER JOIN ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$FIELDS', false) . ' c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
+        INNER JOIN ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$TYPES', false) . ' d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
         WHERE
             a.RDB$SYSTEM_FLAG = 0 AND
             d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
@@ -181,7 +181,7 @@ class SqlFirebird extends SqlHelper
      */
     public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
+        return 'SHOW INDEX FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName);
     }
 
     /**
@@ -217,7 +217,7 @@ class SqlFirebird extends SqlHelper
      */
     public function getViewsSql(): string
     {
-        return 'SELECT ' . Config::$sqlHelper->quoteFieldName('RDB$RELATION_NAME') . ' FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
+        return 'SELECT ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$RELATION_NAME') . ' FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
     }
 
     /**
@@ -267,7 +267,7 @@ class SqlFirebird extends SqlHelper
                     JOIN rdb$index_segments master_index_segments ON master_relation_constraints.rdb$index_name = master_index_segments.rdb$index_name 
                 WHERE
                     detail_relation_constraints.rdb$constraint_type = \'FOREIGN KEY\'
-                    AND detail_relation_constraints.rdb$relation_name = ' . Config::$sqlHelper->quoteTableName($tableName, $usePrefix) . '';
+                    AND detail_relation_constraints.rdb$relation_name = ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix) . '';
     }
 
     /**

@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Providers\Singleton;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 
@@ -18,6 +19,10 @@ use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
  */
 class CacheCore
 {
+    use Singleton {
+        getInstance as getInstanceTrait;
+    }
+
     /**
      * Default life time of cache.
      */
@@ -44,7 +49,8 @@ class CacheCore
      */
     public function __construct($lifeTime = self::DEFAULT_LIFE_TIME)
     {
-        if ($this->engine === null) {
+        if (!isset($this->engine)) {
+            $this->initSingleton();
             $this->defaultLifeTime = $lifeTime;
             $this->connectPhpArray();
             if (constant('CORE_CACHE_ENABLED') !== true) {
@@ -64,6 +70,16 @@ class CacheCore
     {
         $file = constant('BASE_PATH') . constant('DIRECTORY_SEPARATOR') . 'core.cache';
         $this->engine = new PhpArrayAdapter($file, new FilesystemAdapter());
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return CacheCore
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
     }
 
     /**

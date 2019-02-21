@@ -6,8 +6,9 @@
 
 namespace Alxarafe\PreProcessors;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Models\Page;
+use Alxarafe\Providers\Database;
+use Alxarafe\Providers\FlashMessages;
 use DateTime;
 use Symfony\Component\Finder\Finder;
 
@@ -48,7 +49,7 @@ class Pages
     private function checkPageControllers(): void
     {
         // Start DB transaction
-        Config::$dbEngine->beginTransaction();
+        Database::getInstance()->getDbEngine()->beginTransaction();
 
         $this->cleanPages();
 
@@ -64,10 +65,10 @@ class Pages
         }
 
         // End DB transaction
-        if (Config::$dbEngine->commit()) {
-            Config::setInfo('Re-instanciated page controller class successfully');
+        if (Database::getInstance()->getDbEngine()->commit()) {
+            FlashMessages::getInstance()::setInfo('Re-instanciated page controller class successfully');
         } else {
-            Config::setError('Errors re-instanciating page controller class.');
+            FlashMessages::getInstance()::setError('Errors re-instanciating page controller class.');
         }
     }
 

@@ -31,9 +31,9 @@ class Languages extends Controller
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return void
+     * @return string
      */
-    public function main(): void
+    public function main(): string
     {
         $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {

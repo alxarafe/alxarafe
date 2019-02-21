@@ -59,6 +59,28 @@ trait Singleton
     protected $separateConfigFile = false;
 
     /**
+     * The object is created from within the class itself only if the class
+     * has no instance.
+     *
+     * We opted to use an array to make several singletons according to the
+     * index passed to getInstance
+     *
+     * @param string $index
+     *
+     * @return mixed
+     */
+    public static function getInstance(string $index = 'main')
+    {
+        if (!self::$singletonArray) {
+            $index = 'main';
+        }
+        if (!isset(self::$instances[self::getClassName()][$index])) {
+            self::$instances[self::getClassName()][$index] = new static();
+        }
+        return self::$instances[self::getClassName()][$index];
+    }
+
+    /**
      * Returns the yaml config params.
      *
      * @param string $index
@@ -124,28 +146,6 @@ trait Singleton
     {
         $class = get_called_class();
         return Utils::getShortName($class, $class);
-    }
-
-    /**
-     * The object is created from within the class itself only if the class
-     * has no instance.
-     *
-     * We opted to use an array to make several singletons according to the
-     * index passed to getInstance
-     *
-     * @param string $index
-     *
-     * @return mixed
-     */
-    public static function getInstance(string $index = 'main')
-    {
-        if (!self::$singletonArray) {
-            $index = 'main';
-        }
-        if (!isset(self::$instances[self::getClassName()][$index])) {
-            self::$instances[self::getClassName()][$index] = new static();
-        }
-        return self::$instances[self::getClassName()][$index];
     }
 
     /**

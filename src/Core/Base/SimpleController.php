@@ -111,9 +111,9 @@ class SimpleController
     /**
      * Start point
      *
-     * @return void
+     * @return string
      */
-    public function index(): void
+    public function index(): string
     {
     }
 }

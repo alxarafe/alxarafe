@@ -6,7 +6,8 @@
 
 namespace Alxarafe\PreProcessors;
 
-use Alxarafe\Helpers\Config;
+use Alxarafe\Providers\Database;
+use Alxarafe\Providers\FlashMessages;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -44,7 +45,7 @@ class Models
     private function instantiateModels(): void
     {
         // Start DB transaction
-        Config::$dbEngine->beginTransaction();
+        Database::getInstance()->getDbEngine()->beginTransaction();
 
         $loadedDep = [];
         $list = [];
@@ -62,19 +63,19 @@ class Models
         }
 
         // End DB transaction
-        if (Config::$dbEngine->commit()) {
-            Config::setInfo('Re-instanciated model class successfully');
+        if (Database::getInstance()->getDbEngine()->commit()) {
+            FlashMessages::getInstance()::setInfo('Re-instanciated model class successfully');
         } else {
-            Config::setError('Errors re-instanciating model class.');
+            FlashMessages::getInstance()::setError('Errors re-instanciating model class.');
         }
     }
 
     /**
      * Fill list of classes.
      *
-     * @param string $namespace
-     * @param string $baseDir
-     * @param string[]  $list
+     * @param string   $namespace
+     * @param string   $baseDir
+     * @param string[] $list
      */
     private function fillList(string $namespace, string $baseDir, array &$list)
     {

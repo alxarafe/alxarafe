@@ -8,7 +8,7 @@ namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
-use ReflectionClass;
+use Alxarafe\Providers\Database;
 
 /**
  * Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its
@@ -43,8 +43,8 @@ class SimpleTable extends Entity
     public function __construct(string $tableName, array $params = [])
     {
         parent::__construct();
-        $this->debugTool->startTimer($this->modelName, $this->modelName . ' Simple Constructor');
         $this->modelName = $this->shortName;
+        $this->debugTool->startTimer($this->modelName, $this->modelName . ' Simple Constructor');
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->nameField = $params['nameField'] ?? null;
@@ -111,7 +111,7 @@ class SimpleTable extends Entity
      */
     public function getFieldsFromTable(): array
     {
-        return Config::$sqlHelper->getColumns($this->tableName);
+        return Database::getInstance()->getSqlHelper()->getColumns($this->tableName);
     }
 
     /**
@@ -141,9 +141,9 @@ class SimpleTable extends Entity
      */
     private function getDataById(string $id): bool
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
-        $data = Config::$dbEngine->select($sql, ['id' => $id]);
+        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
+            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField) . ' = :id;';
+        $data = Database::getInstance()->getDbEngine()->select($sql, ['id' => $id]);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
             return false;
@@ -178,11 +178,11 @@ class SimpleTable extends Entity
         if (empty($this->id)) {
             return false;
         }
-        $sql = 'DELETE FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
+        $sql = 'DELETE FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
+            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField) . ' = :id;';
         $vars = [];
         $vars['id'] = $this->id;
-        $result = Config::$dbEngine->exec($sql, $vars);
+        $result = Database::getInstance()->getDbEngine()->exec($sql, $vars);
         if ($result) {
             $this->id = null;
             $this->newData = null;
@@ -219,9 +219,9 @@ class SimpleTable extends Entity
      */
     private function getDataBy(string $key, $value): bool
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = :value;';
-        $data = Config::$dbEngine->select($sql, ['value' => $value]);
+        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
+            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($key) . ' = :value;';
+        $data = Database::getInstance()->getDbEngine()->select($sql, ['value' => $value]);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
             return false;
@@ -239,8 +239,8 @@ class SimpleTable extends Entity
      */
     public function getTableName(): string
     {
-        trigger_error('Do not use getTableName(), use Config::$sqlHelper->quoteTableName($this->tableName); instead', E_ERROR);
-        return Config::$sqlHelper->quoteTableName($this->tableName);
+        trigger_error('Do not use getTableName(), use Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName); instead', E_ERROR);
+        return Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName);
     }
 
     /**
@@ -319,7 +319,7 @@ class SimpleTable extends Entity
         $vars = [];
 
         foreach ($values as $fieldName => $value) {
-            $fieldNames[$fieldName] = Config::$sqlHelper->quoteFieldName($fieldName);
+            $fieldNames[$fieldName] = Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName);
             $fieldVars[$fieldName] = ':' . $fieldName;
             $vars[$fieldName] = $value;
         }
@@ -327,12 +327,12 @@ class SimpleTable extends Entity
         $fieldList = implode(', ', $fieldNames);
         $valueList = implode(', ', $fieldVars);
 
-        $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);";
+        $sql = 'INSERT INTO ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);";
 
-        $ret = Config::$dbEngine->exec($sql, $vars);
+        $ret = Database::getInstance()->getDbEngine()->exec($sql, $vars);
 
         // Assign the value of the primary key of the newly inserted record
-        $this->id = Config::$dbEngine->getLastInserted();
+        $this->id = Database::getInstance()->getDbEngine()->getLastInserted();
         return $ret;
     }
 
@@ -349,17 +349,17 @@ class SimpleTable extends Entity
         $fieldNames = [];
         $vars = [];
         foreach ($data as $fieldName => $value) {
-            $fieldNames[] = Config::$sqlHelper->quoteFieldName($fieldName) . ' = :' . $fieldName;
+            $fieldNames[] = Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName) . ' = :' . $fieldName;
             $vars[$fieldName] = $value;
         }
 
         $fieldList = implode(', ', $fieldNames);
 
-        $sql = 'UPDATE ' . Config::$sqlHelper->quoteTableName($this->tableName) . " SET $fieldList"
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->idField) . ' = :id;';
+        $sql = 'UPDATE ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . " SET $fieldList"
+            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField) . ' = :id;';
         $vars['id'] = $this->id;
 
-        return Config::$dbEngine->exec($sql, $vars);
+        return Database::getInstance()->getDbEngine()->exec($sql, $vars);
     }
 
     /**
@@ -380,8 +380,8 @@ class SimpleTable extends Entity
      */
     public function getAllRecords(): array
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName) . ';';
-        return Config::$dbEngine->select($sql);
+        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . ';';
+        return Database::getInstance()->getDbEngine()->select($sql);
     }
 
     /**
@@ -391,9 +391,9 @@ class SimpleTable extends Entity
      */
     public function countAllRecords(): int
     {
-        $sql = 'SELECT COUNT(' . Config::$sqlHelper->quoteFieldName($this->getIdField()) . ') AS total FROM '
-            . Config::$sqlHelper->quoteTableName($this->tableName) . ';';
-        $data = Config::$dbEngine->select($sql);
+        $sql = 'SELECT COUNT(' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField()) . ') AS total FROM '
+            . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . ';';
+        $data = Database::getInstance()->getDbEngine()->select($sql);
         return empty($data) ? 0 : intval($data[0]['total']);
     }
 
@@ -404,9 +404,9 @@ class SimpleTable extends Entity
      */
     public function getAllRecordsPaged($offset = 0): array
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
+        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
             . ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
-        return Config::$dbEngine->select($sql);
+        return Database::getInstance()->getDbEngine()->select($sql);
     }
 
     /**
@@ -429,7 +429,7 @@ class SimpleTable extends Entity
 
         $sql .= ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
 
-        return Config::$dbEngine->select($sql);
+        return Database::getInstance()->getDbEngine()->select($sql);
     }
 
     /**
@@ -452,13 +452,13 @@ class SimpleTable extends Entity
             }
         }
 
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName);
+        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName);
         $sep = '';
         if (!empty($columns) && !empty($query)) {
             $sql .= ' WHERE (';
             foreach ($columns as $pos => $col) {
                 if ($col !== null && $col !== 'col-action') {
-                    $sql .= $sep . 'lower(' . Config::$sqlHelper->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
+                    $sql .= $sep . 'lower(' . Database::getInstance()->getSqlHelper()->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
                     $sep = ' OR ';
                 }
             }
@@ -480,8 +480,8 @@ class SimpleTable extends Entity
     public function searchCount(string $query, array $columns = []): int
     {
         $sql = $this->searchQuery($query, $columns);
-        $sql = str_replace('SELECT * ', 'SELECT COUNT(' . Config::$sqlHelper->quoteFieldName($this->getIdField()) . ') AS total ', $sql);
-        $data = Config::$dbEngine->select($sql);
+        $sql = str_replace('SELECT * ', 'SELECT COUNT(' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField()) . ') AS total ', $sql);
+        $data = Database::getInstance()->getDbEngine()->select($sql);
         return empty($data) ? 0 : intval($data[0]['total']);
     }
 }

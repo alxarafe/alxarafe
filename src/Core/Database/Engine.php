@@ -6,8 +6,10 @@
 
 namespace Alxarafe\Database;
 
-use Alxarafe\Helpers\Config;
+use Alxarafe\Base\CacheCore;
+use Alxarafe\Providers\Database;
 use Alxarafe\Providers\DebugTool;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use DebugBar\DataCollector\PDO as PDODataCollector;
 use DebugBar\DebugBarException;
@@ -124,8 +126,8 @@ abstract class Engine
     public static function getStructure(string $tableName, bool $usePrefix = true): array
     {
         return [
-            'fields' => Config::$sqlHelper->getColumns($tableName, $usePrefix),
-            'indexes' => Config::$sqlHelper->getIndexes($tableName, $usePrefix),
+            'fields' => Database::getInstance()->getSqlHelper()->getColumns($tableName, $usePrefix),
+            'indexes' => Database::getInstance()->getSqlHelper()->getIndexes($tableName, $usePrefix),
         ];
     }
 
@@ -184,7 +186,7 @@ abstract class Engine
     final public static function selectCoreCache(string $cachedName, string $query, array $vars = []): array
     {
         if (constant('CORE_CACHE_ENABLED') === true) {
-            $cacheEngine = Config::getCacheCoreEngine();
+            $cacheEngine = CacheCore::getInstance()->getEngine();
             try {
                 $cacheItem = $cacheEngine->getItem($cachedName);
             } catch (InvalidArgumentException $e) {
@@ -236,7 +238,7 @@ abstract class Engine
      */
     final public static function clearCoreCache(string $cachedName): bool
     {
-        $cacheEngine = Config::getCacheCoreEngine();
+        $cacheEngine = CacheCore::getInstance()->getEngine();
         if (isset($cacheEngine)) {
             return $cacheEngine->deleteItem($cachedName);
         }
@@ -334,11 +336,11 @@ abstract class Engine
             self::$debugTool->getDebugTool()->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
             Logger::getInstance()::exceptionHandler($e);
-            Config::setError($e->getMessage());
+            FlashMessages::getInstance()::setError($e->getMessage());
             return false;
         } catch (DebugBarException $e) {
             Logger::getInstance()::exceptionHandler($e);
-            Config::setError($e->getMessage());
+            FlashMessages::getInstance()::setError($e->getMessage());
             return false;
         }
         return isset(self::$dbHandler);

@@ -11,14 +11,14 @@ use Alxarafe\Base\Table;
 /**
  * Class Page
  *
- * @property int       $id
- * @property string    $controller
- * @property string    $title
- * @property string    $description
- * @property string    $menu
- * @property string    $icon
- * @property int       $active
- * @property string    $plugin
+ * @property int    $id
+ * @property string $controller
+ * @property string $title
+ * @property string $description
+ * @property string $menu
+ * @property string $icon
+ * @property int    $active
+ * @property string $plugin
  * @property string $inserted_date
  * @property string $updated_date
  *

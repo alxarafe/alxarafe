@@ -91,6 +91,16 @@ class Router
     }
 
     /**
+     * Return this instance.
+     *
+     * @return Router
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
      * Saves routes to configuration file.
      *
      * @return bool
@@ -142,15 +152,5 @@ class Router
     public function getRoute(string $key)
     {
         return $this->routes[$key] ?? null;
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return Router
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
     }
 }

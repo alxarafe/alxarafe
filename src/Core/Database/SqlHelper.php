@@ -7,6 +7,7 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Helpers\Config;
+use Alxarafe\Providers\Database;
 
 /**
  * Engine provides generic support for databases.
@@ -79,7 +80,7 @@ abstract class SqlHelper
      */
     public function quoteFieldName(string $fieldName): string
     {
-        return Config::$sqlHelper->fieldQuote . $fieldName . Config::$sqlHelper->fieldQuote;
+        return Database::getInstance()->getSqlHelper()->fieldQuote . $fieldName . Database::getInstance()->getSqlHelper()->fieldQuote;
     }
 
     /**
@@ -91,7 +92,7 @@ abstract class SqlHelper
      */
     public function quoteLiteral($fieldName): string
     {
-        return is_null($fieldName) ? 'NULL' : Config::$sqlHelper->literalQuote . $fieldName . Config::$sqlHelper->literalQuote;
+        return is_null($fieldName) ? 'NULL' : Database::getInstance()->getSqlHelper()->literalQuote . $fieldName . Database::getInstance()->getSqlHelper()->literalQuote;
     }
 
     /**
@@ -145,8 +146,8 @@ abstract class SqlHelper
     public function getColumns(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getColumnsSql($tableName, $usePrefix);
-        //$data = Config::$dbEngine->select($query);
-        $data = Config::$dbEngine->selectCoreCache($tableName . '-columns', $query);
+        //$data = Database::getInstance()->getDbEngine()->select($query);
+        $data = Database::getInstance()->getDbEngine()->selectCoreCache($tableName . '-columns', $query);
         $result = [];
         foreach ($data as $value) {
             $row = $this->normalizeFields($value);
@@ -188,7 +189,7 @@ abstract class SqlHelper
     public function getIndexes(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getIndexesSql($tableName, $usePrefix);
-        $data = Config::$dbEngine->selectCoreCache($tableName . '-indexes', $query);
+        $data = Database::getInstance()->getDbEngine()->selectCoreCache($tableName . '-indexes', $query);
 
         $result = [];
 

@@ -72,8 +72,18 @@ class Database
     }
 
     /**
-     * If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
-     * Config::$dbEngine.
+     * Return this instance.
+     *
+     * @return Database
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
+     * If Database::getInstance()->getDbEngine() contain null, create an Engine instance with the database connection
+     * and assigns it to Database::getInstance()->getDbEngine().
      *
      * @return bool
      */
@@ -100,15 +110,5 @@ class Database
     public function getSqlHelper(): SqlHelper
     {
         return $this->sqlHelper;
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return Database
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
     }
 }

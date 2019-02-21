@@ -9,9 +9,8 @@ namespace Alxarafe\Helpers;
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Providers\DebugTool;
-use Alxarafe\Providers\Logger;
+use Alxarafe\Providers\FlashMessages;
 use Exception;
-use ReflectionException;
 
 /**
  * Class Dispatcher
@@ -59,7 +58,7 @@ class Dispatcher
         $configFile = Config::getConfigFileName();
         if (!file_exists($configFile)) {
             $msg = "Creating '$configFile' file...";
-            Config::setError($msg);
+            FlashMessages::getInstance()::setError($msg);
             new CreateConfig();
             $e = new Exception($msg);
             $this->debugTool->addException($e);

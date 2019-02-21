@@ -10,6 +10,8 @@ use Alxarafe\Base\CacheCore;
 use Alxarafe\Controllers\CreateConfig;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
+use Alxarafe\Providers\Database;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Translator;
 use Exception;
@@ -141,18 +143,18 @@ class Config
             $templatesFolder = constant('BASE_PATH') . Skin::SKINS_FOLDER;
             $skinFolder = $templatesFolder . '/' . self::$global['skin'];
             if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
-                Config::setError("Skin folder '$skinFolder' does not exists!");
+                FlashMessages::getInstance()::setError("Skin folder '$skinFolder' does not exists!");
                 (new CreateConfig())->index();
                 return;
             }
             Skin::setSkin(self::$global['skin']);
         }
         if (empty(self::$global) || !self::connectToDataBase()) {
-            self::setError('Database Connection error...');
+            FlashMessages::getInstance()::setError('Database Connection error...');
             (new CreateConfig())->index();
             return;
         }
-        self::$cacheEngine = (new CacheCore())->getEngine();
+        self::$cacheEngine = CacheCore::getInstance()->getEngine();
     }
 
     /**
@@ -207,22 +209,8 @@ class Config
     }
 
     /**
-     * Register a new error message
-     *
-     * @param string $msg
-     */
-    public static function setError(string $msg): void
-    {
-        self::$messagesList[] = [
-            'type' => 'danger',
-            'msg' => $msg,
-        ];
-        self::$session->setFlash('messages', self::$messagesList);
-    }
-
-    /**
-     * If Config::$dbEngine contain null, create an Engine instance with the database connection and assigns it to
-     * Config::$dbEngine.
+     * If Database::getInstance()->getDbEngine() contain null, create an Engine instance with the database connection
+     * and assigns it to Database::getInstance()->getDbEngine().
      *
      * @return bool
      */
@@ -235,8 +223,8 @@ class Config
             $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
             $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
             try {
-                Config::$sqlHelper = new $sqlEngine();
-                Config::$dbEngine = new $engine([
+                self::$dbEngine = new $sqlEngine();
+                self::$sqlHelper = new $engine([
                     'dbUser' => self::$global['dbUser'],
                     'dbPass' => self::$global['dbPass'],
                     'dbName' => self::$global['dbName'],
@@ -245,12 +233,26 @@ class Config
                 ]);
             } catch (Exception $e) {
                 Logger::getInstance()::exceptionHandler($e);
-                Config::setError($e->getMessage());
+                FlashMessages::getInstance()::setError($e->getMessage());
                 return false;
             }
         }
 
-        return isset(self::$dbEngine) && self::$dbEngine->connect() && Config::$dbEngine->checkConnection();
+        return isset(self::$dbEngine) && self::$dbEngine->connect() && Database::getInstance()->getDbEngine()->checkConnection();
+    }
+
+    /**
+     * Register a new error message
+     *
+     * @param string $msg
+     */
+    public static function setError(string $msg): void
+    {
+        self::$messagesList[] = [
+            'type' => 'danger',
+            'msg' => $msg,
+        ];
+        self::$session->setFlash('messages', self::$messagesList);
     }
 
     /**

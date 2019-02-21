@@ -9,6 +9,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\SimpleController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Views\CreateConfigView;
 use Symfony\Component\Yaml\Yaml;
 
@@ -31,16 +32,16 @@ class CreateConfig extends SimpleController
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return void
+     * @return string
      */
-    public function main(): void
+    public function main(): string
     {
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 $this->debugTool->addMessage('messages', $msg);
-                Config::setInfo($msg);
+                FlashMessages::getInstance()::setInfo($msg);
                 header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
             case 'cancel':
@@ -85,9 +86,9 @@ class CreateConfig extends SimpleController
     /**
      * Start point
      *
-     * @return void
+     * @return string
      */
-    public function index(): void
+    public function index(): string
     {
         parent::index();
         if (!Config::configFileExists()) {

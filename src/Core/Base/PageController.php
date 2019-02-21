@@ -11,7 +11,6 @@ use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
-use ReflectionClass;
 
 /**
  * Class PageController, all controllers that needs to be accessed as a page must extends from this.
@@ -166,9 +165,9 @@ class PageController extends SimpleController
     /**
      * Start point
      *
-     * @return void
+     * @return string
      */
-    public function index(): void
+    public function index(): string
     {
         if ($this->ensureLogin()) {
             parent::index();

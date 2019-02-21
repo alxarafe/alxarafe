@@ -6,14 +6,14 @@
 
 namespace Alxarafe\Controllers;
 
+use Alxarafe\Base\CacheCore;
 use Alxarafe\Base\PageController;
 use Alxarafe\Database\Engine;
 use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Skin;
 use Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Translator;
-use Alxarafe\Views\EditConfigView;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -91,65 +91,29 @@ class EditConfig extends PageController
     }
 
     /**
-     * Start point
-     *
-     * @return void
-     */
-    public function index(): void
-    {
-        parent::index();
-        Skin::setView(new EditConfigView($this));
-        $this->setDefaultData();
-    }
-
-    /**
-     * Sets default data values
-     */
-    private function setDefaultData()
-    {
-        $translatorConfig = Translator::getInstance()->getConfig();
-        $templateRenderConfig = $this->renderer->getConfig();
-        $databaseConfig = Database::getInstance()->getConfig();
-
-        $this->dbEngines = Engine::getEngines();
-        $this->skins = $this->renderer->getSkins();
-        $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
-        $this->languages = Translator::getInstance()->getAvailableLanguages();
-        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
-
-        $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
-        $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
-        $this->dbConfig['dbPass'] = $databaseConfig['dbPass'] ?? '';
-        $this->dbConfig['dbName'] = $databaseConfig['dbName'] ?? 'alxarafe';
-        $this->dbConfig['dbHost'] = $databaseConfig['dbHost'] ?? 'localhost';
-        $this->dbConfig['dbPrefix'] = $databaseConfig['dbPrefix'] ?? '';
-        $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
-    }
-
-    /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return void
+     * @return string
      */
-    public function main(): void
+    public function main(): string
     {
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
             case 'clear-cache':
-                Config::$cacheEngine->clear();
-                Config::setInfo('Cache cleared successfully.');
+                CacheCore::getInstance()->getEngine()->clear();
+                FlashMessages::getInstance()::setInfo('Cache cleared successfully.');
                 break;
             case 'regenerate-data':
-                Config::$cacheEngine->clear();
-                Config::setInfo('Cache cleared successfully.');
+                CacheCore::getInstance()->getEngine()->clear();
+                FlashMessages::getInstance()::setInfo('Cache cleared successfully.');
 
                 $this->regenerateData();
                 break;
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
-                Config::setInfo($msg);
+                FlashMessages::getInstance()::setInfo($msg);
                 // The database or prefix may have been changed and have to be regenerated.
-                Config::$cacheEngine->clear();
+                CacheCore::getInstance()->getEngine()->clear();
                 $this->userAuth->logout();
                 break;
             case 'cancel':
@@ -167,7 +131,7 @@ class EditConfig extends PageController
     private function regenerateData(): void
     {
         if (!set_time_limit(0)) {
-            Config::setError('cant-increase-time-limit');
+            FlashMessages::getInstance()::setError('cant-increase-time-limit');
         }
 
         new PreProcessors\Models($this->searchDir);
@@ -202,10 +166,44 @@ class EditConfig extends PageController
      *
      * @return string
      */
-    public function run()
+    public function run(): string
     {
+        return $this->index();
+    }
+
+    /**
+     * @return string
+     */
+    public function index(): string
+    {
+        parent::index();
+        //Skin::setView(new EditConfigView($this));
+        $this->setDefaultData();
         return $this->renderer->render();
-        //$this->index();
+    }
+
+    /**
+     * Sets default data values
+     */
+    private function setDefaultData()
+    {
+        $translatorConfig = Translator::getInstance()->getConfig();
+        $templateRenderConfig = $this->renderer->getConfig();
+        $databaseConfig = Database::getInstance()->getConfig();
+
+        $this->dbEngines = Engine::getEngines();
+        $this->skins = $this->renderer->getSkins();
+        $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
+        $this->languages = Translator::getInstance()->getAvailableLanguages();
+        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
+
+        $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
+        $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
+        $this->dbConfig['dbPass'] = $databaseConfig['dbPass'] ?? '';
+        $this->dbConfig['dbName'] = $databaseConfig['dbName'] ?? 'alxarafe';
+        $this->dbConfig['dbHost'] = $databaseConfig['dbHost'] ?? 'localhost';
+        $this->dbConfig['dbPrefix'] = $databaseConfig['dbPrefix'] ?? '';
+        $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
     }
 
     /**

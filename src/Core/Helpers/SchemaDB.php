@@ -7,6 +7,7 @@
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\TableModel;
+use Alxarafe\Providers\Database;
 
 /**
  * The SchemaDB class contains static methods that allow you to manipulate the database. It is used to create and
@@ -22,10 +23,10 @@ class SchemaDB
      */
     public static function getTables(): array
     {
-        $queries = Config::$sqlHelper->getTables();
+        $queries = Database::getInstance()->getSqlHelper()->getTables();
         $queryResult = [];
         foreach ($queries as $query) {
-            $queryResult[] = Config::$dbEngine->selectCoreCache('tables', $query);
+            $queryResult[] = Database::getInstance()->getDbEngine()->selectCoreCache('tables', $query);
         }
         return Utils::flatArray($queryResult);
     }
@@ -48,10 +49,10 @@ class SchemaDB
             $sql = self::updateFields($tableName, $tabla['fields']);
             // TODO: Needs to be added call to updated indexes.
         } else {
-            Config::$dbEngine->clearCoreCache($tableName . '-exists');
+            Database::getInstance()->getDbEngine()->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
 
-            if (!Config::$dbEngine->batchExec($sql)) {
+            if (!Database::getInstance()->getDbEngine()->batchExec($sql)) {
                 return false;
             }
 
@@ -65,7 +66,7 @@ class SchemaDB
             $sql = Utils::addToArray($sql, self::createTableView($tableName));
         }
 
-        return Config::$dbEngine->batchExec($sql);
+        return Database::getInstance()->getDbEngine()->batchExec($sql);
     }
 
     /**
@@ -77,9 +78,9 @@ class SchemaDB
      */
     public static function tableExists($tableName): bool
     {
-        //$sql = 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' LIMIT 1;';
-        $sql = Config::$sqlHelper->tableExists($tableName);
-        return !empty(Config::$dbEngine->selectCoreCache($tableName . '-exists', $sql));
+        //$sql = 'SELECT 1 FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' LIMIT 1;';
+        $sql = Database::getInstance()->getSqlHelper()->tableExists($tableName);
+        return !empty(Database::getInstance()->getDbEngine()->selectCoreCache($tableName . '-exists', $sql));
     }
 
     /**
@@ -96,7 +97,7 @@ class SchemaDB
         if ($fields === '') {
             return [];
         }
-        return ['ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' ' . $fields . ';'];
+        return ['ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' ' . $fields . ';'];
     }
 
     /**
@@ -109,7 +110,7 @@ class SchemaDB
      */
     private static function modifyFields(string $tableName, array $fieldsList): string
     {
-        $tableFields = Config::$sqlHelper->getColumns($tableName);
+        $tableFields = Database::getInstance()->getSqlHelper()->getColumns($tableName);
         $newFields = [];
         $modifiedFields = [];
         foreach ($fieldsList as $key => $fields) {
@@ -142,7 +143,7 @@ class SchemaDB
     {
         $fields = [];
         foreach ($fieldsList as $index => $col) {
-            $field = Config::$sqlHelper->getSQLField($index, $col);
+            $field = Database::getInstance()->getSqlHelper()->getSQLField($index, $col);
             if ($field != '') {
                 $fields[] = trim($fieldOperation . ' ' . $field);
             }
@@ -162,7 +163,7 @@ class SchemaDB
     protected static function createFields(string $tableName, array $fieldsList): array
     {
         // If the table does not exists
-        $sql = 'CREATE TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (';
+        $sql = 'CREATE TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' (';
         $sql .= self::assignFields($fieldsList);
         $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;';
 
@@ -186,7 +187,7 @@ class SchemaDB
      */
     protected static function createIndex(string $tableName, string $indexName, array $indexData): array
     {
-        $tableIndexes = Config::$sqlHelper->getIndexes($tableName);
+        $tableIndexes = Database::getInstance()->getSqlHelper()->getIndexes($tableName);
         $tableIndex = $tableIndexes[$indexName] ?? [];
         $indexDiff = array_diff($indexData, $tableIndex);
         $existsIndex = isset($tableIndexes[$indexName]);
@@ -236,14 +237,14 @@ class SchemaDB
         // TODO: Check dependencies of MySQL
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP PRIMARY KEY;';
+            $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' DROP PRIMARY KEY;';
         }
-        $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD PRIMARY KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
+        $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) .
+            ' ADD PRIMARY KEY (' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['column']) . ');';
         if ($autoincrement) {
             $length = Config::$bbddStructure[$tableName]['fields'][$indexData['column']]['length'];
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-                ' MODIFY ' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
+            $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) .
+                ' MODIFY ' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['column']) .
                 ' INT(' . $length . ') UNSIGNED AUTO_INCREMENT';
         }
         return $sql;
@@ -268,15 +269,15 @@ class SchemaDB
 
         $sql = [];
         if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '')) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
+            $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' DROP FOREIGN KEY ' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['index']) . ';';
         }
 
         // Delete (if exists) and create the index related to the constraint
         $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
 
-        $query = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Config::$sqlHelper->quoteFieldName($indexData['column']) .
-            ') REFERENCES ' . Config::$sqlHelper->quoteFieldName($referencedTable) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['referencedfield']) . ')';
+        $query = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) .
+            ' ADD CONSTRAINT ' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['index']) . ' FOREIGN KEY (' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['column']) .
+            ') REFERENCES ' . Database::getInstance()->getSqlHelper()->quoteFieldName($referencedTable) . ' (' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['referencedfield']) . ')';
 
         if ($indexData['deleterule'] != '') {
             $query .= ' ON DELETE ' . $indexData['deleterule'];
@@ -307,9 +308,9 @@ class SchemaDB
         // CREATE UNIQUE INDEX idx_pname ON Persons (LastName, FirstName);
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ';';
+            $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' DROP INDEX ' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['index']) . ';';
         }
-        $sql[] = 'CREATE INDEX ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' (' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ');';
+        $sql[] = 'CREATE INDEX ' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['index']) . ' ON ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' (' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['column']) . ');';
         return $sql;
     }
 
@@ -328,16 +329,16 @@ class SchemaDB
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
         $columnsArray = explode(',', $indexData['column']);
         foreach ($columnsArray as $key => $column) {
-            $columnsArray[$key] = Config::$sqlHelper->quoteFieldName($column);
+            $columnsArray[$key] = Database::getInstance()->getSqlHelper()->quoteFieldName($column);
         }
         $columns = implode(',', $columnsArray);
 
         $sql = [];
         if ($exists) {
-            $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
+            $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . ' DROP INDEX ' . $indexData['index'] . ';';
         }
-        $sql[] = 'ALTER TABLE ' . Config::$sqlHelper->quoteTableName($tableName, true) .
-            ' ADD CONSTRAINT ' . Config::$sqlHelper->quoteFieldName($indexData['index']) . ' UNIQUE (' . $columns . ')';
+        $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) .
+            ' ADD CONSTRAINT ' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['index']) . ' UNIQUE (' . $columns . ')';
         return $sql;
     }
 
@@ -375,20 +376,20 @@ class SchemaDB
             return [];
         }
 
-        $sqlView = 'CREATE OR REPLACE VIEW ' . Config::$sqlHelper->quoteTableName('view_' . $tableName, true) . ' AS';
+        $sqlView = 'CREATE OR REPLACE VIEW ' . Database::getInstance()->getSqlHelper()->quoteTableName('view_' . $tableName, true) . ' AS';
         $sqlView .= ' SELECT ';
         $sep = '';
         foreach ($fields as $fieldName => $fieldData) {
-            $sqlView .= $sep . Config::$sqlHelper->quoteTableName($tableName, true) . '.' . Config::$sqlHelper->quoteFieldName($fieldName);
+            $sqlView .= $sep . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName);
             $sep = ', ';
         }
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= $sep . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($nameColumn[$indexName]) . ' AS ' . $indexData['referencedtable'] . '_' . $nameColumn[$indexName];
+            $sqlView .= $sep . Database::getInstance()->getSqlHelper()->quoteTableName($indexData['referencedtable'], true) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName($nameColumn[$indexName]) . ' AS ' . $indexData['referencedtable'] . '_' . $nameColumn[$indexName];
             $sep = ', ';
         }
-        $sqlView .= ' FROM ' . Config::$sqlHelper->quoteTableName($tableName, true);
+        $sqlView .= ' FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true);
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= ' LEFT JOIN ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . ' ON ' . Config::$sqlHelper->quoteTableName($tableName, true) . '.' . Config::$sqlHelper->quoteFieldName($indexData['column']) . ' = ' . Config::$sqlHelper->quoteTableName($indexData['referencedtable'], true) . '.' . Config::$sqlHelper->quoteFieldName($primaryColumn[$indexName]);
+            $sqlView .= ' LEFT JOIN ' . Database::getInstance()->getSqlHelper()->quoteTableName($indexData['referencedtable'], true) . ' ON ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['column']) . ' = ' . Database::getInstance()->getSqlHelper()->quoteTableName($indexData['referencedtable'], true) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName($primaryColumn[$indexName]);
         }
         $sqlView .= ';';
         return [$sqlView];

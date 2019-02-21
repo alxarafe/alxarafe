@@ -137,6 +137,16 @@ class Translator
     }
 
     /**
+     * Return this instance.
+     *
+     * @return Translator
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
      * Sets the language code in use.
      *
      * @param string $lang
@@ -251,15 +261,5 @@ class Translator
     public function getTranslator()
     {
         return self::$translator;
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return Translator
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
     }
 }

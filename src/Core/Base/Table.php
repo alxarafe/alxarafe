@@ -10,6 +10,8 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\SchemaDB;
 use Alxarafe\Models\TableModel;
+use Alxarafe\Providers\Database;
+use Alxarafe\Providers\FlashMessages;
 use ReflectionClass;
 
 /**
@@ -81,9 +83,9 @@ class Table extends SimpleTable
             return '';
         }
 
-        $sql = "SELECT {$this->idField} AS id FROM " . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($this->nameField) . ' = ' . Config::$sqlHelper->quoteLiteral($name) . ';';
-        $data = Config::$dbEngine->select($sql);
+        $sql = "SELECT {$this->idField} AS id FROM " . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
+            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->nameField) . ' = ' . Database::getInstance()->getSqlHelper()->quoteLiteral($name) . ';';
+        $data = Database::getInstance()->getDbEngine()->select($sql);
         if (!empty($data) && count($data) > 0) {
             return $data[0]['id'];
         }
@@ -101,11 +103,11 @@ class Table extends SimpleTable
      */
     public function getAllRecordsBy(string $key, $value): array
     {
-        $sql = 'SELECT * FROM ' . Config::$sqlHelper->quoteTableName($this->tableName)
-            . ' WHERE ' . Config::$sqlHelper->quoteFieldName($key) . ' = :value;';
+        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
+            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($key) . ' = :value;';
         $vars = [];
         $vars['value'] = $value;
-        return Config::$dbEngine->select($sql, $vars);
+        return Database::getInstance()->getDbEngine()->select($sql, $vars);
     }
 
     /**
@@ -118,7 +120,7 @@ class Table extends SimpleTable
      */
     public function getIndexesFromTable(): array
     {
-        return Config::$sqlHelper->getIndexes($this->tableName, true);
+        return Database::getInstance()->getSqlHelper()->getIndexes($this->tableName, true);
     }
 
     /**
@@ -191,6 +193,21 @@ class Table extends SimpleTable
     }
 
     /**
+     * Save the data to a record if pass the test and returns true/false based on the result.
+     *
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function saveRecord(array $data): bool
+    {
+        if ($ret = $this->testData($data)) {
+            $ret = $this->saveData($data);
+        }
+        return $ret;
+    }
+
+    /**
      * TODO: Undocumented
      *
      * @param $data
@@ -206,33 +223,33 @@ class Table extends SimpleTable
                     $length = $fieldStructure['length'] ?? null;
                     if (isset($length) && $length > 0) {
                         if (strlen($record[$fieldName]) > $length) {
-                            Config::setError("$tableName-$fieldName: Longitud máxima {$length}.");
+                            FlashMessages::getInstance()::setError("$tableName-$fieldName: Longitud máxima {$length}.");
                             $ok = false;
                         }
                     }
                     $min = $fieldStructure['min'] ?? null;
                     if (isset($min)) {
                         if ($min > intval($record[$fieldName])) {
-                            Config::setError("$tableName-$fieldName: Supera el mínimo de {$min}.");
+                            FlashMessages::getInstance()::setError("$tableName-$fieldName: Supera el mínimo de {$min}.");
                             $ok = false;
                         }
                     }
                     $max = $fieldStructure['max'] ?? null;
                     if (isset($max)) {
                         if ($max < intval($record[$fieldName])) {
-                            Config::setError("$tableName-$fieldName: Supera el máximo {$max}.");
+                            FlashMessages::getInstance()::setError("$tableName-$fieldName: Supera el máximo {$max}.");
                             $ok = false;
                         }
                     }
                     if (isset($fieldStructure['unique']) && ($fieldStructure['unique'] == 'yes')) {
                         // $fullTableName = $this->getTableName();
-                        $fullTableName = Config::$sqlHelper->quoteTableName($this->tableName);
-                        $bad = Config::$dbEngine->select("SELECT * FROM {$fullTableName} WHERE $fieldName='{$data[$tableName][$blockId][$fieldName]}'");
+                        $fullTableName = Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName);
+                        $bad = Database::getInstance()->getDbEngine()->select("SELECT * FROM {$fullTableName} WHERE $fieldName='{$data[$tableName][$blockId][$fieldName]}'");
                         if ($bad && count($bad) > 0) {
                             foreach ($bad as $badrecord) {
                                 // TODO: Estoy utilizando 'id', pero tendría que ser el $this->idField del modelo correspondiente
                                 if ($badrecord['id'] != $data[$tableName][$blockId]['id']) {
-                                    Config::setError("$tableName-$fieldName: Valor '{$data[$tableName][$blockId][$fieldName]}' duplicado con registro {$badrecord['id']}.");
+                                    FlashMessages::getInstance()::setError("$tableName-$fieldName: Valor '{$data[$tableName][$blockId][$fieldName]}' duplicado con registro {$badrecord['id']}.");
                                     $ok = false;
                                 }
                             }
@@ -260,20 +277,5 @@ class Table extends SimpleTable
             $ret &= $this->save();
         }
         return (bool) $ret;
-    }
-
-    /**
-     * Save the data to a record if pass the test and returns true/false based on the result.
-     *
-     * @param array $data
-     *
-     * @return bool
-     */
-    public function saveRecord(array $data): bool
-    {
-        if ($ret = $this->testData($data)) {
-            $ret = $this->saveData($data);
-        }
-        return $ret;
     }
 }

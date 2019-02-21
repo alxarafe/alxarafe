@@ -6,7 +6,9 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\Database;
 use Alxarafe\Providers\DebugTool;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Exception;
 use Kint\Kint;
@@ -41,7 +43,7 @@ class Schema
      */
     public static function saveStructure(): void
     {
-        $tables = Config::$sqlHelper->getTables();
+        $tables = Database::getInstance()->getSqlHelper()->getTables();
         foreach ($tables as $table) {
             self::saveTableStructure($table);
         }
@@ -62,7 +64,7 @@ class Schema
         $prefix = Config::getVar('dbPrefix');
         $usePrefix = substr($table, 0, strlen($prefix)) == $prefix;
         $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
-        $structure = Config::$dbEngine->getStructure($tableName, $usePrefix);
+        $structure = Database::getInstance()->getDbEngine()->getStructure($tableName, $usePrefix);
         foreach (['schema', 'viewdata'] as $type) {
             $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
             $result = $result && self::saveSchemaFileName($data, $tableName, $type);
@@ -224,7 +226,7 @@ class Schema
                 return Yaml::parse(file_get_contents($fileName));
             } catch (ParseException $e) {
                 Logger::getInstance()::exceptionHandler($e);
-                Config::setError($e->getMessage());
+                FlashMessages::getInstance()::setError($e->getMessage());
                 return [];
             }
         }
@@ -314,22 +316,22 @@ class Schema
     public static function setValues(string $tableName, array $values): array
     {
         if (empty($values)) {
-            return ['/* BAD QUERY empty list for table ' . $tableName . '-> */' . 'SELECT 1 FROM ' . Config::$sqlHelper->quoteTableName($tableName) . ';'];
+            return ['/* BAD QUERY empty list for table ' . $tableName . '-> */' . 'SELECT 1 FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName) . ';'];
         }
 
-        $sql = 'INSERT INTO ' . Config::$sqlHelper->quoteTableName($tableName) . ' ';
+        $sql = 'INSERT INTO ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName) . ' ';
         $header = true;
         $sep = '';
         foreach ($values as $value) {
             $fields = "(";
             $datos = $sep . "(";
             foreach ($value as $fname => $fvalue) {
-                $fields .= Config::$sqlHelper->quoteFieldName($fname) . ", ";
+                $fields .= Database::getInstance()->getSqlHelper()->quoteFieldName($fname) . ", ";
                 $definitionDataField = Config::$bbddStructure[$tableName]['fields'][$fname];
                 if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
                     $fvalue = $definitionDataField['default'] ?? null;
                 }
-                $datos .= Config::$sqlHelper->quoteLiteral($fvalue) . ", ";
+                $datos .= Database::getInstance()->getSqlHelper()->quoteLiteral($fvalue) . ", ";
             }
             $fields = substr($fields, 0, -2) . ")";
             $datos = substr($datos, 0, -2) . ")";

@@ -50,6 +50,16 @@ class Session
     }
 
     /**
+     * Return this instance.
+     *
+     * @return Session
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
      * Return this session.
      *
      * @return \Aura\Session\Session
@@ -123,15 +133,5 @@ class Session
     public function setFlash(string $key, $value)
     {
         $this->getSegment()->setFlash($key, $value);
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return Session
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
     }
 }

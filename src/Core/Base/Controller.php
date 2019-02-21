@@ -10,6 +10,7 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Skin;
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\FlashMessages;
 
 /**
  * TODO: Undocumented
@@ -326,7 +327,7 @@ abstract class Controller extends PageController
         if ($this->model->saveRecord($this->postData)) {
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
-            Config::setError(Config::$lang->trans('register-saved'));
+            FlashMessages::getInstance()::setError(Config::$lang->trans('register-saved'));
             //header('Location: ' . $this->url . '&' . $this->model->getIdField() . '=' . $id);
         }
         //$_POST['id'] = $this->currentId;
@@ -341,11 +342,11 @@ abstract class Controller extends PageController
             $this->initialize();
             // This 'locked' field can exists or not, if exist is used to not allow delete it.
             if (property_exists($this->model, 'locked') && $this->model->locked) {
-                Config::setError(Config::$lang->trans('register-locked'));
+                FlashMessages::getInstance()::setError(Config::$lang->trans('register-locked'));
             } elseif ($this->model->delete()) {
-                Config::setError(Config::$lang->trans('register-deleted'));
+                FlashMessages::getInstance()::setError(Config::$lang->trans('register-deleted'));
             } else {
-                Config::setError(Config::$lang->trans('register-not-deleted'));
+                FlashMessages::getInstance()::setError(Config::$lang->trans('register-not-deleted'));
             }
             $this->index();
         } else {
@@ -357,9 +358,9 @@ abstract class Controller extends PageController
      * El punto de entrada es run.
      * Index realiza los procesos necesarios una vez instanciada la clase.
      *
-     * @return void
+     * @return string
      */
-    public function index(): void
+    public function index(): string
     {
         parent::index();
         if ($this->canAccess) {

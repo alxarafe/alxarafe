@@ -8,6 +8,7 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
 use Alxarafe\Providers\DebugTool;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Twig_Environment;
 use Twig_Error_Loader;
@@ -95,6 +96,7 @@ class Skin
      */
     public static function setView(View $view): void
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         self::$view = $view;
         if (!self::hasTemplatesFolder()) {
             self::setTemplatesFolder('default');
@@ -108,6 +110,7 @@ class Skin
      */
     public static function hasTemplatesFolder(): bool
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return (self::$templatesFolder != null);
     }
 
@@ -118,6 +121,7 @@ class Skin
      */
     public static function hasTemplate(): bool
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return (self::$currentTemplate != null);
     }
 
@@ -130,9 +134,10 @@ class Skin
      */
     public static function getSkins(): array
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         $path = constant('BASE_PATH') . self::SKINS_FOLDER;
         if (!is_dir($path)) {
-            Config::setError("Directory '$path' does not exists!");
+            FlashMessages::getInstance()::setError("Directory '$path' does not exists!");
             return [];
         }
         $skins = scandir($path);
@@ -152,6 +157,7 @@ class Skin
      */
     public static function setSkin($skin): void
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         if ($skin != self::$currentSkin) {
             self::$currentSkin = $skin;
             self::setTemplatesFolder($skin);
@@ -166,6 +172,7 @@ class Skin
      */
     public static function setTemplate($template): void
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         self::$currentTemplate = $template;
         DebugTool::getInstance()->addMessage('messages', "Setting '$template' template");
     }
@@ -177,6 +184,7 @@ class Skin
      */
     public static function getTemplatesUri(): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return constant('BASE_URI') . self::$templatesFolder;
     }
 
@@ -187,6 +195,7 @@ class Skin
      */
     public static function getTemplatesEngine(): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return self::$templatesEngine;
     }
 
@@ -197,6 +206,7 @@ class Skin
      */
     public static function setTemplatesEngine($engine): void
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         self::$templatesEngine = $engine;
     }
 
@@ -207,6 +217,7 @@ class Skin
      */
     public static function getCommonTemplatesUri(): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return constant('BASE_URI') . self::$commonTemplatesFolder;
     }
 
@@ -219,6 +230,7 @@ class Skin
      */
     public static function render(array $vars): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         $details = [
             'Templates engine: ' . self::$templatesEngine,
             'Templates folder: ' . self::$templatesFolder,
@@ -239,6 +251,7 @@ class Skin
      */
     private static function renderIt(array $vars): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         $return = null;
         DebugTool::getInstance()->startTimer('renderer', 'Rendering time');
 
@@ -293,6 +306,7 @@ class Skin
      */
     private static function getTemplateVars(array $vars = []): array
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return array_merge($vars, [
             '_REQUEST' => $_REQUEST,
             '_GET' => $_GET,
@@ -308,6 +322,7 @@ class Skin
      */
     private static function getPaths(): array
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         $usePath = [];
         $paths = [
             self::getTemplatesFolder(),
@@ -331,6 +346,7 @@ class Skin
      */
     public static function getTemplatesFolder(): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return constant('BASE_PATH') . self::$templatesFolder;
     }
 
@@ -341,6 +357,7 @@ class Skin
      */
     public static function setTemplatesFolder(string $template): void
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
         DebugTool::getInstance()->addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
@@ -352,6 +369,7 @@ class Skin
      */
     public static function getCommonTemplatesFolder(): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         return constant('BASE_PATH') . self::$commonTemplatesFolder;
     }
 
@@ -362,6 +380,7 @@ class Skin
      */
     public static function setCommonTemplatesFolder(string $templatesFolder): void
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         DebugTool::getInstance()->addMessage('messages', "Setting '$templatesFolder' common templates folder");
         self::$commonTemplatesFolder = $templatesFolder;
     }
@@ -373,6 +392,7 @@ class Skin
      */
     private static function getOptions(): array
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         $options = [];
         $options['debug'] = (defined('DEBUG') && constant('DEBUG') == true);
         if (defined('CACHE') && constant('CACHE') == true) {
@@ -390,6 +410,7 @@ class Skin
      */
     private static function addSkinExtensions($twig): void
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         if (self::getOptions()['debug']) {
             // Only available in debug mode
             $twig->addExtension(new Twig_Extension_Debug());
@@ -404,6 +425,7 @@ class Skin
      */
     private static function getTemplate(): string
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         $template = (self::getTemplateVars()['template'] ?? Skin::$currentTemplate) . '.twig';
         DebugTool::getInstance()->addMessage('messages', "Using '$template' template");
         return $template;
@@ -419,6 +441,7 @@ class Skin
      */
     private static function errorDetails($e, $return = false)
     {
+        trigger_error("Replace this use with TemplateRender class", E_DEPRECATED);
         $msg = '<h3>Fatal error</h3>';
         $msg .= '<b>File:</b> ' . $e->getFile() . '<br/>';
         $msg .= '<b>Line:</b> ' . $e->getLine() . '<br/>';

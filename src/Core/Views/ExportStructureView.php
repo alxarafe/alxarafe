@@ -7,7 +7,6 @@
 namespace Alxarafe\Views;
 
 use Alxarafe\Base\View;
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Skin;
 
 /**
@@ -34,6 +33,6 @@ class ExportStructureView extends View
         parent::__construct($ctrl);
         Skin::setTemplate('exportstructure');
 
-        $this->tables = Config::$sqlHelper->getTables();
+        $this->tables = Database::getInstance()->getSqlHelper()->getTables();
     }
 }

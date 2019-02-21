@@ -181,6 +181,16 @@ class TemplateRender
     }
 
     /**
+     * Return this instance.
+     *
+     * @return TemplateRender
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
      * Return the full twig environtment.
      *
      * @return Twig_Environment
@@ -215,6 +225,12 @@ class TemplateRender
         $this->addExtensions();
         try {
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
+            $loggerData = [
+                'template' => $this->getTemplate() ?? 'empty.twig',
+                'vars' => $this->getTemplateVars($data),
+                'render' => $render,
+            ];
+            Logger::getInstance()->getLogger()->addDebug('debug', $loggerData);
         } catch (\Twig_Error_Loader $e) {
             $render = '';
             // When the template cannot be found
@@ -275,16 +291,6 @@ class TemplateRender
     }
 
     /**
-     * Returns true if a template has been specified.
-     *
-     * @return bool
-     */
-    public function hasTemplate(): bool
-    {
-        return ($this->template !== null);
-    }
-
-    /**
      * Return a list of template vars, merged with $vars,
      *
      * @param $vars
@@ -294,6 +300,16 @@ class TemplateRender
     private function getTemplateVars(array $vars = []): array
     {
         return array_merge($vars, $this->templateVars);
+    }
+
+    /**
+     * Returns true if a template has been specified.
+     *
+     * @return bool
+     */
+    public function hasTemplate(): bool
+    {
+        return ($this->template !== null);
     }
 
     /**
@@ -384,15 +400,5 @@ class TemplateRender
     public function getCommonTemplatesUri(): string
     {
         return baseUrl($this->commonTemplatesFolder);
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return TemplateRender
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
     }
 }

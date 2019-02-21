@@ -57,6 +57,16 @@ class Config
     }
 
     /**
+     * Return this instance.
+     *
+     * @return Config
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
      * Loads some constants.
      */
     public function loadConstants()
@@ -104,15 +114,5 @@ class Config
 
         // Carry Return (retorno de carro) & Line Feed (salto de línea).
         define('CRLF', "\n\t");
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return Config
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
     }
 }

@@ -30,9 +30,9 @@ class ExportStructure extends PageController
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit
      *
-     * @return void
+     * @return string
      */
-    public function main(): void
+    public function main(): string
     {
         switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED)) {
             case 'export-all':
@@ -63,9 +63,9 @@ class ExportStructure extends PageController
     /**
      * Start point
      *
-     * @return void
+     * @return string
      */
-    public function index(): void
+    public function index(): string
     {
         parent::index();
         Skin::setView(new ExportStructureView($this));

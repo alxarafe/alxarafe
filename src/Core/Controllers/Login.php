@@ -8,9 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Auth;
-use Alxarafe\Helpers\Config;
-use Alxarafe\Helpers\Skin;
-use Alxarafe\Views\LoginView;
+use Alxarafe\Providers\FlashMessages;
 
 /**
  * Class Login
@@ -38,19 +36,19 @@ class Login extends PageController
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return string
      */
-    public function run(): void
+    public function run(): string
     {
-        $this->index();
+        return $this->index();
     }
 
     /**
      * Start point
      *
-     * @return void
+     * @return string
      */
-    public function index(): void
+    public function index(): string
     {
         $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
         $this->userAuth = new Auth();
@@ -63,13 +61,13 @@ class Login extends PageController
             $remember = filter_input(INPUT_POST, 'remember-me', FILTER_SANITIZE_ENCODED);
             $remember = isset($remember);
             if ($this->userAuth->setUser($username, $password, $remember)) {
-                Config::setSuccess("User '" . $username . "' logged in.");
+                FlashMessages::getInstance()::setSuccess("User '" . $username . "' logged in.");
                 $this->redirectToController();
             } else {
-                Config::setError('User authentication error. Please check the username and password.');
+                FlashMessages::getInstance()::setError('User authentication error. Please check the username and password.');
             }
         }
-        $this->main();
+        return $this->main();
     }
 
     /**
@@ -82,7 +80,7 @@ class Login extends PageController
             $where = base64_decode(urldecode($this->redirect));
         }
         $this->debugTool->addMessage('messages', $where);
-        header('Location: ' . $where);
+        redirect($where);
     }
 
     /**
@@ -91,10 +89,11 @@ class Login extends PageController
      *
      * @return void
      */
-    public function main(): void
+    public function main(): string
     {
         if (!isset($this->userName)) {
-            Skin::setView(new LoginView($this));
+            $this->renderer->setTemplate('login');
+            return $this->renderer->render(['ctrl' => $this]);
         } else {
             $this->redirectToController();
         }

@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\MemcachedAdapter;
@@ -131,7 +131,7 @@ class Cache
             );
         } catch (CacheException $e) {
             Logger::getInstance()::exceptionHandler($e);
-            Config::setError($e->getMessage());
+            FlashMessages::getInstance()::setError($e->getMessage());
         }
     }
 
