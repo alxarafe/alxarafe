@@ -252,7 +252,6 @@ abstract class Controller extends PageController
     public function run(): void
     {
         if ($this->canAccess) {
-
         } else {
             $this->accessDenied();
         }
