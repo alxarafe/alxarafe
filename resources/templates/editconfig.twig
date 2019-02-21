@@ -7,7 +7,7 @@
 {% block body %}
     {{ parent() }}
     <div class="container-fluid">
-        <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig&{{ constant('METHOD_CONTROLLER') }}=main" method='post' accept-charset="utf-8">
+        <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig&{{ constant('METHOD_CONTROLLER') }}={{ constant('DEFAULT_METHOD') }}" method='post' accept-charset="utf-8">
             <div class="row">
                 <div class="col-xs-12">
                     {% if (message) %}{{ message }}{% endif %}

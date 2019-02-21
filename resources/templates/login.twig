@@ -4,7 +4,7 @@
 #}
 {% extends "index.twig" %}
 {% block title %}
-    Identificación de usuario
+    {{ lang.trans('user-authentication') }}
 {% endblock %}
 
 {# This remove bodytitle content #}
@@ -20,24 +20,24 @@
             {% set redirect = '&redirect=' ~ ctrl.redirect %}
         {% endif %}
         <form class="form-signin" method="post" action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=index{{ redirect }}">
-            <h2 class="form-signin-heading">Acceso a la aplicación</h2>
+            <h2 class="form-signin-heading">{{ lang.trans('application-access') }}</h2>
             <div class="thumbnail">
-                <img src="{{ constant('DEFAULT_TEMPLATES_URI') }}/img/login.png" alt="">
+                <img src="{{ getResourceUri('/img/login.png') }}" alt="">
                 <div class="caption">
                     <div class="input-group">
                         <span class="input-group-addon" id="username-addon">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         </span>
-                        <label for="username" class="sr-only">Usuario</label>
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" aria-describedby="username-addon" required autofocus>
+                        <label for="username" class="sr-only">{{ lang.trans('user') }}</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="{{ lang.trans('user') }}" aria-describedby="username-addon" required autofocus>
                     </div>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" aria-describedby="password-addon" required>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="{{ lang.trans('password') }}" aria-describedby="password-addon" required>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="remember-me" value="true"> Recordarme
+                            <input type="checkbox" name="remember-me" value="true"> {{ lang.trans('rememberme') }}
                         </label>
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="login" value="true">Acceder
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="login" value="true">{{ lang.trans('enter') }}
                     </button>
                 </div>
             </div>

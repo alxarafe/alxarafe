@@ -10,8 +10,10 @@ use Alxarafe\Helpers\Session;
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Container;
 use Alxarafe\Providers\DebugTool;
+use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\TemplateRender;
 use Alxarafe\Providers\Translator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -131,11 +133,24 @@ class SimpleController
     /**
      * Send the Response with data received.
      *
-     * @param $reply
+     * @param string $reply
+     * @param int    $status
      */
-    public function sendResponse($reply)
+    public function sendResponse(string $reply, $status = Response::HTTP_OK)
     {
+        $this->response->setStatusCode($status);
         $this->response->setContent($reply);
         $this->response->send();
+    }
+
+    /**
+     * Send a RedirectResponse to destiny receive.
+     *
+     * @param string $destiny
+     */
+    public function redirect(string $destiny)
+    {
+        Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
+        (new RedirectResponse($destiny))->send();
     }
 }

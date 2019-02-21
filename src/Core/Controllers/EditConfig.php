@@ -115,11 +115,11 @@ class EditConfig extends PageController
                 $this->userAuth->logout();
                 break;
             case 'cancel':
+                $this->redirect(constant('BASE_URI') . '/index.php');
+                break;
             default:
-                header('Location: ' . constant('BASE_URI') . '/index.php');
                 break;
         }
-        $this->sendTemplateResponse();
     }
 
     /**
@@ -196,6 +196,7 @@ class EditConfig extends PageController
     {
         parent::index();
         $this->setDefaultData();
+        $this->main();
         $this->sendTemplateResponse();
     }
 

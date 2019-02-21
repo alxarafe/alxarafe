@@ -225,12 +225,15 @@ class TemplateRender
         $this->addExtensions();
         try {
             $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
-            $loggerData = [
-                'template' => $this->getTemplate() ?? 'empty.twig',
-                'vars' => $this->getTemplateVars($data),
-                'render' => $render,
-            ];
-            Logger::getInstance()->getLogger()->addDebug('debug', $loggerData);
+//            if (constant('DEBUG')) {
+//                // Stores some usefull data if not rendering but called.
+//                $loggerData = [
+//                    'template' => $this->getTemplate() ?? 'empty.twig',
+//                    'vars' => $this->getTemplateVars($data),
+//                    'render' => $render,
+//                ];
+//                Logger::getInstance()->getLogger()->addDebug('debug', $loggerData);
+//            }
         } catch (\Twig_Error_Loader $e) {
             $render = '';
             // When the template cannot be found

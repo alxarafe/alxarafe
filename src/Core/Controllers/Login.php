@@ -81,7 +81,7 @@ class Login extends PageController
             $where = base64_decode(urldecode($this->redirect));
         }
         $this->debugTool->addMessage('messages', $where);
-        redirect($where);
+        $this->redirect($where);
     }
 
     /**
