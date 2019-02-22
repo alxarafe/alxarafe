@@ -229,7 +229,6 @@ class BootStrap
         $this->container::add('config', $this->configData);
         $this->container::add('defaultLang', $this->defaultLang);
         $this->container::add('request', $this->request);
-        $this->container::add('response', $this->response);
     }
 
     /**
@@ -243,7 +242,6 @@ class BootStrap
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
         $controller = null;
-        $reply = '';
         $msg = $this->translator->trans('route-not-found');
         $this->response->setStatusCode(Response::HTTP_NOT_FOUND);
         if ($this->router->hasRoute($call)) {
@@ -252,11 +250,8 @@ class BootStrap
             $this->response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
             if (method_exists($controllerName, $method)) {
                 $controller = new $controllerName();
-                $reply = $controller->{$method}();
-                if (empty($reply)) {
-                    $reply = $this->translator->trans('not-rendered-from-controller') . ' ' . $controllerName . '->' . $method;
-                }
-                $this->response->setStatusCode(Response::HTTP_NO_CONTENT);
+                Logger::getInstance()->getLogger()->addDebug('Call to ' . $controllerName . '->' . $method . '()');
+                $this->response = $controller->{$method}();
             }
         }
 
@@ -268,9 +263,14 @@ class BootStrap
                 'msg' => $msg,
             ];
             $reply = $this->renderer->render($vars);
+            $this->response->setContent($reply);
+        } elseif (!$this->response instanceof Response) {
+            $this->response = new Response();
+            // This must be removed, only for now to complete
+            $reply = $this->translator->trans('not-response-from-controller') . ' ' . $controllerName . '->' . $method;
+            $this->response->setStatusCode(Response::HTTP_GONE);
+            $this->response->setContent($reply);
         }
-
-        $this->response->setContent($reply);
         $this->response->send();
     }
 }

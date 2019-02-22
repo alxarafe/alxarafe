@@ -9,6 +9,8 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Providers\FlashMessages;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Login
@@ -36,19 +38,19 @@ class Login extends PageController
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
-        $this->index();
+        return $this->index();
     }
 
     /**
      * Start point
      *
-     * @return void
+     * @return Response
      */
-    public function index(): void
+    public function index(): Response
     {
         $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
         $this->userAuth = new Auth();
@@ -62,52 +64,54 @@ class Login extends PageController
             $remember = isset($remember);
             if ($this->userAuth->setUser($username, $password, $remember)) {
                 FlashMessages::getInstance()::setSuccess("User '" . $username . "' logged in.");
-                $this->redirectToController();
+                return $this->redirectToController();
             } else {
                 FlashMessages::getInstance()::setError('User authentication error. Please check the username and password.');
             }
         }
-        $this->main();
-        $this->sendTemplateResponse();
+        return $this->main();
     }
 
     /**
      * Redirect to controller, default or selected by the user.
+     *
+     * @return Response
      */
-    private function redirectToController(): void
+    private function redirectToController(): Response
     {
         $where = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . constant('DEFAULT_CONTROLLER'));
         if (!empty($this->redirect)) {
             $where = base64_decode(urldecode($this->redirect));
         }
         $this->debugTool->addMessage('messages', $where);
-        $this->redirect($where);
+        return $this->redirect($where);
     }
 
     /**
      * Main is invoked if method is not specified.
      * Load the view of the login form, if there is no user identified.
      *
-     * @return void
+     * @return Response
      */
-    public function main(): void
+    public function main(): Response
     {
         if (!isset($this->userName)) {
             $this->renderer->setTemplate('login');
-            $this->sendTemplateResponse();
+            return $this->sendResponseTemplate();
         } else {
-            $this->redirectToController();
+            return $this->redirectToController();
         }
     }
 
     /**
      * Close the user session and go to the main page
      *
-     * @return void
+     * @return RedirectResponse
      */
-    public function logout(): void
+    public function logout(): RedirectResponse
     {
-        $this->userAuth->logout();
+        $this->index();
+        return $this->userAuth->logout();
     }
 
     /**

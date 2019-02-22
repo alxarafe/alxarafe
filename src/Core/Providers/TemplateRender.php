@@ -34,21 +34,21 @@ class TemplateRender
      *
      * @var Twig_Environment
      */
-    protected $twig;
+    protected static $twig;
 
     /**
      * The template to use.
      *
      * @var string|null
      */
-    protected $template;
+    protected static $template;
 
     /**
      * The skin to use.
      *
      * @var string|null
      */
-    protected $skin;
+    protected static $skin;
 
     /**
      * Indicates the folder where the files common to all the templates are located.
@@ -57,14 +57,14 @@ class TemplateRender
      *
      * @var string
      */
-    protected $commonTemplatesFolder;
+    protected static $commonTemplatesFolder;
 
     /**
      * It's the name of the skin that is being used.
      *
      * @var string
      */
-    private $currentSkin;
+    private static $currentSkin;
 
     /**
      * It is the skin, that is, the folder that contains the templates.
@@ -74,32 +74,33 @@ class TemplateRender
      *
      * @var string
      */
-    private $templatesFolder;
+    private static $templatesFolder;
 
     /**
      * Contains the template vars.
      *
      * @var array
      */
-    private $templateVars;
+    private static $templateVars;
 
     /**
      * TemplateRender constructor.
      */
     public function __construct()
     {
-        if (!isset($this->twig)) {
+        if (!isset(self::$twig)) {
             $this->initSingleton();
-            $this->template = null;
-            $this->templateVars = [
+            self::$template = null;
+            self::$templateVars = [
                 '_REQUEST' => $_REQUEST,
                 '_GET' => $_GET,
                 '_POST' => $_POST,
                 'GLOBALS' => $GLOBALS,
             ];
-            $this->commonTemplatesFolder = $this->getTemplatesFolder();
+            self::$commonTemplatesFolder = $this->getTemplatesFolder();
             $loader = new Twig_Loader_Filesystem($this->getPaths());
-            $this->twig = new Twig_Environment($loader, $this->getOptions());
+            self::$twig = new Twig_Environment($loader, $this->getOptions());
+            $this->addExtensions();
         }
     }
 
@@ -120,7 +121,7 @@ class TemplateRender
      */
     public function setTemplatesFolder(string $template)
     {
-        $this->templatesFolder = basePath(self::SKINS_FOLDER) . '/' . trim($template, '/');
+        self::$templatesFolder = basePath(self::SKINS_FOLDER) . '/' . trim($template, '/');
     }
 
     /**
@@ -152,7 +153,7 @@ class TemplateRender
      */
     public function getCommonTemplatesFolder(): string
     {
-        return basePath($this->commonTemplatesFolder);
+        return basePath(self::$commonTemplatesFolder);
     }
 
     /**
@@ -162,7 +163,7 @@ class TemplateRender
      */
     public function setCommonTemplatesFolder(string $templatesFolder): void
     {
-        $this->commonTemplatesFolder = $templatesFolder;
+        self::$commonTemplatesFolder = $templatesFolder;
     }
 
     /**
@@ -197,7 +198,7 @@ class TemplateRender
      */
     public function getTwig(): Twig_Environment
     {
-        return $this->twig;
+        return self::$twig;
     }
 
     /**
@@ -209,7 +210,7 @@ class TemplateRender
      */
     public function setTwig(Twig_Environment $twig): self
     {
-        $this->twig = $twig;
+        self::$twig = $twig;
         return $this;
     }
 
@@ -222,9 +223,8 @@ class TemplateRender
      */
     public function render(array $data = []): string
     {
-        $this->addExtensions();
         try {
-            $render = $this->twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
+            $render = self::$twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
 //            if (constant('DEBUG')) {
 //                // Stores some usefull data if not rendering but called.
 //                $loggerData = [
@@ -258,15 +258,15 @@ class TemplateRender
     private function addExtensions(): void
     {
         // Add support for additional filters
-        $this->twig->addExtension(new TwigFilters());
+        self::$twig->addExtension(new TwigFilters());
 
         // Add support for additional functions
-        $this->twig->addExtension(new TwigFunctions());
+        self::$twig->addExtension(new TwigFunctions());
 
         $isDebug = $this->getOptions()['debug'];
         if ($isDebug) {
             // Only available in debug mode
-            $this->twig->addExtension(new Twig_Extension_Debug());
+            self::$twig->addExtension(new Twig_Extension_Debug());
         }
     }
 
@@ -277,7 +277,7 @@ class TemplateRender
      */
     public function getTemplate()
     {
-        return isset($this->template) ? $this->template . '.twig' : null;
+        return isset(self::$template) ? self::$template . '.twig' : null;
     }
 
     /**
@@ -289,7 +289,7 @@ class TemplateRender
      */
     public function setTemplate($template): self
     {
-        $this->template = $template;
+        self::$template = $template;
         return $this;
     }
 
@@ -302,7 +302,7 @@ class TemplateRender
      */
     private function getTemplateVars(array $vars = []): array
     {
-        return array_merge($vars, $this->templateVars);
+        return array_merge($vars, self::$templateVars);
     }
 
     /**
@@ -312,7 +312,7 @@ class TemplateRender
      */
     public function hasTemplate(): bool
     {
-        return ($this->template !== null);
+        return (self::$template !== null);
     }
 
     /**
@@ -322,7 +322,7 @@ class TemplateRender
      */
     public function addVars(array $vars = [])
     {
-        $this->templateVars = array_merge($vars, $this->templateVars);
+        self::$templateVars = array_merge($vars, self::$templateVars);
     }
 
     /**
@@ -353,8 +353,8 @@ class TemplateRender
      */
     public function setSkin(string $skin)
     {
-        if ($skin != $this->currentSkin) {
-            $this->currentSkin = $skin;
+        if ($skin != self::$currentSkin) {
+            self::$currentSkin = $skin;
             $this->setTemplatesFolder($skin);
         }
     }
@@ -402,6 +402,6 @@ class TemplateRender
      */
     public function getCommonTemplatesUri(): string
     {
-        return baseUrl($this->commonTemplatesFolder);
+        return baseUrl(self::$commonTemplatesFolder);
     }
 }

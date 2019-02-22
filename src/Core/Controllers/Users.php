@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Models\User;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Users
@@ -28,11 +29,12 @@ class Users extends Controller
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
         parent::run();
+        return $this->sendResponseTemplate();
     }
 
     /**

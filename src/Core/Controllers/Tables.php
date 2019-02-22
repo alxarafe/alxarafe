@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Models\TableModel;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Models
@@ -28,11 +29,12 @@ class Tables extends Controller
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
         parent::run();
+        return $this->sendResponseTemplate();
     }
 
     /**

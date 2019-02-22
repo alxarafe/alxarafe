@@ -9,6 +9,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\SimpleController;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Providers\FlashMessages;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -30,9 +31,9 @@ class CreateConfig extends SimpleController
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return void
+     * @return Response
      */
-    public function main(): void
+    public function main(): Response
     {
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
@@ -40,14 +41,13 @@ class CreateConfig extends SimpleController
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 $this->debugTool->addMessage('messages', $msg);
                 FlashMessages::getInstance()::setInfo($msg);
-                $this->redirect(baseUrl('index.php'));
+                return $this->redirect(baseUrl('index.php'));
                 break;
             case 'cancel':
-            default:
-            $this->redirect(baseUrl('index.php'));
+                return $this->redirect(baseUrl('index.php'));
                 break;
         }
-        $this->sendTemplateResponse();
+        return $this->sendResponseTemplate();
     }
 
     /**
@@ -75,27 +75,26 @@ class CreateConfig extends SimpleController
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
-        $this->index();
+        return $this->index();
     }
 
     /**
      * Start point
      *
-     * @return void
+     * @return Response
      */
-    public function index(): void
+    public function index(): Response
     {
         parent::index();
-        if (!Config::configFileExists()) {
-            $this->renderer->setTemplate('createconfig');
-        } else {
-            $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login'));
+        if (Config::configFileExists()) {
+            return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login'));
         }
-        $this->sendTemplateResponse();
+        $this->renderer->setTemplate('createconfig');
+        return $this->sendResponseTemplate();
     }
 
     /**.

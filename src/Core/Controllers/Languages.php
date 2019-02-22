@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Models\Language;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -29,9 +30,9 @@ class Languages extends Controller
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return void
+     * @return Response
      */
-    public function main(): void
+    public function main(): Response
     {
         $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
@@ -39,7 +40,7 @@ class Languages extends Controller
                 $this->regenerate();
                 break;
         }
-        $this->sendTemplateResponse();
+        return $this->sendResponseTemplate();
     }
 
     public function regenerate()
@@ -131,9 +132,9 @@ class Languages extends Controller
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
         parent::run();
     }

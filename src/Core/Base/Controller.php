@@ -10,6 +10,9 @@ use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Translator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * TODO: Undocumented
@@ -171,13 +174,13 @@ abstract class Controller extends PageController
      */
     public function create()
     {
+        $this->accessDenied();
         if ($this->canAccess && $this->canUpdate) {
             $this->initialize();
             $this->status = 'adding';
             $this->renderer->setTemplate('master/create');
-        } else {
-            $this->accessDenied();
         }
+        return $this->sendResponseTemplate();
     }
 
     /**
@@ -234,34 +237,37 @@ abstract class Controller extends PageController
      */
     public function show()
     {
+        $this->accessDenied();
         if ($this->canAccess && $this->canRead) {
             $this->initialize();
             $this->postData = $this->getRecordData();
             $this->status = 'showing';
-            $this->run();
-        } else {
-            $this->accessDenied();
+            return $this->run();
         }
+        return $this->sendResponseTemplate();
     }
 
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
-        if ($this->canAccess) {
-        } else {
+        if (!$this->canAccess) {
             $this->accessDenied();
+            return $this->sendResponseTemplate();
         }
     }
 
     /**
      * Edit existing record.
+     *
+     * @return Response
      */
-    public function edit()
+    public function edit(): Response
     {
+        $this->accessDenied();
         if ($this->canAccess && $this->canUpdate) {
             $this->initialize();
             $this->status = 'editing';
@@ -276,24 +282,23 @@ abstract class Controller extends PageController
                     $this->save();
                     break;
             }
-            $this->run();
-        } else {
-            $this->accessDenied();
+            return $this->run();
         }
+        return $this->sendResponseTemplate();
     }
 
     /**
      * Cancela la edición regresando al controlador/registro que corresponda
      *
-     * @return void
+     * @return RedirectResponse
      */
-    protected function cancel(): void
+    protected function cancel(): RedirectResponse
     {
         // Si no hay puesto id estaba en la pantalla del listado de registros...
         if ($this->status == 'listing') {
-            $this->redirect(baseUrl('index.php'));
+            return $this->redirect(baseUrl('index.php'));
         }
-        $this->redirect($this->url);
+        return $this->redirect($this->url);
     }
 
     /**
@@ -325,7 +330,7 @@ abstract class Controller extends PageController
         if ($this->model->saveRecord($this->postData)) {
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
-            FlashMessages::getInstance()::setError(Config::$lang->trans('register-saved'));
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-saved'));
             //$this->redirect($this->url . '&' . $this->model->getIdField() . '=' . $this->currentId);
         }
         //$_POST['id'] = $this->currentId;
@@ -336,52 +341,57 @@ abstract class Controller extends PageController
      */
     public function delete()
     {
+        $this->accessDenied();
         if ($this->canAccess && $this->canDelete) {
             $this->initialize();
             // This 'locked' field can exists or not, if exist is used to not allow delete it.
             if (property_exists($this->model, 'locked') && $this->model->locked) {
-                FlashMessages::getInstance()::setError(Config::$lang->trans('register-locked'));
+                FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
             } elseif ($this->model->delete()) {
-                FlashMessages::getInstance()::setError(Config::$lang->trans('register-deleted'));
+                FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
             } else {
-                FlashMessages::getInstance()::setError(Config::$lang->trans('register-not-deleted'));
+                FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
             }
-            $this->index();
-        } else {
-            $this->accessDenied();
+            return $this->index();
         }
+        return $this->sendResponseTemplate();
     }
 
     /**
      * El punto de entrada es run.
      * Index realiza los procesos necesarios una vez instanciada la clase.
      *
-     * @return void
+     * @return Response
      */
-    public function index(): void
+    public function index(): Response
     {
-        parent::index();
+        $result = parent::index();
+        if (!is_null($result)) {
+            return $result;
+        }
+        $this->accessDenied();
         if ($this->canAccess) {
             $this->initialize();
             $this->listData();
-        } else {
-            $this->accessDenied();
+            return $this->run();
         }
-        $this->run();
+        return $this->sendResponseTemplate();
     }
 
     /**
      * List all records on model.
+     *
+     * @return Response
      */
-    public function listData()
+    public function listData(): Response
     {
+        $this->accessDenied();
         if ($this->canAccess && $this->canRead) {
             $this->status = 'listing';
             $this->code = Utils::randomString(10);
             $this->renderer->setTemplate('master/list');
-        } else {
-            $this->accessDenied();
         }
+        return $this->sendResponseTemplate();
     }
 
     /**
@@ -389,7 +399,10 @@ abstract class Controller extends PageController
      */
     public function ajaxTableData()
     {
-        parent::index();
+        $result = parent::index();
+        if (!is_null($result)) {
+            return $result;
+        }
         $this->renderer->setTemplate('json');
         // Para acceder de forma más simplificada y unificada a los valores
         $requestData = $_REQUEST;
@@ -463,14 +476,14 @@ abstract class Controller extends PageController
         $list = [];
         foreach ($this->viewData as $key => $value) {
             $list[$key] = [
-                'label' => Config::$lang->trans($value['shortlabel'] ?? 'col-' . $key),
+                'label' => Translator::getInstance()->trans($value['shortlabel'] ?? 'col-' . $key),
                 'class' => null,
                 'style' => null,
             ];
         }
 
         $list['col-action'] = [
-            'label' => Config::$lang->trans('action'),
+            'label' => Translator::getInstance()->trans('action'),
             'class' => 'text-center',
             'style' => 'width: 1%; min-width: 225px; max-width: 300px;',
         ];
@@ -488,7 +501,7 @@ abstract class Controller extends PageController
             foreach ($this->postData[$this->tableName] as $pos => $valueData) {
                 foreach ($this->viewData as $key => $viewDataValue) {
                     $list[$pos][$key] = [
-                        'label' => Config::$lang->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
+                        'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
                         'value' => $valueData[$key],
                         'idName' => $this->tableName . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $key,
                         'listPosition' => $pos,
@@ -521,12 +534,12 @@ abstract class Controller extends PageController
                 $translate = ['title', 'placeholder'];
                 foreach ($translate as $keyTrans => $valueTrans) {
                     if (isset($viewDataValue[$keyTrans])) {
-                        $viewDataValue[$keyTrans] = Config::$lang->trans($viewDataValue[$keyTrans]);
+                        $viewDataValue[$keyTrans] = Translator::getInstance()->trans($viewDataValue[$keyTrans]);
                     }
                 }
 
                 $list[$pos][$key] = [
-                    'label' => Config::$lang->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
+                    'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
                     'value' => $valueData[$key],
                     'idName' => $this->tableName . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $key,
                     'listPosition' => $pos,
@@ -554,14 +567,14 @@ abstract class Controller extends PageController
         /*
           foreach ($this->viewData as $key => $value) {
           $list[$key] = [
-          'label' => Config::$lang->trans($value['shortlabel'] ?? 'col-' . $key),
+          'label' => Translator::getInstance()->trans($value['shortlabel'] ?? 'col-' . $key),
           'class' => null,
           'style' => null,
           ];
           }
 
           $list['col-action'] = [
-          'label' => Config::$lang->trans('action'),
+          'label' => Translator::getInstance()->trans('action'),
           'class' => 'text-center',
           'style' => 'width: 1%; min-width: 225px; max-width: 300px;',
           ];

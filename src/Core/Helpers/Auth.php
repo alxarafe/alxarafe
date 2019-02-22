@@ -10,6 +10,7 @@ use Alxarafe\Models\User;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Auth
@@ -160,29 +161,29 @@ class Auth extends User
     /**
      * Login the user.
      *
-     * @return void
+     * @return RedirectResponse|null
      */
-    public function login(): void
+    public function login()
     {
         if (strpos($_SERVER['REQUEST_URI'], constant('CALL_CONTROLLER') . '=Login') === false) {
             $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_URI']));
-            $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo));
+            $url = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
+            (new Response($this->redirect($url)))->send();
         }
+        return null;
     }
 
     /**
      * Logout the user.
      *
-     * @return void
+     * @return RedirectResponse
      */
-    public function logout(): void
+    public function logout(): RedirectResponse
     {
-        FlashMessages::getInstance()::setInfo('Logout: ' . ($this->username === null ? 'There was no identified user.' : 'User' . $this->username . ' has successfully logged out'));
-
+        FlashMessages::getInstance()::setInfo('Logout: ' . ($this->username === null ? 'There was no identified user.' : 'User ' . $this->username . ' has successfully logged out'));
         $this->username = null;
-
         $this->clearCookieUser();
-        $this->redirect(baseUrl('index.php'));
+        return $this->redirect(baseUrl('index.php'));
     }
 
     /**
@@ -239,13 +240,15 @@ class Auth extends User
      * Send a RedirectResponse to destiny receive.
      *
      * @param string $destiny
+     *
+     * @return RedirectResponse
      */
-    public function redirect(string $destiny = '')
+    public function redirect(string $destiny = ''): RedirectResponse
     {
         if (empty($destiny)) {
             $destiny = baseUrl('index.php');
         }
         Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
-        (new RedirectResponse($destiny))->send();
+        return new RedirectResponse($destiny);
     }
 }

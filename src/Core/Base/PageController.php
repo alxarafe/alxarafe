@@ -11,13 +11,14 @@ use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class PageController, all controllers that needs to be accessed as a page must extends from this.
  *
  * @package Alxarafe\Base
  */
-class PageController extends SimpleController
+abstract class PageController extends SimpleController
 {
     /**
      * Symbol to split menu/submenu items.
@@ -165,14 +166,22 @@ class PageController extends SimpleController
     /**
      * Start point
      *
-     * @return void
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
      */
-    public function index(): void
+    public function index()
     {
-        if ($this->ensureLogin()) {
-            parent::index();
+        if (!$this->ensureLogin()) {
+            return $this->redirect();
         }
+        return null;
     }
+
+    /**
+     * Start point
+     *
+     * @return Response
+     */
+    abstract public function run(): Response;
 
     /**
      * Check if user is logged in, and redirect to this controller if needed.

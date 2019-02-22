@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\PageController;
 use Alxarafe\Helpers\Schema;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller for editing database and skin settings
@@ -28,9 +29,9 @@ class ExportStructure extends PageController
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit
      *
-     * @return void
+     * @return Response
      */
-    public function main(): void
+    public function main(): Response
     {
         switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED)) {
             case 'export-all':
@@ -43,31 +44,34 @@ class ExportStructure extends PageController
                 }
                 break;
             case 'cancel':
-                $this->redirect(baseUrl('index.php'));
+                return $this->redirect(baseUrl('index.php'));
                 break;
         }
-        $this->sendTemplateResponse();
+        return $this->sendResponseTemplate();
     }
 
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
-        $this->index();
+        return $this->index();
     }
 
     /**
      * Start point
      *
-     * @return void
+     * @return Response
      */
-    public function index(): void
+    public function index(): Response
     {
-        parent::index();
-        $this->sendTemplateResponse();
+        $result = parent::index();
+        if (!is_null($result)) {
+            return $result;
+        }
+        return $this->sendResponseTemplate();
     }
 
     /**.

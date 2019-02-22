@@ -13,6 +13,7 @@ use Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Translator;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller for editing database and skin settings.
@@ -91,9 +92,9 @@ class EditConfig extends PageController
     /**
      * Main is invoked if method is not specified. Check if you have to save changes or just exit.
      *
-     * @return void
+     * @return Response
      */
-    public function main(): void
+    public function main(): Response
     {
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
@@ -111,11 +112,10 @@ class EditConfig extends PageController
                 FlashMessages::getInstance()::setInfo($msg);
                 break;
             case 'cancel':
-                $this->redirect(baseUrl('index.php'));
-                break;
-            default:
+                return $this->redirect(baseUrl('index.php'));
                 break;
         }
+        return $this->sendResponseTemplate();
     }
 
     /**
@@ -182,22 +182,24 @@ class EditConfig extends PageController
     /**
      * The start point of the controller.
      *
-     * @return void
+     * @return Response
      */
-    public function run(): void
+    public function run(): Response
     {
-        $this->index();
+        return $this->index();
     }
 
     /**
-     * @return void
+     * @return Response
      */
-    public function index(): void
+    public function index(): Response
     {
-        parent::index();
+        $result = parent::index();
+        if (!is_null($result)) {
+            return $result;
+        }
         $this->setDefaultData();
-        $this->main();
-        $this->sendTemplateResponse();
+        return $this->main();
     }
 
     /**

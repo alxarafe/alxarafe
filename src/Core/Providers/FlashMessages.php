@@ -67,6 +67,7 @@ class FlashMessages
             'type' => 'danger',
             'msg' => $msg,
         ];
+        Logger::getInstance()->getLogger()->addError($msg);
         self::$session->setFlash('messages', self::$messagesList);
     }
 
@@ -81,6 +82,7 @@ class FlashMessages
             'type' => 'warning',
             'msg' => $msg,
         ];
+        Logger::getInstance()->getLogger()->addWarning($msg);
         self::$session->setFlash('messages', self::$messagesList);
     }
 
@@ -95,6 +97,7 @@ class FlashMessages
             'type' => 'info',
             'msg' => $msg,
         ];
+        Logger::getInstance()->getLogger()->addInfo($msg);
         self::$session->setFlash('messages', self::$messagesList);
     }
 
@@ -109,6 +112,7 @@ class FlashMessages
             'type' => 'success',
             'msg' => $msg,
         ];
+        Logger::getInstance()->getLogger()->addNotice($msg);
         self::$session->setFlash('messages', self::$messagesList);
     }
 

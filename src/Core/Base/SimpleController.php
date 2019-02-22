@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Base
  */
-class SimpleController
+abstract class SimpleController
 {
     /**
      * TODO: Undocumented
@@ -97,7 +97,7 @@ class SimpleController
         $this->debugTool = DebugTool::getInstance();
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Controller Constructor');
         $this->request = $this->container::get('request');
-        $this->response = $this->container::get('response');
+        $this->response = new Response();
         $this->session = Session::getInstance();
         $this->renderer = TemplateRender::getInstance();
         $this->translator = Translator::getInstance();
@@ -111,23 +111,16 @@ class SimpleController
     }
 
     /**
-     * Start point
-     *
-     * @return void
-     */
-    public function index(): void
-    {
-    }
-
-    /**
      * Add new vars to render, render the template and send the Response.
      *
      * @param array $data
+     *
+     * @return Response
      */
-    public function sendTemplateResponse(array $data = [])
+    public function sendResponseTemplate(array $data = []): Response
     {
         $data = array_merge($data, ['ctrl' => $this]);
-        $this->sendResponse($this->renderer->render($data));
+        return $this->sendResponse($this->renderer->render($data));
     }
 
     /**
@@ -135,25 +128,29 @@ class SimpleController
      *
      * @param string $reply
      * @param int    $status
+     *
+     * @return Response
      */
-    public function sendResponse(string $reply, $status = Response::HTTP_OK)
+    public function sendResponse(string $reply, $status = Response::HTTP_OK): Response
     {
         $this->response->setStatusCode($status);
         $this->response->setContent($reply);
-        $this->response->send();
+        return $this->response;
     }
 
     /**
      * Send a RedirectResponse to destiny receive.
      *
      * @param string $destiny
+     *
+     * @return RedirectResponse
      */
-    public function redirect(string $destiny = '')
+    public function redirect(string $destiny = ''): RedirectResponse
     {
         if (empty($destiny)) {
             $destiny = baseUrl('index.php');
         }
         Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
-        (new RedirectResponse($destiny))->send();
+        return new RedirectResponse($destiny);
     }
 }
