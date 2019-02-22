@@ -81,12 +81,12 @@ class Router
      *
      * @return array
      */
-    private function getDefaultRoutes()
+    public function getDefaultRoutes()
     {
         return [
-            'CreateConfig' => 'Alxarafe\\Controllers\\CreateConfig',
-            'EditConfig' => 'Alxarafe\\Controllers\\EditConfig',
-            'Login' => 'Alxarafe\\Controllers\\Login',
+            'CreateConfig' => '\\Alxarafe\\Controllers\\CreateConfig',
+            'EditConfig' => '\\Alxarafe\\Controllers\\EditConfig',
+            'Login' => '\\Alxarafe\\Controllers\\Login',
         ];
     }
 
