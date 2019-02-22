@@ -48,6 +48,24 @@ fields:
     default: '0'
     nullable: 'yes'
     unsigned: 'yes'
+  can_print:
+    type: integer
+    length: '10'
+    default: '0'
+    nullable: 'yes'
+    unsigned: 'yes'
+  can_export:
+    type: integer
+    length: '10'
+    default: '0'
+    nullable: 'yes'
+    unsigned: 'yes'
+  can_sendmail:
+    type: integer
+    length: '10'
+    default: '0'
+    nullable: 'yes'
+    unsigned: 'yes'
   locked:
     type: integer
     length: '1'
