@@ -29,6 +29,12 @@ class Pages
     protected $searchDir;
 
     /**
+     *
+     * @var Router
+     */
+    private $routes;
+
+    /**
      * Models constructor.
      *
      * @param array $dirs
@@ -53,8 +59,8 @@ class Pages
         // Start DB transaction
         Database::getInstance()->getDbEngine()->beginTransaction();
 
-        $routes = Router::getInstance();
-        $routes->setRoutes();   // Delete all routes
+        $this->routes = Router::getInstance();
+        $this->routes->setRoutes();   // Delete all routes
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
                 ->files()
@@ -64,11 +70,10 @@ class Pages
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $this->instanciateClass($namespace, $className);
-                //$this->cleanPagesBefore($start);
-                $routes->addRoute($className, $controllerFile);
+                $this->cleanPagesBefore($start);
             }
         }
-        $routes->saveRoutes();
+        $this->routes->saveRoutes();
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
@@ -87,7 +92,7 @@ class Pages
     {
         $pages = (new Page())->getAllRecords();
         foreach ($pages as $pos => $oldPage) {
-            if ($start->diff(new DateTime($oldPage->updated_date))->f < 0) {
+            if ($start->diff(new DateTime($oldPage['updated_date']))->f < 0) {
                 $page = new Page();
                 $page->setOldData($oldPage);
                 $page->delete();
@@ -108,6 +113,7 @@ class Pages
         $parents = class_parents($class);
         if (in_array('Alxarafe\Base\PageController', $parents)) {
             $this->updatePageData($className, $namespace, $newClass);
+            $this->routes->addRoute($className, $class);
         }
     }
 
