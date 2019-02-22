@@ -139,6 +139,5 @@ class Pages
      */
     private function updateRoute()
     {
-
     }
 }
