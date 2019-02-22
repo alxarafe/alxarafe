@@ -109,9 +109,6 @@ class EditConfig extends PageController
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 FlashMessages::getInstance()::setInfo($msg);
-                // The database or prefix may have been changed and have to be regenerated.
-                CacheCore::getInstance()->getEngine()->clear();
-                $this->userAuth->logout();
                 break;
             case 'cancel':
                 $this->redirect(baseUrl('index.php'));
@@ -159,6 +156,7 @@ class EditConfig extends PageController
         }
 
         $databaseConfig = Database::getInstance()->getConfig();
+        $databaseConfigOrig = $databaseConfig;
         $databaseConfig['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_ENCODED);
         $databaseConfig['dbUser'] = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_ENCODED);
         $databaseConfig['dbPass'] = filter_input(INPUT_POST, 'dbPass', FILTER_SANITIZE_ENCODED);
@@ -171,8 +169,11 @@ class EditConfig extends PageController
             $result = false;
         }
 
-        if ($result) {
-            FlashMessages::getInstance()::setSuccess('configuration-updated-successfully');
+        if ($result && $databaseConfigOrig !== $databaseConfig) {
+            // The database details have been changed and need to be regenerate cache.
+            FlashMessages::getInstance()::setSuccess('database-data-updated-successfully');
+            CacheCore::getInstance()->getEngine()->clear();
+            $this->userAuth->logout();
         }
 
         return $result;
