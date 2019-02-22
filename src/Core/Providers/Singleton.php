@@ -174,11 +174,12 @@ trait Singleton
      * Save config to file.
      *
      * @param array  $params
+     * @param bool   $merge
      * @param string $index
      *
      * @return bool
      */
-    public function setConfig(array $params, string $index = 'main'): bool
+    public function setConfig(array $params, $merge = true, string $index = 'main'): bool
     {
         $yamlContent = [];
         $yamlContent[self::yamlName()] = $this->getYamlContent();
@@ -191,7 +192,11 @@ trait Singleton
             $content[self::yamlName()][$index] = $yamlContent[self::yamlName()][$index] ?? [];
             $paramsToSave[self::yamlName()][$index] = $params;
         }
-        $content = Utils::arrayMergeRecursiveEx($content, $paramsToSave);
+        if ($merge) {
+            $content = Utils::arrayMergeRecursiveEx($content, $paramsToSave);
+        } else {
+            $content = $paramsToSave;
+        }
         return file_put_contents($this->getFilePath(), Yaml::dump($content, 3)) !== false;
     }
 

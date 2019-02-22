@@ -9,6 +9,7 @@ namespace Alxarafe\PreProcessors;
 use Alxarafe\Models\Page;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Logger;
 use DateTime;
 use Symfony\Component\Finder\Finder;
 
@@ -51,17 +52,18 @@ class Pages
         // Start DB transaction
         Database::getInstance()->getDbEngine()->beginTransaction();
 
-        $this->cleanPages();
-
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')
                 ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
+            $start = new DateTime('now');
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $this->instanciateClass($namespace, $className);
             }
+            //$this->cleanPagesBefore($start);
+            $this->updateRoute();
         }
 
         // End DB transaction
@@ -73,15 +75,19 @@ class Pages
     }
 
     /**
-     * Clean all pages.
+     * Clean all pages before $start datetime.
+     *
+     * @param DateTime $start
      */
-    private function cleanPages()
+    private function cleanPagesBefore(DateTime $start)
     {
         $pages = (new Page())->getAllRecords();
         foreach ($pages as $pos => $oldPage) {
-            $page = new Page();
-            $page->setOldData($oldPage);
-            $page->delete();
+            if ($start->diff(new DateTime($oldPage->updated_date))->f < 0) {
+                $page = new Page();
+                $page->setOldData($oldPage);
+                $page->delete();
+            }
         }
     }
 
@@ -111,9 +117,7 @@ class Pages
     private function updatePageData(string $className, string $namespace, $newPage)
     {
         $page = new Page();
-        if (!$page->getBy('controller', $className)) {
-            $page = new Page();
-        }
+        $page->getBy('controller', $className);
         $page->controller = $className;
         $page->title = $newPage->title;
         $page->description = $newPage->description;
@@ -121,7 +125,20 @@ class Pages
         $page->icon = $newPage->icon;
         $page->plugin = $namespace;
         $page->active = 1;
-        $page->updated_date = (new DateTime('now'))->format('Y-m-d H:i:s');
+        try {
+            $page->updated_date = (new DateTime('now'))->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            $page->updated_date = date('Y-m-d H:i:s');
+            Logger::getInstance()::exceptionHandler($e);
+        }
         $page->save();
+    }
+
+    /**
+     * Update available routes.
+     */
+    private function updateRoute()
+    {
+
     }
 }

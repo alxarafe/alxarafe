@@ -199,11 +199,11 @@ class SimpleTable extends Entity
      * @param string $key
      * @param mixed  $value
      *
-     * @return SimpleTable|null
+     * @return bool
      */
-    public function getBy(string $key, $value)
+    public function getBy(string $key, $value): bool
     {
-        return ($this->getDataBy($key, $value) ? $this : null);
+        return $this->getDataBy($key, $value);
     }
 
     /**
