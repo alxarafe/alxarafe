@@ -3,13 +3,13 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\PreProcessors;
 
 use Alxarafe\Models\Page;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
+use Alxarafe\Providers\Router;
 use DateTime;
 use Symfony\Component\Finder\Finder;
 
@@ -20,6 +20,7 @@ use Symfony\Component\Finder\Finder;
  */
 class Pages
 {
+
     /**
      * Array that contains the paths to find the Controllers folder that contains the controllers
      *
@@ -52,6 +53,8 @@ class Pages
         // Start DB transaction
         Database::getInstance()->getDbEngine()->beginTransaction();
 
+        $routes = Router::getInstance();
+        $routes->setRoutes();   // Delete all routes
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
                 ->files()
@@ -61,10 +64,11 @@ class Pages
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $this->instanciateClass($namespace, $className);
+                //$this->cleanPagesBefore($start);
+                $routes->addRoute($className, $controllerFile);
             }
-            //$this->cleanPagesBefore($start);
-            $this->updateRoute();
         }
+        $routes->saveRoutes();
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
@@ -132,12 +136,5 @@ class Pages
             Logger::getInstance()::exceptionHandler($e);
         }
         $page->save();
-    }
-
-    /**
-     * Update available routes.
-     */
-    private function updateRoute()
-    {
     }
 }

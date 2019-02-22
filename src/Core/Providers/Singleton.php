@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2019 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Providers;
 
 use Alxarafe\Helpers\Utils;
@@ -182,13 +181,13 @@ trait Singleton
     public function setConfig(array $params, $merge = true, string $index = 'main'): bool
     {
         $yamlContent = [];
-        $yamlContent[self::yamlName()] = $this->getYamlContent();
-        $content = Config::getInstance()->getConfigContent();
         $paramsToSave = [];
         if ($this->separateConfigFile) {
-            $content[$index] = $yamlContent[$index];
+            $content = $this->getYamlContent();
+            $content[$index] = $yamlContent[$index] ?? [];
             $paramsToSave[$index] = $params;
         } else {
+            $content = Config::getInstance()->getConfigContent();
             $content[self::yamlName()][$index] = $yamlContent[self::yamlName()][$index] ?? [];
             $paramsToSave[self::yamlName()][$index] = $params;
         }
