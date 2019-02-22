@@ -253,7 +253,10 @@ class BootStrap
             if (method_exists($controllerName, $method)) {
                 $controller = new $controllerName();
                 $reply = $controller->{$method}();
-                $this->response->setStatusCode(Response::HTTP_OK);
+                if (empty($reply)) {
+                    $reply = $this->translator->trans('not-rendered-from-controller') . ' ' . $controllerName . '->' . $method;
+                }
+                $this->response->setStatusCode(Response::HTTP_NO_CONTENT);
             }
         }
 

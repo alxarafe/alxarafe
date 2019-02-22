@@ -32,7 +32,7 @@ class Router
     {
         if (!isset($this->routes)) {
             // The class uses its own configuration file
-            $this->separateConfigFile = true;
+            $this->separateConfigFile = false;
             $this->initSingleton();
             $this->getRoutes();
         }
