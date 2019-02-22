@@ -268,7 +268,7 @@ param in getInstance</td>
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setConfig">setConfig</a>(array $params, string $index = &#039;main&#039;)
+                    <a href="#method_setConfig">setConfig</a>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         
                                             <p>Save config to file.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
@@ -591,9 +591,9 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setConfig">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 181</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 182</div>
         <code>                    bool
-    <strong>setConfig</strong>(array $params, string $index = &#039;main&#039;)
+    <strong>setConfig</strong>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         </code>
     </h3>
     <div class="details">
@@ -609,6 +609,11 @@ param in getInstance</td>
                     <tr>
                 <td>array</td>
                 <td>$params</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$merge</td>
                 <td></td>
             </tr>
                     <tr>
@@ -636,7 +641,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getBasePath">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getBasePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 203</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getBasePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 208</div>
         <code>                    string
     <strong>getBasePath</strong>()
         </code>
@@ -666,7 +671,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_initSingleton">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_initSingleton"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 211</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_initSingleton"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 216</div>
         <code>            protected        
     <strong>initSingleton</strong>()
         </code>

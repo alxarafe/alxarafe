@@ -228,7 +228,7 @@ has no instance.</p>                </div>
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setConfig">setConfig</a>(array $params, string $index = &#039;main&#039;)
+                    <a href="#method_setConfig">setConfig</a>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         
                                             <p>Save config to file.</p>                </div>
                 <div class="col-md-2"></div>
@@ -533,9 +533,9 @@ index passed to getInstance</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setConfig">
-        <div class="location">at         line 181</div>
+        <div class="location">at         line 182</div>
         <code>                    bool
-    <strong>setConfig</strong>(array $params, string $index = &#039;main&#039;)
+    <strong>setConfig</strong>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         </code>
     </h3>
     <div class="details">
@@ -551,6 +551,11 @@ index passed to getInstance</p>                            </div>
                     <tr>
                 <td>array</td>
                 <td>$params</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$merge</td>
                 <td></td>
             </tr>
                     <tr>
@@ -578,7 +583,7 @@ index passed to getInstance</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getBasePath">
-        <div class="location">at         line 203</div>
+        <div class="location">at         line 208</div>
         <code>                    string
     <strong>getBasePath</strong>()
         </code>
@@ -608,7 +613,7 @@ index passed to getInstance</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_initSingleton">
-        <div class="location">at         line 211</div>
+        <div class="location">at         line 216</div>
         <code>            protected        
     <strong>initSingleton</strong>()
         </code>

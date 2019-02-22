@@ -308,7 +308,7 @@ param in getInstance</td>
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setConfig">setConfig</a>(array $params, string $index = &#039;main&#039;)
+                    <a href="#method_setConfig">setConfig</a>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         
                                             <p>Save config to file.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
@@ -812,9 +812,9 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setConfig">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 181</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 182</div>
         <code>                    bool
-    <strong>setConfig</strong>(array $params, string $index = &#039;main&#039;)
+    <strong>setConfig</strong>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         </code>
     </h3>
     <div class="details">
@@ -830,6 +830,11 @@ corresponding URI, if it exists.</p>                </div>
                     <tr>
                 <td>array</td>
                 <td>$params</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$merge</td>
                 <td></td>
             </tr>
                     <tr>
@@ -857,7 +862,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getBasePath">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getBasePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 203</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getBasePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 208</div>
         <code>                    string
     <strong>getBasePath</strong>()
         </code>
@@ -887,7 +892,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_initSingleton">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_initSingleton"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 211</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_initSingleton"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 216</div>
         <code>            protected        
     <strong>initSingleton</strong>()
         </code>
@@ -1221,7 +1226,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_addExtensions">
-        <div class="location">at         line 255</div>
+        <div class="location">at         line 258</div>
         <code>                private    void
     <strong>addExtensions</strong>()
         </code>
@@ -1251,7 +1256,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTemplate">
-        <div class="location">at         line 275</div>
+        <div class="location">at         line 278</div>
         <code>                    string|null
     <strong>getTemplate</strong>()
         </code>
@@ -1281,7 +1286,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setTemplate">
-        <div class="location">at         line 287</div>
+        <div class="location">at         line 290</div>
         <code>                    <abbr title="Alxarafe\Providers\$this">$this</abbr>
     <strong>setTemplate</strong>(string|null $template)
         </code>
@@ -1321,7 +1326,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTemplateVars">
-        <div class="location">at         line 300</div>
+        <div class="location">at         line 303</div>
         <code>                private    array
     <strong>getTemplateVars</strong>(array $vars = [])
         </code>
@@ -1361,7 +1366,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_hasTemplate">
-        <div class="location">at         line 310</div>
+        <div class="location">at         line 313</div>
         <code>                    bool
     <strong>hasTemplate</strong>()
         </code>
@@ -1391,7 +1396,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_addVars">
-        <div class="location">at         line 320</div>
+        <div class="location">at         line 323</div>
         <code>                    
     <strong>addVars</strong>(array $vars = [])
         </code>
@@ -1422,7 +1427,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSkins">
-        <div class="location">at         line 330</div>
+        <div class="location">at         line 333</div>
         <code>                    array
     <strong>getSkins</strong>()
         </code>
@@ -1452,7 +1457,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setSkin">
-        <div class="location">at         line 351</div>
+        <div class="location">at         line 354</div>
         <code>                    
     <strong>setSkin</strong>(string $skin)
         </code>
@@ -1483,7 +1488,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getResourceUri">
-        <div class="location">at         line 367</div>
+        <div class="location">at         line 370</div>
         <code>                    string
     <strong>getResourceUri</strong>(string $path)
         </code>
@@ -1524,7 +1529,7 @@ corresponding URI, if it exists.</p>                                            
             </div>
                     <div class="method-item">
                     <h3 id="method_getTemplatesUri">
-        <div class="location">at         line 390</div>
+        <div class="location">at         line 393</div>
         <code>                    string
     <strong>getTemplatesUri</strong>()
         </code>
@@ -1554,7 +1559,7 @@ corresponding URI, if it exists.</p>                                            
             </div>
                     <div class="method-item">
                     <h3 id="method_getCommonTemplatesUri">
-        <div class="location">at         line 400</div>
+        <div class="location">at         line 403</div>
         <code>                    string
     <strong>getCommonTemplatesUri</strong>()
         </code>
