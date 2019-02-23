@@ -90,12 +90,13 @@ class EditConfig extends PageController
     }
 
     /**
-     * Main is invoked if method is not specified. Check if you have to save changes or just exit.
+     * The start point of the controller.
      *
      * @return Response
      */
-    public function main(): Response
+    public function indexMethod(): Response
     {
+        $this->setDefaultData();
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
             case 'clear-cache':
@@ -177,29 +178,6 @@ class EditConfig extends PageController
         }
 
         return $result;
-    }
-
-    /**
-     * The start point of the controller.
-     *
-     * @return Response
-     */
-    public function indexMethod(): Response
-    {
-        return $this->index();
-    }
-
-    /**
-     * @return Response
-     */
-    public function index(): Response
-    {
-        $result = parent::index();
-        if (!is_null($result)) {
-            return $result;
-        }
-        $this->setDefaultData();
-        return $this->main();
     }
 
     /**

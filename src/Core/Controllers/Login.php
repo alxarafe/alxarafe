@@ -42,16 +42,6 @@ class Login extends PageController
      */
     public function indexMethod(): Response
     {
-        return $this->index();
-    }
-
-    /**
-     * Start point
-     *
-     * @return Response
-     */
-    public function index(): Response
-    {
         $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
         $this->userAuth = new Auth();
 
@@ -108,7 +98,7 @@ class Login extends PageController
      *
      * @return RedirectResponse
      */
-    public function logout(): RedirectResponse
+    public function logoutMethod(): RedirectResponse
     {
         $this->index();
         return $this->userAuth->logout();
