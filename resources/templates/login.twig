@@ -12,8 +12,8 @@
 
 {% block body %}
     <div class="container-fluid">
-        {% if (message) %}<h5>{{ message }}</h5>{% endif %}
-    </div>
+    {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
+</div>
     <div class="container-fluid">
         {% set redirect = '' %}
         {% if ctrl.redirect is not empty %}

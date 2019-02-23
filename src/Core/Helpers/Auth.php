@@ -3,14 +3,12 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Auth
@@ -35,6 +33,7 @@ class Auth extends User
      *
      * @var string|null
      */
+
     public $logkey = null;
 
     /**
@@ -49,7 +48,6 @@ class Auth extends User
      *
      * @var string|null
      */
-
     private $username = null;
 
     /**
@@ -78,8 +76,11 @@ class Auth extends User
     {
         if ($this->username === null) {
             if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && !$this->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
+                die('Antes de clearCookie<br>');
                 $this->clearCookieUser();
+                die('Justo antes del login<br>');
                 $this->login();
+                die('aquí despu´és de login');
             }
         }
         return $this->username;
@@ -165,10 +166,11 @@ class Auth extends User
      */
     public function login()
     {
-        if (strpos($_SERVER['REQUEST_URI'], constant('CALL_CONTROLLER') . '=Login') === false) {
-            $redirectTo = '&redirect=' . urlencode(base64_encode($_SERVER['REQUEST_URI']));
+        $request = filter_input(INPUT_SERVER, 'REQUEST_URI');
+        if (strpos($request, constant('CALL_CONTROLLER') . '=Login') === false) {
+            $redirectTo = '&redirect=' . \urlencode(base64_encode($request));
             $url = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
-            (new Response($this->redirect($url)))->send();
+            (new RedirectResponse($url))->send();
         }
         return null;
     }
