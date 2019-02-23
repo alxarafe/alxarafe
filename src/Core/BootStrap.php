@@ -248,10 +248,10 @@ class BootStrap
             $controllerName = $this->router->getRoute($call);
             $msg = $this->translator->trans('method-not-available');
             $this->response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
-            if (method_exists($controllerName, $method)) {
+            if (method_exists($controllerName, $method . 'Method')) {
                 $controller = new $controllerName();
                 Logger::getInstance()->getLogger()->addDebug('Call to ' . $controllerName . '->' . $method . '()');
-                $this->response = $controller->{$method}();
+                $this->response = $controller->{$method . 'Method'}();
             }
         }
 

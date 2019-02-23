@@ -31,7 +31,7 @@ class Pages extends Controller
      *
      * @return Response
      */
-    public function run(): Response
+    public function runMethod(): Response
     {
         parent::run();
         return $this->sendResponseTemplate();

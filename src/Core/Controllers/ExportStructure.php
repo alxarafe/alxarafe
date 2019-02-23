@@ -55,7 +55,7 @@ class ExportStructure extends PageController
      *
      * @return Response
      */
-    public function run(): Response
+    public function runMethod(): Response
     {
         return $this->index();
     }

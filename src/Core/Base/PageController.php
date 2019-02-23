@@ -181,7 +181,7 @@ abstract class PageController extends SimpleController
      *
      * @return Response
      */
-    abstract public function run(): Response;
+    abstract public function runMethod(): Response;
 
     /**
      * Check if user is logged in, and redirect to this controller if needed.

@@ -1,0 +1,11 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+#}
+{% extends "index.twig" %}
+
+{% block title %}{{ lang.trans('default-template') }}{% endblock %}
+
+{% block body %}
+    {% if main.title is not empty %}<h1>{{ main.title }}</h1>{% endif %}
+{% endblock %}
