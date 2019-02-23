@@ -104,7 +104,7 @@ class Config
         Utils::defineIfNotExists('CALL_CONTROLLER', 'call');
         Utils::defineIfNotExists('METHOD_CONTROLLER', 'method');
         Utils::defineIfNotExists('DEFAULT_CONTROLLER', ($this->fileExists($this->getFilePath()) ? 'EditConfig' : 'CreateConfig'));
-        Utils::defineIfNotExists('DEFAULT_METHOD', 'run');
+        Utils::defineIfNotExists('DEFAULT_METHOD', 'index');
 
         // Use cache on Core
         Utils::defineIfNotExists('CORE_CACHE_ENABLED', true);

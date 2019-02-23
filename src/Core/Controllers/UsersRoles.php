@@ -31,7 +31,7 @@ class UsersRoles extends Controller
      *
      * @return Response
      */
-    public function runMethod(): Response
+    public function indexMethod(): Response
     {
         parent::run();
         return $this->sendResponseTemplate();

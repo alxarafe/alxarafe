@@ -244,6 +244,7 @@ class BootStrap
         $controller = null;
         $msg = $this->translator->trans('route-not-found');
         $this->response->setStatusCode(Response::HTTP_NOT_FOUND);
+        echo "<hr><hr><hr><hr><hr><p>traying $call-$method</p>";
         if ($this->router->hasRoute($call)) {
             $controllerName = $this->router->getRoute($call);
             $msg = $this->translator->trans('method-not-available');

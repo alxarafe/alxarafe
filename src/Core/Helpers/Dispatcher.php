@@ -104,7 +104,7 @@ class Dispatcher
         define('CALL_CONTROLLER', 'call');
         define('METHOD_CONTROLLER', 'method');
         define('DEFAULT_CONTROLLER', (Config::configFileExists() ? 'EditConfig' : 'CreateConfig'));
-        define('DEFAULT_METHOD', 'run');
+        define('DEFAULT_METHOD', 'index');
 
         // Use cache on Core
         define('CORE_CACHE_ENABLED', true);

@@ -77,7 +77,7 @@ class CreateConfig extends SimpleController
      *
      * @return Response
      */
-    public function runMethod(): Response
+    public function indexMethod(): Response
     {
         return $this->index();
     }
