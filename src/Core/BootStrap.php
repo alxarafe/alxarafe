@@ -239,6 +239,13 @@ class BootStrap
         $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_ENCODED);
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
+        if (!$this->configManager->configFileExists() && $call !== 'CreateConfig') {
+            $time = time() - 3600;
+            setcookie('user', '', $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+            setcookie('logkey', '', $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+            return redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=CreateConfig'));
+        }
+
         $controller = null;
         $msg = $this->translator->trans('route-not-found');
         $this->response->setStatusCode(Response::HTTP_NOT_FOUND);

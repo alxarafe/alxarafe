@@ -115,4 +115,15 @@ class Config
         // Carry Return (retorno de carro) & Line Feed (salto de línea).
         Utils::defineIfNotExists('CRLF', "\n\t");
     }
+
+
+    /**
+     * Return true y the config file exists
+     *
+     * @return bool
+     */
+    public function configFileExists(): bool
+    {
+        return (file_exists($this->getFilePath()) && is_file($this->getFilePath()));
+    }
 }
