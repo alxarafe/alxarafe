@@ -123,7 +123,7 @@ class BootStrap
     /**
      * Response to client.
      *
-     * @var Response|null
+     * @var Response
      */
     protected $response;
 
