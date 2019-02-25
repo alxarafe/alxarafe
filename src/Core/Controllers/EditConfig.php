@@ -111,6 +111,7 @@ class EditConfig extends PageController
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 FlashMessages::getInstance()::setInfo($msg);
+                $this->setDefaultData();
                 break;
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));

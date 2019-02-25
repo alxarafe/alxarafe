@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Providers;
 
 use Alxarafe\Helpers\Utils;
@@ -180,23 +181,18 @@ trait Singleton
      */
     public function setConfig(array $params, $merge = true, string $index = 'main'): bool
     {
-        $yamlContent = [];
         $paramsToSave = [];
         if ($this->separateConfigFile) {
             $content = $this->getYamlContent();
-            $content[$index] = $yamlContent[$index] ?? [];
             $paramsToSave[$index] = $params;
         } else {
-            $content = Config::getInstance()->getConfigContent();
-            $content[self::yamlName()][$index] = $yamlContent[self::yamlName()][$index] ?? [];
+            $content = Config::getInstance()->getConfig();
             $paramsToSave[self::yamlName()][$index] = $params;
         }
-        if ($merge) {
-            $content = Utils::arrayMergeRecursiveEx($content, $paramsToSave);
-        } else {
-            $content = $paramsToSave;
-        }
-        return file_put_contents($this->getFilePath(), Yaml::dump($content, 3)) !== false;
+
+        $content = $merge ? Utils::arrayMergeRecursiveEx($content, $paramsToSave) : $paramsToSave;
+
+        return file_put_contents($this->getFilePath(), Yaml::dump($content, 3), LOCK_EX) !== false;
     }
 
     /**
