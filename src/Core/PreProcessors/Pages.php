@@ -68,6 +68,7 @@ class Pages
                 ->name('*.php')
                 ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
             // TODO: We can define global TimeZone?
+            // Maybe with? date_default_timezone_set('Europe/Madrid');
             $start = new DateTime('now', new DateTimeZone('Europe/Madrid'));
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);

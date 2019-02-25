@@ -29,23 +29,24 @@ class Cache
      */
     const DEFAULT_LIFE_TIME = 0;
 
-    /**pues
+    /**
+     * Cache engine.
      *
      * @var PhpArrayAdapter|MemcachedAdapter|PdoAdapter|PhpFilesAdapter|FilesystemAdapter
      */
     private $engine;
 
     /**
-     * TODO: Undocumented
+     * Prefix for the cache.
      *
-     * @var
+     * @var string
      */
     private $prefix;
 
     /**
-     * TODO: Undocumented
+     * Default life time of cache.
      *
-     * @var
+     * @var int
      */
     private $defaultLifeTime;
 

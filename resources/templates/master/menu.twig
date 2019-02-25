@@ -17,7 +17,6 @@
         <div id="navbar" class="collapse navbar-collapse">
             {% if ctrl.user %}
                 {# TODO: This would be a recursive call to genereate every item or submenu #}
-                {# TODO: Add use of translator #}
                 <ul class="nav navbar-nav navbar-left">
                     {% for posMenu, menu in ctrl.getUserMenu() %}
                         {% if posMenu|trim is same as(posMenu) %}

@@ -84,7 +84,7 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Update fields for tablename.
      *
      * @param string $tableName
      * @param array  $fieldsList
@@ -101,7 +101,7 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Modify (add or change) fields for tablename.
      *
      * @param string $tableName
      * @param array  $fieldsList
@@ -218,7 +218,7 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Creates index for primary key of tablename.
      *
      * @param string $tableName
      * @param array  $indexData
@@ -251,7 +251,7 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Creates a constraint for tablename.
      *
      * @param string $tableName
      * @param array  $indexData
@@ -293,7 +293,7 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Creates a standard index for tablename.
      *
      * @param string $tableName
      * @param array  $indexData
@@ -315,7 +315,7 @@ class SchemaDB
     }
 
     /**
-     * TODO: Undocumented
+     * Creates a unique index for the tablename.
      *
      * @param string $tableName
      * @param array  $indexData

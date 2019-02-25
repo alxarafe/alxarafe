@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * TODO: Undocumented
+ * Symbol used to separate items.
  */
 define('IDSEPARATOR', '~');
 
@@ -442,7 +442,7 @@ abstract class Controller extends PageController
     }
 
     /**
-     * TODO: Undocumented
+     * Returns the header for table.
      */
     public function getTableHeader()
     {
@@ -465,7 +465,7 @@ abstract class Controller extends PageController
     }
 
     /**
-     * TODO: Undocumented
+     * Returns the content for the body of table.
      */
     public function getTableBody()
     {
@@ -496,7 +496,7 @@ abstract class Controller extends PageController
     }
 
     /**
-     * TODO: Undocumented
+     * Returns a list of fields for the tablename.
      */
     public function getListFields()
     {
@@ -532,7 +532,7 @@ abstract class Controller extends PageController
     }
 
     /**
-     * TODO: Undocumented
+     * Returns a footer list of fields for the table.
      */
     public function getTableFooter()
     {

@@ -103,7 +103,7 @@ function addsec() {
 }
 
 /**
- * TODO: Undocumented
+ * Creates a new DataTable
  *
  * @param name
  * @param paging
@@ -221,10 +221,11 @@ function selectPage(code, page, pages, itemsxpage) {
 }
 
 /**
- * TODO: Undocumented
+ * When document is ready.
  */
 $(document).ready(function ($) {
     if (typeof (tables) == 'object') {
+        // If tables is an object, we are receiving and array of datatables
         for (var table in tables) {
             newDataTable(table, tables[table]);
         }

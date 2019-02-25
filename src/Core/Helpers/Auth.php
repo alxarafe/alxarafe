@@ -206,7 +206,7 @@ class Auth extends User
     }
 
     /**
-     * TODO: Undocumented
+     * Set cookie's user.
      *
      * @param string $userName
      * @param string $password

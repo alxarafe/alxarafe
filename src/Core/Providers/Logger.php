@@ -42,6 +42,7 @@ class Logger
             set_exception_handler([$this, 'exceptionHandler']);
             try {
                 // TODO: At the moment, the time zone of the application is not selected anywhere.
+                // Maybe with? date_default_timezone_set('Europe/Madrid');
                 self::$logger->setTimezone(new DateTimeZone('Europe/Madrid'));
                 self::$logger->pushHandler(new StreamHandler(basePath('/config/core.log'), MonologLogger::DEBUG));
             } catch (\Exception $e) {
