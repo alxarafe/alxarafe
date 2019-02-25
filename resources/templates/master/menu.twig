@@ -28,7 +28,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     {% for posSubmenu, submenu in menu %}
-                                        <li>
+                                        <li{% if submenu.controller == ctrl.shortName %} class="active"{% endif %}>
                                             <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}={{ submenu.controller }}&{{ constant('METHOD_CONTROLLER') }}={{ constant('DEFAULT_METHOD') }}">
                                                 {{ unescape(submenu.icon)|raw }}
                                                 &nbsp; {{ lang.trans(submenu.title) }}
