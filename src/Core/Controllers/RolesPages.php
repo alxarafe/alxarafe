@@ -8,7 +8,6 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\AuthPageExtendedController;
 use Alxarafe\Models\RolePage;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class RolesPages

@@ -6,6 +6,9 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Helpers\Auth;
+use Alxarafe\Models\User;
+
 /**
  * Class AuthController
  *
@@ -13,6 +16,21 @@ namespace Alxarafe\Base;
  */
 class AuthController extends Controller
 {
+
+    /**
+     * The user logged.
+     *
+     * @var User
+     */
+    public $user;
+
+    /**
+     * Contains the data of the currently identified user.
+     *
+     * @var Auth
+     */
+    public $userAuth;
+
     /**
      * AuthController constructor.
      */

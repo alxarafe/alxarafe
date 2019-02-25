@@ -77,16 +77,6 @@ class Database
     }
 
     /**
-     * Return this instance.
-     *
-     * @return Database
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
-    }
-
-    /**
      * If Database::getInstance()->getDbEngine() contain null, create an Engine instance with the database connection
      * and assigns it to Database::getInstance()->getDbEngine().
      *
@@ -95,6 +85,16 @@ class Database
     public function connectToDatabase(): bool
     {
         return isset($this->dbEngine) && $this->dbEngine->connect() && $this->dbEngine->checkConnection();
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return Database
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
     }
 
     /**

@@ -16,6 +16,7 @@ use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Router;
 use Alxarafe\Providers\TemplateRender;
 use Alxarafe\Providers\Translator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -243,7 +244,8 @@ class BootStrap
             $time = time() - 3600;
             setcookie('user', '', $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
             setcookie('logkey', '', $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-            return redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=CreateConfig'));
+            (new RedirectResponse(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=CreateConfig')))->send();
+            return;
         }
 
         $controller = null;

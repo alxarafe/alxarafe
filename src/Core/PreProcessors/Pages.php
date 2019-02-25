@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\PreProcessors;
 
 use Alxarafe\Models\Page;
@@ -87,24 +88,6 @@ class Pages
     }
 
     /**
-     * Clean all pages before $start datetime.
-     *
-     * @param DateTime $start
-     */
-    private function cleanPagesBefore(DateTime $start)
-    {
-        $pages = (new Page())->getAllRecords();
-        foreach ($pages as $oldPage) {
-            $updatedDate = new DateTime($oldPage['updated_date'] . '.999999', new DateTimeZone('Europe/Madrid'));
-            if ($start->diff($updatedDate)->f < 0) {
-                $page = new Page();
-                $page->setOldData($oldPage);
-                $page->delete();
-            }
-        }
-    }
-
-    /**
      * Instanciate class and update page data if needed.
      *
      * @param string $namespace
@@ -146,5 +129,23 @@ class Pages
             Logger::getInstance()::exceptionHandler($e);
         }
         $page->save();
+    }
+
+    /**
+     * Clean all pages before $start datetime.
+     *
+     * @param DateTime $start
+     */
+    private function cleanPagesBefore(DateTime $start)
+    {
+        $pages = (new Page())->getAllRecords();
+        foreach ($pages as $oldPage) {
+            $updatedDate = new DateTime($oldPage['updated_date'] . '.999999', new DateTimeZone('Europe/Madrid'));
+            if ($start->diff($updatedDate)->f < 0) {
+                $page = new Page();
+                $page->setOldData($oldPage);
+                $page->delete();
+            }
+        }
     }
 }

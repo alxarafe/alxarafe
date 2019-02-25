@@ -92,17 +92,28 @@ trait Singleton
     }
 
     /**
-     * Returns the yaml config params.
+     * Save config to file.
      *
+     * @param array  $params
+     * @param bool   $merge
      * @param string $index
      *
-     * @return array
+     * @return bool
      */
-    public function getConfig(string $index = 'main'): array
+    public function setConfig(array $params, $merge = true, string $index = 'main'): bool
     {
-        $yamlContent = $this->getYamlContent();
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? [];
-        return $content ?? [];
+        $paramsToSave = [];
+        if ($this->separateConfigFile) {
+            $content = $this->getYamlContent();
+            $paramsToSave[$index] = $params;
+        } else {
+            $content = Config::getInstance()->getConfig();
+            $paramsToSave[self::yamlName()][$index] = $params;
+        }
+
+        $content = $merge ? Utils::arrayMergeRecursiveEx($content, $paramsToSave) : $paramsToSave;
+
+        return file_put_contents($this->getFilePath(), Yaml::dump($content, 3), LOCK_EX) !== false;
     }
 
     /**
@@ -171,28 +182,17 @@ trait Singleton
     }
 
     /**
-     * Save config to file.
+     * Returns the yaml config params.
      *
-     * @param array  $params
-     * @param bool   $merge
      * @param string $index
      *
-     * @return bool
+     * @return array
      */
-    public function setConfig(array $params, $merge = true, string $index = 'main'): bool
+    public function getConfig(string $index = 'main'): array
     {
-        $paramsToSave = [];
-        if ($this->separateConfigFile) {
-            $content = $this->getYamlContent();
-            $paramsToSave[$index] = $params;
-        } else {
-            $content = Config::getInstance()->getConfig();
-            $paramsToSave[self::yamlName()][$index] = $params;
-        }
-
-        $content = $merge ? Utils::arrayMergeRecursiveEx($content, $paramsToSave) : $paramsToSave;
-
-        return file_put_contents($this->getFilePath(), Yaml::dump($content, 3), LOCK_EX) !== false;
+        $yamlContent = $this->getYamlContent();
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? [];
+        return $content ?? [];
     }
 
     /**

@@ -8,7 +8,6 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\AuthPageExtendedController;
 use Alxarafe\Models\TableModel;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Models

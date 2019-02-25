@@ -145,14 +145,14 @@ class Config
             $skinFolder = $templatesFolder . '/' . self::$global['skin'];
             if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
                 FlashMessages::getInstance()::setError("Skin folder '$skinFolder' does not exists!");
-                (new CreateConfig())->index();
+                (new CreateConfig())->indexMethod();
                 return;
             }
             //Skin::setSkin(self::$global['skin']);
         }
         if (empty(self::$global) || !self::connectToDataBase()) {
             FlashMessages::getInstance()::setError('Database Connection error...');
-            (new CreateConfig())->index();
+            (new CreateConfig())->indexMethod();
             return;
         }
         self::$cacheEngine = CacheCore::getInstance()->getEngine();
@@ -167,7 +167,7 @@ class Config
     public static function loadConfigurationFile(): array
     {
         if (!self::configFileExists()) {
-            (new CreateConfig())->index();
+            (new CreateConfig())->indexMethod();
         }
 
         $filename = self::getConfigFileName();

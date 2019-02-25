@@ -9,7 +9,6 @@ namespace Alxarafe\Base;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
-use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
 use Alxarafe\Providers\Logger;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,20 +52,6 @@ abstract class AuthPageController extends AuthController
      * @var array
      */
     public $menu;
-
-    /**
-     * The user logged.
-     *
-     * @var User
-     */
-    public $user;
-
-    /**
-     * Contains the data of the currently identified user.
-     *
-     * @var Auth
-     */
-    public $userAuth;
 
     /**
      * Contains the user's name or null
@@ -165,56 +150,6 @@ abstract class AuthPageController extends AuthController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
-     */
-    public function checkLogin()
-    {
-        if (!$this->ensureLogin()) {
-            return $this->redirect();
-        }
-        return null;
-    }
-
-    /**
-     * Check if user is logged in, and redirect to this controller if needed.
-     *
-     * @return bool
-     */
-    private function ensureLogin(): bool
-    {
-        if ($this->userAuth === null) {
-            $this->userAuth = new Auth();
-            $this->userName = $this->userAuth->getUserName();
-            $this->user = $this->userAuth->getUser();
-        }
-        if ($this->userName) {
-            // Stored to avoid duplicate queries
-            $this->canAccess = $this->canAction($this->userName, 'access');
-            $this->canCreate = $this->canAction($this->userName, 'create');
-            $this->canRead = $this->canAction($this->userName, 'read');
-            $this->canUpdate = $this->canAction($this->userName, 'update');
-            $this->canDelete = $this->canAction($this->userName, 'delete');
-            $perms = [
-                'Access' => ($this->canAccess ? 'yes' : 'no'),
-                'Create' => ($this->canCreate ? 'yes' : 'no'),
-                'Read' => ($this->canRead ? 'yes' : 'no'),
-                'Update' => ($this->canUpdate ? 'yes' : 'no'),
-                'Delete' => ($this->canDelete ? 'yes' : 'no'),
-            ];
-            $this->debugTool->addMessage(
-                'messages', "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
-            );
-            return true;
-        } else {
-            $this->debugTool->addMessage(
-                'messages', "No user logged in"
-            );
-        }
-        $this->userAuth->login();
-        return false;
-    }
-
-    /**
      * Start point and default list of registers.
      *
      * @return Response
@@ -296,6 +231,56 @@ abstract class AuthPageController extends AuthController
         }
         $this->renderer->setTemplate('master/noaccess');
         return $this->sendResponseTemplate($vars);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
+     */
+    public function checkLogin()
+    {
+        if (!$this->ensureLogin()) {
+            return $this->redirect();
+        }
+        return null;
+    }
+
+    /**
+     * Check if user is logged in, and redirect to this controller if needed.
+     *
+     * @return bool
+     */
+    private function ensureLogin(): bool
+    {
+        if ($this->userAuth === null) {
+            $this->userAuth = new Auth();
+            $this->userName = $this->userAuth->getUserName();
+            $this->user = $this->userAuth->getUser();
+        }
+        if ($this->userName) {
+            // Stored to avoid duplicate queries
+            $this->canAccess = $this->canAction($this->userName, 'access');
+            $this->canCreate = $this->canAction($this->userName, 'create');
+            $this->canRead = $this->canAction($this->userName, 'read');
+            $this->canUpdate = $this->canAction($this->userName, 'update');
+            $this->canDelete = $this->canAction($this->userName, 'delete');
+            $perms = [
+                'Access' => ($this->canAccess ? 'yes' : 'no'),
+                'Create' => ($this->canCreate ? 'yes' : 'no'),
+                'Read' => ($this->canRead ? 'yes' : 'no'),
+                'Update' => ($this->canUpdate ? 'yes' : 'no'),
+                'Delete' => ($this->canDelete ? 'yes' : 'no'),
+            ];
+            $this->debugTool->addMessage(
+                'messages', "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
+            );
+            return true;
+        } else {
+            $this->debugTool->addMessage(
+                'messages', "No user logged in"
+            );
+        }
+        $this->userAuth->login();
+        return false;
     }
 
     /**

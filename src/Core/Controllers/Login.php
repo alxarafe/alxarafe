@@ -43,6 +43,17 @@ class Login extends Controller
     }
 
     /**
+     * Close the user session and go to the main page
+     *
+     * @return RedirectResponse
+     */
+    public function logoutMethod(): RedirectResponse
+    {
+        $this->indexMethod();
+        return $this->userAuth->logout();
+    }
+
+    /**
      * The start point of the controller.
      *
      * @return Response
@@ -98,17 +109,6 @@ class Login extends Controller
         } else {
             return $this->redirectToController();
         }
-    }
-
-    /**
-     * Close the user session and go to the main page
-     *
-     * @return RedirectResponse
-     */
-    public function logoutMethod(): RedirectResponse
-    {
-        $this->indexMethod();
-        return $this->userAuth->logout();
     }
 
     /**

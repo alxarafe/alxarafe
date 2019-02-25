@@ -6,8 +6,8 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\CacheCore;
 use Alxarafe\Base\AuthController;
+use Alxarafe\Base\CacheCore;
 use Alxarafe\Database\Engine;
 use Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
@@ -74,7 +74,7 @@ class EditConfig extends AuthController
     /**
      * This installation timezone.
      *
-     * @var array
+     * @var string
      */
     public $timeZone;
 
@@ -131,6 +131,32 @@ class EditConfig extends AuthController
                 return $this->redirect(baseUrl('index.php'));
         }
         return $this->sendResponseTemplate();
+    }
+
+    /**
+     * Sets default data values
+     */
+    private function setDefaultData()
+    {
+        $translatorConfig = Translator::getInstance()->getConfig();
+        $templateRenderConfig = $this->renderer->getConfig();
+        $databaseConfig = Database::getInstance()->getConfig();
+
+        $this->dbEngines = Engine::getEngines();
+        $this->skins = $this->renderer->getSkins();
+        $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
+        $this->languages = Translator::getInstance()->getAvailableLanguages();
+        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
+
+        $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
+        $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
+        $this->dbConfig['dbPass'] = $databaseConfig['dbPass'] ?? '';
+        $this->dbConfig['dbName'] = $databaseConfig['dbName'] ?? 'alxarafe';
+        $this->dbConfig['dbHost'] = $databaseConfig['dbHost'] ?? 'localhost';
+        $this->dbConfig['dbPrefix'] = $databaseConfig['dbPrefix'] ?? '';
+        $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
+
+        $this->timeZone = date_default_timezone_get();
     }
 
     /**
@@ -192,32 +218,6 @@ class EditConfig extends AuthController
         }
 
         return $result;
-    }
-
-    /**
-     * Sets default data values
-     */
-    private function setDefaultData()
-    {
-        $translatorConfig = Translator::getInstance()->getConfig();
-        $templateRenderConfig = $this->renderer->getConfig();
-        $databaseConfig = Database::getInstance()->getConfig();
-
-        $this->dbEngines = Engine::getEngines();
-        $this->skins = $this->renderer->getSkins();
-        $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
-        $this->languages = Translator::getInstance()->getAvailableLanguages();
-        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
-
-        $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
-        $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
-        $this->dbConfig['dbPass'] = $databaseConfig['dbPass'] ?? '';
-        $this->dbConfig['dbName'] = $databaseConfig['dbName'] ?? 'alxarafe';
-        $this->dbConfig['dbHost'] = $databaseConfig['dbHost'] ?? 'localhost';
-        $this->dbConfig['dbPrefix'] = $databaseConfig['dbPrefix'] ?? '';
-        $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
-
-        $this->timeZone = date_default_timezone_get();
     }
 
     /**

@@ -233,14 +233,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Access denied page.
-     */
-    public function accessDenied()
-    {
-        $this->renderer->setTemplate('master/noaccess');
-    }
-
-    /**
      * Show existing record.
      */
     public function showMethod(): Response
@@ -362,6 +354,14 @@ abstract class AuthPageExtendedController extends AuthPageController
             return $this->indexMethod();
         }
         return $this->sendResponseTemplate();
+    }
+
+    /**
+     * Access denied page.
+     */
+    public function accessDenied()
+    {
+        $this->renderer->setTemplate('master/noaccess');
     }
 
     /**
@@ -578,27 +578,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
-     * falten con los datos por defecto.
-     *
-     * @param array $record
-     *
-     * @return array
-     */
-    protected function setDefaults(array $record): array
-    {
-        $ret = [];
-        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $struct) {
-            if (isset($record[$key])) {
-                $ret[$key] = $record[$key];
-            } else {
-                $ret[$key] = $struct['default'] ?? '';
-            }
-        }
-        return $ret;
-    }
-
-    /**
      * Add a new element to a value saved in the array that is passed to the template.
      * It is used when what we are saving is an array and we want to add a new element to that array.
      * IMPORTANT: The element only is added if is not empty.
@@ -664,5 +643,26 @@ abstract class AuthPageExtendedController extends AuthPageController
     public function addJS(): void
     {
         //$this->addToVar('jsCode', $this->addResource('/.js'));
+    }
+
+    /**
+     * Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
+     * falten con los datos por defecto.
+     *
+     * @param array $record
+     *
+     * @return array
+     */
+    protected function setDefaults(array $record): array
+    {
+        $ret = [];
+        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $struct) {
+            if (isset($record[$key])) {
+                $ret[$key] = $record[$key];
+            } else {
+                $ret[$key] = $struct['default'] ?? '';
+            }
+        }
+        return $ret;
     }
 }

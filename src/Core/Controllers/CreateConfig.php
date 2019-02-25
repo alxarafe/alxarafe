@@ -8,8 +8,8 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Database\Engine;
-use Alxarafe\PreProcessors;
 use Alxarafe\Helpers\Config;
+use Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Translator;
@@ -74,7 +74,7 @@ class CreateConfig extends Controller
     /**
      * This installation timezone.
      *
-     * @var array
+     * @var string
      */
     public $timeZone;
 
@@ -129,18 +129,29 @@ class CreateConfig extends Controller
     }
 
     /**
-     * Regenerate some needed data.
-     *
-     * @return void
+     * Sets default data values
      */
-    private function regenerateData(): void
+    private function setDefaultData()
     {
-        if (!set_time_limit(0)) {
-            FlashMessages::getInstance()::setError('cant-increase-time-limit');
-        }
+        $translatorConfig = Translator::getInstance()->getConfig();
+        $templateRenderConfig = $this->renderer->getConfig();
+        $databaseConfig = Database::getInstance()->getConfig();
 
-        new PreProcessors\Models($this->searchDir);
-        new PreProcessors\Pages($this->searchDir);
+        $this->dbEngines = Engine::getEngines();
+        $this->skins = $this->renderer->getSkins();
+        $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
+        $this->languages = Translator::getInstance()->getAvailableLanguages();
+        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
+
+        $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
+        $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
+        $this->dbConfig['dbPass'] = $databaseConfig['dbPass'] ?? '';
+        $this->dbConfig['dbName'] = $databaseConfig['dbName'] ?? 'alxarafe';
+        $this->dbConfig['dbHost'] = $databaseConfig['dbHost'] ?? 'localhost';
+        $this->dbConfig['dbPrefix'] = $databaseConfig['dbPrefix'] ?? '';
+        $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
+
+        $this->timeZone = date_default_timezone_get();
     }
 
     /**
@@ -187,29 +198,18 @@ class CreateConfig extends Controller
     }
 
     /**
-     * Sets default data values
+     * Regenerate some needed data.
+     *
+     * @return void
      */
-    private function setDefaultData()
+    private function regenerateData(): void
     {
-        $translatorConfig = Translator::getInstance()->getConfig();
-        $templateRenderConfig = $this->renderer->getConfig();
-        $databaseConfig = Database::getInstance()->getConfig();
+        if (!set_time_limit(0)) {
+            FlashMessages::getInstance()::setError('cant-increase-time-limit');
+        }
 
-        $this->dbEngines = Engine::getEngines();
-        $this->skins = $this->renderer->getSkins();
-        $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
-        $this->languages = Translator::getInstance()->getAvailableLanguages();
-        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
-
-        $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
-        $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
-        $this->dbConfig['dbPass'] = $databaseConfig['dbPass'] ?? '';
-        $this->dbConfig['dbName'] = $databaseConfig['dbName'] ?? 'alxarafe';
-        $this->dbConfig['dbHost'] = $databaseConfig['dbHost'] ?? 'localhost';
-        $this->dbConfig['dbPrefix'] = $databaseConfig['dbPrefix'] ?? '';
-        $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
-
-        $this->timeZone = date_default_timezone_get();
+        new PreProcessors\Models($this->searchDir);
+        new PreProcessors\Pages($this->searchDir);
     }
 
     /**.

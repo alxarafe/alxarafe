@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Models\User;
@@ -186,6 +187,22 @@ class Auth extends User
     }
 
     /**
+     * Send a RedirectResponse to destiny receive.
+     *
+     * @param string $destiny
+     *
+     * @return RedirectResponse
+     */
+    public function redirect(string $destiny = ''): RedirectResponse
+    {
+        if (empty($destiny)) {
+            $destiny = baseUrl('index.php');
+        }
+        Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
+        return new RedirectResponse($destiny);
+    }
+
+    /**
      * Returns the user name if setted or null.
      *
      * @return string|null
@@ -233,21 +250,5 @@ class Auth extends User
             $this->debugTool->addMessage('messages', "User '" . $userName . "' not founded.");
         }
         return $this->username !== null;
-    }
-
-    /**
-     * Send a RedirectResponse to destiny receive.
-     *
-     * @param string $destiny
-     *
-     * @return RedirectResponse
-     */
-    public function redirect(string $destiny = ''): RedirectResponse
-    {
-        if (empty($destiny)) {
-            $destiny = baseUrl('index.php');
-        }
-        Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
-        return new RedirectResponse($destiny);
     }
 }
