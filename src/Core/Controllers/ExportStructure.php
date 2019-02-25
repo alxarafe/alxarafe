@@ -31,7 +31,7 @@ class ExportStructure extends PageController
      *
      * @return Response
      */
-    public function main(): Response
+    public function indexMethod(): Response
     {
         switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED)) {
             case 'export-all':
@@ -46,30 +46,6 @@ class ExportStructure extends PageController
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
                 break;
-        }
-        return $this->sendResponseTemplate();
-    }
-
-    /**
-     * The start point of the controller.
-     *
-     * @return Response
-     */
-    public function indexMethod(): Response
-    {
-        return $this->index();
-    }
-
-    /**
-     * Start point
-     *
-     * @return Response
-     */
-    public function index(): Response
-    {
-        $result = parent::index();
-        if (!is_null($result)) {
-            return $result;
         }
         return $this->sendResponseTemplate();
     }

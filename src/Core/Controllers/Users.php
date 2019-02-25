@@ -27,17 +27,6 @@ class Users extends Controller
     }
 
     /**
-     * The start point of the controller.
-     *
-     * @return Response
-     */
-    public function indexMethod(): Response
-    {
-        parent::run();
-        return $this->sendResponseTemplate();
-    }
-
-    /**
      * Returns the page details.
      *
      * @return array
