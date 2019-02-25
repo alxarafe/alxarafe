@@ -178,6 +178,22 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_translator"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_user">
+                                                                                <a href="../../Alxarafe/Models/User.html"><abbr title="Alxarafe\Models\User">User</abbr></a>
+                </td>
+                <td>$user</td>
+                <td class="last">The user logged.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_user"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_userAuth">
+                                                                                <a href="../../Alxarafe/Helpers/Auth.html"><abbr title="Alxarafe\Helpers\Auth">Auth</abbr></a>
+                </td>
+                <td>$userAuth</td>
+                <td class="last">Contains the data of the currently identified user.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_userAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_title">
                                                                                 string
                 </td>
@@ -207,22 +223,6 @@
                 </td>
                 <td>$menu</td>
                 <td class="last">Page menu place.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_user">
-                                                                                <a href="../../Alxarafe/Models/User.html"><abbr title="Alxarafe\Models\User">User</abbr></a>
-                </td>
-                <td>$user</td>
-                <td class="last">The user logged.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_userAuth">
-                                                                                <a href="../../Alxarafe/Helpers/Auth.html"><abbr title="Alxarafe\Helpers\Auth">Auth</abbr></a>
-                </td>
-                <td>$userAuth</td>
-                <td class="last">Contains the data of the currently identified user.</td>
                 <td></td>
             </tr>
                     <tr>
@@ -368,27 +368,6 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_checkLogin">checkLogin</a>()
-        
-                                            <p class="no-description">No description</p>
-                                    </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_ensureLogin">ensureLogin</a>()
-        
-                                            <p>Check if user is logged in, and redirect to this controller if needed.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
@@ -439,6 +418,27 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_checkLogin">checkLogin</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_ensureLogin">ensureLogin</a>()
+        
+                                            <p>Check if user is logged in, and redirect to this controller if needed.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     bool
                 </div>
                 <div class="col-md-8 type">
@@ -475,7 +475,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 130</div>
+        <div class="location">at         line 115</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -621,7 +621,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_runMethod">
-        <div class="location">at         line 257</div>
+        <div class="location">at         line 192</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>runMethod</strong>(string $methodName)
         </code>
@@ -659,7 +659,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">at         line 144</div>
+        <div class="location">at         line 129</div>
         <code>            protected        void
     <strong>setPageDetails</strong>()
         </code>
@@ -689,7 +689,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 156</div>
+        <div class="location">at         line 141</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -718,66 +718,8 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_checkLogin">
-        <div class="location">at         line 170</div>
-        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
-    <strong>checkLogin</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_ensureLogin">
-        <div class="location">at         line 183</div>
-        <code>                private    bool
-    <strong>ensureLogin</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Check if user is logged in, and redirect to this controller if needed.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_indexMethod">
-        <div class="location">at         line 222</div>
+        <div class="location">at         line 157</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>indexMethod</strong>()
         </code>
@@ -807,7 +749,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_createMethod">
-        <div class="location">at         line 229</div>
+        <div class="location">at         line 164</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>createMethod</strong>()
         </code>
@@ -837,7 +779,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_showMethod">
-        <div class="location">at         line 236</div>
+        <div class="location">at         line 171</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>showMethod</strong>()
         </code>
@@ -867,7 +809,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_updateMethod">
-        <div class="location">at         line 243</div>
+        <div class="location">at         line 178</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>updateMethod</strong>()
         </code>
@@ -897,7 +839,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteMethod">
-        <div class="location">at         line 250</div>
+        <div class="location">at         line 185</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>deleteMethod</strong>()
         </code>
@@ -926,8 +868,66 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_checkLogin">
+        <div class="location">at         line 239</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
+    <strong>checkLogin</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_ensureLogin">
+        <div class="location">at         line 252</div>
+        <code>                private    bool
+    <strong>ensureLogin</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check if user is logged in, and redirect to this controller if needed.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">at         line 309</div>
+        <div class="location">at         line 294</div>
         <code>                private    bool
     <strong>canAction</strong>(string $username, string $action)
         </code>
@@ -972,7 +972,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">at         line 346</div>
+        <div class="location">at         line 331</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
@@ -1002,7 +1002,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">at         line 373</div>
+        <div class="location">at         line 358</div>
         <code>            protected        array
     <strong>getPageDetails</strong>()
         </code>

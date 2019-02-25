@@ -201,13 +201,13 @@ param in getInstance</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    array
+                    bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getConfig">getConfig</a>(string $index = &#039;main&#039;)
+                    <a href="#method_setConfig">setConfig</a>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         
-                                            <p>Returns the yaml config params.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
+                                            <p>Save config to file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -261,13 +261,13 @@ param in getInstance</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    bool
+                    array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setConfig">setConfig</a>(array $params, bool $merge = true, string $index = &#039;main&#039;)
+                    <a href="#method_getConfig">getConfig</a>(string $index = &#039;main&#039;)
         
-                                            <p>Save config to file.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
+                                            <p>Returns the yaml config params.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -348,7 +348,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 84</div>
+        <div class="location">at         line 95</div>
         <code>        static            <a href="../../Alxarafe/Providers/Database.html"><abbr title="Alxarafe\Providers\Database">Database</abbr></a>
     <strong>getInstance</strong>()
         </code>
@@ -407,10 +407,10 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getConfig">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 101</div>
-        <code>                    array
-    <strong>getConfig</strong>(string $index = &#039;main&#039;)
+                    <h3 id="method_setConfig">
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 103</div>
+        <code>                    bool
+    <strong>setConfig</strong>(array $params, bool $merge = true, string $index = &#039;main&#039;)
         </code>
     </h3>
     <div class="details">
@@ -418,11 +418,21 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
     
 
                     <div class="method-description">
-                                    <p>Returns the yaml config params.</p>                                                </div>
+                                    <p>Save config to file.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$params</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$merge</td>
+                <td></td>
+            </tr>
                     <tr>
                 <td>string</td>
                 <td>$index</td>
@@ -435,7 +445,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
 
                     <table class="table table-condensed">
         <tr>
-            <td>array</td>
+            <td>bool</td>
             <td></td>
         </tr>
     </table>
@@ -448,7 +458,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_getYamlContent">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 115</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 126</div>
         <code>                private    array
     <strong>getYamlContent</strong>()
         </code>
@@ -478,7 +488,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_getFilePath">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 136</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 147</div>
         <code>                    string
     <strong>getFilePath</strong>()
         </code>
@@ -508,7 +518,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_getFileName">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 146</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 157</div>
         <code>                    string
     <strong>getFileName</strong>()
         </code>
@@ -538,7 +548,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_yamlName">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 156</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 167</div>
         <code>        static            string
     <strong>yamlName</strong>()
         </code>
@@ -568,7 +578,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_fileExists">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_fileExists"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 168</div>
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_fileExists"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 179</div>
         <code>            protected        bool
     <strong>fileExists</strong>(string $filename)
         </code>
@@ -607,10 +617,10 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setConfig">
-        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_setConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 182</div>
-        <code>                    bool
-    <strong>setConfig</strong>(array $params, bool $merge = true, string $index = &#039;main&#039;)
+                    <h3 id="method_getConfig">
+        <div class="location">in <a href="../../Alxarafe/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a> at         line 191</div>
+        <code>                    array
+    <strong>getConfig</strong>(string $index = &#039;main&#039;)
         </code>
     </h3>
     <div class="details">
@@ -618,21 +628,11 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
     
 
                     <div class="method-description">
-                                    <p>Save config to file.</p>                                                </div>
+                                    <p>Returns the yaml config params.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$params</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>bool</td>
-                <td>$merge</td>
-                <td></td>
-            </tr>
                     <tr>
                 <td>string</td>
                 <td>$index</td>
@@ -645,7 +645,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
 
                     <table class="table table-condensed">
         <tr>
-            <td>bool</td>
+            <td>array</td>
             <td></td>
         </tr>
     </table>
@@ -730,7 +730,7 @@ and assigns it to Database::getInstance()->getDbEngine().</p>                </d
             </div>
                     <div class="method-item">
                     <h3 id="method_connectToDatabase">
-        <div class="location">at         line 95</div>
+        <div class="location">at         line 85</div>
         <code>                    bool
     <strong>connectToDatabase</strong>()
         </code>
