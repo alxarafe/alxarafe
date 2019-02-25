@@ -120,6 +120,7 @@ function newDataTable(name, origData) {
     var table = $('#' + name).DataTable({
         destroy: true,
         pageLength: rowsPerPage,
+        responsive: true,
         paging: true,
         pagingType: "full_numbers",
         processing: true,
