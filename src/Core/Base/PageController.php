@@ -235,6 +235,7 @@ abstract class PageController extends SimpleController
 
         switch ($methodName) {
             case 'index':
+            case 'ajaxTableData':
                 if ($this->canAccess) {
                     return $this->{$method}();
                 }

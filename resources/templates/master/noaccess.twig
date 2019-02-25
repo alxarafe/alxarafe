@@ -6,9 +6,9 @@
 
 {% block title %}{{ lang.trans('update') }} {{ ctrl.title }}{% endblock %}
 
-{% block stylesheets %}
+{% block extraStylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ getResourceUri('/css/common.css') }}">
+    {#<link rel="stylesheet" href="{{ getResourceUri('/resources/common/css/common.css') }}">#}
 {% endblock %}
 
 {% block body %}
@@ -19,7 +19,7 @@
     </div>
 {% endblock %}
 
-{% block javascriptsFooter %}
+{% block extraJavascriptsFooter %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ getResourceUri('/js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/resources/common/js/common.js') }}"></script>
 {% endblock %}

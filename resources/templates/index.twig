@@ -5,7 +5,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    {% block header %}{% include 'master/header.twig' %}{% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    {% set description = main.description | raw %}
+    {% set author = main.author | raw %}
+    {% if description is not empty %}
+        <meta name="description" content="{{ description }}"/>
+    {% endif %}
+    {% if author is not empty %}
+        <meta name="author" content="{{ author }}">
+    {% endif %}
+    <meta name="generator" content="Alxarafe"/>
+    <link rel="shortcut icon" href="{{ getResourceUri('/resources/templates/img/favicon.ico') }}"/>
+
+    <title>{% block title %}{{ lang.trans(ctrl.title) }}{% endblock %} - Alxarafe</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ getResourceUri('/resources/skins/default/bower_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ getResourceUri('/resources/skins/default/bower_modules/bootstrap/dist/css/bootstrap-theme.min.css') }}">
+        {% for css in cssCode %}
+            <link rel="stylesheet" type="text/css" href="{{ css }}"/>
+        {% endfor %}
+        <link rel="stylesheet" type="text/css" href="{{ getResourceUri('/resources/templates/css/alxarafe.css') }}">
+        {# start of getHeader #}
+        {{ getHeader() | raw }}
+        {# end of getHeader #}
+    {% block extraStylesheets %}{% endblock %}
+    {% endblock %}
 </head>
 <body>
 
@@ -41,6 +69,33 @@
 <div class="container-fluid" id="bodycontent" name="bodycontent">
     {% block body %}{% endblock %}
 </div>
-{% block footer %}{% include 'master/footer.twig' %}{% endblock %}
+
+<footer class="footer" id="footercontent" name="footercontent">
+    <div class="container">
+        <p class="text-muted">
+            <span>
+                {{ copyright() | raw }} -
+                <a target="_blank" href="https://github.com/alxarafe/alxarafe">GitHub</a>
+            </span>
+            <span>
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ debugbarTime.collect().duration_str }}
+            </span>
+        </p>
+    </div>
+</footer>
+
+{# Including jsCode #}
+{% block javascriptsFooter %}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    {% for js in jsCode %}
+    <script type="text/javascript" src="{{ js }}"></script>
+    {% endfor %}
+    {% block extraJavascriptsFooter %}{% endblock %}
+    {# Start of getFooter #}
+    {{ getFooter() | raw }}
+    {# End of getFooter #}
+{% endblock %}
+{# End of jsCode inclusion #}
 </body>
 </html>
