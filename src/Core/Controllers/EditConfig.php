@@ -72,6 +72,20 @@ class EditConfig extends PageController
     public $dbConfig;
 
     /**
+     * This installation timezone.
+     *
+     * @var array
+     */
+    public $timeZone;
+
+    /**
+     * Contains a list of timezones.
+     *
+     * @var array
+     */
+    public $timeZones;
+
+    /**
      * Array that contains the paths to search.
      *
      * @var array
@@ -202,6 +216,8 @@ class EditConfig extends PageController
         $this->dbConfig['dbHost'] = $databaseConfig['dbHost'] ?? 'localhost';
         $this->dbConfig['dbPrefix'] = $databaseConfig['dbPrefix'] ?? '';
         $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
+
+        $this->timeZone = date_default_timezone_get();
     }
 
     /**
@@ -219,5 +235,24 @@ class EditConfig extends PageController
             'menu' => 'admin',
         ];
         return $details;
+    }
+
+    /**
+     * Returns a list of timezones list with GMT offset
+     *
+     * @return array
+     *
+     * @link http://stackoverflow.com/a/9328760
+     */
+    public function getTimezoneList()
+    {
+        $zonesArray = [];
+        $timestamp = time();
+        foreach (timezone_identifiers_list() as $key => $zone) {
+            date_default_timezone_set($zone);
+            $zonesArray[$key]['zone'] = $zone;
+            $zonesArray[$key]['diff_from_GMT'] = 'UTC/GMT ' . date('P', $timestamp);
+        }
+        return $zonesArray;
     }
 }

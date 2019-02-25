@@ -179,7 +179,6 @@ class BootStrap
         $this->translator = Translator::getInstance();
         $this->cacheEngine = CacheCore::getInstance()->getEngine();
         $this->database = Database::getInstance();
-        $this->database->connectToDatabase();
         $this->renderer = TemplateRender::getInstance();
     }
 
@@ -203,7 +202,6 @@ class BootStrap
             'skin' => 'default',
             'language' => 'es_ES',
         ];
-        $this->configManager->setConfig($defaultData);
         return $defaultData;
     }
 
@@ -251,6 +249,9 @@ class BootStrap
             if (method_exists($controllerName, $method . 'Method')) {
                 $controller = new $controllerName();
                 $this->response = null;
+                if ($method !== 'CreateConfig') {
+                    $this->database->connectToDatabase();
+                }
                 $this->response = $controller->runMethod($method);
                 if (!$this->response instanceof Response) {
                     $this->response = new Response();

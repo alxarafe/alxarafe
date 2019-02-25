@@ -56,6 +56,19 @@
                         </div>
                     {% endif %}
                 </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    {% if ctrl.getTimezoneList()|length > 0 %}
+                        <div class="form-group">
+                            <label>{{ lang.trans('default-timezone') }}</label>
+                            <select id="timezone" name="timezone" class="form-control">
+                                {% for timezone in ctrl.getTimezoneList() %}
+                                    <option {{ ctrl.timeZone==timezone['zone'] ? "selected":"" }} value="{{ timezone['zone'] }}">{{ timezone['zone'] }} - {{ timezone['diff_from_GMT']}}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">

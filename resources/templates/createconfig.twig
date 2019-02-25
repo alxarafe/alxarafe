@@ -7,7 +7,7 @@
 {% block body %}
     {{ parent() }}
     <div class="container-fluid">
-        <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=CreateConfig&{{ constant('METHOD_CONTROLLER') }}=main" method='post' accept-charset="utf-8">
+        <form action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=CreateConfig&{{ constant('METHOD_CONTROLLER') }}={{ constant('DEFAULT_METHOD') }}" method='post' accept-charset="utf-8">
             <div class="row">
                 <div class="col-xs-12">
                     {% if (message) %}{{ message }}{% endif %}
@@ -51,6 +51,19 @@
                             <select id="language" name="language" class="form-control">
                                 {% for lang in ctrl.languages|keys %}
                                     <option {{ lang==ctrl.language ? "selected":"" }}>{{ lang }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    {% if ctrl.getTimezoneList()|length > 0 %}
+                        <div class="form-group">
+                            <label>{{ lang.trans('default-timezone') }}</label>
+                            <select id="timezone" name="timezone" class="form-control">
+                                {% for timezone in ctrl.getTimezoneList() %}
+                                    <option {{ ctrl.timeZone==timezone['zone'] ? "selected":"" }} value="{{ timezone['zone'] }}">{{ timezone['zone'] }} - {{ timezone['diff_from_GMT']}}</option>
+
                                 {% endfor %}
                             </select>
                         </div>
