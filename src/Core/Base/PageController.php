@@ -11,6 +11,7 @@ use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\User;
 use Alxarafe\Models\UserRole;
+use Alxarafe\Providers\Logger;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -164,11 +165,9 @@ abstract class PageController extends SimpleController
     }
 
     /**
-     * Start point
-     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
      */
-    public function index()
+    public function checkLogin()
     {
         if (!$this->ensureLogin()) {
             return $this->redirect();
@@ -213,9 +212,61 @@ abstract class PageController extends SimpleController
                 'messages', "Perms for user '" . $this->userName . "': <pre>" . var_export($perms, true) . "</pre>"
             );
             return true;
+        } else {
+            $this->debugTool->addMessage(
+                'messages', "No user logged in"
+            );
         }
         $this->userAuth->login();
         return false;
+    }
+
+    /**
+     * @param string $methodName
+     *
+     * @return Response
+     */
+    public function runMethod(string $methodName): Response
+    {
+        $this->checkLogin();
+        $method = $methodName . 'Method';
+        $vars = [];
+        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+
+        switch ($methodName) {
+            case 'index':
+                if ($this->canAccess) {
+                    return $this->{$method}();
+                }
+                break;
+            case 'create':
+                if ($this->canAccess && $this->canCreate) {
+                    return $this->{$method}();
+                }
+                break;
+            case 'show':
+                if ($this->canAccess && $this->canRead) {
+                    return $this->{$method}();
+                }
+                break;
+            case 'update':
+                if ($this->canAccess && $this->canUpdate) {
+                    return $this->{$method}();
+                }
+                break;
+            case 'delete':
+                if ($this->canAccess && $this->canDelete) {
+                    return $this->{$method}();
+                }
+                break;
+            default:
+                $vars = [
+                    'action' => $method,
+                ];
+                break;
+        }
+        $this->renderer->setTemplate('master/noaccess');
+        return $this->sendResponseTemplate($vars);
     }
 
     /**

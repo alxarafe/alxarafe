@@ -250,8 +250,7 @@ class BootStrap
             $this->response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
             if (method_exists($controllerName, $method . 'Method')) {
                 $controller = new $controllerName();
-                Logger::getInstance()->getLogger()->addDebug('Call to ' . $controllerName . '->' . $method . '()');
-                $this->response = $controller->{$method . 'Method'}();
+                $this->response = $controller->runMethod($method);
             }
         }
 

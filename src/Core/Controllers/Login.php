@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\PageController;
+use Alxarafe\Base\SimpleController;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Providers\FlashMessages;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class Login extends PageController
+class Login extends SimpleController
 {
 
     /**
@@ -100,7 +100,7 @@ class Login extends PageController
      */
     public function logoutMethod(): RedirectResponse
     {
-        $this->index();
+        $this->indexMethod();
         return $this->userAuth->logout();
     }
 

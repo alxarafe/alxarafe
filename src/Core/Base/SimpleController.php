@@ -26,6 +26,7 @@ abstract class SimpleController
 {
     /**
      * TODO: Undocumented
+     * TODO: Undocumented
      *
      * @var null
      */
@@ -152,5 +153,18 @@ abstract class SimpleController
         }
         Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
         return new RedirectResponse($destiny);
+    }
+
+
+    /**
+     * @param string $methodName
+     *
+     * @return Response
+     */
+    public function runMethod(string $methodName): Response
+    {
+        $method = $methodName . 'Method';
+        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+        return $this->{$method}();
     }
 }

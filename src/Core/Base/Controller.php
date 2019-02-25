@@ -151,6 +151,7 @@ abstract class Controller extends PageController
         $this->tableName = $this->model->tableName;
         parent::__construct();
         $this->newButtons = $this->getNewButtons();
+        $this->renderer->setTemplate('default');
     }
 
     public function getNewButtons()
@@ -172,14 +173,11 @@ abstract class Controller extends PageController
     /**
      * Create new record.
      */
-    public function create()
+    public function createMethod()
     {
-        $this->accessDenied();
-        if ($this->canAccess && $this->canUpdate) {
-            $this->initialize();
-            $this->status = 'adding';
-            $this->renderer->setTemplate('master/create');
-        }
+        $this->initialize();
+        $this->status = 'adding';
+        $this->renderer->setTemplate('master/create');
         return $this->sendResponseTemplate();
     }
 
@@ -235,29 +233,12 @@ abstract class Controller extends PageController
     /**
      * Show existing record.
      */
-    public function show()
+    public function showMethod()
     {
-        $this->accessDenied();
-        if ($this->canAccess && $this->canRead) {
-            $this->initialize();
-            $this->postData = $this->getRecordData();
-            $this->status = 'showing';
-            return $this->run();
-        }
+        $this->initialize();
+        $this->postData = $this->getRecordData();
+        $this->status = 'showing';
         return $this->sendResponseTemplate();
-    }
-
-    /**
-     * The start point of the controller.
-     *
-     * @return Response
-     */
-    public function run(): Response
-    {
-        if (!$this->canAccess) {
-            $this->accessDenied();
-            return $this->sendResponseTemplate();
-        }
     }
 
     /**
@@ -265,24 +246,20 @@ abstract class Controller extends PageController
      *
      * @return Response
      */
-    public function edit(): Response
+    public function editMethod(): Response
     {
-        $this->accessDenied();
-        if ($this->canAccess && $this->canUpdate) {
-            $this->initialize();
-            $this->status = 'editing';
-            $action = filter_input(INPUT_POST, 'action');
-            switch ($action) {
-                case 'cancel':
-                    $this->cancel();
-                    break;
-                case 'save':
-                    $this->getDataPost();
-                    $this->oldData = $this->getRecordData();
-                    $this->save();
-                    break;
-            }
-            return $this->run();
+        $this->initialize();
+        $this->status = 'editing';
+        $action = filter_input(INPUT_POST, 'action');
+        switch ($action) {
+            case 'cancel':
+                $this->cancel();
+                break;
+            case 'save':
+                $this->getDataPost();
+                $this->oldData = $this->getRecordData();
+                $this->save();
+                break;
         }
         return $this->sendResponseTemplate();
     }
@@ -352,7 +329,7 @@ abstract class Controller extends PageController
             } else {
                 FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
             }
-            return $this->index();
+            return $this->indexMethod();
         }
         return $this->sendResponseTemplate();
     }
@@ -363,18 +340,10 @@ abstract class Controller extends PageController
      *
      * @return Response
      */
-    public function index(): Response
+    public function indexMethod(): Response
     {
-        $result = parent::index();
-        if (!is_null($result)) {
-            return $result;
-        }
-        $this->accessDenied();
-        if ($this->canAccess) {
-            $this->initialize();
-            $this->listData();
-            return $this->run();
-        }
+        $this->initialize();
+        $this->listData();
         return $this->sendResponseTemplate();
     }
 
@@ -397,12 +366,8 @@ abstract class Controller extends PageController
     /**
      * Return the table data using AJAX
      */
-    public function ajaxTableData()
+    public function ajaxTableDataMethod()
     {
-        $result = parent::index();
-        if (!is_null($result)) {
-            return $result;
-        }
         $this->renderer->setTemplate('json');
         // Para acceder de forma más simplificada y unificada a los valores
         $requestData = $_REQUEST;
@@ -601,5 +566,25 @@ abstract class Controller extends PageController
             }
         }
         return $ret;
+    }
+
+    /**
+     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
+     *
+     * @return void
+     */
+    public function addCSS(): void
+    {
+        $this->addToVar('cssCode', $this->addResource('/.css'));
+    }
+
+    /**
+     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
+     *
+     * @return void
+     */
+    public function addJS(): void
+    {
+        $this->addToVar('jsCode', $this->addResource('/.js'));
     }
 }
