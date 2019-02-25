@@ -252,6 +252,13 @@ class BootStrap
                 $controller = new $controllerName();
                 $this->response = null;
                 $this->response = $controller->runMethod($method);
+                if (!$this->response instanceof Response) {
+                    $this->response = new Response();
+                    // This must be removed, only for now to complete
+                    $reply = $this->translator->trans('not-response-from-controller') . ' ' . $controllerName . '->' . $method;
+                    $this->response->setStatusCode(Response::HTTP_GONE);
+                    $this->response->setContent($reply);
+                }
             }
         }
 
@@ -263,12 +270,6 @@ class BootStrap
                 'msg' => $msg,
             ];
             $reply = $this->renderer->render($vars);
-            $this->response->setContent($reply);
-        } elseif (!$this->response instanceof Response) {
-            $this->response = new Response();
-            // This must be removed, only for now to complete
-            $reply = $this->translator->trans('not-response-from-controller') . ' ' . $controllerName . '->' . $method;
-            $this->response->setStatusCode(Response::HTTP_GONE);
             $this->response->setContent($reply);
         }
         $this->response->send();
