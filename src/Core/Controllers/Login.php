@@ -28,6 +28,13 @@ class Login extends SimpleController
     public $redirect;
 
     /**
+     * Contains the data of the currently identified user.
+     *
+     * @var Auth
+     */
+    public $userAuth;
+
+    /**
      * Login constructor.
      */
     public function __construct()

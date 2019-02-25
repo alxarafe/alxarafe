@@ -93,8 +93,7 @@ class DebugTool
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
         try {
-            $this->debugTool->getCollector('exceptions')->/** @scrutinizer ignore-call */
-            addException($e);
+            $this->debugTool->getCollector('exceptions')->/** @scrutinizer ignore-call */addException($e);
         } catch (DebugBarException $e) {
             Logger::getInstance()::exceptionHandler($e);
         }
