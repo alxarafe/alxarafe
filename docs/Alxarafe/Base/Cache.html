@@ -107,26 +107,26 @@
             <table class="table table-condensed">
                     <tr>
                 <td class="type" id="property_engine">
-                                                            private                    
+                                                            private                    <abbr title="Symfony\Component\Cache\Adapter\PhpArrayAdapter">PhpArrayAdapter</abbr>|<abbr title="Symfony\Component\Cache\Adapter\MemcachedAdapter">MemcachedAdapter</abbr>|<abbr title="Symfony\Component\Cache\Adapter\PdoAdapter">PdoAdapter</abbr>|<abbr title="Symfony\Component\Cache\Adapter\PhpFilesAdapter">PhpFilesAdapter</abbr>|<abbr title="Symfony\Component\Cache\Adapter\FilesystemAdapter">FilesystemAdapter</abbr>
                 </td>
                 <td>$engine</td>
-                <td class="last"></td>
+                <td class="last">Cache engine.</td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type" id="property_prefix">
-                                                            private                    
+                                                            private                    string
                 </td>
                 <td>$prefix</td>
-                <td class="last">TODO: Undocumented</td>
+                <td class="last">Prefix for the cache.</td>
                 <td></td>
             </tr>
                     <tr>
                 <td class="type" id="property_defaultLifeTime">
-                                                            private                    
+                                                            private                    int
                 </td>
                 <td>$defaultLifeTime</td>
-                <td class="last">TODO: Undocumented</td>
+                <td class="last">Default life time of cache.</td>
                 <td></td>
             </tr>
             </table>
@@ -193,7 +193,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 58</div>
+        <div class="location">at         line 59</div>
         <code>                    
     <strong>__construct</strong>(string $prefix = &#039;&#039;, int $lifeTime = self::DEFAULT_LIFE_TIME)
         </code>
@@ -229,7 +229,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_connectMemcache">
-        <div class="location">at         line 85</div>
+        <div class="location">at         line 86</div>
         <code>                private    void
     <strong>connectMemcache</strong>()
         </code>
@@ -259,7 +259,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_connectPDO">
-        <div class="location">at         line 106</div>
+        <div class="location">at         line 107</div>
         <code>                private    void
     <strong>connectPDO</strong>()
         </code>
@@ -289,7 +289,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_connectPhpFiles">
-        <div class="location">at         line 123</div>
+        <div class="location">at         line 124</div>
         <code>                private    void
     <strong>connectPhpFiles</strong>()
         </code>
@@ -319,7 +319,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_connectFilesystem">
-        <div class="location">at         line 145</div>
+        <div class="location">at         line 146</div>
         <code>                private    void
     <strong>connectFilesystem</strong>()
         </code>
