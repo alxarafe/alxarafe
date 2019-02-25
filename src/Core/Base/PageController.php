@@ -325,22 +325,15 @@ abstract class PageController extends SimpleController
                 continue;
             }
             // Add every page to list
-            $pos = '$list';
             $positions = explode(self::MENU_DELIMITER, $page['menu']);
-            foreach ($positions as $position) {
-                $pos .= "['$position']";
-            }
-            $pos .= "[]";
             $pageDetails = [
                 'controller' => $page['controller'],
                 'title' => $page['title'],
                 'description' => $page['description'],
                 'icon' => $page['icon'],
             ];
-            eval("$pos=" . var_export($pageDetails, true) . ";");
-//            ${$pos} = var_export($pageDetails, true);
+            $list[implode(self::MENU_DELIMITER, $positions)][] = $pageDetails;
         }
-//        var_dump($pos);
         return $list;
     }
 
