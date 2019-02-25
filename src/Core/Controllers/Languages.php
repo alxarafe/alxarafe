@@ -32,7 +32,7 @@ class Languages extends Controller
      *
      * @return Response
      */
-    public function main(): Response
+    public function indexMethod(): Response
     {
         $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_ENCODED);
         switch ($action) {
@@ -43,6 +43,9 @@ class Languages extends Controller
         return $this->sendResponseTemplate();
     }
 
+    /**
+     * TODO: This must be moved to ProProcessors namespace
+     */
     public function regenerate()
     {
         $subfolder = '/Languages';
