@@ -110,7 +110,8 @@
                                                                                 null
                 </td>
                 <td>$username</td>
-                <td class="last">TODO: Undocumented</td>
+                <td class="last">TODO: Undocumented
+TODO: Undocumented</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_username"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
                     <tr>
@@ -387,6 +388,14 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 <td class="last">Puede contener 3 valores: listing, adding o editing.</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type" id="property_vars">
+                                                            private                    array
+                </td>
+                <td>$vars</td>
+                <td class="last">Array that contains the variables that will be passed to the template.</td>
+                <td></td>
+            </tr>
             </table>
 
     
@@ -405,27 +414,17 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    void
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_index">index</a>()
-        
-                                            <p>El punto de entrada es run.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_sendTemplateResponse">sendTemplateResponse</a>(array $data = [])
+                    <a href="#method_sendResponseTemplate">sendResponseTemplate</a>(array $data = [])
         
                                             <p>Add new vars to render, render the template and send the Response.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#method_sendTemplateResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_sendResponse">sendResponse</a>(string $reply, int $status = Response::HTTP_OK)
@@ -435,13 +434,24 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_redirect">redirect</a>(string $destiny = &#039;&#039;)
         
                                             <p>Send a RedirectResponse to destiny receive.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#method_redirect"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_runMethod">runMethod</a>(string $methodName)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_runMethod"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -462,6 +472,27 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
         
                                             <p>Returns the page details.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_pageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_checkLogin">checkLogin</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_checkLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_indexMethod">indexMethod</a>()
+        
+                                            <p>El punto de entrada es run.</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -530,7 +561,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_create">create</a>()
+                    <a href="#method_createMethod">createMethod</a>()
         
                                             <p>Create new record.</p>                </div>
                 <div class="col-md-2"></div>
@@ -572,34 +603,24 @@ defecto.</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_show">show</a>()
+                    <a href="#method_showMethod">showMethod</a>()
         
                                             <p>Show existing record.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    void
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_run">run</a>()
-        
-                                            <p>The start point of the controller.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_edit">edit</a>()
+                    <a href="#method_editMethod">editMethod</a>()
         
                                             <p>Edit existing record.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    void
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_cancel">cancel</a>()
@@ -639,7 +660,7 @@ defecto.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_listData">listData</a>()
@@ -652,7 +673,7 @@ defecto.</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_ajaxTableData">ajaxTableData</a>()
+                    <a href="#method_ajaxTableDataMethod">ajaxTableDataMethod</a>()
         
                                             <p>Return the table data using AJAX</p>                </div>
                 <div class="col-md-2"></div>
@@ -718,6 +739,47 @@ defecto.</p>                </div>
 falten con los datos por defecto.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addToVar">addToVar</a>(string $name, mixed $value)
+        
+                                            <p>Add a new element to a value saved in the array that is passed to the template.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addResource">addResource</a>(string $resourceName, boolean $relative = true)
+        
+                                            <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addCSS">addCSS</a>()
+        
+                                            <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addJS">addJS</a>()
+        
+                                            <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -726,7 +788,7 @@ falten con los datos por defecto.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 144</div>
+        <div class="location">at         line 155</div>
         <code>                    
     <strong>__construct</strong>(<a href="../../Alxarafe/Base/Table.html"><abbr title="Alxarafe\Base\Table">Table</abbr></a>|null $model = null)
         </code>
@@ -767,40 +829,10 @@ falten con los datos por defecto.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_index">
-        <div class="location">at         line 361</div>
-        <code>                    void
-    <strong>index</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>El punto de entrada es run.</p>                    <p>Index realiza los procesos necesarios una vez instanciada la clase.</p>                            </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_sendTemplateResponse">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendTemplateResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 127</div>
-        <code>                    
-    <strong>sendTemplateResponse</strong>(array $data = [])
+                    <h3 id="method_sendResponseTemplate">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 121</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>sendResponseTemplate</strong>(array $data = [])
         </code>
     </h3>
     <div class="details">
@@ -821,6 +853,15 @@ falten con los datos por defecto.</p>                </div>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -829,8 +870,8 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_sendResponse">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 139</div>
-        <code>                    
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 135</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>sendResponse</strong>(string $reply, int $status = Response::HTTP_OK)
         </code>
     </h3>
@@ -857,6 +898,15 @@ falten con los datos por defecto.</p>                </div>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -865,8 +915,8 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_redirect">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_redirect"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 151</div>
-        <code>                    
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_redirect"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 149</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>redirect</strong>(string $destiny = &#039;&#039;)
         </code>
     </h3>
@@ -888,6 +938,53 @@ falten con los datos por defecto.</p>                </div>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_runMethod">
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_runMethod"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 229</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>runMethod</strong>(string $methodName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$methodName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -896,7 +993,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 142</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 144</div>
         <code>            protected        void
     <strong>setPageDetails</strong>()
         </code>
@@ -926,7 +1023,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_pageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 154</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_pageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 156</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -955,8 +1052,66 @@ falten con los datos por defecto.</p>                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_checkLogin">
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_checkLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 170</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
+    <strong>checkLogin</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_indexMethod">
+        <div class="location">at         line 351</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>indexMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>El punto de entrada es run.</p>                    <p>Index realiza los procesos necesarios una vez instanciada la clase.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_ensureLogin">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 182</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 190</div>
         <code>                private    bool
     <strong>ensureLogin</strong>()
         </code>
@@ -986,7 +1141,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 220</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 281</div>
         <code>                private    bool
     <strong>canAction</strong>(string $username, string $action)
         </code>
@@ -1031,7 +1186,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 257</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 318</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
@@ -1061,7 +1216,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 290</div>
+        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 345</div>
         <code>            protected        array
     <strong>getPageDetails</strong>()
         </code>
@@ -1091,7 +1246,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getNewButtons">
-        <div class="location">at         line 153</div>
+        <div class="location">at         line 165</div>
         <code>                    
     <strong>getNewButtons</strong>()
         </code>
@@ -1110,7 +1265,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getStatus">
-        <div class="location">at         line 164</div>
+        <div class="location">at         line 176</div>
         <code>                    string
     <strong>getStatus</strong>()
         </code>
@@ -1140,10 +1295,10 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_create">
-        <div class="location">at         line 172</div>
+                    <h3 id="method_createMethod">
+        <div class="location">at         line 184</div>
         <code>                    
-    <strong>create</strong>()
+    <strong>createMethod</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1162,7 +1317,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_initialize">
-        <div class="location">at         line 186</div>
+        <div class="location">at         line 195</div>
         <code>                    
     <strong>initialize</strong>()
         </code>
@@ -1183,7 +1338,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getRecordData">
-        <div class="location">at         line 210</div>
+        <div class="location">at         line 219</div>
         <code>            protected        array
     <strong>getRecordData</strong>()
         </code>
@@ -1215,7 +1370,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_accessDenied">
-        <div class="location">at         line 227</div>
+        <div class="location">at         line 236</div>
         <code>                    
     <strong>accessDenied</strong>()
         </code>
@@ -1235,10 +1390,10 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_show">
-        <div class="location">at         line 235</div>
+                    <h3 id="method_showMethod">
+        <div class="location">at         line 244</div>
         <code>                    
-    <strong>show</strong>()
+    <strong>showMethod</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1256,10 +1411,10 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_run">
-        <div class="location">at         line 252</div>
-        <code>                    void
-    <strong>run</strong>()
+                    <h3 id="method_editMethod">
+        <div class="location">at         line 257</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>editMethod</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1267,14 +1422,14 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
     
 
                     <div class="method-description">
-                                    <p>The start point of the controller.</p>                                                </div>
+                                    <p>Edit existing record.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td>void</td>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
             <td></td>
         </tr>
     </table>
@@ -1286,30 +1441,9 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_edit">
-        <div class="location">at         line 263</div>
-        <code>                    
-    <strong>edit</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Edit existing record.</p>                                                </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_cancel">
-        <div class="location">at         line 290</div>
-        <code>            protected        void
+        <div class="location">at         line 280</div>
+        <code>            protected        <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>cancel</strong>()
         </code>
     </h3>
@@ -1325,7 +1459,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
 
                     <table class="table table-condensed">
         <tr>
-            <td>void</td>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
             <td></td>
         </tr>
     </table>
@@ -1338,7 +1472,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getDataPost">
-        <div class="location">at         line 306</div>
+        <div class="location">at         line 296</div>
         <code>            protected        void
     <strong>getDataPost</strong>()
         </code>
@@ -1368,7 +1502,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">at         line 323</div>
+        <div class="location">at         line 313</div>
         <code>            protected        
     <strong>save</strong>()
         </code>
@@ -1391,7 +1525,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_delete">
-        <div class="location">at         line 337</div>
+        <div class="location">at         line 327</div>
         <code>                    
     <strong>delete</strong>()
         </code>
@@ -1412,8 +1546,8 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_listData">
-        <div class="location">at         line 376</div>
-        <code>                    
+        <div class="location">at         line 363</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>listData</strong>()
         </code>
     </h3>
@@ -1425,6 +1559,15 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
                                     <p>List all records on model.</p>                                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -1432,10 +1575,10 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_ajaxTableData">
-        <div class="location">at         line 390</div>
+                    <h3 id="method_ajaxTableDataMethod">
+        <div class="location">at         line 377</div>
         <code>                    
-    <strong>ajaxTableData</strong>()
+    <strong>ajaxTableDataMethod</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1454,7 +1597,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultColumnsSearch">
-        <div class="location">at         line 446</div>
+        <div class="location">at         line 432</div>
         <code>                    array
     <strong>getDefaultColumnsSearch</strong>()
         </code>
@@ -1484,7 +1627,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableHeader">
-        <div class="location">at         line 461</div>
+        <div class="location">at         line 447</div>
         <code>                    
     <strong>getTableHeader</strong>()
         </code>
@@ -1505,7 +1648,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableBody">
-        <div class="location">at         line 484</div>
+        <div class="location">at         line 470</div>
         <code>                    
     <strong>getTableBody</strong>()
         </code>
@@ -1526,7 +1669,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getListFields">
-        <div class="location">at         line 515</div>
+        <div class="location">at         line 501</div>
         <code>                    
     <strong>getListFields</strong>()
         </code>
@@ -1547,7 +1690,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableFooter">
-        <div class="location">at         line 551</div>
+        <div class="location">at         line 537</div>
         <code>                    
     <strong>getTableFooter</strong>()
         </code>
@@ -1568,7 +1711,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_setDefaults">
-        <div class="location">at         line 580</div>
+        <div class="location">at         line 566</div>
         <code>            protected        array
     <strong>setDefaults</strong>(array $record)
         </code>
@@ -1597,6 +1740,161 @@ falten con los datos por defecto.</p>                                           
                     <table class="table table-condensed">
         <tr>
             <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addToVar">
+        <div class="location">at         line 589</div>
+        <code>                    void
+    <strong>addToVar</strong>(string $name, mixed $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Add a new element to a value saved in the array that is passed to the template.</p>                    <p>It is used when what we are saving is an array and we want to add a new element to that array.
+IMPORTANT: The element only is added if is not empty.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addResource">
+        <div class="location">at         line 610</div>
+        <code>                    string
+    <strong>addResource</strong>(string $resourceName, boolean $relative = true)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                    <p>If it can not be found, check if it is in the templates folder (for example in the css or
+js folders of the templates folder). It's a common file.</p>
+
+<p>If it is not in either of the two, no route is specified (it will surely give loading error).</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$resourceName</td>
+                <td>is the name of the file (with extension)</td>
+            </tr>
+                    <tr>
+                <td>boolean</td>
+                <td>$relative</td>
+                <td>set to false for use an absolute path.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>the complete path of resource.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addCSS">
+        <div class="location">at         line 632</div>
+        <code>                    void
+    <strong>addCSS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addJS">
+        <div class="location">at         line 642</div>
+        <code>                    void
+    <strong>addJS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
             <td></td>
         </tr>
     </table>

@@ -101,6 +101,14 @@
                 <td class="last">Array that contains the paths to find the Controllers folder that contains the controllers</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type" id="property_routes">
+                                                            private                    <a href="../../Alxarafe/Providers/Router.html"><abbr title="Alxarafe\Providers\Router">Router</abbr></a>
+                </td>
+                <td>$routes</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
             </table>
 
     
@@ -132,7 +140,7 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_cleanPagesBefore">cleanPagesBefore</a>(<a href="http://php.net/DateTime" target="_blank">DateTime</a> $start)
+                    <a href="#method_cleanPagesBefore">cleanPagesBefore</a>(<a target="_blank" href="http://php.net/DateTime">DateTime</a> $start)
         
                                             <p>Clean all pages before $start datetime.</p>                </div>
                 <div class="col-md-2"></div>
@@ -142,7 +150,7 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_instanciateClass">instanciateClass</a>(string $namespace, string $className)
+                    <a href="#method_instantiateClass">instantiateClass</a>(string $namespace, string $className)
         
                                             <p>Instanciate class and update page data if needed.</p>                </div>
                 <div class="col-md-2"></div>
@@ -157,16 +165,6 @@
                                             <p>Updates the page data if needed.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_updateRoute">updateRoute</a>()
-        
-                                            <p>Update available routes.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
@@ -175,7 +173,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 35</div>
+        <div class="location">at         line 43</div>
         <code>                    
     <strong>__construct</strong>(array $dirs)
         </code>
@@ -206,7 +204,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_checkPageControllers">
-        <div class="location">at         line 50</div>
+        <div class="location">at         line 58</div>
         <code>                private    void
     <strong>checkPageControllers</strong>()
         </code>
@@ -239,9 +237,9 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_cleanPagesBefore">
-        <div class="location">at         line 82</div>
+        <div class="location">at         line 93</div>
         <code>                private    
-    <strong>cleanPagesBefore</strong>(<a href="http://php.net/DateTime" target="_blank">DateTime</a> $start)
+    <strong>cleanPagesBefore</strong>(<a target="_blank" href="http://php.net/DateTime">DateTime</a> $start)
         </code>
     </h3>
     <div class="details">
@@ -255,7 +253,7 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
 
                     <table class="table table-condensed">
                     <tr>
-                <td><a href="http://php.net/DateTime" target="_blank">DateTime</a></td>
+                <td><a target="_blank" href="http://php.net/DateTime">DateTime</a></td>
                 <td>$start</td>
                 <td></td>
             </tr>
@@ -269,10 +267,10 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_instanciateClass">
-        <div class="location">at         line 100</div>
+                    <h3 id="method_instantiateClass">
+        <div class="location">at         line 112</div>
         <code>                private    
-    <strong>instanciateClass</strong>(string $namespace, string $className)
+    <strong>instantiateClass</strong>(string $namespace, string $className)
         </code>
     </h3>
     <div class="details">
@@ -306,7 +304,7 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_updatePageData">
-        <div class="location">at         line 117</div>
+        <div class="location">at         line 130</div>
         <code>                private    
     <strong>updatePageData</strong>(string $className, string $namespace, $newPage)
         </code>
@@ -338,27 +336,6 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
             </tr>
             </table>
 
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_updateRoute">
-        <div class="location">at         line 140</div>
-        <code>                private    
-    <strong>updateRoute</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Update available routes.</p>                                                </div>
-                <div class="tags">
             
             
             

@@ -79,7 +79,7 @@
     </div>
 
     <p>    class
-    <strong>Login</strong>        extends <a href="../../Alxarafe/Base/PageController.html"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a>
+    <strong>Login</strong>        extends <a href="../../Alxarafe/Base/SimpleController.html"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a>
 </p>
 
         
@@ -89,18 +89,6 @@
             <p>Class Login</p>                                </div>
     
     
-            <h2>Constants</h2>
-
-            <table class="table table-condensed">
-                    <tr>
-                <td>MENU_DELIMITER</td>
-                <td class="last">
-                    <p><em>Symbol to split menu/submenu items.</em></p>
-                    <p></p>
-                </td>
-            </tr>
-            </table>
-
     
             <h2>Properties</h2>
 
@@ -110,7 +98,8 @@
                                                                                 null
                 </td>
                 <td>$username</td>
-                <td class="last">TODO: Undocumented</td>
+                <td class="last">TODO: Undocumented
+TODO: Undocumented</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_username"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
                     <tr>
@@ -178,44 +167,12 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#property_translator"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_title">
-                                                                                string
+                <td class="type" id="property_redirect">
+                                                                                string|null
                 </td>
-                <td>$title</td>
-                <td class="last">Page title.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_title"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_icon">
-                                                                                string
-                </td>
-                <td>$icon</td>
-                <td class="last">Page icon.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_icon"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_description">
-                                                                                string
-                </td>
-                <td>$description</td>
-                <td class="last">Page description.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_description"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_menu">
-                                                                                array
-                </td>
-                <td>$menu</td>
-                <td class="last">Page menu place.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_menu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_user">
-                                                                                <a href="../../Alxarafe/Models/User.html"><abbr title="Alxarafe\Models\User">User</abbr></a>
-                </td>
-                <td>$user</td>
-                <td class="last">The user logged.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_user"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
+                <td>$redirect</td>
+                <td class="last">Where to redirect if needed.</td>
+                <td></td>
             </tr>
                     <tr>
                 <td class="type" id="property_userAuth">
@@ -223,78 +180,6 @@
                 </td>
                 <td>$userAuth</td>
                 <td class="last">Contains the data of the currently identified user.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_userAuth"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_userName">
-                                                                                string|null
-                </td>
-                <td>$userName</td>
-                <td class="last">Contains the user's name or null</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_userName"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_canAccess">
-                                                                                bool
-                </td>
-                <td>$canAccess</td>
-                <td class="last">Can user access?</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canAccess"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_canCreate">
-                                                                                bool
-                </td>
-                <td>$canCreate</td>
-                <td class="last">Can user create?</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canCreate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_canRead">
-                                                                                bool
-                </td>
-                <td>$canRead</td>
-                <td class="last">Can user read?</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canRead"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_canUpdate">
-                                                                                bool
-                </td>
-                <td>$canUpdate</td>
-                <td class="last">Can user update?</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canUpdate"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_canDelete">
-                                                                                bool
-                </td>
-                <td>$canDelete</td>
-                <td class="last">Can user delete?</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_canDelete"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_roles">
-                                                                                <a href="../../Alxarafe/Models/UserRole.html"><abbr title="Alxarafe\Models\UserRole">UserRole</abbr></a>[]
-                </td>
-                <td>$roles</td>
-                <td class="last">The roles where user is assigned.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_roles"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_url">
-                                                                                string
-                </td>
-                <td>$url</td>
-                <td class="last">Contiene la url que se usará en el formulario.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#property_url"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_redirect">
-                                                                                string|null
-                </td>
-                <td>$redirect</td>
-                <td class="last">Where to redirect if needed.</td>
                 <td></td>
             </tr>
             </table>
@@ -315,27 +200,17 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    void
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_index">index</a>()
-        
-                                            <p>Start point</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_sendTemplateResponse">sendTemplateResponse</a>(array $data = [])
+                    <a href="#method_sendResponseTemplate">sendResponseTemplate</a>(array $data = [])
         
                                             <p>Add new vars to render, render the template and send the Response.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#method_sendTemplateResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_sendResponse">sendResponse</a>(string $reply, int $status = Response::HTTP_OK)
@@ -345,7 +220,7 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_redirect">redirect</a>(string $destiny = &#039;&#039;)
@@ -355,13 +230,54 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    void
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setPageDetails">setPageDetails</a>()
+                    <a href="#method_runMethod">runMethod</a>(string $methodName)
         
-                                            <p>Set the page details.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/SimpleController.html#method_runMethod"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_indexMethod">indexMethod</a>()
+        
+                                            <p>The start point of the controller.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_redirectToController">redirectToController</a>()
+        
+                                            <p>Redirect to controller, default or selected by the user.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_main">main</a>()
+        
+                                            <p>Main is invoked if method is not specified.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_logoutMethod">logoutMethod</a>()
+        
+                                            <p>Close the user session and go to the main page</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -373,86 +289,6 @@
                                             <p>Returns the page details.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_ensureLogin">ensureLogin</a>()
-        
-                                            <p>Check if user is logged in, and redirect to this controller if needed.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_canAction">canAction</a>(string $username, string $action)
-        
-                                            <p>Verify if this user can do an action.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    array
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getUserMenu">getUserMenu</a>()
-        
-                                            <p>Return a list of pages for generate user menu.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    array
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getPageDetails">getPageDetails</a>()
-        
-                                            <p>Returns the page details as array.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    void
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_run">run</a>()
-        
-                                            <p>The start point of the controller.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_redirectToController">redirectToController</a>()
-        
-                                            <p>Redirect to controller, default or selected by the user.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    void
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_main">main</a>()
-        
-                                            <p>Main is invoked if method is not specified.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    void
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_logout">logout</a>()
-        
-                                            <p>Close the user session and go to the main page</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
@@ -461,7 +297,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 31</div>
+        <div class="location">at         line 40</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -481,40 +317,10 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_index">
-        <div class="location">at         line 51</div>
-        <code>                    void
-    <strong>index</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Start point</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_sendTemplateResponse">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendTemplateResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 127</div>
-        <code>                    
-    <strong>sendTemplateResponse</strong>(array $data = [])
+                    <h3 id="method_sendResponseTemplate">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 121</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>sendResponseTemplate</strong>(array $data = [])
         </code>
     </h3>
     <div class="details">
@@ -535,6 +341,15 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -543,8 +358,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_sendResponse">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 139</div>
-        <code>                    
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_sendResponse"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 135</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>sendResponse</strong>(string $reply, int $status = Response::HTTP_OK)
         </code>
     </h3>
@@ -571,6 +386,15 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -579,8 +403,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_redirect">
-        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_redirect"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 151</div>
-        <code>                    
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_redirect"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 149</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>redirect</strong>(string $destiny = &#039;&#039;)
         </code>
     </h3>
@@ -602,6 +426,15 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -609,10 +442,48 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 142</div>
-        <code>            protected        void
-    <strong>setPageDetails</strong>()
+                    <h3 id="method_runMethod">
+        <div class="location">in <a href="../../Alxarafe/Base/SimpleController.html#method_runMethod"><abbr title="Alxarafe\Base\SimpleController">SimpleController</abbr></a> at         line 164</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>runMethod</strong>(string $methodName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$methodName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_indexMethod">
+        <div class="location">at         line 50</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>indexMethod</strong>()
         </code>
     </h3>
     <div class="details">
@@ -620,14 +491,104 @@
     
 
                     <div class="method-description">
-                                    <p>Set the page details.</p>                                                </div>
+                                    <p>The start point of the controller.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td>void</td>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_redirectToController">
+        <div class="location">at         line 77</div>
+        <code>                private    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>redirectToController</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Redirect to controller, default or selected by the user.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_main">
+        <div class="location">at         line 93</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>main</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Main is invoked if method is not specified.</p>                    <p>Load the view of the login form, if there is no user identified.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_logoutMethod">
+        <div class="location">at         line 108</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>logoutMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Close the user session and go to the main page</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
             <td></td>
         </tr>
     </table>
@@ -640,7 +601,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 118</div>
+        <div class="location">at         line 119</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -658,252 +619,6 @@
                     <table class="table table-condensed">
         <tr>
             <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_ensureLogin">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_ensureLogin"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 182</div>
-        <code>                private    bool
-    <strong>ensureLogin</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Check if user is logged in, and redirect to this controller if needed.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_canAction">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_canAction"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 220</div>
-        <code>                private    bool
-    <strong>canAction</strong>(string $username, string $action)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Verify if this user can do an action.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>string</td>
-                <td>$action</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getUserMenu">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 257</div>
-        <code>                    array
-    <strong>getUserMenu</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return a list of pages for generate user menu.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/PageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\PageController">PageController</abbr></a> at         line 290</div>
-        <code>            protected        array
-    <strong>getPageDetails</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns the page details as array.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_run">
-        <div class="location">at         line 41</div>
-        <code>                    void
-    <strong>run</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>The start point of the controller.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_redirectToController">
-        <div class="location">at         line 77</div>
-        <code>                private    
-    <strong>redirectToController</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Redirect to controller, default or selected by the user.</p>                                                </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_main">
-        <div class="location">at         line 93</div>
-        <code>                    void
-    <strong>main</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Main is invoked if method is not specified.</p>                    <p>Load the view of the login form, if there is no user identified.</p>                            </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_logout">
-        <div class="location">at         line 108</div>
-        <code>                    void
-    <strong>logout</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Close the user session and go to the main page</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
             <td></td>
         </tr>
     </table>
