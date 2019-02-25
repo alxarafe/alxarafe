@@ -45,7 +45,6 @@ class ExportStructure extends PageController
                 break;
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
-                break;
         }
         return $this->sendResponseTemplate();
     }

@@ -76,11 +76,8 @@ class Auth extends User
     {
         if ($this->username === null) {
             if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && !$this->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
-                die('Antes de clearCookie<br>');
                 $this->clearCookieUser();
-                die('Justo antes del login<br>');
                 $this->login();
-                die('aquí despu´és de login');
             }
         }
         return $this->username;
@@ -98,7 +95,7 @@ class Auth extends User
     {
         $status = false;
         $this->user = new User();
-        if ($this->user->getBy('username', $userName) !== null && $hash === $this->user->logkey) {
+        if ($this->user->getBy('username', $userName) === true && $hash === $this->user->logkey) {
             $this->username = $this->user->username;
             $this->logkey = $this->user->logkey;
             $status = true;
@@ -222,7 +219,7 @@ class Auth extends User
         $this->user = new User();
         $this->username = null;
 
-        if ($this->user->getBy('username', $userName) !== null) {
+        if ($this->user->getBy('username', $userName) === true) {
             if (password_verify($password, $this->user->password)) {
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);

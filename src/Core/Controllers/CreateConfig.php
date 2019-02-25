@@ -42,10 +42,8 @@ class CreateConfig extends SimpleController
                 $this->debugTool->addMessage('messages', $msg);
                 FlashMessages::getInstance()::setInfo($msg);
                 return $this->redirect(baseUrl('index.php'));
-                break;
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
-                break;
         }
         return $this->sendResponseTemplate();
     }
@@ -89,7 +87,6 @@ class CreateConfig extends SimpleController
      */
     public function index(): Response
     {
-        parent::index();
         if (Config::configFileExists()) {
             return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login'));
         }

@@ -250,6 +250,7 @@ class BootStrap
             $this->response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
             if (method_exists($controllerName, $method . 'Method')) {
                 $controller = new $controllerName();
+                $this->response = null;
                 $this->response = $controller->runMethod($method);
             }
         }

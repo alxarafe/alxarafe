@@ -25,10 +25,9 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class SimpleController
 {
     /**
-     * TODO: Undocumented
-     * TODO: Undocumented
+     * Contains the user's name or null
      *
-     * @var null
+     * @var string|null
      */
     public $username;
 

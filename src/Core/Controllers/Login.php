@@ -53,7 +53,7 @@ class Login extends SimpleController
         $this->userAuth = new Auth();
 
         if (isset($_COOKIE ['user']) && isset($_COOKIE ['logkey'])) {
-            $this->userName = $this->userAuth->getCookieUser();
+            $this->username = $this->userAuth->getCookieUser();
         } elseif (filter_input(INPUT_POST, 'login', FILTER_SANITIZE_ENCODED) === 'true') {
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_ENCODED);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
@@ -92,7 +92,7 @@ class Login extends SimpleController
      */
     public function main(): Response
     {
-        if (!isset($this->userName)) {
+        if (!isset($this->username)) {
             $this->renderer->setTemplate('login');
             return $this->sendResponseTemplate();
         } else {
