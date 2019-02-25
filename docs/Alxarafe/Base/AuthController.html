@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Base\SimpleController | alxarafe</title>
+    <title>Alxarafe\Base\AuthController | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Base_SimpleController" data-root-path="../../">
+    <body id="class" data-name="class:Alxarafe_Base_AuthController" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Base.html">Base</a></li><li class="backslash">\</li><li>SimpleController</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Base.html">Base</a></li><li class="backslash">\</li><li>AuthController</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            SimpleController
+            AuthController
                 
         </h1>
     </div>
 
-    <p>abstract     class
-    <strong>SimpleController</strong>
+    <p>    class
+    <strong>AuthController</strong>        extends <a href="../../Alxarafe/Base/Controller.html"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class Controller</p>                                </div>
+            <p>Class AuthController</p>                                </div>
     
     
     
@@ -99,7 +99,7 @@
                 </td>
                 <td>$username</td>
                 <td class="last">Contains the user's name or null</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_username"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_shortName">
@@ -107,7 +107,7 @@
                 </td>
                 <td>$shortName</td>
                 <td class="last">Class short name.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_shortName"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_session">
@@ -115,7 +115,7 @@
                 </td>
                 <td>$session</td>
                 <td class="last">To manage PHP Sessions.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_session"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_renderer">
@@ -123,7 +123,7 @@
                 </td>
                 <td>$renderer</td>
                 <td class="last">Manage the renderer.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_renderer"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_request">
@@ -131,7 +131,7 @@
                 </td>
                 <td>$request</td>
                 <td class="last">Request from client.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_request"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_response">
@@ -139,7 +139,7 @@
                 </td>
                 <td>$response</td>
                 <td class="last">Response to client.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_response"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_debugTool">
@@ -147,7 +147,7 @@
                 </td>
                 <td>$debugTool</td>
                 <td class="last">The debug tool used.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_debugTool"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_container">
@@ -155,7 +155,7 @@
                 </td>
                 <td>$container</td>
                 <td class="last">Contains dependencies.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_container"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_translator">
@@ -163,7 +163,7 @@
                 </td>
                 <td>$translator</td>
                 <td class="last">The translator manager.</td>
-                <td></td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_translator"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
             </table>
 
@@ -178,7 +178,7 @@
                 <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
         
-                                            <p>SimpleController constructor.</p>                </div>
+                                            <p>AuthController constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -189,7 +189,7 @@
                     <a href="#method_sendResponseTemplate">sendResponseTemplate</a>(array $data = [])
         
                                             <p>Add new vars to render, render the template and send the Response.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -199,7 +199,7 @@
                     <a href="#method_sendResponse">sendResponse</a>(string $reply, int $status = Response::HTTP_OK)
         
                                             <p>Send the Response with data received.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_sendResponse"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -209,7 +209,7 @@
                     <a href="#method_redirect">redirect</a>(string $destiny = &#039;&#039;)
         
                                             <p>Send a RedirectResponse to destiny receive.</p>                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_redirect"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -220,7 +220,7 @@
         
                                             <p class="no-description">No description</p>
                                     </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_runMethod"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
             </div>
             </div>
 
@@ -230,7 +230,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 93</div>
+        <div class="location">at         line 19</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -240,7 +240,7 @@
     
 
                     <div class="method-description">
-                                    <p>SimpleController constructor.</p>                                                </div>
+                                    <p>AuthController constructor.</p>                                                </div>
                 <div class="tags">
             
             
@@ -251,7 +251,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_sendResponseTemplate">
-        <div class="location">at         line 120</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 120</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>sendResponseTemplate</strong>(array $data = [])
         </code>
@@ -291,7 +291,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_sendResponse">
-        <div class="location">at         line 134</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_sendResponse"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 134</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>sendResponse</strong>(string $reply, int $status = Response::HTTP_OK)
         </code>
@@ -336,7 +336,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_redirect">
-        <div class="location">at         line 148</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_redirect"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 148</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>redirect</strong>(string $destiny = &#039;&#039;)
         </code>
@@ -376,7 +376,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_runMethod">
-        <div class="location">at         line 163</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_runMethod"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 163</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>runMethod</strong>(string $methodName)
         </code>
