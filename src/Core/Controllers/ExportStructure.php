@@ -51,16 +51,6 @@ class ExportStructure extends PageController
     }
 
     /**
-     * The start point of the controller.
-     *
-     * @return Response
-     */
-    public function indexMethod(): Response
-    {
-        return $this->index();
-    }
-
-    /**
      * Start point
      *
      * @return Response

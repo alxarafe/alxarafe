@@ -130,16 +130,6 @@ class Languages extends Controller
     }
 
     /**
-     * The start point of the controller.
-     *
-     * @return Response
-     */
-    public function indexMethod(): Response
-    {
-        parent::run();
-    }
-
-    /**
      * Returns the page details.
      *
      * @return array
