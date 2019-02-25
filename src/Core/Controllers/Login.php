@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\SimpleController;
+use Alxarafe\Base\Controller;
 use Alxarafe\Helpers\Auth;
 use Alxarafe\Providers\FlashMessages;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class Login extends SimpleController
+class Login extends Controller
 {
 
     /**

@@ -7,7 +7,7 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\CacheCore;
-use Alxarafe\Base\PageController;
+use Alxarafe\Base\AuthController;
 use Alxarafe\Database\Engine;
 use Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class EditConfig extends PageController
+class EditConfig extends AuthController
 {
     /**
      * List of engines available.

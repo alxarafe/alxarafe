@@ -52,7 +52,7 @@ class View extends SimpleView
     /**
      * The descendant of PageController that is accessed as page.
      *
-     * @var Controller
+     * @var AuthPageExtendedController
      */
     public $controller;
 
@@ -158,12 +158,12 @@ class View extends SimpleView
      * Constructor de la vista
      * Solo garantiza la instancia. El código se traspasa al método run.
      *
-     * @param Controller $controller
-     * @param array      $config
+     * @param AuthPageExtendedController $controller
+     * @param array                      $config
      */
     public function __construct($controller = null, array $config = [])
     {
-        if (!($controller instanceof PageController)) {
+        if (!($controller instanceof AuthPageController)) {
             $this->debugTool->addMessage('messages', 'Must be a PageController descendent: <pre>' . var_export($controller, true) . '</pre>');
         }
         parent::__construct($controller);

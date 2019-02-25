@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\PageController;
+use Alxarafe\Base\AuthController;
 use Alxarafe\Helpers\Schema;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class ExportStructure extends PageController
+class ExportStructure extends AuthController
 {
 
     /**

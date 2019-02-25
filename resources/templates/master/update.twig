@@ -4,7 +4,7 @@
 #}
 {% extends "index.twig" %}
 
-{% block title %}{{ lang.trans('update') }} {{ ctrl.title }}{% endblock %}
+{% block title %}{{ lang.trans('update') }} {{ lang.trans(ctrl.title) }}{% endblock %}
 
 {% block extraStylesheets %}
     {{ parent() }}

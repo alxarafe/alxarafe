@@ -115,7 +115,7 @@ class Pages
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $newClass = new $class();
         $parents = class_parents($class);
-        if (in_array('Alxarafe\Base\PageController', $parents)) {
+        if (in_array('Alxarafe\Base\AuthPageController', $parents)) {
             $this->updatePageData($className, $namespace, $newClass);
             $this->routes->addRoute($className, $class);
         }

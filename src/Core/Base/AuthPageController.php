@@ -15,11 +15,11 @@ use Alxarafe\Providers\Logger;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class PageController, all controllers that needs to be accessed as a page must extends from this.
+ * Class AuthPageController, all controllers that needs to be accessed as a page must extends from this.
  *
  * @package Alxarafe\Base
  */
-abstract class PageController extends SimpleController
+abstract class AuthPageController extends AuthController
 {
     /**
      * Symbol to split menu/submenu items.
@@ -125,7 +125,7 @@ abstract class PageController extends SimpleController
     public $url;
 
     /**
-     * PageController constructor.
+     * AuthPageController constructor.
      */
     public function __construct()
     {
@@ -176,13 +176,6 @@ abstract class PageController extends SimpleController
     }
 
     /**
-     * Start point
-     *
-     * @return Response
-     */
-    abstract public function indexMethod(): Response;
-
-    /**
      * Check if user is logged in, and redirect to this controller if needed.
      *
      * @return bool
@@ -220,6 +213,41 @@ abstract class PageController extends SimpleController
         $this->userAuth->login();
         return false;
     }
+
+    /**
+     * Start point and default list of registers.
+     *
+     * @return Response
+     */
+    abstract public function indexMethod(): Response;
+
+    /**
+     * Default create method for new registers.
+     *
+     * @return Response
+     */
+    abstract public function createMethod(): Response;
+
+    /**
+     * Default show method for show an individual register.
+     *
+     * @return Response
+     */
+    abstract public function showMethod(): Response;
+
+    /**
+     * Default update method for update an individual register.
+     *
+     * @return Response
+     */
+    abstract public function updateMethod(): Response;
+
+    /**
+     * Default delete method for delete an individual register.
+     *
+     * @return Response
+     */
+    abstract public function deleteMethod(): Response;
 
     /**
      * @param string $methodName

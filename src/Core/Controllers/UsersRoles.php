@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\Controller;
+use Alxarafe\Base\AuthPageExtendedController;
 use Alxarafe\Models\UserRole;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class UsersRoles extends Controller
+class UsersRoles extends AuthPageExtendedController
 {
 
     /**

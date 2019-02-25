@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\SimpleController;
+use Alxarafe\Base\Controller;
 use Alxarafe\Database\Engine;
 use Alxarafe\PreProcessors;
 use Alxarafe\Helpers\Config;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class CreateConfig extends SimpleController
+class CreateConfig extends Controller
 {
     /**
      * List of engines available.

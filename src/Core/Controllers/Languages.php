@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\Controller;
+use Alxarafe\Base\AuthPageExtendedController;
 use Alxarafe\Models\Language;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
@@ -16,7 +16,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @package Alxarafe\Controllers
  */
-class Languages extends Controller
+class Languages extends AuthPageExtendedController
 {
 
     /**
