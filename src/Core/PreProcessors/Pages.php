@@ -11,6 +11,7 @@ use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Router;
 use DateTime;
+use DateTimeZone;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -66,12 +67,13 @@ class Pages
                 ->files()
                 ->name('*.php')
                 ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
-            $start = new DateTime('now');
+            // TODO: We can define global TimeZone?
+            $start = new DateTime('now', new DateTimeZone('Europe/Madrid'));
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
-                $this->instanciateClass($namespace, $className);
-                $this->cleanPagesBefore($start);
+                $this->instantiateClass($namespace, $className);
             }
+            $this->cleanPagesBefore($start);
         }
         $this->routes->saveRoutes();
 
@@ -91,8 +93,9 @@ class Pages
     private function cleanPagesBefore(DateTime $start)
     {
         $pages = (new Page())->getAllRecords();
-        foreach ($pages as $pos => $oldPage) {
-            if ($start->diff(new DateTime($oldPage['updated_date']))->f < 0) {
+        foreach ($pages as $oldPage) {
+            $updatedDate = new DateTime($oldPage['updated_date'] . '.999999', new DateTimeZone('Europe/Madrid'));
+            if ($start->diff($updatedDate)->f < 0) {
                 $page = new Page();
                 $page->setOldData($oldPage);
                 $page->delete();
@@ -106,7 +109,7 @@ class Pages
      * @param string $namespace
      * @param string $className
      */
-    private function instanciateClass(string $namespace, string $className)
+    private function instantiateClass(string $namespace, string $className)
     {
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $newClass = new $class();
@@ -136,7 +139,7 @@ class Pages
         $page->plugin = $namespace;
         $page->active = 1;
         try {
-            $page->updated_date = (new DateTime('now'))->format('Y-m-d H:i:s');
+            $page->updated_date = (new DateTime('now', new DateTimeZone('Europe/Madrid')))->format('Y-m-d H:i:s');
         } catch (\Exception $e) {
             $page->updated_date = date('Y-m-d H:i:s');
             Logger::getInstance()::exceptionHandler($e);
