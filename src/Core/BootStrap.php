@@ -249,9 +249,6 @@ class BootStrap
             if (method_exists($controllerName, $method . 'Method')) {
                 $controller = new $controllerName();
                 $this->response = null;
-                if ($method !== 'CreateConfig') {
-                    $this->database->connectToDatabase();
-                }
                 $this->response = $controller->runMethod($method);
                 if (!$this->response instanceof Response) {
                     $this->response = new Response();

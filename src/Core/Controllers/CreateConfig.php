@@ -8,6 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\SimpleController;
 use Alxarafe\Database\Engine;
+use Alxarafe\PreProcessors;
 use Alxarafe\Helpers\Config;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
@@ -85,11 +86,21 @@ class CreateConfig extends SimpleController
     public $timeZones;
 
     /**
+     * Array that contains the paths to search.
+     *
+     * @var array
+     */
+    protected $searchDir;
+
+    /**
      * CreateConfig constructor.
      */
     public function __construct()
     {
         parent::__construct();
+        $this->searchDir = [
+            'Alxarafe' => constant('ALXARAFE_FOLDER'),
+        ];
     }
 
     /**
@@ -109,11 +120,27 @@ class CreateConfig extends SimpleController
             case 'save':
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 FlashMessages::getInstance()::setInfo($msg);
+                $this->regenerateData();
                 return $this->redirect(baseUrl('index.php?call=Login'));
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
         }
         return $this->sendResponseTemplate();
+    }
+
+    /**
+     * Regenerate some needed data.
+     *
+     * @return void
+     */
+    private function regenerateData(): void
+    {
+        if (!set_time_limit(0)) {
+            FlashMessages::getInstance()::setError('cant-increase-time-limit');
+        }
+
+        new PreProcessors\Models($this->searchDir);
+        new PreProcessors\Pages($this->searchDir);
     }
 
     /**
@@ -156,7 +183,6 @@ class CreateConfig extends SimpleController
             // The database details have been changed and need to be regenerate cache.
             FlashMessages::getInstance()::setSuccess('database-data-updated-successfully');
         }
-
         return $result;
     }
 

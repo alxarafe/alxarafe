@@ -83,6 +83,7 @@
 'default-language': 'Default language'
 'default-skin': 'Default skin'
 'default-template': 'Default template'
+'default-timezone': 'Default timezone'
 'delete': 'Delete'
 'dev-tools': 'Development tools'
 'edit': 'Edit'

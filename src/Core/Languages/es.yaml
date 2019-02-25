@@ -83,6 +83,7 @@
 'default-language': 'Idioma por defecto'
 'default-skin': 'Piel por defecto'
 'default-template': 'Plantilla por defecto'
+'default-timezone': 'Zona horaria por defecto'
 'delete': 'Eliminar'
 'dev-tools': 'Herramientas de desarrollo'
 'edit': 'Editar'

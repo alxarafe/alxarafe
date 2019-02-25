@@ -61,7 +61,7 @@ class Pages
         Database::getInstance()->getDbEngine()->beginTransaction();
 
         $this->routes = Router::getInstance();
-        $this->routes->setRoutes();   // Delete all routes
+        $this->routes->getDefaultRoutes();   // Delete all routes
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
                 ->files()

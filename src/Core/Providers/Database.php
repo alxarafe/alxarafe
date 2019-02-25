@@ -50,6 +50,10 @@ class Database
         if (!isset($this->dbEngine)) {
             $this->initSingleton();
             $this->config = $this->getConfig();
+            if (empty($this->config)) {
+                Logger::getInstance()->getLogger()->addDebug('There is no config.yaml');
+                return false;
+            }
             $dbEngineName = $this->config['dbEngineName'] ?? 'PdoMySql';
             $helperName = 'Sql' . substr($dbEngineName, 3);
 
@@ -68,6 +72,7 @@ class Database
                 Logger::getInstance()::exceptionHandler($e);
                 return false;
             }
+            $this->connectToDatabase();
         }
     }
 
@@ -99,6 +104,9 @@ class Database
      */
     public function getDbEngine(): Engine
     {
+        if (!isset($this->dbEngine)) {
+            return (new self())->dbEngine;
+        }
         return $this->dbEngine;
     }
 
@@ -109,6 +117,9 @@ class Database
      */
     public function getSqlHelper(): SqlHelper
     {
+        if (!isset($this->dbEngine)) {
+            return (new self())->sqlHelper;
+        }
         return $this->sqlHelper;
     }
 
