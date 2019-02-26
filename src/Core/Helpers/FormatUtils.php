@@ -57,12 +57,14 @@ class FormatUtils
     public static function loadConfig()
     {
         self::$config = RegionalInfo::getInstance()->getConfig();
-        self::$timeZone = self::$config['timezone'];
-        // Sets the default timezone to use
-        date_default_timezone_set(self::$config['timezone']);
-        self::$dateFormat = self::$config['dateFormat'];
-        self::$timeFormat = self::$config['timeFormat'];
-        self::$datetimeFormat = self::$config['datetimeFormat'];
+        if (!empty(self::$config)) {
+            self::$timeZone = self::$config['timezone'];
+            // Sets the default timezone to use
+            date_default_timezone_set(self::$config['timezone']);
+            self::$dateFormat = self::$config['dateFormat'];
+            self::$timeFormat = self::$config['timeFormat'];
+            self::$datetimeFormat = self::$config['datetimeFormat'];
+        }
     }
 
     /**
