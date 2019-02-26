@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Auth;
@@ -17,6 +16,7 @@ use Alxarafe\Providers\Logger;
  */
 class AuthController extends Controller
 {
+
     /**
      * Page to redirect.
      *
@@ -37,6 +37,10 @@ class AuthController extends Controller
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function checkAuth(string $methodName): Bool
+    {
         $Auth = $this->request->headers->get('Authorization');
         $username = $this->request->cookies->get('user');
         $logkey = $this->request->cookies->get('logkey');
@@ -59,6 +63,6 @@ class AuthController extends Controller
         }
 
         $this->redirect(baseUrl($this->defaultRedirect))->send();
-        return;
+        return $this->response->setStatusCode(HTTP_METHOD_NOT_ALLOWED);
     }
 }

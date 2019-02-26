@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Session;
@@ -24,6 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class Controller
 {
+
     /**
      * Contains the user's name or null
      *
@@ -154,7 +154,6 @@ abstract class Controller
         return new RedirectResponse($destiny);
     }
 
-
     /**
      * @param string $methodName
      *
@@ -164,6 +163,10 @@ abstract class Controller
     {
         $method = $methodName . 'Method';
         Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+        if (method_exists($this, 'checkAuth') && !$this->checkAuth($methodName)) {
+            Logger::getInstance()->getLogger()->addDebug('Not authoriced to ' . $this->shortName . '->' . $method . '()');
+            return $this->response->setStatusCode(HTTP_METHOD_NOT_ALLOWED);
+        }
         return $this->{$method}();
     }
 }
