@@ -69,6 +69,14 @@
                         </div>
                     {% endif %}
                 </div>
+                {% for key,var in ctrl.regionalConfig %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label>{{ lang.trans(key) }}</label>
+                            <input id="{{ key }}" name="{{ key }}" class="form-control" type="text" value="{{ var }}"/>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">

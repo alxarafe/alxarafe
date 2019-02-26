@@ -12,6 +12,7 @@ use Alxarafe\Database\Engine;
 use Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\RegionalInfo;
 use Alxarafe\Providers\Translator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -86,6 +87,13 @@ class EditConfig extends AuthController
     public $timeZones;
 
     /**
+     * Contains regional information configuration.
+     *
+     * @var array
+     */
+    public $regionalConfig;
+
+    /**
      * Array that contains the paths to search.
      *
      * @var array
@@ -111,7 +119,7 @@ class EditConfig extends AuthController
     public function indexMethod(): Response
     {
         $this->setDefaultData();
-        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED);
+        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
         switch ($action) {
             case 'clear-cache':
                 CacheCore::getInstance()->getEngine()->clear();
@@ -130,6 +138,7 @@ class EditConfig extends AuthController
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
         }
+        unset($this->regionalConfig['timezone']);
         return $this->sendResponseTemplate();
     }
 
@@ -141,6 +150,7 @@ class EditConfig extends AuthController
         $translatorConfig = Translator::getInstance()->getConfig();
         $templateRenderConfig = $this->renderer->getConfig();
         $databaseConfig = Database::getInstance()->getConfig();
+        $regionalConfig = RegionalInfo::getInstance()->getConfig();
 
         $this->dbEngines = Engine::getEngines();
         $this->skins = $this->renderer->getSkins();
@@ -157,6 +167,10 @@ class EditConfig extends AuthController
         $this->dbConfig['dbPort'] = $databaseConfig['dbPort'] ?? '';
 
         $this->timeZone = date_default_timezone_get();
+        $this->regionalConfig['timezone'] = $regionalConfig['timezone'] ?? $this->timeZone;
+        $this->regionalConfig['dateFormat'] = $regionalConfig['dateFormat'] ?? 'Y-m-d';
+        $this->regionalConfig['timeFormat'] = $regionalConfig['timeFormat'] ?? 'H:i:s';
+        $this->regionalConfig['datetimeFormat'] = $regionalConfig['datetimeFormat'] ?? $this->regionalConfig['dateFormat'] . ' ' . $this->regionalConfig['timeFormat'];
     }
 
     /**
@@ -183,28 +197,38 @@ class EditConfig extends AuthController
     {
         $result = true;
         $translatorConfig = Translator::getInstance()->getConfig();
-        $translatorConfig['language'] = filter_input(INPUT_POST, 'language', FILTER_SANITIZE_ENCODED);
+        $translatorConfig['language'] = filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING);
         if (!Translator::getInstance()->setConfig($translatorConfig)) {
             FlashMessages::getInstance()::setError('language-data-not-changed');
             $result = false;
         }
 
         $templateRenderConfig = $this->renderer->getConfig();
-        $templateRenderConfig['skin'] = filter_input(INPUT_POST, 'skin', FILTER_SANITIZE_ENCODED);
+        $templateRenderConfig['skin'] = filter_input(INPUT_POST, 'skin', FILTER_SANITIZE_STRING);
         if (!$this->renderer->setConfig($templateRenderConfig)) {
             FlashMessages::getInstance()::setError('templaterender-data-not-changed');
             $result = false;
         }
 
+        $regionalConfig = RegionalInfo::getInstance()->getConfig();
+        $regionalConfig['timezone'] = filter_input(INPUT_POST, 'timezone', FILTER_SANITIZE_STRING);
+        $regionalConfig['dateFormat'] = filter_input(INPUT_POST, 'dateFormat', FILTER_SANITIZE_STRING);
+        $regionalConfig['timeFormat'] = filter_input(INPUT_POST, 'timeFormat', FILTER_SANITIZE_STRING);
+        $regionalConfig['datetimeFormat'] = filter_input(INPUT_POST, 'datetimeFormat', FILTER_SANITIZE_STRING);
+        if (!RegionalInfo::getInstance()->setConfig($regionalConfig)) {
+            FlashMessages::getInstance()::setError('regionalinfo-data-not-changed');
+            $result = false;
+        }
+
         $databaseConfig = Database::getInstance()->getConfig();
         $databaseConfigOrig = $databaseConfig;
-        $databaseConfig['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_ENCODED);
-        $databaseConfig['dbUser'] = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_ENCODED);
-        $databaseConfig['dbPass'] = filter_input(INPUT_POST, 'dbPass', FILTER_SANITIZE_ENCODED);
-        $databaseConfig['dbName'] = filter_input(INPUT_POST, 'dbName', FILTER_SANITIZE_ENCODED);
-        $databaseConfig['dbHost'] = filter_input(INPUT_POST, 'dbHost', FILTER_SANITIZE_ENCODED);
-        $databaseConfig['dbPrefix'] = filter_input(INPUT_POST, 'dbPrefix', FILTER_SANITIZE_ENCODED);
-        $databaseConfig['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_ENCODED);
+        $databaseConfig['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_STRING);
+        $databaseConfig['dbUser'] = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_STRING);
+        $databaseConfig['dbPass'] = filter_input(INPUT_POST, 'dbPass', FILTER_SANITIZE_STRING);
+        $databaseConfig['dbName'] = filter_input(INPUT_POST, 'dbName', FILTER_SANITIZE_STRING);
+        $databaseConfig['dbHost'] = filter_input(INPUT_POST, 'dbHost', FILTER_SANITIZE_STRING);
+        $databaseConfig['dbPrefix'] = filter_input(INPUT_POST, 'dbPrefix', FILTER_SANITIZE_STRING);
+        $databaseConfig['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_STRING);
         if (!Database::getInstance()->setConfig($databaseConfig)) {
             FlashMessages::getInstance()::setError('database-data-not-changed');
             $result = false;

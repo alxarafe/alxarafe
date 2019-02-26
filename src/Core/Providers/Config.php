@@ -28,8 +28,6 @@ class Config
 
     /**
      * ConfigurationManager constructor.
-     *
-     * @param $basePath
      */
     public function __construct()
     {
