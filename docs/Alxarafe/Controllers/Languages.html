@@ -202,6 +202,14 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_user"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_logkey">
+                                                                                string|null
+                </td>
+                <td>$logkey</td>
+                <td class="last">User log key.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_logkey"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_title">
                                                                                 string
                 </td>
@@ -272,6 +280,30 @@
                 <td>$canDelete</td>
                 <td class="last">Can user delete?</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageController.html#property_canDelete"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canPrint">
+                                                                                bool
+                </td>
+                <td>$canPrint</td>
+                <td class="last">Can user print?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageController.html#property_canPrint"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canExport">
+                                                                                bool
+                </td>
+                <td>$canExport</td>
+                <td class="last">Can user export?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageController.html#property_canExport"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canSendMail">
+                                                                                bool
+                </td>
+                <td>$canSendMail</td>
+                <td class="last">Can user send mail?</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageController.html#property_canSendMail"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_roles">
@@ -498,6 +530,26 @@ of the skin folder). It's a specific file.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_logout">logout</a>()
+        
+                                            <p>Close the user session and go to the main page</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0)
+        
+                                            <p>Adjust auth cookie user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
                 </div>
                 <div class="col-md-8 type">
@@ -581,7 +633,7 @@ of the skin folder). It's a specific file.</p>                </div>
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_canAction">canAction</a>(string $username, string $action)
+                    <a href="#method_canAction">canAction</a>(string $action)
         
                                             <p>Verify if this user can do an action.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageController.html#method_canAction"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a></small></div>
@@ -955,7 +1007,7 @@ falten con los datos por defecto.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_runMethod">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_runMethod"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 184</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_runMethod"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 205</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>runMethod</strong>(string $methodName)
         </code>
@@ -1148,7 +1200,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkAuth">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 43</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 53</div>
         <code>                    
     <strong>checkAuth</strong>()
         </code>
@@ -1166,8 +1218,78 @@ js folders of the templates folder). It's a common file.</p>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_logout">
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 97</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>logout</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Close the user session and go to the main page</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_adjustCookieUser">
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 114</div>
+        <code>                private    void
+    <strong>adjustCookieUser</strong>(int $time = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Adjust auth cookie user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 121</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_setPageDetails"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 142</div>
         <code>            protected        void
     <strong>setPageDetails</strong>()
         </code>
@@ -1377,7 +1499,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_loadPerms">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_loadPerms"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 243</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_loadPerms"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 264</div>
         <code>                private    
     <strong>loadPerms</strong>()
         </code>
@@ -1398,9 +1520,9 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_canAction"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 270</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_canAction"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 296</div>
         <code>                private    bool
-    <strong>canAction</strong>(string $username, string $action)
+    <strong>canAction</strong>(string $action)
         </code>
     </h3>
     <div class="details">
@@ -1413,11 +1535,6 @@ js folders of the templates folder). It's a common file.</p>
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
                     <tr>
                 <td>string</td>
                 <td>$action</td>
@@ -1443,7 +1560,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 307</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_getUserMenu"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 333</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
@@ -1473,7 +1590,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 334</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthPageController.html#method_getPageDetails"><abbr title="Alxarafe\Base\AuthPageController">AuthPageController</abbr></a> at         line 360</div>
         <code>            protected        array
     <strong>getPageDetails</strong>()
         </code>

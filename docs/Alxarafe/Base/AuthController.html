@@ -189,6 +189,14 @@
                 <td class="last">The user logged.</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type" id="property_logkey">
+                                                                                string|null
+                </td>
+                <td>$logkey</td>
+                <td class="last">User log key.</td>
+                <td></td>
+            </tr>
             </table>
 
     
@@ -298,6 +306,26 @@ of the skin folder). It's a specific file.</p>                </div>
                                     </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_logout">logout</a>()
+        
+                                            <p>Close the user session and go to the main page</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0)
+        
+                                            <p>Adjust auth cookie user.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -306,7 +334,7 @@ of the skin folder). It's a specific file.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 38</div>
+        <div class="location">at         line 48</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -452,7 +480,7 @@ of the skin folder). It's a specific file.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_runMethod">
-        <div class="location">at         line 70</div>
+        <div class="location">at         line 81</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>runMethod</strong>(string $methodName)
         </code>
@@ -645,7 +673,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkAuth">
-        <div class="location">at         line 43</div>
+        <div class="location">at         line 53</div>
         <code>                    
     <strong>checkAuth</strong>()
         </code>
@@ -656,6 +684,76 @@ js folders of the templates folder). It's a common file.</p>
 
                 <div class="tags">
             
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_logout">
+        <div class="location">at         line 97</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>logout</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Close the user session and go to the main page</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_adjustCookieUser">
+        <div class="location">at         line 114</div>
+        <code>                private    void
+    <strong>adjustCookieUser</strong>(int $time = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Adjust auth cookie user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
