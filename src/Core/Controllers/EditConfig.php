@@ -129,11 +129,17 @@ class EditConfig extends AuthPageController
                 CacheCore::getInstance()->getEngine()->clear();
                 FlashMessages::getInstance()::setInfo('Cache cleared successfully.');
                 $this->regenerateData();
+                // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
+                return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
                 break;
             case 'save':
+                $databaseConfig = Database::getInstance()->getConfig();
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
                 FlashMessages::getInstance()::setInfo($msg);
                 $this->setDefaultData();
+                if ($databaseConfig !== $this->dbConfig) {
+                    return $this->logout();
+                }
                 break;
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
@@ -238,7 +244,6 @@ class EditConfig extends AuthPageController
             // The database details have been changed and need to be regenerate cache.
             FlashMessages::getInstance()::setSuccess('database-data-updated-successfully');
             CacheCore::getInstance()->getEngine()->clear();
-            $result = $this->logout();
         }
 
         return $result;

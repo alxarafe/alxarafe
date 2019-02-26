@@ -35,7 +35,7 @@ class Login extends Controller
      *
      * @var string|null
      */
-    public $redirect;
+    public $redirectUrl;
 
     /**
      * User in use.
@@ -83,7 +83,7 @@ class Login extends Controller
      */
     public function indexMethod(): Response
     {
-        $this->redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_ENCODED);
+        $this->redirectUrl = filter_input(INPUT_GET, 'redirectUrl', FILTER_SANITIZE_ENCODED);
         $user = $this->request->cookies->get('user');
         $logkey = $this->request->cookies->get('logkey');
 
@@ -138,8 +138,8 @@ class Login extends Controller
     private function redirectToController(): RedirectResponse
     {
         $where = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . constant('DEFAULT_CONTROLLER'));
-        if (!empty($this->redirect)) {
-            $where = base64_decode(urldecode($this->redirect));
+        if (!empty($this->redirectUrl)) {
+            $where = base64_decode(urldecode($this->redirectUrl));
         }
         $this->debugTool->addMessage('messages', $where);
         return $this->redirect($where);

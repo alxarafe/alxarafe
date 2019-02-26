@@ -15,11 +15,11 @@
     {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
 </div>
     <div class="container-fluid">
-        {% set redirect = '' %}
-        {% if ctrl.redirect is not empty %}
-            {% set redirect = '&redirect=' ~ ctrl.redirect %}
+        {% set redirectUrl = '' %}
+        {% if ctrl.redirectUrl is not empty %}
+            {% set redirectUrl = '&redirectUrl=' ~ ctrl.redirectUrl %}
         {% endif %}
-        <form class="form-signin" method="post" action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=index{{ redirect }}">
+        <form class="form-signin" method="post" action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=index{{ redirectUrl }}">
             <h2 class="form-signin-heading">{{ lang.trans('application-access') }}</h2>
             <div class="thumbnail">
                 <img src="{{ getResourceUri('/img/login.png') }}" alt="">

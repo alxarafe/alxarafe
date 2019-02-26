@@ -314,7 +314,7 @@ abstract class AuthPageController extends AuthController
             }
         }
 
-        $this->debugTool->addMessage('messages', "Available '" . $action . "' pages for '" . $this->user->getUsername() . "': <pre>" . var_export($pages, true) . "</pre>");
+        $this->debugTool->addMessage('messages', "Available '" . $action . "' pages for '" . $this->user->username . "': <pre>" . var_export($pages, true) . "</pre>");
         $action = 'can_' . $action;
         foreach ($pages as $page) {
             if ($page->controller == $this->shortName && $page->{$action} == 1) {

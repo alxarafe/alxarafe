@@ -52,8 +52,6 @@ class Pages
      *
      * TODO: This must be checked only when update/upgrade the core.
      * WARNING: At this moment are generating 3 extra SQL queries per table.
-     *
-     * @return void
      */
     private function checkPageControllers(): void
     {

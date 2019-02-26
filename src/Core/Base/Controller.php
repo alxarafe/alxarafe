@@ -158,7 +158,7 @@ abstract class Controller
         if (empty($destiny)) {
             $destiny = baseUrl('index.php');
         }
-        Logger::getInstance()->getLogger()->addDebug('Redirected to ' . $destiny);
+        Logger::getInstance()->getLogger()->addDebug('Redirected from ' . $this->shortName . ' to ' . $destiny);
         return new RedirectResponse($destiny);
     }
 
