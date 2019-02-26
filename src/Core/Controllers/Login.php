@@ -189,7 +189,7 @@ class Login extends Controller
         }
 
         if ($this->user) {
-            $this->logkey = $this->user->generateLogKey($this->request->getClientIp(), true);
+            $this->logkey = $this->user->generateLogKey($this->request->getClientIp() ?? '', true);
         }
         setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
