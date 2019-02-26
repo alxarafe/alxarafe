@@ -8,6 +8,7 @@ namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\DebugTool;
+use Alxarafe\Providers\Logger;
 use Exception;
 use Kint\Kint;
 

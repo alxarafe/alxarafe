@@ -52,10 +52,7 @@ class User extends Table
     public function verifyLogKey(string $userName, string $hash): bool
     {
         $status = false;
-        $this->user = new User();
-        if ($this->user->getBy('username', $userName) === true && $hash === $this->user->logkey) {
-            $this->username = $this->user->username;
-            $this->logkey = $this->user->logkey;
+        if ($this->getBy('username', $userName) === true && $hash === $this->logkey) {
             $status = true;
         }
         return $status;
@@ -83,21 +80,14 @@ class User extends Table
      */
     public function generateLogKey(string $ip = '', bool $unique = true): string
     {
-        $logkey = '';
-        if (!empty($this->username)) {
-            $user = new User();
-            $user->getBy('username', $this->username);
-            $text = $this->username;
-            if ($unique) {
-                $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
-            }
-            $text .= '|' . Utils::randomString();
-            $logkey = password_hash($text, PASSWORD_DEFAULT);
-
-            $this->user->logkey = $logkey;
-            $this->user->save();
+        $text = $this->username;
+        if ($unique) {
+            $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
         }
+        $text .= '|' . Utils::randomString();
+        $this->logkey = password_hash($text, PASSWORD_DEFAULT);
+        $this->save();
 
-        return $logkey;
+        return $this->logkey;
     }
 }

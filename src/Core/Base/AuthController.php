@@ -3,11 +3,12 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Auth;
 use Alxarafe\Models\User;
 use Alxarafe\Providers\Logger;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AuthController
@@ -41,28 +42,38 @@ class AuthController extends Controller
 
     public function checkAuth(string $methodName): Bool
     {
+        $return = false;
         $Auth = $this->request->headers->get('Authorization');
         $username = $this->request->cookies->get('user');
         $logkey = $this->request->cookies->get('logkey');
 
         if (!empty($username) && !empty($logkey)) {
             $user = new User();
-            if (!$user->getBy('username', $username)) {
-                Logger::getInstance()->getLogger()->addDebug("User auth: '" . $username . "' doesn't exists");
-                $this->redirect(baseUrl($this->defaultRedirect))->send();
-            } elseif (!$user->verifyLogKey($username, $logkey)) {
-                Logger::getInstance()->getLogger()->addDebug("User auth: '" . $username . "' invalid logkey");
-                $this->redirect(baseUrl($this->defaultRedirect))->send();
+            if ($user->verifyLogKey($username, $logkey)) {
+                $this->user = $user;
+                $return = true;
             }
-            $this->user = $user;
-            return $this->response;
         } elseif (!is_null($Auth)) {
             Logger::getInstance()->getLogger()->addDebug('Auth is null');
-            //$this->response = $this->redirect(baseUrl($this->defaultRedirect));
-            return $this->response;
+            // TODO: Check with Auth header if has valid credentials
+            $return = true;
         }
+        return $return;
+    }
 
-        $this->redirect(baseUrl($this->defaultRedirect))->send();
-        return $this->response->setStatusCode(HTTP_METHOD_NOT_ALLOWED);
+    /**
+     * @param string $methodName
+     *
+     * @return Response
+     */
+    public function runMethod(string $methodName): Response
+    {
+        $method = $methodName . 'Method';
+        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+        if (!$this->checkAuth($methodName)) {
+            Logger::getInstance()->getLogger()->addDebug('User not authenticated.');
+            return $this->redirect(baseUrl($this->defaultRedirect));
+        }
+        return $this->{$method}();
     }
 }

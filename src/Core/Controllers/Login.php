@@ -99,7 +99,6 @@ class Login extends Controller
                     return $this->redirectToController();
                 } else {
                     FlashMessages::getInstance()::setError('User authentication error. Please check the username and password.');
-                    Logger::getInstance()->getLogger()->addDebug('User authentication error. Please check the username and password.');
                 }
                 break;
             default:
@@ -172,6 +171,7 @@ class Login extends Controller
         Logger::getInstance()->getLogger()->addDebug('Clear user cookies.');
         $this->username = null;
         $this->user = null;
+        $this->logkey = null;
         $this->adjustCookieUser();
     }
 
@@ -188,16 +188,11 @@ class Login extends Controller
             $time = time() - 3600;
         }
 
-        $this->logkey = '';
         if ($this->user) {
-            $this->user->generateLogKey($this->request->getClientIp(), true);
-            $this->logkey = $this->user->logkey;
+            $this->logkey = $this->user->generateLogKey($this->request->getClientIp(), true);
         }
-
-        if (!empty($this->logkey)) {
-            setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-            setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
-        }
+        setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
     }
 
     /**
@@ -259,7 +254,7 @@ class Login extends Controller
     {
         $this->user = new User();
         if ($this->username === null && $this->user->getBy('username', $_COOKIE['user']) === true) {
-            if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && !$this->user->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
+            if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && $this->user->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
                 Logger::getInstance()->getLogger()->addDebug('Login from cookie.');
                 // Increase cookie valid time.
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
