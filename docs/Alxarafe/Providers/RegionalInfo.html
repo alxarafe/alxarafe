@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Providers\Config | alxarafe</title>
+    <title>Alxarafe\Providers\RegionalInfo | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Providers_Config" data-root-path="../../">
+    <body id="class" data-name="class:Alxarafe_Providers_RegionalInfo" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li><li>Config</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Providers.html">Providers</a></li><li class="backslash">\</li><li>RegionalInfo</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Config
+            RegionalInfo
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Config</strong>
+    <strong>RegionalInfo</strong>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class ConfigurationManager</p>                                </div>
+            <p>Class RegionalInfo</p>                                </div>
     
             <h2>Traits</h2>
 
@@ -165,7 +165,7 @@ param in getInstance</td>
             <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-2 type">
-                    static&nbsp;<a href="../../Alxarafe/Providers/Config.html"><abbr title="Alxarafe\Providers\Config">Config</abbr></a>
+                    static&nbsp;<a href="../../Alxarafe/Providers/RegionalInfo.html"><abbr title="Alxarafe\Providers\RegionalInfo">RegionalInfo</abbr></a>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getInstance">getInstance</a>()
@@ -280,7 +280,7 @@ param in getInstance</td>
                 <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
         
-                                            <p>ConfigurationManager constructor.</p>                </div>
+                                            <p>Container constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -295,22 +295,52 @@ param in getInstance</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_loadConstants">loadConstants</a>()
+                    <a href="#method_getDefaulValues">getDefaulValues</a>()
         
-                                            <p>Loads some constants.</p>                </div>
+                                            <p>Return a list of essential controllers.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    bool
+                    
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_configFileExists">configFileExists</a>()
+                    <a href="#method_getDateFormats">getDateFormats</a>()
         
-                                            <p>Return true y the config file exists</p>                </div>
+                                            <p>Returns a list of date formats</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTimeFormats">getTimeFormats</a>()
+        
+                                            <p>Returns a list of time formats</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_fillList">fillList</a>(array $styles)
+        
+                                            <p>Fill list with key => value, where key is style and value a sample.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Alxarafe\Providers\false">false</abbr>|string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getFormatted">getFormatted</a>(string $style, string $time = &#039;2011-01-07 09:08:07&#039;)
+        
+                                            <p>Return formatted string.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -321,8 +351,8 @@ param in getInstance</td>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 62</div>
-        <code>        static            <a href="../../Alxarafe/Providers/Config.html"><abbr title="Alxarafe\Providers\Config">Config</abbr></a>
+        <div class="location">at         line 61</div>
+        <code>        static            <a href="../../Alxarafe/Providers/RegionalInfo.html"><abbr title="Alxarafe\Providers\RegionalInfo">RegionalInfo</abbr></a>
     <strong>getInstance</strong>()
         </code>
     </h3>
@@ -338,7 +368,7 @@ param in getInstance</td>
 
                     <table class="table table-condensed">
         <tr>
-            <td><a href="../../Alxarafe/Providers/Config.html"><abbr title="Alxarafe\Providers\Config">Config</abbr></a></td>
+            <td><a href="../../Alxarafe/Providers/RegionalInfo.html"><abbr title="Alxarafe\Providers\RegionalInfo">RegionalInfo</abbr></a></td>
             <td></td>
         </tr>
     </table>
@@ -692,7 +722,7 @@ param in getInstance</td>
     
 
                     <div class="method-description">
-                                    <p>ConfigurationManager constructor.</p>                                                </div>
+                                    <p>Container constructor.</p>                                                </div>
                 <div class="tags">
             
             
@@ -733,10 +763,10 @@ Otherwise return data from property.</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_loadConstants">
-        <div class="location">at         line 70</div>
-        <code>                    
-    <strong>loadConstants</strong>()
+                    <h3 id="method_getDefaulValues">
+        <div class="location">at         line 71</div>
+        <code>                    array
+    <strong>getDefaulValues</strong>()
         </code>
     </h3>
     <div class="details">
@@ -744,7 +774,37 @@ Otherwise return data from property.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Loads some constants.</p>                                                </div>
+                                    <p>Return a list of essential controllers.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDateFormats">
+        <div class="location">at         line 84</div>
+        <code>                    
+    <strong>getDateFormats</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of date formats</p>                                                </div>
                 <div class="tags">
             
             
@@ -754,10 +814,10 @@ Otherwise return data from property.</p>                            </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_configFileExists">
-        <div class="location">at         line 123</div>
-        <code>                    bool
-    <strong>configFileExists</strong>()
+                    <h3 id="method_getTimeFormats">
+        <div class="location">at         line 106</div>
+        <code>                    
+    <strong>getTimeFormats</strong>()
         </code>
     </h3>
     <div class="details">
@@ -765,14 +825,90 @@ Otherwise return data from property.</p>                            </div>
     
 
                     <div class="method-description">
-                                    <p>Return true y the config file exists</p>                                                </div>
+                                    <p>Returns a list of time formats</p>                                                </div>
                 <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_fillList">
+        <div class="location">at         line 124</div>
+        <code>                private    array
+    <strong>fillList</strong>(array $styles)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fill list with key => value, where key is style and value a sample.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$styles</td>
+                <td></td>
+            </tr>
+            </table>
+
             
                             <h4>Return Value</h4>
 
                     <table class="table table-condensed">
         <tr>
-            <td>bool</td>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getFormatted">
+        <div class="location">at         line 141</div>
+        <code>                private    <abbr title="Alxarafe\Providers\false">false</abbr>|string
+    <strong>getFormatted</strong>(string $style, string $time = &#039;2011-01-07 09:08:07&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return formatted string.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$style</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$time</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Alxarafe\Providers\false">false</abbr>|string</td>
             <td></td>
         </tr>
     </table>
