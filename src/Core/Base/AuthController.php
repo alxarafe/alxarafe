@@ -40,7 +40,7 @@ class AuthController extends Controller
         parent::__construct();
     }
 
-    public function checkAuth(string $methodName): Bool
+    public function checkAuth(): Bool
     {
         $return = false;
         $Auth = $this->request->headers->get('Authorization');
@@ -51,6 +51,7 @@ class AuthController extends Controller
             $user = new User();
             if ($user->verifyLogKey($username, $logkey)) {
                 $this->user = $user;
+                $this->username = $this->user->username;
                 $return = true;
             }
         } elseif (!is_null($Auth)) {

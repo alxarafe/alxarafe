@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\AuthController;
+use Alxarafe\Base\AuthPageController;
 use Alxarafe\Base\CacheCore;
 use Alxarafe\Database\Engine;
 use Alxarafe\PreProcessors;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class EditConfig extends AuthController
+class EditConfig extends AuthPageController
 {
     /**
      * List of engines available.
@@ -278,5 +278,45 @@ class EditConfig extends AuthController
             $zonesArray[$key]['diff_from_GMT'] = 'UTC/GMT ' . date('P', $timestamp);
         }
         return $zonesArray;
+    }
+
+    /**
+     * Default create method for new registers.
+     *
+     * @return Response
+     */
+    public function createMethod(): Response
+    {
+        // TODO: Implement createMethod() method.
+    }
+
+    /**
+     * Default show method for show an individual register.
+     *
+     * @return Response
+     */
+    public function showMethod(): Response
+    {
+        // TODO: Implement showMethod() method.
+    }
+
+    /**
+     * Default update method for update an individual register.
+     *
+     * @return Response
+     */
+    public function updateMethod(): Response
+    {
+        // TODO: Implement updateMethod() method.
+    }
+
+    /**
+     * Default delete method for delete an individual register.
+     *
+     * @return Response
+     */
+    public function deleteMethod(): Response
+    {
+        // TODO: Implement deleteMethod() method.
     }
 }

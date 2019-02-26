@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Base\AuthController;
+use Alxarafe\Base\AuthPageController;
 use Alxarafe\Helpers\Schema;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Controllers
  */
-class ExportStructure extends AuthController
+class ExportStructure extends AuthPageController
 {
 
     /**
@@ -63,5 +63,45 @@ class ExportStructure extends AuthController
             'menu' => 'dev-tools',
         ];
         return $details;
+    }
+
+    /**
+     * Default create method for new registers.
+     *
+     * @return Response
+     */
+    public function createMethod(): Response
+    {
+        // TODO: Implement createMethod() method.
+    }
+
+    /**
+     * Default show method for show an individual register.
+     *
+     * @return Response
+     */
+    public function showMethod(): Response
+    {
+        // TODO: Implement showMethod() method.
+    }
+
+    /**
+     * Default update method for update an individual register.
+     *
+     * @return Response
+     */
+    public function updateMethod(): Response
+    {
+        // TODO: Implement updateMethod() method.
+    }
+
+    /**
+     * Default delete method for delete an individual register.
+     *
+     * @return Response
+     */
+    public function deleteMethod(): Response
+    {
+        // TODO: Implement deleteMethod() method.
     }
 }
