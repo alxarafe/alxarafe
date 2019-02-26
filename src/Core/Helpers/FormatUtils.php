@@ -153,7 +153,7 @@ class FormatUtils
             $date = (new DateTime($time))->format($style);
         } catch (\Exception $e) {
             $time = ($time === '') ? 'time()' : $time;
-            $date = date($style, $time);
+            $date = date($style, strtotime($time));
         }
         return $date;
     }
