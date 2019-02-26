@@ -34,7 +34,7 @@ class Languages extends AuthPageExtendedController
      */
     public function indexMethod(): Response
     {
-        $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_ENCODED);
+        $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
         switch ($action) {
             case 'regenerate':
                 $this->regenerate();

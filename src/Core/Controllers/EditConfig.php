@@ -238,7 +238,7 @@ class EditConfig extends AuthController
             // The database details have been changed and need to be regenerate cache.
             FlashMessages::getInstance()::setSuccess('database-data-updated-successfully');
             CacheCore::getInstance()->getEngine()->clear();
-            $this->userAuth->logout();
+            $result = $this->userAuth->logout();
         }
 
         return $result;

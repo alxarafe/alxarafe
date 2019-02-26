@@ -142,9 +142,9 @@ class Dispatcher
      */
     public function process(): bool
     {
-        $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_ENCODED);
+        $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_STRING);
         $call = !empty($call) ? $call : constant('DEFAULT_CONTROLLER');
-        $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_ENCODED);
+        $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_STRING);
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
         if (empty(Config::loadConfigurationFile()) || !Config::connectToDataBase()) {

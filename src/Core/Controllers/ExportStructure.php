@@ -33,12 +33,12 @@ class ExportStructure extends AuthController
      */
     public function indexMethod(): Response
     {
-        switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_ENCODED)) {
+        switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING)) {
             case 'export-all':
                 Schema::saveStructure();
                 break;
             case 'export-selected':
-                $tables = filter_input(INPUT_POST, 'tables', FILTER_SANITIZE_ENCODED, FILTER_REQUIRE_ARRAY);
+                $tables = filter_input(INPUT_POST, 'tables', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
                 foreach ($tables as $table) {
                     Schema::saveTableStructure($table);
                 }
