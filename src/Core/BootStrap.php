@@ -7,6 +7,7 @@
 namespace Alxarafe;
 
 use Alxarafe\Base\CacheCore;
+use Alxarafe\Helpers\FormatUtils;
 use Alxarafe\Helpers\Session;
 use Alxarafe\Providers\Config;
 use Alxarafe\Providers\Container;
@@ -181,6 +182,7 @@ class BootStrap
         $this->cacheEngine = CacheCore::getInstance()->getEngine();
         $this->database = Database::getInstance();
         $this->renderer = TemplateRender::getInstance();
+        FormatUtils::loadConfig();
     }
 
     /**

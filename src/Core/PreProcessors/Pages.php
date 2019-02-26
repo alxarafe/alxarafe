@@ -6,13 +6,12 @@
 
 namespace Alxarafe\PreProcessors;
 
+use Alxarafe\Helpers\FormatUtils;
 use Alxarafe\Models\Page;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
-use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Router;
 use DateTime;
-use DateTimeZone;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -68,9 +67,7 @@ class Pages
                 ->files()
                 ->name('*.php')
                 ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
-            // TODO: We can define global TimeZone?
-            // Maybe with? date_default_timezone_set('Europe/Madrid');
-            $start = new DateTime('now', new DateTimeZone('Europe/Madrid'));
+            $start = new DateTime();
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $this->instantiateClass($namespace, $className);
@@ -122,12 +119,7 @@ class Pages
         $page->icon = $newPage->icon;
         $page->plugin = $namespace;
         $page->active = 1;
-        try {
-            $page->updated_date = (new DateTime('now', new DateTimeZone('Europe/Madrid')))->format('Y-m-d H:i:s');
-        } catch (\Exception $e) {
-            $page->updated_date = date('Y-m-d H:i:s');
-            Logger::getInstance()::exceptionHandler($e);
-        }
+        $page->updated_date = FormatUtils::getFormattedDateTime();
         $page->save();
     }
 
@@ -140,7 +132,7 @@ class Pages
     {
         $pages = (new Page())->getAllRecords();
         foreach ($pages as $oldPage) {
-            $updatedDate = new DateTime($oldPage['updated_date'] . '.999999', new DateTimeZone('Europe/Madrid'));
+            $updatedDate = new DateTime($oldPage['updated_date'] . '.999999');
             if ($start->diff($updatedDate)->f < 0) {
                 $page = new Page();
                 $page->setOldData($oldPage);

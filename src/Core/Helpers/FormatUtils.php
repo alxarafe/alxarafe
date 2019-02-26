@@ -54,7 +54,7 @@ class FormatUtils
     /**
      * Load config.
      */
-    private static function loadConfig()
+    public static function loadConfig()
     {
         self::$config = RegionalInfo::getInstance()->getConfig();
         self::$timeZone = self::$config['timezone'];
@@ -66,13 +66,46 @@ class FormatUtils
     }
 
     /**
+     * Returns the format for date.
+     *
+     * @return string
+     */
+    public static function getFormatDate()
+    {
+        self::loadConfig();
+        return self::$dateFormat;
+    }
+
+    /**
+     * Returns the format for date time.
+     *
+     * @return string
+     */
+    public static function getFormatDateTime()
+    {
+        self::loadConfig();
+        return self::$datetimeFormat;
+    }
+
+    /**
+     * Returns the format for time.
+     *
+     * @return string
+     */
+    public static function getFormatTime()
+    {
+        self::loadConfig();
+        return self::$timeFormat;
+    }
+
+    /**
      * Return date formatted.
      *
      * @param string $date
      *
      * @return string
      */
-    public static function getFormattedDate(string $date)
+    public static function getFormattedDate(string $date = '')
     {
         self::loadConfig();
         return self::getFormatted(self::$dateFormat, $date);
@@ -85,7 +118,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormattedTime(string $date)
+    public static function getFormattedTime(string $date = '')
     {
         self::loadConfig();
         return self::getFormatted(self::$timeFormat, $date);
@@ -98,7 +131,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormattedDateTime(string $date)
+    public static function getFormattedDateTime(string $date = '')
     {
         self::loadConfig();
         return self::getFormatted(self::$datetimeFormat, $date);
