@@ -680,6 +680,36 @@ or does not have a name field.</p>                </div>
                                             <p>Try to save the data and return true/false based on the result.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Table.html#method_saveData"><abbr title="Alxarafe\Base\Table">Table</abbr></a></small></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_verifyLogKey">verifyLogKey</a>(string $userName, string $hash)
+        
+                                            <p>Verify is log key is correct.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_verifyPassword">verifyPassword</a>(string $password)
+        
+                                            <p>Verify that user password was valid.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_generateLogKey">generateLogKey</a>(string $ip = &#039;&#039;, bool $unique = true)
+        
+                                            <p>Generate a log key.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -688,7 +718,7 @@ or does not have a name field.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 31</div>
+        <div class="location">at         line 32</div>
         <code>                    
     <strong>__construct</strong>(bool $create = true)
         </code>
@@ -2335,6 +2365,136 @@ or does not have a name field.</p>                                              
                     <table class="table table-condensed">
         <tr>
             <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_verifyLogKey">
+        <div class="location">at         line 52</div>
+        <code>                    bool
+    <strong>verifyLogKey</strong>(string $userName, string $hash)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Verify is log key is correct.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$userName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$hash</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_verifyPassword">
+        <div class="location">at         line 71</div>
+        <code>                    bool
+    <strong>verifyPassword</strong>(string $password)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Verify that user password was valid.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$password</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_generateLogKey">
+        <div class="location">at         line 84</div>
+        <code>                    string
+    <strong>generateLogKey</strong>(string $ip = &#039;&#039;, bool $unique = true)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Generate a log key.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$ip</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$unique</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
             <td></td>
         </tr>
     </table>
