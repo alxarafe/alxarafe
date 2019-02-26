@@ -189,36 +189,45 @@ abstract class AuthPageController extends AuthController
         $this->loadPerms();
         $method = $methodName . 'Method';
         $vars = [];
-        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+        $this->debugTool->addMessage('messages', 'Call to ' . $this->shortName . '->' . $methodName . '()');
 
         switch ($methodName) {
             case 'index':
             case 'ajaxTableData':
                 if ($this->canAccess) {
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can access');
                     return $this->{$method}();
                 }
                 break;
             case 'create':
                 if ($this->canAccess && $this->canCreate) {
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can create');
                     return $this->{$method}();
                 }
                 break;
             case 'show':
+            case 'read':
                 if ($this->canAccess && $this->canRead) {
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can read');
                     return $this->{$method}();
                 }
                 break;
+            case 'edit':
             case 'update':
                 if ($this->canAccess && $this->canUpdate) {
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can update');
                     return $this->{$method}();
                 }
                 break;
             case 'delete':
                 if ($this->canAccess && $this->canDelete) {
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can delete');
                     return $this->{$method}();
                 }
                 break;
             default:
+                $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() what perms do you need? Be sure you are restricting correct perms.');
+                parent::runMethod($methodName);
                 $vars = [
                     'action' => $method,
                 ];

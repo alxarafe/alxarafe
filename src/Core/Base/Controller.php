@@ -88,6 +88,14 @@ abstract class Controller
     protected $translator;
 
     /**
+     * Array that contains the variables that will be passed to the template.
+     * Among others it will contain the user name, the view and the controller.
+     *
+     * @var array
+     */
+    private $vars;
+
+    /**
      * Controller constructor.
      */
     public function __construct()
@@ -164,5 +172,74 @@ abstract class Controller
         $method = $methodName . 'Method';
         Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
         return $this->{$method}();
+    }
+
+
+    /**
+     * Add a new element to a value saved in the array that is passed to the template.
+     * It is used when what we are saving is an array and we want to add a new element to that array.
+     * IMPORTANT: The element only is added if is not empty.
+     *
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @return void
+     */
+    public function addToVar(string $name, $value): void
+    {
+        if (!empty($value)) {
+            $this->vars[$name][] = $value;
+        }
+    }
+
+    /**
+     * Check if the resource is in the application's resource folder (for example, in the css or js folders
+     * of the skin folder). It's a specific file.
+     *
+     * If it can not be found, check if it is in the templates folder (for example in the css or
+     * js folders of the templates folder). It's a common file.
+     *
+     * If it is not in either of the two, no route is specified (it will surely give loading error).
+     *
+     * @param string  $resourceName is the name of the file (with extension)
+     * @param boolean $relative     set to false for use an absolute path.
+     *
+     * @return string the complete path of resource.
+     */
+    public function addResource(string $resourceName, $relative = true): string
+    {
+        if ($relative) {
+            $uri = $this->renderer->getResourceUri($resourceName);
+            if ($uri !== '') {
+                return $uri;
+            }
+            $this->debugTool->addMessage('messages', "Relative resource '$resourceName' not found!");
+        }
+        if (!file_exists($resourceName)) {
+            $this->debugTool->addMessage('messages', "Absolute resource '$resourceName' not found!");
+            $this->debugTool->addMessage('messages', "File '$resourceName' not found!");
+            return '';
+        }
+        return $resourceName;
+    }
+
+    /**
+     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
+     *
+     * @return void
+     */
+    public function addCSS(): void
+    {
+        //$this->addToVar('cssCode', $this->addResource('/.css'));
+    }
+
+    /**
+     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
+     *
+     * @return void
+     */
+    public function addJS(): void
+    {
+        //$this->addToVar('jsCode', $this->addResource('/.js'));
     }
 }

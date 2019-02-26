@@ -128,14 +128,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     protected $status;
 
     /**
-     * Array that contains the variables that will be passed to the template.
-     * Among others it will contain the user name, the view and the controller.
-     *
-     * @var array
-     */
-    private $vars;
-
-    /**
      * AuthPageExtendedController constructor.
      *
      * Se le pasa el modelo principal del controlador y la vista a utilizar.
@@ -240,6 +232,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->initialize();
         $this->postData = $this->getRecordData();
         $this->status = 'showing';
+        $this->renderer->setTemplate('master/read');
         return $this->sendResponseTemplate();
     }
 
@@ -250,6 +243,8 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     public function updateMethod(): Response
     {
+        // TODO: Update and redirect to list or reload the same page.
+        // Can be useful have "save and exit" and "save"
         return $this->sendResponseTemplate();
     }
 
@@ -260,6 +255,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     public function deleteMethod(): Response
     {
+        // TODO: Delete and redirect to list.
         return $this->sendResponseTemplate();
     }
 
@@ -272,6 +268,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->initialize();
         $this->status = 'editing';
+        $this->renderer->setTemplate('master/update');
         $action = filter_input(INPUT_POST, 'action');
         switch ($action) {
             case 'cancel':
@@ -340,20 +337,16 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     public function delete()
     {
-        $this->accessDenied();
-        if ($this->canAccess && $this->canDelete) {
-            $this->initialize();
-            // This 'locked' field can exists or not, if exist is used to not allow delete it.
-            if (property_exists($this->model, 'locked') && $this->model->locked) {
-                FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
-            } elseif ($this->model->delete()) {
-                FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
-            } else {
-                FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
-            }
-            return $this->indexMethod();
+        $this->initialize();
+        // This 'locked' field can exists or not, if exist is used to not allow delete it.
+        if (property_exists($this->model, 'locked') && $this->model->locked) {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
+        } elseif ($this->model->delete()) {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
+        } else {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
         }
-        return $this->sendResponseTemplate();
+        return $this->indexMethod();
     }
 
     /**
@@ -384,12 +377,9 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     public function listData(): Response
     {
-        $this->accessDenied();
-        if ($this->canAccess && $this->canRead) {
-            $this->status = 'listing';
-            $this->code = Utils::randomString(10);
-            $this->renderer->setTemplate('master/list');
-        }
+        $this->status = 'listing';
+        $this->renderer->setTemplate('master/list');
+        $this->code = Utils::randomString(10);
         return $this->sendResponseTemplate();
     }
 
@@ -575,74 +565,6 @@ abstract class AuthPageExtendedController extends AuthPageController
           ];
          */
         return $list;
-    }
-
-    /**
-     * Add a new element to a value saved in the array that is passed to the template.
-     * It is used when what we are saving is an array and we want to add a new element to that array.
-     * IMPORTANT: The element only is added if is not empty.
-     *
-     * @param string $name
-     * @param mixed  $value
-     *
-     * @return void
-     */
-    public function addToVar(string $name, $value): void
-    {
-        if (!empty($value)) {
-            $this->vars[$name][] = $value;
-        }
-    }
-
-    /**
-     * Check if the resource is in the application's resource folder (for example, in the css or js folders
-     * of the skin folder). It's a specific file.
-     *
-     * If it can not be found, check if it is in the templates folder (for example in the css or
-     * js folders of the templates folder). It's a common file.
-     *
-     * If it is not in either of the two, no route is specified (it will surely give loading error).
-     *
-     * @param string  $resourceName is the name of the file (with extension)
-     * @param boolean $relative     set to false for use an absolute path.
-     *
-     * @return string the complete path of resource.
-     */
-    public function addResource(string $resourceName, $relative = true): string
-    {
-        if ($relative) {
-            $uri = $this->renderer->getResourceUri($resourceName);
-            if ($uri !== '') {
-                return $uri;
-            }
-            $this->debugTool->addMessage('messages', "Relative resource '$resourceName' not found!");
-        }
-        if (!file_exists($resourceName)) {
-            $this->debugTool->addMessage('messages', "Absolute resource '$resourceName' not found!");
-            $this->debugTool->addMessage('messages', "File '$resourceName' not found!");
-            return '';
-        }
-        return $resourceName;
-    }
-
-    /**
-     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
-     *
-     * @return void
-     */
-    public function addCSS(): void
-    {
-        //$this->addToVar('cssCode', $this->addResource('/.css'));
-    }
-
-    /**
-     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
-     *
-     * @return void
-     */
-    public function addJS(): void
-    {
-        //$this->addToVar('jsCode', $this->addResource('/.js'));
     }
 
     /**
