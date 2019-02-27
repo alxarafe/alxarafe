@@ -292,7 +292,14 @@ abstract class AuthPageExtendedController extends AuthPageController
     public function deleteMethod(): Response
     {
         $this->initialize();
-        $this->model->delete();
+        // This 'locked' field can exists or not, if exist is used to not allow delete it.
+        if (property_exists($this->model, 'locked') && $this->model->locked) {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
+        } elseif ($this->model->delete()) {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
+        } else {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
+        }
         return $this->redirect($this->url);
     }
 
@@ -353,23 +360,6 @@ abstract class AuthPageExtendedController extends AuthPageController
             //$this->redirect($this->url . '&' . $this->model->getIdField() . '=' . $this->currentId);
         }
         //$_POST['id'] = $this->currentId;
-    }
-
-    /**
-     * Delete existing record.
-     */
-    public function delete()
-    {
-        $this->initialize();
-        // This 'locked' field can exists or not, if exist is used to not allow delete it.
-        if (property_exists($this->model, 'locked') && $this->model->locked) {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
-        } elseif ($this->model->delete()) {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
-        } else {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
-        }
-        return $this->indexMethod();
     }
 
     /**
