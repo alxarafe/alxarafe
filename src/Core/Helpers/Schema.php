@@ -34,7 +34,10 @@ class Schema
      */
     public function __construct()
     {
+        $shortName = Utils::getShortName($this, get_called_class());
         self::$debugTool = DebugTool::getInstance();
+        self::$debugTool->startTimer($shortName, $shortName . ' Schema Constructor');
+        self::$debugTool->stopTimer($shortName);
     }
 
     /**

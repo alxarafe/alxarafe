@@ -85,6 +85,8 @@ abstract class Entity
     {
         $this->debugTool = DebugTool::getInstance();
         $this->shortName = Utils::getShortName($this, get_called_class());
+        $this->debugTool->startTimer($this->shortName, $this->shortName . ' Entity Constructor');
+        $this->debugTool->stopTimer($this->shortName);
     }
 
     /**

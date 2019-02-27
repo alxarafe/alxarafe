@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\BootStrap;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\TemplateRender;
 use Twig\Extension\AbstractExtension;
@@ -44,9 +45,14 @@ class TwigFunctions extends AbstractExtension
      */
     public function __construct()
     {
+        $shortName = Utils::getShortName($this, get_called_class());
+        $this->debugTool = DebugTool::getInstance();
+        $this->debugTool->startTimer($shortName, $shortName . ' TwigFunctions Constructor');
+
         $this->session = Session::getInstance();
         $this->renderer = TemplateRender::getInstance();
-        $this->debugTool = DebugTool::getInstance();
+
+        $this->debugTool->stopTimer($shortName);
     }
 
     /**
@@ -64,7 +70,7 @@ class TwigFunctions extends AbstractExtension
             new TwigFunction('getResourceUri', [$this, 'getResourceUri']),
             new TwigFunction('getHeader', [$this, 'getHeader']),
             new TwigFunction('getFooter', [$this, 'getFooter']),
-
+            new TwigFunction('getTotalTime', [$this, 'getTotalTime']),
         ];
     }
 
@@ -97,6 +103,20 @@ class TwigFunctions extends AbstractExtension
     public function copyright(): string
     {
         return '<a target="_blank" href="https://alxarafe.es/">Alxarafe</a> 2018-' . date('Y') . ' &copy;';
+    }
+
+    /**
+     * Returns the total execution time.
+     * NOTE: DebugBar needs around 2-10ms for itself (depends on data tabs on it).
+     *
+     * @param bool $inMilliseconds if true, return the time in ms, else in seconds
+     *
+     * @return string
+     */
+    public function getTotalTime($inMilliseconds = true)
+    {
+        $execTime = microtime(true) - BootStrap::getInstance()::getStartTime();
+        return $inMilliseconds ? round($execTime * 1000, 3) . ' ms' : $execTime . ' s';
     }
 
     /**

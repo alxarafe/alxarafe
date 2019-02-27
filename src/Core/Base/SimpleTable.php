@@ -43,7 +43,7 @@ class SimpleTable extends Entity
     {
         parent::__construct();
         $this->modelName = $this->shortName;
-        $this->debugTool->startTimer($this->modelName, $this->modelName . ' Simple Constructor');
+        $this->debugTool->startTimer($this->modelName, $this->modelName . ' SimpleTable Constructor');
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? null;
         $this->nameField = $params['nameField'] ?? null;
@@ -71,7 +71,9 @@ class SimpleTable extends Entity
      */
     public function setStructure(): void
     {
+        $this->debugTool->startTimer($this->modelName . '->setStructure()', $this->modelName . ' SimpleTable->setStructure()');
         $this->setTableStructure($this->tableName, $this->getStructureArray());
+        $this->debugTool->stopTimer($this->modelName . '->setStructure()');
     }
 
     /**

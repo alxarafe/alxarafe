@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\Singleton;
 use Aura\Session\SessionFactory;
 
@@ -40,6 +41,10 @@ class Session
      */
     public function __construct()
     {
+        $shortName = Utils::getShortName($this, get_called_class());
+        $debugTool = DebugTool::getInstance();
+        $debugTool->startTimer($shortName, $shortName . ' Constructor');
+
         if ($this->session === null) {
             $this->session = (new SessionFactory())->newInstance($_COOKIE);
             if (session_status() == PHP_SESSION_NONE) {
@@ -47,6 +52,8 @@ class Session
             }
             // https://github.com/auraphp/Aura.Session#cross-site-request-forgery
         }
+
+        $debugTool->stopTimer($shortName);
     }
 
     /**

@@ -7,6 +7,7 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Base\CacheCore;
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\FlashMessages;
@@ -83,9 +84,13 @@ abstract class Engine
      */
     public function __construct(array $dbConfig)
     {
+        $shortName = Utils::getShortName($this, get_called_class());
+
         if (!isset(self::$dbConfig)) {
             self::$dbConfig = $dbConfig;
             self::$debugTool = DebugTool::getInstance();
+            self::$debugTool->startTimer($shortName, $shortName . ' Engine Constructor');
+            self::$debugTool->stopTimer($shortName);
         }
     }
 

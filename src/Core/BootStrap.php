@@ -151,6 +151,20 @@ class BootStrap
     protected $cacheEngine;
 
     /**
+     * Return current Unix timestamp with microseconds.
+     *
+     * @var float
+     */
+    protected static $startTimer;
+
+    /**
+     * Hold the classes on instance.
+     *
+     * @var BootStrap
+     */
+    private static $instance;
+
+    /**
      * BootStrap constructor.
      *
      * @param string $basePath
@@ -158,31 +172,55 @@ class BootStrap
      */
     public function __construct($basePath = __DIR__ . '/..', $debug = false)
     {
-        $this->basePath = $basePath;
-        $this->isDebug = $debug;
+        if (!isset(self::$instance)) {
+            self::$instance = $this;
+            self::$startTimer = microtime(true);
+            $this->basePath = $basePath;
+            $this->isDebug = $debug;
 
-        $this->log = Logger::getInstance();
-        $this->container = Container::getInstance();
+            $this->log = Logger::getInstance();
+            $this->container = Container::getInstance();
 
-        $this->request = Request::createFromGlobals();
-        $this->response = new Response();
+            $this->request = Request::createFromGlobals();
+            $this->response = new Response();
 
-        $this->configManager = Config::getInstance();
-        $this->configManager->loadConstants();
-        $this->configData = $this->configManager->getConfigContent();
-        if (empty($this->configData)) {
-            $this->configData = $this->getDefaultConfig();
+            $this->configManager = Config::getInstance();
+            $this->configManager->loadConstants();
+            $this->configData = $this->configManager->getConfigContent();
+            if (empty($this->configData)) {
+                $this->configData = $this->getDefaultConfig();
+            }
+
+            $this->session = Session::getInstance();
+            $this->router = Router::getInstance();
+            $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
+            $this->debugTool = DebugTool::getInstance();
+            $this->translator = Translator::getInstance();
+            $this->cacheEngine = CacheCore::getInstance()->getEngine();
+            $this->database = Database::getInstance();
+            $this->renderer = TemplateRender::getInstance();
+            FormatUtils::loadConfig();
         }
+    }
 
-        $this->session = Session::getInstance();
-        $this->router = Router::getInstance();
-        $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
-        $this->debugTool = DebugTool::getInstance();
-        $this->translator = Translator::getInstance();
-        $this->cacheEngine = CacheCore::getInstance()->getEngine();
-        $this->database = Database::getInstance();
-        $this->renderer = TemplateRender::getInstance();
-        FormatUtils::loadConfig();
+    /**
+     * Returns this instance.
+     *
+     * @return BootStrap
+     */
+    public static function getInstance()
+    {
+        return self::$instance;
+    }
+
+    /**
+     * Return start time with microtime.
+     *
+     * @return float
+     */
+    public static function getStartTime()
+    {
+        return self::$startTimer;
     }
 
     /**

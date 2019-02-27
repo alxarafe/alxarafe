@@ -6,7 +6,9 @@
 
 namespace Alxarafe\Database;
 
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Database;
+use Alxarafe\Providers\DebugTool;
 
 /**
  * Engine provides generic support for databases.
@@ -49,10 +51,16 @@ abstract class SqlHelper
      */
     public function __construct()
     {
+        $shortName = Utils::getShortName($this, get_called_class());
+        $debugTool = DebugTool::getInstance();
+        $debugTool->startTimer($shortName, $shortName . ' SqlHelper Constructor');
+
         $this->tableQuote = '';
         $this->fieldQuote = '';
         $this->literalQuote = '"';
         $this->fieldTypes = [];
+
+        $debugTool->stopTimer($shortName);
     }
 
     /**
