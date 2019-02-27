@@ -6,10 +6,9 @@
 
 namespace Alxarafe\PreProcessors;
 
-use Alxarafe\Helpers\FormatUtils;
-use Alxarafe\Models\Page;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Router;
 use DateTime;
 use Symfony\Component\Finder\Finder;
 
@@ -18,7 +17,7 @@ use Symfony\Component\Finder\Finder;
  *
  * @package Alxarafe\PreProcessors
  */
-class Pages
+class Routes
 {
 
     /**
@@ -29,6 +28,12 @@ class Pages
     protected $searchDir;
 
     /**
+     *
+     * @var Router
+     */
+    private $routes;
+
+    /**
      * Models constructor.
      *
      * @param array $dirs
@@ -36,7 +41,7 @@ class Pages
     public function __construct(array $dirs)
     {
         $this->searchDir = $dirs;
-        $this->checkPageControllers();
+        $this->checkRoutesControllers();
     }
 
     /**
@@ -46,11 +51,13 @@ class Pages
      * TODO: This must be checked only when update/upgrade the core.
      * WARNING: At this moment are generating 3 extra SQL queries per table.
      */
-    private function checkPageControllers(): void
+    private function checkRoutesControllers(): void
     {
         // Start DB transaction
         Database::getInstance()->getDbEngine()->beginTransaction();
 
+        $this->routes = Router::getInstance();
+        $this->routes->getDefaultRoutes();   // Delete all routes
         foreach ($this->searchDir as $namespace => $baseDir) {
             $controllers = Finder::create()
                 ->files()
@@ -63,6 +70,7 @@ class Pages
             }
             $this->cleanPagesBefore($start);
         }
+        $this->routes->saveRoutes();
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
@@ -83,48 +91,9 @@ class Pages
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $newClass = new $class();
         $parents = class_parents($class);
-        if (in_array('Alxarafe\Base\AuthPageController', $parents)) {
-            $this->updatePageData($className, $namespace, $newClass);
+        if (in_array('Alxarafe\Base\Controller', $parents)) {
+            $this->routes->addRoute($className, $class);
         }
     }
 
-    /**
-     * Updates the page data if needed.
-     *
-     * @param string $className
-     * @param string $namespace
-     * @param        $newPage
-     */
-    private function updatePageData(string $className, string $namespace, $newPage)
-    {
-        $page = new Page();
-        $page->getBy('controller', $className);
-        $page->controller = $className;
-        $page->title = $newPage->title;
-        $page->description = $newPage->description;
-        $page->menu = $newPage->menu;
-        $page->icon = $newPage->icon;
-        $page->plugin = $namespace;
-        $page->active = 1;
-        $page->updated_date = FormatUtils::getFormattedDateTime();
-        $page->save();
-    }
-
-    /**
-     * Clean all pages before $start datetime.
-     *
-     * @param DateTime $start
-     */
-    private function cleanPagesBefore(DateTime $start)
-    {
-        $pages = (new Page())->getAllRecords();
-        foreach ($pages as $oldPage) {
-            $updatedDate = new DateTime($oldPage['updated_date'] . '.999999');
-            if ($start->diff($updatedDate)->f < 0) {
-                $page = new Page();
-                $page->setOldData($oldPage);
-                $page->delete();
-            }
-        }
-    }
 }

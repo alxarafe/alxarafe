@@ -10,7 +10,7 @@ use Alxarafe\Base\AuthPageExtendedController;
 use Alxarafe\Base\CacheCore;
 use Alxarafe\Helpers\FormatUtils;
 use Alxarafe\Models\Module;
-use Alxarafe\PreProcessors;
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\FlashMessages;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
@@ -195,11 +195,6 @@ class Modules extends AuthPageExtendedController
      */
     private function regenerateData(): void
     {
-        if (!set_time_limit(0)) {
-            FlashMessages::getInstance()::setError('cant-increase-time-limit');
-        }
-
-        new PreProcessors\Models($this->searchDir);
-        new PreProcessors\Pages($this->searchDir);
+        Utils::executePreprocesses($this->searchDir);
     }
 }
