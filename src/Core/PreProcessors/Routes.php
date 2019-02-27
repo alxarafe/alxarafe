@@ -9,7 +9,6 @@ namespace Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Router;
-use DateTime;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -63,12 +62,10 @@ class Routes
                 ->files()
                 ->name('*.php')
                 ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
-            $start = new DateTime();
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $this->instantiateClass($namespace, $className);
             }
-            $this->cleanPagesBefore($start);
         }
         $this->routes->saveRoutes();
 
@@ -89,11 +86,9 @@ class Routes
     private function instantiateClass(string $namespace, string $className)
     {
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
-        $newClass = new $class();
         $parents = class_parents($class);
         if (in_array('Alxarafe\Base\Controller', $parents)) {
             $this->routes->addRoute($className, $class);
         }
     }
-
 }

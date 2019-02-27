@@ -5,6 +5,7 @@
  */
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Alxarafe\PreProcessors;
 use ReflectionClass;
