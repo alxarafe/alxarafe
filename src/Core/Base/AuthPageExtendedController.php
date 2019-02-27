@@ -231,18 +231,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Default update method for update an individual register.
-     *
-     * @return Response
-     */
-    public function updateMethod(): Response
-    {
-        // TODO: Update and redirect to list or reload the same page.
-        // Can be useful have "save and exit" and "save"
-        return $this->sendResponseTemplate();
-    }
-
-    /**
      * Default delete method for delete an individual register.
      *
      * @return Response
@@ -255,11 +243,31 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Edit existing record.
+     * uptadeMethod alias
      *
      * @return Response
      */
     public function editMethod(): Response
+    {
+        return $this->updateMethod();
+    }
+
+    /**
+     * uptadeMethos alias
+     *
+     * @return Response
+     */
+    public function readMethod(): Response
+    {
+        return $this->showMethod();
+    }
+
+    /**
+     * Edit existing record.
+     *
+     * @return Response
+     */
+    public function updateMethod(): Response
     {
         $this->initialize();
         $this->status = 'editing';

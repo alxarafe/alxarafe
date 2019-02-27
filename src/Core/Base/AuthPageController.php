@@ -3,7 +3,6 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Base;
 
 use Alxarafe\Models\Page;
@@ -19,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AuthPageController extends AuthController
 {
+
     /**
      * Symbol to split menu/submenu items.
      */
