@@ -72,7 +72,7 @@ class ExportStructure extends AuthPageController
      */
     public function createMethod(): Response
     {
-        // TODO: Implement createMethod() method.
+        // This is a placeholder, structure is created when needed.
         return parent::createMethod();
     }
 
@@ -83,7 +83,7 @@ class ExportStructure extends AuthPageController
      */
     public function readMethod(): Response
     {
-        // TODO: Implement readMethod() method.
+        // This is a placeholder, structure is directly readed.
         return parent::readMethod();
     }
 
@@ -94,7 +94,7 @@ class ExportStructure extends AuthPageController
      */
     public function updateMethod(): Response
     {
-        // TODO: Implement updateMethod() method.
+        // This is a placeholder, structure is updated when needed.
         return parent::updateMethod();
     }
 
@@ -105,7 +105,7 @@ class ExportStructure extends AuthPageController
      */
     public function deleteMethod(): Response
     {
-        // TODO: Implement deleteMethod() method.
+        // This is a placeholder, structure is not deleted, only updated or ignored.
         return parent::deleteMethod();
     }
 }

@@ -131,7 +131,6 @@ class EditConfig extends AuthPageController
                 $this->regenerateData();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
-                break;
             case 'save':
                 $databaseConfig = Database::getInstance()->getConfig();
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
@@ -287,7 +286,7 @@ class EditConfig extends AuthPageController
      */
     public function createMethod(): Response
     {
-        // TODO: Implement createMethod() method.
+        // Can't add new registers, it's a placeholder
         return parent::createMethod();
     }
 
@@ -298,7 +297,7 @@ class EditConfig extends AuthPageController
      */
     public function readMethod(): Response
     {
-        // TODO: Implement readMethod() method.
+        // Can't read specific registers, it's a placeholder
         return parent::readMethod();
     }
 
@@ -309,8 +308,8 @@ class EditConfig extends AuthPageController
      */
     public function updateMethod(): Response
     {
-        // TODO: Implement updateMethod() method.
-        return $this->response;
+        // Can't updated specific registers, it's a placeholder
+        return parent::updateMethod();
     }
 
     /**
@@ -320,7 +319,7 @@ class EditConfig extends AuthPageController
      */
     public function deleteMethod(): Response
     {
-        // TODO: Implement deleteMethod() method.
-        return $this->response;
+        // Can't delete specific registers, it's a placeholder
+        return parent::deleteMethod();
     }
 }
