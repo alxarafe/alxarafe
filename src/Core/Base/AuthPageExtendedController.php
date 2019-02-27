@@ -167,17 +167,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Create new record.
-     */
-    public function createMethod(): Response
-    {
-        $this->initialize();
-        $this->status = 'adding';
-        $this->renderer->setTemplate('master/create');
-        return $this->sendResponseTemplate();
-    }
-
-    /**
      * Initialize common properties
      */
     public function initialize()
@@ -219,9 +208,30 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Show existing record.
+     * Create new record.
      */
-    public function showMethod(): Response
+    public function createMethod(): Response
+    {
+        $this->initialize();
+        $this->status = 'adding';
+        $this->renderer->setTemplate('master/create');
+        return $this->sendResponseTemplate();
+    }
+
+    /**
+     * Create new record, used as alias
+     *
+     * @return Response
+     */
+    public function addMethod(): Response
+    {
+        return $this->createMethod();
+    }
+
+    /**
+     * Read existing record.
+     */
+    public function readMethod(): Response
     {
         $this->initialize();
         $this->postData = $this->getRecordData();
@@ -231,15 +241,13 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Default delete method for delete an individual register.
+     * Read existing record, used as alias
      *
      * @return Response
      */
-    public function deleteMethod(): Response
+    public function showMethod(): Response
     {
-        $this->initialize();
-        $this->model->delete();
-        return $this->redirect($this->url);
+        return $this->readMethod();
     }
 
     /**
@@ -284,6 +292,45 @@ abstract class AuthPageExtendedController extends AuthPageController
                 break;
         }
         return $this->sendResponseTemplate();
+    }
+
+    /**
+     * Update existing record, used as alias
+     *
+     * @return Response
+     */
+    public function editMethod(): Response
+    {
+        return $this->updateMethod();
+    }
+
+    /**
+     * Default delete method for delete an individual register.
+     *
+     * @return Response
+     */
+    public function deleteMethod(): Response
+    {
+        $this->initialize();
+        // This 'locked' field can exists or not, if exist is used to not allow delete it.
+        if (property_exists($this->model, 'locked') && $this->model->locked) {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
+        } elseif ($this->model->delete()) {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
+        } else {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
+        }
+        return $this->redirect($this->url);
+    }
+
+    /**
+     * Default delete method for delete an individual register, used as alias
+     *
+     * @return Response
+     */
+    public function removeMethod(): Response
+    {
+        return $this->deleteMethod();
     }
 
     /**
@@ -333,23 +380,6 @@ abstract class AuthPageExtendedController extends AuthPageController
             //$this->redirect($this->url . '&' . $this->model->getIdField() . '=' . $this->currentId);
         }
         //$_POST['id'] = $this->currentId;
-    }
-
-    /**
-     * Delete existing record.
-     */
-    public function delete()
-    {
-        $this->initialize();
-        // This 'locked' field can exists or not, if exist is used to not allow delete it.
-        if (property_exists($this->model, 'locked') && $this->model->locked) {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
-        } elseif ($this->model->delete()) {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
-        } else {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
-        }
-        return $this->indexMethod();
     }
 
     /**

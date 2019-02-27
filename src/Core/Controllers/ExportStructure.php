@@ -73,7 +73,7 @@ class ExportStructure extends AuthPageController
     public function createMethod(): Response
     {
         // TODO: Implement createMethod() method.
-        return $this->response;
+        return parent::createMethod();
     }
 
     /**
@@ -81,10 +81,10 @@ class ExportStructure extends AuthPageController
      *
      * @return Response
      */
-    public function showMethod(): Response
+    public function readMethod(): Response
     {
-        // TODO: Implement showMethod() method.
-        return $this->response;
+        // TODO: Implement readMethod() method.
+        return parent::readMethod();
     }
 
     /**
@@ -95,7 +95,7 @@ class ExportStructure extends AuthPageController
     public function updateMethod(): Response
     {
         // TODO: Implement updateMethod() method.
-        return $this->response;
+        return parent::updateMethod();
     }
 
     /**
@@ -106,6 +106,6 @@ class ExportStructure extends AuthPageController
     public function deleteMethod(): Response
     {
         // TODO: Implement deleteMethod() method.
-        return $this->response;
+        return parent::deleteMethod();
     }
 }

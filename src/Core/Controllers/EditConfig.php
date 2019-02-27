@@ -293,18 +293,18 @@ class EditConfig extends AuthPageController
     public function createMethod(): Response
     {
         // TODO: Implement createMethod() method.
-        return $this->response;
+        return parent::createMethod();
     }
 
     /**
-     * Default show method for show an individual register.
+     * Default read method for show an individual register.
      *
      * @return Response
      */
-    public function showMethod(): Response
+    public function readMethod(): Response
     {
-        // TODO: Implement showMethod() method.
-        return $this->response;
+        // TODO: Implement readMethod() method.
+        return parent::readMethod();
     }
 
     /**
