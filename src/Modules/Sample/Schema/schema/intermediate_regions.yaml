@@ -1,0 +1,46 @@
+fields:
+    id:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+        autoincrement: 'yes'
+    name:
+        type: string
+        length: '100'
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+indexes:
+    PRIMARY:
+        column: id
+        unique: 'yes'
+    country_name:
+        column: name
+        unique: 'yes'
+values:
+  1:
+    id: 5
+    name: 'Latin America and the Caribbean'
+  2:
+    id: 11
+    name: 'Western Africa'
+  3:
+    id: 14
+    name: 'Eastern Africa'
+  4:
+    id: 17
+    name: 'Middle Africa'
+  5:
+    id: 18
+    name: 'Southern Africa'
+  6:
+    id: 13
+    name: 'Central America'
+  7:
+    id: 29
+    name: 'Caribbean'
+  8:
+    id: 830
+    name: 'Channel Islands'
