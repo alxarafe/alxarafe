@@ -7,8 +7,11 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\AuthPageExtendedController;
+use Alxarafe\Base\CacheCore;
 use Alxarafe\Helpers\FormatUtils;
 use Alxarafe\Models\Module;
+use Alxarafe\PreProcessors;
+use Alxarafe\Providers\FlashMessages;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,12 +35,22 @@ class Modules extends AuthPageExtendedController
     private $modulesList = [];
 
     /**
+     * Array that contains the paths to search.
+     *
+     * @var array
+     */
+    protected $searchDir;
+
+    /**
      * Modules constructor.
      */
     public function __construct()
     {
         parent::__construct(new Module());
         $this->modulesFolder = basePath('src/Modules');
+        $this->searchDir = [
+            'Alxarafe' => constant('ALXARAFE_FOLDER'),
+        ];
     }
 
     /**
@@ -49,6 +62,18 @@ class Modules extends AuthPageExtendedController
     {
         $this->modulesList = $this->getAvailableModules();
         $this->updateModulesData();
+
+        $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+        switch ($action) {
+            case 'regenerate':
+                CacheCore::getInstance()->getEngine()->clear();
+                FlashMessages::getInstance()::setInfo('Cache cleared successfully.');
+                $this->regenerateData();
+                // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
+                return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
+                break;
+        }
+
         return parent::indexMethod();
     }
 
@@ -79,10 +104,20 @@ class Modules extends AuthPageExtendedController
      *
      * @return Response
      */
+    public function editMethod(): Response
+    {
+        return $this->updateMethod();
+    }
+
+    /**
+     * Default update method for update an individual register.
+     *
+     * @return Response
+     */
     public function updateMethod(): Response
     {
-        // TODO: Implement updateMethod() method.
-        return $this->response;
+
+        return parent::editMethod();
     }
 
     /**
@@ -143,5 +178,35 @@ class Modules extends AuthPageExtendedController
             $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
             $module->save();
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getNewButtons()
+    {
+        $return = [];
+        $return[] = [
+            'link' => $this->url . '&action=regenerate',
+            'icon' => 'glyphicon-refresh',
+            'text' => 'regenerate-data',
+            'type' => 'info',
+        ];
+        return $return;
+    }
+
+    /**
+     * Regenerate some needed data.
+     *
+     * @return void
+     */
+    private function regenerateData(): void
+    {
+        if (!set_time_limit(0)) {
+            FlashMessages::getInstance()::setError('cant-increase-time-limit');
+        }
+
+        new PreProcessors\Models($this->searchDir);
+        new PreProcessors\Pages($this->searchDir);
     }
 }
