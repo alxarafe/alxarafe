@@ -42,11 +42,19 @@ class Languages extends AuthPageExtendedController
         return parent::indexMethod();
     }
 
+    /**
+     * TODO: Undocumented.
+     */
     private function exportAction()
     {
         PreLanguages::exportLanguages();
     }
 
+    /**
+     * TODO: Undocumented.
+     *
+     * @return array
+     */
     public function getNewButtons()
     {
         $return = [];

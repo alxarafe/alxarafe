@@ -150,6 +150,11 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->renderer->setTemplate('default');
     }
 
+    /**
+     * TODO: Undocummented.
+     *
+     * @return array
+     */
     public function getNewButtons()
     {
         return [];

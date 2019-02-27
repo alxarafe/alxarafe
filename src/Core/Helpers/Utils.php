@@ -207,6 +207,11 @@ class Utils
         return $merged;
     }
 
+    /**
+     * TODO: Undocummented.
+     *
+     * @param array $searchDir
+     */
     public static function executePreprocesses(array $searchDir)
     {
         if (!set_time_limit(0)) {

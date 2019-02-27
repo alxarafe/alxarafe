@@ -41,7 +41,7 @@ class SqlFirebird extends SqlHelper
      *
      * @return string
      */
-    public function quoteLiteral(string $fieldName): string
+    public function quoteLiteral($fieldName): string
     {
         return strtoupper(parent::quoteLiteral($fieldName));
     }
@@ -93,10 +93,11 @@ class SqlFirebird extends SqlHelper
      * Returns the name of the table in quotes.
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */
-    public function quoteTableName(string $tableName, $usePrefix = true): string
+    public function quoteTableName(string $tableName, bool $usePrefix = true): string
     {
         return strtoupper(parent::quoteTableName($tableName, $usePrefix));
     }

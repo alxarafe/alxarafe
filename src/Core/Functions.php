@@ -5,6 +5,9 @@
  */
 
 if (!defined('BASE_PATH')) {
+    /**
+     * Base path for the app.
+     */
     define('BASE_PATH', __DIR__ . '/../..');
 }
 
