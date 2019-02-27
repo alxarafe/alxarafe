@@ -85,17 +85,19 @@ class Modules extends AuthPageExtendedController
     public function createMethod(): Response
     {
         // TODO: Implement createMethod() method.
-        return $this->response;
+        // Require allow to submit a file
+        return parent::createMethod();
     }
 
     /**
-     * Default update method for update an individual register.
+     * Default read method for new registers.
      *
      * @return Response
      */
-    public function editMethod(): Response
+    public function readMethod(): Response
     {
-        return $this->updateMethod();
+        // TODO: Implement readMethod() method.
+        return parent::readMethod();
     }
 
     /**
@@ -105,9 +107,10 @@ class Modules extends AuthPageExtendedController
      */
     public function updateMethod(): Response
     {
-
-        return parent::editMethod();
+        // TODO: Implement updateMethod() method.
+        return parent::updateMethod();
     }
+
 
     /**
      * Default delete method for delete an individual register.
@@ -117,7 +120,8 @@ class Modules extends AuthPageExtendedController
     public function deleteMethod(): Response
     {
         // TODO: Implement deleteMethod() method.
-        return $this->response;
+        // Require allow to delete the module folder.
+        return parent::deleteMethod();
     }
 
     /**.
