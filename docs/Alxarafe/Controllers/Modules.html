@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Controllers\Users | alxarafe</title>
+    <title>Alxarafe\Controllers\Modules | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Controllers_Users" data-root-path="../../">
+    <body id="class" data-name="class:Alxarafe_Controllers_Modules" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Controllers.html">Controllers</a></li><li class="backslash">\</li><li>Users</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/Controllers.html">Controllers</a></li><li class="backslash">\</li><li>Modules</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Users
+            Modules
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Users</strong>        extends <a href="../../Alxarafe/Base/AuthPageExtendedController.html"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a>
+    <strong>Modules</strong>        extends <a href="../../Alxarafe/Base/AuthPageExtendedController.html"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class Users</p>                                </div>
+            <p>Class Modules</p>                                </div>
     
     
             <h2>Constants</h2>
@@ -419,6 +419,30 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 <td class="last">Puede contener 3 valores: listing, adding o editing.</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#property_status"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
             </tr>
+                    <tr>
+                <td class="type" id="property_modulesFolder">
+                                                            private                    string
+                </td>
+                <td>$modulesFolder</td>
+                <td class="last">Modules folder were are stored.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_modulesList">
+                                                            private                    array
+                </td>
+                <td>$modulesList</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_searchDir">
+                                        protected                                        array
+                </td>
+                <td>$searchDir</td>
+                <td class="last">Array that contains the paths to search.</td>
+                <td></td>
+            </tr>
             </table>
 
     
@@ -432,7 +456,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                 <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
         
-                                            <p>Users constructor.</p>                </div>
+                                            <p>Modules constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -575,8 +599,8 @@ of the skin folder). It's a specific file.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_indexMethod">indexMethod</a>()
         
-                                            <p>El punto de entrada es run.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_indexMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+                                            <p>The start point of the controller.</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -585,8 +609,8 @@ of the skin folder). It's a specific file.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_createMethod">createMethod</a>()
         
-                                            <p>Create new record.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_createMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+                                            <p>Default create method for new registers.</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -605,8 +629,8 @@ of the skin folder). It's a specific file.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_updateMethod">updateMethod</a>()
         
-                                            <p>Edit existing record.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_updateMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+                                            <p>Default update method for update an individual register.</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -616,7 +640,7 @@ of the skin folder). It's a specific file.</p>                </div>
                     <a href="#method_deleteMethod">deleteMethod</a>()
         
                                             <p>Default delete method for delete an individual register.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_deleteMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -667,7 +691,7 @@ of the skin folder). It's a specific file.</p>                </div>
         
                                             <p class="no-description">No description</p>
                                     </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_getNewButtons"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -719,8 +743,8 @@ defecto.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_readMethod">readMethod</a>()
         
-                                            <p>uptadeMethos alias</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_readMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+                                            <p>Default read method for new registers.</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -853,6 +877,36 @@ defecto.</p>                </div>
 falten con los datos por defecto.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_setDefaults"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getAvailableModules">getAvailableModules</a>()
+        
+                                            <p>Returns a list of availabe modules.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_updateModulesData">updateModulesData</a>()
+        
+                                            <p>Updated all modules to database.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_regenerateData">regenerateData</a>()
+        
+                                            <p>Regenerate some needed data.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -861,7 +915,7 @@ falten con los datos por defecto.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 23</div>
+        <div class="location">at         line 47</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -871,7 +925,7 @@ falten con los datos por defecto.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Users constructor.</p>                                                </div>
+                                    <p>Modules constructor.</p>                                                </div>
                 <div class="tags">
             
             
@@ -1319,7 +1373,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 33</div>
+        <div class="location">at         line 132</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -1349,7 +1403,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_indexMethod">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_indexMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 369</div>
+        <div class="location">at         line 61</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>indexMethod</strong>()
         </code>
@@ -1359,7 +1413,7 @@ js folders of the templates folder). It's a common file.</p>
     
 
                     <div class="method-description">
-                                    <p>El punto de entrada es run.</p>                    <p>Index realiza los procesos necesarios una vez instanciada la clase.</p>                            </div>
+                                    <p>The start point of the controller.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1379,7 +1433,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_createMethod">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_createMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 172</div>
+        <div class="location">at         line 85</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>createMethod</strong>()
         </code>
@@ -1389,7 +1443,7 @@ js folders of the templates folder). It's a common file.</p>
     
 
                     <div class="method-description">
-                                    <p>Create new record.</p>                                                </div>
+                                    <p>Default create method for new registers.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1439,7 +1493,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_updateMethod">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_updateMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 270</div>
+        <div class="location">at         line 108</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>updateMethod</strong>()
         </code>
@@ -1449,7 +1503,7 @@ js folders of the templates folder). It's a common file.</p>
     
 
                     <div class="method-description">
-                                    <p>Edit existing record.</p>                                                </div>
+                                    <p>Default update method for update an individual register.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1469,7 +1523,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteMethod">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_deleteMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 238</div>
+        <div class="location">at         line 120</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>deleteMethod</strong>()
         </code>
@@ -1620,7 +1674,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getNewButtons">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_getNewButtons"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 153</div>
+        <div class="location">at         line 179</div>
         <code>                    
     <strong>getNewButtons</strong>()
         </code>
@@ -1753,7 +1807,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_readMethod">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthPageExtendedController.html#method_readMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 260</div>
+        <div class="location">at         line 97</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>readMethod</strong>()
         </code>
@@ -1763,7 +1817,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
     
 
                     <div class="method-description">
-                                    <p>uptadeMethos alias</p>                                                </div>
+                                    <p>Default read method for new registers.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -2102,6 +2156,87 @@ falten con los datos por defecto.</p>                                           
                     <table class="table table-condensed">
         <tr>
             <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAvailableModules">
+        <div class="location">at         line 148</div>
+        <code>                private    array
+    <strong>getAvailableModules</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of availabe modules.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_updateModulesData">
+        <div class="location">at         line 164</div>
+        <code>                private    
+    <strong>updateModulesData</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Updated all modules to database.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_regenerateData">
+        <div class="location">at         line 196</div>
+        <code>                private    void
+    <strong>regenerateData</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Regenerate some needed data.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
             <td></td>
         </tr>
     </table>
