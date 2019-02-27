@@ -8,7 +8,7 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Database\Engine;
-use Alxarafe\PreProcessors;
+use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Config;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
@@ -228,14 +228,8 @@ class CreateConfig extends Controller
      */
     private function regenerateData(): void
     {
-        if (!set_time_limit(0)) {
-            FlashMessages::getInstance()::setError('cant-increase-time-limit');
-        }
-
-        new PreProcessors\Models($this->searchDir);
-        new PreProcessors\Pages($this->searchDir);
+        Utils::executePreprocesses($this->searchDir);
     }
-
     /**.
      * Returns the page details.
      *

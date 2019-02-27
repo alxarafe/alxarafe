@@ -3,10 +3,10 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
-
 namespace Alxarafe\Helpers;
 
 use Alxarafe\Providers\Logger;
+use Alxarafe\PreProcessors;
 use ReflectionClass;
 use ReflectionException;
 
@@ -204,5 +204,15 @@ class Utils
             }
         }
         return $merged;
+    }
+
+    public static function executePreprocesses(array $searchDir)
+    {
+        if (!set_time_limit(0)) {
+            FlashMessages::getInstance()::setError('cant-increase-time-limit');
+        }
+        new PreProcessors\Models($searchDir);
+        new PreProcessors\Pages($searchDir);
+        new PreProcessors\Routes($searchDir);
     }
 }
