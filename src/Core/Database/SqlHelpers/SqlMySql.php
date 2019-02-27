@@ -285,19 +285,16 @@ class SqlMySql extends SqlHelper
      */
     private function getConstraintData(string $tableName, string $constraintName): array
     {
-        $sql = 'SELECT
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ',
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('COLUMN_NAME') . ',
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_NAME') . ',
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENCED_TABLE_NAME') . ',
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENCED_COLUMN_NAME') . '
-                FROM
-                    ' . Database::getInstance()->getSqlHelper()->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName('KEY_COLUMN_USAGE') . '
-                WHERE
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ' = :table_name AND
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('constraint_name') . ' = :constraint_name AND
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENCED_COLUMN_NAME') . ' IS NOT NULL;';
+        $sql = "SELECT {$this->quoteFieldName('TABLE_NAME')},
+                    {$this->quoteFieldName('COLUMN_NAME')},
+                    {$this->quoteFieldName('CONSTRAINT_NAME')},
+                    {$this->quoteFieldName('REFERENCED_TABLE_NAME')},
+                    {$this->quoteFieldName('REFERENCED_COLUMN_NAME')}
+                FROM {$this->quoteTableName('INFORMATION_SCHEMA', false)}.{$this->quoteFieldName('KEY_COLUMN_USAGE')}
+                WHERE {$this->quoteFieldName('CONSTRAINT_SCHEMA')} = :constraint_schema AND
+                    {$this->quoteFieldName('TABLE_NAME')} = :table_name AND
+                    {$this->quoteFieldName('constraint_name')} = :constraint_name AND
+                    {$this->quoteFieldName('REFERENCED_COLUMN_NAME')} IS NOT NULL;";
         $vars = [
             'constraint_schema' => $this->getTablename(),
             'table_name' => $tableName,
@@ -330,15 +327,13 @@ class SqlMySql extends SqlHelper
      */
     private function getConstraintRules(string $tableName, string $constraintName): array
     {
-        $sql = 'SELECT
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('MATCH_OPTION') . ',
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('UPDATE_RULE') . ',
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('DELETE_RULE') . '
-                FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName('REFERENTIAL_CONSTRAINTS') . '
-                WHERE
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_SCHEMA') . ' = :constraint_schema AND
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ' = :table_name AND
-                    ' . Database::getInstance()->getSqlHelper()->quoteFieldName('CONSTRAINT_NAME') . ' = :constraint_name;';
+        $sql = "SELECT {$this->quoteFieldName('MATCH_OPTION')},
+                    {$this->quoteFieldName('UPDATE_RULE')},
+                    {$this->quoteFieldName('DELETE_RULE')}
+                FROM {$this->quoteTableName('INFORMATION_SCHEMA', false)}.{$this->quoteFieldName('REFERENTIAL_CONSTRAINTS')}
+                WHERE {$this->quoteFieldName('CONSTRAINT_SCHEMA')} = :constraint_schema AND
+                    {$this->quoteFieldName('TABLE_NAME')} = :table_name AND
+                    {$this->quoteFieldName('CONSTRAINT_NAME')} = :constraint_name;";
         $vars = [
             'constraint_schema' => $this->getTablename(),
             'table_name' => $tableName,
@@ -361,7 +356,7 @@ class SqlMySql extends SqlHelper
      */
     public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
-        return 'SHOW INDEX FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix) . ';';
+        return "SHOW INDEX FROM {$this->quoteTableName($tableName, $usePrefix)};";
     }
 
     /**
@@ -374,11 +369,9 @@ class SqlMySql extends SqlHelper
     public function tableExists(string $tableName): string
     {
         $tableNameWithPrefix = Database::getInstance()->getConnectionData()['dbPrefix'] . $tableName;
-        $sql = 'SELECT *  FROM '
-            . Database::getInstance()->getSqlHelper()->quoteTableName('INFORMATION_SCHEMA', false) . '.' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLES')
-            . ' WHERE '
-            . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_SCHEMA') . ' = ' . $this->quoteLiteral($this->getTablename())
-            . ' AND ' . Database::getInstance()->getSqlHelper()->quoteFieldName('TABLE_NAME') . ' = ' . $this->quoteLiteral($tableNameWithPrefix) . ';';
+        $sql = "SELECT *  FROM {$this->quoteTableName('INFORMATION_SCHEMA', false)}.{$this->quoteFieldName('TABLES')}
+            WHERE {$this->quoteFieldName('TABLE_SCHEMA')} = {$this->quoteLiteral($this->getTablename())}
+            AND {$this->quoteFieldName('TABLE_NAME')} = {$this->quoteLiteral($tableNameWithPrefix)};";
         return $sql;
     }
 }

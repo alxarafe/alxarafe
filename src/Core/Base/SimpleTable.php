@@ -142,8 +142,8 @@ class SimpleTable extends Entity
      */
     private function getDataById(string $id): bool
     {
-        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
-            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField) . ' = :id;';
+        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
+        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$idField} = :id;";
         $data = Database::getInstance()->getDbEngine()->select($sql, ['id' => $id]);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
@@ -153,6 +153,18 @@ class SimpleTable extends Entity
         $this->oldData = $this->newData;
         $this->id = $this->newData[$this->idField];
         return true;
+    }
+
+    /**
+     * Get the name of the table (with prefix)
+     *
+     * @param bool $usePrefix
+     *
+     * @return string
+     */
+    public function getQuotedTableName(bool $usePrefix = true): string
+    {
+        return Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName, $usePrefix);
     }
 
     /**
@@ -179,8 +191,8 @@ class SimpleTable extends Entity
         if (empty($this->id)) {
             return false;
         }
-        $sql = 'DELETE FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
-            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField) . ' = :id;';
+        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
+        $sql = "DELETE FROM {$this->getQuotedTableName()} WHERE {$idField} = :id;";
         $vars = [];
         $vars['id'] = $this->id;
         $result = Database::getInstance()->getDbEngine()->exec($sql, $vars);
@@ -220,8 +232,8 @@ class SimpleTable extends Entity
      */
     private function getDataBy(string $key, $value): bool
     {
-        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
-            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($key) . ' = :value;';
+        $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($key);
+        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} = :value;";
         $data = Database::getInstance()->getDbEngine()->select($sql, ['value' => $value]);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
@@ -236,12 +248,13 @@ class SimpleTable extends Entity
     /**
      * Get the name of the table (with prefix)
      *
+     * @param bool $usePrefix
+     *
      * @return string
      */
-    public function getTableName(): string
+    public function getTableName(bool $usePrefix = true): string
     {
-        trigger_error('Do not use getTableName(), use Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName); instead', E_ERROR);
-        return Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName);
+        return ($usePrefix ? Database::getInstance()->getConnectionData()['dbPrefix'] : '') . $this->tableName;
     }
 
     /**
@@ -328,7 +341,7 @@ class SimpleTable extends Entity
         $fieldList = implode(', ', $fieldNames);
         $valueList = implode(', ', $fieldVars);
 
-        $sql = 'INSERT INTO ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . " ($fieldList) VALUES ($valueList);";
+        $sql = "INSERT INTO {$this->getQuotedTableName()} ($fieldList) VALUES ($valueList);";
 
         $ret = Database::getInstance()->getDbEngine()->exec($sql, $vars);
 
@@ -350,14 +363,14 @@ class SimpleTable extends Entity
         $fieldNames = [];
         $vars = [];
         foreach ($data as $fieldName => $value) {
-            $fieldNames[] = Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName) . ' = :' . $fieldName;
+            $fieldNames[] = Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName) . " = :" . $fieldName;
             $vars[$fieldName] = $value;
         }
 
         $fieldList = implode(', ', $fieldNames);
 
-        $sql = 'UPDATE ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . " SET $fieldList"
-            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField) . ' = :id;';
+        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
+        $sql = "UPDATE {$this->getQuotedTableName()} SET {$fieldList} WHERE {$idField} = :id;";
         $vars['id'] = $this->id;
 
         return Database::getInstance()->getDbEngine()->exec($sql, $vars);
@@ -381,7 +394,7 @@ class SimpleTable extends Entity
      */
     public function getAllRecords(): array
     {
-        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . ';';
+        $sql = "SELECT * FROM {$this->getQuotedTableName()};";
         return Database::getInstance()->getDbEngine()->select($sql);
     }
 
@@ -392,8 +405,8 @@ class SimpleTable extends Entity
      */
     public function countAllRecords(): int
     {
-        $sql = 'SELECT COUNT(' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField()) . ') AS total FROM '
-            . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName) . ';';
+        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField());
+        $sql = "SELECT COUNT({$idField}) AS total FROM {$this->getQuotedTableName()};";
         $data = Database::getInstance()->getDbEngine()->select($sql);
         return empty($data) ? 0 : intval($data[0]['total']);
     }
@@ -405,8 +418,8 @@ class SimpleTable extends Entity
      */
     public function getAllRecordsPaged($offset = 0): array
     {
-        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
-            . ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
+        $limit = constant('DEFAULT_ROWS_PER_PAGE');
+        $sql = "SELECT * FROM {$this->getQuotedTableName()} LIMIT {$limit} OFFSET {$offset};";
         return Database::getInstance()->getDbEngine()->select($sql);
     }
 
@@ -424,11 +437,9 @@ class SimpleTable extends Entity
     public function search(string $query, array $columns = [], int $offset = 0, string $order = ''): array
     {
         $sql = $this->searchQuery($query, $columns);
-        if (!empty($order)) {
-            $sql .= ' ORDER BY ' . $order;
-        }
-
-        $sql .= ' LIMIT ' . constant('DEFAULT_ROWS_PER_PAGE') . ' OFFSET ' . $offset . ';';
+        $limit = constant('DEFAULT_ROWS_PER_PAGE');
+        $sql .= (!empty($order) ? " ORDER BY {$order}" : "")
+            . " LIMIT {$limit} OFFSET {$offset};";
 
         return Database::getInstance()->getDbEngine()->select($sql);
     }
@@ -443,24 +454,23 @@ class SimpleTable extends Entity
      */
     public function searchQuery(string $query, array $columns = []): string
     {
-        $query = str_replace(' ', '%', $query);
+        $query = str_replace(" ", "%", $query);
 
         if ($this->getNameField() !== '') {
             if (empty($columns)) {
-                $columns = [
-                    0 => $this->getNameField(),
-                ];
+                $columns = [0 => $this->getNameField()];
             }
         }
 
-        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName);
+        $sql = "SELECT * FROM {$this->getQuotedTableName()}";
         $sep = '';
         if (!empty($columns) && !empty($query)) {
-            $sql .= ' WHERE (';
+            $sql .= " WHERE (";
             foreach ($columns as $pos => $col) {
                 if ($col !== null && $col !== 'col-action') {
-                    $sql .= $sep . 'lower(' . Database::getInstance()->getSqlHelper()->quoteFieldName($col) . ") LIKE '%" . $query . "%'";
-                    $sep = ' OR ';
+                    $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($col);
+                    $sql .= $sep . "lower({$fieldName}) LIKE '%" . $query . "%'";
+                    $sep = " OR ";
                 }
             }
             $sql .= ')';
@@ -481,7 +491,8 @@ class SimpleTable extends Entity
     public function searchCount(string $query, array $columns = []): int
     {
         $sql = $this->searchQuery($query, $columns);
-        $sql = str_replace('SELECT * ', 'SELECT COUNT(' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField()) . ') AS total ', $sql);
+        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField());
+        $sql = str_replace("SELECT * ", "SELECT COUNT({$idField}) AS total ", $sql);
         $data = Database::getInstance()->getDbEngine()->select($sql);
         return empty($data) ? 0 : intval($data[0]['total']);
     }

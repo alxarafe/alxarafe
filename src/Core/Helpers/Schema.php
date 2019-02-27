@@ -318,11 +318,12 @@ class Schema
      */
     public static function setValues(string $tableName, array $values): array
     {
+        $quotedTableName = Database::getInstance()->getSqlHelper()->quoteTableName($tableName);
         if (empty($values)) {
-            return ['/* BAD QUERY empty list for table ' . $tableName . '-> */' . 'SELECT 1 FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName) . ';'];
+            return ['/* BAD QUERY empty list for table ' . $tableName . '-> */' . "SELECT 1 FROM {$quotedTableName};"];
         }
 
-        $sql = 'INSERT INTO ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName) . ' ';
+        $sql = "INSERT INTO {$quotedTableName} ";
         $header = true;
         $sep = '';
         foreach ($values as $value) {
@@ -348,6 +349,6 @@ class Schema
             $sep = ', ';
         }
 
-        return [$sql . ';'];
+        return [$sql . ";"];
     }
 }

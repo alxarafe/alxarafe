@@ -81,9 +81,9 @@ class Table extends SimpleTable
             return '';
         }
 
-        $sql = "SELECT {$this->idField} AS id FROM " . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
-            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($this->nameField) . ' = ' . Database::getInstance()->getSqlHelper()->quoteLiteral($name) . ';';
-        $data = Database::getInstance()->getDbEngine()->select($sql);
+        $nameField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->nameField);
+        $sql = "SELECT {$this->idField} AS id FROM {$this->getQuotedTableName()} WHERE {$nameField} = :name;";
+        $data = Database::getInstance()->getDbEngine()->select($sql, ['name' => $name]);
         if (!empty($data) && count($data) > 0) {
             return $data[0]['id'];
         }
@@ -101,8 +101,8 @@ class Table extends SimpleTable
      */
     public function getAllRecordsBy(string $key, $value): array
     {
-        $sql = 'SELECT * FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName)
-            . ' WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName($key) . ' = :value;';
+        $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($key);
+        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} = :value;";
         $vars = [];
         $vars['value'] = $value;
         return Database::getInstance()->getDbEngine()->select($sql, $vars);
@@ -240,9 +240,8 @@ class Table extends SimpleTable
                         }
                     }
                     if (isset($fieldStructure['unique']) && ($fieldStructure['unique'] == 'yes')) {
-                        // $fullTableName = $this->getTableName();
-                        $fullTableName = Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName);
-                        $bad = Database::getInstance()->getDbEngine()->select("SELECT * FROM {$fullTableName} WHERE $fieldName='{$data[$tableName][$blockId][$fieldName]}'");
+                        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName}='{$data[$tableName][$blockId][$fieldName]}';";
+                        $bad = Database::getInstance()->getDbEngine()->select($sql);
                         if ($bad && count($bad) > 0) {
                             foreach ($bad as $badrecord) {
                                 // TODO: Estoy utilizando 'id', pero tendría que ser el $this->idField del modelo correspondiente

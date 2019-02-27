@@ -54,12 +54,25 @@ class SqlFirebird extends SqlHelper
     public function getTables(): array
     {
         // http://www.firebirdfaq.org/faq174/
-        $query = 'SELECT ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$RELATION_NAME') . '
-                  FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$RELATIONS', false) . '
-                  WHERE ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$VIEW_BLR') . ' IS NULL
-                   AND (' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$SYSTEM_FLAG') . ' IS NULL
-                    OR ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$SYSTEM_FLAG') . ' = 0);';
+        $query = 'SELECT ' . $this->quoteFieldName('RDB$RELATION_NAME') . '
+                  FROM ' . $this->quoteTableName('RDB$RELATIONS', false) . '
+                  WHERE ' . $this->quoteFieldName('RDB$VIEW_BLR') . ' IS NULL
+                   AND (' . $this->quoteFieldName('RDB$SYSTEM_FLAG') . ' IS NULL
+                    OR ' . $this->quoteFieldName('RDB$SYSTEM_FLAG') . ' = 0);';
         return Utils::flatArray(Database::getInstance()->getDbEngine()->select($query));
+    }
+
+    /**
+     * Returns the name of the table in quotes.
+     *
+     * @param string $tableName
+     * @param bool   $usePrefix
+     *
+     * @return string
+     */
+    public function quoteTableName(string $tableName, bool $usePrefix = true): string
+    {
+        return strtoupper(parent::quoteTableName($tableName, $usePrefix));
     }
 
     /**
@@ -78,28 +91,15 @@ class SqlFirebird extends SqlHelper
             b.RDB$NULL_FLAG AS nullable,
             b.RDB$DEFAULT_SOURCE AS defaultsource,
             b.RDB$DEFAULT_VALUE AS What
-        FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$RELATIONS', false) . ' a
-        INNER JOIN ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$RELATION_FIELDS', false) . ' b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
-        INNER JOIN ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$FIELDS', false) . ' c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
-        INNER JOIN ' . Database::getInstance()->getSqlHelper()->quoteTableName('RDB$TYPES', false) . ' d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
+        FROM ' . $this->quoteTableName('RDB$RELATIONS', false) . ' a
+        INNER JOIN ' . $this->quoteTableName('RDB$RELATION_FIELDS', false) . ' b ON a.RDB$RELATION_NAME = b.RDB$RELATION_NAME
+        INNER JOIN ' . $this->quoteTableName('RDB$FIELDS', false) . ' c ON b.RDB$FIELD_SOURCE = c.RDB$FIELD_NAME
+        INNER JOIN ' . $this->quoteTableName('RDB$TYPES', false) . ' d ON c.RDB$FIELD_TYPE = d.RDB$TYPE
         WHERE
             a.RDB$SYSTEM_FLAG = 0 AND
             d.RDB$FIELD_NAME = \'RDB$FIELD_TYPE\' AND
             b.RDB$RELATION_NAME = ' . $this->quoteTableName($tableName, $usePrefix) . '
         ORDER BY b.RDB$FIELD_POSITION;'; // ORDER BY a.RDB$RELATION_NAME, b.RDB$FIELD_ID
-    }
-
-    /**
-     * Returns the name of the table in quotes.
-     *
-     * @param string $tableName
-     * @param bool   $usePrefix
-     *
-     * @return string
-     */
-    public function quoteTableName(string $tableName, bool $usePrefix = true): string
-    {
-        return strtoupper(parent::quoteTableName($tableName, $usePrefix));
     }
 
     /**
@@ -181,7 +181,7 @@ class SqlFirebird extends SqlHelper
      */
     public function getIndexesSql(string $tableName, bool $usePrefix = true): string
     {
-        return 'SHOW INDEX FROM ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName);
+        return 'SHOW INDEX FROM ' . $this->quoteTableName($tableName);
     }
 
     /**
@@ -217,7 +217,7 @@ class SqlFirebird extends SqlHelper
      */
     public function getViewsSql(): string
     {
-        return 'SELECT ' . Database::getInstance()->getSqlHelper()->quoteFieldName('RDB$RELATION_NAME') . ' FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
+        return 'SELECT ' . $this->quoteFieldName('RDB$RELATION_NAME') . ' FROM RDB$RELATIONS WHERE RDB$VIEW_BLR IS NOT NULL AND (RDB$SYSTEM_FLAG IS NULL OR RDB$SYSTEM_FLAG = 0);';
     }
 
     /**
@@ -267,7 +267,7 @@ class SqlFirebird extends SqlHelper
                     JOIN rdb$index_segments master_index_segments ON master_relation_constraints.rdb$index_name = master_index_segments.rdb$index_name 
                 WHERE
                     detail_relation_constraints.rdb$constraint_type = \'FOREIGN KEY\'
-                    AND detail_relation_constraints.rdb$relation_name = ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix) . '';
+                    AND detail_relation_constraints.rdb$relation_name = ' . $this->quoteTableName($tableName, $usePrefix) . '';
     }
 
     /**

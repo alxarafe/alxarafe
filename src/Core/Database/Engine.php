@@ -302,7 +302,8 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->rollBack();
         } else {
-            $sql = 'ROLLBACK TO SAVEPOINT LEVEL' . self::$transactionDepth . ';';
+            $transactionDepth = self::$transactionDepth;
+            $sql = "ROLLBACK TO SAVEPOINT LEVEL{$transactionDepth};";
             $this->exec($sql);
         }
 
@@ -316,7 +317,7 @@ abstract class Engine
      */
     final public function getLastInserted(): string
     {
-        $data = $this->select('SELECT @@identity AS id');
+        $data = $this->select("SELECT @@identity AS id");
         if (count($data) > 0) {
             return $data[0]['id'];
         }
@@ -430,7 +431,8 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->beginTransaction();
         } else {
-            $sql = 'SAVEPOINT LEVEL' . self::$transactionDepth . ';';
+            $transactionDepth = self::$transactionDepth;
+            $sql = "SAVEPOINT LEVEL{$transactionDepth};";
             $this->exec($sql);
         }
 
@@ -455,7 +457,8 @@ abstract class Engine
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->commit();
         } else {
-            $sql = 'RELEASE SAVEPOINT LEVEL' . self::$transactionDepth . ';';
+            $transactionDepth = self::$transactionDepth;
+            $sql = "RELEASE SAVEPOINT LEVEL{$transactionDepth};";
             $this->exec($sql);
         }
 
