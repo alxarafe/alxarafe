@@ -167,17 +167,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Create new record.
-     */
-    public function createMethod(): Response
-    {
-        $this->initialize();
-        $this->status = 'adding';
-        $this->renderer->setTemplate('master/create');
-        return $this->sendResponseTemplate();
-    }
-
-    /**
      * Initialize common properties
      */
     public function initialize()
@@ -219,9 +208,30 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Show existing record.
+     * Create new record.
      */
-    public function showMethod(): Response
+    public function createMethod(): Response
+    {
+        $this->initialize();
+        $this->status = 'adding';
+        $this->renderer->setTemplate('master/create');
+        return $this->sendResponseTemplate();
+    }
+
+    /**
+     * Create new record, used as alias
+     *
+     * @return Response
+     */
+    public function addMethod(): Response
+    {
+        return $this->createMethod();
+    }
+
+    /**
+     * Read existing record.
+     */
+    public function readMethod(): Response
     {
         $this->initialize();
         $this->postData = $this->getRecordData();
@@ -231,39 +241,17 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Default delete method for delete an individual register.
+     * Read existing record, used as alias
      *
      * @return Response
      */
-    public function deleteMethod(): Response
+    public function showMethod(): Response
     {
-        $this->initialize();
-        $this->model->delete();
-        return $this->redirect($this->url);
+        return $this->readMethod();
     }
 
     /**
-     * uptadeMethod alias
-     *
-     * @return Response
-     */
-    public function editMethod(): Response
-    {
-        return $this->updateMethod();
-    }
-
-    /**
-     * uptadeMethos alias
-     *
-     * @return Response
-     */
-    public function readMethod(): Response
-    {
-        return $this->showMethod();
-    }
-
-    /**
-     * Edit existing record.
+     * Update existing record.
      *
      * @return Response
      */
@@ -284,6 +272,38 @@ abstract class AuthPageExtendedController extends AuthPageController
                 break;
         }
         return $this->sendResponseTemplate();
+    }
+
+    /**
+     * Update existing record, used as alias
+     *
+     * @return Response
+     */
+    public function editMethod(): Response
+    {
+        return $this->updateMethod();
+    }
+
+    /**
+     * Default delete method for delete an individual register.
+     *
+     * @return Response
+     */
+    public function deleteMethod(): Response
+    {
+        $this->initialize();
+        $this->model->delete();
+        return $this->redirect($this->url);
+    }
+
+    /**
+     * Default delete method for delete an individual register, used as alias
+     *
+     * @return Response
+     */
+    public function removeMethod(): Response
+    {
+        return $this->deleteMethod();
     }
 
     /**
