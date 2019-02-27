@@ -1,142 +1,191 @@
-'accept': 'Accept'
-'action': 'Action'
-'add-new': 'Add'
-'admin': 'Administration'
-'application-access': 'Application access'
-'back': 'Back'
-'clear-cache': 'Clear cache'
-'col-active': 'Active'
-'col-can_access': 'Can access'
-'col-can_create': 'Can create'
-'col-can_delete': 'Can delete'
-'col-can_export': 'Can export'
-'col-can_print': 'Can print'
-'col-can_read': 'Can read'
-'col-can_sendmail': 'Can send mail'
-'col-can_update': 'Can update'
-'col-cod_iso': 'ISO Code'
-'col-cod_iso2': 'ISO2 Code'
-'col-cod_iso3': 'ISO3 Code'
-'col-controller': 'Controller'
-'col-decimals': 'Decimals'
-'col-description': 'Description'
-'col-email': 'Email'
-'col-icon': 'Icon'
-'col-id': 'Id.'
-'col-id_page': 'Page Id.'
-'col-id_role': 'Role Id.'
-'col-id_user': 'User Id.'
-'col-inserted_date': 'Inserted at'
-'col-locked': 'Locked'
-'col-logkey': 'Logkey'
-'col-menu': 'Menu'
-'col-model': 'Model'
-'col-name': 'Name'
-'col-namespace': 'Namespace'
-'col-password': 'Password'
-'col-plugin': 'Plugin'
-'col-register_date': 'Registered at'
-'col-tablename': 'Table name'
-'col-title': 'Title'
-'col-unicode': 'Unicode'
-'col-updated_date': 'Updated at'
-'col-username': 'User name'
-'controller-components-html-twig-description': 'Try design of components HTML in Twig templates'
-'controller-components-html-twig-title': 'Components HTML Twig templates'
-'controller-countries-description': 'Countries description'
-'controller-countries-title': 'Countries'
-'controller-currencies-description': 'Currencies description'
-'controller-currencies-title': 'Currencies'
-'controller-fake-data-description': 'Generates fake data for desired types'
-'controller-fake-data-title': 'Fake data'
-'controller-intermediate-regions-description': 'Intermediate regions description'
-'controller-intermediate-regions-title': 'Intermediate regions'
-'controller-languages-title': 'Languages'
-'controller-languages-description': 'Available languages'
-'controller-name': 'Controller name'
-'controller-pages-description': 'Pages available registered'
-'controller-pages-title': 'Pages'
-'controller-people-description': 'People description'
-'controller-people-title': 'People'
-'controller-regions-description': 'Regions description'
-'controller-regions-title': 'Regions'
-'controller-roles-description': 'Roles clasify users by roles group'
-'controller-roles-pages-description': 'Roles pages contains what can do each role on certains pages'
-'controller-roles-pages-title': 'Roles pages'
-'controller-roles-title': 'Roles'
-'controller-subregions-description': 'Subregions description'
-'controller-subregions-title': 'Subregions'
-'controller-tables-description': 'Basic table/model related data for internal use'
-'controller-tables-title': 'Tables'
-'controller-users-description': 'System users'
-'controller-users-roles-description': 'Contains a relation of users and roles'
-'controller-users-roles-title': 'Users roles'
-'controller-users-title': 'Users'
-'database-engine': 'Database engine'
-'dateFormat': 'Date format'
-'datetimeFormat': 'Date time format'
-'dbHost': 'Database host'
-'dbName': 'Database name'
-'dbPass': 'Database password'
-'dbPort': 'Database port'
-'dbPrefix': 'Table prefix'
-'dbUser': 'Database user'
-'default': 'Default'
-'default-language': 'Default language'
-'default-skin': 'Default skin'
-'default-template': 'Default template'
-'default-timezone': 'Default timezone'
-'delete': 'Delete'
-'dev-tools': 'Development tools'
-'edit': 'Edit'
-'edit-configuration': 'Edit configuration'
-'edit-configuration-description': 'From here you can edit the configuration parameters.'
-'enter': 'Enter'
-'exit': 'Exit'
-'export-all': 'Export all'
-'export-db-estructure': 'Export database estructure'
-'export-db-estructure-description': 'It allows to export the structure of the database in YAML files.'
-'export-selected': 'Export selected'
-'fake-data': 'Generate fake data'
-'generate-all': 'Generate all'
-'generate-controller': 'Generate controller'
-'generate-from-structure': 'Generate from structure'
-'generate-from-structure-description': 'Allows to generate initial models and controlles from table schema'
-'generate-model': 'Generate model'
-'generate-people': 'Generate people'
-'generate-roles': 'Generate roles'
-'generate-selected': 'Generate selected'
-'generate-users': 'Generate users'
-'language-en': 'English'
-'language-en_EN': 'English (United States)'
-'language-es': 'Spanish'
-'language-es_ES': 'Spanish (Spain)'
-'list-of': 'List of'
-'login': 'Login'
-'logout': 'Logout'
-'model-name': 'Model name'
-'method-not-available': 'Method not available'
-'no-access': 'No access'
-'password': 'Password'
-'path-to-file': 'Path to file'
-'regenerate-data': 'Regenerate data'
-'regional-info': 'Regional info'
-'register-deleted': 'Register deleted'
-'register-locked': 'Register locked'
-'register-not-deleted': 'Register not deleted'
-'rememberme': 'Remember-me'
-'route-not-found': 'Route not found'
-'save-changes': 'Save changes'
-'select-tables-to-export': 'Select tables to export:'
-'select-tables-to-generate-models-controllers': 'Select tables to generate models and controllers'
-'selected': 'Selected'
-'show': 'Show'
-'table-name': 'Table name'
-'timeFormat': 'Time format'
-'title-messages-danger': 'Attention'
-'title-messages-info': 'Information'
-'title-messages-success': 'Notification'
-'title-messages-warning': 'Warning'
-'user-authentication': 'User authentication'
-'user-authentication-description': 'Login page, to control access to the application.'
-'user': 'User'
+accept: Accept
+action: Action
+active: Active
+add-new: Add
+admin: Administration
+application-access: 'Application access'
+back: Back
+can_access: 'Can access'
+can_create: 'Can create'
+can_delete: 'Can delete'
+can_export: 'Can export'
+can_print: 'Can print'
+can_read: 'Can read'
+can_sendmail: 'Can send mail'
+can_update: 'Can update'
+clear-cache: 'Clear cache'
+cod_iso: 'ISO Code'
+cod_iso2: 'ISO2 Code'
+cod_iso3: 'ISO3 Code'
+col-active: Active
+col-can_access: 'Can access'
+col-can_create: 'Can create'
+col-can_delete: 'Can delete'
+col-can_export: 'Can export'
+col-can_print: 'Can print'
+col-can_read: 'Can read'
+col-can_sendmail: 'Can send mail'
+col-can_update: 'Can update'
+col-cod_iso: 'ISO Code'
+col-cod_iso2: 'ISO2 Code'
+col-cod_iso3: 'ISO3 Code'
+col-controller: Controller
+col-decimals: Decimals
+col-description: Description
+col-email: Email
+col-enabled: Enabled
+col-icon: Icon
+col-id: Id.
+col-id_page: 'Page Id.'
+col-id_role: 'Role Id.'
+col-id_user: 'User Id.'
+col-inserted_date: 'Inserted at'
+col-language-code: 'Language code'
+col-language-variant: 'Language variant'
+col-locked: Locked
+col-logkey: Logkey
+col-menu: Menu
+col-model: Model
+col-name: Name
+col-namespace: Namespace
+col-order: Order
+col-password: Password
+col-path: Path
+col-plugin: Plugin
+col-register_date: 'Registered at'
+col-tablename: 'Table name'
+col-title: Title
+col-unicode: Unicode
+col-updated_date: 'Updated at'
+col-username: 'User name'
+controller: Controller
+controller-components-html-twig-description: 'Try design of components HTML in Twig templates'
+controller-components-html-twig-title: 'Components HTML Twig templates'
+controller-countries-description: 'Countries description'
+controller-countries-title: Countries
+controller-currencies-description: 'Currencies description'
+controller-currencies-title: Currencies
+controller-fake-data-description: 'Generates fake data for desired types'
+controller-fake-data-title: 'Fake data'
+controller-intermediate-regions-description: 'Intermediate regions description'
+controller-intermediate-regions-title: 'Intermediate regions'
+controller-languages-description: 'Available languages'
+controller-languages-title: Languages
+controller-name: 'Controller name'
+controller-pages-description: 'Pages available registered'
+controller-pages-title: Pages
+controller-people-description: 'People description'
+controller-people-title: People
+controller-regions-description: 'Regions description'
+controller-regions-title: Regions
+controller-roles-description: 'Roles clasify users by roles group'
+controller-roles-pages-description: 'Roles pages contains what can do each role on certains pages'
+controller-roles-pages-title: 'Roles pages'
+controller-roles-title: Roles
+controller-subregions-description: 'Subregions description'
+controller-subregions-title: Subregions
+controller-tables-description: 'Basic table/model related data for internal use'
+controller-tables-title: Tables
+controller-users-description: 'System users'
+controller-users-roles-description: 'Contains a relation of users and roles'
+controller-users-roles-title: 'Users roles'
+controller-users-title: Users
+database-engine: 'Database engine'
+dateFormat: 'Date format'
+datetimeFormat: 'Date time format'
+dbHost: 'Database host'
+dbName: 'Database name'
+dbPass: 'Database password'
+dbPort: 'Database port'
+dbPrefix: 'Table prefix'
+dbUser: 'Database user'
+decimals: Decimals
+default: Default
+default-language: 'Default language'
+default-skin: 'Default skin'
+default-template: 'Default template'
+default-timezone: 'Default timezone'
+delete: Delete
+description: Description
+dev-tools: 'Development tools'
+edit: Edit
+edit-configuration: 'Edit configuration'
+edit-configuration-description: 'From here you can edit the configuration parameters.'
+email: Email
+enabled: Enabled
+enter: Enter
+exit: Exit
+export-all: 'Export all'
+export-db-estructure: 'Export database estructure'
+export-db-estructure-description: 'It allows to export the structure of the database in YAML files.'
+export-selected: 'Export selected'
+fake-data: 'Generate fake data'
+generate-all: 'Generate all'
+generate-controller: 'Generate controller'
+generate-from-structure: 'Generate from structure'
+generate-from-structure-description: 'Allows to generate initial models and controlles from table schema'
+generate-model: 'Generate model'
+generate-people: 'Generate people'
+generate-roles: 'Generate roles'
+generate-selected: 'Generate selected'
+generate-users: 'Generate users'
+icon: Icon
+id: Id.
+id_page: 'Page Id.'
+id_role: 'Role Id.'
+id_user: 'User Id.'
+inserted_date: 'Inserted at'
+language-code: 'Language code'
+language-en: English
+language-en_EN: 'English (United States)'
+language-es: Spanish
+language-es_ES: 'Spanish (Spain)'
+language-variant: 'Language variant'
+list-of: 'List of'
+locked: Locked
+login: Login
+logkey: Logkey
+logout: Logout
+menu: Menu
+method-not-available: 'Method not available'
+model: Model
+model-name: 'Model name'
+modules-description: 'Modules complements the functionallity, enable or disable what you need.'
+modules-title: Modules
+name: Name
+namespace: Namespace
+no-access: 'No access'
+order: Order
+password: Password
+path: Path
+path-to-file: 'Path to file'
+plugin: Plugin
+regenerate-data: 'Regenerate data'
+regional-info: 'Regional info'
+register-deleted: 'Register deleted'
+register-locked: 'Register locked'
+register-not-deleted: 'Register not deleted'
+register-saved: 'Register saved'
+register_date: 'Registered at'
+rememberme: Remember-me
+route-not-found: 'Route not found'
+save-changes: 'Save changes'
+select-tables-to-export: 'Select tables to export:'
+select-tables-to-generate-models-controllers: 'Select tables to generate models and controllers'
+selected: Selected
+show: Show
+table-name: 'Table name'
+tablename: 'Table name'
+timeFormat: 'Time format'
+title: Title
+title-messages-danger: Attention
+title-messages-info: Information
+title-messages-success: Notification
+title-messages-warning: Warning
+unicode: Unicode
+update: 'Update'
+updated_date: 'Updated at'
+user: User
+user-authentication: 'User authentication'
+user-authentication-description: 'Login page, to control access to the application.'
+username: 'User name'

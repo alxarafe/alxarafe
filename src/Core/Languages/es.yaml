@@ -1,142 +1,191 @@
-'accept': 'Aceptar'
-'action': 'Acción'
-'add-new': 'Añadir'
-'admin': 'Administración'
-'application-access': 'Acceso a la aplicación'
-'back': 'Volver'
-'clear-cache': 'Limpiar caché'
-'col-active': 'Activo'
-'col-can_access': 'Puede acceder'
-'col-can_create': 'Puede crear'
-'col-can_delete': 'Puede eliminar'
-'col-can_export': 'Puede exportar'
-'col-can_print': 'Puede imprimir'
-'col-can_read': 'Puede leer'
-'col-can_sendmail': 'Puede enviar email'
-'col-can_update': 'Puede actualizar'
-'col-cod_iso': 'Código ISO'
-'col-cod_iso2': 'Código ISO2'
-'col-cod_iso3': 'Código ISO3'
-'col-controller': 'Controlador'
-'col-decimals': 'Decimales'
-'col-description': 'Descripción'
-'col-email': 'Email'
-'col-icon': 'Icono'
-'col-id': 'Id.'
-'col-id_page': 'Id. de página'
-'col-id_role': 'Id. de rol'
-'col-id_user': 'Id. de usuario'
-'col-inserted_date': 'Insertado el'
-'col-locked': 'Bloqueado'
-'col-logkey': 'Logkey'
-'col-menu': 'Menú'
-'col-model': 'Modelo'
-'col-name': 'Nombre'
-'col-namespace': 'Espacio de nombre'
-'col-password': 'Contraseña'
-'col-plugin': 'Plugin'
-'col-register_date': 'Registrado el'
-'col-tablename': 'Nombre de tabla'
-'col-title': 'Título'
-'col-unicode': 'Unicode'
-'col-updated_date': 'Actualizado el'
-'col-username': 'Nombre de usuario'
-'controller-components-html-twig-description': 'Pruebas de diseño de componentes HTML en plantillas de Twig'
-'controller-components-html-twig-title': 'Componentes HTML plantillas Twig'
-'controller-countries-description': 'Descripción de países'
-'controller-countries-title': 'Países'
-'controller-currencies-description': 'Descripción de divisas'
-'controller-currencies-title': 'Divisas'
-'controller-fake-data-description': 'Genera datos falsos para los tipos deseados'
-'controller-fake-data-title': 'Datos falsos'
-'controller-intermediate-regions-description': 'Descripción de las regiones intermedias'
-'controller-intermediate-regions-title': 'Regiones intermedias'
-'controller-languages-title': 'Idiomas'
-'controller-languages-description': 'Idiomas disponibles'
-'controller-name': 'Nombre del controlador'
-'controller-pages-description': 'Páginas registradas disponibles'
-'controller-pages-title': 'Páginas'
-'controller-people-description': 'Descripción de personas'
-'controller-people-title': 'Personas'
-'controller-regions-description': 'Descripción de regiones'
-'controller-regions-title': 'Regiones'
-'controller-roles-description': 'Los roles clasifican a los usuarios por grupo de roles'
-'controller-roles-pages-description': 'Las páginas de roles contienen lo que puede hacer cada rol en ciertas páginas'
-'controller-roles-pages-title': 'Páginas y roles'
-'controller-roles-title': 'Roles'
-'controller-subregions-description': 'Descripción de las subregiones'
-'controller-subregions-title': 'Subregiones'
-'controller-tables-description': 'Datos básicos de la tabla/modelo relacionados para uso interno'
-'controller-tables-title': 'Tablas'
-'controller-users-description': 'Usuarios del sistema'
-'controller-users-roles-description': 'Contiene una relación de usuarios y roles.'
-'controller-users-roles-title': 'Usuarios y roles'
-'controller-users-title': 'Usuarios'
-'database-engine': 'Motor de base de datos'
-'dateFormat': 'Formato de fecha'
-'datetimeFormat': 'Formato de fecha y hora'
-'dbHost': 'Servidor de base de datos'
-'dbName': 'Nombre de base de datos'
-'dbPass': 'Contraseña de base de datos'
-'dbPort': 'Puerto de base de datos'
-'dbPrefix': 'Prefijo de tablas'
-'dbUser': 'Usuario de base de datos'
-'default': 'Por defecto'
-'default-language': 'Idioma por defecto'
-'default-skin': 'Piel por defecto'
-'default-template': 'Plantilla por defecto'
-'default-timezone': 'Zona horaria por defecto'
-'delete': 'Eliminar'
-'dev-tools': 'Herramientas de desarrollo'
-'edit': 'Editar'
-'edit-configuration': 'Editar configuración'
-'edit-configuration-description': 'Desde aquí puedes editar los parámetros de configuración.'
-'enter': 'Entrar'
-'exit': 'Salir'
-'export-all': 'Exportar todo'
-'export-db-estructure': 'Exportar estructura de la base de datos'
-'export-db-estructure-description': 'Permite exportar la estructura de la base de datos en archivos YAML.'
-'export-selected': 'Exportar seleccionado'
-'fake-data': 'Generar datos falsos'
-'generate-all': 'Generar todos'
-'generate-controller': 'Generar controlador'
-'generate-from-structure': 'Generar desde estructura'
-'generate-from-structure-description': 'Permite generar modelos y controladores iniciales desde el esquema de tablas'
-'generate-model': 'Generar modelo'
-'generate-people': 'Generar gente'
-'generate-roles': 'Generar roles'
-'generate-selected': 'Generar seleccionados'
-'generate-users': 'Generar usuarios'
-'language-en': 'Inglés'
-'language-en_EN': 'Inglés (Estados Unidos)'
-'language-es': 'Español'
-'language-es_ES': 'Español (España)'
-'list-of': 'Lista de'
-'login': 'Iniciar sesión'
-'logout': 'Cerrar sesión'
-'model-name': 'Nombre del modelo'
-'method-not-available': 'Método no disponible'
-'no-access': 'Sin acceso'
-'password': 'Contraseña'
-'path-to-file': 'Ruta al archivo'
-'regenerate-data': 'Regenerar datos'
-'regional-info': 'Información regional'
-'register-deleted': 'Registro eliminado'
-'register-locked': 'Registro bloqueado'
-'register-not-deleted': 'Registro no eliminado'
-'rememberme': 'Recuerda-me'
-'route-not-found': 'Ruta no encontrada'
-'save-changes': 'Guardar los cambios'
-'select-tables-to-export': 'Selecciona que tablas quieres exportar:'
-'select-tables-to-generate-models-controllers': 'Selecciona que tablas quieres generar sus modelos y controladores'
-'selected': 'Seleccionado'
-'show': 'Mostrar'
-'table-name': 'Nombre de tabla'
-'timeFormat': 'Formato de hora'
-'title-messages-danger': 'Atención'
-'title-messages-info': 'Información'
-'title-messages-success': 'Notificación'
-'title-messages-warning': 'Advertencia'
-'user-authentication': 'Autenticación de usuario'
-'user-authentication-description': 'Página de login, para controlar el acceso a la aplicación.'
-'user': 'Usuario'
+accept: Aceptar
+action: Acción
+active: Activo
+add-new: Añadir
+admin: Administración
+application-access: 'Acceso a la aplicación'
+back: Volver
+can_access: 'Puede acceder'
+can_create: 'Puede crear'
+can_delete: 'Puede eliminar'
+can_export: 'Puede exportar'
+can_print: 'Puede imprimir'
+can_read: 'Puede leer'
+can_sendmail: 'Puede enviar email'
+can_update: 'Puede actualizar'
+clear-cache: 'Limpiar caché'
+cod_iso: 'Código ISO'
+cod_iso2: 'Código ISO2'
+cod_iso3: 'Código ISO3'
+col-active: Activo
+col-can_access: 'Puede acceder'
+col-can_create: 'Puede crear'
+col-can_delete: 'Puede eliminar'
+col-can_export: 'Puede exportar'
+col-can_print: 'Puede imprimir'
+col-can_read: 'Puede leer'
+col-can_sendmail: 'Puede enviar email'
+col-can_update: 'Puede actualizar'
+col-cod_iso: 'Código ISO'
+col-cod_iso2: 'Código ISO2'
+col-cod_iso3: 'Código ISO3'
+col-controller: Controlador
+col-decimals: Decimales
+col-description: Descripción
+col-email: Email
+col-enabled: Activado
+col-icon: Icono
+col-id: Id.
+col-id_page: 'Id. de página'
+col-id_role: 'Id. de rol'
+col-id_user: 'Id. de usuario'
+col-inserted_date: 'Insertado el'
+col-language-code: 'Código de idioma'
+col-language-variant: 'Variante de idioma'
+col-locked: Bloqueado
+col-logkey: Logkey
+col-menu: Menú
+col-model: Modelo
+col-name: Nombre
+col-namespace: 'Espacio de nombre'
+col-order: Orden
+col-password: Contraseña
+col-path: Ruta
+col-plugin: Plugin
+col-register_date: 'Registrado el'
+col-tablename: 'Nombre de tabla'
+col-title: Título
+col-unicode: Unicode
+col-updated_date: 'Actualizado el'
+col-username: 'Nombre de usuario'
+controller: Controlador
+controller-components-html-twig-description: 'Pruebas de diseño de componentes HTML en plantillas de Twig'
+controller-components-html-twig-title: 'Componentes HTML plantillas Twig'
+controller-countries-description: 'Descripción de países'
+controller-countries-title: Países
+controller-currencies-description: 'Descripción de divisas'
+controller-currencies-title: Divisas
+controller-fake-data-description: 'Genera datos falsos para los tipos deseados'
+controller-fake-data-title: 'Datos falsos'
+controller-intermediate-regions-description: 'Descripción de las regiones intermedias'
+controller-intermediate-regions-title: 'Regiones intermedias'
+controller-languages-description: 'Idiomas disponibles'
+controller-languages-title: Idiomas
+controller-name: 'Nombre del controlador'
+controller-pages-description: 'Páginas registradas disponibles'
+controller-pages-title: Páginas
+controller-people-description: 'Descripción de personas'
+controller-people-title: Personas
+controller-regions-description: 'Descripción de regiones'
+controller-regions-title: Regiones
+controller-roles-description: 'Los roles clasifican a los usuarios por grupo de roles'
+controller-roles-pages-description: 'Las páginas de roles contienen lo que puede hacer cada rol en ciertas páginas'
+controller-roles-pages-title: 'Páginas y roles'
+controller-roles-title: Roles
+controller-subregions-description: 'Descripción de las subregiones'
+controller-subregions-title: Subregiones
+controller-tables-description: 'Datos básicos de la tabla/modelo relacionados para uso interno'
+controller-tables-title: Tablas
+controller-users-description: 'Usuarios del sistema'
+controller-users-roles-description: 'Contiene una relación de usuarios y roles.'
+controller-users-roles-title: 'Usuarios y roles'
+controller-users-title: Usuarios
+database-engine: 'Motor de base de datos'
+dateFormat: 'Formato de fecha'
+datetimeFormat: 'Formato de fecha y hora'
+dbHost: 'Servidor de base de datos'
+dbName: 'Nombre de base de datos'
+dbPass: 'Contraseña de base de datos'
+dbPort: 'Puerto de base de datos'
+dbPrefix: 'Prefijo de tablas'
+dbUser: 'Usuario de base de datos'
+decimals: Decimales
+default: 'Por defecto'
+default-language: 'Idioma por defecto'
+default-skin: 'Piel por defecto'
+default-template: 'Plantilla por defecto'
+default-timezone: 'Zona horaria por defecto'
+delete: Eliminar
+description: Descripción
+dev-tools: 'Herramientas de desarrollo'
+edit: Editar
+edit-configuration: 'Editar configuración'
+edit-configuration-description: 'Desde aquí puedes editar los parámetros de configuración.'
+email: Email
+enabled: Activado
+enter: Entrar
+exit: Salir
+export-all: 'Exportar todo'
+export-db-estructure: 'Exportar estructura de la base de datos'
+export-db-estructure-description: 'Permite exportar la estructura de la base de datos en archivos YAML.'
+export-selected: 'Exportar seleccionado'
+fake-data: 'Generar datos falsos'
+generate-all: 'Generar todos'
+generate-controller: 'Generar controlador'
+generate-from-structure: 'Generar desde estructura'
+generate-from-structure-description: 'Permite generar modelos y controladores iniciales desde el esquema de tablas'
+generate-model: 'Generar modelo'
+generate-people: 'Generar gente'
+generate-roles: 'Generar roles'
+generate-selected: 'Generar seleccionados'
+generate-users: 'Generar usuarios'
+icon: Icono
+id: Id.
+id_page: 'Id. de página'
+id_role: 'Id. de rol'
+id_user: 'Id. de usuario'
+inserted_date: 'Insertado el'
+language-code: 'Código de idioma'
+language-en: Inglés
+language-en_EN: 'Inglés (Estados Unidos)'
+language-es: Español
+language-es_ES: 'Español (España)'
+language-variant: 'Variante de idioma'
+list-of: 'Lista de'
+locked: Bloqueado
+login: 'Iniciar sesión'
+logkey: Logkey
+logout: 'Cerrar sesión'
+menu: Menú
+method-not-available: 'Método no disponible'
+model: Modelo
+model-name: 'Nombre del modelo'
+modules-description: 'Los módulos complementan la funcionalidad, activa o desactiva lo que necesites.'
+modules-title: Módulos
+name: Nombre
+namespace: 'Espacio de nombre'
+no-access: 'Sin acceso'
+order: Orden
+password: Contraseña
+path: Contraseña
+path-to-file: 'Ruta al archivo'
+plugin: Plugin
+regenerate-data: 'Regenerar datos'
+regional-info: 'Información regional'
+register-deleted: 'Registro eliminado'
+register-locked: 'Registro bloqueado'
+register-not-deleted: 'Registro no eliminado'
+register-saved: 'Registro guardado'
+register_date: 'Registrado el'
+rememberme: Recuerda-me
+route-not-found: 'Ruta no encontrada'
+save-changes: 'Guardar los cambios'
+select-tables-to-export: 'Selecciona que tablas quieres exportar:'
+select-tables-to-generate-models-controllers: 'Selecciona que tablas quieres generar sus modelos y controladores'
+selected: Seleccionado
+show: Mostrar
+table-name: 'Nombre de tabla'
+tablename: 'Nombre de tabla'
+timeFormat: 'Formato de hora'
+title: Título
+title-messages-danger: Atención
+title-messages-info: Información
+title-messages-success: Notificación
+title-messages-warning: Advertencia
+unicode: Unicode
+update: Actualizar
+updated_date: 'Actualizado el'
+user: Usuario
+user-authentication: 'Autenticación de usuario'
+user-authentication-description: 'Página de login, para controlar el acceso a la aplicación.'
+username: 'Nombre de usuario'
