@@ -138,12 +138,6 @@ abstract class AuthPageExtendedController extends AuthPageController
      *      parent::__construct(new Person());  // Se el pasa el modelo
      * }
      *
-     * public function run(): void
-     * {
-     *      $this->setView(new View($this)); // Se le pasa el propio controlador
-     *      parent::run($method);
-     * }
-     *
      * @param Table|null $model
      */
     public function __construct($model = null)
