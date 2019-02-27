@@ -327,7 +327,7 @@ class Schema
             $datos = $sep . "(";
             foreach ($value as $fname => $fvalue) {
                 $fields .= Database::getInstance()->getSqlHelper()->quoteFieldName($fname) . ", ";
-                $definitionDataField = Config::$bbddStructure[$tableName]['fields'][$fname];
+                $definitionDataField = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$fname];
                 if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
                     $fvalue = $definitionDataField['default'] ?? null;
                 }

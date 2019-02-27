@@ -6,9 +6,9 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\Database;
 
 /**
  * Class View
@@ -200,7 +200,7 @@ class View extends SimpleView
 
         $this->protectClose = ($this->status == 'editing');
 
-        $this->fieldsStruct = Config::$bbddStructure[$this->tableName]['fields'];
+        $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
         $this->tableData = $data ?? $this->controller->postData;
 
         $this->code = Utils::randomString(10);

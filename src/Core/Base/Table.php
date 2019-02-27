@@ -54,7 +54,7 @@ class Table extends SimpleTable
      */
     public function checkStructure(bool $create = false): void
     {
-        if (!$create || !isset(Config::$bbddStructure[$this->tableName])) {
+        if (!$create || !Database::getInstance()->getDbEngine()->issetDbTableStructure($this->tableName)) {
             return;
         }
         if (!SchemaDB::tableExists($this->tableName) && $this->modelName != 'TableModel') {
@@ -219,7 +219,7 @@ class Table extends SimpleTable
         $ok = true;
         foreach ($data as $tableName => $block) {   // Recorrer tablas
             foreach ($block as $blockId => $record) {            // Recorrer registros de la tabla (seguramente uno)
-                foreach (Config::$bbddStructure[$tableName]['checks'] as $fieldName => $fieldStructure) {
+                foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['checks'] as $fieldName => $fieldStructure) {
                     $length = $fieldStructure['length'] ?? null;
                     if (isset($length) && $length > 0) {
                         if (strlen($record[$fieldName]) > $length) {

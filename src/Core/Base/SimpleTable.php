@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Providers\Database;
 
@@ -49,9 +48,9 @@ class SimpleTable extends Entity
         $this->idField = $params['idField'] ?? null;
         $this->nameField = $params['nameField'] ?? null;
         $this->setStructure();
-        if (!isset($this->idField) && isset(Config::$bbddStructure[$this->tableName]['fields'])) {
+        if (!isset($this->idField) && Database::getInstance()->getDbEngine()->issetDbTableStructureKey($this->tableName, 'fields')) {
             $this->idField = 'id';
-            foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
+            foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {
                 if (isset($value['key']) && ($value['key'] == 'primary')) {
                     $this->idField = $key;
                     break;
@@ -83,8 +82,8 @@ class SimpleTable extends Entity
      */
     protected function setTableStructure(string $table, array $structure): void
     {
-        if (!isset(Config::$bbddStructure[$table])) {
-            Config::$bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
+        if (!Database::getInstance()->getDbEngine()->issetDbTableStructure($table)) {
+            Database::getInstance()->getDbEngine()->setDbTableStructure($table, Schema::setNormalizedStructure($structure, $table));
         }
     }
 
@@ -162,7 +161,7 @@ class SimpleTable extends Entity
     {
         $this->id = '';
         $this->newData = [];
-        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
+        foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {
             $this->newData[$key] = $value['default'] ?? '';
         }
         $this->oldData = $this->newData;
@@ -369,7 +368,7 @@ class SimpleTable extends Entity
      */
     public function getStructure(): array
     {
-        return Config::$bbddStructure[$this->tableName];
+        return Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName);
     }
 
     /**

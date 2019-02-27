@@ -8,6 +8,8 @@ namespace Alxarafe\Helpers;
 
 use Alxarafe\Base\View;
 use Alxarafe\Controllers\CreateConfig;
+use Alxarafe\Providers\Config as ConfigProvider;
+use Alxarafe\Providers\Database;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\FlashMessages;
 use Exception;
@@ -55,7 +57,7 @@ class Dispatcher
         $this->defineConstants();
         // First set the display options to be able to show the possible warnings and errors.
         Config::loadViewsConfig();
-        $configFile = Config::getConfigFileName();
+        $configFile = ConfigProvider::getInstance()->getFilePath();
         if (!file_exists($configFile)) {
             $msg = "Creating '$configFile' file...";
             FlashMessages::getInstance()::setError($msg);
@@ -103,7 +105,7 @@ class Dispatcher
 
         define('CALL_CONTROLLER', 'call');
         define('METHOD_CONTROLLER', 'method');
-        define('DEFAULT_CONTROLLER', (Config::configFileExists() ? 'EditConfig' : 'CreateConfig'));
+        define('DEFAULT_CONTROLLER', (ConfigProvider::getInstance()->configFileExists() ? 'EditConfig' : 'CreateConfig'));
         define('DEFAULT_METHOD', 'index');
 
         // Use cache on Core
@@ -147,7 +149,7 @@ class Dispatcher
         $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_STRING);
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
-        if (empty(Config::loadConfigurationFile()) || !Config::connectToDataBase()) {
+        if (empty(Config::loadConfigurationFile()) || !Database::getInstance()->connectToDataBase()) {
             if ($call !== 'CreateConfig' || $method !== 'main') {
                 $this->processFolder(constant('BASE_PATH') . '/Controllers', 'CreateConfig', constant('DEFAULT_METHOD'));
                 return true;

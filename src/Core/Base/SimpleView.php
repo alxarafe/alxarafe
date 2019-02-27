@@ -6,9 +6,9 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\TemplateRender;
+use Alxarafe\Providers\Translator;
 
 /**
  * Class SimpleView, this class is used to manage the common things in a view:
@@ -68,7 +68,7 @@ class SimpleView
             $this->vars['user'] = $controller->userAuth->getUserName();
         }
         $this->vars['templateuri'] = $this->renderer->getTemplatesUri();
-        $this->vars['lang'] = Config::$lang;
+        $this->vars['lang'] = Translator::getInstance()->getLocale();
         $this->vars['debugbarTime'] = $this->debugTool->getDebugTool()['time'];
         $this->title = isset($controller->title) ? $controller->title : 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX);
 
@@ -191,17 +191,6 @@ class SimpleView
     public function getVar(string $name)
     {
         return isset($this->vars[$name]) ?? [];
-    }
-
-    /**
-     * Makes visible Config::getMessages() from templates, using view.getMessages()
-     * Config::getMessages() returns an array with the pending error messages, and empties the list.
-     *
-     * @return array
-     */
-    public function getMessages(): array
-    {
-        return Config::getMessages();
     }
 
     /**

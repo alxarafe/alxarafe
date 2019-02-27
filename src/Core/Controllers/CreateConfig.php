@@ -8,8 +8,8 @@ namespace Alxarafe\Controllers;
 
 use Alxarafe\Base\Controller;
 use Alxarafe\Database\Engine;
-use Alxarafe\Helpers\Config;
 use Alxarafe\PreProcessors;
+use Alxarafe\Providers\Config;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\RegionalInfo;
@@ -118,7 +118,7 @@ class CreateConfig extends Controller
      */
     public function indexMethod(): Response
     {
-        if (Config::configFileExists()) {
+        if (Config::getInstance()->configFileExists()) {
             return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login'));
         }
 

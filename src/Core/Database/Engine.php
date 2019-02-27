@@ -69,14 +69,24 @@ abstract class Engine
     protected static $transactionDepth = 0;
 
     /**
+     * Contains the database structure data.
+     * Each table is a index of the associative array.
+     *
+     * @var array
+     */
+    public static $dbStructure = [];
+
+    /**
      * Engine constructor
      *
      * @param array $dbConfig
      */
     public function __construct(array $dbConfig)
     {
-        self::$dbConfig = $dbConfig;
-        self::$debugTool = DebugTool::getInstance();
+        if (!isset(self::$dbConfig)) {
+            self::$dbConfig = $dbConfig;
+            self::$debugTool = DebugTool::getInstance();
+        }
     }
 
     /**
@@ -440,5 +450,63 @@ abstract class Engine
         }
 
         return $ret;
+    }
+
+    /**
+     * Returns database structure.
+     *
+     * @return array
+     */
+    final public function getDbStructure()
+    {
+        return self::$dbStructure;
+    }
+
+    /**
+     * Returns database table structure.
+     *
+     * @param string $tablename
+     *
+     * @return mixed
+     */
+    final public function getDbTableStructure(string $tablename)
+    {
+        return self::$dbStructure[$tablename];
+    }
+
+    /**
+     * Returns if table is set to database structure.
+     *
+     * @param string $tablename
+     *
+     * @return bool
+     */
+    final public function issetDbTableStructure(string $tablename)
+    {
+        return isset(self::$dbStructure[$tablename]);
+    }
+
+    /**
+     * Returns if key is set to database structure.
+     *
+     * @param string $tablename
+     * @param string $key
+     *
+     * @return bool
+     */
+    final public function issetDbTableStructureKey(string $tablename, string $key)
+    {
+        return isset(self::$dbStructure[$tablename][$key]);
+    }
+
+    /**
+     * Sets database structure for a tablename.
+     *
+     * @param string $tablename
+     * @param array  $data
+     */
+    final public function setDbTableStructure(string $tablename, array $data)
+    {
+        self::$dbStructure[$tablename] = $data;
     }
 }

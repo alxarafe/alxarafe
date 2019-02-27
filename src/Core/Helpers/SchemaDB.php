@@ -42,7 +42,7 @@ class SchemaDB
      */
     public static function checkTableStructure(string $tableName): bool
     {
-        $tabla = Config::$bbddStructure[$tableName];
+        $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
 
         $tableExists = self::tableExists($tableName);
         if ($tableExists) {
@@ -199,7 +199,7 @@ class SchemaDB
         $indexData['index'] = $indexName;
 
         if ($indexName == 'PRIMARY') {
-            $fieldData = Config::$bbddStructure[$tableName]['fields'][$indexData['column']];
+            $fieldData = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']];
             $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
             return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
         }
@@ -242,7 +242,7 @@ class SchemaDB
         $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) .
             ' ADD PRIMARY KEY (' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['column']) . ');';
         if ($autoincrement) {
-            $length = Config::$bbddStructure[$tableName]['fields'][$indexData['column']]['length'];
+            $length = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']]['length'];
             $sql[] = 'ALTER TABLE ' . Database::getInstance()->getSqlHelper()->quoteTableName($tableName, true) .
                 ' MODIFY ' . Database::getInstance()->getSqlHelper()->quoteFieldName($indexData['column']) .
                 ' INT(' . $length . ') UNSIGNED AUTO_INCREMENT';
@@ -353,7 +353,7 @@ class SchemaDB
     {
         $primaryColumn = [];
         $nameColumn = [];
-        $tabla = Config::$bbddStructure[$tableName];
+        $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
         $fields = $tabla['fields'];
         $indexes = $tabla['indexes'];
 
@@ -364,7 +364,7 @@ class SchemaDB
                 $class = $table->namespace;
                 $class = new $class();
                 $tableNameIndex = $table->tablename;
-                $tableIndex[$indexName] = Config::$bbddStructure[$tableNameIndex];
+                $tableIndex[$indexName] =Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
                 $primaryColumn[$indexName] = $tabla['indexes']['PRIMARY']['column'];
                 $nameColumn[$indexName] = $class->getNameField();
             } else {

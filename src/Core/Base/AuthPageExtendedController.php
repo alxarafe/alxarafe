@@ -6,9 +6,9 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Helpers\Config;
 use Alxarafe\Helpers\Schema;
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Translator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -173,7 +173,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->currentId = filter_input(INPUT_GET, $this->model->getIdField());
         $this->postData = $this->getRecordData();
-        $this->fieldsStruct = Config::$bbddStructure[$this->tableName]['fields'];
+        $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
         $this->viewData = Schema::getFromYamlFile($this->tableName, 'viewdata');
         // If not defined in yaml file, use all table fields
         if (empty($this->viewData)) {
@@ -591,7 +591,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     protected function setDefaults(array $record): array
     {
         $ret = [];
-        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $struct) {
+        foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $struct) {
             if (isset($record[$key])) {
                 $ret[$key] = $record[$key];
             } else {
