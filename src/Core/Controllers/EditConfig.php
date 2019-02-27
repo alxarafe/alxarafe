@@ -131,7 +131,6 @@ class EditConfig extends AuthPageController
                 $this->regenerateData();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
-                break;
             case 'save':
                 $databaseConfig = Database::getInstance()->getConfig();
                 $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');

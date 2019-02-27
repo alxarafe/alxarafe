@@ -28,7 +28,7 @@ class Languages
      *
      * TODO: This must be moved to ProProcessors namespace
      */
-    public function exportLanguages()
+    public static function exportLanguages()
     {
         $debugTool = DebugTool::getInstance();
 

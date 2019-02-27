@@ -71,7 +71,6 @@ class Modules extends AuthPageExtendedController
                 $this->regenerateData();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
-                break;
         }
 
         return parent::indexMethod();
@@ -152,6 +151,7 @@ class Modules extends AuthPageExtendedController
             ->depth(0)
             ->in($this->modulesFolder)
             ->sortByName();
+        $modulesList = [];
         foreach ($modules as $module) {
             $modulesList[$module->getFileName()] = str_replace(basePath(), '', $module->getPathName());
         }

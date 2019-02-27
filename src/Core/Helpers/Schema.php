@@ -130,12 +130,12 @@ class Schema
         $result['placeholder'] = $result['placeholder'] ?? $field;
         switch ($values['type']) {
             case 'string':
-                $length = intval($values['length'] ?? constant(DEFAULT_STRING_LENGTH));
+                $length = intval($values['length'] ?? constant('DEFAULT_STRING_LENGTH'));
                 $result['length'] = max([intval($result['length'] ?? 0), $length]);
                 break;
             case 'integer':
                 $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
-                $max = intval($values['max'] ?? $length ?? pow(10, constant(DEFAULT_INTEGER_SIZE)) - 1);
+                $max = intval($values['max'] ?? $length ?? pow(10, constant('DEFAULT_INTEGER_SIZE')) - 1);
                 $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
                 $result['length'] = max([intval($result['length'] ?? 0), $length]);
                 $result['min'] = min([intval($result['min'] ?? 0), $min]);
