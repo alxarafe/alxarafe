@@ -16,7 +16,6 @@ use Alxarafe\Modules\Sample\Models\Subregion;
  */
 class Subregions extends AuthPageExtendedController
 {
-
     /**
      * Subregions constructor.
      */

@@ -9,8 +9,8 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Base\AuthPageExtendedController;
 use Alxarafe\Base\CacheCore;
 use Alxarafe\Helpers\FormatUtils;
-use Alxarafe\Models\Module;
 use Alxarafe\Helpers\Utils;
+use Alxarafe\Models\Module;
 use Alxarafe\Providers\FlashMessages;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +23,13 @@ use Symfony\Component\HttpFoundation\Response;
 class Modules extends AuthPageExtendedController
 {
     /**
+     * Array that contains the paths to search.
+     *
+     * @var array
+     */
+    protected $searchDir;
+
+    /**
      * Modules folder were are stored.
      *
      * @var string
@@ -33,13 +40,6 @@ class Modules extends AuthPageExtendedController
      * @var array
      */
     private $modulesList = [];
-
-    /**
-     * Array that contains the paths to search.
-     *
-     * @var array
-     */
-    protected $searchDir;
 
     /**
      * Modules constructor.
@@ -74,6 +74,50 @@ class Modules extends AuthPageExtendedController
         }
 
         return parent::indexMethod();
+    }
+
+    /**
+     * Returns a list of availabe modules.
+     *
+     * @return array
+     */
+    private function getAvailableModules(): array
+    {
+        $modules = Finder::create()
+            ->directories()
+            ->depth(0)
+            ->in($this->modulesFolder)
+            ->sortByName();
+        $modulesList = [];
+        foreach ($modules as $module) {
+            $modulesList[$module->getFileName()] = str_replace(basePath(), '', $module->getPathName());
+        }
+        return $modulesList;
+    }
+
+    /**
+     * Updated all modules to database.
+     */
+    private function updateModulesData()
+    {
+        foreach ($this->modulesList as $name => $path) {
+            $module = new Module();
+            $module->getBy('name', $name);
+            $module->name = $name;
+            $module->path = $path;
+            $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
+            $module->save();
+        }
+    }
+
+    /**
+     * Regenerate some needed data.
+     *
+     * @return void
+     */
+    private function regenerateData(): void
+    {
+        Utils::executePreprocesses($this->searchDir);
     }
 
     /**
@@ -112,7 +156,6 @@ class Modules extends AuthPageExtendedController
         return parent::updateMethod();
     }
 
-
     /**
      * Default delete method for delete an individual register.
      *
@@ -142,40 +185,6 @@ class Modules extends AuthPageExtendedController
     }
 
     /**
-     * Returns a list of availabe modules.
-     *
-     * @return array
-     */
-    private function getAvailableModules(): array
-    {
-        $modules = Finder::create()
-            ->directories()
-            ->depth(0)
-            ->in($this->modulesFolder)
-            ->sortByName();
-        $modulesList = [];
-        foreach ($modules as $module) {
-            $modulesList[$module->getFileName()] = str_replace(basePath(), '', $module->getPathName());
-        }
-        return $modulesList;
-    }
-
-    /**
-     * Updated all modules to database.
-     */
-    private function updateModulesData()
-    {
-        foreach ($this->modulesList as $name => $path) {
-            $module = new Module();
-            $module->getBy('name', $name);
-            $module->name = $name;
-            $module->path = $path;
-            $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
-            $module->save();
-        }
-    }
-
-    /**
      * @return array
      */
     public function getNewButtons()
@@ -188,15 +197,5 @@ class Modules extends AuthPageExtendedController
             'type' => 'info',
         ];
         return $return;
-    }
-
-    /**
-     * Regenerate some needed data.
-     *
-     * @return void
-     */
-    private function regenerateData(): void
-    {
-        Utils::executePreprocesses($this->searchDir);
     }
 }

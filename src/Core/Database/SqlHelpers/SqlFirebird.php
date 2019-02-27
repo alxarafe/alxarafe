@@ -15,7 +15,6 @@ use Alxarafe\Providers\Database;
  */
 class SqlFirebird extends SqlHelper
 {
-
     /**
      * SqlFirebird constructor.
      */

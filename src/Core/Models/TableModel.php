@@ -19,7 +19,6 @@ use Alxarafe\Base\Table;
  */
 class TableModel extends Table
 {
-
     /**
      * TableModel constructor.
      *

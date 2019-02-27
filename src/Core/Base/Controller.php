@@ -3,6 +3,7 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Session;
@@ -23,7 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class Controller
 {
-
     /**
      * Contains the user's name or null
      *

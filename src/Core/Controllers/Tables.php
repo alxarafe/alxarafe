@@ -16,7 +16,6 @@ use Alxarafe\Models\TableModel;
  */
 class Tables extends AuthPageExtendedController
 {
-
     /**
      * Tables constructor.
      */

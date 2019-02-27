@@ -16,7 +16,6 @@ use Alxarafe\Providers\DebugTool;
  */
 abstract class SqlHelper
 {
-
     /**
      * Character used as quotes to enclose the name of the table
      *

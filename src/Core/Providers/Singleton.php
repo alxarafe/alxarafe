@@ -21,7 +21,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 trait Singleton
 {
-
     /**
      * Set to true if you want use more that one singleton using and index
      * param in getInstance

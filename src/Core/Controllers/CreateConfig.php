@@ -230,6 +230,7 @@ class CreateConfig extends Controller
     {
         Utils::executePreprocesses($this->searchDir);
     }
+
     /**.
      * Returns the page details.
      *

@@ -15,7 +15,6 @@ use Alxarafe\Providers\Database;
  */
 class SchemaDB
 {
-
     /**
      * Return the tables on the database.
      *
@@ -364,7 +363,7 @@ class SchemaDB
                 $class = $table->namespace;
                 $class = new $class();
                 $tableNameIndex = $table->tablename;
-                $tableIndex[$indexName] =Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
+                $tableIndex[$indexName] = Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
                 $primaryColumn[$indexName] = $tabla['indexes']['PRIMARY']['column'];
                 $nameColumn[$indexName] = $class->getNameField();
             } else {

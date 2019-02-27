@@ -24,50 +24,12 @@ use Psr\Cache\InvalidArgumentException;
  */
 abstract class Engine
 {
-
     /**
      * The debug tool used.
      *
      * @var DebugTool
      */
     public static $debugTool;
-    /**
-     * Data Source Name
-     *
-     * @var string
-     */
-    protected static $dsn;
-    /**
-     * Array that contains the access data to the database.
-     *
-     * @var array
-     */
-    protected static $dbConfig;
-    /**
-     * The handler of the database.
-     *
-     * @var PDO
-     */
-    protected static $dbHandler;
-    /**
-     * Represents a prepared statement and, after the statement is executed,
-     * an associated result set.
-     *
-     * @var \PDOStatement|bool
-     */
-    protected static $statement;
-    /**
-     * True if the database engine supports SAVEPOINT in transactions
-     *
-     * @var bool
-     */
-    protected static $savePointsSupport = true;
-    /**
-     * Number of transactions in execution
-     *
-     * @var int
-     */
-    protected static $transactionDepth = 0;
 
     /**
      * Contains the database structure data.
@@ -76,6 +38,49 @@ abstract class Engine
      * @var array
      */
     public static $dbStructure = [];
+
+    /**
+     * Data Source Name
+     *
+     * @var string
+     */
+    protected static $dsn;
+
+    /**
+     * Array that contains the access data to the database.
+     *
+     * @var array
+     */
+    protected static $dbConfig;
+
+    /**
+     * The handler of the database.
+     *
+     * @var PDO
+     */
+    protected static $dbHandler;
+
+    /**
+     * Represents a prepared statement and, after the statement is executed,
+     * an associated result set.
+     *
+     * @var \PDOStatement|bool
+     */
+    protected static $statement;
+
+    /**
+     * True if the database engine supports SAVEPOINT in transactions
+     *
+     * @var bool
+     */
+    protected static $savePointsSupport = true;
+
+    /**
+     * Number of transactions in execution
+     *
+     * @var int
+     */
+    protected static $transactionDepth = 0;
 
     /**
      * Engine constructor

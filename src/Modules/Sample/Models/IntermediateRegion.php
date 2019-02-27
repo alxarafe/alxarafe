@@ -15,7 +15,6 @@ use Alxarafe\Base\Table;
  */
 class IntermediateRegion extends Table
 {
-
     /**
      * IntermediateRegion constructor.
      *

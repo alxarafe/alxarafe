@@ -16,7 +16,6 @@ use Alxarafe\Models\User;
  */
 class Users extends AuthPageExtendedController
 {
-
     /**
      * Users constructor.
      */

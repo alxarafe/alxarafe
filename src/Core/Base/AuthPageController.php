@@ -3,12 +3,12 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Base;
 
 use Alxarafe\Models\Page;
 use Alxarafe\Models\RolePage;
 use Alxarafe\Models\UserRole;
-use Alxarafe\Providers\Logger;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AuthPageController extends AuthController
 {
-
     /**
      * Symbol to split menu/submenu items.
      */
@@ -222,7 +221,7 @@ abstract class AuthPageController extends AuthController
                 break;
             case 'add':
                 $method = 'createMethod';
-                // no-break
+            // no-break
             case 'create':
                 if ($this->canAccess && $this->canCreate) {
                     $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can create');
@@ -231,7 +230,7 @@ abstract class AuthPageController extends AuthController
                 break;
             case 'show':
                 $method = 'readMethod';
-                // no-break
+            // no-break
             case 'read':
                 if ($this->canAccess && $this->canRead) {
                     $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can read');
@@ -240,7 +239,7 @@ abstract class AuthPageController extends AuthController
                 break;
             case 'edit':
                 $method = 'updateMethod';
-                // no-break
+            // no-break
             case 'update':
                 if ($this->canAccess && $this->canUpdate) {
                     $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can update');
@@ -249,7 +248,7 @@ abstract class AuthPageController extends AuthController
                 break;
             case 'remove':
                 $method = 'deleteMethod';
-                // no-break
+            // no-break
             case 'delete':
                 if ($this->canAccess && $this->canDelete) {
                     $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can delete');

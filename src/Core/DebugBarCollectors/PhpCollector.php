@@ -15,7 +15,6 @@ use DebugBar\DataCollector\Renderable;
  */
 class PHPCollector extends DataCollector implements Renderable
 {
-
     /**
      * Collector name.
      *

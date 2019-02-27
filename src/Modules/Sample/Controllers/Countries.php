@@ -16,7 +16,6 @@ use Alxarafe\Modules\Sample\Models\Country;
  */
 class Countries extends AuthPageExtendedController
 {
-
     /**
      * Countries constructor.
      */

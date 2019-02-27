@@ -18,7 +18,6 @@ use Symfony\Component\Finder\Finder;
  */
 class Routes
 {
-
     /**
      * Array that contains the paths to find the Controllers folder that contains the controllers
      *

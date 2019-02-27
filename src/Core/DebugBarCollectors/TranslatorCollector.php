@@ -18,7 +18,6 @@ use DebugBar\DataCollector\Renderable;
  */
 class TranslatorCollector extends DataCollector implements Renderable, AssetProvider
 {
-
     /**
      * Translation engine
      *

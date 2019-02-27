@@ -16,7 +16,6 @@ use Alxarafe\Modules\Sample\Models\Person;
  */
 class People extends AuthPageExtendedController
 {
-
     /**
      * People constructor.
      */

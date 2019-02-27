@@ -52,6 +52,17 @@ class FormatUtils
     private static $datetimeFormat;
 
     /**
+     * Returns the format for date.
+     *
+     * @return string
+     */
+    public static function getFormatDate()
+    {
+        self::loadConfig();
+        return self::$dateFormat;
+    }
+
+    /**
      * Load config.
      */
     public static function loadConfig()
@@ -65,17 +76,6 @@ class FormatUtils
             self::$timeFormat = self::$config['timeFormat'];
             self::$datetimeFormat = self::$config['datetimeFormat'];
         }
-    }
-
-    /**
-     * Returns the format for date.
-     *
-     * @return string
-     */
-    public static function getFormatDate()
-    {
-        self::loadConfig();
-        return self::$dateFormat;
     }
 
     /**
@@ -114,6 +114,27 @@ class FormatUtils
     }
 
     /**
+     * Return formatted string.
+     *
+     * @param string $style
+     * @param string $time
+     *
+     * @return string
+     */
+    public static function getFormatted(string $style, string $time = '')
+    {
+        self::loadConfig();
+        try {
+            $time = ($time === '') ? 'now' : $time;
+            $date = (new DateTime($time))->format($style);
+        } catch (\Exception $e) {
+            $time = ($time === '') ? 'time()' : $time;
+            $date = date($style, strtotime($time));
+        }
+        return $date;
+    }
+
+    /**
      * Return date formatted.
      *
      * @param string $date
@@ -137,26 +158,5 @@ class FormatUtils
     {
         self::loadConfig();
         return self::getFormatted(self::$datetimeFormat, $date);
-    }
-
-    /**
-     * Return formatted string.
-     *
-     * @param string $style
-     * @param string $time
-     *
-     * @return string
-     */
-    public static function getFormatted(string $style, string $time = '')
-    {
-        self::loadConfig();
-        try {
-            $time = ($time === '') ? 'now' : $time;
-            $date = (new DateTime($time))->format($style);
-        } catch (\Exception $e) {
-            $time = ($time === '') ? 'time()' : $time;
-            $date = date($style, strtotime($time));
-        }
-        return $date;
     }
 }

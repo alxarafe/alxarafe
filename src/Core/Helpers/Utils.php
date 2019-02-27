@@ -3,11 +3,12 @@
  * Alxarafe. Development of PHP applications in a flash!
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
+
 namespace Alxarafe\Helpers;
 
+use Alxarafe\PreProcessors;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
-use Alxarafe\PreProcessors;
 use ReflectionClass;
 use ReflectionException;
 
@@ -18,7 +19,6 @@ use ReflectionException;
  */
 class Utils
 {
-
     /**
      * Translate a literal in CamelCase format to snake_case format
      *

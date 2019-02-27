@@ -23,7 +23,6 @@ use ReflectionClass;
  */
 class Table extends SimpleTable
 {
-
     /**
      * Build a Table model. $table is the name of the table in the database.
      * $params is a parameters array:

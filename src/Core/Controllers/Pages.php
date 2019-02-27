@@ -16,7 +16,6 @@ use Alxarafe\Models\Page;
  */
 class Pages extends AuthPageExtendedController
 {
-
     /**
      * Pages constructor.
      */

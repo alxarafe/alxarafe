@@ -14,7 +14,6 @@ use PDO;
  */
 class PdoFirebird extends Engine
 {
-
     /**
      * PdoMySql constructor. Add aditional parameters to self::$dsn string.
      *

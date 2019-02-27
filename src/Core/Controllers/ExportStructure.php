@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ExportStructure extends AuthPageController
 {
-
     /**
      * ExportStructure constructor.
      */

@@ -16,7 +16,6 @@ use Alxarafe\Models\Role;
  */
 class Roles extends AuthPageExtendedController
 {
-
     /**
      * Roles constructor.
      */

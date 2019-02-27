@@ -15,7 +15,6 @@ use Alxarafe\Base\Table;
  */
 class Region extends Table
 {
-
     /**
      * Region constructor.
      *

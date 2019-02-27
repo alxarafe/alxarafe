@@ -101,20 +101,6 @@ class RegionalInfo
     }
 
     /**
-     * Returns a list of time formats
-     */
-    public function getTimeFormats()
-    {
-        $styles = [
-            'H:i',
-            'H:i:s',
-            'h:i A',
-            'h:i:s A',
-        ];
-        return $this->fillList($styles);
-    }
-
-    /**
      * Fill list with key => value, where key is style and value a sample.
      *
      * @param array $styles
@@ -141,5 +127,19 @@ class RegionalInfo
     private function getFormatted(string $style, string $time = '2011-01-07 09:08:07')
     {
         return FormatUtils::getFormatted($style, $time);
+    }
+
+    /**
+     * Returns a list of time formats
+     */
+    public function getTimeFormats()
+    {
+        $styles = [
+            'H:i',
+            'H:i:s',
+            'h:i A',
+            'h:i:s A',
+        ];
+        return $this->fillList($styles);
     }
 }

@@ -1,24 +1,24 @@
 fields:
-    id:
-        type: integer
-        length: '4'
-        default: null
-        nullable: 'no'
-        unsigned: 'yes'
-        autoincrement: 'yes'
-    name:
-        type: string
-        length: '100'
-        default: null
-        nullable: 'no'
-        unsigned: 'no'
+  id:
+    type: integer
+    length: '4'
+    default: null
+    nullable: 'no'
+    unsigned: 'yes'
+    autoincrement: 'yes'
+  name:
+    type: string
+    length: '100'
+    default: null
+    nullable: 'no'
+    unsigned: 'no'
 indexes:
-    PRIMARY:
-        column: id
-        unique: 'yes'
-    country_name:
-        column: name
-        unique: 'yes'
+  PRIMARY:
+    column: id
+    unique: 'yes'
+  country_name:
+    column: name
+    unique: 'yes'
 values:
   1:
     id: 2

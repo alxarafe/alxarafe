@@ -34,6 +34,20 @@ class BootStrap
     const FALLBACK_LANG = 'en';
 
     /**
+     * Return current Unix timestamp with microseconds.
+     *
+     * @var float
+     */
+    protected static $startTimer;
+
+    /**
+     * Hold the classes on instance.
+     *
+     * @var BootStrap
+     */
+    private static $instance;
+
+    /**
      * The base path where project is placed.
      *
      * @var string
@@ -151,20 +165,6 @@ class BootStrap
     protected $cacheEngine;
 
     /**
-     * Return current Unix timestamp with microseconds.
-     *
-     * @var float
-     */
-    protected static $startTimer;
-
-    /**
-     * Hold the classes on instance.
-     *
-     * @var BootStrap
-     */
-    private static $instance;
-
-    /**
      * BootStrap constructor.
      *
      * @param string $basePath
@@ -204,26 +204,6 @@ class BootStrap
     }
 
     /**
-     * Returns this instance.
-     *
-     * @return BootStrap
-     */
-    public static function getInstance()
-    {
-        return self::$instance;
-    }
-
-    /**
-     * Return start time with microtime.
-     *
-     * @return float
-     */
-    public static function getStartTime()
-    {
-        return self::$startTimer;
-    }
-
-    /**
      * Returns default configuration.
      *
      * @return array
@@ -244,6 +224,26 @@ class BootStrap
             'language' => 'es_ES',
         ];
         return $defaultData;
+    }
+
+    /**
+     * Returns this instance.
+     *
+     * @return BootStrap
+     */
+    public static function getInstance()
+    {
+        return self::$instance;
+    }
+
+    /**
+     * Return start time with microtime.
+     *
+     * @return float
+     */
+    public static function getStartTime()
+    {
+        return self::$startTimer;
     }
 
     /**

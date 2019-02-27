@@ -16,7 +16,6 @@ use Alxarafe\Modules\Sample\Models\Region;
  */
 class Regions extends AuthPageExtendedController
 {
-
     /**
      * Regions constructor.
      */

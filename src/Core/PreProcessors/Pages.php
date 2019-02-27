@@ -20,7 +20,6 @@ use Symfony\Component\Finder\Finder;
  */
 class Pages
 {
-
     /**
      * Array that contains the paths to find the Controllers folder that contains the controllers
      *

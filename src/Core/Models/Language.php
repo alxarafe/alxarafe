@@ -20,7 +20,6 @@ use Alxarafe\Base\Table;
  */
 class Language extends Table
 {
-
     /**
      * Language constructor.
      *

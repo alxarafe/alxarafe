@@ -16,7 +16,6 @@ use Alxarafe\Modules\Sample\Models\IntermediateRegion;
  */
 class IntermediateRegions extends AuthPageExtendedController
 {
-
     /**
      * IntermediateRegions constructor.
      */

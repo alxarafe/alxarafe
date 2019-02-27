@@ -38,19 +38,18 @@ class Login extends Controller
     public $redirectUrl;
 
     /**
+     * User log key.
+     *
+     * @var string|null
+     */
+    public $logkey = null;
+
+    /**
      * User in use.
      *
      * @var User|null
      */
     private $user = null;
-
-    /**
-     * User log key.
-     *
-     * @var string|null
-     */
-
-    public $logkey = null;
 
     /**
      * Login constructor.
@@ -119,18 +118,6 @@ class Login extends Controller
     }
 
     /**
-     * Close the user session and go to the main page
-     *
-     * @return RedirectResponse
-     */
-    public function logoutMethod(): RedirectResponse
-    {
-        FlashMessages::getInstance()::setInfo('Logout: User has successfully logged out');
-        $this->clearCookieUser();
-        return $this->redirect(baseUrl('index.php?call=Login'));
-    }
-
-    /**
      * Redirect to controller, default or selected by the user.
      *
      * @return RedirectResponse
@@ -146,33 +133,24 @@ class Login extends Controller
     }
 
     /**
-     * Main is invoked if method is not specified.
-     * Load the view of the login form, if there is no user identified.
+     * Returns the cookie from the user
      *
-     * @return Response
+     * @return string|null
      */
-    private function main(): Response
+    public function getCookieUser($remember)
     {
-        if (!isset($this->username)) {
-            $this->renderer->setTemplate('login');
-            return $this->sendResponseTemplate();
-        } else {
-            return $this->redirectToController();
+        $this->user = new User();
+        if ($this->username === null && $this->user->getBy('username', $_COOKIE['user']) === true) {
+            if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && $this->user->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
+                Logger::getInstance()->getLogger()->addDebug('Login from cookie.');
+                // Increase cookie valid time.
+                $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
+                $this->adjustCookieUser($time);
+            } else {
+                $this->clearCookieUser();
+            }
         }
-    }
-
-    /**
-     * Clear the cookie user.
-     *
-     * @return void
-     */
-    private function clearCookieUser(): void
-    {
-        Logger::getInstance()->getLogger()->addDebug('Clear user cookies.');
-        $this->username = null;
-        $this->user = null;
-        $this->logkey = null;
-        $this->adjustCookieUser();
+        return $this->username;
     }
 
     /**
@@ -193,6 +171,48 @@ class Login extends Controller
         }
         setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+    }
+
+    /**
+     * Clear the cookie user.
+     *
+     * @return void
+     */
+    private function clearCookieUser(): void
+    {
+        Logger::getInstance()->getLogger()->addDebug('Clear user cookies.');
+        $this->username = null;
+        $this->user = null;
+        $this->logkey = null;
+        $this->adjustCookieUser();
+    }
+
+    /**
+     * Main is invoked if method is not specified.
+     * Load the view of the login form, if there is no user identified.
+     *
+     * @return Response
+     */
+    private function main(): Response
+    {
+        if (!isset($this->username)) {
+            $this->renderer->setTemplate('login');
+            return $this->sendResponseTemplate();
+        } else {
+            return $this->redirectToController();
+        }
+    }
+
+    /**
+     * Close the user session and go to the main page
+     *
+     * @return RedirectResponse
+     */
+    public function logoutMethod(): RedirectResponse
+    {
+        FlashMessages::getInstance()::setInfo('Logout: User has successfully logged out');
+        $this->clearCookieUser();
+        return $this->redirect(baseUrl('index.php?call=Login'));
     }
 
     /**
@@ -243,26 +263,5 @@ class Login extends Controller
             Logger::getInstance()->getLogger()->addDebug("User '" . $userName . "' not founded.");
         }
         return $this->username !== null;
-    }
-
-    /**
-     * Returns the cookie from the user
-     *
-     * @return string|null
-     */
-    public function getCookieUser($remember)
-    {
-        $this->user = new User();
-        if ($this->username === null && $this->user->getBy('username', $_COOKIE['user']) === true) {
-            if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && $this->user->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
-                Logger::getInstance()->getLogger()->addDebug('Login from cookie.');
-                // Increase cookie valid time.
-                $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
-                $this->adjustCookieUser($time);
-            } else {
-                $this->clearCookieUser();
-            }
-        }
-        return $this->username;
     }
 }

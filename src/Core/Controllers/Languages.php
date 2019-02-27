@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Languages extends AuthPageExtendedController
 {
-
     /**
      * Languages constructor.
      */

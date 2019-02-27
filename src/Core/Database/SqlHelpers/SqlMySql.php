@@ -15,7 +15,6 @@ use Alxarafe\Providers\Database;
  */
 class SqlMySql extends SqlHelper
 {
-
     /**
      * SqlMySql constructor.
      */

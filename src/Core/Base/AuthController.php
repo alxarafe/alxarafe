@@ -19,14 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AuthController extends Controller
 {
-
-    /**
-     * Page to redirect.
-     *
-     * @var string
-     */
-    private $defaultRedirect = 'index.php?call=Login';
-
     /**
      * The user logged.
      *
@@ -43,6 +35,13 @@ class AuthController extends Controller
     public $logkey = null;
 
     /**
+     * Page to redirect.
+     *
+     * @var string
+     */
+    private $defaultRedirect = 'index.php?call=Login';
+
+    /**
      * AuthController constructor.
      */
     public function __construct()
@@ -50,6 +49,25 @@ class AuthController extends Controller
         parent::__construct();
     }
 
+    /**
+     * @param string $methodName
+     *
+     * @return Response
+     */
+    public function runMethod(string $methodName): Response
+    {
+        $method = $methodName . 'Method';
+        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+        if (!$this->checkAuth()) {
+            Logger::getInstance()->getLogger()->addDebug('User not authenticated.');
+            return $this->redirect(baseUrl($this->defaultRedirect));
+        }
+        return $this->{$method}();
+    }
+
+    /**
+     * Check that user is logged in.
+     */
     public function checkAuth(): bool
     {
         $return = false;
@@ -71,22 +89,6 @@ class AuthController extends Controller
             $return = true;
         }
         return $return;
-    }
-
-    /**
-     * @param string $methodName
-     *
-     * @return Response
-     */
-    public function runMethod(string $methodName): Response
-    {
-        $method = $methodName . 'Method';
-        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
-        if (!$this->checkAuth()) {
-            Logger::getInstance()->getLogger()->addDebug('User not authenticated.');
-            return $this->redirect(baseUrl($this->defaultRedirect));
-        }
-        return $this->{$method}();
     }
 
     /**
