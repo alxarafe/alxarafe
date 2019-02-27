@@ -326,8 +326,7 @@
                                                                                 array
                 </td>
                 <td>$postData</td>
-                <td class="last">Contiene los datos que hay en $_POST. Es un array con el formato:
-$this->postData[nombre_tabla][id_registro][nombre_campo]=valor</td>
+                <td class="last">Contains all data received from $_POST.</td>
                 <td><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#property_postData"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
             </tr>
                     <tr>
@@ -335,7 +334,7 @@ $this->postData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                                                                                 <a href="../../../../Alxarafe/Base/Table.html"><abbr title="Alxarafe\Base\Table">Table</abbr></a>
                 </td>
                 <td>$model</td>
-                <td class="last">La tabla principal del mantenimiento</td>
+                <td class="last">Main table model.</td>
                 <td><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#property_model"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
             </tr>
                     <tr>
@@ -391,8 +390,7 @@ $this->postData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                                         protected                                        array
                 </td>
                 <td>$oldData</td>
-                <td class="last">Contiene los datos que hay actualmente en disco. Es un array con el formato:
-$this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
+                <td class="last">Contains all data from table.</td>
                 <td><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#property_oldData"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
             </tr>
                     <tr>
@@ -400,7 +398,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                                         protected                                        array
                 </td>
                 <td>$fieldsStruct</td>
-                <td class="last"></td>
+                <td class="last">Contains the field structure.</td>
                 <td><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#property_fieldsStruct"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
             </tr>
                     <tr>
@@ -408,7 +406,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                                         protected                                        string|null
                 </td>
                 <td>$currentId</td>
-                <td class="last">Contiene la clave primaria del registro en curso.</td>
+                <td class="last">Contains the primary key of register in use.</td>
                 <td><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#property_currentId"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
             </tr>
                     <tr>
@@ -416,7 +414,7 @@ $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor</td>
                                         protected                                        string
                 </td>
                 <td>$status</td>
-                <td class="last">Puede contener 3 valores: listing, adding o editing.</td>
+                <td class="last">Can contain: listing, adding or editing.</td>
                 <td><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#property_status"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
             </tr>
             </table>
@@ -574,7 +572,7 @@ of the skin folder). It's a specific file.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_indexMethod">indexMethod</a>()
         
-                                            <p>El punto de entrada es run.</p>                </div>
+                                            <p>The start point of the controller.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_indexMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -674,8 +672,7 @@ of the skin folder). It's a specific file.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_getStatus">getStatus</a>()
         
-                                            <p>Retorna el estado en el que se encuentra la edición en estos momentos:
-listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>                </div>
+                                            <p>Returns the actual status of the controller.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getStatus"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -705,9 +702,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
                 <div class="col-md-8 type">
                     <a href="#method_getRecordData">getRecordData</a>()
         
-                                            <p>Obtiene un array con los datos del registro especificado en $this->currentId
-Si el registro no existe, se retorna un registro en blanco con los datos por
-defecto.</p>                </div>
+                                            <p>Obtains an array of data from register $this->currentId.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getRecordData"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -737,7 +732,7 @@ defecto.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_cancel">cancel</a>()
         
-                                            <p>Cancela la edición regresando al controlador/registro que corresponda</p>                </div>
+                                            <p>Cancels goes to main controller status.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_cancel"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -747,7 +742,7 @@ defecto.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_getDataPost">getDataPost</a>()
         
-                                            <p>Devuelve los datos enviados por POST</p>                </div>
+                                            <p>Returns the data received from $_POST</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getDataPost"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -757,7 +752,7 @@ defecto.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_save">save</a>()
         
-                                            <p>Guarda los datos, y si tiene éxito, recarga la página.</p>                </div>
+                                            <p>Save the data, and reload the page on success.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_save"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -1359,7 +1354,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_indexMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_indexMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 384</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_indexMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 370</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>indexMethod</strong>()
         </code>
@@ -1369,7 +1364,7 @@ js folders of the templates folder). It's a common file.</p>
     
 
                     <div class="method-description">
-                                    <p>El punto de entrada es run.</p>                    <p>Index realiza los procesos necesarios una vez instanciada la clase.</p>                            </div>
+                                    <p>The start point of the controller.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1389,7 +1384,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_createMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_createMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 187</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_createMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 177</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>createMethod</strong>()
         </code>
@@ -1419,7 +1414,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_readMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_readMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 249</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_readMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 238</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>readMethod</strong>()
         </code>
@@ -1449,7 +1444,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_updateMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_updateMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 273</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_updateMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 262</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>updateMethod</strong>()
         </code>
@@ -1479,7 +1474,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_deleteMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 356</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_deleteMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 343</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>deleteMethod</strong>()
         </code>
@@ -1630,7 +1625,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getNewButtons">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getNewButtons"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 158</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getNewButtons"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 149</div>
         <code>                    array
     <strong>getNewButtons</strong>()
         </code>
@@ -1660,7 +1655,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getStatus">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getStatus"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 169</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getStatus"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 159</div>
         <code>                    string
     <strong>getStatus</strong>()
         </code>
@@ -1670,8 +1665,7 @@ js folders of the templates folder). It's a common file.</p>
     
 
                     <div class="method-description">
-                                    <p>Retorna el estado en el que se encuentra la edición en estos momentos:
-listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>                                                </div>
+                                    <p>Returns the actual status of the controller.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1691,7 +1685,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_addMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_addMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 179</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_addMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 169</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>addMethod</strong>()
         </code>
@@ -1721,7 +1715,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_initialize">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_initialize"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 198</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_initialize"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 188</div>
         <code>                    
     <strong>initialize</strong>()
         </code>
@@ -1742,7 +1736,7 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getRecordData">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getRecordData"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 222</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getRecordData"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 211</div>
         <code>            protected        array
     <strong>getRecordData</strong>()
         </code>
@@ -1752,9 +1746,9 @@ listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)</p>
     
 
                     <div class="method-description">
-                                    <p>Obtiene un array con los datos del registro especificado en $this->currentId
-Si el registro no existe, se retorna un registro en blanco con los datos por
-defecto.</p>                    <p>Este método haría cosas adicionales en el caso mantienimientos complejos.</p>                            </div>
+                                    <p>Obtains an array of data from register $this->currentId.</p>                    <p>If register doesn't exists, returns an empty register with default data.</p>
+
+<p>This method can do additional things in more complex situations.</p>                            </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1774,7 +1768,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_showMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_showMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 241</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_showMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 230</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>showMethod</strong>()
         </code>
@@ -1804,7 +1798,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_editMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_editMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 263</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_editMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 252</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>editMethod</strong>()
         </code>
@@ -1834,7 +1828,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_cancel">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_cancel"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 297</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_cancel"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 286</div>
         <code>            protected        <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>cancel</strong>()
         </code>
@@ -1844,7 +1838,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
     
 
                     <div class="method-description">
-                                    <p>Cancela la edición regresando al controlador/registro que corresponda</p>                                                </div>
+                                    <p>Cancels goes to main controller status.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1864,7 +1858,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getDataPost">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getDataPost"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 313</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getDataPost"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 302</div>
         <code>            protected        void
     <strong>getDataPost</strong>()
         </code>
@@ -1874,7 +1868,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
     
 
                     <div class="method-description">
-                                    <p>Devuelve los datos enviados por POST</p>                    <p>Este método haría cosas adicionales en el caso mantienimientos complejos.</p>                            </div>
+                                    <p>Returns the data received from $_POST</p>                    <p>This method can do additional things in more complex situations.</p>                            </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1894,7 +1888,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_save">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_save"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 330</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_save"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 318</div>
         <code>            protected        
     <strong>save</strong>()
         </code>
@@ -1904,9 +1898,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
     
 
                     <div class="method-description">
-                                    <p>Guarda los datos, y si tiene éxito, recarga la página.</p>                    <p>Este método haría cosas adicionales en el caso mantienimientos complejos.</p>
-
-<p>TODO: Al recargar la página, no es posible enviar mensaje informando del éxito.</p>                            </div>
+                                    <p>Save the data, and reload the page on success.</p>                    <p>This method can do additional things in more complex situations.</p>                            </div>
                 <div class="tags">
             
             
@@ -1917,7 +1909,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_removeMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_removeMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 346</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_removeMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 333</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>removeMethod</strong>()
         </code>
@@ -1947,7 +1939,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_accessDenied">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_accessDenied"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 373</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_accessDenied"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 360</div>
         <code>                    
     <strong>accessDenied</strong>()
         </code>
@@ -1968,7 +1960,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_listData">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_listData"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 396</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_listData"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 382</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>listData</strong>()
         </code>
@@ -1998,7 +1990,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_ajaxTableDataMethod">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_ajaxTableDataMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 407</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_ajaxTableDataMethod"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 393</div>
         <code>                    
     <strong>ajaxTableDataMethod</strong>()
         </code>
@@ -2019,7 +2011,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultColumnsSearch">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getDefaultColumnsSearch"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 462</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getDefaultColumnsSearch"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 448</div>
         <code>                    array
     <strong>getDefaultColumnsSearch</strong>()
         </code>
@@ -2049,7 +2041,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableHeader">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getTableHeader"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 477</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getTableHeader"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 463</div>
         <code>                    
     <strong>getTableHeader</strong>()
         </code>
@@ -2070,7 +2062,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableBody">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getTableBody"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 500</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getTableBody"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 486</div>
         <code>                    
     <strong>getTableBody</strong>()
         </code>
@@ -2091,7 +2083,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getListFields">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getListFields"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 531</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getListFields"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 517</div>
         <code>                    
     <strong>getListFields</strong>()
         </code>
@@ -2112,7 +2104,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableFooter">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getTableFooter"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 567</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getTableFooter"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 553</div>
         <code>                    
     <strong>getTableFooter</strong>()
         </code>
@@ -2133,7 +2125,7 @@ defecto.</p>                    <p>Este método haría cosas adicionales en el c
             </div>
                     <div class="method-item">
                     <h3 id="method_setDefaults">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_setDefaults"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 596</div>
+        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_setDefaults"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 582</div>
         <code>            protected        array
     <strong>setDefaults</strong>(array $record)
         </code>
