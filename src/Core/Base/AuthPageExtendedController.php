@@ -253,7 +253,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * uptadeMethos alias
+     * showMethod alias
      *
      * @return Response
      */
