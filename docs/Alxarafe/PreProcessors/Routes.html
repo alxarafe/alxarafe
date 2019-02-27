@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\PreProcessors\Pages | alxarafe</title>
+    <title>Alxarafe\PreProcessors\Routes | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_PreProcessors_Pages" data-root-path="../../">
+    <body id="class" data-name="class:Alxarafe_PreProcessors_Routes" data-root-path="../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,20 +66,20 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/PreProcessors.html">PreProcessors</a></li><li class="backslash">\</li><li>Pages</li>
+                        <li><a href="../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../Alxarafe/PreProcessors.html">PreProcessors</a></li><li class="backslash">\</li><li>Routes</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            Pages
+            Routes
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>Pages</strong>
+    <strong>Routes</strong>
 </p>
 
         
@@ -99,6 +99,14 @@
                 </td>
                 <td>$searchDir</td>
                 <td class="last">Array that contains the paths to find the Controllers folder that contains the controllers</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_routes">
+                                                            private                    <a href="../../Alxarafe/Providers/Router.html"><abbr title="Alxarafe\Providers\Router">Router</abbr></a>
+                </td>
+                <td>$routes</td>
+                <td class="last"></td>
                 <td></td>
             </tr>
             </table>
@@ -122,7 +130,7 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_checkPageControllers">checkPageControllers</a>()
+                    <a href="#method_checkRoutesControllers">checkRoutesControllers</a>()
         
                                             <p>Check all clases that extends from PageController, an store it to pages table.</p>                </div>
                 <div class="col-md-2"></div>
@@ -137,26 +145,6 @@
                                             <p>Instanciate class and update page data if needed.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_updatePageData">updatePageData</a>(string $className, string $namespace, $newPage)
-        
-                                            <p>Updates the page data if needed.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_cleanPagesBefore">cleanPagesBefore</a>(<a target="_blank" href="http://php.net/DateTime">DateTime</a> $start)
-        
-                                            <p>Clean all pages before $start datetime.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
@@ -165,7 +153,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 36</div>
+        <div class="location">at         line 40</div>
         <code>                    
     <strong>__construct</strong>(array $dirs)
         </code>
@@ -195,10 +183,10 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_checkPageControllers">
-        <div class="location">at         line 49</div>
+                    <h3 id="method_checkRoutesControllers">
+        <div class="location">at         line 53</div>
         <code>                private    
-    <strong>checkPageControllers</strong>()
+    <strong>checkRoutesControllers</strong>()
         </code>
     </h3>
     <div class="details">
@@ -220,7 +208,7 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_instantiateClass">
-        <div class="location">at         line 81</div>
+        <div class="location">at         line 86</div>
         <code>                private    
     <strong>instantiateClass</strong>(string $namespace, string $className)
         </code>
@@ -243,78 +231,6 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
                     <tr>
                 <td>string</td>
                 <td>$className</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_updatePageData">
-        <div class="location">at         line 98</div>
-        <code>                private    
-    <strong>updatePageData</strong>(string $className, string $namespace, $newPage)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Updates the page data if needed.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$className</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>string</td>
-                <td>$namespace</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td></td>
-                <td>$newPage</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_cleanPagesBefore">
-        <div class="location">at         line 118</div>
-        <code>                private    
-    <strong>cleanPagesBefore</strong>(<a target="_blank" href="http://php.net/DateTime">DateTime</a> $start)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Clean all pages before $start datetime.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a target="_blank" href="http://php.net/DateTime">DateTime</a></td>
-                <td>$start</td>
                 <td></td>
             </tr>
             </table>
