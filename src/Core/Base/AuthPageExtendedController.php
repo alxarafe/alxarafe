@@ -249,8 +249,9 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     public function deleteMethod(): Response
     {
-        // TODO: Delete and redirect to list.
-        return $this->sendResponseTemplate();
+        $this->initialize();
+        $this->model->delete();
+        return $this->redirect($this->url);
     }
 
     /**
