@@ -178,6 +178,14 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_translator"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
+                <td class="type" id="property_vars">
+                                                            private                    array
+                </td>
+                <td>$vars</td>
+                <td class="last">Array that contains the variables that will be passed to the template.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_vars"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_defaultRedirect">
                                                             private                    string
                 </td>
@@ -192,6 +200,14 @@
                 <td>$user</td>
                 <td class="last">The user logged.</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_user"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_logkey">
+                                                                                string|null
+                </td>
+                <td>$logkey</td>
+                <td class="last">User log key.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_logkey"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_title">
@@ -223,14 +239,6 @@
                 </td>
                 <td>$menu</td>
                 <td class="last">Page menu place.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_userName">
-                                                                                string|null
-                </td>
-                <td>$userName</td>
-                <td class="last">Contains the user's name or null</td>
                 <td></td>
             </tr>
                     <tr>
@@ -271,6 +279,30 @@
                 </td>
                 <td>$canDelete</td>
                 <td class="last">Can user delete?</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canPrint">
+                                                                                bool
+                </td>
+                <td>$canPrint</td>
+                <td class="last">Can user print?</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canExport">
+                                                                                bool
+                </td>
+                <td>$canExport</td>
+                <td class="last">Can user export?</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canSendMail">
+                                                                                bool
+                </td>
+                <td>$canSendMail</td>
+                <td class="last">Can user send mail?</td>
                 <td></td>
             </tr>
                     <tr>
@@ -348,14 +380,75 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addToVar">addToVar</a>(string $name, mixed $value)
+        
+                                            <p>Add a new element to a value saved in the array that is passed to the template.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_addToVar"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addResource">addResource</a>(string $resourceName, boolean $relative = true)
+        
+                                            <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_addResource"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addCSS">addCSS</a>()
+        
+                                            <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_addCSS"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addJS">addJS</a>()
+        
+                                            <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#method_addJS"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_checkAuth">checkAuth</a>(string $methodName)
+                    <a href="#method_checkAuth">checkAuth</a>()
         
                                             <p class="no-description">No description</p>
                                     </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_logout">logout</a>()
+        
+                                            <p>Close the user session and go to the main page</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0)
+        
+                                            <p>Adjust auth cookie user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -429,13 +522,12 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
+                    
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_checkLogin">checkLogin</a>()
+                    <a href="#method_loadPerms">loadPerms</a>()
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Load perms for this user.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -443,17 +535,7 @@
                     bool
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_ensureLogin">ensureLogin</a>()
-        
-                                            <p>Check if user is logged in, and redirect to this controller if needed.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_canAction">canAction</a>(string $username, string $action)
+                    <a href="#method_canAction">canAction</a>(string $action)
         
                                             <p>Verify if this user can do an action.</p>                </div>
                 <div class="col-md-2"></div>
@@ -486,7 +568,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 115</div>
+        <div class="location">at         line 128</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -507,7 +589,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_sendResponseTemplate">
-        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 120</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_sendResponseTemplate"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 128</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>sendResponseTemplate</strong>(array $data = [])
         </code>
@@ -547,7 +629,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_sendResponse">
-        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_sendResponse"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 134</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_sendResponse"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 142</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>sendResponse</strong>(string $reply, int $status = Response::HTTP_OK)
         </code>
@@ -592,7 +674,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_redirect">
-        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_redirect"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 148</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_redirect"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 156</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>redirect</strong>(string $destiny = &#039;&#039;)
         </code>
@@ -632,7 +714,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_runMethod">
-        <div class="location">at         line 192</div>
+        <div class="location">at         line 205</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>runMethod</strong>(string $methodName)
         </code>
@@ -669,10 +751,165 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_addToVar">
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_addToVar"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 188</div>
+        <code>                    void
+    <strong>addToVar</strong>(string $name, mixed $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Add a new element to a value saved in the array that is passed to the template.</p>                    <p>It is used when what we are saving is an array and we want to add a new element to that array.
+IMPORTANT: The element only is added if is not empty.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addResource">
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_addResource"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 209</div>
+        <code>                    string
+    <strong>addResource</strong>(string $resourceName, boolean $relative = true)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                    <p>If it can not be found, check if it is in the templates folder (for example in the css or
+js folders of the templates folder). It's a common file.</p>
+
+<p>If it is not in either of the two, no route is specified (it will surely give loading error).</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$resourceName</td>
+                <td>is the name of the file (with extension)</td>
+            </tr>
+                    <tr>
+                <td>boolean</td>
+                <td>$relative</td>
+                <td>set to false for use an absolute path.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>the complete path of resource.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addCSS">
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_addCSS"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 231</div>
+        <code>                    void
+    <strong>addCSS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addJS">
+        <div class="location">in <a href="../../Alxarafe/Base/Controller.html#method_addJS"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a> at         line 241</div>
+        <code>                    void
+    <strong>addJS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_checkAuth">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 43</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 53</div>
         <code>                    
-    <strong>checkAuth</strong>(string $methodName)
+    <strong>checkAuth</strong>()
         </code>
     </h3>
     <div class="details">
@@ -680,16 +917,6 @@
     
 
                 <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$methodName</td>
-                <td></td>
-            </tr>
-            </table>
-
             
             
             
@@ -698,8 +925,78 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_logout">
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 97</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>logout</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Close the user session and go to the main page</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_adjustCookieUser">
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 114</div>
+        <code>                private    void
+    <strong>adjustCookieUser</strong>(int $time = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Adjust auth cookie user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">at         line 129</div>
+        <div class="location">at         line 142</div>
         <code>            protected        void
     <strong>setPageDetails</strong>()
         </code>
@@ -729,7 +1026,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 141</div>
+        <div class="location">at         line 154</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -759,7 +1056,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_indexMethod">
-        <div class="location">at         line 157</div>
+        <div class="location">at         line 170</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>indexMethod</strong>()
         </code>
@@ -789,7 +1086,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_createMethod">
-        <div class="location">at         line 164</div>
+        <div class="location">at         line 177</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>createMethod</strong>()
         </code>
@@ -819,7 +1116,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_showMethod">
-        <div class="location">at         line 171</div>
+        <div class="location">at         line 184</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>showMethod</strong>()
         </code>
@@ -849,7 +1146,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_updateMethod">
-        <div class="location">at         line 178</div>
+        <div class="location">at         line 191</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>updateMethod</strong>()
         </code>
@@ -879,7 +1176,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteMethod">
-        <div class="location">at         line 185</div>
+        <div class="location">at         line 198</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>deleteMethod</strong>()
         </code>
@@ -908,38 +1205,10 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_checkLogin">
-        <div class="location">at         line 239</div>
-        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null
-    <strong>checkLogin</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>|null</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_ensureLogin">
-        <div class="location">at         line 252</div>
-        <code>                private    bool
-    <strong>ensureLogin</strong>()
+                    <h3 id="method_loadPerms">
+        <div class="location">at         line 264</div>
+        <code>                private    
+    <strong>loadPerms</strong>()
         </code>
     </h3>
     <div class="details">
@@ -947,18 +1216,9 @@
     
 
                     <div class="method-description">
-                                    <p>Check if user is logged in, and redirect to this controller if needed.</p>                                                </div>
+                                    <p>Load perms for this user.</p>                                                </div>
                 <div class="tags">
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>
@@ -967,9 +1227,9 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">at         line 294</div>
+        <div class="location">at         line 296</div>
         <code>                private    bool
-    <strong>canAction</strong>(string $username, string $action)
+    <strong>canAction</strong>(string $action)
         </code>
     </h3>
     <div class="details">
@@ -982,11 +1242,6 @@
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$username</td>
-                <td></td>
-            </tr>
                     <tr>
                 <td>string</td>
                 <td>$action</td>
@@ -1012,7 +1267,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">at         line 331</div>
+        <div class="location">at         line 333</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
@@ -1042,7 +1297,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">at         line 358</div>
+        <div class="location">at         line 360</div>
         <code>            protected        array
     <strong>getPageDetails</strong>()
         </code>

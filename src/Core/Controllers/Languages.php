@@ -43,6 +43,34 @@ class Languages extends AuthPageExtendedController
         return parent::indexMethod();
     }
 
+    public function getNewButtons()
+    {
+        $return = [];
+        $return[] = [
+            'link' => $this->url . '&action=regenerate',
+            'icon' => 'glyphicon-refresh',
+            'text' => 'regenerate-data',
+            'type' => 'info',
+        ];
+        return $return;
+    }
+
+    /**
+     * Returns the page details.
+     *
+     * @return array
+     */
+    public function pageDetails(): array
+    {
+        $details = [
+            'title' => 'controller-languages-title',
+            'icon' => '<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>',
+            'description' => 'controller-languages-description',
+            'menu' => 'regional-info',
+        ];
+        return $details;
+    }
+
     /**
      * TODO: This must be moved to ProProcessors namespace
      */
@@ -121,33 +149,5 @@ class Languages extends AuthPageExtendedController
             ksort($allData);
             file_put_contents($destinationFolder . '/' . $fileName . '.yaml', Yaml::dump($allData));
         }
-    }
-
-    public function getNewButtons()
-    {
-        $return = [];
-        $return[] = [
-            'link' => $this->url . '&action=regenerate',
-            'icon' => 'glyphicon-refresh',
-            'text' => 'regenerate-data',
-            'type' => 'info',
-        ];
-        return $return;
-    }
-
-    /**
-     * Returns the page details.
-     *
-     * @return array
-     */
-    public function pageDetails(): array
-    {
-        $details = [
-            'title' => 'controller-languages-title',
-            'icon' => '<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>',
-            'description' => 'controller-languages-description',
-            'menu' => 'regional-info',
-        ];
-        return $details;
     }
 }
