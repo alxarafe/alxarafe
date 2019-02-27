@@ -96,6 +96,7 @@ class Modules extends AuthPageExtendedController
     public function readMethod(): Response
     {
         // TODO: Implement readMethod() method.
+        // The data can be showed from table.
         return parent::readMethod();
     }
 
@@ -107,6 +108,7 @@ class Modules extends AuthPageExtendedController
     public function updateMethod(): Response
     {
         // TODO: Implement updateMethod() method.
+        // The data must be updated from each module.
         return parent::updateMethod();
     }
 

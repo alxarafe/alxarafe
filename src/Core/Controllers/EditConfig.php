@@ -291,7 +291,7 @@ class EditConfig extends AuthPageController
      */
     public function createMethod(): Response
     {
-        // TODO: Implement createMethod() method.
+        // Can't add new registers, it's a placeholder
         return parent::createMethod();
     }
 
@@ -302,7 +302,7 @@ class EditConfig extends AuthPageController
      */
     public function readMethod(): Response
     {
-        // TODO: Implement readMethod() method.
+        // Can't read specific registers, it's a placeholder
         return parent::readMethod();
     }
 
@@ -313,8 +313,8 @@ class EditConfig extends AuthPageController
      */
     public function updateMethod(): Response
     {
-        // TODO: Implement updateMethod() method.
-        return $this->response;
+        // Can't updated specific registers, it's a placeholder
+        return parent::updateMethod();
     }
 
     /**
@@ -324,7 +324,7 @@ class EditConfig extends AuthPageController
      */
     public function deleteMethod(): Response
     {
-        // TODO: Implement deleteMethod() method.
-        return $this->response;
+        // Can't delete specific registers, it's a placeholder
+        return parent::deleteMethod();
     }
 }
