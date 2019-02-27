@@ -89,17 +89,6 @@ class Modules extends AuthPageExtendedController
     }
 
     /**
-     * Default show method for show an individual register.
-     *
-     * @return Response
-     */
-    public function showMethod(): Response
-    {
-        // TODO: Implement showMethod() method.
-        return $this->response;
-    }
-
-    /**
      * Default update method for update an individual register.
      *
      * @return Response

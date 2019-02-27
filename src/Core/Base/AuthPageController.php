@@ -210,39 +210,49 @@ abstract class AuthPageController extends AuthController
         $this->loadPerms();
         $method = $methodName . 'Method';
         $vars = [];
-        $this->debugTool->addMessage('messages', 'Call to ' . $this->shortName . '->' . $methodName . '()');
+        $this->debugTool->addMessage('messages', 'Call to ' . $this->shortName . '->' . $method . '()');
 
         switch ($methodName) {
             case 'index':
             case 'ajaxTableData':
                 if ($this->canAccess) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can access');
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can access');
                     return $this->{$method}();
                 }
                 break;
+            case 'add':
+                $method = 'createMethod';
+                // no-break
             case 'create':
                 if ($this->canAccess && $this->canCreate) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can create');
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can create');
                     return $this->{$method}();
                 }
                 break;
             case 'show':
+                $method = 'readMethod';
+                // no-break
             case 'read':
                 if ($this->canAccess && $this->canRead) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can read');
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can read');
                     return $this->{$method}();
                 }
                 break;
             case 'edit':
+                $method = 'updateMethod';
+                // no-break
             case 'update':
                 if ($this->canAccess && $this->canUpdate) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can update');
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can update');
                     return $this->{$method}();
                 }
                 break;
+            case 'remove':
+                $method = 'deleteMethod';
+                // no-break
             case 'delete':
                 if ($this->canAccess && $this->canDelete) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() can delete');
+                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can delete');
                     return $this->{$method}();
                 }
                 break;
