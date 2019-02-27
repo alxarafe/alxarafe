@@ -186,14 +186,6 @@
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/Controller.html#property_vars"><abbr title="Alxarafe\Base\Controller">Controller</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_defaultRedirect">
-                                                            private                    string
-                </td>
-                <td>$defaultRedirect</td>
-                <td class="last">Page to redirect.</td>
-                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_defaultRedirect"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
-            </tr>
-                    <tr>
                 <td class="type" id="property_user">
                                                                                 <a href="../../Alxarafe/Models/User.html"><abbr title="Alxarafe\Models\User">User</abbr></a>
                 </td>
@@ -208,6 +200,14 @@
                 <td>$logkey</td>
                 <td class="last">User log key.</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_logkey"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_defaultRedirect">
+                                                            private                    string
+                </td>
+                <td>$defaultRedirect</td>
+                <td class="last">Page to redirect.</td>
+                <td><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#property_defaultRedirect"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></td>
             </tr>
                     <tr>
                 <td class="type" id="property_title">
@@ -426,8 +426,7 @@ of the skin folder). It's a specific file.</p>                </div>
                 <div class="col-md-8 type">
                     <a href="#method_checkAuth">checkAuth</a>()
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Check that user is logged in.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -568,7 +567,7 @@ of the skin folder). It's a specific file.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 128</div>
+        <div class="location">at         line 127</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -714,7 +713,7 @@ of the skin folder). It's a specific file.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_runMethod">
-        <div class="location">at         line 205</div>
+        <div class="location">at         line 204</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>runMethod</strong>(string $methodName)
         </code>
@@ -907,7 +906,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkAuth">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 53</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 71</div>
         <code>                    
     <strong>checkAuth</strong>()
         </code>
@@ -916,6 +915,8 @@ js folders of the templates folder). It's a common file.</p>
             
     
 
+                    <div class="method-description">
+                                    <p>Check that user is logged in.</p>                                                </div>
                 <div class="tags">
             
             
@@ -926,7 +927,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_logout">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 97</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 99</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>logout</strong>()
         </code>
@@ -956,7 +957,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_adjustCookieUser">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 114</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 116</div>
         <code>                private    void
     <strong>adjustCookieUser</strong>(int $time = 0)
         </code>
@@ -996,7 +997,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setPageDetails">
-        <div class="location">at         line 142</div>
+        <div class="location">at         line 141</div>
         <code>            protected        void
     <strong>setPageDetails</strong>()
         </code>
@@ -1026,7 +1027,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_pageDetails">
-        <div class="location">at         line 154</div>
+        <div class="location">at         line 153</div>
         <code>                    array
     <strong>pageDetails</strong>()
         </code>
@@ -1056,7 +1057,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_indexMethod">
-        <div class="location">at         line 170</div>
+        <div class="location">at         line 169</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>indexMethod</strong>()
         </code>
@@ -1086,7 +1087,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_createMethod">
-        <div class="location">at         line 177</div>
+        <div class="location">at         line 176</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>createMethod</strong>()
         </code>
@@ -1116,7 +1117,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_readMethod">
-        <div class="location">at         line 184</div>
+        <div class="location">at         line 183</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>readMethod</strong>()
         </code>
@@ -1146,7 +1147,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_updateMethod">
-        <div class="location">at         line 191</div>
+        <div class="location">at         line 190</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>updateMethod</strong>()
         </code>
@@ -1176,7 +1177,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteMethod">
-        <div class="location">at         line 198</div>
+        <div class="location">at         line 197</div>
         <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>deleteMethod</strong>()
         </code>
@@ -1206,7 +1207,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_loadPerms">
-        <div class="location">at         line 274</div>
+        <div class="location">at         line 273</div>
         <code>                private    
     <strong>loadPerms</strong>()
         </code>
@@ -1227,7 +1228,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_canAction">
-        <div class="location">at         line 306</div>
+        <div class="location">at         line 305</div>
         <code>                private    bool
     <strong>canAction</strong>(string $action)
         </code>
@@ -1267,7 +1268,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserMenu">
-        <div class="location">at         line 343</div>
+        <div class="location">at         line 342</div>
         <code>                    array
     <strong>getUserMenu</strong>()
         </code>
@@ -1297,7 +1298,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageDetails">
-        <div class="location">at         line 370</div>
+        <div class="location">at         line 369</div>
         <code>            protected        array
     <strong>getPageDetails</strong>()
         </code>

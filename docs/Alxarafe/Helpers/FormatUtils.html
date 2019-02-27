@@ -141,22 +141,22 @@
             <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-2 type">
-                    static&nbsp;
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_loadConfig">loadConfig</a>()
-        
-                                            <p>Load config.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     static&nbsp;string
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getFormatDate">getFormatDate</a>()
         
                                             <p>Returns the format for date.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadConfig">loadConfig</a>()
+        
+                                            <p>Load config.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -194,6 +194,16 @@
                     static&nbsp;string
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_getFormatted">getFormatted</a>(string $style, string $time = &#039;&#039;)
+        
+                                            <p>Return formatted string.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getFormattedTime">getFormattedTime</a>(string $date = &#039;&#039;)
         
                                             <p>Return date formatted.</p>                </div>
@@ -209,16 +219,6 @@
                                             <p>Return date formatted.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getFormatted">getFormatted</a>(string $style, string $time = &#039;&#039;)
-        
-                                            <p>Return formatted string.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
@@ -226,29 +226,8 @@
 
             <div id="method-details">
                     <div class="method-item">
-                    <h3 id="method_loadConfig">
-        <div class="location">at         line 57</div>
-        <code>        static            
-    <strong>loadConfig</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Load config.</p>                                                </div>
-                <div class="tags">
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_getFormatDate">
-        <div class="location">at         line 75</div>
+        <div class="location">at         line 59</div>
         <code>        static            string
     <strong>getFormatDate</strong>()
         </code>
@@ -270,6 +249,27 @@
         </tr>
     </table>
 
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadConfig">
+        <div class="location">at         line 68</div>
+        <code>        static            
+    <strong>loadConfig</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Load config.</p>                                                </div>
+                <div class="tags">
+            
             
             
                     </div>
@@ -377,8 +377,53 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getFormatted">
+        <div class="location">at         line 124</div>
+        <code>        static            string
+    <strong>getFormatted</strong>(string $style, string $time = &#039;&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return formatted string.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$style</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$time</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getFormattedTime">
-        <div class="location">at         line 123</div>
+        <div class="location">at         line 144</div>
         <code>        static            string
     <strong>getFormattedTime</strong>(string $date = &#039;&#039;)
         </code>
@@ -418,7 +463,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getFormattedDateTime">
-        <div class="location">at         line 136</div>
+        <div class="location">at         line 157</div>
         <code>        static            string
     <strong>getFormattedDateTime</strong>(string $date = &#039;&#039;)
         </code>
@@ -436,51 +481,6 @@
                     <tr>
                 <td>string</td>
                 <td>$date</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getFormatted">
-        <div class="location">at         line 150</div>
-        <code>        static            string
-    <strong>getFormatted</strong>(string $style, string $time = &#039;&#039;)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return formatted string.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$style</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>string</td>
-                <td>$time</td>
                 <td></td>
             </tr>
             </table>
