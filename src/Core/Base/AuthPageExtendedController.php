@@ -27,15 +27,14 @@ define('IDSEPARATOR', '~');
 abstract class AuthPageExtendedController extends AuthPageController
 {
     /**
-     * Contiene los datos que hay en $_POST. Es un array con el formato:
-     * $this->postData[nombre_tabla][id_registro][nombre_campo]=valor
+     * Contains all data received from $_POST.
      *
      * @var array
      */
     public $postData;
 
     /**
-     * La tabla principal del mantenimiento
+     * Main table model.
      *
      * @var Table
      */
@@ -84,13 +83,15 @@ abstract class AuthPageExtendedController extends AuthPageController
     public $newButtons;
 
     /**
-     * Contiene los datos que hay actualmente en disco. Es un array con el formato:
-     * $this->oldData[nombre_tabla][id_registro][nombre_campo]=valor
+     * Contains all data from table.
      *
-     * Se carga con lo que hay en el disco cada vez que entra en el controlador.
-     * Cuando se guarda, se compara lo que hay en olddata con lo que hay en postData
-     * para actualizar sólo los campos que han cambiado.
+     * Every time that controller is loaded, the old data is renewed from table.
+     * When save, oldData is compared with postData to updated only modified fields.
      *
+     * TODO: This data can be stored in a FlashMessage to be passed in SESSION as original data.
+     * Can happens that a field was modified for more than one user and this change result not see it.
+     *
+     * ORIGINAL EXPLANATION
      * TODO: Lo suyo sería que esos datos se pasasen por sesión y que sólo se cargasen
      * la primera vez que se entre en una ficha, de manera que si la edición falla,
      * no se actualice, y de esa forma, no se modifique más que lo que realmente ha
@@ -105,23 +106,22 @@ abstract class AuthPageExtendedController extends AuthPageController
     protected $oldData;
 
     /**
+     * Contains the field structure.
+     *
      * @var array
      */
     protected $fieldsStruct;
 
     /**
-     * Contiene la clave primaria del registro en curso.
-     * En el caso de alta contendrá cadena vacía '' o 0.
-     *
-     * Al final, se ha optado por considerar el proceso de alta cuando no existe
-     * valor en POST para el ID.
+     * Contains the primary key of register in use.
+     * If its a new register, contains ''.
      *
      * @var string|null
      */
     protected $currentId;
 
     /**
-     * Puede contener 3 valores: listing, adding o editing.
+     * Can contain: listing, adding or editing.
      *
      * @var string
      */
@@ -130,19 +130,10 @@ abstract class AuthPageExtendedController extends AuthPageController
     /**
      * AuthPageExtendedController constructor.
      *
-     * Se le pasa el modelo principal del controlador y la vista a utilizar.
-     * Se invoca de la forma:
-     *
-     * public function __construct()
-     * {
-     *      parent::__construct(new Person());  // Se el pasa el modelo
-     * }
-     *
      * @param Table|null $model
      */
     public function __construct($model = null)
     {
-        // Se inicia el controlador...
         $this->model = $model;
         $this->tableName = $this->model->tableName;
         parent::__construct();
@@ -161,8 +152,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Retorna el estado en el que se encuentra la edición en estos momentos:
-     * listing (mostrando listado) / adding (añadiendo ficha) / editing (editando)
+     * Returns the actual status of the controller.
      *
      * @return string
      */
@@ -211,11 +201,10 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Obtiene un array con los datos del registro especificado en $this->currentId
-     * Si el registro no existe, se retorna un registro en blanco con los datos por
-     * defecto.
+     * Obtains an array of data from register $this->currentId.
+     * If register doesn't exists, returns an empty register with default data.
      *
-     * Este método haría cosas adicionales en el caso mantienimientos complejos.
+     * This method can do additional things in more complex situations.
      *
      * @return array
      */
@@ -290,7 +279,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Cancela la edición regresando al controlador/registro que corresponda
+     * Cancels goes to main controller status.
      *
      * @return RedirectResponse
      */
@@ -304,9 +293,9 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Devuelve los datos enviados por POST
+     * Returns the data received from $_POST
      *
-     * Este método haría cosas adicionales en el caso mantienimientos complejos.
+     * This method can do additional things in more complex situations.
      *
      * @return void
      */
@@ -322,10 +311,9 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Guarda los datos, y si tiene éxito, recarga la página.
-     * Este método haría cosas adicionales en el caso mantienimientos complejos.
+     * Save the data, and reload the page on success.
      *
-     * TODO: Al recargar la página, no es posible enviar mensaje informando del éxito.
+     * This method can do additional things in more complex situations.
      */
     protected function save(): void
     {
@@ -333,9 +321,8 @@ abstract class AuthPageExtendedController extends AuthPageController
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-saved'));
-            //$this->redirect($this->url . '&' . $this->model->getIdField() . '=' . $this->currentId);
+            $this->redirect($this->url . '&' . $this->model->getIdField() . '=' . $this->currentId);
         }
-        //$_POST['id'] = $this->currentId;
     }
 
     /**
@@ -376,8 +363,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * El punto de entrada es run.
-     * Index realiza los procesos necesarios una vez instanciada la clase.
+     * The start point of the controller.
      *
      * @return Response
      */
@@ -408,32 +394,32 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->initialize();
         $this->renderer->setTemplate(null);
-        // Para acceder de forma más simplificada y unificada a los valores
+        // To access more easy to all values
         $requestData = $_REQUEST;
         $recordsTotal = 0;
         $recordsFiltered = 0;
         $data = [];
 
         if ($this->canAccess && $this->canRead) {
-            // Página de la que se empieza
+            // Page to start
             $offset = $requestData['start'];
-            // Las columnas que se usen la tabla por su orden
+            // Columns used un table by order
             $columns = $this->getDefaultColumnsSearch();
-            // Remove this column for search
+            // Remove this extra column for search (not in table)
             if (in_array('col-action', $columns)) {
                 unset($columns[array_search('col-action', $columns)]);
             }
-            // Orden
+            // Order
             $order = '';
             if (isset($columns[$requestData['order'][0]['column']])) {
                 $order = $columns[$requestData['order'][0]['column']] . " " . $requestData['order'][0]['dir'];
             }
-            // Datos por defecto
+            // Default data
             $recordsTotal = $this->model->countAllRecords();
-            // Todos los registros de la página actual
+            // All registers in the actual page
             $recordsFiltered = $recordsTotal;
             if (!empty($requestData['search']['value'])) {
-                // Datos para la búsqueda
+                // Data for this search
                 $search = $requestData['search']['value'];
                 $data = $this->model->search($search, $columns, $offset, $order);
                 $recordsFiltered = $this->model->searchCount($search, $columns);
