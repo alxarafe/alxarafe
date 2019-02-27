@@ -1,0 +1,34 @@
+id:
+  label: id
+  shortlabel: col-id
+  placeholder: id
+  min: 0
+  max: 9999
+name:
+  label: name
+  shortlabel: col-name
+  placeholder: name
+  length: 50
+path:
+  label: path
+  shortlabel: col-path
+  placeholder: path
+  length: 100
+enabled:
+  label: enabled
+  shortlabel: col-enabled
+  placeholder: enabled
+order:
+  label: order
+  shortlabel: col-order
+  placeholder: order
+  min: 0
+  max: 9999
+inserted_date:
+  label: inserted_date
+  shortlabel: col-inserted_date
+  placeholder: inserted_date
+updated_date:
+  label: updated_date
+  shortlabel: col-updated_date
+  placeholder: updated_date

@@ -75,5 +75,4 @@ class Languages extends AuthPageExtendedController
         ];
         return $details;
     }
-
 }
