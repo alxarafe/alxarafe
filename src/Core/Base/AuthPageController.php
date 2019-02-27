@@ -181,7 +181,7 @@ abstract class AuthPageController extends AuthController
      *
      * @return Response
      */
-    abstract public function showMethod(): Response;
+    abstract public function readMethod(): Response;
 
     /**
      * Default update method for update an individual register.
