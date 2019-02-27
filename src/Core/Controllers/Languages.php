@@ -37,16 +37,16 @@ class Languages extends AuthPageExtendedController
         $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
         switch ($action) {
             case 'regenerate':
-                $this->regenerate();
+                $this->regenerateAction();
                 break;
         }
-        return $this->sendResponseTemplate();
+        return parent::indexMethod();
     }
 
     /**
      * TODO: This must be moved to ProProcessors namespace
      */
-    public function regenerate()
+    public function regenerateAction()
     {
         $subfolder = '/Languages';
         $sourceFolders = [
@@ -64,13 +64,16 @@ class Languages extends AuthPageExtendedController
             return;
         }
 
-        $default_lang = $languages[0]['language'];
-        $default_variant = $languages[0]['variant'];
-        if (!isset($default_variant)) {
-            $default_variant = strtoupper($default_lang);
-        }
+        /*
+          $default_lang = $languages[0]['language'];
+          $default_variant = $languages[0]['variant'];
+          if (!isset($default_variant)) {
+          $default_variant = strtoupper($default_lang);
+          }
 
-        $defaultFileName = $default_lang . '_' . $default_variant;
+          $defaultFileName = $default_lang . '_' . $default_variant;
+         */
+        $defaultFileName = $languages[0]['language'];
         foreach ($languages as $lang) {
             if (!isset($lang['variant'])) {
                 $lang['variant'] = strtoupper($lang['language']);
