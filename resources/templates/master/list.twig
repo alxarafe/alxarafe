@@ -26,22 +26,45 @@
         {% set baseLink = ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') %}
         {% set createLink = baseLink ~ '=create' ~ '&' ~ ctrl.model.getIdField() ~ '=' %}
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-1">
                 <a name="cancel" class="btn btn-danger btn-sm" href="{{ constant('BASE_URI') }}/index.php">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="hidden-md">&nbsp;{{ lang.trans('back') }}</span>
+                    <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ lang.trans('back') }}</span>
                 </a>
             </div>
-                    <div class="col-xs-6 text-right">
-                        {% for newButton in ctrl.newButtons %}
-                <a href="{{ newButton.link }}" class="btn btn-{{ newButton.type }} btn-sm">
-                    <span class="glyphicon {{newButton.icon}}" aria-hidden="true"></span>
-                        <span class="hidden-md">&nbsp;{{ lang.trans(newButton.text)}}</span>
-                    </a>
-            {% endfor %}
-            <a href="{{ createLink }}" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    <span class="hidden-md">&nbsp;{{ lang.trans('add-new') }}</span>
+            <div class="col-xs-5">
+                {% if ctrl.getExtraActions() is not empty %}
+                    {% if ctrl.getExtraActions()|length > 1 %}
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="extraActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{ lang.trans('extra-actions') }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="extraActions">
+                                {% for extraAction in ctrl.getExtraActions() %}
+                                    <li>
+                                        <a href="{{ extraAction.link }}">
+                                            <span class="glyphicon {{ extraAction.icon }}" aria-hidden="true"></span>
+                                            &nbsp;{{ lang.trans(extraAction.text) }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        {% for extraAction in ctrl.getExtraActions() %}
+                            <a href="{{ extraAction.link }}" class="btn btn-{{ extraAction.type }} btn-sm">
+                                <span class="glyphicon {{ extraAction.icon }}" aria-hidden="true"></span>
+                                <span class="hidden-md">&nbsp;{{ lang.trans(extraAction.text) }}</span>
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col-xs-6 text-right">
+                <a href="{{ createLink }}" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ lang.trans('add-new') }}</span>
                 </a>
             </div>
         </div>
@@ -57,33 +80,33 @@
                 <div class="table-responsive ">
                     <table id="{{ ctrl.code }}" class="table table-hover table-striped table-bordered" align="center" style="width:100%">
                         <thead>
-                            <tr>
-                                {% for key, item in tableHeader %}
-                                    {%  if key in ctrl.getDefaultColumnsSearch() %}
-                                        <th
+                        <tr>
+                            {% for key, item in tableHeader %}
+                                {% if key in ctrl.getDefaultColumnsSearch() %}
+                                    <th
                                             {% if item.class is defined %} class="{{ item.class }}"{% endif %}
                                             {% if item.style is defined %} style="{{ item.style }}"{% endif %}
-                                            >
+                                    >
+                                        {{ item.label }}
+                                    </th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        {% if tableFooter is not empty %}
+                            <tfoot>
+                            <tr>
+                                {% for key, item in tableFooter %}
+                                    {% if key in ctrl.getDefaultColumnsSearch() %}
+                                        <th
+                                                {% if item.class is defined %} class="{{ item.class }}"{% endif %}
+                                                {% if item.style is defined %} style="{{ item.style }}"{% endif %}
+                                        >
                                             {{ item.label }}
                                         </th>
                                     {% endif %}
                                 {% endfor %}
                             </tr>
-                        </thead>
-                        {% if tableFooter is not empty %}
-                            <tfoot>
-                                <tr>
-                                    {% for key, item in tableFooter %}
-                                        {%  if key in ctrl.getDefaultColumnsSearch() %}
-                                            <th
-                                                {% if item.class is defined %} class="{{ item.class }}"{% endif %}
-                                                {% if item.style is defined %} style="{{ item.style }}"{% endif %}
-                                                >
-                                                {{ item.label }}
-                                            </th>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tr>
                             </tfoot>
                         {% endif %}
                     </table>
@@ -96,19 +119,26 @@
 {% block extraJavascriptsFooter %}
     {{ parent() }}
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    {# Additional for BS3 style #}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js') }}"></script>
-    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-colreorder-bs/js/colReorder.bootstrap.min.js') }}"></script>
+    {# Additional for BS3 style #}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-colreorder-bs/js/colReorder.bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
+    {# Additional for BS3 style #}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive-bs/js/responsive.bootstrap.min.js') }}"></script>
+    {# Additional for BS3 style #}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive-bs/js/responsive.bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/jszip/dist/jszip.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/pdfmake/build/pdfmake.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/pdfmake/build/vfs_fonts.js') }}"></script>
-    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+    {# Additional for BS3 style #}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    {# Additional for BS3 style #}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    {# Additional for BS3 style #}
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ getResourceUri('/resources/common/js/common.js') }}"></script>
     <script type="text/javascript">

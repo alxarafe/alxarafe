@@ -79,13 +79,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     public $code;
 
     /**
-     * Contains additional buttons info
-     *
-     * @var array
-     */
-    public $newButtons;
-
-    /**
      * Contains all data from table.
      *
      * Every time that controller is loaded, the old data is renewed from table.
@@ -140,16 +133,15 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->model = $model;
         $this->tableName = $this->model->tableName;
         parent::__construct();
-        $this->newButtons = $this->getNewButtons();
         $this->renderer->setTemplate('default');
     }
 
     /**
-     * TODO: Undocummented.
+     * Returns a list of extra actions.
      *
      * @return array
      */
-    public function getNewButtons()
+    public function getExtraActions()
     {
         return [];
     }

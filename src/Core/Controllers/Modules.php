@@ -220,9 +220,11 @@ class Modules extends AuthPageExtendedController
     }
 
     /**
+     * Returns a list of extra actions.
+     *
      * @return array
      */
-    public function getNewButtons()
+    public function getExtraActions()
     {
         $return = [];
         $return[] = [
