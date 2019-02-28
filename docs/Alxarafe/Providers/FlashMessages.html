@@ -150,11 +150,19 @@ param in getInstance</td>
                 <td><small>from&nbsp;<a href="../../Alxarafe/Providers/Singleton.html#property_separateConfigFile"><abbr title="Alxarafe\Providers\Singleton">Singleton</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_messagesList">
+                <td class="type" id="property_messagesListNow">
                     static                    protected                                        array
                 </td>
-                <td>$messagesList</td>
-                <td class="last">Contains a message list.</td>
+                <td>$messagesListNow</td>
+                <td class="last">Contains a message list for now.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_messagesListNext">
+                    static                    protected                                        array
+                </td>
+                <td>$messagesListNext</td>
+                <td class="last">Contains a message list for next.</td>
                 <td></td>
             </tr>
                     <tr>
@@ -306,7 +314,7 @@ param in getInstance</td>
                     static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setError">setError</a>(string $msg)
+                    <a href="#method_setError">setError</a>(string $msg, string $when = &#039;now&#039;)
         
                                             <p>Register a new error message</p>                </div>
                 <div class="col-md-2"></div>
@@ -316,7 +324,17 @@ param in getInstance</td>
                     static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setWarning">setWarning</a>(string $msg)
+                    <a href="#method_setFlash">setFlash</a>(string $when = &#039;now&#039;, array $message = [])
+        
+                                            <p>Set flash message.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setWarning">setWarning</a>(string $msg, string $when = &#039;now&#039;)
         
                                             <p>Register a new warning message</p>                </div>
                 <div class="col-md-2"></div>
@@ -326,7 +344,7 @@ param in getInstance</td>
                     static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setInfo">setInfo</a>(string $msg)
+                    <a href="#method_setInfo">setInfo</a>(string $msg, string $when = &#039;now&#039;)
         
                                             <p>Register a new info message</p>                </div>
                 <div class="col-md-2"></div>
@@ -336,7 +354,7 @@ param in getInstance</td>
                     static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setSuccess">setSuccess</a>(string $msg)
+                    <a href="#method_setSuccess">setSuccess</a>(string $msg, string $when = &#039;now&#039;)
         
                                             <p>Register a new error message</p>                </div>
                 <div class="col-md-2"></div>
@@ -349,7 +367,7 @@ param in getInstance</td>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 124</div>
+        <div class="location">at         line 145</div>
         <code>        static            <a href="../../Alxarafe/Providers/Container.html"><abbr title="Alxarafe\Providers\Container">Container</abbr></a>
     <strong>getInstance</strong>()
         </code>
@@ -710,7 +728,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 39</div>
+        <div class="location">at         line 46</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -731,7 +749,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getContainer">
-        <div class="location">at         line 54</div>
+        <div class="location">at         line 62</div>
         <code>        static            array
     <strong>getContainer</strong>()
         </code>
@@ -761,9 +779,9 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setError">
-        <div class="location">at         line 64</div>
+        <div class="location">at         line 73</div>
         <code>        static            
-    <strong>setError</strong>(string $msg)
+    <strong>setError</strong>(string $msg, string $when = &#039;now&#039;)
         </code>
     </h3>
     <div class="details">
@@ -781,6 +799,47 @@ param in getInstance</td>
                 <td>$msg</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td>string</td>
+                <td>$when</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setFlash">
+        <div class="location">at         line 86</div>
+        <code>        static        private    
+    <strong>setFlash</strong>(string $when = &#039;now&#039;, array $message = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set flash message.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$when</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$message</td>
+                <td></td>
+            </tr>
             </table>
 
             
@@ -792,9 +851,9 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setWarning">
-        <div class="location">at         line 79</div>
+        <div class="location">at         line 107</div>
         <code>        static            
-    <strong>setWarning</strong>(string $msg)
+    <strong>setWarning</strong>(string $msg, string $when = &#039;now&#039;)
         </code>
     </h3>
     <div class="details">
@@ -812,6 +871,11 @@ param in getInstance</td>
                 <td>$msg</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td>string</td>
+                <td>$when</td>
+                <td></td>
+            </tr>
             </table>
 
             
@@ -823,9 +887,9 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setInfo">
-        <div class="location">at         line 94</div>
+        <div class="location">at         line 120</div>
         <code>        static            
-    <strong>setInfo</strong>(string $msg)
+    <strong>setInfo</strong>(string $msg, string $when = &#039;now&#039;)
         </code>
     </h3>
     <div class="details">
@@ -843,6 +907,11 @@ param in getInstance</td>
                 <td>$msg</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td>string</td>
+                <td>$when</td>
+                <td></td>
+            </tr>
             </table>
 
             
@@ -854,9 +923,9 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setSuccess">
-        <div class="location">at         line 109</div>
+        <div class="location">at         line 133</div>
         <code>        static            
-    <strong>setSuccess</strong>(string $msg)
+    <strong>setSuccess</strong>(string $msg, string $when = &#039;now&#039;)
         </code>
     </h3>
     <div class="details">
@@ -872,6 +941,11 @@ param in getInstance</td>
                     <tr>
                 <td>string</td>
                 <td>$msg</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$when</td>
                 <td></td>
             </tr>
             </table>
