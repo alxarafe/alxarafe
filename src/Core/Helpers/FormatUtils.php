@@ -121,7 +121,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormatted(string $style, string $time = '')
+    public static function getFormatted(string $style = '', string $time = '')
     {
         self::loadConfig();
         try {
@@ -157,6 +157,6 @@ class FormatUtils
     public static function getFormattedDateTime(string $date = '')
     {
         self::loadConfig();
-        return self::getFormatted(self::$datetimeFormat, $date);
+        return self::getFormatted(self::$datetimeFormat ?? '', $date);
     }
 }
