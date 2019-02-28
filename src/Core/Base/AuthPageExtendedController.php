@@ -421,7 +421,7 @@ abstract class AuthPageExtendedController extends AuthPageController
                 'class' => 'btn btn-info btn-sm',
                 'type' => 'button',
                 'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=show&id=' . $id,
-                'icon' => '<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>',
+                'icon' => '<i class="fas fa-search-plus"></i>',
                 'text' => $this->translator->trans('show')
             ];
         }
@@ -430,7 +430,7 @@ abstract class AuthPageExtendedController extends AuthPageController
                 'class' => 'btn btn-primary btn-sm',
                 'type' => 'button',
                 'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=edit&id=' . $id,
-                'icon' => '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>',
+                'icon' => '<i class="far fa-edit"></i>',
                 'text' => $this->translator->trans('edit')
             ];
         }
@@ -439,7 +439,7 @@ abstract class AuthPageExtendedController extends AuthPageController
                 'class' => 'btn btn-danger btn-sm',
                 'type' => 'button',
                 'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=delete&id=' . $id,
-                'icon' => '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>',
+                'icon' => '<i class="far fa-trash-alt"></i>',
                 'text' => $this->translator->trans('delete')
             ];
         }

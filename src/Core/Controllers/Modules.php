@@ -212,7 +212,7 @@ class Modules extends AuthPageExtendedController
     {
         $details = [
             'title' => 'modules-title',
-            'icon' => '<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-cogs"></i>',
             'description' => 'modules-description',
             'menu' => 'admin',
         ];
@@ -229,7 +229,7 @@ class Modules extends AuthPageExtendedController
         $return = [];
         $return[] = [
             'link' => $this->url . '&action=regenerate',
-            'icon' => 'glyphicon-refresh',
+            'icon' => '<i class="fas fa-redo-alt"></i>',
             'text' => 'regenerate-data',
             'type' => 'info',
         ];
@@ -251,14 +251,14 @@ class Modules extends AuthPageExtendedController
             'class' => 'btn btn-success btn-sm',
             'type' => 'button',
             'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=enable&id=' . $id,
-            'icon' => '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-check"></i>',
             'text' => $this->translator->trans('enable'),
         ];
         $actionButtons['disable'] = [
             'class' => 'btn btn-warning btn-sm',
             'type' => 'button',
             'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=disable&id=' . $id,
-            'icon' => '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
+            'icon' => '<i class="far fa-trash-alt"></i>',
             'text' => $this->translator->trans('disable'),
         ];
 

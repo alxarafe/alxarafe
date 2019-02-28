@@ -108,7 +108,37 @@ function newDataTable(name, origData) {
 
     $optsButtons = {
         dom: 'Bfrtip',
-        buttons: ['copyHtml5', 'csvHtml5', 'excelHtml5', 'pdfHtml5', 'colvis', 'colvisRestore']
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                text: '<i class="far fa-copy"></i>'
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fa fa-table"></i>'
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="far fa-file-excel"></i>'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="far fa-file-pdf"></i>'
+            },
+            {#{
+                extend: 'print',
+                text: '<i class="fas fa-print"></i>',
+                autoPrint: true
+            },#}
+            {
+                extend: 'colvis',
+                text: '<i class="fas fa-columns"></i>'
+            },
+            {
+                extend: 'colvisRestore',
+                text: '<i class="far fa-window-restore"></i>'
+            }
+        ]
     };
 
     if ($canExport) {

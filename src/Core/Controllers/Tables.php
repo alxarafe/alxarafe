@@ -33,7 +33,7 @@ class Tables extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-tables-title',
-            'icon' => '<span class="glyphicon glyphicon-list" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-list"></i>',
             'description' => 'controller-tables-description',
             'menu' => 'dev-tools',
         ];

@@ -33,7 +33,7 @@ class Regions extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-regions-title',
-            'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-user"></i>',
             'description' => 'controller-regions-description',
             'menu' => 'regional-info',
         ];

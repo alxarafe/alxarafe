@@ -240,7 +240,7 @@ class CreateConfig extends Controller
     {
         $details = [
             'title' => 'edit-configuration',
-            'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-save"></i>',
             'description' => 'edit-configuration-description',
             //'menu' => 'admin|create-config',
             'menu' => 'admin',

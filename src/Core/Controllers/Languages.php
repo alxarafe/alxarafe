@@ -60,7 +60,7 @@ class Languages extends AuthPageExtendedController
         $return = [];
         $return[] = [
             'link' => $this->url . '&action=export',
-            'icon' => 'glyphicon-refresh',
+            'icon' => '<i class="fas fa-redo-alt"></i>',
             'text' => 'export-data',
             'type' => 'info',
         ];
@@ -76,7 +76,7 @@ class Languages extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-languages-title',
-            'icon' => '<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-globe"></i>',
             'description' => 'controller-languages-description',
             'menu' => 'regional-info',
         ];

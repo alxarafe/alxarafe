@@ -154,7 +154,7 @@ abstract class AuthPageController extends AuthController
     {
         $details = [
             'title' => 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX),
-            'icon' => '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-info-circle"></i>',
             'description' => 'If you can read this, you are missing pageDetails() on your page class.',
             'menu' => 'default',
         ];

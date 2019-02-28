@@ -252,7 +252,7 @@ class EditConfig extends AuthPageController
     {
         $details = [
             'title' => 'edit-configuration',
-            'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-save"></i>',
             'description' => 'edit-configuration-description',
             //'menu' => 'admin|edit-config',
             'menu' => 'admin',

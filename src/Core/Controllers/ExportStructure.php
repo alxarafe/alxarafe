@@ -57,7 +57,7 @@ class ExportStructure extends AuthPageController
     {
         $details = [
             'title' => 'export-db-estructure',
-            'icon' => '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-save"></i>',
             'description' => 'export-db-estructure-description',
             'menu' => 'dev-tools',
         ];

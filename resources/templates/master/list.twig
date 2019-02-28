@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-xs-1">
                 <a name="cancel" class="btn btn-danger btn-sm" href="{{ constant('BASE_URI') }}/index.php">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <i class="fas fa-chevron-left"></i>
                     <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ lang.trans('back') }}</span>
                 </a>
             </div>
@@ -44,7 +44,7 @@
                                 {% for extraAction in ctrl.getExtraActions() %}
                                     <li>
                                         <a href="{{ extraAction.link }}">
-                                            <span class="glyphicon {{ extraAction.icon }}" aria-hidden="true"></span>
+                                            {{ extraAction.icon|raw }}
                                             &nbsp;{{ lang.trans(extraAction.text) }}
                                         </a>
                                     </li>
@@ -54,7 +54,7 @@
                     {% else %}
                         {% for extraAction in ctrl.getExtraActions() %}
                             <a href="{{ extraAction.link }}" class="btn btn-{{ extraAction.type }} btn-sm">
-                                <span class="glyphicon {{ extraAction.icon }}" aria-hidden="true"></span>
+                                {{ extraAction.icon|raw }}
                                 <span class="hidden-md">&nbsp;{{ lang.trans(extraAction.text) }}</span>
                             </a>
                         {% endfor %}
@@ -63,7 +63,7 @@
             </div>
             <div class="col-xs-6 text-right">
                 <a href="{{ createLink }}" class="btn btn-success btn-sm">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <i class="fas fa-plus"></i>
                     <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ lang.trans('add-new') }}</span>
                 </a>
             </div>

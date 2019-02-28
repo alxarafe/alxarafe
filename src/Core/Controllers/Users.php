@@ -33,7 +33,7 @@ class Users extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-users-title',
-            'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-user"></i>',
             'description' => 'controller-users-description',
             'menu' => 'admin',
         ];

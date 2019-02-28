@@ -33,7 +33,7 @@ class Pages extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-pages-title',
-            'icon' => '<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-list-alt"></i>',
             'description' => 'controller-pages-description',
             'menu' => 'admin',
         ];

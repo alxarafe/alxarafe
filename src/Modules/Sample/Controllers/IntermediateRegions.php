@@ -33,7 +33,7 @@ class IntermediateRegions extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-intermediate-regions-title',
-            'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-user"></i>',
             'description' => 'controller-intermediate-regions-description',
             'menu' => 'regional-info',
         ];

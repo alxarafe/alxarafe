@@ -68,7 +68,7 @@ class Login extends Controller
     {
         $details = [
             'title' => 'user-authentication',
-            'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-user"></i>',
             'description' => 'user-authentication-description',
             'menu' => '',
         ];

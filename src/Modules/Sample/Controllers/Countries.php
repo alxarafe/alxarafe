@@ -33,7 +33,7 @@ class Countries extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-countries-title',
-            'icon' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-user"></i>',
             'description' => 'controller-countries-description',
             'menu' => 'regional-info',
         ];

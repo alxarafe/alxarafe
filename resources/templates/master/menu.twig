@@ -12,7 +12,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="{{ constant('BASE_URI') }}/index.php">
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                <i class="fas fa-home"></i>
                 &nbsp; Alxarafe
             </a>
         </div>
@@ -55,20 +55,20 @@
                 {% if ctrl.user %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            <i class="fas fa-user"></i>
                             &nbsp; {{ ctrl.user.getUsername() }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Users&{{ constant('METHOD_CONTROLLER') }}=edit&{{ ctrl.user.getIdField() }}={{ ctrl.user.id }}">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    <i class="far fa-edit"></i>
                                     &nbsp; {{ lang.trans('edit-my-data') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=logout">
-                                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                                    <i class="fas fa-sign-out-alt"></i>
                                     &nbsp; {{ lang.trans('logout') }}
                                 </a>
                             </li>
@@ -77,7 +77,7 @@
                 {% else %}
                     <li class="dropdown">
                         <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login">
-                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                            <i class="fas fa-sign-in-alt"></i>
                             &nbsp; {{ lang.trans('login') }}
                         </a>
                     </li>

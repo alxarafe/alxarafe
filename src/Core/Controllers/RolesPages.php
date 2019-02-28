@@ -33,7 +33,7 @@ class RolesPages extends AuthPageExtendedController
     {
         $details = [
             'title' => 'controller-roles-pages-title',
-            'icon' => '<span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>',
+            'icon' => '<i class="fas fa-users-cog"></i>',
             'description' => 'controller-roles-pages-description',
             'menu' => 'admin',
         ];
