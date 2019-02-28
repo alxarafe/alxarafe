@@ -7,7 +7,6 @@
 namespace Alxarafe\Base;
 
 use Alxarafe\Helpers\Schema;
-use Alxarafe\Helpers\Utils;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Translator;
@@ -70,6 +69,7 @@ abstract class AuthPageExtendedController extends AuthPageController
 
     /**
      * Code to table id.
+     * NOTE: If code is unique for each case, datatables state save works.
      *
      * @var string
      */
@@ -383,7 +383,9 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->status = 'listing';
         $this->renderer->setTemplate('master/list');
-        $this->code = Utils::randomString(10);
+        //$this->code = 'table-' . $this->tableName . '-user-' . $this->username . Utils::randomString(10);
+        // If code is unique for each case, datatables state save works.
+        $this->code = 'table-' . $this->tableName . '-user-' . $this->username;
         return $this->sendResponseTemplate();
     }
 

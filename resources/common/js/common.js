@@ -120,6 +120,8 @@ function newDataTable(name, origData) {
     var $opts = {
         destroy: true,
         pageLength: rowsPerPage,
+        stateSave: true,
+        colReorder: true,
         responsive: true,
         paging: true,
         pagingType: "full_numbers",
@@ -169,7 +171,7 @@ function newDataTable(name, origData) {
 
     $optsButtons = {
         dom: 'Bfrtip',
-        buttons: ['copyHtml5', 'csvHtml5', 'excelHtml5', 'pdfHtml5']
+        buttons: ['copyHtml5', 'csvHtml5', 'excelHtml5', 'pdfHtml5', 'colvis', 'colvisRestore']
     };
 
     if ($canExport) {

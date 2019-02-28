@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-colreorder-bs/css/colReorder.bootstrap.min.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -96,6 +97,8 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js') }}"></script>
+    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-colreorder-bs/js/colReorder.bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
     {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
