@@ -61,6 +61,8 @@ trait AjaxDataTable
             }
         }
 
+        $this->fillActions($data);
+
         $json_data = [
             "draw" => intval($requestData['draw'] ?? null),
             "recordsTotal" => $recordsTotal ?? null,
@@ -70,6 +72,27 @@ trait AjaxDataTable
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
         return $this->sendResponse(json_encode($json_data, $print));
+    }
+
+    /**
+     * Fill col-action data.
+     *
+     * @param $data
+     */
+    private function fillActions(&$data)
+    {
+        foreach ($data as $pos => $item) {
+            $id = $item[$this->model->getIdField()];
+            $buttons = '<div class="btn-group" role="group">';
+            foreach ($this->getActionButtons($id) as $actionButton) {
+                $buttons .= "<a class='{$actionButton['class']}' type='{$actionButton['type']}' href='{$actionButton['link']}' title='{$actionButton['text']}''>"
+                    . "{$actionButton['icon']}"
+                    . "<span class='hidden-xs hidden-sm hidden-md'>&nbsp;{$actionButton['text']}</span>"
+                    . "</a>";
+            }
+            $buttons .= '</div>';
+            $data[$pos]['col-action'] = $buttons;
+        }
     }
 
     /**
@@ -121,7 +144,7 @@ trait AjaxDataTable
         $list['col-action'] = [
             'label' => Translator::getInstance()->trans('action'),
             'class' => 'text-center',
-            'style' => 'width: 1%; min-width: 225px; max-width: 300px;',
+            'style' => 'width: 1%; min-width: 200px; max-width: 225px;',
         ];
 
         return $list;

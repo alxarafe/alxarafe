@@ -122,9 +122,6 @@
                 'url': '{{ (ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=ajaxTableData')|raw }}',
                 'columns': '{{ ctrl.getDefaultColumnsSearch()|json_encode|raw }}',
                 'pkField': '{{ ctrl.model.getIdField() }}',
-                'linkShow': "{{ (ctrl.url ~ '&' ~ constant("METHOD_CONTROLLER") ~ '=show&')|raw }}" + pkField + "=",
-                'linkEdit': "{{ (ctrl.url ~ '&' ~ constant("METHOD_CONTROLLER") ~ '=edit&')|raw }}" + pkField + "=",
-                'linkDelete': "{{ (ctrl.url ~ '&' ~ constant("METHOD_CONTROLLER") ~ '=delete&')|raw }}" + pkField + "="
             };
         }
     </script>

@@ -9,6 +9,8 @@ namespace Alxarafe\Providers;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Lang, give support to internationalization.
@@ -106,7 +108,12 @@ class Translator
             ->sortByName();
         foreach ($langFiles as $langFile) {
             $langCode = str_replace(self::EXT, '', $langFile->getRelativePathName());
-            self::$translator->addResource(self::FORMAT, $langFile->getPathName(), $langCode);
+            try {
+                Yaml::parseFile($langFile->getPathName());
+                self::$translator->addResource(self::FORMAT, $langFile->getPathName(), $langCode);
+            } catch (ParseException $e) {
+                Logger::getInstance()::exceptionHandler($e);
+            }
         }
     }
 

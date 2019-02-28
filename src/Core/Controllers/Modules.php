@@ -103,11 +103,12 @@ class Modules extends AuthPageExtendedController
     {
         foreach ($this->modulesList as $name => $path) {
             $module = new Module();
-            $module->getBy('name', $name);
-            $module->name = $name;
-            $module->path = $path;
-            $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
-            $module->save();
+            if (!$module->getBy('name', $name)) {
+                $module->name = $name;
+                $module->path = $path;
+                $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
+                $module->save();
+            }
         }
     }
 
@@ -164,9 +165,42 @@ class Modules extends AuthPageExtendedController
      */
     public function deleteMethod(): Response
     {
+        $this->disableMethod();
         // TODO: Implement deleteMethod() method.
         // Require allow to delete the module folder.
         return parent::deleteMethod();
+    }
+
+    /**
+     * Default enable method for enable an individual register.
+     *
+     * @return Response
+     */
+    public function enableMethod(): Response
+    {
+        // TODO: Implement enableMethod() method.
+        $id = filter_input(INPUT_GET, $this->model->getIdField(), FILTER_SANITIZE_STRING);
+        FlashMessages::getInstance()::setInfo('enable-module ' . $id);
+
+        $this->renderer->setTemplate('master/list');
+
+        return $this->indexMethod();
+    }
+
+    /**
+     * Default disable method for disable an individual register.
+     *
+     * @return Response
+     */
+    public function disableMethod(): Response
+    {
+        // TODO: Implement disableMethod() method.
+        $id = filter_input(INPUT_GET, $this->model->getIdField(), FILTER_SANITIZE_STRING);
+        FlashMessages::getInstance()::setInfo('disable-module' . $id);
+
+        $this->renderer->setTemplate('master/list');
+
+        return $this->indexMethod();
     }
 
     /**.
@@ -198,5 +232,38 @@ class Modules extends AuthPageExtendedController
             'type' => 'info',
         ];
         return $return;
+    }
+
+    /**
+     * Returns a list of actions buttons. By default returns Read/Update/Delete actions.
+     * If some needs to be replace, replace it on final class.
+     *
+     * @param string $id
+     *
+     * @return array
+     */
+    public function getActionButtons($id = '')
+    {
+        $actionButtons = [];
+        $actionButtons['enable'] = [
+            'class' => 'btn btn-success btn-sm',
+            'type' => 'button',
+            'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=enable&id=' . $id,
+            'icon' => '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+            'text' => $this->translator->trans('enable'),
+        ];
+        $actionButtons['disable'] = [
+            'class' => 'btn btn-warning btn-sm',
+            'type' => 'button',
+            'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=disable&id=' . $id,
+            'icon' => '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
+            'text' => $this->translator->trans('disable'),
+        ];
+
+        $actionButtons = array_merge($actionButtons, parent::getActionButtons($id));
+        unset($actionButtons['read']);
+        unset($actionButtons['update']);
+
+        return $actionButtons;
     }
 }

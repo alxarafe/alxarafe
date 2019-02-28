@@ -412,4 +412,46 @@ abstract class AuthPageExtendedController extends AuthPageController
         }
         return $ret;
     }
+
+    /**
+     * Returns a list of actions buttons. By default returns Read/Update/Delete actions.
+     * If some needs to be replace, replace it on final class.
+     *
+     * @param string $id
+     *
+     * @return array
+     */
+    public function getActionButtons($id = '')
+    {
+        $actionButtons = [];
+        if ($this->canRead) {
+            $actionButtons['read'] = [
+                'class' => 'btn btn-info btn-sm',
+                'type' => 'button',
+                'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=show&id=' . $id,
+                'icon' => '<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>',
+                'text' => $this->translator->trans('show')
+            ];
+        }
+        if ($this->canUpdate) {
+            $actionButtons['update'] = [
+                'class' => 'btn btn-primary btn-sm',
+                'type' => 'button',
+                'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=edit&id=' . $id,
+                'icon' => '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>',
+                'text' => $this->translator->trans('edit')
+            ];
+        }
+        if ($this->canDelete) {
+            $actionButtons['delete'] = [
+                'class' => 'btn btn-danger btn-sm',
+                'type' => 'button',
+                'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=delete&id=' . $id,
+                'icon' => '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>',
+                'text' => $this->translator->trans('delete')
+            ];
+        }
+
+        return $actionButtons;
+    }
 }

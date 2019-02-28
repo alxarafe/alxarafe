@@ -103,87 +103,6 @@ function addsec() {
 }
 
 /**
- * Creates a new DataTable
- *
- * @param name
- * @param origData
- */
-function newDataTable(name, origData) {
-    //console.log(origData);
-    var columnsList = JSON.parse(origData.columns);
-    var columns = new Array();
-    columnsList.forEach(function (element) {
-        columns.push({'data': element});
-    });
-    var rowsPerPage = origData.rowsPerPage;
-    var url = origData.url;
-    var $opts = {
-        destroy: true,
-        pageLength: rowsPerPage,
-        stateSave: true,
-        colReorder: true,
-        responsive: true,
-        paging: true,
-        pagingType: "full_numbers",
-        processing: true,
-        serverSide: true,
-        //deferRender: true,    // Only for large data sources
-        ajax: {
-            method: "POST",
-            url: url,
-            error: function () {
-                $("." + name + "-error").html("");
-                $("#" + name).append('<tbody class="dt-cliente-error-grid-error"><tr><th colspan="' + columns.length + '">No se han recibido datos del servidor</th></tr></tbody>');
-                $("#" + name + "_processing").css("display", "none");
-
-            }
-        },
-        columns: columns,
-        lengthChange: false,
-        searching: true,
-        ordering: true,
-        info: true,
-        autoWidth: true,
-        language: $dataTableLanguage,
-        columnDefs: [
-            {
-                "render": function (data, type, row) {
-                    // The data on this row is the PK value
-                    var pkValue = row[origData.pkField];
-                    var readButton = $canRead ? "<a class='btn btn-info btn-sm' type='button' href='" + origData.linkShow + pkValue + "'>"
-                        + "<span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span>"
-                        + "<span class='hidden-md'>&nbsp;" + $dataTableLanguage['oButtons']['sShow'] + "</span>"
-                        + "</a>" : '';
-                    var updateButton = $canUpdate ? "<a class='btn btn-primary btn-sm' type='button' href='" + origData.linkEdit + pkValue + "'>"
-                        + "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>"
-                        + "<span class='hidden-md'>&nbsp;" + $dataTableLanguage['oButtons']['sEdit'] + "</span>"
-                        + "</a>" : '';
-                    var deleteButton = $canDelete ? "<a class='btn btn-danger btn-sm' type='button' href='" + origData.linkDelete + pkValue + "'>"
-                        + "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>"
-                        + "<span class='hidden-md'>&nbsp;" + $dataTableLanguage['oButtons']['sDelete'] + "</span>"
-                        + "</a>" : '';
-                    return "<div class='btn-group' role='group'>" + readButton + updateButton + deleteButton + "</div>";
-                },
-                targets: -1,
-            }
-        ]
-    };
-
-    $optsButtons = {
-        dom: 'Bfrtip',
-        buttons: ['copyHtml5', 'csvHtml5', 'excelHtml5', 'pdfHtml5', 'colvis', 'colvisRestore']
-    };
-
-    if ($canExport) {
-        $opts = Object.assign({}, $opts, $optsButtons)
-    }
-
-    var table = $('#' + name).DataTable($opts);
-    table.buttons().container().appendTo('#' + name + '_wrapper .col-sm-6:eq(0)');
-    //table.buttons().container().appendTo($('#' + name + '_wrapper .col-sm-6:eq(0)', table.table().container()));
-}
-
-/**
  * TODO: Undocumented
  *
  * @param code
@@ -203,15 +122,3 @@ function selectPage(code, page, pages, itemsxpage) {
     }
     return false;
 }
-
-/**
- * When document is ready.
- */
-$("document").ready(function () {
-    if (typeof (tables) == 'object') {
-        // If tables is an object, we are receiving and array of datatables
-        for (var table in tables) {
-            newDataTable(table, tables[table]);
-        }
-    }
-});

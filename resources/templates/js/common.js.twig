@@ -60,3 +60,74 @@ var $dataTableButtons = {
 if ($canExport) {
     $dataTableLanguage = Object.assign({}, $dataTableLanguage, $dataTableButtons)
 }
+
+/**
+ * Creates a new DataTable
+ *
+ * @param name
+ * @param origData
+ */
+function newDataTable(name, origData) {
+    //console.log(origData);
+    var columnsList = JSON.parse(origData.columns);
+    var columns = [];
+    columnsList.forEach(function (element) {
+        columns.push({'data': element});
+    });
+    var rowsPerPage = origData.rowsPerPage;
+    var url = origData.url;
+    var $opts = {
+        destroy: true,
+        pageLength: rowsPerPage,
+        stateSave: true,
+        colReorder: true,
+        responsive: true,
+        paging: true,
+        pagingType: "full_numbers",
+        processing: true,
+        serverSide: true,
+        //deferRender: true,    // Only for large data sources
+        ajax: {
+            method: "POST",
+            url: url,
+            error: function () {
+                $("." + name + "-error").html("");
+                $("#" + name).append('<tbody class="dt-cliente-error-grid-error"><tr><th colspan="' + columns.length + '">No se han recibido datos del servidor</th></tr></tbody>');
+                $("#" + name + "_processing").css("display", "none");
+
+            }
+        },
+        columns: columns,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: true,
+        language: $dataTableLanguage,
+    };
+
+    $optsButtons = {
+        dom: 'Bfrtip',
+        buttons: ['copyHtml5', 'csvHtml5', 'excelHtml5', 'pdfHtml5', 'colvis', 'colvisRestore']
+    };
+
+    if ($canExport) {
+        $opts = Object.assign({}, $opts, $optsButtons)
+    }
+
+    var table = $('#' + name).DataTable($opts);
+    table.buttons().container().appendTo('#' + name + '_wrapper .col-sm-6:eq(0)');
+    //table.buttons().container().appendTo($('#' + name + '_wrapper .col-sm-6:eq(0)', table.table().container()));
+}
+
+/**
+ * When document is ready.
+ */
+$(document).ready(function () {
+    if (typeof (tables) == 'object') {
+        // If tables is an object, we are receiving and array of datatables
+        for (var table in tables) {
+            newDataTable(table, tables[table]);
+        }
+    }
+});
