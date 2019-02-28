@@ -7,6 +7,7 @@
 namespace Alxarafe\Traits;
 
 use Alxarafe\Providers\Translator;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Trait AjaxDataTable.
@@ -17,6 +18,22 @@ use Alxarafe\Providers\Translator;
  */
 trait AjaxDataTable
 {
+
+    /**
+     * Initialize common properties
+     */
+    abstract public function initialize();
+
+    /**
+     * Send the Response with data received.
+     *
+     * @param string $reply
+     * @param int    $status
+     *
+     * @return Response
+     */
+    abstract public function sendResponse(string $reply, $status = Response::HTTP_OK): Response;
+
     /**
      * Return the table data using AJAX
      */
