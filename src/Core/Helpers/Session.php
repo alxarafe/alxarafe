@@ -131,6 +131,17 @@ class Session
     }
 
     /**
+     * Sets flash next data by key.
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function setFlashNext(string $key, $value)
+    {
+        $this->getSegment()->setFlash($key, $value);
+    }
+
+    /**
      * Get flash now data by key.
      *
      * @param string $key
@@ -140,17 +151,6 @@ class Session
     public function getFlash(string $key)
     {
         return $this->getFlashNow($key);
-    }
-
-    /**
-     * Sets flash now data by key.
-     *
-     * @param string $key
-     * @param mixed  $value
-     */
-    public function setFlashNow(string $key, $value)
-    {
-        $this->getSegment()->setFlashNow($key, $value);
     }
 
     /**
@@ -166,14 +166,14 @@ class Session
     }
 
     /**
-     * Sets flash next data by key.
+     * Sets flash now data by key.
      *
      * @param string $key
      * @param mixed  $value
      */
-    public function setFlashNext(string $key, $value)
+    public function setFlashNow(string $key, $value)
     {
-        $this->getSegment()->setFlash($key, $value);
+        $this->getSegment()->setFlashNow($key, $value);
     }
 
     /**

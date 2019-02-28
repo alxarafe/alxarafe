@@ -78,6 +78,27 @@ class FlashMessages
     }
 
     /**
+     * Set flash message.
+     *
+     * @param string $when
+     * @param array  $message
+     */
+    private static function setFlash(string $when = 'now', array $message = [])
+    {
+        switch ($when) {
+            case 'now':
+                self::$messagesListNow[] = $message;
+                self::$session->setFlashNow('messages', self::$messagesListNow);
+                break;
+            case 'next':
+            default:
+                self::$messagesListNext[] = $message;
+                self::$session->setFlashNext('messages', self::$messagesListNext);
+                break;
+        }
+    }
+
+    /**
      * Register a new warning message
      *
      * @param string $msg
@@ -114,27 +135,6 @@ class FlashMessages
         $message = ['type' => 'success', 'msg' => $msg];
         Logger::getInstance()->getLogger()->addNotice($msg);
         self::setFlash($when, $message);
-    }
-
-    /**
-     * Set flash message.
-     *
-     * @param string $when
-     * @param array  $message
-     */
-    private static function setFlash(string $when = 'now', array $message = [])
-    {
-        switch ($when) {
-            case 'now':
-                self::$messagesListNow[] = $message;
-                self::$session->setFlashNow('messages', self::$messagesListNow);
-                break;
-            case 'next':
-            default:
-                self::$messagesListNext[] = $message;
-                self::$session->setFlashNext('messages', self::$messagesListNext);
-                break;
-        }
     }
 
     /**

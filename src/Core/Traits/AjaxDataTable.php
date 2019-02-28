@@ -20,21 +20,6 @@ trait AjaxDataTable
 {
 
     /**
-     * Initialize common properties
-     */
-    abstract public function initialize();
-
-    /**
-     * Send the Response with data received.
-     *
-     * @param string $reply
-     * @param int    $status
-     *
-     * @return Response
-     */
-    abstract public function sendResponse(string $reply, $status = Response::HTTP_OK): Response;
-
-    /**
      * Return the table data using AJAX
      */
     public function ajaxTableDataMethod()
@@ -88,6 +73,11 @@ trait AjaxDataTable
     }
 
     /**
+     * Initialize common properties
+     */
+    abstract public function initialize();
+
+    /**
      * Return a default list of col.
      *
      * @return array
@@ -103,6 +93,16 @@ trait AjaxDataTable
         $list[$i] = 'col-action';
         return $list;
     }
+
+    /**
+     * Send the Response with data received.
+     *
+     * @param string $reply
+     * @param int    $status
+     *
+     * @return Response
+     */
+    abstract public function sendResponse(string $reply, $status = Response::HTTP_OK): Response;
 
     /**
      * Returns the header for table.
