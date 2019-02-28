@@ -12,6 +12,7 @@ use Alxarafe\Helpers\FormatUtils;
 use Alxarafe\Helpers\Utils;
 use Alxarafe\Models\Module;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Translator;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -67,7 +68,7 @@ class Modules extends AuthPageExtendedController
         switch ($action) {
             case 'regenerate':
                 CacheCore::getInstance()->getEngine()->clear();
-                FlashMessages::getInstance()::setInfo('Cache cleared successfully.');
+                FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('cache-cleared-successfully'));
                 $this->regenerateData();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));

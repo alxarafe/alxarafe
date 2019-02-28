@@ -20,11 +20,18 @@ class FlashMessages
     }
 
     /**
-     * Contains a message list.
+     * Contains a message list for now.
      *
      * @var array
      */
-    protected static $messagesList;
+    protected static $messagesListNow;
+
+    /**
+     * Contains a message list for next.
+     *
+     * @var array
+     */
+    protected static $messagesListNext;
 
     /**
      * Contains the session.
@@ -38,11 +45,12 @@ class FlashMessages
      */
     public function __construct()
     {
-        if (!isset(self::$messagesList)) {
+        if (!isset(self::$session)) {
             $this->separateConfigFile = true;
             self::$session = Session::getInstance();
             $this->initSingleton();
-            self::$messagesList = [];
+            self::$messagesListNow = [];
+            self::$messagesListNext = [];
         }
     }
 
@@ -53,67 +61,80 @@ class FlashMessages
      */
     public static function getContainer(): array
     {
-        return self::$messagesList;
+        return self::$messagesListNow;
     }
 
     /**
      * Register a new error message
      *
      * @param string $msg
+     * @param string $when
      */
-    public static function setError(string $msg): void
+    public static function setError(string $msg, string $when = 'now'): void
     {
-        self::$messagesList[] = [
-            'type' => 'danger',
-            'msg' => $msg,
-        ];
+        $message = ['type' => 'danger', 'msg' => $msg];
         Logger::getInstance()->getLogger()->addError($msg);
-        self::$session->setFlash('messages', self::$messagesList);
+        self::setFlash($when, $message);
     }
 
     /**
      * Register a new warning message
      *
      * @param string $msg
+     * @param string $when
      */
-    public static function setWarning(string $msg): void
+    public static function setWarning(string $msg, string $when = 'now'): void
     {
-        self::$messagesList[] = [
-            'type' => 'warning',
-            'msg' => $msg,
-        ];
+        $message = ['type' => 'warning', 'msg' => $msg];
         Logger::getInstance()->getLogger()->addWarning($msg);
-        self::$session->setFlash('messages', self::$messagesList);
+        self::setFlash($when, $message);
     }
 
     /**
      * Register a new info message
      *
      * @param string $msg
+     * @param string $when
      */
-    public static function setInfo(string $msg): void
+    public static function setInfo(string $msg, string $when = 'now'): void
     {
-        self::$messagesList[] = [
-            'type' => 'info',
-            'msg' => $msg,
-        ];
+        $message = ['type' => 'info', 'msg' => $msg];
         Logger::getInstance()->getLogger()->addInfo($msg);
-        self::$session->setFlash('messages', self::$messagesList);
+        self::setFlash($when, $message);
     }
 
     /**
      * Register a new error message
      *
      * @param string $msg
+     * @param string $when
      */
-    public static function setSuccess(string $msg): void
+    public static function setSuccess(string $msg, string $when = 'now'): void
     {
-        self::$messagesList[] = [
-            'type' => 'success',
-            'msg' => $msg,
-        ];
+        $message = ['type' => 'success', 'msg' => $msg];
         Logger::getInstance()->getLogger()->addNotice($msg);
-        self::$session->setFlash('messages', self::$messagesList);
+        self::setFlash($when, $message);
+    }
+
+    /**
+     * Set flash message.
+     *
+     * @param string $when
+     * @param array  $message
+     */
+    private static function setFlash(string $when = 'now', array $message = [])
+    {
+        switch ($when) {
+            case 'now':
+                self::$messagesListNow[] = $message;
+                self::$session->setFlashNow('messages', self::$messagesListNow);
+                break;
+            case 'next':
+            default:
+                self::$messagesListNext[] = $message;
+                self::$session->setFlashNext('messages', self::$messagesListNext);
+                break;
+        }
     }
 
     /**

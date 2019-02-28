@@ -21,7 +21,7 @@ use Alxarafe\Base\Table;
 class Module extends Table
 {
     /**
-     * Page constructor.
+     * Module constructor.
      *
      * @param bool $create
      */
@@ -35,5 +35,20 @@ class Module extends Table
                 'create' => $create,
             ]
         );
+    }
+
+    /**
+     * Returns an ordered list of enabled modules.
+     *
+     * @return array
+     */
+    public function getEnabledModules()
+    {
+        $list = $this->getAllRecordsBy('enabled', 1);
+        $return = [];
+        foreach ($list as $module) {
+            $return[$module['order']] = $module['name'];
+        }
+        return $return;
     }
 }

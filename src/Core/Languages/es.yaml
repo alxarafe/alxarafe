@@ -4,7 +4,10 @@ active: Activo
 add-new: Añadir
 admin: Administración
 application-access: 'Acceso a la aplicación'
+auth-is-null: 'La autenticación es nula'
 back: Volver
+cache-cleared-successfully: 'Cache limpiada satisfactoriamente'
+call-to: 'Llamada a %called%'
 can_access: 'Puede acceder'
 can_create: 'Puede crear'
 can_delete: 'Puede eliminar'
@@ -13,6 +16,9 @@ can_print: 'Puede imprimir'
 can_read: 'Puede leer'
 can_sendmail: 'Puede enviar email'
 can_update: 'Puede actualizar'
+cant-increase-time-limit: 'No se puede incrementar el tiempo limite'
+changes-stored: 'Cambios guardados'
+changes-not-stored: 'Cambios no guardados'
 clear-cache: 'Limpiar caché'
 cod_iso: 'Código ISO'
 cod_iso2: 'Código ISO2'
@@ -90,6 +96,8 @@ controller-users-description: 'Usuarios del sistema'
 controller-users-roles-description: 'Contiene una relación de usuarios y roles.'
 controller-users-roles-title: 'Usuarios y roles'
 controller-users-title: Usuarios
+database-data-not-changed: 'Datos de base de datos no cambiados'
+database-data-updated-successfully: 'Datos de base de datos actualizados satisfactoriamente'
 database-engine: 'Motor de base de datos'
 dataTable-sProcessing: "Procesando..."
 dataTable-sLengthMenu: "Mostrar _MENU_ registros"
@@ -135,6 +143,7 @@ dev-tools: 'Herramientas de desarrollo'
 edit: Editar
 edit-configuration: 'Editar configuración'
 edit-configuration-description: 'Desde aquí puedes editar los parámetros de configuración.'
+edit-my-data: 'Editar mis datos'
 email: Email
 enabled: Activado
 enter: Entrar
@@ -161,6 +170,7 @@ id_role: 'Id. de rol'
 id_user: 'Id. de usuario'
 inserted_date: 'Insertado el'
 language-code: 'Código de idioma'
+language-data-not-changed: 'Datos de idioma no cambiados'
 language-en: Inglés
 language-en_EN: 'Inglés (Estados Unidos)'
 language-es: Español
@@ -185,13 +195,19 @@ password: Contraseña
 path: Contraseña
 path-to-file: 'Ruta al archivo'
 plugin: Plugin
+redirected-from-to: 'Redireccionado desde %from% hasta %to%'
 regenerate-data: 'Regenerar datos'
+regionalinfo-data-not-changed: 'Datos de información recional no cambiados'
 regional-info: 'Información regional'
 register-deleted: 'Registro eliminado'
 register-locked: 'Registro bloqueado'
 register-not-deleted: 'Registro no eliminado'
 register-saved: 'Registro guardado'
 register_date: 'Registrado el'
+reinstanciated-controller-class-successfully: 'Re-instanciada clase controller satisfactoriamente'
+reinstanciated-controller-class-error: 'Error re-instanciando clase controller'
+reinstanciated-model-class-successfully: 'Re-instanciada clase model satisfactoriamente'
+reinstanciated-model-class-error: 'Error re-instanciando clase model'
 rememberme: Recuerda-me
 route-not-found: 'Ruta no encontrada'
 save-changes: 'Guardar los cambios'
@@ -199,8 +215,14 @@ select-tables-to-export: 'Selecciona que tablas quieres exportar:'
 select-tables-to-generate-models-controllers: 'Selecciona que tablas quieres generar sus modelos y controladores'
 selected: Seleccionado
 show: Mostrar
+showing: Mostrando
 table-name: 'Nombre de tabla'
 tablename: 'Nombre de tabla'
+tablename-fieldname-exceeds-maximum: '%tableName%-%fieldName% excede el máximo %max%'
+tablename-fieldname-exceeds-minimum: '%tableName%-%fieldName% excede el mínimo %min%'
+tablename-fieldname-max-length: '%tableName%-%fieldName% longitud máxima %length%'
+tablename-fieldname-register-duplicated: '%tableName%-%fieldName% valor %value% registro duplicado %register%'
+templaterender-data-not-changed: 'Datos del renderizador de plantillas no cambiados'
 timeFormat: 'Formato de hora'
 title: Título
 title-messages-danger: Atención
@@ -213,4 +235,18 @@ updated_date: 'Actualizado el'
 user: Usuario
 user-authentication: 'Autenticación de usuario'
 user-authentication-description: 'Página de login, para controlar el acceso a la aplicación.'
+user-authentication-error: 'Error de autenticación de usuario. Por favor, comprueba el usuario y contraseña.'
+user-authentication-not-found: 'Autenticación de usuario %username%, no encontrado'
+user-authentication-wrong-password: 'Autenticaciónde usuario %username%, contraseña incorrecta'
+user-can-access-to: 'El usuario puede acceder en %where%'
+user-can-create-to: 'El usuario puede crear en %where%'
+user-can-read-to: 'El usuario puede leer en %where%'
+user-can-update-to: 'El usuario puede actualizar en %where%'
+user-can-delete-to: 'El usuario puede eliminar en %where%'
+user-cookies-cleared: 'Cookies de usuario limpiadas'
+user-not-authenticated: 'Usuario no autenticado'
+user-unknown-perms-to: 'El usuario tiene permisos desconocidos en %where%'
+user-logged-in: 'Usuario %username% identificado'
+user-logged-in-from-cookie: 'Usuario %username% identificado desde cookie'
+user-logged-out: 'Usuario cierra sessión'
 username: 'Nombre de usuario'

@@ -11,6 +11,7 @@ use Alxarafe\Helpers\SchemaDB;
 use Alxarafe\Models\TableModel;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Translator;
 use ReflectionClass;
 
 /**
@@ -221,21 +222,24 @@ class Table extends SimpleTable
                     $length = $fieldStructure['length'] ?? null;
                     if (isset($length) && $length > 0) {
                         if (strlen($record[$fieldName]) > $length) {
-                            FlashMessages::getInstance()::setError("$tableName-$fieldName: Longitud máxima {$length}.");
+                            $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%length%' => $length];
+                            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-max-length', $vars));
                             $ok = false;
                         }
                     }
                     $min = $fieldStructure['min'] ?? null;
                     if (isset($min)) {
                         if ($min > intval($record[$fieldName])) {
-                            FlashMessages::getInstance()::setError("$tableName-$fieldName: Supera el mínimo de {$min}.");
+                            $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%min%' => $min];
+                            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-minimum', $vars));
                             $ok = false;
                         }
                     }
                     $max = $fieldStructure['max'] ?? null;
                     if (isset($max)) {
                         if ($max < intval($record[$fieldName])) {
-                            FlashMessages::getInstance()::setError("$tableName-$fieldName: Supera el máximo {$max}.");
+                            $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%max%' => $max];
+                            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-maximum', $vars));
                             $ok = false;
                         }
                     }
@@ -246,7 +250,8 @@ class Table extends SimpleTable
                             foreach ($bad as $badrecord) {
                                 // TODO: Estoy utilizando 'id', pero tendría que ser el $this->idField del modelo correspondiente
                                 if ($badrecord['id'] != $data[$tableName][$blockId]['id']) {
-                                    FlashMessages::getInstance()::setError("$tableName-$fieldName: Valor '{$data[$tableName][$blockId][$fieldName]}' duplicado con registro {$badrecord['id']}.");
+                                    $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%value%' => $data[$tableName][$blockId][$fieldName], '%register%' => $badrecord['id']];
+                                    FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-register-duplicated', $vars));
                                     $ok = false;
                                 }
                             }

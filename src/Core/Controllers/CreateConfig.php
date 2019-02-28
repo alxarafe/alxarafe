@@ -126,8 +126,8 @@ class CreateConfig extends Controller
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
         switch ($action) {
             case 'save':
-                $msg = ($this->save() ? 'Changes stored' : 'Changes not stored');
-                FlashMessages::getInstance()::setInfo($msg);
+                $msg = ($this->save() ? 'changes-stored' : 'changes-not-stored');
+                FlashMessages::getInstance()::setInfo($this->translator->trans($msg));
                 $this->regenerateData();
                 return $this->redirect(baseUrl('index.php?call=Login'));
             case 'cancel':
@@ -179,14 +179,14 @@ class CreateConfig extends Controller
         $translatorConfig = Translator::getInstance()->getConfig();
         $translatorConfig['language'] = filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING);
         if (!Translator::getInstance()->setConfig($translatorConfig)) {
-            FlashMessages::getInstance()::setError('language-data-not-changed');
+            FlashMessages::getInstance()::setError($this->translator->trans('language-data-not-changed'));
             $result = false;
         }
 
         $templateRenderConfig = $this->renderer->getConfig();
         $templateRenderConfig['skin'] = filter_input(INPUT_POST, 'skin', FILTER_SANITIZE_STRING);
         if (!$this->renderer->setConfig($templateRenderConfig)) {
-            FlashMessages::getInstance()::setError('templaterender-data-not-changed');
+            FlashMessages::getInstance()::setError($this->translator->trans('templaterender-data-not-changed'));
             $result = false;
         }
 
@@ -196,7 +196,7 @@ class CreateConfig extends Controller
         $regionalConfig['timeFormat'] = filter_input(INPUT_POST, 'timeFormat', FILTER_SANITIZE_STRING);
         $regionalConfig['datetimeFormat'] = filter_input(INPUT_POST, 'datetimeFormat', FILTER_SANITIZE_STRING);
         if (!RegionalInfo::getInstance()->setConfig($regionalConfig)) {
-            FlashMessages::getInstance()::setError('regionalinfo-data-not-changed');
+            FlashMessages::getInstance()::setError($this->translator->trans('regionalinfo-data-not-changed'));
             $result = false;
         }
 
@@ -210,13 +210,13 @@ class CreateConfig extends Controller
         $databaseConfig['dbPrefix'] = filter_input(INPUT_POST, 'dbPrefix', FILTER_SANITIZE_STRING);
         $databaseConfig['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_STRING);
         if (!Database::getInstance()->setConfig($databaseConfig)) {
-            FlashMessages::getInstance()::setError('database-data-not-changed');
+            FlashMessages::getInstance()::setError($this->translator->trans('database-data-not-changed'));
             $result = false;
         }
 
         if ($result && $databaseConfigOrig !== $databaseConfig) {
             // The database details have been changed and need to be regenerate cache.
-            FlashMessages::getInstance()::setSuccess('database-data-updated-successfully');
+            FlashMessages::getInstance()::setSuccess($this->translator->trans('database-data-updated-successfully'));
         }
         return $result;
     }

@@ -8,6 +8,7 @@ namespace Alxarafe\PreProcessors;
 
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Translator;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -64,9 +65,9 @@ class Models
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
-            FlashMessages::getInstance()::setInfo('Re-instanciated model class successfully');
+            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-model-class-successfully'));
         } else {
-            FlashMessages::getInstance()::setError('Errors re-instanciating model class.');
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-model-class-error'));
         }
     }
 

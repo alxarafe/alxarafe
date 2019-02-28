@@ -158,7 +158,8 @@ abstract class Controller
         if (empty($destiny)) {
             $destiny = baseUrl('index.php');
         }
-        Logger::getInstance()->getLogger()->addDebug('Redirected from ' . $this->shortName . ' to ' . $destiny);
+        $vars = ['%from%' => $this->shortName, '%to%' => $destiny];
+        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('redirected-from-to', $vars));
         return new RedirectResponse($destiny);
     }
 
@@ -170,7 +171,7 @@ abstract class Controller
     public function runMethod(string $methodName): Response
     {
         $method = $methodName . 'Method';
-        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
         return $this->{$method}();
     }
 

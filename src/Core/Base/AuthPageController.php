@@ -209,13 +209,13 @@ abstract class AuthPageController extends AuthController
         $this->loadPerms();
         $method = $methodName . 'Method';
         $vars = [];
-        $this->debugTool->addMessage('messages', 'Call to ' . $this->shortName . '->' . $method . '()');
+        $this->debugTool->addMessage('messages', $this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
 
         switch ($methodName) {
             case 'index':
             case 'ajaxTableData':
                 if ($this->canAccess) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can access');
+                    $this->debugTool->addMessage('messages', $this->translator->trans('user-can-access-to', ['%where%' => $this->shortName . '->' . $method . '()']));
                     return $this->{$method}();
                 }
                 break;
@@ -224,7 +224,7 @@ abstract class AuthPageController extends AuthController
             // no-break
             case 'create':
                 if ($this->canAccess && $this->canCreate) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can create');
+                    $this->debugTool->addMessage('messages', $this->translator->trans('user-can-create-to', ['%where%' => $this->shortName . '->' . $method . '()']));
                     return $this->{$method}();
                 }
                 break;
@@ -233,7 +233,7 @@ abstract class AuthPageController extends AuthController
             // no-break
             case 'read':
                 if ($this->canAccess && $this->canRead) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can read');
+                    $this->debugTool->addMessage('messages', $this->translator->trans('user-can-read-to', ['%where%' => $this->shortName . '->' . $method . '()']));
                     return $this->{$method}();
                 }
                 break;
@@ -242,7 +242,7 @@ abstract class AuthPageController extends AuthController
             // no-break
             case 'update':
                 if ($this->canAccess && $this->canUpdate) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can update');
+                    $this->debugTool->addMessage('messages', $this->translator->trans('user-can-update-to', ['%where%' => $this->shortName . '->' . $method . '()']));
                     return $this->{$method}();
                 }
                 break;
@@ -251,12 +251,12 @@ abstract class AuthPageController extends AuthController
             // no-break
             case 'delete':
                 if ($this->canAccess && $this->canDelete) {
-                    $this->debugTool->addMessage('messages', $this->shortName . '->' . $method . '() can delete');
+                    $this->debugTool->addMessage('messages', $this->translator->trans('user-can-delete-to', ['%where%' => $this->shortName . '->' . $method . '()']));
                     return $this->{$method}();
                 }
                 break;
             default:
-                $this->debugTool->addMessage('messages', $this->shortName . '->' . $methodName . '() what perms do you need? Be sure you are restricting correct perms.');
+                $this->debugTool->addMessage('messages', $this->translator->trans('user-unknown-perms-to', ['%where%' => $this->shortName . '->' . $method . '()']));
                 parent::runMethod($methodName);
                 $vars = [
                     'action' => $method,
@@ -323,7 +323,6 @@ abstract class AuthPageController extends AuthController
             }
         }
 
-        $this->debugTool->addMessage('messages', "Available '" . $action . "' pages for '" . $this->user->username . "': <pre>" . var_export($pages, true) . "</pre>");
         $action = 'can_' . $action;
         foreach ($pages as $page) {
             if ($page->controller == $this->shortName && $page->{$action} == 1) {

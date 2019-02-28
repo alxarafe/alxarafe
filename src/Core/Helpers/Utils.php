@@ -9,6 +9,7 @@ namespace Alxarafe\Helpers;
 use Alxarafe\PreProcessors;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
+use Alxarafe\Providers\Translator;
 use ReflectionClass;
 use ReflectionException;
 
@@ -215,7 +216,7 @@ class Utils
     public static function executePreprocesses(array $searchDir)
     {
         if (!set_time_limit(0)) {
-            FlashMessages::getInstance()::setError('cant-increase-time-limit');
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('cant-increase-time-limit'));
         }
         new PreProcessors\Models($searchDir);
         new PreProcessors\Pages($searchDir);

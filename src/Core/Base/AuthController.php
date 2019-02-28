@@ -57,9 +57,9 @@ class AuthController extends Controller
     public function runMethod(string $methodName): Response
     {
         $method = $methodName . 'Method';
-        Logger::getInstance()->getLogger()->addDebug('Call to ' . $this->shortName . '->' . $method . '()');
+        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
         if (!$this->checkAuth()) {
-            Logger::getInstance()->getLogger()->addDebug('User not authenticated.');
+            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-not-authenticated'));
             return $this->redirect(baseUrl($this->defaultRedirect));
         }
         return $this->{$method}();
@@ -84,7 +84,7 @@ class AuthController extends Controller
                 $return = true;
             }
         } elseif (!is_null($Auth)) {
-            Logger::getInstance()->getLogger()->addDebug('Auth is null');
+            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('auth-is-null'));
             // TODO: Check with Auth header if has valid credentials
             $return = true;
         }
@@ -98,7 +98,7 @@ class AuthController extends Controller
      */
     public function logout(): RedirectResponse
     {
-        FlashMessages::getInstance()::setInfo('Logout: User has successfully logged out');
+        FlashMessages::getInstance()::setInfo($this->translator->trans('user-logged-out'));
         $this->username = null;
         $this->user = null;
         $this->logkey = null;

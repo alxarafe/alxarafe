@@ -61,9 +61,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=EditConfig">
+                                <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Users&{{ constant('METHOD_CONTROLLER') }}=edit&{{ ctrl.user.getIdField() }}={{ ctrl.user.id }}">
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                    &nbsp; {{ lang.trans('edit-configuration') }}
+                                    &nbsp; {{ lang.trans('edit-my-data') }}
                                 </a>
                             </li>
                             <li>

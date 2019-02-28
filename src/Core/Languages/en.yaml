@@ -4,7 +4,10 @@ active: Active
 add-new: Add
 admin: Administration
 application-access: 'Application access'
+auth-is-null: 'Authentication is null'
 back: Back
+cache-cleared-successfully: 'Cache cleared successfully'
+call-to: 'Call to %called%'
 can_access: 'Can access'
 can_create: 'Can create'
 can_delete: 'Can delete'
@@ -13,6 +16,9 @@ can_print: 'Can print'
 can_read: 'Can read'
 can_sendmail: 'Can send mail'
 can_update: 'Can update'
+cant-increase-time-limit: 'Can not increase time limit'
+changes-stored: 'Changes stored'
+changes-not-stored: 'Changes not stored'
 clear-cache: 'Clear cache'
 cod_iso: 'ISO Code'
 cod_iso2: 'ISO2 Code'
@@ -90,6 +96,8 @@ controller-users-description: 'System users'
 controller-users-roles-description: 'Contains a relation of users and roles'
 controller-users-roles-title: 'Users roles'
 controller-users-title: Users
+database-data-not-changed: 'Database data not changed'
+database-data-updated-successfully: 'Database data updated successfully'
 database-engine: 'Database engine'
 dataTable-sProcessing: "Processing..."
 dataTable-sLengthMenu: "Show _MENU_ entries"
@@ -135,6 +143,7 @@ dev-tools: 'Development tools'
 edit: Edit
 edit-configuration: 'Edit configuration'
 edit-configuration-description: 'From here you can edit the configuration parameters.'
+edit-my-data: 'Edit my data'
 email: Email
 enabled: Enabled
 enter: Enter
@@ -161,6 +170,7 @@ id_role: 'Role Id.'
 id_user: 'User Id.'
 inserted_date: 'Inserted at'
 language-code: 'Language code'
+language-data-not-changed: 'Language data not changed'
 language-en: English
 language-en_EN: 'English (United States)'
 language-es: Spanish
@@ -185,13 +195,19 @@ password: Password
 path: Path
 path-to-file: 'Path to file'
 plugin: Plugin
+redirected-from-to: 'Redirected from %from% to %to%'
 regenerate-data: 'Regenerate data'
+regionalinfo-data-not-changed: 'Regional information data not changed'
 regional-info: 'Regional info'
 register-deleted: 'Register deleted'
 register-locked: 'Register locked'
 register-not-deleted: 'Register not deleted'
 register-saved: 'Register saved'
 register_date: 'Registered at'
+reinstanciated-controller-class-successfully: 'Re-instanciated controller class successfully'
+reinstanciated-controller-class-error: 'Re-instanciated controller class error'
+reinstanciated-model-class-successfully: 'Re-instanciated model class successfully'
+reinstanciated-model-class-error: 'Re-instanciated model class error'
 rememberme: Remember-me
 route-not-found: 'Route not found'
 save-changes: 'Save changes'
@@ -199,8 +215,14 @@ select-tables-to-export: 'Select tables to export:'
 select-tables-to-generate-models-controllers: 'Select tables to generate models and controllers'
 selected: Selected
 show: Show
+showing: Showing
 table-name: 'Table name'
 tablename: 'Table name'
+tablename-fieldname-exceeds-maximum: '%tableName%-%fieldName% exceeds maximum %max%'
+tablename-fieldname-exceeds-minimum: '%tableName%-%fieldName% exceeds minimum %min%'
+tablename-fieldname-max-length: '%tableName%-%fieldName% maximum length %length%'
+tablename-fieldname-register-duplicated: '%tableName%-%fieldName% value %value% register duplicated %register%'
+templaterender-data-not-changed: 'Template render data not changed'
 timeFormat: 'Time format'
 title: Title
 title-messages-danger: Attention
@@ -213,4 +235,18 @@ updated_date: 'Updated at'
 user: User
 user-authentication: 'User authentication'
 user-authentication-description: 'Login page, to control access to the application.'
+user-authentication-error: 'User authentication error. Please check the username and password.'
+user-authentication-not-found: 'User %username% authentication not found'
+user-authentication-wrong-password: 'User authentication wrong password'
+user-can-access-to: 'User can access to %where%'
+user-can-create-to: 'User can create to %where%'
+user-can-read-to: 'User can read to %where%'
+user-can-update-to: 'User can update to %where%'
+user-can-delete-to: 'User can delete to %where%'
+user-cookies-cleared: 'User cookies cleared'
+user-not-authenticated: 'User not authenticated'
+user-unknown-perms-to: 'User has unknown perms to %where%'
+user-logged-in: 'User %username% logged in'
+user-logged-in-from-cookie: 'User %username% logged in from cookie'
+user-logged-out: 'User logged out'
 username: 'User name'

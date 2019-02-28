@@ -9,6 +9,7 @@ namespace Alxarafe\PreProcessors;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Router;
+use Alxarafe\Providers\Translator;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -70,9 +71,9 @@ class Routes
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
-            FlashMessages::getInstance()::setInfo('Re-instanciated page controller class successfully');
+            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-controller-class-successfully'));
         } else {
-            FlashMessages::getInstance()::setError('Errors re-instanciating page controller class.');
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-controller-class-error'));
         }
     }
 

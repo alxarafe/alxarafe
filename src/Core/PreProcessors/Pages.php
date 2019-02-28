@@ -10,6 +10,7 @@ use Alxarafe\Helpers\FormatUtils;
 use Alxarafe\Models\Page;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
+use Alxarafe\Providers\Translator;
 use DateTime;
 use Symfony\Component\Finder\Finder;
 
@@ -65,9 +66,9 @@ class Pages
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
-            FlashMessages::getInstance()::setInfo('Re-instanciated page controller class successfully');
+            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-controller-class-successfully'));
         } else {
-            FlashMessages::getInstance()::setError('Errors re-instanciating page controller class.');
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-controller-class-error'));
         }
     }
 

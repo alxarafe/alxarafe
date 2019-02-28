@@ -94,10 +94,10 @@ class Login extends Controller
                 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
                 if ($this->setUser($username, $password, $remember)) {
-                    FlashMessages::getInstance()::setSuccess("User '" . $username . "' logged in.");
+                    FlashMessages::getInstance()::setSuccess($this->translator->trans("user-logged-in", ['%username%' => $username]));
                     return $this->redirectToController();
                 } else {
-                    FlashMessages::getInstance()::setError('User authentication error. Please check the username and password.');
+                    FlashMessages::getInstance()::setError($this->translator->trans('user-authentication-error'));
                 }
                 break;
             default:
@@ -128,7 +128,6 @@ class Login extends Controller
         if (!empty($this->redirectUrl)) {
             $where = base64_decode(urldecode($this->redirectUrl));
         }
-        $this->debugTool->addMessage('messages', $where);
         return $this->redirect($where);
     }
 
@@ -142,7 +141,7 @@ class Login extends Controller
         $this->user = new User();
         if ($this->username === null && $this->user->getBy('username', $_COOKIE['user']) === true) {
             if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && $this->user->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
-                Logger::getInstance()->getLogger()->addDebug('Login from cookie.');
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $_COOKIE['user']]));
                 // Increase cookie valid time.
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time);
@@ -180,7 +179,7 @@ class Login extends Controller
      */
     private function clearCookieUser(): void
     {
-        Logger::getInstance()->getLogger()->addDebug('Clear user cookies.');
+        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-cookies-cleared'));
         $this->username = null;
         $this->user = null;
         $this->logkey = null;
@@ -210,7 +209,7 @@ class Login extends Controller
      */
     public function logoutMethod(): RedirectResponse
     {
-        FlashMessages::getInstance()::setInfo('Logout: User has successfully logged out');
+        FlashMessages::getInstance()::setInfo($this->translator->trans('user-logged-out'));
         $this->clearCookieUser();
         return $this->redirect(baseUrl('index.php?call=Login'));
     }
@@ -254,13 +253,13 @@ class Login extends Controller
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time);
-                Logger::getInstance()->getLogger()->addDebug($this->user->username . " authenticated");
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authenticated', ['%username%' => $this->user->username]));
             } else {
                 $this->clearCookieUser();
-                Logger::getInstance()->getLogger()->addDebug("Checking hash wrong password");
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authentication-wrong-password'));
             }
         } else {
-            Logger::getInstance()->getLogger()->addDebug("User '" . $userName . "' not founded.");
+            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authentication-not-found', ['%username%' => $userName]));
         }
         return $this->username !== null;
     }
