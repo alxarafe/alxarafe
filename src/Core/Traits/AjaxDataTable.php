@@ -85,9 +85,10 @@ trait AjaxDataTable
             $id = $item[$this->model->getIdField()];
             $buttons = '<div class="btn-group" role="group">';
             foreach ($this->getActionButtons($id) as $actionButton) {
-                $buttons .= "<a class='{$actionButton['class']}' type='{$actionButton['type']}' href='{$actionButton['link']}' title='{$actionButton['text']}''>"
+                $text = Translator::getInstance()->trans($actionButton['text']);
+                $buttons .= "<a class='{$actionButton['class']}' type='{$actionButton['type']}' href='{$actionButton['link']}' title='{$text}''>"
                     . "{$actionButton['icon']}"
-                    . "<span class='hidden-xs hidden-sm hidden-md'>&nbsp;{$actionButton['text']}</span>"
+                    . "<span class='hidden-xs hidden-sm hidden-md'>&nbsp;{$text}</span>"
                     . "</a>";
             }
             $buttons .= '</div>';
@@ -154,7 +155,7 @@ trait AjaxDataTable
         $list['col-action'] = [
             'label' => Translator::getInstance()->trans('action'),
             'class' => 'text-center',
-            'style' => 'width: 1%; min-width: 200px; max-width: 225px;',
+            'style' => null,
         ];
 
         return $list;
@@ -182,12 +183,6 @@ trait AjaxDataTable
                 }
             }
         }
-        /*
-          // TODO: Actions maybe was better add here, but need more work to do that.
-          $list['col-action'] = [
-          'label' => null,
-          ];
-         */
         return $list;
     }
 
@@ -219,11 +214,6 @@ trait AjaxDataTable
                 ];
             }
         }
-        /*
-          $list['col-action'] = [
-          'label' => null,
-          ];
-         */
         return $list;
     }
 
@@ -233,21 +223,6 @@ trait AjaxDataTable
     public function getTableFooter()
     {
         $list = [];
-        /*
-          foreach ($this->viewData as $key => $value) {
-          $list[$key] = [
-          'label' => Translator::getInstance()->trans($value['shortlabel'] ?? 'col-' . $key),
-          'class' => null,
-          'style' => null,
-          ];
-          }
-
-          $list['col-action'] = [
-          'label' => Translator::getInstance()->trans('action'),
-          'class' => 'text-center',
-          'style' => 'width: 1%; min-width: 225px; max-width: 300px;',
-          ];
-         */
         return $list;
     }
 }

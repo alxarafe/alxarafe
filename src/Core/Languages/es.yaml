@@ -140,11 +140,13 @@ default-timezone: 'Zona horaria por defecto'
 delete: Eliminar
 description: Descripción
 dev-tools: 'Herramientas de desarrollo'
+disable: Desactivar
 edit: Editar
 edit-configuration: 'Editar configuración'
 edit-configuration-description: 'Desde aquí puedes editar los parámetros de configuración.'
 edit-my-data: 'Editar mis datos'
 email: Email
+enable: Activar
 enabled: Activado
 enter: Entrar
 exit: Salir

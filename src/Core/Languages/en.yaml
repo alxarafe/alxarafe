@@ -140,11 +140,13 @@ default-timezone: 'Default timezone'
 delete: Delete
 description: Description
 dev-tools: 'Development tools'
+disable: Disable
 edit: Edit
 edit-configuration: 'Edit configuration'
 edit-configuration-description: 'From here you can edit the configuration parameters.'
 edit-my-data: 'Edit my data'
 email: Email
+enable: Enable
 enabled: Enabled
 enter: Enter
 exit: Exit
