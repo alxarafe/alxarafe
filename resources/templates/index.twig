@@ -32,7 +32,7 @@
         {# start of getHeader #}
         {{ getHeader() | raw }}
         {# end of getHeader #}
-    {% block extraStylesheets %}{% endblock %}
+        {% block extraStylesheets %}{% endblock %}
     {% endblock %}
 </head>
 <body>
@@ -58,7 +58,9 @@
     {% if messages is not empty %}
         {% for pos, messageData in messages %}
             <div style="width: 100%" class="alert alert-{{ messageData.type }}">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <h4>{{ lang.trans('title-messages-' ~ messageData.type) }}</h4>
                 {{ messageData.msg | raw }}
             </div>
@@ -88,6 +90,12 @@
 {% block javascriptsFooter %}
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    {# Values to be available from external JavaScript files #}
+    <script type="text/javascript">
+        {% include 'js/common.js.twig' %}
+    </script>
+
     {% for js in jsCode %}
     <script type="text/javascript" src="{{ js }}"></script>
     {% endfor %}

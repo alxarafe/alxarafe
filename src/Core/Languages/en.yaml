@@ -91,6 +91,28 @@ controller-users-roles-description: 'Contains a relation of users and roles'
 controller-users-roles-title: 'Users roles'
 controller-users-title: Users
 database-engine: 'Database engine'
+dataTable-sProcessing: "Processing..."
+dataTable-sLengthMenu: "Show _MENU_ entries"
+dataTable-sZeroRecords: "No matching records found"
+dataTable-sEmptyTable: "No data available in table"
+dataTable-sInfo: "Showing _START_ to _END_ of _TOTAL_ entries"
+dataTable-sInfoEmpty: "Showing 0 to 0 of 0 entries"
+dataTable-sInfoFiltered: "(filtered from _MAX_ total entries)"
+dataTable-sInfoPostFix: ""
+dataTable-sSearch: "Search:"
+dataTable-sUrl: ""
+dataTable-sInfoThousands: ","
+dataTable-sLoadingRecords: "Loading..."
+dataTable-oPaginate-sFirst: "First"
+dataTable-oPaginate-sLast: "Last"
+dataTable-oPaginate-sNext: "Next"
+dataTable-oPaginate-sPrevious: "Previous"
+dataTable-oAria-sSortAscending: ": activate to sort column ascending"
+dataTable-oAria-sSortDescending: ": activate to sort column descending"
+dataTable-oButtons-sCopy: 'Copy'
+dataTable-oButtons-sCSV: 'CSV'
+dataTable-oButtons-sExcel: 'Excel'
+dataTable-oButtons-sPDF: 'PDF'
 dateFormat: 'Date format'
 datetimeFormat: 'Date time format'
 dbHost: 'Database host'

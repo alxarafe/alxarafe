@@ -95,17 +95,17 @@
 {% block extraJavascriptsFooter %}
     {{ parent() }}
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive-bs/js/responsive.bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/jszip/dist/jszip.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/pdfmake/build/pdfmake.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/pdfmake/build/vfs_fonts.js') }}"></script>
-
-    {# Additional for BS3 style #}
-    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js') }}"></script>
-    <script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-responsive-bs/js/responsive.bootstrap.min.js') }}"></script>
+    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    {# Additional for BS3 style #}<script type="text/javascript" src="{{ getResourceUri('/resources/skins/default/bower_modules/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ getResourceUri('/resources/common/js/common.js') }}"></script>
     <script type="text/javascript">

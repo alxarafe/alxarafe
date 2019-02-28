@@ -1,0 +1,60 @@
+{#
+ ~ Alxarafe. Development of PHP applications in a flash!
+ ~ Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+#}
+
+{# This file is a .twig file to be able to set data from controllers to JS #}
+
+var $ctrlUser = {% if ctrl.user %}'{{ ctrl.username }}'{% else %}null{% endif %};
+var $canAccess = {% if ctrl.user %}{{ ctrl.canAccess }}{% else %}false{% endif %};
+var $canCreate = {% if ctrl.user %}{{ ctrl.canCreate }}{% else %}false{% endif %};
+var $canRead = {% if ctrl.user %}{{ ctrl.canRead }}{% else %}false{% endif %};
+var $canUpdate = {% if ctrl.user %}{{ ctrl.canUpdate }}{% else %}false{% endif %};
+var $canDelete = {% if ctrl.user %}{{ ctrl.canDelete }}{% else %}false{% endif %};
+var $canPrint = {% if ctrl.user %}{{ ctrl.canPrint }}{% else %}false{% endif %};
+var $canExport = {% if ctrl.user %}{{ ctrl.canExport }}{% else %}false{% endif %};
+var $canSendMail = {% if ctrl.user %}{{ ctrl.canSendMail }}{% else %}false{% endif %};
+var $debug = {{ constant('DEBUG') }};
+{# More origiunal languages can be found: https://datatables.net/plug-ins/i18n/ #}
+var $dataTableLanguage = {
+    "sProcessing": '{{ lang.trans('dataTable-sProcessing') }}',
+    "sLengthMenu": '{{ lang.trans('dataTable-sLengthMenu') }}',
+    "sZeroRecords": '{{ lang.trans('dataTable-sZeroRecords') }}',
+    "sEmptyTable": '{{ lang.trans('dataTable-sEmptyTable') }}',
+    "sInfo": '{{ lang.trans('dataTable-sInfo') }}',
+    "sInfoEmpty": '{{ lang.trans('dataTable-sInfoEmpty') }}',
+    "sInfoFiltered": '{{ lang.trans('dataTable-sInfoFiltered') }}',
+    "sInfoPostFix": '{{ lang.trans('dataTable-sInfoPostFix') }}',
+    "sSearch": '{{ lang.trans('dataTable-sSearch') }}',
+    "sUrl": '{{ lang.trans('dataTable-sUrl') }}',
+    "sInfoThousands": '{{ lang.trans('dataTable-sInfoThousands') }}',
+    "sLoadingRecords": '{{ lang.trans('dataTable-sLoadingRecords') }}',
+    "oPaginate": {
+        "sFirst": '{{ lang.trans('dataTable-oPaginate-sFirst') }}',
+        "sLast": '{{ lang.trans('dataTable-oPaginate-sLast') }}',
+        "sNext": '{{ lang.trans('dataTable-oPaginate-sNext') }}',
+        "sPrevious": '{{ lang.trans('dataTable-oPaginate-sPrevious') }}'
+    },
+    "oAria": {
+        "sSortAscending": '{{ lang.trans('dataTable-oAria-sSortAscending') }}',
+        "sSortDescending": '{{ lang.trans('dataTable-oAria-sSortDescending') }}'
+    },
+    "oButtons": {
+        "sShow": '{{ lang.trans('show') }}',
+        "sEdit": '{{ lang.trans('edit') }}',
+        "sDelete": '{{ lang.trans('delete') }}'
+    }
+};
+
+var $dataTableButtons = {
+    "buttons": {
+        "copy": '{{ lang.trans('dataTable-oButtons-sCopy') }}',
+            "csv": '{{ lang.trans('dataTable-oButtons-sCSV') }}',
+            "excel": '{{ lang.trans('dataTable-oButtons-sExcel') }}',
+            "pdf": '{{ lang.trans('dataTable-oButtons-sPDF') }}'
+    }
+};
+
+if ($canExport) {
+    $dataTableLanguage = Object.assign({}, $dataTableLanguage, $dataTableButtons)
+}
