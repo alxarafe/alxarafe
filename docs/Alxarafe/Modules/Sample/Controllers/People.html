@@ -703,6 +703,16 @@ of the skin folder). It's a specific file.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getActionButtons">getActionButtons</a>(string $id = &#039;&#039;)
+        
+                                            <p>Returns a list of actions buttons. By default returns Read/Update/Delete actions.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getActionButtons"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
                 </div>
                 <div class="col-md-8 type">
@@ -871,16 +881,6 @@ of the skin folder). It's a specific file.</p>                </div>
                                             <p>Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
 falten con los datos por defecto.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_setDefaults"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    array
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getActionButtons">getActionButtons</a>(string $id = &#039;&#039;)
-        
-                                            <p>Returns a list of actions buttons. By default returns Read/Update/Delete actions.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getActionButtons"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
             </div>
             </div>
 
@@ -1753,8 +1753,48 @@ js folders of the templates folder). It's a common file.</p>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getActionButtons">
+        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getActionButtons"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 138</div>
+        <code>    abstract                array
+    <strong>getActionButtons</strong>(string $id = &#039;&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of actions buttons. By default returns Read/Update/Delete actions.</p>                    <p>If some needs to be replace, replace it on final class.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$id</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getTableHeader">
-        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getTableHeader"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 133</div>
+        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getTableHeader"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 143</div>
         <code>                    
     <strong>getTableHeader</strong>()
         </code>
@@ -1775,7 +1815,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableBody">
-        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getTableBody"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 156</div>
+        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getTableBody"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 166</div>
         <code>                    
     <strong>getTableBody</strong>()
         </code>
@@ -1796,7 +1836,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getListFields">
-        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getListFields"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 187</div>
+        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getListFields"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 197</div>
         <code>                    
     <strong>getListFields</strong>()
         </code>
@@ -1817,7 +1857,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTableFooter">
-        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getTableFooter"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 223</div>
+        <div class="location">in <a href="../../../../Alxarafe/Traits/AjaxDataTable.html#method_getTableFooter"><abbr title="Alxarafe\Traits\AjaxDataTable">AjaxDataTable</abbr></a> at         line 233</div>
         <code>                    
     <strong>getTableFooter</strong>()
         </code>
@@ -2201,46 +2241,6 @@ falten con los datos por defecto.</p>                                           
                     <tr>
                 <td>array</td>
                 <td>$record</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getActionButtons">
-        <div class="location">in <a href="../../../../Alxarafe/Base/AuthPageExtendedController.html#method_getActionButtons"><abbr title="Alxarafe\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 416</div>
-        <code>                    array
-    <strong>getActionButtons</strong>(string $id = &#039;&#039;)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns a list of actions buttons. By default returns Read/Update/Delete actions.</p>                    <p>If some needs to be replace, replace it on final class.</p>                            </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$id</td>
                 <td></td>
             </tr>
             </table>
