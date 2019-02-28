@@ -244,7 +244,7 @@ class Modules extends AuthPageExtendedController
      *
      * @return array
      */
-    public function getActionButtons($id = '')
+    public function getActionButtons(string $id = '')
     {
         $actionButtons = [];
         $actionButtons['enable'] = [

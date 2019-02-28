@@ -128,6 +128,16 @@ trait AjaxDataTable
     abstract public function sendResponse(string $reply, $status = Response::HTTP_OK): Response;
 
     /**
+     * Returns a list of actions buttons. By default returns Read/Update/Delete actions.
+     * If some needs to be replace, replace it on final class.
+     *
+     * @param string $id
+     *
+     * @return array
+     */
+    abstract public function getActionButtons(string $id = '');
+
+    /**
      * Returns the header for table.
      */
     public function getTableHeader()

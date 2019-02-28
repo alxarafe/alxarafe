@@ -413,7 +413,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      *
      * @return array
      */
-    public function getActionButtons($id = '')
+    public function getActionButtons(string $id = '')
     {
         $actionButtons = [];
         if ($this->canRead) {
