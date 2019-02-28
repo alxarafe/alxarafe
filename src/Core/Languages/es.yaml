@@ -116,6 +116,7 @@ enabled: Activado
 enter: Entrar
 exit: Salir
 export-all: 'Exportar todo'
+export-data: 'Exportar datos'
 export-db-estructure: 'Exportar estructura de la base de datos'
 export-db-estructure-description: 'Permite exportar la estructura de la base de datos en archivos YAML.'
 export-selected: 'Exportar seleccionado'
