@@ -8,6 +8,5 @@
 .github
 .gitconfig
 .DS_Store
-.htaccess
 .vscode
 *.lock

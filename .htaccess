@@ -1,0 +1,21 @@
+# BEGIN Alxarafe
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+<IfModule mod_expires.c>
+   ExpiresActive On
+   ExpiresDefault                           "access plus 1 week"
+   ExpiresByType text/css                   "access plus 1 week"
+   ExpiresByType application/javascript     "access plus 1 week"
+   ExpiresByType text/javascript            "access plus 1 week"
+   <FilesMatch "\.(php|cgi)$">
+      ExpiresActive Off
+   </FilesMatch>
+</IfModule>
+# END Alxarafe

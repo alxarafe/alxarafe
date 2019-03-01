@@ -10,7 +10,7 @@ use Alxarafe\Helpers\Schema;
 use Alxarafe\Providers\Database;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Translator;
-use Alxarafe\Traits\AjaxDataTable;
+use Alxarafe\Traits\AjaxDataTableTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,7 +26,7 @@ define('IDSEPARATOR', '~');
  */
 abstract class AuthPageExtendedController extends AuthPageController
 {
-    use AjaxDataTable;
+    use AjaxDataTableTrait;
 
     /**
      * Contains all data received from $_POST.
