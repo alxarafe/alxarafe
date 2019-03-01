@@ -7,6 +7,5 @@
 /libraries_/
 .gitconfig
 .DS_Store
-.htaccess
 .vscode
 *.lock
