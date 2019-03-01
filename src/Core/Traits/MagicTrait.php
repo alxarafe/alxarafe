@@ -6,6 +6,8 @@
 
 namespace Alxarafe\Traits;
 
+use Exception;
+
 /**
  * Trait MagicTrait. Contains magic methods: setter, getter, isset, call and has
  * To reduce code on pure PHP classes with good practices and recomendations.
@@ -64,7 +66,8 @@ trait MagicTrait
      * @param string $method
      * @param array  $params
      *
-     * @return mixed
+     * @return $this|bool|mixed|string|null
+     * @throws Exception
      */
     public function __call(string $method, array $params)
     {
@@ -74,15 +77,13 @@ trait MagicTrait
         switch ($prefix) {
             case 'get':
                 return $this->{$key} ?? 'N/A';
-                break;
             case 'set':
                 $this->{$key} = $params[0];
-                break;
+                return $this;
             case 'has':
                 return property_exists($this, $key);
-                break;
             default:
-                throwException('Prefix ' . $prefix . ' not yet supported on ' . __CLASS__ . '.');
+                throw new Exception('Prefix ' . $prefix . ' not yet supported on ' . __CLASS__ . '.');
                 break;
         }
     }
