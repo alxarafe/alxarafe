@@ -14,7 +14,7 @@
     <div class="container-fluid">
     {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
 </div>
-    <div class="container-fluid">
+<div class="container-fluid">
         {% set redirectUrl = '' %}
         {% if ctrl.redirectUrl is not empty %}
             {% set redirectUrl = '&redirectUrl=' ~ ctrl.redirectUrl %}

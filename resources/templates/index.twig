@@ -40,9 +40,9 @@
 {% block menu %}{% include 'master/menu.twig' %}{% endblock %}
 
 <div class="container-fluid" id="titlecontent" name="titlecontent">
-    {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
+{% block errors %}{% include 'master/errors.twig' %}{% endblock %}
 
-    {% block bodytitle %}
+{% block bodytitle %}
         {% if ctrl.title is not empty %}
             <h3>{{ lang.trans(ctrl.title) }}</h3>
         {% endif %}

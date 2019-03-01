@@ -5,6 +5,7 @@
 /cache/
 /resources/skins/default/bower_modules/
 /libraries_/
+.github
 .gitconfig
 .DS_Store
 .htaccess

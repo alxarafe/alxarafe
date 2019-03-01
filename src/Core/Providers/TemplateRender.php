@@ -24,10 +24,24 @@ class TemplateRender
     }
 
     /**
-     * Default: It is the folder that includes the templates.
-     * Each template will be a folder whose name will be the one that will appear in the template selector.
+     * Folder containing the skins.
+     * Each subfolder is a skin (configuration that modifies the visual aspect
+     * of the application)
+     * Each template will be a folder whose name will be the one that will
+     * appear in the template selector.
      */
-    const SKINS_FOLDER = "/resources/skins";
+    const SKINS_FOLDER = '/resources/skins';
+
+    /**
+     * Folder containing the different twig templates
+     */
+    const TEMPLATES_FOLDER = '/resources/templates';
+
+    /**
+     * Folder that contains templates common to the entire application, but
+     * that can be overwritten.
+     */
+    const COMMON_TEMPLATES_FOLDER = '/resources/common';
 
     /**
      * The renderer.
@@ -111,7 +125,7 @@ class TemplateRender
      */
     public function getTemplatesFolder(): string
     {
-        return basePath('resources/templates');
+        return basePath(self::TEMPLATES_FOLDER);
     }
 
     /**
@@ -143,7 +157,7 @@ class TemplateRender
      */
     public function getCommonTemplatesFolder(): string
     {
-        return basePath(self::$commonTemplatesFolder);
+        return basePath(self::COMMON_TEMPLATES_FOLDER);
     }
 
     /**
@@ -189,16 +203,6 @@ class TemplateRender
     public static function getInstance(): self
     {
         return self::getInstanceTrait();
-    }
-
-    /**
-     * Sets the common templates folder.
-     *
-     * @param string $templatesFolder
-     */
-    public function setCommonTemplatesFolder(string $templatesFolder): void
-    {
-        self::$commonTemplatesFolder = $templatesFolder;
     }
 
     /**
@@ -392,7 +396,7 @@ class TemplateRender
      */
     public function getTemplatesUri(): string
     {
-        return baseUrl('resources/templates');
+        return baseUrl(self::TEMPLATES_FOLDER);
     }
 
     /**
@@ -402,6 +406,6 @@ class TemplateRender
      */
     public function getCommonTemplatesUri(): string
     {
-        return baseUrl(self::$commonTemplatesFolder);
+        return baseUrl(self::COMMON_TEMPLATES_FOLDER);
     }
 }

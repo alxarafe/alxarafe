@@ -3,5 +3,6 @@
  ~ Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
 #}
 {% for error in errors %}
-    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% include ctrl.getComponent('Alert') with {'message': error} %}
+<!-- <div class="alert alert-danger" role="alert">{{ error }}</div> -->
 {% endfor %}
