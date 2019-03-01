@@ -182,9 +182,7 @@ class Modules extends AuthPageExtendedController
         $id = filter_input(INPUT_GET, $this->model->getIdField(), FILTER_SANITIZE_STRING);
         FlashMessages::getInstance()::setInfo('enable-module ' . $id);
 
-        $this->renderer->setTemplate('master/list');
-
-        return $this->indexMethod();
+        return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
 
     /**
@@ -196,11 +194,9 @@ class Modules extends AuthPageExtendedController
     {
         // TODO: Implement disableMethod() method.
         $id = filter_input(INPUT_GET, $this->model->getIdField(), FILTER_SANITIZE_STRING);
-        FlashMessages::getInstance()::setInfo('disable-module' . $id);
+        FlashMessages::getInstance()::setInfo('disable-module ' . $id);
 
-        $this->renderer->setTemplate('master/list');
-
-        return $this->indexMethod();
+        return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
 
     /**.

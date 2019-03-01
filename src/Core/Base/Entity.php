@@ -178,19 +178,20 @@ abstract class Entity
      */
     public function __call(string $method, array $params)
     {
-        $command = substr($method, 0, 3); // set o get
-        $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
         if (method_exists($this, $method)) {
             return $this->{$method}($params);
         }
-        switch ($command) {
+        preg_match('/^(get|set)(.*?)$/i', $method, $matches);
+        $prefix = $matches[1] ?? '';
+        $field = Utils::camelToSnake($matches[2]) ?? '';
+        switch ($prefix) {
             case 'set':
                 $this->newData[$field] = $params[0] ?? '';
                 return $this;
             case 'get':
                 return $this->newData[$field] ?? null;
             default:
-                Kint::dump("Review $method in " . $this->shortName . ". Error collecting the '$command/$field' attribute", $params, true);
+                Kint::dump("Review $method in " . $this->shortName . ". Error collecting the '$prefix/$field' attribute", $params, true);
                 throw new Exception('Program halted!');
         }
     }
@@ -206,10 +207,6 @@ abstract class Entity
      */
     public function __get(string $propertyName)
     {
-        if (property_exists($this, $propertyName)) {
-            return $this->{$propertyName};
-        }
-
         return $this->newData[$propertyName] ?? '';
     }
 
@@ -226,10 +223,9 @@ abstract class Entity
      */
     public function __set(string $propertyName, $propertyValue)
     {
+        $this->newData[$propertyName] = $propertyValue;
         if (property_exists($this, $propertyName)) {
             $this->{$propertyName} = $propertyValue;
-        } else {
-            $this->newData[$propertyName] = $propertyValue;
         }
         return $this;
     }
