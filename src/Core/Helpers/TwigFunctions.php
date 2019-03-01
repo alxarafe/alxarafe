@@ -71,6 +71,7 @@ class TwigFunctions extends AbstractExtension
             new TwigFunction('getHeader', [$this, 'getHeader']),
             new TwigFunction('getFooter', [$this, 'getFooter']),
             new TwigFunction('getTotalTime', [$this, 'getTotalTime']),
+            new TwigFunction('renderComponent', [$this, 'renderComponent']),
         ];
     }
 
@@ -174,5 +175,21 @@ class TwigFunctions extends AbstractExtension
     public function getFooter(): string
     {
         return $this->debugTool->getRenderFooter();
+    }
+
+    /**
+     * Renders the component with shared data.
+     *
+     * @param string $templatePath
+     * @param array  $data
+     *
+     * @return string
+     */
+    public function renderComponent(string $templatePath, array $data): string
+    {
+        // We need a new instance, and not the same to render the controller
+        $renderer = new TemplateRender();
+        $renderer->setTemplate($templatePath);
+        return $renderer->render(['data' => $data]);
     }
 }

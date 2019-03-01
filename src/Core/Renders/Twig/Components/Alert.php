@@ -6,13 +6,34 @@
 
 namespace Alxarafe\Renders\Twig\Components;
 
-use Alxarafe\Renders\Twig\Components\AbstractComponent;
-
 /**
  * Class Alert component
  *
- * @package Alxarafe
+ * @package Alxarafe\Renders\Twig\Components
  */
 class Alert extends AbstractComponent
 {
+    /**
+     * Contains if component is dismissible.
+     *
+     * @var bool
+     */
+    public $dismissible;
+
+    /**
+     * Contains the text message for this component.
+     *
+     * @var string
+     */
+    public $message;
+
+    /**
+     * Return the template path to render this component.
+     *
+     * @return string
+     */
+    public function getTemplatePath(): string
+    {
+        return 'components/alert';
+    }
 }
