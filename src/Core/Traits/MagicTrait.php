@@ -70,11 +70,10 @@ trait MagicTrait
     {
         preg_match('/^(get|set)(.*?)$/i', $method, $matches);
         $prefix = $matches[1] ?? '';
-        $key = $matches[2] ?? '';
-        $key = lcfirst($key);
+        $key = lcfirst($matches[2]) ?? '';
         switch ($prefix) {
             case 'get':
-                return $this->{$key} ?? '---';
+                return $this->{$key} ?? 'N/A';
                 break;
             case 'set':
                 $this->{$key} = $params[0];
