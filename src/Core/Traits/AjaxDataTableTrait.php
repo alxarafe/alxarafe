@@ -27,38 +27,13 @@ trait AjaxDataTableTrait
         $this->initialize();
         $this->renderer->setTemplate(null);
         // To access more easy to all values
-        $requestData = $_REQUEST;
+        $requestData = $this->request->request->all();
         $recordsTotal = 0;
         $recordsFiltered = 0;
         $data = [];
 
         if ($this->canAccess && $this->canRead) {
-            // Page to start
-            $offset = $requestData['start'];
-            // Columns used un table by order
-            $columns = $this->getDefaultColumnsSearch();
-            // Remove this extra column for search (not in table)
-            if (in_array('col-action', $columns)) {
-                unset($columns[array_search('col-action', $columns)]);
-            }
-            // Order
-            $order = '';
-            if (isset($columns[$requestData['order'][0]['column']])) {
-                $order = $columns[$requestData['order'][0]['column']] . " " . $requestData['order'][0]['dir'];
-            }
-            // Default data
-            $recordsTotal = $this->model->countAllRecords();
-            // All registers in the actual page
-            $recordsFiltered = $recordsTotal;
-            if (!empty($requestData['search']['value'])) {
-                // Data for this search
-                $search = $requestData['search']['value'];
-                $data = $this->model->search($search, $columns, $offset, $order);
-                $recordsFiltered = $this->model->searchCount($search, $columns);
-            } else {
-                $search = '';
-                $data = $this->model->search($search, $columns, $offset, $order);
-            }
+            $this->searchData($data, $recordsFiltered, $requestData);
         }
 
         $this->fillActions($data);
@@ -75,7 +50,66 @@ trait AjaxDataTableTrait
     }
 
     /**
-     * Fill col-action data.
+     * Initialize common properties
+     */
+    abstract public function initialize();
+
+    /**
+     * Realize the search to database table.
+     *
+     * @param array $data
+     * @param int   $recordsFiltered
+     * @param array $requestData
+     */
+    private function searchData(array &$data, int &$recordsFiltered, array $requestData = [])
+    {
+        // Page to start
+        $offset = $requestData['start'];
+        // Columns used un table by order
+        $columns = $this->getDefaultColumnsSearch();
+        // Remove this extra column for search (not in table)
+        if (in_array('col-action', $columns)) {
+            unset($columns[array_search('col-action', $columns)]);
+        }
+        // Order
+        $order = '';
+        if (isset($columns[$requestData['order'][0]['column']])) {
+            $order = $columns[$requestData['order'][0]['column']] . " " . $requestData['order'][0]['dir'];
+        }
+        // Default data
+        $recordsTotal = $this->model->countAllRecords();
+        // All registers in the actual page
+        $recordsFiltered = $recordsTotal;
+        if (!empty($requestData['search']['value'])) {
+            // Data for this search
+            $search = $requestData['search']['value'];
+            $data = $this->model->search($search, $columns, $offset, $order);
+            $recordsFiltered = $this->model->searchCount($search, $columns);
+        } else {
+            $search = '';
+            $data = $this->model->search($search, $columns, $offset, $order);
+        }
+    }
+
+    /**
+     * Return a default list of col.
+     *
+     * @return array
+     */
+    public function getDefaultColumnsSearch(): array
+    {
+        $list = [];
+        $i = 0;
+        foreach ($this->viewData as $key => $value) {
+            $list[$i] = $key;
+            $i++;
+        }
+        $list[$i] = 'col-action';
+        return $list;
+    }
+
+    /**
+     * Fill 'col-action' fields with action buttons.
      *
      * @param $data
      */
@@ -97,26 +131,14 @@ trait AjaxDataTableTrait
     }
 
     /**
-     * Initialize common properties
-     */
-    abstract public function initialize();
-
-    /**
-     * Return a default list of col.
+     * Returns a list of actions buttons. By default returns Read/Update/Delete actions.
+     * If some needs to be replace, replace it on final class.
+     *
+     * @param string $id
      *
      * @return array
      */
-    public function getDefaultColumnsSearch(): array
-    {
-        $list = [];
-        $i = 0;
-        foreach ($this->viewData as $key => $value) {
-            $list[$i] = $key;
-            $i++;
-        }
-        $list[$i] = 'col-action';
-        return $list;
-    }
+    abstract public function getActionButtons(string $id = '');
 
     /**
      * Send the Response with data received.
@@ -127,16 +149,6 @@ trait AjaxDataTableTrait
      * @return Response
      */
     abstract public function sendResponse(string $reply, $status = Response::HTTP_OK): Response;
-
-    /**
-     * Returns a list of actions buttons. By default returns Read/Update/Delete actions.
-     * If some needs to be replace, replace it on final class.
-     *
-     * @param string $id
-     *
-     * @return array
-     */
-    abstract public function getActionButtons(string $id = '');
 
     /**
      * Returns the header for table.
