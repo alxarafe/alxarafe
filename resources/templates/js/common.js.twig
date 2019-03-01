@@ -86,7 +86,7 @@ function newDataTable(name, origData) {
         pagingType: "full_numbers",
         processing: true,
         serverSide: true,
-        //deferRender: true,    // Only for large data sources
+        deferRender: true,
         ajax: {
             method: "POST",
             url: url,
@@ -106,48 +106,63 @@ function newDataTable(name, origData) {
         language: $dataTableLanguage
     };
 
-    $optsButtons = {
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'copyHtml5',
-                text: '<i class="far fa-copy"></i>'
-            },
-            {
-                extend: 'csvHtml5',
-                text: '<i class="fa fa-table"></i>'
-            },
-            {
-                extend: 'excelHtml5',
-                text: '<i class="far fa-file-excel"></i>'
-            },
-            {
-                extend: 'pdfHtml5',
-                text: '<i class="far fa-file-pdf"></i>'
-            },
-            {#{
-                extend: 'print',
-                text: '<i class="fas fa-print"></i>',
-                autoPrint: true
-            },#}
-            {
-                extend: 'colvis',
-                text: '<i class="fas fa-columns"></i>'
-            },
-            {
-                extend: 'colvisRestore',
-                text: '<i class="far fa-window-restore"></i>'
-            }
-        ]
-    };
+    var table = $('#' + name).DataTable($opts);
 
     if ($canExport) {
-        $opts = Object.assign({}, $opts, $optsButtons)
+        $optsButtons = {
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="far fa-copy"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sCopy') }}'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fa fa-table"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sCSV') }}'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="far fa-file-excel"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sExcel') }}'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="far fa-file-pdf"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sPDF') }}'
+                },
+                {
+                    extend: 'colvis',
+                    text: '<i class="fas fa-columns"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvis') }}'
+                },
+                {
+                    extend: 'colvisRestore',
+                    text: '<i class="far fa-window-restore"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvisRestore') }}'
+                }
+            ]
+        };
+    } else {
+        $optsButtons = {
+            buttons: [
+                {
+                    extend: 'colvis',
+                    text: '<i class="fas fa-columns"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvis') }}'
+                },
+                {
+                    extend: 'colvisRestore',
+                    text: '<i class="far fa-window-restore"></i>',
+                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvisRestore') }}'
+                }
+            ]
+        };
     }
 
-    var table = $('#' + name).DataTable($opts);
+    new $.fn.dataTable.Buttons(table, $optsButtons);
+
     table.buttons().container().appendTo('#' + name + '_wrapper .col-sm-6:eq(0)');
-    //table.buttons().container().appendTo($('#' + name + '_wrapper .col-sm-6:eq(0)', table.table().container()));
 }
 
 /**
