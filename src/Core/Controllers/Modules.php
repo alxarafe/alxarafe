@@ -251,14 +251,14 @@ class Modules extends AuthPageExtendedController
             'class' => 'btn btn-success btn-sm',
             'type' => 'button',
             'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=enable&id=' . $id,
-            'icon' => '<i class="fas fa-check"></i>',
+            'icon' => '<i class="far fa-check-square"></i>',
             'text' => $this->translator->trans('enable'),
         ];
         $actionButtons['disable'] = [
             'class' => 'btn btn-warning btn-sm',
             'type' => 'button',
             'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=disable&id=' . $id,
-            'icon' => '<i class="far fa-trash-alt"></i>',
+            'icon' => '<i class="far fa-square"></i>',
             'text' => $this->translator->trans('disable'),
         ];
 
