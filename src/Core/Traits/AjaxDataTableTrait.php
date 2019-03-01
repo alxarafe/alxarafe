@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Alxarafe\Traits
  */
-trait AjaxDataTable
+trait AjaxDataTableTrait
 {
 
     /**
