@@ -223,52 +223,6 @@ abstract class Controller
     }
 
     /**
-     * Return the html for rendering the component
-     * 
-     * @param string $componentName
-     * @param array $parameters
-     * @return string
-     */
-    public function getComponent(string $componentName): string
-    {
-        // TODO: Definir las rutas reales y en orden, y eliminar esta constante.
-        $component = BASE_PATH . '/src/Core/Renders/Twig/Components/' . $componentName . '.php';
-        if (!file_exists($component)) {
-            return '<p>No class found for controller ' . $componentName . '! Route: ' . $component . '</p>';
-        }
-        $template = Utils::camelToSnake($componentName) . '.html.twig';
-        return 'components/' . $template;
-
-        $paths = [
-            constant('BASE_URI') . '/resources/components/' . $templateName,
-        ];
-
-        foreach ($paths as $fullPath) {
-            if (file_exists($fullPath)) {
-                $component = new PATH($parameters);
-                return $component->toHtml();
-                ;
-            }
-        }
-        return '<p>No template found for controller ' . $templateName . '!</p>';
-
-        echo "<hr><hr><hr><hr><p>$componentName</p>";
-        if ($relative) {
-            $uri = $this->renderer->getComponent($componentName . '.php');
-            if ($uri !== '') {
-                return $uri;
-            }
-            $this->debugTool->addMessage('messages', "Relative component '$componentName' not found!");
-        }
-        if (!file_exists($componentName)) {
-            $this->debugTool->addMessage('messages', "Absolute component '$componentName' not found!");
-            $this->debugTool->addMessage('messages', "File '$componentName' not found!");
-            return '';
-        }
-        return $componentName;
-    }
-
-    /**
      * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
      *
      * @return void

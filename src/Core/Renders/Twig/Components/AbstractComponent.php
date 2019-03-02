@@ -7,6 +7,7 @@
 namespace Alxarafe\Renders\Twig\Components;
 
 use Alxarafe\Helpers\TwigFunctions;
+use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Traits\MagicTrait;
 
 /**
@@ -40,6 +41,13 @@ abstract class AbstractComponent
     public $class;
 
     /**
+     * Class style for the component.
+     *
+     * @var string
+     */
+    public $style;
+
+    /**
      * AbstractComponent constructor.
      *
      * @param $parameters
@@ -47,9 +55,10 @@ abstract class AbstractComponent
     public function __construct($parameters)
     {
         foreach ($parameters as $property => $value) {
-            // Only assign defined properties
-            if (property_exists($this, $property)) {
-                $this->{$property} = $value;
+            $this->{$property} = $value;
+            //TODO: Ensure this message is visible when is not a defined property
+            if (!property_exists($this, $property)) {
+                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
             }
         }
     }
