@@ -125,6 +125,7 @@ class TemplateRender
      */
     public function getTemplatesFolder(): string
     {
+        return basePath(self::$templatesFolder);
         return basePath(self::TEMPLATES_FOLDER);
     }
 
@@ -348,6 +349,7 @@ class TemplateRender
     public function setSkin(string $skin)
     {
         if ($skin != self::$currentSkin) {
+            DebugTool::getInstance()->addMessage('messages', 'Estableciendo skin ' . $skin);
             self::$currentSkin = $skin;
             $this->setTemplatesFolder($skin);
         }
@@ -360,7 +362,7 @@ class TemplateRender
      */
     public function setTemplatesFolder(string $template)
     {
-        self::$templatesFolder = basePath(self::SKINS_FOLDER) . '/' . trim($template, '/');
+        self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
     }
 
     /**
@@ -396,6 +398,7 @@ class TemplateRender
      */
     public function getTemplatesUri(): string
     {
+        return baseUrl(self::$templatesFolder);
         return baseUrl(self::TEMPLATES_FOLDER);
     }
 

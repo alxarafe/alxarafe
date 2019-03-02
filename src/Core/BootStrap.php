@@ -199,6 +199,7 @@ class BootStrap
             $this->cacheEngine = CacheCore::getInstance()->getEngine();
             $this->database = Database::getInstance();
             $this->renderer = TemplateRender::getInstance();
+            $this->renderer->setSkin($this->configData['templaterender']['main']['skin'] ?? 'default');
             FormatUtils::loadConfig();
         }
     }
