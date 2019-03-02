@@ -1,5 +1,5 @@
 {#
-    @file well.twig
+    @file well.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Well component.
@@ -10,7 +10,7 @@
     @var message:     Your text message
 
     How to use it:
-        {% include "Components/BS3/well.twig" with {id:'myWellId', name:'myWellName', class: 'well-lg', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'} %}
+        {% include "components/well.html.twig" with {data:{id:'myWellId', name:'myWellName', class: 'well-lg', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
 #}
 
 <div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

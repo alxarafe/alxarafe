@@ -1,5 +1,5 @@
 {#
-    @file breadcrumb.twig
+    @file breadcrumb.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Breadcrumb component.
@@ -13,21 +13,21 @@
     WARNING: Length of arrays (must be the same)
 
     How to use it:
-        {% include "Components/BS3/breadcrumb.twig" with {id:'myBreadcrumbId', name:'myBreadcrumbName', texts: texts, links: links, classes: classes, length: length} %}
+        {% include "components/breadcrumb.html.twig" with {data:{id:'myBreadcrumbId', name:'myBreadcrumbName', texts: texts, links: links, classes: classes, length: length}} %}
 #}
 
 <nav aria-label="breadcrumb">
-    <ol{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+    <ol{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
             class="breadcrumb">
-        {% for i in texts %}
-            <li{% if classes[loop.index0] is defined and classes[loop.index0]=='active' %} class="{{ classes[loop.index0] }}"{% endif %}>
-                {% if links[loop.index0] is defined and links[loop.index0]!=null %}
-                    <a href="{{ links[loop.index0] }}">
+        {% for i in data.texts %}
+            <li{% if data.classes[loop.index0] is defined and data.classes[loop.index0]=='active' %} class="{{ data.classes[loop.index0] }}"{% endif %}>
+                {% if data.links[loop.index0] is defined and data.links[loop.index0]!=null %}
+                    <a href="{{ data.links[loop.index0] }}">
                 {% endif %}
-                {% if texts[loop.index0] is defined %}
-                    {{ texts[loop.index0] | raw }}
+                {% if data.texts[loop.index0] is defined %}
+                    {{ data.texts[loop.index0] | raw }}
                 {% endif %}
-                {% if links[loop.index0] is defined and links[loop.index0]!=null %}
+                {% if data.links[loop.index0] is defined and data.links[loop.index0]!=null %}
                     </a>
                 {% endif %}
             </li>

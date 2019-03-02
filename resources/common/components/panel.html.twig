@@ -1,5 +1,5 @@
 {#
-    @file panel.twig
+    @file panel.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Panel component.
@@ -13,7 +13,7 @@
     @var footer_text: Your text footer
 
     How to use it:
-        {% include "Components/BS3/panel.twig" with {id:'myPanelId1', name:'myPanelName1', class:'panel-default', header: 'h2', header_text: 'Title', body_text: 'Body', footer_text: 'Footer'} %}
+        {% include "components/panel.html.twig" with {data:{id:'myPanelId1', name:'myPanelName1', class:'panel-default', header: 'h2', header_text: 'Title', body_text: 'Body', footer_text: 'Footer'}} %}
 #}
 
 <div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

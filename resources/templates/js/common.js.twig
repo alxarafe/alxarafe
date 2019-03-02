@@ -17,43 +17,43 @@ var $canSendMail = {% if ctrl.user %}{{ ctrl.canSendMail }}{% else %}false{% end
 var $debug = {{ constant('DEBUG') }};
 {# More origiunal languages can be found: https://datatables.net/plug-ins/i18n/ #}
 var $dataTableLanguage = {
-    "sProcessing": '{{ lang.trans('dataTable-sProcessing') }}',
-    "sLengthMenu": '{{ lang.trans('dataTable-sLengthMenu') }}',
-    "sZeroRecords": '{{ lang.trans('dataTable-sZeroRecords') }}',
-    "sEmptyTable": '{{ lang.trans('dataTable-sEmptyTable') }}',
-    "sInfo": '{{ lang.trans('dataTable-sInfo') }}',
-    "sInfoEmpty": '{{ lang.trans('dataTable-sInfoEmpty') }}',
-    "sInfoFiltered": '{{ lang.trans('dataTable-sInfoFiltered') }}',
-    "sInfoPostFix": '{{ lang.trans('dataTable-sInfoPostFix') }}',
-    "sSearch": '{{ lang.trans('dataTable-sSearch') }}',
-    "sUrl": '{{ lang.trans('dataTable-sUrl') }}',
-    "sInfoThousands": '{{ lang.trans('dataTable-sInfoThousands') }}',
-    "sLoadingRecords": '{{ lang.trans('dataTable-sLoadingRecords') }}',
+    "sProcessing": '{{ trans('dataTable-sProcessing') }}',
+    "sLengthMenu": '{{ trans('dataTable-sLengthMenu') }}',
+    "sZeroRecords": '{{ trans('dataTable-sZeroRecords') }}',
+    "sEmptyTable": '{{ trans('dataTable-sEmptyTable') }}',
+    "sInfo": '{{ trans('dataTable-sInfo') }}',
+    "sInfoEmpty": '{{ trans('dataTable-sInfoEmpty') }}',
+    "sInfoFiltered": '{{ trans('dataTable-sInfoFiltered') }}',
+    "sInfoPostFix": '{{ trans('dataTable-sInfoPostFix') }}',
+    "sSearch": '{{ trans('dataTable-sSearch') }}',
+    "sUrl": '{{ trans('dataTable-sUrl') }}',
+    "sInfoThousands": '{{ trans('dataTable-sInfoThousands') }}',
+    "sLoadingRecords": '{{ trans('dataTable-sLoadingRecords') }}',
     "oPaginate": {
-        "sFirst": '{{ lang.trans('dataTable-oPaginate-sFirst') }}',
-        "sLast": '{{ lang.trans('dataTable-oPaginate-sLast') }}',
-        "sNext": '{{ lang.trans('dataTable-oPaginate-sNext') }}',
-        "sPrevious": '{{ lang.trans('dataTable-oPaginate-sPrevious') }}'
+        "sFirst": '{{ trans('dataTable-oPaginate-sFirst') }}',
+        "sLast": '{{ trans('dataTable-oPaginate-sLast') }}',
+        "sNext": '{{ trans('dataTable-oPaginate-sNext') }}',
+        "sPrevious": '{{ trans('dataTable-oPaginate-sPrevious') }}'
     },
     "oAria": {
-        "sSortAscending": '{{ lang.trans('dataTable-oAria-sSortAscending') }}',
-        "sSortDescending": '{{ lang.trans('dataTable-oAria-sSortDescending') }}'
+        "sSortAscending": '{{ trans('dataTable-oAria-sSortAscending') }}',
+        "sSortDescending": '{{ trans('dataTable-oAria-sSortDescending') }}'
     },
     "oButtons": {
-        "sShow": '{{ lang.trans('show') }}',
-        "sEdit": '{{ lang.trans('edit') }}',
-        "sDelete": '{{ lang.trans('delete') }}'
+        "sShow": '{{ trans('show') }}',
+        "sEdit": '{{ trans('edit') }}',
+        "sDelete": '{{ trans('delete') }}'
     }
 };
 
 var $dataTableButtons = {
     "buttons": {
-        "copy": '{{ lang.trans('dataTable-oButtons-sCopy') }}',
-        "csv": '{{ lang.trans('dataTable-oButtons-sCSV') }}',
-        "excel": '{{ lang.trans('dataTable-oButtons-sExcel') }}',
-        "pdf": '{{ lang.trans('dataTable-oButtons-sPDF') }}',
-        "colvis": '{{ lang.trans('dataTable-oButtons-sColvis') }}',
-        "colvisRestore": '{{ lang.trans('dataTable-oButtons-sColvisRestore') }}'
+        "copy": '{{ trans('dataTable-oButtons-sCopy') }}',
+        "csv": '{{ trans('dataTable-oButtons-sCSV') }}',
+        "excel": '{{ trans('dataTable-oButtons-sExcel') }}',
+        "pdf": '{{ trans('dataTable-oButtons-sPDF') }}',
+        "colvis": '{{ trans('dataTable-oButtons-sColvis') }}',
+        "colvisRestore": '{{ trans('dataTable-oButtons-sColvisRestore') }}'
     }
 };
 
@@ -114,32 +114,32 @@ function newDataTable(name, origData) {
                 {
                     extend: 'copyHtml5',
                     text: '<i class="far fa-copy"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sCopy') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sCopy') }}'
                 },
                 {
                     extend: 'csvHtml5',
                     text: '<i class="fa fa-table"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sCSV') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sCSV') }}'
                 },
                 {
                     extend: 'excelHtml5',
                     text: '<i class="far fa-file-excel"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sExcel') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sExcel') }}'
                 },
                 {
                     extend: 'pdfHtml5',
                     text: '<i class="far fa-file-pdf"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sPDF') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sPDF') }}'
                 },
                 {
                     extend: 'colvis',
                     text: '<i class="fas fa-columns"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvis') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sColvis') }}'
                 },
                 {
                     extend: 'colvisRestore',
                     text: '<i class="far fa-window-restore"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvisRestore') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sColvisRestore') }}'
                 }
             ]
         };
@@ -149,12 +149,12 @@ function newDataTable(name, origData) {
                 {
                     extend: 'colvis',
                     text: '<i class="fas fa-columns"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvis') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sColvis') }}'
                 },
                 {
                     extend: 'colvisRestore',
                     text: '<i class="far fa-window-restore"></i>',
-                    titleAttr: '{{ lang.trans('dataTable-oButtons-sColvisRestore') }}'
+                    titleAttr: '{{ trans('dataTable-oButtons-sColvisRestore') }}'
                 }
             ]
         };

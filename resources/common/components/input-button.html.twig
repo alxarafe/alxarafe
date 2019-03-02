@@ -11,8 +11,8 @@
     @var texts:       Your texts, in order for respective input-group
 
     How to use it:
-        {% include "Components/BS3/input-button.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'left', texts: ['Text1', 'Text2']} %}
-        {% include "Components/BS3/input-button.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'right', texts: ['Text1', 'Text2']} %}
+        {% include "components/input-button.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'left', texts: ['Text1', 'Text2']}} %}
+        {% include "components/input-button.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'right', texts: ['Text1', 'Text2']}} %}
 #}
 
 <div class="input-group{% if class is defined %} {{ class }}{% endif %}">

@@ -24,7 +24,7 @@
                         {% if posMenu|trim is same as(posMenu) %}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    {{ lang.trans(posMenu) }}
+                                    {{ trans(posMenu) }}
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -32,7 +32,7 @@
                                         <li{% if submenu.controller == ctrl.shortName %} class="active"{% endif %}>
                                             <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}={{ submenu.controller }}&{{ constant('METHOD_CONTROLLER') }}={{ constant('DEFAULT_METHOD') }}">
                                                 {{ unescape(submenu.icon)|raw }}
-                                                &nbsp; {{ lang.trans(submenu.title) }}
+                                                &nbsp; {{ trans(submenu.title) }}
                                             </a>
                                         </li>
                                     {% endfor %}
@@ -43,7 +43,7 @@
                                 {% for posSubmenu, submenu in menu %}
                                     <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}={{ submenu.controller }}&{{ constant('METHOD_CONTROLLER') }}={{ constant('DEFAULT_METHOD') }}">
                                         {{ unescape(submenu.icon)|raw }}
-                                        &nbsp; {{ lang.trans(submenu.title) }}
+                                        &nbsp; {{ trans(submenu.title) }}
                                     </a>
                                 {% endfor %}
                             </li>
@@ -63,13 +63,13 @@
                             <li>
                                 <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Users&{{ constant('METHOD_CONTROLLER') }}=edit&{{ ctrl.user.getIdField() }}={{ ctrl.user.id }}">
                                     <i class="far fa-edit"></i>
-                                    &nbsp; {{ lang.trans('edit-my-data') }}
+                                    &nbsp; {{ trans('edit-my-data') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=logout">
                                     <i class="fas fa-sign-out-alt"></i>
-                                    &nbsp; {{ lang.trans('logout') }}
+                                    &nbsp; {{ trans('logout') }}
                                 </a>
                             </li>
                         </ul>
@@ -78,7 +78,7 @@
                     <li class="dropdown">
                         <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login">
                             <i class="fas fa-sign-in-alt"></i>
-                            &nbsp; {{ lang.trans('login') }}
+                            &nbsp; {{ trans('login') }}
                         </a>
                     </li>
                 {% endif %}

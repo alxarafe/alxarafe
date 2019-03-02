@@ -4,7 +4,7 @@
 #}
 {% extends "index.twig" %}
 
-{% block title %}{{ lang.trans('no-access') }}{% endblock %}
+{% block title %}{{ trans('no-access') }}{% endblock %}
 
 {% block extraStylesheets %}
     {{ parent() }}
@@ -14,7 +14,7 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            <h3>{{ lang.trans('no-access') }}</h3>
+            <h3>{{ trans('no-access') }}</h3>
         </div>
     </div>
 {% endblock %}

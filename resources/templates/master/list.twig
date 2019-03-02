@@ -4,7 +4,7 @@
 #}
 {% extends "index.twig" %}
 
-{% block title %}{{ lang.trans('list-of') }} {{ lang.trans(ctrl.title) }}{% endblock %}
+{% block title %}{{ trans('list-of') }} {{ trans(ctrl.title) }}{% endblock %}
 
 {% block extraStylesheets %}
     {{ parent() }}
@@ -29,7 +29,7 @@
             <div class="col-xs-1">
                 <a name="cancel" class="btn btn-danger btn-sm" href="{{ constant('BASE_URI') }}/index.php">
                     <i class="fas fa-chevron-left"></i>
-                    <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ lang.trans('back') }}</span>
+                    <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ trans('back') }}</span>
                 </a>
             </div>
             <div class="col-xs-5">
@@ -37,7 +37,7 @@
                     {% if ctrl.getExtraActions()|length > 1 %}
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="extraActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                {{ lang.trans('extra-actions') }}
+                                {{ trans('extra-actions') }}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="extraActions">
@@ -45,7 +45,7 @@
                                     <li>
                                         <a href="{{ extraAction.link }}">
                                             {{ extraAction.icon|raw }}
-                                            &nbsp;{{ lang.trans(extraAction.text) }}
+                                            &nbsp;{{ trans(extraAction.text) }}
                                         </a>
                                     </li>
                                 {% endfor %}
@@ -55,7 +55,7 @@
                         {% for extraAction in ctrl.getExtraActions() %}
                             <a href="{{ extraAction.link }}" class="btn btn-{{ extraAction.type }} btn-sm">
                                 {{ extraAction.icon|raw }}
-                                <span class="hidden-md">&nbsp;{{ lang.trans(extraAction.text) }}</span>
+                                <span class="hidden-md">&nbsp;{{ trans(extraAction.text) }}</span>
                             </a>
                         {% endfor %}
                     {% endif %}
@@ -64,7 +64,7 @@
             <div class="col-xs-6 text-right">
                 <a href="{{ createLink }}" class="btn btn-success btn-sm">
                     <i class="fas fa-plus"></i>
-                    <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ lang.trans('add-new') }}</span>
+                    <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ trans('add-new') }}</span>
                 </a>
             </div>
         </div>

@@ -9,6 +9,7 @@ namespace Alxarafe\Helpers;
 use Alxarafe\BootStrap;
 use Alxarafe\Providers\DebugTool;
 use Alxarafe\Providers\TemplateRender;
+use Alxarafe\Providers\Translator;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -41,6 +42,13 @@ class TwigFunctions extends AbstractExtension
     private $debugTool;
 
     /**
+     * The translator manager.
+     *
+     * @var Translator
+     */
+    private $translator;
+
+    /**
      * TwigFunctions constructor.
      */
     public function __construct()
@@ -51,6 +59,7 @@ class TwigFunctions extends AbstractExtension
 
         $this->session = Session::getInstance();
         $this->renderer = TemplateRender::getInstance();
+        $this->translator = Translator::getInstance();
 
         $this->debugTool->stopTimer($shortName);
     }
@@ -67,6 +76,7 @@ class TwigFunctions extends AbstractExtension
             new TwigFunction('copyright', [$this, 'copyright']),
             new TwigFunction('unescape', [$this, 'unescape']),
             new TwigFunction('snakeToCamel', [$this, 'snakeToCamel']),
+            new TwigFunction('trans', [$this, 'trans']),
             new TwigFunction('getResourceUri', [$this, 'getResourceUri']),
             new TwigFunction('getHeader', [$this, 'getHeader']),
             new TwigFunction('getFooter', [$this, 'getFooter']),
@@ -142,6 +152,18 @@ class TwigFunctions extends AbstractExtension
     public function snakeToCamel(string $toCamel): string
     {
         return Utils::snakeToCamel($toCamel);
+    }
+
+    /**
+     * Returns a translated string.
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    public function trans(string $key): string
+    {
+        return $this->translator->trans($key);
     }
 
     /**

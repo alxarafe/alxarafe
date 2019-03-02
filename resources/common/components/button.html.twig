@@ -1,5 +1,5 @@
 {#
-    @file button.twig
+    @file button.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Button component.
@@ -14,34 +14,34 @@
 
     How to use it:
         <a>
-          {% include "Components/BS3/button.twig" with {id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'link', type: null, link: '#'} %}
+          {% include "components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'link', type: null, link: '#'}} %}
         <button>
-          {% include "Components/BS3/button.twig" with {id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'button', type: 'button', link: null} %}
+          {% include "components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'button', type: 'button', link: null}} %}
         <input>
-          {% include "Components/BS3/button.twig" with {id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'input', type: 'submit', link: null} %}
+          {% include "components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'input', type: 'submit', link: null}} %}
 #}
 
-{% if style is defined and style == 'link' %}
-    <a{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-            class="btn{% if class is defined %} {{ class }}{% endif %}"
-            {% if link is defined %} href="{{ link }}"{% endif %} role="button">
-        {% if text is defined %}
-            {{ text | raw }}
+{% if data.style is defined and data.style == 'link' %}
+    <a{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
+            class="btn{% if data.class is defined %} {{ data.class }}{% endif %}"
+            {% if data.link is defined %} href="{{ data.link }}"{% endif %} role="button">
+        {% if data.text is defined %}
+            {{ data.text | raw }}
         {% endif %}
     </a>
-{% elseif style is defined and style == 'button' %}
-    <button{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-            class="btn{% if class is defined %} {{ class }}{% endif %}"
-            {% if type is defined %} type="{{ type }}"{% endif %}>
-        {% if text is defined %}
-            {{ text | raw }}
+{% elseif data.style is defined and data.style == 'button' %}
+    <button{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
+            class="btn{% if data.class is defined %} {{ data.class }}{% endif %}"
+            {% if data.type is defined %} type="{{ data.type }}"{% endif %}>
+        {% if data.text is defined %}
+            {{ data.text | raw }}
         {% endif %}
     </button>
-{% elseif style is defined and style == 'input' %}
-    <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-            class="btn{% if class is defined %} {{ class }}{% endif %}"
-            {% if type is defined %} type="{{ type }}"{% endif %}
-            {% if text is defined %}value="{{ text | raw }}"{% endif %}>
+{% elseif data.style is defined and data.style == 'input' %}
+    <input{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
+            class="btn{% if data.class is defined %} {{ data.class }}{% endif %}"
+            {% if data.type is defined %} type="{{ data.type }}"{% endif %}
+            {% if data.text is defined %}value="{{ data.text | raw }}"{% endif %}>
 {% else %}
     Something is wrong with your code!
 {% endif %}

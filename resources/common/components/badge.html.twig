@@ -1,5 +1,5 @@
 {#
-    @file badge.twig
+    @file badge.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Badge component.
@@ -10,9 +10,9 @@
     @var badge:       Your value
 
     How to use it:
-        {% include "Components/BS3/badge.twig" with {id:'myBadgeId', name:'myBadgeName', badge: '3'} %}
+        {% include "components/badge.html.twig" with {data:{id:'myBadgeId', name:'myBadgeName', badge: '3'}} %}
 #}
 
-<span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %} class="badge{% if class is defined %} {{ class }}{% endif %}">
-    {% if badge is defined %}{{ badge }}{% endif %}
+<span{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %} class="badge{% if data.class is defined %} {{ data.class }}{% endif %}">
+    {% if data.badge is defined %}{{ data.badge }}{% endif %}
 </span>

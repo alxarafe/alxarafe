@@ -1,5 +1,5 @@
 {#
-    @file select.twig
+    @file select.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Select component.
@@ -12,7 +12,7 @@
     @var values:      Array of values
 
     How to use it:
-        {% include "Components/BS3/select.twig" with {id:'mySelectId', name:'mySelectName', class: 'input-sm', multiple: true} %}
+        {% include "components/select.html.twig" with {data:{id:'mySelectId', name:'mySelectName', class: 'input-sm', multiple: true}} %}
 #}
 
 <select{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}{% if multiple is defined and multiple==true %} multiple{% endif %}

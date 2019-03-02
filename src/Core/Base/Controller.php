@@ -110,8 +110,7 @@ abstract class Controller
         $this->renderer = TemplateRender::getInstance();
         $this->translator = Translator::getInstance();
         $this->renderer->addVars([
-            'ctrl' => $this,
-            'lang' => $this->translator,
+            'ctrl' => $this
         ]);
         $this->renderer->setTemplate(strtolower($this->shortName));
         $this->username = null;

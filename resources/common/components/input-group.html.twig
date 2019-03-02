@@ -1,5 +1,5 @@
 {#
-    @file input-group.twig
+    @file input-group.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Input Group component.
@@ -11,9 +11,9 @@
     @var texts:       Your texts, in order for respective input-group
 
     How to use it:
-        {% include "Components/BS3/input-group.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'left', texts: ['Text1', 'Text2']} %}
-        {% include "Components/BS3/input-group.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'right', texts: ['Text1', 'Text2']} %}
-        {% include "Components/BS3/input-group.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'both', texts: ['Text1', 'Text2', 'Text3']} %}
+        {% include "components/input-group.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'left', texts: ['Text1', 'Text2']}} %}
+        {% include "components/input-group.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'right', texts: ['Text1', 'Text2']}} %}
+        {% include "components/input-group.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'both', texts: ['Text1', 'Text2', 'Text3']}} %}
 #}
 
 <div class="input-group{% if class is defined %} {{ class }}{% endif %}">

@@ -12,8 +12,8 @@
     @var modalButtons:  Your modal buttons
 
     How to use it:
-        {% include "Components/BS3/modal.twig" with {id:'myModalId1', name:'myModalName1', modalText: 'Esto es un placeholder', modalTitle: 'Title'} %}
-        {% include "Components/BS3/modal.twig" with {id:'myModalId2', name:'myModalName2', modalText: 'Acepto', modalTitle: 'Title'} %}
+        {% include "components/modal.html.twig" with {data:{id:'myModalId1', name:'myModalName1', modalText: 'Esto es un placeholder', modalTitle: 'Title'}} %}
+        {% include "components/modal.html.twig" with {data:{id:'myModalId2', name:'myModalName2', modalText: 'Acepto', modalTitle: 'Title'}} %}
 #}
 
 <div class="modal" tabindex="-1" role="dialog"{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}>

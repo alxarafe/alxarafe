@@ -1,5 +1,5 @@
 {#
-    @file list-group.twig
+    @file list-group.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap List Group component.
@@ -15,7 +15,7 @@
     WARNING: Length of arrays (must be the same)
 
     How to use it:
-        {% include "Components/BS3/list-group.twig" with {id:'myListGroupId', name:'myListGroupName', texts: texts, links: links, classes: classes, length: length} %}
+        {% include "components/list-group.html.twig" with {data:{id:'myListGroupId', name:'myListGroupName', texts: texts, links: links, classes: classes, length: length}} %}
 #}
 
 <ul{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

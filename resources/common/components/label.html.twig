@@ -1,5 +1,5 @@
 {#
-    @file label.twig
+    @file label.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Labels component.
@@ -10,7 +10,7 @@
     @var text:        Your text
 
     How to use it:
-        {% include "Components/BS3/label.twig" with {id:'myLabelId', name:'myLabelName', class: 'label-primary', text: 'My text label'} %}
+        {% include "components/label.html.twig" with {data:{id:'myLabelId', name:'myLabelName', class: 'label-primary', text: 'My text label'}} %}
 #}
 
 <span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

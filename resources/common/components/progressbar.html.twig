@@ -1,5 +1,5 @@
 {#
-    @file progressbar.twig
+    @file progressbar.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Progresbar component.
@@ -11,7 +11,7 @@
     @var text:        Your text
 
     How to use it:
-        {% include "Components/BS3/progressbar.twig" with { id: 'myProgressBarId1', name: 'myProgressBarName1', class: 'progress-bar-default progress-bar-striped active', percentage: '25', text: 'Completed' } %}
+        {% include "components/progressbar.html.twig" with {data:{id: 'myProgressBarId1', name: 'myProgressBarName1', class: 'progress-bar-default progress-bar-striped active', percentage: '25', text: 'Completed'}} %}
 #}
 
 <div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

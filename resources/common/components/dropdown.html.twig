@@ -1,5 +1,5 @@
 {#
-    @file dropdown.twig
+    @file dropdown.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Dropdown component.
@@ -15,7 +15,7 @@
     @var classes:     Array of classes:   dropdown-header, divider, disabled or null
 
     How to use it:
-        {% include "Components/BS3/dropdown.twig" with { id:'myDropdownMenuId', name:'myDropdownMenuName', class: 'btn-default', type: 'dropdown', text: 'Dropdown button', alignement: 'dropdown-menu-right', texts: ['Dropdown header', 'Action1', 'Another action', 'Something else here', null, 'Dropdown header', 'Separated link'], links: [null, '#action1', '#another_action', '#something_else_here', null, null, '#separated_link'], classes: ['dropdown-header', null, null, null, 'divider', 'dropdown-header', null]} %}
+        {% include "components/dropdown.html.twig" with {data:{id:'myDropdownMenuId', name:'myDropdownMenuName', class: 'btn-default', type: 'dropdown', text: 'Dropdown button', alignement: 'dropdown-menu-right', texts: ['Dropdown header', 'Action1', 'Another action', 'Something else here', null, 'Dropdown header', 'Separated link'], links: [null, '#action1', '#another_action', '#something_else_here', null, null, '#separated_link'], classes: ['dropdown-header', null, null, null, 'divider', 'dropdown-header', null]}} %}
 #}
 
 <div{% if type is defined %} class="{{ type }}"{% endif %}>

@@ -1,5 +1,5 @@
 {#
-    @file media-object.twig
+    @file media-object.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Media Object component.
@@ -17,7 +17,7 @@
     WARNING: Length of arrays (must be the same)
 
     How to use it:
-        {% include "Components/BS3/media-object.twig" with {id:'idImg', name:'nameImg', titles:'', texts:'', imgSrc:'imgSrcPath', imgHPos:'', imgVPos:'', imgAlt:'', imgStyle:''} %}
+        {% include "components/media-object.html.twig" with {data:{id:'idImg', name:'nameImg', titles:'', texts:'', imgSrc:'imgSrcPath', imgHPos:'', imgVPos:'', imgAlt:'', imgStyle:''}} %}
 #}
 
 <div class="media">

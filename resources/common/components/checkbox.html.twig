@@ -1,5 +1,5 @@
 {#
-    @file checkbox.twig
+    @file checkbox.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Checkbox component.
@@ -11,9 +11,9 @@
 
     How to use it:
         <input>
-            {% include "Components/BS3/checkbox.twig" with {id:'myCheckboxId1', name:'myCheckboxName1', text: 'Esto es un placeholder', type: 'input'} %}
+            {% include "components/checkbox.html.twig" with {data:{id:'myCheckboxId1', name:'myCheckboxName1', text: 'Esto es un placeholder', type: 'input'}} %}
         <label>
-            {% include "Components/BS3/checkbox.twig" with {id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'} %}
+            {% include "components/checkbox.html.twig" with {data:{id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'}} %}
 #}
 {% if type is defined and type == 'input' %}
     <div class="input-group">

@@ -1,5 +1,5 @@
 {#
-    @file button-toolbar.twig
+    @file button-toolbar.html.twig
     @author Alxarafe <info@alxarafe.com>
 
     Default theme implementation to display a Bootstrap Button Toolbar component.
@@ -12,17 +12,17 @@
     WARNING: Length of arrays (must be the same)
 
     How to use it:
-        {% include "Components/BS3/button-toolbar.twig" with {ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']} %}
+        {% include "components/button-toolbar.html.twig" with {data:{ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']}} %}
 #}
 
 <div class="btn-toolbar" role="toolbar" aria-label="...">
     <div class="btn-group" role="group" aria-label="...">
-        {% for id in ids %}
-            <button{% if ids[loop.index0] is defined %} id="{{ ids[loop.index0] }}"{% endif %}{% if names[loop.index0] is defined %} name="{{ names[loop.index0] }}"{% endif %}
+        {% for id in data.ids %}
+            <button{% if data.ids[loop.index0] is defined %} id="{{ data.ids[loop.index0] }}"{% endif %}{% if data.names[loop.index0] is defined %} name="{{ data.names[loop.index0] }}"{% endif %}
                     type="button"
-                    class="btn{% if classes[loop.index0] is defined %} {{ classes[loop.index0] }}{% endif %}">
-                {% if texts[loop.index0] is defined %}
-                    {{ texts[loop.index0] | raw }}
+                    class="btn{% if data.classes[loop.index0] is defined %} {{ data.classes[loop.index0] }}{% endif %}">
+                {% if data.texts[loop.index0] is defined %}
+                    {{ data.texts[loop.index0] | raw }}
                 {% endif %}
             </button>
         {% endfor %}
