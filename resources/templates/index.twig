@@ -59,7 +59,7 @@
         {% for pos, message in messages %}
             {% set data = {
                 'class': 'alert alert-' ~ message.type,
-                'dismissible': '',
+                'dismissible': true,
                 'message': '<h4>' ~ trans('title-messages-' ~ message.type) ~ '</h4>' ~ message.msg | raw,
                 'style': 'width: 100%'
             } %}

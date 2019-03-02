@@ -48,6 +48,6 @@ class Button extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return 'components/button';
+        return 'components/button.html';
     }
 }
