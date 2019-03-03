@@ -117,6 +117,14 @@
                 <td class="last">The debug tool used.</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type" id="property_translator">
+                                                            private                    <a href="../../Alxarafe/Providers/Translator.html"><abbr title="Alxarafe\Providers\Translator">Translator</abbr></a>
+                </td>
+                <td>$translator</td>
+                <td class="last">The translator manager.</td>
+                <td></td>
+            </tr>
             </table>
 
     
@@ -198,6 +206,16 @@
                     string
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_trans">trans</a>(string $key)
+        
+                                            <p>Returns a translated string.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_getResourceUri">getResourceUri</a>(string $path)
         
                                             <p>Check different possible locations for the file and return the
@@ -224,6 +242,16 @@ corresponding URI, if it exists.</p>                </div>
                                             <p>Returns the necessary html code at the footer of the template, to display the debug bar.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_renderComponent">renderComponent</a>(string $templatePath, array $data)
+        
+                                            <p>Renders the component with shared data.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -232,7 +260,7 @@ corresponding URI, if it exists.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 46</div>
+        <div class="location">at         line 54</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -253,7 +281,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFunctions">
-        <div class="location">at         line 63</div>
+        <div class="location">at         line 72</div>
         <code>                    <abbr title="Twig\TwigFunction">TwigFunction</abbr>[]
     <strong>getFunctions</strong>()
         </code>
@@ -283,7 +311,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_flash">
-        <div class="location">at         line 84</div>
+        <div class="location">at         line 95</div>
         <code>                    array|mixed
     <strong>flash</strong>(array $params)
         </code>
@@ -323,7 +351,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_copyright">
-        <div class="location">at         line 103</div>
+        <div class="location">at         line 114</div>
         <code>                    string
     <strong>copyright</strong>()
         </code>
@@ -353,7 +381,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTotalTime">
-        <div class="location">at         line 116</div>
+        <div class="location">at         line 127</div>
         <code>                    string
     <strong>getTotalTime</strong>(bool $inMilliseconds = true)
         </code>
@@ -393,7 +421,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_unescape">
-        <div class="location">at         line 129</div>
+        <div class="location">at         line 140</div>
         <code>                    string
     <strong>unescape</strong>(string $value)
         </code>
@@ -433,7 +461,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_snakeToCamel">
-        <div class="location">at         line 141</div>
+        <div class="location">at         line 152</div>
         <code>                    string
     <strong>snakeToCamel</strong>(string $toCamel)
         </code>
@@ -472,8 +500,48 @@ corresponding URI, if it exists.</p>                </div>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_trans">
+        <div class="location">at         line 164</div>
+        <code>                    string
+    <strong>trans</strong>(string $key)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a translated string.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$key</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getResourceUri">
-        <div class="location">at         line 154</div>
+        <div class="location">at         line 177</div>
         <code>                    string
     <strong>getResourceUri</strong>(string $path)
         </code>
@@ -514,7 +582,7 @@ corresponding URI, if it exists.</p>                                            
             </div>
                     <div class="method-item">
                     <h3 id="method_getHeader">
-        <div class="location">at         line 164</div>
+        <div class="location">at         line 187</div>
         <code>                    string
     <strong>getHeader</strong>()
         </code>
@@ -544,7 +612,7 @@ corresponding URI, if it exists.</p>                                            
             </div>
                     <div class="method-item">
                     <h3 id="method_getFooter">
-        <div class="location">at         line 174</div>
+        <div class="location">at         line 197</div>
         <code>                    string
     <strong>getFooter</strong>()
         </code>
@@ -556,6 +624,51 @@ corresponding URI, if it exists.</p>                                            
                     <div class="method-description">
                                     <p>Returns the necessary html code at the footer of the template, to display the debug bar.</p>                                                </div>
                 <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_renderComponent">
+        <div class="location">at         line 210</div>
+        <code>                    string
+    <strong>renderComponent</strong>(string $templatePath, array $data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Renders the component with shared data.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$templatePath</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
             
                             <h4>Return Value</h4>
 
