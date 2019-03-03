@@ -71,8 +71,7 @@ trait MagicTrait
      */
     public function __call(string $method, array $params)
     {
-        // TODO: It's necessary to include has? (get|set|has)
-        preg_match('/^(get|set)(.*?)$/i', $method, $matches);
+        preg_match('/^(get|set|has)(.*?)$/i', $method, $matches);
         $prefix = $matches[1] ?? '';
         $key = lcfirst($matches[2]) ?? '';
         switch ($prefix) {
