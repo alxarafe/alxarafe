@@ -120,7 +120,11 @@ trait AjaxDataTableTrait
             $buttons = '<div class="btn-group" role="group">';
             foreach ($this->getActionButtons($id) as $actionButton) {
                 $text = Translator::getInstance()->trans($actionButton['text']);
-                $buttons .= "<a class='{$actionButton['class']}' type='{$actionButton['type']}' href='{$actionButton['link']}' title='{$text}''>"
+                $onclick = '';
+                if (isset($actionButton["onclick"])) {
+                    $onclick = "onclick='{$actionButton["onclick"]}'";
+                }
+                $buttons .= "<a class='{$actionButton["class"]}' type='{$actionButton["type"]}' href='{$actionButton["link"]}' title='{$text}' {$onclick}>"
                     . "{$actionButton['icon']}"
                     . "<span class='hidden-xs hidden-sm hidden-md'>&nbsp;{$text}</span>"
                     . "</a>";

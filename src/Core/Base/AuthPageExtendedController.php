@@ -438,7 +438,8 @@ abstract class AuthPageExtendedController extends AuthPageController
             $actionButtons['delete'] = [
                 'class' => 'btn btn-danger btn-sm',
                 'type' => 'button',
-                'link' => $this->url . '&' . constant('METHOD_CONTROLLER') . '=delete&id=' . $id,
+                'link' => '#',
+                'onclick' => 'confirmDelete("' . $this->url . '&' . constant('METHOD_CONTROLLER') . '=delete&id=' . $id . '");',
                 'icon' => '<i class="far fa-trash-alt"></i>',
                 'text' => $this->translator->trans('delete')
             ];

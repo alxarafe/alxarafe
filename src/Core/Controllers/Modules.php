@@ -64,11 +64,11 @@ class Modules extends AuthPageExtendedController
         $this->modulesList = $this->getAvailableModules();
         $this->updateModulesData();
 
-        $action = $this->request->query->get('action');
+        $action = $this->request->request->get('action');
         switch ($action) {
             case 'regenerate':
                 CacheCore::getInstance()->getEngine()->clear();
-                FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('cache-cleared-successfully'));
+                FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('cache-cleared-successfully'));
                 $this->regenerateData();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
@@ -166,8 +166,7 @@ class Modules extends AuthPageExtendedController
     public function deleteMethod(): Response
     {
         $this->disableMethod();
-        // TODO: Implement deleteMethod() method.
-        // Require allow to delete the module folder.
+        Utils::rrmdir(basePath($this->model->path));
         return parent::deleteMethod();
     }
 
@@ -178,10 +177,20 @@ class Modules extends AuthPageExtendedController
      */
     public function enableMethod(): Response
     {
-        // TODO: Implement enableMethod() method.
+        if (!$this->canAccess || !$this->canUpdate) {
+            $this->renderer->setTemplate('master/noaccess');
+            return $this->sendResponseTemplate();
+        }
         $id = $this->request->query->get($this->model->getIdField());
-        $this->renderer->setTemplate('master/list');
-        FlashMessages::getInstance()::setInfo('enable-module ' . $id);
+        $this->model = new Module();
+        if ($this->model->load($id)) {
+            $this->model->enabled = 1;
+            if ($this->model->save()) {
+                FlashMessages::getInstance()::setSuccess(
+                    $this->translator->trans('module-enabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
+                );
+            }
+        }
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
@@ -193,9 +202,20 @@ class Modules extends AuthPageExtendedController
      */
     public function disableMethod(): Response
     {
-        // TODO: Implement disableMethod() method.
+        if (!$this->canAccess || !$this->canUpdate) {
+            $this->renderer->setTemplate('master/noaccess');
+            return $this->sendResponseTemplate();
+        }
         $id = $this->request->query->get($this->model->getIdField());
-        FlashMessages::getInstance()::setInfo('disable-module ' . $id);
+        $this->model = new Module();
+        if ($this->model->load($id)) {
+            $this->model->enabled = 0;
+            if ($this->model->save()) {
+                FlashMessages::getInstance()::setSuccess(
+                    $this->translator->trans('module-disabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
+                );
+            }
+        }
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }

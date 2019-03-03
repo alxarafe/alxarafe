@@ -166,6 +166,31 @@ function newDataTable(name, origData) {
 }
 
 /**
+ * Bootbox confirmation action.
+ *
+ * @param $actionUrl
+ */
+function confirmDelete($actionUrl) {
+    bootbox.confirm({
+        title: "<b>{{ trans('action-require-confirmation') }}</b>",
+        message: "{{ trans('confirm-are-you-sure-delete-register') }}",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> {{ trans('cancel') }}'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> {{ trans('confirm') }}'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $(location).attr('href', $actionUrl)
+            }
+        }
+    });
+}
+
+/**
  * When document is ready.
  */
 $(document).ready(function () {

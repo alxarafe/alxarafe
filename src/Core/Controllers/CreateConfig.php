@@ -127,7 +127,7 @@ class CreateConfig extends Controller
         switch ($action) {
             case 'save':
                 $msg = ($this->save() ? 'changes-stored' : 'changes-not-stored');
-                FlashMessages::getInstance()::setInfo($this->translator->trans($msg));
+                FlashMessages::getInstance()::setSuccess($this->translator->trans($msg));
                 $this->regenerateData();
                 return $this->redirect(baseUrl('index.php?call=Login'));
             case 'cancel':

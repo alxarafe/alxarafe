@@ -10,6 +10,7 @@ use Alxarafe\PreProcessors;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
 use Alxarafe\Providers\Translator;
+use DirectoryIterator;
 use ReflectionClass;
 use ReflectionException;
 
@@ -221,5 +222,25 @@ class Utils
         new PreProcessors\Models($searchDir);
         new PreProcessors\Pages($searchDir);
         new PreProcessors\Routes($searchDir);
+    }
+
+    /**
+     * Recursively removes a folder along with all its files and directories
+     *
+     * @param string $path
+     *
+     * @return bool
+     */
+    public static function rrmdir(string $path) {
+        // Open the source directory to read in files
+        $i = new DirectoryIterator($path);
+        foreach($i as $f) {
+            if($f->isFile()) {
+                unlink($f->getRealPath());
+            } else if(!$f->isDot() && $f->isDir()) {
+                self::rrmdir($f->getRealPath());
+            }
+        }
+        return rmdir($path);
     }
 }

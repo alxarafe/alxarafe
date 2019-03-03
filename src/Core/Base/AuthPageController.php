@@ -257,14 +257,11 @@ abstract class AuthPageController extends AuthController
                 break;
             default:
                 $this->debugTool->addMessage('messages', $this->translator->trans('user-unknown-perms-to', ['%where%' => $this->shortName . '->' . $method . '()']));
-                parent::runMethod($methodName);
-                $vars = [
-                    'action' => $method,
-                ];
+                return $this->{$method}();
                 break;
         }
         $this->renderer->setTemplate('master/noaccess');
-        return $this->sendResponseTemplate($vars);
+        return $this->sendResponseTemplate();
     }
 
     /**

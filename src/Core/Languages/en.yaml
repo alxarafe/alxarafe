@@ -1,5 +1,6 @@
 accept: Accept
 action: Action
+action-require-confirmation: 'This action require confirmation'
 active: Active
 add-new: Add
 admin: Administration
@@ -16,6 +17,7 @@ can_print: 'Can print'
 can_read: 'Can read'
 can_sendmail: 'Can send mail'
 can_update: 'Can update'
+cancel: 'Cancel'
 cant-increase-time-limit: 'Can not increase time limit'
 changes-stored: 'Changes stored'
 changes-not-stored: 'Changes not stored'
@@ -64,6 +66,8 @@ col-title: Title
 col-unicode: Unicode
 col-updated_date: 'Updated at'
 col-username: 'User name'
+confirm: 'Confirm'
+confirm-are-you-sure-delete-register: 'Are you sure you want to delete this register?'
 controller: Controller
 controller-components-html-twig-description: 'Try design of components HTML in Twig templates'
 controller-components-html-twig-title: 'Components HTML Twig templates'
@@ -188,6 +192,9 @@ menu: Menu
 method-not-available: 'Method not available'
 model: Model
 model-name: 'Model name'
+module-enabled: 'Module %moduleName% enabled'
+module-deleted: 'Module %moduleName% deleted'
+module-disabled: 'Module %moduleName% disabled'
 modules-description: 'Modules complements the functionallity, enable or disable what you need.'
 modules-title: Modules
 name: Name

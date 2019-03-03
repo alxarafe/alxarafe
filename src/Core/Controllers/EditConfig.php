@@ -123,18 +123,18 @@ class EditConfig extends AuthPageController
         switch ($action) {
             case 'clear-cache':
                 CacheCore::getInstance()->getEngine()->clear();
-                FlashMessages::getInstance()::setInfo($this->translator->trans('cache-cleared-successfully'));
+                FlashMessages::getInstance()::setSuccess($this->translator->trans('cache-cleared-successfully'));
                 break;
             case 'regenerate-data':
                 CacheCore::getInstance()->getEngine()->clear();
-                FlashMessages::getInstance()::setInfo($this->translator->trans('cache-cleared-successfully'));
+                FlashMessages::getInstance()::setSuccess($this->translator->trans('cache-cleared-successfully'));
                 $this->regenerateData();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
             case 'save':
                 $databaseConfig = Database::getInstance()->getConfig();
                 $msg = ($this->save() ? 'changes-stored' : 'changes-not-stored');
-                FlashMessages::getInstance()::setInfo($this->translator->trans($msg));
+                FlashMessages::getInstance()::setSuccess($this->translator->trans($msg));
                 $this->setDefaultData();
                 if ($databaseConfig !== $this->dbConfig) {
                     return $this->logout();

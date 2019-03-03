@@ -33,7 +33,7 @@ class Languages extends AuthPageExtendedController
      */
     public function indexMethod(): Response
     {
-        $action = $this->request->query->get('action');
+        $action = $this->request->request->get('action');
         switch ($action) {
             case 'export':
                 $this->exportAction();
