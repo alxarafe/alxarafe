@@ -14,6 +14,9 @@ use Alxarafe\Base\Table;
  * @property int    $id
  * @property string $name
  * @property string $path
+ * @property string $enabled
+ * @property string $order
+ * @property string $inserted_date
  * @property string $updated_date
  *
  * @package Alxarafe\Models

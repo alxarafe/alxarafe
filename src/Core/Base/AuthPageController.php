@@ -208,7 +208,6 @@ abstract class AuthPageController extends AuthController
         }
         $this->loadPerms();
         $method = $methodName . 'Method';
-        $vars = [];
         $this->debugTool->addMessage('messages', $this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
 
         switch ($methodName) {
@@ -256,12 +255,11 @@ abstract class AuthPageController extends AuthController
                 }
                 break;
             default:
+                // Forced to this template because needs to verify perms on this final method.
+                $this->renderer->setTemplate('master/noaccess');
                 $this->debugTool->addMessage('messages', $this->translator->trans('user-unknown-perms-to', ['%where%' => $this->shortName . '->' . $method . '()']));
                 return $this->{$method}();
-                break;
         }
-        $this->renderer->setTemplate('master/noaccess');
-        return $this->sendResponseTemplate();
     }
 
     /**
