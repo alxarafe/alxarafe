@@ -236,6 +236,7 @@ unicode: Unicode
 update: 'Update'
 updated_date: 'Updated at'
 user: User
+user-authenticated: 'User %username% authenticated'
 user-authentication: 'User authentication'
 user-authentication-description: 'Login page, to control access to the application.'
 user-authentication-error: 'User authentication error. Please check the username and password.'

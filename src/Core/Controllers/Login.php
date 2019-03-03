@@ -83,8 +83,8 @@ class Login extends Controller
     public function indexMethod(): Response
     {
         $this->redirectUrl = filter_input(INPUT_GET, 'redirectUrl', FILTER_SANITIZE_ENCODED);
-        $user = $this->request->cookies->get('user');
-        $logkey = $this->request->cookies->get('logkey');
+        $user = $this->request->cookies->get('user', '');
+        $logKey = $this->request->cookies->get('logkey', '');
 
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
         $remember = filter_input(INPUT_POST, 'remember-me', FILTER_SANITIZE_STRING);
@@ -101,7 +101,7 @@ class Login extends Controller
                 }
                 break;
             default:
-                if ($user && $logkey) {
+                if ($user && $logKey) {
                     $this->username = $this->getCookieUser($remember);
                     if (is_null($this->username)) {
                         $request = filter_input(INPUT_SERVER, 'REQUEST_URI');
@@ -139,9 +139,11 @@ class Login extends Controller
     public function getCookieUser($remember)
     {
         $this->user = new User();
-        if ($this->username === null && $this->user->getBy('username', $_COOKIE['user']) === true) {
-            if (isset($_COOKIE['user']) && isset($_COOKIE['logkey']) && $this->user->verifyLogKey($_COOKIE['user'], $_COOKIE['logkey'])) {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $_COOKIE['user']]));
+        $user = $this->request->cookies->get('user', '');
+        $logKey = $this->request->cookies->get('logkey', '');
+        if ($this->username === null && $this->user->getBy('username', $user) === true) {
+            if ($this->user->verifyLogKey($user, $logKey)) {
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $user]));
                 // Increase cookie valid time.
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time, $remember);
@@ -253,7 +255,7 @@ class Login extends Controller
             if ($this->user->verifyPassword($password)) {
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
-                $this->adjustCookieUser($time, $remember);
+                $this->adjustCookieUser($time, ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN));
                 Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authenticated', ['%username%' => $this->user->username]));
             } else {
                 $this->clearCookieUser();

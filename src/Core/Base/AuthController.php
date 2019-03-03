@@ -77,13 +77,14 @@ class AuthController extends Controller
     {
         $return = false;
         $Auth = $this->request->headers->get('Authorization');
-        $username = $this->request->cookies->get('user');
-        $logkey = $this->request->cookies->get('logkey');
+        $username = $this->request->cookies->get('user', '');
+        $logKey = $this->request->cookies->get('logkey', '');
         $remember = $this->request->cookies->get('remember', self::COOKIE_EXPIRATION_MIN);
 
-        if (!empty($username) && !empty($logkey)) {
+        if (!empty($username) && !empty($logKey)) {
             $user = new User();
-            if ($user->verifyLogKey($username, $logkey)) {
+            if ($user->verifyLogKey($username, $logKey)) {
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $username]));
                 $this->user = $user;
                 $this->username = $this->user->username;
                 $this->logkey = $this->user->logkey;
