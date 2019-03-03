@@ -1,5 +1,6 @@
 accept: Aceptar
 action: Acción
+action-require-confirmation: 'Esta acción requiere confirmación'
 active: Activo
 add-new: Añadir
 admin: Administración
@@ -16,6 +17,7 @@ can_print: 'Puede imprimir'
 can_read: 'Puede leer'
 can_sendmail: 'Puede enviar email'
 can_update: 'Puede actualizar'
+cancel: 'Cancelar'
 cant-increase-time-limit: 'No se puede incrementar el tiempo limite'
 changes-stored: 'Cambios guardados'
 changes-not-stored: 'Cambios no guardados'
@@ -64,6 +66,8 @@ col-title: Título
 col-unicode: Unicode
 col-updated_date: 'Actualizado el'
 col-username: 'Nombre de usuario'
+confirm: 'Confirmar'
+confirm-are-you-sure-delete-register: 'Estás seguro que quieres eliminar este registro?'
 controller: Controlador
 controller-components-html-twig-description: 'Pruebas de diseño de componentes HTML en plantillas de Twig'
 controller-components-html-twig-title: 'Componentes HTML plantillas Twig'
@@ -188,6 +192,9 @@ menu: Menú
 method-not-available: 'Método no disponible'
 model: Modelo
 model-name: 'Nombre del modelo'
+module-enabled: 'Modulo %moduleName% activado'
+module-deleted: 'Modulo %moduleName% eliminado'
+module-disabled: 'Modulo %moduleName% desactivado'
 modules-description: 'Los módulos complementan la funcionalidad, activa o desactiva lo que necesites.'
 modules-title: Módulos
 name: Nombre
@@ -236,6 +243,7 @@ unicode: Unicode
 update: Actualizar
 updated_date: 'Actualizado el'
 user: Usuario
+user-authenticated: 'Usuario %username% autenticado'
 user-authentication: 'Autenticación de usuario'
 user-authentication-description: 'Página de login, para controlar el acceso a la aplicación.'
 user-authentication-error: 'Error de autenticación de usuario. Por favor, comprueba el usuario y contraseña.'
