@@ -275,9 +275,9 @@ class BootStrap
      */
     public function run()
     {
-        $call = filter_input(INPUT_GET, constant('CALL_CONTROLLER'), FILTER_SANITIZE_STRING);
+            $call = $this->request->query->get(constant('CALL_CONTROLLER'));
         $call = !empty($call) ? $call : constant('DEFAULT_CONTROLLER');
-        $method = filter_input(INPUT_GET, constant('METHOD_CONTROLLER'), FILTER_SANITIZE_STRING);
+        $method = $this->request->query->get(constant('METHOD_CONTROLLER'));
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
         if (!$this->configManager->configFileExists() && $call !== 'CreateConfig') {

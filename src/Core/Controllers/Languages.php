@@ -33,7 +33,7 @@ class Languages extends AuthPageExtendedController
      */
     public function indexMethod(): Response
     {
-        $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+        $action = $this->request->query->get('action');
         switch ($action) {
             case 'export':
                 $this->exportAction();

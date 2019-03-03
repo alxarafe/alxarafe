@@ -82,17 +82,17 @@ class Login extends Controller
      */
     public function indexMethod(): Response
     {
-        $this->redirectUrl = filter_input(INPUT_GET, 'redirectUrl', FILTER_SANITIZE_ENCODED);
+        $this->redirectUrl = $this->request->query->get('redirectUrl');
         $user = $this->request->cookies->get('user', '');
         $logKey = $this->request->cookies->get('logkey', '');
 
-        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
-        $remember = filter_input(INPUT_POST, 'remember-me', FILTER_SANITIZE_STRING);
+        $action = $this->request->request->get('action');
+        $remember = $this->request->request->get('remember-me');
         $remember = isset($remember);
         switch ($action) {
             case 'login':
-                $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+                $username = $this->request->request->get('username');
+                $password = $this->request->request->get('password');
                 if ($this->setUser($username, $password, $remember)) {
                     FlashMessages::getInstance()::setSuccess($this->translator->trans("user-logged-in", ['%username%' => $username]));
                     return $this->redirectToController();
@@ -104,7 +104,7 @@ class Login extends Controller
                 if ($user && $logKey) {
                     $this->username = $this->getCookieUser($remember);
                     if (is_null($this->username)) {
-                        $request = filter_input(INPUT_SERVER, 'REQUEST_URI');
+                        $request = $this->request->server->get('REQUEST_URI');
                         if (strpos($request, constant('CALL_CONTROLLER') . '=Login') === false) {
                             $redirectTo = '&redirect=' . \urlencode(base64_encode($request));
                             $url = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
@@ -148,6 +148,7 @@ class Login extends Controller
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time, $remember);
             } else {
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authentication-error'));
                 $this->clearCookieUser();
             }
         }

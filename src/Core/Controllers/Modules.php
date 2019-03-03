@@ -64,7 +64,7 @@ class Modules extends AuthPageExtendedController
         $this->modulesList = $this->getAvailableModules();
         $this->updateModulesData();
 
-        $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+        $action = $this->request->query->get('action');
         switch ($action) {
             case 'regenerate':
                 CacheCore::getInstance()->getEngine()->clear();
@@ -179,7 +179,8 @@ class Modules extends AuthPageExtendedController
     public function enableMethod(): Response
     {
         // TODO: Implement enableMethod() method.
-        $id = filter_input(INPUT_GET, $this->model->getIdField(), FILTER_SANITIZE_STRING);
+        $id = $this->request->query->get($this->model->getIdField());
+        $this->renderer->setTemplate('master/list');
         FlashMessages::getInstance()::setInfo('enable-module ' . $id);
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
@@ -193,7 +194,7 @@ class Modules extends AuthPageExtendedController
     public function disableMethod(): Response
     {
         // TODO: Implement disableMethod() method.
-        $id = filter_input(INPUT_GET, $this->model->getIdField(), FILTER_SANITIZE_STRING);
+        $id = $this->request->query->get($this->model->getIdField());
         FlashMessages::getInstance()::setInfo('disable-module ' . $id);
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));

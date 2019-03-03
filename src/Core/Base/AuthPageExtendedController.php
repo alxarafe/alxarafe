@@ -182,7 +182,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     public function initialize()
     {
-        $this->currentId = filter_input(INPUT_GET, $this->model->getIdField());
+        $this->currentId = $this->request->query->get($this->model->getIdField());
         $this->postData = $this->getRecordData();
         $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
         $this->viewData = Schema::getFromYamlFile($this->tableName, 'viewdata');
@@ -259,7 +259,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->initialize();
         $this->status = 'editing';
         $this->renderer->setTemplate('master/update');
-        $action = filter_input(INPUT_POST, 'action');
+        $action = $this->request->request->get('action');
         switch ($action) {
             case 'cancel':
                 $this->cancel();

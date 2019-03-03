@@ -119,7 +119,7 @@ class EditConfig extends AuthPageController
     public function indexMethod(): Response
     {
         $this->setDefaultData();
-        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+        $action = $this->request->request->get('action');
         switch ($action) {
             case 'clear-cache':
                 CacheCore::getInstance()->getEngine()->clear();
@@ -197,24 +197,24 @@ class EditConfig extends AuthPageController
     {
         $result = true;
         $translatorConfig = Translator::getInstance()->getConfig();
-        $translatorConfig['language'] = filter_input(INPUT_POST, 'language', FILTER_SANITIZE_STRING);
+        $translatorConfig['language'] = $this->request->request->get('language');
         if (!Translator::getInstance()->setConfig($translatorConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('language-data-not-changed'));
             $result = false;
         }
 
         $templateRenderConfig = $this->renderer->getConfig();
-        $templateRenderConfig['skin'] = filter_input(INPUT_POST, 'skin', FILTER_SANITIZE_STRING);
+        $templateRenderConfig['skin'] = $this->request->request->get('skin');
         if (!$this->renderer->setConfig($templateRenderConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('templaterender-data-not-changed'));
             $result = false;
         }
 
         $regionalConfig = RegionalInfo::getInstance()->getConfig();
-        $regionalConfig['timezone'] = filter_input(INPUT_POST, 'timezone', FILTER_SANITIZE_STRING);
-        $regionalConfig['dateFormat'] = filter_input(INPUT_POST, 'dateFormat', FILTER_SANITIZE_STRING);
-        $regionalConfig['timeFormat'] = filter_input(INPUT_POST, 'timeFormat', FILTER_SANITIZE_STRING);
-        $regionalConfig['datetimeFormat'] = filter_input(INPUT_POST, 'datetimeFormat', FILTER_SANITIZE_STRING);
+        $regionalConfig['timezone'] = $this->request->request->get('timezone');
+        $regionalConfig['dateFormat'] = $this->request->request->get('dateFormat');
+        $regionalConfig['timeFormat'] = $this->request->request->get('timeFormat');
+        $regionalConfig['datetimeFormat'] = $this->request->request->get('datetimeFormat');
         if (!RegionalInfo::getInstance()->setConfig($regionalConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('regionalinfo-data-not-changed'));
             $result = false;
@@ -222,13 +222,13 @@ class EditConfig extends AuthPageController
 
         $databaseConfig = Database::getInstance()->getConfig();
         $databaseConfigOrig = $databaseConfig;
-        $databaseConfig['dbEngineName'] = filter_input(INPUT_POST, 'dbEngineName', FILTER_SANITIZE_STRING);
-        $databaseConfig['dbUser'] = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_STRING);
-        $databaseConfig['dbPass'] = filter_input(INPUT_POST, 'dbPass', FILTER_SANITIZE_STRING);
-        $databaseConfig['dbName'] = filter_input(INPUT_POST, 'dbName', FILTER_SANITIZE_STRING);
-        $databaseConfig['dbHost'] = filter_input(INPUT_POST, 'dbHost', FILTER_SANITIZE_STRING);
-        $databaseConfig['dbPrefix'] = filter_input(INPUT_POST, 'dbPrefix', FILTER_SANITIZE_STRING);
-        $databaseConfig['dbPort'] = filter_input(INPUT_POST, 'dbPort', FILTER_SANITIZE_STRING);
+        $databaseConfig['dbEngineName'] = $this->request->request->get('dbEngineName');
+        $databaseConfig['dbUser'] = $this->request->request->get('dbUser');
+        $databaseConfig['dbPass'] = $this->request->request->get('dbPass');
+        $databaseConfig['dbName'] = $this->request->request->get('dbName');
+        $databaseConfig['dbHost'] = $this->request->request->get('dbHost');
+        $databaseConfig['dbPrefix'] = $this->request->request->get('dbPrefix');
+        $databaseConfig['dbPort'] = $this->request->request->get('dbPort');
         if (!Database::getInstance()->setConfig($databaseConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('database-data-not-changed'));
             $result = false;

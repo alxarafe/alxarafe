@@ -32,7 +32,7 @@ class ExportStructure extends AuthPageController
      */
     public function indexMethod(): Response
     {
-        switch (filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING)) {
+        switch ($this->request->request->get('action')) {
             case 'export-all':
                 Schema::saveStructure();
                 break;
