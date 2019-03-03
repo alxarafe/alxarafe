@@ -20,6 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 {
     /**
+     * Minimum cookie time expiration.
+     */
+    const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
+
+    /**
      * The user logged.
      *
      * @var User
@@ -74,6 +79,7 @@ class AuthController extends Controller
         $Auth = $this->request->headers->get('Authorization');
         $username = $this->request->cookies->get('user');
         $logkey = $this->request->cookies->get('logkey');
+        $remember = $this->request->cookies->get('remember', self::COOKIE_EXPIRATION_MIN);
 
         if (!empty($username) && !empty($logkey)) {
             $user = new User();
@@ -81,6 +87,9 @@ class AuthController extends Controller
                 $this->user = $user;
                 $this->username = $this->user->username;
                 $this->logkey = $this->user->logkey;
+                // Re-set cookie time to persist cookie time from last use
+                $time = time() + $remember;
+                $this->adjustCookieUser($time, $remember);
                 $return = true;
             }
         } elseif (!is_null($Auth)) {
@@ -110,13 +119,13 @@ class AuthController extends Controller
      * Adjust auth cookie user.
      *
      * @param int $time
-     *
-     * @return void
+     * @param int $remember
      */
-    private function adjustCookieUser($time = 0): void
+    private function adjustCookieUser($time = 0, int $remember = 0): void
     {
         if ($time == 0) {
             $time = time() - 3600;
+            $remember = null;
         }
 
         if ($this->user) {
@@ -124,5 +133,6 @@ class AuthController extends Controller
         }
         setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        setcookie('remember', $remember, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
     }
 }

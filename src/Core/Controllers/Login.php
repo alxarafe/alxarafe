@@ -144,7 +144,7 @@ class Login extends Controller
                 Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $_COOKIE['user']]));
                 // Increase cookie valid time.
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
-                $this->adjustCookieUser($time);
+                $this->adjustCookieUser($time, $remember);
             } else {
                 $this->clearCookieUser();
             }
@@ -156,13 +156,13 @@ class Login extends Controller
      * Adjust auth cookie user.
      *
      * @param int $time
-     *
-     * @return void
+     * @param int $remember
      */
-    private function adjustCookieUser($time = 0): void
+    private function adjustCookieUser(int $time = 0, int $remember = 0): void
     {
         if ($time == 0) {
             $time = time() - 3600;
+            $remember = null;
         }
 
         if ($this->user) {
@@ -170,6 +170,7 @@ class Login extends Controller
         }
         setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
+        setcookie('remember', $remember, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
     }
 
     /**
@@ -252,7 +253,7 @@ class Login extends Controller
             if ($this->user->verifyPassword($password)) {
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
-                $this->adjustCookieUser($time);
+                $this->adjustCookieUser($time, $remember);
                 Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authenticated', ['%username%' => $this->user->username]));
             } else {
                 $this->clearCookieUser();
