@@ -88,14 +88,11 @@ class Config
         /**
          * Must be defined in main index.php file
          */
-        Utils::defineIfNotExists('VENDOR_FOLDER', constant('BASE_PATH') . '/vendor');
-        Utils::defineIfNotExists('ALXARAFE_FOLDER', constant('BASE_PATH') . '/src/Core');
-        Utils::defineIfNotExists('DEFAULT_TEMPLATES_FOLDER', constant('BASE_PATH') . '/vendor/alxarafe/alxarafe/templates');
-        Utils::defineIfNotExists('VENDOR_URI', constant('BASE_URI') . '/vendor');
-        Utils::defineIfNotExists('ALXARAFE_URI', constant('BASE_URI') . '/vendor/alxarafe/alxarafe/src/Core');
-        Utils::defineIfNotExists('DEFAULT_TEMPLATES_URI', constant('BASE_URI') . '/vendor/alxarafe/alxarafe/templates');
+        Utils::defineIfNotExists('VENDOR_FOLDER', basePath('vendor'));
+        Utils::defineIfNotExists('ALXARAFE_FOLDER', basePath('src/Core'));
+        Utils::defineIfNotExists('VENDOR_URI', baseUrl('vendor'));
 
-        Utils::defineIfNotExists('CONFIGURATION_PATH', constant('BASE_PATH') . '/config');
+        Utils::defineIfNotExists('CONFIGURATION_PATH', basePath('config'));
         Utils::defineIfNotExists('DEFAULT_STRING_LENGTH', 50);
         Utils::defineIfNotExists('DEFAULT_INTEGER_SIZE', 10);
 

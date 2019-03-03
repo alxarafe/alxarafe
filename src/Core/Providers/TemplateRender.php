@@ -30,18 +30,18 @@ class TemplateRender
      * Each template will be a folder whose name will be the one that will
      * appear in the template selector.
      */
-    const SKINS_FOLDER = '/resources/skins';
+    const SKINS_FOLDER = 'resources/skins';
 
     /**
      * Folder containing the different twig templates
      */
-    const TEMPLATES_FOLDER = '/resources/templates';
+    const TEMPLATES_FOLDER = 'resources/templates';
 
     /**
      * Folder that contains templates common to the entire application, but
      * that can be overwritten.
      */
-    const COMMON_TEMPLATES_FOLDER = '/resources/common';
+    const COMMON_TEMPLATES_FOLDER = 'resources/common';
 
     /**
      * The renderer.
@@ -111,6 +111,7 @@ class TemplateRender
                 '_POST' => $_POST,
                 'GLOBALS' => $GLOBALS,
             ];
+            $this->setSkin($this->getConfig()['skin'] ?? 'default');
             self::$commonTemplatesFolder = $this->getTemplatesFolder();
             $loader = new Twig_Loader_Filesystem($this->getPaths());
             self::$twig = new Twig_Environment($loader, $this->getOptions());
@@ -126,7 +127,7 @@ class TemplateRender
     public function getTemplatesFolder(): string
     {
         return basePath(self::$templatesFolder);
-        return basePath(self::TEMPLATES_FOLDER);
+        //return basePath(self::TEMPLATES_FOLDER);
     }
 
     /**
@@ -140,7 +141,7 @@ class TemplateRender
         $paths = [
             $this->getTemplatesFolder(),
             $this->getCommonTemplatesFolder(),
-            constant('DEFAULT_TEMPLATES_FOLDER'),
+            basePath(self::TEMPLATES_FOLDER),
         ];
         // Only use really existing path
         foreach ($paths as $path) {
@@ -240,15 +241,6 @@ class TemplateRender
     {
         try {
             $render = self::$twig->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
-//            if (constant('DEBUG')) {
-//                // Stores some usefull data if not rendering but called.
-//                $loggerData = [
-//                    'template' => $this->getTemplate() ?? 'empty.twig',
-//                    'vars' => $this->getTemplateVars($data),
-//                    'render' => $render,
-//                ];
-//                Logger::getInstance()->getLogger()->addDebug('debug', $loggerData);
-//            }
         } catch (\Twig_Error_Loader $e) {
             $render = '';
             // When the template cannot be found
@@ -348,8 +340,8 @@ class TemplateRender
      */
     public function setSkin(string $skin)
     {
-        if ($skin != self::$currentSkin) {
-            DebugTool::getInstance()->addMessage('messages', 'Estableciendo skin ' . $skin);
+        if ($skin !== self::$currentSkin) {
+            DebugTool::getInstance()->addMessage('messages', 'Established skin ' . $skin);
             self::$currentSkin = $skin;
             $this->setTemplatesFolder($skin);
         }
@@ -378,7 +370,7 @@ class TemplateRender
         $paths = [
             $this->getTemplatesFolder() . $path => $this->getTemplatesUri() . $path,
             $this->getCommonTemplatesFolder() . $path => $this->getCommonTemplatesUri() . $path,
-            constant('DEFAULT_TEMPLATES_FOLDER') . $path => constant('DEFAULT_TEMPLATES_URI') . $path,
+            self::TEMPLATES_FOLDER . $path => baseUrl(self::TEMPLATES_FOLDER . $path),
             constant('VENDOR_FOLDER') . $path => constant('VENDOR_URI') . $path,
             constant('BASE_PATH') . $path => constant('BASE_URI') . $path,
         ];
@@ -399,7 +391,7 @@ class TemplateRender
     public function getTemplatesUri(): string
     {
         return baseUrl(self::$templatesFolder);
-        return baseUrl(self::TEMPLATES_FOLDER);
+        //return baseUrl(self::TEMPLATES_FOLDER);
     }
 
     /**
