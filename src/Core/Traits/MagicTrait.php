@@ -71,7 +71,7 @@ trait MagicTrait
      */
     public function __call(string $method, array $params)
     {
-        preg_match('/^(get|set|has)(.*?)$/i', $method, $matches);
+        preg_match('/^(get|set|has|is)(.*?)$/i', $method, $matches);
         $prefix = $matches[1] ?? '';
         $key = lcfirst($matches[2]) ?? '';
         switch ($prefix) {
@@ -82,6 +82,8 @@ trait MagicTrait
                 return $this;
             case 'has':
                 return property_exists($this, $key);
+            case 'is':
+                return $this->{$key} == true;
             default:
                 throw new Exception('Prefix ' . $prefix . ' not yet supported on ' . __CLASS__ . '.');
                 break;
