@@ -32,13 +32,13 @@ class Languages
     {
         $debugTool = DebugTool::getInstance();
 
-        $subfolder = '/Languages';
+        $subfolder = 'Languages';
         $sourceFolders = [
-            constant('ALXARAFE_FOLDER') . $subfolder,
-            constant('BASE_PATH') . $subfolder,
+            constant('ALXARAFE_FOLDER') . constant('DIRECTORY_SEPARATOR') . $subfolder,
+            basePath($subfolder),
         ];
 
-        $destinationFolder = constant('BASE_PATH') . '/config/languages';
+        $destinationFolder = basePath('config/languages');
         if (!is_dir($destinationFolder)) {
             \mkdir($destinationFolder, 0777, true);
         }

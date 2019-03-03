@@ -172,7 +172,7 @@ class TemplateRender
         $options = [];
         $options['debug'] = ((defined('DEBUG') && constant('DEBUG')) === true);
         if (defined('CACHE') && constant('CACHE') == true) {
-            $options['cache'] = (constant('BASE_PATH') ?? '') . '/cache/twig';
+            $options['cache'] = (basePath() ?? '') . '/cache/twig';
         }
         return $options;
     }
@@ -372,7 +372,7 @@ class TemplateRender
             $this->getCommonTemplatesFolder() . $path => $this->getCommonTemplatesUri() . $path,
             self::TEMPLATES_FOLDER . $path => baseUrl(self::TEMPLATES_FOLDER . $path),
             constant('VENDOR_FOLDER') . $path => constant('VENDOR_URI') . $path,
-            constant('BASE_PATH') . $path => constant('BASE_URI') . $path,
+            basePath($path) => baseUrl($path),
         ];
 
         foreach ($paths as $fullPath => $uriPath) {

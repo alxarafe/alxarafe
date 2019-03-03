@@ -69,7 +69,7 @@ class DebugTool
                 $this->logger::exceptionHandler($e);
             }
             $baseUrl = baseUrl('vendor/maximebf/debugbar/src/DebugBar/Resources');
-            $this->jsRender = $this->debugTool->getJavascriptRenderer($baseUrl, constant('BASE_PATH'));
+            $this->jsRender = $this->debugTool->getJavascriptRenderer($baseUrl, basePath());
         }
     }
 
@@ -91,7 +91,7 @@ class DebugTool
     public function addException($e): void
     {
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
+        $caller['file'] = substr($caller['file'], strlen(basePath()));
         try {
             $this->debugTool->getCollector('exceptions')->/** @scrutinizer ignore-call */
             addException($e);
@@ -171,7 +171,7 @@ class DebugTool
     public function addMessage(string $channel, string $message): void
     {
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')));
+        $caller['file'] = substr($caller['file'], strlen(basePath()));
         try {
             $this->debugTool->getCollector($channel)->/** @scrutinizer ignore-call */
             addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);

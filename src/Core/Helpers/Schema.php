@@ -194,7 +194,7 @@ class Schema
             return $path;
         }
         // And then if it exists in the application
-        $path = constant('BASE_PATH') . '/config/' . $type . '/' . $tableName . $extension;
+        $path = basePath('config/' . $type . '/' . $tableName . $extension);
         return file_exists($path) ? $path : '';
     }
 
@@ -247,7 +247,7 @@ class Schema
      */
     private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
     {
-        $path = constant('BASE_PATH') . '/config/' . $type;
+        $path = basePath('config/' . $type);
         if (!is_dir($path)) {
             \mkdir($path, 0777, true);
         }

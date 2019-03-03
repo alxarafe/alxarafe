@@ -68,7 +68,7 @@ class CacheCore
      */
     private function connectPhpArray(): void
     {
-        $file = constant('BASE_PATH') . constant('DIRECTORY_SEPARATOR') . 'core.cache';
+        $file = basePath('core.cache');
         $this->engine = new PhpArrayAdapter($file, new FilesystemAdapter());
     }
 
