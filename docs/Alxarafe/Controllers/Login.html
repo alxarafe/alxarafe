@@ -356,10 +356,10 @@ of the skin folder). It's a specific file.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    void
+                    
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0)
+                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0, int $remember = 0)
         
                                             <p>Adjust auth cookie user.</p>                </div>
                 <div class="col-md-2"></div>
@@ -901,9 +901,9 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_adjustCookieUser">
-        <div class="location">at         line 162</div>
-        <code>                private    void
-    <strong>adjustCookieUser</strong>(int $time = 0)
+        <div class="location">at         line 164</div>
+        <code>                private    
+    <strong>adjustCookieUser</strong>(int $time = 0, int $remember = 0)
         </code>
     </h3>
     <div class="details">
@@ -921,18 +921,14 @@ js folders of the templates folder). It's a common file.</p>
                 <td>$time</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td>int</td>
+                <td>$remember</td>
+                <td></td>
+            </tr>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>
@@ -941,7 +937,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_clearCookieUser">
-        <div class="location">at         line 180</div>
+        <div class="location">at         line 184</div>
         <code>                private    void
     <strong>clearCookieUser</strong>()
         </code>
@@ -971,7 +967,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_main">
-        <div class="location">at         line 195</div>
+        <div class="location">at         line 199</div>
         <code>                private    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>main</strong>()
         </code>
@@ -1001,7 +997,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_logoutMethod">
-        <div class="location">at         line 210</div>
+        <div class="location">at         line 214</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>logoutMethod</strong>()
         </code>
@@ -1031,7 +1027,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getUserName">
-        <div class="location">at         line 222</div>
+        <div class="location">at         line 226</div>
         <code>                    string|null
     <strong>getUserName</strong>()
         </code>
@@ -1061,7 +1057,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_getUser">
-        <div class="location">at         line 232</div>
+        <div class="location">at         line 236</div>
         <code>                    <a href="../../Alxarafe/Models/User.html"><abbr title="Alxarafe\Models\User">User</abbr></a>|null
     <strong>getUser</strong>()
         </code>
@@ -1091,7 +1087,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_setUser">
-        <div class="location">at         line 246</div>
+        <div class="location">at         line 250</div>
         <code>                    bool
     <strong>setUser</strong>(string $userName, string $password, bool $remember = false)
         </code>

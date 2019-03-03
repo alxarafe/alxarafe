@@ -107,6 +107,13 @@
 
             <table class="table table-condensed">
                     <tr>
+                <td>COOKIE_EXPIRATION_MIN</td>
+                <td class="last">
+                    <p><em>Minimum cookie time expiration.</em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
                 <td>MENU_DELIMITER</td>
                 <td class="last">
                     <p><em>Symbol to split menu/submenu items.</em></p>
@@ -543,10 +550,10 @@ of the skin folder). It's a specific file.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    void
+                    
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0)
+                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0, int $remember = 0)
         
                                             <p>Adjust auth cookie user.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a></small></div>
@@ -1249,7 +1256,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkAuth">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 71</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 76</div>
         <code>                    
     <strong>checkAuth</strong>()
         </code>
@@ -1270,7 +1277,7 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_logout">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 99</div>
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 109</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>logout</strong>()
         </code>
@@ -1300,9 +1307,9 @@ js folders of the templates folder). It's a common file.</p>
             </div>
                     <div class="method-item">
                     <h3 id="method_adjustCookieUser">
-        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 116</div>
-        <code>                private    void
-    <strong>adjustCookieUser</strong>(int $time = 0)
+        <div class="location">in <a href="../../Alxarafe/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Base\AuthController">AuthController</abbr></a> at         line 125</div>
+        <code>                private    
+    <strong>adjustCookieUser</strong>(int $time = 0, int $remember = 0)
         </code>
     </h3>
     <div class="details">
@@ -1320,18 +1327,14 @@ js folders of the templates folder). It's a common file.</p>
                 <td>$time</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td>int</td>
+                <td>$remember</td>
+                <td></td>
+            </tr>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>
