@@ -254,12 +254,12 @@ abstract class AuthPageController extends AuthController
                     return $this->{$method}();
                 }
                 break;
-            default:
-                // Forced to this template because needs to verify perms on this final method.
-                $this->renderer->setTemplate('master/noaccess');
-                $this->debugTool->addMessage('messages', $this->translator->trans('user-unknown-perms-to', ['%where%' => $this->shortName . '->' . $method . '()']));
-                return $this->{$method}();
         }
+
+        // Forced to this template because needs to verify perms on this final method.
+        $this->renderer->setTemplate('master/noaccess');
+        $this->debugTool->addMessage('messages', $this->translator->trans('user-unknown-perms-to', ['%where%' => $this->shortName . '->' . $method . '()']));
+        return $this->{$method}();
     }
 
     /**

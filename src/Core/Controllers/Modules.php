@@ -165,7 +165,21 @@ class Modules extends AuthPageExtendedController
      */
     public function deleteMethod(): Response
     {
-        $this->disableMethod();
+        if (!$this->canAccess || !$this->canDelete) {
+            $this->renderer->setTemplate('master/noaccess');
+            return $this->sendResponseTemplate();
+        }
+        $id = $this->request->query->get($this->model->getIdField());
+        $this->model = new Module();
+        if ($this->model->load($id)) {
+            $this->model->enabled = 0;
+            if ($this->model->save()) {
+                FlashMessages::getInstance()::setSuccess(
+                    $this->translator->trans('module-disabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
+                );
+            }
+        }
+
         Utils::rrmdir(basePath($this->model->path));
         return parent::deleteMethod();
     }
