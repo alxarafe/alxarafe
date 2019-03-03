@@ -231,7 +231,8 @@ class Utils
      *
      * @return bool
      */
-    public static function rrmdir(string $path) {
+    public static function rrmdir(string $path)
+    {
         // Open the source directory to read in files
         $i = new DirectoryIterator($path);
         foreach($i as $f) {
