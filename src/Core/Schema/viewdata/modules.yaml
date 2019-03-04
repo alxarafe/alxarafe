@@ -18,12 +18,6 @@ enabled:
   label: enabled
   shortlabel: col-enabled
   placeholder: enabled
-order:
-  label: order
-  shortlabel: col-order
-  placeholder: order
-  min: 0
-  max: 9999
 inserted_date:
   label: inserted_date
   shortlabel: col-inserted_date

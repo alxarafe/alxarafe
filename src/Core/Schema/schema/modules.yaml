@@ -19,15 +19,9 @@ fields:
     nullable: 'no'
     unsigned: 'no'
   enabled:
-    type: integer
-    length: '1'
-    default: '0'
-    nullable: 'no'
-    unsigned: 'yes'
-  order:
-    type: integer
-    length: '10'
-    default: null
+    type: datetime
+    length: null
+    default: CURRENT_TIMESTAMP
     nullable: 'yes'
     unsigned: 'yes'
   inserted_date:

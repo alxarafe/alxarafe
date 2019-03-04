@@ -198,7 +198,7 @@ class Modules extends AuthPageExtendedController
         $id = $this->request->query->get($this->model->getIdField());
         $this->model = new Module();
         if ($this->model->load($id)) {
-            $this->model->enabled = 1;
+            $this->model->enabled = (new Datetime('now'))->format('Y-m-d H:i:s.u');
             if ($this->model->save()) {
                 FlashMessages::getInstance()::setSuccess(
                     $this->translator->trans('module-enabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
@@ -223,7 +223,7 @@ class Modules extends AuthPageExtendedController
         $id = $this->request->query->get($this->model->getIdField());
         $this->model = new Module();
         if ($this->model->load($id)) {
-            $this->model->enabled = 0;
+            $this->model->enabled = null;
             if ($this->model->save()) {
                 FlashMessages::getInstance()::setSuccess(
                     $this->translator->trans('module-disabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
