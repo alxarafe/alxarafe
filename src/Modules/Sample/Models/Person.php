@@ -43,7 +43,7 @@ class Person extends Table
     public function getDependencies(): array
     {
         return [
-            'Alxarafe\\Modules\\Sample\\Models\\Country',
+            'Modules\\Sample\\Models\\Country',
         ];
     }
 }

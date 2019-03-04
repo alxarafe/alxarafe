@@ -52,10 +52,14 @@ class Pages
         Database::getInstance()->getDbEngine()->beginTransaction();
 
         foreach ($this->searchDir as $namespace => $baseDir) {
+            $dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers';
+            if (!is_dir($dir)) {
+                \mkdir($dir, 0777, true);
+            }
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')
-                ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
+                ->in($dir);
             $start = new DateTime();
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
@@ -80,6 +84,9 @@ class Pages
      */
     private function instantiateClass(string $namespace, string $className)
     {
+        if ($namespace === 'Alxarafe') {
+            $namespace .= '\\Core';
+        }
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $newClass = new $class();
         $parents = class_parents($class);

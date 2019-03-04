@@ -37,8 +37,10 @@ class TableModel extends Table
 
     /**
      * Return class dependencies
+     *
+     * @return string[]
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             'Alxarafe\Core\\Models\\Page',
