@@ -219,6 +219,6 @@
 
     <!-- The testing bootstrap file uses string concats to stop IDEs seeing the class aliases -->
     <rule ref="Generic.Strings.UnnecessaryStringConcat">
-        <exclude-pattern>src/Test/bootstrap.php</exclude-pattern>
+        <exclude-pattern>src/Alxarafe/Test/bootstrap.php</exclude-pattern>
     </rule>
 </ruleset>

@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Modules\Sample\Controllers\Regions | alxarafe</title>
+
+            <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/sami.css">
+        <script src="../../../js/jquery-1.11.1.min.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+        <script src="../../../js/typeahead.min.js"></script>
+        <script src="../../../sami.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    
+    
+    </head>
+
+    <body id="class" data-name="class:Modules_Sample_Controllers_Regions" data-root-path="../../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                <script>
+            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="../../../search.html" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../index.html">alxarafe</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../../classes.html">Classes</a></li>
+                                            <li><a href="../../../namespaces.html">Namespaces</a></li>
+                                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../traits.html">Traits</a></li>
+                    <li><a href="../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../../Modules.html">Modules</a></li><li class="backslash">\</li><li><a href="../../../Modules/Sample.html">Sample</a></li><li class="backslash">\</li><li><a href="../../../Modules/Sample/Controllers.html">Controllers</a></li><li class="backslash">\</li><li>Regions</li>
+            </ol>
+        </div>
+                <div id="page-content">
+                
+    <div class="page-header">
+        <h1>
+            Regions
+                
+        </h1>
+    </div>
+
+    <p>    class
+    <strong>Regions</strong>        extends <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a>
+</p>
+
+        
+    
+
+            <div class="description">
+            <p>Class Regions</p>                                </div>
+    
+            <h2>Traits</h2>
+
+        
+    <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                                            <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a>
+                                            
+                </div>
+                <div class="col-md-6">
+                    Trait AjaxDataTable.
+                </div>
+            </div>
+            </div>
+    
+            <h2>Constants</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td>COOKIE_EXPIRATION_MIN</td>
+                <td class="last">
+                    <p><em>Minimum cookie time expiration.</em></p>
+                    <p></p>
+                </td>
+            </tr>
+                    <tr>
+                <td>MENU_DELIMITER</td>
+                <td class="last">
+                    <p><em>Symbol to split menu/submenu items.</em></p>
+                    <p></p>
+                </td>
+            </tr>
+            </table>
+
+    
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td class="type" id="property_username">
+                                                                                string|null
+                </td>
+                <td>$username</td>
+                <td class="last">Contains the user's name or null</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_username"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_shortName">
+                                                                                string
+                </td>
+                <td>$shortName</td>
+                <td class="last">Class short name.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_shortName"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_session">
+                                                                                <a href="../../../Alxarafe/Core/Helpers/Session.html"><abbr title="Alxarafe\Core\Helpers\Session">Session</abbr></a>
+                </td>
+                <td>$session</td>
+                <td class="last">To manage PHP Sessions.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_session"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_renderer">
+                                                                                <a href="../../../Alxarafe/Core/Providers/TemplateRender.html"><abbr title="Alxarafe\Core\Providers\TemplateRender">TemplateRender</abbr></a>
+                </td>
+                <td>$renderer</td>
+                <td class="last">Manage the renderer.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_renderer"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_request">
+                                                                                <abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr>
+                </td>
+                <td>$request</td>
+                <td class="last">Request from client.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_request"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_response">
+                                                                                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </td>
+                <td>$response</td>
+                <td class="last">Response to client.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_response"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_debugTool">
+                                                                                <a href="../../../Alxarafe/Core/Providers/DebugTool.html"><abbr title="Alxarafe\Core\Providers\DebugTool">DebugTool</abbr></a>
+                </td>
+                <td>$debugTool</td>
+                <td class="last">The debug tool used.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_debugTool"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_container">
+                                        protected                                        <a href="../../../Alxarafe/Core/Providers/Container.html"><abbr title="Alxarafe\Core\Providers\Container">Container</abbr></a>|null
+                </td>
+                <td>$container</td>
+                <td class="last">Contains dependencies.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_container"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_translator">
+                                        protected                                        <a href="../../../Alxarafe/Core/Providers/Translator.html"><abbr title="Alxarafe\Core\Providers\Translator">Translator</abbr></a>
+                </td>
+                <td>$translator</td>
+                <td class="last">The translator manager.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_translator"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_vars">
+                                                            private                    array
+                </td>
+                <td>$vars</td>
+                <td class="last">Array that contains the variables that will be passed to the template.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_vars"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_user">
+                                                                                <a href="../../../Alxarafe/Core/Models/User.html"><abbr title="Alxarafe\Core\Models\User">User</abbr></a>
+                </td>
+                <td>$user</td>
+                <td class="last">The user logged.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthController.html#property_user"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_logkey">
+                                                                                string|null
+                </td>
+                <td>$logkey</td>
+                <td class="last">User log key.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthController.html#property_logkey"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_defaultRedirect">
+                                                            private                    string
+                </td>
+                <td>$defaultRedirect</td>
+                <td class="last">Page to redirect.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthController.html#property_defaultRedirect"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_title">
+                                                                                string
+                </td>
+                <td>$title</td>
+                <td class="last">Page title.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_title"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_icon">
+                                                                                string
+                </td>
+                <td>$icon</td>
+                <td class="last">Page icon.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_icon"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_description">
+                                                                                string
+                </td>
+                <td>$description</td>
+                <td class="last">Page description.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_description"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_menu">
+                                                                                array
+                </td>
+                <td>$menu</td>
+                <td class="last">Page menu place.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_menu"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canAccess">
+                                                                                bool
+                </td>
+                <td>$canAccess</td>
+                <td class="last">Can user access?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canAccess"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canCreate">
+                                                                                bool
+                </td>
+                <td>$canCreate</td>
+                <td class="last">Can user create?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canCreate"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canRead">
+                                                                                bool
+                </td>
+                <td>$canRead</td>
+                <td class="last">Can user read?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canRead"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canUpdate">
+                                                                                bool
+                </td>
+                <td>$canUpdate</td>
+                <td class="last">Can user update?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canUpdate"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canDelete">
+                                                                                bool
+                </td>
+                <td>$canDelete</td>
+                <td class="last">Can user delete?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canDelete"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canPrint">
+                                                                                bool
+                </td>
+                <td>$canPrint</td>
+                <td class="last">Can user print?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canPrint"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canExport">
+                                                                                bool
+                </td>
+                <td>$canExport</td>
+                <td class="last">Can user export?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canExport"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_canSendMail">
+                                                                                bool
+                </td>
+                <td>$canSendMail</td>
+                <td class="last">Can user send mail?</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_canSendMail"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_roles">
+                                                                                <a href="../../../Alxarafe/Core/Models/UserRole.html"><abbr title="Alxarafe\Core\Models\UserRole">UserRole</abbr></a>[]
+                </td>
+                <td>$roles</td>
+                <td class="last">The roles where user is assigned.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_roles"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_url">
+                                                                                string
+                </td>
+                <td>$url</td>
+                <td class="last">Contiene la url que se usará en el formulario.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#property_url"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_postData">
+                                                                                array
+                </td>
+                <td>$postData</td>
+                <td class="last">Contains all data received from $_POST.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_postData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_model">
+                                                                                <a href="../../../Alxarafe/Core/Base/Table.html"><abbr title="Alxarafe\Core\Base\Table">Table</abbr></a>
+                </td>
+                <td>$model</td>
+                <td class="last">Main table model.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_model"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_tableName">
+                                                                                string
+                </td>
+                <td>$tableName</td>
+                <td class="last">The table relate to the model.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_tableName"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_viewData">
+                                                                                array
+                </td>
+                <td>$viewData</td>
+                <td class="last">The data view details for each data field.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_viewData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_encType">
+                                                                                string
+                </td>
+                <td>$encType</td>
+                <td class="last">Type of encryption for form.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_encType"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_tableData">
+                                                                                array
+                </td>
+                <td>$tableData</td>
+                <td class="last">Data received or sended in post.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_tableData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_code">
+                                                                                string
+                </td>
+                <td>$code</td>
+                <td class="last">Code to table id.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_code"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_oldData">
+                                        protected                                        array
+                </td>
+                <td>$oldData</td>
+                <td class="last">Contains all data from table.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_oldData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_fieldsStruct">
+                                        protected                                        array
+                </td>
+                <td>$fieldsStruct</td>
+                <td class="last">Contains the field structure.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_fieldsStruct"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_currentId">
+                                        protected                                        string|null
+                </td>
+                <td>$currentId</td>
+                <td class="last">Contains the primary key of register in use.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_currentId"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_status">
+                                        protected                                        string
+                </td>
+                <td>$status</td>
+                <td class="last">Can contain: listing, adding or editing.</td>
+                <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#property_status"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>()
+        
+                                            <p>Regions constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_sendResponseTemplate">sendResponseTemplate</a>(array $data = [])
+        
+                                            <p>Add new vars to render, render the template and send the Response.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_sendResponseTemplate"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_sendResponse">sendResponse</a>(string $reply, int $status = Response::HTTP_OK)
+        
+                                            <p>Send the Response with data received.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_sendResponse"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_redirect">redirect</a>(string $destiny = &#039;&#039;)
+        
+                                            <p>Send a RedirectResponse to destiny receive.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_redirect"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_runMethod">runMethod</a>(string $methodName)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_runMethod"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addToVar">addToVar</a>(string $name, mixed $value)
+        
+                                            <p>Add a new element to a value saved in the array that is passed to the template.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_addToVar"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addResource">addResource</a>(string $resourceName, boolean $relative = true)
+        
+                                            <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_addResource"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addCSS">addCSS</a>()
+        
+                                            <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_addCSS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addJS">addJS</a>()
+        
+                                            <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_addJS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_checkAuth">checkAuth</a>()
+        
+                                            <p>Check that user is logged in.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_adjustCookieUser">adjustCookieUser</a>(int $time = 0, int $remember = 0)
+        
+                                            <p>Adjust auth cookie user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_logout">logout</a>()
+        
+                                            <p>Close the user session and go to the main page</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setPageDetails">setPageDetails</a>()
+        
+                                            <p>Set the page details.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_setPageDetails"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_pageDetails">pageDetails</a>()
+        
+                                            <p>Returns the page details.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_indexMethod">indexMethod</a>()
+        
+                                            <p>The start point of the controller.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_indexMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_createMethod">createMethod</a>()
+        
+                                            <p>Create new record.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_createMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_readMethod">readMethod</a>()
+        
+                                            <p>Read existing record.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_readMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_updateMethod">updateMethod</a>()
+        
+                                            <p>Update existing record.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_updateMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_deleteMethod">deleteMethod</a>()
+        
+                                            <p>Default delete method for delete an individual register.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_deleteMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_loadPerms">loadPerms</a>()
+        
+                                            <p>Load perms for this user.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_loadPerms"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_canAction">canAction</a>(string $action)
+        
+                                            <p>Verify if this user can do an action.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_canAction"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getUserMenu">getUserMenu</a>()
+        
+                                            <p>Return a list of pages for generate user menu.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_getUserMenu"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getPageDetails">getPageDetails</a>()
+        
+                                            <p>Returns the page details as array.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_getPageDetails"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_ajaxTableDataMethod">ajaxTableDataMethod</a>()
+        
+                                            <p>Return the table data using AJAX</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_ajaxTableDataMethod"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_initialize">initialize</a>()
+        
+                                            <p>Initialize common properties</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_initialize"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_searchData">searchData</a>(array $data, int $recordsFiltered, array $requestData = [])
+        
+                                            <p>Realize the search to database table.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_searchData"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDefaultColumnsSearch">getDefaultColumnsSearch</a>()
+        
+                                            <p>Return a default list of col.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getDefaultColumnsSearch"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_fillActions">fillActions</a>($data)
+        
+                                            <p>Fill 'col-action' fields with action buttons.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_fillActions"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getActionButtons">getActionButtons</a>(string $id = &#039;&#039;)
+        
+                                            <p>Returns a list of actions buttons. By default returns Read/Update/Delete actions.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getActionButtons"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTableHeader">getTableHeader</a>()
+        
+                                            <p>Returns the header for table.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getTableHeader"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTableBody">getTableBody</a>()
+        
+                                            <p>Returns the content for the body of table.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getTableBody"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getListFields">getListFields</a>()
+        
+                                            <p>Returns a list of fields for the tablename.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getListFields"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getTableFooter">getTableFooter</a>()
+        
+                                            <p>Returns a footer list of fields for the table.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getTableFooter"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getExtraActions">getExtraActions</a>()
+        
+                                            <p>Returns a list of extra actions.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getExtraActions"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getStatus">getStatus</a>()
+        
+                                            <p>Returns the actual status of the controller.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getStatus"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addMethod">addMethod</a>()
+        
+                                            <p>Create new record, used as alias</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_addMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getRecordData">getRecordData</a>()
+        
+                                            <p>Obtains an array of data from register $this->currentId.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getRecordData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_showMethod">showMethod</a>()
+        
+                                            <p>Read existing record, used as alias</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_showMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_editMethod">editMethod</a>()
+        
+                                            <p>Update existing record, used as alias</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_editMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_cancel">cancel</a>()
+        
+                                            <p>Cancels goes to main controller status.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_cancel"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getDataPost">getDataPost</a>()
+        
+                                            <p>Returns the data received from $_POST</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getDataPost"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_save">save</a>()
+        
+                                            <p>Save the data, and reload the page on success.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_save"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_removeMethod">removeMethod</a>()
+        
+                                            <p>Default delete method for delete an individual register, used as alias</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_removeMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_accessDenied">accessDenied</a>()
+        
+                                            <p>Access denied page.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_accessDenied"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_listData">listData</a>()
+        
+                                            <p>List all records on model.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_listData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_setDefaults">setDefaults</a>(array $record)
+        
+                                            <p>Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
+falten con los datos por defecto.</p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_setDefaults"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a></small></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at         line 22</div>
+        <code>                    
+    <strong>__construct</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Regions constructor.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_sendResponseTemplate">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/Controller.html#method_sendResponseTemplate"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a> at         line 128</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>sendResponseTemplate</strong>(array $data = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Add new vars to render, render the template and send the Response.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_sendResponse">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_sendResponse"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 155</div>
+        <code>    abstract                <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>sendResponse</strong>(string $reply, int $status = Response::HTTP_OK)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Send the Response with data received.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$reply</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$status</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_redirect">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/Controller.html#method_redirect"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a> at         line 156</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>redirect</strong>(string $destiny = &#039;&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Send a RedirectResponse to destiny receive.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$destiny</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_runMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_runMethod"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a> at         line 204</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>runMethod</strong>(string $methodName)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$methodName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addToVar">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/Controller.html#method_addToVar"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a> at         line 188</div>
+        <code>                    void
+    <strong>addToVar</strong>(string $name, mixed $value)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Add a new element to a value saved in the array that is passed to the template.</p>                    <p>It is used when what we are saving is an array and we want to add a new element to that array.
+IMPORTANT: The element only is added if is not empty.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addResource">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/Controller.html#method_addResource"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a> at         line 209</div>
+        <code>                    string
+    <strong>addResource</strong>(string $resourceName, boolean $relative = true)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check if the resource is in the application's resource folder (for example, in the css or js folders
+of the skin folder). It's a specific file.</p>                    <p>If it can not be found, check if it is in the templates folder (for example in the css or
+js folders of the templates folder). It's a common file.</p>
+
+<p>If it is not in either of the two, no route is specified (it will surely give loading error).</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$resourceName</td>
+                <td>is the name of the file (with extension)</td>
+            </tr>
+                    <tr>
+                <td>boolean</td>
+                <td>$relative</td>
+                <td>set to false for use an absolute path.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td>the complete path of resource.</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addCSS">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/Controller.html#method_addCSS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a> at         line 231</div>
+        <code>                    void
+    <strong>addCSS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addJS">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/Controller.html#method_addJS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a> at         line 241</div>
+        <code>                    void
+    <strong>addJS</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>addJS includes the common JS files to all views templates. Also defines JS folders templates.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_checkAuth">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthController.html#method_checkAuth"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a> at         line 76</div>
+        <code>                    
+    <strong>checkAuth</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Check that user is logged in.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_adjustCookieUser">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthController.html#method_adjustCookieUser"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a> at         line 110</div>
+        <code>                private    
+    <strong>adjustCookieUser</strong>(int $time = 0, int $remember = 0)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Adjust auth cookie user.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>int</td>
+                <td>$time</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$remember</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_logout">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthController.html#method_logout"><abbr title="Alxarafe\Core\Base\AuthController">AuthController</abbr></a> at         line 130</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>logout</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Close the user session and go to the main page</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setPageDetails">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_setPageDetails"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a> at         line 141</div>
+        <code>            protected        void
+    <strong>setPageDetails</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set the page details.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_pageDetails">
+        <div class="location">at         line 32</div>
+        <code>                    array
+    <strong>pageDetails</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the page details.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_indexMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_indexMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 365</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>indexMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>The start point of the controller.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_createMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 172</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>createMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create new record.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_readMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_readMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 233</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>readMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Read existing record.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_updateMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_updateMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 257</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>updateMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Update existing record.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_deleteMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_deleteMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 338</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>deleteMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Default delete method for delete an individual register.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadPerms">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_loadPerms"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a> at         line 268</div>
+        <code>                private    
+    <strong>loadPerms</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Load perms for this user.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_canAction">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_canAction"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a> at         line 300</div>
+        <code>                private    bool
+    <strong>canAction</strong>(string $action)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Verify if this user can do an action.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$action</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getUserMenu">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_getUserMenu"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a> at         line 336</div>
+        <code>                    array
+    <strong>getUserMenu</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return a list of pages for generate user menu.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getPageDetails">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageController.html#method_getPageDetails"><abbr title="Alxarafe\Core\Base\AuthPageController">AuthPageController</abbr></a> at         line 363</div>
+        <code>            protected        array
+    <strong>getPageDetails</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the page details as array.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_ajaxTableDataMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_ajaxTableDataMethod"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 25</div>
+        <code>                    
+    <strong>ajaxTableDataMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return the table data using AJAX</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_initialize">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_initialize"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 55</div>
+        <code>    abstract                
+    <strong>initialize</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Initialize common properties</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_searchData">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_searchData"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 64</div>
+        <code>                private    
+    <strong>searchData</strong>(array $data, int $recordsFiltered, array $requestData = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Realize the search to database table.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$recordsFiltered</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$requestData</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDefaultColumnsSearch">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getDefaultColumnsSearch"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 99</div>
+        <code>                    array
+    <strong>getDefaultColumnsSearch</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return a default list of col.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_fillActions">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_fillActions"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 116</div>
+        <code>                private    
+    <strong>fillActions</strong>($data)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Fill 'col-action' fields with action buttons.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getActionButtons">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getActionButtons"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 145</div>
+        <code>    abstract                array
+    <strong>getActionButtons</strong>(string $id = &#039;&#039;)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of actions buttons. By default returns Read/Update/Delete actions.</p>                    <p>If some needs to be replace, replace it on final class.</p>                            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$id</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTableHeader">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getTableHeader"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 160</div>
+        <code>                    
+    <strong>getTableHeader</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the header for table.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTableBody">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getTableBody"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 183</div>
+        <code>                    
+    <strong>getTableBody</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the content for the body of table.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getListFields">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getListFields"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 208</div>
+        <code>                    
+    <strong>getListFields</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of fields for the tablename.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTableFooter">
+        <div class="location">in <a href="../../../Alxarafe/Core/Traits/AjaxDataTableTrait.html#method_getTableFooter"><abbr title="Alxarafe\Core\Traits\AjaxDataTableTrait">AjaxDataTableTrait</abbr></a> at         line 239</div>
+        <code>                    
+    <strong>getTableFooter</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a footer list of fields for the table.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getExtraActions">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getExtraActions"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 144</div>
+        <code>                    array
+    <strong>getExtraActions</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns a list of extra actions.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getStatus">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getStatus"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 154</div>
+        <code>                    string
+    <strong>getStatus</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the actual status of the controller.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_addMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 164</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>addMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Create new record, used as alias</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRecordData">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getRecordData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 206</div>
+        <code>            protected        array
+    <strong>getRecordData</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Obtains an array of data from register $this->currentId.</p>                    <p>If register doesn't exists, returns an empty register with default data.</p>
+
+<p>This method can do additional things in more complex situations.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_showMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_showMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 225</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>showMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Read existing record, used as alias</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_editMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_editMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 247</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>editMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Update existing record, used as alias</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_cancel">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_cancel"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 281</div>
+        <code>            protected        <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>cancel</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Cancels goes to main controller status.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDataPost">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_getDataPost"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 297</div>
+        <code>            protected        void
+    <strong>getDataPost</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Returns the data received from $_POST</p>                    <p>This method can do additional things in more complex situations.</p>                            </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_save">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_save"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 313</div>
+        <code>            protected        
+    <strong>save</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Save the data, and reload the page on success.</p>                    <p>This method can do additional things in more complex situations.</p>                            </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_removeMethod">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_removeMethod"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 328</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>removeMethod</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Default delete method for delete an individual register, used as alias</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_accessDenied">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_accessDenied"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 355</div>
+        <code>                    
+    <strong>accessDenied</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Access denied page.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_listData">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_listData"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 377</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>listData</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>List all records on model.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setDefaults">
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/AuthPageExtendedController.html#method_setDefaults"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr></a> at         line 438</div>
+        <code>            protected        array
+    <strong>setDefaults</strong>(array $record)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
+falten con los datos por defecto.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$record</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+            </div>
+                <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+
+        </div>
+    </div>
+    </body>
+
+</html>

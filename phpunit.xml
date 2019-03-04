@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
         beStrictAboutTestsThatDoNotTestAnything="false"
-        bootstrap="src/Test/bootstrap.php"
+        bootstrap="src/Alxarafe/Test/bootstrap.php"
         colors="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
