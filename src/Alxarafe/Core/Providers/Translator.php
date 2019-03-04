@@ -154,6 +154,16 @@ class Translator
     }
 
     /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        return ['language' => self::FALLBACK_LANG];
+    }
+
+    /**
      * Sets the language code in use.
      *
      * @param string $lang
@@ -268,15 +278,5 @@ class Translator
     public function getTranslator()
     {
         return self::$translator;
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        return ['language' => self::FALLBACK_LANG];
     }
 }

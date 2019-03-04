@@ -157,11 +157,11 @@ class TwigFunctions extends AbstractExtension
     /**
      * Returns a translated string.
      *
-     * @param string $key
+     * @param null|string $key
      *
      * @return string
      */
-    public function trans(string $key): string
+    public function trans($key): string
     {
         return $this->translator->trans($key);
     }

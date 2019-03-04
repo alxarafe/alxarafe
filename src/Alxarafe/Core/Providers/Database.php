@@ -72,8 +72,37 @@ class Database
                 Logger::getInstance()::exceptionHandler($e);
                 return false;
             }
-            $this->connectToDatabase();
         }
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return self
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        return [
+            'main' => [
+                'dbEngineName' => 'PdoMySql',
+                'dbPrefix' => '',
+                'dbUser' => 'dbUser',
+                'dbPass' => 'dbPass',
+                'dbName' => 'dbName',
+                'dbHost' => 'localhost',
+                'dbPort' => '',
+            ],
+        ];
     }
 
     /**
@@ -85,16 +114,6 @@ class Database
     public function connectToDatabase(): bool
     {
         return isset($this->dbEngine) && $this->dbEngine->connect() && $this->dbEngine->checkConnection();
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return self
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
     }
 
     /**
@@ -131,25 +150,5 @@ class Database
     public function getConnectionData(): array
     {
         return $this->config;
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        return [
-            'main' => [
-                'dbEngineName' => 'PdoMySql',
-                'dbPrefix' => '',
-                'dbUser' => 'dbUser',
-                'dbPass' => 'dbPass',
-                'dbName' => 'dbName',
-                'dbHost' => 'localhost',
-                'dbPort' => '',
-            ]
-        ];
     }
 }

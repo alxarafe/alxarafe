@@ -93,8 +93,8 @@ trait Singleton
     /**
      * Save config to file.
      *
-     * @param array $params
-     * @param bool $merge
+     * @param array  $params
+     * @param bool   $merge
      * @param string $index
      *
      * @return bool
@@ -199,7 +199,7 @@ trait Singleton
      *
      * @return array
      */
-    abstract protected function getDefaultValues(): array;
+    abstract public static function getDefaultValues(): array;
 
     /**
      * Return the base path.

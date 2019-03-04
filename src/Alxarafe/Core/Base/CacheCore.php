@@ -83,6 +83,17 @@ class CacheCore
     }
 
     /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        // Not really needed
+        return [];
+    }
+
+    /**
      * Give access to the cache engine.
      *
      * @return PhpArrayAdapter
@@ -90,16 +101,5 @@ class CacheCore
     public function getEngine(): PhpArrayAdapter
     {
         return $this->engine;
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        // TODO: Implement getDefaultValues() method.
-        return [];
     }
 }

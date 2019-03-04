@@ -71,7 +71,7 @@ class Router
     {
         $this->routes = $this->getConfig();
         if (empty($this->routes)) {
-            $this->routes = $this->getDefaultRoutes();
+            $this->routes = $this->getDefaultValues();
         }
         return $this->routes;
     }
@@ -81,7 +81,7 @@ class Router
      *
      * @return array
      */
-    protected function getDefaultValues(): array
+    public static function getDefaultValues(): array
     {
         return [
             'CreateConfig' => '\\Alxarafe\Core\\Controllers\\CreateConfig',

@@ -68,12 +68,12 @@ class RegionalInfo
      *
      * @return array
      */
-    protected function getDefaultValues(): array
+    public static function getDefaultValues(): array
     {
         return [
-            'date-format' => 'Y-m-d',
-            'hour-format' => 'H:i:s',
-            'date-hour-format' => 'Y-m-d H:i:s',
+            'dateFormat' => 'Y-m-d',
+            'timeFormat' => 'H:i:s',
+            'datetimeFormat' => 'Y-m-d H:i:s',
             'timezone' => 'Europe/Madrid',
         ];
     }
@@ -142,5 +142,4 @@ class RegionalInfo
         ];
         return $this->fillList($styles);
     }
-
 }

@@ -232,6 +232,16 @@ class TemplateRender
     }
 
     /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        return ['skin' => 'default'];
+    }
+
+    /**
      * Return the full twig environtment.
      *
      * @return Twig_Environment
@@ -402,16 +412,5 @@ class TemplateRender
     public function getCommonTemplatesUri(): string
     {
         return baseUrl(self::COMMON_TEMPLATES_FOLDER);
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        // TODO: Implement getDefaultValues() method.
-        return [];
     }
 }

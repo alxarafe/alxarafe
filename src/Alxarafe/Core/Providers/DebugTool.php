@@ -84,6 +84,17 @@ class DebugTool
     }
 
     /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        // Not really needed
+        return [];
+    }
+
+    /**
      * Add a new exception to the debug bar.
      *
      * @param Exception $exception
@@ -198,16 +209,5 @@ class DebugTool
         } catch (DebugBarException $e) {
             Logger::getInstance()::exceptionHandler($e);
         }
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        // TODO: Implement getDefaultValues() method.
-        return [];
     }
 }

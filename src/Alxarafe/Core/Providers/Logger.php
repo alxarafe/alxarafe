@@ -79,6 +79,17 @@ class Logger
     }
 
     /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        // TODO: Implement getDefaultValues() method.
+        return [];
+    }
+
+    /**
      * Returns the logger.
      *
      * @return MonologLogger
@@ -86,16 +97,5 @@ class Logger
     public function getLogger()
     {
         return self::$logger;
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        // TODO: Implement getDefaultValues() method.
-        return [];
     }
 }

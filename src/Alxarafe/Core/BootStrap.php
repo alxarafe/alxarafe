@@ -190,50 +190,21 @@ class BootStrap
 
             $this->configManager = Config::getInstance();
             $this->configManager->loadConstants();
-            $this->configData = $this->configManager->getConfigContent();
-
-            /*
-            if (empty($this->configData)) {
-                $this->configData = $this->getDefaultConfig();
-            }
-            */
-
             $this->session = Session::getInstance();
             $this->router = Router::getInstance();
             $this->debugTool = DebugTool::getInstance();
             $this->translator = Translator::getInstance();
-            $this->defaultLang = $this->configData['language'] ?? $this->translator->getConfig();
+            $this->defaultLang = $this->translator->getConfig()['language'];
             $this->cacheEngine = CacheCore::getInstance()->getEngine();
-            // $this->database = Database::getInstance();
+            $this->configData = $this->configManager->getConfigContent();
+            if (!empty($this->configData)) {
+                $this->database = Database::getInstance();
+                $this->database->connectToDatabase();
+            }
             $this->renderer = TemplateRender::getInstance();
 
             FormatUtils::loadConfig();
         }
-    }
-
-    /**
-     * Returns default configuration.
-     *
-     * DEPRECATED: private function getDefaultConfig()
-     *
-     * @return array
-     */
-    private function _getDefaultConfig()
-    {
-        $defaultData = [
-            'database' => [
-                'dbEngineName' => 'PdoMySql',
-                'dbPrefix' => '',
-                'dbUser' => 'dbUser',
-                'dbPass' => 'dbPass',
-                'dbName' => 'dbName',
-                'dbHost' => 'localhost',
-                'dbPort' => '',
-            ],
-            'skin' => 'default',
-            'language' => 'es_ES',
-        ];
-        return $defaultData;
     }
 
     /**
@@ -282,6 +253,19 @@ class BootStrap
         $this->container::add('config', $this->configData);
         $this->container::add('defaultLang', $this->defaultLang);
         $this->container::add('request', $this->request);
+    }
+
+    /**
+     * Load enabled modules.
+     */
+    private function loadModules()
+    {
+        $modules = (new Module())->getEnabledModules();
+        $dirs = [];
+        foreach ($modules as $module) {
+            $dirs[] = basePath($module->path);
+        }
+        Load::getInstance()::addDirs($dirs);
     }
 
     /**
@@ -334,18 +318,5 @@ class BootStrap
             $this->response->setContent($reply);
         }
         $this->response->send();
-    }
-
-    /**
-     * Load enabled modules.
-     */
-    private function loadModules()
-    {
-        $modules = (new Module())->getEnabledModules();
-        $dirs = [];
-        foreach ($modules as $module) {
-            $dirs[] = basePath($module->path);
-        }
-        Load::getInstance()::addDirs($dirs);
     }
 }

@@ -14,6 +14,7 @@ use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\RegionalInfo;
 use Alxarafe\Core\Providers\Translator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -128,8 +129,7 @@ class CreateConfig extends Controller
             case 'save':
                 $msg = ($this->save() ? 'changes-stored' : 'changes-not-stored');
                 FlashMessages::getInstance()::setSuccess($this->translator->trans($msg));
-                $this->regenerateData();
-                return $this->redirect(baseUrl('index.php?call=Login'));
+                return $this->redirect(baseUrl('index.php?call=' . $this->shortName . '&method=generate'));
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
         }
@@ -143,6 +143,7 @@ class CreateConfig extends Controller
     private function setDefaultData()
     {
         $templateRenderConfig = $this->renderer->getConfig();
+        //$databaseConfig = Database::getDefaultValues();
         $databaseConfig = Database::getInstance()->getConfig();
         $regionalConfig = RegionalInfo::getInstance()->getConfig();
 
@@ -225,11 +226,12 @@ class CreateConfig extends Controller
     /**
      * Regenerate some needed data.
      *
-     * @return void
+     * @return RedirectResponse
      */
-    private function regenerateData(): void
+    public function generateMethod(): RedirectResponse
     {
         Utils::executePreprocesses($this->searchDir);
+        return $this->redirect(baseUrl('index.php?call=Login'));
     }
 
     /**.
@@ -267,5 +269,4 @@ class CreateConfig extends Controller
         }
         return $zonesArray;
     }
-
 }

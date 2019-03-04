@@ -92,9 +92,9 @@ class Container
      *
      * @return array
      */
-    protected function getDefaultValues(): array
+    public static function getDefaultValues(): array
     {
-        // TODO: Implement getDefaultValues() method.
+        // Not really needed
         return [];
     }
 }

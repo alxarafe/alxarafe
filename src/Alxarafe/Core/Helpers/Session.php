@@ -67,6 +67,17 @@ class Session
     }
 
     /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        // Not really needed
+        return [];
+    }
+
+    /**
      * Return this session.
      *
      * @return \Aura\Session\Session
@@ -186,16 +197,5 @@ class Session
     public function getFlashNext(string $key)
     {
         return $this->getSegment()->getFlashNext($key);
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        // TODO: Implement getDefaultValues() method.
-        return [];
     }
 }

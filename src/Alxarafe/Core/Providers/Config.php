@@ -65,6 +65,17 @@ class Config
     }
 
     /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        // Not really needed
+        return [];
+    }
+
+    /**
      * Loads some constants.
      */
     public function loadConstants()
@@ -111,7 +122,6 @@ class Config
         Utils::defineIfNotExists('CRLF', "\n\t");
     }
 
-
     /**
      * Return true y the config file exists
      *
@@ -120,16 +130,5 @@ class Config
     public function configFileExists(): bool
     {
         return (file_exists($this->getFilePath()) && is_file($this->getFilePath()));
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    protected function getDefaultValues(): array
-    {
-        // TODO: Implement getDefaultValues() method.
-        return [];
     }
 }
