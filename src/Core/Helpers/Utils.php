@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Helpers;
 
+use Alxarafe\Models\Module;
 use Alxarafe\PreProcessors;
 use Alxarafe\Providers\FlashMessages;
 use Alxarafe\Providers\Logger;
@@ -210,7 +211,7 @@ class Utils
     }
 
     /**
-     * TODO: Undocummented.
+     * Execute all preprocessors from one point.
      *
      * @param array $searchDir
      */
@@ -219,6 +220,13 @@ class Utils
         if (!set_time_limit(0)) {
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('cant-increase-time-limit'));
         }
+
+        $modules = new Module();
+        $modules->getEnabledModules();
+        foreach ($modules as $module) {
+            $searchDir['Alxarafe\\Modules\\' . $module->name] = basePath($module->path);
+        }
+
         new PreProcessors\Models($searchDir);
         new PreProcessors\Pages($searchDir);
         new PreProcessors\Routes($searchDir);
@@ -235,11 +243,13 @@ class Utils
     {
         // Open the source directory to read in files
         $i = new DirectoryIterator($path);
-        foreach($i as $f) {
-            if($f->isFile()) {
+        foreach ($i as $f) {
+            if ($f->isFile()) {
                 unlink($f->getRealPath());
-            } else if(!$f->isDot() && $f->isDir()) {
-                self::rrmdir($f->getRealPath());
+            } else {
+                if (!$f->isDot() && $f->isDir()) {
+                    self::rrmdir($f->getRealPath());
+                }
             }
         }
         return rmdir($path);

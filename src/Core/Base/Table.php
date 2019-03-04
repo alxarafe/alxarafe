@@ -97,13 +97,14 @@ class Table extends SimpleTable
      *
      * @param string $key
      * @param mixed  $value
+     * @param string $comparison By default is '='
      *
      * @return array
      */
-    public function getAllRecordsBy(string $key, $value): array
+    public function getAllRecordsBy(string $key, $value, string $comparison = '='): array
     {
         $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($key);
-        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} = :value;";
+        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} {$comparison} :value;";
         $vars = [];
         $vars['value'] = $value;
         return Database::getInstance()->getDbEngine()->select($sql, $vars);
