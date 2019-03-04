@@ -615,7 +615,7 @@ or does not have a name field.</p>                </div>
                     array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getAllRecordsBy">getAllRecordsBy</a>(string $key, mixed $value)
+                    <a href="#method_getAllRecordsBy">getAllRecordsBy</a>(string $key, mixed $value, string $comparison = &#039;=&#039;, string $orderBy = &#039;&#039;)
         
                                             <p>Get an array with all data.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Alxarafe/Base/Table.html#method_getAllRecordsBy"><abbr title="Alxarafe\Base\Table">Table</abbr></a></small></div>
@@ -2120,9 +2120,9 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getAllRecordsBy">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getAllRecordsBy"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 103</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getAllRecordsBy"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 105</div>
         <code>                    array
-    <strong>getAllRecordsBy</strong>(string $key, mixed $value)
+    <strong>getAllRecordsBy</strong>(string $key, mixed $value, string $comparison = &#039;=&#039;, string $orderBy = &#039;&#039;)
         </code>
     </h3>
     <div class="details">
@@ -2145,6 +2145,16 @@ or does not have a name field.</p>                                              
                 <td>$value</td>
                 <td></td>
             </tr>
+                    <tr>
+                <td>string</td>
+                <td>$comparison</td>
+                <td>By default is '='</td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$orderBy</td>
+                <td></td>
+            </tr>
             </table>
 
             
@@ -2165,7 +2175,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesFromTable">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getIndexesFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 120</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getIndexesFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 125</div>
         <code>                    array
     <strong>getIndexesFromTable</strong>()
         </code>
@@ -2197,7 +2207,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValues">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getDefaultValues"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 131</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getDefaultValues"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 136</div>
         <code>                    array
     <strong>getDefaultValues</strong>()
         </code>
@@ -2227,7 +2237,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValue">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getDefaultValue"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 147</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getDefaultValue"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 152</div>
         <code>                private    bool|<abbr title="Alxarafe\Base\false">false</abbr>|int|string
     <strong>getDefaultValue</strong>(array $valueData)
         </code>
@@ -2267,7 +2277,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getChecksFromTable">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getChecksFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 189</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_getChecksFromTable"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 194</div>
         <code>                    array
     <strong>getChecksFromTable</strong>()
         </code>
@@ -2297,7 +2307,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_saveRecord">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_saveRecord"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 201</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_saveRecord"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 206</div>
         <code>                    bool
     <strong>saveRecord</strong>(array $data)
         </code>
@@ -2337,7 +2347,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_testData">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_testData"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 216</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_testData"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 221</div>
         <code>            protected        bool
     <strong>testData</strong>($data)
         </code>
@@ -2377,7 +2387,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_saveData">
-        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_saveData"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 273</div>
+        <div class="location">in <a href="../../Alxarafe/Base/Table.html#method_saveData"><abbr title="Alxarafe\Base\Table">Table</abbr></a> at         line 278</div>
         <code>            protected        bool
     <strong>saveData</strong>(array $data)
         </code>
