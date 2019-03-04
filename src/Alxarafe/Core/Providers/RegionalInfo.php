@@ -64,17 +64,17 @@ class RegionalInfo
     }
 
     /**
-     * Return a list of essential controllers.
+     * Return default values
      *
      * @return array
      */
-    public function getDefaulValues()
+    protected function getDefaultValues(): array
     {
         return [
-            'date-format' => '',
-            'hour-format' => '',
-            'date-hour-format' => '',
-            'timezone' => '',
+            'date-format' => 'Y-m-d',
+            'hour-format' => 'H:i:s',
+            'date-hour-format' => 'Y-m-d H:i:s',
+            'timezone' => 'Europe/Madrid',
         ];
     }
 
@@ -142,4 +142,5 @@ class RegionalInfo
         ];
         return $this->fillList($styles);
     }
+
 }

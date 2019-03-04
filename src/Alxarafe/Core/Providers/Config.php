@@ -121,4 +121,15 @@ class Config
     {
         return (file_exists($this->getFilePath()) && is_file($this->getFilePath()));
     }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    protected function getDefaultValues(): array
+    {
+        // TODO: Implement getDefaultValues() method.
+        return [];
+    }
 }

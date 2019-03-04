@@ -187,4 +187,15 @@ class Session
     {
         return $this->getSegment()->getFlashNext($key);
     }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    protected function getDefaultValues(): array
+    {
+        // TODO: Implement getDefaultValues() method.
+        return [];
+    }
 }

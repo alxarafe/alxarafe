@@ -86,4 +86,15 @@ class Container
     {
         return self::getInstanceTrait();
     }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    protected function getDefaultValues(): array
+    {
+        // TODO: Implement getDefaultValues() method.
+        return [];
+    }
 }

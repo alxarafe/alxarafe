@@ -93,8 +93,8 @@ trait Singleton
     /**
      * Save config to file.
      *
-     * @param array  $params
-     * @param bool   $merge
+     * @param array $params
+     * @param bool $merge
      * @param string $index
      *
      * @return bool
@@ -190,9 +190,16 @@ trait Singleton
     public function getConfig(string $index = 'main'): array
     {
         $yamlContent = $this->getYamlContent();
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? [];
-        return $content ?? [];
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? null;
+        return $content ?? $this->getDefaultValues();
     }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    abstract protected function getDefaultValues(): array;
 
     /**
      * Return the base path.

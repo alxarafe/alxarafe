@@ -269,4 +269,14 @@ class Translator
     {
         return self::$translator;
     }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    protected function getDefaultValues(): array
+    {
+        return ['language' => self::FALLBACK_LANG];
+    }
 }

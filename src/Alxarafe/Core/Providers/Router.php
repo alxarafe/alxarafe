@@ -77,11 +77,11 @@ class Router
     }
 
     /**
-     * Return a list of essential controllers.
+     * Return default values
      *
      * @return array
      */
-    public function getDefaultRoutes()
+    protected function getDefaultValues(): array
     {
         return [
             'CreateConfig' => '\\Alxarafe\Core\\Controllers\\CreateConfig',

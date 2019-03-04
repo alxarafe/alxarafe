@@ -132,4 +132,24 @@ class Database
     {
         return $this->config;
     }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    protected function getDefaultValues(): array
+    {
+        return [
+            'main' => [
+                'dbEngineName' => 'PdoMySql',
+                'dbPrefix' => '',
+                'dbUser' => 'dbUser',
+                'dbPass' => 'dbPass',
+                'dbName' => 'dbName',
+                'dbHost' => 'localhost',
+                'dbPort' => '',
+            ]
+        ];
+    }
 }

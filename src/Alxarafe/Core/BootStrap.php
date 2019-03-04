@@ -204,8 +204,9 @@ class BootStrap
             $this->translator = Translator::getInstance();
             $this->defaultLang = $this->configData['language'] ?? $this->translator->getConfig();
             $this->cacheEngine = CacheCore::getInstance()->getEngine();
-            $this->database = Database::getInstance();
+            // $this->database = Database::getInstance();
             $this->renderer = TemplateRender::getInstance();
+
             FormatUtils::loadConfig();
         }
     }

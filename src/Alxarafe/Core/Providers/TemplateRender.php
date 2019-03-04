@@ -403,4 +403,15 @@ class TemplateRender
     {
         return baseUrl(self::COMMON_TEMPLATES_FOLDER);
     }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    protected function getDefaultValues(): array
+    {
+        // TODO: Implement getDefaultValues() method.
+        return [];
+    }
 }
