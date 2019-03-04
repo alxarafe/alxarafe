@@ -131,7 +131,10 @@ class Load
         }
 
         if (!$success && !self::loadFile(self::$dirs[0] . DIRECTORY_SEPARATOR . $fn)) {
-            throw new Exception(self::UNABLE_TO_LOAD . ' ' . $class);
+            // Only throw the exception if missing class is from ower paths
+            if (strcmp($class, 'Alxarafe') === 0 || strcmp($class, 'Modules') === 0) {
+                throw new Exception(self::UNABLE_TO_LOAD . ' ' . $class);
+            }
         }
         return $success;
     }

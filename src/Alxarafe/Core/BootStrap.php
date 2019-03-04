@@ -256,7 +256,7 @@ class BootStrap
     public function init()
     {
         $this->toContainer();
-        //$this->loadModules();
+        $this->loadModules();
         $this->run();
     }
 
