@@ -142,7 +142,6 @@ class CreateConfig extends Controller
      */
     private function setDefaultData()
     {
-        $translatorConfig = Translator::getInstance()->getConfig();
         $templateRenderConfig = $this->renderer->getConfig();
         $databaseConfig = Database::getInstance()->getConfig();
         $regionalConfig = RegionalInfo::getInstance()->getConfig();
@@ -150,8 +149,10 @@ class CreateConfig extends Controller
         $this->dbEngines = Engine::getEngines();
         $this->skins = $this->renderer->getSkins();
         $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
-        $this->languages = Translator::getInstance()->getAvailableLanguages();
-        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
+
+        $translator = Translator::getInstance();
+        $this->languages = $translator->getAvailableLanguages();
+        $this->language = Translator::FALLBACK_LANG;
 
         $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
         $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
@@ -266,4 +267,5 @@ class CreateConfig extends Controller
         }
         return $zonesArray;
     }
+
 }

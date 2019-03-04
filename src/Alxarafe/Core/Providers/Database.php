@@ -100,9 +100,9 @@ class Database
     /**
      * Returns the database engine.
      *
-     * @return Engine
+     * @return ?Engine
      */
-    public function getDbEngine(): Engine
+    public function getDbEngine(): ?Engine
     {
         if (!isset($this->dbEngine)) {
             return (new self())->dbEngine;

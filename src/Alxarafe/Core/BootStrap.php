@@ -191,15 +191,18 @@ class BootStrap
             $this->configManager = Config::getInstance();
             $this->configManager->loadConstants();
             $this->configData = $this->configManager->getConfigContent();
+
+            /*
             if (empty($this->configData)) {
                 $this->configData = $this->getDefaultConfig();
             }
+            */
 
             $this->session = Session::getInstance();
             $this->router = Router::getInstance();
-            $this->defaultLang = $this->configData['language'] ?? self::FALLBACK_LANG;
             $this->debugTool = DebugTool::getInstance();
             $this->translator = Translator::getInstance();
+            $this->defaultLang = $this->configData['language'] ?? $this->translator->getConfig();
             $this->cacheEngine = CacheCore::getInstance()->getEngine();
             $this->database = Database::getInstance();
             $this->renderer = TemplateRender::getInstance();
@@ -210,9 +213,11 @@ class BootStrap
     /**
      * Returns default configuration.
      *
+     * DEPRECATED: private function getDefaultConfig()
+     *
      * @return array
      */
-    private function getDefaultConfig()
+    private function _getDefaultConfig()
     {
         $defaultData = [
             'database' => [
@@ -256,7 +261,10 @@ class BootStrap
     public function init()
     {
         $this->toContainer();
-        $this->loadModules();
+        // Execute loadModules only if database is working
+        if (isset($this->database) && null !== $this->database->getDbEngine()) {
+            $this->loadModules();
+        }
         $this->run();
     }
 
