@@ -4,9 +4,9 @@
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Modules\Sample\Models;
+namespace Modules\Sample\Models;
 
-use Alxarafe\Base\Table;
+use Alxarafe\Core\Base\Table;
 
 /**
  * Class Region

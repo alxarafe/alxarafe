@@ -272,6 +272,7 @@ class Schema
         $ret = [];
         $ret['indexes'] = $structure['indexes'] ?? [];
         $ret['values'] = $structure['values'] ?? [];
+        $ret['fields'] = $structure['fields'] ?? [];
         foreach ($structure['fields'] as $key => $value) {
             $ret['fields'][$key] = self::normalizeField($tableName, $key, $value);
         }

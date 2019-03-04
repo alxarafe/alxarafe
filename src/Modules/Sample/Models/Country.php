@@ -4,9 +4,9 @@
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Modules\Sample\Models;
+namespace Modules\Sample\Models;
 
-use Alxarafe\Base\Table;
+use Alxarafe\Core\Base\Table;
 
 /**
  * Class Country
@@ -43,9 +43,9 @@ class Country extends Table
     public function getDependencies(): array
     {
         return [
-            'Alxarafe\\Modules\\Sample\\Models\\Region',
-            'Alxarafe\\Modules\\Sample\\Models\\Subregion',
-            'Alxarafe\\Modules\\Sample\\Models\\IntermediateRegion',
+            'Modules\\Sample\\Models\\Region',
+            'Modules\\Sample\\Models\\Subregion',
+            'Modules\\Sample\\Models\\IntermediateRegion',
         ];
     }
 }

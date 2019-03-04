@@ -90,6 +90,9 @@ class Models
             ->in($dir);
         foreach ($models->getIterator() as $modelFile) {
             $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
+            if ($namespace === 'Alxarafe') {
+                $namespace .= '\\Core';
+            }
             $list[] = $namespace . '\\Models\\' . $class;
         }
     }

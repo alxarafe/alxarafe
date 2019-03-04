@@ -4,10 +4,10 @@
  * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Modules\Sample\Controllers;
+namespace Modules\Sample\Controllers;
 
-use Alxarafe\Base\AuthPageExtendedController;
-use Alxarafe\Modules\Sample\Models\Person;
+use Alxarafe\Core\Base\AuthPageExtendedController;
+use Modules\Sample\Models\Person;
 
 /**
  * Class People

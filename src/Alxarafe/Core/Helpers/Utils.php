@@ -223,7 +223,7 @@ class Utils
 
         $modules = (new Module())->getEnabledModules();
         foreach ($modules as $module) {
-            $searchDir['Alxarafe\Core\\Modules\\' . $module->name] = basePath($module->path);
+            $searchDir['Modules\\' . $module->name] = basePath($module->path);
         }
         new PreProcessors\Models($searchDir);
         new PreProcessors\Pages($searchDir);
