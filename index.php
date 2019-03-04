@@ -10,9 +10,11 @@ define('DEBUG', true);
 $autoload = constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 if (file_exists($autoload)) {
-    require_once $autoload;
+    // Manage the autoload from a class
+    require_once constant('BASE_PATH') . '/src/Alxarafe/Core/Autoload/Load.php';
+    new \Alxarafe\Core\Autoload\Load();
 
-    $bootStrap = new \Alxarafe\BootStrap(constant('BASE_PATH'), constant('DEBUG'));
+    $bootStrap = new \Alxarafe\Core\BootStrap(constant('BASE_PATH'), constant('DEBUG'));
     $bootStrap->init();
 } else {
     echo "You need install composer and execute 'composer install' before to start";

@@ -37,10 +37,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Alxarafe\\": "src/Core/"
+      "Alxarafe\\": "src/"
     },
     "files": [
-      "src/Core/Functions.php"
+      "src/Alxarafe/Core/Functions.php"
     ]
   },
   "require-dev": {
