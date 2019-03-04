@@ -47,10 +47,10 @@ class Module extends Table
      */
     public function getEnabledModules()
     {
-        $list = $this->getAllRecordsBy('enabled', 1);
+        $list = $this->getAllRecordsBy('enabled', '', '<>', 'enabled ASC');
         $return = [];
         foreach ($list as $module) {
-            $return[$module['order']] = $module['name'];
+            $return[] = $module;
         }
         return $return;
     }
