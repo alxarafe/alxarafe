@@ -1,11 +1,15 @@
+[![Scrutinizer logo](https://scrutinizer-ci.com/images/logo.png)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/build-status/master)
-[![Build Status](https://travis-ci.org/alxarafe/alxarafe.svg?branch=master)](https://travis-ci.org/alxarafe/alxarafe)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/alxarafe/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 
+[![Travis logo](https://travis-ci.com/images/logos/TravisCI-Mascot-1.png|width=100)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
+[![Build Status](https://travis-ci.org/alxarafe/alxarafe.svg?branch=master)](https://travis-ci.org/alxarafe/alxarafe)
+
+## Alxarafe ofrece las siguientes funcionalidades
 Alxarafe. Development of PHP applications in a flash!
 
-Alxarafe es un paquete, aún en desarrollo, que entre otras, ofrece las siguientes funcionalidades:
 - Identificación de usuarios.
 - Conexión con bases de datos PDO.
 - Gestión de tablas.
@@ -22,42 +26,6 @@ Puede encontrar Alxarafe en los siguientes repositorios:
 ## Documentación
 https://alxarafe.github.io/alxarafe/
 
-## ¿Cómo integrar Alxarafe en mi aplicación?
-
-Para integrarlo en su aplicación necesitará instalar composer y ejecutar el siguiente comando:
-
-composer require alxarafe/alxarafe
-
-Luego, en el fichero de inicio de su aplicación deberá de incluir el siguiente código:
-
-<?php
-// We save the application's start folder
-define('BASE_PATH', __DIR__);
-// We start the composer packages
-require_once BASE_PATH . '/vendor/autoload.php';
-// We indicate that we are going to use the Dispatcher tool
-use Alxarafe\Helpers\Dispatcher;
-// And run it!
-(new Dispatcher())->run();
-
-Si desea personalizar las funcionalidades de inicio, podrá sobreescribir la clase Dispatcher,
-o activarle algunos parámetros de configuración.
-
-Funcionalidades básicas de Dispatcher
--------------------------------------
-
-Al instanciar el Dispatcher (usando new Dispatcher()), se ejecuta el __construct que realiza
-las siguientes tareas:
-
-- Verifica la existencia del fichero de configuración de la base de datos, y si no existe,
-nos muestra un formulario para su creación.
-- Una vez que tenemos un fichero de base de datos, lo carga y establece la conexión con ella.
-- Verifica si existe un usuario identificado, y si no, trata de identificarlo mediante un formulario.
-- Determina por las variables GET si hay que cargar algún controlador y método y lo ejecuta.
-
-Si desea personalizar alguna de estas funciones (por ejemplo, las carpetas de controladores, o el
-nombre de las variables GET), puede usar las variables definidas para ello al instanciar la
-clase Dispatcher, o bien, sobreescribirla y ejecutar en su lugar a su descendiente.
-
+## Colaboraciones
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/alxarafe/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
 Si encuentra formas de mejorar el código, hágalo.
-PULL REQUEST welcome!
