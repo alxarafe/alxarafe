@@ -272,8 +272,8 @@ class Utils
      *
      * @return bool
      */
-    public static function mkdir($dir, $mode = 0777, $recursive = false, $context = null)
+    public static function mkdir($dir, $mode = 0777, $recursive = false)
     {
-        return !is_dir($dir) && !mkdir($dir, 0777, $recursive, $context) && !is_dir($dir);
+        return !is_dir($dir) && !mkdir($dir, $mode, $recursive) && !is_dir($dir);
     }
 }

@@ -259,8 +259,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->initialize();
         $this->status = 'editing';
         $this->renderer->setTemplate('master/update');
-        $action = $this->request->request->get('action');
-        switch ($action) {
+        switch ($this->request->request->get('action')) {
             case 'cancel':
                 $this->cancel();
                 break;

@@ -124,8 +124,7 @@ class CreateConfig extends Controller
         }
 
         $this->setDefaultData();
-        $action = $this->request->request->get('action');
-        switch ($action) {
+        switch ($this->request->request->get('action')) {
             case 'save':
                 $msg = ($this->save() ? 'changes-stored' : 'changes-not-stored');
                 FlashMessages::getInstance()::setSuccess($this->translator->trans($msg));

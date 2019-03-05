@@ -55,7 +55,7 @@
                             <label>{{ trans('default-language') }}</label>
                             <select id="language" name="language" class="form-control">
                                 {% for key, language in ctrl.languages %}
-                                    <option value="{{ key }}" {{ key==ctrl.language ? "selected":"" }}>{{ trans(language) }}</option>
+                                    <option value="{{ key }}" {{ key==ctrl.language ? "selected":"" }}>{{ language }}</option>
                                 {% endfor %}
                             </select>
                         </div>

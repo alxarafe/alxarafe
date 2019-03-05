@@ -64,8 +64,7 @@ class Modules extends AuthPageExtendedController
         $this->modulesList = $this->getAvailableModules();
         $this->updateModulesData();
 
-        $action = $this->request->request->get('action');
-        switch ($action) {
+        switch ($this->request->request->get('action')) {
             case 'regenerate':
                 CacheCore::getInstance()->getEngine()->clear();
                 FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('cache-cleared-successfully'));

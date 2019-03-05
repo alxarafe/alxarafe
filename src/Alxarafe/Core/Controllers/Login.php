@@ -86,10 +86,9 @@ class Login extends Controller
         $user = $this->request->cookies->get('user', '');
         $logKey = $this->request->cookies->get('logkey', '');
 
-        $action = $this->request->request->get('action');
         $remember = $this->request->request->get('remember-me');
         $remember = isset($remember);
-        switch ($action) {
+        switch ($this->request->request->get('action')) {
             case 'login':
                 $username = $this->request->request->get('username');
                 $password = $this->request->request->get('password');

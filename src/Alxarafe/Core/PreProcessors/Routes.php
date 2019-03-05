@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\PreProcessors;
 
+use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Router;
@@ -57,21 +58,15 @@ class Routes
 
         $this->routes = Router::getInstance();
         // Delete all routes
-        $this->routes->getDefaultValues();
+        $this->routes::getDefaultValues();
         foreach ($this->searchDir as $namespace => $baseDir) {
             $dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers';
-            /*
-            if ($namespace === 'Alxarafe') {
-                // $namespace .= '\\Core';
-                $dir = $baseDir . DIRECTORY_SEPARATOR . 'Core/Controllers';
-            }
-            */
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')
                 ->in($dir);
             foreach ($controllers as $controllerFile) {
-                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
+                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
                 $this->instantiateClass($namespace, $className);
             }
         }
@@ -79,9 +74,9 @@ class Routes
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
-            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-controller-class-successfully'));
+            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-controller-class-for-routes-successfully'));
         } else {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-controller-class-error'));
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-controller-class-for-routes-error'));
         }
     }
 
@@ -98,7 +93,7 @@ class Routes
         }
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $parents = class_parents($class);
-        if (in_array('Alxarafe\Core\Base\Controller', $parents)) {
+        if (in_array(Controller::class, $parents, true)) {
             $this->routes->addRoute($className, $class);
         }
     }

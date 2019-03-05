@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\PreProcessors;
 
+use Alxarafe\Core\Base\AuthPageController;
 use Alxarafe\Core\Helpers\FormatUtils;
 use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Page;
@@ -69,9 +70,9 @@ class Pages
 
         // End DB transaction
         if (Database::getInstance()->getDbEngine()->commit()) {
-            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-controller-class-successfully'));
+            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-controller-class-for-pages-successfully'));
         } else {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-controller-class-error'));
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-controller-class-for-pages-error'));
         }
     }
 
@@ -89,7 +90,7 @@ class Pages
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $newClass = new $class();
         $parents = class_parents($class);
-        if (in_array('Alxarafe\Core\Base\AuthPageController', $parents)) {
+        if (in_array(AuthPageController::class, $parents, true)) {
             $this->updatePageData($className, $namespace, $newClass);
         }
     }

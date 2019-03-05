@@ -71,7 +71,7 @@ class Router
     {
         $this->routes = $this->getConfig();
         if (empty($this->routes)) {
-            $this->routes = $this->getDefaultValues();
+            $this->routes = self::getDefaultValues();
         }
         return $this->routes;
     }

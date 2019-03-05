@@ -119,8 +119,7 @@ class EditConfig extends AuthPageController
     public function indexMethod(): Response
     {
         $this->setDefaultData();
-        $action = $this->request->request->get('action');
-        switch ($action) {
+        switch ($this->request->request->get('action')) {
             case 'clear-cache':
                 CacheCore::getInstance()->getEngine()->clear();
                 FlashMessages::getInstance()::setSuccess($this->translator->trans('cache-cleared-successfully'));

@@ -106,9 +106,14 @@ class Table extends SimpleTable
     {
         $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($key);
         if (!empty($orderBy)) {
-            $orderBy = "ORDER BY {$orderBy}";
+            $orderBy = " ORDER BY {$orderBy}";
         }
-        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} {$comparison} :value {$orderBy};";
+        if ($value === 'NULL') {
+            $isNull  = $comparison === '=' ? ' IS NULL' : ' IS NOT NULL';
+            $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName}{$isNull}{$orderBy};";
+        } else {
+            $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} {$comparison} :value{$orderBy};";
+        }
         $vars = [];
         $vars['value'] = $value;
         return Database::getInstance()->getDbEngine()->select($sql, $vars);

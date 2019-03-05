@@ -189,12 +189,16 @@ class Schema
         $extension = $type == 'values' ? '.csv' : '.yaml';
 
         // First, it is checked if it exists in the core
-        $path = constant('ALXARAFE_FOLDER') . '/Schema/' . $type . '/' . $tableName . $extension;
+        $folder = basePath(constant('ALXARAFE_FOLDER') . 'Schema/' . $type);
+        Utils::mkdir($folder, 0777, true);
+        $path = $folder . '/' . $tableName . $extension;
         if (file_exists($path)) {
             return $path;
         }
         // And then if it exists in the application
-        $path = basePath('config/' . $type . '/' . $tableName . $extension);
+        $folder = basePath('Schema/' . $type);
+        Utils::mkdir($folder, 0777, true);
+        $path = $folder . '/' . $tableName . $extension;
         return file_exists($path) ? $path : '';
     }
 
