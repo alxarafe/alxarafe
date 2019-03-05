@@ -15,8 +15,8 @@
     @var cardButtons:  Your card buttons
 
     How to use it:
-        {% include "components/card.html.twig" with {data:{id:'myCardId1', name:'myCardName1', cardText: 'Esto es un placeholder', cardTitle: 'Title'}} %}
-        {% include "components/card.html.twig" with {data:{id:'myCardId2', name:'myCardName2', cardText: 'Acepto', cardTitle: 'Title'}} %}
+        {% include "@Core/components/card.html.twig" with {data:{id:'myCardId1', name:'myCardName1', cardText: 'Esto es un placeholder', cardTitle: 'Title'}} %}
+        {% include "@Core/components/card.html.twig" with {data:{id:'myCardId2', name:'myCardName2', cardText: 'Acepto', cardTitle: 'Title'}} %}
 #}
 
 <div class="card" {% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}{% if data.style is defined %} style="{{ data.style }}"{% endif %}>

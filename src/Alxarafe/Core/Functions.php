@@ -55,6 +55,6 @@ if (!function_exists('baseUrl')) {
         $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http')
             . '://' . $_SERVER['SERVER_NAME'] . $port . $folder;
 
-        return empty($url) ? $baseUrl : $baseUrl . '/' . $url;
+        return empty($url) ? $baseUrl : $baseUrl . '/' . trim($url, '/');
     }
 }

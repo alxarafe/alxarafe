@@ -2,7 +2,7 @@
  ~ Alxarafe. Development of PHP applications in a flash!
  ~ Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
 #}
-{% extends "index.twig" %}
+{% extends "@Core/index.twig" %}
 {% block title %}
     {{ trans('user-authentication') }}
 {% endblock %}
@@ -12,14 +12,15 @@
 
 {% block body %}
     <div class="container-fluid">
-    {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
-</div>
-<div class="container-fluid">
+        {% block errors %}{% include '@Core/master/errors.twig' %}{% endblock %}
+    </div>
+    <div class="container-fluid">
         {% set redirectUrl = '' %}
         {% if ctrl.redirectUrl is not empty %}
             {% set redirectUrl = '&redirectUrl=' ~ ctrl.redirectUrl %}
         {% endif %}
-        <form class="form-signin" method="post" action="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=index{{ redirectUrl }}">
+        {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=Login&' ~ constant('METHOD_CONTROLLER') ~ '=' ~ constant('DEFAULT_METHOD') ~ redirectUrl) %}
+        <form class="form-signin" method="post" action="{{ url }}">
             <h2 class="form-signin-heading">{{ trans('application-access') }}</h2>
             <div class="thumbnail">
                 <img src="{{ getResourceUri('/img/login.png') }}" alt="">

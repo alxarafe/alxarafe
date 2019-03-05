@@ -11,7 +11,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ constant('BASE_URI') }}/index.php">
+            {% set url = getUrl('/index.php') %}
+            <a class="navbar-brand" href="{{ url }}">
                 <i class="fas fa-home"></i>
                 &nbsp; Alxarafe
             </a>
@@ -30,7 +31,8 @@
                                 <ul class="dropdown-menu">
                                     {% for posSubmenu, submenu in menu %}
                                         <li{% if submenu.controller == ctrl.shortName %} class="active"{% endif %}>
-                                            <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}={{ submenu.controller }}&{{ constant('METHOD_CONTROLLER') }}={{ constant('DEFAULT_METHOD') }}">
+                                            {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=' ~ submenu.controller ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=' ~ constant('DEFAULT_METHOD')) %}
+                                            <a href="{{ url }}">
                                                 {{ unescape(submenu.icon)|raw }}
                                                 &nbsp; {{ trans(submenu.title) }}
                                             </a>
@@ -41,7 +43,8 @@
                         {% else %}
                             <li>
                                 {% for posSubmenu, submenu in menu %}
-                                    <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}={{ submenu.controller }}&{{ constant('METHOD_CONTROLLER') }}={{ constant('DEFAULT_METHOD') }}">
+                                    {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=' ~ submenu.controller ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=' ~ constant('DEFAULT_METHOD')) %}
+                                    <a href="{{ url }}">
                                         {{ unescape(submenu.icon)|raw }}
                                         &nbsp; {{ trans(submenu.title) }}
                                     </a>
@@ -61,13 +64,15 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Users&{{ constant('METHOD_CONTROLLER') }}=edit&{{ ctrl.user.getIdField() }}={{ ctrl.user.id }}">
+                                {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=Users&' ~ constant('METHOD_CONTROLLER') ~ '=edit&' ~ ctrl.user.getIdField() ~ '=' ~ ctrl.user.id) %}
+                                <a href="{{ url }}">
                                     <i class="far fa-edit"></i>
                                     &nbsp; {{ trans('edit-my-data') }}
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login&{{ constant('METHOD_CONTROLLER') }}=logout">
+                                {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=Login&' ~ constant('METHOD_CONTROLLER') ~ '=logout') %}
+                                <a href="{{ url }}">
                                     <i class="fas fa-sign-out-alt"></i>
                                     &nbsp; {{ trans('logout') }}
                                 </a>
@@ -76,7 +81,8 @@
                     </li>
                 {% else %}
                     <li class="dropdown">
-                        <a href="{{ constant('BASE_URI') }}/index.php?{{ constant('CALL_CONTROLLER') }}=Login">
+                        {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=Login') %}
+                        <a href="{{ url }}">
                             <i class="fas fa-sign-in-alt"></i>
                             &nbsp; {{ trans('login') }}
                         </a>

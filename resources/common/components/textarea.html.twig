@@ -10,7 +10,7 @@
     @var text:        Your text
 
     How to use it:
-        {% include "components/textarea.html.twig" with {data:{id:'myTextareaId', name:'myTextareaName', rows:'3', text: 'My sample text'}} %}
+        {% include "@Core/components/textarea.html.twig" with {data:{id:'myTextareaId', name:'myTextareaName', rows:'3', text: 'My sample text'}} %}
 #}
 
 <textarea{% if id is defined %} id="{{ id }}"{% endif %}{% if name %} name="{{ name }}"{% endif %}

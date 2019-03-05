@@ -11,7 +11,7 @@
     @var text:        Your text
 
     How to use it:
-        {% include "components/progressbar.html.twig" with {data:{id: 'myProgressBarId1', name: 'myProgressBarName1', class: 'progress-bar-default progress-bar-striped active', percentage: '25', text: 'Completed'}} %}
+        {% include "@Core/components/progressbar.html.twig" with {data:{id: 'myProgressBarId1', name: 'myProgressBarName1', class: 'progress-bar-default progress-bar-striped active', percentage: '25', text: 'Completed'}} %}
 #}
 
 <div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

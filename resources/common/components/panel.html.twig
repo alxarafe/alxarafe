@@ -13,7 +13,7 @@
     @var footer_text: Your text footer
 
     How to use it:
-        {% include "components/panel.html.twig" with {data:{id:'myPanelId1', name:'myPanelName1', class:'panel-default', header: 'h2', header_text: 'Title', body_text: 'Body', footer_text: 'Footer'}} %}
+        {% include "@Core/components/panel.html.twig" with {data:{id:'myPanelId1', name:'myPanelName1', class:'panel-default', header: 'h2', header_text: 'Title', body_text: 'Body', footer_text: 'Footer'}} %}
 #}
 
 <div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

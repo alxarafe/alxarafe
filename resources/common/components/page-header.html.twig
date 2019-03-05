@@ -11,8 +11,8 @@
     @var small:       Your small title
 
     How to use it:
-        {% include "components/page-header.html.twig" with {data:{id:'myPageHeaderId1', name:'myPageHeaderName1', title: 'My header1', header: '', small: 'Small header info1'}} %}
-        {% include "components/page-header.html.twig" with {data:{id:'myPageHeaderId2', name:'myPageHeaderName2', title: 'My header2', small: 'Small header info2'}} %}
+        {% include "@Core/components/page-header.html.twig" with {data:{id:'myPageHeaderId1', name:'myPageHeaderName1', title: 'My header1', header: '', small: 'Small header info1'}} %}
+        {% include "@Core/components/page-header.html.twig" with {data:{id:'myPageHeaderId2', name:'myPageHeaderName2', title: 'My header2', small: 'Small header info2'}} %}
 #}
 
 <div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

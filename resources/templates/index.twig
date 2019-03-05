@@ -37,10 +37,10 @@
 </head>
 <body>
 
-{% block menu %}{% include 'master/menu.twig' %}{% endblock %}
+{% block menu %}{% include '@Core/master/menu.twig' %}{% endblock %}
 
 <div class="container-fluid" id="titlecontent" name="titlecontent">
-{% block errors %}{% include 'master/errors.twig' %}{% endblock %}
+{% block errors %}{% include '@Core/master/errors.twig' %}{% endblock %}
 
 {% block bodytitle %}
         {% if ctrl.title is not empty %}
@@ -63,7 +63,7 @@
                 'message': '<h4>' ~ trans('title-messages-' ~ message.type) ~ '</h4>' ~ message.msg | raw,
                 'style': 'width: 100%'
             } %}
-            {% include "components/alert.html.twig" with {data: data} %}
+            {% include "@Core/components/alert.html.twig" with {data: data} %}
         {% endfor %}
     {% endif %}
 </div>
@@ -94,7 +94,7 @@
 
     {# Values to be available from external JavaScript files #}
     <script type="text/javascript">
-        {% include 'js/common.js.twig' %}
+        {% include '@Core/js/common.js.twig' %}
     </script>
 
     {% for js in jsCode %}

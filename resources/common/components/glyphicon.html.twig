@@ -9,7 +9,7 @@
     @var class:       btn-default, btn-success, btn-info, btn-warning, btn-danger or button sizes
 
     How to use it:
-        {% include "components/glyphicon.html.twig" with {data:{id:'myGlyphiconId', name:'myGlyphiconName', class: 'glyphicon glyphicon-asterisk'}} %}
+        {% include "@Core/components/glyphicon.html.twig" with {data:{id:'myGlyphiconId', name:'myGlyphiconName', class: 'glyphicon glyphicon-asterisk'}} %}
 #}
 
 <span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

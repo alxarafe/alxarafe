@@ -12,12 +12,12 @@
     @var links:       Array of links items
 
     How to use it:
-        {% include "components/nav.html.twig" with {data:{id:'myNavId1', name:'myNavName1', type:'nav-tabs', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
-        {% include "components/nav.html.twig" with {data:{id:'myNavId2', name:'myNavName2', type:'nav-tabs nav-justified', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
-        {% include "components/nav.html.twig" with {data:{id:'myNavId3', name:'myNavName3', type:'nav-tabs nav-stacked', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
-        {% include "components/nav.html.twig" with {data:{id:'myNavId4', name:'myNavName4', type:'nav-pills', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
-        {% include "components/nav.html.twig" with {data:{id:'myNavId5', name:'myNavName5', type:'nav-pills nav-justified', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
-        {% include "components/nav.html.twig" with {data:{id:'myNavId6', name:'myNavName6', type:'nav-pills nav-stacked', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
+        {% include "@Core/components/nav.html.twig" with {data:{id:'myNavId1', name:'myNavName1', type:'nav-tabs', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
+        {% include "@Core/components/nav.html.twig" with {data:{id:'myNavId2', name:'myNavName2', type:'nav-tabs nav-justified', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
+        {% include "@Core/components/nav.html.twig" with {data:{id:'myNavId3', name:'myNavName3', type:'nav-tabs nav-stacked', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
+        {% include "@Core/components/nav.html.twig" with {data:{id:'myNavId4', name:'myNavName4', type:'nav-pills', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
+        {% include "@Core/components/nav.html.twig" with {data:{id:'myNavId5', name:'myNavName5', type:'nav-pills nav-justified', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
+        {% include "@Core/components/nav.html.twig" with {data:{id:'myNavId6', name:'myNavName6', type:'nav-pills nav-stacked', classes: ['active', null, null], texts: ['Home', 'Profile', 'Messages'], links: ['#home', '#profile', '#messages']}} %}
 #}
 
 <ul{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

@@ -11,7 +11,7 @@
     @var message:     Your text message
 
     How to use it:
-        {% include "components/alert.html.twig" with {data:{id:'myAlertId', name:'myAlertName', class: 'alert-success', dismissible: true, message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
+        {% include "@Core/components/alert.html.twig" with {data:{id:'myAlertId', name:'myAlertName', class: 'alert-success', dismissible: true, message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
 #}
 
 <div{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}

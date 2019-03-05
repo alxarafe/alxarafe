@@ -82,6 +82,7 @@ class TwigFunctions extends AbstractExtension
             new TwigFunction('getFooter', [$this, 'getFooter']),
             new TwigFunction('getTotalTime', [$this, 'getTotalTime']),
             new TwigFunction('renderComponent', [$this, 'renderComponent']),
+            new TwigFunction('getUrl', [$this, 'getUrl']),
         ];
     }
 
@@ -213,5 +214,17 @@ class TwigFunctions extends AbstractExtension
         $renderer = new TemplateRender();
         $renderer->setTemplate($templatePath);
         return $renderer->render(['data' => $data]);
+    }
+
+    /**
+     * Returns the base url.
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    public function getUrl(string $url = ''): string
+    {
+        return baseUrl($url);
     }
 }
