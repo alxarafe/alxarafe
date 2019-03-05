@@ -210,6 +210,7 @@ class BootStrap
                 $this->database = Database::getInstance();
                 $this->database->connectToDatabase();
             }
+            $this->translator->loadLangFiles();
             $this->renderer = TemplateRender::getInstance();
 
             FormatUtils::loadConfig();

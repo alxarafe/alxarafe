@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Models\Module;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
@@ -90,7 +91,7 @@ class Translator
             self::$usedStrings = [];
             self::$missingStrings = [];
 
-            $this->loadLangFiles();
+//            $this->loadLangFiles();
         }
     }
 
@@ -100,7 +101,7 @@ class Translator
      *
      * @return void
      */
-    private function loadLangFiles(): void
+    public function loadLangFiles(): void
     {
         $langFiles = Finder::create()
             ->files()
@@ -125,9 +126,13 @@ class Translator
      */
     public function getLangFolders(): array
     {
-        $morePaths = [
-            //constant('BASE_PATH') . '/config/languages',
-        ];
+        $morePaths = [];
+
+        $modules = (new Module())->getEnabledModules();
+        foreach (array_reverse($modules) as $module) {
+            $morePaths[] = $module->path;
+        }
+
         return array_merge(
             [$this->getBaseLangFolder()],
             $morePaths

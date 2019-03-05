@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Helpers\TwigFilters;
 use Alxarafe\Core\Helpers\TwigFunctions;
+use Alxarafe\Core\Models\Module;
 use Twig_Environment;
 use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
@@ -167,6 +168,12 @@ class TemplateRender
             $this->getCommonTemplatesFolder(),
             basePath(self::TEMPLATES_FOLDER),
         ];
+
+        $modules = (new Module())->getEnabledModules();
+        foreach (array_reverse($modules) as $module) {
+            $paths[] = $module->path;
+        }
+
         // Only use really existing path
         foreach ($paths as $path) {
             if (file_exists($path)) {
