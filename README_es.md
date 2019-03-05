@@ -3,8 +3,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
-
-[![Travis logo](https://travis-ci.com/images/logos/TravisCI-Mascot-1.png|width=100)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
+[<img align="left" width="35" height="35" src="https://travis-ci.com/images/logos/TravisCI-Mascot-1.png">](https://travis-ci.org/alxarafe/alxarafe)
 [![Build Status](https://travis-ci.org/alxarafe/alxarafe.svg?branch=master)](https://travis-ci.org/alxarafe/alxarafe)
 
 ## Alxarafe ofrece las siguientes funcionalidades
