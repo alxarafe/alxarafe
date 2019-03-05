@@ -43,7 +43,7 @@ class Languages extends AuthPageExtendedController
     }
 
     /**
-     * TODO: Undocumented.
+     * Export language files with all strings for each language.
      */
     private function exportAction()
     {

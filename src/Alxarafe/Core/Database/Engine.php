@@ -197,8 +197,8 @@ abstract class Engine
     /**
      * Executes a SELECT SQL statement on the core cache.
      *
-     * @param string $query
      * @param string $cachedName
+     * @param string $query
      * @param array  $vars
      *
      * @return array

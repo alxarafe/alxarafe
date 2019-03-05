@@ -113,11 +113,7 @@ class DebugTool
     }
 
     /**
-     * Return the internal debug instance for get the html code.
-     *
-     * TODO: Analizar qué funciones harían falta para el html y retornar el html.
-     * Tal y como está ahora mismo sería dependiente de DebugBar. DebugBar debería de quedar TOTALMENTE encapsulado en
-     * esta clase.
+     * Return the internal debug instance.
      *
      * @return StandardDebugBar
      */

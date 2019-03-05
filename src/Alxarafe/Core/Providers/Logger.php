@@ -41,9 +41,9 @@ class Logger
             self::$logger = new MonologLogger('core_logger');
             set_exception_handler([$this, 'exceptionHandler']);
             try {
-                // TODO: At the moment, the time zone of the application is not selected anywhere.
-                // Maybe with? date_default_timezone_set('Europe/Madrid');
-                self::$logger->setTimezone(new DateTimeZone('Europe/Madrid'));
+                // Maybe is needed a different timezone, at this moment sets the same.
+                $timeZone = RegionalInfo::getInstance()->getConfig()['timezone'];
+                self::$logger->setTimezone(new DateTimeZone($timeZone));
                 self::$logger->pushHandler(new StreamHandler(basePath('/config/core.log'), MonologLogger::DEBUG));
             } catch (\Exception $e) {
                 Kint::dump($e);
@@ -85,7 +85,7 @@ class Logger
      */
     public static function getDefaultValues(): array
     {
-        // TODO: Implement getDefaultValues() method.
+        // TODO: Maybe is needed a different timezone than used on RegionalInfo, at this moment sets the same.
         return [];
     }
 

@@ -16,6 +16,7 @@ use Alxarafe\Core\Providers\Container;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\Logger;
+use Alxarafe\Core\Providers\RegionalInfo;
 use Alxarafe\Core\Providers\Router;
 use Alxarafe\Core\Providers\TemplateRender;
 use Alxarafe\Core\Providers\Translator;
@@ -168,6 +169,13 @@ class BootStrap
     protected $cacheEngine;
 
     /**
+     * The regional information for this app.
+     *
+     * @var RegionalInfo
+     */
+    protected $regionalInfo;
+
+    /**
      * BootStrap constructor.
      *
      * @param string $basePath
@@ -182,6 +190,7 @@ class BootStrap
             $this->isDebug = $debug;
             Kint::$enabled_mode = $this->isDebug;
 
+            $this->regionalInfo = RegionalInfo::getInstance();
             $this->log = Logger::getInstance();
             $this->container = Container::getInstance();
 
