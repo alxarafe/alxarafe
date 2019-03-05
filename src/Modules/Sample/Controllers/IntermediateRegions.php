@@ -12,7 +12,7 @@ use Modules\Sample\Models\IntermediateRegion;
 /**
  * Class IntermediateRegions
  *
- * @package Alxarafe\Modules\Sample\Controllers
+ * @package Modules\Sample\Controllers
  */
 class IntermediateRegions extends AuthPageExtendedController
 {

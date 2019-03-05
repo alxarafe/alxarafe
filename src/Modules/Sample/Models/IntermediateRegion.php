@@ -11,7 +11,7 @@ use Alxarafe\Core\Base\Table;
 /**
  * Class IntermediateRegion
  *
- * @package Alxarafe\Modules\Sample\Models
+ * @package Modules\Sample\Models
  */
 class IntermediateRegion extends Table
 {

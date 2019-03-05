@@ -12,7 +12,7 @@ use Modules\Sample\Models\Subregion;
 /**
  * Class Subregions
  *
- * @package Alxarafe\Modules\Sample\Controllers
+ * @package Modules\Sample\Controllers
  */
 class Subregions extends AuthPageExtendedController
 {

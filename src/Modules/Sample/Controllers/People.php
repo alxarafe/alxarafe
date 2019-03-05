@@ -12,7 +12,7 @@ use Modules\Sample\Models\Person;
 /**
  * Class People
  *
- * @package Alxarafe\Modules\Sample\Controllers
+ * @package Modules\Sample\Controllers
  */
 class People extends AuthPageExtendedController
 {

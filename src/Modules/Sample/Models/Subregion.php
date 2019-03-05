@@ -11,7 +11,7 @@ use Alxarafe\Core\Base\Table;
 /**
  * Class Subregion
  *
- * @package Alxarafe\Modules\Sample\Models
+ * @package Modules\Sample\Models
  */
 class Subregion extends Table
 {

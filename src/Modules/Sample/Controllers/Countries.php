@@ -12,7 +12,7 @@ use Modules\Sample\Models\Country;
 /**
  * Class Countries
  *
- * @package Alxarafe\Modules\Sample\Controllers
+ * @package Modules\Sample\Controllers
  */
 class Countries extends AuthPageExtendedController
 {

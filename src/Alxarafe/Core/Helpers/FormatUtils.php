@@ -58,7 +58,6 @@ class FormatUtils
      */
     public static function getFormatDate()
     {
-        self::loadConfig();
         return self::$dateFormat;
     }
 
@@ -85,7 +84,6 @@ class FormatUtils
      */
     public static function getFormatDateTime()
     {
-        self::loadConfig();
         return self::$datetimeFormat;
     }
 
@@ -96,7 +94,6 @@ class FormatUtils
      */
     public static function getFormatTime()
     {
-        self::loadConfig();
         return self::$timeFormat;
     }
 
@@ -109,7 +106,6 @@ class FormatUtils
      */
     public static function getFormattedDate(string $date = '')
     {
-        self::loadConfig();
         return self::getFormatted(self::$dateFormat, $date);
     }
 
@@ -123,7 +119,6 @@ class FormatUtils
      */
     public static function getFormatted(string $style = '', string $time = '')
     {
-        self::loadConfig();
         try {
             $time = ($time === '') ? 'now' : $time;
             $date = (new DateTime($time))->format($style);
@@ -143,7 +138,6 @@ class FormatUtils
      */
     public static function getFormattedTime(string $date = '')
     {
-        self::loadConfig();
         return self::getFormatted(self::$timeFormat, $date);
     }
 
@@ -156,7 +150,6 @@ class FormatUtils
      */
     public static function getFormattedDateTime(string $date = '')
     {
-        self::loadConfig();
         return self::getFormatted(self::$datetimeFormat ?? '', $date);
     }
 }
