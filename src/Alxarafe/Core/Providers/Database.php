@@ -93,15 +93,13 @@ class Database
     public static function getDefaultValues(): array
     {
         return [
-            'main' => [
-                'dbEngineName' => 'PdoMySql',
-                'dbPrefix' => '',
-                'dbUser' => 'dbUser',
-                'dbPass' => 'dbPass',
-                'dbName' => 'dbName',
-                'dbHost' => 'localhost',
-                'dbPort' => '',
-            ],
+            'dbEngineName' => 'PdoMySql',
+            'dbPrefix' => '',
+            'dbUser' => 'dbUser',
+            'dbPass' => 'dbPass',
+            'dbName' => 'dbName',
+            'dbHost' => 'localhost',
+            'dbPort' => '',
         ];
     }
 
