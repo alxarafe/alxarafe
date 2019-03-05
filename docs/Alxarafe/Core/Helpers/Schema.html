@@ -144,7 +144,7 @@ for the reconstruction of its structure. Also save the view structure.</p>      
                     static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_mergeArray">mergeArray</a>(array $struct, array $data, $isView = false)
+                    <a href="#method_mergeArray">mergeArray</a>(array $struct, array $data, bool $isView = false)
         
                                             <p>Merge the existing yaml file with the structure of the database,
 prevailing the latter.</p>                </div>
@@ -348,9 +348,9 @@ removed from the name of the table.</p>                            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_mergeArray">
-        <div class="location">at         line 87</div>
+        <div class="location">at         line 88</div>
         <code>        static    protected        array
-    <strong>mergeArray</strong>(array $struct, array $data, $isView = false)
+    <strong>mergeArray</strong>(array $struct, array $data, bool $isView = false)
         </code>
     </h3>
     <div class="details">
@@ -367,15 +367,15 @@ prevailing the latter.</p>                                                </div>
                     <tr>
                 <td>array</td>
                 <td>$struct</td>
-                <td></td>
+                <td>current database table structure</td>
             </tr>
                     <tr>
                 <td>array</td>
                 <td>$data</td>
-                <td></td>
+                <td>current yaml file structure</td>
             </tr>
                     <tr>
-                <td></td>
+                <td>bool</td>
                 <td>$isView</td>
                 <td></td>
             </tr>
@@ -399,7 +399,7 @@ prevailing the latter.</p>                                                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_mergeViewData">
-        <div class="location">at         line 106</div>
+        <div class="location">at         line 107</div>
         <code>        static    protected        array
     <strong>mergeViewData</strong>(array $struct, array $data)
         </code>
@@ -445,7 +445,7 @@ and correcting the possible errors.</p>                    <p>Posible data: uniq
             </div>
                     <div class="method-item">
                     <h3 id="method_mergeViewField">
-        <div class="location">at         line 127</div>
+        <div class="location">at         line 128</div>
         <code>        static    protected        array
     <strong>mergeViewField</strong>(string $field, array $values, array $fieldData)
         </code>
@@ -496,7 +496,7 @@ the database, creating the missing data and correcting the possible errors.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_getFromYamlFile">
-        <div class="location">at         line 159</div>
+        <div class="location">at         line 160</div>
         <code>        static            array
     <strong>getFromYamlFile</strong>(string $tableName, string $type = &#039;schema&#039;)
         </code>
@@ -541,7 +541,7 @@ the database, creating the missing data and correcting the possible errors.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_getSchemaFileName">
-        <div class="location">at         line 187</div>
+        <div class="location">at         line 184</div>
         <code>        static        private    string
     <strong>getSchemaFileName</strong>(string $tableName, string $type = &#039;schema&#039;)
         </code>
@@ -586,7 +586,7 @@ the database, creating the missing data and correcting the possible errors.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_loadDataFromCsv">
-        <div class="location">at         line 212</div>
+        <div class="location">at         line 209</div>
         <code>        static            array
     <strong>loadDataFromCsv</strong>(string $fileName)
         </code>
@@ -626,7 +626,7 @@ the database, creating the missing data and correcting the possible errors.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_loadDataFromYaml">
-        <div class="location">at         line 229</div>
+        <div class="location">at         line 226</div>
         <code>        static            array
     <strong>loadDataFromYaml</strong>(string $fileName)
         </code>
@@ -666,7 +666,7 @@ the database, creating the missing data and correcting the possible errors.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_saveSchemaFileName">
-        <div class="location">at         line 252</div>
+        <div class="location">at         line 249</div>
         <code>        static        private    bool
     <strong>saveSchemaFileName</strong>(array $data, string $tableName, string $type = &#039;schema&#039;)
         </code>
@@ -716,7 +716,7 @@ the database, creating the missing data and correcting the possible errors.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_setNormalizedStructure">
-        <div class="location">at         line 272</div>
+        <div class="location">at         line 269</div>
         <code>        static            array
     <strong>setNormalizedStructure</strong>(array $structure, string $tableName)
         </code>
@@ -763,7 +763,7 @@ the check each time, or calculating their value based on the data provided by th
             </div>
                     <div class="method-item">
                     <h3 id="method_normalizeField">
-        <div class="location">at         line 296</div>
+        <div class="location">at         line 293</div>
         <code>        static    protected        array|null
     <strong>normalizeField</strong>(string $tableName, string $field, array $structure)
         </code>
@@ -815,7 +815,7 @@ but this should only occur at the design stage.</p>                             
             </div>
                     <div class="method-item">
                     <h3 id="method_setValues">
-        <div class="location">at         line 322</div>
+        <div class="location">at         line 319</div>
         <code>        static            array
     <strong>setValues</strong>(string $tableName, array $values)
         </code>

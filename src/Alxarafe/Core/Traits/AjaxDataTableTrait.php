@@ -39,7 +39,7 @@ trait AjaxDataTableTrait
         $this->fillActions($data);
 
         $json_data = [
-            "draw" => intval($requestData['draw'] ?? null),
+            "draw" => (int) ($requestData['draw'] ?? null),
             "recordsTotal" => $recordsTotal ?? null,
             "recordsFiltered" => $recordsFiltered ?? null,
             "data" => $data ?? null,

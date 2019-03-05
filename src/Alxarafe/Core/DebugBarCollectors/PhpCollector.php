@@ -118,7 +118,7 @@ class PHPCollector extends DataCollector implements Renderable
     public function errorHandler($severity, $message, $fileName, $line)
     {
         for ($i = 0; $i < 15; $i++) {
-            if ($type = $severity & pow(2, $i)) {
+            if ($type = $severity & (2 ** $i)) {
                 $label = $this->friendlyErrorType($type);
                 $this->messages[] = [
                     'message' => $message . ' (' . $fileName . ':' . $line . ')',

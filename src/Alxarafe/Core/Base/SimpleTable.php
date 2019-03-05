@@ -408,7 +408,7 @@ class SimpleTable extends Entity
         $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField());
         $sql = "SELECT COUNT({$idField}) AS total FROM {$this->getQuotedTableName()};";
         $data = Database::getInstance()->getDbEngine()->select($sql);
-        return empty($data) ? 0 : intval($data[0]['total']);
+        return empty($data) ? 0 : (int) $data[0]['total'];
     }
 
     /**
@@ -494,6 +494,6 @@ class SimpleTable extends Entity
         $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField());
         $sql = str_replace("SELECT * ", "SELECT COUNT({$idField}) AS total ", $sql);
         $data = Database::getInstance()->getDbEngine()->select($sql);
-        return empty($data) ? 0 : intval($data[0]['total']);
+        return empty($data) ? 0 : (int) $data[0]['total'];
     }
 }
