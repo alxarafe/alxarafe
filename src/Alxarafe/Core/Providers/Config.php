@@ -88,6 +88,7 @@ class Config
         Utils::defineIfNotExists('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
         Utils::defineIfNotExists('LANG', 'en');
         Utils::defineIfNotExists('DEBUG', false);
+        Utils::defineIfNotExists('CACHE', !constant('DEBUG'));
 
         Utils::defineIfNotExists('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
 

@@ -229,8 +229,8 @@ class TemplateRender
     {
         $options = [];
         $options['debug'] = ((defined('DEBUG') && constant('DEBUG')) === true);
-        if (defined('CACHE') && constant('CACHE') == true) {
-            $options['cache'] = (basePath() ?? '') . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'twig';
+        if (defined('CACHE') && constant('CACHE') === true) {
+            $options['cache'] = basePath(DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'twig');
         }
         return $options;
     }
