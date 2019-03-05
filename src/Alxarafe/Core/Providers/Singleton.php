@@ -190,8 +190,8 @@ trait Singleton
     public function getConfig(string $index = 'main'): array
     {
         $yamlContent = $this->getYamlContent();
-        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? null;
-        return $content ?? $this->getDefaultValues();
+        $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? [];
+        return array_merge(self::getDefaultValues(), $content);
     }
 
     /**
