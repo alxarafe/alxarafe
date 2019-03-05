@@ -2,4 +2,4 @@
 
 # Run PHPUnit test
 
-vendor/bin/phpunit --configuration phpunit.xml
+vendor/bin/phpunit
