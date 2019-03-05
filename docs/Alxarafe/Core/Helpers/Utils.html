@@ -225,6 +225,16 @@ returns a literal of the form: index = 'value'.</p>                </div>
                                             <p>Attempts to create the directory specified by pathname.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;<a target="_blank" href="http://php.net/SplFileInfo">SplFileInfo</a>[]
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_scandir">scandir</a>(string $path)
+        
+                                            <p>List files and directories inside the specified path.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -233,7 +243,7 @@ returns a literal of the form: index = 'value'.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_camelToSnake">
-        <div class="location">at         line 33</div>
+        <div class="location">at         line 34</div>
         <code>        static            string
     <strong>camelToSnake</strong>(string $string, string $us = &#039;_&#039;)
         </code>
@@ -278,7 +288,7 @@ returns a literal of the form: index = 'value'.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_snakeToCamel">
-        <div class="location">at         line 56</div>
+        <div class="location">at         line 57</div>
         <code>        static            string
     <strong>snakeToCamel</strong>(string $string, string $us = &#039;_&#039;)
         </code>
@@ -323,7 +333,7 @@ returns a literal of the form: index = 'value'.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_defineIfNotExists">
-        <div class="location">at         line 67</div>
+        <div class="location">at         line 68</div>
         <code>        static            
     <strong>defineIfNotExists</strong>(string $const, $value)
         </code>
@@ -359,7 +369,7 @@ returns a literal of the form: index = 'value'.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_flatArray">
-        <div class="location">at         line 83</div>
+        <div class="location">at         line 84</div>
         <code>        static            array
     <strong>flatArray</strong>(array $array)
         </code>
@@ -400,7 +410,7 @@ Remove spaces from the result and convert it to lowercase.</p>                  
             </div>
                     <div class="method-item">
                     <h3 id="method_addToArray">
-        <div class="location">at         line 105</div>
+        <div class="location">at         line 106</div>
         <code>        static            array
     <strong>addToArray</strong>(array $initialArray, array $nextArray)
         </code>
@@ -445,7 +455,7 @@ Remove spaces from the result and convert it to lowercase.</p>                  
             </div>
                     <div class="method-item">
                     <h3 id="method_isTrue">
-        <div class="location">at         line 122</div>
+        <div class="location">at         line 123</div>
         <code>        static            bool
     <strong>isTrue</strong>(array $param, string $key)
         </code>
@@ -490,7 +500,7 @@ Remove spaces from the result and convert it to lowercase.</p>                  
             </div>
                     <div class="method-item">
                     <h3 id="method_getItem">
-        <div class="location">at         line 138</div>
+        <div class="location">at         line 139</div>
         <code>        static            string
     <strong>getItem</strong>(array $itemsArray, string $itemIndex, string|null $defaultValue = null)
         </code>
@@ -541,7 +551,7 @@ returns a literal of the form: index = 'value'.</p>                    <p>It is 
             </div>
                     <div class="method-item">
                     <h3 id="method_randomString">
-        <div class="location">at         line 152</div>
+        <div class="location">at         line 153</div>
         <code>        static            string
     <strong>randomString</strong>(int $length = 16)
         </code>
@@ -581,7 +591,7 @@ returns a literal of the form: index = 'value'.</p>                    <p>It is 
             </div>
                     <div class="method-item">
                     <h3 id="method_getShortName">
-        <div class="location">at         line 177</div>
+        <div class="location">at         line 178</div>
         <code>        static            string
     <strong>getShortName</strong>($objectClass, $calledClass)
         </code>
@@ -626,7 +636,7 @@ returns a literal of the form: index = 'value'.</p>                    <p>It is 
             </div>
                     <div class="method-item">
                     <h3 id="method_arrayMergeRecursiveEx">
-        <div class="location">at         line 198</div>
+        <div class="location">at         line 199</div>
         <code>        static            array
     <strong>arrayMergeRecursiveEx</strong>(array $array1, array $array2)
         </code>
@@ -671,7 +681,7 @@ returns a literal of the form: index = 'value'.</p>                    <p>It is 
             </div>
                     <div class="method-item">
                     <h3 id="method_executePreprocesses">
-        <div class="location">at         line 218</div>
+        <div class="location">at         line 219</div>
         <code>        static            
     <strong>executePreprocesses</strong>(array $searchDir)
         </code>
@@ -702,7 +712,7 @@ returns a literal of the form: index = 'value'.</p>                    <p>It is 
             </div>
                     <div class="method-item">
                     <h3 id="method_rrmdir">
-        <div class="location">at         line 247</div>
+        <div class="location">at         line 248</div>
         <code>        static            bool
     <strong>rrmdir</strong>(string $path)
         </code>
@@ -742,7 +752,7 @@ returns a literal of the form: index = 'value'.</p>                    <p>It is 
             </div>
                     <div class="method-item">
                     <h3 id="method_mkdir">
-        <div class="location">at         line 274</div>
+        <div class="location">at         line 275</div>
         <code>        static            bool
     <strong>mkdir</strong>(string $dir, int $mode = 0777, bool $recursive = false)
         </code>
@@ -780,6 +790,46 @@ returns a literal of the form: index = 'value'.</p>                    <p>It is 
                     <table class="table table-condensed">
         <tr>
             <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_scandir">
+        <div class="location">at         line 287</div>
+        <code>        static            <a target="_blank" href="http://php.net/SplFileInfo">SplFileInfo</a>[]
+    <strong>scandir</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>List files and directories inside the specified path.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a target="_blank" href="http://php.net/SplFileInfo">SplFileInfo</a>[]</td>
             <td></td>
         </tr>
     </table>
