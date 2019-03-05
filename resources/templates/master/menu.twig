@@ -22,7 +22,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     {% for posMenu, menu in ctrl.getUserMenu() %}
                         {% if posMenu|trim is same as(posMenu) %}
-                            <li class="dropdown">
+                            <li class="dropdown{% if posMenu == ctrl.pageDetails()['menu'] %} active{% endif %}">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     {{ trans(posMenu) }}
                                     <span class="caret"></span>
