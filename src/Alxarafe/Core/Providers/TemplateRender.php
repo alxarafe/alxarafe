@@ -171,7 +171,7 @@ class TemplateRender
 
         $modules = (new Module())->getEnabledModules();
         foreach (array_reverse($modules) as $module) {
-            $paths[] = $module->path;
+            $paths[] = $module->path . '/' . self::TEMPLATES_FOLDER;
         }
 
         // Only use really existing path
