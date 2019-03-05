@@ -186,7 +186,7 @@ class Schema
         $extension = $type === 'values' ? '.csv' : '.yaml';
 
         // First, it is checked if it exists in the core
-        $folder = basePath(constant('ALXARAFE_FOLDER') . '/Schema/' . $type);
+        $folder = constant('ALXARAFE_FOLDER') . '/Schema/' . $type;
         Utils::mkdir($folder, 0777, true);
         $path = $folder . '/' . $tableName . $extension;
         if (file_exists($path)) {
