@@ -223,7 +223,14 @@ class Utils
 
         $modules = (new Module())->getEnabledModules();
         foreach ($modules as $module) {
-            $searchDir['Modules\\' . $module->name] = basePath($module->path);
+            if (is_dir($module->path)) {
+                $searchDir['Modules\\' . $module->name] = $module->path;
+            } else {
+                $module->enabled = 0;
+                if ($module->save()) {
+                    FlashMessages::getInstance()::setWarning(Translator::getInstance()->trans('module-disable'));
+                }
+            }
         }
         new PreProcessors\Models($searchDir);
         new PreProcessors\Pages($searchDir);

@@ -47,7 +47,7 @@ class Module extends Table
      */
     public function getEnabledModules()
     {
-        $list = $this->getAllRecordsBy('enabled', '', '<>', 'enabled ASC');
+        $list = $this->getAllRecordsBy('enabled', null, '<>', 'enabled ASC');
         $return = [];
         foreach ($list as $module) {
             $return[] = (new Module())->setData($module);

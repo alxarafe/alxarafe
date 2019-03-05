@@ -59,10 +59,17 @@ class Routes
         // Delete all routes
         $this->routes->getDefaultValues();
         foreach ($this->searchDir as $namespace => $baseDir) {
+            $dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers';
+            /*
+            if ($namespace === 'Alxarafe') {
+                // $namespace .= '\\Core';
+                $dir = $baseDir . DIRECTORY_SEPARATOR . 'Core/Controllers';
+            }
+            */
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')
-                ->in($dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers');
+                ->in($dir);
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
                 $this->instantiateClass($namespace, $className);
@@ -86,6 +93,9 @@ class Routes
      */
     private function instantiateClass(string $namespace, string $className)
     {
+        if ($namespace === 'Alxarafe') {
+            $namespace .= '\\Core';
+        }
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $parents = class_parents($class);
         if (in_array('Alxarafe\Core\Base\Controller', $parents)) {
