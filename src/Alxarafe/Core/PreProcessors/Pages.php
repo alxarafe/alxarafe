@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\PreProcessors;
 
 use Alxarafe\Core\Helpers\FormatUtils;
+use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Page;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -53,9 +54,7 @@ class Pages
 
         foreach ($this->searchDir as $namespace => $baseDir) {
             $dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers';
-            if (!is_dir($dir)) {
-                \mkdir($dir, 0777, true);
-            }
+            Utils::mkdir($dir, 0777, true);
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')

@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\PreProcessors;
 
+use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
@@ -81,9 +82,7 @@ class Models
     private function fillList(string $namespace, string $baseDir, array &$list)
     {
         $dir = $baseDir . '/Models';
-        if (!is_dir($dir)) {
-            \mkdir($dir, 0777, true);
-        }
+        Utils::mkdir($dir, 0777, true);
         $models = Finder::create()
             ->files()
             ->name('*.php')

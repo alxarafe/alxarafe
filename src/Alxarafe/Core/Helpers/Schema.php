@@ -248,9 +248,7 @@ class Schema
     private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
     {
         $path = basePath('config/' . $type);
-        if (!is_dir($path)) {
-            \mkdir($path, 0777, true);
-        }
+        Utils::mkdir($path, 0777, true);
         $path .= '/' . $tableName . '.yaml';
         return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }

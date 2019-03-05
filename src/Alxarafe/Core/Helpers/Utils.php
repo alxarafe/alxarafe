@@ -252,4 +252,21 @@ class Utils
         }
         return rmdir($path);
     }
+
+    /**
+     * Attempts to create the directory specified by pathname.
+     *
+     * @doc https://github.com/kalessil/phpinspectionsea/blob/master/docs/probable-bugs.md#mkdir-race-condition
+     *
+     * @param string $dir
+     * @param int    $mode
+     * @param bool   $recursive
+     * @param null   $context
+     *
+     * @return bool
+     */
+    public static function mkdir($dir, $mode = 0777, $recursive = false, $context = null)
+    {
+        return !is_dir($dir) && !mkdir($dir, 0777, $recursive, $context) && !is_dir($dir);
+    }
 }

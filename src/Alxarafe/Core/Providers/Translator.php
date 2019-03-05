@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Providers;
 
+use Alxarafe\Core\Helpers\Utils;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
@@ -184,10 +185,7 @@ class Translator
     {
         $languages = [];
         $dir = $this->getBaseLangFolder();
-
-        if (!is_dir($dir)) {
-            \mkdir($dir, 0777, true);
-        }
+        Utils::mkdir($dir, 0777, true);
         $langFiles = Finder::create()
             ->files()
             ->name('*' . self::EXT)
