@@ -65,7 +65,7 @@ class Schema
     {
         $result = true;
         $prefix = Database::getInstance()->getConnectionData()['dbPrefix'];
-        $usePrefix = substr($table, 0, strlen($prefix)) == $prefix;
+        $usePrefix = strpos($table, $prefix) === 0;
         $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
         $structure = Database::getInstance()->getDbEngine()->getStructure($tableName, $usePrefix);
         foreach (['schema', 'viewdata'] as $type) {
@@ -81,6 +81,7 @@ class Schema
      *
      * @param array $struct current database table structure
      * @param array $data   current yaml file structure
+     * @param bool  $isView
      *
      * @return array
      */
@@ -133,16 +134,16 @@ class Schema
         $result['placeholder'] = $result['placeholder'] ?? $field;
         switch ($values['type']) {
             case 'string':
-                $length = intval($values['length'] ?? constant('DEFAULT_STRING_LENGTH'));
-                $result['length'] = max([intval($result['length'] ?? 0), $length]);
+                $length = (int) ($values['length'] ?? constant('DEFAULT_STRING_LENGTH'));
+                $result['length'] = max([(int) ($result['length'] ?? 0), $length]);
                 break;
             case 'integer':
-                $length = isset($values['length']) ? pow(10, $values['length']) - 1 : null;
-                $max = intval($values['max'] ?? $length ?? pow(10, constant('DEFAULT_INTEGER_SIZE')) - 1);
-                $min = intval($values['unsigned'] == 'yes' ? 0 : -$max);
-                $result['length'] = max([intval($result['length'] ?? 0), $length]);
-                $result['min'] = min([intval($result['min'] ?? 0), $min]);
-                $result['max'] = max([intval($result['min'] ?? 0), $max]);
+                $length = isset($values['length']) ? (10 ** $values['length']) - 1 : null;
+                $max = (int) ($values['max'] ?? $length ?? (10 ** constant('DEFAULT_INTEGER_SIZE')) - 1);
+                $min = ($values['unsigned'] === 'yes' ? 0 : -$max);
+                $result['length'] = max([(int) ($result['length'] ?? 0), $length]);
+                $result['min'] = min([(int) ($result['min'] ?? 0), $min]);
+                $result['max'] = max([(int) ($result['min'] ?? 0), $max]);
                 break;
         }
         return $result;
@@ -162,18 +163,14 @@ class Schema
         if ($fileName === '') {
             return [];
         }
-        switch ($type) {
-            /** @noinspection PhpMissingBreakStatementInspection */
-            case 'values':
-                $data = self::loadDataFromCsv($fileName);
-                if (!empty($data)) {
-                    return $data;
-                }
-            // no-break
-
-            default:
-                return self::loadDataFromYaml($fileName);
+        if ($type === 'values') {
+            $data = self::loadDataFromCsv($fileName);
+            if (!empty($data)) {
+                return $data;
+            }
         }
+
+        return self::loadDataFromYaml($fileName);
     }
 
     /**
@@ -186,7 +183,7 @@ class Schema
      */
     private static function getSchemaFileName(string $tableName, string $type = 'schema'): string
     {
-        $extension = $type == 'values' ? '.csv' : '.yaml';
+        $extension = $type === 'values' ? '.csv' : '.yaml';
 
         // First, it is checked if it exists in the core
         $folder = basePath(constant('ALXARAFE_FOLDER') . '/Schema/' . $type);
@@ -293,7 +290,7 @@ class Schema
      *
      * @return array|null
      */
-    protected static function normalizeField(string $tableName, string $field, array $structure)
+    protected static function normalizeField(string $tableName, string $field, array $structure): ?array
     {
         if (!isset($structure['type'])) {
             Kint::dump("The type parameter is mandatory in {$field}. Error in table " . $tableName, $structure);
@@ -330,21 +327,21 @@ class Schema
         $header = true;
         $sep = '';
         foreach ($values as $value) {
-            $fields = "(";
-            $datos = $sep . "(";
+            $fields = '(';
+            $datos = $sep . '(';
             foreach ($value as $fname => $fvalue) {
-                $fields .= Database::getInstance()->getSqlHelper()->quoteFieldName($fname) . ", ";
+                $fields .= Database::getInstance()->getSqlHelper()->quoteFieldName($fname) . ', ';
                 $definitionDataField = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$fname];
                 if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
                     $fvalue = $definitionDataField['default'] ?? null;
                 }
-                $datos .= Database::getInstance()->getSqlHelper()->quoteLiteral($fvalue) . ", ";
+                $datos .= Database::getInstance()->getSqlHelper()->quoteLiteral($fvalue) . ', ';
             }
-            $fields = substr($fields, 0, -2) . ")";
-            $datos = substr($datos, 0, -2) . ")";
+            $fields = substr($fields, 0, -2) . ')';
+            $datos = substr($datos, 0, -2) . ')';
 
             if ($header) {
-                $sql .= $fields . " VALUES ";
+                $sql .= $fields . ' VALUES ';
                 $header = false;
             }
 
@@ -352,6 +349,6 @@ class Schema
             $sep = ', ';
         }
 
-        return [$sql . ";"];
+        return [$sql . ';'];
     }
 }

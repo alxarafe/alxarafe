@@ -239,7 +239,7 @@ class Table extends SimpleTable
                     }
                     $min = $fieldStructure['min'] ?? null;
                     if (isset($min)) {
-                        if ($min > intval($record[$fieldName])) {
+                        if ($min > (int) $record[$fieldName]) {
                             $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%min%' => $min];
                             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-minimum', $vars));
                             $ok = false;
@@ -247,7 +247,7 @@ class Table extends SimpleTable
                     }
                     $max = $fieldStructure['max'] ?? null;
                     if (isset($max)) {
-                        if ($max < intval($record[$fieldName])) {
+                        if ($max < (int) $record[$fieldName]) {
                             $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%max%' => $max];
                             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-maximum', $vars));
                             $ok = false;

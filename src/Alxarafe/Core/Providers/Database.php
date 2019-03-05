@@ -52,7 +52,7 @@ class Database
             $this->config = $this->getConfig();
             if (empty($this->config)) {
                 Logger::getInstance()->getLogger()->addDebug('There is no config.yaml');
-                return false;
+                return;
             }
             $dbEngineName = $this->config['dbEngineName'] ?? 'PdoMySql';
             $helperName = 'Sql' . substr($dbEngineName, 3);
@@ -70,7 +70,7 @@ class Database
                 ]);
             } catch (Exception $e) {
                 Logger::getInstance()::exceptionHandler($e);
-                return false;
+                return;
             }
         }
     }
@@ -119,7 +119,7 @@ class Database
     /**
      * Returns the database engine.
      *
-     * @return ?Engine
+     * @return Engine|null
      */
     public function getDbEngine(): ?Engine
     {
