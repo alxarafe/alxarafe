@@ -14,6 +14,7 @@ use Alxarafe\Core\Providers\Translator;
 use DirectoryIterator;
 use ReflectionClass;
 use ReflectionException;
+use SplFileInfo;
 
 /**
  * Class Utils
@@ -274,5 +275,25 @@ class Utils
     public static function mkdir($dir, $mode = 0777, $recursive = false)
     {
         return !is_dir($dir) && !mkdir($dir, $mode, $recursive) && !is_dir($dir);
+    }
+
+    /**
+     * List files and directories inside the specified path.
+     *
+     * @param string $path
+     *
+     * @return SplFileInfo[]
+     */
+    public static function scandir(string $path): array
+    {
+        $list = [];
+        // Open the source directory to read in files
+        $iterator = new DirectoryIterator($path);
+        foreach ($iterator as $fileInfo) {
+            if (!$fileInfo->isDot()) {
+                $list[] = $fileInfo->getFileInfo();
+            }
+        }
+        return $list;
     }
 }

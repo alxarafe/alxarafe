@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Helpers\TwigFilters;
 use Alxarafe\Core\Helpers\TwigFunctions;
+use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Module;
 use Twig_Environment;
 use Twig_Extension_Debug;
@@ -364,12 +365,10 @@ class TemplateRender
         if (!is_dir($path)) {
             return [];
         }
-        $skins = scandir($path);
+        $skins = Utils::scandir($path);
         $ret = [];
         foreach ($skins as $skin) {
-            if ($skin != '.' && $skin != '..') {
-                $ret[] = $skin;
-            }
+            $ret[] = $skin->getFilename();
         }
         return $ret;
     }

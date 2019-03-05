@@ -107,17 +107,17 @@ abstract class Engine
     public static function getEngines(): array
     {
         $path = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'Engines';
-        $engines = scandir($path);
+        $engines = Utils::scandir($path);
         $ret = [];
         // Unset engines not fully supported
         $unsupported = self::unsupportedEngines();
         foreach ($engines as $engine) {
-            if ($engine != '.' && $engine != '..' && substr($engine, -4) == '.php') {
-                $engine = substr($engine, 0, strlen($engine) - 4);
-                if (in_array($engine, $unsupported)) {
+            if ($engine->getExtension() === 'php') {
+                $engineName = substr($engine->getFilename(), 0, strlen($engine->getFilename()) - strlen($engine->getExtension()) - 1);
+                if (in_array($engineName, $unsupported)) {
                     continue;
                 }
-                $ret[] = $engine;
+                $ret[] = $engineName;
             }
         }
         return $ret;
