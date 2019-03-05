@@ -272,7 +272,14 @@ class BootStrap
         $modules = (new Module())->getEnabledModules();
         $dirs = [];
         foreach ($modules as $module) {
-            $dirs[] = basePath($module->path);
+            $dir = basePath($module->path);
+            $dirs[] = $dir;
+            $initFile = $dir . DIRECTORY_SEPARATOR . 'Initializer.php';
+            if (file_exists($initFile)) {
+                $className = '\\Modules\\' . $module->name . '\\' . 'Initializer';
+                $className::init();
+                $this->debugTool->addMessage('messages', "{$className}::init()");
+            }
         }
         Load::getInstance()::addDirs($dirs);
     }
