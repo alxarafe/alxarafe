@@ -268,7 +268,6 @@ class Utils
      * @param string $dir
      * @param int    $mode
      * @param bool   $recursive
-     * @param null   $context
      *
      * @return bool
      */
