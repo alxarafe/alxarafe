@@ -69,9 +69,11 @@ class Load
     public static function init($dirs = [])
     {
         // If composer autoload is available, try to load it.
-        $autoload = $dirs . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-        if (is_string($dirs) && file_exists($autoload)) {
-            require_once $autoload;
+        if (is_string($dirs)) {
+            $autoload = $dirs . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+            if (file_exists($autoload)) {
+                require_once $autoload;
+            }
         }
 
         if ($dirs) {
