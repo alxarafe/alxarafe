@@ -11,7 +11,7 @@ use Alxarafe\Core\Base\Table;
 /**
  * Class Country
  *
- * @package Alxarafe\Modules\Sample\Models
+ * @package Modules\Sample\Models
  */
 class Country extends Table
 {

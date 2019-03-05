@@ -11,7 +11,7 @@ use Alxarafe\Core\Base\Table;
 /**
  * Class Person
  *
- * @package Alxarafe\Modules\Sample\Models
+ * @package Modules\Sample\Models
  */
 class Person extends Table
 {
