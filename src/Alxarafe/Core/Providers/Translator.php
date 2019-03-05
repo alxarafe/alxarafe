@@ -91,7 +91,7 @@ class Translator
             self::$usedStrings = [];
             self::$missingStrings = [];
 
-//            $this->loadLangFiles();
+            $this->loadLangFiles();
         }
     }
 
@@ -128,9 +128,13 @@ class Translator
     {
         $morePaths = [];
 
-        $modules = (new Module())->getEnabledModules();
-        foreach (array_reverse($modules) as $module) {
-            $morePaths[] = $module->path;
+        // Can be better add a method "addLangFolders/setLangFolders" to set this from outside when was needed?
+        // This introduce class dependency
+        if (Database::getInstance()->getDbEngine()->checkConnection()) {
+            $modules = (new Module())->getEnabledModules();
+            foreach (array_reverse($modules) as $module) {
+                $morePaths[] = $module->path;
+            }
         }
 
         return array_merge(

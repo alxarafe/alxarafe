@@ -210,7 +210,6 @@ class BootStrap
                 $this->database = Database::getInstance();
                 $this->database->connectToDatabase();
             }
-            $this->translator->loadLangFiles();
             $this->renderer = TemplateRender::getInstance();
 
             FormatUtils::loadConfig();
@@ -305,7 +304,6 @@ class BootStrap
             $this->response->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
             if (method_exists($controllerName, $method . 'Method')) {
                 $controller = new $controllerName();
-                $this->response = null;
                 $this->response = $controller->runMethod($method);
                 if (!$this->response instanceof Response) {
                     $this->response = new Response();
