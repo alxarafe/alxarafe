@@ -81,7 +81,7 @@ class Models
      */
     private function fillList(string $namespace, string $baseDir, array &$list)
     {
-        $dir = $baseDir . '/Models';
+        $dir = $baseDir . DIRECTORY_SEPARATOR . 'Models';
         Utils::mkdir($dir, 0777, true);
         $models = Finder::create()
             ->files()

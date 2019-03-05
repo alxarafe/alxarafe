@@ -106,7 +106,7 @@ abstract class Engine
      */
     public static function getEngines(): array
     {
-        $path = constant('ALXARAFE_FOLDER') . '/Database/Engines';
+        $path = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'Engines';
         $engines = scandir($path);
         $ret = [];
         // Unset engines not fully supported

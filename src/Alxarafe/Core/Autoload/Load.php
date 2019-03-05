@@ -54,7 +54,7 @@ class Load
         if (!isset(self::$instance)) {
             self::$instance = $this;
             if (empty($dirs)) {
-                $dirs = constant('BASE_PATH') . '/src';
+                $dirs = constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src';
             }
             self::init($dirs);
         }
@@ -69,7 +69,7 @@ class Load
     public static function init($dirs = [])
     {
         // If composer autoload is available, try to load it.
-        $autoload = "{$dirs}/../vendor/autoload.php";
+        $autoload = $dirs . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
         if (is_string($dirs) && file_exists($autoload)) {
             require_once $autoload;
         }

@@ -85,7 +85,7 @@ class Config
          *
          * define('BASE_PATH', __DIR__);
          */
-        Utils::defineIfNotExists('BASE_PATH', __DIR__ . '/../../../PhpstormProjects');
+        Utils::defineIfNotExists('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
         Utils::defineIfNotExists('LANG', 'en');
         Utils::defineIfNotExists('DEBUG', false);
 
@@ -100,7 +100,7 @@ class Config
          * Must be defined in main index.php file
          */
         Utils::defineIfNotExists('VENDOR_FOLDER', basePath('vendor'));
-        Utils::defineIfNotExists('ALXARAFE_FOLDER', basePath('src/Alxarafe/Core'));
+        Utils::defineIfNotExists('ALXARAFE_FOLDER', basePath('src' . DIRECTORY_SEPARATOR . 'Alxarafe' . DIRECTORY_SEPARATOR . 'Core'));
         Utils::defineIfNotExists('VENDOR_URI', baseUrl('vendor'));
 
         Utils::defineIfNotExists('CONFIGURATION_PATH', basePath('config'));

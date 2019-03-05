@@ -48,7 +48,7 @@ class Modules extends AuthPageExtendedController
     public function __construct()
     {
         parent::__construct(new Module());
-        $this->modulesFolder = basePath('src/Modules');
+        $this->modulesFolder = basePath('src' . DIRECTORY_SEPARATOR . 'Modules');
         $this->searchDir = [
             'Alxarafe' => constant('ALXARAFE_FOLDER'),
         ];
@@ -90,7 +90,7 @@ class Modules extends AuthPageExtendedController
             ->sortByName();
         $modulesList = [];
         foreach ($modules as $module) {
-            $modulesList[$module->getFileName()] = str_replace(basePath('/'), '', $module->getPathName());
+            $modulesList[$module->getFileName()] = str_replace(basePath(DIRECTORY_SEPARATOR), '', $module->getPathName());
         }
         return $modulesList;
     }

@@ -186,16 +186,16 @@ class Schema
         $extension = $type === 'values' ? '.csv' : '.yaml';
 
         // First, it is checked if it exists in the core
-        $folder = constant('ALXARAFE_FOLDER') . '/Schema/' . $type;
+        $folder = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type;
         Utils::mkdir($folder, 0777, true);
-        $path = $folder . '/' . $tableName . $extension;
+        $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         if (file_exists($path)) {
             return $path;
         }
         // And then if it exists in the application
-        $folder = basePath('Schema/' . $type);
+        $folder = basePath('Schema' . DIRECTORY_SEPARATOR . $type);
         Utils::mkdir($folder, 0777, true);
-        $path = $folder . '/' . $tableName . $extension;
+        $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         return file_exists($path) ? $path : '';
     }
 
@@ -248,9 +248,9 @@ class Schema
      */
     private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
     {
-        $path = basePath('config/' . $type);
+        $path = basePath('config' . DIRECTORY_SEPARATOR . $type);
         Utils::mkdir($path, 0777, true);
-        $path .= '/' . $tableName . '.yaml';
+        $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
         return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }
 

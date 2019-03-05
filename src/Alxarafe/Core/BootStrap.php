@@ -181,7 +181,7 @@ class BootStrap
      * @param string $basePath
      * @param bool   $debug
      */
-    public function __construct($basePath = __DIR__ . '/../..', $debug = false)
+    public function __construct($basePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..', $debug = false)
     {
         if (!isset(self::$instance)) {
             self::$instance = $this;

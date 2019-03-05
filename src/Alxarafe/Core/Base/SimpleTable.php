@@ -438,7 +438,7 @@ class SimpleTable extends Entity
     {
         $sql = $this->searchQuery($query, $columns);
         $limit = constant('DEFAULT_ROWS_PER_PAGE');
-        $sql .= (!empty($order) ? " ORDER BY {$order}" : "")
+        $sql .= (!empty($order) ? " ORDER BY {$order}" : '')
             . " LIMIT {$limit} OFFSET {$offset};";
 
         return Database::getInstance()->getDbEngine()->select($sql);

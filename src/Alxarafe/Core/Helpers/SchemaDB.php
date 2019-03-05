@@ -408,21 +408,21 @@ class SchemaDB
         $quotedTableName = self::quoteTableName($tableName, true);
         $quotedViewTableName = self::quoteTableName('view_' . $tableName, true);
         $sqlView = "CREATE OR REPLACE VIEW {$quotedViewTableName} AS SELECT ";
-        $sep = "";
+        $sep = '';
         foreach ($fields as $fieldName => $fieldData) {
             $sqlView .= "{$sep}{$quotedTableName}." . self::quoteFieldName($fieldName);
-            $sep = ", ";
+            $sep = ', ';
         }
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= $sep . self::quoteTableName($indexData['referencedtable'], true) . "." . self::quoteFieldName($nameColumn[$indexName])
+            $sqlView .= $sep . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($nameColumn[$indexName])
                 . " AS {$indexData['referencedtable']}_{$nameColumn[$indexName]}";
-            $sep = ", ";
+            $sep = ', ';
         }
         $sqlView .= " FROM {$quotedTableName}";
         foreach ($indexes as $indexName => $indexData) {
             $sqlView .= " LEFT JOIN " . self::quoteTableName($indexData['referencedtable'], true)
                 . " ON {$quotedTableName}." . self::quoteFieldName($indexData['column']) . " = "
-                . self::quoteTableName($indexData['referencedtable'], true) . "." . self::quoteFieldName($primaryColumn[$indexName]);
+                . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($primaryColumn[$indexName]);
         }
         $sqlView .= ';';
         return [$sqlView];

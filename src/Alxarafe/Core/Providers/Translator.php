@@ -33,7 +33,7 @@ class Translator
     /**
      * Base folder where languages files are stored.
      */
-    const LANG_FOLDER = '/Languages';
+    const LANG_FOLDER = DIRECTORY_SEPARATOR . 'Languages';
 
     /**
      * Default language to use.

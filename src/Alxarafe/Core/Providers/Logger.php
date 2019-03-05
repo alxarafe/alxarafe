@@ -44,7 +44,7 @@ class Logger
                 // Maybe is needed a different timezone, at this moment sets the same.
                 $timeZone = RegionalInfo::getInstance()->getConfig()['timezone'];
                 self::$logger->setTimezone(new DateTimeZone($timeZone));
-                self::$logger->pushHandler(new StreamHandler(basePath('/config/core.log'), MonologLogger::DEBUG));
+                self::$logger->pushHandler(new StreamHandler(basePath(DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'core.log'), MonologLogger::DEBUG));
             } catch (\Exception $e) {
                 Kint::dump($e);
             }

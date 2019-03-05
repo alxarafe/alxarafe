@@ -31,18 +31,18 @@ class TemplateRender
      * Each template will be a folder whose name will be the one that will
      * appear in the template selector.
      */
-    const SKINS_FOLDER = 'resources/skins';
+    const SKINS_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'skins';
 
     /**
      * Folder containing the different twig templates
      */
-    const TEMPLATES_FOLDER = 'resources/templates';
+    const TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'templates';
 
     /**
      * Folder that contains templates common to the entire application, but
      * that can be overwritten.
      */
-    const COMMON_TEMPLATES_FOLDER = 'resources/common';
+    const COMMON_TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'common';
 
     /**
      * The renderer.
@@ -141,7 +141,7 @@ class TemplateRender
      */
     public function setTemplatesFolder(string $template)
     {
-        self::$templatesFolder = self::SKINS_FOLDER . '/' . trim($template, '/');
+        self::$templatesFolder = self::SKINS_FOLDER . DIRECTORY_SEPARATOR . trim($template, DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -171,7 +171,7 @@ class TemplateRender
 
         $modules = (new Module())->getEnabledModules();
         foreach (array_reverse($modules) as $module) {
-            $paths[] = $module->path . '/' . self::TEMPLATES_FOLDER;
+            $paths[] = $module->path . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER;
         }
 
         // Only use really existing path
@@ -203,7 +203,7 @@ class TemplateRender
         $options = [];
         $options['debug'] = ((defined('DEBUG') && constant('DEBUG')) === true);
         if (defined('CACHE') && constant('CACHE') == true) {
-            $options['cache'] = (basePath() ?? '') . '/cache/twig';
+            $options['cache'] = (basePath() ?? '') . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'twig';
         }
         return $options;
     }

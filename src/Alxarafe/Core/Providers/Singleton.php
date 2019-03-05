@@ -218,6 +218,6 @@ trait Singleton
     {
         self::$instances = [];
         self::$className = self::getClassName();
-        self::$basePath = constant('BASE_PATH') . '/config';
+        self::$basePath = basePath(DIRECTORY_SEPARATOR . 'config');
     }
 }
