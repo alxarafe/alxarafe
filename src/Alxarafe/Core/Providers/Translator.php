@@ -133,7 +133,7 @@ class Translator
         if (Database::getInstance()->getDbEngine()->checkConnection()) {
             $modules = (new Module())->getEnabledModules();
             foreach (array_reverse($modules) as $module) {
-                $morePaths[] = $module->path;
+                $morePaths[] = basePath($module->path);
             }
         }
 

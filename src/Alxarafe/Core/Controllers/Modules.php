@@ -48,7 +48,7 @@ class Modules extends AuthPageExtendedController
     public function __construct()
     {
         parent::__construct(new Module());
-        $this->modulesFolder = basePath('src' . DIRECTORY_SEPARATOR . 'Modules');
+        $this->modulesFolder = basePath('src' . constant('DIRECTORY_SEPARATOR') . 'Modules');
         $this->searchDir = [
             'Alxarafe' => constant('ALXARAFE_FOLDER'),
         ];

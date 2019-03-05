@@ -8,7 +8,7 @@ if (!defined('BASE_PATH')) {
     /**
      * Base path for the app.
      */
-    define('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+    define('BASE_PATH', __DIR__ . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..');
 }
 
 if (!function_exists('basePath')) {
@@ -21,7 +21,7 @@ if (!function_exists('basePath')) {
      */
     function basePath(string $path = ''): string
     {
-        return constant('BASE_PATH') . (empty($path) ? $path : DIRECTORY_SEPARATOR . trim($path, DIRECTORY_SEPARATOR));
+        return constant('BASE_PATH') . (empty($path) ? $path : constant('DIRECTORY_SEPARATOR') . trim($path, constant('DIRECTORY_SEPARATOR')));
     }
 }
 
