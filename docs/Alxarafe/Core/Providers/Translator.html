@@ -422,7 +422,7 @@ param in getInstance</td>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_verifyMissing">verifyMissing</a>(string $reference, string $translation)
+                    <a href="#method_verifyMissing">verifyMissing</a>(string $reference, string $translation, string $fallback)
         
                                             <p>Stores if translation is used and if is missing.</p>                </div>
                 <div class="col-md-2"></div>
@@ -1102,9 +1102,9 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_verifyMissing">
-        <div class="location">at         line 234</div>
+        <div class="location">at         line 236</div>
         <code>                private    
-    <strong>verifyMissing</strong>(string $reference, string $translation)
+    <strong>verifyMissing</strong>(string $reference, string $translation, string $fallback)
         </code>
     </h3>
     <div class="details">
@@ -1125,6 +1125,11 @@ param in getInstance</td>
                     <tr>
                 <td>string</td>
                 <td>$translation</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$fallback</td>
                 <td></td>
             </tr>
             </table>

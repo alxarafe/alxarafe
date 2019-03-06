@@ -89,17 +89,17 @@ controller-people-description: 'Descripción de personas'
 controller-people-title: Personas
 controller-regions-description: 'Descripción de regiones'
 controller-regions-title: Regiones
-controller-roles-description: 'Los roles clasifican a los usuarios por grupo de roles'
-controller-roles-pages-description: 'Las páginas de roles contienen lo que puede hacer cada rol en ciertas páginas'
-controller-roles-pages-title: 'Páginas y roles'
-controller-roles-title: Roles
+controller-roles-description: 'Los grupos de permisos clasifican a los usuarios por conjuntos'
+controller-roles-pages-description: 'Las páginas de grupos de permisos contienen lo que puede hacer cada rol en ciertas páginas'
+controller-roles-pages-title: 'Páginas y grupos de permisos'
+controller-roles-title: Grupos de permisos
 controller-subregions-description: 'Descripción de las subregiones'
 controller-subregions-title: Subregiones
 controller-tables-description: 'Datos básicos de la tabla/modelo relacionados para uso interno'
 controller-tables-title: Tablas
 controller-users-description: 'Usuarios del sistema'
-controller-users-roles-description: 'Contiene una relación de usuarios y roles.'
-controller-users-roles-title: 'Usuarios y roles'
+controller-users-roles-description: 'Contiene una relación de usuarios y grupos de permisos.'
+controller-users-roles-title: 'Usuarios y grupos de permisos'
 controller-users-title: Usuarios
 database-data-not-changed: 'Datos de base de datos no cambiados'
 database-data-updated-successfully: 'Datos de base de datos actualizados satisfactoriamente'
@@ -157,6 +157,7 @@ entero: Entrar
 exit: Salir
 extra-actions: 'Acciones extra'
 fake-data: 'Generar datos falsos'
+fork-us: 'Bifurcanos'
 icon: Icono
 id: Id.
 id_page: 'Id. de página'
@@ -210,6 +211,7 @@ reinstanciated-model-class-error: 'Error re-instanciando clase model'
 rememberme: Recuerda-me
 route-not-found: 'Ruta no encontrada'
 save-changes: 'Guardar los cambios'
+see-on-github: 'Ver en Github'
 selected: Seleccionado
 show: Mostrar
 showing: Mostrando

@@ -157,6 +157,7 @@ enter: Enter
 exit: Exit
 extra-actions: 'Extra actions'
 fake-data: 'Generate fake data'
+fork-us: 'Fork us'
 icon: Icon
 id: Id.
 id_page: 'Page Id.'
@@ -210,6 +211,7 @@ reinstanciated-model-class-error: 'Re-instanciated model class error'
 rememberme: Remember-me
 route-not-found: 'Route not found'
 save-changes: 'Save changes'
+see-on-github: 'See on Github'
 selected: Selected
 show: Show
 showing: Showing

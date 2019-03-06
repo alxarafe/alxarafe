@@ -204,7 +204,7 @@
             this.bindAttr('data', function (data) {
                 this.$list.set('data', data.translations);
                 if (data.translations) {
-                    var sentence = data.sentence || "translations were missed";
+                    var sentence = data.sentence || "translations were missed for your language";
                     this.$status.empty().append($('<span />').text(data.translations.length + " " + sentence));
                 }
             });

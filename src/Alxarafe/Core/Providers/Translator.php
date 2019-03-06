@@ -130,12 +130,13 @@ class Translator
 
         // Can be better add a method "addLangFolders/setLangFolders" to set this from outside when was needed?
         // This introduce class dependency
-        if (Database::getInstance()->getDbEngine()->checkConnection()) {
-            $modules = (new Module())->getEnabledModules();
-            foreach (array_reverse($modules) as $module) {
-                $morePaths[] = basePath($module->path);
-            }
-        }
+//        if (Database::getInstance()->getDbEngine()->checkConnection()) {
+//            $modules = (new Module())->getEnabledModules();
+//            foreach (array_reverse($modules) as $module) {
+//                $morePaths[] = basePath($module->path);
+//            }
+//            var_dump($morePaths);
+//        }
 
         return array_merge(
             [$this->getBaseLangFolder()],
@@ -220,30 +221,38 @@ class Translator
      */
     public function trans($txt, array $parameters = [], $domain = null, $locale = null): string
     {
-        $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
-        $fallback = self::$translator->trans($txt, $parameters, $domain, self::FALLBACK_LANG);
-        $this->verifyMissing($txt, $lang, $fallback);
-        return $lang;
+        $translated = self::$translator->trans($txt, $parameters, $domain, $locale);
+        $this->verifyMissing($translated, $txt, $domain);
+        return $translated;
     }
 
     /**
      * Stores if translation is used and if is missing.
      *
-     * @param string $reference
-     * @param string $translation
-     * @param string $fallback
+     * @param string      $translated
+     * @param null|string $txt
+     * @param null|string $domain
      */
-    private function verifyMissing($reference, $translation, $fallback)
+    private function verifyMissing(string $translated, $txt, $domain = null)
     {
-        if ($this->getLocale() !== self::FALLBACK_LANG) {
-            // Is missing for the language configured?
-            if ($fallback == $translation) {
-                self::$missingStrings[$reference] = $translation;
+        $domain = $domain ?? 'messages';
+
+        $txt = (string) $txt;
+        $catalogue = self::$translator->getCatalogue($this->getLocale());
+
+        while (!$catalogue->defines($txt, $domain)) {
+            if ($cat = $catalogue->getFallbackCatalogue()) {
+                $catalogue = $cat;
+                $locale = $catalogue->getLocale();
+                if ($catalogue->has($txt, $domain) && $locale !== $this->getLocale()) {
+                    self::$missingStrings[$txt] = $translated;
+                }
+            } else {
+                break;
             }
         }
-
-        if ($reference == $translation) {
-            self::$missingStrings[$reference] = $translation;
+        if (!$catalogue->has($txt, $domain)) {
+            self::$missingStrings[$txt] = $translated;
         }
     }
 
