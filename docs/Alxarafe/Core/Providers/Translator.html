@@ -218,7 +218,15 @@ param in getInstance</td>
                     static                                        private                    string
                 </td>
                 <td>$languageFolder</td>
-                <td class="last"></td>
+                <td class="last">Main language folder.</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_languageFolders">
+                    static                                        private                    array
+                </td>
+                <td>$languageFolders</td>
+                <td class="last">Array of all language folders.</td>
                 <td></td>
             </tr>
             </table>
@@ -369,6 +377,16 @@ param in getInstance</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_addDirs">addDirs</a>(array $folders = [])
+        
+                                            <p>Add additional language folders.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
                 </div>
                 <div class="col-md-8 type">
@@ -475,7 +493,7 @@ param in getInstance</td>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 162</div>
+        <div class="location">at         line 174</div>
         <code>        static            <a href="../../../Alxarafe/Core/Providers/Translator.html"><abbr title="Alxarafe\Core\Providers\Translator">Translator</abbr></a>
     <strong>getInstance</strong>()
         </code>
@@ -785,7 +803,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValues">
-        <div class="location">at         line 172</div>
+        <div class="location">at         line 184</div>
         <code>        static            array
     <strong>getDefaultValues</strong>()
         </code>
@@ -866,7 +884,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 82</div>
+        <div class="location">at         line 90</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -887,7 +905,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_loadLangFiles">
-        <div class="location">at         line 104</div>
+        <div class="location">at         line 112</div>
         <code>                    void
     <strong>loadLangFiles</strong>()
         </code>
@@ -916,8 +934,39 @@ param in getInstance</td>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_addDirs">
+        <div class="location">at         line 135</div>
+        <code>                    
+    <strong>addDirs</strong>(array $folders = [])
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Add additional language folders.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$folders</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getLangFolders">
-        <div class="location">at         line 127</div>
+        <div class="location">at         line 151</div>
         <code>                    array
     <strong>getLangFolders</strong>()
         </code>
@@ -947,7 +996,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getBaseLangFolder">
-        <div class="location">at         line 152</div>
+        <div class="location">at         line 164</div>
         <code>                    string
     <strong>getBaseLangFolder</strong>()
         </code>
@@ -977,7 +1026,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setlocale">
-        <div class="location">at         line 184</div>
+        <div class="location">at         line 196</div>
         <code>                    void
     <strong>setlocale</strong>(string $lang)
         </code>
@@ -1017,7 +1066,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAvailableLanguages">
-        <div class="location">at         line 194</div>
+        <div class="location">at         line 206</div>
         <code>                    array
     <strong>getAvailableLanguages</strong>()
         </code>
@@ -1047,7 +1096,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_trans">
-        <div class="location">at         line 222</div>
+        <div class="location">at         line 234</div>
         <code>                    string
     <strong>trans</strong>(null|string $txt, array $parameters = [], $domain = null, $locale = null)
         </code>
@@ -1102,7 +1151,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_verifyMissing">
-        <div class="location">at         line 236</div>
+        <div class="location">at         line 248</div>
         <code>                private    
     <strong>verifyMissing</strong>(string $translated, null|string $txt, null|string $domain = null)
         </code>
@@ -1143,7 +1192,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getLocale">
-        <div class="location">at         line 264</div>
+        <div class="location">at         line 276</div>
         <code>                    string
     <strong>getLocale</strong>()
         </code>
@@ -1173,7 +1222,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getMissingStrings">
-        <div class="location">at         line 274</div>
+        <div class="location">at         line 286</div>
         <code>                    array
     <strong>getMissingStrings</strong>()
         </code>
@@ -1203,7 +1252,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getUsedStrings">
-        <div class="location">at         line 284</div>
+        <div class="location">at         line 296</div>
         <code>                    array
     <strong>getUsedStrings</strong>()
         </code>
@@ -1233,7 +1282,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTranslator">
-        <div class="location">at         line 294</div>
+        <div class="location">at         line 306</div>
         <code>                    <abbr title="Symfony\Component\Translation\Translator">Translator</abbr>
     <strong>getTranslator</strong>()
         </code>

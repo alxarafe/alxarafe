@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Core\Providers\TemplateRender | alxarafe</title>
+    <title>Alxarafe\Core\Providers\ModuleManager | alxarafe</title>
 
             <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
     
     </head>
 
-    <body id="class" data-name="class:Alxarafe_Core_Providers_TemplateRender" data-root-path="../../../">
+    <body id="class" data-name="class:Alxarafe_Core_Providers_ModuleManager" data-root-path="../../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -66,27 +66,27 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core.html">Core</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core/Providers.html">Providers</a></li><li class="backslash">\</li><li>TemplateRender</li>
+                        <li><a href="../../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core.html">Core</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core/Providers.html">Providers</a></li><li class="backslash">\</li><li>ModuleManager</li>
             </ol>
         </div>
                 <div id="page-content">
                 
     <div class="page-header">
         <h1>
-            TemplateRender
+            ModuleManager
                 
         </h1>
     </div>
 
     <p>    class
-    <strong>TemplateRender</strong>
+    <strong>ModuleManager</strong>
 </p>
 
         
     
 
             <div class="description">
-            <p>Class TemplateRender</p>                                </div>
+            <p>Class ModuleManager</p>                                </div>
     
             <h2>Traits</h2>
 
@@ -104,36 +104,6 @@ Class::getInstance()
             </div>
             </div>
     
-            <h2>Constants</h2>
-
-            <table class="table table-condensed">
-                    <tr>
-                <td>SKINS_FOLDER</td>
-                <td class="last">
-                    <p><em>Folder containing the skins.</em></p>
-                    <p>Each subfolder is a skin (configuration that modifies the visual aspect
-of the application)
-Each template will be a folder whose name will be the one that will
-appear in the template selector.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td>TEMPLATES_FOLDER</td>
-                <td class="last">
-                    <p><em>Folder containing the different twig templates</em></p>
-                    <p></p>
-                </td>
-            </tr>
-                    <tr>
-                <td>COMMON_TEMPLATES_FOLDER</td>
-                <td class="last">
-                    <p><em>Folder that contains templates common to the entire application, but
-that can be overwritten.</em></p>
-                    <p></p>
-                </td>
-            </tr>
-            </table>
-
     
             <h2>Properties</h2>
 
@@ -180,75 +150,51 @@ param in getInstance</td>
                 <td><small>from&nbsp;<a href="../../../Alxarafe/Core/Providers/Singleton.html#property_separateConfigFile"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a></small></td>
             </tr>
                     <tr>
-                <td class="type" id="property_twig">
-                    static                    protected                                        Twig_Environment
+                <td class="type" id="property_modules">
+                    static                    protected                                        array
                 </td>
-                <td>$twig</td>
-                <td class="last">The renderer.</td>
+                <td>$modules</td>
+                <td class="last">Contains all modules.</td>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_template">
-                    static                    protected                                        string|null
+                <td class="type" id="property_enabledModules">
+                    static                    protected                                        array
                 </td>
-                <td>$template</td>
-                <td class="last">The template to use.</td>
+                <td>$enabledModules</td>
+                <td class="last">Contains all enabled modules.</td>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_skin">
-                    static                    protected                                        string|null
+                <td class="type" id="property_translator">
+                    static                                        private                    <a href="../../../Alxarafe/Core/Providers/Translator.html"><abbr title="Alxarafe\Core\Providers\Translator">Translator</abbr></a>
                 </td>
-                <td>$skin</td>
-                <td class="last">The skin to use.</td>
+                <td>$translator</td>
+                <td class="last">The translator manager.</td>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_commonTemplatesFolder">
-                    static                    protected                                        string
+                <td class="type" id="property_router">
+                    static                                        private                    <a href="../../../Alxarafe/Core/Providers/Router.html"><abbr title="Alxarafe\Core\Providers\Router">Router</abbr></a>
                 </td>
-                <td>$commonTemplatesFolder</td>
-                <td class="last">Indicates the folder where the files common to all the templates are located.</td>
+                <td>$router</td>
+                <td class="last">Route to manage available routes.</td>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_currentSkin">
-                    static                                        private                    string
+                <td class="type" id="property_renderer">
+                    static                                        private                    <a href="../../../Alxarafe/Core/Providers/TemplateRender.html"><abbr title="Alxarafe\Core\Providers\TemplateRender">TemplateRender</abbr></a>
                 </td>
-                <td>$currentSkin</td>
-                <td class="last">It's the name of the skin that is being used.</td>
+                <td>$renderer</td>
+                <td class="last">Manage the renderer.</td>
                 <td></td>
             </tr>
                     <tr>
-                <td class="type" id="property_templatesFolder">
-                    static                                        private                    string
+                <td class="type" id="property_module">
+                    static                                        private                    <a href="../../../Alxarafe/Core/Models/Module.html"><abbr title="Alxarafe\Core\Models\Module">Module</abbr></a>
                 </td>
-                <td>$templatesFolder</td>
-                <td class="last">It is the skin, that is, the folder that contains the templates.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_templatesFolders">
-                    static                                        private                    array
-                </td>
-                <td>$templatesFolders</td>
-                <td class="last">Array of all templates folders.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_templateVars">
-                    static                                        private                    array
-                </td>
-                <td>$templateVars</td>
-                <td class="last">Contains the template vars.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_loader">
-                    static                                        private                    Twig_Loader_Filesystem
-                </td>
-                <td>$loader</td>
-                <td class="last">Template loader from filesystem.</td>
+                <td>$module</td>
+                <td class="last">Module model to do queries.</td>
                 <td></td>
             </tr>
             </table>
@@ -259,7 +205,7 @@ param in getInstance</td>
             <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-2 type">
-                    static&nbsp;<a href="../../../Alxarafe/Core/Providers/TemplateRender.html"><abbr title="Alxarafe\Core\Providers\TemplateRender">TemplateRender</abbr></a>
+                    static&nbsp;<a href="../../../Alxarafe/Core/Providers/ModuleManager.html"><abbr title="Alxarafe\Core\Providers\ModuleManager">ModuleManager</abbr></a>
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_getInstance">getInstance</a>()
@@ -344,8 +290,8 @@ param in getInstance</td>
                 <div class="col-md-8 type">
                     <a href="#method_getConfig">getConfig</a>(string $index = &#039;main&#039;)
         
-                                            <p>Returns the yaml config params.</p>                </div>
-                <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a></small></div>
+                                            <p>Returns the data from database.</p>                </div>
+                <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -384,218 +330,87 @@ param in getInstance</td>
                 <div class="col-md-8 type">
                     <a href="#method___construct">__construct</a>()
         
-                                            <p>TemplateRender constructor.</p>                </div>
+                                            <p>Container constructor.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setSkin">setSkin</a>(string $skin)
+                    <a href="#method_getModules">getModules</a>()
         
-                                            <p>Set a skin.</p>                </div>
+                                            <p>Return the full modules.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setTemplatesFolder">setTemplatesFolder</a>(string $template)
+                    <a href="#method_getEnabledModules">getEnabledModules</a>()
         
-                                            <p>Establish a new template. The parameter must be only de template name, no the path!</p>                </div>
+                                            <p>Return a list of enabled modules.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
+                    static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getTemplatesFolder">getTemplatesFolder</a>()
+                    <a href="#method_initializeModules">initializeModules</a>()
         
-                                            <p>Return the template folder path.</p>                </div>
+                                            <p>Initialize modules.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_addDirs">addDirs</a>(array $folders = [])
+                    <a href="#method_runInitializer">runInitializer</a>()
         
-                                            <p>Add additional language folders.</p>                </div>
+                                            <p>Exec Initializer::init() from each enabled module.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    array
+                    static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getPaths">getPaths</a>()
+                    <a href="#method_getFoldersEnabledModules">getFoldersEnabledModules</a>()
         
-                                            <p>Returns a list of available paths.</p>                </div>
+                                            <p>Returns a list of folder from enabled modules.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
+                    static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getCommonTemplatesFolder">getCommonTemplatesFolder</a>()
+                    <a href="#method_addTranslatorFolders">addTranslatorFolders</a>()
         
-                                            <p>Return the common template folder path.</p>                </div>
+                                            <p>Adds enabled module folders to translator.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Alxarafe\Core\Providers\$this">$this</abbr>
+                    static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_setTwig">setTwig</a>(Twig_Environment $twig)
+                    <a href="#method_addRenderFolders">addRenderFolders</a>()
         
-                                            <p>Sets a new twig environment.</p>                </div>
+                                            <p>Adds enabled module folders to renderer.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    string
+                    static&nbsp;
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_render">render</a>(array $data = [])
+                    <a href="#method_executePreprocesses">executePreprocesses</a>(array $searchDir)
         
-                                            <p>Renders a template.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    Twig_Environment
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getTwig">getTwig</a>()
-        
-                                            <p>Return the full twig environtment.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    array
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getOptions">getOptions</a>()
-        
-                                            <p>Returns a list of options.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    void
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_addExtensions">addExtensions</a>()
-        
-                                            <p>Add extensions to skin render.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_loadPaths">loadPaths</a>()
-        
-                                            <p>Load paths, including modules.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string|null
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getTemplate">getTemplate</a>()
-        
-                                            <p>Return the assigned template to use.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    array
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getTemplateVars">getTemplateVars</a>(array $vars = [])
-        
-                                            <p>Return a list of template vars, merged with $vars,</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    <abbr title="Alxarafe\Core\Providers\$this">$this</abbr>
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_setTemplate">setTemplate</a>(string|null $template)
-        
-                                            <p>Sets the new template to use.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    bool
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_hasTemplate">hasTemplate</a>()
-        
-                                            <p>Returns true if a template has been specified.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_addVars">addVars</a>(array $vars = [])
-        
-                                            <p>Add vars to template vars.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    array
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getSkins">getSkins</a>()
-        
-                                            <p>Returns an array with the list of skins (folders inside the folder specified for the templates).</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getResourceUri">getResourceUri</a>(string $path)
-        
-                                            <p>Check different possible locations for the file and return the
-corresponding URI, if it exists.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getTemplatesUri">getTemplatesUri</a>()
-        
-                                            <p>Return the template folder path from uri.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    string
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getCommonTemplatesUri">getCommonTemplatesUri</a>()
-        
-                                            <p>Return the common template folder path from uri.</p>                </div>
+                                            <p>Execute all preprocessors from one point.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -606,8 +421,8 @@ corresponding URI, if it exists.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 232</div>
-        <code>        static            <a href="../../../Alxarafe/Core/Providers/TemplateRender.html"><abbr title="Alxarafe\Core\Providers\TemplateRender">TemplateRender</abbr></a>
+        <div class="location">at         line 104</div>
+        <code>        static            <a href="../../../Alxarafe/Core/Providers/ModuleManager.html"><abbr title="Alxarafe\Core\Providers\ModuleManager">ModuleManager</abbr></a>
     <strong>getInstance</strong>()
         </code>
     </h3>
@@ -623,7 +438,7 @@ corresponding URI, if it exists.</p>                </div>
 
                     <table class="table table-condensed">
         <tr>
-            <td><a href="../../../Alxarafe/Core/Providers/TemplateRender.html"><abbr title="Alxarafe\Core\Providers\TemplateRender">TemplateRender</abbr></a></td>
+            <td><a href="../../../Alxarafe/Core/Providers/ModuleManager.html"><abbr title="Alxarafe\Core\Providers\ModuleManager">ModuleManager</abbr></a></td>
             <td></td>
         </tr>
     </table>
@@ -876,7 +691,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConfig">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getConfig"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 189</div>
+        <div class="location">at         line 127</div>
         <code>                    array
     <strong>getConfig</strong>(string $index = &#039;main&#039;)
         </code>
@@ -886,7 +701,7 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Returns the yaml config params.</p>                                                </div>
+                                    <p>Returns the data from database.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -916,7 +731,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValues">
-        <div class="location">at         line 242</div>
+        <div class="location">at         line 114</div>
         <code>        static            array
     <strong>getDefaultValues</strong>()
         </code>
@@ -997,7 +812,7 @@ corresponding URI, if it exists.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 122</div>
+        <div class="location">at         line 69</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -1007,7 +822,7 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>TemplateRender constructor.</p>                                                </div>
+                                    <p>Container constructor.</p>                                                </div>
                 <div class="tags">
             
             
@@ -1017,10 +832,10 @@ corresponding URI, if it exists.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setSkin">
-        <div class="location">at         line 148</div>
-        <code>                    
-    <strong>setSkin</strong>(string $skin)
+                    <h3 id="method_getModules">
+        <div class="location">at         line 88</div>
+        <code>        static            array
+    <strong>getModules</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1028,130 +843,7 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Set a skin.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$skin</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setTemplatesFolder">
-        <div class="location">at         line 162</div>
-        <code>                    
-    <strong>setTemplatesFolder</strong>(string $template)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Establish a new template. The parameter must be only de template name, no the path!</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$template</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getTemplatesFolder">
-        <div class="location">at         line 172</div>
-        <code>                    string
-    <strong>getTemplatesFolder</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return the template folder path.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_addDirs">
-        <div class="location">at         line 183</div>
-        <code>                    
-    <strong>addDirs</strong>(array $folders = [])
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Add additional language folders.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$folders</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getPaths">
-        <div class="location">at         line 199</div>
-        <code>                    array
-    <strong>getPaths</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns a list of available paths.</p>                                                </div>
+                                    <p>Return the full modules.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1170,10 +862,10 @@ corresponding URI, if it exists.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getCommonTemplatesFolder">
-        <div class="location">at         line 222</div>
-        <code>                    string
-    <strong>getCommonTemplatesFolder</strong>()
+                    <h3 id="method_getEnabledModules">
+        <div class="location">at         line 137</div>
+        <code>        static            array
+    <strong>getEnabledModules</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1181,147 +873,7 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Return the common template folder path.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setTwig">
-        <div class="location">at         line 254</div>
-        <code>                    <abbr title="Alxarafe\Core\Providers\$this">$this</abbr>
-    <strong>setTwig</strong>(Twig_Environment $twig)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Sets a new twig environment.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>Twig_Environment</td>
-                <td>$twig</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Alxarafe\Core\Providers\$this">$this</abbr></td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_render">
-        <div class="location">at         line 267</div>
-        <code>                    string
-    <strong>render</strong>(array $data = [])
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Renders a template.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$data</td>
-                <td>An array of parameters to pass to the template</td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td>The rendered template</td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getTwig">
-        <div class="location">at         line 292</div>
-        <code>                private    Twig_Environment
-    <strong>getTwig</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return the full twig environtment.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>Twig_Environment</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getOptions">
-        <div class="location">at         line 305</div>
-        <code>                private    array
-    <strong>getOptions</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns a list of options.</p>                                                </div>
+                                    <p>Return a list of enabled modules.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1340,10 +892,10 @@ corresponding URI, if it exists.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_addExtensions">
-        <div class="location">at         line 320</div>
-        <code>                private    void
-    <strong>addExtensions</strong>()
+                    <h3 id="method_initializeModules">
+        <div class="location">at         line 151</div>
+        <code>        static            
+    <strong>initializeModules</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1351,37 +903,7 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Add extensions to skin render.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>void</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_loadPaths">
-        <div class="location">at         line 338</div>
-        <code>                private    
-    <strong>loadPaths</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Load paths, including modules.</p>                                                </div>
+                                    <p>Initialize modules.</p>                                                </div>
                 <div class="tags">
             
             
@@ -1391,10 +913,10 @@ corresponding URI, if it exists.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getTemplate">
-        <div class="location">at         line 367</div>
-        <code>                    string|null
-    <strong>getTemplate</strong>()
+                    <h3 id="method_runInitializer">
+        <div class="location">at         line 163</div>
+        <code>        static        private    
+    <strong>runInitializer</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1402,158 +924,8 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Return the assigned template to use.</p>                                                </div>
+                                    <p>Exec Initializer::init() from each enabled module.</p>                                                </div>
                 <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string|null</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getTemplateVars">
-        <div class="location">at         line 379</div>
-        <code>                private    array
-    <strong>getTemplateVars</strong>(array $vars = [])
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return a list of template vars, merged with $vars,</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$vars</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_setTemplate">
-        <div class="location">at         line 391</div>
-        <code>                    <abbr title="Alxarafe\Core\Providers\$this">$this</abbr>
-    <strong>setTemplate</strong>(string|null $template)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Sets the new template to use.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string|null</td>
-                <td>$template</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td><abbr title="Alxarafe\Core\Providers\$this">$this</abbr></td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_hasTemplate">
-        <div class="location">at         line 402</div>
-        <code>                    bool
-    <strong>hasTemplate</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Returns true if a template has been specified.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_addVars">
-        <div class="location">at         line 412</div>
-        <code>                    
-    <strong>addVars</strong>(array $vars = [])
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Add vars to template vars.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array</td>
-                <td>$vars</td>
-                <td></td>
-            </tr>
-            </table>
-
             
             
             
@@ -1562,10 +934,10 @@ corresponding URI, if it exists.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getSkins">
-        <div class="location">at         line 422</div>
-        <code>                    array
-    <strong>getSkins</strong>()
+                    <h3 id="method_getFoldersEnabledModules">
+        <div class="location">at         line 186</div>
+        <code>        static        private    array
+    <strong>getFoldersEnabledModules</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1573,7 +945,7 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Returns an array with the list of skins (folders inside the folder specified for the templates).</p>                                                </div>
+                                    <p>Returns a list of folder from enabled modules.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -1592,10 +964,10 @@ corresponding URI, if it exists.</p>                </div>
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getResourceUri">
-        <div class="location">at         line 444</div>
-        <code>                    string
-    <strong>getResourceUri</strong>(string $path)
+                    <h3 id="method_addTranslatorFolders">
+        <div class="location">at         line 198</div>
+        <code>        static        private    
+    <strong>addTranslatorFolders</strong>()
         </code>
     </h3>
     <div class="details">
@@ -1603,89 +975,61 @@ corresponding URI, if it exists.</p>                </div>
     
 
                     <div class="method-description">
-                                    <p>Check different possible locations for the file and return the
-corresponding URI, if it exists.</p>                                                </div>
+                                    <p>Adds enabled module folders to translator.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addRenderFolders">
+        <div class="location">at         line 206</div>
+        <code>        static        private    
+    <strong>addRenderFolders</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Adds enabled module folders to renderer.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_executePreprocesses">
+        <div class="location">at         line 223</div>
+        <code>        static            
+    <strong>executePreprocesses</strong>(array $searchDir)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Execute all preprocessors from one point.</p>                                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string</td>
-                <td>$path</td>
+                <td>array</td>
+                <td>$searchDir</td>
                 <td></td>
             </tr>
             </table>
 
             
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getTemplatesUri">
-        <div class="location">at         line 467</div>
-        <code>                    string
-    <strong>getTemplatesUri</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return the template folder path from uri.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getCommonTemplatesUri">
-        <div class="location">at         line 478</div>
-        <code>                    string
-    <strong>getCommonTemplatesUri</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Return the common template folder path from uri.</p>                                                </div>
-                <div class="tags">
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>string</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
                     </div>
