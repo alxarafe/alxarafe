@@ -85,7 +85,7 @@ class Login extends Controller
                 $username = $this->request->request->get('username');
                 $password = $this->request->request->get('password');
                 if ($this->setUser($username, $password, $remember)) {
-                    FlashMessages::getInstance()::setSuccess($this->translator->trans("user-logged-in", ['%username%' => $username]));
+                    FlashMessages::getInstance()::setSuccess($this->translator->trans('user-logged-in', ['%username%' => $username]));
                     return $this->redirectToController();
                 }
                 FlashMessages::getInstance()::setError($this->translator->trans('user-authentication-error'));
@@ -123,6 +123,8 @@ class Login extends Controller
 
     /**
      * Returns the cookie from the user
+     *
+     * @param $remember
      *
      * @return string|null
      */

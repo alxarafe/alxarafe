@@ -47,14 +47,6 @@ class AuthController extends Controller
     private $defaultRedirect = 'index.php?call=Login';
 
     /**
-     * AuthController constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * @param string $methodName
      *
      * @return Response

@@ -6,9 +6,9 @@
 
 namespace Alxarafe\Core\Providers;
 
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Helpers\TwigFilters;
 use Alxarafe\Core\Helpers\TwigFunctions;
-use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Module;
 use Twig_Environment;
 use Twig_Error_Loader;
@@ -401,7 +401,7 @@ class TemplateRender
         if (!is_dir($path)) {
             return [];
         }
-        $skins = Utils::scandir($path);
+        $skins = FileSystemUtils::scandir($path);
         $ret = [];
         foreach ($skins as $skin) {
             $ret[] = $skin->getFilename();

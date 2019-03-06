@@ -6,6 +6,8 @@
 
 namespace Alxarafe\Core\Helpers;
 
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -34,7 +36,7 @@ class Schema
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, static::class);
+        $shortName = ClassUtils::getShortName($this, static::class);
         self::$debugTool = DebugTool::getInstance();
         self::$debugTool->startTimer($shortName, $shortName . ' Schema Constructor');
         self::$debugTool->stopTimer($shortName);
@@ -187,14 +189,14 @@ class Schema
 
         // First, it is checked if it exists in the core
         $folder = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type;
-        Utils::mkdir($folder, 0777, true);
+        FileSystemUtils::mkdir($folder, 0777, true);
         $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         if (file_exists($path)) {
             return $path;
         }
         // And then if it exists in the application
         $folder = basePath('Schema' . DIRECTORY_SEPARATOR . $type);
-        Utils::mkdir($folder, 0777, true);
+        FileSystemUtils::mkdir($folder, 0777, true);
         $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         return file_exists($path) ? $path : '';
     }
@@ -249,7 +251,7 @@ class Schema
     private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
     {
         $path = basePath('config' . DIRECTORY_SEPARATOR . $type);
-        Utils::mkdir($path, 0777, true);
+        FileSystemUtils::mkdir($path, 0777, true);
         $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
         return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }

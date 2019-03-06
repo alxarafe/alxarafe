@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Helpers;
 
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\Singleton;
 use Aura\Session\SessionFactory;
@@ -41,7 +42,7 @@ class Session
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, static::class);
+        $shortName = ClassUtils::getShortName($this, static::class);
         $debugTool = DebugTool::getInstance();
         $debugTool->startTimer($shortName, $shortName . ' Constructor');
 

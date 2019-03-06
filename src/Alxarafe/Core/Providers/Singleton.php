@@ -6,7 +6,8 @@
 
 namespace Alxarafe\Core\Providers;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ArrayUtils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -87,7 +88,7 @@ trait Singleton
     private static function getClassName(): string
     {
         $class = static::class;
-        return Utils::getShortName($class, $class);
+        return ClassUtils::getShortName($class, $class);
     }
 
     /**
@@ -110,7 +111,7 @@ trait Singleton
             $paramsToSave[self::yamlName()][$index] = $params;
         }
 
-        $content = $merge ? Utils::arrayMergeRecursiveEx($content, $paramsToSave) : $paramsToSave;
+        $content = $merge ? ArrayUtils::arrayMergeRecursiveEx($content, $paramsToSave) : $paramsToSave;
 
         return file_put_contents($this->getFilePath(), Yaml::dump($content, 3), LOCK_EX) !== false;
     }

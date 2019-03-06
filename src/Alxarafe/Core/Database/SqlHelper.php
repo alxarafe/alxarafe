@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\Database;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 
@@ -50,7 +50,7 @@ abstract class SqlHelper
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, static::class);
+        $shortName = ClassUtils::getShortName($this, static::class);
         $debugTool = DebugTool::getInstance();
         $debugTool->startTimer($shortName, $shortName . ' SqlHelper Constructor');
 

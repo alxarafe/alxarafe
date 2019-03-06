@@ -27,7 +27,7 @@ class SchemaDB
         foreach ($queries as $query) {
             $queryResult[] = Database::getInstance()->getDbEngine()->selectCoreCache('tables', $query);
         }
-        return Utils::flatArray($queryResult);
+        return ArrayUtils::flatArray($queryResult);
     }
 
     /**
@@ -57,12 +57,12 @@ class SchemaDB
 
             $sql = [];
             foreach ($tabla['indexes'] as $name => $index) {
-                $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
+                $sql = ArrayUtils::addToArray($sql, self::createIndex($tableName, $name, $index));
             }
 
-            $values = Utils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
-            $sql = Utils::addToArray($sql, Schema::setValues($tableName, $values));
-            $sql = Utils::addToArray($sql, self::createTableView($tableName));
+            $values = ArrayUtils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
+            $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $values));
+            $sql = ArrayUtils::addToArray($sql, self::createTableView($tableName));
         }
 
         return Database::getInstance()->getDbEngine()->batchExec($sql);
@@ -297,7 +297,7 @@ class SchemaDB
         }
 
         // Delete (if exists) and create the index related to the constraint
-        $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
+        $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
 
         $query = "ALTER TABLE {$quotedTableName} ADD CONSTRAINT {$indexName} FOREIGN KEY ({$columnName}) REFERENCES {$referencedTableName} ({$refencedFieldName})";
 

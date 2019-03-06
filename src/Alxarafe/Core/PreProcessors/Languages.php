@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\PreProcessors;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Language;
 use Alxarafe\Core\Providers\DebugTool;
 use Symfony\Component\Yaml\Yaml;
@@ -40,7 +40,7 @@ class Languages
         ];
 
         $destinationFolder = basePath('config' . DIRECTORY_SEPARATOR . 'languages');
-        Utils::mkdir($destinationFolder, 0777, true);
+        FileSystemUtils::mkdir($destinationFolder, 0777, true);
 
         $languages = (new Language())->getAllRecords();
         if (count($languages) === 0) {

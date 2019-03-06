@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\Providers;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 
 /**
  * Class ConfigurationManager
@@ -85,42 +85,42 @@ class Config
          *
          * define('BASE_PATH', __DIR__);
          */
-        Utils::defineIfNotExists('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
-        Utils::defineIfNotExists('LANG', 'en');
-        Utils::defineIfNotExists('DEBUG', false);
-        Utils::defineIfNotExists('CACHE', !constant('DEBUG'));
+        ClassUtils::defineIfNotExists('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+        ClassUtils::defineIfNotExists('LANG', 'en');
+        ClassUtils::defineIfNotExists('DEBUG', false);
+        ClassUtils::defineIfNotExists('CACHE', !constant('DEBUG'));
 
-        Utils::defineIfNotExists('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
+        ClassUtils::defineIfNotExists('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
 
-        Utils::defineIfNotExists('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
-        Utils::defineIfNotExists('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
-        Utils::defineIfNotExists('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
-        Utils::defineIfNotExists('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
+        ClassUtils::defineIfNotExists('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
+        ClassUtils::defineIfNotExists('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
+        ClassUtils::defineIfNotExists('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
+        ClassUtils::defineIfNotExists('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
 
         /**
          * Must be defined in main index.php file
          */
-        Utils::defineIfNotExists('VENDOR_FOLDER', basePath('vendor'));
-        Utils::defineIfNotExists('ALXARAFE_FOLDER', basePath('src' . DIRECTORY_SEPARATOR . 'Alxarafe' . DIRECTORY_SEPARATOR . 'Core'));
-        Utils::defineIfNotExists('VENDOR_URI', baseUrl('vendor'));
+        ClassUtils::defineIfNotExists('VENDOR_FOLDER', basePath('vendor'));
+        ClassUtils::defineIfNotExists('ALXARAFE_FOLDER', basePath('src' . DIRECTORY_SEPARATOR . 'Alxarafe' . DIRECTORY_SEPARATOR . 'Core'));
+        ClassUtils::defineIfNotExists('VENDOR_URI', baseUrl('vendor'));
 
-        Utils::defineIfNotExists('CONFIGURATION_PATH', basePath('config'));
-        Utils::defineIfNotExists('DEFAULT_STRING_LENGTH', 50);
-        Utils::defineIfNotExists('DEFAULT_INTEGER_SIZE', 10);
+        ClassUtils::defineIfNotExists('CONFIGURATION_PATH', basePath('config'));
+        ClassUtils::defineIfNotExists('DEFAULT_STRING_LENGTH', 50);
+        ClassUtils::defineIfNotExists('DEFAULT_INTEGER_SIZE', 10);
 
-        Utils::defineIfNotExists('CALL_CONTROLLER', 'call');
-        Utils::defineIfNotExists('METHOD_CONTROLLER', 'method');
-        Utils::defineIfNotExists('DEFAULT_CONTROLLER', ($this->fileExists($this->getFilePath()) ? 'EditConfig' : 'CreateConfig'));
-        Utils::defineIfNotExists('DEFAULT_METHOD', 'index');
+        ClassUtils::defineIfNotExists('CALL_CONTROLLER', 'call');
+        ClassUtils::defineIfNotExists('METHOD_CONTROLLER', 'method');
+        ClassUtils::defineIfNotExists('DEFAULT_CONTROLLER', ($this->fileExists($this->getFilePath()) ? 'EditConfig' : 'CreateConfig'));
+        ClassUtils::defineIfNotExists('DEFAULT_METHOD', 'index');
 
         // Use cache on Core
-        Utils::defineIfNotExists('CORE_CACHE_ENABLED', true);
+        ClassUtils::defineIfNotExists('CORE_CACHE_ENABLED', true);
 
         // Default number of rows per page.
-        Utils::defineIfNotExists('DEFAULT_ROWS_PER_PAGE', 25);
+        ClassUtils::defineIfNotExists('DEFAULT_ROWS_PER_PAGE', 25);
 
         // Carry Return (retorno de carro) & Line Feed (salto de línea).
-        Utils::defineIfNotExists('CRLF', "\n\t");
+        ClassUtils::defineIfNotExists('CRLF', "\n\t");
     }
 
     /**

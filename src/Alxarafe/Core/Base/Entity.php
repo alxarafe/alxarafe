@@ -6,10 +6,11 @@
 
 namespace Alxarafe\Core\Base;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\TextUtils;
 use Alxarafe\Core\Providers\DebugTool;
-use Exception;
 use Kint\Kint;
+use RuntimeException;
 
 /**
  * Class Entity
@@ -83,7 +84,7 @@ abstract class Entity
     public function __construct()
     {
         $this->debugTool = DebugTool::getInstance();
-        $this->shortName = Utils::getShortName($this, static::class);
+        $this->shortName = ClassUtils::getShortName($this, static::class);
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Entity Constructor');
         $this->debugTool->stopTimer($this->shortName);
     }
@@ -174,7 +175,7 @@ abstract class Entity
      * @param array  $params
      *
      * @return $this|mixed|null
-     * @throws Exception
+     * @throws RuntimeException
      */
     public function __call(string $method, array $params)
     {
@@ -183,7 +184,7 @@ abstract class Entity
         }
         preg_match('/^(get|set)(.*?)$/i', $method, $matches);
         $prefix = $matches[1] ?? '';
-        $field = Utils::camelToSnake($matches[2]) ?? '';
+        $field = TextUtils::camelToSnake($matches[2]) ?? '';
         switch ($prefix) {
             case 'set':
                 $this->newData[$field] = $params[0] ?? '';
@@ -192,7 +193,7 @@ abstract class Entity
                 return $this->newData[$field] ?? null;
             default:
                 Kint::dump("Review $method in " . $this->shortName . ". Error collecting the '$prefix/$field' attribute", $params, true);
-                throw new Exception('Program halted!');
+                throw new RuntimeException('Program halted!');
         }
     }
 

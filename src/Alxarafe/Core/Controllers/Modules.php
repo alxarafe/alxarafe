@@ -8,8 +8,9 @@ namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\AuthPageExtendedController;
 use Alxarafe\Core\Base\CacheCore;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Helpers\FormatUtils;
-use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
@@ -118,7 +119,7 @@ class Modules extends AuthPageExtendedController
      */
     private function regenerateData(): void
     {
-        Utils::executePreprocesses($this->searchDir);
+        ClassUtils::executePreprocesses($this->searchDir);
     }
 
     /**
@@ -179,7 +180,7 @@ class Modules extends AuthPageExtendedController
             }
         }
 
-        Utils::rrmdir(basePath($this->model->path));
+        FileSystemUtils::rrmdir(basePath($this->model->path));
         return parent::deleteMethod();
     }
 

@@ -7,7 +7,8 @@
 namespace Alxarafe\Core\Database;
 
 use Alxarafe\Core\Base\CacheCore;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -96,7 +97,7 @@ abstract class Engine
      */
     public function __construct(array $dbConfig)
     {
-        $shortName = Utils::getShortName($this, static::class);
+        $shortName = ClassUtils::getShortName($this, static::class);
 
         if (!isset(self::$dbConfig)) {
             self::$dbConfig = $dbConfig;
@@ -114,7 +115,7 @@ abstract class Engine
     public static function getEngines(): array
     {
         $path = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'Engines';
-        $engines = Utils::scandir($path);
+        $engines = FileSystemUtils::scandir($path);
         $ret = [];
         // Unset engines not fully supported
         $unsupported = self::unsupportedEngines();

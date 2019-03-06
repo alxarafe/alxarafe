@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Helpers;
 
 use Alxarafe\Core\BootStrap;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\TemplateRender;
 use Alxarafe\Core\Providers\Translator;
@@ -53,7 +54,7 @@ class TwigFunctions extends AbstractExtension
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, static::class);
+        $shortName = ClassUtils::getShortName($this, static::class);
         $this->debugTool = DebugTool::getInstance();
         $this->debugTool->startTimer($shortName, $shortName . ' TwigFunctions Constructor');
 
@@ -152,7 +153,7 @@ class TwigFunctions extends AbstractExtension
      */
     public function snakeToCamel(string $toCamel): string
     {
-        return Utils::snakeToCamel($toCamel);
+        return TextUtils::snakeToCamel($toCamel);
     }
 
     /**

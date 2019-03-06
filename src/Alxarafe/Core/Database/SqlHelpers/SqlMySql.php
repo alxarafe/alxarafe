@@ -7,7 +7,7 @@
 namespace Alxarafe\Core\Database\SqlHelpers;
 
 use Alxarafe\Core\Database\SqlHelper;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Providers\Database;
 
 /**
@@ -45,7 +45,7 @@ class SqlMySql extends SqlHelper
         $query = 'SHOW TABLES;';
         //$result = Database::getInstance()->getDbEngine()->select($query);
         $result = Database::getInstance()->getDbEngine()->selectCoreCache('tables', $query);
-        return Utils::flatArray($result);
+        return ArrayUtils::flatArray($result);
     }
 
     /**
@@ -80,9 +80,9 @@ class SqlMySql extends SqlHelper
      */
     public function getSQLField(string $fieldName, array $data): string
     {
-        $null = Utils::isTrue($data, 'nullable') ?? null;
+        $null = ArrayUtils::isTrue($data, 'nullable') ?? null;
 //        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
-        $zerofill = Utils::isTrue($data, 'zerofill') ?? null;
+        $zerofill = ArrayUtils::isTrue($data, 'zerofill') ?? null;
 
         $default = $data['default'];
         if (isset($default) && $default !== 'CURRENT_TIMESTAMP') {
