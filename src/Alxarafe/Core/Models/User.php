@@ -80,6 +80,10 @@ class User extends Table
      */
     public function generateLogKey(string $ip = '', bool $unique = true): string
     {
+        if (!$unique && $this->logkey !== null) {
+            return $this->logkey;
+        }
+
         $text = $this->username;
         if ($unique) {
             $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');

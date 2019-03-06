@@ -106,8 +106,8 @@ class AuthController extends Controller
             $remember = null;
         }
 
-        if ($this->user) {
-            $this->logkey = $this->user->generateLogKey($this->request->getClientIp() ?? '');
+        if (!$this->username) {
+            $this->logkey = $this->user->generateLogKey($this->request->getClientIp() ?? '', false);
         }
         setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);

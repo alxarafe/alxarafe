@@ -58,6 +58,28 @@ class Session
     }
 
     /**
+     * Gets the value of the outgoing CSRF token.
+     *
+     * @return string
+     */
+    public function getCsrfToken(): string
+    {
+        return $this->session->getCsrfToken()->getValue();
+    }
+
+    /**
+     * Checks whether an incoming CSRF token value is valid.
+     *
+     * @param string $csrfToken
+     *
+     * @return bool
+     */
+    public function isValid(string $csrfToken): bool
+    {
+        return $this->session->getCsrfToken()->isValid($csrfToken);
+    }
+
+    /**
      * Return this instance.
      *
      * @return self
