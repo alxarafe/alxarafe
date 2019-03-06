@@ -48,7 +48,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'translations';
     }
@@ -59,7 +59,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return array
      */
-    public function getWidgets()
+    public function getWidgets(): array
     {
         return [
             'translations' => [
@@ -81,7 +81,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return array
      */
-    public function getAssets()
+    public function getAssets(): array
     {
         return [
             'css' => baseUrl('resources/templates/css/phpdebugbar.custom-widget.css'),
@@ -94,7 +94,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return array Collected data
      */
-    public function collect()
+    public function collect(): array
     {
         $this->addTranslations();
 

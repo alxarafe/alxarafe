@@ -10,7 +10,7 @@
     @var text:        Your text
 
     How to use it:
-        {% include "components/label.html.twig" with {data:{id:'myLabelId', name:'myLabelName', class: 'label-primary', text: 'My text label'}} %}
+        {% include "@Core/components/label.html.twig" with {data:{id:'myLabelId', name:'myLabelName', class: 'label-primary', text: 'My text label'}} %}
 #}
 
 <span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}

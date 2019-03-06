@@ -7,7 +7,7 @@
 namespace Alxarafe\Core\Database\SqlHelpers;
 
 use Alxarafe\Core\Database\SqlHelper;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Providers\Database;
 
 /**
@@ -45,17 +45,18 @@ class SqlMySql extends SqlHelper
         $query = 'SHOW TABLES;';
         //$result = Database::getInstance()->getDbEngine()->select($query);
         $result = Database::getInstance()->getDbEngine()->selectCoreCache('tables', $query);
-        return Utils::flatArray($result);
+        return ArrayUtils::flatArray($result);
     }
 
     /**
      * SQL statement that returns the fields in the table
      *
      * @param string $tableName
+     * @param bool   $prefix
      *
      * @return string
      */
-    public function getColumnsSql(string $tableName, bool $prefix): string
+    public function getColumnsSql(string $tableName, bool $prefix = true): string
     {
         /**
          * array (size=6)
@@ -79,15 +80,13 @@ class SqlMySql extends SqlHelper
      */
     public function getSQLField(string $fieldName, array $data): string
     {
-        $null = Utils::isTrue($data, 'nullable') ?? null;
+        $null = ArrayUtils::isTrue($data, 'nullable') ?? null;
 //        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
-        $zerofill = Utils::isTrue($data, 'zerofill') ?? null;
+        $zerofill = ArrayUtils::isTrue($data, 'zerofill') ?? null;
 
         $default = $data['default'];
-        if (isset($default)) {
-            if ($default != 'CURRENT_TIMESTAMP') {
-                $default = "'$default'";
-            }
+        if (isset($default) && $default !== 'CURRENT_TIMESTAMP') {
+            $default = "'$default'";
         }
 
         $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length'] ?? 0);
@@ -103,7 +102,8 @@ class SqlMySql extends SqlHelper
     /**
      * TODO: Undocumented and pending complete.
      *
-     * @param array $row
+     * @param string $type
+     * @param int    $length
      *
      * @return string
      */
@@ -161,7 +161,7 @@ class SqlMySql extends SqlHelper
      * Modifies the structure returned by the query generated with getColumnsSql to the normalized format that returns
      * getColumns
      *
-     * @param array $fields
+     * @param array $row
      *
      * @return array
      */
@@ -169,7 +169,7 @@ class SqlMySql extends SqlHelper
     {
         $result = [];
         $result['field'] = $row['Field'];
-        $type = $this->splitType($row['Type']);
+        $type = self::splitType($row['Type']);
 
         /**
          * I thought that this would work
@@ -178,7 +178,7 @@ class SqlMySql extends SqlHelper
          */
         $virtualType = $type['type'];
         foreach ($this->fieldTypes as $key => $values) {
-            if (in_array($type['type'], $values)) {
+            if (in_array($type['type'], $values, false)) {
                 $virtualType = $key;
                 break;
             }
@@ -236,10 +236,10 @@ class SqlMySql extends SqlHelper
             $length = null;
         }
 
-        $pos = array_search('unsigned', $explode);
+        $pos = array_search('unsigned', $explode, true);
         $unsigned = $pos ? 'yes' : 'no';
 
-        $pos = array_search('zerofill', $explode);
+        $pos = array_search('zerofill', $explode, true);
         $zerofill = $pos ? 'yes' : 'no';
 
         return ['type' => $type, 'length' => $length, 'unsigned' => $unsigned, 'zerofill' => $zerofill];
@@ -257,7 +257,7 @@ class SqlMySql extends SqlHelper
         $result = [];
         $result['index'] = $fields['Key_name'];
         $result['column'] = $fields['Column_name'];
-        $result['unique'] = $fields['Non_unique'] == '0' ? 'yes' : 'no';
+        $result['unique'] = $fields['Non_unique'] === '0' ? 'yes' : 'no';
         $constrait = $this->getConstraintData($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
             $result['constraint'] = 'yes'; // $constrait[0]['CONSTRAINT_NAME'];

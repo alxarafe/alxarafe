@@ -141,7 +141,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      *
      * @return array
      */
-    public function getExtraActions()
+    public function getExtraActions(): array
     {
         return [];
     }
@@ -180,7 +180,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     /**
      * Initialize common properties
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->currentId = $this->request->query->get($this->model->getIdField());
         $this->postData = $this->getRecordData();
@@ -280,7 +280,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     protected function cancel(): RedirectResponse
     {
         // Si no hay puesto id estaba en la pantalla del listado de registros...
-        if ($this->status == 'listing') {
+        if ($this->status === 'listing') {
             return $this->redirect(baseUrl('index.php'));
         }
         return $this->redirect($this->url);
@@ -297,7 +297,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->postData = [];
         foreach ($_POST as $key => $value) {
-            if (substr_count($key, constant('IDSEPARATOR')) == 2) {
+            if (substr_count($key, constant('IDSEPARATOR')) === 2) {
                 $field = explode(constant('IDSEPARATOR'), $key);
                 $this->postData[$field[0]][$field[1]][$field[2]] = is_array($value) ? array_values($value)[0] : $value;
             }
@@ -351,7 +351,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     /**
      * Access denied page.
      */
-    public function accessDenied()
+    public function accessDenied(): void
     {
         $this->renderer->setTemplate('master/noaccess');
     }
@@ -391,7 +391,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      *
      * @return array
      */
-    public function getActionButtons(string $id = '')
+    public function getActionButtons(string $id = ''): array
     {
         $actionButtons = [];
         if ($this->canRead) {
@@ -437,11 +437,9 @@ abstract class AuthPageExtendedController extends AuthPageController
     protected function setDefaults(array $record): array
     {
         $ret = [];
-        foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $struct) {
-            if (isset($record[$key])) {
-                $ret[$key] = $record[$key];
-            } else {
-                $ret[$key] = $struct['default'] ?? '';
+        if (isset(Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'])) {
+            foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $struct) {
+                $ret[$key] = $record[$key] ?? $struct['default'] ?? '';
             }
         }
         return $ret;

@@ -7,7 +7,7 @@
 namespace Alxarafe\Core\Models;
 
 use Alxarafe\Core\Base\Table;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\TextUtils;
 
 /**
  * Class Users
@@ -84,7 +84,7 @@ class User extends Table
         if ($unique) {
             $text .= '|' . $ip . '|' . date('Y-m-d H:i:s');
         }
-        $text .= '|' . Utils::randomString();
+        $text .= '|' . TextUtils::randomString();
         $this->logkey = password_hash($text, PASSWORD_DEFAULT);
         $this->save();
 

@@ -13,7 +13,7 @@ use DebugBar\DataCollector\Renderable;
  * This class collects all PHP errors, notice, advices, trigger_error, ...
  * Supports 15 different types included.
  */
-class PHPCollector extends DataCollector implements Renderable
+class PhpCollector extends DataCollector implements Renderable
 {
     /**
      * Collector name.
@@ -35,7 +35,7 @@ class PHPCollector extends DataCollector implements Renderable
      *
      * @param string $name The name used by this collector widget.
      */
-    public function __construct($name = 'Error handler')
+    public function __construct(string $name = 'Error handler')
     {
         $this->name = $name;
         set_error_handler([$this, 'errorHandler'], E_ALL);
@@ -46,7 +46,7 @@ class PHPCollector extends DataCollector implements Renderable
      *
      * @return array Collected data.
      */
-    public function collect()
+    public function collect(): array
     {
         $messages = $this->getMessages();
         return [
@@ -60,7 +60,7 @@ class PHPCollector extends DataCollector implements Renderable
      *
      * @return array A list of messages ordered by time.
      */
-    public function getMessages()
+    public function getMessages(): array
     {
         $messages = $this->messages;
 
@@ -80,19 +80,19 @@ class PHPCollector extends DataCollector implements Renderable
      *
      * @return array Needed details to render the widget.
      */
-    public function getWidgets()
+    public function getWidgets(): array
     {
         $name = $this->getName();
         return [
-            "$name" => [
+            $name => [
                 'icon' => 'list',
-                "widget" => "PhpDebugBar.Widgets.MessagesWidget",
+                'widget' => 'PhpDebugBar.Widgets.MessagesWidget',
                 'map' => "$name.messages",
                 'default' => '[]',
             ],
             "$name:badge" => [
                 'map' => "$name.count",
-                'default' => "null",
+                'default' => 'null',
             ],
         ];
     }
@@ -102,7 +102,7 @@ class PHPCollector extends DataCollector implements Renderable
      *
      * @return string The widget name.
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -140,7 +140,7 @@ class PHPCollector extends DataCollector implements Renderable
      *
      * @return string Error name.
      */
-    private function friendlyErrorType($type)
+    private function friendlyErrorType($type): string
     {
         $errors = [
             E_ERROR => 'ERROR',

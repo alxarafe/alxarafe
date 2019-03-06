@@ -8,7 +8,7 @@ if (!defined('BASE_PATH')) {
     /**
      * Base path for the app.
      */
-    define('BASE_PATH', __DIR__ . '/../../..');
+    define('BASE_PATH', __DIR__ . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..');
 }
 
 if (!function_exists('basePath')) {
@@ -21,7 +21,7 @@ if (!function_exists('basePath')) {
      */
     function basePath(string $path = ''): string
     {
-        return constant('BASE_PATH') . (empty($path) ? $path : constant('DIRECTORY_SEPARATOR') . $path);
+        return constant('BASE_PATH') . (empty($path) ? $path : constant('DIRECTORY_SEPARATOR') . trim($path, constant('DIRECTORY_SEPARATOR')));
     }
 }
 
@@ -49,12 +49,12 @@ if (!function_exists('baseUrl')) {
     {
         $folder = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
         $port = '';
-        if (!in_array($_SERVER['SERVER_PORT'], ['80', '443'])) {
+        if (!in_array($_SERVER['SERVER_PORT'], ['80', '443'], false)) {
             $port = ':' . $_SERVER['SERVER_PORT'];
         }
-        $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http')
+        $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
             . '://' . $_SERVER['SERVER_NAME'] . $port . $folder;
 
-        return empty($url) ? $baseUrl : $baseUrl . '/' . $url;
+        return empty($url) ? $baseUrl : $baseUrl . '/' . trim($url, '/');
     }
 }

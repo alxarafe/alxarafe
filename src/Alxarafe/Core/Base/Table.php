@@ -56,12 +56,16 @@ class Table extends SimpleTable
         if (!$create || !Database::getInstance()->getDbEngine()->issetDbTableStructure($this->tableName)) {
             return;
         }
-        if (!SchemaDB::tableExists($this->tableName) && $this->modelName != 'TableModel') {
+        if (!SchemaDB::tableExists($this->tableName) && $this->modelName !== 'TableModel') {
             $tableModel = new TableModel();
             if (!$tableModel->load($this->tableName)) {
                 $tableModel->tablename = $this->tableName;
                 $tableModel->model = $this->modelName;
-                $tableModel->namespace = (new ReflectionClass($this))->getName();
+                try {
+                    $tableModel->namespace = (new ReflectionClass($this))->getName();
+                } catch (\ReflectionException $e) {
+                    $tableModel->namespace = static::class;
+                }
                 $tableModel->save();
             }
         }
@@ -78,7 +82,7 @@ class Table extends SimpleTable
      */
     public function getIdByName(string $name): string
     {
-        if ($this->nameField == '') {
+        if ($this->nameField === '') {
             return '';
         }
 
@@ -109,7 +113,7 @@ class Table extends SimpleTable
             $orderBy = " ORDER BY {$orderBy}";
         }
         if ($value === 'NULL') {
-            $isNull  = $comparison === '=' ? ' IS NULL' : ' IS NOT NULL';
+            $isNull = $comparison === '=' ? ' IS NULL' : ' IS NOT NULL';
             $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName}{$isNull}{$orderBy};";
         } else {
             $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} {$comparison} :value{$orderBy};";
@@ -230,36 +234,30 @@ class Table extends SimpleTable
             foreach ($block as $blockId => $record) {            // Recorrer registros de la tabla (seguramente uno)
                 foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['checks'] as $fieldName => $fieldStructure) {
                     $length = $fieldStructure['length'] ?? null;
-                    if (isset($length) && $length > 0) {
-                        if (strlen($record[$fieldName]) > $length) {
-                            $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%length%' => $length];
-                            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-max-length', $vars));
-                            $ok = false;
-                        }
+                    if (isset($length) && $length > 0 && strlen($record[$fieldName]) > $length) {
+                        $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%length%' => $length];
+                        FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-max-length', $vars));
+                        $ok = false;
                     }
                     $min = $fieldStructure['min'] ?? null;
-                    if (isset($min)) {
-                        if ($min > (int) $record[$fieldName]) {
-                            $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%min%' => $min];
-                            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-minimum', $vars));
-                            $ok = false;
-                        }
+                    if (isset($min) && $min > (int) $record[$fieldName]) {
+                        $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%min%' => $min];
+                        FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-minimum', $vars));
+                        $ok = false;
                     }
                     $max = $fieldStructure['max'] ?? null;
-                    if (isset($max)) {
-                        if ($max < (int) $record[$fieldName]) {
-                            $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%max%' => $max];
-                            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-maximum', $vars));
-                            $ok = false;
-                        }
+                    if (isset($max) && $max < (int) $record[$fieldName]) {
+                        $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%max%' => $max];
+                        FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-maximum', $vars));
+                        $ok = false;
                     }
-                    if (isset($fieldStructure['unique']) && ($fieldStructure['unique'] == 'yes')) {
+                    if (isset($fieldStructure['unique']) && ($fieldStructure['unique'] === 'yes')) {
                         $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName}='{$data[$tableName][$blockId][$fieldName]}';";
                         $bad = Database::getInstance()->getDbEngine()->select($sql);
                         if ($bad && count($bad) > 0) {
                             foreach ($bad as $badrecord) {
                                 // TODO: Estoy utilizando 'id', pero tendría que ser el $this->idField del modelo correspondiente
-                                if ($badrecord['id'] != $data[$tableName][$blockId]['id']) {
+                                if ($badrecord['id'] !== $data[$tableName][$blockId]['id']) {
                                     $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%value%' => $data[$tableName][$blockId][$fieldName], '%register%' => $badrecord['id']];
                                     FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-register-duplicated', $vars));
                                     $ok = false;

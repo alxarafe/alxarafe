@@ -6,6 +6,8 @@
 
 namespace Alxarafe\Core\Helpers;
 
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -34,7 +36,7 @@ class Schema
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, get_called_class());
+        $shortName = ClassUtils::getShortName($this, static::class);
         self::$debugTool = DebugTool::getInstance();
         self::$debugTool->startTimer($shortName, $shortName . ' Schema Constructor');
         self::$debugTool->stopTimer($shortName);
@@ -69,7 +71,7 @@ class Schema
         $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
         $structure = Database::getInstance()->getDbEngine()->getStructure($tableName, $usePrefix);
         foreach (['schema', 'viewdata'] as $type) {
-            $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
+            $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type === 'viewdata');
             $result = $result && self::saveSchemaFileName($data, $tableName, $type);
         }
         return $result;
@@ -186,16 +188,16 @@ class Schema
         $extension = $type === 'values' ? '.csv' : '.yaml';
 
         // First, it is checked if it exists in the core
-        $folder = constant('ALXARAFE_FOLDER') . '/Schema/' . $type;
-        Utils::mkdir($folder, 0777, true);
-        $path = $folder . '/' . $tableName . $extension;
+        $folder = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type;
+        FileSystemUtils::mkdir($folder, 0777, true);
+        $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         if (file_exists($path)) {
             return $path;
         }
         // And then if it exists in the application
-        $folder = basePath('Schema/' . $type);
-        Utils::mkdir($folder, 0777, true);
-        $path = $folder . '/' . $tableName . $extension;
+        $folder = basePath('Schema' . DIRECTORY_SEPARATOR . $type);
+        FileSystemUtils::mkdir($folder, 0777, true);
+        $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         return file_exists($path) ? $path : '';
     }
 
@@ -248,9 +250,9 @@ class Schema
      */
     private static function saveSchemaFileName(array $data, string $tableName, string $type = 'schema'): bool
     {
-        $path = basePath('config/' . $type);
-        Utils::mkdir($path, 0777, true);
-        $path .= '/' . $tableName . '.yaml';
+        $path = basePath('config' . DIRECTORY_SEPARATOR . $type);
+        FileSystemUtils::mkdir($path, 0777, true);
+        $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
         return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }
 
@@ -297,7 +299,7 @@ class Schema
         }
 
         $dbType = $structure['type'];
-        if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'text', 'float', 'date', 'datetime'])) {
+        if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'text', 'float', 'date', 'datetime'], true)) {
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);

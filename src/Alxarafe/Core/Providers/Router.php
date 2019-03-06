@@ -6,6 +6,10 @@
 
 namespace Alxarafe\Core\Providers;
 
+use Alxarafe\Core\Controllers\CreateConfig;
+use Alxarafe\Core\Controllers\EditConfig;
+use Alxarafe\Core\Controllers\Login;
+
 /**
  * Class Routes
  * A route is a pair key => value, where key is the short name of the controller and the value the FQCN
@@ -45,11 +49,7 @@ class Router
      */
     public function getRoutes(): array
     {
-        if (isset($this->routes)) {
-            return $this->routes;
-        }
-
-        return $this->loadRoutes();
+        return $this->routes ?? $this->loadRoutes();
     }
 
     /**
@@ -57,7 +57,7 @@ class Router
      *
      * @param array $routes
      */
-    public function setRoutes(array $routes = [])
+    public function setRoutes(array $routes = []): void
     {
         $this->routes = $routes;
     }
@@ -67,7 +67,7 @@ class Router
      *
      * @return array
      */
-    public function loadRoutes()
+    public function loadRoutes(): array
     {
         $this->routes = $this->getConfig();
         if (empty($this->routes)) {
@@ -84,9 +84,9 @@ class Router
     public static function getDefaultValues(): array
     {
         return [
-            'CreateConfig' => '\\Alxarafe\Core\\Controllers\\CreateConfig',
-            'EditConfig' => '\\Alxarafe\Core\\Controllers\\EditConfig',
-            'Login' => '\\Alxarafe\Core\\Controllers\\Login',
+            'CreateConfig' => CreateConfig::class,
+            'EditConfig' => EditConfig::class,
+            'Login' => Login::class,
         ];
     }
 
@@ -105,7 +105,7 @@ class Router
      *
      * @return bool
      */
-    public function saveRoutes()
+    public function saveRoutes(): bool
     {
         return $this->setConfig($this->routes);
     }
@@ -120,10 +120,10 @@ class Router
      *
      * @return bool
      */
-    public function addRoute(string $key, string $value, bool $force = false)
+    public function addRoute(string $key, string $value, bool $force = false): bool
     {
         $return = false;
-        if (!isset($this->routes[$key]) || $force) {
+        if ($force || !isset($this->routes[$key])) {
             $this->routes[$key] = $value;
             $return = true;
         }
@@ -137,7 +137,7 @@ class Router
      *
      * @return bool
      */
-    public function hasRoute(string $key)
+    public function hasRoute(string $key): bool
     {
         return isset($this->routes[$key]);
     }
@@ -149,7 +149,7 @@ class Router
      *
      * @return string|null
      */
-    public function getRoute(string $key)
+    public function getRoute(string $key): ?string
     {
         return $this->routes[$key] ?? null;
     }

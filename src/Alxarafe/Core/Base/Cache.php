@@ -27,7 +27,7 @@ class Cache
     /**
      * Default life time of cache.
      */
-    const DEFAULT_LIFE_TIME = 0;
+    public const DEFAULT_LIFE_TIME = 0;
 
     /**
      * Cache engine.

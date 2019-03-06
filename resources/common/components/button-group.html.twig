@@ -13,7 +13,7 @@
     WARNING: Length of arrays (must be the same)
 
     How to use it:
-        {% include "components/button-group.html.twig" with {data:{ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']}} %}
+        {% include "@Core/components/button-group.html.twig" with {data:{ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']}} %}
 #}
 
 <div class="btn-group {% if data.class is defined %}{{ data.class }}{% endif %}" role="toolbar" aria-label="...">

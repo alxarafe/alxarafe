@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Helpers;
 
+use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
 
@@ -27,7 +28,7 @@ class SchemaDB
         foreach ($queries as $query) {
             $queryResult[] = Database::getInstance()->getDbEngine()->selectCoreCache('tables', $query);
         }
-        return Utils::flatArray($queryResult);
+        return ArrayUtils::flatArray($queryResult);
     }
 
     /**
@@ -57,12 +58,12 @@ class SchemaDB
 
             $sql = [];
             foreach ($tabla['indexes'] as $name => $index) {
-                $sql = Utils::addToArray($sql, self::createIndex($tableName, $name, $index));
+                $sql = ArrayUtils::addToArray($sql, self::createIndex($tableName, $name, $index));
             }
 
-            $values = Utils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
-            $sql = Utils::addToArray($sql, Schema::setValues($tableName, $values));
-            $sql = Utils::addToArray($sql, self::createTableView($tableName));
+            $values = ArrayUtils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
+            $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $values));
+            $sql = ArrayUtils::addToArray($sql, self::createTableView($tableName));
         }
 
         return Database::getInstance()->getDbEngine()->batchExec($sql);
@@ -95,7 +96,7 @@ class SchemaDB
         if ($fields === '') {
             return [];
         }
-        return ["ALTER TABLE " . self::quoteTableName($tableName, true) . " {$fields};"];
+        return ['ALTER TABLE ' . self::quoteTableName($tableName, true) . $fields . ';'];
     }
 
     /**
@@ -112,20 +113,17 @@ class SchemaDB
         $newFields = [];
         $modifiedFields = [];
         foreach ($fieldsList as $key => $fields) {
-            unset($fields['key']);
-            unset($tableFields[$key]['key']);
+            unset($fields['key'], $tableFields[$key]['key']);
             if (!isset($tableFields[$key])) {
                 $newFields[$key] = $fields;
-            } else {
-                if (count(array_diff($fields, $tableFields[$key])) > 0) {
-                    $modifiedFields[$key] = $fields;
-                }
+            } elseif (count(array_diff($fields, $tableFields[$key])) > 0) {
+                $modifiedFields[$key] = $fields;
             }
         }
         $sql1 = self::assignFields($modifiedFields, 'MODIFY COLUMN');
         $sql2 = self::assignFields($newFields, 'ADD COLUMN');
 
-        return ($sql1 == '') ? $sql2 : $sql1 . ($sql2 == '' ? '' : ',' . $sql2);
+        return ($sql1 === '') ? $sql2 : $sql1 . ($sql2 === '' ? '' : ',' . $sql2);
     }
 
     /**
@@ -142,7 +140,7 @@ class SchemaDB
         $fields = [];
         foreach ($fieldsList as $index => $col) {
             $field = Database::getInstance()->getSqlHelper()->getSQLField($index, $col);
-            if ($field != '') {
+            if ($field !== '') {
                 $fields[] = trim($fieldOperation . ' ' . $field);
             }
         }
@@ -157,7 +155,7 @@ class SchemaDB
      *
      * @return string
      */
-    private static function quoteTableName($tableName, bool $usePrefix = true)
+    private static function quoteTableName($tableName, bool $usePrefix = true): string
     {
         return Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix);
     }
@@ -174,9 +172,9 @@ class SchemaDB
     protected static function createFields(string $tableName, array $fieldsList): array
     {
         // If the table does not exists
-        $sql = "CREATE TABLE " . self::quoteTableName($tableName, true) . " ("
+        $sql = 'CREATE TABLE ' . self::quoteTableName($tableName, true) . ' ('
             . self::assignFields($fieldsList)
-            . ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+            . ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;';
 
         return [$sql];
     }
@@ -191,7 +189,7 @@ class SchemaDB
      * generate an error when it already exists.
      *
      * @param string $tableName
-     * @param string $indexname
+     * @param string $indexName
      * @param array  $indexData
      *
      * @return array
@@ -209,13 +207,13 @@ class SchemaDB
 
         $indexData['index'] = $indexName;
 
-        if ($indexName == 'PRIMARY') {
+        if ($indexName === 'PRIMARY') {
             $fieldData = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']];
-            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] == 'yes');
+            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] === 'yes');
             return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
         }
 
-        $unique = isset($indexData['unique']) && ($indexData['unique'] == 'yes');
+        $unique = isset($indexData['unique']) && ($indexData['unique'] === 'yes');
         //$nullable = isset($indexData['nullable']) && ($indexData['nullable'] == 'yes');
         $constraint = $indexData['constraint'] ?? false;
 
@@ -267,7 +265,7 @@ class SchemaDB
      *
      * @return string
      */
-    private static function quoteFieldName($fieldName)
+    private static function quoteFieldName($fieldName): string
     {
         return Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName);
     }
@@ -295,20 +293,20 @@ class SchemaDB
         $columnName = self::quoteFieldName($indexData['column']);
         $referencedTableName = self::quoteFieldName($referencedTable);
         $refencedFieldName = self::quoteFieldName($indexData['referencedfield']);
-        if ($exists && ($indexData['deleterule'] == '' || $indexData['updaterule'] == '')) {
+        if ($exists && ($indexData['deleterule'] === '' || $indexData['updaterule'] === '')) {
             $sql[] = "ALTER TABLE {$quotedTableName} DROP FOREIGN KEY {$indexName};";
         }
 
         // Delete (if exists) and create the index related to the constraint
-        $sql = Utils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
+        $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $indexData, $exists));
 
         $query = "ALTER TABLE {$quotedTableName} ADD CONSTRAINT {$indexName} FOREIGN KEY ({$columnName}) REFERENCES {$referencedTableName} ({$refencedFieldName})";
 
-        if ($indexData['deleterule'] != '') {
+        if ($indexData['deleterule'] !== '') {
             $query .= ' ON DELETE ' . $indexData['deleterule'];
         }
 
-        if ($indexData['updaterule'] != '') {
+        if ($indexData['updaterule'] !== '') {
             $query .= ' ON UPDATE ' . $indexData['updaterule'] . ';';
         }
 
@@ -408,21 +406,21 @@ class SchemaDB
         $quotedTableName = self::quoteTableName($tableName, true);
         $quotedViewTableName = self::quoteTableName('view_' . $tableName, true);
         $sqlView = "CREATE OR REPLACE VIEW {$quotedViewTableName} AS SELECT ";
-        $sep = "";
+        $sep = '';
         foreach ($fields as $fieldName => $fieldData) {
             $sqlView .= "{$sep}{$quotedTableName}." . self::quoteFieldName($fieldName);
-            $sep = ", ";
+            $sep = ', ';
         }
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= $sep . self::quoteTableName($indexData['referencedtable'], true) . "." . self::quoteFieldName($nameColumn[$indexName])
+            $sqlView .= $sep . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($nameColumn[$indexName])
                 . " AS {$indexData['referencedtable']}_{$nameColumn[$indexName]}";
-            $sep = ", ";
+            $sep = ', ';
         }
         $sqlView .= " FROM {$quotedTableName}";
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= " LEFT JOIN " . self::quoteTableName($indexData['referencedtable'], true)
-                . " ON {$quotedTableName}." . self::quoteFieldName($indexData['column']) . " = "
-                . self::quoteTableName($indexData['referencedtable'], true) . "." . self::quoteFieldName($primaryColumn[$indexName]);
+            $sqlView .= ' LEFT JOIN ' . self::quoteTableName($indexData['referencedtable'], true)
+                . " ON {$quotedTableName}." . self::quoteFieldName($indexData['column']) . ' = '
+                . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($primaryColumn[$indexName]);
         }
         $sqlView .= ';';
         return [$sqlView];

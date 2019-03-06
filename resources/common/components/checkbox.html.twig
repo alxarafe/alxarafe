@@ -11,9 +11,9 @@
 
     How to use it:
         <input>
-            {% include "components/checkbox.html.twig" with {data:{id:'myCheckboxId1', name:'myCheckboxName1', text: 'Esto es un placeholder', type: 'input'}} %}
+            {% include "@Core/components/checkbox.html.twig" with {data:{id:'myCheckboxId1', name:'myCheckboxName1', text: 'Esto es un placeholder', type: 'input'}} %}
         <label>
-            {% include "components/checkbox.html.twig" with {data:{id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'}} %}
+            {% include "@Core/components/checkbox.html.twig" with {data:{id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'}} %}
 #}
 {% if type is defined and type == 'input' %}
     <div class="input-group">

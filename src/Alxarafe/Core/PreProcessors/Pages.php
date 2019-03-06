@@ -7,8 +7,8 @@
 namespace Alxarafe\Core\PreProcessors;
 
 use Alxarafe\Core\Base\AuthPageController;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Helpers\FormatUtils;
-use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Page;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -55,14 +55,14 @@ class Pages
 
         foreach ($this->searchDir as $namespace => $baseDir) {
             $dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers';
-            Utils::mkdir($dir, 0777, true);
+            FileSystemUtils::mkdir($dir, 0777, true);
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')
                 ->in($dir);
             $start = new DateTime();
             foreach ($controllers as $controllerFile) {
-                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], ['', ''], $controllerFile);
+                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
                 $this->instantiateClass($namespace, $className);
             }
             $this->cleanPagesBefore($start);
@@ -82,7 +82,7 @@ class Pages
      * @param string $namespace
      * @param string $className
      */
-    private function instantiateClass(string $namespace, string $className)
+    private function instantiateClass(string $namespace, string $className): void
     {
         if ($namespace === 'Alxarafe') {
             $namespace .= '\\Core';
@@ -102,7 +102,7 @@ class Pages
      * @param string $namespace
      * @param        $newPage
      */
-    private function updatePageData(string $className, string $namespace, $newPage)
+    private function updatePageData(string $className, string $namespace, $newPage): void
     {
         $page = new Page();
         $page->getBy('controller', $className);
@@ -122,7 +122,7 @@ class Pages
      *
      * @param DateTime $start
      */
-    private function cleanPagesBefore(DateTime $start)
+    private function cleanPagesBefore(DateTime $start): void
     {
         $pages = (new Page())->getAllRecords();
         foreach ($pages as $oldPage) {

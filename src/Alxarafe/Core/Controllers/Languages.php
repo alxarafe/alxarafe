@@ -44,7 +44,7 @@ class Languages extends AuthPageExtendedController
     /**
      * Export language files with all strings for each language.
      */
-    private function exportAction()
+    private function exportAction(): void
     {
         PreLanguages::exportLanguages();
     }
@@ -54,7 +54,7 @@ class Languages extends AuthPageExtendedController
      *
      * @return array
      */
-    public function getExtraActions()
+    public function getExtraActions(): array
     {
         $return = [];
         $return[] = [

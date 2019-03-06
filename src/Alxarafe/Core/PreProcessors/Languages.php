@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\PreProcessors;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Language;
 use Alxarafe\Core\Providers\DebugTool;
 use Symfony\Component\Yaml\Yaml;
@@ -29,7 +29,7 @@ class Languages
      *
      * TODO: This must be moved to ProProcessors namespace
      */
-    public static function exportLanguages()
+    public static function exportLanguages(): void
     {
         $debugTool = DebugTool::getInstance();
 
@@ -39,11 +39,11 @@ class Languages
             basePath($subfolder),
         ];
 
-        $destinationFolder = basePath('config/languages');
-        Utils::mkdir($destinationFolder, 0777, true);
+        $destinationFolder = basePath('config' . DIRECTORY_SEPARATOR . 'languages');
+        FileSystemUtils::mkdir($destinationFolder, 0777, true);
 
         $languages = (new Language())->getAllRecords();
-        if (count($languages) == 0) {
+        if (count($languages) === 0) {
             return;
         }
 
@@ -67,42 +67,42 @@ class Languages
             // echo '<p>Processing ' . $lang['language'] . '_' . $lang['variant'] . ' language</p>';
 
             $subLanguage = null;
-            if ($lang['variant'] != strtoupper($lang['language'])) {
+            if ($lang['variant'] !== strtoupper($lang['language'])) {
                 $subLanguage = $lang['language'] . '_' . strtoupper($lang['language']);
             }
 
             $allData = [];
             foreach ($sourceFolders as $source) {
-                $data = [];
+                $data = [[]];
 
                 // Se carga el array más general o por defecto (p.e. en inglés)
-                $default = $source . '/' . $defaultFileName . '.yaml';
+                $default = $source . DIRECTORY_SEPARATOR . $defaultFileName . '.yaml';
                 // echo '<p>Processing ' . $default . '</p>';
                 if (file_exists($default)) {
-                    $data = Yaml::parse(file_get_contents($default));
+                    $data[] = Yaml::parse(file_get_contents($default));
                 }
 
                 // Si es un idioma dependiente, se intenta cargar el genérico
                 // Así por ejemplo, para es_AR se cargaría el es_ES que será mejor que el en_EN
                 if (isset($subLanguage)) {
-                    $file = $source . '/' . $subLanguage . '.yaml';
+                    $file = $source . DIRECTORY_SEPARATOR . $subLanguage . '.yaml';
                     // echo '<p>Processing ' . $file . '</p>';
                     if (file_exists($file)) {
-                        $data = array_merge($data, Yaml::parse(file_get_contents($file)));
+                        $data[] = Yaml::parse(file_get_contents($file));
                     }
                 }
 
                 // Ya por último, se carga el idioma que hemos solicitado, p.e. es_AR
-                $file = $source . '/' . $fileName . '.yaml';
+                $file = $source . DIRECTORY_SEPARATOR . $fileName . '.yaml';
                 // echo '<p>Processing ' . $file . '</p>';
                 if (file_exists($file)) {
-                    $data = array_merge($data, Yaml::parse(file_get_contents($file)));
+                    $data[] = Yaml::parse(file_get_contents($file));
                 }
 
-                $allData = array_merge($allData, $data);
+                $allData = array_merge(...$data);
             }
             ksort($allData);
-            file_put_contents($destinationFolder . '/' . $fileName . '.yaml', Yaml::dump($allData));
+            file_put_contents($destinationFolder . DIRECTORY_SEPARATOR . $fileName . '.yaml', Yaml::dump($allData));
         }
     }
 }

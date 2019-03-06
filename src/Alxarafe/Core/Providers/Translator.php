@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\Providers;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Module;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
@@ -28,27 +28,27 @@ class Translator
     /**
      * Default language to use if language file not exists.
      */
-    const FALLBACK_LANG = 'en';
+    public const FALLBACK_LANG = 'en';
 
     /**
      * Base folder where languages files are stored.
      */
-    const LANG_FOLDER = '/Languages';
+    public const LANG_FOLDER = DIRECTORY_SEPARATOR . 'Languages';
 
     /**
      * Default language to use.
      */
-    const LANG = 'es_ES';
+    public const LANG = 'es_ES';
 
     /**
      * Extension of language file.
      */
-    const EXT = '.yaml';
+    public const EXT = '.yaml';
 
     /**
      * Format of language file.
      */
-    const FORMAT = 'yaml';
+    public const FORMAT = 'yaml';
 
     /**
      * The Symfony translator.
@@ -194,7 +194,7 @@ class Translator
     {
         $languages = [];
         $dir = $this->getBaseLangFolder();
-        Utils::mkdir($dir, 0777, true);
+        FileSystemUtils::mkdir($dir, 0777, true);
         $langFiles = Finder::create()
             ->files()
             ->name('*' . self::EXT)
@@ -282,7 +282,7 @@ class Translator
      *
      * @return SymfonyTranslator
      */
-    public function getTranslator()
+    public function getTranslator(): SymfonyTranslator
     {
         return self::$translator;
     }

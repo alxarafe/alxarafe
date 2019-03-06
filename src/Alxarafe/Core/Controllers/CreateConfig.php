@@ -8,7 +8,7 @@ namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Database\Engine;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\Config;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -139,7 +139,7 @@ class CreateConfig extends Controller
     /**
      * Sets default data values
      */
-    private function setDefaultData()
+    private function setDefaultData(): void
     {
         $templateRenderConfig = $this->renderer->getConfig();
         //$databaseConfig = Database::getDefaultValues();
@@ -229,7 +229,7 @@ class CreateConfig extends Controller
      */
     public function generateMethod(): RedirectResponse
     {
-        Utils::executePreprocesses($this->searchDir);
+        ClassUtils::executePreprocesses($this->searchDir);
         return $this->redirect(baseUrl('index.php?call=Login'));
     }
 
@@ -257,7 +257,7 @@ class CreateConfig extends Controller
      *
      * @link http://stackoverflow.com/a/9328760
      */
-    public function getTimezoneList()
+    public function getTimezoneList(): array
     {
         $zonesArray = [];
         $timestamp = time();

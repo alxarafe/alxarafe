@@ -14,11 +14,11 @@
 
     How to use it:
         <a>
-          {% include "components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'link', type: null, link: '#'}} %}
+          {% include "@Core/components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'link', type: null, link: '#'}} %}
         <button>
-          {% include "components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'button', type: 'button', link: null}} %}
+          {% include "@Core/components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'button', type: 'button', link: null}} %}
         <input>
-          {% include "components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'input', type: 'submit', link: null}} %}
+          {% include "@Core/components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'input', type: 'submit', link: null}} %}
 #}
 
 {% if data.style is defined and data.style == 'link' %}

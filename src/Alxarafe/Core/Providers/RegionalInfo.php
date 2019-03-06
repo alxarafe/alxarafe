@@ -45,7 +45,7 @@ class RegionalInfo
      *
      * @return array
      */
-    public function getConfigContent()
+    public function getConfigContent(): array
     {
         if (empty($this->configContent)) {
             $this->configContent = $this->getConfig();
@@ -81,7 +81,7 @@ class RegionalInfo
     /**
      * Returns a list of date formats
      */
-    public function getDateFormats()
+    public function getDateFormats(): array
     {
         $styles = [
             'Y-m-d',
@@ -107,7 +107,7 @@ class RegionalInfo
      *
      * @return array
      */
-    private function fillList($styles)
+    private function fillList($styles): array
     {
         $result = [];
         foreach ($styles as $style) {
@@ -132,7 +132,7 @@ class RegionalInfo
     /**
      * Returns a list of time formats
      */
-    public function getTimeFormats()
+    public function getTimeFormats(): array
     {
         $styles = [
             'H:i',

@@ -2,7 +2,7 @@
  ~ Alxarafe. Development of PHP applications in a flash!
  ~ Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
 #}
-{% extends "index.twig" %}
+{% extends "@Core/index.twig" %}
 
 {% block title %}{{ trans('list-of') }} {{ trans(ctrl.title) }}{% endblock %}
 
@@ -27,7 +27,8 @@
         {% set createLink = baseLink ~ '=create' ~ '&' ~ ctrl.model.getIdField() ~ '=' %}
         <div class="row">
             <div class="col-xs-1">
-                <a name="cancel" class="btn btn-danger btn-sm" href="{{ constant('BASE_URI') }}/index.php">
+                {% set url = getUrl('/index.php') %}
+                <a name="cancel" class="btn btn-danger btn-sm" href="{{ url }}">
                     <i class="fas fa-chevron-left"></i>
                     <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ trans('back') }}</span>
                 </a>
@@ -144,7 +145,7 @@
     <script type="text/javascript">
         if ('{{ ctrl.code }}' !== '') {
             if (typeof (tables) == 'undefined') {
-                var tables = new Array();
+                var tables = [];
             }
             var pkField = '{{ ctrl.model.getIdField() }}';
             tables['{{ ctrl.code }}'] = {

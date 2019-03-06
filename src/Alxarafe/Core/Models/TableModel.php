@@ -43,7 +43,7 @@ class TableModel extends Table
     public function getDependencies(): array
     {
         return [
-            'Alxarafe\Core\\Models\\Page',
+            Page::class,
         ];
     }
 }

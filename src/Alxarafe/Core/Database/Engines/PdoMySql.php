@@ -22,7 +22,7 @@ class PdoMySql extends Engine
     public function __construct(array $dbConfig)
     {
         parent::__construct($dbConfig);
-        self::$dsn = "mysql:dbname=" . self::$dbConfig['dbName'] . ";host=" . self::$dbConfig['dbHost'] . ";charset=UTF8";
+        self::$dsn = 'mysql:dbname=' . self::$dbConfig['dbName'] . ';host=' . self::$dbConfig['dbHost'] . ';charset=UTF8';
     }
 
     /**
@@ -36,8 +36,6 @@ class PdoMySql extends Engine
     {
         $config[PDO::ATTR_EMULATE_PREPARES] = 1;
         $config[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
-        $ret = parent::connect($config);
-
-        return $ret;
+        return parent::connect($config);
     }
 }

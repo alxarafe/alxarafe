@@ -97,7 +97,7 @@ class DebugTool
     /**
      * Add a new exception to the debug bar.
      *
-     * @param Exception $exception
+     * @param Exception $e
      */
     public function addException($e): void
     {

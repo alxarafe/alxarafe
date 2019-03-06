@@ -22,7 +22,7 @@ trait AjaxDataTableTrait
     /**
      * Return the table data using AJAX
      */
-    public function ajaxTableDataMethod()
+    public function ajaxTableDataMethod(): Response
     {
         $this->initialize();
         $this->renderer->setTemplate(null);
@@ -39,10 +39,10 @@ trait AjaxDataTableTrait
         $this->fillActions($data);
 
         $json_data = [
-            "draw" => (int) ($requestData['draw'] ?? null),
-            "recordsTotal" => $recordsTotal ?? null,
-            "recordsFiltered" => $recordsFiltered ?? null,
-            "data" => $data ?? null,
+            'draw' => (int) ($requestData['draw'] ?? null),
+            'recordsTotal' => $recordsTotal ?? null,
+            'recordsFiltered' => $recordsFiltered ?? null,
+            'data' => $data ?? null,
         ];
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
@@ -52,7 +52,7 @@ trait AjaxDataTableTrait
     /**
      * Initialize common properties
      */
-    abstract public function initialize();
+    abstract public function initialize(): void;
 
     /**
      * Realize the search to database table.
@@ -61,15 +61,15 @@ trait AjaxDataTableTrait
      * @param int   $recordsFiltered
      * @param array $requestData
      */
-    private function searchData(array &$data, int &$recordsFiltered, array $requestData = [])
+    private function searchData(array &$data, int &$recordsFiltered, array $requestData = []): void
     {
         // Page to start
         $offset = $requestData['start'];
         // Columns used un table by order
         $columns = $this->getDefaultColumnsSearch();
         // Remove this extra column for search (not in table)
-        if (in_array('col-action', $columns)) {
-            unset($columns[array_search('col-action', $columns)]);
+        if (in_array('col-action', $columns, true)) {
+            unset($columns[array_search('col-action', $columns, true)]);
         }
         // Order
         $order = '';
@@ -113,7 +113,7 @@ trait AjaxDataTableTrait
      *
      * @param $data
      */
-    private function fillActions(&$data)
+    private function fillActions(&$data): void
     {
         foreach ($data as $pos => $item) {
             $id = $item[$this->model->getIdField()];
@@ -121,13 +121,13 @@ trait AjaxDataTableTrait
             foreach ($this->getActionButtons($id) as $actionButton) {
                 $text = Translator::getInstance()->trans($actionButton['text']);
                 $onclick = '';
-                if (isset($actionButton["onclick"])) {
+                if (isset($actionButton['onclick'])) {
                     $onclick = "onclick='{$actionButton["onclick"]}'";
                 }
                 $buttons .= "<a class='{$actionButton["class"]}' type='{$actionButton["type"]}' href='{$actionButton["link"]}' title='{$text}' {$onclick}>"
-                    . "{$actionButton['icon']}"
+                    . $actionButton['icon']
                     . "<span class='hidden-xs hidden-sm hidden-md'>&nbsp;{$text}</span>"
-                    . "</a>";
+                    . '</a>';
             }
             $buttons .= '</div>';
             $data[$pos]['col-action'] = $buttons;
@@ -142,7 +142,7 @@ trait AjaxDataTableTrait
      *
      * @return array
      */
-    abstract public function getActionButtons(string $id = '');
+    abstract public function getActionButtons(string $id = ''): array;
 
     /**
      * Send the Response with data received.
@@ -157,7 +157,7 @@ trait AjaxDataTableTrait
     /**
      * Returns the header for table.
      */
-    public function getTableHeader()
+    public function getTableHeader(): array
     {
         $list = [];
         foreach ($this->viewData as $key => $value) {
@@ -180,7 +180,7 @@ trait AjaxDataTableTrait
     /**
      * Returns the content for the body of table.
      */
-    public function getTableBody()
+    public function getTableBody(): array
     {
         $list = [];
         if (isset($this->postData[$this->tableName])) {
@@ -205,7 +205,7 @@ trait AjaxDataTableTrait
     /**
      * Returns a list of fields for the tablename.
      */
-    public function getListFields()
+    public function getListFields(): array
     {
         $list = [];
         foreach ($this->postData[$this->tableName] as $pos => $valueData) {
@@ -236,9 +236,8 @@ trait AjaxDataTableTrait
     /**
      * Returns a footer list of fields for the table.
      */
-    public function getTableFooter()
+    public function getTableFooter(): array
     {
-        $list = [];
-        return $list;
+        return [];
     }
 }

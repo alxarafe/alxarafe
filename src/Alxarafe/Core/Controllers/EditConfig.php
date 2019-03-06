@@ -9,7 +9,7 @@ namespace Alxarafe\Core\Controllers;
 use Alxarafe\Core\Base\AuthPageController;
 use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Database\Engine;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\RegionalInfo;
@@ -149,7 +149,7 @@ class EditConfig extends AuthPageController
     /**
      * Sets default data values
      */
-    private function setDefaultData()
+    private function setDefaultData(): void
     {
         $translatorConfig = Translator::getInstance()->getConfig();
         $templateRenderConfig = $this->renderer->getConfig();
@@ -184,7 +184,7 @@ class EditConfig extends AuthPageController
      */
     private function regenerateData(): void
     {
-        Utils::executePreprocesses($this->searchDir);
+        ClassUtils::executePreprocesses($this->searchDir);
     }
 
     /**
@@ -266,7 +266,7 @@ class EditConfig extends AuthPageController
      *
      * @link http://stackoverflow.com/a/9328760
      */
-    public function getTimezoneList()
+    public function getTimezoneList(): array
     {
         $zonesArray = [];
         $timestamp = time();

@@ -7,7 +7,8 @@
 namespace Alxarafe\Core\Database;
 
 use Alxarafe\Core\Base\CacheCore;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -83,13 +84,27 @@ abstract class Engine
     protected static $transactionDepth = 0;
 
     /**
+     * PDO Data collector.
+     *
+     * @var PDODataCollector\PDOCollector
+     */
+    protected static $pdoCollector;
+
+    /**
+     * Connection between PHP and a database server.
+     *
+     * @var PDO
+     */
+    protected static $pdo;
+
+    /**
      * Engine constructor
      *
      * @param array $dbConfig
      */
     public function __construct(array $dbConfig)
     {
-        $shortName = Utils::getShortName($this, get_called_class());
+        $shortName = ClassUtils::getShortName($this, static::class);
 
         if (!isset(self::$dbConfig)) {
             self::$dbConfig = $dbConfig;
@@ -106,18 +121,18 @@ abstract class Engine
      */
     public static function getEngines(): array
     {
-        $path = constant('ALXARAFE_FOLDER') . '/Database/Engines';
-        $engines = scandir($path);
+        $path = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'Engines';
+        $engines = FileSystemUtils::scandir($path);
         $ret = [];
         // Unset engines not fully supported
         $unsupported = self::unsupportedEngines();
         foreach ($engines as $engine) {
-            if ($engine != '.' && $engine != '..' && substr($engine, -4) == '.php') {
-                $engine = substr($engine, 0, strlen($engine) - 4);
-                if (in_array($engine, $unsupported)) {
+            if ($engine->getExtension() === 'php') {
+                $engineName = substr($engine->getFilename(), 0, strlen($engine->getFilename()) - strlen($engine->getExtension()) - 1);
+                if (in_array($engineName, $unsupported, true)) {
                     continue;
                 }
-                $ret[] = $engine;
+                $ret[] = $engineName;
             }
         }
         return $ret;
@@ -129,7 +144,7 @@ abstract class Engine
      *
      * @return array
      */
-    public static function unsupportedEngines()
+    public static function unsupportedEngines(): array
     {
         //return [];
         return ['PdoFirebird'];
@@ -154,7 +169,7 @@ abstract class Engine
     /**
      * Execute SQL statements on the database (INSERT, UPDATE or DELETE).
      *
-     * @param string $queries
+     * @param array $queries
      *
      * @return bool
      */
@@ -163,7 +178,7 @@ abstract class Engine
         $ok = true;
         foreach ($queries as $query) {
             $query = trim($query);
-            if ($query != '') {
+            if ($query !== '') {
                 // TODO: The same variables are passed for all queries.
                 $ok &= self::exec($query);
             }
@@ -210,9 +225,10 @@ abstract class Engine
             try {
                 $cacheItem = $cacheEngine->getItem($cachedName);
             } catch (InvalidArgumentException $e) {
+                $cacheItem = null;
                 Logger::getInstance()::exceptionHandler($e);
             }
-            if (!$cacheItem->isHit()) {
+            if ($cacheItem && !$cacheItem->isHit()) {
                 $cacheItem->set(self::select($query, $vars));
                 if ($cacheEngine->save($cacheItem)) {
                     self::$debugTool->addMessage('messages', "Cache data saved to '" . $cachedName . "'.");
@@ -220,9 +236,8 @@ abstract class Engine
                     self::$debugTool->addMessage('messages', 'Cache data not saved.');
                 }
             }
-            if ($cacheEngine->hasItem($cachedName)) {
-                $item = $cacheItem->get();
-                return $item;
+            if ($cacheItem && $cacheEngine->hasItem($cachedName)) {
+                return $cacheItem->get();
             }
             return [];
         }
@@ -260,7 +275,11 @@ abstract class Engine
     {
         $cacheEngine = CacheCore::getInstance()->getEngine();
         if (isset($cacheEngine)) {
-            return $cacheEngine->deleteItem($cachedName);
+            try {
+                return $cacheEngine->deleteItem($cachedName);
+            } catch (InvalidArgumentException $e) {
+                Logger::getInstance()::exceptionHandler($e);
+            }
         }
         return false;
     }
@@ -276,7 +295,7 @@ abstract class Engine
     /**
      * Undo all active transactions
      */
-    final private function rollBackTransactions(): void
+    private function rollBackTransactions(): void
     {
         while (self::$transactionDepth > 0) {
             $this->rollBack();
@@ -292,19 +311,19 @@ abstract class Engine
     {
         $ret = true;
 
-        if (self::$transactionDepth == 0) {
+        if (self::$transactionDepth === 0) {
             throw new PDOException('Rollback error : There is no transaction started');
         }
 
         self::$debugTool->addMessage('SQL', 'Rollback, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
-        if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
+        if (self::$transactionDepth === 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->rollBack();
         } else {
             $transactionDepth = self::$transactionDepth;
             $sql = "ROLLBACK TO SAVEPOINT LEVEL{$transactionDepth};";
-            $this->exec($sql);
+            self::exec($sql);
         }
 
         return $ret;
@@ -317,7 +336,7 @@ abstract class Engine
      */
     final public function getLastInserted(): string
     {
-        $data = $this->select("SELECT @@identity AS id");
+        $data = self::select('SELECT @@identity AS id');
         if (count($data) > 0) {
             return $data[0]['id'];
         }
@@ -346,15 +365,17 @@ abstract class Engine
     public function connect(array $config = []): bool
     {
         if (self::$dbHandler != null) {
-            self::$debugTool->addMessage('SQL', "PDO: Already connected " . self::$dsn);
+            self::$debugTool->addMessage('SQL', 'PDO: Already connected ' . self::$dsn);
             return true;
         }
-        self::$debugTool->addMessage('SQL', "PDO: " . self::$dsn);
+        self::$debugTool->addMessage('SQL', 'PDO: ' . self::$dsn);
         try {
             // Logs SQL queries. You need to wrap your PDO object into a DebugBar\DataCollector\PDO\TraceablePDO object.
             // http://phpdebugbar.com/docs/base-collectors.html
-            self::$dbHandler = new PDODataCollector\TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
-            self::$debugTool->getDebugTool()->addCollector(new PDODataCollector\PDOCollector(self::$dbHandler));
+            self::$pdo = new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config);
+            self::$dbHandler = new PDODataCollector\TraceablePDO(self::$pdo);
+            self::$pdoCollector = new PDODataCollector\PDOCollector(self::$dbHandler);
+            self::$debugTool->getDebugTool()->addCollector(self::$pdoCollector);
         } catch (PDOException $e) {
             Logger::getInstance()::exceptionHandler($e);
             FlashMessages::getInstance()::setError($e->getMessage());
@@ -428,12 +449,12 @@ abstract class Engine
     final public function beginTransaction(): bool
     {
         $ret = true;
-        if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
+        if (self::$transactionDepth === 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->beginTransaction();
         } else {
             $transactionDepth = self::$transactionDepth;
             $sql = "SAVEPOINT LEVEL{$transactionDepth};";
-            $this->exec($sql);
+            self::exec($sql);
         }
 
         self::$transactionDepth++;
@@ -454,12 +475,12 @@ abstract class Engine
         self::$debugTool->addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
-        if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
+        if (self::$transactionDepth === 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->commit();
         } else {
             $transactionDepth = self::$transactionDepth;
             $sql = "RELEASE SAVEPOINT LEVEL{$transactionDepth};";
-            $this->exec($sql);
+            self::exec($sql);
         }
 
         return $ret;
@@ -470,7 +491,7 @@ abstract class Engine
      *
      * @return array
      */
-    final public function getDbStructure()
+    final public function getDbStructure(): array
     {
         return self::$dbStructure;
     }
@@ -494,7 +515,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public function issetDbTableStructure(string $tablename)
+    final public function issetDbTableStructure(string $tablename): bool
     {
         return isset(self::$dbStructure[$tablename]);
     }
@@ -507,7 +528,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public function issetDbTableStructureKey(string $tablename, string $key)
+    final public function issetDbTableStructureKey(string $tablename, string $key): bool
     {
         return isset(self::$dbStructure[$tablename][$key]);
     }
@@ -518,7 +539,7 @@ abstract class Engine
      * @param string $tablename
      * @param array  $data
      */
-    final public function setDbTableStructure(string $tablename, array $data)
+    final public function setDbTableStructure(string $tablename, array $data): void
     {
         self::$dbStructure[$tablename] = $data;
     }

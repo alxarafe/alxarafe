@@ -83,7 +83,7 @@ class FlashMessages
      * @param string $when
      * @param array  $message
      */
-    private static function setFlash(string $when = 'now', array $message = [])
+    private static function setFlash(string $when = 'now', array $message = []): void
     {
         switch ($when) {
             case 'now':

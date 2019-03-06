@@ -4,5 +4,5 @@
 #}
 {% for error in errors %}
     {% include ctrl.getComponent('Alert') with {'message': error} %}
-<!-- <div class="alert alert-danger" role="alert">{{ error }}</div> -->
+    <!-- <div class="alert alert-danger" role="alert">{{ error }}</div> -->
 {% endfor %}

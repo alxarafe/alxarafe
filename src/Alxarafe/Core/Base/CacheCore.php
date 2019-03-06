@@ -26,7 +26,7 @@ class CacheCore
     /**
      * Default life time of cache.
      */
-    const DEFAULT_LIFE_TIME = 0;
+    public const DEFAULT_LIFE_TIME = 0;
 
     /**
      * Engine to cache data.

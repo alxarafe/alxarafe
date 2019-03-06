@@ -56,7 +56,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormatDate()
+    public static function getFormatDate(): string
     {
         return self::$dateFormat;
     }
@@ -64,7 +64,7 @@ class FormatUtils
     /**
      * Load config.
      */
-    public static function loadConfig()
+    public static function loadConfig(): void
     {
         self::$config = RegionalInfo::getInstance()->getConfig();
         if (!empty(self::$config)) {
@@ -82,7 +82,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormatDateTime()
+    public static function getFormatDateTime(): string
     {
         return self::$datetimeFormat;
     }
@@ -92,7 +92,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormatTime()
+    public static function getFormatTime(): string
     {
         return self::$timeFormat;
     }
@@ -104,7 +104,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormattedDate(string $date = '')
+    public static function getFormattedDate(string $date = ''): string
     {
         return self::getFormatted(self::$dateFormat, $date);
     }
@@ -117,7 +117,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormatted(string $style = '', string $time = '')
+    public static function getFormatted(string $style = '', string $time = ''): string
     {
         try {
             $time = ($time === '') ? 'now' : $time;
@@ -136,7 +136,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormattedTime(string $date = '')
+    public static function getFormattedTime(string $date = ''): string
     {
         return self::getFormatted(self::$timeFormat, $date);
     }
@@ -148,7 +148,7 @@ class FormatUtils
      *
      * @return string
      */
-    public static function getFormattedDateTime(string $date = '')
+    public static function getFormattedDateTime(string $date = ''): string
     {
         return self::getFormatted(self::$datetimeFormat ?? '', $date);
     }

@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\PreProcessors;
 
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
@@ -79,16 +79,16 @@ class Models
      * @param string   $baseDir
      * @param string[] $list
      */
-    private function fillList(string $namespace, string $baseDir, array &$list)
+    private function fillList(string $namespace, string $baseDir, array &$list): void
     {
-        $dir = $baseDir . '/Models';
-        Utils::mkdir($dir, 0777, true);
+        $dir = $baseDir . DIRECTORY_SEPARATOR . 'Models';
+        FileSystemUtils::mkdir($dir, 0777, true);
         $models = Finder::create()
             ->files()
             ->name('*.php')
             ->in($dir);
         foreach ($models->getIterator() as $modelFile) {
-            $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
+            $class = str_replace([$dir, '/', '\\', '.php'], '', $modelFile);
             if ($namespace === 'Alxarafe') {
                 $namespace .= '\\Core';
             }
@@ -102,7 +102,7 @@ class Models
      * @param array  $loadedDep
      * @param string $class
      */
-    private function loadClassDependencies(array &$loadedDep, string $class)
+    private function loadClassDependencies(array &$loadedDep, string $class): void
     {
         if (method_exists($class, 'getDependencies')) {
             $deps = (new $class())->getDependencies();
@@ -119,9 +119,9 @@ class Models
      * @param array  $loadedDep
      * @param string $class
      */
-    private function loadClassIfNeeded(array &$loadedDep, string $class)
+    private function loadClassIfNeeded(array &$loadedDep, string $class): void
     {
-        if (!in_array($class, $loadedDep)) {
+        if (!in_array($class, $loadedDep, true)) {
             $loadedDep[] = $class;
             new $class(true);
         }

@@ -10,11 +10,11 @@
     @var type:        input or label
 
     How to use it:
-        {% include "components/radio.html.twig" with {data:{id:'myRadioId', name:'myRadioName', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
+        {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId', name:'myRadioName', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
         <input>
-            {% include "components/radio.html.twig" with {data:{id:'myRadioId1', name:'myRadioName1', text: 'Esto es un placeholder', type: 'input'}} %}
+            {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId1', name:'myRadioName1', text: 'Esto es un placeholder', type: 'input'}} %}
         <label>
-            {% include "components/radio.html.twig" with {data:{id:'myRadioId2', name:'myRadioName2', text: 'Recuerdame', type: 'label'}} %}
+            {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId2', name:'myRadioName2', text: 'Recuerdame', type: 'label'}} %}
 #}
 
 {% if type is defined and type == 'input' %}

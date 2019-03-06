@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\Autoload;
 
-use Exception;
+use RuntimeException;
 
 /**
  * Class Load
@@ -18,7 +18,7 @@ class Load
     /**
      * Message for throw exception.
      */
-    const UNABLE_TO_LOAD = 'Unable to load class';
+    public const UNABLE_TO_LOAD = 'Unable to load class';
     /**
      * Array of directories.
      *
@@ -54,7 +54,7 @@ class Load
         if (!isset(self::$instance)) {
             self::$instance = $this;
             if (empty($dirs)) {
-                $dirs = constant('BASE_PATH') . '/src';
+                $dirs = constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src';
             }
             self::init($dirs);
         }
@@ -66,12 +66,14 @@ class Load
      *
      * @param array|string $dirs
      */
-    public static function init($dirs = [])
+    public static function init($dirs = []): void
     {
         // If composer autoload is available, try to load it.
-        $autoload = "{$dirs}/../vendor/autoload.php";
-        if (is_string($dirs) && file_exists($autoload)) {
-            require_once $autoload;
+        if (is_string($dirs)) {
+            $autoload = $dirs . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+            if (file_exists($autoload)) {
+                require_once $autoload;
+            }
         }
 
         if ($dirs) {
@@ -88,7 +90,7 @@ class Load
      *
      * @param array|string $dirs
      */
-    public static function addDirs($dirs)
+    public static function addDirs($dirs): void
     {
         if (\is_array($dirs)) {
             self::$dirs = array_merge(self::$dirs, $dirs);
@@ -133,7 +135,7 @@ class Load
         if (!$success && !self::loadFile(self::$dirs[0] . DIRECTORY_SEPARATOR . $fn)) {
             // Only throw the exception if missing class is from ower paths
             if (strcmp($class, 'Alxarafe') === 0 || strcmp($class, 'Modules') === 0) {
-                throw new Exception(self::UNABLE_TO_LOAD . ' ' . $class);
+                throw new RuntimeException(self::UNABLE_TO_LOAD . ' ' . $class);
             }
         }
         return $success;

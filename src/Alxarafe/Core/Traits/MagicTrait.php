@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\Traits;
 
-use Exception;
+use RuntimeException;
 
 /**
  * Trait MagicTrait. Contains magic methods: setter, getter, isset, call and has
@@ -38,7 +38,7 @@ trait MagicTrait
     public function __get(string $key)
     {
         $method = 'get' . ucfirst($key);
-        $value = (is_callable([$this, $method])) ? $this->$method() : $this->{$key};
+        $value = is_callable([$this, $method]) ? $this->$method() : $this->{$key};
         return $value ?? null;
     }
 
@@ -67,7 +67,7 @@ trait MagicTrait
      * @param array  $params
      *
      * @return $this|bool|mixed|string|null
-     * @throws Exception
+     * @throws RuntimeException
      */
     public function __call(string $method, array $params)
     {
@@ -83,9 +83,9 @@ trait MagicTrait
             case 'has':
                 return property_exists($this, $key);
             case 'is':
-                return $this->{$key} == true;
+                return $this->{$key} === true;
             default:
-                throw new Exception('Prefix ' . $prefix . ' not yet supported on ' . __CLASS__ . '.');
+                throw new RuntimeException('Prefix ' . $prefix . ' not yet supported on ' . __CLASS__ . '.');
                 break;
         }
     }

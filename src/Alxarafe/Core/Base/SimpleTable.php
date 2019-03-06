@@ -51,7 +51,7 @@ class SimpleTable extends Entity
         if (!isset($this->idField) && Database::getInstance()->getDbEngine()->issetDbTableStructureKey($this->tableName, 'fields')) {
             $this->idField = 'id';
             foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {
-                if (isset($value['key']) && ($value['key'] == 'primary')) {
+                if (isset($value['key']) && ($value['key'] === 'primary')) {
                     $this->idField = $key;
                     break;
                 }
@@ -145,7 +145,7 @@ class SimpleTable extends Entity
         $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
         $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$idField} = :id;";
         $data = Database::getInstance()->getDbEngine()->select($sql, ['id' => $id]);
-        if (!isset($data) || count($data) == 0) {
+        if (!isset($data) || count($data) === 0) {
             $this->newRecord();
             return false;
         }
@@ -235,7 +235,7 @@ class SimpleTable extends Entity
         $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($key);
         $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName} = :value;";
         $data = Database::getInstance()->getDbEngine()->select($sql, ['value' => $value]);
-        if (!isset($data) || count($data) == 0) {
+        if (!isset($data) || count($data) === 0) {
             $this->newRecord();
             return false;
         }
@@ -268,7 +268,7 @@ class SimpleTable extends Entity
      */
     public function getDataArray(string $id = null): array
     {
-        if (isset($id) && ($id != $this->id)) {
+        if (isset($id) && ($id !== $this->id)) {
             $this->getDataById($id);
         }
         return $this->newData;
@@ -299,13 +299,13 @@ class SimpleTable extends Entity
         // We create separate arrays with the modified fields
         foreach ($this->newData as $field => $data) {
             // The first condition is to prevent nulls from becoming empty strings
-            if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] != $this->oldData[$field]) {
+            if ((!isset($this->oldData[$field]) && isset($this->newData['field'])) || $this->newData[$field] !== $this->oldData[$field]) {
                 $values[$field] = $data;
             }
         }
 
         // If there are no modifications, we leave without error.
-        if (count($values) == 0) {
+        if (count($values) === 0) {
             return true;
         }
 
@@ -414,9 +414,11 @@ class SimpleTable extends Entity
     /**
      * Get an array with all data per page.
      *
+     * @param int $offset
+     *
      * @return array
      */
-    public function getAllRecordsPaged($offset = 0): array
+    public function getAllRecordsPaged(int $offset = 0): array
     {
         $limit = constant('DEFAULT_ROWS_PER_PAGE');
         $sql = "SELECT * FROM {$this->getQuotedTableName()} LIMIT {$limit} OFFSET {$offset};";
@@ -438,7 +440,7 @@ class SimpleTable extends Entity
     {
         $sql = $this->searchQuery($query, $columns);
         $limit = constant('DEFAULT_ROWS_PER_PAGE');
-        $sql .= (!empty($order) ? " ORDER BY {$order}" : "")
+        $sql .= (!empty($order) ? " ORDER BY {$order}" : '')
             . " LIMIT {$limit} OFFSET {$offset};";
 
         return Database::getInstance()->getDbEngine()->select($sql);
@@ -454,23 +456,21 @@ class SimpleTable extends Entity
      */
     public function searchQuery(string $query, array $columns = []): string
     {
-        $query = str_replace(" ", "%", $query);
+        $query = str_replace(' ', '%', $query);
 
-        if ($this->getNameField() !== '') {
-            if (empty($columns)) {
-                $columns = [0 => $this->getNameField()];
-            }
+        if ($this->getNameField() !== '' && empty($columns)) {
+            $columns = [0 => $this->getNameField()];
         }
 
         $sql = "SELECT * FROM {$this->getQuotedTableName()}";
         $sep = '';
         if (!empty($columns) && !empty($query)) {
-            $sql .= " WHERE (";
+            $sql .= ' WHERE (';
             foreach ($columns as $pos => $col) {
                 if ($col !== null && $col !== 'col-action') {
                     $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($col);
                     $sql .= $sep . "lower({$fieldName}) LIKE '%" . $query . "%'";
-                    $sep = " OR ";
+                    $sep = ' OR ';
                 }
             }
             $sql .= ')';
@@ -492,7 +492,7 @@ class SimpleTable extends Entity
     {
         $sql = $this->searchQuery($query, $columns);
         $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField());
-        $sql = str_replace("SELECT * ", "SELECT COUNT({$idField}) AS total ", $sql);
+        $sql = str_replace('SELECT * ', "SELECT COUNT({$idField}) AS total ", $sql);
         $data = Database::getInstance()->getDbEngine()->select($sql);
         return empty($data) ? 0 : (int) $data[0]['total'];
     }

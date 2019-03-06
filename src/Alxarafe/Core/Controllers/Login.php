@@ -23,12 +23,12 @@ class Login extends Controller
     /**
      * Cookie time expiration.
      */
-    const COOKIE_EXPIRATION = 86400 * 30;   // 30 days
+    public const COOKIE_EXPIRATION = 2592000;       // 30 days
 
     /**
      * Minimum cookie time expiration.
      */
-    const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
+    public const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
 
     /**
      * Where to redirect if needed.
@@ -50,14 +50,6 @@ class Login extends Controller
      * @var User|null
      */
     private $user = null;
-
-    /**
-     * Login constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Returns the page details.
@@ -93,16 +85,15 @@ class Login extends Controller
                 $username = $this->request->request->get('username');
                 $password = $this->request->request->get('password');
                 if ($this->setUser($username, $password, $remember)) {
-                    FlashMessages::getInstance()::setSuccess($this->translator->trans("user-logged-in", ['%username%' => $username]));
+                    FlashMessages::getInstance()::setSuccess($this->translator->trans('user-logged-in', ['%username%' => $username]));
                     return $this->redirectToController();
-                } else {
-                    FlashMessages::getInstance()::setError($this->translator->trans('user-authentication-error'));
                 }
+                FlashMessages::getInstance()::setError($this->translator->trans('user-authentication-error'));
                 break;
             default:
                 if ($user && $logKey) {
                     $this->username = $this->getCookieUser($remember);
-                    if (is_null($this->username)) {
+                    if ($this->username === null) {
                         $request = $this->request->server->get('REQUEST_URI');
                         if (strpos($request, constant('CALL_CONTROLLER') . '=Login') === false) {
                             $redirectTo = '&redirect=' . \urlencode(base64_encode($request));
@@ -133,9 +124,11 @@ class Login extends Controller
     /**
      * Returns the cookie from the user
      *
+     * @param $remember
+     *
      * @return string|null
      */
-    public function getCookieUser($remember)
+    public function getCookieUser($remember): ?string
     {
         $this->user = new User();
         $user = $this->request->cookies->get('user', '');
@@ -162,7 +155,7 @@ class Login extends Controller
      */
     private function adjustCookieUser(int $time = 0, int $remember = 0): void
     {
-        if ($time == 0) {
+        if ($time === 0) {
             $time = time() - 3600;
             $remember = null;
         }
@@ -200,9 +193,8 @@ class Login extends Controller
         if (!isset($this->username)) {
             $this->renderer->setTemplate('login');
             return $this->sendResponseTemplate();
-        } else {
-            return $this->redirectToController();
         }
+        return $this->redirectToController();
     }
 
     /**
@@ -222,7 +214,7 @@ class Login extends Controller
      *
      * @return string|null
      */
-    public function getUserName()
+    public function getUserName(): ?string
     {
         return $this->username;
     }
@@ -232,7 +224,7 @@ class Login extends Controller
      *
      * @return User|null
      */
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }

@@ -7,7 +7,7 @@
 namespace Alxarafe\Core\Database\SqlHelpers;
 
 use Alxarafe\Core\Database\SqlHelper;
-use Alxarafe\Core\Helpers\Utils;
+use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Providers\Database;
 
 /**
@@ -59,7 +59,7 @@ class SqlFirebird extends SqlHelper
                   WHERE ' . $this->quoteFieldName('RDB$VIEW_BLR') . ' IS NULL
                    AND (' . $this->quoteFieldName('RDB$SYSTEM_FLAG') . ' IS NULL
                     OR ' . $this->quoteFieldName('RDB$SYSTEM_FLAG') . ' = 0);';
-        return Utils::flatArray(Database::getInstance()->getDbEngine()->select($query));
+        return ArrayUtils::flatArray(Database::getInstance()->getDbEngine()->select($query));
     }
 
     /**
@@ -79,6 +79,7 @@ class SqlFirebird extends SqlHelper
      * SQL statement that returns the fields in the table
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */

@@ -8,8 +8,9 @@ namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\AuthPageExtendedController;
 use Alxarafe\Core\Base\CacheCore;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Helpers\FormatUtils;
-use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
@@ -90,7 +91,7 @@ class Modules extends AuthPageExtendedController
             ->sortByName();
         $modulesList = [];
         foreach ($modules as $module) {
-            $modulesList[$module->getFileName()] = str_replace(basePath(), '', $module->getPathName());
+            $modulesList[$module->getFileName()] = str_replace(basePath(DIRECTORY_SEPARATOR), '', $module->getPathName());
         }
         return $modulesList;
     }
@@ -98,7 +99,7 @@ class Modules extends AuthPageExtendedController
     /**
      * Updated all modules to database.
      */
-    private function updateModulesData()
+    private function updateModulesData(): void
     {
         foreach ($this->modulesList as $name => $path) {
             $module = new Module();
@@ -118,7 +119,7 @@ class Modules extends AuthPageExtendedController
      */
     private function regenerateData(): void
     {
-        Utils::executePreprocesses($this->searchDir);
+        ClassUtils::executePreprocesses($this->searchDir);
     }
 
     /**
@@ -179,7 +180,7 @@ class Modules extends AuthPageExtendedController
             }
         }
 
-        Utils::rrmdir(basePath($this->model->path));
+        FileSystemUtils::rrmdir(basePath($this->model->path));
         return parent::deleteMethod();
     }
 
@@ -197,7 +198,7 @@ class Modules extends AuthPageExtendedController
         $id = $this->request->query->get($this->model->getIdField());
         $this->model = new Module();
         if ($this->model->load($id)) {
-            $this->model->enabled = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());;
+            $this->model->enabled = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
             if ($this->model->save()) {
                 FlashMessages::getInstance()::setSuccess(
                     $this->translator->trans('module-enabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
@@ -254,7 +255,7 @@ class Modules extends AuthPageExtendedController
      *
      * @return array
      */
-    public function getExtraActions()
+    public function getExtraActions(): array
     {
         $return = [];
         $return[] = [
@@ -274,7 +275,7 @@ class Modules extends AuthPageExtendedController
      *
      * @return array
      */
-    public function getActionButtons(string $id = '')
+    public function getActionButtons(string $id = ''): array
     {
         $actionButtons = [];
         $actionButtons['enable'] = [
@@ -293,8 +294,7 @@ class Modules extends AuthPageExtendedController
         ];
 
         $actionButtons = array_merge($actionButtons, parent::getActionButtons($id));
-        unset($actionButtons['read']);
-        unset($actionButtons['update']);
+        unset($actionButtons['read'], $actionButtons['update']);
 
         return $actionButtons;
     }
