@@ -303,6 +303,26 @@ param in getInstance</td>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getCsrfToken">getCsrfToken</a>()
+        
+                                            <p>Gets the value of the outgoing CSRF token.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_isValid">isValid</a>(string $csrfToken)
+        
+                                            <p>Checks whether an incoming CSRF token value is valid.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     <abbr title="Aura\Session\Session">Session</abbr>
                 </div>
                 <div class="col-md-8 type">
@@ -419,7 +439,7 @@ param in getInstance</td>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 65</div>
+        <div class="location">at         line 87</div>
         <code>        static            <a href="../../../Alxarafe/Core/Helpers/Session.html"><abbr title="Alxarafe\Core\Helpers\Session">Session</abbr></a>
     <strong>getInstance</strong>()
         </code>
@@ -729,7 +749,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValues">
-        <div class="location">at         line 75</div>
+        <div class="location">at         line 97</div>
         <code>        static            array
     <strong>getDefaultValues</strong>()
         </code>
@@ -830,8 +850,78 @@ param in getInstance</td>
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getCsrfToken">
+        <div class="location">at         line 65</div>
+        <code>                    string
+    <strong>getCsrfToken</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Gets the value of the outgoing CSRF token.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isValid">
+        <div class="location">at         line 77</div>
+        <code>                    bool
+    <strong>isValid</strong>(string $csrfToken)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Checks whether an incoming CSRF token value is valid.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$csrfToken</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getSession">
-        <div class="location">at         line 86</div>
+        <div class="location">at         line 108</div>
         <code>                    <abbr title="Aura\Session\Session">Session</abbr>
     <strong>getSession</strong>()
         </code>
@@ -861,7 +951,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setSegment">
-        <div class="location">at         line 98</div>
+        <div class="location">at         line 120</div>
         <code>                    <a href="../../../Alxarafe/Core/Helpers/Session.html"><abbr title="Alxarafe\Core\Helpers\Session">Session</abbr></a>
     <strong>setSegment</strong>(string $segmentName)
         </code>
@@ -901,7 +991,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at         line 111</div>
+        <div class="location">at         line 133</div>
         <code>                    mixed
     <strong>get</strong>(string $key)
         </code>
@@ -941,7 +1031,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSegment">
-        <div class="location">at         line 121</div>
+        <div class="location">at         line 143</div>
         <code>                    <abbr title="Aura\Session\Segment">Segment</abbr>
     <strong>getSegment</strong>()
         </code>
@@ -971,7 +1061,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_set">
-        <div class="location">at         line 134</div>
+        <div class="location">at         line 156</div>
         <code>                    <abbr title="Alxarafe\Core\Helpers\$this">$this</abbr>
     <strong>set</strong>(string $key, mixed $value)
         </code>
@@ -1016,7 +1106,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setFlash">
-        <div class="location">at         line 148</div>
+        <div class="location">at         line 170</div>
         <code>                    <abbr title="Alxarafe\Core\Helpers\$this">$this</abbr>
     <strong>setFlash</strong>(string $key, mixed $value)
         </code>
@@ -1061,7 +1151,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setFlashNext">
-        <div class="location">at         line 162</div>
+        <div class="location">at         line 184</div>
         <code>                    <abbr title="Alxarafe\Core\Helpers\$this">$this</abbr>
     <strong>setFlashNext</strong>(string $key, mixed $value)
         </code>
@@ -1106,7 +1196,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFlash">
-        <div class="location">at         line 175</div>
+        <div class="location">at         line 197</div>
         <code>                    mixed
     <strong>getFlash</strong>(string $key)
         </code>
@@ -1146,7 +1236,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFlashNow">
-        <div class="location">at         line 187</div>
+        <div class="location">at         line 209</div>
         <code>                    mixed
     <strong>getFlashNow</strong>(string $key)
         </code>
@@ -1186,7 +1276,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setFlashNow">
-        <div class="location">at         line 200</div>
+        <div class="location">at         line 222</div>
         <code>                    <abbr title="Alxarafe\Core\Helpers\$this">$this</abbr>
     <strong>setFlashNow</strong>(string $key, mixed $value)
         </code>
@@ -1231,7 +1321,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFlashNext">
-        <div class="location">at         line 213</div>
+        <div class="location">at         line 235</div>
         <code>                    mixed
     <strong>getFlashNext</strong>(string $key)
         </code>

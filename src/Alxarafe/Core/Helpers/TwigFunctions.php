@@ -104,6 +104,7 @@ class TwigFunctions extends AbstractExtension
             return $flash;
         }
         if (!empty($flash)) {
+            $this->session->getSegment()->clearFlash();
             $return = $flash;
         }
         return $return;
