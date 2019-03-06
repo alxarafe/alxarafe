@@ -238,7 +238,7 @@ class Translator
         if ($this->getLocale() !== self::FALLBACK_LANG) {
             // Is missing for the language configured?
             if ($fallback == $translation) {
-                self::$missingStrings[$reference] = "found in FALLBACK: '$translation'";
+                self::$missingStrings[$reference] = $translation;
             }
         }
 
