@@ -6,16 +6,15 @@
 
 namespace Alxarafe\Core;
 
-use Alxarafe\Core\Autoload\Load;
 use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Helpers\FormatUtils;
 use Alxarafe\Core\Helpers\Session;
-use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\Providers\Config;
 use Alxarafe\Core\Providers\Container;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\Logger;
+use Alxarafe\Core\Providers\ModuleManager;
 use Alxarafe\Core\Providers\RegionalInfo;
 use Alxarafe\Core\Providers\Router;
 use Alxarafe\Core\Providers\TemplateRender;
@@ -244,7 +243,7 @@ class BootStrap
         $this->toContainer();
         // Execute loadModules only if database is working
         if (isset($this->database) && null !== $this->database->getDbEngine()) {
-            $this->loadModules();
+            ModuleManager::getInstance()::initializeModules();
         }
         $this->run();
     }
@@ -262,26 +261,6 @@ class BootStrap
         $this->container::add('config', $this->configData);
         $this->container::add('defaultLang', $this->defaultLang);
         $this->container::add('request', $this->request);
-    }
-
-    /**
-     * Load enabled modules.
-     */
-    private function loadModules(): void
-    {
-        $modules = (new Module())->getEnabledModules();
-        $dirs = [];
-        foreach ($modules as $module) {
-            $dir = basePath($module->path);
-            $dirs[] = $dir;
-            $initFile = $dir . DIRECTORY_SEPARATOR . 'Initializer.php';
-            if (file_exists($initFile)) {
-                $className = '\\Modules\\' . $module->name . '\\' . 'Initializer';
-                $className::init();
-                $this->debugTool->addMessage('messages', "{$className}::init()");
-            }
-        }
-        Load::getInstance()::addDirs($dirs);
     }
 
     /**

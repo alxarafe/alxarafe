@@ -61,7 +61,7 @@ class Logger
     {
         FlashMessages::getInstance()::setError($e->getMessage());
         Kint::dump($e);
-        self::$logger->info(
+        self::$logger->error(
             'Exception [' . $e->getCode() . ']: ' . $e->getMessage() . PHP_EOL
             . $e->getFile() . ':' . $e->getLine() . PHP_EOL
             . $e->getTraceAsString()

@@ -6,10 +6,10 @@
 
 namespace Alxarafe\Core\Providers;
 
-use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Helpers\TwigFilters;
 use Alxarafe\Core\Helpers\TwigFunctions;
-use Alxarafe\Core\Models\Module;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Twig_Environment;
 use Twig_Error_Loader;
 use Twig_Error_Runtime;
@@ -96,6 +96,13 @@ class TemplateRender
     private static $templatesFolder;
 
     /**
+     * Array of all templates folders.
+     *
+     * @var array
+     */
+    private static $templatesFolders;
+
+    /**
      * Contains the template vars.
      *
      * @var array
@@ -114,7 +121,9 @@ class TemplateRender
      */
     public function __construct()
     {
-        if (!isset(self::$twig)) {
+        if (!isset(self::$loader)) {
+            $shortName = ClassUtils::getShortName($this, static::class);
+            DebugTool::getInstance()->startTimer($shortName, $shortName . ' TemplateRender Constructor');
             $this->initSingleton();
             self::$template = null;
             self::$templateVars = [
@@ -126,6 +135,8 @@ class TemplateRender
             $this->setSkin($this->getConfig()['skin'] ?? 'default');
             self::$commonTemplatesFolder = $this->getTemplatesFolder();
             self::$loader = new Twig_Loader_Filesystem($this->getPaths());
+            self::$templatesFolders = [];
+            DebugTool::getInstance()->stopTimer($shortName);
         }
     }
 
@@ -162,6 +173,22 @@ class TemplateRender
     {
         return basePath(self::$templatesFolder);
         //return basePath(self::TEMPLATES_FOLDER);
+    }
+
+    /**
+     * Add additional language folders.
+     *
+     * @param array $folders
+     */
+    public function addDirs(array $folders = [])
+    {
+        $result = [];
+        foreach ($folders as $key => $folder) {
+            $result[$folder['name']] = $folder['path'] . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER;
+            FileSystemUtils::mkdir($result[$folder['name']], 0777, true);
+            DebugTool::getInstance()->addMessage('messages', 'Added template render folder ' . $result[$folder['name']]);
+        }
+        self::$templatesFolders = array_merge(self::$templatesFolders, $result);
     }
 
     /**
@@ -310,8 +337,8 @@ class TemplateRender
      */
     private function loadPaths(): void
     {
-        // Adds without namespace
         try {
+            // Adds without namespace
             self::$loader->addPath($this->getTemplatesFolder());
             self::$loader->addPath($this->getCommonTemplatesFolder());
             self::$loader->addPath(basePath(self::TEMPLATES_FOLDER));
@@ -320,15 +347,12 @@ class TemplateRender
             self::$loader->addPath($this->getCommonTemplatesFolder(), 'Core');
             self::$loader->addPath(basePath(self::TEMPLATES_FOLDER), 'Core');
 
-            $modules = (new Module())->getEnabledModules();
-            foreach (array_reverse($modules) as $module) {
-                $modulePath = basePath($module->path . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER);
-                if (is_dir($modulePath)) {
-                    // Adds without namespace
-                    self::$loader->prependPath($modulePath);
-                    // Adds with namespace Module + $modulePath
-                    self::$loader->prependPath($modulePath, 'Module' . $modulePath);
-                }
+            foreach (self::$templatesFolders as $moduleName => $modulePath) {
+                FileSystemUtils::mkdir($modulePath, 0777, true);
+                // Adds without namespace
+                self::$loader->prependPath($modulePath);
+                // Adds with namespace Module + $modulePath
+                self::$loader->prependPath($modulePath, 'Module' . $moduleName);
             }
         } catch (Twig_Error_Loader $e) {
             Logger::getInstance()::exceptionHandler($e);

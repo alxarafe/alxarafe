@@ -9,9 +9,9 @@ namespace Alxarafe\Core\Controllers;
 use Alxarafe\Core\Base\AuthPageController;
 use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Database\Engine;
-use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
+use Alxarafe\Core\Providers\ModuleManager;
 use Alxarafe\Core\Providers\RegionalInfo;
 use Alxarafe\Core\Providers\Translator;
 use Symfony\Component\HttpFoundation\Response;
@@ -184,7 +184,7 @@ class EditConfig extends AuthPageController
      */
     private function regenerateData(): void
     {
-        ClassUtils::executePreprocesses($this->searchDir);
+        ModuleManager::executePreprocesses($this->searchDir);
     }
 
     /**

@@ -8,10 +8,10 @@ namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Database\Engine;
-use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\Config;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
+use Alxarafe\Core\Providers\ModuleManager;
 use Alxarafe\Core\Providers\RegionalInfo;
 use Alxarafe\Core\Providers\Translator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -229,7 +229,7 @@ class CreateConfig extends Controller
      */
     public function generateMethod(): RedirectResponse
     {
-        ClassUtils::executePreprocesses($this->searchDir);
+        ModuleManager::executePreprocesses($this->searchDir);
         return $this->redirect(baseUrl('index.php?call=Login'));
     }
 

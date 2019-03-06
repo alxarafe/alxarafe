@@ -7,7 +7,6 @@
 namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
-use Alxarafe\Core\Models\Module;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
@@ -72,9 +71,18 @@ class Translator
     private static $missingStrings;
 
     /**
+     * Main language folder.
+     *
      * @var string
      */
     private static $languageFolder;
+
+    /**
+     * Array of all language folders.
+     *
+     * @var array
+     */
+    private static $languageFolders;
 
     /**
      * Lang constructor.
@@ -90,7 +98,7 @@ class Translator
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
             self::$usedStrings = [];
             self::$missingStrings = [];
-
+            self::$languageFolders = [];
             $this->loadLangFiles();
         }
     }
@@ -120,27 +128,31 @@ class Translator
     }
 
     /**
+     * Add additional language folders.
+     *
+     * @param array $folders
+     */
+    public function addDirs(array $folders = [])
+    {
+        foreach ($folders as $key => $folder) {
+            $folders[$key] = $folder . self::LANG_FOLDER;
+            FileSystemUtils::mkdir($folders[$key], 0777, true);
+            DebugTool::getInstance()->addMessage('messages', 'Added translation folder ' . $folders[$key]);
+        }
+        self::$languageFolders = array_merge(self::$languageFolders, $folders);
+        $this->loadLangFiles();
+    }
+
+    /**
      * Return the lang folders.
      *
      * @return array
      */
     public function getLangFolders(): array
     {
-        $morePaths = [];
-
-        // Can be better add a method "addLangFolders/setLangFolders" to set this from outside when was needed?
-        // This introduce class dependency
-//        if (Database::getInstance()->getDbEngine()->checkConnection()) {
-//            $modules = (new Module())->getEnabledModules();
-//            foreach (array_reverse($modules) as $module) {
-//                $morePaths[] = basePath($module->path);
-//            }
-//            var_dump($morePaths);
-//        }
-
         return array_merge(
             [$this->getBaseLangFolder()],
-            $morePaths
+            self::$languageFolders
         );
     }
 

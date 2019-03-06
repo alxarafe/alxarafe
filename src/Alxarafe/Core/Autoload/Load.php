@@ -117,7 +117,7 @@ class Load
      * @param string $class
      *
      * @return bool
-     * @throws Exception
+     * @throws RuntimeException
      */
     public static function autoLoad(string $class): bool
     {

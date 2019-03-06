@@ -15,7 +15,6 @@ use Alxarafe\Core\Base\Table;
  * @property string $name
  * @property string $path
  * @property string $enabled
- * @property string $order
  * @property string $inserted_date
  * @property string $updated_date
  *
@@ -43,15 +42,21 @@ class Module extends Table
     /**
      * Returns an ordered list of enabled modules.
      *
-     * @return array
+     * @return Module[]
      */
     public function getEnabledModules(): array
     {
-        $list = $this->getAllRecordsBy('enabled', 'NULL', '<>', 'enabled ASC');
-        $return = [];
-        foreach ($list as $module) {
-            $return[] = (new Module())->setData($module);
-        }
-        return $return;
+        return $this->getAllRecordsBy('enabled', 'NULL', '<>', '`enabled` ASC');
+    }
+
+
+    /**
+     * Returns a list of modules.
+     *
+     * @return Module[]
+     */
+    public function getAllModules(): array
+    {
+        return $this->getAllRecords();
     }
 }

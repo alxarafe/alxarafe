@@ -8,11 +8,11 @@ namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\AuthPageExtendedController;
 use Alxarafe\Core\Base\CacheCore;
-use Alxarafe\Core\Helpers\Utils\ClassUtils;
-use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Helpers\FormatUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\Providers\FlashMessages;
+use Alxarafe\Core\Providers\ModuleManager;
 use Alxarafe\Core\Providers\Translator;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
@@ -119,7 +119,7 @@ class Modules extends AuthPageExtendedController
      */
     private function regenerateData(): void
     {
-        ClassUtils::executePreprocesses($this->searchDir);
+        ModuleManager::executePreprocesses($this->searchDir);
     }
 
     /**
