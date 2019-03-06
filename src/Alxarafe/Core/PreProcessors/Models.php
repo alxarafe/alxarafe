@@ -79,7 +79,7 @@ class Models
      * @param string   $baseDir
      * @param string[] $list
      */
-    private function fillList(string $namespace, string $baseDir, array &$list)
+    private function fillList(string $namespace, string $baseDir, array &$list): void
     {
         $dir = $baseDir . DIRECTORY_SEPARATOR . 'Models';
         Utils::mkdir($dir, 0777, true);
@@ -88,7 +88,7 @@ class Models
             ->name('*.php')
             ->in($dir);
         foreach ($models->getIterator() as $modelFile) {
-            $class = str_replace([$dir, '/', '\\', '.php'], ['', '', '', ''], $modelFile);
+            $class = str_replace([$dir, '/', '\\', '.php'], '', $modelFile);
             if ($namespace === 'Alxarafe') {
                 $namespace .= '\\Core';
             }
@@ -102,14 +102,14 @@ class Models
      * @param array  $loadedDep
      * @param string $class
      */
-    private function loadClassDependencies(array &$loadedDep, string $class)
+    private function loadClassDependencies(array &$loadedDep, string $class): void
     {
         if (method_exists($class, 'getDependencies')) {
             $deps = (new $class())->getDependencies();
             foreach ($deps as $dep) {
                 $this->loadClassIfNeeded($loadedDep, $dep);
             }
-            $this->loadClassIfNeeded($loadedDep, (string) $class);
+            $this->loadClassIfNeeded($loadedDep, $class);
         }
     }
 
@@ -119,9 +119,9 @@ class Models
      * @param array  $loadedDep
      * @param string $class
      */
-    private function loadClassIfNeeded(array &$loadedDep, string $class)
+    private function loadClassIfNeeded(array &$loadedDep, string $class): void
     {
-        if (!in_array($class, $loadedDep)) {
+        if (!in_array($class, $loadedDep, true)) {
             $loadedDep[] = $class;
             new $class(true);
         }

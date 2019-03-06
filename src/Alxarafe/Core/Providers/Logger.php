@@ -43,7 +43,7 @@ class Logger
             try {
                 // Maybe is needed a different timezone, at this moment sets the same.
                 $timeZone = RegionalInfo::getInstance()->getConfig()['timezone'];
-                self::$logger->setTimezone(new DateTimeZone($timeZone));
+                self::$logger::setTimezone(new DateTimeZone($timeZone));
                 self::$logger->pushHandler(new StreamHandler(basePath(DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'core.log'), MonologLogger::DEBUG));
             } catch (\Exception $e) {
                 Kint::dump($e);
@@ -57,7 +57,7 @@ class Logger
      *
      * @param Exception $e
      */
-    public static function exceptionHandler($e)
+    public static function exceptionHandler($e): void
     {
         FlashMessages::getInstance()::setError($e->getMessage());
         Kint::dump($e);
@@ -94,7 +94,7 @@ class Logger
      *
      * @return MonologLogger
      */
-    public function getLogger()
+    public function getLogger(): MonologLogger
     {
         return self::$logger;
     }

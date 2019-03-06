@@ -139,7 +139,7 @@ class CreateConfig extends Controller
     /**
      * Sets default data values
      */
-    private function setDefaultData()
+    private function setDefaultData(): void
     {
         $templateRenderConfig = $this->renderer->getConfig();
         //$databaseConfig = Database::getDefaultValues();
@@ -257,7 +257,7 @@ class CreateConfig extends Controller
      *
      * @link http://stackoverflow.com/a/9328760
      */
-    public function getTimezoneList()
+    public function getTimezoneList(): array
     {
         $zonesArray = [];
         $timestamp = time();

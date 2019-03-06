@@ -34,7 +34,7 @@ class Schema
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, get_called_class());
+        $shortName = Utils::getShortName($this, static::class);
         self::$debugTool = DebugTool::getInstance();
         self::$debugTool->startTimer($shortName, $shortName . ' Schema Constructor');
         self::$debugTool->stopTimer($shortName);
@@ -69,7 +69,7 @@ class Schema
         $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
         $structure = Database::getInstance()->getDbEngine()->getStructure($tableName, $usePrefix);
         foreach (['schema', 'viewdata'] as $type) {
-            $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type == 'viewdata');
+            $data = self::mergeArray($structure, self::getFromYamlFile($table, $type), $type === 'viewdata');
             $result = $result && self::saveSchemaFileName($data, $tableName, $type);
         }
         return $result;
@@ -297,7 +297,7 @@ class Schema
         }
 
         $dbType = $structure['type'];
-        if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'text', 'float', 'date', 'datetime'])) {
+        if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'text', 'float', 'date', 'datetime'], true)) {
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);

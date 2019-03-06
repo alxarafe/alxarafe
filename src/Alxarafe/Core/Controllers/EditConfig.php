@@ -149,7 +149,7 @@ class EditConfig extends AuthPageController
     /**
      * Sets default data values
      */
-    private function setDefaultData()
+    private function setDefaultData(): void
     {
         $translatorConfig = Translator::getInstance()->getConfig();
         $templateRenderConfig = $this->renderer->getConfig();
@@ -266,7 +266,7 @@ class EditConfig extends AuthPageController
      *
      * @link http://stackoverflow.com/a/9328760
      */
-    public function getTimezoneList()
+    public function getTimezoneList(): array
     {
         $zonesArray = [];
         $timestamp = time();

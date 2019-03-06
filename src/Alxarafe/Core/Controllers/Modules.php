@@ -98,7 +98,7 @@ class Modules extends AuthPageExtendedController
     /**
      * Updated all modules to database.
      */
-    private function updateModulesData()
+    private function updateModulesData(): void
     {
         foreach ($this->modulesList as $name => $path) {
             $module = new Module();
@@ -197,7 +197,7 @@ class Modules extends AuthPageExtendedController
         $id = $this->request->query->get($this->model->getIdField());
         $this->model = new Module();
         if ($this->model->load($id)) {
-            $this->model->enabled = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());;
+            $this->model->enabled = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
             if ($this->model->save()) {
                 FlashMessages::getInstance()::setSuccess(
                     $this->translator->trans('module-enabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
@@ -254,7 +254,7 @@ class Modules extends AuthPageExtendedController
      *
      * @return array
      */
-    public function getExtraActions()
+    public function getExtraActions(): array
     {
         $return = [];
         $return[] = [
@@ -274,7 +274,7 @@ class Modules extends AuthPageExtendedController
      *
      * @return array
      */
-    public function getActionButtons(string $id = '')
+    public function getActionButtons(string $id = ''): array
     {
         $actionButtons = [];
         $actionButtons['enable'] = [
@@ -293,8 +293,7 @@ class Modules extends AuthPageExtendedController
         ];
 
         $actionButtons = array_merge($actionButtons, parent::getActionButtons($id));
-        unset($actionButtons['read']);
-        unset($actionButtons['update']);
+        unset($actionButtons['read'], $actionButtons['update']);
 
         return $actionButtons;
     }

@@ -22,7 +22,7 @@ class AuthController extends Controller
     /**
      * Minimum cookie time expiration.
      */
-    const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
+    public const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
 
     /**
      * The user logged.
@@ -93,7 +93,7 @@ class AuthController extends Controller
                 $this->adjustCookieUser($time, $remember);
                 $return = true;
             }
-        } elseif (!is_null($Auth)) {
+        } elseif ($Auth !== null) {
             Logger::getInstance()->getLogger()->addDebug($this->translator->trans('auth-is-null'));
             // TODO: Check with Auth header if has valid credentials
             $return = true;
@@ -109,13 +109,13 @@ class AuthController extends Controller
      */
     private function adjustCookieUser($time = 0, int $remember = 0): void
     {
-        if ($time == 0) {
+        if ($time === 0) {
             $time = time() - 3600;
             $remember = null;
         }
 
         if ($this->user) {
-            $this->logkey = $this->user->generateLogKey($this->request->getClientIp() ?? '', true);
+            $this->logkey = $this->user->generateLogKey($this->request->getClientIp() ?? '');
         }
         setcookie('user', $this->username, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
         setcookie('logkey', $this->logkey, $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);

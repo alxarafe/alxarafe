@@ -22,7 +22,7 @@ class PdoFirebird extends Engine
     public function __construct(array $dbConfig)
     {
         parent::__construct($dbConfig);
-        self::$dsn = "firebird:dbname=" . self::$dbConfig['dbName'] . ";host=" . self::$dbConfig['dbHost'] . ";charset=UTF8";
+        self::$dsn = 'firebird:dbname=' . self::$dbConfig['dbName'] . ';host=' . self::$dbConfig['dbHost'] . ';charset=UTF8';
     }
 
     /**

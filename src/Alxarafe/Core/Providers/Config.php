@@ -45,7 +45,7 @@ class Config
      *
      * @return array
      */
-    public function getConfigContent()
+    public function getConfigContent(): array
     {
         if (empty($this->configContent)) {
             $allContent = $this->getConfig();
@@ -78,7 +78,7 @@ class Config
     /**
      * Loads some constants.
      */
-    public function loadConstants()
+    public function loadConstants(): void
     {
         /**
          * It is recommended to define BASE_PATH as the first line of the index.php file of the application.

@@ -49,10 +49,10 @@ if (!function_exists('baseUrl')) {
     {
         $folder = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
         $port = '';
-        if (!in_array($_SERVER['SERVER_PORT'], ['80', '443'])) {
+        if (!in_array($_SERVER['SERVER_PORT'], ['80', '443'], false)) {
             $port = ':' . $_SERVER['SERVER_PORT'];
         }
-        $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http')
+        $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
             . '://' . $_SERVER['SERVER_NAME'] . $port . $folder;
 
         return empty($url) ? $baseUrl : $baseUrl . '/' . trim($url, '/');

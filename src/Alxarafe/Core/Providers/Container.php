@@ -55,10 +55,10 @@ class Container
      *
      * @return bool
      */
-    public static function add(string $key, $object, bool $force = false)
+    public static function add(string $key, $object, bool $force = false): bool
     {
         $result = false;
-        if (!isset(self::$container[$key]) || $force) {
+        if ($force || !isset(self::$container[$key])) {
             self::$container[$key] = $object;
             $result = true;
         }

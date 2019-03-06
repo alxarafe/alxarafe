@@ -50,7 +50,7 @@ abstract class SqlHelper
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, get_called_class());
+        $shortName = Utils::getShortName($this, static::class);
         $debugTool = DebugTool::getInstance();
         $debugTool->startTimer($shortName, $shortName . ' SqlHelper Constructor');
 
@@ -98,7 +98,7 @@ abstract class SqlHelper
      */
     public function quoteLiteral($fieldName): string
     {
-        return is_null($fieldName) ? 'NULL' : Database::getInstance()->getSqlHelper()->literalQuote . $fieldName . Database::getInstance()->getSqlHelper()->literalQuote;
+        return $fieldName === null ? 'NULL' : Database::getInstance()->getSqlHelper()->literalQuote . $fieldName . Database::getInstance()->getSqlHelper()->literalQuote;
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class SqlHelper
      *
      * @param string $tableName
      *
-     * @return bool
+     * @return string
      */
     abstract public function tableExists(string $tableName): string;
 
@@ -146,6 +146,7 @@ abstract class SqlHelper
      * }
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return array
      */
@@ -168,6 +169,7 @@ abstract class SqlHelper
      * SQL statement that returns the fields in the table
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */

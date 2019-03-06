@@ -21,7 +21,7 @@ class TwigFilters extends AbstractExtension
      *
      * @return \Twig_SimpleFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('test', [$this, 'test']),

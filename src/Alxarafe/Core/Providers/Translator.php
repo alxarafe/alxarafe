@@ -28,27 +28,27 @@ class Translator
     /**
      * Default language to use if language file not exists.
      */
-    const FALLBACK_LANG = 'en';
+    public const FALLBACK_LANG = 'en';
 
     /**
      * Base folder where languages files are stored.
      */
-    const LANG_FOLDER = DIRECTORY_SEPARATOR . 'Languages';
+    public const LANG_FOLDER = DIRECTORY_SEPARATOR . 'Languages';
 
     /**
      * Default language to use.
      */
-    const LANG = 'es_ES';
+    public const LANG = 'es_ES';
 
     /**
      * Extension of language file.
      */
-    const EXT = '.yaml';
+    public const EXT = '.yaml';
 
     /**
      * Format of language file.
      */
-    const FORMAT = 'yaml';
+    public const FORMAT = 'yaml';
 
     /**
      * The Symfony translator.
@@ -231,7 +231,7 @@ class Translator
      * @param string $reference
      * @param string $translation
      */
-    private function verifyMissing($reference, $translation)
+    private function verifyMissing($reference, $translation): void
     {
         self::$usedStrings[] = $reference;
 
@@ -282,7 +282,7 @@ class Translator
      *
      * @return SymfonyTranslator
      */
-    public function getTranslator()
+    public function getTranslator(): SymfonyTranslator
     {
         return self::$translator;
     }

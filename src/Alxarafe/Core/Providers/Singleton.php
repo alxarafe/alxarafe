@@ -86,7 +86,7 @@ trait Singleton
      */
     private static function getClassName(): string
     {
-        $class = get_called_class();
+        $class = static::class;
         return Utils::getShortName($class, $class);
     }
 
@@ -117,8 +117,6 @@ trait Singleton
 
     /**
      * Returns the content of the Yaml file.
-     *
-     * @param string $index
      *
      * @return array
      */
@@ -214,7 +212,7 @@ trait Singleton
     /**
      * Initialization, equivalent to __construct and must be called from main class.
      */
-    protected function initSingleton()
+    protected function initSingleton(): void
     {
         self::$instances = [];
         self::$className = self::getClassName();

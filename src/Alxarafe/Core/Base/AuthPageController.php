@@ -9,6 +9,7 @@ namespace Alxarafe\Core\Base;
 use Alxarafe\Core\Models\Page;
 use Alxarafe\Core\Models\RolePage;
 use Alxarafe\Core\Models\UserRole;
+use Alxarafe\Core\Providers\Logger;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -152,12 +153,19 @@ abstract class AuthPageController extends AuthController
      */
     public function pageDetails(): array
     {
+        try {
+            $random = random_int(PHP_INT_MIN, PHP_INT_MAX);
+        } catch (\Exception $e) {
+            Logger::getInstance()::exceptionHandler($e);
+            $random = rand(PHP_INT_MIN, PHP_INT_MAX);
+        }
         $details = [
-            'title' => 'Default title ' . random_int(PHP_INT_MIN, PHP_INT_MAX),
+            'title' => 'Default title ' . $random,
             'icon' => '<i class="fas fa-info-circle"></i>',
             'description' => 'If you can read this, you are missing pageDetails() on your page class.',
             'menu' => 'default',
         ];
+
         return $details;
     }
 
@@ -265,7 +273,7 @@ abstract class AuthPageController extends AuthController
     /**
      * Load perms for this user.
      */
-    private function loadPerms()
+    private function loadPerms(): void
     {
         $this->canCreate = $this->canAction('create');
         $this->canRead = $this->canAction('read');
@@ -299,7 +307,7 @@ abstract class AuthPageController extends AuthController
      */
     private function canAction(string $action): bool
     {
-        $pages = [];
+        $pages = [[]];
 
         if ($this->roles === null) {
             $this->roles = (new UserRole())->getAllRecordsBy('id_user', $this->user->getId());
@@ -308,19 +316,20 @@ abstract class AuthPageController extends AuthController
             foreach ($this->roles as $pos => $role) {
                 // If it's in role superadmin or admin
                 $allowedRoles = [1, 2];
-                if (in_array($role['id'], $allowedRoles)) {
+                if (in_array($role['id'], $allowedRoles, false)) {
                     return true;
                 }
 
                 if ($pagesAccess = (new RolePage())->getAllRecordsBy('id_role', $role['id'])) {
-                    $pages = array_merge($pages, $pagesAccess);
+                    $pages[] = $pagesAccess;
                 }
             }
         }
+        $pages = array_merge(...$pages);
 
         $action = 'can_' . $action;
         foreach ($pages as $page) {
-            if ($page->controller == $this->shortName && $page->{$action} == 1) {
+            if ($page->controller === $this->shortName && $page->{$action} === 1) {
                 return true;
             }
         }

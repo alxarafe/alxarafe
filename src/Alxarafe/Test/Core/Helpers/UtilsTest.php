@@ -1,4 +1,5 @@
 <?php
+
 namespace Alxarafe\Test\Core\Helpers;
 
 use Alxarafe\Core\Helpers\Utils;
@@ -13,23 +14,6 @@ class UtilsTest extends TestCase
      * @var Utils
      */
     protected $object;
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = new Utils;
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
 
     /**
      * @use Utils::camelToSnake
@@ -58,10 +42,10 @@ class UtilsTest extends TestCase
     {
         $test = 'TEST_DEFINE';
         $definedBefore = false;
-        $definedAfter= false;
+        $definedAfter = false;
         if (defined($test)) {
             $definedBefore = true;
-            $definedAfter= true;
+            $definedAfter = true;
         }
         $this->object::defineIfNotExists($test, $test);
         if (defined($test)) {
@@ -149,18 +133,18 @@ class UtilsTest extends TestCase
         $array1 = [
             'a' => 'a',
             'b' => ['b1' => 'b1', 'b2' => 'b2'],
-            'c' => 'c'
+            'c' => 'c',
         ];
         $array2 = [
             'a' => 'a',
             'b' => ['b1' => 'b3'],
-            'd' => 'd'
+            'd' => 'd',
         ];
         $array3 = [
             'a' => 'a',
             'b' => ['b1' => 'b3', 'b2' => 'b2'],
             'c' => 'c',
-            'd' => 'd'
+            'd' => 'd',
         ];
         $array4 = [];
         $this->assertSame($this->object::arrayMergeRecursiveEx($array1, $array2), $array3);
@@ -168,7 +152,7 @@ class UtilsTest extends TestCase
     }
 
     /**
-     * @use Utils::executePreprocesses
+     * @use    Utils::executePreprocesses
      * @todo   Implement testExecutePreprocesses().
      */
     public function testExecutePreprocesses()
@@ -199,5 +183,22 @@ class UtilsTest extends TestCase
         $this->assertDirectoryExists($folder);
         $this->assertTrue(Utils:: rrmdir($folder));
         $this->assertDirectoryNotExists($folder);
+    }
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->object = new Utils;
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
     }
 }

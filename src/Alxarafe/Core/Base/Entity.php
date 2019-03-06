@@ -83,7 +83,7 @@ abstract class Entity
     public function __construct()
     {
         $this->debugTool = DebugTool::getInstance();
-        $this->shortName = Utils::getShortName($this, get_called_class());
+        $this->shortName = Utils::getShortName($this, static::class);
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Entity Constructor');
         $this->debugTool->stopTimer($this->shortName);
     }
@@ -93,7 +93,7 @@ abstract class Entity
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id ?? '';
     }
@@ -115,7 +115,7 @@ abstract class Entity
      *
      * @return $this
      */
-    public function setData(array $data)
+    public function setData(array $data): self
     {
         $this->id = $data[$this->getIdField()] ?? null;
         $this->newData = $data;
@@ -160,7 +160,7 @@ abstract class Entity
      *
      * @return $this
      */
-    public function setOldData(array $data)
+    public function setOldData(array $data): self
     {
         $this->id = $data[$this->getIdField()] ?? null;
         $this->oldData = $data;

@@ -35,7 +35,7 @@ class BootStrap
     /**
      * Fallback language.
      */
-    const FALLBACK_LANG = 'en';
+    public const FALLBACK_LANG = 'en';
 
     /**
      * Return current Unix timestamp with microseconds.
@@ -221,7 +221,7 @@ class BootStrap
      *
      * @return self
      */
-    public static function getInstance()
+    public static function getInstance(): self
     {
         return self::$instance;
     }
@@ -231,7 +231,7 @@ class BootStrap
      *
      * @return float
      */
-    public static function getStartTime()
+    public static function getStartTime(): float
     {
         return self::$startTimer;
     }
@@ -239,7 +239,7 @@ class BootStrap
     /**
      * Initialize the class.
      */
-    public function init()
+    public function init(): void
     {
         $this->toContainer();
         // Execute loadModules only if database is working
@@ -252,7 +252,7 @@ class BootStrap
     /**
      * Put it to a container, to be accessible from any place.
      */
-    private function toContainer()
+    private function toContainer(): void
     {
         $configFiles = [
             'config' => $this->configManager->getFilePath(),
@@ -267,7 +267,7 @@ class BootStrap
     /**
      * Load enabled modules.
      */
-    private function loadModules()
+    private function loadModules(): void
     {
         $modules = (new Module())->getEnabledModules();
         $dirs = [];
@@ -287,14 +287,14 @@ class BootStrap
     /**
      *
      */
-    public function run()
+    public function run(): void
     {
         $call = $this->request->query->get(constant('CALL_CONTROLLER'));
         $call = !empty($call) ? $call : constant('DEFAULT_CONTROLLER');
         $method = $this->request->query->get(constant('METHOD_CONTROLLER'));
         $method = !empty($method) ? $method : constant('DEFAULT_METHOD');
 
-        if (!$this->configManager->configFileExists() && $call !== 'CreateConfig') {
+        if ($call !== 'CreateConfig' && !$this->configManager->configFileExists()) {
             $time = time() - 3600;
             setcookie('user', '', $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);
             setcookie('logkey', '', $time, constant('APP_URI'), $_SERVER['HTTP_HOST']);

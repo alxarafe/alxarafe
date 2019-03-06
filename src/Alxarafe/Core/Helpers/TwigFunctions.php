@@ -53,7 +53,7 @@ class TwigFunctions extends AbstractExtension
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, get_called_class());
+        $shortName = Utils::getShortName($this, static::class);
         $this->debugTool = DebugTool::getInstance();
         $this->debugTool->startTimer($shortName, $shortName . ' TwigFunctions Constructor');
 
@@ -69,7 +69,7 @@ class TwigFunctions extends AbstractExtension
      *
      * @return TwigFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('flash', [$this, 'flash']),
@@ -125,7 +125,7 @@ class TwigFunctions extends AbstractExtension
      *
      * @return string
      */
-    public function getTotalTime($inMilliseconds = true)
+    public function getTotalTime($inMilliseconds = true): string
     {
         $execTime = microtime(true) - BootStrap::getInstance()::getStartTime();
         return $inMilliseconds ? round($execTime * 1000, 3) . ' ms' : $execTime . ' s';

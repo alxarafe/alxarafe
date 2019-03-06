@@ -86,7 +86,7 @@ class Routes
      * @param string $namespace
      * @param string $className
      */
-    private function instantiateClass(string $namespace, string $className)
+    private function instantiateClass(string $namespace, string $className): void
     {
         if ($namespace === 'Alxarafe') {
             $namespace .= '\\Core';

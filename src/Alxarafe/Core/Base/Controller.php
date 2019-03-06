@@ -101,7 +101,7 @@ abstract class Controller
      */
     public function __construct()
     {
-        $this->shortName = Utils::getShortName($this, get_called_class());
+        $this->shortName = Utils::getShortName($this, static::class);
         $this->container = Container::getInstance();
         $this->debugTool = DebugTool::getInstance();
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Controller Constructor');

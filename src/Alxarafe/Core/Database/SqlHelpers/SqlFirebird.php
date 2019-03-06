@@ -79,6 +79,7 @@ class SqlFirebird extends SqlHelper
      * SQL statement that returns the fields in the table
      *
      * @param string $tableName
+     * @param bool   $usePrefix
      *
      * @return string
      */

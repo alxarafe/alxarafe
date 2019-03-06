@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\Autoload;
 
-use Exception;
+use RuntimeException;
 
 /**
  * Class Load
@@ -18,7 +18,7 @@ class Load
     /**
      * Message for throw exception.
      */
-    const UNABLE_TO_LOAD = 'Unable to load class';
+    public const UNABLE_TO_LOAD = 'Unable to load class';
     /**
      * Array of directories.
      *
@@ -66,7 +66,7 @@ class Load
      *
      * @param array|string $dirs
      */
-    public static function init($dirs = [])
+    public static function init($dirs = []): void
     {
         // If composer autoload is available, try to load it.
         if (is_string($dirs)) {
@@ -90,7 +90,7 @@ class Load
      *
      * @param array|string $dirs
      */
-    public static function addDirs($dirs)
+    public static function addDirs($dirs): void
     {
         if (\is_array($dirs)) {
             self::$dirs = array_merge(self::$dirs, $dirs);
@@ -135,7 +135,7 @@ class Load
         if (!$success && !self::loadFile(self::$dirs[0] . DIRECTORY_SEPARATOR . $fn)) {
             // Only throw the exception if missing class is from ower paths
             if (strcmp($class, 'Alxarafe') === 0 || strcmp($class, 'Modules') === 0) {
-                throw new Exception(self::UNABLE_TO_LOAD . ' ' . $class);
+                throw new RuntimeException(self::UNABLE_TO_LOAD . ' ' . $class);
             }
         }
         return $success;

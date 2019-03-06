@@ -83,22 +83,22 @@ class Utils
      */
     public static function flatArray(array $array): array
     {
-        $ret = [];
+        $ret = [[]];
         foreach ($array as $value) {
             if (is_array($value)) {
                 // We expect that the indexes will not overlap
-                $ret = array_merge($ret, self::flatArray($value));
+                $ret[] = self::flatArray($value);
             } else {
                 $ret[] = strtolower(trim($value));
             }
         }
-        return $ret;
+        return array_merge(...$ret);
     }
 
     /**
      * Add the elements of the 2nd array behind those of the first.
      *
-     * @param array $intialArray
+     * @param array $initialArray
      * @param array $nextArray
      *
      * @return array
@@ -122,7 +122,7 @@ class Utils
      */
     public static function isTrue(array $param, $key): bool
     {
-        return (isset($param[$key]) && (in_array($param[$key], ['yes', 'true', '1', 1])));
+        return (isset($param[$key]) && in_array($param[$key], ['yes', 'true', '1', 1], true));
     }
 
     /**
@@ -152,17 +152,20 @@ class Utils
      */
     public static function randomString($length = 16): string
     {
-        if (function_exists("openssl_random_pseudo_bytes")) {
-            $bytes = openssl_random_pseudo_bytes($length);
-        } elseif (function_exists("random_bytes")) {
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            $bytes = openssl_random_pseudo_bytes($length, $cstrong);
+            if (!$cstrong || !$bytes) {
+                $bytes = self::randomString($length);
+            }
+        } elseif (function_exists('random_bytes')) {
             try {
                 $bytes = random_bytes($length);
             } catch (\Exception $e) {
                 Logger::getInstance()::exceptionHandler($e);
-                self::randomString($length);
+                $bytes = self::randomString($length);
             }
         } else {
-            return mb_substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $length);
+            $bytes = mb_substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $length);
         }
         return bin2hex($bytes);
     }
@@ -175,7 +178,7 @@ class Utils
      *
      * @return string
      */
-    public static function getShortName($objectClass, $calledClass)
+    public static function getShortName($objectClass, $calledClass): string
     {
         try {
             $shortName = (new ReflectionClass($objectClass))->getShortName();
@@ -196,13 +199,13 @@ class Utils
      *
      * @return array
      */
-    public static function arrayMergeRecursiveEx(array &$array1, array &$array2)
+    public static function arrayMergeRecursiveEx(array &$array1, array &$array2): array
     {
         $merged = $array1;
         foreach ($array2 as $key => &$value) {
             if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
                 $merged[$key] = self::arrayMergeRecursiveEx($merged[$key], $value);
-            } elseif (is_numeric($key) && !in_array($value, $merged)) {
+            } elseif (is_numeric($key) && !in_array($value, $merged, false)) {
                 $merged[] = $value;
             } else {
                 $merged[$key] = $value;
@@ -216,7 +219,7 @@ class Utils
      *
      * @param array $searchDir
      */
-    public static function executePreprocesses(array $searchDir)
+    public static function executePreprocesses(array $searchDir): void
     {
         if (!set_time_limit(0)) {
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('cant-increase-time-limit'));
@@ -245,17 +248,15 @@ class Utils
      *
      * @return bool
      */
-    public static function rrmdir(string $path)
+    public static function rrmdir(string $path): bool
     {
         // Open the source directory to read in files
         $i = new DirectoryIterator($path);
         foreach ($i as $f) {
             if ($f->isFile()) {
                 unlink($f->getRealPath());
-            } else {
-                if (!$f->isDot() && $f->isDir()) {
-                    self::rrmdir($f->getRealPath());
-                }
+            } elseif (!$f->isDot() && $f->isDir()) {
+                self::rrmdir($f->getRealPath());
             }
         }
         return rmdir($path);
@@ -272,7 +273,7 @@ class Utils
      *
      * @return bool
      */
-    public static function mkdir($dir, $mode = 0777, $recursive = false)
+    public static function mkdir($dir, $mode = 0777, $recursive = false): bool
     {
         return !is_dir($dir) && !mkdir($dir, $mode, $recursive) && !is_dir($dir);
     }

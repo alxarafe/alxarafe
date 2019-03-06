@@ -11,6 +11,9 @@ use Alxarafe\Core\Helpers\TwigFunctions;
 use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Models\Module;
 use Twig_Environment;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
 use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
 
@@ -32,18 +35,18 @@ class TemplateRender
      * Each template will be a folder whose name will be the one that will
      * appear in the template selector.
      */
-    const SKINS_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'skins';
+    public const SKINS_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'skins';
 
     /**
      * Folder containing the different twig templates
      */
-    const TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'templates';
+    public const TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'templates';
 
     /**
      * Folder that contains templates common to the entire application, but
      * that can be overwritten.
      */
-    const COMMON_TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'common';
+    public const COMMON_TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'common';
 
     /**
      * The renderer.
@@ -185,32 +188,6 @@ class TemplateRender
     }
 
     /**
-     * Load paths, including modules.
-     */
-    private function loadPaths(): void
-    {
-        // Adds without namespace
-        self::$loader->addPath($this->getTemplatesFolder());
-        self::$loader->addPath($this->getCommonTemplatesFolder());
-        self::$loader->addPath(basePath(self::TEMPLATES_FOLDER));
-        // Adds with namespace Core
-        self::$loader->addPath($this->getTemplatesFolder(), 'Core');
-        self::$loader->addPath($this->getCommonTemplatesFolder(), 'Core');
-        self::$loader->addPath(basePath(self::TEMPLATES_FOLDER), 'Core');
-
-        $modules = (new Module())->getEnabledModules();
-        foreach (array_reverse($modules) as $module) {
-            $modulePath = basePath($module->path . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER);
-            if (is_dir($modulePath)) {
-                // Adds without namespace
-                self::$loader->prependPath($modulePath);
-                // Adds with namespace Module + $modulePath
-                self::$loader->prependPath($modulePath, 'Module' . $modulePath);
-            }
-        }
-    }
-
-    /**
      * Return the common template folder path.
      *
      * @return string
@@ -218,6 +195,79 @@ class TemplateRender
     public function getCommonTemplatesFolder(): string
     {
         return basePath(self::COMMON_TEMPLATES_FOLDER);
+    }
+
+    /**
+     * Return this instance.
+     *
+     * @return self
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        return ['skin' => 'default'];
+    }
+
+    /**
+     * Sets a new twig environment.
+     *
+     * @param Twig_Environment $twig
+     *
+     * @return $this
+     */
+    public function setTwig(Twig_Environment $twig): self
+    {
+        self::$twig = $twig;
+        return $this;
+    }
+
+    /**
+     * Renders a template.
+     *
+     * @param array $data An array of parameters to pass to the template
+     *
+     * @return string The rendered template
+     */
+    public function render(array $data = []): string
+    {
+        try {
+            $render = $this->getTwig()->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
+        } catch (Twig_Error_Loader $e) {
+            $render = '';
+            // When the template cannot be found
+            Logger::getInstance()::exceptionHandler($e);
+        } catch (Twig_Error_Runtime $e) {
+            $render = '';
+            // When an error occurred during rendering
+            Logger::getInstance()::exceptionHandler($e);
+        } catch (Twig_Error_Syntax $e) {
+            $render = '';
+            // When an error occurred during compilation
+            Logger::getInstance()::exceptionHandler($e);
+        }
+        return $render;
+    }
+
+    /**
+     * Return the full twig environtment.
+     *
+     * @return Twig_Environment
+     */
+    private function getTwig(): Twig_Environment
+    {
+        self::$twig = new Twig_Environment(self::$loader, $this->getOptions());
+        $this->addExtensions();
+        $this->loadPaths();
+        return self::$twig;
     }
 
     /**
@@ -256,76 +306,33 @@ class TemplateRender
     }
 
     /**
-     * Return this instance.
-     *
-     * @return self
+     * Load paths, including modules.
      */
-    public static function getInstance(): self
+    private function loadPaths(): void
     {
-        return self::getInstanceTrait();
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    public static function getDefaultValues(): array
-    {
-        return ['skin' => 'default'];
-    }
-
-    /**
-     * Return the full twig environtment.
-     *
-     * @return Twig_Environment
-     */
-    private function getTwig(): Twig_Environment
-    {
-        self::$twig = new Twig_Environment(self::$loader, $this->getOptions());
-        $this->addExtensions();
-        $this->loadPaths();
-        return self::$twig;
-    }
-
-    /**
-     * Sets a new twig environment.
-     *
-     * @param Twig_Environment $twig
-     *
-     * @return $this
-     */
-    public function setTwig(Twig_Environment $twig): self
-    {
-        self::$twig = $twig;
-        return $this;
-    }
-
-    /**
-     * Renders a template.
-     *
-     * @param array $data An array of parameters to pass to the template
-     *
-     * @return string The rendered template
-     */
-    public function render(array $data = []): string
-    {
+        // Adds without namespace
         try {
-            $render = $this->getTwig()->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
-        } catch (\Twig_Error_Loader $e) {
-            $render = '';
-            // When the template cannot be found
-            Logger::getInstance()::exceptionHandler($e);
-        } catch (\Twig_Error_Runtime $e) {
-            $render = '';
-            // When an error occurred during rendering
-            Logger::getInstance()::exceptionHandler($e);
-        } catch (\Twig_Error_Syntax $e) {
-            $render = '';
-            // When an error occurred during compilation
+            self::$loader->addPath($this->getTemplatesFolder());
+            self::$loader->addPath($this->getCommonTemplatesFolder());
+            self::$loader->addPath(basePath(self::TEMPLATES_FOLDER));
+            // Adds with namespace Core
+            self::$loader->addPath($this->getTemplatesFolder(), 'Core');
+            self::$loader->addPath($this->getCommonTemplatesFolder(), 'Core');
+            self::$loader->addPath(basePath(self::TEMPLATES_FOLDER), 'Core');
+
+            $modules = (new Module())->getEnabledModules();
+            foreach (array_reverse($modules) as $module) {
+                $modulePath = basePath($module->path . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER);
+                if (is_dir($modulePath)) {
+                    // Adds without namespace
+                    self::$loader->prependPath($modulePath);
+                    // Adds with namespace Module + $modulePath
+                    self::$loader->prependPath($modulePath, 'Module' . $modulePath);
+                }
+            }
+        } catch (Twig_Error_Loader $e) {
             Logger::getInstance()::exceptionHandler($e);
         }
-        return $render;
     }
 
     /**

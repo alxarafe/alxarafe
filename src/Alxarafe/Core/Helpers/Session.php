@@ -41,13 +41,13 @@ class Session
      */
     public function __construct()
     {
-        $shortName = Utils::getShortName($this, get_called_class());
+        $shortName = Utils::getShortName($this, static::class);
         $debugTool = DebugTool::getInstance();
         $debugTool->startTimer($shortName, $shortName . ' Constructor');
 
         if ($this->session === null) {
             $this->session = (new SessionFactory())->newInstance($_COOKIE);
-            if (session_status() == PHP_SESSION_NONE) {
+            if (session_status() === PHP_SESSION_NONE) {
                 $this->session->start();
             }
             // https://github.com/auraphp/Aura.Session#cross-site-request-forgery
@@ -82,7 +82,7 @@ class Session
      *
      * @return \Aura\Session\Session
      */
-    public function getSession()
+    public function getSession(): \Aura\Session\Session
     {
         return $this->session;
     }
@@ -91,10 +91,13 @@ class Session
      * Sets segment name.
      *
      * @param string $segmentName
+     *
+     * @return Session
      */
-    public function setSegment(string $segmentName)
+    public function setSegment(string $segmentName): self
     {
         $this->segmentName = $segmentName;
+        return $this;
     }
 
     /**
@@ -114,7 +117,7 @@ class Session
      *
      * @return \Aura\Session\Segment
      */
-    public function getSegment()
+    public function getSegment(): \Aura\Session\Segment
     {
         return $this->session->getSegment($this->segmentName);
     }
@@ -124,10 +127,13 @@ class Session
      *
      * @param string $key
      * @param mixed  $value
+     *
+     * @return $this
      */
-    public function set(string $key, $value)
+    public function set(string $key, $value): self
     {
         $this->getSegment()->set($key, $value);
+        return $this;
     }
 
     /**
@@ -135,10 +141,13 @@ class Session
      *
      * @param string $key
      * @param mixed  $value
+     *
+     * @return $this
      */
-    public function setFlash(string $key, $value)
+    public function setFlash(string $key, $value): self
     {
         $this->setFlashNext($key, $value);
+        return $this;
     }
 
     /**
@@ -146,10 +155,13 @@ class Session
      *
      * @param string $key
      * @param mixed  $value
+     *
+     * @return $this
      */
-    public function setFlashNext(string $key, $value)
+    public function setFlashNext(string $key, $value): self
     {
         $this->getSegment()->setFlash($key, $value);
+        return $this;
     }
 
     /**
@@ -181,10 +193,13 @@ class Session
      *
      * @param string $key
      * @param mixed  $value
+     *
+     * @return $this
      */
-    public function setFlashNow(string $key, $value)
+    public function setFlashNow(string $key, $value): self
     {
         $this->getSegment()->setFlashNow($key, $value);
+        return $this;
     }
 
     /**
