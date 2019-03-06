@@ -175,7 +175,7 @@ abstract class Engine
                 $ok &= self::exec($query);
             }
         }
-        return $ok;
+        return (bool) $ok;
     }
 
     /**

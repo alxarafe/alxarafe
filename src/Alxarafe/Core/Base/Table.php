@@ -286,6 +286,6 @@ class Table extends SimpleTable
             $this->newData = $value;
             $ret &= $this->save();
         }
-        return $ret;
+        return (bool) $ret;
     }
 }
