@@ -7,9 +7,7 @@
  * Customized style to have numbered lines in PHP Debug Bar's Database tab
  */
 (function ($) {
-
     var csscls = PhpDebugBar.utils.makecsscls("phpdebugbar-widgets-");
-
     /**
      * Displays array element in a <ul> list
      *
@@ -18,18 +16,14 @@
      *  - itemRenderer: a function used to render list items (optional)
      */
     var ListWidget = PhpDebugBar.Widgets.ListWidget = PhpDebugBar.Widget.extend({
-
         tagName: "ol",
-
         className: csscls("list"),
-
         initialize: function (options) {
             if (!options["itemRenderer"]) {
                 options["itemRenderer"] = this.itemRenderer;
             }
             this.set(options);
         },
-
         render: function () {
             this.bindAttr(["itemRenderer", "data"], function () {
                 this.$el.empty();
@@ -44,7 +38,6 @@
                 }
             });
         },
-
         /**
          * Renders the content of a <li> element
          *
@@ -54,7 +47,6 @@
         itemRenderer: function (li, value) {
             li.html(renderValue(value));
         }
-
     });
 
     /**
@@ -64,9 +56,7 @@
      *  - data
      */
     var SQLQueriesWidget = PhpDebugBar.Widgets.SQLQueriesWidget = PhpDebugBar.Widget.extend({
-
         className: csscls("sqlqueries"),
-
         onFilterClick: function (el) {
             $(el).toggleClass(csscls("excluded"));
 
@@ -79,7 +69,6 @@
 
             this.set("exclude", excludedLabels);
         },
-
         render: function () {
             this.$status = $("<div />").addClass(csscls("status")).appendTo(this.$el);
 
@@ -185,7 +174,6 @@
                 }
             });
         }
-
     });
 
     /**
@@ -195,15 +183,13 @@
      *  - data
      */
     var TranslationsWidget = PhpDebugBar.Widgets.TranslationsWidget = PhpDebugBar.Widget.extend({
-
         className: csscls('translations'),
-
         render: function () {
             this.$status = $('<div />').addClass(csscls('status')).appendTo(this.$el);
 
             this.$list = new PhpDebugBar.Widgets.ListWidget({
                 itemRenderer: function (li, translation) {
-                    var text = translation.key + " => " + translation.value;
+                    var text = translation.key + ": " + translation.value;
                     if (translation.key == translation.value) {
                         var $line = $('<span/>').addClass(csscls('name')).addClass('text-danger').text(text);
                     } else {
@@ -217,13 +203,12 @@
 
             this.bindAttr('data', function (data) {
                 this.$list.set('data', data.translations);
-                if(data.translations) {
+                if (data.translations) {
                     var sentence = data.sentence || "translations were missed";
                     this.$status.empty().append($('<span />').text(data.translations.length + " " + sentence));
                 }
             });
         }
-
     });
 
     /**
@@ -233,16 +218,13 @@
      *  - data
      */
     var LinkIndicator = PhpDebugBar.DebugBar.Indicator.extend({
-
         tagName: "a",
-
         render: function () {
             LinkIndicator.__super__.render.apply(this);
             this.bindAttr("href", function (href) {
                 this.$el.attr("href", href);
             });
         }
-
     });
 
 })(PhpDebugBar.$);
