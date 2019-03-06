@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Core\Helpers\Utils;
 
-
 use Alxarafe\Core\Providers\Logger;
 use ReflectionClass;
 use ReflectionException;
