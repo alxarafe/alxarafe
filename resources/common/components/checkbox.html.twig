@@ -4,10 +4,11 @@
 
     Default theme implementation to display a Bootstrap Checkbox component.
 
-    @var id:          Your id
-    @var name:        Your name
-    @var text:        Button text
-    @var type:        input, label
+    @var data:             Can contains all this key => value:
+    @var data.id:          Your id
+    @var data.name:        Your name
+    @var data.text:        Button text
+    @var data.type:        input, label
 
     How to use it:
         <input>
@@ -15,19 +16,19 @@
         <label>
             {% include "@Core/components/checkbox.html.twig" with {data:{id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'}} %}
 #}
-{% if type is defined and type == 'input' %}
+{% if data.type is defined and data.type == 'input' %}
     <div class="input-group">
           <span class="input-group-addon">
-            <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
+            <input{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
                     type="checkbox"
                     aria-label="...">
           </span>
-        <input type="text" class="form-control" {% if text is defined %}placeholder="{{ text | raw }}"{% endif %}
+        <input type="text" class="form-control" {% if data.text is defined %}placeholder="{{ data.text | raw }}"{% endif %}
                aria-label="...">
     </div>
-{% elseif type is defined and type == 'label' %}
+{% elseif data.type is defined and data.type == 'label' %}
     <label>
-        <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-                type="checkbox"> {% if text is defined %}{{ text | raw }}{% endif %}
+        <input{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
+                type="checkbox"> {% if data.text is defined %}{{ data.text | raw }}{% endif %}
     </label>
 {% endif %}
