@@ -160,11 +160,19 @@ an associated result set.</td>
             </tr>
                     <tr>
                 <td class="type" id="property_pdoCollector">
-                    static                                        private                    <abbr title="DebugBar\DataCollector\PDO\PDOCollector">PDOCollector</abbr>
+                    static                    protected                                        <abbr title="DebugBar\DataCollector\PDO\PDOCollector">PDOCollector</abbr>
                 </td>
                 <td>$pdoCollector</td>
                 <td class="last">PDO Data collector.</td>
                 <td><small>from&nbsp;<a href="../../../../Alxarafe/Core/Database/Engine.html#property_pdoCollector"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_pdo">
+                    static                    protected                                        <a target="_blank" href="http://php.net/PDO">PDO</a>
+                </td>
+                <td>$pdo</td>
+                <td class="last">Connection between PHP and a database server.</td>
+                <td><small>from&nbsp;<a href="../../../../Alxarafe/Core/Database/Engine.html#property_pdo"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a></small></td>
             </tr>
             </table>
 
@@ -461,7 +469,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEngines">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getEngines"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 115</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getEngines"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 122</div>
         <code>        static            array
     <strong>getEngines</strong>()
         </code>
@@ -491,7 +499,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_unsupportedEngines">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_unsupportedEngines"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 140</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_unsupportedEngines"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 147</div>
         <code>        static            array
     <strong>unsupportedEngines</strong>()
         </code>
@@ -521,7 +529,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getStructure">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 154</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 161</div>
         <code>        static            array
     <strong>getStructure</strong>(string $tableName, bool $usePrefix = true)
         </code>
@@ -566,7 +574,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_batchExec">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_batchExec"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 169</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_batchExec"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 176</div>
         <code>final        static            bool
     <strong>batchExec</strong>(array $queries)
         </code>
@@ -606,7 +614,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_exec">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_exec"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 190</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_exec"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 197</div>
         <code>final        static            bool
     <strong>exec</strong>(string $query, array $vars = [])
         </code>
@@ -651,7 +659,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_selectCoreCache">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_selectCoreCache"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 214</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_selectCoreCache"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 221</div>
         <code>final        static            array
     <strong>selectCoreCache</strong>(string $cachedName, string $query, array $vars = [])
         </code>
@@ -701,7 +709,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_select">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_select"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 249</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_select"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 256</div>
         <code>        static            array
     <strong>select</strong>(string $query, array $vars = [])
         </code>
@@ -746,7 +754,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_clearCoreCache">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_clearCoreCache"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 267</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_clearCoreCache"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 274</div>
         <code>final        static            bool
     <strong>clearCoreCache</strong>(string $cachedName)
         </code>
@@ -786,7 +794,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method___destruct">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method___destruct"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 283</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method___destruct"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 290</div>
         <code>                    
     <strong>__destruct</strong>()
         </code>
@@ -807,7 +815,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_rollBackTransactions">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_rollBackTransactions"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 291</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_rollBackTransactions"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 298</div>
         <code>                private    
     <strong>rollBackTransactions</strong>()
         </code>
@@ -828,7 +836,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_rollBack">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_rollBack"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 303</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_rollBack"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 310</div>
         <code>final                    bool
     <strong>rollBack</strong>()
         </code>
@@ -858,7 +866,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getLastInserted">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 330</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getLastInserted"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 337</div>
         <code>final                    string
     <strong>getLastInserted</strong>()
         </code>
@@ -888,7 +896,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_checkConnection">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 344</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_checkConnection"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 351</div>
         <code>                    bool
     <strong>checkConnection</strong>()
         </code>
@@ -958,7 +966,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_prepare">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 393</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_prepare"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 401</div>
         <code>final                    bool
     <strong>prepare</strong>(string $sql, array $options = [])
         </code>
@@ -1003,7 +1011,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_resultSet">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_resultSet"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 409</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_resultSet"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 417</div>
         <code>final                    array
     <strong>resultSet</strong>()
         </code>
@@ -1033,7 +1041,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_execute">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_execute"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 424</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_execute"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 432</div>
         <code>final                    bool
     <strong>execute</strong>(array $inputParameters = [])
         </code>
@@ -1073,7 +1081,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_beginTransaction">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 441</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_beginTransaction"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 449</div>
         <code>final                    bool
     <strong>beginTransaction</strong>()
         </code>
@@ -1103,7 +1111,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_commit">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_commit"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 463</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_commit"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 471</div>
         <code>final                    bool
     <strong>commit</strong>()
         </code>
@@ -1133,7 +1141,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDbStructure">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getDbStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 486</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getDbStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 494</div>
         <code>final                    array
     <strong>getDbStructure</strong>()
         </code>
@@ -1163,7 +1171,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDbTableStructure">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getDbTableStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 498</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_getDbTableStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 506</div>
         <code>final                    mixed
     <strong>getDbTableStructure</strong>(string $tablename)
         </code>
@@ -1203,7 +1211,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_issetDbTableStructure">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_issetDbTableStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 510</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_issetDbTableStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 518</div>
         <code>final                    bool
     <strong>issetDbTableStructure</strong>(string $tablename)
         </code>
@@ -1243,7 +1251,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_issetDbTableStructureKey">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_issetDbTableStructureKey"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 523</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_issetDbTableStructureKey"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 531</div>
         <code>final                    bool
     <strong>issetDbTableStructureKey</strong>(string $tablename, string $key)
         </code>
@@ -1288,7 +1296,7 @@ an associated result set.</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_setDbTableStructure">
-        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_setDbTableStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 534</div>
+        <div class="location">in <a href="../../../../Alxarafe/Core/Database/Engine.html#method_setDbTableStructure"><abbr title="Alxarafe\Core\Database\Engine">Engine</abbr></a> at         line 542</div>
         <code>final                    
     <strong>setDbTableStructure</strong>(string $tablename, array $data)
         </code>
