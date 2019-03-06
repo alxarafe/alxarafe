@@ -51,7 +51,7 @@ class Database
             $this->initSingleton();
             $this->config = $this->getConfig();
             if (empty($this->config)) {
-                Logger::getInstance()->getLogger()->addDebug('There is no config.yaml');
+                Logger::getInstance()->getLogger()->addDebug('There is no config for database.');
                 return;
             }
             $dbEngineName = $this->config['dbEngineName'] ?? 'PdoMySql';

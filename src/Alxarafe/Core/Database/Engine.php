@@ -88,7 +88,14 @@ abstract class Engine
      *
      * @var PDODataCollector\PDOCollector
      */
-    private static $pdoCollector;
+    protected static $pdoCollector;
+
+    /**
+     * Connection between PHP and a database server.
+     *
+     * @var PDO
+     */
+    protected static $pdo;
 
     /**
      * Engine constructor
@@ -365,7 +372,8 @@ abstract class Engine
         try {
             // Logs SQL queries. You need to wrap your PDO object into a DebugBar\DataCollector\PDO\TraceablePDO object.
             // http://phpdebugbar.com/docs/base-collectors.html
-            self::$dbHandler = new PDODataCollector\TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
+            self::$pdo = new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config);
+            self::$dbHandler = new PDODataCollector\TraceablePDO(self::$pdo);
             self::$pdoCollector = new PDODataCollector\PDOCollector(self::$dbHandler);
             self::$debugTool->getDebugTool()->addCollector(self::$pdoCollector);
         } catch (PDOException $e) {
