@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Helpers;
 
 use Alxarafe\Core\BootStrap;
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Helpers\Utils\TextUtils;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\TemplateRender;
 use Alxarafe\Core\Providers\Translator;

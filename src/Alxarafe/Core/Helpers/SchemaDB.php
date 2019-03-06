@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Helpers;
 
+use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
 
