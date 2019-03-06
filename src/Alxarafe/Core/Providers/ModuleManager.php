@@ -120,11 +120,9 @@ class ModuleManager
     /**
      * Returns the data from database.
      *
-     * @param string $index
-     *
      * @return array
      */
-    public function getConfig(string $index = 'main'): array
+    public function getConfig(): array
     {
         return self::getEnabledModules();
     }
