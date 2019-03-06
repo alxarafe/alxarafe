@@ -83,12 +83,12 @@ class UtilsTest extends TestCase
         $this->assertFalse($this->object::isTrue($array, 1));
 
         $array = [0 => 1, 1 => 0];
-        $this->assertTrue($this->object::isTrue($array, 1)); // Really?
+        $this->assertFalse($this->object::isTrue($array, 1));
         $this->assertTrue($this->object::isTrue($array, 0));
 
         $array = [0 => 10, 1 => 0];
         $this->assertFalse($this->object::isTrue($array, 0));
-        $this->assertTrue($this->object::isTrue($array, 1)); // Really?
+        $this->assertFalse($this->object::isTrue($array, 1));
 
         $array = [0 => '10', 1 => '0'];
         $this->assertFalse($this->object::isTrue($array, 0));

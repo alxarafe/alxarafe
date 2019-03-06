@@ -506,7 +506,7 @@ for the table.</p>                </div>
                     array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getAllRecordsPaged">getAllRecordsPaged</a>($offset = 0)
+                    <a href="#method_getAllRecordsPaged">getAllRecordsPaged</a>(int $offset = 0)
         
                                             <p>Get an array with all data per page.</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getAllRecordsPaged"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a></small></div>
@@ -1812,9 +1812,9 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_getAllRecordsPaged">
-        <div class="location">in <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getAllRecordsPaged"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a> at         line 419</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getAllRecordsPaged"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a> at         line 421</div>
         <code>                    array
-    <strong>getAllRecordsPaged</strong>($offset = 0)
+    <strong>getAllRecordsPaged</strong>(int $offset = 0)
         </code>
     </h3>
     <div class="details">
@@ -1828,7 +1828,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
 
                     <table class="table table-condensed">
                     <tr>
-                <td></td>
+                <td>int</td>
                 <td>$offset</td>
                 <td></td>
             </tr>
@@ -1852,7 +1852,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_search">
-        <div class="location">in <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_search"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a> at         line 437</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_search"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a> at         line 439</div>
         <code>                    array
     <strong>search</strong>(string $query, array $columns = [], int $offset = 0, string $order = &#039;&#039;)
         </code>
@@ -1907,7 +1907,7 @@ If it is not found, $this->id will contain '' and $this->newData will contain th
             </div>
                     <div class="method-item">
                     <h3 id="method_searchQuery">
-        <div class="location">in <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_searchQuery"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a> at         line 455</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_searchQuery"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a> at         line 457</div>
         <code>                    string
     <strong>searchQuery</strong>(string $query, array $columns = [])
         </code>
@@ -2029,7 +2029,7 @@ correcting the differences if true is passed as parameter.</p>                  
             </div>
                     <div class="method-item">
                     <h3 id="method_getIdByName">
-        <div class="location">at         line 79</div>
+        <div class="location">at         line 83</div>
         <code>                    string
     <strong>getIdByName</strong>(string $name)
         </code>
@@ -2070,7 +2070,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getAllRecordsBy">
-        <div class="location">at         line 105</div>
+        <div class="location">at         line 109</div>
         <code>                    array
     <strong>getAllRecordsBy</strong>(string $key, mixed $value, string $comparison = &#039;=&#039;, string $orderBy = &#039;&#039;)
         </code>
@@ -2125,7 +2125,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getIndexesFromTable">
-        <div class="location">at         line 130</div>
+        <div class="location">at         line 134</div>
         <code>                    array
     <strong>getIndexesFromTable</strong>()
         </code>
@@ -2157,7 +2157,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValues">
-        <div class="location">at         line 141</div>
+        <div class="location">at         line 145</div>
         <code>                    array
     <strong>getDefaultValues</strong>()
         </code>
@@ -2187,7 +2187,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValue">
-        <div class="location">at         line 157</div>
+        <div class="location">at         line 161</div>
         <code>                private    bool|<abbr title="Alxarafe\Core\Base\false">false</abbr>|int|string
     <strong>getDefaultValue</strong>(array $valueData)
         </code>
@@ -2227,7 +2227,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_getChecksFromTable">
-        <div class="location">at         line 199</div>
+        <div class="location">at         line 203</div>
         <code>                    array
     <strong>getChecksFromTable</strong>()
         </code>
@@ -2257,7 +2257,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_saveRecord">
-        <div class="location">at         line 211</div>
+        <div class="location">at         line 215</div>
         <code>                    bool
     <strong>saveRecord</strong>(array $data)
         </code>
@@ -2297,7 +2297,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_testData">
-        <div class="location">at         line 226</div>
+        <div class="location">at         line 230</div>
         <code>            protected        bool
     <strong>testData</strong>($data)
         </code>
@@ -2337,7 +2337,7 @@ or does not have a name field.</p>                                              
             </div>
                     <div class="method-item">
                     <h3 id="method_saveData">
-        <div class="location">at         line 283</div>
+        <div class="location">at         line 281</div>
         <code>            protected        bool
     <strong>saveData</strong>(array $data)
         </code>
