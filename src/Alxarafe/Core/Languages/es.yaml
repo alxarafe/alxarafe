@@ -153,24 +153,10 @@ edit-my-data: 'Editar mis datos'
 email: Email
 enable: Activar
 enabled: Activado
-enter: Entrar
+entero: Entrar
 exit: Salir
-export-all: 'Exportar todo'
-export-data: 'Exportar datos'
-export-db-estructure: 'Exportar estructura de la base de datos'
-export-db-estructure-description: 'Permite exportar la estructura de la base de datos en archivos YAML.'
-export-selected: 'Exportar seleccionado'
 extra-actions: 'Acciones extra'
 fake-data: 'Generar datos falsos'
-generate-all: 'Generar todos'
-generate-controller: 'Generar controlador'
-generate-from-structure: 'Generar desde estructura'
-generate-from-structure-description: 'Permite generar modelos y controladores iniciales desde el esquema de tablas'
-generate-model: 'Generar modelo'
-generate-people: 'Generar gente'
-generate-roles: 'Generar roles'
-generate-selected: 'Generar seleccionados'
-generate-users: 'Generar usuarios'
 icon: Icono
 id: Id.
 id_page: 'Id. de página'
@@ -224,8 +210,6 @@ reinstanciated-model-class-error: 'Error re-instanciando clase model'
 rememberme: Recuerda-me
 route-not-found: 'Ruta no encontrada'
 save-changes: 'Guardar los cambios'
-select-tables-to-export: 'Selecciona que tablas quieres exportar:'
-select-tables-to-generate-models-controllers: 'Selecciona que tablas quieres generar sus modelos y controladores'
 selected: Seleccionado
 show: Mostrar
 showing: Mostrando

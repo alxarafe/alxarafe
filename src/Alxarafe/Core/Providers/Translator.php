@@ -221,7 +221,8 @@ class Translator
     public function trans($txt, array $parameters = [], $domain = null, $locale = null): string
     {
         $lang = self::$translator->trans($txt, $parameters, $domain, $locale);
-        $this->verifyMissing($txt, $lang);
+        $fallback = self::$translator->trans($txt, $parameters, $domain, self::FALLBACK_LANG);
+        $this->verifyMissing($txt, $lang, $fallback);
         return $lang;
     }
 
@@ -230,20 +231,19 @@ class Translator
      *
      * @param string $reference
      * @param string $translation
+     * @param string $fallback
      */
-    private function verifyMissing($reference, $translation)
+    private function verifyMissing($reference, $translation, $fallback)
     {
-        self::$usedStrings[] = $reference;
-
         if ($this->getLocale() !== self::FALLBACK_LANG) {
             // Is missing for the language configured?
-//            if (!self::$translator->getCatalogue($this->getLocale())->has($reference)) {
-//                self::$missingStrings[$reference] = $translation;
-//            }
-            // Is missing on full catalogue?
-            if (!self::$translator->getCatalogue()->has($reference)) {
-                self::$missingStrings[$reference] = $translation;
+            if ($fallback == $translation) {
+                self::$missingStrings[$reference] = "found in FALLBACK: '$translation'";
             }
+        }
+
+        if ($reference == $translation) {
+            self::$missingStrings[$reference] = $translation;
         }
     }
 
