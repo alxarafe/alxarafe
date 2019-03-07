@@ -217,14 +217,14 @@ class ModuleManager
     {
         CacheCore::getInstance()->getEngine()->clear();
         if (!set_time_limit(0)) {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('cant-increase-time-limit'));
+            FlashMessages::getInstance()::setError(self::$translator->trans('cant-increase-time-limit'));
         }
 
         foreach (self::getEnabledModules() as $module) {
             if (!is_dir($module['path'])) {
                 $module['enabled'] = null;
                 if ((new Module())->setData($module)->save()) {
-                    FlashMessages::getInstance()::setWarning(Translator::getInstance()->trans('module-disable'));
+                    FlashMessages::getInstance()::setWarning(self::$translator->trans('module-disable'));
                 }
             }
         }
@@ -241,7 +241,7 @@ class ModuleManager
         new PreProcessors\Models($enabledFolders);
         new PreProcessors\Pages($enabledFolders);
         new PreProcessors\Routes($enabledFolders);
-        FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('preprocessors-executed'));
+        FlashMessages::getInstance()::setInfo(self::$translator->trans('preprocessors-executed'));
     }
 
     /**
@@ -260,7 +260,7 @@ class ModuleManager
             $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
             if ($status = $module->save()) {
                 FlashMessages::getInstance()::setSuccess(
-                    Translator::getInstance()->trans('module-enabled', ['%moduleName%' => $name])
+                    self::$translator->trans('module-enabled', ['%moduleName%' => $name])
                 );
                 self::runPreprocessors();
             }
@@ -284,7 +284,7 @@ class ModuleManager
             $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
             if ($status = $module->save()) {
                 FlashMessages::getInstance()::setSuccess(
-                    Translator::getInstance()->trans('module-disabled', ['%moduleName%' => $name])
+                    self::$translator->trans('module-disabled', ['%moduleName%' => $name])
                 );
                 self::runPreprocessors();
             }

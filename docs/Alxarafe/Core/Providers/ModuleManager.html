@@ -340,7 +340,7 @@ param in getInstance</td>
                 <div class="col-md-8 type">
                     <a href="#method_getModules">getModules</a>()
         
-                                            <p>Return the full modules.</p>                </div>
+                                            <p>Return the full modules from database.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -350,7 +350,7 @@ param in getInstance</td>
                 <div class="col-md-8 type">
                     <a href="#method_getEnabledModules">getEnabledModules</a>()
         
-                                            <p>Return a list of enabled modules.</p>                </div>
+                                            <p>Return a list of enabled modules from database.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -413,6 +413,46 @@ param in getInstance</td>
                                             <p>Execute all preprocessors from one point.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_runPreprocessors">runPreprocessors</a>()
+        
+                                            <p>Run preprocessors for update modules dependencies.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_enableModule">enableModule</a>(string $name)
+        
+                                            <p>Enable a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;bool
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_disableModule">disableModule</a>(string $name)
+        
+                                            <p>Disable a module.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;array
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_getEnabledFolders">getEnabledFolders</a>()
+        
+                                            <p>Return a list of enabled folders.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
             </div>
 
 
@@ -421,7 +461,7 @@ param in getInstance</td>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 106</div>
+        <div class="location">at         line 118</div>
         <code>        static            <a href="../../../Alxarafe/Core/Providers/ModuleManager.html"><abbr title="Alxarafe\Core\Providers\ModuleManager">ModuleManager</abbr></a>
     <strong>getInstance</strong>()
         </code>
@@ -531,7 +571,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getYamlContent">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 124</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getYamlContent"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 130</div>
         <code>                private    array
     <strong>getYamlContent</strong>()
         </code>
@@ -561,7 +601,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFilePath">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 145</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getFilePath"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 151</div>
         <code>                    string
     <strong>getFilePath</strong>()
         </code>
@@ -591,7 +631,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFileName">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 155</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getFileName"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 161</div>
         <code>                    string
     <strong>getFileName</strong>()
         </code>
@@ -621,7 +661,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_yamlName">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 165</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_yamlName"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 171</div>
         <code>        static            string
     <strong>yamlName</strong>()
         </code>
@@ -651,7 +691,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_fileExists">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_fileExists"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 177</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_fileExists"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 183</div>
         <code>            protected        bool
     <strong>fileExists</strong>(string $filename)
         </code>
@@ -691,7 +731,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getConfig">
-        <div class="location">at         line 127</div>
+        <div class="location">at         line 139</div>
         <code>                    array
     <strong>getConfig</strong>()
         </code>
@@ -721,7 +761,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getDefaultValues">
-        <div class="location">at         line 116</div>
+        <div class="location">at         line 128</div>
         <code>        static            array
     <strong>getDefaultValues</strong>()
         </code>
@@ -751,7 +791,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getBasePath">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getBasePath"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 208</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_getBasePath"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 214</div>
         <code>                    string
     <strong>getBasePath</strong>()
         </code>
@@ -781,7 +821,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_initSingleton">
-        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_initSingleton"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 216</div>
+        <div class="location">in <a href="../../../Alxarafe/Core/Providers/Singleton.html#method_initSingleton"><abbr title="Alxarafe\Core\Providers\Singleton">Singleton</abbr></a> at         line 222</div>
         <code>            protected        
     <strong>initSingleton</strong>()
         </code>
@@ -802,7 +842,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 70</div>
+        <div class="location">at         line 71</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -823,7 +863,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getModules">
-        <div class="location">at         line 89</div>
+        <div class="location">at         line 90</div>
         <code>        static            array
     <strong>getModules</strong>()
         </code>
@@ -833,7 +873,7 @@ param in getInstance</td>
     
 
                     <div class="method-description">
-                                    <p>Return the full modules.</p>                                                </div>
+                                    <p>Return the full modules from database.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -853,7 +893,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getEnabledModules">
-        <div class="location">at         line 137</div>
+        <div class="location">at         line 104</div>
         <code>        static            array
     <strong>getEnabledModules</strong>()
         </code>
@@ -863,7 +903,7 @@ param in getInstance</td>
     
 
                     <div class="method-description">
-                                    <p>Return a list of enabled modules.</p>                                                </div>
+                                    <p>Return a list of enabled modules from database.</p>                                                </div>
                 <div class="tags">
             
                             <h4>Return Value</h4>
@@ -883,7 +923,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_initializeModules">
-        <div class="location">at         line 152</div>
+        <div class="location">at         line 147</div>
         <code>        static            
     <strong>initializeModules</strong>()
         </code>
@@ -904,7 +944,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_runInitializer">
-        <div class="location">at         line 164</div>
+        <div class="location">at         line 159</div>
         <code>        static        private    
     <strong>runInitializer</strong>()
         </code>
@@ -925,7 +965,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_getFoldersEnabledModules">
-        <div class="location">at         line 187</div>
+        <div class="location">at         line 181</div>
         <code>        static        private    array
     <strong>getFoldersEnabledModules</strong>()
         </code>
@@ -955,7 +995,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_addTranslatorFolders">
-        <div class="location">at         line 199</div>
+        <div class="location">at         line 193</div>
         <code>        static        private    
     <strong>addTranslatorFolders</strong>()
         </code>
@@ -976,7 +1016,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_addRenderFolders">
-        <div class="location">at         line 207</div>
+        <div class="location">at         line 201</div>
         <code>        static        private    
     <strong>addRenderFolders</strong>()
         </code>
@@ -997,7 +1037,7 @@ param in getInstance</td>
             </div>
                     <div class="method-item">
                     <h3 id="method_executePreprocesses">
-        <div class="location">at         line 222</div>
+        <div class="location">at         line 216</div>
         <code>        static            
     <strong>executePreprocesses</strong>()
         </code>
@@ -1010,6 +1050,137 @@ param in getInstance</td>
                                     <p>Execute all preprocessors from one point.</p>                                                </div>
                 <div class="tags">
             
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_runPreprocessors">
+        <div class="location">at         line 238</div>
+        <code>        static            
+    <strong>runPreprocessors</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Run preprocessors for update modules dependencies.</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_enableModule">
+        <div class="location">at         line 254</div>
+        <code>        static            bool
+    <strong>enableModule</strong>(string $name)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Enable a module.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_disableModule">
+        <div class="location">at         line 278</div>
+        <code>        static            bool
+    <strong>disableModule</strong>(string $name)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Disable a module.</p>                                                </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getEnabledFolders">
+        <div class="location">at         line 300</div>
+        <code>        static            array
+    <strong>getEnabledFolders</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Return a list of enabled folders.</p>                                                </div>
+                <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>

@@ -112,9 +112,19 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(array $dirs)
+                    <a href="#method___construct">__construct</a>(array $dirs = [])
         
                                             <p>Models constructor.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_updatePageDetails">updatePageDetails</a>()
+        
+                                            <p>Updates active page field based on enabled namespaces</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -147,16 +157,6 @@
                                             <p>Updates the page data if needed.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
-                </div>
-                <div class="col-md-8 type">
-                    <a href="#method_cleanPagesBefore">cleanPagesBefore</a>(<a target="_blank" href="http://php.net/DateTime">DateTime</a> $start)
-        
-                                            <p>Clean all pages before $start datetime.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
@@ -165,9 +165,9 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 38</div>
+        <div class="location">at         line 37</div>
         <code>                    
-    <strong>__construct</strong>(array $dirs)
+    <strong>__construct</strong>(array $dirs = [])
         </code>
     </h3>
     <div class="details">
@@ -195,8 +195,29 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_updatePageDetails">
+        <div class="location">at         line 47</div>
+        <code>                private    
+    <strong>updatePageDetails</strong>()
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Updates active page field based on enabled namespaces</p>                                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_checkPageControllers">
-        <div class="location">at         line 51</div>
+        <div class="location">at         line 65</div>
         <code>                private    
     <strong>checkPageControllers</strong>()
         </code>
@@ -220,7 +241,7 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_instantiateClass">
-        <div class="location">at         line 83</div>
+        <div class="location">at         line 95</div>
         <code>                private    
     <strong>instantiateClass</strong>(string $namespace, string $className)
         </code>
@@ -256,7 +277,7 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_updatePageData">
-        <div class="location">at         line 103</div>
+        <div class="location">at         line 115</div>
         <code>                private    
     <strong>updatePageData</strong>(string $className, string $namespace, $newPage)
         </code>
@@ -284,37 +305,6 @@ WARNING: At this moment are generating 3 extra SQL queries per table.</p>       
                     <tr>
                 <td></td>
                 <td>$newPage</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_cleanPagesBefore">
-        <div class="location">at         line 123</div>
-        <code>                private    
-    <strong>cleanPagesBefore</strong>(<a target="_blank" href="http://php.net/DateTime">DateTime</a> $start)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
-
-                    <div class="method-description">
-                                    <p>Clean all pages before $start datetime.</p>                                                </div>
-                <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a target="_blank" href="http://php.net/DateTime">DateTime</a></td>
-                <td>$start</td>
                 <td></td>
             </tr>
             </table>
