@@ -12,7 +12,7 @@
 {% block body %}
     {{ parent() }}
     <div class="container-fluid">
-        {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=CreateConfig&' ~ constant('METHOD_CONTROLLER') ~ '=' ~ constant('DEFAULT_METHOD')) %}
+        {% set url = getUrl('index.php?' ~ constant('CALL_CONTROLLER') ~ '=CreateConfig&' ~ constant('METHOD_CONTROLLER') ~ '=' ~ constant('DEFAULT_METHOD')) %}
         <form action="{{ url }}" method='post' accept-charset="utf-8">
             <div class="row">
                 <div class="col-xs-12">

@@ -27,7 +27,7 @@
         {% set createLink = baseLink ~ '=create' ~ '&' ~ ctrl.model.getIdField() ~ '=' %}
         <div class="row">
             <div class="col-xs-1">
-                {% set url = getUrl('/index.php') %}
+                {% set url = getUrl('index.php') %}
                 <a name="cancel" class="btn btn-danger btn-sm" href="{{ url }}">
                     <i class="fas fa-chevron-left"></i>
                     <span class="hidden-xs hidden-sm hidden-md">&nbsp;{{ trans('back') }}</span>

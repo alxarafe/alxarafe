@@ -19,7 +19,7 @@
         {% if ctrl.redirectUrl is not empty %}
             {% set redirectUrl = '&redirectUrl=' ~ ctrl.redirectUrl %}
         {% endif %}
-        {% set url = getUrl('/index.php?' ~ constant('CALL_CONTROLLER') ~ '=Login&' ~ constant('METHOD_CONTROLLER') ~ '=' ~ constant('DEFAULT_METHOD') ~ redirectUrl) %}
+        {% set url = getUrl('index.php?' ~ constant('CALL_CONTROLLER') ~ '=Login&' ~ constant('METHOD_CONTROLLER') ~ '=' ~ constant('DEFAULT_METHOD') ~ redirectUrl) %}
         <form class="form-signin" method="post" action="{{ url }}">
             <h2 class="form-signin-heading">{{ trans('application-access') }}</h2>
             <div class="thumbnail">
