@@ -72,15 +72,11 @@ class ModuleManager
             $this->separateConfigFile = false;
             $this->initSingleton();
             self::$module = new Module();
-            self::$modules = [];
-            self::$enabledModules = [];
+            self::$modules = self::getModules();
+            self::$enabledModules = self::getEnabledModules();
             self::$translator = Translator::getInstance();
             self::$router = Router::getInstance();
             self::$renderer = TemplateRender::getInstance();
-
-            // Loads defautl data
-            self::getModules();
-            self::getEnabledModules();
         }
     }
 
@@ -97,7 +93,7 @@ class ModuleManager
                 self::$modules[$module['name']] = $module;
             }
         }
-        return self::$modules;
+        return self::$modules ?? [];
     }
 
     /**
@@ -144,7 +140,7 @@ class ModuleManager
                 self::$enabledModules[$module['name']] = $module;
             }
         }
-        return self::$enabledModules;
+        return self::$enabledModules ?? [];
     }
 
     /**

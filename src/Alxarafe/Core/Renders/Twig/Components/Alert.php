@@ -34,6 +34,6 @@ class Alert extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return 'components/alert.html';
+        return '@Core/components/alert.html';
     }
 }
