@@ -269,7 +269,6 @@ abstract class AuthPageExtendedController extends AuthPageController
             case 'save-exit':
                 $this->save();
                 return $this->redirect($this->url);
-                break;
         }
         return $this->sendResponseTemplate();
     }
