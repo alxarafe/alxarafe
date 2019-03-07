@@ -299,6 +299,7 @@ class ModuleManager
      */
     public static function getEnabledFolders(): array
     {
+        $searchDir = [];
         $searchDir['Alxarafe\\Core'] = constant('ALXARAFE_FOLDER');
         foreach (self::getEnabledModules() as $enabledModule) {
             $searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
