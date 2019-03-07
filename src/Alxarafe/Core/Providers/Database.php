@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Database\Engine;
 use Alxarafe\Core\Database\SqlHelper;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Exception;
 
 /**
@@ -48,6 +49,9 @@ class Database
     public function __construct()
     {
         if (!isset($this->dbEngine)) {
+            $shortName = ClassUtils::getShortName($this, static::class);
+            $debugTool = DebugTool::getInstance();
+            $debugTool->startTimer($shortName, $shortName . ' Database Constructor');
             $this->initSingleton();
             $this->config = $this->getConfig();
             if (empty($this->config)) {
@@ -72,6 +76,7 @@ class Database
                 Logger::getInstance()::exceptionHandler($e);
                 return;
             }
+            $debugTool->stopTimer($shortName);
         }
     }
 

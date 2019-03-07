@@ -12,6 +12,7 @@ use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Logger;
+use Alxarafe\Core\Providers\ModuleManager;
 use Exception;
 use Kint\Kint;
 use ParseCsv\Csv;
@@ -195,10 +196,15 @@ class Schema
             return $path;
         }
         // And then if it exists in the application
-        $folder = basePath('Schema' . DIRECTORY_SEPARATOR . $type);
-        FileSystemUtils::mkdir($folder, 0777, true);
-        $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
-        return file_exists($path) ? $path : '';
+        foreach (ModuleManager::getInstance()::getEnabledModules() as $module) {
+            $folder = basePath($module['path'] . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type);
+            FileSystemUtils::mkdir($folder, 0777, true);
+            $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
+            if(file_exists($path)) {
+                return $path;
+            }
+        }
+        return '';
     }
 
     /**

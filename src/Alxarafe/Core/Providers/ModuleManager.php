@@ -215,7 +215,6 @@ class ModuleManager
      */
     public static function executePreprocesses(): void
     {
-        CacheCore::getInstance()->getEngine()->clear();
         if (!set_time_limit(0)) {
             FlashMessages::getInstance()::setError(self::$translator->trans('cant-increase-time-limit'));
         }
@@ -237,6 +236,7 @@ class ModuleManager
      */
     public static function runPreprocessors()
     {
+        CacheCore::getInstance()->getEngine()->clear();
         $enabledFolders = self::getEnabledFolders();
         new PreProcessors\Models($enabledFolders);
         new PreProcessors\Pages($enabledFolders);

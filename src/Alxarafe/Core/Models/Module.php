@@ -46,7 +46,7 @@ class Module extends Table
      */
     public function getEnabledModules(): array
     {
-        return $this->getAllRecordsBy('enabled', 'NULL', '<>', '`enabled` ASC');
+        return $this->getAllRecordsBy('enabled', 'NULL', '<>', '`enabled` DESC');
     }
 
 
