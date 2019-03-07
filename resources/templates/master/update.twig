@@ -34,16 +34,29 @@
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <a name="cancel" href="{{ ctrl.url }}" class="btn btn-danger btn-sm" type="submit" onClick="allowClose();" formnovalidate>
+                <a name="cancel" href="{{ ctrl.url }}" class="btn btn-danger btn-sm" type="submit" onClick="allowClose();" formnovalidate title="{{ trans('back') }}">
                     <i class="fas fa-chevron-left"></i>
-                    {{ trans('back') }}
+                    <span class='hidden-xs hidden-sm hidden-md'>
+                        {{ trans('back') }}
+                    </span>
                 </a>
             </div>
             <div class="col-xs-6 text-right">
-                <button name="action" type="submit" class="btn btn-primary btn-sm" value="save" onClick="allowClose();">
-                    <i class="fas fa-save"></i>
-                    {{ trans('save-changes') }}
-                </button>
+                <div class="btn-group" role="group">
+                    <button name="action" type="submit" class="btn btn-primary btn-sm" value="save" onClick="allowClose();" title="{{ trans('save-changes') }}">
+                        <i class="far fa-save"></i>
+                        <i class="fas fa-redo-alt"></i>
+                        <span class='hidden-xs hidden-sm hidden-md'>
+                            {{ trans('save-changes') }}
+                        </span>
+                    </button>
+                    <button name="action" type="submit" class="btn btn-success btn-sm" value="save-exit" onClick="allowClose();" title="{{ trans('save-changes-exit') }}">
+                        <i class="fas fa-save"></i>
+                        <span class='hidden-xs hidden-sm hidden-md'>
+                            {{ trans('save-changes-exit') }}
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </form>

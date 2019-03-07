@@ -264,9 +264,11 @@ abstract class AuthPageExtendedController extends AuthPageController
                 $this->cancel();
                 break;
             case 'save':
-                $this->getDataPost();
-                $this->oldData = $this->getRecordData();
                 $this->save();
+                break;
+            case 'save-exit':
+                $this->save();
+                return $this->redirect($this->url);
                 break;
         }
         return $this->sendResponseTemplate();
@@ -305,17 +307,18 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
-     * Save the data, and reload the page on success.
+     * Save the data.
      *
      * This method can do additional things in more complex situations.
      */
     protected function save(): void
     {
+        $this->getDataPost();
+        $this->oldData = $this->getRecordData();
         if ($this->model->saveRecord($this->postData)) {
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-saved'));
-            $this->redirect($this->url . '&' . $this->model->getIdField() . '=' . $this->currentId);
         }
     }
 
