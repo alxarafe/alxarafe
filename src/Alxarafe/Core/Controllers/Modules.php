@@ -13,7 +13,6 @@ use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\ModuleManager;
-use Alxarafe\Core\Providers\Translator;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -65,15 +64,6 @@ class Modules extends AuthPageExtendedController
         $this->modulesList = $this->getAvailableModules();
         $this->updateModulesData();
 
-        switch ($this->request->request->get('action')) {
-            case 'regenerate':
-                CacheCore::getInstance()->getEngine()->clear();
-                FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('cache-cleared-successfully'));
-                $this->regenerateData();
-                // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
-                return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
-        }
-
         return parent::indexMethod();
     }
 
@@ -110,16 +100,6 @@ class Modules extends AuthPageExtendedController
                 $module->save();
             }
         }
-    }
-
-    /**
-     * Regenerate some needed data.
-     *
-     * @return void
-     */
-    private function regenerateData(): void
-    {
-        ModuleManager::executePreprocesses($this->searchDir);
     }
 
     /**
@@ -206,6 +186,8 @@ class Modules extends AuthPageExtendedController
             }
         }
 
+        $this->executePreprocesses();
+
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
 
@@ -231,6 +213,8 @@ class Modules extends AuthPageExtendedController
             }
         }
 
+        $this->executePreprocesses();
+
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
 
@@ -248,23 +232,6 @@ class Modules extends AuthPageExtendedController
             'menu' => 'admin',
         ];
         return $details;
-    }
-
-    /**
-     * Returns a list of extra actions.
-     *
-     * @return array
-     */
-    public function getExtraActions(): array
-    {
-        $return = [];
-        $return[] = [
-            'link' => $this->url . '&action=regenerate',
-            'icon' => '<i class="fas fa-redo-alt"></i>',
-            'text' => 'regenerate-data',
-            'type' => 'info',
-        ];
-        return $return;
     }
 
     /**
@@ -297,5 +264,18 @@ class Modules extends AuthPageExtendedController
         unset($actionButtons['read'], $actionButtons['update']);
 
         return $actionButtons;
+    }
+
+    /**
+     * Update searchDir paths and execute preprocesses.
+     */
+    private function executePreprocesses(): void
+    {
+        CacheCore::getInstance()->getEngine()->clear();
+        $enabledModules = ModuleManager::getInstance()::getEnabledModules();
+        foreach ($enabledModules as $enabledModule) {
+            $this->searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
+        }
+        ModuleManager::executePreprocesses($this->searchDir);
     }
 }
