@@ -123,7 +123,6 @@ class AuthController extends Controller
     {
         FlashMessages::getInstance()::setInfo($this->translator->trans('user-logged-out'));
         $this->username = null;
-        $this->user = null;
         $this->logkey = null;
         $this->adjustCookieUser();
         return $this->redirect(baseUrl('index.php?call=Login'));
