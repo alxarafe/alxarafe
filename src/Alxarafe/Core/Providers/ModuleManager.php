@@ -72,11 +72,15 @@ class ModuleManager
             $this->separateConfigFile = false;
             $this->initSingleton();
             self::$module = new Module();
-            self::$modules = self::getModules();
-            self::$enabledModules = self::getEnabledModules();
+            self::$modules = [];
+            self::$enabledModules = [];
             self::$translator = Translator::getInstance();
             self::$router = Router::getInstance();
             self::$renderer = TemplateRender::getInstance();
+
+            // Loads defautl data
+            self::getModules();
+            self::getEnabledModules();
         }
     }
 
