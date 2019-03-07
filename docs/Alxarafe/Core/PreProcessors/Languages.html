@@ -1,154 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="robots" content="index, follow, all" />
+    <meta charset="UTF-8"/>
+    <meta content="index, follow, all" name="robots"/>
     <title>Alxarafe\Core\PreProcessors\Languages | alxarafe</title>
 
-            <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="../../../css/sami.css">
-        <script src="../../../js/jquery-1.11.1.min.js"></script>
-        <script src="../../../js/bootstrap.min.js"></script>
-        <script src="../../../js/typeahead.min.js"></script>
-        <script src="../../../sami.js"></script>
-        <meta name="MobileOptimized" content="width">
-        <meta name="HandheldFriendly" content="true">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    
-    
-    </head>
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/sami.css" rel="stylesheet" type="text/css">
+    <script src="../../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/typeahead.min.js"></script>
+    <script src="../../../sami.js"></script>
+    <meta content="width" name="MobileOptimized">
+    <meta content="true" name="HandheldFriendly">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
 
-    <body id="class" data-name="class:Alxarafe_Core_PreProcessors_Languages" data-root-path="../../../">
-            <div id="content">
-        <div id="left-column">
-                <div id="control-panel">
-                <script>
-            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
-        </script>
-        <form id="search-form" action="../../../search.html" method="GET">
-            <span class="glyphicon glyphicon-search"></span>
-            <input name="search"
-                   class="typeahead form-control"
-                   type="search"
-                   placeholder="Search">
-        </form>
+
+</head>
+
+<body data-name="class:Alxarafe_Core_PreProcessors_Languages" data-root-path="../../../" id="class">
+<div id="content">
+    <div id="left-column">
+        <div id="control-panel">
+            <script>
+                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            </script>
+            <form action="../../../search.html" id="search-form" method="GET">
+                <span class="glyphicon glyphicon-search"></span>
+                <input class="typeahead form-control"
+                       name="search"
+                       placeholder="Search"
+                       type="search">
+            </form>
+        </div>
+
+        <div id="api-tree"></div>
+
     </div>
-
-                <div id="api-tree"></div>
-
-        </div>
-        <div id="right-column">
-                <nav id="site-nav" class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../../../index.html">alxarafe</a>
+    <div id="right-column">
+        <nav class="navbar navbar-default" id="site-nav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../../index.html">alxarafe</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-elements">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../../classes.html">Classes</a></li>
+                        <li><a href="../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+                        <li><a href="../../../traits.html">Traits</a></li>
+                        <li><a href="../../../doc-index.html">Index</a></li>
+                        <li><a href="../../../search.html">Search</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="navbar-elements">
-                <ul class="nav navbar-nav">
-                    <li><a href="../../../classes.html">Classes</a></li>
-                                            <li><a href="../../../namespaces.html">Namespaces</a></li>
-                                        <li><a href="../../../interfaces.html">Interfaces</a></li>
-                    <li><a href="../../../traits.html">Traits</a></li>
-                    <li><a href="../../../doc-index.html">Index</a></li>
-                    <li><a href="../../../search.html">Search</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
 
-                        <div class="namespace-breadcrumbs">
+        <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core.html">Core</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core/PreProcessors.html">PreProcessors</a></li><li class="backslash">\</li><li>Languages</li>
+                <li><a href="../../../Alxarafe.html">Alxarafe</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../Alxarafe/Core.html">Core</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../Alxarafe/Core/PreProcessors.html">PreProcessors</a></li>
+                <li class="backslash">\</li>
+                <li>Languages</li>
             </ol>
         </div>
-                <div id="page-content">
-                
-    <div class="page-header">
-        <h1>
-            Languages
-                
-        </h1>
-    </div>
+        <div id="page-content">
 
-    <p>    class
-    <strong>Languages</strong>
-</p>
+            <div class="page-header">
+                <h1>
+                    Languages
 
-        
-    
+                </h1>
+            </div>
+
+            <p> class
+                <strong>Languages</strong>
+            </p>
+
 
             <div class="description">
-            <p>This class pre-process pages to generate some needed information.</p>                                </div>
-    
-    
-    
-    
+                <p>This class pre-process pages to generate some needed information.</p></div>
+
+
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_exportLanguages">exportLanguages</a>()
+
+                        <p>The best way to get the list is still to be determined, as well as if
+                            domains are going to be used.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_exportLanguages">exportLanguages</a>()
-        
-                                            <p>The best way to get the list is still to be determined, as well as if
-domains are going to be used.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
-        <h2>Details</h2>
+            <h2>Details</h2>
 
             <div id="method-details">
-                    <div class="method-item">
+                <div class="method-item">
                     <h3 id="method_exportLanguages">
-        <div class="location">at         line 32</div>
-        <code>        static            
-    <strong>exportLanguages</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 32</div>
+                        <code> static
+                            <strong>exportLanguages</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>The best way to get the list is still to be determined, as well as if
-domains are going to be used.</p>                    <p>You have to see the best format for debugging the texts. Yaml or CSV?,
-All or classified by modules or domains?</p>
 
-<pre><code>    translator-&gt;getTranslator()-&gt;getCatalogue());
+                        <div class="method-description">
+                            <p>The best way to get the list is still to be determined, as well as if
+                                domains are going to be used.</p>
+                            <p>You have to see the best format for debugging the texts. Yaml or CSV?,
+                                All or classified by modules or domains?</p>
+
+                            <pre><code>    translator-&gt;getTranslator()-&gt;getCatalogue());
 </code></pre>
 
-<p>TODO: This must be moved to ProProcessors namespace</p>                            </div>
-                <div class="tags">
-            
-            
-            
+                            <p>TODO: This must be moved to ProProcessors namespace</p></div>
+                        <div class="tags">
+
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
+                </div>
             </div>
 
-    
-            </div>
-                <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
-    </div>
 
         </div>
+        <div id="footer">
+            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+        </div>
+
     </div>
-    </body>
+</div>
+</body>
 
 </html>
