@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Autoload\Load;
 use Alxarafe\Core\Base\CacheCore;
+use Alxarafe\Core\Helpers\FormatUtils;
 use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\PreProcessors;
 
@@ -82,20 +83,31 @@ class ModuleManager
     }
 
     /**
-     * Return the full modules.
+     * Return the full modules from database.
      *
      * @return array
      */
     public static function getModules(): array
     {
-        if (!isset(self::$modules)) {
-            $modules = self::$module->getAllModules();
-            self::$modules = [];
-            foreach ($modules as $module) {
-                self::$modules[$module['name']] = $module;
-            }
+        self::$modules = [];
+        foreach (self::$module->getAllModules() as $module) {
+            self::$modules[$module['name']] = $module;
         }
-        return self::$modules ?? [];
+        return self::$modules;
+    }
+
+    /**
+     * Return a list of enabled modules from database.
+     *
+     * @return array
+     */
+    public static function getEnabledModules(): array
+    {
+        self::$enabledModules = [];
+        foreach (self::$module->getEnabledModules() as $module) {
+            self::$enabledModules[$module['name']] = $module;
+        }
+        return self::$enabledModules;
     }
 
     /**
@@ -130,23 +142,6 @@ class ModuleManager
     }
 
     /**
-     * Return a list of enabled modules.
-     *
-     * @return array
-     */
-    public static function getEnabledModules(): array
-    {
-        if (!isset(self::$enabledModules)) {
-            $modules = self::$module->getEnabledModules();
-            self::$enabledModules = [];
-            foreach ($modules as $module) {
-                self::$enabledModules[$module['name']] = $module;
-            }
-        }
-        return self::$enabledModules ?? [];
-    }
-
-    /**
      * Initialize modules.
      */
     public static function initializeModules(): void
@@ -163,9 +158,8 @@ class ModuleManager
      */
     private static function runInitializer()
     {
-        $modules = self::getEnabledModules();
         $dirs = [];
-        foreach ($modules as $module) {
+        foreach (self::getEnabledModules() as $module) {
             $dir = basePath($module['path']);
             $dirs[] = $dir;
             $initFile = $dir . DIRECTORY_SEPARATOR . 'Initializer.php';
@@ -222,30 +216,93 @@ class ModuleManager
     public static function executePreprocesses(): void
     {
         CacheCore::getInstance()->getEngine()->clear();
-        $enabledModules = ModuleManager::getInstance()::getEnabledModules();
-        $searchDir = ['Alxarafe' => constant('ALXARAFE_FOLDER')];
-        foreach ($enabledModules as $enabledModule) {
-            $searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
-        }
-
         if (!set_time_limit(0)) {
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('cant-increase-time-limit'));
         }
 
-        $modules = self::getEnabledModules();
-        foreach ($modules as $module) {
-            if (is_dir($module['path'])) {
-                $searchDir['Modules\\' . $module['name']] = $module['path'];
-            } else {
-                $module['enabled'] = 0;
+        foreach (self::getEnabledModules() as $module) {
+            if (!is_dir($module['path'])) {
+                $module['enabled'] = null;
                 if ((new Module())->setData($module)->save()) {
                     FlashMessages::getInstance()::setWarning(Translator::getInstance()->trans('module-disable'));
                 }
             }
         }
-        new PreProcessors\Models($searchDir);
-        new PreProcessors\Pages($searchDir);
-        new PreProcessors\Routes($searchDir);
+
+        self::runPreprocessors();
+    }
+
+    /**
+     * Run preprocessors for update modules dependencies.
+     */
+    public static function runPreprocessors()
+    {
+        $enabledFolders = self::getEnabledFolders();
+        new PreProcessors\Models($enabledFolders);
+        new PreProcessors\Pages($enabledFolders);
+        new PreProcessors\Routes($enabledFolders);
         FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('preprocessors-executed'));
+    }
+
+    /**
+     * Enable a module.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public static function enableModule(string $name): bool
+    {
+        $status = false;
+        $module = new Module();
+        if ($module->getBy('name', $name)) {
+            $module->enabled = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
+            $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
+            if ($status = $module->save()) {
+                FlashMessages::getInstance()::setSuccess(
+                    Translator::getInstance()->trans('module-enabled', ['%moduleName%' => $name])
+                );
+                self::runPreprocessors();
+            }
+        }
+        return $status;
+    }
+
+    /**
+     * Disable a module.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public static function disableModule(string $name): bool
+    {
+        $status = false;
+        $module = new Module();
+        if ($module->getBy('name', $name)) {
+            $module->enabled = null;
+            $module->updated_date = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
+            if ($status = $module->save()) {
+                FlashMessages::getInstance()::setSuccess(
+                    Translator::getInstance()->trans('module-disabled', ['%moduleName%' => $name])
+                );
+                self::runPreprocessors();
+            }
+        }
+        return $status;
+    }
+
+    /**
+     * Return a list of enabled folders.
+     *
+     * @return array
+     */
+    public static function getEnabledFolders(): array
+    {
+        $searchDir['Alxarafe\\Core'] = constant('ALXARAFE_FOLDER');
+        foreach (self::getEnabledModules() as $enabledModule) {
+            $searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
+        }
+        return $searchDir;
     }
 }
