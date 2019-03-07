@@ -15,16 +15,19 @@
         {% include "@Core/components/alert.html.twig" with {data:{id:'myAlertId', name:'myAlertName', class: 'alert-success', dismissible: true, message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
 #}
 
-<div {% if data.id is defined %} id="{{ data.id }}"{% endif %}
-    {% if data.name is defined %} name="{{ data.name }}"{% endif %}
-    class="{% if data.class is defined %}{{ data.class }}{% endif %} {% if data.dismissible is defined and data.dismissible==true %}alert-dismissible fade in{% endif %}"
-    role="alert">
-    {% if data.dismissible is defined and data.dismissible==true %}
+{% set randValue = random() %}
+
+{% set id = data.id | default('alertId' ~ randValue) %}
+{% set name = data.name | default('alertName' ~ randValue) %}
+{% set class = data.class | default('alert alert-success') %}
+{% set dismissible = data.dismissible | default(false) %}
+{% set message = data.message | default('Message not setted') %}
+
+<div id="{{ id }}" name="{{ name }}" class="{{ class }} {% if dismissible==true %}alert-dismissible fade in{% endif %}" role="alert">
+    {% if dismissible==true %}
         <button type="button" class="close" data-dismiss="alert" aria-label="{{ trans('close') }}">
             <span aria-hidden="true">&times;</span>
         </button>
     {% endif %}
-    {% if data.message is defined %}
-        {{ data.message | raw }}
-    {% endif %}
+    {{ message | raw }}
 </div>
