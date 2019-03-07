@@ -7,7 +7,6 @@
 namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\AuthPageExtendedController;
-use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Helpers\FormatUtils;
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Module;
@@ -23,13 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Modules extends AuthPageExtendedController
 {
-    /**
-     * Array that contains the paths to search.
-     *
-     * @var array
-     */
-    protected $searchDir;
-
     /**
      * Modules folder were are stored.
      *
@@ -49,9 +41,6 @@ class Modules extends AuthPageExtendedController
     {
         parent::__construct(new Module());
         $this->modulesFolder = basePath('src' . constant('DIRECTORY_SEPARATOR') . 'Modules');
-        $this->searchDir = [
-            'Alxarafe' => constant('ALXARAFE_FOLDER'),
-        ];
     }
 
     /**
@@ -186,7 +175,7 @@ class Modules extends AuthPageExtendedController
             }
         }
 
-        $this->executePreprocesses();
+        ModuleManager::getInstance()::executePreprocesses();
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
@@ -213,7 +202,7 @@ class Modules extends AuthPageExtendedController
             }
         }
 
-        $this->executePreprocesses();
+        ModuleManager::getInstance()::executePreprocesses();
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
@@ -264,18 +253,5 @@ class Modules extends AuthPageExtendedController
         unset($actionButtons['read'], $actionButtons['update']);
 
         return $actionButtons;
-    }
-
-    /**
-     * Update searchDir paths and execute preprocesses.
-     */
-    private function executePreprocesses(): void
-    {
-        CacheCore::getInstance()->getEngine()->clear();
-        $enabledModules = ModuleManager::getInstance()::getEnabledModules();
-        foreach ($enabledModules as $enabledModule) {
-            $this->searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
-        }
-        ModuleManager::executePreprocesses($this->searchDir);
     }
 }

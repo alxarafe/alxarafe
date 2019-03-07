@@ -101,6 +101,8 @@ controller-users-description: 'Usuarios del sistema'
 controller-users-roles-description: 'Contiene una relación de usuarios y grupos de permisos.'
 controller-users-roles-title: 'Usuarios y grupos de permisos'
 controller-users-title: Usuarios
+create-configuration: 'Crear configuración'
+create-configuration-description: 'Crear configuración descripción'
 database-data-not-changed: 'Datos de base de datos no cambiados'
 database-data-updated-successfully: 'Datos de base de datos actualizados satisfactoriamente'
 database-engine: 'Motor de base de datos'
@@ -193,6 +195,7 @@ password: Contraseña
 path: Contraseña
 path-to-file: 'Ruta al archivo'
 plugin: Plugin
+preprocessors-executed: 'Preprocessadores ejecutados'
 redirected-from-to: 'Redireccionado desde %from% hasta %to%'
 regenerate-data: 'Regenerar datos'
 regionalinfo-data-not-changed: 'Datos de información recional no cambiados'
@@ -203,10 +206,7 @@ register-not-deleted: 'Registro no eliminado'
 register-saved: 'Registro guardado'
 register_date: 'Registrado el'
 reinstanciated-controller-class-for-pages-successfully: 'Re-instanciada clase controller para páginas satisfactoriamente'
-reinstanciated-controller-class-for-pages-error: 'Error re-instanciando clase controller para páginas'
 reinstanciated-controller-class-for-routes-successfully: 'Re-instanciada clase controller para rutas satisfactoriamente'
-reinstanciated-controller-class-for-routes-error: 'Error re-instanciando clase controller para rutas'
-reinstanciated-model-class-successfully: 'Re-instanciada clase model satisfactoriamente'
 reinstanciated-model-class-error: 'Error re-instanciando clase model'
 rememberme: Recuerda-me
 route-not-found: 'Ruta no encontrada'

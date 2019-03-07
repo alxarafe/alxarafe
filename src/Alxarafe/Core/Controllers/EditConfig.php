@@ -94,24 +94,6 @@ class EditConfig extends AuthPageController
     public $regionalConfig;
 
     /**
-     * Array that contains the paths to search.
-     *
-     * @var array
-     */
-    protected $searchDir;
-
-    /**
-     * EditConfig constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->searchDir = [
-            'Alxarafe' => constant('ALXARAFE_FOLDER'),
-        ];
-    }
-
-    /**
      * The start point of the controller.
      *
      * @return Response
@@ -127,7 +109,7 @@ class EditConfig extends AuthPageController
             case 'regenerate-data':
                 CacheCore::getInstance()->getEngine()->clear();
                 FlashMessages::getInstance()::setSuccess($this->translator->trans('cache-cleared-successfully'));
-                $this->regenerateData();
+                ModuleManager::getInstance()::executePreprocesses();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
             case 'save':
@@ -160,7 +142,7 @@ class EditConfig extends AuthPageController
         $this->skins = $this->renderer->getSkins();
         $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
         $this->languages = Translator::getInstance()->getAvailableLanguages();
-        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? '';
+        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? Translator::FALLBACK_LANG;
 
         $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
         $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
@@ -178,16 +160,6 @@ class EditConfig extends AuthPageController
     }
 
     /**
-     * Regenerate some needed data.
-     *
-     * @return void
-     */
-    private function regenerateData(): void
-    {
-        ModuleManager::executePreprocesses($this->searchDir);
-    }
-
-    /**
      * Save the form changes in the configuration file
      *
      * @return bool
@@ -196,24 +168,24 @@ class EditConfig extends AuthPageController
     {
         $result = true;
         $translatorConfig = Translator::getInstance()->getConfig();
-        $translatorConfig['language'] = $this->request->request->get('language');
+        $translatorConfig['language'] = $this->request->request->get('language', $translatorConfig['language']);
         if (!Translator::getInstance()->setConfig($translatorConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('language-data-not-changed'));
             $result = false;
         }
 
         $templateRenderConfig = $this->renderer->getConfig();
-        $templateRenderConfig['skin'] = $this->request->request->get('skin');
+        $templateRenderConfig['skin'] = $this->request->request->get('skin', $templateRenderConfig['skin']);
         if (!$this->renderer->setConfig($templateRenderConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('templaterender-data-not-changed'));
             $result = false;
         }
 
         $regionalConfig = RegionalInfo::getInstance()->getConfig();
-        $regionalConfig['timezone'] = $this->request->request->get('timezone');
-        $regionalConfig['dateFormat'] = $this->request->request->get('dateFormat');
-        $regionalConfig['timeFormat'] = $this->request->request->get('timeFormat');
-        $regionalConfig['datetimeFormat'] = $this->request->request->get('datetimeFormat');
+        $regionalConfig['timezone'] = $this->request->request->get('timezone', $regionalConfig['timezone']);
+        $regionalConfig['dateFormat'] = $this->request->request->get('dateFormat', $regionalConfig['dateFormat']);
+        $regionalConfig['timeFormat'] = $this->request->request->get('timeFormat', $regionalConfig['timeFormat']);
+        $regionalConfig['datetimeFormat'] = $this->request->request->get('datetimeFormat', $regionalConfig['datetimeFormat']);
         if (!RegionalInfo::getInstance()->setConfig($regionalConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('regionalinfo-data-not-changed'));
             $result = false;
@@ -221,13 +193,13 @@ class EditConfig extends AuthPageController
 
         $databaseConfig = Database::getInstance()->getConfig();
         $databaseConfigOrig = $databaseConfig;
-        $databaseConfig['dbEngineName'] = $this->request->request->get('dbEngineName');
-        $databaseConfig['dbUser'] = $this->request->request->get('dbUser');
-        $databaseConfig['dbPass'] = $this->request->request->get('dbPass');
-        $databaseConfig['dbName'] = $this->request->request->get('dbName');
-        $databaseConfig['dbHost'] = $this->request->request->get('dbHost');
-        $databaseConfig['dbPrefix'] = $this->request->request->get('dbPrefix');
-        $databaseConfig['dbPort'] = $this->request->request->get('dbPort');
+        $databaseConfig['dbEngineName'] = $this->request->request->get('dbEngineName', $databaseConfig['dbEngineName']);
+        $databaseConfig['dbUser'] = $this->request->request->get('dbUser', $databaseConfig['dbUser']);
+        $databaseConfig['dbPass'] = $this->request->request->get('dbPass', $databaseConfig['dbPass']);
+        $databaseConfig['dbName'] = $this->request->request->get('dbName', $databaseConfig['dbName']);
+        $databaseConfig['dbHost'] = $this->request->request->get('dbHost', $databaseConfig['dbHost']);
+        $databaseConfig['dbPrefix'] = $this->request->request->get('dbPrefix', $databaseConfig['dbPrefix']);
+        $databaseConfig['dbPort'] = $this->request->request->get('dbPort', $databaseConfig['dbPort']);
         if (!Database::getInstance()->setConfig($databaseConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('database-data-not-changed'));
             $result = false;

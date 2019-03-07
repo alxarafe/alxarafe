@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Controllers;
 
+use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Database\Engine;
 use Alxarafe\Core\Providers\Config;
@@ -95,24 +96,6 @@ class CreateConfig extends Controller
     public $regionalConfig;
 
     /**
-     * Array that contains the paths to search.
-     *
-     * @var array
-     */
-    protected $searchDir;
-
-    /**
-     * CreateConfig constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->searchDir = [
-            'Alxarafe' => constant('ALXARAFE_FOLDER'),
-        ];
-    }
-
-    /**
      * The start point of the controller.
      *
      * @return Response
@@ -132,6 +115,7 @@ class CreateConfig extends Controller
             case 'cancel':
                 return $this->redirect(baseUrl('index.php'));
         }
+        CacheCore::getInstance()->getEngine()->clear();
         unset($this->regionalConfig['timezone']);
         return $this->sendResponseTemplate();
     }
@@ -141,18 +125,16 @@ class CreateConfig extends Controller
      */
     private function setDefaultData(): void
     {
+        $translatorConfig = Translator::getInstance()->getConfig();
         $templateRenderConfig = $this->renderer->getConfig();
-        //$databaseConfig = Database::getDefaultValues();
         $databaseConfig = Database::getInstance()->getConfig();
         $regionalConfig = RegionalInfo::getInstance()->getConfig();
 
         $this->dbEngines = Engine::getEngines();
         $this->skins = $this->renderer->getSkins();
         $this->skin = $templateRenderConfig['skin'] ?? $this->skins[0] ?? '';
-
-        $translator = Translator::getInstance();
-        $this->languages = $translator->getAvailableLanguages();
-        $this->language = Translator::FALLBACK_LANG;
+        $this->languages = Translator::getInstance()->getAvailableLanguages();
+        $this->language = $translatorConfig['language'] ?? $this->languages[0] ?? Translator::FALLBACK_LANG;
 
         $this->dbEngineName = $databaseConfig['dbEngineName'] ?? $this->dbEngines[0] ?? '';
         $this->dbConfig['dbUser'] = $databaseConfig['dbUser'] ?? 'root';
@@ -178,24 +160,24 @@ class CreateConfig extends Controller
     {
         $result = true;
         $translatorConfig = Translator::getInstance()->getConfig();
-        $translatorConfig['language'] = $this->request->request->get('language');
+        $translatorConfig['language'] = $this->request->request->get('language', $translatorConfig['language']);
         if (!Translator::getInstance()->setConfig($translatorConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('language-data-not-changed'));
             $result = false;
         }
 
         $templateRenderConfig = $this->renderer->getConfig();
-        $templateRenderConfig['skin'] = $this->request->request->get('skin');
+        $templateRenderConfig['skin'] = $this->request->request->get('skin', $templateRenderConfig['skin']);
         if (!$this->renderer->setConfig($templateRenderConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('templaterender-data-not-changed'));
             $result = false;
         }
 
         $regionalConfig = RegionalInfo::getInstance()->getConfig();
-        $regionalConfig['timezone'] = $this->request->request->get('timezone');
-        $regionalConfig['dateFormat'] = $this->request->request->get('dateFormat');
-        $regionalConfig['timeFormat'] = $this->request->request->get('timeFormat');
-        $regionalConfig['datetimeFormat'] = $this->request->request->get('datetimeFormat');
+        $regionalConfig['timezone'] = $this->request->request->get('timezone', $regionalConfig['timezone']);
+        $regionalConfig['dateFormat'] = $this->request->request->get('dateFormat', $regionalConfig['dateFormat']);
+        $regionalConfig['timeFormat'] = $this->request->request->get('timeFormat', $regionalConfig['timeFormat']);
+        $regionalConfig['datetimeFormat'] = $this->request->request->get('datetimeFormat', $regionalConfig['datetimeFormat']);
         if (!RegionalInfo::getInstance()->setConfig($regionalConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('regionalinfo-data-not-changed'));
             $result = false;
@@ -203,13 +185,13 @@ class CreateConfig extends Controller
 
         $databaseConfig = Database::getInstance()->getConfig();
         $databaseConfigOrig = $databaseConfig;
-        $databaseConfig['dbEngineName'] = $this->request->request->get('dbEngineName');
-        $databaseConfig['dbUser'] = $this->request->request->get('dbUser');
-        $databaseConfig['dbPass'] = $this->request->request->get('dbPass');
-        $databaseConfig['dbName'] = $this->request->request->get('dbName');
-        $databaseConfig['dbHost'] = $this->request->request->get('dbHost');
-        $databaseConfig['dbPrefix'] = $this->request->request->get('dbPrefix');
-        $databaseConfig['dbPort'] = $this->request->request->get('dbPort');
+        $databaseConfig['dbEngineName'] = $this->request->request->get('dbEngineName', $databaseConfig['dbEngineName']);
+        $databaseConfig['dbUser'] = $this->request->request->get('dbUser', $databaseConfig['dbUser']);
+        $databaseConfig['dbPass'] = $this->request->request->get('dbPass', $databaseConfig['dbPass']);
+        $databaseConfig['dbName'] = $this->request->request->get('dbName', $databaseConfig['dbName']);
+        $databaseConfig['dbHost'] = $this->request->request->get('dbHost', $databaseConfig['dbHost']);
+        $databaseConfig['dbPrefix'] = $this->request->request->get('dbPrefix', $databaseConfig['dbPrefix']);
+        $databaseConfig['dbPort'] = $this->request->request->get('dbPort', $databaseConfig['dbPort']);
         if (!Database::getInstance()->setConfig($databaseConfig)) {
             FlashMessages::getInstance()::setError($this->translator->trans('database-data-not-changed'));
             $result = false;
@@ -218,7 +200,9 @@ class CreateConfig extends Controller
         if ($result && $databaseConfigOrig !== $databaseConfig) {
             // The database details have been changed and need to be regenerate cache.
             FlashMessages::getInstance()::setSuccess($this->translator->trans('database-data-updated-successfully'));
+            CacheCore::getInstance()->getEngine()->clear();
         }
+
         return $result;
     }
 
@@ -229,7 +213,7 @@ class CreateConfig extends Controller
      */
     public function generateMethod(): RedirectResponse
     {
-        ModuleManager::executePreprocesses($this->searchDir);
+        ModuleManager::getInstance()::executePreprocesses();
         return $this->redirect(baseUrl('index.php?call=Login'));
     }
 
@@ -241,9 +225,9 @@ class CreateConfig extends Controller
     public function pageDetails(): array
     {
         $details = [
-            'title' => 'edit-configuration',
+            'title' => 'create-configuration',
             'icon' => '<i class="fas fa-save"></i>',
-            'description' => 'edit-configuration-description',
+            'description' => 'create-configuration-description',
             //'menu' => 'admin|create-config',
             'menu' => 'admin',
         ];

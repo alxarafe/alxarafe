@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Autoload\Load;
+use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\PreProcessors;
 
@@ -217,11 +218,16 @@ class ModuleManager
 
     /**
      * Execute all preprocessors from one point.
-     *
-     * @param array $searchDir
      */
-    public static function executePreprocesses(array $searchDir): void
+    public static function executePreprocesses(): void
     {
+        CacheCore::getInstance()->getEngine()->clear();
+        $enabledModules = ModuleManager::getInstance()::getEnabledModules();
+        $searchDir = ['Alxarafe' => constant('ALXARAFE_FOLDER')];
+        foreach ($enabledModules as $enabledModule) {
+            $searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
+        }
+
         if (!set_time_limit(0)) {
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('cant-increase-time-limit'));
         }
@@ -240,5 +246,6 @@ class ModuleManager
         new PreProcessors\Models($searchDir);
         new PreProcessors\Pages($searchDir);
         new PreProcessors\Routes($searchDir);
+        FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('preprocessors-executed'));
     }
 }
