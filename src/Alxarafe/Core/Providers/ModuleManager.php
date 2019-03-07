@@ -89,6 +89,7 @@ class ModuleManager
     {
         if (!isset(self::$modules)) {
             $modules = self::$module->getAllModules();
+            self::$modules = [];
             foreach ($modules as $module) {
                 self::$modules[$module['name']] = $module;
             }
@@ -136,6 +137,7 @@ class ModuleManager
     {
         if (!isset(self::$enabledModules)) {
             $modules = self::$module->getEnabledModules();
+            self::$enabledModules = [];
             foreach ($modules as $module) {
                 self::$enabledModules[$module['name']] = $module;
             }
