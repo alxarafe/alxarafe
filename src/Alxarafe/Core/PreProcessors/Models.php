@@ -65,9 +65,7 @@ class Models
         }
 
         // End DB transaction
-        if (Database::getInstance()->getDbEngine()->commit()) {
-            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-model-class-successfully'));
-        } else {
+        if (!Database::getInstance()->getDbEngine()->commit()) {
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-model-class-error'));
         }
     }

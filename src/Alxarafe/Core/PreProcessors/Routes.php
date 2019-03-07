@@ -73,9 +73,7 @@ class Routes
         $this->routes->saveRoutes();
 
         // End DB transaction
-        if (Database::getInstance()->getDbEngine()->commit()) {
-            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('reinstanciated-controller-class-for-routes-successfully'));
-        } else {
+        if (!Database::getInstance()->getDbEngine()->commit()) {
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('reinstanciated-controller-class-for-routes-error'));
         }
     }

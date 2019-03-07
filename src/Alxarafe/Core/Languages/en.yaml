@@ -101,6 +101,8 @@ controller-users-description: 'System users'
 controller-users-roles-description: 'Contains a relation of users and roles'
 controller-users-roles-title: 'Users roles'
 controller-users-title: Users
+create-configuration: 'Create configuration'
+create-configuration-description: 'Create configuration description'
 database-data-not-changed: 'Database data not changed'
 database-data-updated-successfully: 'Database data updated successfully'
 database-engine: 'Database engine'
@@ -193,6 +195,7 @@ password: Password
 path: Path
 path-to-file: 'Path to file'
 plugin: Plugin
+preprocessors-executed: 'Preprocessors executed'
 redirected-from-to: 'Redirected from %from% to %to%'
 regenerate-data: 'Regenerate data'
 regionalinfo-data-not-changed: 'Regional information data not changed'
@@ -202,11 +205,8 @@ register-locked: 'Register locked'
 register-not-deleted: 'Register not deleted'
 register-saved: 'Register saved'
 register_date: 'Registered at'
-reinstanciated-controller-class-for-pages-successfully: 'Re-instanciated controller class for pages successfully'
 reinstanciated-controller-class-for-pages-error: 'Re-instanciated controller class for pages error'
-reinstanciated-controller-class-for-routes-successfully: 'Re-instanciated controller class for routes successfully'
 reinstanciated-controller-class-for-routes-error: 'Re-instanciated controller class for routes error'
-reinstanciated-model-class-successfully: 'Re-instanciated model class successfully'
 reinstanciated-model-class-error: 'Re-instanciated model class error'
 rememberme: Remember-me
 route-not-found: 'Route not found'
