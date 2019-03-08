@@ -26,7 +26,7 @@ $sam = new Sami(
     [
         'theme' => 'default',
         'versions' => $versions,
-        'title' => 'alxarafe',
+        'title' => 'Alxarafe',
         'build_dir' => __DIR__ . '/docs/',
         'cache_dir' => __DIR__ . '/cache/docs/',
         'remote_repository' => new GitHubRemoteRepository('alxarafe/alxarafe', ''),

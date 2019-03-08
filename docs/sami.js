@@ -1,3 +1,4 @@
+
 window.projectVersion = 'master';
 
 (function (root) {
@@ -5618,7 +5619,7 @@ $(function () {
         }
     });
 
-
+    
 });
 
 

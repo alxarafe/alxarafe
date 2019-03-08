@@ -42,7 +42,6 @@ html, body, #content {
 .namespace-breadcrumbs .breadcrumb > li + li:before {
     content: "";
 }
-
 .namespace-breadcrumbs .breadcrumb > .backslash {
     color: #ccc;
 }
@@ -72,7 +71,6 @@ html, body, #content {
     #left-column {
         display: none;
     }
-
     #right-column {
         width: 100%;
         margin-left: 0;
