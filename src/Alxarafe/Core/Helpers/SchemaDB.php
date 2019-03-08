@@ -9,6 +9,7 @@ namespace Alxarafe\Core\Helpers;
 use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
+use Alxarafe\Core\Providers\FlashMessages;
 
 /**
  * The SchemaDB class contains static methods that allow you to manipulate the database. It is used to create and
@@ -53,6 +54,12 @@ class SchemaDB
             $sql = self::createFields($tableName, $tabla['fields']);
 
             if (!Database::getInstance()->getDbEngine()->batchExec($sql)) {
+                $data = [
+                    'tableName' => $tableName,
+                    'sql' => $sql,
+                    'table fields' => $tabla
+                ];
+                FlashMessages::getInstance()::setError('Error executing: <pre>' . var_export($data, true) . '</pre>');
                 return false;
             }
 
@@ -78,7 +85,7 @@ class SchemaDB
      */
     public static function tableExists($tableName): bool
     {
-        $sql = Database::getInstance()->getSqlHelper()->tableExists($tableName);
+        $sql = Database::getInstance()->getSqlHelper()->getSqlTableExists($tableName);
         return !empty(Database::getInstance()->getDbEngine()->selectCoreCache($tableName . '-exists', $sql));
     }
 

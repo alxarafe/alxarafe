@@ -366,7 +366,7 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public function tableExists(string $tableName): string
+    public function getSqlTableExists(string $tableName): string
     {
         $tableNameWithPrefix = Database::getInstance()->getConnectionData()['dbPrefix'] . $tableName;
         $sql = "SELECT *  FROM {$this->quoteTableName('INFORMATION_SCHEMA', false)}.{$this->quoteFieldName('TABLES')}

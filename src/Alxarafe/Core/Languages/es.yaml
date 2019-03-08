@@ -211,6 +211,7 @@ reinstanciated-model-class-error: 'Error re-instanciando clase model'
 rememberme: Recuerda-me
 route-not-found: 'Ruta no encontrada'
 save-changes: 'Guardar los cambios'
+save-changes-exit: 'Guardar cambios y salir'
 see-on-github: 'Ver en Github'
 selected: Seleccionado
 show: Mostrar

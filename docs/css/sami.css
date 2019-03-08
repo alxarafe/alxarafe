@@ -42,6 +42,7 @@ html, body, #content {
 .namespace-breadcrumbs .breadcrumb > li + li:before {
     content: "";
 }
+
 .namespace-breadcrumbs .breadcrumb > .backslash {
     color: #ccc;
 }
@@ -71,6 +72,7 @@ html, body, #content {
     #left-column {
         display: none;
     }
+
     #right-column {
         width: 100%;
         margin-left: 0;
@@ -81,11 +83,11 @@ html, body, #content {
 
 #api-tree {
     background: linear-gradient(
-        to bottom,
-        #FFF,
-        #FFF 50%,
-        #EDF3FE 50%,
-        #EDF3FE
+            to bottom,
+            #FFF,
+            #FFF 50%,
+            #EDF3FE 50%,
+            #EDF3FE
     );
     background-size: 100% 56px;
     overflow: auto;
@@ -203,7 +205,7 @@ html, body, #content {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
     padding: 8px;
 }
 
@@ -370,7 +372,7 @@ code {
     padding-bottom: 0.2em;
     margin: 0;
     font-size: 85%;
-    background-color: rgba(0,0,0,0.04);
+    background-color: rgba(0, 0, 0, 0.04);
     border-radius: 3px;
     color: #333;
 }

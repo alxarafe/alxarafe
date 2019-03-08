@@ -103,11 +103,13 @@ class Router
     /**
      * Saves routes to configuration file.
      *
+     * @param bool $merge
+     *
      * @return bool
      */
-    public function saveRoutes(): bool
+    public function saveRoutes(bool $merge = false): bool
     {
-        return $this->setConfig($this->routes);
+        return $this->setConfig($this->routes, $merge);
     }
 
     /**

@@ -26,6 +26,9 @@ class FileSystemUtils
     public static function rrmdir(string $path): bool
     {
         // Open the source directory to read in files
+        if (!file_exists($path)) {
+            return false;
+        }
         $i = new DirectoryIterator($path);
         foreach ($i as $f) {
             if ($f->isFile()) {

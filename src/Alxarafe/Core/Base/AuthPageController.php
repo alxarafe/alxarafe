@@ -345,7 +345,7 @@ abstract class AuthPageController extends AuthController
     public function getUserMenu(): array
     {
         $list = [];
-        $pages = (new Page())->getAllRecords();
+        $pages = (new Page())->getAllRecordsBy('active', 1);
         foreach ($pages as $page) {
             // Ignore item if menu is empty
             if (empty($page['menu'])) {

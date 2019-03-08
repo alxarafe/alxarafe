@@ -7,13 +7,12 @@
 namespace Alxarafe\Core\PreProcessors;
 
 use Alxarafe\Core\Base\AuthPageController;
-use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Helpers\FormatUtils;
+use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Page;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
-use DateTime;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -35,10 +34,25 @@ class Pages
      *
      * @param array $dirs
      */
-    public function __construct(array $dirs)
+    public function __construct(array $dirs = [])
     {
         $this->searchDir = $dirs;
+        $this->updatePageDetails();
         $this->checkPageControllers();
+    }
+
+    /**
+     * Updates active page field based on enabled namespaces
+     */
+    private function updatePageDetails()
+    {
+        foreach ((new Page())->getAllRecords() as $page) {
+            $page['active'] = 0;
+            if (array_key_exists($page['plugin'], $this->searchDir)) {
+                $page['active'] = 1;
+            }
+            (new Page())->setData($page)->save();
+        }
     }
 
     /**
@@ -60,12 +74,10 @@ class Pages
                 ->files()
                 ->name('*.php')
                 ->in($dir);
-            $start = new DateTime();
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
                 $this->instantiateClass($namespace, $className);
             }
-            $this->cleanPagesBefore($start);
         }
 
         // End DB transaction
@@ -113,23 +125,5 @@ class Pages
         $page->active = 1;
         $page->updated_date = FormatUtils::getFormattedDateTime();
         $page->save();
-    }
-
-    /**
-     * Clean all pages before $start datetime.
-     *
-     * @param DateTime $start
-     */
-    private function cleanPagesBefore(DateTime $start): void
-    {
-        $pages = (new Page())->getAllRecords();
-        foreach ($pages as $oldPage) {
-            $updatedDate = new DateTime($oldPage['updated_date'] . '.999999');
-            if ($start->diff($updatedDate)->f < 0) {
-                $page = new Page();
-                $page->setOldData($oldPage);
-                $page->delete();
-            }
-        }
     }
 }
