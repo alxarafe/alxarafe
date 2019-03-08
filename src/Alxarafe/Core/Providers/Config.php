@@ -97,6 +97,12 @@ class Config
         ClassUtils::defineIfNotExists('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
         ClassUtils::defineIfNotExists('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
 
+        $request_uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
+        $uri_length = strlen(constant('APP_URI'));
+        $params = trim(substr($request_uri, $uri_length), '/');
+
+        ClassUtils::defineIfNotExists('URL_PARAMS', explode('/', $params));
+
         /**
          * Must be defined in main index.php file
          */
