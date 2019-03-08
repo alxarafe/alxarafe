@@ -101,6 +101,10 @@ class Config
         $uri_length = strlen(constant('APP_URI'));
         $params = trim(substr($request_uri, $uri_length), '/');
 
+        if (strpos($params, 'index.php') === 0) {
+            $params = trim(substr($params, strlen('index.php')), '/');
+        }
+
         ClassUtils::defineIfNotExists('URL_PARAMS', explode('/', $params));
 
         /**
