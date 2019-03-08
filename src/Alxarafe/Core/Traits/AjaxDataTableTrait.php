@@ -38,7 +38,7 @@ trait AjaxDataTableTrait
 
         $this->fillActions($data);
 
-        $json_data = [
+        $jsonData = [
             'draw' => (int) ($requestData['draw'] ?? null),
             'recordsTotal' => $recordsTotal ?? null,
             'recordsFiltered' => $recordsFiltered ?? null,
@@ -46,7 +46,7 @@ trait AjaxDataTableTrait
         ];
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
-        return $this->sendResponse(json_encode($json_data, $print));
+        return $this->sendResponse(json_encode($jsonData, $print));
     }
 
     /**
