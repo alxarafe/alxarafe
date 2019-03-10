@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Helpers\Utils;
 
+use Alxarafe\Core\Providers\ModuleManager;
 use DirectoryIterator;
 use SplFileInfo;
 
@@ -46,8 +47,8 @@ class FileSystemUtils
      * @doc https://github.com/kalessil/phpinspectionsea/blob/master/docs/probable-bugs.md#mkdir-race-condition
      *
      * @param string $dir
-     * @param int    $mode
-     * @param bool   $recursive
+     * @param int $mode
+     * @param bool $recursive
      *
      * @return bool
      */
@@ -75,4 +76,37 @@ class FileSystemUtils
         }
         return $list;
     }
+
+    /**
+     * Locate a file in a subfolder, returning the FQCN or filepath.
+     * The active modules of the last activated are traversed to the first, and finally the core.
+     * The file is searched in the subfolder specified (for example Models).
+     * If true (default), return the FQCN; if false, return the path to the file
+     *
+     * @param string $subfolder
+     * @param string $file
+     * @param bool $fqcn .
+     * @return ?string
+     */
+    public static function locate(string $subfolder, string $file, bool $fqcn = true): ?string
+    {
+        $modules = [];
+        foreach (ModuleManager::getEnabledModules() as $value) {
+            $cad = $value['path'];
+            $modules[] = substr($cad, strlen('src/'));    // Delete initial 'src\'
+        }
+        $modules[] = 'Alxarafe\Core';
+        foreach ($modules as $module) {
+            $filename = BASE_PATH . '/src/' . str_replace('\\', '/', $module) . '/' . $subfolder . '/' . $file . '.php';
+            if (file_exists($filename)) {
+                if ($fqcn) {
+                    return '\\' . $module . '\\' . $subfolder . '\\' . $file;
+                }
+                return $filename;
+            }
+        }
+
+        return null;
+    }
+
 }
