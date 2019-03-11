@@ -47,13 +47,15 @@ if (!function_exists('baseUrl')) {
      */
     function baseUrl(string $url = ''): string
     {
+        $defaultPort = $_SERVER['SERVER_PORT'] ?? 80;
+        $defaultHost = $_SERVER['SERVER_NAME'] ?? 'localhost';
         $folder = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
         $port = '';
-        if (!in_array($_SERVER['SERVER_PORT'], ['80', '443'], false)) {
-            $port = ':' . $_SERVER['SERVER_PORT'];
+        if (!in_array($defaultPort, ['80', '443'], false)) {
+            $port = ':' . $defaultPort;
         }
         $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
-            . '://' . $_SERVER['SERVER_NAME'] . $port . $folder;
+            . '://' . $defaultHost . $port . $folder;
 
         return empty($url) ? $baseUrl : $baseUrl . '/' . trim($url, '/');
     }

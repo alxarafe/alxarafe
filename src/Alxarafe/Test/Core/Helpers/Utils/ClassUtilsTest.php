@@ -3,6 +3,7 @@
 namespace Alxarafe\Test\Core\Helpers\Utils;
 
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
+use Alxarafe\Core\Providers\Config;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,10 +24,7 @@ class ClassUtilsTest extends TestCase
         $test = 'TEST_DEFINE';
         $definedBefore = false;
         $definedAfter = false;
-        if (defined($test)) {
-            $definedBefore = true;
-            $definedAfter = true;
-        }
+        $this->assertSame($definedBefore, $definedAfter);
         $this->object::defineIfNotExists($test, $test);
         if (defined($test)) {
             $definedAfter = !$definedAfter;
@@ -39,7 +37,9 @@ class ClassUtilsTest extends TestCase
      */
     public function testGetShortName()
     {
-        $this->assertNotEmpty($this->object::getShortName($this, 'UtilsTest'));
+        $this->assertNotEmpty($this->object::getShortName($this, 'ClassUtilsTest'));
+        $this->assertNotEmpty($this->object::getShortName(null, 'ClassUtilsTest'));
+        $this->assertNotEmpty($this->object::getShortName('ThisClassDoesNotExists', 'ClassUtilsTest'));
     }
 
     /**
@@ -48,6 +48,7 @@ class ClassUtilsTest extends TestCase
      */
     protected function setUp()
     {
+        (new Config())->loadConstants();
         $this->object = new ClassUtils;
     }
 
