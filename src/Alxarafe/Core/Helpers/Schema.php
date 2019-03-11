@@ -26,21 +26,13 @@ use Symfony\Component\Yaml\Yaml;
 class Schema
 {
     /**
-     * The debug tool used.
-     *
-     * @var DebugTool
-     */
-    private static $debugTool;
-
-    /**
      * Schema constructor.
      */
     public function __construct()
     {
         $shortName = ClassUtils::getShortName($this, static::class);
-        self::$debugTool = DebugTool::getInstance();
-        self::$debugTool->startTimer($shortName, $shortName . ' Schema Constructor');
-        self::$debugTool->stopTimer($shortName);
+        DebugTool::getInstance()->startTimer($shortName, $shortName . ' Schema Constructor');
+        DebugTool::getInstance()->stopTimer($shortName);
     }
 
     /**
@@ -309,7 +301,7 @@ class Schema
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);
-            self::$debugTool->addException($e);
+            DebugTool::getInstance()->addException($e);
             return null;
         }
 
