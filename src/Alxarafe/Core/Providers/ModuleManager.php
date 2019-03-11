@@ -156,7 +156,7 @@ class ModuleManager
     /**
      * Exec Initializer::init() from each enabled module.
      */
-    private static function runInitializer()
+    private static function runInitializer(): void
     {
         $dirs = [];
         foreach (self::getEnabledModules() as $module) {
@@ -178,7 +178,7 @@ class ModuleManager
      *
      * @return array
      */
-    private static function getFoldersEnabledModules()
+    private static function getFoldersEnabledModules(): array
     {
         $folderList = [];
         foreach (self::$enabledModules as $module) {
@@ -190,7 +190,7 @@ class ModuleManager
     /**
      * Adds enabled module folders to translator.
      */
-    private static function addTranslatorFolders()
+    private static function addTranslatorFolders(): void
     {
         self::$translator->addDirs(self::getFoldersEnabledModules());
     }
@@ -198,7 +198,7 @@ class ModuleManager
     /**
      * Adds enabled module folders to renderer.
      */
-    private static function addRenderFolders()
+    private static function addRenderFolders(): void
     {
         $list = [];
         foreach (self::getEnabledModules() as $module) {
@@ -234,7 +234,7 @@ class ModuleManager
     /**
      * Run preprocessors for update modules dependencies.
      */
-    public static function runPreprocessors()
+    public static function runPreprocessors(): void
     {
         CacheCore::getInstance()->getEngine()->clear();
         $enabledFolders = self::getEnabledFolders();
