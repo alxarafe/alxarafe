@@ -60,7 +60,7 @@ class Schema
     {
         $result = true;
         $prefix = Database::getInstance()->getConnectionData()['dbPrefix'];
-        $usePrefix = strpos($table, $prefix) === 0;
+        $usePrefix = !empty($prefix);
         $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
         $structure = Database::getInstance()->getDbEngine()->getStructure($tableName, $usePrefix);
         foreach (['schema', 'viewdata'] as $type) {
