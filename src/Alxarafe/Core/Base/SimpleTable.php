@@ -171,7 +171,7 @@ class SimpleTable extends Entity
      * Sets the active record in a new record.
      * Note that changes made to the current active record will be lost.
      */
-    private function newRecord(): void
+    public function newRecord(): void
     {
         $this->id = '';
         $this->newData = [];
@@ -371,6 +371,7 @@ class SimpleTable extends Entity
 
         $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
         $sql = "UPDATE {$this->getQuotedTableName()} SET {$fieldList} WHERE {$idField} = :id;";
+
         $vars['id'] = $this->id;
 
         return Database::getInstance()->getDbEngine()->exec($sql, $vars);
