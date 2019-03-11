@@ -312,7 +312,7 @@ class SimpleTable extends Entity
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->id == '') ? $this->insertRecord($values) : $this->updateRecord($values);
         if ($ret) {
-            $this->id = $this->newData[$this->idField] ?? null;
+            // $this->id = $this->newData[$this->idField] ?? null;
             $this->oldData = $this->newData;
         }
         return $ret;
