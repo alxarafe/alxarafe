@@ -17,7 +17,6 @@ class FileSystemUtilsTest extends TestCase
 
     /**
      * @use    FileSystemUtils::scandir
-     * @todo   Implement testScandir().
      */
     public function testScandir()
     {

@@ -1,0 +1,19 @@
+<?php
+
+namespace Alxarafe\Test\Core\Controllers;
+
+use PHPUnit\Framework\TestCase;
+
+class UsersTest extends TestCase
+{
+
+    public function testPageDetails()
+    {
+
+    }
+
+    public function test__construct()
+    {
+
+    }
+}

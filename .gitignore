@@ -3,7 +3,8 @@
 /nbproject/
 /vendor/
 /cache/
-/config/
+/config/config.yaml
+/config/core.log
 /reports/
 /resources/skins/default/bower_modules/
 /libraries_/

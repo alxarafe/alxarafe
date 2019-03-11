@@ -14,12 +14,30 @@ use Alxarafe\Core\Providers\TemplateRender;
 use Alxarafe\Core\Providers\Translator;
 use Kint\Kint;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+$root = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
+
+require_once $root . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 define('DEBUG', false);
 
+$configOrig = $root . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.yaml';
+
+if (strpos(__DIR__, '/home/scrutinizer/build/Test') !== false) {
+    echo 'Executing on scrutinizer ...' . "\n\n";
+    $config = $root . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config-scrutinizer.yaml';
+    copy($config, $configOrig);
+} elseif (strpos(__DIR__, '/home/travis/build/') !== false) {
+    echo 'Executing on travis ...' . "\n\n";
+    $config = $root . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config-travis.yaml';
+    copy($config, $configOrig);
+} elseif (!file_exists($configOrig)) {
+    die($configOrig . " not found!\n");
+}
+
 Kint::$enabled_mode = false;
-(Config::getInstance())->loadConstants();
+$configManager = Config::getInstance();
+$configManager->loadConstants();
+$configData = $configManager->getConfigContent();
 DebugTool::getInstance();
 RegionalInfo::getInstance();
 Logger::getInstance();
@@ -28,6 +46,10 @@ Session::getInstance();
 Router::getInstance();
 Translator::getInstance();
 CacheCore::getInstance()->getEngine();
-Database::getInstance();
+$configData = $configManager->getConfigContent();
+if (!empty($configData)) {
+    $database = Database::getInstance();
+    $database->connectToDatabase();
+}
 TemplateRender::getInstance();
 FormatUtils::loadConfig();
