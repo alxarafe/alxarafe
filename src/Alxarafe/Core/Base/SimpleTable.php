@@ -127,6 +127,7 @@ class SimpleTable extends Entity
     public function get(string $id): self
     {
         $this->getDataById($id);
+        $this->id = $id;
         return $this;
     }
 
@@ -342,7 +343,6 @@ class SimpleTable extends Entity
         $valueList = implode(', ', $fieldVars);
 
         $sql = "INSERT INTO {$this->getQuotedTableName()} ($fieldList) VALUES ($valueList);";
-
         $ret = Database::getInstance()->getDbEngine()->exec($sql, $vars);
 
         // Assign the value of the primary key of the newly inserted record

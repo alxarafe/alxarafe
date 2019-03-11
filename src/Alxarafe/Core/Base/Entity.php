@@ -118,7 +118,9 @@ abstract class Entity
      */
     public function setData(array $data): self
     {
-        $this->id = $data[$this->getIdField()] ?? null;
+        if (!isset($this->id) && $this->id == 0) {
+            $this->id = $data[$this->getIdField()] ?? null;
+        }
         $this->newData = $data;
         return $this;
     }
