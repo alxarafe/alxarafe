@@ -14,11 +14,11 @@ database:
   main:
     dbEngineName: PdoMySql
     dbPrefix: ''
-    dbUser: scrutinizer
-    dbPass: scrutinizer
+    dbUser: root
+    dbPass: ''
     dbName: scrutinizer
-    dbHost: localhost
-    dbPort: ''
+    dbHost: 127.0.0.1
+    dbPort: 3306
 router:
   main:
     CreateConfig: \Alxarafe\Core\Controllers\CreateConfig
