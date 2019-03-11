@@ -23,11 +23,9 @@ define('DEBUG', false);
 $configOrig = $root . 'config' . DIRECTORY_SEPARATOR . 'config.yaml';
 
 if (strpos(__DIR__, '/home/scrutinizer') !== false) {
-    echo 'Executing on scrutinizer ...' . "\n\n";
     $config = $root . 'config' . DIRECTORY_SEPARATOR . 'config-scrutinizer.yaml';
     copy($config, $configOrig);
 } elseif (strpos(__DIR__, '/home/travis') !== false) {
-    echo 'Executing on travis ...' . "\n\n";
     $config = $root . 'config' . DIRECTORY_SEPARATOR . 'config-travis.yaml';
     copy($config, $configOrig);
 } elseif (!file_exists($configOrig)) {
