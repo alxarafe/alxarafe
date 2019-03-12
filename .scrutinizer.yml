@@ -22,7 +22,7 @@ build:
         hosts:
             local.dev: '127.0.0.1'
         apache2:
-            modules: ['rewrite', 'expire', 'ssl', 'macro', 'headers']
+            modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
             sites:
                 alxarafe:
                     web_root: ''
