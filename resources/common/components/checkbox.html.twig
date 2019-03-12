@@ -16,19 +16,25 @@
         <label>
             {% include "@Core/components/checkbox.html.twig" with {data:{id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'}} %}
 #}
-{% if data.type is defined and data.type == 'input' %}
+
+{% set randValue = random() %}
+
+{% set type = data.type | default('input') %}
+{% set id = data.id | default('chekboxid' ~ randValue) %}
+{% set name = data.name | default('chekboxid' ~ randValue) %}
+{% set text = data.text | default('Escribe un texto') %}
+
+
+
+{% if type == 'input' %}
     <div class="input-group">
           <span class="input-group-addon">
-            <input{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
-                    type="checkbox"
-                    aria-label="...">
+            <input id="{{ id }}" name="{{ name }}" type="checkbox" aria-label="...">
           </span>
-        <input type="text" class="form-control" {% if data.text is defined %}placeholder="{{ data.text | raw }}"{% endif %}
-               aria-label="...">
+        <input type="text" class="form-control" placeholder="{{ text | raw }}" aria-label="...">
     </div>
-{% elseif data.type is defined and data.type == 'label' %}
+{% elseif type == 'label' %}
     <label>
-        <input{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
-                type="checkbox"> {% if data.text is defined %}{{ data.text | raw }}{% endif %}
+        <input id="id" name="name " type="checkbox"> {{ text | raw }}
     </label>
 {% endif %}

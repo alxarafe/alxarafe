@@ -13,6 +13,12 @@
         {% include "@Core/components/badge.html.twig" with {data:{id:'myBadgeId', name:'myBadgeName', badge: '3'}} %}
 #}
 
-<span{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %} class="badge{% if data.class is defined %} {{ data.class }}{% endif %}">
-    {% if data.badge is defined %}{{ data.badge }}{% endif %}
-</span>
+{% set randValue = random() %}
+
+{% set id = data.id | default('badgeid' ~ randValue) %}
+{% set name = data.name | default('badgeName' ~ randValue) %}
+{% set class = data.class | default('badge badge-light') %}
+{% set badge = data.badge | default('2' ~ randValue) %}
+
+
+<span id="{{ id }}" name="{{ name }}" class="{{ class }}"> {{ badge }}</span>
