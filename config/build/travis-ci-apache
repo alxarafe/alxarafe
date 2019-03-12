@@ -1,7 +1,7 @@
 <VirtualHost *:80>
   # [...]
     ServerAdmin info@alxarafe.com
-    ServerName localhost
+    ServerName local.dev
 
     DocumentRoot %TRAVIS_BUILD_DIR%
 

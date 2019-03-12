@@ -32,3 +32,6 @@ router:
         Pages: \Alxarafe\Core\Controllers\Pages
         Tables: \Alxarafe\Core\Controllers\Tables
         Roles: \Alxarafe\Core\Controllers\Roles
+constants:
+    main:
+        SERVER_NAME: 'local.dev'
