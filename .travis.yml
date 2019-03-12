@@ -26,25 +26,33 @@ before_install:
 before_script:
     - curl http://ipinfo.io/ip
     # https://docs.travis-ci.com/user/languages/php/#apache--php
-    # https://www.marcus-povey.co.uk/2016/02/16/travisci-with-php-7-on-apache-php-fpm/
+    # https://github.com/mitchellkrogza/Travis-CI-for-Apache-For-Testing-Apache-and-PHP-Configurations/blob/master/travisCI/install-apache.sh
     # Update and install base system
     - sudo apt-get update
-    - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi
-    # Enable php-fpm
-    - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-    - sudo a2enmod rewrite actions fastcgi alias
-    - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
-    - sudo chown -R travis:travis /var/lib/apache2/fastcgi
-    #- ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-    - sudo cp config/build/travis-www.conf.php ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.php
+    - sudo apt-get install -y --force-yes apache2
+    # Add PHP 7.2 Repository
+    - sudo add-apt-repository -y ppa:ondrej/php
+    # Install PHP 7.2
+    - sudo apt-get update
+    - sudo apt-get install -y --force-yes php7.2 php7.2-common php7.2-cli php7.2-fpm libapache2-mod-php7.2
+    - sudo a2enconf php7.2
+    - sudo a2enmod php7.2
     # Configure apache virtual hosts
     - sudo cp -f config/build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
-    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
+    # Enable mod rewrite module
+    - sudo a2enmod rewrite
+    - sudo a2enmod expires
+    # Set ServerName Globally
+    - sudo cp config/build/travis-ci-servername /etc/apache2/conf-available/servername.conf
+    - sudo a2enconf servername
     # Restart services
     - sudo service apache2 restart
+    # Restart PHP
+    - sudo service php7.2-fpm restart
+    # Create database
     - mysql -e 'DROP DATABASE IF EXISTS alxarafe;'
     - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
+    # Copy default config.yaml
     - cp config/config-travis.yaml config/config.yaml
 
 script:
@@ -54,6 +62,7 @@ script:
     - vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
     # Run PHPUnit test.
     - vendor/bin/phpunit --configuration phpunit.xml
+
 matrix:
     include:
         -   php: hhvm
@@ -62,6 +71,7 @@ matrix:
         -   php: hhvm
         -   php: nightly
     fast_finish: true
+
 after_failure:
     - sudo cat $TRAVIS_BUILD_DIR/apache-error.log
 #notifications:

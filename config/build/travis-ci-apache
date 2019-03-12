@@ -1,5 +1,4 @@
 <VirtualHost *:80>
-  # [...]
     ServerAdmin info@alxarafe.com
     ServerName local.dev
 
@@ -12,16 +11,24 @@
         Allow from all
     </Directory>
 
-    # Wire up Apache to use Travis CI's php-fpm.
-    <IfModule mod_fastcgi.c>
-        AddHandler php5-fcgi .php
-        Action php5-fcgi /php5-fcgi
-        Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
-        FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -host 127.0.0.1:9000 -pass-header Authorization
+    Options -Indexes
 
-        <Directory /usr/lib/cgi-bin>
-            Require all granted
-        </Directory>
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^ index.php [QSA,L]
+    </IfModule>
+
+    <IfModule mod_expires.c>
+       ExpiresActive On
+       ExpiresDefault                           "access plus 1 week"
+       ExpiresByType text/css                   "access plus 1 week"
+       ExpiresByType application/javascript     "access plus 1 week"
+       ExpiresByType text/javascript            "access plus 1 week"
+       <FilesMatch "\.(php|cgi)$">
+          ExpiresActive Off
+       </FilesMatch>
     </IfModule>
 
     ErrorLog "%TRAVIS_BUILD_DIR%/apache-error.log"
