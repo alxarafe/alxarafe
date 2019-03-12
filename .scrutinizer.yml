@@ -5,9 +5,6 @@ build:
     timezone: UTC
     postgresql: false
     mysql: 5.7
-  dependencies:
-    before:
-      - composer require phpunit/phpunit:^7.5 --dev
   nodes:
     analysis:
       project_setup:
@@ -18,14 +15,14 @@ build:
           - php-scrutinizer-run
           - command: phpcs-run
             use_website_config: true
-    tests:
+    tests: true
+    coverage:
       dependencies:
         before:
           - sudo service start mysql || true
           - mysql -h 127.0.0.1 -u root -e 'DROP DATABASE IF EXISTS scrutinizer;'
           - mysql -h 127.0.0.1 -u root -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
           - cp config/config-scrutinizer.yaml config/config.yaml
-    coverage:
       tests:
         override:
           - command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
