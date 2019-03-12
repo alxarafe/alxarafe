@@ -1,25 +1,25 @@
 id:
-  label: id
-  shortlabel: col-id
-  placeholder: id
-  min: 0
-  max: 9999
+    label: id
+    shortlabel: col-id
+    placeholder: id
+    min: 0
+    max: 9999
 name:
-  label: name
-  shortlabel: col-name
-  placeholder: name
-  length: 100
+    label: name
+    shortlabel: col-name
+    placeholder: name
+    length: 100
 language:
-  label: language-code
-  shortlabel: col-language-code
-  placeholder: language-code
-  pattern: '[a-z]{2}'
-  length: '2'
-  title: language-code
+    label: language-code
+    shortlabel: col-language-code
+    placeholder: language-code
+    pattern: '[a-z]{2}'
+    length: '2'
+    title: language-code
 variant:
-  label: language-variant
-  shortlabel: col-language-variant
-  placeholder: language-variant
-  pattern: '[A-Z]{2}'
-  length: '2'
-  title: language-variant
+    label: language-variant
+    shortlabel: col-language-variant
+    placeholder: language-variant
+    pattern: '[A-Z]{2}'
+    length: '2'
+    title: language-variant

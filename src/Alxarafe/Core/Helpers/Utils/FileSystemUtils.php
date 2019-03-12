@@ -47,12 +47,12 @@ class FileSystemUtils
      * @doc https://github.com/kalessil/phpinspectionsea/blob/master/docs/probable-bugs.md#mkdir-race-condition
      *
      * @param string $dir
-     * @param int $mode
-     * @param bool $recursive
+     * @param int    $mode
+     * @param bool   $recursive
      *
      * @return bool
      */
-    public static function mkdir($dir, $mode = 0777, $recursive = false): bool
+    public static function mkdir(string $dir, int $mode = 0777, bool $recursive = false): bool
     {
         return !is_dir($dir) && !mkdir($dir, $mode, $recursive) && !is_dir($dir);
     }
@@ -85,7 +85,8 @@ class FileSystemUtils
      *
      * @param string $subfolder
      * @param string $file
-     * @param bool $fqcn .
+     * @param bool   $fqcn
+     *
      * @return ?string
      */
     public static function locate(string $subfolder, string $file, bool $fqcn = true): ?string

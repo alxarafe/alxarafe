@@ -92,7 +92,7 @@ class Translator
         if (!isset(self::$translator)) {
             $this->initSingleton();
             $config = $this->getConfig();
-            self::$languageFolder = constant('ALXARAFE_FOLDER') . self::LANG_FOLDER;
+            self::$languageFolder = realpath(constant('ALXARAFE_FOLDER') . self::LANG_FOLDER);
             self::$translator = new SymfonyTranslator($config['language'] ?? self::FALLBACK_LANG);
             self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
             self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
@@ -123,6 +123,7 @@ class Translator
                 self::$translator->addResource(self::FORMAT, $langFile->getPathName(), $langCode);
             } catch (ParseException $e) {
                 Logger::getInstance()::exceptionHandler($e);
+                FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
             }
         }
     }

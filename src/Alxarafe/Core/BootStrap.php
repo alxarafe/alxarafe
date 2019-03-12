@@ -186,7 +186,7 @@ class BootStrap
         if (!isset(self::$instance)) {
             self::$instance = $this;
             self::$startTimer = microtime(true);
-            $this->basePath = $basePath;
+            $this->basePath = realpath($basePath);
             $this->isDebug = $debug;
             Kint::$enabled_mode = $this->isDebug;
             $shortName = ClassUtils::getShortName($this, static::class);

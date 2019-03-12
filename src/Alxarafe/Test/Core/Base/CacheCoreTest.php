@@ -13,19 +13,11 @@ class CacheCoreTest extends TestCase
     protected $object;
 
     /**
-     * @use CacheCore::__construct
-     */
-    public function test__construct()
-    {
-
-    }
-
-    /**
      * @use CacheCore::getInstance
      */
     public function testGetInstance()
     {
-
+        $this->assertIsObject($this->object::getInstance());
     }
 
     /**
@@ -33,7 +25,7 @@ class CacheCoreTest extends TestCase
      */
     public function testGetEngine()
     {
-
+        $this->assertIsObject($this->object->getEngine());
     }
 
     /**
@@ -41,7 +33,7 @@ class CacheCoreTest extends TestCase
      */
     public function testGetDefaultValues()
     {
-
+        $this->assertEmpty($this->object::getDefaultValues());
     }
 
     /**

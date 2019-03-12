@@ -136,6 +136,7 @@ trait Singleton
                 $yamlContent = Yaml::parseFile($file);
             } catch (ParseException $e) {
                 Logger::getInstance()::exceptionHandler($e);
+                FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
                 $yamlContent = [];
             }
         }
@@ -150,7 +151,7 @@ trait Singleton
      */
     public function getFilePath(): string
     {
-        return self::$basePath . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
+        return realpath(self::$basePath) . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
     }
 
     /**

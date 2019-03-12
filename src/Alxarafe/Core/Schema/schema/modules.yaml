@@ -1,45 +1,45 @@
 fields:
-  id:
-    type: integer
-    length: '10'
-    default: null
-    nullable: 'no'
-    unsigned: 'yes'
-    autoincrement: 'yes'
-  name:
-    type: string
-    length: '50'
-    default: ''
-    nullable: 'no'
-    unsigned: 'no'
-  path:
-    type: string
-    length: '100'
-    default: ''
-    nullable: 'no'
-    unsigned: 'no'
-  enabled:
-    type: datetime
-    length: null
-    default: null
-    nullable: 'yes'
-    unsigned: 'no'
-  inserted_date:
-    type: datetime
-    length: null
-    default: CURRENT_TIMESTAMP
-    nullable: 'yes'
-    unsigned: 'no'
-  updated_date:
-    type: datetime
-    length: null
-    default: CURRENT_TIMESTAMP
-    nullable: 'yes'
-    unsigned: 'no'
+    id:
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+        autoincrement: 'yes'
+    name:
+        type: string
+        length: '50'
+        default: ''
+        nullable: 'no'
+        unsigned: 'no'
+    path:
+        type: string
+        length: '100'
+        default: ''
+        nullable: 'no'
+        unsigned: 'no'
+    enabled:
+        type: datetime
+        length: null
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+    inserted_date:
+        type: datetime
+        length: null
+        default: CURRENT_TIMESTAMP
+        nullable: 'yes'
+        unsigned: 'no'
+    updated_date:
+        type: datetime
+        length: null
+        default: CURRENT_TIMESTAMP
+        nullable: 'yes'
+        unsigned: 'no'
 indexes:
-  PRIMARY:
-    column: id
-    unique: 'yes'
-  name:
-    column: name
-    unique: 'yes'
+    PRIMARY:
+        column: id
+        unique: 'yes'
+    name:
+        column: name
+        unique: 'yes'

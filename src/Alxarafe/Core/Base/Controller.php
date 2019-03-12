@@ -6,8 +6,8 @@
 
 namespace Alxarafe\Core\Base;
 
-use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Helpers\Session;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\Container;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\Logger;
@@ -105,7 +105,7 @@ abstract class Controller
         $this->container = Container::getInstance();
         $this->debugTool = DebugTool::getInstance();
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Controller Constructor');
-        $this->request = $this->container::get('request');
+        $this->request = Request::createFromGlobals();
         $this->response = new Response();
         $this->session = Session::getInstance();
         $this->renderer = TemplateRender::getInstance();

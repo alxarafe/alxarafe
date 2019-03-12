@@ -1,92 +1,92 @@
 fields:
-  id:
-    type: integer
-    length: '10'
-    default: null
-    nullable: 'no'
-    unsigned: 'yes'
-    autoincrement: 'yes'
-  id_role:
-    type: integer
-    length: '10'
-    default: null
-    nullable: 'no'
-    unsigned: 'yes'
-  id_page:
-    type: integer
-    length: '10'
-    default: null
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_access:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_create:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_read:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_update:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_delete:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_print:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_export:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  can_sendmail:
-    type: integer
-    length: '10'
-    default: '0'
-    nullable: 'yes'
-    unsigned: 'yes'
-  locked:
-    type: integer
-    length: '1'
-    default: '0'
-    nullable: 'no'
-    unsigned: 'yes'
+    id:
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+        autoincrement: 'yes'
+    id_role:
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+    id_page:
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_access:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_create:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_read:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_update:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_delete:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_print:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_export:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    can_sendmail:
+        type: integer
+        length: '10'
+        default: '0'
+        nullable: 'yes'
+        unsigned: 'yes'
+    locked:
+        type: integer
+        length: '1'
+        default: '0'
+        nullable: 'no'
+        unsigned: 'yes'
 indexes:
-  PRIMARY:
-    column: id
-    unique: 'yes'
-  role_page:
-    column: id_role,id_page
-    unique: 'yes'
+    PRIMARY:
+        column: id
+        unique: 'yes'
+    role_page:
+        column: id_role,id_page
+        unique: 'yes'
 values:
-  1:
-    id: 1
-    id_role: 1
-    id_page: null
-    can_access: 1
-    can_create: 1
-    can_read: 1
-    can_update: 1
-    can_delete: 1
-    locked: 1
+    1:
+        id: 1
+        id_role: 1
+        id_page: null
+        can_access: 1
+        can_create: 1
+        can_read: 1
+        can_update: 1
+        can_delete: 1
+        locked: 1

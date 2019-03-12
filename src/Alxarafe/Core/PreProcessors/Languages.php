@@ -9,6 +9,9 @@ namespace Alxarafe\Core\PreProcessors;
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Language;
 use Alxarafe\Core\Providers\DebugTool;
+use Alxarafe\Core\Providers\FlashMessages;
+use Alxarafe\Core\Providers\Logger;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -79,7 +82,13 @@ class Languages
                 $default = $source . DIRECTORY_SEPARATOR . $defaultFileName . '.yaml';
                 // echo '<p>Processing ' . $default . '</p>';
                 if (file_exists($default)) {
-                    $data[] = Yaml::parse(file_get_contents($default));
+                    try {
+                        $data[] = Yaml::parseFile($default);
+                    } catch (ParseException $e) {
+                        Logger::getInstance()::exceptionHandler($e);
+                        FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
+                        $data = [];
+                    }
                 }
 
                 // Si es un idioma dependiente, se intenta cargar el genérico
@@ -88,7 +97,13 @@ class Languages
                     $file = $source . DIRECTORY_SEPARATOR . $subLanguage . '.yaml';
                     // echo '<p>Processing ' . $file . '</p>';
                     if (file_exists($file)) {
-                        $data[] = Yaml::parse(file_get_contents($file));
+                        try {
+                            $data[] = Yaml::parseFile($file);
+                        } catch (ParseException $e) {
+                            Logger::getInstance()::exceptionHandler($e);
+                            FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
+                            $data = [];
+                        }
                     }
                 }
 
@@ -96,7 +111,13 @@ class Languages
                 $file = $source . DIRECTORY_SEPARATOR . $fileName . '.yaml';
                 // echo '<p>Processing ' . $file . '</p>';
                 if (file_exists($file)) {
-                    $data[] = Yaml::parse(file_get_contents($file));
+                    try {
+                        $data[] = Yaml::parseFile($file);
+                    } catch (ParseException $e) {
+                        Logger::getInstance()::exceptionHandler($e);
+                        FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
+                        $data = [];
+                    }
                 }
 
                 $allData = array_merge(...$data);

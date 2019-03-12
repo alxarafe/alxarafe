@@ -26,6 +26,13 @@ use Symfony\Component\Yaml\Yaml;
 class Schema
 {
     /**
+     * Content files yet readed.
+     *
+     * @var array
+     */
+    private static $files;
+
+    /**
      * Schema constructor.
      */
     public function __construct()
@@ -33,6 +40,7 @@ class Schema
         $shortName = ClassUtils::getShortName($this, static::class);
         DebugTool::getInstance()->startTimer($shortName, $shortName . ' Schema Constructor');
         DebugTool::getInstance()->stopTimer($shortName);
+        self::$files = [];
     }
 
     /**
@@ -181,7 +189,7 @@ class Schema
         $extension = $type === 'values' ? '.csv' : '.yaml';
 
         // First, it is checked if it exists in the core
-        $folder = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type;
+        $folder = realpath(constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema') . DIRECTORY_SEPARATOR . $type;
         FileSystemUtils::mkdir($folder, 0777, true);
         $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         if (file_exists($path)) {
@@ -226,11 +234,15 @@ class Schema
     public static function loadDataFromYaml(string $fileName): array
     {
         if (file_exists($fileName)) {
+            if (isset(self::$files[$fileName])) {
+                return self::$files[$fileName];
+            }
             try {
-                return Yaml::parse(file_get_contents($fileName));
+                return self::$files[$fileName] = Yaml::parseFile($fileName);
             } catch (ParseException $e) {
                 Logger::getInstance()::exceptionHandler($e);
-                FlashMessages::getInstance()::setError($e->getMessage());
+                FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
+                FlashMessages::getInstance()::setError($fileName . ': <pre>' . var_export(Yaml::parseFile($fileName), true) . '</pre>');
                 return [];
             }
         }
@@ -251,6 +263,7 @@ class Schema
         $path = basePath('config' . DIRECTORY_SEPARATOR . $type);
         FileSystemUtils::mkdir($path, 0777, true);
         $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
+        self::$files[$path] = $data;
         return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }
 

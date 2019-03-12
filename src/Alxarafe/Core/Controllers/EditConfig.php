@@ -258,7 +258,7 @@ class EditConfig extends AuthPageController
     public function createMethod(): Response
     {
         // Can't add new registers, it's a placeholder
-        return parent::createMethod();
+        return $this->indexMethod();
     }
 
     /**
@@ -269,7 +269,7 @@ class EditConfig extends AuthPageController
     public function readMethod(): Response
     {
         // Can't read specific registers, it's a placeholder
-        return parent::readMethod();
+        return $this->indexMethod();
     }
 
     /**
@@ -280,7 +280,7 @@ class EditConfig extends AuthPageController
     public function updateMethod(): Response
     {
         // Can't updated specific registers, it's a placeholder
-        return parent::updateMethod();
+        return $this->indexMethod();
     }
 
     /**
@@ -291,6 +291,6 @@ class EditConfig extends AuthPageController
     public function deleteMethod(): Response
     {
         // Can't delete specific registers, it's a placeholder
-        return parent::deleteMethod();
+        return $this->indexMethod();
     }
 }

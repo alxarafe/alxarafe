@@ -70,7 +70,7 @@ class Load
     {
         // If composer autoload is available, try to load it.
         if (is_string($dirs)) {
-            $autoload = $dirs . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+            $autoload = realpath($dirs . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
             if (file_exists($autoload)) {
                 require_once $autoload;
             }
