@@ -10,12 +10,12 @@ use Alxarafe\Core\Helpers\TwigFilters;
 use Alxarafe\Core\Helpers\TwigFunctions;
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
-use Twig_Environment;
-use Twig_Error_Loader;
-use Twig_Error_Runtime;
-use Twig_Error_Syntax;
-use Twig_Extension_Debug;
-use Twig_Loader_Filesystem;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Class TemplateRender
@@ -51,7 +51,7 @@ class TemplateRender
     /**
      * The renderer.
      *
-     * @var Twig_Environment
+     * @var Environment
      */
     protected static $twig;
 
@@ -112,7 +112,7 @@ class TemplateRender
     /**
      * Template loader from filesystem.
      *
-     * @var Twig_Loader_Filesystem
+     * @var FilesystemLoader
      */
     private static $loader;
 
@@ -134,7 +134,7 @@ class TemplateRender
             ];
             $this->setSkin($this->getConfig()['skin'] ?? 'default');
             self::$commonTemplatesFolder = $this->getTemplatesFolder();
-            self::$loader = new Twig_Loader_Filesystem($this->getPaths());
+            self::$loader = new FilesystemLoader($this->getPaths());
             self::$templatesFolders = [];
             DebugTool::getInstance()->stopTimer($shortName);
         }
@@ -180,7 +180,7 @@ class TemplateRender
      *
      * @param array $folders
      */
-    public function addDirs(array $folders = [])
+    public function addDirs(array $folders = []): void
     {
         $result = [];
         foreach ($folders as $key => $folder) {
@@ -247,11 +247,11 @@ class TemplateRender
     /**
      * Sets a new twig environment.
      *
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      *
      * @return $this
      */
-    public function setTwig(Twig_Environment $twig): self
+    public function setTwig(Environment $twig): self
     {
         self::$twig = $twig;
         return $this;
@@ -268,15 +268,15 @@ class TemplateRender
     {
         try {
             $render = $this->getTwig()->render($this->getTemplate() ?? 'empty.twig', $this->getTemplateVars($data));
-        } catch (Twig_Error_Loader $e) {
+        } catch (LoaderError $e) {
             $render = '';
             // When the template cannot be found
             Logger::getInstance()::exceptionHandler($e);
-        } catch (Twig_Error_Runtime $e) {
+        } catch (RuntimeError $e) {
             $render = '';
             // When an error occurred during rendering
             Logger::getInstance()::exceptionHandler($e);
-        } catch (Twig_Error_Syntax $e) {
+        } catch (SyntaxError $e) {
             $render = '';
             // When an error occurred during compilation
             Logger::getInstance()::exceptionHandler($e);
@@ -287,11 +287,11 @@ class TemplateRender
     /**
      * Return the full twig environtment.
      *
-     * @return Twig_Environment
+     * @return Environment
      */
-    private function getTwig(): Twig_Environment
+    private function getTwig(): Environment
     {
-        self::$twig = new Twig_Environment(self::$loader, $this->getOptions());
+        self::$twig = new Environment(self::$loader, $this->getOptions());
         $this->addExtensions();
         $this->loadPaths();
         return self::$twig;
@@ -328,7 +328,7 @@ class TemplateRender
         $isDebug = $this->getOptions()['debug'];
         if ($isDebug) {
             // Only available in debug mode
-            self::$twig->addExtension(new Twig_Extension_Debug());
+            self::$twig->addExtension(new DebugExtension());
         }
     }
 
@@ -354,7 +354,7 @@ class TemplateRender
                 // Adds with namespace Module + $modulePath
                 self::$loader->prependPath($modulePath, 'Module' . $moduleName);
             }
-        } catch (Twig_Error_Loader $e) {
+        } catch (LoaderError $e) {
             Logger::getInstance()::exceptionHandler($e);
         }
     }

@@ -85,7 +85,7 @@ class Config
          *
          * define('BASE_PATH', __DIR__);
          */
-        ClassUtils::defineIfNotExists('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+        ClassUtils::defineIfNotExists('BASE_PATH', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'));
         ClassUtils::defineIfNotExists('LANG', 'en');
         ClassUtils::defineIfNotExists('DEBUG', false);
         ClassUtils::defineIfNotExists('CACHE', !constant('DEBUG'));

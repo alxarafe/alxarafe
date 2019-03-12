@@ -22,13 +22,7 @@ define('DEBUG', false);
 
 $configOrig = $root . 'config' . DIRECTORY_SEPARATOR . 'config.yaml';
 
-if (strpos(__DIR__, '/home/scrutinizer') !== false) {
-    $config = $root . 'config' . DIRECTORY_SEPARATOR . 'config-scrutinizer.yaml';
-    copy($config, $configOrig);
-} elseif (strpos(__DIR__, '/home/travis') !== false) {
-    $config = $root . 'config' . DIRECTORY_SEPARATOR . 'config-travis.yaml';
-    copy($config, $configOrig);
-} elseif (!file_exists($configOrig)) {
+if (!file_exists($configOrig)) {
     die($configOrig . " not found!\n");
 }
 

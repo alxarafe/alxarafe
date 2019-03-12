@@ -1,13 +1,18 @@
 build:
+  dependencies:
+    before:
+      - npm i -g npm
+      - npm i -g bower
+      - bower install
+      - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
+      - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
+      - cp config/config-scrutinizer.yaml config/config.yaml
   environment:
     php:
       version: 7.2
     timezone: UTC
     postgresql: false
     mysql: 5.7
-  dependencies:
-    before:
-      - composer require phpunit/phpunit:^7.5 --dev
   nodes:
     analysis:
       project_setup:
@@ -18,13 +23,7 @@ build:
           - php-scrutinizer-run
           - command: phpcs-run
             use_website_config: true
-    tests:
-      dependencies:
-        before:
-          - sudo service start mysql || true
-          - mysql -h 127.0.0.1 -u root -e 'DROP DATABASE IF EXISTS scrutinizer;'
-          - mysql -h 127.0.0.1 -u root -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
-          - cp config/config-scrutinizer.yaml config/config.yaml
+    tests: true
     coverage:
       tests:
         override:
@@ -68,7 +67,7 @@ coding_style:
 tools:
   external_code_coverage:
     enabled: true
-    timeout: 1800
+    timeout: 600
     filter:
       excluded_paths:
         - 'docs/*'
