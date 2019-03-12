@@ -1,4 +1,12 @@
 build:
+  dependencies:
+    before:
+      - npm i -g npm
+      - npm i -g bower
+      - bower install
+      - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
+      - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
+      - cp config/config-scrutinizer.yaml config/config.yaml
   environment:
     php:
       version: 7.2
@@ -17,12 +25,6 @@ build:
             use_website_config: true
     tests: true
     coverage:
-      dependencies:
-        before:
-          - sudo service start mysql || true
-          - mysql -h 127.0.0.1 -u root -e 'DROP DATABASE IF EXISTS scrutinizer;'
-          - mysql -h 127.0.0.1 -u root -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
-          - cp config/config-scrutinizer.yaml config/config.yaml
       tests:
         override:
           - command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
