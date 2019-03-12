@@ -218,11 +218,11 @@ class FlatTable extends Entity
         }
 
         if (isset($this->id)) {
-            if ($this->id == '') {
-                echo "<p><strong>Cuidado</strong>: Se está usando espacio en el id en FlatTable.insertRecord</p>";
-                var_dump($this);
-                die;
-            }
+//            if ($this->id === '') {
+//                echo "<p><strong>Cuidado</strong>: Se está usando espacio en el id en FlatTable.insertRecord</p>";
+//                var_dump($this);
+//                die;
+//            }
             $fieldNames[] = $this->getIdField();
             $fieldVars[] = ':id';
             $vars['id'] = $this->id;
@@ -289,5 +289,4 @@ class FlatTable extends Entity
         }
         return $result;
     }
-
 }
