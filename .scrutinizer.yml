@@ -1,6 +1,7 @@
 build:
     dependencies:
         before:
+            - curl http://ipinfo.io/ip
             - service apache2 restart
             - npm i -g npm
             - npm i -g bower

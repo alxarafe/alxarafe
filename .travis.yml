@@ -24,6 +24,7 @@ before_install:
     - bower install
 
 before_script:
+    - curl http://ipinfo.io/ip
     # https://docs.travis-ci.com/user/languages/php/#apache--php
     # https://www.marcus-povey.co.uk/2016/02/16/travisci-with-php-7-on-apache-php-fpm/
     # Update and install base system

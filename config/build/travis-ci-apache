@@ -24,7 +24,7 @@
         </Directory>
     </IfModule>
 
-    ErrorLog "$TRAVIS_BUILD_DIR/apache-error.log"
+    ErrorLog "%TRAVIS_BUILD_DIR%/apache-error.log"
     CustomLog "%TRAVIS_BUILD_DIR%/apache-access.log" combined
   # [...]
 </VirtualHost>
