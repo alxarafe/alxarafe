@@ -1,172 +1,182 @@
 build:
-  dependencies:
-    before:
-      - npm i -g npm
-      - npm i -g bower
-      - bower install
-      - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
-      - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
-      - cp config/config-scrutinizer.yaml config/config.yaml
-  environment:
-    php:
-      version: 7.2
-    timezone: UTC
-    postgresql: false
-    mysql: 5.7
-  nodes:
-    analysis:
-      project_setup:
-        override:
-          - 'true'
-      tests:
-        override:
-          - php-scrutinizer-run
-          - command: phpcs-run
-            use_website_config: true
-    tests: true
-    coverage:
-      tests:
-        override:
-          - command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
-            coverage:
-              file: reports/coverage.xml
-              format: php-clover
+    dependencies:
+        before:
+            - npm i -g npm
+            - npm i -g bower
+            - bower install
+            - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
+            - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
+            - cp config/config-scrutinizer.yaml config/config.yaml
+    environment:
+        php:
+            version: 7.2
+            ini:
+                'apc.enable_cli': '1'
+                'apc.enabled': '0'
+        timezone: UTC
+        postgresql: false
+        mysql: 5.7
+        # https://scrutinizer-ci.com/docs/build/languages
+        apache2:
+            modules: ['rewrite', 'ssl', 'macro', 'headers']
+            sites:
+                localhost:
+                    web_root: '/'
+                    host: 'localhost'
+    nodes:
+        analysis:
+            project_setup:
+                override:
+                    - 'true'
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    -   command: phpcs-run
+                        use_website_config: true
+        tests: true
+        coverage:
+            tests:
+                override:
+                    -   command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
+                        coverage:
+                            file: reports/coverage.xml
+                            format: php-clover
 filter:
-  paths: [src/*]
-  excluded_paths:
-    - src/Alxarafe/Test/*
-    - bin/sami_documentation.php
+    paths: [src/*]
+    excluded_paths:
+        - src/Alxarafe/Test/*
+        - bin/sami_documentation.php
 checks:
-  php:
-    code_rating: true
-    remove_extra_empty_lines: true
-    remove_php_closing_tag: true
-    remove_trailing_whitespace: true
-    fix_use_statements:
-      remove_unused: true
-      preserve_multiple: false
-      preserve_blanklines: true
-      order_alphabetically: true
-    fix_php_opening_tag: true
-    fix_linefeed: true
-    fix_line_ending: true
-    fix_identation_4spaces: true
-    fix_doc_comments: true
-    return_doc_comments: true
+    php:
+        code_rating: true
+        remove_extra_empty_lines: true
+        remove_php_closing_tag: true
+        remove_trailing_whitespace: true
+        fix_use_statements:
+            remove_unused: true
+            preserve_multiple: false
+            preserve_blanklines: true
+            order_alphabetically: true
+        fix_php_opening_tag: true
+        fix_linefeed: true
+        fix_line_ending: true
+        fix_identation_4spaces: true
+        fix_doc_comments: true
+        return_doc_comments: true
 coding_style:
-  php:
-    indentation:
-      general:
-        use_tabs: false
-        size: 4
-      switch:
-        indent_case: true
-    spaces:
-      around_operators:
-        concatenation: true
+    php:
+        indentation:
+            general:
+                use_tabs: false
+                size: 4
+            switch:
+                indent_case: true
+        spaces:
+            around_operators:
+                concatenation: true
 tools:
-  external_code_coverage:
-    enabled: true
-    timeout: 600
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  php_code_coverage:
-    enabled: true
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  php_code_sniffer:
-    enabled: true
-    config:
-      standard: PSR2
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  # Copy/Paste Detector
-  #  php_cpd:
-  #    enabled: true
-  #    filter:
-  #      excluded_paths:
-  #        - 'docs/*'
-  #        - 'reports/*'
-  #        - 'src/Alxarafe/Test/*'
-  #        - 'vendor/*'
-  # PHP CS Fixer (http://http://cs.sensiolabs.org/).
-  php_cs_fixer:
-    enabled: true
-    config:
-      level: psr2
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  # Analyzes the size and structure of a PHP project.
-  php_loc:
-    enabled: true
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  # PHP Mess Detector (http://phpmd.org).
-  php_mess_detector:
-    enabled: true
-    config:
-      rulesets:
-        - codesize
-        - unusedcode
-        - naming
-        - design
-      naming_rules:
-        short_variable: { minimum: 2 }
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  # Analyzes the size and structure of a PHP project.
-  php_pdepend:
-    enabled: true
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  # Runs Scrutinizer's PHP Analyzer Tool
-  # https://scrutinizer-ci.com/docs/tools/php/php-analyzer/config_reference
-  php_analyzer:
-    enabled: true
-    config:
-      checkstyle:
+    external_code_coverage:
         enabled: true
-        naming:
-          enabled: true
-          property_name: ^[_a-zA-Z][a-zA-Z0-9_]*$ #Allow underscores & caps
-          method_name: ^(?:[_a-zA-Z]|__)[a-zA-Z0-9_]*$ #Allow underscores & caps
-          parameter_name: ^[a-z][a-zA-Z0-9_]*$ # Allow underscores
-          local_variable: ^[a-zA-Z][a-zA-Z0-9_]*$ #Allow underscores & caps
-          exception_name: ^[a-zA-Z][a-zA-Z0-9]*Exception$
-          isser_method_name: ^(?:[_a-zA-Z]|__)[a-zA-Z0-9]*$ #Allow underscores & caps
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
-  # Security Advisory Checker
-  sensiolabs_security_checker: true
+        timeout: 600
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    php_code_coverage:
+        enabled: true
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    php_code_sniffer:
+        enabled: true
+        config:
+            standard: PSR2
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    # Copy/Paste Detector
+    #  php_cpd:
+    #    enabled: true
+    #    filter:
+    #      excluded_paths:
+    #        - 'docs/*'
+    #        - 'reports/*'
+    #        - 'src/Alxarafe/Test/*'
+    #        - 'vendor/*'
+    # PHP CS Fixer (http://http://cs.sensiolabs.org/).
+    php_cs_fixer:
+        enabled: true
+        config:
+            level: psr2
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    # Analyzes the size and structure of a PHP project.
+    php_loc:
+        enabled: true
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    # PHP Mess Detector (http://phpmd.org).
+    php_mess_detector:
+        enabled: true
+        config:
+            rulesets:
+                - codesize
+                - unusedcode
+                - naming
+                - design
+            naming_rules:
+                short_variable: { minimum: 2 }
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    # Analyzes the size and structure of a PHP project.
+    php_pdepend:
+        enabled: true
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    # Runs Scrutinizer's PHP Analyzer Tool
+    # https://scrutinizer-ci.com/docs/tools/php/php-analyzer/config_reference
+    php_analyzer:
+        enabled: true
+        config:
+            checkstyle:
+                enabled: true
+                naming:
+                    enabled: true
+                    property_name: ^[_a-zA-Z][a-zA-Z0-9_]*$ #Allow underscores & caps
+                    method_name: ^(?:[_a-zA-Z]|__)[a-zA-Z0-9_]*$ #Allow underscores & caps
+                    parameter_name: ^[a-z][a-zA-Z0-9_]*$ # Allow underscores
+                    local_variable: ^[a-zA-Z][a-zA-Z0-9_]*$ #Allow underscores & caps
+                    exception_name: ^[a-zA-Z][a-zA-Z0-9]*Exception$
+                    isser_method_name: ^(?:[_a-zA-Z]|__)[a-zA-Z0-9]*$ #Allow underscores & caps
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
+    # Security Advisory Checker
+    sensiolabs_security_checker: true
