@@ -3,6 +3,7 @@
 namespace Alxarafe\Test\Core\Autoload;
 
 use Alxarafe\Core\Autoload\Load;
+use Modules\Sample\Models\Country;
 use PHPUnit\Framework\TestCase;
 
 class LoadTest extends TestCase
@@ -25,7 +26,7 @@ class LoadTest extends TestCase
      */
     public function test__construct()
     {
-
+        $this->object = new Load();
     }
 
     /**
@@ -33,7 +34,21 @@ class LoadTest extends TestCase
      */
     public function testInit()
     {
+        $dirs = realpath(
+            constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Alxarafe'
+        );
+        $this->object::init($dirs);
+    }
 
+    public function testAddDirs()
+    {
+        $dirs = [
+            realpath(
+                constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Modules'
+            ),
+        ];
+
+        $this->object::addDirs($dirs);
     }
 
     /**
@@ -41,12 +56,9 @@ class LoadTest extends TestCase
      */
     public function testAutoLoad()
     {
-
-    }
-
-    public function testAddDirs()
-    {
-
+        $this->object::autoLoad('\Modules\Sample\Models\Country');
+        $this->object::autoLoad('Modules\Sample\Models\Country');
+        $this->object::autoLoad(Country::class);
     }
 
     /**

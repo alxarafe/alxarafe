@@ -54,7 +54,7 @@ class Load
         if (!isset(self::$instance)) {
             self::$instance = $this;
             if (empty($dirs)) {
-                $dirs = constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src';
+                $dirs = realpath(constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src');
             }
             self::init($dirs);
         }
@@ -92,11 +92,10 @@ class Load
      */
     public static function addDirs($dirs): void
     {
-        if (\is_array($dirs)) {
-            self::$dirs = array_merge(self::$dirs, $dirs);
-        } else {
-            self::$dirs[] = $dirs;
+        if (\is_string($dirs)) {
+            $dirs = [$dirs];
         }
+        self::$dirs = array_merge(self::$dirs, $dirs);
     }
 
     /**
@@ -134,7 +133,8 @@ class Load
 
         if (!$success && !self::loadFile(self::$dirs[0] . DIRECTORY_SEPARATOR . $fn)) {
             // Only throw the exception if missing class is from ower paths
-            if (strcmp($class, 'Alxarafe') === 0 || strcmp($class, 'Modules') === 0) {
+            // NOTE: Can be '\Modules\Sample\Models\Country', 'Modules\Sample\Models\Country' or Country::class
+            if (in_array(strpos($class, 'Alxarafe'), [0, 1], true) || in_array(strpos($class, 'Modules'), [0, 1], true)) {
                 throw new RuntimeException(self::UNABLE_TO_LOAD . ' ' . $class);
             }
         }
