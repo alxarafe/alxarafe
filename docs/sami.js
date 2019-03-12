@@ -5,7 +5,7 @@ window.projectVersion = 'master';
 
     var bhIndex = null;
     var rootPath = '';
-    var treeHtml = '        <ul>                <li data-name="namespace:Alxarafe" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe.html">Alxarafe</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Autoload" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Autoload.html">Autoload</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Autoload_Load" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Autoload/Load.html">Load</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Base" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Base.html">Base</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Base_AuthController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthController.html">AuthController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageController.html">AuthPageController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageExtendedController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageExtendedController.html">AuthPageExtendedController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Cache" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Cache.html">Cache</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_CacheCore" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/CacheCore.html">CacheCore</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Controller" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Controller.html">Controller</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Entity" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Entity.html">Entity</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_SimpleTable" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/SimpleTable.html">SimpleTable</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Table" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Table.html">Table</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Controllers_CreateConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/CreateConfig.html">CreateConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_EditConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/EditConfig.html">EditConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Login" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Login.html">Login</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Modules" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Modules.html">Modules</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Roles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Roles.html">Roles</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_RolesPages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/RolesPages.html">RolesPages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Tables" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Tables.html">Tables</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Users" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Users.html">Users</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_UsersRoles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/UsersRoles.html">UsersRoles</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database.html">Database</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Database_Engines" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/Engines.html">Engines</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_Engines_PdoFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoFirebird.html">PdoFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engines_PdoMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoMySql.html">PdoMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database_SqlHelpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/SqlHelpers.html">SqlHelpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlFirebird.html">SqlFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlMySql.html">SqlMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engine" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engine.html">Engine</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelper" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelper.html">SqlHelper</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_DebugBarCollectors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/DebugBarCollectors.html">DebugBarCollectors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_DebugBarCollectors_PhpCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/PhpCollector.html">PhpCollector</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_DebugBarCollectors_TranslatorCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/TranslatorCollector.html">TranslatorCollector</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Helpers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Helpers_Utils" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Helpers_Utils_ArrayUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ArrayUtils.html">ArrayUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_ClassUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ClassUtils.html">ClassUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_FileSystemUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/FileSystemUtils.html">FileSystemUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_TextUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/TextUtils.html">TextUtils</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_FormatUtils" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/FormatUtils.html">FormatUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Schema" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Schema.html">Schema</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_SchemaDB" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/SchemaDB.html">SchemaDB</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Session" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Session.html">Session</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFilters" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFilters.html">TwigFilters</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFunctions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFunctions.html">TwigFunctions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Models_Language" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Language.html">Language</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Module" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Module.html">Module</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Page" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Page.html">Page</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Role" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Role.html">Role</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_RolePage" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/RolePage.html">RolePage</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_TableModel" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/TableModel.html">TableModel</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_User" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/User.html">User</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_UserRole" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/UserRole.html">UserRole</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_PreProcessors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/PreProcessors.html">PreProcessors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_PreProcessors_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Models" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Models.html">Models</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Routes" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Routes.html">Routes</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Providers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Providers.html">Providers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Providers_Config" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Config.html">Config</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Container" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Container.html">Container</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Database" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Database.html">Database</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_DebugTool" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/DebugTool.html">DebugTool</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_FlashMessages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/FlashMessages.html">FlashMessages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Logger" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Logger.html">Logger</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_ModuleManager" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/ModuleManager.html">ModuleManager</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_RegionalInfo" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/RegionalInfo.html">RegionalInfo</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Router" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Router.html">Router</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Singleton" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Singleton.html">Singleton</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_TemplateRender" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/TemplateRender.html">TemplateRender</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Translator" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Translator.html">Translator</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Renders" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders.html">Renders</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig.html">Twig</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig_Components" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig/Components.html">Components</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Renders_Twig_Components_AbstractComponent" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/AbstractComponent.html">AbstractComponent</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Alert" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Alert.html">Alert</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Button" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Button.html">Button</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Traits" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Traits.html">Traits</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Traits_AjaxDataTableTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/AjaxDataTableTrait.html">AjaxDataTableTrait</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Traits_MagicTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/MagicTrait.html">MagicTrait</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_BootStrap" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/BootStrap.html">BootStrap</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_InitializerAbstract" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/InitializerAbstract.html">InitializerAbstract</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test.html">Test</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Helpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Helpers_Utils" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ArrayUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html">ArrayUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ClassUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html">ClassUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_FileSystemUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html">FileSystemUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_TextUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html">TextUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_FormatUtilsTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html">FormatUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules.html">Modules</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample.html">Sample</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Controllers_Countries" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Countries.html">Countries</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_IntermediateRegions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/IntermediateRegions.html">IntermediateRegions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_People" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/People.html">People</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Regions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Regions.html">Regions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Subregions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Subregions.html">Subregions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules_Sample_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Models_Country" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Country.html">Country</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_IntermediateRegion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/IntermediateRegion.html">IntermediateRegion</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Person" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Person.html">Person</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Region" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Region.html">Region</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Subregion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Subregion.html">Subregion</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul>';
+    var treeHtml = '        <ul>                <li data-name="namespace:Alxarafe" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe.html">Alxarafe</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Autoload" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Autoload.html">Autoload</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Autoload_Load" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Autoload/Load.html">Load</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Base" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Base.html">Base</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Base_AuthController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthController.html">AuthController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageController.html">AuthPageController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageExtendedController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageExtendedController.html">AuthPageExtendedController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Cache" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Cache.html">Cache</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_CacheCore" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/CacheCore.html">CacheCore</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Controller" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Controller.html">Controller</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Entity" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Entity.html">Entity</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_FlatTable" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/FlatTable.html">FlatTable</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_SimpleTable" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/SimpleTable.html">SimpleTable</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Table" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Table.html">Table</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Controllers_CreateConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/CreateConfig.html">CreateConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_EditConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/EditConfig.html">EditConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Login" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Login.html">Login</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Modules" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Modules.html">Modules</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Roles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Roles.html">Roles</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_RolesPages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/RolesPages.html">RolesPages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Tables" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Tables.html">Tables</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Users" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Users.html">Users</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_UsersRoles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/UsersRoles.html">UsersRoles</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database.html">Database</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Database_Engines" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/Engines.html">Engines</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_Engines_PdoFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoFirebird.html">PdoFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engines_PdoMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoMySql.html">PdoMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database_SqlHelpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/SqlHelpers.html">SqlHelpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlFirebird.html">SqlFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlMySql.html">SqlMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engine" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engine.html">Engine</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelper" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelper.html">SqlHelper</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_DebugBarCollectors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/DebugBarCollectors.html">DebugBarCollectors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_DebugBarCollectors_PhpCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/PhpCollector.html">PhpCollector</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_DebugBarCollectors_TranslatorCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/TranslatorCollector.html">TranslatorCollector</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Helpers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Helpers_Utils" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Helpers_Utils_ArrayUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ArrayUtils.html">ArrayUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_ClassUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ClassUtils.html">ClassUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_FileSystemUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/FileSystemUtils.html">FileSystemUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_TextUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/TextUtils.html">TextUtils</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_FormatUtils" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/FormatUtils.html">FormatUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Schema" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Schema.html">Schema</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_SchemaDB" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/SchemaDB.html">SchemaDB</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Session" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Session.html">Session</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFilters" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFilters.html">TwigFilters</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFunctions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFunctions.html">TwigFunctions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Models_Language" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Language.html">Language</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Module" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Module.html">Module</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Page" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Page.html">Page</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Role" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Role.html">Role</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_RolePage" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/RolePage.html">RolePage</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_TableModel" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/TableModel.html">TableModel</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_User" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/User.html">User</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_UserRole" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/UserRole.html">UserRole</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_PreProcessors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/PreProcessors.html">PreProcessors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_PreProcessors_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Models" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Models.html">Models</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Routes" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Routes.html">Routes</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Providers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Providers.html">Providers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Providers_Config" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Config.html">Config</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Container" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Container.html">Container</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Database" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Database.html">Database</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_DebugTool" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/DebugTool.html">DebugTool</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_FlashMessages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/FlashMessages.html">FlashMessages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Logger" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Logger.html">Logger</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_ModuleManager" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/ModuleManager.html">ModuleManager</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_RegionalInfo" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/RegionalInfo.html">RegionalInfo</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Router" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Router.html">Router</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Singleton" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Singleton.html">Singleton</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_TemplateRender" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/TemplateRender.html">TemplateRender</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Translator" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Translator.html">Translator</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Renders" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders.html">Renders</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig.html">Twig</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig_Components" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig/Components.html">Components</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Renders_Twig_Components_AbstractComponent" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/AbstractComponent.html">AbstractComponent</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Alert" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Alert.html">Alert</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Button" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Button.html">Button</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Traits" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Traits.html">Traits</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Traits_AjaxDataTableTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/AjaxDataTableTrait.html">AjaxDataTableTrait</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Traits_MagicTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/MagicTrait.html">MagicTrait</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_BootStrap" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/BootStrap.html">BootStrap</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_InitializerAbstract" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/InitializerAbstract.html">InitializerAbstract</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test.html">Test</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Autoload" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Autoload.html">Autoload</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Autoload_LoadTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Autoload/LoadTest.html">LoadTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Base" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Base.html">Base</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Base_CacheCoreTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Base/CacheCoreTest.html">CacheCoreTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Controllers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Controllers_CreateConfigTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html">CreateConfigTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_EditConfigTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html">EditConfigTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_LanguagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html">LanguagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_LoginTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/LoginTest.html">LoginTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_ModulesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html">ModulesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_PagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/PagesTest.html">PagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_RolesPagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html">RolesPagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_RolesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/RolesTest.html">RolesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_TablesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/TablesTest.html">TablesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_UsersRolesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html">UsersRolesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_UsersTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/UsersTest.html">UsersTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Helpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Helpers_Utils" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ArrayUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html">ArrayUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ClassUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html">ClassUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_FileSystemUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html">FileSystemUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_TextUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html">TextUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_FormatUtilsTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html">FormatUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Models" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Models_LanguageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/LanguageTest.html">LanguageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_ModuleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/ModuleTest.html">ModuleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_PageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/PageTest.html">PageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_RolePageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/RolePageTest.html">RolePageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_RoleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/RoleTest.html">RoleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_TableModelTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/TableModelTest.html">TableModelTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_UserRoleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/UserRoleTest.html">UserRoleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_UserTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/UserTest.html">UserTest</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules.html">Modules</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample.html">Sample</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Controllers_Countries" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Countries.html">Countries</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_IntermediateRegions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/IntermediateRegions.html">IntermediateRegions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_People" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/People.html">People</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Regions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Regions.html">Regions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Subregions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Subregions.html">Subregions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules_Sample_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Models_Country" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Country.html">Country</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_IntermediateRegion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/IntermediateRegion.html">IntermediateRegion</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Person" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Person.html">Person</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Region" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Region.html">Region</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Subregion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Subregion.html">Subregion</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul>';
 
     var searchTypeClasses = {
         'Namespace': 'label-default',
@@ -120,6 +120,21 @@ window.projectVersion = 'master';
             "doc": "Namespace Alxarafe\\Test\\Core"
         }, {
             "type": "Namespace",
+            "link": "Alxarafe/Test/Core/Autoload.html",
+            "name": "Alxarafe\\Test\\Core\\Autoload",
+            "doc": "Namespace Alxarafe\\Test\\Core\\Autoload"
+        }, {
+            "type": "Namespace",
+            "link": "Alxarafe/Test/Core/Base.html",
+            "name": "Alxarafe\\Test\\Core\\Base",
+            "doc": "Namespace Alxarafe\\Test\\Core\\Base"
+        }, {
+            "type": "Namespace",
+            "link": "Alxarafe/Test/Core/Controllers.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers",
+            "doc": "Namespace Alxarafe\\Test\\Core\\Controllers"
+        }, {
+            "type": "Namespace",
             "link": "Alxarafe/Test/Core/Helpers.html",
             "name": "Alxarafe\\Test\\Core\\Helpers",
             "doc": "Namespace Alxarafe\\Test\\Core\\Helpers"
@@ -128,6 +143,11 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Helpers/Utils.html",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils",
             "doc": "Namespace Alxarafe\\Test\\Core\\Helpers\\Utils"
+        }, {
+            "type": "Namespace",
+            "link": "Alxarafe/Test/Core/Models.html",
+            "name": "Alxarafe\\Test\\Core\\Models",
+            "doc": "Namespace Alxarafe\\Test\\Core\\Models"
         }, {
             "type": "Namespace",
             "link": "Modules.html",
@@ -826,6 +846,119 @@ window.projectVersion = 'master';
             "type": "Class",
             "fromName": "Alxarafe\\Core\\Base",
             "fromLink": "Alxarafe/Core/Base.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html",
+            "name": "Alxarafe\\Core\\Base\\FlatTable",
+            "doc": "&quot;Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its\nstructure.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method___construct",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::__construct",
+            "doc": "&quot;Build a Table model. $table is the name of the table in the database.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_getDataById",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::getDataById",
+            "doc": "&quot;This method is private. Use load instead.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_getQuotedTableName",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::getQuotedTableName",
+            "doc": "&quot;Get the name of the table (with prefix)&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_defaultData",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::defaultData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_newRecord",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::newRecord",
+            "doc": "&quot;Sets the active record in a new record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_get",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::get",
+            "doc": "&quot;Returns a new instance of the table with the requested record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_getTableName",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::getTableName",
+            "doc": "&quot;Get the name of the table (with prefix)&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_getDataArray",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::getDataArray",
+            "doc": "&quot;Return an array with the current active record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_load",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::load",
+            "doc": "&quot;Establishes a record as an active record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_save",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::save",
+            "doc": "&quot;Saves the changes made to the active record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_insertRecord",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::insertRecord",
+            "doc": "&quot;Insert a new record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_updateRecord",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::updateRecord",
+            "doc": "&quot;Update the modified fields in the active record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_delete",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::delete",
+            "doc": "&quot;Deletes the active record.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Core\\Base",
+            "fromLink": "Alxarafe/Core/Base.html",
             "link": "Alxarafe/Core/Base/SimpleTable.html",
             "name": "Alxarafe\\Core\\Base\\SimpleTable",
             "doc": "&quot;Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its\nstructure.&quot;"
@@ -874,41 +1007,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
             "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_get",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::get",
-            "doc": "&quot;Returns a new instance of the table with the requested record.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_getDataById",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::getDataById",
-            "doc": "&quot;This method is private. Use load instead.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_getQuotedTableName",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::getQuotedTableName",
-            "doc": "&quot;Get the name of the table (with prefix)&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_newRecord",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::newRecord",
-            "doc": "&quot;Sets the active record in a new record.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_delete",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::delete",
-            "doc": "&quot;Deletes the active record.&quot;"
+            "link": "Alxarafe/Core/Base/SimpleTable.html#method_defaultData",
+            "name": "Alxarafe\\Core\\Base\\SimpleTable::defaultData",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -925,54 +1026,6 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Base/SimpleTable.html#method_getDataBy",
             "name": "Alxarafe\\Core\\Base\\SimpleTable::getDataBy",
             "doc": "&quot;This method is private. Use getBy instead.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_getTableName",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::getTableName",
-            "doc": "&quot;Get the name of the table (with prefix)&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_getDataArray",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::getDataArray",
-            "doc": "&quot;Return an array with the current active record.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_load",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::load",
-            "doc": "&quot;Establishes a record as an active record.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_save",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::save",
-            "doc": "&quot;Saves the changes made to the active record.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_insertRecord",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::insertRecord",
-            "doc": "&quot;Insert a new record.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\SimpleTable",
-            "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
-            "link": "Alxarafe/Core/Base/SimpleTable.html#method_updateRecord",
-            "name": "Alxarafe\\Core\\Base\\SimpleTable::updateRecord",
-            "doc": "&quot;Update the modified fields in the active record.&quot;"
         },
         {
             "type": "Method",
@@ -3164,6 +3217,14 @@ window.projectVersion = 'master';
             "name": "Alxarafe\\Core\\Helpers\\Utils\\FileSystemUtils::scandir",
             "doc": "&quot;List files and directories inside the specified path.&quot;"
         },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Helpers\\Utils\\FileSystemUtils",
+            "fromLink": "Alxarafe/Core/Helpers/Utils/FileSystemUtils.html",
+            "link": "Alxarafe/Core/Helpers/Utils/FileSystemUtils.html#method_locate",
+            "name": "Alxarafe\\Core\\Helpers\\Utils\\FileSystemUtils::locate",
+            "doc": "&quot;Locate a file in a subfolder, returning the FQCN or filepath.&quot;"
+        },
 
         {
             "type": "Class",
@@ -3626,6 +3687,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Providers/Config.html#method_getDefaultValues",
             "name": "Alxarafe\\Core\\Providers\\Config::getDefaultValues",
             "doc": "&quot;Return default values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\Config",
+            "fromLink": "Alxarafe/Core/Providers/Config.html",
+            "link": "Alxarafe/Core/Providers/Config.html#method_loadConfigConstants",
+            "name": "Alxarafe\\Core\\Providers\\Config::loadConfigConstants",
+            "doc": "&quot;Loads some constants from config file.&quot;"
         },
         {
             "type": "Method",
@@ -4934,6 +5003,603 @@ window.projectVersion = 'master';
 
         {
             "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload",
+            "fromLink": "Alxarafe/Test/Core/Autoload.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_testGetInstance",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::testGetInstance",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_testInit",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::testInit",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_testAddDirs",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::testAddDirs",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_testAutoLoad",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::testAutoLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
+            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Base",
+            "fromLink": "Alxarafe/Test/Core/Base.html",
+            "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
+            "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
+            "fromLink": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
+            "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html#method_testGetInstance",
+            "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::testGetInstance",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
+            "fromLink": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
+            "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html#method_testGetEngine",
+            "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::testGetEngine",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
+            "fromLink": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
+            "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
+            "fromLink": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
+            "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_testIndexMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::testIndexMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_testGenerateMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::testGenerateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_testGetTimezoneList",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::testGetTimezoneList",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "doc": "&quot;Class EditConfigTest&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testLogin",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testLogin",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_doGetRequest",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::doGetRequest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testIndexMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testIndexMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testReadMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testReadMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testUpdateMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testUpdateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testCreateMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testCreateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testDeleteMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testDeleteMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testGetTimezoneList",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testGetTimezoneList",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::tearDown",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_testIndexMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::testIndexMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_testGetExtraActions",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::testGetExtraActions",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_testGetCookieUser",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::testGetCookieUser",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_testSetUser",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::testSetUser",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_testLogoutMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::testLogoutMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_testGetUser",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::testGetUser",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_testIndexMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::testIndexMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_testGetUserName",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::testGetUserName",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testReadMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testReadMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testDisableMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testDisableMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testDeleteMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testDeleteMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testGetActionButtons",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testGetActionButtons",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testIndexMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testIndexMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testCreateMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testCreateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testUpdateMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testUpdateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testEnableMethod",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testEnableMethod",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/PagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/PagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers",
+            "fromLink": "Alxarafe/Test/Core/Controllers.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
             "fromName": "Alxarafe\\Test\\Core\\Helpers",
             "fromLink": "Alxarafe/Test/Core/Helpers.html",
             "link": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html",
@@ -5020,6 +5686,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest",
             "doc": "&quot;Generated by PHPUnit_SkeletonGenerator on 2019-03-05 at 15:29:42.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest",
+            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html",
+            "link": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html#method_testflatArray",
+            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest::testflatArray",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5206,6 +5880,2622 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html",
             "link": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetEnabledModules",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetEnabledModules",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetAllModules",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetAllModules",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetDependencies",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetDependencies",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Models",
+            "fromLink": "Alxarafe/Test/Core/Models.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testLoad",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testLoad",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetDataArray",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetDataArray",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetIndexesFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetIndexesFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_test__call",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::test__call",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGenerateLogKey",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGenerateLogKey",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSave",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSave",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSaveRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSaveRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_test__isset",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::test__isset",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetFieldsFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetFieldsFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testCheckStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testCheckStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testVerifyPassword",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testVerifyPassword",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetAllRecordsPaged",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetAllRecordsPaged",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testDelete",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testDelete",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSearch",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSearch",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetNameField",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetNameField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetIdByName",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetIdByName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetIdField",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetIdField",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSearchQuery",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSearchQuery",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGet",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_test__get",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::test__get",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSetOldData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSetOldData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testVerifyLogKey",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testVerifyLogKey",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetData",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_test__set",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::test__set",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetDefaultValues",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetDefaultValues",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testCountAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testCountAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetAllRecordsBy",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetAllRecordsBy",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetAllRecords",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetAllRecords",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetChecksFromTable",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetChecksFromTable",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testNewRecord",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testNewRecord",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetQuotedTableName",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetQuotedTableName",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetId",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetId",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testGetStructure",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testGetStructure",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSearchCount",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSearchCount",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
 

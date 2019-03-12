@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="index, follow, all" name="robots"/>
-    <title>Alxarafe\Core\Models\Page | alxarafe</title>
+    <title>Alxarafe\Core\Models\Page | Alxarafe</title>
 
     <link href="../../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -48,7 +48,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../../../index.html">alxarafe</a>
+                    <a class="navbar-brand" href="../../../index.html">Alxarafe</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-elements">
                     <ul class="nav navbar-nav">
@@ -122,6 +122,18 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="type" id="property_exists">
+                        bool
+                    </td>
+                    <td>$exists</td>
+                    <td class="last"></td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Entity.html#property_exists"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
                     <td class="type" id="property_id">
                         int
                     </td>
@@ -185,7 +197,7 @@
                     <td class="last">It is the name of the table.</td>
                     <td>
                         <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#property_tableName"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#property_tableName"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
                         </small>
                     </td>
                 </tr>
@@ -197,7 +209,7 @@
                     <td class="last">It's the name of the model associated with the table</td>
                     <td>
                         <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#property_modelName"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#property_modelName"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
                         </small>
                     </td>
                 </tr>
@@ -461,6 +473,174 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getDataById">getDataById</a>(string $id)
+
+                        <p>This method is private. Use load instead.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getDataById"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        string
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getQuotedTableName">getQuotedTableName</a>(bool $usePrefix = true)
+
+                        <p>Get the name of the table (with prefix)</p></div>
+                    <div class="col-md-2">
+                        <small>from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getQuotedTableName"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_defaultData">defaultData</a>()
+
+                        <p class="no-description">No description</p>
+                    </div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_defaultData"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_newRecord">newRecord</a>(string|null $id = null)
+
+                        <p>Sets the active record in a new record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_newRecord"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        <a href="../../../Alxarafe/Core/Base/SimpleTable.html"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_get">get</a>(string $id)
+
+                        <p>Returns a new instance of the table with the requested record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_get"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        string
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getTableName">getTableName</a>(bool $usePrefix = true)
+
+                        <p>Get the name of the table (with prefix)</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getTableName"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getDataArray">getDataArray</a>(string $id = null)
+
+                        <p>Return an array with the current active record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getDataArray"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_load">load</a>(string $id)
+
+                        <p>Establishes a record as an active record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_load"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_save">save</a>()
+
+                        <p>Saves the changes made to the active record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_save"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_insertRecord">insertRecord</a>(array $values)
+
+                        <p>Insert a new record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_insertRecord"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_updateRecord">updateRecord</a>(array $data)
+
+                        <p>Update the modified fields in the active record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_updateRecord"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_delete">delete</a>()
+
+                        <p>Deletes the active record.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/FlatTable.html#method_delete"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
 
                     </div>
                     <div class="col-md-8 type">
@@ -522,76 +702,6 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2 type">
-                        <a href="../../../Alxarafe/Core/Base/SimpleTable.html"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_get">get</a>(string $id)
-
-                        <p>Returns a new instance of the table with the requested record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_get"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getDataById">getDataById</a>(string $id)
-
-                        <p>This method is private. Use load instead.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getDataById"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getQuotedTableName">getQuotedTableName</a>(bool $usePrefix = true)
-
-                        <p>Get the name of the table (with prefix)</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getQuotedTableName"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_newRecord">newRecord</a>()
-
-                        <p>Sets the active record in a new record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_newRecord"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_delete">delete</a>()
-
-                        <p>Deletes the active record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_delete"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
                         bool
                     </div>
                     <div class="col-md-8 type">
@@ -615,90 +725,6 @@
                     <div class="col-md-2">
                         <small>
                             from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getDataBy"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        string
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getTableName">getTableName</a>(bool $usePrefix = true)
-
-                        <p>Get the name of the table (with prefix)</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getTableName"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getDataArray">getDataArray</a>(string $id = null)
-
-                        <p>Return an array with the current active record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getDataArray"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_load">load</a>(string $id)
-
-                        <p>Establishes a record as an active record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_load"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_save">save</a>()
-
-                        <p>Saves the changes made to the active record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_save"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_insertRecord">insertRecord</a>(array $values)
-
-                        <p>Insert a new record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_insertRecord"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                        </small>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        bool
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_updateRecord">updateRecord</a>(array $data)
-
-                        <p>Update the modified fields in the active record.</p></div>
-                    <div class="col-md-2">
-                        <small>
-                            from&nbsp;<a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_updateRecord"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
                         </small>
                     </div>
                 </div>
@@ -983,7 +1009,7 @@
                     <h3 id="method_getId">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method_getId"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 97
+                            at line 106
                         </div>
                         <code> string
                             <strong>getId</strong>()
@@ -1014,7 +1040,7 @@
                     <h3 id="method_getNameField">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method_getNameField"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 107
+                            at line 116
                         </div>
                         <code> string
                             <strong>getNameField</strong>()
@@ -1046,7 +1072,7 @@
                     <h3 id="method_setData">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method_setData"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 119
+                            at line 128
                         </div>
                         <code> <abbr title="Alxarafe\Core\Base\$this">$this</abbr>
                             <strong>setData</strong>(array $data)
@@ -1087,7 +1113,7 @@
                     <h3 id="method_getIdField">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method_getIdField"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 132
+                            at line 143
                         </div>
                         <code> string
                             <strong>getIdField</strong>()
@@ -1119,7 +1145,7 @@
                     <h3 id="method_getData">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method_getData"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 142
+                            at line 153
                         </div>
                         <code> array
                             <strong>getData</strong>()
@@ -1150,7 +1176,7 @@
                     <h3 id="method_getOldData">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method_getOldData"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 152
+                            at line 163
                         </div>
                         <code> array
                             <strong>getOldData</strong>()
@@ -1181,7 +1207,7 @@
                     <h3 id="method_setOldData">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method_setOldData"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 164
+                            at line 175
                         </div>
                         <code> <abbr title="Alxarafe\Core\Base\$this">$this</abbr>
                             <strong>setOldData</strong>(array $data)
@@ -1222,7 +1248,7 @@
                     <h3 id="method___call">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method___call"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 180
+                            at line 191
                         </div>
                         <code> <abbr title="Alxarafe\Core\Base\$this">$this</abbr>|mixed|null
                             <strong>__call</strong>(string $method, array $params)
@@ -1279,7 +1305,7 @@
                     <h3 id="method___get">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method___get"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 209
+                            at line 220
                         </div>
                         <code> mixed
                             <strong>__get</strong>(string $propertyName)
@@ -1323,7 +1349,7 @@
                     <h3 id="method___set">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method___set"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 225
+                            at line 236
                         </div>
                         <code> <abbr title="Alxarafe\Core\Base\$this">$this</abbr>
                             <strong>__set</strong>(string $propertyName, mixed $propertyValue)
@@ -1372,7 +1398,7 @@
                     <h3 id="method___isset">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Entity.html#method___isset"><abbr title="Alxarafe\Core\Base\Entity">Entity</abbr></a>
-                            at line 241
+                            at line 252
                         </div>
                         <code> bool
                             <strong>__isset</strong>(string $propertyName)
@@ -1410,62 +1436,40 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_setStructure">
+                    <h3 id="method_getDataById">
                         <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_setStructure"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 72
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getDataById"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 62
                         </div>
-                        <code>
-                            <strong>setStructure</strong>()
+                        <code> private bool
+                            <strong>getDataById</strong>(string $id)
                         </code>
                     </h3>
                     <div class="details">
 
 
                         <div class="method-description">
-                            <p>Execute a call to setTableStructure with an array containing 3 arrays with the fields,
-                                keys and default values
-                                for the table.</p>
-                            <p>The development will be more ambitious than what is defined.</p>
-
-                            <p>Currently Table includes a single table, but the idea is to be able to relate tables to
-                                form complex data
-                                models.</p></div>
-                        <div class="tags">
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_setTableStructure">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_setTableStructure"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 85
-                        </div>
-                        <code> protected
-                            <strong>setTableStructure</strong>(string $table, array $structure)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Save the structure of the table in a static array, so that it is available at all
-                                times.</p></div>
+                            <p>This method is private. Use load instead.</p>
+                            <p>Establishes a record as an active record.
+                                If found, return true and the $id will be in $this->id and the data in $this->newData.
+                                If it is not found, return false, and have not effect into the instance.</p></div>
                         <div class="tags">
                             <h4>Parameters</h4>
 
                             <table class="table table-condensed">
                                 <tr>
                                     <td>string</td>
-                                    <td>$table</td>
+                                    <td>$id</td>
                                     <td></td>
                                 </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
                                 <tr>
-                                    <td>array</td>
-                                    <td>$structure</td>
+                                    <td>bool</td>
                                     <td></td>
                                 </tr>
                             </table>
@@ -1476,28 +1480,37 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_getStructureArray">
+                    <h3 id="method_getQuotedTableName">
                         <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getStructureArray"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 97
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getQuotedTableName"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 84
                         </div>
-                        <code> protected array
-                            <strong>getStructureArray</strong>()
+                        <code> string
+                            <strong>getQuotedTableName</strong>(bool $usePrefix = true)
                         </code>
                     </h3>
                     <div class="details">
 
 
                         <div class="method-description">
-                            <p>A raw array is built with all the information available in the table, configuration files
-                                and code.</p></div>
+                            <p>Get the name of the table (with prefix)</p></div>
                         <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td>$usePrefix</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
 
                             <h4>Return Value</h4>
 
                             <table class="table table-condensed">
                                 <tr>
-                                    <td>array</td>
+                                    <td>string</td>
                                     <td></td>
                                 </tr>
                             </table>
@@ -1508,28 +1521,48 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_getFieldsFromTable">
+                    <h3 id="method_defaultData">
                         <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getFieldsFromTable"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 113
+                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_defaultData"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                            at line 100
                         </div>
-                        <code> array
-                            <strong>getFieldsFromTable</strong>()
+                        <code>
+                            <strong>defaultData</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_newRecord">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_newRecord"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 98
+                        </div>
+                        <code>
+                            <strong>newRecord</strong>(string|null $id = null)
                         </code>
                     </h3>
                     <div class="details">
 
 
                         <div class="method-description">
-                            <p>Return a list of fields and their table structure. Each final model that needed, must
-                                overwrite it.</p></div>
+                            <p>Sets the active record in a new record.</p>
+                            <p>Note that changes made to the current active record will be lost.</p></div>
                         <div class="tags">
-
-                            <h4>Return Value</h4>
+                            <h4>Parameters</h4>
 
                             <table class="table table-condensed">
                                 <tr>
-                                    <td>array</td>
+                                    <td>string|null</td>
+                                    <td>$id</td>
                                     <td></td>
                                 </tr>
                             </table>
@@ -1542,8 +1575,8 @@
                 <div class="method-item">
                     <h3 id="method_get">
                         <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_get"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 127
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_get"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 118
                         </div>
                         <code>
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
@@ -1587,58 +1620,13 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_getDataById">
+                    <h3 id="method_getTableName">
                         <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getDataById"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 143
-                        </div>
-                        <code> private bool
-                            <strong>getDataById</strong>(string $id)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>This method is private. Use load instead.</p>
-                            <p>Establishes a record as an active record.
-                                If found, the $id will be in $this->id and the data in $this->newData.
-                                If it is not found, $this->id will contain '' and $this->newData will contain the data
-                                by default.</p></div>
-                        <div class="tags">
-                            <h4>Parameters</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$id</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_getQuotedTableName">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getQuotedTableName"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 165
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getTableName"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 134
                         </div>
                         <code> string
-                            <strong>getQuotedTableName</strong>(bool $usePrefix = true)
+                            <strong>getTableName</strong>(bool $usePrefix = true)
                         </code>
                     </h3>
                     <div class="details">
@@ -1673,22 +1661,204 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_newRecord">
+                    <h3 id="method_getDataArray">
                         <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_newRecord"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 174
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_getDataArray"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 148
                         </div>
-                        <code> private
-                            <strong>newRecord</strong>()
+                        <code> array
+                            <strong>getDataArray</strong>(string $id = null)
                         </code>
                     </h3>
                     <div class="details">
 
 
                         <div class="method-description">
-                            <p>Sets the active record in a new record.</p>
-                            <p>Note that changes made to the current active record will be lost.</p></div>
+                            <p>Return an array with the current active record.</p>
+                            <p>If an $id is indicated, it searches to change the active record before returning the
+                                value.
+                                Warning: If an $id is set, any unsaved data will be lost when searching for the new
+                                record.</p></div>
                         <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$id</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_load">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_load"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 165
+                        </div>
+                        <code> bool
+                            <strong>load</strong>(string $id)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Establishes a record as an active record.</p>
+                            <p>If found, the $id will be in $this->id and the data in $this->newData.
+                                If it is not found, $this->id will contain '' and $this->newData will contain the data
+                                by default.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$id</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_save">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_save"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 175
+                        </div>
+                        <code> bool
+                            <strong>save</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Saves the changes made to the active record.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_insertRecord">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_insertRecord"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 208
+                        </div>
+                        <code> private bool
+                            <strong>insertRecord</strong>(array $values)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Insert a new record.</p>
+                            <p>$fields is an array of fields and $values an array with the values for each field in the
+                                same order.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td>$values</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_updateRecord">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_updateRecord"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 251
+                        </div>
+                        <code> private bool
+                            <strong>updateRecord</strong>(array $data)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Update the modified fields in the active record.</p>
+                            <p>$data is an array of assignments of type field=value.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td>$data</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
 
                         </div>
@@ -1698,8 +1868,8 @@
                 <div class="method-item">
                     <h3 id="method_delete">
                         <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_delete"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 189
+                            <a href="../../../Alxarafe/Core/Base/FlatTable.html#method_delete"><abbr title="Alxarafe\Core\Base\FlatTable">FlatTable</abbr></a>
+                            at line 275
                         </div>
                         <code> bool
                             <strong>delete</strong>()
@@ -1727,10 +1897,140 @@
 
                 </div>
                 <div class="method-item">
+                    <h3 id="method_setStructure">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_setStructure"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                            at line 54
+                        </div>
+                        <code>
+                            <strong>setStructure</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Execute a call to setTableStructure with an array containing 3 arrays with the fields,
+                                keys and default values
+                                for the table.</p>
+                            <p>The development will be more ambitious than what is defined.</p>
+
+                            <p>Currently Table includes a single table, but the idea is to be able to relate tables to
+                                form complex data
+                                models.</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_setTableStructure">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_setTableStructure"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                            at line 67
+                        </div>
+                        <code> protected
+                            <strong>setTableStructure</strong>(string $table, array $structure)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Save the structure of the table in a static array, so that it is available at all
+                                times.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$table</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>array</td>
+                                    <td>$structure</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getStructureArray">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getStructureArray"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                            at line 79
+                        </div>
+                        <code> protected array
+                            <strong>getStructureArray</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>A raw array is built with all the information available in the table, configuration files
+                                and code.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getFieldsFromTable">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getFieldsFromTable"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
+                            at line 95
+                        </div>
+                        <code> array
+                            <strong>getFieldsFromTable</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return a list of fields and their table structure. Each final model that needed, must
+                                overwrite it.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
                     <h3 id="method_getBy">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getBy"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 217
+                            at line 119
                         </div>
                         <code> bool
                             <strong>getBy</strong>(string $key, mixed $value)
@@ -1779,7 +2079,7 @@
                     <h3 id="method_getDataBy">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getDataBy"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 233
+                            at line 135
                         </div>
                         <code> private bool
                             <strong>getDataBy</strong>(string $key, mixed $value)
@@ -1826,256 +2126,10 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_getTableName">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getTableName"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 255
-                        </div>
-                        <code> string
-                            <strong>getTableName</strong>(bool $usePrefix = true)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Get the name of the table (with prefix)</p></div>
-                        <div class="tags">
-                            <h4>Parameters</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td>$usePrefix</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_getDataArray">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getDataArray"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 269
-                        </div>
-                        <code> array
-                            <strong>getDataArray</strong>(string $id = null)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Return an array with the current active record.</p>
-                            <p>If an $id is indicated, it searches to change the active record before returning the
-                                value.
-                                Warning: If an $id is set, any unsaved data will be lost when searching for the new
-                                record.</p></div>
-                        <div class="tags">
-                            <h4>Parameters</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$id</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_load">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_load"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 286
-                        </div>
-                        <code> bool
-                            <strong>load</strong>(string $id)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Establishes a record as an active record.</p>
-                            <p>If found, the $id will be in $this->id and the data in $this->newData.
-                                If it is not found, $this->id will contain '' and $this->newData will contain the data
-                                by default.</p></div>
-                        <div class="tags">
-                            <h4>Parameters</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td>$id</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_save">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_save"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 296
-                        </div>
-                        <code> bool
-                            <strong>save</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Saves the changes made to the active record.</p></div>
-                        <div class="tags">
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_insertRecord">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_insertRecord"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 329
-                        </div>
-                        <code> private bool
-                            <strong>insertRecord</strong>(array $values)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Insert a new record.</p>
-                            <p>$fields is an array of fields and $values an array with the values for each field in the
-                                same order.</p></div>
-                        <div class="tags">
-                            <h4>Parameters</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td>$values</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_updateRecord">
-                        <div class="location">in
-                            <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_updateRecord"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 361
-                        </div>
-                        <code> private bool
-                            <strong>updateRecord</strong>(array $data)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Update the modified fields in the active record.</p>
-                            <p>$data is an array of assignments of type field=value.</p></div>
-                        <div class="tags">
-                            <h4>Parameters</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
-                                    <td>$data</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
                     <h3 id="method_getStructure">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getStructure"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 384
+                            at line 155
                         </div>
                         <code> array
                             <strong>getStructure</strong>()
@@ -2106,7 +2160,7 @@
                     <h3 id="method_getAllRecords">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getAllRecords"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 395
+                            at line 166
                         </div>
                         <code> array
                             <strong>getAllRecords</strong>()
@@ -2138,7 +2192,7 @@
                     <h3 id="method_countAllRecords">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_countAllRecords"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 406
+                            at line 177
                         </div>
                         <code> int
                             <strong>countAllRecords</strong>()
@@ -2169,7 +2223,7 @@
                     <h3 id="method_getAllRecordsPaged">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_getAllRecordsPaged"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 421
+                            at line 192
                         </div>
                         <code> array
                             <strong>getAllRecordsPaged</strong>(int $offset = 0)
@@ -2210,7 +2264,7 @@
                     <h3 id="method_search">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_search"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 439
+                            at line 210
                         </div>
                         <code> array
                             <strong>search</strong>(string $query, array $columns = [], int $offset = 0, string $order =
@@ -2268,7 +2322,7 @@
                     <h3 id="method_searchQuery">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_searchQuery"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 457
+                            at line 228
                         </div>
                         <code> string
                             <strong>searchQuery</strong>(string $query, array $columns = [])
@@ -2314,7 +2368,7 @@
                     <h3 id="method_searchCount">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/SimpleTable.html#method_searchCount"><abbr title="Alxarafe\Core\Base\SimpleTable">SimpleTable</abbr></a>
-                            at line 491
+                            at line 262
                         </div>
                         <code> int
                             <strong>searchCount</strong>(string $query, array $columns = [])

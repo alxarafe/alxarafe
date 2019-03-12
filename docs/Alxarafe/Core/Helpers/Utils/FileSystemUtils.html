@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="index, follow, all" name="robots"/>
-    <title>Alxarafe\Core\Helpers\Utils\FileSystemUtils | alxarafe</title>
+    <title>Alxarafe\Core\Helpers\Utils\FileSystemUtils | Alxarafe</title>
 
     <link href="../../../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -48,7 +48,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../../../../index.html">alxarafe</a>
+                    <a class="navbar-brand" href="../../../../index.html">Alxarafe</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-elements">
                     <ul class="nav navbar-nav">
@@ -128,6 +128,16 @@
                         <p>List files and directories inside the specified path.</p></div>
                     <div class="col-md-2"></div>
                 </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;<abbr title="Alxarafe\Core\Helpers\Utils\?string">?string</abbr>
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_locate">locate</a>(string $subfolder, string $file, bool $fqcn = true)
+
+                        <p>Locate a file in a subfolder, returning the FQCN or filepath.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
             </div>
 
 
@@ -136,7 +146,7 @@
             <div id="method-details">
                 <div class="method-item">
                     <h3 id="method_rrmdir">
-                        <div class="location">at line 26</div>
+                        <div class="location">at line 27</div>
                         <code> static bool
                             <strong>rrmdir</strong>(string $path)
                         </code>
@@ -174,7 +184,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_mkdir">
-                        <div class="location">at line 54</div>
+                        <div class="location">at line 55</div>
                         <code> static bool
                             <strong>mkdir</strong>(string $dir, int $mode = 0777, bool $recursive = false)
                         </code>
@@ -222,7 +232,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_scandir">
-                        <div class="location">at line 66</div>
+                        <div class="location">at line 67</div>
                         <code> static <a href="http://php.net/SplFileInfo" target="_blank">SplFileInfo</a>[]
                             <strong>scandir</strong>(string $path)
                         </code>
@@ -249,6 +259,58 @@
                             <table class="table table-condensed">
                                 <tr>
                                     <td><a href="http://php.net/SplFileInfo" target="_blank">SplFileInfo</a>[]</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_locate">
+                        <div class="location">at line 92</div>
+                        <code> static <abbr title="Alxarafe\Core\Helpers\Utils\?string">?string</abbr>
+                            <strong>locate</strong>(string $subfolder, string $file, bool $fqcn = true)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Locate a file in a subfolder, returning the FQCN or filepath.</p>
+                            <p>The active modules of the last activated are traversed to the first, and finally the
+                                core.
+                                The file is searched in the subfolder specified (for example Models).
+                                If true (default), return the FQCN; if false, return the path to the file</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$subfolder</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>$file</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>bool</td>
+                                    <td>$fqcn</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><abbr title="Alxarafe\Core\Helpers\Utils\?string">?string</abbr></td>
                                     <td></td>
                                 </tr>
                             </table>
