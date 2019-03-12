@@ -35,7 +35,6 @@ before_script:
     # Install PHP 7.2
     - sudo apt-get update
     - sudo apt-get install -y --force-yes php7.2 php7.2-common php7.2-cli php7.2-fpm libapache2-mod-php7.2
-    - sudo a2enconf php7.2
     - sudo a2enmod php7.2
     # Configure apache virtual hosts
     - sudo cp -f config/build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
