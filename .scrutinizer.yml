@@ -67,7 +67,7 @@ coding_style:
 tools:
   external_code_coverage:
     enabled: true
-    timeout: 1800
+    timeout: 600
     filter:
       excluded_paths:
         - 'docs/*'
