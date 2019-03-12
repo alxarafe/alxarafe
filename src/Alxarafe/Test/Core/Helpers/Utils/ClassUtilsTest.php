@@ -26,9 +26,7 @@ class ClassUtilsTest extends TestCase
         $definedAfter = false;
         $this->assertSame($definedBefore, $definedAfter);
         $this->object::defineIfNotExists($test, $test);
-        if (defined($test)) {
-            $definedAfter = !$definedAfter;
-        }
+        $definedAfter = defined($test);
         $this->assertNotSame($definedBefore, $definedAfter);
     }
 
