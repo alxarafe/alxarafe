@@ -48,7 +48,6 @@ $configData = $configManager->getConfigContent();
 if (!empty($configData)) {
     $database = Database::getInstance();
     $database->connectToDatabase();
-    var_dump($database->getConfig());
 }
 TemplateRender::getInstance();
 FormatUtils::loadConfig();
