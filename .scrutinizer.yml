@@ -1,6 +1,7 @@
 build:
     dependencies:
         before:
+            - service apache2 restart
             - npm i -g npm
             - npm i -g bower
             - bower install
@@ -17,31 +18,37 @@ build:
         postgresql: false
         mysql: 5.7
         # https://scrutinizer-ci.com/docs/build/languages
-        apache2:
-            modules: ['rewrite', 'ssl', 'macro', 'headers']
-            sites:
-                alxarafe:
-                    web_root: ''
-                    host: 'local.dev'
-                    rules:
-                        - 'Options -Indexes'
-                        - '<IfModule mod_rewrite.c>'
-                        - '    RewriteEngine On'
-                        - '    RewriteCond %{REQUEST_FILENAME} !-f'
-                        - '    RewriteCond %{REQUEST_FILENAME} !-d'
-                        - '    RewriteRule ^ index.php [QSA,L]'
-                        - '</IfModule>'
-                        - '<IfModule mod_expires.c>'
-                        - '    ExpiresActive On'
-                        - '    ExpiresDefault                           "access plus 1 week"'
-                        - '    ExpiresByType text/css                   "access plus 1 week"'
-                        - '    ExpiresByType application/javascript     "access plus 1 week"'
-                        - '    ExpiresByType text/javascript            "access plus 1 week"'
-                        - '    <FilesMatch "\.(php|cgi)$">'
-                        - '        ExpiresActive Off'
-                        - '    </FilesMatch>'
-                        - '</IfModule>'
+        hosts:
+            local.dev: '127.0.0.1'
     nodes:
+        apache:
+            environment:
+                apache2:
+                    modules: ['rewrite', 'expire', 'ssl', 'macro', 'headers']
+                    sites:
+                        alxarafe:
+                            web_root: ''
+                            host: 'local.dev'
+                            rules:
+                                - 'Options -Indexes'
+                                - '<IfModule mod_rewrite.c>'
+                                - '    RewriteEngine On'
+                                - '    RewriteCond %{REQUEST_FILENAME} !-f'
+                                - '    RewriteCond %{REQUEST_FILENAME} !-d'
+                                - '    RewriteRule ^ index.php [QSA,L]'
+                                - '</IfModule>'
+                                - '<IfModule mod_expires.c>'
+                                - '    ExpiresActive On'
+                                - '    ExpiresDefault                           "access plus 1 week"'
+                                - '    ExpiresByType text/css                   "access plus 1 week"'
+                                - '    ExpiresByType application/javascript     "access plus 1 week"'
+                                - '    ExpiresByType text/javascript            "access plus 1 week"'
+                                - '    <FilesMatch "\.(php|cgi)$">'
+                                - '        ExpiresActive Off'
+                                - '    </FilesMatch>'
+                                - '</IfModule>'
+                override:
+                    -   command: phpcs-run
         analysis:
             project_setup:
                 override:
@@ -93,15 +100,15 @@ coding_style:
             around_operators:
                 concatenation: true
 tools:
-    external_code_coverage:
-        enabled: true
-        timeout: 600
-        filter:
-            excluded_paths:
-                - 'docs/*'
-                - 'reports/*'
-                - 'src/Alxarafe/Test/*'
-                - 'vendor/*'
+    #    external_code_coverage:
+    #        enabled: true
+    #        timeout: 600
+    #        filter:
+    #            excluded_paths:
+    #                - 'docs/*'
+    #                - 'reports/*'
+    #                - 'src/Alxarafe/Test/*'
+    #                - 'vendor/*'
     php_code_coverage:
         enabled: true
         filter:
@@ -198,3 +205,5 @@ tools:
                 - 'vendor/*'
     # Security Advisory Checker
     sensiolabs_security_checker: true
+    php_sim: true
+    php_changetracking: true
