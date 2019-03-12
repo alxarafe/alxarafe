@@ -93,7 +93,7 @@ class FileSystemUtils
         $modules = [];
         foreach (ModuleManager::getEnabledModules() as $value) {
             $cad = $value['path'];
-            $modules[] = substr($cad, strlen('src/'));    // Delete initial 'src\'
+            $modules[] = substr($cad, strlen('src/')); // Delete initial 'src\'
         }
         $modules[] = 'Alxarafe\Core';
         foreach ($modules as $module) {

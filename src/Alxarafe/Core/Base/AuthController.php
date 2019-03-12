@@ -22,7 +22,7 @@ class AuthController extends Controller
     /**
      * Minimum cookie time expiration.
      */
-    public const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
+    public const COOKIE_EXPIRATION_MIN = 3600; // 1 hour
 
     /**
      * The user logged.

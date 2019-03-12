@@ -23,12 +23,12 @@ class Login extends Controller
     /**
      * Cookie time expiration.
      */
-    public const COOKIE_EXPIRATION = 2592000;       // 30 days
+    public const COOKIE_EXPIRATION = 2592000; // 30 days
 
     /**
      * Minimum cookie time expiration.
      */
-    public const COOKIE_EXPIRATION_MIN = 3600;     // 1 hour
+    public const COOKIE_EXPIRATION_MIN = 3600; // 1 hour
 
     /**
      * Where to redirect if needed.

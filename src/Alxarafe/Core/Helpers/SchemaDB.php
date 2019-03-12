@@ -229,8 +229,7 @@ class SchemaDB
         }
 
         return $unique ?
-            self::createUniqueIndex($tableName, $indexData, $existsIndex) :
-            self::createStandardIndex($tableName, $indexData, $existsIndex);
+            self::createUniqueIndex($tableName, $indexData, $existsIndex) : self::createStandardIndex($tableName, $indexData, $existsIndex);
     }
 
     /**
