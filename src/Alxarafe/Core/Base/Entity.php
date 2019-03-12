@@ -15,6 +15,7 @@ use RuntimeException;
 /**
  * Class Entity
  *
+ * @property bool $exists
  * @property string $id
  * @property string $idField
  * @property string $nameField
@@ -38,6 +39,13 @@ abstract class Entity
      * @var string
      */
     public $shortName;
+
+    /**
+     * True if record exists (then, use update instead insert)
+     *
+     * @var bool
+     */
+    protected $exists;
 
     /**
      * Value of the main index for the active record. When a record is loaded, this field will contain its id and will
@@ -87,6 +95,7 @@ abstract class Entity
         $this->shortName = ClassUtils::getShortName($this, static::class);
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Entity Constructor');
         $this->debugTool->stopTimer($this->shortName);
+        $this->exists = false;
     }
 
     /**
@@ -240,7 +249,7 @@ abstract class Entity
      *
      * @return bool
      */
-    public function __isset($propertyName)
+    public function __isset(string $propertyName)
     {
         return isset($this->{$propertyName});
     }
