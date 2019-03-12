@@ -47,8 +47,6 @@ build:
                                 - '        ExpiresActive Off'
                                 - '    </FilesMatch>'
                                 - '</IfModule>'
-                override:
-                    -   command: phpcs-run
         analysis:
             project_setup:
                 override:
