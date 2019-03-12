@@ -2,6 +2,14 @@ build:
   environment:
     php:
       version: 7.2
+    timezone: UTC
+    postgresql: false
+    mysql: 5.7
+  dependencies:
+    before:
+      - composer require phpunit/phpunit:^7.5 --dev
+  services:
+    mysql: 5.7
   nodes:
     analysis:
       project_setup:
@@ -12,7 +20,13 @@ build:
           - php-scrutinizer-run
           - command: phpcs-run
             use_website_config: true
-    tests: true
+    tests:
+      dependencies:
+        before:
+          - sudo service start mysql || true
+          - mysql -h 127.0.0.1 -u root -e 'DROP DATABASE IF EXISTS scrutinizer;'
+          - mysql -h 127.0.0.1 -u root -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
+          - cp config/config-scrutinizer.yaml config/config.yaml
     coverage:
       tests:
         override:
@@ -41,15 +55,22 @@ checks:
     fix_line_ending: true
     fix_identation_4spaces: true
     fix_doc_comments: true
+    return_doc_comments: true
 coding_style:
   php:
+    indentation:
+      general:
+        use_tabs: false
+        size: 4
+      switch:
+        indent_case: true
     spaces:
       around_operators:
         concatenation: true
 tools:
   external_code_coverage:
     enabled: true
-    timeout: 300
+    timeout: 1800
     filter:
       excluded_paths:
         - 'docs/*'
@@ -57,7 +78,7 @@ tools:
         - 'src/Alxarafe/Test/*'
         - 'vendor/*'
   php_code_coverage:
-    enabled: false
+    enabled: true
     filter:
       excluded_paths:
         - 'docs/*'
@@ -75,14 +96,14 @@ tools:
         - 'src/Alxarafe/Test/*'
         - 'vendor/*'
   # Copy/Paste Detector
-  php_cpd:
-    enabled: true
-    filter:
-      excluded_paths:
-        - 'docs/*'
-        - 'reports/*'
-        - 'src/Alxarafe/Test/*'
-        - 'vendor/*'
+  #  php_cpd:
+  #    enabled: true
+  #    filter:
+  #      excluded_paths:
+  #        - 'docs/*'
+  #        - 'reports/*'
+  #        - 'src/Alxarafe/Test/*'
+  #        - 'vendor/*'
   # PHP CS Fixer (http://http://cs.sensiolabs.org/).
   php_cs_fixer:
     enabled: true

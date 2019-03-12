@@ -47,7 +47,7 @@ CacheCore::getInstance()->getEngine();
 $configData = $configManager->getConfigContent();
 if (!empty($configData)) {
     $database = Database::getInstance();
-    var_dump($database->connectToDatabase());
+    $database->connectToDatabase();
 }
 TemplateRender::getInstance();
 FormatUtils::loadConfig();
