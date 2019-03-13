@@ -4,7 +4,6 @@ language: php
 php:
     - 7.1
     - 7.2
-    - nightly
 
 env:
     - DB=mysql
@@ -29,7 +28,7 @@ install:
     # Set ServerName Globally
     - echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqcn.conf
     - sudo a2enconf fqcn
-    - echo "169.254.169.254 localhost" | sudo tee -a /etc/hosts
+    - cat /etc/hosts
     # Restart services
     - sudo service apache2 restart
     - sudo service php7.2-fpm restart
@@ -71,12 +70,6 @@ script:
     - vendor/bin/phpunit --configuration phpunit.xml
 
 matrix:
-    include:
-        -   php: hhvm
-            dist: trusty
-    allow_failures:
-        -   php: hhvm
-        -   php: nightly
     fast_finish: true
 
 after_failure:

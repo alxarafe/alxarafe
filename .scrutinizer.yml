@@ -5,7 +5,7 @@ build:
             - sudo apt-get install -y --force-yes dnsutils
             - echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqcn.conf
             - sudo a2enconf fqcn
-            - echo "10.0.3.1 localhost" | sudo tee -a /etc/hosts
+            - cat /etc/hosts
             - sudo service apache2 restart
             # Do a lookup on localhost hostname set above
             - nslookup localhost
