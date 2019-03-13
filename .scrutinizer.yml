@@ -5,7 +5,7 @@ build:
             - sudo apt-get install -y --force-yes dnsutils
             - echo "ServerName local.dev" | sudo tee /etc/apache2/conf-available/fqcn.conf
             - sudo a2enconf fqcn
-            - echo "127.0.0.1	local.dev" | sudo tee -a /etc/hosts
+            - echo "127.0.0.1 local.dev" | sudo tee -a /etc/hosts
             - sudo service apache2 restart
             # Do a lookup on local.dev hostname set above
             - nslookup local.dev
