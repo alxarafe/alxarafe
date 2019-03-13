@@ -58,6 +58,27 @@ class Session
     }
 
     /**
+     * Return this instance.
+     *
+     * @return self
+     */
+    public static function getInstance(): self
+    {
+        return self::getInstanceTrait();
+    }
+
+    /**
+     * Return default values
+     *
+     * @return array
+     */
+    public static function getDefaultValues(): array
+    {
+        // Not really needed
+        return [];
+    }
+
+    /**
      * Gets the value of the outgoing CSRF token.
      *
      * @return string
@@ -77,27 +98,6 @@ class Session
     public function isValid(string $csrfToken): bool
     {
         return $this->session->getCsrfToken()->isValid($csrfToken);
-    }
-
-    /**
-     * Return this instance.
-     *
-     * @return self
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    public static function getDefaultValues(): array
-    {
-        // Not really needed
-        return [];
     }
 
     /**

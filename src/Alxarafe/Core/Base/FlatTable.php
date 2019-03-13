@@ -50,6 +50,24 @@ class FlatTable extends Entity
     }
 
     /**
+     * Returns a new instance of the table with the requested record.
+     * As a previous step, a getData of the current instance is made, so both will point to the same record.
+     * Makes a getData and returns a new instance of the model.
+     *
+     * @param string $id
+     *
+     * @return SimpleTable
+     */
+    public function get(string $id): self
+    {
+        if (!$this->getDataById($id)) {
+            $this->newRecord($id);
+        }
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * This method is private. Use load instead.
      * Establishes a record as an active record.
      * If found, return true and the $id will be in $this->id and the data in $this->newData.
@@ -87,16 +105,6 @@ class FlatTable extends Entity
     }
 
     /**
-     * TODO: Undocummented.
-     *
-     * @return array
-     */
-    public function defaultData()
-    {
-        return [];
-    }
-
-    /**
      * Sets the active record in a new record.
      * Note that changes made to the current active record will be lost.
      */
@@ -112,21 +120,13 @@ class FlatTable extends Entity
     }
 
     /**
-     * Returns a new instance of the table with the requested record.
-     * As a previous step, a getData of the current instance is made, so both will point to the same record.
-     * Makes a getData and returns a new instance of the model.
+     * TODO: Undocummented.
      *
-     * @param string $id
-     *
-     * @return SimpleTable
+     * @return array
      */
-    public function get(string $id): self
+    public function defaultData()
     {
-        if (!$this->getDataById($id)) {
-            $this->newRecord($id);
-        }
-        $this->id = $id;
-        return $this;
+        return [];
     }
 
     /**
@@ -203,6 +203,32 @@ class FlatTable extends Entity
     }
 
     /**
+     * Update the modified fields in the active record.
+     * $data is an array of assignments of type field=value.
+     *
+     * @param array $data
+     *
+     * @return bool
+     */
+    private function updateRecord(array $data): bool
+    {
+        $fieldNames = [];
+        $vars = [];
+        foreach ($data as $fieldName => $value) {
+            $fieldNames[] = Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName) . " = :" . $fieldName;
+            $vars[$fieldName] = $value;
+        }
+
+        $fieldList = implode(', ', $fieldNames);
+
+        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
+        $sql = "UPDATE {$this->getQuotedTableName()} SET {$fieldList} WHERE {$idField} = :id;";
+        $vars['id'] = $this->id;
+
+        return Database::getInstance()->getDbEngine()->exec($sql, $vars);
+    }
+
+    /**
      * Insert a new record.
      * $fields is an array of fields and $values an array with the values for each field in the same order.
      *
@@ -245,32 +271,6 @@ class FlatTable extends Entity
         }
 
         return $this->exists;
-    }
-
-    /**
-     * Update the modified fields in the active record.
-     * $data is an array of assignments of type field=value.
-     *
-     * @param array $data
-     *
-     * @return bool
-     */
-    private function updateRecord(array $data): bool
-    {
-        $fieldNames = [];
-        $vars = [];
-        foreach ($data as $fieldName => $value) {
-            $fieldNames[] = Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName) . " = :" . $fieldName;
-            $vars[$fieldName] = $value;
-        }
-
-        $fieldList = implode(', ', $fieldNames);
-
-        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
-        $sql = "UPDATE {$this->getQuotedTableName()} SET {$fieldList} WHERE {$idField} = :id;";
-        $vars['id'] = $this->id;
-
-        return Database::getInstance()->getDbEngine()->exec($sql, $vars);
     }
 
     /**

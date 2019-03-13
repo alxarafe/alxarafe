@@ -57,7 +57,7 @@ class SchemaDB
                 $data = [
                     'tableName' => $tableName,
                     'sql' => $sql,
-                    'table fields' => $tabla
+                    'table fields' => $tabla,
                 ];
                 FlashMessages::getInstance()::setError('Error executing: <pre>' . var_export($data, true) . '</pre>');
                 return false;

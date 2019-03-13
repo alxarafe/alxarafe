@@ -132,16 +132,6 @@ class ModuleManager
     }
 
     /**
-     * Returns the data from database.
-     *
-     * @return array
-     */
-    public function getConfig(): array
-    {
-        return self::getEnabledModules();
-    }
-
-    /**
      * Initialize modules.
      */
     public static function initializeModules(): void
@@ -151,6 +141,43 @@ class ModuleManager
         self::addRenderFolders();
 
         self::runInitializer();
+    }
+
+    /**
+     * Adds enabled module folders to translator.
+     */
+    private static function addTranslatorFolders(): void
+    {
+        self::$translator->addDirs(self::getFoldersEnabledModules());
+    }
+
+    /**
+     * Returns a list of folder from enabled modules.
+     *
+     * @return array
+     */
+    private static function getFoldersEnabledModules(): array
+    {
+        $folderList = [];
+        foreach (self::$enabledModules as $module) {
+            $folderList[] = $module['path'];
+        }
+        return $folderList;
+    }
+
+    /**
+     * Adds enabled module folders to renderer.
+     */
+    private static function addRenderFolders(): void
+    {
+        $list = [];
+        foreach (self::getEnabledModules() as $module) {
+            $list[] = [
+                'name' => $module['name'],
+                'path' => $module['path'],
+            ];
+        }
+        self::$renderer->addDirs($list);
     }
 
     /**
@@ -171,43 +198,6 @@ class ModuleManager
         }
         // Add dirs for autoload
         Load::getInstance()::addDirs($dirs);
-    }
-
-    /**
-     * Returns a list of folder from enabled modules.
-     *
-     * @return array
-     */
-    private static function getFoldersEnabledModules(): array
-    {
-        $folderList = [];
-        foreach (self::$enabledModules as $module) {
-            $folderList[] = $module['path'];
-        }
-        return $folderList;
-    }
-
-    /**
-     * Adds enabled module folders to translator.
-     */
-    private static function addTranslatorFolders(): void
-    {
-        self::$translator->addDirs(self::getFoldersEnabledModules());
-    }
-
-    /**
-     * Adds enabled module folders to renderer.
-     */
-    private static function addRenderFolders(): void
-    {
-        $list = [];
-        foreach (self::getEnabledModules() as $module) {
-            $list[] = [
-                'name' => $module['name'],
-                'path' => $module['path'],
-            ];
-        }
-        self::$renderer->addDirs($list);
     }
 
     /**
@@ -242,6 +232,21 @@ class ModuleManager
         new PreProcessors\Pages($enabledFolders);
         new PreProcessors\Routes($enabledFolders);
         FlashMessages::getInstance()::setInfo(self::$translator->trans('preprocessors-executed'));
+    }
+
+    /**
+     * Return a list of enabled folders.
+     *
+     * @return array
+     */
+    public static function getEnabledFolders(): array
+    {
+        $searchDir = [];
+        $searchDir['Alxarafe\\Core'] = constant('ALXARAFE_FOLDER');
+        foreach (self::getEnabledModules() as $enabledModule) {
+            $searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
+        }
+        return $searchDir;
     }
 
     /**
@@ -293,17 +298,12 @@ class ModuleManager
     }
 
     /**
-     * Return a list of enabled folders.
+     * Returns the data from database.
      *
      * @return array
      */
-    public static function getEnabledFolders(): array
+    public function getConfig(): array
     {
-        $searchDir = [];
-        $searchDir['Alxarafe\\Core'] = constant('ALXARAFE_FOLDER');
-        foreach (self::getEnabledModules() as $enabledModule) {
-            $searchDir['Modules\\' . $enabledModule['name']] = basePath($enabledModule['path']);
-        }
-        return $searchDir;
+        return self::getEnabledModules();
     }
 }

@@ -175,22 +175,6 @@ class TemplateRender
     }
 
     /**
-     * Add additional language folders.
-     *
-     * @param array $folders
-     */
-    public function addDirs(array $folders = []): void
-    {
-        $result = [];
-        foreach ($folders as $key => $folder) {
-            $result[$folder['name']] = $folder['path'] . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER;
-            FileSystemUtils::mkdir($result[$folder['name']], 0777, true);
-            DebugTool::getInstance()->addMessage('messages', 'Added template render folder ' . $result[$folder['name']]);
-        }
-        self::$templatesFolders = array_merge(self::$templatesFolders, $result);
-    }
-
-    /**
      * Returns a list of available paths.
      *
      * @return array
@@ -241,6 +225,22 @@ class TemplateRender
     public static function getDefaultValues(): array
     {
         return ['skin' => 'default'];
+    }
+
+    /**
+     * Add additional language folders.
+     *
+     * @param array $folders
+     */
+    public function addDirs(array $folders = []): void
+    {
+        $result = [];
+        foreach ($folders as $key => $folder) {
+            $result[$folder['name']] = $folder['path'] . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER;
+            FileSystemUtils::mkdir($result[$folder['name']], 0777, true);
+            DebugTool::getInstance()->addMessage('messages', 'Added template render folder ' . $result[$folder['name']]);
+        }
+        self::$templatesFolders = array_merge(self::$templatesFolders, $result);
     }
 
     /**

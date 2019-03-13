@@ -288,6 +288,22 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
+     * Save the data.
+     *
+     * This method can do additional things in more complex situations.
+     */
+    protected function save(): void
+    {
+        $this->getDataPost();
+        $this->oldData = $this->getRecordData();
+        if ($this->model->saveRecord($this->postData)) {
+            $this->currentId = $this->model->{$this->model->getIdField()};
+            $this->postData = $this->getRecordData();
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-saved'));
+        }
+    }
+
+    /**
      * Returns the data received from $_POST
      *
      * This method can do additional things in more complex situations.
@@ -302,22 +318,6 @@ abstract class AuthPageExtendedController extends AuthPageController
                 $field = explode(constant('IDSEPARATOR'), $key);
                 $this->postData[$field[0]][$field[1]][$field[2]] = is_array($value) ? array_values($value)[0] : $value;
             }
-        }
-    }
-
-    /**
-     * Save the data.
-     *
-     * This method can do additional things in more complex situations.
-     */
-    protected function save(): void
-    {
-        $this->getDataPost();
-        $this->oldData = $this->getRecordData();
-        if ($this->model->saveRecord($this->postData)) {
-            $this->currentId = $this->model->{$this->model->getIdField()};
-            $this->postData = $this->getRecordData();
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-saved'));
         }
     }
 
