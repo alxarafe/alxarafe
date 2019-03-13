@@ -1,6 +1,7 @@
 dist: xenial
 sudo: required
 language: php
+codecov: true
 
 addons:
     mariadb: '10.0'

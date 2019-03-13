@@ -24,7 +24,7 @@ build:
             sites:
                 alxarafe:
                     host: 'localhost'
-                    web_root: ''
+                    web_root: '/'
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
