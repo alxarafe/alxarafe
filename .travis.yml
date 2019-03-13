@@ -1,23 +1,6 @@
+dist: xenial
 sudo: required
 language: php
-
-php:
-    - 7.1
-    - 7.2
-
-env:
-    - DB=mysql
-    global:
-        - VHOST_URL=localhost
-
-install:
-    - travis_retry composer install --no-interaction --prefer-source
-
-services:
-    - memcached
-    - mysql
-
-dist: xenial
 
 addons:
     mariadb: '10.0'
@@ -28,6 +11,18 @@ addons:
             - apache2
             - postfix
             - libapache2-mod-fastcgi
+
+services:
+    - memcached
+    - mysql
+
+php:
+    - 7.1
+    - 7.2
+
+env:
+    global:
+        - VHOST_URL=localhost
 
 before_install:
     - npm i -g npm
@@ -43,6 +38,9 @@ before_install:
     - sudo chown -R 775 $TRAVIS_BUILD_DIR
     - sudo chmod +x /home/travis/build
     - sudo service apache2 restart
+
+install:
+    - travis_retry composer install --no-interaction --prefer-source
 
 before_script:
     # Create database
