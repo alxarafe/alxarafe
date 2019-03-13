@@ -2,9 +2,8 @@ build:
     environment:
         timezone: UTC
         # https://scrutinizer-ci.com/docs/build/languages
-        # Hosts don't, localhost is added by default
-        #        hosts:
-        #            localhost: '127.0.0.1'
+        hosts:
+            local.dev: '127.0.0.1'
         php:
             version: 7.2
             ini:
@@ -16,13 +15,8 @@ build:
             modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
             sites:
                 alxarafe:
-                    host: 'localhost'
+                    host: 'local.dev'
                     web_root: ''
-                    rules:
-                        - RewriteEngine On
-                        - RewriteCond %{REQUEST_FILENAME} !-f
-                        - RewriteCond %{REQUEST_FILENAME} !-d
-                        - RewriteRule ^ index.php [QSA,L]
     dependencies:
         before:
             - echo "ServerName localhost" > /etc/apache2/conf-available/fqdn.conf
