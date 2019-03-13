@@ -67,9 +67,18 @@ class AuthController extends Controller
      */
     public function checkAuth(): bool
     {
+        return $this->checkLoginWeb() || $this->checkLoginAPI();
+    }
+
+    /**
+     * Check if user is logged-in from Login.
+     *
+     * @return bool
+     */
+    private function checkLoginWeb(): bool
+    {
         $return = false;
 
-        // User logged in from Login
         $username = $this->request->cookies->get('user', '');
         $logKey = $this->request->cookies->get('logkey', '');
         $remember = $this->request->cookies->get('remember', self::COOKIE_EXPIRATION_MIN);
@@ -86,17 +95,27 @@ class AuthController extends Controller
                 $return = true;
             }
         }
+        return $return;
+    }
 
-        // User logged in from API
+    /**
+     * Check if user is logged-in from API.
+     *
+     * @return bool
+     */
+    private function checkLoginAPI(): bool
+    {
+        $return = false;
+
         $userAuth = $this->request->headers->get('PHP_AUTH_USER');
         $passAuth = $this->request->headers->get('PHP_AUTH_PW');
         if (!empty($userAuth) && !empty($passAuth)) {
             $user = new User();
             if ($user->getBy('username', $userAuth) && password_verify($passAuth, $user->password)) {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged', ['%username%' => $username]));
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged', ['%username%' => $userAuth]));
                 $return = true;
             } else {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged-fail', ['%username%' => $username]));
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged-fail', ['%username%' => $userAuth]));
             }
         }
         return $return;
