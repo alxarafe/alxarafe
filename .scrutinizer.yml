@@ -1,14 +1,18 @@
 build:
+    nodes:
+        apache:
+            environment:
+                # https://scrutinizer-ci.com/docs/build/languages
+                hosts:
+                    localhost: '127.0.0.1'
+                apache2:
+                    modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
+                    sites:
+                        alxarafe:
+                            web_root: ''
+                            host: 'localhost'
     dependencies:
         before:
-            - sudo apt-get update
-            - echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqcn.conf
-            - sudo a2enconf fqcn
-            - sudo service apache2 restart
-            # Do an Apache Config Test
-            - apache2ctl configtest
-            # Check if the site responds OK
-            #            - curl -vsf 'http://localhost/index.php' &> /dev/stdout
             - npm i -g npm
             - npm i -g bower
             - bower install
@@ -24,33 +28,6 @@ build:
         timezone: UTC
         postgresql: false
         mysql: 5.7
-        # https://scrutinizer-ci.com/docs/build/languages
-        hosts:
-            localhost: '127.0.0.1'
-        apache2:
-            modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
-            sites:
-                alxarafe:
-                    web_root: ''
-                    host: 'localhost'
-                    rules:
-                        - 'Options -Indexes'
-                        - '<IfModule mod_rewrite.c>'
-                        - '    RewriteEngine On'
-                        - '    RewriteCond %{REQUEST_FILENAME} !-f'
-                        - '    RewriteCond %{REQUEST_FILENAME} !-d'
-                        - '    RewriteRule ^ index.php [QSA,L]'
-                        - '</IfModule>'
-                        - '<IfModule mod_expires.c>'
-                        - '    ExpiresActive On'
-                        - '    ExpiresDefault                           "access plus 1 week"'
-                        - '    ExpiresByType text/css                   "access plus 1 week"'
-                        - '    ExpiresByType application/javascript     "access plus 1 week"'
-                        - '    ExpiresByType text/javascript            "access plus 1 week"'
-                        - '    <FilesMatch "\.(php|cgi)$">'
-                        - '        ExpiresActive Off'
-                        - '    </FilesMatch>'
-                        - '</IfModule>'
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
