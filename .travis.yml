@@ -9,23 +9,7 @@ php:
 env:
     - DB=mysql
 
-install: travis_retry composer install --no-interaction --prefer-source
-
-services:
-    - memcached
-    - mysql
-
-addons:
-    mariadb: '10.0'
-    hosts:
-        - local.dev
-
-before_install:
-    - npm i -g npm
-    - npm i -g bower
-    - bower install
-
-before_script:
+install:
     # https://docs.travis-ci.com/user/languages/php/#apache--php
     # https://github.com/mitchellkrogza/Travis-CI-for-Apache-For-Testing-Apache-and-PHP-Configurations/blob/master/travisCI/install-apache.sh
     # Update and install base system
@@ -48,17 +32,34 @@ before_script:
     # Restart services
     - sudo service apache2 restart
     - sudo service php7.2-fpm restart
+    - travis_retry composer install --no-interaction --prefer-source
+
+services:
+    - memcached
+    - mysql
+
+addons:
+    mariadb: '10.0'
+    hosts:
+        - local.dev
+
+before_install:
+    - npm i -g npm
+    - npm i -g bower
+    - bower install
+
+before_script:
+    # Create database
+    - mysql -e 'DROP DATABASE IF EXISTS alxarafe;'
+    - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
+    # Copy default config.yaml
+    - cp config/config-travis.yaml config/config.yaml
     # Do a lookup on local.dev hostname set above
     - nslookup local.dev
     # Do an Apache Config Test
     - sudo apache2ctl configtest
     # Check if the site responds OK
     - curl -vsf 'http://local.dev/index.php' &> /dev/stdout
-    # Create database
-    - mysql -e 'DROP DATABASE IF EXISTS alxarafe;'
-    - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
-    # Copy default config.yaml
-    - cp config/config-travis.yaml config/config.yaml
 
 script:
     # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.

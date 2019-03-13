@@ -1,7 +1,7 @@
 build:
     dependencies:
         before:
-            - /etc/init.d/apache2 restart
+            - sudo service apache2 restart
             # Do a lookup on local.dev hostname set above
             - nslookup local.dev
             # Do an Apache Config Test
