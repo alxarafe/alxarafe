@@ -2,7 +2,7 @@ build:
     dependencies:
         before:
             - curl http://ipinfo.io/ip
-            - systemctl restart apache2.service
+            - /etc/init.d/apache2 restart
             - npm i -g npm
             - npm i -g bower
             - bower install
