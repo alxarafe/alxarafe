@@ -27,8 +27,8 @@ install:
     - sudo a2enmod rewrite
     - sudo a2enmod expires
     # Set ServerName Globally
-    - sudo cp config/build/travis-ci-servername /etc/apache2/conf-available/servername.conf
-    - sudo a2enconf servername
+    - echo "ServerName local.dev" | sudo tee /etc/apache2/conf-available/fqcn.conf
+    - sudo a2enconf fqcn
     # Restart services
     - sudo service apache2 restart
     - sudo service php7.2-fpm restart
