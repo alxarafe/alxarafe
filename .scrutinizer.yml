@@ -4,6 +4,7 @@ build:
             - npm i -g npm
             - npm i -g bower
             - bower install
+            - sudo service apache2 restart
             - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
             - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
             - cp config/config-scrutinizer.yaml config/config.yaml

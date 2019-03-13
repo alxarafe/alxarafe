@@ -72,8 +72,9 @@ class EditConfigTest extends TestCase
         ];
         $this->http = new Client($this->httpData);
         $response = $this->http->post($this->url, $postData);
-        $this->assertNotEquals(404, $response->getStatusCode());
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(400, $response->getStatusCode());
+        $this->assertNotEquals(404, $response->getStatusCode());
         // Store the cookies received to be used in next requests
         $this->httpData['cookies'] = $this->cookies;
     }
@@ -105,8 +106,9 @@ class EditConfigTest extends TestCase
         ];
         foreach ($actions as $action) {
             $response = $this->doGetRequest($this->url, $action);
-            $this->assertNotEquals(404, $response->getStatusCode());
             $this->assertEquals(200, $response->getStatusCode());
+            $this->assertNotEquals(400, $response->getStatusCode());
+            $this->assertNotEquals(404, $response->getStatusCode());
         }
 
         $this->assertIsObject($this->object->indexMethod());
@@ -120,8 +122,11 @@ class EditConfigTest extends TestCase
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=read');
         $this->http = new Client($this->httpData);
         $response = $this->doGetRequest($this->url);
-        $this->assertNotEquals(404, $response->getStatusCode());
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(400, $response->getStatusCode());
+        $this->assertNotEquals(404, $response->getStatusCode());
+
+        $this->assertIsObject($this->object->readMethod());
     }
 
     /**
@@ -132,8 +137,9 @@ class EditConfigTest extends TestCase
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=update');
         $this->http = new Client($this->httpData);
         $response = $this->doGetRequest($this->url);
-        $this->assertNotEquals(404, $response->getStatusCode());
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(400, $response->getStatusCode());
+        $this->assertNotEquals(404, $response->getStatusCode());
 
         $this->assertIsObject($this->object->updateMethod());
     }
@@ -146,8 +152,9 @@ class EditConfigTest extends TestCase
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=create');
         $this->http = new Client($this->httpData);
         $response = $this->doGetRequest($this->url);
-        $this->assertNotEquals(404, $response->getStatusCode());
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(400, $response->getStatusCode());
+        $this->assertNotEquals(404, $response->getStatusCode());
 
         $this->assertIsObject($this->object->createMethod());
     }
@@ -160,8 +167,9 @@ class EditConfigTest extends TestCase
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=delete');
         $this->http = new Client($this->httpData);
         $response = $this->doGetRequest($this->url);
-        $this->assertNotEquals(404, $response->getStatusCode());
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertNotEquals(400, $response->getStatusCode());
+        $this->assertNotEquals(404, $response->getStatusCode());
 
         $this->assertIsObject($this->object->deleteMethod());
     }
