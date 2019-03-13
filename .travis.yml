@@ -21,7 +21,7 @@ install:
     # Enable mod rewrite module
     - sudo a2enmod php7.2 rewrite expires
     # Configure apache virtual hosts
-    - sudo cp -f config/build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
+    - sudo cp -f config/build/travis-ci-apache /etc/apache2/sites-available/default.conf
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default.conf
     - sudo a2ensite default
     # Set ServerName Globally
