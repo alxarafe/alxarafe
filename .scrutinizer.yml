@@ -33,8 +33,6 @@ build:
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
-            -   command: phpcs-run
-                use_website_config: true
             -   command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
                 coverage:
                     file: reports/coverage.xml
