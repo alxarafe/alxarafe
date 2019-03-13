@@ -2,8 +2,9 @@ build:
     environment:
         timezone: UTC
         # https://scrutinizer-ci.com/docs/build/languages
-        hosts:
-            localhost: '127.0.0.1'
+        # Hosts don't, localhost is added by default
+        #        hosts:
+        #            localhost: '127.0.0.1'
         php:
             version: 7.2
             ini:
@@ -24,6 +25,9 @@ build:
                         - RewriteRule ^ index.php [QSA,L]
     dependencies:
         before:
+            - sudo apt-get autoremove
+            - echo "ServerName localhost" > /etc/apache2/conf-available/fqdn.conf
+            - sudo a2enconf fqdn
             - sudo service apache2 restart
             - npm i -g npm
             - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
