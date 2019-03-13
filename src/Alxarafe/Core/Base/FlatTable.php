@@ -240,7 +240,9 @@ class FlatTable extends Entity
         $this->exists = Database::getInstance()->getDbEngine()->exec($sql, $vars);
 
         // Assign the value of the primary key of the newly inserted record
-        $this->id = Database::getInstance()->getDbEngine()->getLastInserted();
+        if (!isset($this->id)) {
+            $this->id = Database::getInstance()->getDbEngine()->getLastInserted();
+        }
 
         return $this->exists;
     }
