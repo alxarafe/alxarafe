@@ -8,7 +8,6 @@ namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Models\User;
 use Alxarafe\Core\Providers\FlashMessages;
-use Alxarafe\Core\Providers\Logger;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -54,9 +53,9 @@ class AuthController extends Controller
     public function runMethod(string $methodName): Response
     {
         $method = $methodName . 'Method';
-        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
+        $this->logger->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
         if (!$this->checkAuth()) {
-            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-not-authenticated'));
+            $this->logger->addDebug($this->translator->trans('user-not-authenticated'));
             return $this->redirect(baseUrl($this->defaultRedirect));
         }
         return $this->{$method}();
@@ -85,7 +84,7 @@ class AuthController extends Controller
         if (!empty($username) && !empty($logKey)) {
             $user = new User();
             if ($user->verifyLogKey($username, $logKey)) {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $username]));
+                $this->logger->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $username]));
                 $this->user = $user;
                 $this->username = $this->user->username;
                 $this->logkey = $this->user->logkey;
@@ -112,10 +111,10 @@ class AuthController extends Controller
         if (!empty($userAuth) && !empty($passAuth)) {
             $user = new User();
             if ($user->getBy('username', $userAuth) && password_verify($passAuth, $user->password)) {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged', ['%username%' => $userAuth]));
+                $this->logger->addDebug($this->translator->trans('api-user-logged', ['%username%' => $userAuth]));
                 $return = true;
             } else {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged-fail', ['%username%' => $userAuth]));
+                $this->logger->addDebug($this->translator->trans('api-user-logged-fail', ['%username%' => $userAuth]));
             }
         }
         return $return;

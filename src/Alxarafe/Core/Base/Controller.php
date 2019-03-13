@@ -13,6 +13,7 @@ use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\Logger;
 use Alxarafe\Core\Providers\TemplateRender;
 use Alxarafe\Core\Providers\Translator;
+use Monolog\Logger as MonologLogger;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,6 +76,13 @@ abstract class Controller
     public $debugTool;
 
     /**
+     * The logger.
+     *
+     * @var MonologLogger
+     */
+    public $logger;
+
+    /**
      * Contains dependencies.
      *
      * @var Container|null
@@ -110,9 +118,8 @@ abstract class Controller
         $this->session = Session::getInstance();
         $this->renderer = TemplateRender::getInstance();
         $this->translator = Translator::getInstance();
-        $this->renderer->addVars([
-            'ctrl' => $this,
-        ]);
+        $this->logger = Logger::getInstance()->getLogger();
+        $this->renderer->addVars(['ctrl' => $this,]);
         $this->renderer->setTemplate(strtolower($this->shortName));
         $this->username = null;
         $this->debugTool->stopTimer($this->shortName);
@@ -159,7 +166,7 @@ abstract class Controller
             $destiny = baseUrl('index.php');
         }
         $vars = ['%from%' => $this->shortName, '%to%' => $destiny];
-        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('redirected-from-to', $vars));
+        $this->logger->addDebug($this->translator->trans('redirected-from-to', $vars));
         return new RedirectResponse($destiny);
     }
 
@@ -171,7 +178,7 @@ abstract class Controller
     public function runMethod(string $methodName): Response
     {
         $method = $methodName . 'Method';
-        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
+        $this->logger->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
         return $this->{$method}();
     }
 

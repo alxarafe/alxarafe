@@ -9,7 +9,6 @@ namespace Alxarafe\Core\Controllers;
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Models\User;
 use Alxarafe\Core\Providers\FlashMessages;
-use Alxarafe\Core\Providers\Logger;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -135,12 +134,12 @@ class Login extends Controller
         $logKey = $this->request->cookies->get('logkey', '');
         if ($this->username === null && $this->user->getBy('username', $user) === true) {
             if ($this->user->verifyLogKey($user, $logKey)) {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $user]));
+                $this->logger->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $user]));
                 // Increase cookie valid time.
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time, $remember);
             } else {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authentication-error'));
+                $this->logger->addDebug($this->translator->trans('user-authentication-error'));
                 $this->clearCookieUser();
             }
         }
@@ -175,7 +174,7 @@ class Login extends Controller
      */
     private function clearCookieUser(): void
     {
-        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-cookies-cleared'));
+        $this->logger->addDebug($this->translator->trans('user-cookies-cleared'));
         $this->username = null;
         $this->user = null;
         $this->logkey = null;
@@ -248,13 +247,13 @@ class Login extends Controller
                 $this->username = $this->user->username;
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time, ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN));
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authenticated', ['%username%' => $this->user->username]));
+                $this->logger->addDebug($this->translator->trans('user-authenticated', ['%username%' => $this->user->username]));
             } else {
                 $this->clearCookieUser();
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authentication-wrong-password'));
+                $this->logger->addDebug($this->translator->trans('user-authentication-wrong-password'));
             }
         } else {
-            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-authentication-not-found', ['%username%' => $userName]));
+            $this->logger->addDebug($this->translator->trans('user-authentication-not-found', ['%username%' => $userName]));
         }
         return $this->username !== null;
     }
