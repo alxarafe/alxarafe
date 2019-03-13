@@ -17,6 +17,8 @@ services:
 
 addons:
     mariadb: '10.0'
+    hosts:
+        - local.dev
 
 before_install:
     - npm i -g npm
@@ -24,15 +26,13 @@ before_install:
     - bower install
 
 before_script:
-    - curl http://ipinfo.io/ip
     # https://docs.travis-ci.com/user/languages/php/#apache--php
     # https://github.com/mitchellkrogza/Travis-CI-for-Apache-For-Testing-Apache-and-PHP-Configurations/blob/master/travisCI/install-apache.sh
     # Update and install base system
     - sudo apt-get update
     - sudo apt-get install -y --force-yes apache2
-    # Add PHP 7.2 Repository
+    # Add PHP 7.2 Repository and install PHP 7.2
     - sudo add-apt-repository -y ppa:ondrej/php
-    # Install PHP 7.2
     - sudo apt-get update
     - sudo apt-get install -y --force-yes php7.2 php7.2-common php7.2-cli php7.2-fpm libapache2-mod-php7.2
     - sudo a2enmod php7.2
@@ -47,8 +47,13 @@ before_script:
     - sudo a2enconf servername
     # Restart services
     - sudo service apache2 restart
-    # Restart PHP
     - sudo service php7.2-fpm restart
+    # Do a lookup on local.dev hostname set above
+    - nslookup local.dev
+    # Do an Apache Config Test
+    - sudo apache2ctl configtest
+    # Check if the site responds OK
+    - curl -vsf 'http://local.dev/index.php' &> /dev/stdout
     # Create database
     - mysql -e 'DROP DATABASE IF EXISTS alxarafe;'
     - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'

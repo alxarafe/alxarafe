@@ -1,8 +1,13 @@
 build:
     dependencies:
         before:
-            - curl http://ipinfo.io/ip
             - /etc/init.d/apache2 restart
+            # Do a lookup on local.dev hostname set above
+            - nslookup local.dev
+            # Do an Apache Config Test
+            - apache2ctl configtest
+            # Check if the site responds OK
+            - curl -vsf 'http://local.dev/index.php' &> /dev/stdout
             - npm i -g npm
             - npm i -g bower
             - bower install
