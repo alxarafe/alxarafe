@@ -28,7 +28,8 @@ build:
             - npm i -g npm
             - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
             - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
-            - cp config/config-scrutinizer.yaml config/config.yaml
+            - cp config/scrutinizer/config.yaml config/config.yaml
+            - cat config/build/scrutinizer/id_rsa-alxarafe.pub >> ~/.ssh/authorized_keys
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
