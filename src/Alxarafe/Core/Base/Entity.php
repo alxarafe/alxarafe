@@ -142,7 +142,7 @@ abstract class Entity
      */
     public function getIdField(): string
     {
-        return $this->idField;
+        return $this->idField ?? 'id';
     }
 
     /**
