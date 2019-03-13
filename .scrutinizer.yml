@@ -9,7 +9,7 @@ build:
             # Do an Apache Config Test
             - apache2ctl configtest
             # Check if the site responds OK
-            - curl -vsf 'http://localhost/index.php' &> /dev/stdout
+            #            - curl -vsf 'http://localhost/index.php' &> /dev/stdout
             - npm i -g npm
             - npm i -g bower
             - bower install
@@ -27,7 +27,7 @@ build:
         mysql: 5.7
         # https://scrutinizer-ci.com/docs/build/languages
         hosts:
-            localhost: '10.0.3.1'
+            localhost: '127.0.0.1'
         apache2:
             modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
             sites:
