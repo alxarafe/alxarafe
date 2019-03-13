@@ -381,6 +381,36 @@
 
                     </div>
                     <div class="col-md-8 type">
+                        <a href="#method_startTimer">startTimer</a>(string $name, string $message = &#039;Timer started&#039;)
+
+                        <p>Start a timer by name and message</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_addMessage">addMessage</a>(string $channel, string $message)
+
+                        <p>Write a message in a channel (tab) of the debug bar.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_stopTimer">stopTimer</a>(string $name)
+
+                        <p>Stop a timer by name.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
                         <a href="#method_addException">addException</a>(<a href="http://php.net/Exception" target="_blank">Exception</a>
                         $e)
 
@@ -419,36 +449,6 @@
                     </div>
                     <div class="col-md-2"></div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_startTimer">startTimer</a>(string $name, string $message = &#039;Timer started&#039;)
-
-                        <p>Start a timer by name and message</p></div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_addMessage">addMessage</a>(string $channel, string $message)
-
-                        <p>Write a message in a channel (tab) of the debug bar.</p></div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_stopTimer">stopTimer</a>(string $name)
-
-                        <p>Stop a timer by name.</p></div>
-                    <div class="col-md-2"></div>
-                </div>
             </div>
 
 
@@ -457,7 +457,7 @@
             <div id="method-details">
                 <div class="method-item">
                     <h3 id="method_getInstance">
-                        <div class="location">at line 85</div>
+                        <div class="location">at line 145</div>
                         <code> static
                             <a href="../../../Alxarafe/Core/Providers/DebugTool.html"><abbr title="Alxarafe\Core\Providers\DebugTool">DebugTool</abbr></a>
                             <strong>getInstance</strong>()
@@ -776,7 +776,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_getDefaultValues">
-                        <div class="location">at line 95</div>
+                        <div class="location">at line 155</div>
                         <code> static array
                             <strong>getDefaultValues</strong>()
                         </code>
@@ -857,7 +857,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method___construct">
-                        <div class="location">at line 53</div>
+                        <div class="location">at line 54</div>
                         <code>
                             <strong>__construct</strong>()
                         </code>
@@ -875,123 +875,8 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_addException">
-                        <div class="location">at line 106</div>
-                        <code>
-                            <strong>addException</strong>(<a href="http://php.net/Exception" target="_blank">Exception</a>
-                            $e)
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Add a new exception to the debug bar.</p></div>
-                        <div class="tags">
-                            <h4>Parameters</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td><a href="http://php.net/Exception" target="_blank">Exception</a></td>
-                                    <td>$e</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_getDebugTool">
-                        <div class="location">at line 124</div>
-                        <code> <abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr>
-                            <strong>getDebugTool</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Return the internal debug instance.</p></div>
-                        <div class="tags">
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td><abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr></td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_getRenderHeader">
-                        <div class="location">at line 134</div>
-                        <code> string
-                            <strong>getRenderHeader</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Return the render header needed when debug is enabled. Otherwise return an empty
-                                string.</p></div>
-                        <div class="tags">
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_getRenderFooter">
-                        <div class="location">at line 147</div>
-                        <code> string
-                            <strong>getRenderFooter</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Return the render footer needed when debug is enabled. Otherwise return an empty
-                                string.</p></div>
-                        <div class="tags">
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>string</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
                     <h3 id="method_startTimer">
-                        <div class="location">at line 161</div>
+                        <div class="location">at line 87</div>
                         <code>
                             <strong>startTimer</strong>(string $name, string $message = &#039;Timer started&#039;)
                         </code>
@@ -1024,7 +909,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_addMessage">
-                        <div class="location">at line 182</div>
+                        <div class="location">at line 108</div>
                         <code>
                             <strong>addMessage</strong>(string $channel, string $message)
                         </code>
@@ -1057,7 +942,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_stopTimer">
-                        <div class="location">at line 199</div>
+                        <div class="location">at line 125</div>
                         <code>
                             <strong>stopTimer</strong>(string $name)
                         </code>
@@ -1074,6 +959,121 @@
                                 <tr>
                                     <td>string</td>
                                     <td>$name</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_addException">
+                        <div class="location">at line 166</div>
+                        <code>
+                            <strong>addException</strong>(<a href="http://php.net/Exception" target="_blank">Exception</a>
+                            $e)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Add a new exception to the debug bar.</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><a href="http://php.net/Exception" target="_blank">Exception</a></td>
+                                    <td>$e</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getDebugTool">
+                        <div class="location">at line 184</div>
+                        <code> <abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr>
+                            <strong>getDebugTool</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return the internal debug instance.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><abbr title="DebugBar\StandardDebugBar">StandardDebugBar</abbr></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getRenderHeader">
+                        <div class="location">at line 194</div>
+                        <code> string
+                            <strong>getRenderHeader</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return the render header needed when debug is enabled. Otherwise return an empty
+                                string.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getRenderFooter">
+                        <div class="location">at line 207</div>
+                        <code> string
+                            <strong>getRenderFooter</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return the render footer needed when debug is enabled. Otherwise return an empty
+                                string.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
                                     <td></td>
                                 </tr>
                             </table>

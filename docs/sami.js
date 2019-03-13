@@ -489,17 +489,17 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\AuthPageExtendedController",
             "fromLink": "Alxarafe/Core/Base/AuthPageExtendedController.html",
-            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_getDataPost",
-            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::getDataPost",
-            "doc": "&quot;Returns the data received from $_POST&quot;"
+            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_save",
+            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::save",
+            "doc": "&quot;Save the data.&quot;"
         },
         {
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\AuthPageExtendedController",
             "fromLink": "Alxarafe/Core/Base/AuthPageExtendedController.html",
-            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_save",
-            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::save",
-            "doc": "&quot;Save the data.&quot;"
+            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_getDataPost",
+            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::getDataPost",
+            "doc": "&quot;Returns the data received from $_POST&quot;"
         },
         {
             "type": "Method",
@@ -862,6 +862,14 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_get",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::get",
+            "doc": "&quot;Returns a new instance of the table with the requested record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
             "link": "Alxarafe/Core/Base/FlatTable.html#method_getDataById",
             "name": "Alxarafe\\Core\\Base\\FlatTable::getDataById",
             "doc": "&quot;This method is private. Use load instead.&quot;"
@@ -878,14 +886,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_defaultData",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::defaultData",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
-            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
             "link": "Alxarafe/Core/Base/FlatTable.html#method_newRecord",
             "name": "Alxarafe\\Core\\Base\\FlatTable::newRecord",
             "doc": "&quot;Sets the active record in a new record.&quot;"
@@ -894,9 +894,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_get",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::get",
-            "doc": "&quot;Returns a new instance of the table with the requested record.&quot;"
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_defaultData",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::defaultData",
+            "doc": "&quot;TODO: Undocummented.&quot;"
         },
         {
             "type": "Method",
@@ -934,17 +934,17 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_insertRecord",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::insertRecord",
-            "doc": "&quot;Insert a new record.&quot;"
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_updateRecord",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::updateRecord",
+            "doc": "&quot;Update the modified fields in the active record.&quot;"
         },
         {
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_updateRecord",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::updateRecord",
-            "doc": "&quot;Update the modified fields in the active record.&quot;"
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_insertRecord",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::insertRecord",
+            "doc": "&quot;Insert a new record.&quot;"
         },
         {
             "type": "Method",
@@ -1009,7 +1009,7 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
             "link": "Alxarafe/Core/Base/SimpleTable.html#method_defaultData",
             "name": "Alxarafe\\Core\\Base\\SimpleTable::defaultData",
-            "doc": "&quot;&quot;"
+            "doc": "&quot;TODO: Undocummented.&quot;"
         },
         {
             "type": "Method",
@@ -1307,30 +1307,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
             "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
-            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_indexMethod",
-            "name": "Alxarafe\\Core\\Controllers\\EditConfig::indexMethod",
-            "doc": "&quot;The start point of the controller.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
-            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
-            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_setDefaultData",
-            "name": "Alxarafe\\Core\\Controllers\\EditConfig::setDefaultData",
-            "doc": "&quot;Sets default data values&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
-            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
-            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_save",
-            "name": "Alxarafe\\Core\\Controllers\\EditConfig::save",
-            "doc": "&quot;Save the form changes in the configuration file&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
-            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
             "link": "Alxarafe/Core/Controllers/EditConfig.html#method_pageDetails",
             "name": "Alxarafe\\Core\\Controllers\\EditConfig::pageDetails",
             "doc": "&quot;Returns the page details.&quot;"
@@ -1350,6 +1326,30 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Controllers/EditConfig.html#method_createMethod",
             "name": "Alxarafe\\Core\\Controllers\\EditConfig::createMethod",
             "doc": "&quot;Default create method for new registers.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
+            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
+            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_indexMethod",
+            "name": "Alxarafe\\Core\\Controllers\\EditConfig::indexMethod",
+            "doc": "&quot;The start point of the controller.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
+            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
+            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_setDefaultData",
+            "name": "Alxarafe\\Core\\Controllers\\EditConfig::setDefaultData",
+            "doc": "&quot;Sets default data values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
+            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
+            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_save",
+            "name": "Alxarafe\\Core\\Controllers\\EditConfig::save",
+            "doc": "&quot;Save the form changes in the configuration file&quot;"
         },
         {
             "type": "Method",
@@ -2856,22 +2856,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Helpers\\Session",
             "fromLink": "Alxarafe/Core/Helpers/Session.html",
-            "link": "Alxarafe/Core/Helpers/Session.html#method_getCsrfToken",
-            "name": "Alxarafe\\Core\\Helpers\\Session::getCsrfToken",
-            "doc": "&quot;Gets the value of the outgoing CSRF token.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Helpers\\Session",
-            "fromLink": "Alxarafe/Core/Helpers/Session.html",
-            "link": "Alxarafe/Core/Helpers/Session.html#method_isValid",
-            "name": "Alxarafe\\Core\\Helpers\\Session::isValid",
-            "doc": "&quot;Checks whether an incoming CSRF token value is valid.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Helpers\\Session",
-            "fromLink": "Alxarafe/Core/Helpers/Session.html",
             "link": "Alxarafe/Core/Helpers/Session.html#method_getInstance",
             "name": "Alxarafe\\Core\\Helpers\\Session::getInstance",
             "doc": "&quot;Return this instance.&quot;"
@@ -2883,6 +2867,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Helpers/Session.html#method_getDefaultValues",
             "name": "Alxarafe\\Core\\Helpers\\Session::getDefaultValues",
             "doc": "&quot;Return default values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Helpers\\Session",
+            "fromLink": "Alxarafe/Core/Helpers/Session.html",
+            "link": "Alxarafe/Core/Helpers/Session.html#method_getCsrfToken",
+            "name": "Alxarafe\\Core\\Helpers\\Session::getCsrfToken",
+            "doc": "&quot;Gets the value of the outgoing CSRF token.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Helpers\\Session",
+            "fromLink": "Alxarafe/Core/Helpers/Session.html",
+            "link": "Alxarafe/Core/Helpers/Session.html#method_isValid",
+            "name": "Alxarafe\\Core\\Helpers\\Session::isValid",
+            "doc": "&quot;Checks whether an incoming CSRF token value is valid.&quot;"
         },
         {
             "type": "Method",
@@ -3855,6 +3855,30 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
             "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
+            "link": "Alxarafe/Core/Providers/DebugTool.html#method_startTimer",
+            "name": "Alxarafe\\Core\\Providers\\DebugTool::startTimer",
+            "doc": "&quot;Start a timer by name and message&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
+            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
+            "link": "Alxarafe/Core/Providers/DebugTool.html#method_addMessage",
+            "name": "Alxarafe\\Core\\Providers\\DebugTool::addMessage",
+            "doc": "&quot;Write a message in a channel (tab) of the debug bar.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
+            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
+            "link": "Alxarafe/Core/Providers/DebugTool.html#method_stopTimer",
+            "name": "Alxarafe\\Core\\Providers\\DebugTool::stopTimer",
+            "doc": "&quot;Stop a timer by name.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
+            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
             "link": "Alxarafe/Core/Providers/DebugTool.html#method_getInstance",
             "name": "Alxarafe\\Core\\Providers\\DebugTool::getInstance",
             "doc": "&quot;Return this instance.&quot;"
@@ -3898,30 +3922,6 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Providers/DebugTool.html#method_getRenderFooter",
             "name": "Alxarafe\\Core\\Providers\\DebugTool::getRenderFooter",
             "doc": "&quot;Return the render footer needed when debug is enabled. Otherwise return an empty string.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
-            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
-            "link": "Alxarafe/Core/Providers/DebugTool.html#method_startTimer",
-            "name": "Alxarafe\\Core\\Providers\\DebugTool::startTimer",
-            "doc": "&quot;Start a timer by name and message&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
-            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
-            "link": "Alxarafe/Core/Providers/DebugTool.html#method_addMessage",
-            "name": "Alxarafe\\Core\\Providers\\DebugTool::addMessage",
-            "doc": "&quot;Write a message in a channel (tab) of the debug bar.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
-            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
-            "link": "Alxarafe/Core/Providers/DebugTool.html#method_stopTimer",
-            "name": "Alxarafe\\Core\\Providers\\DebugTool::stopTimer",
-            "doc": "&quot;Stop a timer by name.&quot;"
         },
 
         {
@@ -4106,33 +4106,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getConfig",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getConfig",
-            "doc": "&quot;Returns the data from database.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
-            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
             "link": "Alxarafe/Core/Providers/ModuleManager.html#method_initializeModules",
             "name": "Alxarafe\\Core\\Providers\\ModuleManager::initializeModules",
             "doc": "&quot;Initialize modules.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
-            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_runInitializer",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::runInitializer",
-            "doc": "&quot;Exec Initializer::init() from each enabled module.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
-            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getFoldersEnabledModules",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getFoldersEnabledModules",
-            "doc": "&quot;Returns a list of folder from enabled modules.&quot;"
         },
         {
             "type": "Method",
@@ -4146,9 +4122,25 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getFoldersEnabledModules",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getFoldersEnabledModules",
+            "doc": "&quot;Returns a list of folder from enabled modules.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
+            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
             "link": "Alxarafe/Core/Providers/ModuleManager.html#method_addRenderFolders",
             "name": "Alxarafe\\Core\\Providers\\ModuleManager::addRenderFolders",
             "doc": "&quot;Adds enabled module folders to renderer.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
+            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_runInitializer",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::runInitializer",
+            "doc": "&quot;Exec Initializer::init() from each enabled module.&quot;"
         },
         {
             "type": "Method",
@@ -4170,6 +4162,14 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getEnabledFolders",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getEnabledFolders",
+            "doc": "&quot;Return a list of enabled folders.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
+            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
             "link": "Alxarafe/Core/Providers/ModuleManager.html#method_enableModule",
             "name": "Alxarafe\\Core\\Providers\\ModuleManager::enableModule",
             "doc": "&quot;Enable a module.&quot;"
@@ -4186,9 +4186,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getEnabledFolders",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getEnabledFolders",
-            "doc": "&quot;Return a list of enabled folders.&quot;"
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getConfig",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getConfig",
+            "doc": "&quot;Returns the data from database.&quot;"
         },
 
         {
@@ -4502,14 +4502,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\TemplateRender",
             "fromLink": "Alxarafe/Core/Providers/TemplateRender.html",
-            "link": "Alxarafe/Core/Providers/TemplateRender.html#method_addDirs",
-            "name": "Alxarafe\\Core\\Providers\\TemplateRender::addDirs",
-            "doc": "&quot;Add additional language folders.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\TemplateRender",
-            "fromLink": "Alxarafe/Core/Providers/TemplateRender.html",
             "link": "Alxarafe/Core/Providers/TemplateRender.html#method_getPaths",
             "name": "Alxarafe\\Core\\Providers\\TemplateRender::getPaths",
             "doc": "&quot;Returns a list of available paths.&quot;"
@@ -4537,6 +4529,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Providers/TemplateRender.html#method_getDefaultValues",
             "name": "Alxarafe\\Core\\Providers\\TemplateRender::getDefaultValues",
             "doc": "&quot;Return default values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\TemplateRender",
+            "fromLink": "Alxarafe/Core/Providers/TemplateRender.html",
+            "link": "Alxarafe/Core/Providers/TemplateRender.html#method_addDirs",
+            "name": "Alxarafe\\Core\\Providers\\TemplateRender::addDirs",
+            "doc": "&quot;Add additional language folders.&quot;"
         },
         {
             "type": "Method",
@@ -4687,14 +4687,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\Translator",
             "fromLink": "Alxarafe/Core/Providers/Translator.html",
-            "link": "Alxarafe/Core/Providers/Translator.html#method_addDirs",
-            "name": "Alxarafe\\Core\\Providers\\Translator::addDirs",
-            "doc": "&quot;Add additional language folders.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\Translator",
-            "fromLink": "Alxarafe/Core/Providers/Translator.html",
             "link": "Alxarafe/Core/Providers/Translator.html#method_getLangFolders",
             "name": "Alxarafe\\Core\\Providers\\Translator::getLangFolders",
             "doc": "&quot;Return the lang folders.&quot;"
@@ -4722,6 +4714,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Providers/Translator.html#method_getDefaultValues",
             "name": "Alxarafe\\Core\\Providers\\Translator::getDefaultValues",
             "doc": "&quot;Return default values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\Translator",
+            "fromLink": "Alxarafe/Core/Providers/Translator.html",
+            "link": "Alxarafe/Core/Providers/Translator.html#method_addDirs",
+            "name": "Alxarafe\\Core\\Providers\\Translator::addDirs",
+            "doc": "&quot;Add additional language folders.&quot;"
         },
         {
             "type": "Method",

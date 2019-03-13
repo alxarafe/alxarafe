@@ -434,9 +434,9 @@
                         static&nbsp;
                     </div>
                     <div class="col-md-8 type">
-                        <a href="#method_runInitializer">runInitializer</a>()
+                        <a href="#method_addTranslatorFolders">addTranslatorFolders</a>()
 
-                        <p>Exec Initializer::init() from each enabled module.</p></div>
+                        <p>Adds enabled module folders to translator.</p></div>
                     <div class="col-md-2"></div>
                 </div>
                 <div class="row">
@@ -454,9 +454,9 @@
                         static&nbsp;
                     </div>
                     <div class="col-md-8 type">
-                        <a href="#method_addTranslatorFolders">addTranslatorFolders</a>()
+                        <a href="#method_addRenderFolders">addRenderFolders</a>()
 
-                        <p>Adds enabled module folders to translator.</p></div>
+                        <p>Adds enabled module folders to renderer.</p></div>
                     <div class="col-md-2"></div>
                 </div>
                 <div class="row">
@@ -464,9 +464,9 @@
                         static&nbsp;
                     </div>
                     <div class="col-md-8 type">
-                        <a href="#method_addRenderFolders">addRenderFolders</a>()
+                        <a href="#method_runInitializer">runInitializer</a>()
 
-                        <p>Adds enabled module folders to renderer.</p></div>
+                        <p>Exec Initializer::init() from each enabled module.</p></div>
                     <div class="col-md-2"></div>
                 </div>
                 <div class="row">
@@ -491,6 +491,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2 type">
+                        static&nbsp;array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getEnabledFolders">getEnabledFolders</a>()
+
+                        <p>Return a list of enabled folders.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
                         static&nbsp;bool
                     </div>
                     <div class="col-md-8 type">
@@ -507,16 +517,6 @@
                         <a href="#method_disableModule">disableModule</a>(string $name)
 
                         <p>Disable a module.</p></div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 type">
-                        static&nbsp;array
-                    </div>
-                    <div class="col-md-8 type">
-                        <a href="#method_getEnabledFolders">getEnabledFolders</a>()
-
-                        <p>Return a list of enabled folders.</p></div>
                     <div class="col-md-2"></div>
                 </div>
             </div>
@@ -805,7 +805,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_getConfig">
-                        <div class="location">at line 139</div>
+                        <div class="location">at line 305</div>
                         <code> array
                             <strong>getConfig</strong>()
                         </code>
@@ -989,7 +989,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_initializeModules">
-                        <div class="location">at line 147</div>
+                        <div class="location">at line 137</div>
                         <code> static
                             <strong>initializeModules</strong>()
                         </code>
@@ -1007,17 +1007,17 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_runInitializer">
-                        <div class="location">at line 159</div>
+                    <h3 id="method_addTranslatorFolders">
+                        <div class="location">at line 149</div>
                         <code> static private
-                            <strong>runInitializer</strong>()
+                            <strong>addTranslatorFolders</strong>()
                         </code>
                     </h3>
                     <div class="details">
 
 
                         <div class="method-description">
-                            <p>Exec Initializer::init() from each enabled module.</p></div>
+                            <p>Adds enabled module folders to translator.</p></div>
                         <div class="tags">
 
 
@@ -1027,7 +1027,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_getFoldersEnabledModules">
-                        <div class="location">at line 181</div>
+                        <div class="location">at line 159</div>
                         <code> static private array
                             <strong>getFoldersEnabledModules</strong>()
                         </code>
@@ -1054,27 +1054,8 @@
 
                 </div>
                 <div class="method-item">
-                    <h3 id="method_addTranslatorFolders">
-                        <div class="location">at line 193</div>
-                        <code> static private
-                            <strong>addTranslatorFolders</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Adds enabled module folders to translator.</p></div>
-                        <div class="tags">
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
                     <h3 id="method_addRenderFolders">
-                        <div class="location">at line 201</div>
+                        <div class="location">at line 171</div>
                         <code> static private
                             <strong>addRenderFolders</strong>()
                         </code>
@@ -1092,8 +1073,27 @@
 
                 </div>
                 <div class="method-item">
+                    <h3 id="method_runInitializer">
+                        <div class="location">at line 186</div>
+                        <code> static private
+                            <strong>runInitializer</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Exec Initializer::init() from each enabled module.</p></div>
+                        <div class="tags">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
                     <h3 id="method_executePreprocesses">
-                        <div class="location">at line 216</div>
+                        <div class="location">at line 206</div>
                         <code> static
                             <strong>executePreprocesses</strong>()
                         </code>
@@ -1112,7 +1112,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_runPreprocessors">
-                        <div class="location">at line 237</div>
+                        <div class="location">at line 227</div>
                         <code> static
                             <strong>runPreprocessors</strong>()
                         </code>
@@ -1130,8 +1130,36 @@
 
                 </div>
                 <div class="method-item">
+                    <h3 id="method_getEnabledFolders">
+                        <div class="location">at line 242</div>
+                        <code> static array
+                            <strong>getEnabledFolders</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return a list of enabled folders.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
                     <h3 id="method_enableModule">
-                        <div class="location">at line 254</div>
+                        <div class="location">at line 259</div>
                         <code> static bool
                             <strong>enableModule</strong>(string $name)
                         </code>
@@ -1169,7 +1197,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_disableModule">
-                        <div class="location">at line 278</div>
+                        <div class="location">at line 283</div>
                         <code> static bool
                             <strong>disableModule</strong>(string $name)
                         </code>
@@ -1196,34 +1224,6 @@
                             <table class="table table-condensed">
                                 <tr>
                                     <td>bool</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="method-item">
-                    <h3 id="method_getEnabledFolders">
-                        <div class="location">at line 300</div>
-                        <code> static array
-                            <strong>getEnabledFolders</strong>()
-                        </code>
-                    </h3>
-                    <div class="details">
-
-
-                        <div class="method-description">
-                            <p>Return a list of enabled folders.</p></div>
-                        <div class="tags">
-
-                            <h4>Return Value</h4>
-
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td>array</td>
                                     <td></td>
                                 </tr>
                             </table>
