@@ -55,7 +55,7 @@ script:
     # Run PHP-CS.
     - vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
     # Run PHPUnit test.
-    - vendor/bin/phpunit --configuration phpunit.xml
+    - vendor/bin/phpunit --coverage-clover=reports/coverage.xml
 
 matrix:
     fast_finish: true

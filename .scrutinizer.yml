@@ -1,16 +1,4 @@
 build:
-    nodes:
-        apache:
-            environment:
-                # https://scrutinizer-ci.com/docs/build/languages
-                hosts:
-                    localhost: '127.0.0.1'
-                apache2:
-                    modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
-                    sites:
-                        alxarafe:
-                            web_root: ''
-                            host: 'localhost'
     dependencies:
         before:
             - npm i -g npm
@@ -20,14 +8,23 @@ build:
             - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
             - cp config/config-scrutinizer.yaml config/config.yaml
     environment:
+        timezone: UTC
+        # https://scrutinizer-ci.com/docs/build/languages
+        hosts:
+            localhost: '127.0.0.1'
         php:
             version: 7.2
             ini:
                 'apc.enable_cli': '1'
                 'apc.enabled': '0'
-        timezone: UTC
         postgresql: false
         mysql: 5.7
+        apache2:
+            modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
+            sites:
+                alxarafe:
+                    host: 'localhost'
+                    web_root: ''
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
@@ -37,6 +34,8 @@ build:
                 coverage:
                     file: reports/coverage.xml
                     format: php-clover
+    services:
+        mysql: 5.7
 filter:
     paths: [src/*]
     excluded_paths:
