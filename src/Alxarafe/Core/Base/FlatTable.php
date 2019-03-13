@@ -36,7 +36,7 @@ class FlatTable extends Entity
      * - nameField is the name of the descriptive field (name by default)
      *
      * @param string $tableName
-     * @param array $params
+     * @param array  $params
      */
     public function __construct(string $tableName, array $params = [])
     {
@@ -86,6 +86,11 @@ class FlatTable extends Entity
         return Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName, $usePrefix);
     }
 
+    /**
+     * TODO: Undocummented.
+     *
+     * @return array
+     */
     public function defaultData()
     {
         return [];

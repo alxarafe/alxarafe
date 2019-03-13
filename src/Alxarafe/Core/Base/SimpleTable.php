@@ -97,6 +97,11 @@ class SimpleTable extends FlatTable
         return Database::getInstance()->getSqlHelper()->getColumns($this->tableName);
     }
 
+    /**
+     * TODO: Undocummented.
+     *
+     * @return array
+     */
     public function defaultData()
     {
         $data = [];

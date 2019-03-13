@@ -80,7 +80,7 @@ class User extends Table
      */
     public function generateLogKey(string $ip = '', bool $unique = true): string
     {
-        if (!$unique && $this->logkey !== null && $this - logkey !== '') {
+        if (!$unique && $this->logkey !== null && $this->logkey !== '') {
             return $this->logkey;
         }
 
