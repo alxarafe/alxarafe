@@ -20,5 +20,4 @@
 {% set row = data.row | default('2') %}
 {% set text = data.text | default('Escribe un texto') %}
 
-
 <textarea id="{{ id }}" name="{{ name }}" class="form-control" rows="{{ row }}"> {{ text | raw }} </textarea>
