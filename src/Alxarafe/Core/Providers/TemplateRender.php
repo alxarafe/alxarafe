@@ -172,7 +172,6 @@ class TemplateRender
     public function getTemplatesFolder(): string
     {
         return basePath(self::$templatesFolder);
-        //return basePath(self::TEMPLATES_FOLDER);
     }
 
     /**
@@ -467,7 +466,6 @@ class TemplateRender
     public function getTemplatesUri(): string
     {
         return baseUrl(self::$templatesFolder);
-        //return baseUrl(self::TEMPLATES_FOLDER);
     }
 
     /**

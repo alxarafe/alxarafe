@@ -379,7 +379,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->status = 'listing';
         $this->renderer->setTemplate('master/list');
-        //$this->code = 'table-' . $this->tableName . '-user-' . $this->username . Utils::randomString(10);
         // If code is unique for each case, datatables state save works.
         $this->code = 'table-' . $this->tableName . '-user-' . $this->username;
         return $this->sendResponseTemplate();

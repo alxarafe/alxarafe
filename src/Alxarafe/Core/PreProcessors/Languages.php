@@ -50,15 +50,6 @@ class Languages
             return;
         }
 
-        /*
-          $default_lang = $languages[0]['language'];
-          $default_variant = $languages[0]['variant'];
-          if (!isset($default_variant)) {
-          $default_variant = strtoupper($default_lang);
-          }
-
-          $defaultFileName = $default_lang . '_' . $default_variant;
-         */
         $defaultFileName = $languages[0]['language'];
         foreach ($languages as $lang) {
             if (!isset($lang['variant'])) {
@@ -67,7 +58,6 @@ class Languages
 
             $fileName = $lang['language'] . '_' . $lang['variant'];
             $debugTool->addMessage('messages', 'Processing ' . $fileName . ' language');
-            // echo '<p>Processing ' . $lang['language'] . '_' . $lang['variant'] . ' language</p>';
 
             $subLanguage = null;
             if ($lang['variant'] !== strtoupper($lang['language'])) {
@@ -80,7 +70,6 @@ class Languages
 
                 // Se carga el array más general o por defecto (p.e. en inglés)
                 $default = $source . DIRECTORY_SEPARATOR . $defaultFileName . '.yaml';
-                // echo '<p>Processing ' . $default . '</p>';
                 if (file_exists($default)) {
                     try {
                         $data[] = Yaml::parseFile($default);
@@ -95,7 +84,6 @@ class Languages
                 // Así por ejemplo, para es_AR se cargaría el es_ES que será mejor que el en_EN
                 if (isset($subLanguage)) {
                     $file = $source . DIRECTORY_SEPARATOR . $subLanguage . '.yaml';
-                    // echo '<p>Processing ' . $file . '</p>';
                     if (file_exists($file)) {
                         try {
                             $data[] = Yaml::parseFile($file);
@@ -109,7 +97,6 @@ class Languages
 
                 // Ya por último, se carga el idioma que hemos solicitado, p.e. es_AR
                 $file = $source . DIRECTORY_SEPARATOR . $fileName . '.yaml';
-                // echo '<p>Processing ' . $file . '</p>';
                 if (file_exists($file)) {
                     try {
                         $data[] = Yaml::parseFile($file);

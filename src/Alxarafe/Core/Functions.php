@@ -51,7 +51,7 @@ if (!function_exists('baseUrl')) {
         $defaultPort = constant('SERVER_PORT') ?? 80;
         $defaultHost = constant('SERVER_NAME') ?? 'localhost';
         $path = $_SERVER['PHP_SELF'];
-        // For PHPUnit tests, $_SERVER['PHP_SELF'] = 'vendor/bin/phpunit'
+        // For PHPUnit tests, SERVER PHP_SELF contains 'vendor/bin/phpunit'
         if (isset($_SERVER['argv']) && $_SERVER['PHP_SELF'] === $_SERVER['argv'][0]) {
             $path = '';
         }

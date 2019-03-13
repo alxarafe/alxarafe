@@ -43,7 +43,6 @@ class SqlMySql extends SqlHelper
     public function getTables(): array
     {
         $query = 'SHOW TABLES;';
-        //$result = Database::getInstance()->getDbEngine()->select($query);
         $result = Database::getInstance()->getDbEngine()->selectCoreCache('tables', $query);
         return ArrayUtils::flatArray($result);
     }

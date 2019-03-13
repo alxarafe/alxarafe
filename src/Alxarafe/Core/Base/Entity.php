@@ -15,7 +15,7 @@ use RuntimeException;
 /**
  * Class Entity
  *
- * @property bool $exists
+ * @property bool   $exists
  * @property string $id
  * @property string $idField
  * @property string $nameField
