@@ -28,7 +28,6 @@ install:
     # Set ServerName Globally
     - echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqcn.conf
     - sudo a2enconf fqcn
-    - cat /etc/hosts
     # Restart services
     - sudo service apache2 restart
     - sudo service php7.2-fpm restart
@@ -54,8 +53,6 @@ before_script:
     - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
     # Copy default config.yaml
     - cp config/config-travis.yaml config/config.yaml
-    # Do a lookup on localhost hostname set above
-    - nslookup localhost
     # Do an Apache Config Test
     - sudo apache2ctl configtest
     # Check if the site responds OK
