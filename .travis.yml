@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 language: php
 
 php:
@@ -7,29 +7,10 @@ php:
 
 env:
     - DB=mysql
+    global:
+        - VHOST_URL=localhost
 
 install:
-    # https://docs.travis-ci.com/user/languages/php/#apache--php
-    # https://github.com/mitchellkrogza/Travis-CI-for-Apache-For-Testing-Apache-and-PHP-Configurations/blob/master/travisCI/install-apache.sh
-    # Update and install base system
-    - sudo apt-get update
-    - sudo apt-get install -y --force-yes apache2
-    # Add PHP 7.2 Repository and install PHP 7.2
-    - sudo add-apt-repository -y ppa:ondrej/php
-    - sudo apt-get update
-    - sudo apt-get install -y --force-yes php7.2 php7.2-common php7.2-cli php7.2-fpm libapache2-mod-php7.2
-    # Enable mod rewrite module
-    - sudo a2enmod php7.2 rewrite expires
-    # Configure apache virtual hosts
-    - sudo cp -f config/build/travis-ci-apache /etc/apache2/sites-available/default.conf
-    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default.conf
-    - sudo a2ensite default
-    # Set ServerName Globally
-    - echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqcn.conf
-    - sudo a2enconf fqcn
-    # Restart services
-    - sudo service apache2 restart
-    - sudo service php7.2-fpm restart
     - travis_retry composer install --no-interaction --prefer-source
 
 services:
@@ -42,11 +23,26 @@ addons:
     mariadb: '10.0'
     hosts:
         - localhost
+    apt:
+        packages:
+            - apache2
+            - postfix
+            - libapache2-mod-fastcgi
 
 before_install:
     - npm i -g npm
     - npm i -g bower
     - bower install
+    # Fix travis error https://github.com/travis-ci/travis-ci/issues/8607
+    - sudo rm -vf /etc/apt/sources.list.d/*riak*
+    # Apache & php-fpm configuration
+    - bash config/build/travis/setup-php-fpm.sh
+    - bash config/build/travis/setup-apache.sh
+    # Permissions
+    - sudo chown -R www-data:www-data $TRAVIS_BUILD_DIR
+    - sudo chown -R 775 $TRAVIS_BUILD_DIR
+    - sudo chmod +x /home/travis/build
+    - sudo service apache2 restart
 
 before_script:
     # Create database
@@ -54,10 +50,6 @@ before_script:
     - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
     # Copy default config.yaml
     - cp config/config-travis.yaml config/config.yaml
-    # Do an Apache Config Test
-    - sudo apache2ctl configtest
-    # Check if the site responds OK
-#    - curl -vsf 'http://localhost/index.php' &> /dev/stdout
 
 script:
     # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
