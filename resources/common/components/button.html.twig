@@ -14,34 +14,56 @@
 
     How to use it:
         <a>
-          {% include "@Core/components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'link', type: null, link: '#'}} %}
+          {% set buttonData1= {
+				id:'myButtonId',
+				name:'myButtonName',
+				class: 'btn btn-default',
+				text: 'Button',
+				style: 'link',
+				type: null,
+				link: '#'} %}
+			
+		  {% include "@Core/components/button.html.twig" with {data: buttonData1} %}
+		  
         <button>
-          {% include "@Core/components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'button', type: 'button', link: null}} %}
+        
+        {% set buttonData0 = {} %}
+		{% include "@Core/components/button.html.twig" with {data: buttonData0} %}
+        
         <input>
-          {% include "@Core/components/button.html.twig" with {data:{id:'myButtonId', name:'myButtonName', class: 'btn-default', text: 'Button', style: 'input', type: 'submit', link: null}} %}
+        
+          {% set buttonData2 = {
+		id:'myButtonId2',
+		name:'myButtonName',
+		class: 'btn btn-danger',
+		text: 'Button',
+		style: 'input',
+		type: 'submit',
+		link: null
+	} %}
+	{% include "@Core/components/button.html.twig" with {data: buttonData2} %}
 #}
 
-{% if data.style is defined and data.style == 'link' %}
-    <a{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
-            class="btn{% if data.class is defined %} {{ data.class }}{% endif %}"
-            {% if data.link is defined %} href="{{ data.link }}"{% endif %} role="button">
-        {% if data.text is defined %}
-            {{ data.text | raw }}
-        {% endif %}
+{% set randValue = random() %}
+
+{% set id = data.id | default('buttonId' ~ randValue) %}
+{% set name = data.name | default('buttonName' ~ randValue) %}
+{% set class = data.class | default('btn btn-primary') %}
+{% set text = data.text | default('Message not setted') %}
+{% set style = data.style | default('button') %}
+{% set type = data.type | default('button') %}
+{% set link = data.link | default('#') %}
+
+{% if style == 'link' %}
+    <a id="{{ id }}" name="{{ name }}" class="{{ class }}" href="{{ link }}" role="button">
+        {{ text | raw }}
     </a>
-{% elseif data.style is defined and data.style == 'button' %}
-    <button{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
-            class="btn{% if data.class is defined %} {{ data.class }}{% endif %}"
-            {% if data.type is defined %} type="{{ data.type }}"{% endif %}>
-        {% if data.text is defined %}
-            {{ data.text | raw }}
-        {% endif %}
+{% elseif style == 'button' %}
+    <button id="{{ id }}" name="{{ name }}" class="{{ class }}" type="{{ type }}">
+        {{ text | raw }}
     </button>
-{% elseif data.style is defined and data.style == 'input' %}
-    <input{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
-            class="btn{% if data.class is defined %} {{ data.class }}{% endif %}"
-            {% if data.type is defined %} type="{{ data.type }}"{% endif %}
-            {% if data.text is defined %}value="{{ data.text | raw }}"{% endif %}>
+{% elseif style == 'input' %}
+    <input id="{{ id }}" name="{{ name }}" class="{{ class }}" type="{{ type }}" value="{{ text | raw }}">
 {% else %}
-    Something is wrong with your code!
+    Style not supported
 {% endif %}

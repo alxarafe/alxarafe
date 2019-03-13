@@ -13,5 +13,11 @@
         {% include "@Core/components/textarea.html.twig" with {data:{id:'myTextareaId', name:'myTextareaName', rows:'3', text: 'My sample text'}} %}
 #}
 
-<textarea{% if id is defined %} id="{{ id }}"{% endif %}{% if name %} name="{{ name }}"{% endif %}
-        class="form-control"{% if rows is defined %} rows="{{ rows }}"{% endif %}>{% if text is defined %}{{ text | raw }}{% endif %}</textarea>
+{% set randValue = random() %}
+
+{% set id = data.id | default('textareaId' ~ randValue) %}
+{% set name = data.name | default('textareaName' ~ randValue) %}
+{% set row = data.row | default('2') %}
+{% set text = data.text | default('Escribe un texto') %}
+
+<textarea id="{{ id }}" name="{{ name }}" class="form-control" rows="{{ row }}"> {{ text | raw }} </textarea>

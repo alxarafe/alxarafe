@@ -3,7 +3,7 @@ build:
         timezone: UTC
         # https://scrutinizer-ci.com/docs/build/languages
         hosts:
-            localhost: '127.0.0.1'
+            local.dev: '127.0.0.1'
         php:
             version: 7.2
             ini:
@@ -15,25 +15,21 @@ build:
             modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
             sites:
                 alxarafe:
-                    host: 'localhost'
+                    host: 'local.dev'
                     web_root: ''
-                    rules:
-                        - RewriteEngine On
-                        - RewriteCond %{REQUEST_FILENAME} !-f
-                        - RewriteCond %{REQUEST_FILENAME} !-d
-                        - RewriteRule ^ index.php [QSA,L]
     dependencies:
         before:
+            - echo "ServerName localhost" > /etc/apache2/conf-available/fqdn.conf
+            - sudo a2enconf fqdn
             - sudo service apache2 restart
             - npm i -g npm
             - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
             - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
-            - cp config/config-scrutinizer.yaml config/config.yaml
+            - cp config/build/scrutinizer/config.yaml config/config.yaml
+            - cat config/build/scrutinizer/id_rsa-alxarafe.pub >> ~/.ssh/authorized_keys
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
-            -   command: phpcs-run
-                use_website_config: true
             -   command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
                 coverage:
                     file: reports/coverage.xml

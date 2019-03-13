@@ -48,7 +48,7 @@ before_script:
     - mysql -e 'DROP DATABASE IF EXISTS alxarafe;'
     - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
     # Copy default config.yaml
-    - cp config/config-travis.yaml config/config.yaml
+    - cp config/build/travis/config.yaml config/config.yaml
 
 script:
     # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
