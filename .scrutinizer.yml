@@ -1,13 +1,4 @@
 build:
-    dependencies:
-        before:
-            - npm i -g npm
-            - npm i -g bower
-            - bower install
-            - sudo service apache2 restart
-            - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
-            - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
-            - cp config/config-scrutinizer.yaml config/config.yaml
     environment:
         timezone: UTC
         # https://scrutinizer-ci.com/docs/build/languages
@@ -25,12 +16,19 @@ build:
             sites:
                 alxarafe:
                     host: 'localhost'
-                    web_root: '/'
+                    web_root: ''
                     rules:
                         - RewriteEngine On
                         - RewriteCond %{REQUEST_FILENAME} !-f
                         - RewriteCond %{REQUEST_FILENAME} !-d
                         - RewriteRule ^ index.php [QSA,L]
+    dependencies:
+        before:
+            - sudo service apache2 restart
+            - npm i -g npm
+            - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
+            - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
+            - cp config/config-scrutinizer.yaml config/config.yaml
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
