@@ -144,6 +144,7 @@ class SimpleTable extends FlatTable
         $this->newData = $data[0];
         $this->oldData = $this->newData;
         $this->id = $this->newData[$this->idField];
+        $this->exists = true;
         return true;
     }
 

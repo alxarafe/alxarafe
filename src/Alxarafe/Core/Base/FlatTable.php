@@ -261,7 +261,6 @@ class FlatTable extends Entity
 
         $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->idField);
         $sql = "UPDATE {$this->getQuotedTableName()} SET {$fieldList} WHERE {$idField} = :id;";
-
         $vars['id'] = $this->id;
 
         return Database::getInstance()->getDbEngine()->exec($sql, $vars);
