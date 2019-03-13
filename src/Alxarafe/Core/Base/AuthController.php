@@ -68,11 +68,11 @@ class AuthController extends Controller
     public function checkAuth(): bool
     {
         $return = false;
-        $Auth = $this->request->headers->get('Authorization');
+
+        // User logged in from Login
         $username = $this->request->cookies->get('user', '');
         $logKey = $this->request->cookies->get('logkey', '');
         $remember = $this->request->cookies->get('remember', self::COOKIE_EXPIRATION_MIN);
-
         if (!empty($username) && !empty($logKey)) {
             $user = new User();
             if ($user->verifyLogKey($username, $logKey)) {
@@ -85,10 +85,19 @@ class AuthController extends Controller
                 $this->adjustCookieUser($time, $remember);
                 $return = true;
             }
-        } elseif ($Auth !== null) {
-            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('auth-is-null'));
-            // TODO: Check with Auth header if has valid credentials
-            $return = true;
+        }
+
+        // User logged in from API
+        $userAuth = $this->request->headers->get('PHP_AUTH_USER');
+        $passAuth = $this->request->headers->get('PHP_AUTH_PW');
+        if (!empty($userAuth) && !empty($passAuth)) {
+            $user = new User();
+            if ($user->getBy('username', $userAuth) && password_verify($passAuth, $user->password)) {
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged', ['%username%' => $username]));
+                $return = true;
+            } else {
+                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('api-user-logged-fail', ['%username%' => $username]));
+            }
         }
         return $return;
     }

@@ -80,7 +80,6 @@ class SqlMySql extends SqlHelper
     public function getSQLField(string $fieldName, array $data): string
     {
         $null = ArrayUtils::isTrue($data, 'nullable') ?? null;
-//        $autoincrement = Utils::isTrue($data, 'autoincrement') ?? null;
         $zerofill = ArrayUtils::isTrue($data, 'zerofill') ?? null;
 
         $default = $data['default'];
@@ -91,7 +90,6 @@ class SqlMySql extends SqlHelper
         $result = $this->quoteFieldName($fieldName) . ' ' . $this->toNative($data['type'], $data['length'] ?? 0);
         $result .= ($data['unsigned'] === 'yes' ? ' UNSIGNED' : '');
         $result .= ($null ? '' : ' NOT') . ' NULL';
-//        $result .= $autoincrement ? ' PRIMARY KEY AUTO_INCREMENT' : '';
         $result .= $zerofill ? ' ZEROFILL' : '';
         $result .= isset($default) ? ' DEFAULT ' . $default : '';
 
@@ -191,21 +189,7 @@ class SqlMySql extends SqlHelper
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
         $result['nullable'] = $row['Null'] === 'YES' ? 'yes' : 'no';
-        /*
-          switch ($row['Key']) {
-          case 'PRI':
-          $result['key'] = 'primary';
-          break;
-          case 'UNI':
-          $result['key'] = 'unique';
-          break;
-          case 'MUL':
-          $result['key'] = 'index';
-          break;
-          }
-         */
         $result['unsigned'] = $type['unsigned'];
-        // $result['zerofill'] = $type['zerofill'];
         if ($row['Extra'] === 'auto_increment') {
             $result['autoincrement'] = 'yes';
         }
@@ -259,7 +243,7 @@ class SqlMySql extends SqlHelper
         $result['unique'] = $fields['Non_unique'] === '0' ? 'yes' : 'no';
         $constrait = $this->getConstraintData($fields['Table'], $fields['Key_name']);
         if (count($constrait) > 0) {
-            $result['constraint'] = 'yes'; // $constrait[0]['CONSTRAINT_NAME'];
+            $result['constraint'] = 'yes';
             $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
             $result['referencedfield'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
         }
