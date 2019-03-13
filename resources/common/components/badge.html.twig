@@ -18,7 +18,7 @@
 {% set id = data.id | default('badgeid' ~ randValue) %}
 {% set name = data.name | default('badgeName' ~ randValue) %}
 {% set class = data.class | default('badge badge-light') %}
-{% set badge = data.badge | default('2' ~ randValue) %}
+{% set badge = data.badge | default(randValue) %}
 
 
 <span id="{{ id }}" name="{{ name }}" class="{{ class }}"> {{ badge }}</span>

@@ -17,6 +17,13 @@
             {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId2', name:'myRadioName2', text: 'Recuerdame', type: 'label'}} %}
 #}
 
+{% set randValue = random() %}
+
+{% set id = data.id | default('badgeid' ~ randValue) %}
+{% set name = data.name | default('badgeName' ~ randValue) %}
+{% set class = data.class | default('badge badge-light') %}
+{% set badge = data.badge | default(randValue) %}
+
 {% if type is defined and type == 'input' %}
     <div class="input-group">
           <span class="input-group-addon">
