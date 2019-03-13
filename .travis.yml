@@ -27,9 +27,9 @@ install:
     - sudo a2enmod rewrite
     - sudo a2enmod expires
     # Set ServerName Globally
-    - echo "ServerName local.dev" | sudo tee /etc/apache2/conf-available/fqcn.conf
+    - echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqcn.conf
     - sudo a2enconf fqcn
-    - echo "169.254.169.254 local.dev" | sudo tee -a /etc/hosts
+    - echo "169.254.169.254 localhost" | sudo tee -a /etc/hosts
     # Restart services
     - sudo service apache2 restart
     - sudo service php7.2-fpm restart
@@ -42,7 +42,7 @@ services:
 addons:
     mariadb: '10.0'
     hosts:
-        - local.dev
+        - localhost
 
 before_install:
     - npm i -g npm
@@ -55,12 +55,12 @@ before_script:
     - mysql -e 'CREATE DATABASE IF NOT EXISTS alxarafe;'
     # Copy default config.yaml
     - cp config/config-travis.yaml config/config.yaml
-    # Do a lookup on local.dev hostname set above
-    - nslookup local.dev
+    # Do a lookup on localhost hostname set above
+    - nslookup localhost
     # Do an Apache Config Test
     - sudo apache2ctl configtest
     # Check if the site responds OK
-    - curl -vsf 'http://local.dev/index.php' &> /dev/stdout
+    - curl -vsf 'http://localhost/index.php' &> /dev/stdout
 
 script:
     # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.

@@ -34,4 +34,4 @@ router:
         Roles: \Alxarafe\Core\Controllers\Roles
 constants:
     main:
-        SERVER_NAME: 'local.dev'
+        SERVER_NAME: 'localhost'

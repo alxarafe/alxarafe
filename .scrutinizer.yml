@@ -3,16 +3,16 @@ build:
         before:
             - sudo apt-get update
             - sudo apt-get install -y --force-yes dnsutils
-            - echo "ServerName local.dev" | sudo tee /etc/apache2/conf-available/fqcn.conf
+            - echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqcn.conf
             - sudo a2enconf fqcn
-            - echo "10.0.3.1 local.dev" | sudo tee -a /etc/hosts
+            - echo "10.0.3.1 localhost" | sudo tee -a /etc/hosts
             - sudo service apache2 restart
-            # Do a lookup on local.dev hostname set above
-            - nslookup local.dev
+            # Do a lookup on localhost hostname set above
+            - nslookup localhost
             # Do an Apache Config Test
             - apache2ctl configtest
             # Check if the site responds OK
-            - curl -vsf 'http://local.dev/index.php' &> /dev/stdout
+            - curl -vsf 'http://localhost/index.php' &> /dev/stdout
             - npm i -g npm
             - npm i -g bower
             - bower install
@@ -30,13 +30,13 @@ build:
         mysql: 5.7
         # https://scrutinizer-ci.com/docs/build/languages
         hosts:
-            local.dev: '127.0.0.1'
+            localhost: '10.0.3.1'
         apache2:
             modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
             sites:
                 alxarafe:
                     web_root: ''
-                    host: 'local.dev'
+                    host: 'localhost'
                     rules:
                         - 'Options -Indexes'
                         - '<IfModule mod_rewrite.c>'
