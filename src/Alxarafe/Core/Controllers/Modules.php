@@ -167,16 +167,9 @@ class Modules extends AuthPageExtendedController
         $id = $this->request->query->get($this->model->getIdField());
         $this->model = new Module();
         if ($this->model->load($id)) {
-            $this->model->enabled = FormatUtils::getFormatted(FormatUtils::getFormatDateTime());
-            if ($this->model->save()) {
-                FlashMessages::getInstance()::setSuccess(
-                    $this->translator->trans('module-enabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
-                );
-            }
+            $modelName = $this->model->{$this->model->getNameField()};
+            ModuleManager::getInstance()::enableModule($modelName);
         }
-
-        ModuleManager::getInstance()::executePreprocesses();
-
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
 
@@ -194,15 +187,9 @@ class Modules extends AuthPageExtendedController
         $id = $this->request->query->get($this->model->getIdField());
         $this->model = new Module();
         if ($this->model->load($id)) {
-            $this->model->enabled = null;
-            if ($this->model->save()) {
-                FlashMessages::getInstance()::setSuccess(
-                    $this->translator->trans('module-disabled', ['%moduleName%' => $this->model->{$this->model->getNameField()}])
-                );
-            }
+            $modelName = $this->model->{$this->model->getNameField()};
+            ModuleManager::getInstance()::disableModule($modelName);
         }
-
-        ModuleManager::getInstance()::executePreprocesses();
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }

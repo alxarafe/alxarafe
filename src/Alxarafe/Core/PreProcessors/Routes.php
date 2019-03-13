@@ -28,10 +28,11 @@ class Routes
     protected $searchDir;
 
     /**
+     * Route to manage available routes.
      *
      * @var Router
      */
-    private $routes;
+    private $router;
 
     /**
      * Models constructor.
@@ -56,9 +57,9 @@ class Routes
         // Start DB transaction
         Database::getInstance()->getDbEngine()->beginTransaction();
 
-        $this->routes = Router::getInstance();
+        $this->router = Router::getInstance();
         // Delete all routes
-        $this->routes::getDefaultValues();
+        $this->router->setRoutes($this->router::getDefaultValues());
         foreach ($this->searchDir as $namespace => $baseDir) {
             $dir = $baseDir . DIRECTORY_SEPARATOR . 'Controllers';
             $controllers = Finder::create()
@@ -66,11 +67,13 @@ class Routes
                 ->name('*.php')
                 ->in($dir);
             foreach ($controllers as $controllerFile) {
-                $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
-                $this->instantiateClass($namespace, $className);
+                if (array_key_exists($namespace, $this->searchDir)) {
+                    $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
+                    $this->instantiateClass($namespace, $className);
+                }
             }
         }
-        $this->routes->saveRoutes();
+        $this->router->saveRoutes();
 
         // End DB transaction
         if (!Database::getInstance()->getDbEngine()->commit()) {
@@ -92,7 +95,7 @@ class Routes
         $class = '\\' . $namespace . '\\Controllers\\' . $className;
         $parents = class_parents($class);
         if (in_array(Controller::class, $parents, true)) {
-            $this->routes->addRoute($className, $class);
+            $this->router->addRoute($className, $class, true);
         }
     }
 }

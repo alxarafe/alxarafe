@@ -8,7 +8,7 @@ if (!defined('BASE_PATH')) {
     /**
      * Base path for the app.
      */
-    define('BASE_PATH', __DIR__ . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..');
+    define('BASE_PATH', realpath(__DIR__ . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..' . constant('DIRECTORY_SEPARATOR') . '..'));
 }
 
 if (!function_exists('basePath')) {
@@ -21,7 +21,8 @@ if (!function_exists('basePath')) {
      */
     function basePath(string $path = ''): string
     {
-        return constant('BASE_PATH') . (empty($path) ? $path : constant('DIRECTORY_SEPARATOR') . trim($path, constant('DIRECTORY_SEPARATOR')));
+        return realpath(constant('BASE_PATH')) .
+            (empty($path) ? $path : constant('DIRECTORY_SEPARATOR') . trim($path, constant('DIRECTORY_SEPARATOR')));
     }
 }
 
@@ -47,14 +48,20 @@ if (!function_exists('baseUrl')) {
      */
     function baseUrl(string $url = ''): string
     {
-        $folder = str_replace('/index.php', '', $_SERVER['PHP_SELF']);
+        $defaultPort = constant('SERVER_PORT') ?? 80;
+        $defaultHost = constant('SERVER_NAME') ?? 'localhost';
+        $path = $_SERVER['PHP_SELF'];
+        // For PHPUnit tests, $_SERVER['PHP_SELF'] = 'vendor/bin/phpunit'
+        if (isset($_SERVER['argv']) && $_SERVER['PHP_SELF'] === $_SERVER['argv'][0]) {
+            $path = '';
+        }
+        $folder = str_replace(['/index.php', constant('APP_URI')], '', $path);
         $port = '';
-        if (!in_array($_SERVER['SERVER_PORT'], ['80', '443'], false)) {
-            $port = ':' . $_SERVER['SERVER_PORT'];
+        if (!in_array($defaultPort, ['80', '443'], false)) {
+            $port = ':' . $defaultPort;
         }
         $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
-            . '://' . $_SERVER['SERVER_NAME'] . $port . $folder;
-
+            . '://' . $defaultHost . $port . constant('APP_URI') . $folder;
         return empty($url) ? $baseUrl : $baseUrl . '/' . trim($url, '/');
     }
 }

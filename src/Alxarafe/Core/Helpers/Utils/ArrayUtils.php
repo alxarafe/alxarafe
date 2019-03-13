@@ -24,16 +24,16 @@ class ArrayUtils
      */
     public static function flatArray(array $array): array
     {
-        $ret = [[]];
+        $ret = [];
         foreach ($array as $value) {
             if (is_array($value)) {
                 // We expect that the indexes will not overlap
-                $ret[] = self::flatArray($value);
+                $ret = array_merge($ret, self::flatArray($value));
             } else {
                 $ret[] = strtolower(trim($value));
             }
         }
-        return array_merge(...$ret);
+        return $ret;
     }
 
     /**

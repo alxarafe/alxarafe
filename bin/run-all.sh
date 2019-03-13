@@ -4,5 +4,5 @@
 
 ./bin/run-phpcbf.sh
 ./bin/run-phpcs.sh
-./bin/generate-documentation.sh
 ./bin/run-phpunit-phpdbg.sh
+#./bin/generate-documentation.sh

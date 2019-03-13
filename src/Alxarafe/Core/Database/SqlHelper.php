@@ -115,7 +115,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function tableExists(string $tableName): string;
+    abstract public function getSqlTableExists(string $tableName): string;
 
     /**
      * TODO: Undocummented.

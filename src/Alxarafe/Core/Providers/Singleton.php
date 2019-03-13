@@ -105,13 +105,19 @@ trait Singleton
         $paramsToSave = [];
         if ($this->separateConfigFile) {
             $content = $this->getYamlContent();
+            if (!$merge) {
+                unset($content[$index]);
+            }
             $paramsToSave[$index] = $params;
         } else {
             $content = Config::getInstance()->getConfig();
+            if (!$merge) {
+                unset($content[self::yamlName()][$index]);
+            }
             $paramsToSave[self::yamlName()][$index] = $params;
         }
 
-        $content = $merge ? ArrayUtils::arrayMergeRecursiveEx($content, $paramsToSave) : $paramsToSave;
+        $content = ArrayUtils::arrayMergeRecursiveEx($content, $paramsToSave);
 
         return file_put_contents($this->getFilePath(), Yaml::dump($content, 3), LOCK_EX) !== false;
     }
@@ -130,6 +136,7 @@ trait Singleton
                 $yamlContent = Yaml::parseFile($file);
             } catch (ParseException $e) {
                 Logger::getInstance()::exceptionHandler($e);
+                FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
                 $yamlContent = [];
             }
         }
@@ -144,7 +151,7 @@ trait Singleton
      */
     public function getFilePath(): string
     {
-        return self::$basePath . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
+        return realpath(self::$basePath) . constant('DIRECTORY_SEPARATOR') . $this->getFileName() . '.yaml';
     }
 
     /**

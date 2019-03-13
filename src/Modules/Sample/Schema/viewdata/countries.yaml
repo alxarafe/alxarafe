@@ -1,40 +1,40 @@
 id:
-  label: id
-  shortlabel: col-id
-  placeholder: id
-  min: 0
-  max: 9999
+    label: id
+    shortlabel: col-id
+    placeholder: id
+    min: 0
+    max: 9999
 name:
-  label: name
-  shortlabel: col-name
-  placeholder: name
-  length: 100
+    label: name
+    shortlabel: col-name
+    placeholder: name
+    length: 100
 cod_iso:
-  label: cod_iso
-  shortlabel: cod_iso
-  placeholder: cod_iso
-  pattern: '[0-9]{3}'
-  title: 'Three letter country code'
+    label: cod_iso
+    shortlabel: cod_iso
+    placeholder: cod_iso
+    pattern: '[0-9]{3}'
+    title: 'Three letter country code'
 cod_iso2:
-  label: cod_iso2
-  shortlabel: cod_iso2
-  placeholder: cod_iso2
-  pattern: '[A-Z]{2}'
+    label: cod_iso2
+    shortlabel: cod_iso2
+    placeholder: cod_iso2
+    pattern: '[A-Z]{2}'
 cod_iso3:
-  label: cod_iso3
-  shortlabel: cod_iso3
-  placeholder: cod_iso3
-  pattern: '[A-Z]{3}'
+    label: cod_iso3
+    shortlabel: cod_iso3
+    placeholder: cod_iso3
+    pattern: '[A-Z]{3}'
 id_region:
-  label: id_region
-  shortlabel: id_region
-  placeholder: id_region
+    label: id_region
+    shortlabel: id_region
+    placeholder: id_region
 id_subregion:
-  label: id_subregion
-  shortlabel: id_subregion
-  placeholder: id_subregion
+    label: id_subregion
+    shortlabel: id_subregion
+    placeholder: id_subregion
 id_intermediate_region:
-  label: id_intermediate_region
-  shortlabel: id_intermediate_region
-  placeholder: id_intermediate_region
+    label: id_intermediate_region
+    shortlabel: id_intermediate_region
+    placeholder: id_intermediate_region
     

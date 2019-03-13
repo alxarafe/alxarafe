@@ -3,4 +3,4 @@
 # Generates the documentation on docs folder
 # Requires not have pending commits
 
-php sami.phar update documentation.php --force
+php bin/sami.phar update bin/sami_documentation.php --force

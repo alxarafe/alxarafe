@@ -76,6 +76,19 @@ class Config
     }
 
     /**
+     * Loads some constants from config file.
+     */
+    public function loadConfigConstants(): void
+    {
+        $config = $this->getConfig();
+        if (isset($config['constants']) && isset($config['constants']['main'])) {
+            foreach ($config['constants']['main'] as $key => $value) {
+                ClassUtils::defineIfNotExists($key, $value);
+            }
+        }
+    }
+
+    /**
      * Loads some constants.
      */
     public function loadConstants(): void
@@ -85,17 +98,31 @@ class Config
          *
          * define('BASE_PATH', __DIR__);
          */
-        ClassUtils::defineIfNotExists('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+        ClassUtils::defineIfNotExists('BASE_PATH', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'));
         ClassUtils::defineIfNotExists('LANG', 'en');
         ClassUtils::defineIfNotExists('DEBUG', false);
         ClassUtils::defineIfNotExists('CACHE', !constant('DEBUG'));
 
+        if (in_array(PHP_SAPI, ['cli', 'phpdbg'])) {
+            ClassUtils::defineIfNotExists('SERVER_NAME', 'localhost');
+            ClassUtils::defineIfNotExists('APP_URI', '');
+        }
         ClassUtils::defineIfNotExists('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
-
         ClassUtils::defineIfNotExists('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_ENCODED));
-        ClassUtils::defineIfNotExists('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED));
+        ClassUtils::defineIfNotExists('SERVER_PORT', filter_input(INPUT_SERVER, 'SERVER_PORT', FILTER_SANITIZE_ENCODED));
+        ClassUtils::defineIfNotExists('APP_PROTOCOL', filter_input(INPUT_SERVER, 'REQUEST_SCHEME', FILTER_SANITIZE_ENCODED) ?? 'http');
         ClassUtils::defineIfNotExists('SITE_URL', constant('APP_PROTOCOL') . '://' . constant('SERVER_NAME'));
         ClassUtils::defineIfNotExists('BASE_URI', constant('SITE_URL') . constant('APP_URI'));
+
+        $request_uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
+        $uri_length = strlen(constant('APP_URI'));
+        $params = trim(substr($request_uri, $uri_length), '/');
+
+        if (strpos($params, 'index.php') === 0) {
+            $params = trim(substr($params, strlen('index.php')), '/');
+        }
+
+        ClassUtils::defineIfNotExists('URL_PARAMS', explode('/', $params));
 
         /**
          * Must be defined in main index.php file

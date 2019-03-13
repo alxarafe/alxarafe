@@ -26,9 +26,9 @@ $sam = new Sami(
     [
         'theme' => 'default',
         'versions' => $versions,
-        'title' => 'alxarafe',
-        'build_dir' => __DIR__ . '/docs/',
-        'cache_dir' => __DIR__ . '/cache/docs/',
+        'title' => 'Alxarafe',
+        'build_dir' => __DIR__ . '/../docs/',
+        'cache_dir' => __DIR__ . '/../cache/docs/',
         'remote_repository' => new GitHubRemoteRepository('alxarafe/alxarafe', ''),
         'default_opened_level' => 2,
     ]

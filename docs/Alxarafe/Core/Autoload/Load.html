@@ -1,443 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Core\Autoload\Load | alxarafe</title>
+    <meta charset="UTF-8"/>
+    <meta content="index, follow, all" name="robots"/>
+    <title>Alxarafe\Core\Autoload\Load | Alxarafe</title>
 
-            <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="../../../css/sami.css">
-        <script src="../../../js/jquery-1.11.1.min.js"></script>
-        <script src="../../../js/bootstrap.min.js"></script>
-        <script src="../../../js/typeahead.min.js"></script>
-        <script src="../../../sami.js"></script>
-        <meta name="MobileOptimized" content="width">
-        <meta name="HandheldFriendly" content="true">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    
-    
-    </head>
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/sami.css" rel="stylesheet" type="text/css">
+    <script src="../../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/typeahead.min.js"></script>
+    <script src="../../../sami.js"></script>
+    <meta content="width" name="MobileOptimized">
+    <meta content="true" name="HandheldFriendly">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
 
-    <body id="class" data-name="class:Alxarafe_Core_Autoload_Load" data-root-path="../../../">
-            <div id="content">
-        <div id="left-column">
-                <div id="control-panel">
-                <script>
-            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
-        </script>
-        <form id="search-form" action="../../../search.html" method="GET">
-            <span class="glyphicon glyphicon-search"></span>
-            <input name="search"
-                   class="typeahead form-control"
-                   type="search"
-                   placeholder="Search">
-        </form>
+
+</head>
+
+<body data-name="class:Alxarafe_Core_Autoload_Load" data-root-path="../../../" id="class">
+<div id="content">
+    <div id="left-column">
+        <div id="control-panel">
+            <script>
+                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            </script>
+            <form action="../../../search.html" id="search-form" method="GET">
+                <span class="glyphicon glyphicon-search"></span>
+                <input class="typeahead form-control"
+                       name="search"
+                       placeholder="Search"
+                       type="search">
+            </form>
+        </div>
+
+        <div id="api-tree"></div>
+
     </div>
-
-                <div id="api-tree"></div>
-
-        </div>
-        <div id="right-column">
-                <nav id="site-nav" class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../../../index.html">alxarafe</a>
+    <div id="right-column">
+        <nav class="navbar navbar-default" id="site-nav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../../index.html">Alxarafe</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-elements">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../../classes.html">Classes</a></li>
+                        <li><a href="../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+                        <li><a href="../../../traits.html">Traits</a></li>
+                        <li><a href="../../../doc-index.html">Index</a></li>
+                        <li><a href="../../../search.html">Search</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="navbar-elements">
-                <ul class="nav navbar-nav">
-                    <li><a href="../../../classes.html">Classes</a></li>
-                                            <li><a href="../../../namespaces.html">Namespaces</a></li>
-                                        <li><a href="../../../interfaces.html">Interfaces</a></li>
-                    <li><a href="../../../traits.html">Traits</a></li>
-                    <li><a href="../../../doc-index.html">Index</a></li>
-                    <li><a href="../../../search.html">Search</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
 
-                        <div class="namespace-breadcrumbs">
+        <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core.html">Core</a></li><li class="backslash">\</li><li><a href="../../../Alxarafe/Core/Autoload.html">Autoload</a></li><li class="backslash">\</li><li>Load</li>
+                <li><a href="../../../Alxarafe.html">Alxarafe</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../Alxarafe/Core.html">Core</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../Alxarafe/Core/Autoload.html">Autoload</a></li>
+                <li class="backslash">\</li>
+                <li>Load</li>
             </ol>
         </div>
-                <div id="page-content">
-                
-    <div class="page-header">
-        <h1>
-            Load
-                
-        </h1>
-    </div>
+        <div id="page-content">
 
-    <p>    class
-    <strong>Load</strong>
-</p>
+            <div class="page-header">
+                <h1>
+                    Load
 
-        
-    
+                </h1>
+            </div>
+
+            <p> class
+                <strong>Load</strong>
+            </p>
+
 
             <div class="description">
-            <p>Class Load</p>                                </div>
-    
-    
+                <p>Class Load</p></div>
+
+
             <h2>Constants</h2>
 
             <table class="table table-condensed">
-                    <tr>
-                <td>UNABLE_TO_LOAD</td>
-                <td class="last">
-                    <p><em>Message for throw exception.</em></p>
-                    <p></p>
-                </td>
-            </tr>
+                <tr>
+                    <td>UNABLE_TO_LOAD</td>
+                    <td class="last">
+                        <p><em>Message for throw exception.</em></p>
+                        <p></p>
+                    </td>
+                </tr>
             </table>
 
-    
+
             <h2>Properties</h2>
 
             <table class="table table-condensed">
-                    <tr>
-                <td class="type" id="property_dirs">
-                    static                    protected                                        array
-                </td>
-                <td>$dirs</td>
-                <td class="last">Array of directories.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_registered">
-                    static                    protected                                        int
-                </td>
-                <td>$registered</td>
-                <td class="last">Total number of registered classes.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_instance">
-                    static                                        private                    <a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
-                </td>
-                <td>$instance</td>
-                <td class="last">Hold the classes on instance.</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td class="type" id="property_fileExists">
-                    static                                        private                    
-                </td>
-                <td>$fileExists</td>
-                <td class="last">Contains if loaded file exists.</td>
-                <td></td>
-            </tr>
+                <tr>
+                    <td class="type" id="property_dirs">
+                        static protected array
+                    </td>
+                    <td>$dirs</td>
+                    <td class="last">Array of directories.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_registered">
+                        static protected int
+                    </td>
+                    <td>$registered</td>
+                    <td class="last">Total number of registered classes.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_instance">
+                        static private
+                        <a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
+                    </td>
+                    <td>$instance</td>
+                    <td class="last">Hold the classes on instance.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="type" id="property_fileExists">
+                        static private
+                    </td>
+                    <td>$fileExists</td>
+                    <td class="last">Contains if loaded file exists.</td>
+                    <td></td>
+                </tr>
             </table>
 
-    
+
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
-                    <div class="row">
-                <div class="col-md-2 type">
-                    
+                <div class="row">
+                    <div class="col-md-2 type">
+
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method___construct">__construct</a>(array|string $dirs = [])
+
+                        <p>Load constructor.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(array|string $dirs = [])
-        
-                                            <p>Load constructor.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_init">init</a>(array|string $dirs = [])
+
+                        <p>Adds a directory to the list of supported directories.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_init">init</a>(array|string $dirs = [])
-        
-                                            <p>Adds a directory to the list of supported directories.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_addDirs">addDirs</a>(array|string $dirs)
+
+                        <p>Add more directories to our list of directories to test.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_addDirs">addDirs</a>(array|string $dirs)
-        
-                                            <p>Add more directories to our list of directories to test.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;<a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getInstance">getInstance</a>()
+
+                        <p>Return this instance.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_getInstance">getInstance</a>()
-        
-                                            <p>Return this instance.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;bool
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_autoLoad">autoLoad</a>(string $class)
+
+                        <p>Performs the logic to locate the file based on the namespaced classname. This method derives
+                            a filename by
+                            converting the PHP namespace separator \ into the directory separator appropriate for this
+                            server and appending
+                            the extension .php.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_autoLoad">autoLoad</a>(string $class)
-        
-                                            <p>Performs the logic to locate the file based on the namespaced classname. This method derives a filename by
-converting the PHP namespace separator \ into the directory separator appropriate for this server and appending
-the extension .php.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;bool
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_loadFile">loadFile</a>(string $file)
+
+                        <p>Load a file if exists.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_loadFile">loadFile</a>(string $file)
-        
-                                            <p>Load a file if exists.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
             </div>
 
 
-        <h2>Details</h2>
+            <h2>Details</h2>
 
             <div id="method-details">
-                    <div class="method-item">
+                <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         line 52</div>
-        <code>                    
-    <strong>__construct</strong>(array|string $dirs = [])
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 52</div>
+                        <code>
+                            <strong>__construct</strong>(array|string $dirs = [])
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Load constructor.</p>                                                </div>
-                <div class="tags">
+
+                        <div class="method-description">
+                            <p>Load constructor.</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array|string</td>
-                <td>$dirs</td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array|string</td>
+                                    <td>$dirs</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
-                    <div class="method-item">
+                </div>
+                <div class="method-item">
                     <h3 id="method_init">
-        <div class="location">at         line 69</div>
-        <code>        static            
-    <strong>init</strong>(array|string $dirs = [])
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 69</div>
+                        <code> static
+                            <strong>init</strong>(array|string $dirs = [])
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Adds a directory to the list of supported directories.</p>                    <p>Also registers "autoload" as an autoloading method as a Standard PHP Library (SPL) autoloader.</p>                            </div>
-                <div class="tags">
+
+                        <div class="method-description">
+                            <p>Adds a directory to the list of supported directories.</p>
+                            <p>Also registers "autoload" as an autoloading method as a Standard PHP Library (SPL)
+                                autoloader.</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array|string</td>
-                <td>$dirs</td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array|string</td>
+                                    <td>$dirs</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
-                    <div class="method-item">
+                </div>
+                <div class="method-item">
                     <h3 id="method_addDirs">
-        <div class="location">at         line 93</div>
-        <code>        static            
-    <strong>addDirs</strong>(array|string $dirs)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 93</div>
+                        <code> static
+                            <strong>addDirs</strong>(array|string $dirs)
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Add more directories to our list of directories to test.</p>                                                </div>
-                <div class="tags">
+
+                        <div class="method-description">
+                            <p>Add more directories to our list of directories to test.</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>array|string</td>
-                <td>$dirs</td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array|string</td>
+                                    <td>$dirs</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
-                    <div class="method-item">
+                </div>
+                <div class="method-item">
                     <h3 id="method_getInstance">
-        <div class="location">at         line 107</div>
-        <code>        static            <a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
-    <strong>getInstance</strong>()
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 106</div>
+                        <code> static
+                            <a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
+                            <strong>getInstance</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Return this instance.</p>                                                </div>
-                <div class="tags">
-            
+
+                        <div class="method-description">
+                            <p>Return this instance.</p></div>
+                        <div class="tags">
+
                             <h4>Return Value</h4>
 
-                    <table class="table table-condensed">
-        <tr>
-            <td><a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a></td>
-            <td></td>
-        </tr>
-    </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>
+                                        <a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
-                    <div class="method-item">
+                </div>
+                <div class="method-item">
                     <h3 id="method_autoLoad">
-        <div class="location">at         line 122</div>
-        <code>        static            bool
-    <strong>autoLoad</strong>(string $class)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 121</div>
+                        <code> static bool
+                            <strong>autoLoad</strong>(string $class)
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Performs the logic to locate the file based on the namespaced classname. This method derives a filename by
-converting the PHP namespace separator \ into the directory separator appropriate for this server and appending
-the extension .php.</p>                                                </div>
-                <div class="tags">
+
+                        <div class="method-description">
+                            <p>Performs the logic to locate the file based on the namespaced classname. This method
+                                derives a filename by
+                                converting the PHP namespace separator \ into the directory separator appropriate for
+                                this server and appending
+                                the extension .php.</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$class</td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$class</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
+
                             <h4>Return Value</h4>
 
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
+
                             <h4>Exceptions</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a target="_blank" href="http://php.net/RuntimeException">RuntimeException</a></td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><a href="http://php.net/RuntimeException" target="_blank">RuntimeException</a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
-                    <div class="method-item">
+                </div>
+                <div class="method-item">
                     <h3 id="method_loadFile">
-        <div class="location">at         line 155</div>
-        <code>        static    protected        bool
-    <strong>loadFile</strong>(string $file)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 155</div>
+                        <code> static protected bool
+                            <strong>loadFile</strong>(string $file)
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Load a file if exists.</p>                    <p>Returns true if file exists and is loaded,
-otherwise return false.</p>
 
-<p>The reason for this method is that if the file is not founded, we don't generate a fatal error when requiring it.</p>                            </div>
-                <div class="tags">
+                        <div class="method-description">
+                            <p>Load a file if exists.</p>
+                            <p>Returns true if file exists and is loaded,
+                                otherwise return false.</p>
+
+                            <p>The reason for this method is that if the file is not founded, we don't generate a fatal
+                                error when requiring it.</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$file</td>
-                <td>Path to the file or directory.</td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$file</td>
+                                    <td>Path to the file or directory.</td>
+                                </tr>
+                            </table>
 
-            
+
                             <h4>Return Value</h4>
 
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
+                </div>
             </div>
 
-    
-            </div>
-                <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
-    </div>
 
         </div>
+        <div id="footer">
+            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+        </div>
+
     </div>
-    </body>
+</div>
+</body>
 
 </html>

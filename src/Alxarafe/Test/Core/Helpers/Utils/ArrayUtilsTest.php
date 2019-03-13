@@ -16,6 +16,20 @@ class ArrayUtilsTest extends TestCase
     protected $object;
 
     /**
+     * @use ArrayUtils::flatArray
+     */
+    public function testflatArray()
+    {
+        $array1 = [
+            0 => '0',
+            1 => ['1'],
+        ];
+        $array2 = ['0', '1'];
+        $array3 = $this->object::flatArray($array1);
+        $this->assertSame($array2, $array3);
+    }
+
+    /**
      * @use ArrayUtils::addToArray
      */
     public function testAddToArray()

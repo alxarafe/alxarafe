@@ -9,6 +9,7 @@ namespace Alxarafe\Core;
 use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Helpers\FormatUtils;
 use Alxarafe\Core\Helpers\Session;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\Config;
 use Alxarafe\Core\Providers\Container;
 use Alxarafe\Core\Providers\Database;
@@ -185,9 +186,15 @@ class BootStrap
         if (!isset(self::$instance)) {
             self::$instance = $this;
             self::$startTimer = microtime(true);
-            $this->basePath = $basePath;
+            $this->basePath = realpath($basePath);
             $this->isDebug = $debug;
             Kint::$enabled_mode = $this->isDebug;
+            $shortName = ClassUtils::getShortName($this, static::class);
+
+            $this->configManager = Config::getInstance();
+            $this->configManager->loadConstants();
+            $this->debugTool = DebugTool::getInstance();
+            $this->debugTool->startTimer($shortName, $shortName . ' BootStrap Constructor');
 
             $this->regionalInfo = RegionalInfo::getInstance();
             $this->log = Logger::getInstance();
@@ -196,11 +203,8 @@ class BootStrap
             $this->request = Request::createFromGlobals();
             $this->response = new Response();
 
-            $this->configManager = Config::getInstance();
-            $this->configManager->loadConstants();
             $this->session = Session::getInstance();
             $this->router = Router::getInstance();
-            $this->debugTool = DebugTool::getInstance();
             $this->translator = Translator::getInstance();
             $this->defaultLang = $this->translator->getConfig()['language'];
             $this->cacheEngine = CacheCore::getInstance()->getEngine();
@@ -212,6 +216,7 @@ class BootStrap
             $this->renderer = TemplateRender::getInstance();
 
             FormatUtils::loadConfig();
+            $this->debugTool->stopTimer($shortName);
         }
     }
 

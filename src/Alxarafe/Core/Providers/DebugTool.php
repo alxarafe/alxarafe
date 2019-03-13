@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\DebugBarCollectors\TranslatorCollector;
+use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use DebugBar\Bridge\MonologCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBarException;
@@ -52,11 +53,13 @@ class DebugTool
     public function __construct()
     {
         if (!isset($this->debugTool)) {
+            $shortName = ClassUtils::getShortName($this, static::class);
             $this->initSingleton();
             if (!defined('DEBUG')) {
                 define('DEBUG', false);
             }
             $this->debugTool = new StandardDebugBar();
+            $this->startTimer($shortName, $shortName . ' DebugTool Constructor');
             $this->logger = Logger::getInstance();
             try {
                 $logger = Logger::getInstance();
@@ -70,6 +73,7 @@ class DebugTool
             }
             $baseUrl = baseUrl('vendor/maximebf/debugbar/src/DebugBar/Resources');
             $this->jsRender = $this->debugTool->getJavascriptRenderer($baseUrl, basePath());
+            $this->stopTimer($shortName);
         }
     }
 

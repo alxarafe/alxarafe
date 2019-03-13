@@ -1,0 +1,37 @@
+translator:
+    main:
+        language: es_ES
+templaterender:
+    main:
+        skin: default
+regionalinfo:
+    main:
+        dateFormat: Y-m-d
+        timeFormat: 'H:i:s'
+        datetimeFormat: 'Y-m-d H:i:s'
+        timezone: Europe/Madrid
+database:
+    main:
+        dbEngineName: PdoMySql
+        dbPrefix: ''
+        dbUser: travis
+        dbPass: ''
+        dbName: alxarafe
+        dbHost: localhost
+        dbPort: ''
+router:
+    main:
+        CreateConfig: \Alxarafe\Core\Controllers\CreateConfig
+        EditConfig: \Alxarafe\Core\Controllers\EditConfig
+        Login: \Alxarafe\Core\Controllers\Login
+        Modules: \Alxarafe\Core\Controllers\Modules
+        Users: \Alxarafe\Core\Controllers\Users
+        RolesPages: \Alxarafe\Core\Controllers\RolesPages
+        UsersRoles: \Alxarafe\Core\Controllers\UsersRoles
+        Languages: \Alxarafe\Core\Controllers\Languages
+        Pages: \Alxarafe\Core\Controllers\Pages
+        Tables: \Alxarafe\Core\Controllers\Tables
+        Roles: \Alxarafe\Core\Controllers\Roles
+constants:
+    main:
+        SERVER_NAME: 'localhost'

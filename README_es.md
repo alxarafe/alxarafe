@@ -7,6 +7,11 @@
 [<img align="left" width="35" height="35" src="https://travis-ci.com/images/logos/TravisCI-Mascot-1.png">](https://travis-ci.org/alxarafe/alxarafe)
 [![Build Status](https://travis-ci.org/alxarafe/alxarafe.svg?branch=master)](https://travis-ci.org/alxarafe/alxarafe)
 
+[![codecov](https://codecov.io/gh/alxarafe/alxarafe/branch/master/graph/badge.svg)](https://codecov.io/gh/alxarafe/alxarafe)
+
+[![packagist](https://img.shields.io/packagist/v/alxarafe/alxarafe.svg)](https://packagist.org/packages/alxarafe/alxarafe)
+[![Downloads](https://img.shields.io/packagist/dt/alxarafe/alxarafe.svg)](https://packagist.org/packages/alxarafe/alxarafe)
+
 ## Alxarafe ofrece las siguientes funcionalidades
 Alxarafe. Development of PHP applications in a flash!
 

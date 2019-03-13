@@ -12,6 +12,7 @@ use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Logger;
+use Alxarafe\Core\Providers\ModuleManager;
 use Exception;
 use Kint\Kint;
 use ParseCsv\Csv;
@@ -25,11 +26,11 @@ use Symfony\Component\Yaml\Yaml;
 class Schema
 {
     /**
-     * The debug tool used.
+     * Content files yet readed.
      *
-     * @var DebugTool
+     * @var array
      */
-    private static $debugTool;
+    private static $files;
 
     /**
      * Schema constructor.
@@ -37,9 +38,9 @@ class Schema
     public function __construct()
     {
         $shortName = ClassUtils::getShortName($this, static::class);
-        self::$debugTool = DebugTool::getInstance();
-        self::$debugTool->startTimer($shortName, $shortName . ' Schema Constructor');
-        self::$debugTool->stopTimer($shortName);
+        DebugTool::getInstance()->startTimer($shortName, $shortName . ' Schema Constructor');
+        DebugTool::getInstance()->stopTimer($shortName);
+        self::$files = [];
     }
 
     /**
@@ -67,7 +68,7 @@ class Schema
     {
         $result = true;
         $prefix = Database::getInstance()->getConnectionData()['dbPrefix'];
-        $usePrefix = strpos($table, $prefix) === 0;
+        $usePrefix = !empty($prefix);
         $tableName = $usePrefix ? substr($table, strlen($prefix)) : $table;
         $structure = Database::getInstance()->getDbEngine()->getStructure($tableName, $usePrefix);
         foreach (['schema', 'viewdata'] as $type) {
@@ -188,17 +189,22 @@ class Schema
         $extension = $type === 'values' ? '.csv' : '.yaml';
 
         // First, it is checked if it exists in the core
-        $folder = constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type;
+        $folder = realpath(constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema') . DIRECTORY_SEPARATOR . $type;
         FileSystemUtils::mkdir($folder, 0777, true);
         $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         if (file_exists($path)) {
             return $path;
         }
         // And then if it exists in the application
-        $folder = basePath('Schema' . DIRECTORY_SEPARATOR . $type);
-        FileSystemUtils::mkdir($folder, 0777, true);
-        $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
-        return file_exists($path) ? $path : '';
+        foreach (ModuleManager::getInstance()::getEnabledModules() as $module) {
+            $folder = basePath($module['path'] . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type);
+            FileSystemUtils::mkdir($folder, 0777, true);
+            $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
+            if(file_exists($path)) {
+                return $path;
+            }
+        }
+        return '';
     }
 
     /**
@@ -228,11 +234,15 @@ class Schema
     public static function loadDataFromYaml(string $fileName): array
     {
         if (file_exists($fileName)) {
+            if (isset(self::$files[$fileName])) {
+                return self::$files[$fileName];
+            }
             try {
-                return Yaml::parse(file_get_contents($fileName));
+                return self::$files[$fileName] = Yaml::parseFile($fileName);
             } catch (ParseException $e) {
                 Logger::getInstance()::exceptionHandler($e);
-                FlashMessages::getInstance()::setError($e->getMessage());
+                FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
+                FlashMessages::getInstance()::setError($fileName . ': <pre>' . var_export(Yaml::parseFile($fileName), true) . '</pre>');
                 return [];
             }
         }
@@ -253,6 +263,7 @@ class Schema
         $path = basePath('config' . DIRECTORY_SEPARATOR . $type);
         FileSystemUtils::mkdir($path, 0777, true);
         $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
+        self::$files[$path] = $data;
         return file_put_contents($path, Yaml::dump($data, 3)) !== false;
     }
 
@@ -303,7 +314,7 @@ class Schema
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);
-            self::$debugTool->addException($e);
+            DebugTool::getInstance()->addException($e);
             return null;
         }
 

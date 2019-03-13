@@ -21,14 +21,38 @@
         timeoutForSmallTests="1"
         timeoutForMediumTests="10"
         timeoutForLargeTests="60"
-        verbose="false">
+        verbose="true">
     <testsuites>
         <testsuite name="Tests for Alxarafe">
             <directory
                     suffix="Test.php"
                     phpVersion="7.1"
                     phpVersionOperator=">=">
+                src/Alxarafe/Test/Core/Autoload/
+            </directory>
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Alxarafe/Test/Core/Base/
+            </directory>
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Alxarafe/Test/Core/Controllers/
+            </directory>
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
                 src/Alxarafe/Test/Core/Helpers/
+            </directory>
+            <directory
+                    suffix="Test.php"
+                    phpVersion="7.1"
+                    phpVersionOperator=">=">
+                src/Alxarafe/Test/Core/Models/
             </directory>
         </testsuite>
     </testsuites>

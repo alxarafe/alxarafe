@@ -17,14 +17,11 @@ class FileSystemUtilsTest extends TestCase
 
     /**
      * @use    FileSystemUtils::scandir
-     * @todo   Implement testScandir().
      */
     public function testScandir()
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNotEmpty($this->object::scandir(__DIR__));
     }
 
     /**

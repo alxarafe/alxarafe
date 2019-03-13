@@ -1,53 +1,53 @@
 fields:
-  id:
-    type: integer
-    length: '10'
-    default: null
-    nullable: 'no'
-    unsigned: 'yes'
-    autoincrement: 'yes'
-  name:
-    type: string
-    length: '50'
-    default: null
-    nullable: 'yes'
-    unsigned: 'no'
-  cif:
-    type: string
-    length: '10'
-    default: null
-    nullable: 'yes'
-    unsigned: 'no'
-  edad:
-    type: integer
-    length: '2'
-    default: '18'
-    nullable: 'yes'
-    unsigned: 'yes'
-  nacimiento:
-    type: date
-    length: null
-    default: null
-    nullable: 'yes'
-    unsigned: 'no'
-  id_pais:
-    type: integer
-    length: '4'
-    default: null
-    nullable: 'no'
-    unsigned: 'yes'
+    id:
+        type: integer
+        length: '10'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+        autoincrement: 'yes'
+    name:
+        type: string
+        length: '50'
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+    cif:
+        type: string
+        length: '10'
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+    edad:
+        type: integer
+        length: '2'
+        default: '18'
+        nullable: 'yes'
+        unsigned: 'yes'
+    nacimiento:
+        type: date
+        length: null
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+    id_pais:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
 indexes:
-  PRIMARY:
-    column: id
-    unique: 'yes'
-  person_name:
-    column: name
-    unique: 'yes'
-  people_country:
-    column: id_pais
-    unique: 'no'
-    constraint: 'yes'
-    referencedtable: countries
-    referencedfield: id
-    deleterule: 'RESTRICT'
-    updaterule: 'RESTRICT'
+    PRIMARY:
+        column: id
+        unique: 'yes'
+    person_name:
+        column: name
+        unique: 'yes'
+    people_country:
+        column: id_pais
+        unique: 'no'
+        constraint: 'yes'
+        referencedtable: countries
+        referencedfield: id
+        deleterule: 'RESTRICT'
+        updaterule: 'RESTRICT'

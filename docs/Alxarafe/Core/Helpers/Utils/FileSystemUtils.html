@@ -1,275 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="robots" content="index, follow, all" />
-    <title>Alxarafe\Core\Helpers\Utils\FileSystemUtils | alxarafe</title>
+    <meta charset="UTF-8"/>
+    <meta content="index, follow, all" name="robots"/>
+    <title>Alxarafe\Core\Helpers\Utils\FileSystemUtils | Alxarafe</title>
 
-            <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="../../../../css/sami.css">
-        <script src="../../../../js/jquery-1.11.1.min.js"></script>
-        <script src="../../../../js/bootstrap.min.js"></script>
-        <script src="../../../../js/typeahead.min.js"></script>
-        <script src="../../../../sami.js"></script>
-        <meta name="MobileOptimized" content="width">
-        <meta name="HandheldFriendly" content="true">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    
-    
-    </head>
+    <link href="../../../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../../css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../../css/sami.css" rel="stylesheet" type="text/css">
+    <script src="../../../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../../../js/bootstrap.min.js"></script>
+    <script src="../../../../js/typeahead.min.js"></script>
+    <script src="../../../../sami.js"></script>
+    <meta content="width" name="MobileOptimized">
+    <meta content="true" name="HandheldFriendly">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
 
-    <body id="class" data-name="class:Alxarafe_Core_Helpers_Utils_FileSystemUtils" data-root-path="../../../../">
-            <div id="content">
-        <div id="left-column">
-                <div id="control-panel">
-                <script>
-            $('option[data-version="'+window.projectVersion+'"]').prop('selected', true);
-        </script>
-        <form id="search-form" action="../../../../search.html" method="GET">
-            <span class="glyphicon glyphicon-search"></span>
-            <input name="search"
-                   class="typeahead form-control"
-                   type="search"
-                   placeholder="Search">
-        </form>
+
+</head>
+
+<body data-name="class:Alxarafe_Core_Helpers_Utils_FileSystemUtils" data-root-path="../../../../" id="class">
+<div id="content">
+    <div id="left-column">
+        <div id="control-panel">
+            <script>
+                $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            </script>
+            <form action="../../../../search.html" id="search-form" method="GET">
+                <span class="glyphicon glyphicon-search"></span>
+                <input class="typeahead form-control"
+                       name="search"
+                       placeholder="Search"
+                       type="search">
+            </form>
+        </div>
+
+        <div id="api-tree"></div>
+
     </div>
-
-                <div id="api-tree"></div>
-
-        </div>
-        <div id="right-column">
-                <nav id="site-nav" class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../../../../index.html">alxarafe</a>
+    <div id="right-column">
+        <nav class="navbar navbar-default" id="site-nav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-target="#navbar-elements" data-toggle="collapse" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../../../index.html">Alxarafe</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-elements">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../../../classes.html">Classes</a></li>
+                        <li><a href="../../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../../interfaces.html">Interfaces</a></li>
+                        <li><a href="../../../../traits.html">Traits</a></li>
+                        <li><a href="../../../../doc-index.html">Index</a></li>
+                        <li><a href="../../../../search.html">Search</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="navbar-elements">
-                <ul class="nav navbar-nav">
-                    <li><a href="../../../../classes.html">Classes</a></li>
-                                            <li><a href="../../../../namespaces.html">Namespaces</a></li>
-                                        <li><a href="../../../../interfaces.html">Interfaces</a></li>
-                    <li><a href="../../../../traits.html">Traits</a></li>
-                    <li><a href="../../../../doc-index.html">Index</a></li>
-                    <li><a href="../../../../search.html">Search</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
 
-                        <div class="namespace-breadcrumbs">
+        <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../../../Alxarafe.html">Alxarafe</a></li><li class="backslash">\</li><li><a href="../../../../Alxarafe/Core.html">Core</a></li><li class="backslash">\</li><li><a href="../../../../Alxarafe/Core/Helpers.html">Helpers</a></li><li class="backslash">\</li><li><a href="../../../../Alxarafe/Core/Helpers/Utils.html">Utils</a></li><li class="backslash">\</li><li>FileSystemUtils</li>
+                <li><a href="../../../../Alxarafe.html">Alxarafe</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../../Alxarafe/Core.html">Core</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../../Alxarafe/Core/Helpers.html">Helpers</a></li>
+                <li class="backslash">\</li>
+                <li><a href="../../../../Alxarafe/Core/Helpers/Utils.html">Utils</a></li>
+                <li class="backslash">\</li>
+                <li>FileSystemUtils</li>
             </ol>
         </div>
-                <div id="page-content">
-                
-    <div class="page-header">
-        <h1>
-            FileSystemUtils
-                
-        </h1>
-    </div>
+        <div id="page-content">
 
-    <p>    class
-    <strong>FileSystemUtils</strong>
-</p>
+            <div class="page-header">
+                <h1>
+                    FileSystemUtils
 
-        
-    
+                </h1>
+            </div>
+
+            <p> class
+                <strong>FileSystemUtils</strong>
+            </p>
+
 
             <div class="description">
-            <p>Class FileSystemUtils</p>                                </div>
-    
-    
-    
-    
+                <p>Class FileSystemUtils</p></div>
+
+
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;bool
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_rrmdir">rrmdir</a>(string $path)
+
+                        <p>Recursively removes a folder along with all its files and directories</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_rrmdir">rrmdir</a>(string $path)
-        
-                                            <p>Recursively removes a folder along with all its files and directories</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;bool
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;bool
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_mkdir">mkdir</a>(string $dir, int $mode = 0777, bool $recursive = false)
+
+                        <p>Attempts to create the directory specified by pathname.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_mkdir">mkdir</a>(string $dir, int $mode = 0777, bool $recursive = false)
-        
-                                            <p>Attempts to create the directory specified by pathname.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    static&nbsp;<a target="_blank" href="http://php.net/SplFileInfo">SplFileInfo</a>[]
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;<a href="http://php.net/SplFileInfo" target="_blank">SplFileInfo</a>[]
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_scandir">scandir</a>(string $path)
+
+                        <p>List files and directories inside the specified path.</p></div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="col-md-8 type">
-                    <a href="#method_scandir">scandir</a>(string $path)
-        
-                                            <p>List files and directories inside the specified path.</p>                </div>
-                <div class="col-md-2"></div>
-            </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        static&nbsp;<abbr title="Alxarafe\Core\Helpers\Utils\?string">?string</abbr>
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_locate">locate</a>(string $subfolder, string $file, bool $fqcn = true)
+
+                        <p>Locate a file in a subfolder, returning the FQCN or filepath.</p></div>
+                    <div class="col-md-2"></div>
+                </div>
             </div>
 
 
-        <h2>Details</h2>
+            <h2>Details</h2>
 
             <div id="method-details">
-                    <div class="method-item">
+                <div class="method-item">
                     <h3 id="method_rrmdir">
-        <div class="location">at         line 26</div>
-        <code>        static            bool
-    <strong>rrmdir</strong>(string $path)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 27</div>
+                        <code> static bool
+                            <strong>rrmdir</strong>(string $path)
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Recursively removes a folder along with all its files and directories</p>                                                </div>
-                <div class="tags">
+
+                        <div class="method-description">
+                            <p>Recursively removes a folder along with all its files and directories</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$path</td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$path</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
+
                             <h4>Return Value</h4>
 
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
-                    <div class="method-item">
+                </div>
+                <div class="method-item">
                     <h3 id="method_mkdir">
-        <div class="location">at         line 51</div>
-        <code>        static            bool
-    <strong>mkdir</strong>(string $dir, int $mode = 0777, bool $recursive = false)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 55</div>
+                        <code> static bool
+                            <strong>mkdir</strong>(string $dir, int $mode = 0777, bool $recursive = false)
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>Attempts to create the directory specified by pathname.</p>                                                </div>
-                <div class="tags">
+
+                        <div class="method-description">
+                            <p>Attempts to create the directory specified by pathname.</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$dir</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>int</td>
-                <td>$mode</td>
-                <td></td>
-            </tr>
-                    <tr>
-                <td>bool</td>
-                <td>$recursive</td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$dir</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>int</td>
+                                    <td>$mode</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>bool</td>
+                                    <td>$recursive</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
+
                             <h4>Return Value</h4>
 
-                    <table class="table table-condensed">
-        <tr>
-            <td>bool</td>
-            <td></td>
-        </tr>
-    </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>bool</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
-                    <div class="method-item">
+                </div>
+                <div class="method-item">
                     <h3 id="method_scandir">
-        <div class="location">at         line 63</div>
-        <code>        static            <a target="_blank" href="http://php.net/SplFileInfo">SplFileInfo</a>[]
-    <strong>scandir</strong>(string $path)
-        </code>
-    </h3>
-    <div class="details">
-            
-    
+                        <div class="location">at line 67</div>
+                        <code> static <a href="http://php.net/SplFileInfo" target="_blank">SplFileInfo</a>[]
+                            <strong>scandir</strong>(string $path)
+                        </code>
+                    </h3>
+                    <div class="details">
 
-                    <div class="method-description">
-                                    <p>List files and directories inside the specified path.</p>                                                </div>
-                <div class="tags">
+
+                        <div class="method-description">
+                            <p>List files and directories inside the specified path.</p></div>
+                        <div class="tags">
                             <h4>Parameters</h4>
 
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string</td>
-                <td>$path</td>
-                <td></td>
-            </tr>
-            </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$path</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
+
                             <h4>Return Value</h4>
 
-                    <table class="table table-condensed">
-        <tr>
-            <td><a target="_blank" href="http://php.net/SplFileInfo">SplFileInfo</a>[]</td>
-            <td></td>
-        </tr>
-    </table>
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><a href="http://php.net/SplFileInfo" target="_blank">SplFileInfo</a>[]</td>
+                                    <td></td>
+                                </tr>
+                            </table>
 
-            
-            
+
+                        </div>
                     </div>
-    </div>
 
-            </div>
+                </div>
+                <div class="method-item">
+                    <h3 id="method_locate">
+                        <div class="location">at line 92</div>
+                        <code> static <abbr title="Alxarafe\Core\Helpers\Utils\?string">?string</abbr>
+                            <strong>locate</strong>(string $subfolder, string $file, bool $fqcn = true)
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Locate a file in a subfolder, returning the FQCN or filepath.</p>
+                            <p>The active modules of the last activated are traversed to the first, and finally the
+                                core.
+                                The file is searched in the subfolder specified (for example Models).
+                                If true (default), return the FQCN; if false, return the path to the file</p></div>
+                        <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$subfolder</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>string</td>
+                                    <td>$file</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>bool</td>
+                                    <td>$fqcn</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td><abbr title="Alxarafe\Core\Helpers\Utils\?string">?string</abbr></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-    
-            </div>
-                <div id="footer">
-        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
-    </div>
 
         </div>
+        <div id="footer">
+            Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+        </div>
+
     </div>
-    </body>
+</div>
+</body>
 
 </html>

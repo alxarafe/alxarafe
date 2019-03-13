@@ -1,37 +1,37 @@
 fields:
-  id:
-    type: integer
-    length: '4'
-    default: null
-    nullable: 'no'
-    unsigned: 'yes'
-    autoincrement: 'yes'
-  name:
-    type: string
-    length: '100'
-    default: null
-    nullable: 'no'
-    unsigned: 'no'
+    id:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+        autoincrement: 'yes'
+    name:
+        type: string
+        length: '100'
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
 indexes:
-  PRIMARY:
-    column: id
-    unique: 'yes'
-  country_name:
-    column: name
-    unique: 'yes'
+    PRIMARY:
+        column: id
+        unique: 'yes'
+    country_name:
+        column: name
+        unique: 'yes'
 values:
-  1:
-    id: 2
-    name: 'Africa'
-  2:
-    id: 9
-    name: 'Oceania'
-  3:
-    id: 19
-    name: 'Americas'
-  4:
-    id: 142
-    name: 'Asia'
-  5:
-    id: 150
-    name: 'Europe'
+    1:
+        id: 2
+        name: 'Africa'
+    2:
+        id: 9
+        name: 'Oceania'
+    3:
+        id: 19
+        name: 'Americas'
+    4:
+        id: 142
+        name: 'Asia'
+    5:
+        id: 150
+        name: 'Europe'

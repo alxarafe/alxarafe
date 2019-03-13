@@ -1,74 +1,74 @@
 fields:
-  id:
-    type: integer
-    length: '4'
-    default: null
-    nullable: 'no'
-    unsigned: 'yes'
-    autoincrement: 'yes'
-  name:
-    type: string
-    length: '100'
-    default: null
-    nullable: 'no'
-    unsigned: 'no'
+    id:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+        autoincrement: 'yes'
+    name:
+        type: string
+        length: '100'
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
 indexes:
-  PRIMARY:
-    column: id
-    unique: 'yes'
-  country_name:
-    column: name
-    unique: 'yes'
+    PRIMARY:
+        column: id
+        unique: 'yes'
+    country_name:
+        column: name
+        unique: 'yes'
 values:
-  1:
-    id: 15
-    name: 'Northern Africa'
-  2:
-    id: 202
-    name: 'Sub-Saharan Africa'
-  3:
-    id: 53
-    name: 'Australia and New Zealand'
-  4:
-    id: 54
-    name: 'Melanesia'
-  5:
-    id: 57
-    name: 'Micronesia'
-  6:
-    id: 61
-    name: 'Polynesia'
-  7:
-    id: 419
-    name: 'Latin America and the Caribbean'
-  8:
-    id: 21
-    name: 'Northern America'
-  9:
-    id: 143
-    name: 'Central Asia'
-  10:
-    id: 30
-    name: 'Eastern Asia'
-  11:
-    id: 35
-    name: 'South-eastern Asia'
-  12:
-    id: 34
-    name: 'Southern Asia'
-  13:
-    id: 145
-    name: 'Western Asia'
-  14:
-    id: 151
-    name: 'Eastern Europe'
-  15:
-    id: 154
-    name: 'Northern Europe'
-  16:
-    id: 39
-    name: 'Southern Europe'
-  17:
-    id: 155
-    name: 'Western Europe'
+    1:
+        id: 15
+        name: 'Northern Africa'
+    2:
+        id: 202
+        name: 'Sub-Saharan Africa'
+    3:
+        id: 53
+        name: 'Australia and New Zealand'
+    4:
+        id: 54
+        name: 'Melanesia'
+    5:
+        id: 57
+        name: 'Micronesia'
+    6:
+        id: 61
+        name: 'Polynesia'
+    7:
+        id: 419
+        name: 'Latin America and the Caribbean'
+    8:
+        id: 21
+        name: 'Northern America'
+    9:
+        id: 143
+        name: 'Central Asia'
+    10:
+        id: 30
+        name: 'Eastern Asia'
+    11:
+        id: 35
+        name: 'South-eastern Asia'
+    12:
+        id: 34
+        name: 'Southern Asia'
+    13:
+        id: 145
+        name: 'Western Asia'
+    14:
+        id: 151
+        name: 'Eastern Europe'
+    15:
+        id: 154
+        name: 'Northern Europe'
+    16:
+        id: 39
+        name: 'Southern Europe'
+    17:
+        id: 155
+        name: 'Western Europe'
   
