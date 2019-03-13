@@ -9,6 +9,9 @@
 
 [![codecov](https://codecov.io/gh/alxarafe/alxarafe/branch/master/graph/badge.svg)](https://codecov.io/gh/alxarafe/alxarafe)
 
+[![packagist](https://img.shields.io/packagist/v/alxarafe/alxarafe.svg)](https://packagist.org/packages/alxarafe/alxarafe)
+[![Downloads](https://img.shields.io/packagist/dt/alxarafe/alxarafe.svg)](https://packagist.org/packages/alxarafe/alxarafe)
+
 ## Alxarafe ofrece las siguientes funcionalidades
 Alxarafe. Development of PHP applications in a flash!
 
