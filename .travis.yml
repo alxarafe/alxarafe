@@ -29,6 +29,7 @@ install:
     # Set ServerName Globally
     - echo "ServerName local.dev" | sudo tee /etc/apache2/conf-available/fqcn.conf
     - sudo a2enconf fqcn
+    - echo "127.0.0.1	local.dev" | sudo tee /etc/hosts
     # Restart services
     - sudo service apache2 restart
     - sudo service php7.2-fpm restart
