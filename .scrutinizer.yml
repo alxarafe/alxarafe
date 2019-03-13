@@ -25,7 +25,6 @@ build:
                         - RewriteRule ^ index.php [QSA,L]
     dependencies:
         before:
-            - sudo apt-get autoremove
             - echo "ServerName localhost" > /etc/apache2/conf-available/fqdn.conf
             - sudo a2enconf fqdn
             - sudo service apache2 restart
