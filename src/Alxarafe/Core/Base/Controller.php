@@ -231,22 +231,86 @@ abstract class Controller
     }
 
     /**
-     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
+     * addCSS includes the CSS files to template.
+     *
+     * @param string $file
      *
      * @return void
      */
-    public function addCSS(): void
+    public function addCSS(string $file): void
     {
-        //$this->addToVar('cssCode', $this->addResource('/.css'));
+        $this->addToVar('cssCode', $this->addResource($file));
     }
 
     /**
-     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
+     * addJS includes the JS files to template.
+     *
+     * @param string $file
      *
      * @return void
      */
-    public function addJS(): void
+    public function addJS(string $file): void
     {
-        //$this->addToVar('jsCode', $this->addResource('/.js'));
+        $this->addToVar('jsCode', $this->addResource($file));
+    }
+
+    /**
+     * Return body parameters $_POST values.
+     *
+     * @return array
+     */
+    public function getArrayPost(): array
+    {
+        return $this->request->request->all();
+    }
+
+    /**
+     * Return query string parameters $_GET values.
+     *
+     * @return array
+     */
+    public function getArrayGet(): array
+    {
+        return $this->request->query->all();
+    }
+
+    /**
+     * Return server and execution environment parameters from $_SERVER values.
+     *
+     * @return array
+     */
+    public function getArrayServer(): array
+    {
+        return $this->request->server->all();
+    }
+
+    /**
+     * Return headers from $_SERVER header values.
+     *
+     * @return array
+     */
+    public function getArrayHeaders(): array
+    {
+        return $this->request->headers->all();
+    }
+
+    /**
+     * Return uploaded files from $_FILES.
+     *
+     * @return array
+     */
+    public function getArrayFiles(): array
+    {
+        return $this->request->files->all();
+    }
+
+    /**
+     * Return cookies from $_COOKIES.
+     *
+     * @return array
+     */
+    public function getArrayCookies(): array
+    {
+        return $this->request->files->all();
     }
 }

@@ -275,24 +275,16 @@ abstract class AuthPageController extends AuthController
      */
     private function loadPerms(): void
     {
-        $this->canCreate = $this->canAction('create');
-        $this->canRead = $this->canAction('read');
-        $this->canUpdate = $this->canAction('update');
-        $this->canDelete = $this->canAction('delete');
-        $this->canAccess = $this->canAction('access');
-        $this->canPrint = $this->canAction('print');
-        $this->canExport = $this->canAction('export');
-        $this->canSendMail = $this->canAction('sendmail');
         $details = [
             $this->username => [
-                'access' => $this->canAccess,
-                'create' => $this->canCreate,
-                'read' => $this->canRead,
-                'update' => $this->canUpdate,
-                'delete' => $this->canDelete,
-                'print' => $this->canPrint,
-                'export' => $this->canExport,
-                'sendmail' => $this->canSendMail,
+                'access' => $this->canAccess = $this->canAction('access'),
+                'create' => $this->canCreate = $this->canAction('create'),
+                'read' => $this->canRead = $this->canAction('read'),
+                'update' => $this->canUpdate = $this->canAction('update'),
+                'delete' => $this->canDelete = $this->canAction('delete'),
+                'print' => $this->canPrint = $this->canAction('print'),
+                'export' => $this->canExport = $this->canAction('export'),
+                'sendmail' => $this->canSendMail = $this->canAction('sendmail'),
             ],
         ];
         $this->debugTool->addMessage('messages', ' <pre>' . print_r($details, true) . '</pre>');
