@@ -14,9 +14,9 @@
 #}
 {% set randValue = random() %}
 
-{% set id = data.id | default('thanos' ~ randValue) %}
-{% set name = data.name | default('thanos' ~ randValue) %}
-{% set text = data.text | default('muerte a los humanos') %}
+{% set id = data.id | default('myJumbotronId' ~ randValue) %}
+{% set name = data.name | default('myJumbotronId' ~ randValue) %}
+{% set text = data.text | default('<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>') %}
 
 
 <div id="{{ id }}" name="{{ name }}" class="jumbotron">

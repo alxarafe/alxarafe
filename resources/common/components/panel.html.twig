@@ -13,34 +13,41 @@
     @var footer_text: Your text footer
 
     How to use it:
-        {% include "@Core/components/panel.html.twig" with {data:{id:'myPanelId1', name:'myPanelName1', class:'panel-default', header: 'h2', header_text: 'Title', body_text: 'Body', footer_text: 'Footer'}} %}
+        {% include "@Core/components/panel.html.twig" with {
+        data:{id:'myPanelId1',
+        name:'myPanelName1',
+        class:'panel-default',
+        header: 'h2',
+        header_text: 'Title',
+        body_text: 'Body',
+        footer_text: 'Footer'}}
+        %}
 #}
+{% set randValue = random() %}
 
-<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-        class="panel{% if class is defined %} {{ class }}{% endif %}">
-    {% if header_text is defined and header_text != '' %}
+{% set id = data.id | default('panel' ~ randValue) %}
+{% set name = data.name | default('panel' ~ randValue) %}
+{% set class = data.class | default('panel panel-default') %}
+{% set header_text = data.header_text | default('') %}
+{% set header = data.header | default('panel-title') %}
+{% set body_text = data.body_text | default('' ~ randValue) %}
+{% set footer_text = data.footer_text | default('' ~ randValue) %}
+
+
+<div id="{{ id }}" name="{{ name }}" class="{{ class }}">
+    {% if header_text != '' %}
         <div class="panel-heading">
-            {% if header is defined and header != '' %}
-                <{{ header }}>
-            {% else %}
-                <h1>
-            {% endif %}
-            {% if header_text is defined and header_text != '' %}
-                {{ header_text | raw }}
-            {% endif %}
-            {% if header is defined and header != '' %}
-                </{{ header }}>
-            {% else %}
-                </h1>
-            {% endif %}
+            <h2 {{ header }}>
+                <h1>{{ header_text | raw }}</h1>
+            </{{ header }}></h2>
         </div>
     {% endif %}
-    {% if body_text is defined and body_text != '' %}
+    {% if body_text != '' %}
         <div class="panel-body">
             {{ body_text | raw }}
         </div>
     {% endif %}
-    {% if footer_text is defined and footer_text != '' %}
+    {% if footer_text != '' %}
         <div class="panel-footer">
             {{ footer_text | raw }}
         </div>
