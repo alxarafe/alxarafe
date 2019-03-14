@@ -56,5 +56,6 @@ class ClassUtilsTest extends TestCase
      */
     protected function tearDown()
     {
+        $this->object = null;
     }
 }

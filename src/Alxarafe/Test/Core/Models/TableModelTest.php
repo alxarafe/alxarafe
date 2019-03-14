@@ -7,11 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class TableModelTest extends TestCase
 {
-    /**
-     * @var TableModel
-     */
-    protected $object;
-
     public function testLoad()
     {
 

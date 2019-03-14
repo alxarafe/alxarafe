@@ -7,11 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class LanguageTest extends TestCase
 {
-    /**
-     * @var Language
-     */
-    protected $object;
-
     public function testLoad()
     {
 

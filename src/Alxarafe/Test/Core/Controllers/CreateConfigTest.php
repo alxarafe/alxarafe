@@ -3,15 +3,10 @@
 namespace Alxarafe\Test\Core\Controllers;
 
 use Alxarafe\Core\Controllers\CreateConfig;
-use PHPUnit\Framework\TestCase;
+use Alxarafe\Test\Core\Base\ControllerTest;
 
-class CreateConfigTest extends TestCase
+class CreateConfigTest extends ControllerTest
 {
-    /**
-     * @var CreateConfig
-     */
-    protected $object;
-
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -21,21 +16,38 @@ class CreateConfigTest extends TestCase
         $this->object = new CreateConfig();
     }
 
+    public function tearDown()
+    {
+        $this->object = null;
+    }
+
+    /**
+     * @use CreateConfig::indexMethod
+     */
     public function testIndexMethod()
     {
         $this->assertIsObject($this->object->indexMethod());
     }
 
+    /**
+     * @use CreateConfig::pageDetails
+     */
     public function testPageDetails()
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }
 
+    /**
+     * @use CreateConfig::generateMethod
+     */
     public function testGenerateMethod()
     {
         $this->assertIsObject($this->object->generateMethod());
     }
 
+    /**
+     * @use CreateConfig::getTimezoneList
+     */
     public function testGetTimezoneList()
     {
         $this->assertIsArray($this->object->getTimezoneList());

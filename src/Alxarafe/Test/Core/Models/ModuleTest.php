@@ -7,11 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class ModuleTest extends TestCase
 {
-    /**
-     * @var Module
-     */
-    protected $object;
-
     public function testLoad()
     {
 

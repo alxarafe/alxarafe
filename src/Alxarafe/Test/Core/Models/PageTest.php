@@ -7,11 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
 {
-    /**
-     * @var Page
-     */
-    protected $object;
-
     public function testLoad()
     {
 

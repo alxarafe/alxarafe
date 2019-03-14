@@ -7,11 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    protected $object;
-
     public function testLoad()
     {
 
