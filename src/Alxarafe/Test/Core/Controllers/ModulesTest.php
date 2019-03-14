@@ -30,7 +30,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testReadMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -38,7 +41,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testDisableMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -46,7 +52,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testDeleteMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -54,7 +63,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testGetActionButtons()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -62,7 +74,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testIndexMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -70,7 +85,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function test__construct()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -78,7 +96,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testCreateMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -86,7 +107,10 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testUpdateMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -94,7 +118,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testPageDetails()
     {
-
+        $this->assertNotEmpty($this->object->pageDetails());
     }
 
     /**
@@ -102,6 +126,9 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testEnableMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 }

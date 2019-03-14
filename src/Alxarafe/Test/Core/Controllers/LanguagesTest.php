@@ -30,7 +30,7 @@ class LanguagesTest extends AuthPageExtendedControllerTest
      */
     public function testPageDetails()
     {
-
+        $this->assertNotEmpty($this->object->pageDetails());
     }
 
     /**
@@ -38,7 +38,10 @@ class LanguagesTest extends AuthPageExtendedControllerTest
      */
     public function testIndexMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -46,7 +49,10 @@ class LanguagesTest extends AuthPageExtendedControllerTest
      */
     public function testGetExtraActions()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -54,6 +60,9 @@ class LanguagesTest extends AuthPageExtendedControllerTest
      */
     public function test__construct()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 }

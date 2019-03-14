@@ -13,7 +13,10 @@ class ControllerTest extends TestCase
      */
     public function testAddResource()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -21,7 +24,10 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayPost()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -29,7 +35,10 @@ class ControllerTest extends TestCase
      */
     public function testSendResponse()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -37,7 +46,10 @@ class ControllerTest extends TestCase
      */
     public function testSendResponseTemplate()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -45,7 +57,10 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayCookies()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -53,7 +68,10 @@ class ControllerTest extends TestCase
      */
     public function testRunMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -61,7 +79,10 @@ class ControllerTest extends TestCase
      */
     public function testAddCSS()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -69,7 +90,10 @@ class ControllerTest extends TestCase
      */
     public function testAddToVar()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -77,7 +101,10 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayServer()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -85,7 +112,10 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayHeaders()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -93,7 +123,10 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayGet()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -101,7 +134,10 @@ class ControllerTest extends TestCase
      */
     public function test__construct()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -109,7 +145,10 @@ class ControllerTest extends TestCase
      */
     public function testRedirect()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -117,7 +156,10 @@ class ControllerTest extends TestCase
      */
     public function testAddJS()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -125,6 +167,9 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayFiles()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 }
