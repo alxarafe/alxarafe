@@ -8,7 +8,6 @@ namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Models\User;
 use Alxarafe\Core\Providers\FlashMessages;
-use Alxarafe\Core\Providers\Logger;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -54,9 +53,9 @@ class AuthController extends Controller
     public function runMethod(string $methodName): Response
     {
         $method = $methodName . 'Method';
-        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
+        $this->logger->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
         if (!$this->checkAuth()) {
-            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-not-authenticated'));
+            $this->logger->addDebug($this->translator->trans('user-not-authenticated'));
             return $this->redirect(baseUrl($this->defaultRedirect));
         }
         return $this->{$method}();
@@ -67,16 +66,25 @@ class AuthController extends Controller
      */
     public function checkAuth(): bool
     {
+        return $this->checkLoginWeb() || $this->checkLoginAPI();
+    }
+
+    /**
+     * Check if user is logged-in from Login.
+     *
+     * @return bool
+     */
+    private function checkLoginWeb(): bool
+    {
         $return = false;
-        $Auth = $this->request->headers->get('Authorization');
+
         $username = $this->request->cookies->get('user', '');
         $logKey = $this->request->cookies->get('logkey', '');
         $remember = $this->request->cookies->get('remember', self::COOKIE_EXPIRATION_MIN);
-
         if (!empty($username) && !empty($logKey)) {
             $user = new User();
             if ($user->verifyLogKey($username, $logKey)) {
-                Logger::getInstance()->getLogger()->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $username]));
+                $this->logger->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $username]));
                 $this->user = $user;
                 $this->username = $this->user->username;
                 $this->logkey = $this->user->logkey;
@@ -85,10 +93,29 @@ class AuthController extends Controller
                 $this->adjustCookieUser($time, $remember);
                 $return = true;
             }
-        } elseif ($Auth !== null) {
-            Logger::getInstance()->getLogger()->addDebug($this->translator->trans('auth-is-null'));
-            // TODO: Check with Auth header if has valid credentials
-            $return = true;
+        }
+        return $return;
+    }
+
+    /**
+     * Check if user is logged-in from API.
+     *
+     * @return bool
+     */
+    private function checkLoginAPI(): bool
+    {
+        $return = false;
+
+        $userAuth = $this->request->headers->get('PHP_AUTH_USER');
+        $passAuth = $this->request->headers->get('PHP_AUTH_PW');
+        if (!empty($userAuth) && !empty($passAuth)) {
+            $user = new User();
+            if ($user->getBy('username', $userAuth) && password_verify($passAuth, $user->password)) {
+                $this->logger->addDebug($this->translator->trans('api-user-logged', ['%username%' => $userAuth]));
+                $return = true;
+            } else {
+                $this->logger->addDebug($this->translator->trans('api-user-logged-fail', ['%username%' => $userAuth]));
+            }
         }
         return $return;
     }

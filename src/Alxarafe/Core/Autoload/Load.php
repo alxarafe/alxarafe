@@ -19,30 +19,39 @@ class Load
      * Message for throw exception.
      */
     public const UNABLE_TO_LOAD = 'Unable to load class';
+
     /**
      * Array of directories.
      *
      * @var array
      */
     protected static $dirs = [];
+
     /**
      * Total number of registered classes.
      *
      * @var int
      */
     protected static $registered = 0;
+
     /**
      * Hold the classes on instance.
      *
      * @var self
      */
     private static $instance;
+
     /**
      * Contains if loaded file exists.
      *
      * @param array $dirs
      */
     private static $fileExists;
+
+    /**
+     * @var array
+     */
+    private static $fileLoaded;
 
     /**
      * Load constructor.
@@ -52,6 +61,7 @@ class Load
     public function __construct($dirs = [])
     {
         if (!isset(self::$instance)) {
+            self::$fileLoaded = [];
             self::$instance = $this;
             if (empty($dirs)) {
                 $dirs = realpath(constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src');
@@ -70,7 +80,7 @@ class Load
     {
         // If composer autoload is available, try to load it.
         if (is_string($dirs)) {
-            $autoload = realpath($dirs . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+            $autoload = dirname($dirs) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
             if (file_exists($autoload)) {
                 require_once $autoload;
             }
@@ -137,14 +147,14 @@ class Load
             if (in_array(strpos($class, 'Alxarafe'), [0, 1], true) || in_array(strpos($class, 'Modules'), [0, 1], true)) {
                 throw new RuntimeException(self::UNABLE_TO_LOAD . ' ' . $class);
             }
+            $success = true;
         }
         return $success;
     }
 
     /**
      * Load a file if exists.
-     * Returns true if file exists and is loaded,
-     * otherwise return false.
+     * Returns true if file exists and is loaded, otherwise return false.
      *
      * The reason for this method is that if the file is not founded, we don't generate a fatal error when requiring it.
      *
@@ -155,8 +165,12 @@ class Load
     protected static function loadFile(string $file): bool
     {
         self::$fileExists = file_exists($file);
+        if (in_array($file, self::$fileLoaded, true)) {
+            return true;
+        }
         if (self::$fileExists) {
             require_once $file;
+            self::$fileLoaded[] = $file;
             return true;
         }
         return false;

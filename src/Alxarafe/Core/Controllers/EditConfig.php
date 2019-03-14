@@ -94,6 +94,53 @@ class EditConfig extends AuthPageController
     public $regionalConfig;
 
     /**
+     * Returns the page details.
+     *
+     * @return array
+     */
+    public function pageDetails(): array
+    {
+        $details = [
+            'title' => 'edit-configuration',
+            'icon' => '<i class="fas fa-save"></i>',
+            'description' => 'edit-configuration-description',
+            //'menu' => 'admin|edit-config',
+            'menu' => 'admin',
+        ];
+        return $details;
+    }
+
+    /**
+     * Returns a list of timezones list with GMT offset
+     *
+     * @return array
+     *
+     * @link http://stackoverflow.com/a/9328760
+     */
+    public function getTimezoneList(): array
+    {
+        $zonesArray = [];
+        $timestamp = time();
+        foreach (timezone_identifiers_list() as $key => $zone) {
+            date_default_timezone_set($zone);
+            $zonesArray[$key]['zone'] = $zone;
+            $zonesArray[$key]['diff_from_GMT'] = 'UTC/GMT ' . date('P', $timestamp);
+        }
+        return $zonesArray;
+    }
+
+    /**
+     * Default create method for new registers.
+     *
+     * @return Response
+     */
+    public function createMethod(): Response
+    {
+        // Can't add new registers, it's a placeholder
+        return $this->indexMethod();
+    }
+
+    /**
      * The start point of the controller.
      *
      * @return Response
@@ -212,53 +259,6 @@ class EditConfig extends AuthPageController
         }
 
         return $result;
-    }
-
-    /**
-     * Returns the page details.
-     *
-     * @return array
-     */
-    public function pageDetails(): array
-    {
-        $details = [
-            'title' => 'edit-configuration',
-            'icon' => '<i class="fas fa-save"></i>',
-            'description' => 'edit-configuration-description',
-            //'menu' => 'admin|edit-config',
-            'menu' => 'admin',
-        ];
-        return $details;
-    }
-
-    /**
-     * Returns a list of timezones list with GMT offset
-     *
-     * @return array
-     *
-     * @link http://stackoverflow.com/a/9328760
-     */
-    public function getTimezoneList(): array
-    {
-        $zonesArray = [];
-        $timestamp = time();
-        foreach (timezone_identifiers_list() as $key => $zone) {
-            date_default_timezone_set($zone);
-            $zonesArray[$key]['zone'] = $zone;
-            $zonesArray[$key]['diff_from_GMT'] = 'UTC/GMT ' . date('P', $timestamp);
-        }
-        return $zonesArray;
-    }
-
-    /**
-     * Default create method for new registers.
-     *
-     * @return Response
-     */
-    public function createMethod(): Response
-    {
-        // Can't add new registers, it's a placeholder
-        return $this->indexMethod();
     }
 
     /**

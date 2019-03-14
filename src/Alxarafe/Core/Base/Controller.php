@@ -13,6 +13,7 @@ use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\Logger;
 use Alxarafe\Core\Providers\TemplateRender;
 use Alxarafe\Core\Providers\Translator;
+use Monolog\Logger as MonologLogger;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,6 +76,13 @@ abstract class Controller
     public $debugTool;
 
     /**
+     * The logger.
+     *
+     * @var MonologLogger
+     */
+    public $logger;
+
+    /**
      * Contains dependencies.
      *
      * @var Container|null
@@ -110,9 +118,8 @@ abstract class Controller
         $this->session = Session::getInstance();
         $this->renderer = TemplateRender::getInstance();
         $this->translator = Translator::getInstance();
-        $this->renderer->addVars([
-            'ctrl' => $this,
-        ]);
+        $this->logger = Logger::getInstance()->getLogger();
+        $this->renderer->addVars(['ctrl' => $this,]);
         $this->renderer->setTemplate(strtolower($this->shortName));
         $this->username = null;
         $this->debugTool->stopTimer($this->shortName);
@@ -159,7 +166,7 @@ abstract class Controller
             $destiny = baseUrl('index.php');
         }
         $vars = ['%from%' => $this->shortName, '%to%' => $destiny];
-        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('redirected-from-to', $vars));
+        $this->logger->addDebug($this->translator->trans('redirected-from-to', $vars));
         return new RedirectResponse($destiny);
     }
 
@@ -171,7 +178,7 @@ abstract class Controller
     public function runMethod(string $methodName): Response
     {
         $method = $methodName . 'Method';
-        Logger::getInstance()->getLogger()->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
+        $this->logger->addDebug($this->translator->trans('call-to', ['%called%' => $this->shortName . '->' . $method . '()']));
         return $this->{$method}();
     }
 
@@ -224,22 +231,86 @@ abstract class Controller
     }
 
     /**
-     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
+     * addCSS includes the CSS files to template.
+     *
+     * @param string $file
      *
      * @return void
      */
-    public function addCSS(): void
+    public function addCSS(string $file): void
     {
-        //$this->addToVar('cssCode', $this->addResource('/.css'));
+        $this->addToVar('cssCode', $this->addResource($file));
     }
 
     /**
-     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
+     * addJS includes the JS files to template.
+     *
+     * @param string $file
      *
      * @return void
      */
-    public function addJS(): void
+    public function addJS(string $file): void
     {
-        //$this->addToVar('jsCode', $this->addResource('/.js'));
+        $this->addToVar('jsCode', $this->addResource($file));
+    }
+
+    /**
+     * Return body parameters $_POST values.
+     *
+     * @return array
+     */
+    public function getArrayPost(): array
+    {
+        return $this->request->request->all();
+    }
+
+    /**
+     * Return query string parameters $_GET values.
+     *
+     * @return array
+     */
+    public function getArrayGet(): array
+    {
+        return $this->request->query->all();
+    }
+
+    /**
+     * Return server and execution environment parameters from $_SERVER values.
+     *
+     * @return array
+     */
+    public function getArrayServer(): array
+    {
+        return $this->request->server->all();
+    }
+
+    /**
+     * Return headers from $_SERVER header values.
+     *
+     * @return array
+     */
+    public function getArrayHeaders(): array
+    {
+        return $this->request->headers->all();
+    }
+
+    /**
+     * Return uploaded files from $_FILES.
+     *
+     * @return array
+     */
+    public function getArrayFiles(): array
+    {
+        return $this->request->files->all();
+    }
+
+    /**
+     * Return cookies from $_COOKIES.
+     *
+     * @return array
+     */
+    public function getArrayCookies(): array
+    {
+        return $this->request->files->all();
     }
 }

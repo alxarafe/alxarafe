@@ -200,7 +200,7 @@ class Schema
             $folder = basePath($module['path'] . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type);
             FileSystemUtils::mkdir($folder, 0777, true);
             $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
-            if(file_exists($path)) {
+            if (file_exists($path)) {
                 return $path;
             }
         }
@@ -246,6 +246,7 @@ class Schema
                 return [];
             }
         }
+        FlashMessages::getInstance()::setError("File '" . $fileName . "' not exists");
         return [];
     }
 

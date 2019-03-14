@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Providers;
 
+use Alxarafe\Core\DebugBarCollectors\PhpCollector;
 use Alxarafe\Core\DebugBarCollectors\TranslatorCollector;
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use DebugBar\Bridge\MonologCollector;
@@ -65,7 +66,7 @@ class DebugTool
                 $logger = Logger::getInstance();
                 $this->debugTool->addCollector(new MonologCollector($logger->getLogger()));
                 $this->debugTool->addCollector(new MessagesCollector('SQL'));
-                //$this->debugTool->addCollector(new PhpCollector());
+                $this->debugTool->addCollector(new PhpCollector());
                 $translator = Translator::getInstance();
                 $this->debugTool->addCollector(new TranslatorCollector($translator));
             } catch (DebugBarException $e) {
@@ -74,6 +75,65 @@ class DebugTool
             $baseUrl = baseUrl('vendor/maximebf/debugbar/src/DebugBar/Resources');
             $this->jsRender = $this->debugTool->getJavascriptRenderer($baseUrl, basePath());
             $this->stopTimer($shortName);
+        }
+    }
+
+    /**
+     * Start a timer by name and message
+     *
+     * @param string $name
+     * @param string $message
+     */
+    public function startTimer(string $name, string $message = 'Timer started'): void
+    {
+        try {
+            if (!$this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
+            hasStartedMeasure($name)) {
+                $this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
+                startMeasure($name, $message);
+            } else {
+                $this->addMessage('messages', "Timer '" . $name . "' yet started and trying to start it again.");
+            }
+        } catch (DebugBarException $e) {
+            Logger::getInstance()::exceptionHandler($e);
+        }
+    }
+
+    /**
+     * Write a message in a channel (tab) of the debug bar.
+     *
+     * @param string $channel
+     * @param string $message
+     */
+    public function addMessage(string $channel, string $message): void
+    {
+        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
+        $caller['file'] = substr($caller['file'], strlen(basePath()));
+        try {
+            $this->debugTool->getCollector($channel)->/** @scrutinizer ignore-call */
+            addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
+        } catch (DebugBarException $e) {
+            Logger::getInstance()::exceptionHandler($e);
+        }
+    }
+
+    /**
+     * Stop a timer by name.
+     *
+     * @param string $name
+     */
+    public function stopTimer(string $name): void
+    {
+        try {
+            if ($this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
+            hasStartedMeasure($name)) {
+                $this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
+                stopMeasure($name);
+            } else {
+                $this->addMessage('messages', "Timer '" . $name . "' not yet started and trying to stop it.");
+            }
+        } catch (DebugBarException $e) {
+            Logger::getInstance()::exceptionHandler($e);
         }
     }
 
@@ -150,64 +210,5 @@ class DebugTool
             return $this->jsRender->render();
         }
         return '';
-    }
-
-    /**
-     * Start a timer by name and message
-     *
-     * @param string $name
-     * @param string $message
-     */
-    public function startTimer(string $name, string $message = 'Timer started'): void
-    {
-        try {
-            if (!$this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
-            hasStartedMeasure($name)) {
-                $this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
-                startMeasure($name, $message);
-            } else {
-                $this->addMessage('messages', "Timer '" . $name . "' yet started and trying to start it again.");
-            }
-        } catch (DebugBarException $e) {
-            Logger::getInstance()::exceptionHandler($e);
-        }
-    }
-
-    /**
-     * Write a message in a channel (tab) of the debug bar.
-     *
-     * @param string $channel
-     * @param string $message
-     */
-    public function addMessage(string $channel, string $message): void
-    {
-        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(basePath()));
-        try {
-            $this->debugTool->getCollector($channel)->/** @scrutinizer ignore-call */
-            addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
-        } catch (DebugBarException $e) {
-            Logger::getInstance()::exceptionHandler($e);
-        }
-    }
-
-    /**
-     * Stop a timer by name.
-     *
-     * @param string $name
-     */
-    public function stopTimer(string $name): void
-    {
-        try {
-            if ($this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
-            hasStartedMeasure($name)) {
-                $this->debugTool->getCollector('time')->/** @scrutinizer ignore-call */
-                stopMeasure($name);
-            } else {
-                $this->addMessage('messages', "Timer '" . $name . "' not yet started and trying to stop it.");
-            }
-        } catch (DebugBarException $e) {
-            Logger::getInstance()::exceptionHandler($e);
-        }
     }
 }

@@ -129,22 +129,6 @@ class Translator
     }
 
     /**
-     * Add additional language folders.
-     *
-     * @param array $folders
-     */
-    public function addDirs(array $folders = [])
-    {
-        foreach ($folders as $key => $folder) {
-            $folders[$key] = $folder . self::LANG_FOLDER;
-            FileSystemUtils::mkdir($folders[$key], 0777, true);
-            DebugTool::getInstance()->addMessage('messages', 'Added translation folder ' . $folders[$key]);
-        }
-        self::$languageFolders = array_merge(self::$languageFolders, $folders);
-        $this->loadLangFiles();
-    }
-
-    /**
      * Return the lang folders.
      *
      * @return array
@@ -185,6 +169,22 @@ class Translator
     public static function getDefaultValues(): array
     {
         return ['language' => self::FALLBACK_LANG];
+    }
+
+    /**
+     * Add additional language folders.
+     *
+     * @param array $folders
+     */
+    public function addDirs(array $folders = [])
+    {
+        foreach ($folders as $key => $folder) {
+            $folders[$key] = $folder . self::LANG_FOLDER;
+            FileSystemUtils::mkdir($folders[$key], 0777, true);
+            DebugTool::getInstance()->addMessage('messages', 'Added translation folder ' . $folders[$key]);
+        }
+        self::$languageFolders = array_merge(self::$languageFolders, $folders);
+        $this->loadLangFiles();
     }
 
     /**

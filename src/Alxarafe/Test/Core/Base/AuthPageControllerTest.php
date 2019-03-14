@@ -1,34 +1,43 @@
 <?php
 
-namespace Alxarafe\Test\Core\Controllers;
+namespace Alxarafe\Test\Core\Base;
 
-use Alxarafe\Core\Controllers\Login;
-use Alxarafe\Test\Core\Base\ControllerTest;
-
-class LoginTest extends ControllerTest
+class AuthPageControllerTest extends AuthControllerTest
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+
+    public function testReadMethod()
     {
-        $this->object = new Login();
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    public function tearDown()
+    public function testDeleteMethod()
     {
-        $this->object = null;
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
-    /**
-     * @use Login::getCookieUser
-     */
-    public function testGetCookieUser()
+    public function testUpdateMethod()
+    {
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    public function testRunMethod()
+    {
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    public function testGetUserMenu()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -37,39 +46,14 @@ class LoginTest extends ControllerTest
     }
 
     /**
-     * @use Login::setUser
-     */
-    public function testSetUser()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @use Login::logoutMethod
-     */
-    public function testLogoutMethod()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @use Login::pageDetails
+     * AuthPageController::pageDetails
      */
     public function testPageDetails()
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }
 
-    /**
-     * @use Login::getUser
-     */
-    public function testGetUser()
+    public function testCreateMethod()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -77,9 +61,6 @@ class LoginTest extends ControllerTest
         );
     }
 
-    /**
-     * @use Login::indexMethod
-     */
     public function testIndexMethod()
     {
         // Remove the following lines when you implement this test.
@@ -88,10 +69,7 @@ class LoginTest extends ControllerTest
         );
     }
 
-    /**
-     * @use Login::getUserName
-     */
-    public function testGetUserName()
+    public function test__construct()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

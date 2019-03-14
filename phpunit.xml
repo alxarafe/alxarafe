@@ -62,6 +62,14 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <exclude>
+                <file>src/Alxarafe/Test/BootStrap.php</file>
+                <file>src/Alxarafe/Test/Core/Base/ControllerTest.php</file>
+                <file>src/Alxarafe/Test/Core/Base/AuthControllerTest.php</file>
+                <file>src/Alxarafe/Test/Core/Base/AuthPageControllerTest.php</file>
+                <file>src/Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.php</file>
+                <!--<directory suffix=".php">src/Alxarafe/Test</directory>-->
+            </exclude>
         </whitelist>
     </filter>
     <logging>

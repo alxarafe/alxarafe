@@ -125,5 +125,6 @@ class ArrayUtilsTest extends TestCase
      */
     protected function tearDown()
     {
+        $this->object = null;
     }
 }

@@ -54,17 +54,16 @@
 {% set type = data.type | default('button') %}
 {% set link = data.link | default('#') %}
 
-
 {% if style == 'link' %}
-	<a id="{{ id }}" name="{{ name }}" class="{{ class }}" href="{{ link }}" role="button">
-		{{ text | raw }}
-	</a>
+    <a id="{{ id }}" name="{{ name }}" class="{{ class }}" href="{{ link }}" role="button">
+        {{ text | raw }}
+    </a>
 {% elseif style == 'button' %}
-	<button id="{{ id }}" name="{{ name }}" class="{{ class }}" type="{{ type }}">
-		{{ text | raw }}
-	</button>
+    <button id="{{ id }}" name="{{ name }}" class="{{ class }}" type="{{ type }}">
+        {{ text | raw }}
+    </button>
 {% elseif style == 'input' %}
-	<input id="{{ id }}" name="{{ name }}" class="{{ class }}" type="{{ type }}" value="{{ text | raw }}">
+    <input id="{{ id }}" name="{{ name }}" class="{{ class }}" type="{{ type }}" value="{{ text | raw }}">
 {% else %}
-	Style not supported
+    Style not supported
 {% endif %}

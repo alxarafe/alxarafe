@@ -153,7 +153,6 @@ abstract class SqlHelper
     public function getColumns(string $tableName, bool $usePrefix = true): array
     {
         $query = $this->getColumnsSql($tableName, $usePrefix);
-        //$data = Database::getInstance()->getDbEngine()->select($query);
         $data = Database::getInstance()->getDbEngine()->selectCoreCache($tableName . '-columns', $query);
         $result = [];
         foreach ($data as $value) {

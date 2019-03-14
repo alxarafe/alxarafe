@@ -5,7 +5,7 @@ window.projectVersion = 'master';
 
     var bhIndex = null;
     var rootPath = '';
-    var treeHtml = '        <ul>                <li data-name="namespace:Alxarafe" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe.html">Alxarafe</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Autoload" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Autoload.html">Autoload</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Autoload_Load" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Autoload/Load.html">Load</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Base" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Base.html">Base</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Base_AuthController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthController.html">AuthController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageController.html">AuthPageController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageExtendedController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageExtendedController.html">AuthPageExtendedController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Cache" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Cache.html">Cache</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_CacheCore" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/CacheCore.html">CacheCore</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Controller" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Controller.html">Controller</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Entity" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Entity.html">Entity</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_FlatTable" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/FlatTable.html">FlatTable</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_SimpleTable" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/SimpleTable.html">SimpleTable</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Table" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Table.html">Table</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Controllers_CreateConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/CreateConfig.html">CreateConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_EditConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/EditConfig.html">EditConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Login" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Login.html">Login</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Modules" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Modules.html">Modules</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Roles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Roles.html">Roles</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_RolesPages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/RolesPages.html">RolesPages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Tables" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Tables.html">Tables</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Users" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Users.html">Users</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_UsersRoles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/UsersRoles.html">UsersRoles</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database.html">Database</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Database_Engines" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/Engines.html">Engines</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_Engines_PdoFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoFirebird.html">PdoFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engines_PdoMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoMySql.html">PdoMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database_SqlHelpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/SqlHelpers.html">SqlHelpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlFirebird.html">SqlFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlMySql.html">SqlMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engine" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engine.html">Engine</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelper" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelper.html">SqlHelper</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_DebugBarCollectors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/DebugBarCollectors.html">DebugBarCollectors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_DebugBarCollectors_PhpCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/PhpCollector.html">PhpCollector</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_DebugBarCollectors_TranslatorCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/TranslatorCollector.html">TranslatorCollector</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Helpers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Helpers_Utils" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Helpers_Utils_ArrayUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ArrayUtils.html">ArrayUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_ClassUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ClassUtils.html">ClassUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_FileSystemUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/FileSystemUtils.html">FileSystemUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_TextUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/TextUtils.html">TextUtils</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_FormatUtils" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/FormatUtils.html">FormatUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Schema" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Schema.html">Schema</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_SchemaDB" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/SchemaDB.html">SchemaDB</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Session" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Session.html">Session</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFilters" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFilters.html">TwigFilters</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFunctions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFunctions.html">TwigFunctions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Models_Language" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Language.html">Language</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Module" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Module.html">Module</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Page" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Page.html">Page</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Role" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Role.html">Role</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_RolePage" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/RolePage.html">RolePage</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_TableModel" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/TableModel.html">TableModel</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_User" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/User.html">User</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_UserRole" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/UserRole.html">UserRole</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_PreProcessors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/PreProcessors.html">PreProcessors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_PreProcessors_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Models" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Models.html">Models</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Routes" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Routes.html">Routes</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Providers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Providers.html">Providers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Providers_Config" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Config.html">Config</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Container" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Container.html">Container</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Database" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Database.html">Database</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_DebugTool" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/DebugTool.html">DebugTool</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_FlashMessages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/FlashMessages.html">FlashMessages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Logger" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Logger.html">Logger</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_ModuleManager" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/ModuleManager.html">ModuleManager</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_RegionalInfo" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/RegionalInfo.html">RegionalInfo</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Router" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Router.html">Router</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Singleton" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Singleton.html">Singleton</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_TemplateRender" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/TemplateRender.html">TemplateRender</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Translator" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Translator.html">Translator</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Renders" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders.html">Renders</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig.html">Twig</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig_Components" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig/Components.html">Components</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Renders_Twig_Components_AbstractComponent" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/AbstractComponent.html">AbstractComponent</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Alert" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Alert.html">Alert</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Button" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Button.html">Button</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Traits" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Traits.html">Traits</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Traits_AjaxDataTableTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/AjaxDataTableTrait.html">AjaxDataTableTrait</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Traits_MagicTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/MagicTrait.html">MagicTrait</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_BootStrap" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/BootStrap.html">BootStrap</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_InitializerAbstract" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/InitializerAbstract.html">InitializerAbstract</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test.html">Test</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Autoload" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Autoload.html">Autoload</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Autoload_LoadTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Autoload/LoadTest.html">LoadTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Base" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Base.html">Base</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Base_CacheCoreTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Base/CacheCoreTest.html">CacheCoreTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Controllers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Controllers_CreateConfigTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html">CreateConfigTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_EditConfigTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html">EditConfigTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_LanguagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html">LanguagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_LoginTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/LoginTest.html">LoginTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_ModulesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html">ModulesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_PagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/PagesTest.html">PagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_RolesPagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html">RolesPagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_RolesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/RolesTest.html">RolesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_TablesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/TablesTest.html">TablesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_UsersRolesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html">UsersRolesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_UsersTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/UsersTest.html">UsersTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Helpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Helpers_Utils" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ArrayUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html">ArrayUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ClassUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html">ClassUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_FileSystemUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html">FileSystemUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_TextUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html">TextUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_FormatUtilsTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html">FormatUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Models" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Models_LanguageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/LanguageTest.html">LanguageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_ModuleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/ModuleTest.html">ModuleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_PageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/PageTest.html">PageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_RolePageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/RolePageTest.html">RolePageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_RoleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/RoleTest.html">RoleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_TableModelTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/TableModelTest.html">TableModelTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_UserRoleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/UserRoleTest.html">UserRoleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_UserTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/UserTest.html">UserTest</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules.html">Modules</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample.html">Sample</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Controllers_Countries" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Countries.html">Countries</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_IntermediateRegions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/IntermediateRegions.html">IntermediateRegions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_People" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/People.html">People</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Regions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Regions.html">Regions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Subregions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Subregions.html">Subregions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules_Sample_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Models_Country" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Country.html">Country</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_IntermediateRegion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/IntermediateRegion.html">IntermediateRegion</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Person" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Person.html">Person</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Region" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Region.html">Region</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Subregion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Subregion.html">Subregion</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul>';
+    var treeHtml = '        <ul>                <li data-name="namespace:Alxarafe" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe.html">Alxarafe</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Autoload" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Autoload.html">Autoload</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Autoload_Load" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Autoload/Load.html">Load</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Base" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Base.html">Base</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Base_AuthController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthController.html">AuthController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageController.html">AuthPageController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_AuthPageExtendedController" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/AuthPageExtendedController.html">AuthPageExtendedController</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Cache" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Cache.html">Cache</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_CacheCore" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/CacheCore.html">CacheCore</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Controller" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Controller.html">Controller</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Entity" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Entity.html">Entity</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_FlatTable" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/FlatTable.html">FlatTable</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_SimpleTable" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/SimpleTable.html">SimpleTable</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Base_Table" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Base/Table.html">Table</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Controllers_CreateConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/CreateConfig.html">CreateConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_EditConfig" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/EditConfig.html">EditConfig</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Login" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Login.html">Login</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Modules" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Modules.html">Modules</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Roles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Roles.html">Roles</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_RolesPages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/RolesPages.html">RolesPages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Tables" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Tables.html">Tables</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_Users" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/Users.html">Users</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Controllers_UsersRoles" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Controllers/UsersRoles.html">UsersRoles</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database.html">Database</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Database_Engines" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/Engines.html">Engines</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_Engines_PdoFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoFirebird.html">PdoFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engines_PdoMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engines/PdoMySql.html">PdoMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Database_SqlHelpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Database/SqlHelpers.html">SqlHelpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlFirebird" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlFirebird.html">SqlFirebird</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelpers_SqlMySql" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelpers/SqlMySql.html">SqlMySql</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Database_Engine" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/Engine.html">Engine</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Database_SqlHelper" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Database/SqlHelper.html">SqlHelper</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_DebugBarCollectors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/DebugBarCollectors.html">DebugBarCollectors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_DebugBarCollectors_PhpCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/PhpCollector.html">PhpCollector</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_DebugBarCollectors_TranslatorCollector" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/DebugBarCollectors/TranslatorCollector.html">TranslatorCollector</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Helpers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Helpers_Utils" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Helpers_Utils_ArrayUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ArrayUtils.html">ArrayUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_ClassUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/ClassUtils.html">ClassUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_FileSystemUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/FileSystemUtils.html">FileSystemUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Utils_TextUtils" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Utils/TextUtils.html">TextUtils</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_FormatUtils" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/FormatUtils.html">FormatUtils</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Schema" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Schema.html">Schema</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_SchemaDB" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/SchemaDB.html">SchemaDB</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_Session" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/Session.html">Session</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFilters" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFilters.html">TwigFilters</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Helpers_TwigFunctions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Helpers/TwigFunctions.html">TwigFunctions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Models_Language" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Language.html">Language</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Module" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Module.html">Module</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Page" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Page.html">Page</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_Role" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/Role.html">Role</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_RolePage" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/RolePage.html">RolePage</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_TableModel" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/TableModel.html">TableModel</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_User" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/User.html">User</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Models_UserRole" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Models/UserRole.html">UserRole</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_PreProcessors" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/PreProcessors.html">PreProcessors</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_PreProcessors_Languages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Languages.html">Languages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Models" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Models.html">Models</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Pages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Pages.html">Pages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_PreProcessors_Routes" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/PreProcessors/Routes.html">Routes</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Providers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Providers.html">Providers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Providers_Config" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Config.html">Config</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Container" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Container.html">Container</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Database" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Database.html">Database</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_DebugTool" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/DebugTool.html">DebugTool</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_FlashMessages" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/FlashMessages.html">FlashMessages</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Logger" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Logger.html">Logger</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_ModuleManager" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/ModuleManager.html">ModuleManager</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_RegionalInfo" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/RegionalInfo.html">RegionalInfo</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Router" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Router.html">Router</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Singleton" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Singleton.html">Singleton</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_TemplateRender" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/TemplateRender.html">TemplateRender</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Providers_Translator" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Providers/Translator.html">Translator</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Renders" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders.html">Renders</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig.html">Twig</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Core_Renders_Twig_Components" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Renders/Twig/Components.html">Components</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Renders_Twig_Components_AbstractComponent" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/AbstractComponent.html">AbstractComponent</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Alert" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Alert.html">Alert</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Renders_Twig_Components_Button" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Core/Renders/Twig/Components/Button.html">Button</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Core_Traits" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Core/Traits.html">Traits</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Core_Traits_AjaxDataTableTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/AjaxDataTableTrait.html">AjaxDataTableTrait</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_Traits_MagicTrait" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Alxarafe/Core/Traits/MagicTrait.html">MagicTrait</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Core_BootStrap" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/BootStrap.html">BootStrap</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Core_InitializerAbstract" >                    <div style="padding-left:44px" class="hd leaf">                        <a href="Alxarafe/Core/InitializerAbstract.html">InitializerAbstract</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test.html">Test</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core.html">Core</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Autoload" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Autoload.html">Autoload</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Autoload_LoadTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Autoload/LoadTest.html">LoadTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Base" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Base.html">Base</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Base_AuthControllerTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html">AuthControllerTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Base_AuthPageControllerTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html">AuthPageControllerTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Base_AuthPageExtendedControllerTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html">AuthPageExtendedControllerTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Base_CacheCoreTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Base/CacheCoreTest.html">CacheCoreTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Base_ControllerTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Base/ControllerTest.html">ControllerTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Controllers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Controllers_CreateConfigTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html">CreateConfigTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_EditConfigTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html">EditConfigTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_LanguagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html">LanguagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_LoginTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/LoginTest.html">LoginTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_ModulesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html">ModulesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_PagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/PagesTest.html">PagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_RolesPagesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html">RolesPagesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_RolesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/RolesTest.html">RolesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_TablesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/TablesTest.html">TablesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_UsersRolesTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html">UsersRolesTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Controllers_UsersTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Controllers/UsersTest.html">UsersTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Helpers" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers.html">Helpers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Alxarafe_Test_Core_Helpers_Utils" >                    <div style="padding-left:72px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Helpers/Utils.html">Utils</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ArrayUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html">ArrayUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_ClassUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html">ClassUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_FileSystemUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html">FileSystemUtilsTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_Utils_TextUtilsTest" >                    <div style="padding-left:98px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html">TextUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Helpers_FormatUtilsTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html">FormatUtilsTest</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Alxarafe_Test_Core_Models" >                    <div style="padding-left:54px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Alxarafe/Test/Core/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Alxarafe_Test_Core_Models_LanguageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/LanguageTest.html">LanguageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_ModuleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/ModuleTest.html">ModuleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_PageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/PageTest.html">PageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_RolePageTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/RolePageTest.html">RolePageTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_RoleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/RoleTest.html">RoleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_TableModelTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/TableModelTest.html">TableModelTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_UserRoleTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/UserRoleTest.html">UserRoleTest</a>                    </div>                </li>                            <li data-name="class:Alxarafe_Test_Core_Models_UserTest" >                    <div style="padding-left:80px" class="hd leaf">                        <a href="Alxarafe/Test/Core/Models/UserTest.html">UserTest</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules" class="opened">                    <div style="padding-left:0px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules.html">Modules</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample" class="opened">                    <div style="padding-left:18px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample.html">Sample</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="namespace:Modules_Sample_Controllers" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Controllers.html">Controllers</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Controllers_Countries" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Countries.html">Countries</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_IntermediateRegions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/IntermediateRegions.html">IntermediateRegions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_People" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/People.html">People</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Regions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Regions.html">Regions</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Controllers_Subregions" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Controllers/Subregions.html">Subregions</a>                    </div>                </li>                </ul></div>                </li>                            <li data-name="namespace:Modules_Sample_Models" >                    <div style="padding-left:36px" class="hd">                        <span class="glyphicon glyphicon-play"></span><a href="Modules/Sample/Models.html">Models</a>                    </div>                    <div class="bd">                                <ul>                <li data-name="class:Modules_Sample_Models_Country" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Country.html">Country</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_IntermediateRegion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/IntermediateRegion.html">IntermediateRegion</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Person" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Person.html">Person</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Region" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Region.html">Region</a>                    </div>                </li>                            <li data-name="class:Modules_Sample_Models_Subregion" >                    <div style="padding-left:62px" class="hd leaf">                        <a href="Modules/Sample/Models/Subregion.html">Subregion</a>                    </div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul></div>                </li>                </ul>';
 
     var searchTypeClasses = {
         'Namespace': 'label-default',
@@ -255,6 +255,22 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\AuthController",
             "fromLink": "Alxarafe/Core/Base/AuthController.html",
+            "link": "Alxarafe/Core/Base/AuthController.html#method_checkLoginWeb",
+            "name": "Alxarafe\\Core\\Base\\AuthController::checkLoginWeb",
+            "doc": "&quot;Check if user is logged-in from Login.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\AuthController",
+            "fromLink": "Alxarafe/Core/Base/AuthController.html",
+            "link": "Alxarafe/Core/Base/AuthController.html#method_checkLoginAPI",
+            "name": "Alxarafe\\Core\\Base\\AuthController::checkLoginAPI",
+            "doc": "&quot;Check if user is logged-in from API.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\AuthController",
+            "fromLink": "Alxarafe/Core/Base/AuthController.html",
             "link": "Alxarafe/Core/Base/AuthController.html#method_adjustCookieUser",
             "name": "Alxarafe\\Core\\Base\\AuthController::adjustCookieUser",
             "doc": "&quot;Adjust auth cookie user.&quot;"
@@ -489,17 +505,17 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\AuthPageExtendedController",
             "fromLink": "Alxarafe/Core/Base/AuthPageExtendedController.html",
-            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_getDataPost",
-            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::getDataPost",
-            "doc": "&quot;Returns the data received from $_POST&quot;"
+            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_save",
+            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::save",
+            "doc": "&quot;Save the data.&quot;"
         },
         {
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\AuthPageExtendedController",
             "fromLink": "Alxarafe/Core/Base/AuthPageExtendedController.html",
-            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_save",
-            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::save",
-            "doc": "&quot;Save the data.&quot;"
+            "link": "Alxarafe/Core/Base/AuthPageExtendedController.html#method_getDataPost",
+            "name": "Alxarafe\\Core\\Base\\AuthPageExtendedController::getDataPost",
+            "doc": "&quot;Returns the data received from $_POST&quot;"
         },
         {
             "type": "Method",
@@ -726,7 +742,7 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Core/Base/Controller.html",
             "link": "Alxarafe/Core/Base/Controller.html#method_addCSS",
             "name": "Alxarafe\\Core\\Base\\Controller::addCSS",
-            "doc": "&quot;addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.&quot;"
+            "doc": "&quot;addCSS includes the CSS files to template.&quot;"
         },
         {
             "type": "Method",
@@ -734,7 +750,55 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Core/Base/Controller.html",
             "link": "Alxarafe/Core/Base/Controller.html#method_addJS",
             "name": "Alxarafe\\Core\\Base\\Controller::addJS",
-            "doc": "&quot;addJS includes the common JS files to all views templates. Also defines JS folders templates.&quot;"
+            "doc": "&quot;addJS includes the JS files to template.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\Controller",
+            "fromLink": "Alxarafe/Core/Base/Controller.html",
+            "link": "Alxarafe/Core/Base/Controller.html#method_getArrayPost",
+            "name": "Alxarafe\\Core\\Base\\Controller::getArrayPost",
+            "doc": "&quot;Return body parameters $_POST values.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\Controller",
+            "fromLink": "Alxarafe/Core/Base/Controller.html",
+            "link": "Alxarafe/Core/Base/Controller.html#method_getArrayGet",
+            "name": "Alxarafe\\Core\\Base\\Controller::getArrayGet",
+            "doc": "&quot;Return query string parameters $_GET values.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\Controller",
+            "fromLink": "Alxarafe/Core/Base/Controller.html",
+            "link": "Alxarafe/Core/Base/Controller.html#method_getArrayServer",
+            "name": "Alxarafe\\Core\\Base\\Controller::getArrayServer",
+            "doc": "&quot;Return server and execution environment parameters from $_SERVER values.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\Controller",
+            "fromLink": "Alxarafe/Core/Base/Controller.html",
+            "link": "Alxarafe/Core/Base/Controller.html#method_getArrayHeaders",
+            "name": "Alxarafe\\Core\\Base\\Controller::getArrayHeaders",
+            "doc": "&quot;Return headers from $_SERVER header values.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\Controller",
+            "fromLink": "Alxarafe/Core/Base/Controller.html",
+            "link": "Alxarafe/Core/Base/Controller.html#method_getArrayFiles",
+            "name": "Alxarafe\\Core\\Base\\Controller::getArrayFiles",
+            "doc": "&quot;Return uploaded files from $_FILES.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\Controller",
+            "fromLink": "Alxarafe/Core/Base/Controller.html",
+            "link": "Alxarafe/Core/Base/Controller.html#method_getArrayCookies",
+            "name": "Alxarafe\\Core\\Base\\Controller::getArrayCookies",
+            "doc": "&quot;Return cookies from $_COOKIES.&quot;"
         },
 
         {
@@ -862,6 +926,14 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_get",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::get",
+            "doc": "&quot;Returns a new instance of the table with the requested record.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
+            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
             "link": "Alxarafe/Core/Base/FlatTable.html#method_getDataById",
             "name": "Alxarafe\\Core\\Base\\FlatTable::getDataById",
             "doc": "&quot;This method is private. Use load instead.&quot;"
@@ -878,14 +950,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_defaultData",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::defaultData",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Base\\FlatTable",
-            "fromLink": "Alxarafe/Core/Base/FlatTable.html",
             "link": "Alxarafe/Core/Base/FlatTable.html#method_newRecord",
             "name": "Alxarafe\\Core\\Base\\FlatTable::newRecord",
             "doc": "&quot;Sets the active record in a new record.&quot;"
@@ -894,9 +958,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_get",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::get",
-            "doc": "&quot;Returns a new instance of the table with the requested record.&quot;"
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_defaultData",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::defaultData",
+            "doc": "&quot;TODO: Undocummented.&quot;"
         },
         {
             "type": "Method",
@@ -934,17 +998,17 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_insertRecord",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::insertRecord",
-            "doc": "&quot;Insert a new record.&quot;"
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_updateRecord",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::updateRecord",
+            "doc": "&quot;Update the modified fields in the active record.&quot;"
         },
         {
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Base\\FlatTable",
             "fromLink": "Alxarafe/Core/Base/FlatTable.html",
-            "link": "Alxarafe/Core/Base/FlatTable.html#method_updateRecord",
-            "name": "Alxarafe\\Core\\Base\\FlatTable::updateRecord",
-            "doc": "&quot;Update the modified fields in the active record.&quot;"
+            "link": "Alxarafe/Core/Base/FlatTable.html#method_insertRecord",
+            "name": "Alxarafe\\Core\\Base\\FlatTable::insertRecord",
+            "doc": "&quot;Insert a new record.&quot;"
         },
         {
             "type": "Method",
@@ -1009,7 +1073,7 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Core/Base/SimpleTable.html",
             "link": "Alxarafe/Core/Base/SimpleTable.html#method_defaultData",
             "name": "Alxarafe\\Core\\Base\\SimpleTable::defaultData",
-            "doc": "&quot;&quot;"
+            "doc": "&quot;TODO: Undocummented.&quot;"
         },
         {
             "type": "Method",
@@ -1307,30 +1371,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
             "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
-            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_indexMethod",
-            "name": "Alxarafe\\Core\\Controllers\\EditConfig::indexMethod",
-            "doc": "&quot;The start point of the controller.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
-            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
-            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_setDefaultData",
-            "name": "Alxarafe\\Core\\Controllers\\EditConfig::setDefaultData",
-            "doc": "&quot;Sets default data values&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
-            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
-            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_save",
-            "name": "Alxarafe\\Core\\Controllers\\EditConfig::save",
-            "doc": "&quot;Save the form changes in the configuration file&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
-            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
             "link": "Alxarafe/Core/Controllers/EditConfig.html#method_pageDetails",
             "name": "Alxarafe\\Core\\Controllers\\EditConfig::pageDetails",
             "doc": "&quot;Returns the page details.&quot;"
@@ -1350,6 +1390,30 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Controllers/EditConfig.html#method_createMethod",
             "name": "Alxarafe\\Core\\Controllers\\EditConfig::createMethod",
             "doc": "&quot;Default create method for new registers.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
+            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
+            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_indexMethod",
+            "name": "Alxarafe\\Core\\Controllers\\EditConfig::indexMethod",
+            "doc": "&quot;The start point of the controller.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
+            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
+            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_setDefaultData",
+            "name": "Alxarafe\\Core\\Controllers\\EditConfig::setDefaultData",
+            "doc": "&quot;Sets default data values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Controllers\\EditConfig",
+            "fromLink": "Alxarafe/Core/Controllers/EditConfig.html",
+            "link": "Alxarafe/Core/Controllers/EditConfig.html#method_save",
+            "name": "Alxarafe\\Core\\Controllers\\EditConfig::save",
+            "doc": "&quot;Save the form changes in the configuration file&quot;"
         },
         {
             "type": "Method",
@@ -2856,22 +2920,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Helpers\\Session",
             "fromLink": "Alxarafe/Core/Helpers/Session.html",
-            "link": "Alxarafe/Core/Helpers/Session.html#method_getCsrfToken",
-            "name": "Alxarafe\\Core\\Helpers\\Session::getCsrfToken",
-            "doc": "&quot;Gets the value of the outgoing CSRF token.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Helpers\\Session",
-            "fromLink": "Alxarafe/Core/Helpers/Session.html",
-            "link": "Alxarafe/Core/Helpers/Session.html#method_isValid",
-            "name": "Alxarafe\\Core\\Helpers\\Session::isValid",
-            "doc": "&quot;Checks whether an incoming CSRF token value is valid.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Helpers\\Session",
-            "fromLink": "Alxarafe/Core/Helpers/Session.html",
             "link": "Alxarafe/Core/Helpers/Session.html#method_getInstance",
             "name": "Alxarafe\\Core\\Helpers\\Session::getInstance",
             "doc": "&quot;Return this instance.&quot;"
@@ -2883,6 +2931,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Helpers/Session.html#method_getDefaultValues",
             "name": "Alxarafe\\Core\\Helpers\\Session::getDefaultValues",
             "doc": "&quot;Return default values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Helpers\\Session",
+            "fromLink": "Alxarafe/Core/Helpers/Session.html",
+            "link": "Alxarafe/Core/Helpers/Session.html#method_getCsrfToken",
+            "name": "Alxarafe\\Core\\Helpers\\Session::getCsrfToken",
+            "doc": "&quot;Gets the value of the outgoing CSRF token.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Helpers\\Session",
+            "fromLink": "Alxarafe/Core/Helpers/Session.html",
+            "link": "Alxarafe/Core/Helpers/Session.html#method_isValid",
+            "name": "Alxarafe\\Core\\Helpers\\Session::isValid",
+            "doc": "&quot;Checks whether an incoming CSRF token value is valid.&quot;"
         },
         {
             "type": "Method",
@@ -3855,6 +3919,30 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
             "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
+            "link": "Alxarafe/Core/Providers/DebugTool.html#method_startTimer",
+            "name": "Alxarafe\\Core\\Providers\\DebugTool::startTimer",
+            "doc": "&quot;Start a timer by name and message&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
+            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
+            "link": "Alxarafe/Core/Providers/DebugTool.html#method_addMessage",
+            "name": "Alxarafe\\Core\\Providers\\DebugTool::addMessage",
+            "doc": "&quot;Write a message in a channel (tab) of the debug bar.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
+            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
+            "link": "Alxarafe/Core/Providers/DebugTool.html#method_stopTimer",
+            "name": "Alxarafe\\Core\\Providers\\DebugTool::stopTimer",
+            "doc": "&quot;Stop a timer by name.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
+            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
             "link": "Alxarafe/Core/Providers/DebugTool.html#method_getInstance",
             "name": "Alxarafe\\Core\\Providers\\DebugTool::getInstance",
             "doc": "&quot;Return this instance.&quot;"
@@ -3898,30 +3986,6 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Providers/DebugTool.html#method_getRenderFooter",
             "name": "Alxarafe\\Core\\Providers\\DebugTool::getRenderFooter",
             "doc": "&quot;Return the render footer needed when debug is enabled. Otherwise return an empty string.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
-            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
-            "link": "Alxarafe/Core/Providers/DebugTool.html#method_startTimer",
-            "name": "Alxarafe\\Core\\Providers\\DebugTool::startTimer",
-            "doc": "&quot;Start a timer by name and message&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
-            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
-            "link": "Alxarafe/Core/Providers/DebugTool.html#method_addMessage",
-            "name": "Alxarafe\\Core\\Providers\\DebugTool::addMessage",
-            "doc": "&quot;Write a message in a channel (tab) of the debug bar.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\DebugTool",
-            "fromLink": "Alxarafe/Core/Providers/DebugTool.html",
-            "link": "Alxarafe/Core/Providers/DebugTool.html#method_stopTimer",
-            "name": "Alxarafe\\Core\\Providers\\DebugTool::stopTimer",
-            "doc": "&quot;Stop a timer by name.&quot;"
         },
 
         {
@@ -4106,33 +4170,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getConfig",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getConfig",
-            "doc": "&quot;Returns the data from database.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
-            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
             "link": "Alxarafe/Core/Providers/ModuleManager.html#method_initializeModules",
             "name": "Alxarafe\\Core\\Providers\\ModuleManager::initializeModules",
             "doc": "&quot;Initialize modules.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
-            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_runInitializer",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::runInitializer",
-            "doc": "&quot;Exec Initializer::init() from each enabled module.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
-            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getFoldersEnabledModules",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getFoldersEnabledModules",
-            "doc": "&quot;Returns a list of folder from enabled modules.&quot;"
         },
         {
             "type": "Method",
@@ -4146,9 +4186,25 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getFoldersEnabledModules",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getFoldersEnabledModules",
+            "doc": "&quot;Returns a list of folder from enabled modules.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
+            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
             "link": "Alxarafe/Core/Providers/ModuleManager.html#method_addRenderFolders",
             "name": "Alxarafe\\Core\\Providers\\ModuleManager::addRenderFolders",
             "doc": "&quot;Adds enabled module folders to renderer.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
+            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_runInitializer",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::runInitializer",
+            "doc": "&quot;Exec Initializer::init() from each enabled module.&quot;"
         },
         {
             "type": "Method",
@@ -4170,6 +4226,14 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getEnabledFolders",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getEnabledFolders",
+            "doc": "&quot;Return a list of enabled folders.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
+            "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
             "link": "Alxarafe/Core/Providers/ModuleManager.html#method_enableModule",
             "name": "Alxarafe\\Core\\Providers\\ModuleManager::enableModule",
             "doc": "&quot;Enable a module.&quot;"
@@ -4186,9 +4250,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\ModuleManager",
             "fromLink": "Alxarafe/Core/Providers/ModuleManager.html",
-            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getEnabledFolders",
-            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getEnabledFolders",
-            "doc": "&quot;Return a list of enabled folders.&quot;"
+            "link": "Alxarafe/Core/Providers/ModuleManager.html#method_getConfig",
+            "name": "Alxarafe\\Core\\Providers\\ModuleManager::getConfig",
+            "doc": "&quot;Returns the data from database.&quot;"
         },
 
         {
@@ -4502,14 +4566,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\TemplateRender",
             "fromLink": "Alxarafe/Core/Providers/TemplateRender.html",
-            "link": "Alxarafe/Core/Providers/TemplateRender.html#method_addDirs",
-            "name": "Alxarafe\\Core\\Providers\\TemplateRender::addDirs",
-            "doc": "&quot;Add additional language folders.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\TemplateRender",
-            "fromLink": "Alxarafe/Core/Providers/TemplateRender.html",
             "link": "Alxarafe/Core/Providers/TemplateRender.html#method_getPaths",
             "name": "Alxarafe\\Core\\Providers\\TemplateRender::getPaths",
             "doc": "&quot;Returns a list of available paths.&quot;"
@@ -4537,6 +4593,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Providers/TemplateRender.html#method_getDefaultValues",
             "name": "Alxarafe\\Core\\Providers\\TemplateRender::getDefaultValues",
             "doc": "&quot;Return default values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\TemplateRender",
+            "fromLink": "Alxarafe/Core/Providers/TemplateRender.html",
+            "link": "Alxarafe/Core/Providers/TemplateRender.html#method_addDirs",
+            "name": "Alxarafe\\Core\\Providers\\TemplateRender::addDirs",
+            "doc": "&quot;Add additional language folders.&quot;"
         },
         {
             "type": "Method",
@@ -4687,14 +4751,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\Providers\\Translator",
             "fromLink": "Alxarafe/Core/Providers/Translator.html",
-            "link": "Alxarafe/Core/Providers/Translator.html#method_addDirs",
-            "name": "Alxarafe\\Core\\Providers\\Translator::addDirs",
-            "doc": "&quot;Add additional language folders.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Core\\Providers\\Translator",
-            "fromLink": "Alxarafe/Core/Providers/Translator.html",
             "link": "Alxarafe/Core/Providers/Translator.html#method_getLangFolders",
             "name": "Alxarafe\\Core\\Providers\\Translator::getLangFolders",
             "doc": "&quot;Return the lang folders.&quot;"
@@ -4722,6 +4778,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Core/Providers/Translator.html#method_getDefaultValues",
             "name": "Alxarafe\\Core\\Providers\\Translator::getDefaultValues",
             "doc": "&quot;Return default values&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\Providers\\Translator",
+            "fromLink": "Alxarafe/Core/Providers/Translator.html",
+            "link": "Alxarafe/Core/Providers/Translator.html#method_addDirs",
+            "name": "Alxarafe\\Core\\Providers\\Translator::addDirs",
+            "doc": "&quot;Add additional language folders.&quot;"
         },
         {
             "type": "Method",
@@ -5070,6 +5134,289 @@ window.projectVersion = 'master';
             "type": "Class",
             "fromName": "Alxarafe\\Test\\Core\\Base",
             "fromLink": "Alxarafe/Test/Core/Base.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_testLogin",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::testLogin",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_newClient",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::newClient",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_doGetRequest",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::doGetRequest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_testLogout",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::testLogout",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Base",
+            "fromLink": "Alxarafe/Test/Core/Base.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testReadMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testReadMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testDeleteMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testDeleteMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testUpdateMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testUpdateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testRunMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testRunMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testGetUserMenu",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testGetUserMenu",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testPageDetails",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testPageDetails",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testCreateMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testCreateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testIndexMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testIndexMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Base",
+            "fromLink": "Alxarafe/Test/Core/Base.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testGetStatus",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testGetStatus",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testShowMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testShowMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testGetActionButtons",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testGetActionButtons",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testGetExtraActions",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testGetExtraActions",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testEditMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testEditMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testRemoveMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testRemoveMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testInitialize",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testInitialize",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testDeleteMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testDeleteMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testIndexMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testIndexMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testAddMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testAddMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testCreateMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testCreateMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testAccessDenied",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testAccessDenied",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testListData",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testListData",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testReadMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testReadMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testUpdateMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testUpdateMethod",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Base",
+            "fromLink": "Alxarafe/Test/Core/Base.html",
             "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
             "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
             "doc": "&quot;&quot;"
@@ -5109,6 +5456,135 @@ window.projectVersion = 'master';
 
         {
             "type": "Class",
+            "fromName": "Alxarafe\\Test\\Core\\Base",
+            "fromLink": "Alxarafe/Test/Core/Base.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testAddResource",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testAddResource",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testGetArrayPost",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testGetArrayPost",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testSendResponse",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testSendResponse",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testSendResponseTemplate",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testSendResponseTemplate",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testGetArrayCookies",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testGetArrayCookies",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testRunMethod",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testRunMethod",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testAddCSS",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testAddCSS",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testAddToVar",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testAddToVar",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testGetArrayServer",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testGetArrayServer",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testGetArrayHeaders",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testGetArrayHeaders",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testGetArrayGet",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testGetArrayGet",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_test__construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::test__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testRedirect",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testRedirect",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testAddJS",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testAddJS",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testGetArrayFiles",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testGetArrayFiles",
+            "doc": "&quot;&quot;"
+        },
+
+        {
+            "type": "Class",
             "fromName": "Alxarafe\\Test\\Core\\Controllers",
             "fromLink": "Alxarafe/Test/Core/Controllers.html",
             "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
@@ -5122,6 +5598,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_setUp",
             "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::setUp",
             "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::tearDown",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5171,22 +5655,6 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_setUp",
             "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::setUp",
             "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_testLogin",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::testLogin",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_doGetRequest",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::doGetRequest",
-            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5250,7 +5718,7 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
             "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::tearDown",
-            "doc": "&quot;&quot;"
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
 
         {
@@ -5260,6 +5728,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
             "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
             "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
         {
             "type": "Method",
@@ -5301,6 +5785,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/LoginTest.html",
             "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
             "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
         {
             "type": "Method",
@@ -5366,6 +5866,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
             "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
             "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
         {
             "type": "Method",
@@ -5460,6 +5976,22 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/PagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/PagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/PagesTest.html",
             "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_test__construct",
             "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::test__construct",
             "doc": "&quot;&quot;"
@@ -5480,6 +6012,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
             "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
             "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
         {
             "type": "Method",
@@ -5510,6 +6058,22 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/RolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/RolesTest.html",
             "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_test__construct",
             "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::test__construct",
             "doc": "&quot;&quot;"
@@ -5530,6 +6094,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/TablesTest.html",
             "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
             "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
         {
             "type": "Method",
@@ -5560,6 +6140,22 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
             "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_testPageDetails",
             "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::testPageDetails",
             "doc": "&quot;&quot;"
@@ -5580,6 +6176,22 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/UsersTest.html",
             "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
             "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html#method_setUp",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::setUp",
+            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
+            "fromLink": "Alxarafe/Test/Core/Controllers/UsersTest.html",
+            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html#method_tearDown",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::tearDown",
+            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
         },
         {
             "type": "Method",

@@ -182,6 +182,18 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="type" id="property_logger">
+                        <abbr title="Monolog\Logger">Logger</abbr>
+                    </td>
+                    <td>$logger</td>
+                    <td class="last">The logger.</td>
+                    <td>
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#property_logger"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                        </small>
+                    </td>
+                </tr>
+                <tr>
                     <td class="type" id="property_container">
                         protected
                         <a href="../../../Alxarafe/Core/Providers/Container.html"><abbr title="Alxarafe\Core\Providers\Container">Container</abbr></a>|null
@@ -411,10 +423,9 @@
                         void
                     </div>
                     <div class="col-md-8 type">
-                        <a href="#method_addCSS">addCSS</a>()
+                        <a href="#method_addCSS">addCSS</a>(string $file)
 
-                        <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders
-                            templates.</p></div>
+                        <p>addCSS includes the CSS files to template.</p></div>
                     <div class="col-md-2">
                         <small>
                             from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_addCSS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
@@ -426,13 +437,96 @@
                         void
                     </div>
                     <div class="col-md-8 type">
-                        <a href="#method_addJS">addJS</a>()
+                        <a href="#method_addJS">addJS</a>(string $file)
 
-                        <p>addJS includes the common JS files to all views templates. Also defines JS folders
-                            templates.</p></div>
+                        <p>addJS includes the JS files to template.</p></div>
                     <div class="col-md-2">
                         <small>
                             from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_addJS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getArrayPost">getArrayPost</a>()
+
+                        <p>Return body parameters $_POST values.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayPost"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getArrayGet">getArrayGet</a>()
+
+                        <p>Return query string parameters $_GET values.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayGet"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getArrayServer">getArrayServer</a>()
+
+                        <p>Return server and execution environment parameters from $_SERVER values.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayServer"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getArrayHeaders">getArrayHeaders</a>()
+
+                        <p>Return headers from $_SERVER header values.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayHeaders"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getArrayFiles">getArrayFiles</a>()
+
+                        <p>Return uploaded files from $_FILES.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayFiles"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 type">
+                        array
+                    </div>
+                    <div class="col-md-8 type">
+                        <a href="#method_getArrayCookies">getArrayCookies</a>()
+
+                        <p>Return cookies from $_COOKIES.</p></div>
+                    <div class="col-md-2">
+                        <small>
+                            from&nbsp;<a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayCookies"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
                         </small>
                     </div>
                 </div>
@@ -507,7 +601,7 @@
                     <h3 id="method___construct">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method___construct"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 102
+                            at line 110
                         </div>
                         <code>
                             <strong>__construct</strong>()
@@ -529,7 +623,7 @@
                     <h3 id="method_sendResponseTemplate">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method_sendResponseTemplate"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 128
+                            at line 135
                         </div>
                         <code> <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                             <strong>sendResponseTemplate</strong>(array $data = [])
@@ -570,7 +664,7 @@
                     <h3 id="method_sendResponse">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method_sendResponse"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 142
+                            at line 149
                         </div>
                         <code> <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                             <strong>sendResponse</strong>(string $reply, int $status = Response::HTTP_OK)
@@ -616,7 +710,7 @@
                     <h3 id="method_redirect">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method_redirect"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 156
+                            at line 163
                         </div>
                         <code> <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
                             <strong>redirect</strong>(string $destiny = &#039;&#039;)
@@ -658,7 +752,7 @@
                 <div class="method-item">
                     <h3 id="method_runMethod">
                         <div class="location">in <a href="../../../Alxarafe/Core/Base/Controller.html#method_runMethod"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 171
+                            at line 178
                         </div>
                         <code> <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                             <strong>runMethod</strong>(string $methodName)
@@ -697,7 +791,7 @@
                     <h3 id="method_addToVar">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method_addToVar"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 188
+                            at line 195
                         </div>
                         <code> void
                             <strong>addToVar</strong>(string $name, mixed $value)
@@ -746,7 +840,7 @@
                     <h3 id="method_addResource">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method_addResource"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 209
+                            at line 216
                         </div>
                         <code> string
                             <strong>addResource</strong>(string $resourceName, boolean $relative = true)
@@ -799,19 +893,28 @@
                     <h3 id="method_addCSS">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method_addCSS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 231
+                            at line 240
                         </div>
                         <code> void
-                            <strong>addCSS</strong>()
+                            <strong>addCSS</strong>(string $file)
                         </code>
                     </h3>
                     <div class="details">
 
 
                         <div class="method-description">
-                            <p>addCSS includes the common CSS files to all views templates. Also defines CSS folders
-                                templates.</p></div>
+                            <p>addCSS includes the CSS files to template.</p></div>
                         <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$file</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
 
                             <h4>Return Value</h4>
 
@@ -831,25 +934,220 @@
                     <h3 id="method_addJS">
                         <div class="location">in
                             <a href="../../../Alxarafe/Core/Base/Controller.html#method_addJS"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
-                            at line 241
+                            at line 252
                         </div>
                         <code> void
-                            <strong>addJS</strong>()
+                            <strong>addJS</strong>(string $file)
                         </code>
                     </h3>
                     <div class="details">
 
 
                         <div class="method-description">
-                            <p>addJS includes the common JS files to all views templates. Also defines JS folders
-                                templates.</p></div>
+                            <p>addJS includes the JS files to template.</p></div>
                         <div class="tags">
+                            <h4>Parameters</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>string</td>
+                                    <td>$file</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
 
                             <h4>Return Value</h4>
 
                             <table class="table table-condensed">
                                 <tr>
                                     <td>void</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getArrayPost">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayPost"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                            at line 262
+                        </div>
+                        <code> array
+                            <strong>getArrayPost</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return body parameters $_POST values.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getArrayGet">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayGet"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                            at line 272
+                        </div>
+                        <code> array
+                            <strong>getArrayGet</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return query string parameters $_GET values.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getArrayServer">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayServer"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                            at line 282
+                        </div>
+                        <code> array
+                            <strong>getArrayServer</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return server and execution environment parameters from $_SERVER values.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getArrayHeaders">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayHeaders"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                            at line 292
+                        </div>
+                        <code> array
+                            <strong>getArrayHeaders</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return headers from $_SERVER header values.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getArrayFiles">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayFiles"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                            at line 302
+                        </div>
+                        <code> array
+                            <strong>getArrayFiles</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return uploaded files from $_FILES.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="method-item">
+                    <h3 id="method_getArrayCookies">
+                        <div class="location">in
+                            <a href="../../../Alxarafe/Core/Base/Controller.html#method_getArrayCookies"><abbr title="Alxarafe\Core\Base\Controller">Controller</abbr></a>
+                            at line 312
+                        </div>
+                        <code> array
+                            <strong>getArrayCookies</strong>()
+                        </code>
+                    </h3>
+                    <div class="details">
+
+
+                        <div class="method-description">
+                            <p>Return cookies from $_COOKIES.</p></div>
+                        <div class="tags">
+
+                            <h4>Return Value</h4>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>array</td>
                                     <td></td>
                                 </tr>
                             </table>

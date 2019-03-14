@@ -10,6 +10,7 @@ use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
+use RuntimeException;
 
 /**
  * The SchemaDB class contains static methods that allow you to manipulate the database. It is used to create and
@@ -55,9 +56,10 @@ class SchemaDB
 
             if (!Database::getInstance()->getDbEngine()->batchExec($sql)) {
                 $data = [
+                    'error' => "Maybe the file 'schema" . DIRECTORY_SEPARATOR . $tableName . ".yaml' is missing.",
                     'tableName' => $tableName,
                     'sql' => $sql,
-                    'table fields' => $tabla
+                    'table fields' => $tabla,
                 ];
                 FlashMessages::getInstance()::setError('Error executing: <pre>' . var_export($data, true) . '</pre>');
                 return false;
@@ -396,6 +398,11 @@ class SchemaDB
             if (isset($indexData['constraint'])) {
                 $table = (new TableModel())->get($indexData['referencedtable']);
                 $class = $table->namespace;
+                if (empty($class)) {
+                    throw new RuntimeException(
+                        "Model class for table '" . $indexData['referencedtable'] . "' not loaded. Do you forgot to add 'getDependencies()' to model for '" . $tableName . "' table'."
+                    );
+                }
                 $class = new $class();
                 $tableNameIndex = $table->tablename;
                 $tableIndex[$indexName] = Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
