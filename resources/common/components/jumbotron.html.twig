@@ -6,23 +6,19 @@
 
     @var id:          Your id
     @var name:        Your name
-    @var type:        container or null
     @var text:        Your text
 
     How to use it:
-        {% include "@Core/components/jumbotron.html.twig" with {data:{id: 'myJumbotronId', name: 'myJumbotronName', type: 'container', text: '<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>'}} %}
-        {% include "@Core/components/jumbotron.html.twig" with {data:{id: 'myJumbotronId', name: 'myJumbotronName', type: null, text: '<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>'}} %}
+        {% include "@Core/components/jumbotron.html.twig" with {data:{id: 'myJumbotronId', name: 'myJumbotronName', text: '<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>'}} %}
+        {% include "@Core/components/jumbotron.html.twig" with {data:{id: 'myJumbotronId', name: 'myJumbotronName', text: '<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>'}} %}
 #}
+{% set randValue = random() %}
 
-<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-        class="jumbotron">
-    {% if type is defined and type == 'container' %}
-        <div class="container">
-    {% endif %}
-    {% if text is defined %}
-        {{ text | raw }}
-    {% endif %}
-    {% if type is defined and type == 'container' %}
-        </div>
-    {% endif %}
+{% set id = data.id | default('myJumbotronId' ~ randValue) %}
+{% set name = data.name | default('myJumbotronId' ~ randValue) %}
+{% set text = data.text | default('<h1>Hello, world!</h1><p>...</p><p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>') %}
+
+
+<div id="{{ id }}" name="{{ name }}" class="jumbotron">
+    <div class="container">{{ text | raw }}</div>
 </div>

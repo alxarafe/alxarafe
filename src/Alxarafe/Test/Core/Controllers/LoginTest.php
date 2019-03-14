@@ -30,7 +30,10 @@ class LoginTest extends ControllerTest
      */
     public function testGetCookieUser()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -38,7 +41,10 @@ class LoginTest extends ControllerTest
      */
     public function testSetUser()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -46,7 +52,10 @@ class LoginTest extends ControllerTest
      */
     public function testLogoutMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -54,7 +63,7 @@ class LoginTest extends ControllerTest
      */
     public function testPageDetails()
     {
-
+        $this->assertNotEmpty($this->object->pageDetails());
     }
 
     /**
@@ -62,7 +71,10 @@ class LoginTest extends ControllerTest
      */
     public function testGetUser()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -70,7 +82,10 @@ class LoginTest extends ControllerTest
      */
     public function testIndexMethod()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -78,6 +93,9 @@ class LoginTest extends ControllerTest
      */
     public function testGetUserName()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 }

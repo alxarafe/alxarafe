@@ -246,6 +246,7 @@ class Schema
                 return [];
             }
         }
+        FlashMessages::getInstance()::setError("File '" . $fileName . "' not exists");
         return [];
     }
 

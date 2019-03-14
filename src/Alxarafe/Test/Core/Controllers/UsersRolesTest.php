@@ -30,7 +30,7 @@ class UsersRolesTest extends AuthPageExtendedControllerTest
      */
     public function testPageDetails()
     {
-
+        $this->assertNotEmpty($this->object->pageDetails());
     }
 
     /**
@@ -38,6 +38,9 @@ class UsersRolesTest extends AuthPageExtendedControllerTest
      */
     public function test__construct()
     {
-
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 }

@@ -29,6 +29,13 @@ class Models
     protected $searchDir;
 
     /**
+     * A list of class dependencies
+     *
+     * @var array
+     */
+    protected $classDependencies;
+
+    /**
      * Models constructor.
      *
      * @param array $dirs
@@ -51,19 +58,25 @@ class Models
         // Start DB transaction
         Database::getInstance()->getDbEngine()->beginTransaction();
 
-        $loadedDep = [];
+        $this->classDependencies = [];
         $list = [];
         foreach ($this->searchDir as $namespace => $baseDir) {
             $this->fillList($namespace, $baseDir, $list);
-
             // Instanciate dependencies and after the main class
             foreach ($list as $class) {
-                $this->loadClassDependencies($loadedDep, $class);
+                $this->loadClassDependencies($class);
             }
         }
 
         foreach ($list as $class) {
-            $this->loadClassIfNeeded($loadedDep, $class);
+            $this->loadClassIfNeeded($class);
+        }
+
+        foreach ($this->classDependencies as $className) {
+            $this->addTableData($className);
+        }
+        foreach ($this->classDependencies as $className) {
+            new $className(true);
         }
 
         // End DB transaction
@@ -99,44 +112,62 @@ class Models
     /**
      * Load class dependencies before load direct class.
      *
-     * @param array  $loadedDep
      * @param string $class
      */
-    private function loadClassDependencies(array &$loadedDep, string $class): void
+    private function loadClassDependencies(string $class): void
     {
         if (method_exists($class, 'getDependencies')) {
             $deps = (new $class())->getDependencies();
             foreach ($deps as $dep) {
-                $this->loadClassIfNeeded($loadedDep, $dep);
+                $this->loadFirstClassIfNeeded($dep);
             }
-            $this->loadClassIfNeeded($loadedDep, (string) $class);
+            $this->loadClassIfNeeded((string) $class);
         }
     }
 
     /**
      * Load class only if not yet loaded.
      *
-     * @param array  $loadedDep
      * @param string $class
      */
-    private function loadClassIfNeeded(array &$loadedDep, string $className): void
+    private function loadFirstClassIfNeeded(string $className): void
     {
-        if (!in_array($className, $loadedDep, true)) {
-            $loadedDep[] = $className;
-            $class = new $className(true);
+        if (!in_array($className, $this->classDependencies, true)) {
+            array_unshift($this->classDependencies, $className);
+        }
+    }
 
-            if ($class->modelName !== 'TableModel') {
-                $tableModel = new TableModel();
-                if (!$tableModel->load($class->tableName)) {
-                    $tableModel->tablename = $class->tableName;
-                    $tableModel->model = $class->modelName;
-                    try {
-                        $tableModel->namespace = (new ReflectionClass($class))->getName();
-                    } catch (\ReflectionException $e) {
-                        $tableModel->namespace = static::class;
-                    }
-                    $tableModel->save();
+    /**
+     * Load class only if not yet loaded.
+     *
+     * @param string $class
+     */
+    private function loadClassIfNeeded(string $className): void
+    {
+        if (!in_array($className, $this->classDependencies, true)) {
+            $this->classDependencies[] = $className;
+        }
+    }
+
+    /**
+     * Adds Model needed data to TableModel.
+     *
+     * @param $className
+     */
+    private function addTableData($className)
+    {
+        $class = new $className();
+        if ($class->modelName !== 'TableModel') {
+            $tableModel = new TableModel();
+            if (!$tableModel->load($class->tableName)) {
+                $tableModel->tablename = $class->tableName;
+                $tableModel->model = $class->modelName;
+                try {
+                    $tableModel->namespace = (new ReflectionClass($class))->getName();
+                } catch (\ReflectionException $e) {
+                    $tableModel->namespace = static::class;
                 }
+                $tableModel->save();
             }
         }
     }
