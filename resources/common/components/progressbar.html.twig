@@ -14,23 +14,23 @@
         {% include "@Core/components/progressbar.html.twig" with {data:{id: 'myProgressBarId1', name: 'myProgressBarName1', class: 'progress-bar-default progress-bar-striped active', percentage: '25', text: 'Completed'}} %}
 #}
 
-<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-        class="progress">
-    <div class="progress-bar{% if class is defined %} {{ class }}{% endif %}"
-         role="progressbar"{% if percentage is defined %} aria-valuenow="{{ percentage }}"{% endif %} aria-valuemin="0"
-         aria-valuemax="100"
-            {% if percentage is defined %} style="width: {{ percentage }}%;"{% endif %}>
-        {% if text is defined and text != '' %}
+{% set randValue = random() %}
+
+{% set id = data.id | default('barradeprogeso' ~ randValue) %}
+{% set name = data.name | default('barradeprogeso' ~ randValue) %}
+{% set class = data.class | default('progress-bar') %}
+{% set percentage = data.percentage | default('40') %}
+{% set text = data.text | default('') %}
+
+
+<div id="{{ id }}" name="{{ name }}" class="progress">
+    <div class="{{ class }}" role="progressbar" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
+         style="width: {{ percentage }}%;">
+        {% if text != '' %}
             <span class="sr-only">
-                {% if percentage is defined %}
-                    {{ percentage }}%
-                {% endif %}
-                {{ text | raw }}
+                    {{ percentage }} {{ text | raw }}
             </span>
-            {% if percentage is defined %}
-                {{ percentage }}%
-            {% endif %}
-            {{ text | raw }}
+            {{ percentage }}% {{ text | raw }}
         {% endif %}
     </div>
 </div>
