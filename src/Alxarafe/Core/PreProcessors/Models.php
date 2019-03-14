@@ -64,12 +64,12 @@ class Models
             $this->fillList($namespace, $baseDir, $list);
             // Instanciate dependencies and after the main class
             foreach ($list as $class) {
-                $this->loadClassDependencies($class);
+                $this->addClassDependencies($class);
             }
         }
 
         foreach ($list as $class) {
-            $this->loadClassIfNeeded($class);
+            $this->addClass($class);
         }
 
         foreach ($this->classDependencies as $className) {
@@ -112,37 +112,39 @@ class Models
     /**
      * Load class dependencies before load direct class.
      *
-     * @param string $class
+     * @param string $className
      */
-    private function loadClassDependencies(string $class): void
+    private function addClassDependencies(string $className): void
     {
-        if (method_exists($class, 'getDependencies')) {
-            $deps = (new $class())->getDependencies();
+        if (method_exists($className, 'getDependencies')) {
+            $deps = (new $className())->getDependencies();
             foreach ($deps as $dep) {
-                $this->loadFirstClassIfNeeded($dep);
+                $this->addClassFirst((string) $dep);
             }
-            $this->loadClassIfNeeded((string) $class);
+            $this->addClass((string) $className);
         }
     }
 
     /**
      * Load class only if not yet loaded.
      *
-     * @param string $class
+     * @param string $className
      */
-    private function loadFirstClassIfNeeded(string $className): void
+    private function addClassFirst(string $className): void
     {
-        if (!in_array($className, $this->classDependencies, true)) {
-            array_unshift($this->classDependencies, $className);
+        if (in_array($className, $this->classDependencies, true)) {
+            $whereIs = array_search($className, $this->classDependencies, true);
+            unset($this->classDependencies[$whereIs]);
         }
+        array_unshift($this->classDependencies, $className);
     }
 
     /**
      * Load class only if not yet loaded.
      *
-     * @param string $class
+     * @param string $className
      */
-    private function loadClassIfNeeded(string $className): void
+    private function addClass(string $className): void
     {
         if (!in_array($className, $this->classDependencies, true)) {
             $this->classDependencies[] = $className;

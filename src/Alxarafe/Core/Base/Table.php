@@ -8,11 +8,9 @@ namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Helpers\SchemaDB;
-use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
-use ReflectionClass;
 
 /**
  * Class Table allows access to a table using an active record.
@@ -55,19 +53,6 @@ class Table extends SimpleTable
     {
         if (!$create || !Database::getInstance()->getDbEngine()->issetDbTableStructure($this->tableName)) {
             return;
-        }
-        if (!SchemaDB::tableExists($this->tableName) && $this->modelName !== 'TableModel') {
-            $tableModel = new TableModel();
-            if (!$tableModel->load($this->tableName)) {
-                $tableModel->tablename = $this->tableName;
-                $tableModel->model = $this->modelName;
-                try {
-                    $tableModel->namespace = (new ReflectionClass($this))->getName();
-                } catch (\ReflectionException $e) {
-                    $tableModel->namespace = static::class;
-                }
-                $tableModel->save();
-            }
         }
         SchemaDB::checkTableStructure($this->tableName);
     }
