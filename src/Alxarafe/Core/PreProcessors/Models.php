@@ -7,9 +7,11 @@
 namespace Alxarafe\Core\PreProcessors;
 
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
+use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
+use ReflectionClass;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -117,11 +119,25 @@ class Models
      * @param array  $loadedDep
      * @param string $class
      */
-    private function loadClassIfNeeded(array &$loadedDep, string $class): void
+    private function loadClassIfNeeded(array &$loadedDep, string $className): void
     {
-        if (!in_array($class, $loadedDep, true)) {
-            $loadedDep[] = $class;
-            new $class(true);
+        if (!in_array($className, $loadedDep, true)) {
+            $loadedDep[] = $className;
+            $class = new $className(true);
+
+            if ($class->modelName !== 'TableModel') {
+                $tableModel = new TableModel();
+                if (!$tableModel->load($class->tableName)) {
+                    $tableModel->tablename = $class->tableName;
+                    $tableModel->model = $class->modelName;
+                    try {
+                        $tableModel->namespace = (new ReflectionClass($class))->getName();
+                    } catch (\ReflectionException $e) {
+                        $tableModel->namespace = static::class;
+                    }
+                    $tableModel->save();
+                }
+            }
         }
     }
 }
