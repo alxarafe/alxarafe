@@ -13,9 +13,11 @@
         {% include "@Core/components/label.html.twig" with {data:{id:'myLabelId', name:'myLabelName', class: 'label-primary', text: 'My text label'}} %}
 #}
 
-<span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-        class="label{% if class is defined %} {{ class }}{% endif %}">
-    {% if text is defined %}
-        {{ text | raw }}
-    {% endif %}
-</span>
+{% set randValue = random() %}
+
+{% set id = data.id | default('labelid' ~ randValue) %}
+{% set name = data.name | default('labelName' ~ randValue) %}
+{% set class = data.class | default('label label-default') %}
+{% set text = data.text | default('Escribe un texto') %}
+
+<span id="{{ id }}" name="{{ name }}" class="{{ class }}">{{ text | raw }}</span>

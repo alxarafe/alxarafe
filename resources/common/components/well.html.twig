@@ -13,9 +13,14 @@
         {% include "@Core/components/well.html.twig" with {data:{id:'myWellId', name:'myWellName', class: 'well-lg', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
 #}
 
-<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-        class="well{% if class is defined %} {{ class }}{% endif %}">
-    {% if message is defined %}
-        {{ message | raw }}
-    {% endif %}
+{% set randValue = random() %}
+
+{% set id = data.id | default('wellid' ~ randValue) %}
+{% set name = data.name | default('WellName' ~ randValue) %}
+{% set class = data.class | default('well well-lg') %}
+{% set text = data.text | default('Escribe un texto') %}
+
+
+<div id="{{ id }}" name="{{ name }}" class="{{ class }}">
+    {{ text | raw }}
 </div>
