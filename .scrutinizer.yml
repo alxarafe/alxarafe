@@ -172,7 +172,7 @@ tools:
                 - 'src/Alxarafe/Test/*'
                 - 'vendor/*'
     php_code_sniffer:
-        enabled: true
+        enabled: false
         config:
             standard: PSR2
         filter:
@@ -193,7 +193,7 @@ tools:
     # PHP CS Fixer (http://http://cs.sensiolabs.org/).
         # Have false positive with switch-case
     php_cs_fixer:
-        enabled: false
+        enabled: true
         config:
             level: psr2
         filter:
