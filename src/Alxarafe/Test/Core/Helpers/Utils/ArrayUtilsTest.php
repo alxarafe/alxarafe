@@ -15,6 +15,12 @@ class ArrayUtilsTest extends TestCase
      */
     protected $object;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->object = new ArrayUtils;
+    }
+
     /**
      * @use ArrayUtils::flatArray
      */
@@ -108,15 +114,6 @@ class ArrayUtilsTest extends TestCase
         $array4 = [];
         $this->assertSame($this->object::arrayMergeRecursiveEx($array1, $array2), $array3);
         $this->assertNotSame($this->object::arrayMergeRecursiveEx($array1, $array2), $array4);
-    }
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = new ArrayUtils;
     }
 
     /**

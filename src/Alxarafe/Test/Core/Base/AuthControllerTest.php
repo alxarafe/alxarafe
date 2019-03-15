@@ -6,7 +6,7 @@ use Alxarafe\Core\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\FileCookieJar;
 
-class AuthControllerTest extends ControllerTest
+abstract class AuthControllerTest extends ControllerTest
 {
     /**
      * @var Client;
@@ -53,23 +53,6 @@ class AuthControllerTest extends ControllerTest
         ];
         $cookieFile = realpath(__DIR__ . '/../../../../../config') . '/user_cookies.txt';
         $this->cookies = new FileCookieJar($cookieFile, true);
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    public function tearDown()
-    {
-        $this->http = null;
-    }
-
-    /**
-     * @use AuthController::__construct
-     */
-    public function test__construct()
-    {
-        parent::test__construct();
     }
 
     /**

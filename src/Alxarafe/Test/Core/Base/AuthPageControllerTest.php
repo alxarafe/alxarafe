@@ -2,47 +2,41 @@
 
 namespace Alxarafe\Test\Core\Base;
 
-class AuthPageControllerTest extends AuthControllerTest
+use Symfony\Component\HttpFoundation\Response;
+
+abstract class AuthPageControllerTest extends AuthControllerTest
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function testReadMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->readMethod());
     }
 
     public function testDeleteMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->deleteMethod());
     }
 
     public function testUpdateMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->updateMethod());
     }
 
     public function testRunMethod()
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        //$this->markTestIncomplete(
+        //    'This test has not been implemented yet.'
+        //);
     }
 
     public function testGetUserMenu()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNotEmpty($this->object->getUserMenu());
     }
 
     /**
@@ -50,30 +44,19 @@ class AuthPageControllerTest extends AuthControllerTest
      */
     public function testPageDetails()
     {
-        $this->assertNotEmpty($this->object->pageDetails());
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     public function testCreateMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->createMethod());
     }
 
     public function testIndexMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    public function test__construct()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
 }

@@ -3,16 +3,16 @@
 namespace Alxarafe\Test\Core\Controllers;
 
 use Alxarafe\Core\Controllers\Login;
+use Alxarafe\Core\Models\User;
 use Alxarafe\Test\Core\Base\ControllerTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginTest extends ControllerTest
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+
+    public function __construct()
     {
+        parent::__construct();
         $this->object = new Login();
     }
 
@@ -30,10 +30,13 @@ class LoginTest extends ControllerTest
      */
     public function testGetCookieUser()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $userName = 'admin';
+        $user = new User();
+        if ($user->getBy('username', $userName)) {
+            $this->object->request->cookies->set('user', $userName);
+            $this->object->request->cookies->set('logkey', $user->logkey);
+            $this->assertEquals($userName, $this->object->getCookieUser(0));
+        }
     }
 
     /**
@@ -41,10 +44,7 @@ class LoginTest extends ControllerTest
      */
     public function testSetUser()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->setUser('admin', 'admin', 0));
     }
 
     /**
@@ -52,10 +52,7 @@ class LoginTest extends ControllerTest
      */
     public function testLogoutMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->logoutMethod());
     }
 
     /**
@@ -71,10 +68,9 @@ class LoginTest extends ControllerTest
      */
     public function testGetUser()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getUser());
+        $this->testSetUser();
+        $this->assertInstanceOf(User::class, $this->object->getUser());
     }
 
     /**
@@ -82,10 +78,7 @@ class LoginTest extends ControllerTest
      */
     public function testIndexMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
 
     /**
@@ -93,9 +86,9 @@ class LoginTest extends ControllerTest
      */
     public function testGetUserName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertFalse($this->object->setUser('admin', 'bad-pass', 0));
+        $this->assertNull($this->object->getUserName());
+        $this->testGetCookieUser();
+        $this->assertEquals('admin', $this->object->getUserName());
     }
 }

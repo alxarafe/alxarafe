@@ -3,20 +3,24 @@
 namespace Alxarafe\Test\Core\Base;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class ControllerTest extends TestCase
+abstract class ControllerTest extends TestCase
 {
     public $object;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * @use Controller::addResource
      */
     public function testAddResource()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNotEmpty($this->object->addResource('resources/templates/index.twig', true));
     }
 
     /**
@@ -24,10 +28,7 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayPost()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->getArrayPost());
     }
 
     /**
@@ -35,10 +36,7 @@ class ControllerTest extends TestCase
      */
     public function testSendResponse()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->sendResponse(''));
     }
 
     /**
@@ -46,10 +44,7 @@ class ControllerTest extends TestCase
      */
     public function testSendResponseTemplate()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->sendResponseTemplate());
     }
 
     /**
@@ -57,10 +52,7 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayCookies()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->getArrayCookies());
     }
 
     /**
@@ -69,9 +61,9 @@ class ControllerTest extends TestCase
     public function testRunMethod()
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        //$this->markTestIncomplete(
+        //    'This test has not been implemented yet.'
+        //);
     }
 
     /**
@@ -79,10 +71,7 @@ class ControllerTest extends TestCase
      */
     public function testAddCSS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addCSS('resources/templates/css/alxarafe.css');
     }
 
     /**
@@ -90,10 +79,8 @@ class ControllerTest extends TestCase
      */
     public function testAddToVar()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addToVar('cssCode', 'resources/templates/css/alxarafe.css');
+        $this->object->addToVar('jsCode', 'resources/templates/js/alxarafe.js');
     }
 
     /**
@@ -101,10 +88,7 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayServer()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNotEmpty($this->object->getArrayServer());
     }
 
     /**
@@ -112,10 +96,7 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayHeaders()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->getArrayHeaders());
     }
 
     /**
@@ -123,21 +104,7 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayGet()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @use Controller::__construct
-     */
-    public function test__construct()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->getArrayGet());
     }
 
     /**
@@ -145,10 +112,7 @@ class ControllerTest extends TestCase
      */
     public function testRedirect()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(RedirectResponse::class, $this->object->redirect());
     }
 
     /**
@@ -156,10 +120,7 @@ class ControllerTest extends TestCase
      */
     public function testAddJS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addJS('resources/templates/js/alxarafe.js');
     }
 
     /**
@@ -167,9 +128,6 @@ class ControllerTest extends TestCase
      */
     public function testGetArrayFiles()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->getArrayFiles());
     }
 }

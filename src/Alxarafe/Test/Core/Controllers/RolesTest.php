@@ -7,12 +7,10 @@ use Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest;
 
 class RolesTest extends AuthPageExtendedControllerTest
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+
+    public function __construct()
     {
+        parent::__construct();
         $this->object = new Roles();
     }
 
@@ -23,17 +21,6 @@ class RolesTest extends AuthPageExtendedControllerTest
     public function tearDown()
     {
         $this->object = null;
-    }
-
-    /**
-     * @use Roles::__construct
-     */
-    public function test__construct()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 
     /**

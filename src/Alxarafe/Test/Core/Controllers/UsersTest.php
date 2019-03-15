@@ -7,12 +7,10 @@ use Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest;
 
 class UsersTest extends AuthPageExtendedControllerTest
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+
+    public function __construct()
     {
+        parent::__construct();
         $this->object = new Users();
     }
 
@@ -31,16 +29,5 @@ class UsersTest extends AuthPageExtendedControllerTest
     public function testPageDetails()
     {
         $this->assertNotEmpty($this->object->pageDetails());
-    }
-
-    /**
-     * @use Users::__construct
-     */
-    public function test__construct()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 }

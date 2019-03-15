@@ -3617,17 +3617,33 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Core\\PreProcessors\\Models",
             "fromLink": "Alxarafe/Core/PreProcessors/Models.html",
-            "link": "Alxarafe/Core/PreProcessors/Models.html#method_loadClassDependencies",
-            "name": "Alxarafe\\Core\\PreProcessors\\Models::loadClassDependencies",
+            "link": "Alxarafe/Core/PreProcessors/Models.html#method_addClassDependencies",
+            "name": "Alxarafe\\Core\\PreProcessors\\Models::addClassDependencies",
             "doc": "&quot;Load class dependencies before load direct class.&quot;"
         },
         {
             "type": "Method",
             "fromName": "Alxarafe\\Core\\PreProcessors\\Models",
             "fromLink": "Alxarafe/Core/PreProcessors/Models.html",
-            "link": "Alxarafe/Core/PreProcessors/Models.html#method_loadClassIfNeeded",
-            "name": "Alxarafe\\Core\\PreProcessors\\Models::loadClassIfNeeded",
+            "link": "Alxarafe/Core/PreProcessors/Models.html#method_addClassFirst",
+            "name": "Alxarafe\\Core\\PreProcessors\\Models::addClassFirst",
             "doc": "&quot;Load class only if not yet loaded.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\PreProcessors\\Models",
+            "fromLink": "Alxarafe/Core/PreProcessors/Models.html",
+            "link": "Alxarafe/Core/PreProcessors/Models.html#method_addClass",
+            "name": "Alxarafe\\Core\\PreProcessors\\Models::addClass",
+            "doc": "&quot;Load class only if not yet loaded.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Core\\PreProcessors\\Models",
+            "fromLink": "Alxarafe/Core/PreProcessors/Models.html",
+            "link": "Alxarafe/Core/PreProcessors/Models.html#method_addTableData",
+            "name": "Alxarafe\\Core\\PreProcessors\\Models::addTableData",
+            "doc": "&quot;Adds Model needed data to TableModel.&quot;"
         },
 
         {
@@ -5077,16 +5093,16 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
             "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
-            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_testGetInstance",
-            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::testGetInstance",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
             "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
-            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::test__construct",
+            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_testGetInstance",
+            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::testGetInstance",
             "doc": "&quot;&quot;"
         },
         {
@@ -5117,14 +5133,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
             "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
-            "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Autoload\\LoadTest",
-            "fromLink": "Alxarafe/Test/Core/Autoload/LoadTest.html",
             "link": "Alxarafe/Test/Core/Autoload/LoadTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Autoload\\LoadTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -5144,22 +5152,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
             "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method___construct",
             "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::__construct",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
-            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
-            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_tearDown",
-            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::tearDown",
-            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest",
-            "fromLink": "Alxarafe/Test/Core/Base/AuthControllerTest.html",
-            "link": "Alxarafe/Test/Core/Base/AuthControllerTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Base\\AuthControllerTest::test__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -5201,6 +5193,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Base.html",
             "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
             "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -5249,7 +5249,7 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
             "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testPageDetails",
             "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testPageDetails",
-            "doc": "&quot;&quot;"
+            "doc": "&quot;AuthPageController::pageDetails&quot;"
         },
         {
             "type": "Method",
@@ -5267,14 +5267,6 @@ window.projectVersion = 'master';
             "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::testIndexMethod",
             "doc": "&quot;&quot;"
         },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest",
-            "fromLink": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html",
-            "link": "Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageControllerTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
 
         {
             "type": "Class",
@@ -5288,8 +5280,8 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
             "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
-            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testGetStatus",
-            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testGetStatus",
+            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -5346,14 +5338,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
             "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testDeleteMethod",
             "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::testDeleteMethod",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest",
-            "fromLink": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html",
-            "link": "Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Base\\AuthPageExtendedControllerTest::test__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -5425,6 +5409,14 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
             "fromLink": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
+            "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::__construct",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
+            "fromLink": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
             "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html#method_testGetInstance",
             "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::testGetInstance",
             "doc": "&quot;&quot;"
@@ -5445,14 +5437,6 @@ window.projectVersion = 'master';
             "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::testGetDefaultValues",
             "doc": "&quot;&quot;"
         },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest",
-            "fromLink": "Alxarafe/Test/Core/Base/CacheCoreTest.html",
-            "link": "Alxarafe/Test/Core/Base/CacheCoreTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Base\\CacheCoreTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
 
         {
             "type": "Class",
@@ -5460,6 +5444,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Base.html",
             "link": "Alxarafe/Test/Core/Base/ControllerTest.html",
             "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
+            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
+            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -5554,14 +5546,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
             "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
-            "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Base\\ControllerTest",
-            "fromLink": "Alxarafe/Test/Core/Base/ControllerTest.html",
             "link": "Alxarafe/Test/Core/Base/ControllerTest.html#method_testRedirect",
             "name": "Alxarafe\\Test\\Core\\Base\\ControllerTest::testRedirect",
             "doc": "&quot;&quot;"
@@ -5595,16 +5579,8 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_tearDown",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::tearDown",
+            "link": "Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\CreateConfigTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -5652,9 +5628,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5718,7 +5694,7 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Controllers/EditConfigTest.html",
             "link": "Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Controllers\\EditConfigTest::tearDown",
-            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+            "doc": "&quot;&quot;"
         },
 
         {
@@ -5733,9 +5709,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5769,14 +5745,6 @@ window.projectVersion = 'master';
             "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::testGetExtraActions",
             "doc": "&quot;&quot;"
         },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/LanguagesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\LanguagesTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
 
         {
             "type": "Class",
@@ -5790,9 +5758,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\LoginTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/LoginTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/LoginTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\LoginTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5871,9 +5839,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5927,14 +5895,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/ModulesTest.html",
             "link": "Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testCreateMethod",
             "name": "Alxarafe\\Test\\Core\\Controllers\\ModulesTest::testCreateMethod",
             "doc": "&quot;&quot;"
@@ -5976,9 +5936,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/PagesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -5987,14 +5947,6 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\PagesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/PagesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/PagesTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\PagesTest::test__construct",
-            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6017,9 +5969,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6037,14 +5989,6 @@ window.projectVersion = 'master';
             "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::testPageDetails",
             "doc": "&quot;&quot;"
         },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesPagesTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
 
         {
             "type": "Class",
@@ -6058,9 +6002,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/RolesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6069,14 +6013,6 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\RolesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/RolesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/RolesTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\RolesTest::test__construct",
-            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6099,17 +6035,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_tearDown",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::tearDown",
-            "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6117,14 +6045,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
             "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_testPageDetails",
             "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::testPageDetails",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\TablesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/TablesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/TablesTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\TablesTest::test__construct",
             "doc": "&quot;&quot;"
         },
 
@@ -6140,9 +6060,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6160,14 +6080,6 @@ window.projectVersion = 'master';
             "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::testPageDetails",
             "doc": "&quot;&quot;"
         },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersRolesTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
 
         {
             "type": "Class",
@@ -6181,9 +6093,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
             "fromLink": "Alxarafe/Test/Core/Controllers/UsersTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
+            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6201,14 +6113,6 @@ window.projectVersion = 'master';
             "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::testPageDetails",
             "doc": "&quot;&quot;"
         },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Controllers\\UsersTest",
-            "fromLink": "Alxarafe/Test/Core/Controllers/UsersTest.html",
-            "link": "Alxarafe/Test/Core/Controllers/UsersTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Controllers\\UsersTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
 
         {
             "type": "Class",
@@ -6217,6 +6121,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html",
             "name": "Alxarafe\\Test\\Core\\Helpers\\FormatUtilsTest",
             "doc": "&quot;Generated by PHPUnit_SkeletonGenerator on 2019-03-05 at 15:25:12.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Helpers\\FormatUtilsTest",
+            "fromLink": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html",
+            "link": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Helpers\\FormatUtilsTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6278,14 +6190,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Helpers\\FormatUtilsTest",
             "fromLink": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html",
-            "link": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Helpers\\FormatUtilsTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Helpers\\FormatUtilsTest",
-            "fromLink": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html",
             "link": "Alxarafe/Test/Core/Helpers/FormatUtilsTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Helpers\\FormatUtilsTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -6298,6 +6202,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest",
             "doc": "&quot;Generated by PHPUnit_SkeletonGenerator on 2019-03-05 at 15:29:42.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest",
+            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html",
+            "link": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6343,14 +6255,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest",
             "fromLink": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html",
-            "link": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest",
-            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html",
             "link": "Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ArrayUtilsTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -6363,6 +6267,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ClassUtilsTest",
             "doc": "&quot;Generated by PHPUnit_SkeletonGenerator on 2019-03-05 at 15:29:42.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ClassUtilsTest",
+            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html",
+            "link": "Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ClassUtilsTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6384,14 +6296,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ClassUtilsTest",
             "fromLink": "Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html",
-            "link": "Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ClassUtilsTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ClassUtilsTest",
-            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html",
             "link": "Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\ClassUtilsTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -6404,6 +6308,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\FileSystemUtilsTest",
             "doc": "&quot;Generated by PHPUnit_SkeletonGenerator on 2019-03-05 at 15:29:42.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\FileSystemUtilsTest",
+            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html",
+            "link": "Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\FileSystemUtilsTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6433,14 +6345,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\FileSystemUtilsTest",
             "fromLink": "Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html",
-            "link": "Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\FileSystemUtilsTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\FileSystemUtilsTest",
-            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html",
             "link": "Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\FileSystemUtilsTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -6453,6 +6357,14 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest",
             "doc": "&quot;Generated by PHPUnit_SkeletonGenerator on 2019-03-05 at 15:29:42.&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest",
+            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html",
+            "link": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest::__construct",
+            "doc": "&quot;&quot;"
         },
         {
             "type": "Method",
@@ -6482,14 +6394,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest",
             "fromLink": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html",
-            "link": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest",
-            "fromLink": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html",
             "link": "Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Helpers\\Utils\\TextUtilsTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -6501,6 +6405,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/LanguageTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
+            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -6581,14 +6493,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
             "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_test__isset",
             "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::test__isset",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
-            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
-            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::test__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -6803,14 +6707,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
             "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
-            "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\LanguageTest",
-            "fromLink": "Alxarafe/Test/Core/Models/LanguageTest.html",
             "link": "Alxarafe/Test/Core/Models/LanguageTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Models\\LanguageTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -6822,6 +6718,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/ModuleTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
+            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -6886,14 +6790,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
             "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_testSave",
             "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::testSave",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
-            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
-            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::test__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -7140,14 +7036,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
             "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
-            "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\ModuleTest",
-            "fromLink": "Alxarafe/Test/Core/Models/ModuleTest.html",
             "link": "Alxarafe/Test/Core/Models/ModuleTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Models\\ModuleTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -7159,6 +7047,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/PageTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
+            "link": "Alxarafe/Test/Core/Models/PageTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -7325,14 +7221,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
             "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
-            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
-            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
             "link": "Alxarafe/Test/Core/Models/PageTest.html#method_testGet",
             "name": "Alxarafe\\Test\\Core\\Models\\PageTest::testGet",
             "doc": "&quot;&quot;"
@@ -7461,14 +7349,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
             "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
-            "link": "Alxarafe/Test/Core/Models/PageTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\PageTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\PageTest",
-            "fromLink": "Alxarafe/Test/Core/Models/PageTest.html",
             "link": "Alxarafe/Test/Core/Models/PageTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Models\\PageTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -7480,6 +7360,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/RolePageTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
+            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -7544,14 +7432,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
             "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_testSave",
             "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::testSave",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
-            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
-            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::test__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -7782,14 +7662,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
             "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
-            "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\RolePageTest",
-            "fromLink": "Alxarafe/Test/Core/Models/RolePageTest.html",
             "link": "Alxarafe/Test/Core/Models/RolePageTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Models\\RolePageTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -7801,6 +7673,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/RoleTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -7833,14 +7713,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
             "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_testGetIndexesFromTable",
             "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::testGetIndexesFromTable",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
-            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
-            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::test__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -8103,14 +7975,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
             "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
-            "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\RoleTest",
-            "fromLink": "Alxarafe/Test/Core/Models/RoleTest.html",
             "link": "Alxarafe/Test/Core/Models/RoleTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Models\\RoleTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -8122,6 +7986,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/TableModelTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
+            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
+            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -8416,25 +8288,9 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
             "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
-            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
-            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
             "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_testSearchCount",
             "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::testSearchCount",
             "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\TableModelTest",
-            "fromLink": "Alxarafe/Test/Core/Models/TableModelTest.html",
-            "link": "Alxarafe/Test/Core/Models/TableModelTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\TableModelTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
         },
         {
             "type": "Method",
@@ -8451,6 +8307,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/UserRoleTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -8587,14 +8451,6 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
             "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetIdByName",
             "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::testGetIdByName",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
-            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
-            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::test__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -8753,14 +8609,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
             "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
-            "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\UserRoleTest",
-            "fromLink": "Alxarafe/Test/Core/Models/UserRoleTest.html",
             "link": "Alxarafe/Test/Core/Models/UserRoleTest.html#method_tearDown",
             "name": "Alxarafe\\Test\\Core\\Models\\UserRoleTest::tearDown",
             "doc": "&quot;Tears down the fixture, for example, closes a network connection.&quot;"
@@ -8772,6 +8620,14 @@ window.projectVersion = 'master';
             "fromLink": "Alxarafe/Test/Core/Models.html",
             "link": "Alxarafe/Test/Core/Models/UserTest.html",
             "name": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "doc": "&quot;&quot;"
+        },
+        {
+            "type": "Method",
+            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
+            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
+            "link": "Alxarafe/Test/Core/Models/UserTest.html#method___construct",
+            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::__construct",
             "doc": "&quot;&quot;"
         },
         {
@@ -9050,14 +8906,6 @@ window.projectVersion = 'master';
             "type": "Method",
             "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
             "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
-            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_test__construct",
-            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::test__construct",
-            "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
-            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
             "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testNewRecord",
             "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testNewRecord",
             "doc": "&quot;&quot;"
@@ -9093,14 +8941,6 @@ window.projectVersion = 'master';
             "link": "Alxarafe/Test/Core/Models/UserTest.html#method_testSearchCount",
             "name": "Alxarafe\\Test\\Core\\Models\\UserTest::testSearchCount",
             "doc": "&quot;&quot;"
-        },
-        {
-            "type": "Method",
-            "fromName": "Alxarafe\\Test\\Core\\Models\\UserTest",
-            "fromLink": "Alxarafe/Test/Core/Models/UserTest.html",
-            "link": "Alxarafe/Test/Core/Models/UserTest.html#method_setUp",
-            "name": "Alxarafe\\Test\\Core\\Models\\UserTest::setUp",
-            "doc": "&quot;Sets up the fixture, for example, opens a network connection.&quot;"
         },
         {
             "type": "Method",

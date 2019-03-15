@@ -30,6 +30,11 @@ build:
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
+            # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
+            - vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            # Run PHP-CS.
+            - vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            # Run PHPUnit test.
             -   command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
                 coverage:
                     file: reports/coverage.xml
@@ -154,15 +159,15 @@ coding_style:
             around_operators:
                 concatenation: true
 tools:
-    #    external_code_coverage:
-    #        enabled: true
-    #        timeout: 600
-    #        filter:
-    #            excluded_paths:
-    #                - 'docs/*'
-    #                - 'reports/*'
-    #                - 'src/Alxarafe/Test/*'
-    #                - 'vendor/*'
+    external_code_coverage:
+        enabled: false
+        timeout: 600
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
     php_code_coverage:
         enabled: true
         filter:
@@ -171,8 +176,9 @@ tools:
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
                 - 'vendor/*'
+    # Have false positive with switch-case
     php_code_sniffer:
-        enabled: true
+        enabled: false
         config:
             standard: PSR2
         filter:
@@ -182,14 +188,15 @@ tools:
                 - 'src/Alxarafe/Test/*'
                 - 'vendor/*'
     # Copy/Paste Detector
-    #  php_cpd:
-    #    enabled: true
-    #    filter:
-    #      excluded_paths:
-    #        - 'docs/*'
-    #        - 'reports/*'
-    #        - 'src/Alxarafe/Test/*'
-    #        - 'vendor/*'
+    # Conflicts with other analyzer
+    php_cpd:
+        enabled: false
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
     # PHP CS Fixer (http://http://cs.sensiolabs.org/).
     php_cs_fixer:
         enabled: true

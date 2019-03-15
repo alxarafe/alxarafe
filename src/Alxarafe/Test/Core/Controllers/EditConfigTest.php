@@ -13,13 +13,10 @@ use Alxarafe\Test\Core\Base\AuthPageControllerTest;
  */
 class EditConfigTest extends AuthPageControllerTest
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+
+    public function __construct()
     {
-        parent::setUp();
+        parent::__construct();
         $this->object = new EditConfig();
         $this->url .= constant('CALL_CONTROLLER') . '=Login&' . constant('METHOD_CONTROLLER') . '=index';
     }

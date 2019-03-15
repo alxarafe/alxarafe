@@ -66,6 +66,7 @@ class AuthController extends Controller
      */
     public function checkAuth(): bool
     {
+        $this->user = new User();
         return $this->checkLoginWeb() || $this->checkLoginAPI();
     }
 
@@ -82,10 +83,8 @@ class AuthController extends Controller
         $logKey = $this->request->cookies->get('logkey', '');
         $remember = $this->request->cookies->get('remember', self::COOKIE_EXPIRATION_MIN);
         if (!empty($username) && !empty($logKey)) {
-            $user = new User();
-            if ($user->verifyLogKey($username, $logKey)) {
+            if ($this->user->verifyLogKey($username, $logKey)) {
                 $this->logger->addDebug($this->translator->trans('user-logged-in-from-cookie', ['%username%' => $username]));
-                $this->user = $user;
                 $this->username = $this->user->username;
                 $this->logkey = $this->user->logkey;
                 // Re-set cookie time to persist cookie time from last use
@@ -109,8 +108,7 @@ class AuthController extends Controller
         $userAuth = $this->request->headers->get('PHP_AUTH_USER');
         $passAuth = $this->request->headers->get('PHP_AUTH_PW');
         if (!empty($userAuth) && !empty($passAuth)) {
-            $user = new User();
-            if ($user->getBy('username', $userAuth) && password_verify($passAuth, $user->password)) {
+            if ($this->user->getBy('username', $userAuth) && password_verify($passAuth, $this->user->password)) {
                 $this->logger->addDebug($this->translator->trans('api-user-logged', ['%username%' => $userAuth]));
                 $return = true;
             } else {
