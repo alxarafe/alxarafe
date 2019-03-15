@@ -226,6 +226,30 @@
                 </dt>
                 <dd></dd>
                 <dt>
+                    <a href="Alxarafe/Core/PreProcessors/Models.html#method_addClassDependencies"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr>::addClassDependencies</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Core/PreProcessors/Models.html"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr></a></em>
+                </dt>
+                <dd>Load class dependencies before load direct class.</dd>
+                <dt>
+                    <a href="Alxarafe/Core/PreProcessors/Models.html#method_addClassFirst"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr>::addClassFirst</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Core/PreProcessors/Models.html"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr></a></em>
+                </dt>
+                <dd>Load class only if not yet loaded.</dd>
+                <dt>
+                    <a href="Alxarafe/Core/PreProcessors/Models.html#method_addClass"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr>::addClass</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Core/PreProcessors/Models.html"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr></a></em>
+                </dt>
+                <dd>Load class only if not yet loaded.</dd>
+                <dt>
+                    <a href="Alxarafe/Core/PreProcessors/Models.html#method_addTableData"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr>::addTableData</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Core/PreProcessors/Models.html"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr></a></em>
+                </dt>
+                <dd>Adds Model needed data to TableModel.</dd>
+                <dt>
                     <a href="Alxarafe/Core/Providers/Container.html#method_add"><abbr title="Alxarafe\Core\Providers\Container">Container</abbr>::add</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Core/Providers/Container.html"><abbr title="Alxarafe\Core\Providers\Container">Container</abbr></a></em>
@@ -716,6 +740,12 @@
                     <a href="Alxarafe/Core/Models/RolePage.html"><abbr title="Alxarafe\Core\Models\RolePage">RolePage</abbr></a></em>
                 </dt>
                 <dd></dd>
+                <dt>
+                    $<a href="Alxarafe/Core/PreProcessors/Models.html#property_classDependencies"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr>#classDependencies</a>
+                    &mdash; <em>Property in class
+                    <a href="Alxarafe/Core/PreProcessors/Models.html"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr></a></em>
+                </dt>
+                <dd>A list of class dependencies</dd>
                 <dt>
                     <a href="Alxarafe/Core/PreProcessors/Pages.html#method_checkPageControllers"><abbr title="Alxarafe\Core\PreProcessors\Pages">Pages</abbr>::checkPageControllers</a>()
                     &mdash; <em>Method in class
@@ -1220,6 +1250,12 @@
                     <a href="Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a></em>
                 </dt>
                 <dd>Contains if loaded file exists.</dd>
+                <dt>
+                    $<a href="Alxarafe/Core/Autoload/Load.html#property_fileLoaded"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr>#fileLoaded</a>
+                    &mdash; <em>Property in class
+                    <a href="Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a></em>
+                </dt>
+                <dd></dd>
                 <dt>
                     $<a href="Alxarafe/Core/Base/AuthPageExtendedController.html#property_fieldsStruct"><abbr title="Alxarafe\Core\Base\AuthPageExtendedController">AuthPageExtendedController</abbr>#fieldsStruct</a>
                     &mdash; <em>Property in class
@@ -3037,18 +3073,6 @@
                 </dt>
                 <dd>This class pre-process pages to generate some needed information.</dd>
                 <dt>
-                    <a href="Alxarafe/Core/PreProcessors/Models.html#method_loadClassDependencies"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr>::loadClassDependencies</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Core/PreProcessors/Models.html"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr></a></em>
-                </dt>
-                <dd>Load class dependencies before load direct class.</dd>
-                <dt>
-                    <a href="Alxarafe/Core/PreProcessors/Models.html#method_loadClassIfNeeded"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr>::loadClassIfNeeded</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Core/PreProcessors/Models.html"><abbr title="Alxarafe\Core\PreProcessors\Models">Models</abbr></a></em>
-                </dt>
-                <dd>Load class only if not yet loaded.</dd>
-                <dt>
                     <a href="Alxarafe/Core/Providers/Config.html#method_loadConfigConstants"><abbr title="Alxarafe\Core\Providers\Config">Config</abbr>::loadConfigConstants</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Core/Providers/Config.html"><abbr title="Alxarafe\Core\Providers\Config">Config</abbr></a></em>
@@ -4597,162 +4621,6 @@
                 </dt>
                 <dd>Send the Response with data received.</dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Autoload/LoadTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Autoload/LoadTest.html"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Base/CacheCoreTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Base\CacheCoreTest">CacheCoreTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Base/CacheCoreTest.html"><abbr title="Alxarafe\Test\Core\Base\CacheCoreTest">CacheCoreTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\CreateConfigTest">CreateConfigTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html"><abbr title="Alxarafe\Test\Core\Controllers\CreateConfigTest">CreateConfigTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\EditConfigTest">EditConfigTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html"><abbr title="Alxarafe\Test\Core\Controllers\EditConfigTest">EditConfigTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/LoginTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\LoginTest">LoginTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/LoginTest.html"><abbr title="Alxarafe\Test\Core\Controllers\LoginTest">LoginTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/PagesTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/PagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\RolesPagesTest">RolesPagesTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\RolesPagesTest">RolesPagesTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/RolesTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/RolesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\UsersRolesTest">UsersRolesTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersRolesTest">UsersRolesTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/UsersTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/UsersTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Helpers\FormatUtilsTest">FormatUtilsTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\FormatUtilsTest">FormatUtilsTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ArrayUtilsTest">ArrayUtilsTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ArrayUtilsTest">ArrayUtilsTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ClassUtilsTest">ClassUtilsTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ClassUtilsTest">ClassUtilsTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Helpers\Utils\FileSystemUtilsTest">FileSystemUtilsTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\FileSystemUtilsTest">FileSystemUtilsTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Helpers\Utils\TextUtilsTest">TextUtilsTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\TextUtilsTest">TextUtilsTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/LanguageTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/LanguageTest.html"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/ModuleTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/ModuleTest.html"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/PageTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/PageTest.html"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/RolePageTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/RolePageTest.html"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/RoleTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/RoleTest.html"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/TableModelTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/TableModelTest.html"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/UserRoleTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/UserRoleTest.html"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/UserTest.html#method_setUp"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr>::setUp</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/UserTest.html"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr></a></em>
-                </dt>
-                <dd>Sets up the fixture, for example, opens a network connection.</dd>
-                <dt>
                     <a href="Modules/Sample/Controllers/Subregions.html"><abbr title="Modules\Sample\Controllers\Subregions">Subregions</abbr></a>
                     &mdash; <em>Class in namespace
                     <a href="Modules/Sample/Controllers.html">Modules\Sample\Controllers</a></em></dt>
@@ -5041,12 +4909,6 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Autoload/LoadTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Autoload/LoadTest.html"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Autoload/LoadTest.html#method_testInit"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr>::testInit</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Autoload/LoadTest.html"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr></a></em>
@@ -5070,18 +4932,6 @@
                     <a href="Alxarafe/Test/Core/Autoload/LoadTest.html"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr></a></em>
                 </dt>
                 <dd>Tears down the fixture, for example, closes a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html#method_tearDown"><abbr title="Alxarafe\Test\Core\Base\AuthControllerTest">AuthControllerTest</abbr>::tearDown</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthControllerTest">AuthControllerTest</abbr></a></em>
-                </dt>
-                <dd>Tears down the fixture, for example, closes a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Base\AuthControllerTest">AuthControllerTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthControllerTest">AuthControllerTest</abbr></a></em>
-                </dt>
-                <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html#method_testLogin"><abbr title="Alxarafe\Test\Core\Base\AuthControllerTest">AuthControllerTest</abbr>::testLogin</a>()
                     &mdash; <em>Method in class
@@ -5129,7 +4979,7 @@
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr></a></em>
                 </dt>
-                <dd></dd>
+                <dd>AuthPageController::pageDetails</dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testCreateMethod"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr>::testCreateMethod</a>()
                     &mdash; <em>Method in class
@@ -5140,18 +4990,6 @@
                     <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_testIndexMethod"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr>::testIndexMethod</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testGetStatus"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr>::testGetStatus</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr></a></em>
                 </dt>
                 <dd></dd>
                 <dt>
@@ -5192,12 +5030,6 @@
                 <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_testDeleteMethod"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr>::testDeleteMethod</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr></a></em>
                 </dt>
@@ -5329,12 +5161,6 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Base/ControllerTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Base/ControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Base/ControllerTest.html#method_testRedirect"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr>::testRedirect</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Base/ControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr></a></em>
@@ -5350,12 +5176,6 @@
                     <a href="Alxarafe/Test/Core/Base/ControllerTest.html#method_testGetArrayFiles"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr>::testGetArrayFiles</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Base/ControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method_tearDown"><abbr title="Alxarafe\Test\Core\Controllers\CreateConfigTest">CreateConfigTest</abbr>::tearDown</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html"><abbr title="Alxarafe\Test\Core\Controllers\CreateConfigTest">CreateConfigTest</abbr></a></em>
                 </dt>
                 <dd></dd>
                 <dt>
@@ -5429,7 +5249,7 @@
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html"><abbr title="Alxarafe\Test\Core\Controllers\EditConfigTest">EditConfigTest</abbr></a></em>
                 </dt>
-                <dd>Tears down the fixture, for example, closes a network connection.</dd>
+                <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_tearDown"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr>::tearDown</a>()
                     &mdash; <em>Method in class
@@ -5450,12 +5270,6 @@
                 <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_testGetExtraActions"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr>::testGetExtraActions</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr></a></em>
                 </dt>
@@ -5545,12 +5359,6 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html#method_testCreateMethod"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr>::testCreateMethod</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr></a></em>
@@ -5581,12 +5389,6 @@
                 </dt>
                 <dd>Tears down the fixture, for example, closes a network connection.</dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/PagesTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/PagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Controllers/PagesTest.html#method_testPageDetails"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr>::testPageDetails</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/PagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr></a></em>
@@ -5605,23 +5407,11 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\RolesPagesTest">RolesPagesTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\RolesPagesTest">RolesPagesTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Controllers/RolesTest.html#method_tearDown"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr>::tearDown</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/RolesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr></a></em>
                 </dt>
                 <dd>Tears down the fixture, for example, closes a network connection.</dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/RolesTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/RolesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr></a></em>
-                </dt>
-                <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Controllers/RolesTest.html#method_testPageDetails"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr>::testPageDetails</a>()
                     &mdash; <em>Method in class
@@ -5634,19 +5424,7 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html#method_tearDown"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr>::tearDown</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr></a></em>
-                </dt>
-                <dd>Tears down the fixture, for example, closes a network connection.</dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Controllers/TablesTest.html#method_testPageDetails"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr>::testPageDetails</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/TablesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr></a></em>
                 </dt>
@@ -5664,12 +5442,6 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\UsersRolesTest">UsersRolesTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersRolesTest">UsersRolesTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Controllers/UsersTest.html#method_tearDown"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr>::tearDown</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/UsersTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr></a></em>
@@ -5677,12 +5449,6 @@
                 <dd>Tears down the fixture, for example, closes a network connection.</dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Controllers/UsersTest.html#method_testPageDetails"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr>::testPageDetails</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Controllers/UsersTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Controllers/UsersTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Controllers/UsersTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr></a></em>
                 </dt>
@@ -5903,12 +5669,6 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Models/LanguageTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/LanguageTest.html"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Models/LanguageTest.html#method_testGetFieldsFromTable"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr>::testGetFieldsFromTable</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/LanguageTest.html"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr></a></em>
@@ -6114,12 +5874,6 @@
                 <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Models/ModuleTest.html#method_testSave"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr>::testSave</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/ModuleTest.html"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/ModuleTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/ModuleTest.html"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr></a></em>
                 </dt>
@@ -6431,12 +6185,6 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Models/PageTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/PageTest.html"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Models/PageTest.html#method_testGet"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr>::testGet</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/PageTest.html"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr></a></em>
@@ -6582,12 +6330,6 @@
                 <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Models/RolePageTest.html#method_testSave"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr>::testSave</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/RolePageTest.html"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/RolePageTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/RolePageTest.html"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr></a></em>
                 </dt>
@@ -6786,12 +6528,6 @@
                 <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Models/RoleTest.html#method_testGetIndexesFromTable"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr>::testGetIndexesFromTable</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/RoleTest.html"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/RoleTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/RoleTest.html"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr></a></em>
                 </dt>
@@ -7216,12 +6952,6 @@
                 </dt>
                 <dd></dd>
                 <dt>
-                    <a href="Alxarafe/Test/Core/Models/TableModelTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr>::test__construct</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/TableModelTest.html"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
                     <a href="Alxarafe/Test/Core/Models/TableModelTest.html#method_testSearchCount"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr>::testSearchCount</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/TableModelTest.html"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr></a></em>
@@ -7331,12 +7061,6 @@
                 <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Models/UserRoleTest.html#method_testGetIdByName"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr>::testGetIdByName</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/UserRoleTest.html"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/UserRoleTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/UserRoleTest.html"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr></a></em>
                 </dt>
@@ -7661,12 +7385,6 @@
                 <dd></dd>
                 <dt>
                     <a href="Alxarafe/Test/Core/Models/UserTest.html#method_testGetChecksFromTable"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr>::testGetChecksFromTable</a>()
-                    &mdash; <em>Method in class
-                    <a href="Alxarafe/Test/Core/Models/UserTest.html"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr></a></em>
-                </dt>
-                <dd></dd>
-                <dt>
-                    <a href="Alxarafe/Test/Core/Models/UserTest.html#method_test__construct"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr>::test__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Models/UserTest.html"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr></a></em>
                 </dt>
@@ -8303,9 +8021,183 @@
                     Uses preg_match() to extract the 2nd part of the match, which should produce the property name
                 </dd>
                 <dt>
+                    <a href="Alxarafe/Test/Core/Autoload/LoadTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Autoload/LoadTest.html"><abbr title="Alxarafe\Test\Core\Autoload\LoadTest">LoadTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
                     <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Base\AuthControllerTest">AuthControllerTest</abbr>::__construct</a>()
                     &mdash; <em>Method in class
                     <a href="Alxarafe/Test/Core/Base/AuthControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthControllerTest">AuthControllerTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Base/AuthPageControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageControllerTest">AuthPageControllerTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Base/AuthPageExtendedControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest">AuthPageExtendedControllerTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Base/CacheCoreTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Base\CacheCoreTest">CacheCoreTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Base/CacheCoreTest.html"><abbr title="Alxarafe\Test\Core\Base\CacheCoreTest">CacheCoreTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Base/ControllerTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Base/ControllerTest.html"><abbr title="Alxarafe\Test\Core\Base\ControllerTest">ControllerTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\CreateConfigTest">CreateConfigTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/CreateConfigTest.html"><abbr title="Alxarafe\Test\Core\Controllers\CreateConfigTest">CreateConfigTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\EditConfigTest">EditConfigTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/EditConfigTest.html"><abbr title="Alxarafe\Test\Core\Controllers\EditConfigTest">EditConfigTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/LanguagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\LanguagesTest">LanguagesTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/LoginTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\LoginTest">LoginTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/LoginTest.html"><abbr title="Alxarafe\Test\Core\Controllers\LoginTest">LoginTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/ModulesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\ModulesTest">ModulesTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/PagesTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/PagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\PagesTest">PagesTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\RolesPagesTest">RolesPagesTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/RolesPagesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\RolesPagesTest">RolesPagesTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/RolesTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/RolesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\RolesTest">RolesTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/TablesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\TablesTest">TablesTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\UsersRolesTest">UsersRolesTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/UsersRolesTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersRolesTest">UsersRolesTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Controllers/UsersTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Controllers/UsersTest.html"><abbr title="Alxarafe\Test\Core\Controllers\UsersTest">UsersTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Helpers\FormatUtilsTest">FormatUtilsTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Helpers/FormatUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\FormatUtilsTest">FormatUtilsTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ArrayUtilsTest">ArrayUtilsTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/ArrayUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ArrayUtilsTest">ArrayUtilsTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ClassUtilsTest">ClassUtilsTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/ClassUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\ClassUtilsTest">ClassUtilsTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Helpers\Utils\FileSystemUtilsTest">FileSystemUtilsTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/FileSystemUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\FileSystemUtilsTest">FileSystemUtilsTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Helpers\Utils\TextUtilsTest">TextUtilsTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Helpers/Utils/TextUtilsTest.html"><abbr title="Alxarafe\Test\Core\Helpers\Utils\TextUtilsTest">TextUtilsTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/LanguageTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/LanguageTest.html"><abbr title="Alxarafe\Test\Core\Models\LanguageTest">LanguageTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/ModuleTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/ModuleTest.html"><abbr title="Alxarafe\Test\Core\Models\ModuleTest">ModuleTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/PageTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/PageTest.html"><abbr title="Alxarafe\Test\Core\Models\PageTest">PageTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/RolePageTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/RolePageTest.html"><abbr title="Alxarafe\Test\Core\Models\RolePageTest">RolePageTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/RoleTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/RoleTest.html"><abbr title="Alxarafe\Test\Core\Models\RoleTest">RoleTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/TableModelTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/TableModelTest.html"><abbr title="Alxarafe\Test\Core\Models\TableModelTest">TableModelTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/UserRoleTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/UserRoleTest.html"><abbr title="Alxarafe\Test\Core\Models\UserRoleTest">UserRoleTest</abbr></a></em>
+                </dt>
+                <dd></dd>
+                <dt>
+                    <a href="Alxarafe/Test/Core/Models/UserTest.html#method___construct"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr>::__construct</a>()
+                    &mdash; <em>Method in class
+                    <a href="Alxarafe/Test/Core/Models/UserTest.html"><abbr title="Alxarafe\Test\Core\Models\UserTest">UserTest</abbr></a></em>
                 </dt>
                 <dd></dd>
                 <dt>

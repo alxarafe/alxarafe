@@ -142,6 +142,14 @@
                     <td class="last">Contains if loaded file exists.</td>
                     <td></td>
                 </tr>
+                <tr>
+                    <td class="type" id="property_fileLoaded">
+                        static private array
+                    </td>
+                    <td>$fileLoaded</td>
+                    <td class="last"></td>
+                    <td></td>
+                </tr>
             </table>
 
 
@@ -220,7 +228,7 @@
             <div id="method-details">
                 <div class="method-item">
                     <h3 id="method___construct">
-                        <div class="location">at line 52</div>
+                        <div class="location">at line 61</div>
                         <code>
                             <strong>__construct</strong>(array|string $dirs = [])
                         </code>
@@ -248,7 +256,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_init">
-                        <div class="location">at line 69</div>
+                        <div class="location">at line 79</div>
                         <code> static
                             <strong>init</strong>(array|string $dirs = [])
                         </code>
@@ -278,7 +286,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_addDirs">
-                        <div class="location">at line 93</div>
+                        <div class="location">at line 103</div>
                         <code> static
                             <strong>addDirs</strong>(array|string $dirs)
                         </code>
@@ -306,7 +314,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_getInstance">
-                        <div class="location">at line 106</div>
+                        <div class="location">at line 116</div>
                         <code> static
                             <a href="../../../Alxarafe/Core/Autoload/Load.html"><abbr title="Alxarafe\Core\Autoload\Load">Load</abbr></a>
                             <strong>getInstance</strong>()
@@ -337,7 +345,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_autoLoad">
-                        <div class="location">at line 121</div>
+                        <div class="location">at line 131</div>
                         <code> static bool
                             <strong>autoLoad</strong>(string $class)
                         </code>
@@ -390,7 +398,7 @@
                 </div>
                 <div class="method-item">
                     <h3 id="method_loadFile">
-                        <div class="location">at line 155</div>
+                        <div class="location">at line 165</div>
                         <code> static protected bool
                             <strong>loadFile</strong>(string $file)
                         </code>
@@ -400,8 +408,7 @@
 
                         <div class="method-description">
                             <p>Load a file if exists.</p>
-                            <p>Returns true if file exists and is loaded,
-                                otherwise return false.</p>
+                            <p>Returns true if file exists and is loaded, otherwise return false.</p>
 
                             <p>The reason for this method is that if the file is not founded, we don't generate a fatal
                                 error when requiring it.</p></div>
