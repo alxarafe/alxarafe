@@ -154,15 +154,15 @@ coding_style:
             around_operators:
                 concatenation: true
 tools:
-    #    external_code_coverage:
-    #        enabled: true
-    #        timeout: 600
-    #        filter:
-    #            excluded_paths:
-    #                - 'docs/*'
-    #                - 'reports/*'
-    #                - 'src/Alxarafe/Test/*'
-    #                - 'vendor/*'
+    external_code_coverage:
+        enabled: false
+        timeout: 600
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
     php_code_coverage:
         enabled: true
         filter:
@@ -182,17 +182,18 @@ tools:
                 - 'src/Alxarafe/Test/*'
                 - 'vendor/*'
     # Copy/Paste Detector
-    #  php_cpd:
-    #    enabled: true
-    #    filter:
-    #      excluded_paths:
-    #        - 'docs/*'
-    #        - 'reports/*'
-    #        - 'src/Alxarafe/Test/*'
-    #        - 'vendor/*'
+    php_cpd:
+        enabled: false
+        filter:
+            excluded_paths:
+                - 'docs/*'
+                - 'reports/*'
+                - 'src/Alxarafe/Test/*'
+                - 'vendor/*'
     # PHP CS Fixer (http://http://cs.sensiolabs.org/).
+        # Have false positive with switch-case
     php_cs_fixer:
-        enabled: true
+        enabled: false
         config:
             level: psr2
         filter:
