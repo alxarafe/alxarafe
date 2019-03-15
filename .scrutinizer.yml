@@ -30,6 +30,11 @@ build:
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
+            # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
+            - vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            # Run PHP-CS.
+            - vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            # Run PHPUnit test.
             -   command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
                 coverage:
                     file: reports/coverage.xml
@@ -171,6 +176,7 @@ tools:
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
                 - 'vendor/*'
+    # Have false positive with switch-case
     php_code_sniffer:
         enabled: false
         config:
@@ -182,6 +188,7 @@ tools:
                 - 'src/Alxarafe/Test/*'
                 - 'vendor/*'
     # Copy/Paste Detector
+    # Conflicts with other analyzer
     php_cpd:
         enabled: false
         filter:
@@ -191,7 +198,6 @@ tools:
                 - 'src/Alxarafe/Test/*'
                 - 'vendor/*'
     # PHP CS Fixer (http://http://cs.sensiolabs.org/).
-        # Have false positive with switch-case
     php_cs_fixer:
         enabled: true
         config:
