@@ -12,6 +12,12 @@ class CacheCoreTest extends TestCase
      */
     protected $object;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->object = new CacheCore();
+    }
+
     /**
      * @use CacheCore::getInstance
      */
@@ -34,14 +40,5 @@ class CacheCoreTest extends TestCase
     public function testGetDefaultValues()
     {
         $this->assertEmpty($this->object::getDefaultValues());
-    }
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = new CacheCore();
     }
 }

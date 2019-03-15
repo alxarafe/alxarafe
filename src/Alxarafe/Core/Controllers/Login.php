@@ -138,6 +138,7 @@ class Login extends Controller
                 // Increase cookie valid time.
                 $time = time() + ($remember ? self::COOKIE_EXPIRATION : self::COOKIE_EXPIRATION_MIN);
                 $this->adjustCookieUser($time, $remember);
+                $this->username = $this->user->username;
             } else {
                 $this->logger->addDebug($this->translator->trans('user-authentication-error'));
                 $this->clearCookieUser();

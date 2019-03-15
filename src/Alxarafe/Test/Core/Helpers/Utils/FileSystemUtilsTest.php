@@ -15,6 +15,12 @@ class FileSystemUtilsTest extends TestCase
      */
     protected $object;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->object = new FileSystemUtils;
+    }
+
     /**
      * @use    FileSystemUtils::scandir
      */
@@ -44,15 +50,6 @@ class FileSystemUtilsTest extends TestCase
         $this->assertDirectoryExists($folder);
         $this->assertTrue(FileSystemUtils:: rrmdir($folder));
         $this->assertDirectoryNotExists($folder);
-    }
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = new FileSystemUtils;
     }
 
     /**

@@ -4,15 +4,14 @@ namespace Alxarafe\Test\Core\Controllers;
 
 use Alxarafe\Core\Controllers\Languages;
 use Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class LanguagesTest extends AuthPageExtendedControllerTest
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+
+    public function __construct()
     {
+        parent::__construct();
         $this->object = new Languages();
     }
 
@@ -38,10 +37,7 @@ class LanguagesTest extends AuthPageExtendedControllerTest
      */
     public function testIndexMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
 
     /**
@@ -49,20 +45,6 @@ class LanguagesTest extends AuthPageExtendedControllerTest
      */
     public function testGetExtraActions()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @use Languages::__construct
-     */
-    public function test__construct()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNotEmpty($this->object->getExtraActions());
     }
 }

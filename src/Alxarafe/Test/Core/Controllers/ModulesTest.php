@@ -4,15 +4,14 @@ namespace Alxarafe\Test\Core\Controllers;
 
 use Alxarafe\Core\Controllers\Modules;
 use Alxarafe\Test\Core\Base\AuthPageExtendedControllerTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ModulesTest extends AuthPageExtendedControllerTest
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+
+    public function __construct()
     {
+        parent::__construct();
         $this->object = new Modules();
     }
 
@@ -30,10 +29,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testReadMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->readMethod());
     }
 
     /**
@@ -41,10 +37,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testDisableMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->disableMethod());
     }
 
     /**
@@ -52,10 +45,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testDeleteMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->deleteMethod());
     }
 
     /**
@@ -63,10 +53,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testGetActionButtons()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNotEmpty($this->object->getActionButtons());
     }
 
     /**
@@ -74,21 +61,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testIndexMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @use Modules::__construct
-     */
-    public function test__construct()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
 
     /**
@@ -96,10 +69,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testCreateMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->createMethod());
     }
 
     /**
@@ -107,10 +77,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testUpdateMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->updateMethod());
     }
 
     /**
@@ -126,9 +93,6 @@ class ModulesTest extends AuthPageExtendedControllerTest
      */
     public function testEnableMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf(Response::class, $this->object->enableMethod());
     }
 }

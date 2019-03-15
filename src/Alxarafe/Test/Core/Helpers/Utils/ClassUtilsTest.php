@@ -16,6 +16,13 @@ class ClassUtilsTest extends TestCase
      */
     protected $object;
 
+    public function __construct()
+    {
+        parent::__construct();
+        (new Config())->loadConstants();
+        $this->object = new ClassUtils;
+    }
+
     /**
      * @use ClassUtils::defineIfNotExists
      */
@@ -38,16 +45,6 @@ class ClassUtilsTest extends TestCase
         $this->assertNotEmpty($this->object::getShortName($this, 'ClassUtilsTest'));
         $this->assertNotEmpty($this->object::getShortName(null, 'ClassUtilsTest'));
         $this->assertNotEmpty($this->object::getShortName('ThisClassDoesNotExists', 'ClassUtilsTest'));
-    }
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        (new Config())->loadConstants();
-        $this->object = new ClassUtils;
     }
 
     /**

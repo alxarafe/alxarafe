@@ -15,6 +15,13 @@ class FormatUtilsTest extends TestCase
      */
     protected $object;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->object = new FormatUtils();
+        $this->object::loadConfig();
+    }
+
     /**
      * @use FormatUtils::getFormatDate
      */
@@ -71,16 +78,6 @@ class FormatUtilsTest extends TestCase
     public function testGetFormattedDateTime()
     {
         $this->assertNotEmpty($this->object::getFormattedDateTime());
-    }
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = new FormatUtils();
-        $this->object::loadConfig();
     }
 
     /**
