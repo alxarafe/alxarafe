@@ -18,7 +18,7 @@
 
 {% set id = data.id | default('accordion' ~ randValue) %}
 {% set name = data.name | default('accordion' ~ randValue) %}
-{% set panelclass = data.panelclass | default('panel panel-default') %}
+{% set panelclass = data.panelclass | default(['panel panel-danger', 'panel panel-success', 'panel panel-warning']) %}
 {% set accordions = data.accordions | default (['headingOne', 'headingTwo' , 'headingThree']) %}
 {% set collapse = data.collapse | default (['collapseOne', 'collapseTwo' , 'collapseThree']) %}
 {% set titles = data.titles | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
@@ -26,8 +26,8 @@
 
 
 <div class="panel-group" id="{{ id }}" role="tablist" name="{{ name }}" aria-multiselectable="true">
-    <div class="{{ panelclass }}">
-        {% for zone in titles %}
+    {% for zone in titles %}
+        <div class="{{ panelclass[loop.index0] | raw }}">
         <div class="panel-heading" role="tab" id="{{ accordions[loop.index0] | raw }}">
             <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion"
