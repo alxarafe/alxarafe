@@ -32,17 +32,12 @@
             <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion"
                    href="#{{ collapse[loop.index0] | raw }}" aria-expanded="true" aria-controls="collapseOne">
-                    {{ titles[loop.index0] | raw }}
-                </a>
-            </h4>
+                    {{ titles[loop.index0] | raw }}</a></h4>
         </div>
-        <div id="{{ collapse[loop.index0] | raw }}" class="panel-collapse collapse in" role="tabpanel"
-             aria-labelledby="{{ accordions[loop.index0] | raw }}">
-            <div class="panel-body">
-                {{ texts[loop.index0] | raw }}
-            </div>
+            <div id="{{ collapse[loop.index0] | raw }}" class="panel-collapse collapse in" role="tabpanel"
+                 aria-labelledby="{{ accordions[loop.index0] | raw }}">
+                <div class="panel-body">{{ texts[loop.index0] | raw }}</div>
         </div>
     </div>
-    
     {% endfor %}
 </div>
