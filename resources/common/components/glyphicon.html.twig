@@ -11,6 +11,11 @@
     How to use it:
         {% include "@Core/components/glyphicon.html.twig" with {data:{id:'myGlyphiconId', name:'myGlyphiconName', class: 'glyphicon glyphicon-asterisk'}} %}
 #}
+{% set randValue = random() %}
 
-<span{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-        class="glyphicon{% if class is defined %} {{ class }}{% endif %}" aria-hidden="true"></span>
+{% set id = data.id | default('glyphicon' ~ randValue) %}
+{% set name = data.name | default('glyphicon' ~ randValue) %}
+{% set class = data.class | default('glyphicon glyphicon-asterisk') %}
+
+
+<span id="{{ id }}" name="{{ name }}" class="{{ class }}" aria-hidden="true"></span>
