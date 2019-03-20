@@ -15,7 +15,18 @@
     @var classes:     Array of classes:   dropdown-header, divider, disabled or ' '
 
     How to use it:
-        {% include "@Core/components/dropdown.html.twig" with {data:{id:'myDropdownMenuId', name:'myDropdownMenuName', class: 'btn-default', type: 'dropdown', text: 'Dropdown button', alignement: 'dropdown-menu-right', texts: ['Dropdown header', 'Action1', 'Another action', 'Something else here', null, 'Dropdown header', 'Separated link'], links: [null, '#action1', '#another_action', '#something_else_here', null, null, '#separated_link'], classes: ['dropdown-header', null, null, null, 'divider', 'dropdown-header', null]}} %}
+        {% set Dropdown1 = {
+		type:'dropup',
+		class: 'btn btn-default dropdown-toggle',
+		id:'dropup',
+		name:'dropup',
+		textype:'Home',
+		alignement:'dropdown-menu-right',
+		classes:  ['', '' , 'divider' , ''],
+        texts: ['Collapsible Group Item #1', 'Collapsible Group Item #2' , '', 'Collapsible Group Item #3'],
+        links: ['https://www.marca.com', 'Collapsible Group Item #2' ,'' , 'Collapsible Group Item #3']
+	
+	} %}
 #}
 {% set randValue = random() %}
 
@@ -27,7 +38,7 @@
 {% set alignement = data.alignement | default('dropdown-menu-left') %}
 {% set classes = data.classes | default (['', '' , 'divider' , '']) %}
 {% set texts = data.texts | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , '', 'Collapsible Group Item #3']) %}
-{% set links = data.links | default(['https://www.marca.com', 'Collapsible Group Item #2' ,'' , 'Collapsible Group Item #3']) %}
+{% set links = data.links | default(['#', 'Collapsible Group Item #2' ,'' , 'Collapsible Group Item #3']) %}
 
 
 <div class="{{ type }}">

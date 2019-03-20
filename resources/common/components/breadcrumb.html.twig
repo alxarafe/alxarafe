@@ -16,7 +16,6 @@
         {% include "@Core/components/breadcrumb.html.twig" with {data:{id:'myBreadcrumbId', name:'myBreadcrumbName', texts: texts, links: links, classes: classes, length: length}} %}
 #}
 
-{% set randValue = random() %}
 
 {% set id = data.id | default('breadcrumb') %}
 {% set name = data.name | default('breadcrumb') %}
