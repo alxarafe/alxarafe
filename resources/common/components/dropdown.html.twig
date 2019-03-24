@@ -12,35 +12,56 @@
     @var alignement:  dropdown-menu-left, dropdown-menu-right
     @var texts:       Array of texts      text or null
     @var links:       Array of links:     link or null
-    @var classes:     Array of classes:   dropdown-header, divider, disabled or null
+    @var classes:     Array of classes:   dropdown-header, divider, disabled or ' '
 
     How to use it:
-        {% include "@Core/components/dropdown.html.twig" with {data:{id:'myDropdownMenuId', name:'myDropdownMenuName', class: 'btn-default', type: 'dropdown', text: 'Dropdown button', alignement: 'dropdown-menu-right', texts: ['Dropdown header', 'Action1', 'Another action', 'Something else here', null, 'Dropdown header', 'Separated link'], links: [null, '#action1', '#another_action', '#something_else_here', null, null, '#separated_link'], classes: ['dropdown-header', null, null, null, 'divider', 'dropdown-header', null]}} %}
+        {% set Dropdown1 = {
+		type:'dropup',
+		class: 'btn btn-default dropdown-toggle',
+		id:'dropup',
+		name:'dropup',
+		textype:'Home',
+		alignement:'dropdown-menu-right',
+		classes:  ['', '' , 'divider' , ''],
+        texts: ['Collapsible Group Item #1', 'Collapsible Group Item #2' , '', 'Collapsible Group Item #3'],
+        links: ['https://www.marca.com', 'Collapsible Group Item #2' ,'' , 'Collapsible Group Item #3']
+	
+	} %}
 #}
+{% set randValue = random() %}
 
-<div{% if type is defined %} class="{{ type }}"{% endif %}>
-    <button class="btn{% if class is defined %} {{ class }}{% endif %} dropdown-toggle"
-            type="button"{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-            data-toggle="dropdown"
+{% set type = data.type | default('dropdown' ) %}
+{% set class = dataclass | default('btn btn-default dropdown-toggle') %}
+{% set id = data.id | default('dropdown') %}
+{% set name = data.name | default('dropdown') %}
+{% set textype = data.textype | default('dropdown') %}
+{% set alignement = data.alignement | default('dropdown-menu-left') %}
+{% set classes = data.classes | default (['', '' , 'divider' , '']) %}
+{% set texts = data.texts | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , '', 'Collapsible Group Item #3']) %}
+{% set links = data.links | default(['#', 'Collapsible Group Item #2' ,'' , 'Collapsible Group Item #3']) %}
+
+
+<div class="{{ type }}">
+    <button class="{{ class }}" type="button" id="{{ id }}" name="{{ name }}" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="true">
-        {{ text }}
+        {{ textype }}
         <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu{% if alignement is defined %} {{ alignement }}{% endif %}" aria-labelledby="{{ id }}">
+    <ul class="dropdown-menu {{ alignement }}" aria-labelledby="{{ id }}">
         {% for id in texts %}
-            {% if classes[loop.index0] is defined and classes[loop.index0] == 'dropdown-header' %}
+            {% if classes[loop.index0] == 'dropdown-header' %}
                 <li class="dropdown-header">
-                    {% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}
+                    {{ texts[loop.index0] | raw }}
                 </li>
-            {% elseif classes[loop.index0] is defined and classes[loop.index0] == 'divider' %}
+            {% elseif classes[loop.index0]  == 'divider' %}
                 <li role="separator" class="divider"></li>
-            {% elseif classes[loop.index0] is defined and classes[loop.index0] == 'disabled' %}
+            {% elseif classes[loop.index0]  == 'disabled' %}
                 <li class="disabled">
-                    {% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}
+                    {{ texts[loop.index0] | raw }}
                 </li>
-            {% elseif classes[loop.index0] is defined and classes[loop.index0] == null %}
+            {% elseif classes[loop.index0] == '' %}
                 <li>
-                    <a{% if links[loop.index0] is defined %} href="{{ links[loop.index0] }}"{% endif %}>{% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}</a>
+                    <a href="{{ links[loop.index0] }}">{{ texts[loop.index0] | raw }}</a>
                 </li>
             {% else %}
                 Something is wrong with your code!

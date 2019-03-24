@@ -17,7 +17,6 @@
         data:{id:'myPanelId1',
         name:'myPanelName1',
         class:'panel-default',
-        header: 'h2',
         header_text: 'Title',
         body_text: 'Body',
         footer_text: 'Footer'}}
@@ -30,7 +29,8 @@
 {% set class = data.class | default('panel panel-default') %}
 {% set header_text = data.header_text | default('') %}
 {% set header = data.header | default('panel-title') %}
-{% set body_text = data.body_text | default('') %}
+{% set body_text = data.body_text | default(''
+	) %}
 {% set footer_text = data.footer_text | default('') %}
 
 
