@@ -199,20 +199,23 @@ class Table extends SimpleTable
      */
     public function saveRecord(array $data): bool
     {
-        if ($ret = $this->testData($data)) {
-            $ret = $this->saveData($data);
+        if ($this->testData($data)) {
+            return $this->saveData($data);
         }
-        return $ret;
+        return false;
     }
 
     /**
-     * TODO: Undocumented
+     * TODO: Need revision.
+     * Return true if all data is Ok.
+     * Must check if any field does not meet the criteria set.
+     * Should check even those fields that have not been passed in the data in case they are required.
      *
-     * @param $data
+     * @param array $data
      *
      * @return bool
      */
-    protected function testData($data): bool
+    protected function testData(array $data): bool
     {
         $ok = true;
         foreach ($data as $tableName => $block) {   // Recorrer tablas
