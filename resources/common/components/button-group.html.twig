@@ -6,7 +6,6 @@
 
     @var class:       btn-group-lg, btn-group-sm, btn-group-xs, btn-group-vertical
     @var ids:         Array of ids
-    @var role:        toolbar, group
     @var names:       Array of names
     @var texts:       Array of texts
     @var classes:     Array of classes, btn-default, btn-success, btn-info, btn-warning, btn-danger or button sizes
@@ -21,8 +20,8 @@
 {% set class = data.class | default('btn-group-lg') %}
 {% set role = data.role | default('group') %}
 {% set ids = data.ids | default(['#1', '#2' , '#3']) %}
-{% set names = data.names | default(['#1', '#2' , '#3']) %}
-{% set texts = data.texts | default(['#1', '#2' , '#3']) %}
+{% set names = data.names | default(['Left', 'Middle' , 'Right']) %}
+{% set texts = data.texts | default(['Left', 'Middle' , 'Right']) %}
 {% set classes = data.classes | default(['btn btn-default', 'btn btn-default' , 'btn btn-default']) %}
 
 
