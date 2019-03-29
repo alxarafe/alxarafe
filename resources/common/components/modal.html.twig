@@ -12,8 +12,18 @@
     @var modalButtons:  Your modal buttons
 
     How to use it:
-        {% include "@Core/components/modal.html.twig" with {data:{id:'myModalId1', name:'myModalName1', modalText: 'Esto es un placeholder', modalTitle: 'Title'}} %}
-        {% include "@Core/components/modal.html.twig" with {data:{id:'myModalId2', name:'myModalName2', modalText: 'Acepto', modalTitle: 'Title'}} %}
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalID2">
+		Pulsar en caso de emergencia
+	   </button>
+	
+	{% set Modal1 = {
+		id:'ModalID2',
+		name:'ModalID2',
+		modalTitle:'Fallo de seguridad',
+		modalText:'Has entrado en una area restringida',
+		modalButtons:'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'
+	} %}
+	{% include "@Core/components/modal.html.twig" with {data:Modal1} %}
 #}
 
 {% set randValue = random() %}
