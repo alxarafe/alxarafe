@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Helpers;
 
 use Alxarafe\Core\Providers\RegionalInfo;
 use DateTime;
+use Exception;
 
 /**
  * Class FormatUtils, this class simplifies the way to get the final format for date, time and datetime.
@@ -71,9 +72,9 @@ class FormatUtils
             self::$timeZone = self::$config['timezone'];
             // Sets the default timezone to use
             date_default_timezone_set(self::$config['timezone']);
-            self::$dateFormat = self::$config['dateFormat'];
-            self::$timeFormat = self::$config['timeFormat'];
-            self::$datetimeFormat = self::$config['datetimeFormat'];
+            self::$dateFormat = self::$config['dateFormat'] ?? 'Y-m-d';
+            self::$timeFormat = self::$config['timeFormat'] ?? 'H:i:s';
+            self::$datetimeFormat = self::$config['datetimeFormat'] ?? 'Y-m-d H:i:s';
         }
     }
 
@@ -122,7 +123,7 @@ class FormatUtils
         try {
             $time = ($time === '') ? 'now' : $time;
             $date = (new DateTime($time))->format($style);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $time = ($time === '') ? 'time()' : $time;
             $date = date($style, strtotime($time));
         }

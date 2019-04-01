@@ -3,8 +3,13 @@ Options -Indexes
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
+#    RewriteBase /~shawe/alxarafe/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
+
+#    RewriteRule ^(\w+) index.php?call=$1&method=index
+#    RewriteRule ^(\w+)/(\w+) index.php?call=$1&method=$2
+#    RewriteRule ^(\w+)/(\w+)/([0-9]+) index.php?call=$1&method=$2&id=$3
     RewriteRule ^ index.php [QSA,L]
 </IfModule>
 

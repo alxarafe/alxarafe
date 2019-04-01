@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Helpers\FormatUtils;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Helpers\SchemaDB;
 use Alxarafe\Core\Providers\Database;
@@ -157,13 +158,13 @@ class Table extends SimpleTable
                     $item = false;
                     break;
                 case 'date':
-                    $item = date('Y-m-d');
+                    $item = FormatUtils::getFormattedDate();
                     break;
                 case 'datetime':
-                    $item = date('Y-m-d H:i:s');
+                    $item = FormatUtils::getFormattedDateTime();
                     break;
                 case 'time':
-                    $item = date('H:i:s');
+                    $item = FormatUtils::getFormattedTime();
                     break;
                 case 'string':
                 case 'text':
