@@ -7,7 +7,7 @@
     @var id:          Your id
     @var name:        Your name
     @var class:       input-sm, input-lg
-    @var multiple:    true or flase
+    @var multiple:    '' o multiple
     @var texts:       Array of texts
     @var values:      Array of values
 
@@ -15,9 +15,16 @@
         {% include "@Core/components/select.html.twig" with {data:{id:'mySelectId', name:'mySelectName', class: 'input-sm', multiple: true}} %}
 #}
 
-<select{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}{% if multiple is defined and multiple==true %} multiple{% endif %}
-        class="form-control{% if class is defined %} {{ class }}{% endif %}">
+
+{% set id = data.id | default('select') %}
+{% set name = data.name | default('select') %}
+{% set multiple = data.multiple | default('multiple') %}
+{% set values = data.values | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
+{% set texts = data.texts | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
+
+
+<select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control">
     {% for i in texts %}
-        <option{% if values[loop.index0] is defined %} value="{{ values[loop.index0] }}"{% endif %}>{% if texts[loop.index0] is defined %}{{ texts[loop.index0] | raw }}{% endif %}</option>
+	    <option value="{{ values[loop.index0] }}">{{ texts[loop.index0] | raw }}</option>
     {% endfor %}
 </select>

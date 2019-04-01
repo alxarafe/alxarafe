@@ -14,35 +14,30 @@
         {% include "@Core/components/accordion.html.twig" with {data:{id:'myAccordionId2', name:'myAccordionName2', titles: ['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3'], texts: ['Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.' , 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.']}} %}
 #}
 
-{% set randomNumber = random() %}
-{% if data.id is defined %}
-    {% set customId = data.id %}
-{% else %}
-    {% set customId = 'accordion' ~ randomNumber %}
-{% endif %}
+{% set randValue = random() %}
 
-{% if data.name is defined %}
-    {% set customName = data.name %}
-{% else %}
-    {% set customName = 'accordion' ~ randomNumber %}
-{% endif %}
+{% set id = data.id | default('accordion' ~ randValue) %}
+{% set name = data.name | default('accordion' ~ randValue) %}
+{% set panelclass = data.panelclass | default(['panel panel-danger', 'panel panel-success', 'panel panel-warning']) %}
+{% set accordions = data.accordions | default (['headingOne', 'headingTwo' , 'headingThree']) %}
+{% set collapse = data.collapse | default (['collapseOne', 'collapseTwo' , 'collapseThree']) %}
+{% set titles = data.titles | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
+{% set texts = data.texts | default(['Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.' , 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.']) %}
 
-<div class="accordion" id="{{ customId }}" name="{{ customName }}">
-    {% for zone in data.titles %}
-        <div class="card">
-            <div class="card-header" id="heading{{ loop.index }}">
-                <h5 class="mb-0">
-                    <button class="btn btn-link{% if loop.first == false %} collapsed{% endif %}" data-toggle="collapse" data-target="#collapse{{ customId }}{{ loop.index }}" aria-expanded="{% if loop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ loop.index }}">
-                        {{ data.titles[loop.index0] | raw }}
-                    </button>
-                </h5>
-            </div>
 
-            <div id="collapse{{ customId }}{{ loop.index }}" class="collapse{% if loop.first %} show{% endif %}" aria-labelledby="heading{{ loop.index }}" data-parent="#{{ customId }}">
-                <div class="card-body">
-                    {{ data.texts[loop.index0] | raw }}
-                </div>
-            </div>
+<div class="panel-group" id="{{ id }}" role="tablist" name="{{ name }}" aria-multiselectable="true">
+    {% for zone in titles %}
+        <div class="{{ panelclass[loop.index0] | raw }}">
+        <div class="panel-heading" role="tab" id="{{ accordions[loop.index0] | raw }}">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                   href="#{{ collapse[loop.index0] | raw }}" aria-expanded="true" aria-controls="collapseOne">
+                    {{ titles[loop.index0] | raw }}</a></h4>
         </div>
+            <div id="{{ collapse[loop.index0] | raw }}" class="panel-collapse collapse in" role="tabpanel"
+                 aria-labelledby="{{ accordions[loop.index0] | raw }}">
+                <div class="panel-body">{{ texts[loop.index0] | raw }}</div>
+        </div>
+    </div>
     {% endfor %}
 </div>

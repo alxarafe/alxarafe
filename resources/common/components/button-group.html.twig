@@ -16,13 +16,19 @@
         {% include "@Core/components/button-group.html.twig" with {data:{ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']}} %}
 #}
 
-<div class="btn-group {% if data.class is defined %}{{ data.class }}{% endif %}" role="toolbar" aria-label="...">
-    {% for id in data.ids %}
-        <button{% if data.ids[loop.index0] is defined %} id="{{ data.ids[loop.index0] }}"{% endif %}{% if data.names[loop.index0] is defined %} name="{{ data.names[loop.index0] }}"{% endif %}
-                type="button" class="btn{% if data.classes[loop.index0] is defined %} {{ data.classes[loop.index0] }}{% endif %}">
-            {% if data.texts[loop.index0] is defined %}
-                {{ data.texts[loop.index0] | raw }}
-            {% endif %}
+
+{% set class = data.class | default('btn-group-lg') %}
+{% set role = data.role | default('group') %}
+{% set ids = data.ids | default(['#1', '#2' , '#3']) %}
+{% set names = data.names | default(['Left', 'Middle' , 'Right']) %}
+{% set texts = data.texts | default(['Left', 'Middle' , 'Right']) %}
+{% set classes = data.classes | default(['btn btn-default', 'btn btn-default' , 'btn btn-default']) %}
+
+
+<div class="{{ class }}" role="{{ role }}" aria-label="...">
+	{% for id in ids %}
+	<button id="{{ ids[loop.index0] }}" name="{{ names[loop.index0] }}" type="button" class={{ classes[loop.index0] }}">
+                {{ texts[loop.index0] | raw }}
         </button>
     {% endfor %}
 </div>

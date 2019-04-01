@@ -17,23 +17,22 @@
             {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId2', name:'myRadioName2', text: 'Recuerdame', type: 'label'}} %}
 #}
 
+{% set randValue = random() %}
+
+{% set type = data.type | default('input') %}
+{% set id = data.id | default('radioID' ~ randValue) %}
+{% set name = data.name | default('radioName' ~ randValue) %}
+{% set text = data.text | default('Message not setted') %}
 
 
-{% if type is defined and type == 'input' %}
+
+{% if type == 'input' %}
     <div class="input-group">
-          <span class="input-group-addon">
-            <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-                    type="radio"
-                    aria-label="...">
-          </span>
-        <input type="text" class="form-control"{% if text is defined %} placeholder="{{ text | raw }}"{% endif %}
-               aria-label="...">
+	    <span class="input-group-addon"><input id="{{ id }}" name="{{ name }}" type="radio" aria-label="..."></span>
+	    <input type="text" class="form-control" placeholder="{{ text | raw }}" aria-label="...">
     </div>
-{% elseif type is defined and type == 'label' %}
-    <label>
-        <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-                type="radio">{% if text is defined %} {{ text | raw }}{% endif %}
-    </label>
+{% elseif type == 'label' %}
+	<label><input id="{{ id }}" name="{{ name }}" type="radio"> {{ text | raw }}</label>
 {% else %}
     Something is wrong with your code!
 {% endif %}

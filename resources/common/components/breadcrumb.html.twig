@@ -16,18 +16,26 @@
         {% include "@Core/components/breadcrumb.html.twig" with {data:{id:'myBreadcrumbId', name:'myBreadcrumbName', texts: texts, links: links, classes: classes, length: length}} %}
 #}
 
+
+{% set id = data.id | default('breadcrumb') %}
+{% set name = data.name | default('breadcrumb') %}
+{% set texts = data.texts | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
+{% set classes = data.classes | default (['', '' , 'active']) %}
+{% set links = data.links | default(['#', '#', 'Collapsible Group Item #3']) %}
+
 <nav aria-label="breadcrumb">
-    <ol{% if data.id is defined %} id="{{ data.id }}"{% endif %}{% if data.name is defined %} name="{{ data.name }}"{% endif %}
-            class="breadcrumb">
-        {% for i in data.texts %}
-            <li{% if data.classes[loop.index0] is defined and data.classes[loop.index0]=='active' %} class="{{ data.classes[loop.index0] }}"{% endif %}>
-                {% if data.links[loop.index0] is defined and data.links[loop.index0]!=null %}
-                    <a href="{{ data.links[loop.index0] }}">
+	<ol id="{{ id }}" name="{{ name }}" class="breadcrumb">
+		{% for i in texts %}
+			<li{% if classes[loop.index0] =='active' %}
+				class="{{ classes[loop.index0] }}"
+					{% endif %}>
+				{% if links[loop.index0]!=null %}
+				<a href="{{ links[loop.index0] }}">
                 {% endif %}
-                {% if data.texts[loop.index0] is defined %}
-                    {{ data.texts[loop.index0] | raw }}
+					{% if texts[loop.index0] is defined %}
+						{{ texts[loop.index0] | raw }}
                 {% endif %}
-                {% if data.links[loop.index0] is defined and data.links[loop.index0]!=null %}
+					{% if links[loop.index0]!=null %}
                     </a>
                 {% endif %}
             </li>
