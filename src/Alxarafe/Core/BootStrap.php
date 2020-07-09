@@ -250,7 +250,17 @@ class BootStrap
         if (isset($this->database) && null !== $this->database->getDbEngine()) {
             ModuleManager::getInstance()::initializeModules();
         }
-        $this->run();
+        $task = $this->request->query->get('task');
+        switch ($task) {
+            case 'cron':
+                break;
+            case'api':
+                $this->api();
+                break;
+            default:
+                $this->run();
+                break;
+        }
     }
 
     /**
@@ -317,5 +327,31 @@ class BootStrap
             $this->response->setContent($reply);
         }
         $this->response->send();
+    }
+
+    /**
+     * Call to API module, if exists.
+     *
+     * @return bool
+     */
+    public function api()
+    {
+        $apiCodePath = $this->basePath . '/src/Modules/xapi/Core/AppApi.php';
+        if (!file_exists($apiCodePath)) {
+            die(json_encode(['error' => 'Please, install xapi module']));
+        }
+        include $apiCodePath;
+        $api = new \Modules\xapi\Core\AppApi([
+            'basePath' => $this->basePath,
+            'router' => $this->router,
+            'database' => $this->database,
+            'configData' => $this->configData,
+            'request' => $this->request,
+            'response' => $this->response,
+            'log' => $this->log,
+            'regionalInfo' => $this->regionalInfo,
+        ]);
+        $api->run();
+        die($api->render());
     }
 }

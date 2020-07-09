@@ -38,7 +38,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Alxarafe\\": "src/Alxarafe"
+      "Alxarafe\\": "src/Alxarafe",
+      "Modules\\": "src/Modules"
     },
     "files": [
       "src/Alxarafe/Core/Functions.php"

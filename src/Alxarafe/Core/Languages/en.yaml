@@ -43,6 +43,7 @@ col-decimals: Decimals
 col-description: Description
 col-email: Email
 col-enabled: Enabled
+col-from-date: From
 col-icon: Icon
 col-id: Id.
 col-id_page: 'Page Id.'
@@ -64,6 +65,7 @@ col-plugin: Plugin
 col-register_date: 'Registered at'
 col-tablename: 'Table name'
 col-title: Title
+col-to-date: To
 col-unicode: Unicode
 col-updated_date: 'Updated at'
 col-username: 'User name'

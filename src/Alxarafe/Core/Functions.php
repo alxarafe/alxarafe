@@ -65,3 +65,27 @@ if (!function_exists('baseUrl')) {
         return empty($url) ? $baseUrl : $baseUrl . '/' . trim($url, '/');
     }
 }
+
+if (!function_exists('randomString')) {
+    /**
+     * Create a randomString
+     *
+     * @param int $length
+     *
+     * @return string
+     */
+    function randomString(int $length)
+    {
+        $random = '';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        while (strlen($random) < $length) {
+            try {
+                $pos = random_int(0, strlen($characters));
+            } catch (Exception $e) {
+                $pos = mt_rand(0, strlen($characters));
+            }
+            $random .= $characters[$pos];
+        }
+        return str_shuffle($random);
+    }
+}
