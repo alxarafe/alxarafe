@@ -116,13 +116,13 @@ class Table extends SimpleTable
      */
     public function getAllKeyValue()
     {
-        $return=[];
-        $sql="SELECT {$this->idField}, {$this->nameField} FROM {$this->getQuotedTableName()};";
-        $result=Database::getInstance()->getDbEngine()->select($sql);
+        $return = [];
+        $sql = "SELECT {$this->idField}, {$this->nameField} FROM {$this->getQuotedTableName()};";
+        $result = Database::getInstance()->getDbEngine()->select($sql);
         foreach ($result as $record) {
-            $return[$record[$this->idField]]=$record[$this->nameField];
+            $return[$record[$this->idField]] = $record[$this->nameField];
         }
-        return $result;
+        return $return;
     }
 
     /**
