@@ -110,6 +110,22 @@ class Table extends SimpleTable
     }
 
     /**
+     * Return an array $key=>$value with all records on the table.
+     *
+     * @return array
+     */
+    public function getAllKeyValue()
+    {
+        $return=[];
+        $sql="SELECT {$this->idField}, {$this->nameField} FROM {$this->getQuotedTableName()};";
+        $result=Database::getInstance()->getDbEngine()->select($sql);
+        foreach ($result as $record) {
+            $return[$record[$this->idField]]=$record[$this->nameField];
+        }
+        return $result;
+    }
+
+    /**
      * Return a list of key indexes.
      * Each final model that needed, must overwrite it.
      *
