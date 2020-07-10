@@ -197,7 +197,7 @@ trait Singleton
     {
         $yamlContent = $this->getYamlContent();
         $content = $this->separateConfigFile ? $yamlContent : $yamlContent[$index] ?? [];
-        return array_merge(self::getDefaultValues(), $content);
+        return array_merge($this->getDefaultValues(), $content);
     }
 
     /**

@@ -40,6 +40,7 @@ class Table extends SimpleTable
         $create = $params['create'] ?? false;
         $this->checkStructure($create);
         $this->debugTool->stopTimer($this->shortName);
+        $this->setData($this->getDefaultValues());
     }
 
     /**
@@ -167,6 +168,10 @@ class Table extends SimpleTable
             switch ($valueData['type']) {
                 case 'integer':
                 case 'number':
+                    if ($valueData['autoincrement']==='yes') {
+                        $item=null;
+                        break;
+                    }
                 case 'email':
                     $item = 0;
                     break;
