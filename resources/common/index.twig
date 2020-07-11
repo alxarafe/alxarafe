@@ -18,7 +18,7 @@
         <meta name="author" content="{{ author }}">
     {% endif %}
     <meta name="generator" content="Alxarafe"/>
-    <link rel="shortcut icon" href="{{ getResourceUri('/resources/templates/img/favicon.ico') }}"/>
+    <link rel="shortcut icon" href="{{ getResourceUri('/img/favicon.ico') }}"/>
 
     <title>{% block title %}{{ trans(ctrl.title) }}{% endblock %} - Alxarafe</title>
 
@@ -107,7 +107,7 @@
 {% block javascriptsFooter %}
     <script type="text/javascript" src="{{ getResourceUri('/bower_modules/jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ getResourceUri('/bower_modules/bootbox.js/src/bootbox.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/bower_modules/bootbox.js/bootbox.js') }}"></script>
 
     {# Values to be available from external JavaScript files #}
     <script type="text/javascript">

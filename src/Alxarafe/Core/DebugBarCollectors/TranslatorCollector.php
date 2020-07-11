@@ -84,8 +84,8 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
     public function getAssets(): array
     {
         return [
-            'css' => baseUrl('resources/templates/css/phpdebugbar.custom-widget.css'),
-            'js' => baseUrl('resources/templates/js/phpdebugbar.custom-widget.js'),
+            'css' => baseUrl('/resources/common/css/phpdebugbar.custom-widget.css'),
+            'js' => baseUrl('/resources/common/js/phpdebugbar.custom-widget.js'),
         ];
     }
 

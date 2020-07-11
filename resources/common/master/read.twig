@@ -4,11 +4,11 @@
 #}
 {% extends "@Core/index.twig" %}
 
-{% block title %}{{ trans('new') }} {{ trans(ctrl.title) }}{% endblock %}
+{% block title %}{{ trans('showing') }} {{ trans(ctrl.title) }}{% endblock %}
 
 {% block extraStylesheets %}
     {{ parent() }}
-    {#<link rel="stylesheet" type="text/css" href="{{ getResourceUri('/resources/common/css/common.css') }}">#}
+    {#<link rel="stylesheet" type="text/css" href="{{ getResourceUri('/css/common.css') }}">#}
 {% endblock %}
 
 {% block body %}
@@ -18,13 +18,13 @@
     {% if ctrl.encType is not empty %}
         {% set encType = 'enctype="' ~ ctrl.encType ~ '"' %}
     {% endif %}
-    <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit' }}" method="post" accept-charset="utf-8" {{ encType }}>
+    <form action="{{ ctrl.url }}" method="post" accept-charset="utf-8" {{ encType }}>
         {% set listFields = ctrl.getListFields() %}
 
         {% for regKey, registers in listFields %}
             {% for itemKey, item in registers %}
                 <div class="row">
-                    {{ forms.generateField(item, true, true, true) }}
+                    {{ forms.generateField(item, false, true, true) }}
                 </div>
             {% endfor %}
         {% endfor %}
@@ -40,9 +40,9 @@
                 </a>
             </div>
             <div class="col-xs-6 text-right">
-                <button name="action" type="submit" class="btn btn-primary btn-sm" value="save" onClick="allowClose();">
-                    <i class="fas fa-save"></i>
-                    {{ trans('save-changes') }}
+                <button name="action" type="submit" class="btn btn-primary btn-sm" value="accept" onClick="allowClose();" formnovalidate>
+                    <i class="fas fa-check"></i>
+                    {{ trans('accept') }}
                 </button>
             </div>
         </div>
@@ -51,5 +51,5 @@
 
 {% block extraJavascriptsFooter %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ getResourceUri('/resources/common/js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/js/common.js') }}"></script>
 {% endblock %}

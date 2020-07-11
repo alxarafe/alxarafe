@@ -38,15 +38,10 @@ class TemplateRender
     public const SKINS_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'skins';
 
     /**
-     * Folder containing the different twig templates
+     * Folder containing the twig templates and the common css and js code
+     * reusable by the different skin.
      */
-    public const TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'templates';
-
-    /**
-     * Folder that contains templates common to the entire application, but
-     * that can be overwritten.
-     */
-    public const COMMON_TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'common';
+    public const TEMPLATES_FOLDER = 'resources' . DIRECTORY_SEPARATOR . 'common';
 
     /**
      * The renderer.
@@ -68,15 +63,6 @@ class TemplateRender
      * @var string|null
      */
     protected static $skin;
-
-    /**
-     * Indicates the folder where the files common to all the templates are located.
-     * A file will be searched first in the $templatesFolder, and if it is not, it will be searched in this
-     * $commonTemplatesFolder.
-     *
-     * @var string
-     */
-    protected static $commonTemplatesFolder;
 
     /**
      * It's the name of the skin that is being used.
@@ -133,7 +119,6 @@ class TemplateRender
                 'GLOBALS' => $GLOBALS,
             ];
             $this->setSkin($this->getConfig()['skin'] ?? 'default');
-            self::$commonTemplatesFolder = $this->getTemplatesFolder();
             self::$loader = new FilesystemLoader($this->getPaths());
             self::$templatesFolders = [];
             DebugTool::getInstance()->stopTimer($shortName);
@@ -184,7 +169,6 @@ class TemplateRender
         $usePath = [];
         $paths = [
             $this->getTemplatesFolder(),
-            $this->getCommonTemplatesFolder(),
             basePath(self::TEMPLATES_FOLDER),
         ];
 
@@ -195,16 +179,6 @@ class TemplateRender
             }
         }
         return $usePath;
-    }
-
-    /**
-     * Return the common template folder path.
-     *
-     * @return string
-     */
-    public function getCommonTemplatesFolder(): string
-    {
-        return basePath(self::COMMON_TEMPLATES_FOLDER);
     }
 
     /**
@@ -339,11 +313,9 @@ class TemplateRender
         try {
             // Adds without namespace
             self::$loader->addPath($this->getTemplatesFolder());
-            self::$loader->addPath($this->getCommonTemplatesFolder());
             self::$loader->addPath(basePath(self::TEMPLATES_FOLDER));
             // Adds with namespace Core
             self::$loader->addPath($this->getTemplatesFolder(), 'Core');
-            self::$loader->addPath($this->getCommonTemplatesFolder(), 'Core');
             self::$loader->addPath(basePath(self::TEMPLATES_FOLDER), 'Core');
 
             foreach (self::$templatesFolders as $moduleName => $modulePath) {
@@ -444,7 +416,6 @@ class TemplateRender
     {
         $paths = [
             $this->getTemplatesFolder() . $path => $this->getTemplatesUri() . $path,
-            $this->getCommonTemplatesFolder() . $path => $this->getCommonTemplatesUri() . $path,
             self::TEMPLATES_FOLDER . $path => baseUrl(self::TEMPLATES_FOLDER . $path),
             constant('VENDOR_FOLDER') . $path => constant('VENDOR_URI') . $path,
             basePath($path) => baseUrl($path),
@@ -468,13 +439,4 @@ class TemplateRender
         return baseUrl(self::$templatesFolder);
     }
 
-    /**
-     * Return the common template folder path from uri.
-     *
-     * @return string
-     */
-    public function getCommonTemplatesUri(): string
-    {
-        return baseUrl(self::COMMON_TEMPLATES_FOLDER);
-    }
 }

@@ -20,7 +20,7 @@ abstract class ControllerTest extends TestCase
      */
     public function testAddResource()
     {
-        $this->assertNotEmpty($this->object->addResource('resources/templates/index.twig', true));
+        $this->assertNotEmpty($this->object->addResource('resources/common/index.twig', true));
     }
 
     /**
@@ -71,7 +71,7 @@ abstract class ControllerTest extends TestCase
      */
     public function testAddCSS()
     {
-        $this->object->addCSS('resources/templates/css/alxarafe.css');
+        $this->object->addCSS('/css/alxarafe.css');
     }
 
     /**
@@ -79,8 +79,8 @@ abstract class ControllerTest extends TestCase
      */
     public function testAddToVar()
     {
-        $this->object->addToVar('cssCode', 'resources/templates/css/alxarafe.css');
-        $this->object->addToVar('jsCode', 'resources/templates/js/alxarafe.js');
+        $this->object->addToVar('cssCode', '/css/alxarafe.css');
+        $this->object->addToVar('jsCode', '/js/alxarafe.js');
     }
 
     /**
@@ -120,7 +120,7 @@ abstract class ControllerTest extends TestCase
      */
     public function testAddJS()
     {
-        $this->object->addJS('resources/templates/js/alxarafe.js');
+        $this->object->addJS('/js/alxarafe.js');
     }
 
     /**
