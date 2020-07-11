@@ -163,13 +163,14 @@ class Table extends SimpleTable
      */
     private function getDefaultValue(array $valueData)
     {
+        // TODO: The issets to verify that they exist, should still be in a check in debug mode, or in external code.
         $item = $valueData['default'] ?? '';
-        if ($valueData['nullable'] === 'no') {
+        if (isset($valueData['nullable']) && strtolower($valueData['nullable']) === 'no') {
             switch ($valueData['type']) {
                 case 'integer':
                 case 'number':
-                    if ($valueData['autoincrement']==='yes') {
-                        $item=null;
+                    if (isset($valueData['autoincrement']) && strtolower($valueData['autoincrement']) === 'yes') {
+                        $item = null;
                         break;
                     }
                 case 'email':

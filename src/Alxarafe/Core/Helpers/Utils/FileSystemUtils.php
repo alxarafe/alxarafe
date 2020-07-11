@@ -54,6 +54,7 @@ class FileSystemUtils
      */
     public static function mkdir(string $dir, int $mode = 0777, bool $recursive = false): bool
     {
+        // TODO: Añadir un try...catch...
         return !is_dir($dir) && !mkdir($dir, $mode, $recursive) && !is_dir($dir);
     }
 

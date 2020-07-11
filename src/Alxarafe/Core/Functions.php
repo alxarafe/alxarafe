@@ -80,9 +80,9 @@ if (!function_exists('randomString')) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         while (strlen($random) < $length) {
             try {
-                $pos = random_int(0, strlen($characters));
+                $pos = random_int(0, strlen($characters) - 1);
             } catch (Exception $e) {
-                $pos = mt_rand(0, strlen($characters));
+                $pos = mt_rand(0, strlen($characters) - 1);
             }
             $random .= $characters[$pos];
         }
