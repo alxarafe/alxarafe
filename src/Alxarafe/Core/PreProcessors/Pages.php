@@ -46,12 +46,17 @@ class Pages
      */
     private function updatePageDetails()
     {
-        foreach ((new Page())->getAllRecords() as $page) {
-            $page['active'] = 0;
-            if (array_key_exists($page['plugin'], $this->searchDir)) {
-                $page['active'] = 1;
+        $page = new Page();
+        $allPages = $page->getAllRecords();
+        foreach ($allPages as $pageData) {
+            if (!$page->get($pageData['id'])) {
+                continue;
             }
-            (new Page())->setData($page)->save();
+            $page->active = 0;
+            if (array_key_exists($page->plugin, $this->searchDir)) {
+                $page->active = 1;
+            }
+            $page->save();
         }
     }
 
