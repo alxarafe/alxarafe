@@ -192,6 +192,19 @@ abstract class AuthPageExtendedController extends AuthPageController
                 $this->viewData[$key] = [];
             }
         }
+        // Some fields may need auto-translation
+        foreach ($this->viewData as $field => $properties) {
+            foreach ($properties as $key => $value) {
+                switch ($key) {
+                    case 'label':
+                    case 'shortlabel':
+                    case 'placeholder':
+                        $this->viewData[$field][$key] = Translator::getInstance()->trans($value);
+                        break;
+                }
+            }
+        }
+
         $this->tableData[$this->tableName] = isset($this->postData[$this->tableName]) ? $this->model->getDefaultValues() : $this->postData[$this->tableName][0];
     }
 

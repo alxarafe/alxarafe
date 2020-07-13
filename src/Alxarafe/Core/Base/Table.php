@@ -200,6 +200,13 @@ class Table extends SimpleTable
                     $item = $valueData['default'];
             }
         }
+
+        switch ($item) {
+            case 'CURRENT_TIMESTAMP':
+                $item = date(FormatUtils::getFormatDateTime());
+                break;
+        }
+
         return $item;
     }
 

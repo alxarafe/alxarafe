@@ -2,8 +2,6 @@ id:
     label: id
     shortlabel: col-id
     placeholder: id
-    min: 0
-    max: 9999
 name:
     label: name
     shortlabel: col-name

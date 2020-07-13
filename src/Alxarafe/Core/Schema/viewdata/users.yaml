@@ -1,0 +1,37 @@
+id:
+    label: id
+    shortlabel: col-id
+    placeholder: id
+    type: integer
+username:
+    label: username
+    shortlabel: col-username
+    placeholder: username
+    length: 50
+    type: string
+email:
+    label: email
+    shortlabel: col-email
+    placeholder: email
+    length: 50
+    type: string
+password:
+    label: password
+    shortlabel: col-password
+    placeholder: password
+    type: password
+register_date:
+    label: register_date
+    shortlabel: col-register_date
+    placeholder: register_date
+    type: datetime
+active:
+    label: active
+    shortlabel: col-active
+    placeholder: active
+    type: bool
+logkey:
+    label: logkey
+    shortlabel: col-logkey
+    placeholder: logkey
+    type: string
