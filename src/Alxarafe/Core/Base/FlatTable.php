@@ -242,6 +242,10 @@ class FlatTable extends Entity
         $fieldVars = [];
         $vars = [];
 
+        if (!isset($values[$this->idField]) || empty($values[$this->idField])) {
+            unset($values[$this->idField]);
+        }
+
         foreach ($values as $fieldName => $value) {
             $fieldNames[$fieldName] = Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName);
             $fieldVars[$fieldName] = ':' . $fieldName;
@@ -263,6 +267,7 @@ class FlatTable extends Entity
         $valueList = implode(', ', $fieldVars);
 
         $sql = "INSERT INTO {$this->getQuotedTableName()} ($fieldList) VALUES ($valueList);";
+
         $this->exists = Database::getInstance()->getDbEngine()->exec($sql, $vars);
 
         // Assign the value of the primary key of the newly inserted record
