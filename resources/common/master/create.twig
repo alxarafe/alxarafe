@@ -18,7 +18,13 @@
     {% if ctrl.encType is not empty %}
         {% set encType = 'enctype="' ~ ctrl.encType ~ '"' %}
     {% endif %}
-    <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit' }}" method="post" accept-charset="utf-8" {{ encType }}>
+
+    {% set formType = 'form-inline' %}
+    {% if ctrl.viewData.form-type is not empty %}
+        {% set formType = ctrl.viewData.form-type %}
+    {% endif %}
+
+    <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit' }}" method="post" accept-charset="utf-8" {{ encType }} class="{{ formType }}">
         {% set listFields = ctrl.getListFields() %}
 
         {% for regKey, registers in listFields %}

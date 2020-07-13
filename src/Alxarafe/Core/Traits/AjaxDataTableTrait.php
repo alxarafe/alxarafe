@@ -100,7 +100,7 @@ trait AjaxDataTableTrait
     {
         $list = [];
         $i = 0;
-        foreach ($this->viewData as $key => $value) {
+        foreach ($this->viewData['fields'] as $key => $value) {
             $list[$i] = $key;
             $i++;
         }
@@ -160,7 +160,7 @@ trait AjaxDataTableTrait
     public function getTableHeader(): array
     {
         $list = [];
-        foreach ($this->viewData as $key => $value) {
+        foreach ($this->viewData['fields'] as $key => $value) {
             $list[$key] = [
                 'label' => Translator::getInstance()->trans($value['shortlabel'] ?? 'col-' . $key),
                 'class' => null,
@@ -185,7 +185,7 @@ trait AjaxDataTableTrait
         $list = [];
         if (isset($this->postData[$this->tableName])) {
             foreach ($this->postData[$this->tableName] as $pos => $valueData) {
-                foreach ($this->viewData as $key => $viewDataValue) {
+                foreach ($this->viewData['fields'] as $key => $viewDataValue) {
                     $list[$pos][$key] = [
                         'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
                         'value' => $valueData[$key],
@@ -209,7 +209,7 @@ trait AjaxDataTableTrait
     {
         $list = [];
         foreach ($this->postData[$this->tableName] as $pos => $valueData) {
-            foreach ($this->viewData as $key => $viewDataValue) {
+            foreach ($this->viewData['fields'] as $key => $viewDataValue) {
                 // Translate common user details
                 $translate = ['title', 'placeholder'];
                 foreach ($translate as $keyTrans => $valueTrans) {
