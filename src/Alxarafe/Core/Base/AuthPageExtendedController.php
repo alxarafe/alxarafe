@@ -299,7 +299,9 @@ abstract class AuthPageExtendedController extends AuthPageController
         if ($this->model->saveRecord($this->postData)) {
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-saved'));
+            FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('register-saved'));
+        } else {
+            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-saved'));
         }
     }
 
@@ -341,9 +343,9 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->initialize();
         // This 'locked' field can exists or not, if exist is used to not allow delete it.
         if (property_exists($this->model, 'locked') && $this->model->locked) {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-locked'));
+            FlashMessages::getInstance()::setInfo(Translator::getInstance()->trans('register-locked'));
         } elseif ($this->model->delete()) {
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-deleted'));
+            FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('register-deleted'));
         } else {
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-deleted'));
         }

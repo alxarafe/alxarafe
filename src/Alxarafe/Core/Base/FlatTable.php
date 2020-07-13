@@ -253,11 +253,6 @@ class FlatTable extends Entity
         }
 
         if (isset($this->id)) {
-//            if ($this->id === '') {
-//                echo "<p><strong>Cuidado</strong>: Se está usando espacio en el id en FlatTable.insertRecord</p>";
-//                var_dump($this);
-//                die;
-//            }
             $fieldNames[] = $this->getIdField();
             $fieldVars[] = ':id';
             $vars['id'] = $this->id;
@@ -268,15 +263,18 @@ class FlatTable extends Entity
 
         $sql = "INSERT INTO {$this->getQuotedTableName()} ($fieldList) VALUES ($valueList);";
 
-        $this->exists = Database::getInstance()->getDbEngine()->exec($sql, $vars);
+        $result = Database::getInstance()->getDbEngine()->exec($sql, $vars);
 
-        // Assign the value of the primary key of the newly inserted record
-        if (!isset($this->id)) {
-            $this->id = Database::getInstance()->getDbEngine()->getLastInserted();
-            $this->newData[$this->idField] = $this->id;
+        if ($result) {
+            $this->exists = true;
+            // Assign the value of the primary key of the newly inserted record
+            if (!isset($this->id)) {
+                $this->id = Database::getInstance()->getDbEngine()->getLastInserted();
+                $this->newData[$this->idField] = $this->id;
+            }
         }
 
-        return $this->exists;
+        return $result;
     }
 
     /**

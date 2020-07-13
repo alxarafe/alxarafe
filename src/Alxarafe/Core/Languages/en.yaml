@@ -191,6 +191,7 @@ modules-description: 'Modules complements the functionallity, enable or disable 
 modules-title: Modules
 name: Name
 namespace: Namespace
+new: New
 no-access: 'No access'
 order: Order
 password: Password
@@ -206,6 +207,7 @@ register-deleted: 'Register deleted'
 register-locked: 'Register locked'
 register-not-deleted: 'Register not deleted'
 register-saved: 'Register saved'
+register-not-saved: 'Register not saved'
 register_date: 'Registered at'
 reinstanciated-controller-class-for-pages-error: 'Re-instanciated controller class for pages error'
 reinstanciated-controller-class-for-routes-error: 'Re-instanciated controller class for routes error'

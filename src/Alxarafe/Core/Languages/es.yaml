@@ -189,6 +189,7 @@ modules-description: 'Los módulos complementan la funcionalidad, activa o desac
 modules-title: Módulos
 name: Nombre
 namespace: 'Espacio de nombre'
+new: Nuevo
 no-access: 'Sin acceso'
 order: Orden
 password: Contraseña
@@ -204,6 +205,7 @@ register-deleted: 'Registro eliminado'
 register-locked: 'Registro bloqueado'
 register-not-deleted: 'Registro no eliminado'
 register-saved: 'Registro guardado'
+register-not-saved: 'Registro no guardado'
 register_date: 'Registrado el'
 reinstanciated-controller-class-for-pages-successfully: 'Re-instanciada clase controller para páginas satisfactoriamente'
 reinstanciated-controller-class-for-routes-successfully: 'Re-instanciada clase controller para rutas satisfactoriamente'
