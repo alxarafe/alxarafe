@@ -24,7 +24,7 @@ class FileSystemUtilsTest extends TestCase
     /**
      * @use    FileSystemUtils::scandir
      */
-    public function testScandir()
+    public function testScandir(): void
     {
         // Remove the following lines when you implement this test.
         $this->assertNotEmpty($this->object::scandir(__DIR__));
@@ -33,7 +33,7 @@ class FileSystemUtilsTest extends TestCase
     /**
      * @use FileSystemUtils::mkdir
      */
-    public function testMkdir()
+    public function testMkdir(): void
     {
         $folder = 'test';
         $this->assertDirectoryNotExists($folder);
@@ -44,7 +44,7 @@ class FileSystemUtilsTest extends TestCase
     /**
      * @use FileSystemUtils::rrmdir
      */
-    public function testRrmdir()
+    public function testRrmdir(): void
     {
         $folder = 'test';
         $this->assertDirectoryExists($folder);
@@ -56,7 +56,7 @@ class FileSystemUtilsTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->object = null;
     }

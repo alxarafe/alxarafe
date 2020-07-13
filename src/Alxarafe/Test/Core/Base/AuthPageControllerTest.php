@@ -11,22 +11,22 @@ abstract class AuthPageControllerTest extends AuthControllerTest
         parent::__construct();
     }
 
-    public function testReadMethod()
+    public function testReadMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->readMethod());
     }
 
-    public function testDeleteMethod()
+    public function testDeleteMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->deleteMethod());
     }
 
-    public function testUpdateMethod()
+    public function testUpdateMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->updateMethod());
     }
 
-    public function testRunMethod()
+    public function testRunMethod(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -34,7 +34,7 @@ abstract class AuthPageControllerTest extends AuthControllerTest
         //);
     }
 
-    public function testGetUserMenu()
+    public function testGetUserMenu(): void
     {
         $this->assertNotEmpty($this->object->getUserMenu());
     }
@@ -42,7 +42,7 @@ abstract class AuthPageControllerTest extends AuthControllerTest
     /**
      * AuthPageController::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -50,12 +50,12 @@ abstract class AuthPageControllerTest extends AuthControllerTest
         );
     }
 
-    public function testCreateMethod()
+    public function testCreateMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->createMethod());
     }
 
-    public function testIndexMethod()
+    public function testIndexMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }

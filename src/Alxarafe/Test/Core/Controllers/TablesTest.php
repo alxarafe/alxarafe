@@ -16,7 +16,7 @@ class TablesTest extends AuthPageExtendedControllerTest
     /**
      * @use Tables::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }

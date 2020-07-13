@@ -18,7 +18,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::addResource
      */
-    public function testAddResource()
+    public function testAddResource(): void
     {
         $this->assertNotEmpty($this->object->addResource('resources/common/index.twig', true));
     }
@@ -26,7 +26,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::getArrayPost
      */
-    public function testGetArrayPost()
+    public function testGetArrayPost(): void
     {
         $this->assertEmpty($this->object->getArrayPost());
     }
@@ -34,7 +34,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::sendResponse
      */
-    public function testSendResponse()
+    public function testSendResponse(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->sendResponse(''));
     }
@@ -42,7 +42,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::sendResponseTemplate
      */
-    public function testSendResponseTemplate()
+    public function testSendResponseTemplate(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->sendResponseTemplate());
     }
@@ -50,7 +50,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::getArrayCookies
      */
-    public function testGetArrayCookies()
+    public function testGetArrayCookies(): void
     {
         $this->assertEmpty($this->object->getArrayCookies());
     }
@@ -58,7 +58,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::runMethod
      */
-    public function testRunMethod()
+    public function testRunMethod(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -69,7 +69,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::addCSS
      */
-    public function testAddCSS()
+    public function testAddCSS(): void
     {
         $this->object->addCSS('/css/alxarafe.css');
     }
@@ -77,7 +77,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::addToVar
      */
-    public function testAddToVar()
+    public function testAddToVar(): void
     {
         $this->object->addToVar('cssCode', '/css/alxarafe.css');
         $this->object->addToVar('jsCode', '/js/alxarafe.js');
@@ -86,7 +86,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::getArrayServer
      */
-    public function testGetArrayServer()
+    public function testGetArrayServer(): void
     {
         $this->assertNotEmpty($this->object->getArrayServer());
     }
@@ -94,7 +94,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::getArrayHeaders
      */
-    public function testGetArrayHeaders()
+    public function testGetArrayHeaders(): void
     {
         $this->assertEmpty($this->object->getArrayHeaders());
     }
@@ -102,7 +102,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::getArrayGet
      */
-    public function testGetArrayGet()
+    public function testGetArrayGet(): void
     {
         $this->assertEmpty($this->object->getArrayGet());
     }
@@ -110,7 +110,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::redirect
      */
-    public function testRedirect()
+    public function testRedirect(): void
     {
         $this->assertInstanceOf(RedirectResponse::class, $this->object->redirect());
     }
@@ -118,7 +118,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::addJS
      */
-    public function testAddJS()
+    public function testAddJS(): void
     {
         $this->object->addJS('/js/alxarafe.js');
     }
@@ -126,7 +126,7 @@ abstract class ControllerTest extends TestCase
     /**
      * @use Controller::getArrayFiles
      */
-    public function testGetArrayFiles()
+    public function testGetArrayFiles(): void
     {
         $this->assertEmpty($this->object->getArrayFiles());
     }

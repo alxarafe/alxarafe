@@ -18,7 +18,7 @@ class UsersRolesTest extends AuthPageExtendedControllerTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->object = null;
     }
@@ -26,7 +26,7 @@ class UsersRolesTest extends AuthPageExtendedControllerTest
     /**
      * @use UsersRoles::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }

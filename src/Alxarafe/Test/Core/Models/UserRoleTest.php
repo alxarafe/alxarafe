@@ -13,7 +13,7 @@ class UserRoleTest extends TestCase
         $this->object = new UserRole();
     }
 
-    public function testLoad()
+    public function testLoad(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -21,7 +21,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetOldData()
+    public function testGetOldData(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -29,7 +29,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetDataArray()
+    public function testGetDataArray(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -37,7 +37,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetIndexesFromTable()
+    public function testGetIndexesFromTable(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -45,7 +45,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function test__call()
+    public function test__call(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -53,7 +53,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSetData()
+    public function testSetData(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -61,7 +61,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSetStructure()
+    public function testSetStructure(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -69,7 +69,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSave()
+    public function testSave(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -77,7 +77,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSaveRecord()
+    public function testSaveRecord(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -85,7 +85,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function test__isset()
+    public function test__isset(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -93,7 +93,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetFieldsFromTable()
+    public function testGetFieldsFromTable(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -101,7 +101,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testCheckStructure()
+    public function testCheckStructure(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -109,7 +109,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetAllRecordsPaged()
+    public function testGetAllRecordsPaged(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -117,7 +117,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -125,7 +125,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSearch()
+    public function testSearch(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -133,7 +133,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetNameField()
+    public function testGetNameField(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -141,7 +141,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetIdByName()
+    public function testGetIdByName(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -149,7 +149,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetIdField()
+    public function testGetIdField(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -157,7 +157,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetTableName()
+    public function testGetTableName(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -165,7 +165,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSearchQuery()
+    public function testSearchQuery(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -173,7 +173,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -181,7 +181,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function test__get()
+    public function test__get(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -189,7 +189,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSetOldData()
+    public function testSetOldData(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -197,7 +197,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetData()
+    public function testGetData(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -205,7 +205,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function test__set()
+    public function test__set(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -213,7 +213,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetDefaultValues()
+    public function testGetDefaultValues(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -221,7 +221,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetBy()
+    public function testGetBy(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -229,7 +229,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testCountAllRecords()
+    public function testCountAllRecords(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -237,7 +237,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetAllRecordsBy()
+    public function testGetAllRecordsBy(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -245,7 +245,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetAllRecords()
+    public function testGetAllRecords(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -253,7 +253,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetChecksFromTable()
+    public function testGetChecksFromTable(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -261,7 +261,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testNewRecord()
+    public function testNewRecord(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -269,7 +269,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetQuotedTableName()
+    public function testGetQuotedTableName(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -277,7 +277,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetId()
+    public function testGetId(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -285,7 +285,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testGetStructure()
+    public function testGetStructure(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -293,7 +293,7 @@ class UserRoleTest extends TestCase
         //);
     }
 
-    public function testSearchCount()
+    public function testSearchCount(): void
     {
         // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
@@ -305,7 +305,7 @@ class UserRoleTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {        // Remove the following lines when you implement this test.
         //$this->markTestIncomplete(
         //    'This test has not been implemented yet.'

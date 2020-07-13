@@ -19,7 +19,7 @@ class LanguagesTest extends AuthPageExtendedControllerTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->object = null;
     }
@@ -27,7 +27,7 @@ class LanguagesTest extends AuthPageExtendedControllerTest
     /**
      * @use Languages::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }
@@ -35,7 +35,7 @@ class LanguagesTest extends AuthPageExtendedControllerTest
     /**
      * @use Languages::indexMethod
      */
-    public function testIndexMethod()
+    public function testIndexMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
@@ -43,7 +43,7 @@ class LanguagesTest extends AuthPageExtendedControllerTest
     /**
      * @use Languages::getExtraActions
      */
-    public function testGetExtraActions()
+    public function testGetExtraActions(): void
     {
         $this->assertNotEmpty($this->object->getExtraActions());
     }

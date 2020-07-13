@@ -16,7 +16,7 @@ class CreateConfigTest extends ControllerTest
     /**
      * @use CreateConfig::indexMethod
      */
-    public function testIndexMethod()
+    public function testIndexMethod(): void
     {
         $this->assertIsObject($this->object->indexMethod());
     }
@@ -24,7 +24,7 @@ class CreateConfigTest extends ControllerTest
     /**
      * @use CreateConfig::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }
@@ -32,7 +32,7 @@ class CreateConfigTest extends ControllerTest
     /**
      * @use CreateConfig::generateMethod
      */
-    public function testGenerateMethod()
+    public function testGenerateMethod(): void
     {
         $this->assertIsObject($this->object->generateMethod());
     }
@@ -40,7 +40,7 @@ class CreateConfigTest extends ControllerTest
     /**
      * @use CreateConfig::getTimezoneList
      */
-    public function testGetTimezoneList()
+    public function testGetTimezoneList(): void
     {
         $this->assertIsArray($this->object->getTimezoneList());
     }

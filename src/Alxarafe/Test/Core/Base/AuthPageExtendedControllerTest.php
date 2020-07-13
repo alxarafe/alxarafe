@@ -11,72 +11,72 @@ abstract class AuthPageExtendedControllerTest extends AuthPageControllerTest
         parent::__construct();
     }
 
-    public function testShowMethod()
+    public function testShowMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->showMethod());
     }
 
-    public function testGetActionButtons()
+    public function testGetActionButtons(): void
     {
         $this->assertEmpty($this->object->getActionButtons());
     }
 
-    public function testGetExtraActions()
+    public function testGetExtraActions(): void
     {
         $this->assertEmpty($this->object->getExtraActions());
     }
 
-    public function testEditMethod()
+    public function testEditMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->editMethod());
     }
 
-    public function testRemoveMethod()
+    public function testRemoveMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->removeMethod());
     }
 
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $this->object->initialize();
     }
 
-    public function testDeleteMethod()
+    public function testDeleteMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->deleteMethod());
     }
 
-    public function testIndexMethod()
+    public function testIndexMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
 
-    public function testAddMethod()
+    public function testAddMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->addMethod());
     }
 
-    public function testCreateMethod()
+    public function testCreateMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->createMethod());
     }
 
-    public function testAccessDenied()
+    public function testAccessDenied(): void
     {
         $this->object->accessDenied();
     }
 
-    public function testListData()
+    public function testListData(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->listData());
     }
 
-    public function testReadMethod()
+    public function testReadMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->readMethod());
     }
 
-    public function testUpdateMethod()
+    public function testUpdateMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->updateMethod());
     }

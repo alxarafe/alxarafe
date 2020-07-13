@@ -20,7 +20,7 @@ class LoginTest extends ControllerTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->object = null;
     }
@@ -28,7 +28,7 @@ class LoginTest extends ControllerTest
     /**
      * @use Login::getCookieUser
      */
-    public function testGetCookieUser()
+    public function testGetCookieUser(): void
     {
         $userName = 'admin';
         $user = new User();
@@ -42,7 +42,7 @@ class LoginTest extends ControllerTest
     /**
      * @use Login::setUser
      */
-    public function testSetUser()
+    public function testSetUser(): void
     {
         $this->assertTrue($this->object->setUser('admin', 'admin', 0));
     }
@@ -50,7 +50,7 @@ class LoginTest extends ControllerTest
     /**
      * @use Login::logoutMethod
      */
-    public function testLogoutMethod()
+    public function testLogoutMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->logoutMethod());
     }
@@ -58,7 +58,7 @@ class LoginTest extends ControllerTest
     /**
      * @use Login::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }
@@ -66,7 +66,7 @@ class LoginTest extends ControllerTest
     /**
      * @use Login::getUser
      */
-    public function testGetUser()
+    public function testGetUser(): void
     {
         $this->assertNull($this->object->getUser());
         $this->testSetUser();
@@ -76,7 +76,7 @@ class LoginTest extends ControllerTest
     /**
      * @use Login::indexMethod
      */
-    public function testIndexMethod()
+    public function testIndexMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
@@ -84,7 +84,7 @@ class LoginTest extends ControllerTest
     /**
      * @use Login::getUserName
      */
-    public function testGetUserName()
+    public function testGetUserName(): void
     {
         $this->assertFalse($this->object->setUser('admin', 'bad-pass', 0));
         $this->assertNull($this->object->getUserName());

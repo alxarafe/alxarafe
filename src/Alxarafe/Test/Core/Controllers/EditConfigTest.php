@@ -24,7 +24,7 @@ class EditConfigTest extends AuthPageControllerTest
     /**
      * @use EditConfig::indexMethod
      */
-    public function testIndexMethod()
+    public function testIndexMethod(): void
     {
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=index');
         $this->http = $this->newClient($this->httpData);
@@ -48,7 +48,7 @@ class EditConfigTest extends AuthPageControllerTest
     /**
      * @use EditConfig::readMethod
      */
-    public function testReadMethod()
+    public function testReadMethod(): void
     {
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=read');
         $this->http = $this->newClient($this->httpData);
@@ -63,7 +63,7 @@ class EditConfigTest extends AuthPageControllerTest
     /**
      * @use EditConfig::updateMethod
      */
-    public function testUpdateMethod()
+    public function testUpdateMethod(): void
     {
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=update');
         $this->http = $this->newClient($this->httpData);
@@ -78,7 +78,7 @@ class EditConfigTest extends AuthPageControllerTest
     /**
      * @use EditConfig::createMethod
      */
-    public function testCreateMethod()
+    public function testCreateMethod(): void
     {
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=create');
         $this->http = $this->newClient($this->httpData);
@@ -93,7 +93,7 @@ class EditConfigTest extends AuthPageControllerTest
     /**
      * @use EditConfig::deleteMethod
      */
-    public function testDeleteMethod()
+    public function testDeleteMethod(): void
     {
         $this->httpData['base_uri'] = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=EditConfig&' . constant('METHOD_CONTROLLER') . '=delete');
         $this->http = $this->newClient($this->httpData);
@@ -108,7 +108,7 @@ class EditConfigTest extends AuthPageControllerTest
     /**
      * @use EditConfig::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }
@@ -116,12 +116,12 @@ class EditConfigTest extends AuthPageControllerTest
     /**
      * @use EditConfig::getTimezoneList
      */
-    public function testGetTimezoneList()
+    public function testGetTimezoneList(): void
     {
         $this->assertIsArray($this->object->getTimezoneList());
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->http = null;
         $this->object = null;

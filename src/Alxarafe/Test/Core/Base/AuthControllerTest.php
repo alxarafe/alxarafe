@@ -5,6 +5,7 @@ namespace Alxarafe\Test\Core\Base;
 use Alxarafe\Core\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\FileCookieJar;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class AuthControllerTest extends ControllerTest
 {
@@ -58,7 +59,7 @@ abstract class AuthControllerTest extends ControllerTest
     /**
      * @use EditConfig::checkAuth
      */
-    public function testLogin()
+    public function testLogin(): void
     {
         $postData = [
             'form_params' => [
@@ -86,7 +87,12 @@ abstract class AuthControllerTest extends ControllerTest
         }
     }
 
-    public function newClient(array $data)
+    /**
+     * @param array $data
+     *
+     * @return Client
+     */
+    public function newClient(array $data): Client
     {
         return new Client($data);
     }
@@ -95,9 +101,9 @@ abstract class AuthControllerTest extends ControllerTest
      * @param        $url
      * @param string $action
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    public function doGetRequest($url, $action = '')
+    public function doGetRequest($url, $action = ''): ResponseInterface
     {
         return $this->http->get($url . $action, ['cookies' => $this->cookies]);
     }
@@ -105,7 +111,7 @@ abstract class AuthControllerTest extends ControllerTest
     /**
      * @use AuthController::logout
      */
-    public function testLogout()
+    public function testLogout(): void
     {
         if (method_exists($this->object, 'logout')) {
             foreach ($this->cookies->toArray() as $key => $value) {

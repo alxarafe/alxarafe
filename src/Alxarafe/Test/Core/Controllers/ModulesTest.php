@@ -19,7 +19,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->object = null;
     }
@@ -27,7 +27,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::readMethod
      */
-    public function testReadMethod()
+    public function testReadMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->readMethod());
     }
@@ -35,7 +35,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::disableMethod
      */
-    public function testDisableMethod()
+    public function testDisableMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->disableMethod());
     }
@@ -43,7 +43,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::deleteMethod
      */
-    public function testDeleteMethod()
+    public function testDeleteMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->deleteMethod());
     }
@@ -51,7 +51,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::getActionButtons
      */
-    public function testGetActionButtons()
+    public function testGetActionButtons(): void
     {
         $this->assertNotEmpty($this->object->getActionButtons());
     }
@@ -59,7 +59,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::indexMethod
      */
-    public function testIndexMethod()
+    public function testIndexMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->indexMethod());
     }
@@ -67,7 +67,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::createMethod
      */
-    public function testCreateMethod()
+    public function testCreateMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->createMethod());
     }
@@ -75,7 +75,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::updateMethod
      */
-    public function testUpdateMethod()
+    public function testUpdateMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->updateMethod());
     }
@@ -83,7 +83,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::pageDetails
      */
-    public function testPageDetails()
+    public function testPageDetails(): void
     {
         $this->assertNotEmpty($this->object->pageDetails());
     }
@@ -91,7 +91,7 @@ class ModulesTest extends AuthPageExtendedControllerTest
     /**
      * @use Modules::enableMethod
      */
-    public function testEnableMethod()
+    public function testEnableMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->enableMethod());
     }

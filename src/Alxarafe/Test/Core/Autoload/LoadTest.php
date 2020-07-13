@@ -22,7 +22,7 @@ class LoadTest extends TestCase
     /**
      * @use Load::getInstance
      */
-    public function testGetInstance()
+    public function testGetInstance(): void
     {
         $this->assertSame($this->object::getInstance(), $this->object);
     }
@@ -30,7 +30,7 @@ class LoadTest extends TestCase
     /**
      * @use Load::init
      */
-    public function testInit()
+    public function testInit(): void
     {
         $dirs = realpath(
             constant('BASE_PATH') . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Alxarafe'
@@ -38,7 +38,7 @@ class LoadTest extends TestCase
         $this->object::init($dirs);
     }
 
-    public function testAddDirs()
+    public function testAddDirs(): void
     {
         $dirs = [
             realpath(
@@ -52,7 +52,7 @@ class LoadTest extends TestCase
     /**
      * @use Load::autoload
      */
-    public function testAutoLoad()
+    public function testAutoLoad(): void
     {
         $this->object::autoLoad('\Modules\Sample\Models\Country');
         $this->object::autoLoad('Modules\Sample\Models\Country');
@@ -63,7 +63,7 @@ class LoadTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->object = null;
     }

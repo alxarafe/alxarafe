@@ -25,7 +25,7 @@ class FormatUtilsTest extends TestCase
     /**
      * @use FormatUtils::getFormatDate
      */
-    public function testGetFormatDate()
+    public function testGetFormatDate(): void
     {
         $this->assertNotEmpty($this->object::getFormatDate());
     }
@@ -33,7 +33,7 @@ class FormatUtilsTest extends TestCase
     /**
      * @use FormatUtils::getFormatDateTime
      */
-    public function testGetFormatDateTime()
+    public function testGetFormatDateTime(): void
     {
         $this->assertNotEmpty($this->object::getFormatDateTime());
     }
@@ -41,7 +41,7 @@ class FormatUtilsTest extends TestCase
     /**
      * @use FormatUtils::getFormatTime
      */
-    public function testGetFormatTime()
+    public function testGetFormatTime(): void
     {
         $this->assertNotEmpty($this->object::getFormatTime());
     }
@@ -49,7 +49,7 @@ class FormatUtilsTest extends TestCase
     /**
      * @use FormatUtils::getFormattedDate
      */
-    public function testGetFormattedDate()
+    public function testGetFormattedDate(): void
     {
         $this->assertNotEmpty($this->object::getFormattedDate());
     }
@@ -57,7 +57,7 @@ class FormatUtilsTest extends TestCase
     /**
      * @use FormatUtils::getFormatted
      */
-    public function testGetFormatted()
+    public function testGetFormatted(): void
     {
         $this->assertNotEmpty($this->object::getFormatted($this->object::getFormatDate()));
         $this->assertNotEmpty($this->object::getFormatted($this->object::getFormatDateTime()));
@@ -67,7 +67,7 @@ class FormatUtilsTest extends TestCase
     /**
      * @use FormatUtils::getFormattedTime
      */
-    public function testGetFormattedTime()
+    public function testGetFormattedTime(): void
     {
         $this->assertNotEmpty($this->object::getFormattedTime());
     }
@@ -75,7 +75,7 @@ class FormatUtilsTest extends TestCase
     /**
      * @use FormatUtils::getFormattedDateTime
      */
-    public function testGetFormattedDateTime()
+    public function testGetFormattedDateTime(): void
     {
         $this->assertNotEmpty($this->object::getFormattedDateTime());
     }
@@ -84,7 +84,7 @@ class FormatUtilsTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->object = null;
     }

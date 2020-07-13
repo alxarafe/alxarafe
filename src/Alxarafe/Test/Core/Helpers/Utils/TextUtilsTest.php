@@ -24,7 +24,7 @@ class TextUtilsTest extends TestCase
     /**
      * @use TextUtils::camelToSnake
      */
-    public function testCamelToSnake()
+    public function testCamelToSnake(): void
     {
         $testCamelCase = 'CamelCase';
         $testSnakeCase = 'camel_case';
@@ -34,7 +34,7 @@ class TextUtilsTest extends TestCase
     /**
      * @use TextUtils::snakeToCamel
      */
-    public function testSnakeToCamel()
+    public function testSnakeToCamel(): void
     {
         $testSnakeCase = 'camel_case';
         $testCamelCase = 'CamelCase';
@@ -44,7 +44,7 @@ class TextUtilsTest extends TestCase
     /**
      * @use TextUtils::randomString
      */
-    public function testRandomString()
+    public function testRandomString(): void
     {
         $this->assertNotEmpty($this->object::randomString());
     }
@@ -53,7 +53,7 @@ class TextUtilsTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->object = null;
     }

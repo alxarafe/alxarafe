@@ -24,7 +24,7 @@ class ArrayUtilsTest extends TestCase
     /**
      * @use ArrayUtils::flatArray
      */
-    public function testflatArray()
+    public function testflatArray(): void
     {
         $array1 = [
             0 => '0',
@@ -38,7 +38,7 @@ class ArrayUtilsTest extends TestCase
     /**
      * @use ArrayUtils::addToArray
      */
-    public function testAddToArray()
+    public function testAddToArray(): void
     {
         $array1 = [0 => '0'];
         $array2 = [1 => '1'];
@@ -49,7 +49,7 @@ class ArrayUtilsTest extends TestCase
     /**
      * @use ArrayUtils::isTrue
      */
-    public function testIsTrue()
+    public function testIsTrue(): void
     {
         $array = [0 => 'true', 1 => 'false'];
         $this->assertTrue($this->object::isTrue($array, 0));
@@ -79,7 +79,7 @@ class ArrayUtilsTest extends TestCase
     /**
      * @use ArrayUtils::getItem
      */
-    public function testGetItem()
+    public function testGetItem(): void
     {
         $array = [
             0 => '0',
@@ -93,7 +93,7 @@ class ArrayUtilsTest extends TestCase
     /**
      * @use ArrayUtils::arrayMergeRecursiveEx
      */
-    public function testArrayMergeRecursiveEx()
+    public function testArrayMergeRecursiveEx(): void
     {
         $array1 = [
             'a' => 'a',
@@ -120,7 +120,7 @@ class ArrayUtilsTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->object = null;
     }
