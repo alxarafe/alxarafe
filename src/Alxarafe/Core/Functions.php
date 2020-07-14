@@ -52,7 +52,7 @@ if (!function_exists('baseUrl')) {
         $defaultHost = constant('SERVER_NAME') ?? 'localhost';
         $path = $_SERVER['PHP_SELF'];
         // For PHPUnit tests, SERVER PHP_SELF contains 'vendor/bin/phpunit'
-        if (isset($_SERVER['argv']) && $_SERVER['PHP_SELF'] === $_SERVER['argv'][0]) {
+        if (isset($_SERVER['argv'][0]) && $_SERVER['PHP_SELF'] === $_SERVER['argv'][0]) {
             $path = '';
         }
         $folder = str_replace(['/index.php', constant('APP_URI')], '', $path);
