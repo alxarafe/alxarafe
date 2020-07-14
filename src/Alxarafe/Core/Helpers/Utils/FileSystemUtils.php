@@ -6,8 +6,12 @@
 
 namespace Alxarafe\Core\Helpers\Utils;
 
+use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\ModuleManager;
+use Alxarafe\Core\Providers\Translator;
 use DirectoryIterator;
+use Exception;
+use RuntimeException;
 use SplFileInfo;
 
 /**
@@ -54,8 +58,17 @@ class FileSystemUtils
      */
     public static function mkdir(string $dir, int $mode = 0777, bool $recursive = false): bool
     {
-        // TODO: Añadir un try...catch...
-        return !is_dir($dir) && !mkdir($dir, $mode, $recursive) && !is_dir($dir);
+        $status = true;
+        try {
+            if (!is_dir($dir) && !mkdir($dir) && !is_dir($dir)) {
+                $message = Translator::getInstance()->trans('directory-not-created', ['%directory%' => $dir]);
+                throw new RuntimeException($message);
+            }
+        } catch (Exception $e) {
+            $status = false;
+            FlashMessages::getInstance()::setError($e->getMessage());
+        }
+        return $status;
     }
 
     /**
