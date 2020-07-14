@@ -6,7 +6,11 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Singleton;
+use Alxarafe\Core\Providers\Translator;
+use Exception;
+use RuntimeException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 
@@ -69,6 +73,14 @@ class CacheCore
     private function connectPhpArray(): void
     {
         $file = basePath('core.cache');
+        if (!file_exists($file) && file_put_contents($file, '') === false) {
+            try {
+                $message = Translator::getInstance()->trans('file-not-created', ['%file%' => $file]);
+                throw new RuntimeException($message);
+            } catch (Exception $e) {
+                FlashMessages::getInstance()::setError($e->getMessage());
+            }
+        }
         $this->engine = new PhpArrayAdapter($file, new FilesystemAdapter());
     }
 

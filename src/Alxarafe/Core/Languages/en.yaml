@@ -149,6 +149,7 @@ default-timezone: 'Default timezone'
 delete: Delete
 description: Description
 dev-tools: 'Development tools'
+directory-not-created: 'Directory <b>%directory%</b> not created'
 disable: Disable
 edit: Edit
 edit-configuration: 'Edit configuration'
@@ -161,6 +162,7 @@ enter: Enter
 exit: Exit
 extra-actions: 'Extra actions'
 fake-data: 'Generate fake data'
+file-not-created: 'File <b>%file%</b> not created.'
 fork-us: 'Fork us'
 icon: Icon
 id: Id.

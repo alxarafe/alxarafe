@@ -147,6 +147,7 @@ default-timezone: 'Zona horaria por defecto'
 delete: Eliminar
 description: Descripción
 dev-tools: 'Herramientas de desarrollo'
+directory-not-created: 'Directorio <b>%directory%</b> no creado'
 disable: Desactivar
 edit: Editar
 edit-configuration: 'Editar configuración'
@@ -159,6 +160,7 @@ entero: Entrar
 exit: Salir
 extra-actions: 'Acciones extra'
 fake-data: 'Generar datos falsos'
+file-not-created: 'Archivo <b>%file%</b> no creado.'
 fork-us: 'Bifurcanos'
 icon: Icono
 id: Id.
