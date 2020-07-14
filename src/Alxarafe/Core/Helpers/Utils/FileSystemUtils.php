@@ -60,7 +60,7 @@ class FileSystemUtils
     {
         $status = true;
         try {
-            if (!is_dir($dir) && !mkdir($dir) && !is_dir($dir)) {
+            if (!is_dir($dir) && !mkdir($dir, $mode, $recursive) && !is_dir($dir)) {
                 $message = Translator::getInstance()->trans('directory-not-created', ['%directory%' => $dir]);
                 throw new RuntimeException($message);
             }
