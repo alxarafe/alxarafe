@@ -79,6 +79,22 @@ indexes:
     role_page:
         column: id_role,id_page
         unique: 'yes'
+    roles_pages__roles__id_role:
+        column: id_role
+        unique: 'no'
+        constraint: 'yes'
+        referencedtable: roles
+        referencedfield: id
+        deleterule: 'RESTRICT'
+        updaterule: 'RESTRICT'
+    roles_pages__pages__id_page:
+        column: id_page
+        unique: 'no'
+        constraint: 'yes'
+        referencedtable: pages
+        referencedfield: id
+        deleterule: 'RESTRICT'
+        updaterule: 'RESTRICT'
 values:
     1:
         id: 1

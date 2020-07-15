@@ -150,7 +150,7 @@ class SchemaDB
         foreach ($fieldsList as $index => $col) {
             $field = Database::getInstance()->getSqlHelper()->getSQLField($index, $col);
             if ($field !== '') {
-                $fields[] = trim($fieldOperation . ' ' . $field);
+                $fields[] = ' ' . trim($fieldOperation . ' ' . $field);
             }
         }
         return implode(', ', $fields);

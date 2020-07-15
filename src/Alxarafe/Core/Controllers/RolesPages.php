@@ -7,6 +7,8 @@
 namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\AuthPageExtendedController;
+use Alxarafe\Core\Models\Page;
+use Alxarafe\Core\Models\Role;
 use Alxarafe\Core\Models\RolePage;
 
 /**
@@ -38,5 +40,18 @@ class RolesPages extends AuthPageExtendedController
             'menu' => 'admin',
         ];
         return $details;
+    }
+
+    /**
+     * Return class dependencies
+     *
+     * @return string[]
+     */
+    public function getDependencies(): array
+    {
+        return [
+            Page::class,
+            Role::class,
+        ];
     }
 }
