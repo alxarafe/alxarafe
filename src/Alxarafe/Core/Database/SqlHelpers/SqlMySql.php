@@ -31,7 +31,9 @@ class SqlMySql extends SqlHelper
             'text' => ['text', 'blob'],
             'float' => ['real', 'double'],
             'date' => ['date'],
+            'time' => ['time'],
             'datetime' => ['timestamp'],
+            'bool' => ['boolean'],
         ];
     }
 
@@ -118,6 +120,9 @@ class SqlMySql extends SqlHelper
                 break;
             case 'datetime':
                 $return = 'timestamp';
+                break;
+            case 'bool':
+                $return = 'boolean';
                 break;
             default:
                 $return = $type;

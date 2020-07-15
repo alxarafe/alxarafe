@@ -110,7 +110,11 @@ class Languages
                 $allData = array_merge(...$data);
             }
             ksort($allData);
-            file_put_contents($destinationFolder . DIRECTORY_SEPARATOR . $fileName . '.yaml', Yaml::dump($allData));
+            $file = $destinationFolder . DIRECTORY_SEPARATOR . $fileName . '.yaml';
+            $result = file_put_contents($file, Yaml::dump($allData));
+            if ($result) {
+                FlashMessages::getInstance()::setInfo('You can download the file from: ' . $file);
+            }
         }
     }
 }

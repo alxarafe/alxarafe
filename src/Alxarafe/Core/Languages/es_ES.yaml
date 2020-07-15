@@ -158,6 +158,7 @@ enable: Activar
 enabled: Activado
 entero: Entrar
 exit: Salir
+export-data: 'Exportar datos'
 extra-actions: 'Acciones extra'
 fake-data: 'Generar datos falsos'
 file-not-created: 'Archivo <b>%file%</b> no creado.'

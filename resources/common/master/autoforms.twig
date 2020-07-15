@@ -79,12 +79,18 @@
     {% set labelInput = labelInput - labelSize %}
     {% if hasCols %}<div class="col-xs-{{ labelInput }}">{% endif %}
     {% if editable %}
-        {% if item.struct.type is same as('integer') or item.struct.type is same as('number') or item.struct.type is same as('datetime') or item.struct.type is same as('date') or item.struct.type is same as('time') or item.struct.type is same as('string') %}
+        {% if item.viewData.type is same as('integer') or item.viewData.type is same as('number') %}
+            <input id="{{ item.idName }}" name="{{ item.idName }}" type="number" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
+        {% elseif item.viewData.type is same as('date') or item.viewData.type is same as('time') or item.viewData.type is same as('string') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="{{ inputType }}" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif item.struct.type is same as('bool') %}
+        {% elseif item.viewData.type is same as('password') %}
+            <input id="{{ item.idName }}" name="{{ item.idName }}" type="password" class="form-control" value="" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
+        {% elseif item.viewData.type is same as('datetime') %}
+            <input id="{{ item.idName }}" name="{{ item.idName }}" type="datetime-local" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
+        {% elseif item.viewData.type is same as('bool') %}
             <div class="input-group">
                 <span class="input-group-addon">
-                    <input type="checkbox" id="{{ item.idName }}" name="{{ item.idName }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
+                    <input type="checkbox" id="{{ item.idName }}" name="{{ item.idName }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %} value="true" {% if item.value is not empty %}checked{% endif %}>
                 </span>
                 <input type="{{ inputType }}" class="form-control" value="{{ item.value }}" readonly="readonly">
             </div>

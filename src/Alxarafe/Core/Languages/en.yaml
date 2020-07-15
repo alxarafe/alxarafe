@@ -160,6 +160,7 @@ enable: Enable
 enabled: Enabled
 enter: Enter
 exit: Exit
+export-data: 'Export data'
 extra-actions: 'Extra actions'
 fake-data: 'Generate fake data'
 file-not-created: 'File <b>%file%</b> not created.'

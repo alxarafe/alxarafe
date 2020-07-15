@@ -311,7 +311,7 @@ class Schema
         }
 
         $dbType = $structure['type'];
-        if (!in_array($structure['type'], ['integer', 'decimal', 'string', 'text', 'float', 'bool', 'date', 'datetime'], true)) {
+        if (!in_array($structure['type'], ['integer', 'float', 'decimal', 'string', 'text', 'bool', 'date', 'time', 'datetime'], true)) {
             $msg = "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
             $msg .= "<p>Type {$dbType} is not valid for field {$field} of table {$tableName}</p>";
             $e = new Exception($msg);
