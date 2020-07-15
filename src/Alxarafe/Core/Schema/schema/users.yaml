@@ -33,7 +33,7 @@ fields:
     active:
         type: bool
         length: null
-        default: 'false'
+        default: '0'
         nullable: 'yes'
         unsigned: 'no'
     logkey:
