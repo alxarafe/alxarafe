@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Traits;
 
+use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Translator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,7 +35,14 @@ trait AjaxDataTableTrait
         $search = $_GET['search'];
         $table = $_GET['table'];
 
-        $data = $this->model->getAllKeyValue($search, $table);
+        $tableModel = new TableModel();
+        if ($tableModel->getBy('tablename', $table)) {
+            $className = $tableModel->namespace;
+            $model = new $className();
+            $data = $model->getAllKeyValue($search);
+        } else {
+            $data = $this->model->getAllKeyValue($search);
+        }
 
         $result = [];
         foreach ($data as $key => $value) {
