@@ -21,7 +21,7 @@
     {% set listFields = ctrl.getListFields() %}
     {% set pk =  ctrl.model.getOldData()[ctrl.model.getIdField()] %}
 
-    {% set formType = 'form-inline' %}
+    {% set formType = 'form-horizontal' %}
     {% if ctrl.viewData.form-type is not empty %}
         {% set formType = ctrl.viewData.form-type %}
     {% endif %}

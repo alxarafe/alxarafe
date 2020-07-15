@@ -22,6 +22,8 @@ trait AjaxDataTableTrait
 
     /**
      * Return the table data using AJAX
+     *
+     * @doc https://select2.org/data-sources/ajax
      */
     public function ajaxSearchMethod(): Response
     {
@@ -31,8 +33,8 @@ trait AjaxDataTableTrait
         // To access more easy to all values
         $requestData = $this->request->request->all();
 
-        $search = $requestData['search'] ?? null;
-        $search = $_GET['search'];
+        //$search = $requestData['search'] ?? null;
+        $search = $_GET['term'];
         $table = $_GET['table'];
 
         $tableModel = new TableModel();
@@ -46,10 +48,11 @@ trait AjaxDataTableTrait
 
         $result = [];
         foreach ($data as $key => $value) {
-            $result[] = ['key' => $key, 'value' => $value];
+            $result[] = ['id' => $key, 'text' => $value];
         }
 
-        $jsonData = $result;
+        $jsonData['results'] = $result;
+        $jsonData['pagination'] = ["more" => false];
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
         return $this->sendResponse(json_encode($jsonData, $print));

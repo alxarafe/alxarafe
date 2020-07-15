@@ -19,7 +19,7 @@
         {% set encType = 'enctype="' ~ ctrl.encType ~ '"' %}
     {% endif %}
 
-    {% set formType = 'form-inline' %}
+    {% set formType = 'form-horizontal' %}
     {% if ctrl.viewData.form-type is not empty %}
         {% set formType = ctrl.viewData.form-type %}
     {% endif %}

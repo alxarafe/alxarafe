@@ -194,11 +194,13 @@ name: Nombre
 namespace: 'Espacio de nombre'
 new: Nuevo
 no-access: 'Sin acceso'
+nothing-selected: 'Nada seleccionado'
 order: Orden
 password: Contraseña
 path: Contraseña
 path-to-file: 'Ruta al archivo'
 plugin: Plugin
+pre-selected: 'Pre-seleccionado'
 preprocessors-executed: 'Preprocessadores ejecutados'
 redirected-from-to: 'Redireccionado desde %from% hasta %to%'
 regenerate-data: 'Regenerar datos'
@@ -218,6 +220,7 @@ route-not-found: 'Ruta no encontrada'
 save-changes: 'Guardar los cambios'
 save-changes-exit: 'Guardar cambios y salir'
 see-on-github: 'Ver en Github'
+select-an-option: 'Selecciona una opción'
 selected: Seleccionado
 show: Mostrar
 showing: Mostrando

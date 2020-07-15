@@ -201,31 +201,19 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * Default select2 items.
+     */
     $('.select2').select2();
 
+    /**
+     * Used by dynamic select2 items with ajax call
+     */
     $('.select2-ajax').select2({
         ajax: {
-            url: $(this).data('url'),
-            dataType: 'json'
-            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+            dataType: 'json',
+            cache: false,
+            allowClear: true
         }
     });
-
-
-    /**
-     * Make an AJAX call to populate a select with their results.
-     *
-     * @param url
-     * @param tableName
-     * @param search
-     * @param fieldId
-     */
-    function ajaxSearchPopulateSelect(url, tableName, search, fieldId) {
-        $.getJSON(url, function (result) {
-            var field = $("#" + fieldId);
-            $.each(result, function (item) {
-                field.append($("<option />").val(item.key).text(item.value));
-            });
-        });
-    }
 });

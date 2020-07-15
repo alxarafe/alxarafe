@@ -107,35 +107,23 @@
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="datetime-local" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
         {% elseif inputType is same as('text') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="text" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('select') %}
-            {# TODO: Implement, native #}
-            <div class="form-group">
-                <select id="{{ item.idName }}" name="{{ item.idName }}" class="form-control">
-                </select>
-                {% for key, values in context.indexesTables[item.tableName] %}
-                    {% if values is iterable %}
-                        {% if values.column is defined and values.column == itemName %}
-                            INDEX: {{ item.tableName }}__{{ values.referencedtable }}__{{ itemName }}
-                            <script type="text/javascript">
-                                $(function () {
-                                    var url = context.url + '&method=ajaxSearch&table={{ values.referencedtable }}&search=';
-                                    ajaxSearchPopulateSelect(url, '{{ item.tableName }}', '', '{{ item.idName }}');
-                                });
-                            </script>
-                        {% endif %}
+        {% elseif inputType is same as('select')  or inputType is same as('select2') %}
+            {% for key, values in context.indexesTables[item.tableName] %}
+                {% if values is iterable %}
+                    {% if values.column is defined and values.column == itemName %}
+                        {% set ajaxUrl = context.url ~ '&method=ajaxSearch&table=' ~ values.referencedtable %}
+                        <select id="{{ item.idName }}" name="{{ item.idName }}" class="form-control select2-ajax" style="width: 100%;"
+                                data-ajax--url="{{ ajaxUrl }}"
+                                data-placeholder="{{ trans('select-an-option') }}"
+                                data-id="{% if context.model.getId() is not empty %}{{ item.idName }}{% endif %}"
+                                data-allow-clear="true">
+                            {% if context.model.getId() is not empty %}
+                                <option value="{{ context.model.getId() }}" selected="selected">{{ item.value }} ({{ trans('pre-selected') }})</option>
+                            {% endif %}
+                        </select>
                     {% endif %}
-                {% endfor %}
-            </div>
-
-            <span>{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not fully implemented</span>
-        {% elseif inputType is same as('select2') %}
-            {# TODO: Implement #}
-            <select id="{{ item.idName }}" name="{{ item.idName }}" class="form-control select2-ajax" data-url="#TEST">
-            </select>
-
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
+                {% endif %}
+            {% endfor %}
         {% elseif inputType is same as('radio') %}
             {# TODO: Implement, native #}
             <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
@@ -171,7 +159,7 @@
                 <span class="input-group-addon">
                     <input type="checkbox" id="{{ item.idName }}" name="{{ item.idName }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %} value="true" {% if item.value is not empty %}checked{% endif %}>
                 </span>
-                <input type="{{ inputType }}" class="form-control" value="{{ item.value }}" readonly="readonly">
+                <input type="text" class="form-control" value="{{ item.value }}" readonly="readonly">
             </div>
         {% else %}
             <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
