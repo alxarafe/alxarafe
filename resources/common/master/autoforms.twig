@@ -116,19 +116,12 @@
                     {% if values is iterable %}
                         {% if values.column is defined and values.column == itemName %}
                             INDEX: {{ item.tableName }}__{{ values.referencedtable }}__{{ itemName }}
-                            {% block javascriptsFooter %}
-                                <script type="text/javascript">
-                                    $(document).ready(function () {
-                                        var url = context.url + '&method=ajaxSearch&table={{ values.referencedtable }}&search=';
-                                        $.getJSON(url, function (result) {
-                                            var field_{{ item.idName }} = $("#{{ item.idName }}");
-                                            $.each(result, function (item) {
-                                                field_{{ item.idName }}.append($("<option />").val(item.key).text(item.value));
-                                            });
-                                        });
-                                    });
-                                </script>
-                            {% endblock %}
+                            <script type="text/javascript">
+                                $(function () {
+                                    var url = context.url + '&method=ajaxSearch&table={{ values.referencedtable }}&search=';
+                                    ajaxSearchPopulateSelect(url, '{{ item.tableName }}', '', '{{ item.idName }}');
+                                });
+                            </script>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
@@ -138,6 +131,9 @@
             <span class="help-block">Type {{ inputType }} not fully implemented</span>
         {% elseif inputType is same as('select2') %}
             {# TODO: Implement #}
+            <select id="{{ item.idName }}" name="{{ item.idName }}" class="form-control select2-ajax" data-url="#TEST">
+            </select>
+
             <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
             <span class="help-block">Type {{ inputType }} not implemented</span>
         {% elseif inputType is same as('radio') %}

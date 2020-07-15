@@ -29,6 +29,7 @@
     "datatables.net-responsive-bs": "^2.2.3",
     "bootstrap": "3.4.1",
     "fontawesome": "^5.7.2",
-    "bootbox.js": "bootbox#^5.0.0"
+    "bootbox.js": "bootbox#^5.0.0",
+    "select2": "~4.0"
   }
 }

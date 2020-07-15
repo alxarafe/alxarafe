@@ -25,6 +25,7 @@
     {% block stylesheets %}
         <link rel="stylesheet" type="text/css" href="{{ getResourceUri('/bower_modules/bootstrap/dist/css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ getResourceUri('/bower_modules/fontawesome/css/all.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ getResourceUri('/bower_modules/select2/dist/css/select2.min.css') }}">
         {% for css in cssCode %}
             <link rel="stylesheet" type="text/css" href="{{ css }}"/>
         {% endfor %}
@@ -107,16 +108,17 @@
 {% block javascriptsFooter %}
     <script type="text/javascript" src="{{ getResourceUri('/bower_modules/jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ getResourceUri('/bower_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ getResourceUri('/bower_modules/bootbox.js/bootbox.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/bower_modules/bootbox.js/dist/bootbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ getResourceUri('/bower_modules/select2/dist/js/select2.min.js') }}"></script>
 
     {# Values to be available from external JavaScript files #}
     <script type="text/javascript">
         {% include '@Core/js/common.js.twig' %}
     </script>
 
-{#    {% for js in jsCode %}#}
-{#    <script type="text/javascript" src="{{ js }}"></script>#}
-{#    {% endfor %}#}
+    {#    {% for js in jsCode %}#}
+    {#    <script type="text/javascript" src="{{ js }}"></script>#}
+    {#    {% endfor %}#}
     {% block extraJavascriptsFooter %}{% endblock %}
     {# Start of getFooter #}
     {{ getFooter() | raw }}
