@@ -199,6 +199,8 @@ class SqlMySql extends SqlHelper
             $result['autoincrement'] = 'yes';
         }
 
+        $result['default'] = str_replace(['current_timestamp()'], ['CURRENT_TIMESTAMP'], $result['default']);
+
         return $result;
     }
 
