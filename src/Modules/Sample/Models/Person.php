@@ -43,7 +43,7 @@ class Person extends Table
     public function getDependencies(): array
     {
         return [
-            'Modules\\Sample\\Models\\Country',
+            Country::class,
         ];
     }
 }

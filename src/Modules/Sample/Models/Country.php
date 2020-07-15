@@ -43,9 +43,9 @@ class Country extends Table
     public function getDependencies(): array
     {
         return [
-            'Modules\\Sample\\Models\\Region',
-            'Modules\\Sample\\Models\\Subregion',
-            'Modules\\Sample\\Models\\IntermediateRegion',
+            Region::class,
+            Subregion::class,
+            IntermediateRegion::class,
         ];
     }
 }
