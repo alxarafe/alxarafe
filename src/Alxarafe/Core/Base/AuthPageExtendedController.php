@@ -109,6 +109,13 @@ abstract class AuthPageExtendedController extends AuthPageController
     protected $fieldsStruct;
 
     /**
+     * Contains the indexes of the tables in use
+     *
+     * @var array
+     */
+    public $indexesTables;
+
+    /**
      * Contains the primary key of register in use.
      * If its a new register, contains ''.
      *
@@ -185,6 +192,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->currentId = $this->request->query->get($this->model->getIdField());
         $this->postData = $this->getRecordData();
         $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
+        $this->indexesTables[$this->tableName] = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['indexes'];
         $this->viewData = Schema::getFromYamlFile($this->tableName, 'viewdata');
         // If not defined in yaml file, use all table fields
         if (empty($this->viewData['fields'])) {

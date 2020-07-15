@@ -252,7 +252,7 @@ class FlatTable extends Entity
             $vars[$fieldName] = $value;
         }
 
-        if (isset($this->id)) {
+        if (isset($this->id) && !empty($this->id)) {
             $fieldNames[] = $this->getIdField();
             $fieldVars[] = ':id';
             $vars['id'] = $this->id;

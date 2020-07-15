@@ -6,7 +6,7 @@
 {#
     This macro generate the field, for a table cell, for a form or for a list of fields.
 #}
-{% macro generateField(item, editableField, showLabel, showCols) %}
+{% macro generateField(item, itemName, editableField, showLabel, showCols, context) %}
     {% import "master/autoforms.twig" as self %}
 
     {# items param: Item is the array with all details #}
@@ -29,13 +29,13 @@
         {% set hasCols = showCols %}
     {% endif %}
 
-    {{ self.simpleEditField(item, editable, hasLabel, hasCols) }}
+    {{ self.simpleEditField(item, itemName, editable, hasLabel, hasCols, context) }}
 {% endmacro %}
 
 {#
     This macro generates a simple edit input field.
 #}
-{% macro simpleEditField(item, editable, hasLabel, hasCols) %}
+{% macro simpleEditField(item, itemName, editable, hasLabel, hasCols, context) %}
     {% set labelSize = 0 %}
     {% set labelInput = 12 %}
     {% if hasLabel %}
@@ -45,18 +45,36 @@
         {% if hasCols %}</div>{% endif %}
     {% endif %}
 
-    {% if item.struct.type is same as('integer') or item.struct.type is same as('number') %}
+    {% if item.viewData.type is same as('integer') or item.viewData.type is same as('number') %}
         {% set inputType = 'number' %}
-    {% elseif item.struct.type is same as('datetime') %}
+    {% elseif item.viewData.type is same as('datetime') %}
         {% set inputType = 'datetime' %}
-    {% elseif item.struct.type is same as('date') %}
+    {% elseif item.viewData.type is same as('date') %}
         {% set inputType = 'date' %}
-    {% elseif item.struct.type is same as('time') %}
+    {% elseif item.viewData.type is same as('time') %}
         {% set inputType = 'time' %}
-    {% elseif item.struct.type is same as('bool') %}
+    {% elseif item.viewData.type is same as('bool') %}
         {% set inputType = 'checkbox' %}
-    {% elseif item.struct.type is same as('string') %}
+    {% elseif item.viewData.type is same as('string') %}
         {% set inputType = 'text' %}
+    {% elseif item.viewData.type is same as('select') %}
+        {% set inputType = 'select' %}
+    {% elseif item.viewData.type is same as('select2') %}
+        {% set inputType = 'select2' %}
+    {% elseif item.viewData.type is same as('radio') %}
+        {% set inputType = 'radio' %}
+    {% elseif item.viewData.type is same as('color') %}
+        {% set inputType = 'color' %}
+    {% elseif item.viewData.type is same as('range') %}
+        {% set inputType = 'range' %}
+    {% elseif item.viewData.type is same as('textarea') %}
+        {% set inputType = 'textarea' %}
+    {% elseif item.viewData.type is same as('file') %}
+        {% set inputType = 'file' %}
+    {% elseif item.viewData.type is same as('toggle') %}
+        {% set inputType = 'toggle' %}
+    {% elseif item.viewData.type is same as('touchspin') %}
+        {% set inputType = 'touchspin' %}
     {% else %}
         {% set inputType = 'text' %}
     {% endif %}
@@ -79,15 +97,80 @@
     {% set labelInput = labelInput - labelSize %}
     {% if hasCols %}<div class="col-xs-{{ labelInput }}">{% endif %}
     {% if editable %}
-        {% if item.viewData.type is same as('integer') or item.viewData.type is same as('number') %}
+        {% if inputType is same as('number') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="number" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif item.viewData.type is same as('date') or item.viewData.type is same as('time') or item.viewData.type is same as('string') %}
+        {% elseif inputType is same as('date') or inputType is same as('time') or inputType is same as('string') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="{{ inputType }}" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif item.viewData.type is same as('password') %}
+        {% elseif inputType is same as('password') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="password" class="form-control" value="" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif item.viewData.type is same as('datetime') %}
+        {% elseif inputType is same as('datetime') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="datetime-local" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif item.viewData.type is same as('bool') %}
+        {% elseif inputType is same as('text') %}
+            <input id="{{ item.idName }}" name="{{ item.idName }}" type="text" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
+        {% elseif inputType is same as('select') %}
+            {# TODO: Implement, native #}
+            <div class="form-group">
+                <select id="{{ item.idName }}" name="{{ item.idName }}" class="form-control">
+                </select>
+                {% for key, values in context.indexesTables[item.tableName] %}
+                    {% if values is iterable %}
+                        {% if values.column is defined and values.column == itemName %}
+                            INDEX: {{ item.tableName }}__{{ values.referencedtable }}__{{ itemName }}
+                            {% block javascriptsFooter %}
+                                <script type="text/javascript">
+                                    $(document).ready(function () {
+                                        var url = context.url + '&method=ajaxSearch&table={{ values.referencedtable }}&search=';
+                                        $.getJSON(url, function (result) {
+                                            var field_{{ item.idName }} = $("#{{ item.idName }}");
+                                            $.each(result, function (item) {
+                                                field_{{ item.idName }}.append($("<option />").val(item.key).text(item.value));
+                                            });
+                                        });
+                                    });
+                                </script>
+                            {% endblock %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <span>{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not fully implemented</span>
+        {% elseif inputType is same as('select2') %}
+            {# TODO: Implement #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('radio') %}
+            {# TODO: Implement, native #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('color') %}
+            {# TODO: Implement, native #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('range') %}
+            {# TODO: Implement, native #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('textarea') %}
+            {# TODO: Implement, native #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('file') %}
+            {# TODO: Implement, native #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('toggle') %}
+            {# TODO: Implement #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('touchspin') %}
+            {# TODO: Implement #}
+            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+            <span class="help-block">Type {{ inputType }} not implemented</span>
+        {% elseif inputType is same as('bool') %}
+            <span class="help-block">Replace it by checkbox</span>
+        {% elseif inputType is same as('checkbox') %}
             <div class="input-group">
                 <span class="input-group-addon">
                     <input type="checkbox" id="{{ item.idName }}" name="{{ item.idName }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %} value="true" {% if item.value is not empty %}checked{% endif %}>

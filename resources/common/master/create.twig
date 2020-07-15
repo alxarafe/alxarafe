@@ -30,7 +30,7 @@
         {% for regKey, registers in listFields %}
             {% for itemKey, item in registers %}
                 <div class="row">
-                    {{ forms.generateField(item, true, true, true) }}
+                    {{ forms.generateField(item, itemKey, true, true, true, ctrl) }}
                 </div>
             {% endfor %}
         {% endfor %}
