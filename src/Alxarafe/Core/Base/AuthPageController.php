@@ -220,6 +220,7 @@ abstract class AuthPageController extends AuthController
 
         switch ($methodName) {
             case 'index':
+            case 'ajaxSearch':
             case 'ajaxTableData':
                 if ($this->canAccess) {
                     $this->debugTool->addMessage('messages', $this->translator->trans('user-can-access-to', ['%where%' => $this->shortName . '->' . $method . '()']));

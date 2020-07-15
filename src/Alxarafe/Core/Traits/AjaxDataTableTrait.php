@@ -22,12 +22,35 @@ trait AjaxDataTableTrait
     /**
      * Return the table data using AJAX
      */
+    public function ajaxSearchMethod(): Response
+    {
+        $this->initialize();
+        $this->renderer->setTemplate(null);
+
+        // To access more easy to all values
+        $requestData = $this->request->request->all();
+
+        $search = $requestData['search'] ?? null;
+        $search = $_GET['search'];
+
+        $result=$this->model->getAllKeyValue($search);
+
+        $jsonData = [$result];
+
+        $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
+        return $this->sendResponse(json_encode($jsonData, $print));
+    }
+
+    /**
+     * Return the table data using AJAX
+     */
     public function ajaxTableDataMethod(): Response
     {
         $this->initialize();
         $this->renderer->setTemplate(null);
         // To access more easy to all values
         $requestData = $this->request->request->all();
+
         $recordsTotal = 0;
         $recordsFiltered = 0;
         $data = [];

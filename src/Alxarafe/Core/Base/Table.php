@@ -111,14 +111,19 @@ class Table extends SimpleTable
     }
 
     /**
-     * Return an array $key=>$value with all records on the table.
+     * Return an array $key=>$value with all or selected records on the table.
+     *
+     * @param string $search
      *
      * @return array
      */
-    public function getAllKeyValue()
+    public function getAllKeyValue($search = '')
     {
         $return = [];
-        $sql = "SELECT {$this->idField}, {$this->nameField} FROM {$this->getQuotedTableName()};";
+        if ($search !== '') {
+            $search = " WHERE {$this->nameField} LIKE '%{$search}%'";
+        }
+        $sql = "SELECT {$this->idField}, {$this->nameField} FROM {$this->getQuotedTableName()}{$search};";
         $result = Database::getInstance()->getDbEngine()->select($sql);
         foreach ($result as $record) {
             $return[$record[$this->idField]] = $record[$this->nameField];
