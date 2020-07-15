@@ -1,7 +1,7 @@
 fields:
     id:
         type: integer
-        length: '10'
+        length: '9'
         default: null
         nullable: 'no'
         unsigned: 'yes'
@@ -32,7 +32,7 @@ fields:
         unsigned: 'no'
     active:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'

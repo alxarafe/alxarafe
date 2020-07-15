@@ -1,68 +1,68 @@
 fields:
     id:
         type: integer
-        length: '10'
+        length: '9'
         default: null
         nullable: 'no'
         unsigned: 'yes'
         autoincrement: 'yes'
     id_role:
         type: integer
-        length: '10'
+        length: '9'
         default: null
         nullable: 'no'
         unsigned: 'yes'
     id_page:
         type: integer
-        length: '10'
+        length: '9'
         default: null
         nullable: 'yes'
         unsigned: 'yes'
     can_access:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
     can_create:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
     can_read:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
     can_update:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
     can_delete:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
     can_print:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
     can_export:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
     can_sendmail:
         type: integer
-        length: '10'
+        length: '1'
         default: '0'
         nullable: 'yes'
         unsigned: 'yes'
