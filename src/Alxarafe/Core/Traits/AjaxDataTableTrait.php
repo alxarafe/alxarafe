@@ -32,10 +32,16 @@ trait AjaxDataTableTrait
 
         $search = $requestData['search'] ?? null;
         $search = $_GET['search'];
+        $table = $_GET['table'];
 
-        $result=$this->model->getAllKeyValue($search);
+        $data = $this->model->getAllKeyValue($search, $table);
 
-        $jsonData = [$result];
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[] = ['key' => $key, 'value' => $value];
+        }
+
+        $jsonData = $result;
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
         return $this->sendResponse(json_encode($jsonData, $print));
