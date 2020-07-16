@@ -1,0 +1,19 @@
+date_add: Timestamp
+col-date_add: Timestamp
+observation: Observation
+col-observation: Observation
+selected_option: Radio buttons
+col-selected_option: Radio buttons
+selected_color: Color selector
+col-selected_color: Color selector
+selected_value: Range selector
+col-selected_value: Range selector
+path_file: Pathfile
+col-path_file: Pathfile
+is_checked: Checkbox
+col-is_checked: Checkbox
+is_checked2: Checkbox2
+col-is_checked2: Checkbox2
+selected_spin: Spin selector
+col-selected_spin: Spin selector
+controller-sample-components-description: Maintenance to test all editing components.
