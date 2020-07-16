@@ -153,14 +153,15 @@ class SchemaDB
                 self::createPrimaryIndex($tableName, $value, $autoincrement, false);
                 continue;
             }
-            $value['index']=$key;
+            $value['index'] = $key;
+            $exists = isset($tableIndexes[$key]);
             if (isset($value['unique']) && $value['unique'] == 'yes') {
-                $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, false));
+                $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, $exists));
             } else {
-                $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, false));
+                $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, $exists));
             }
             if (isset($value['constraint']) && $value['constraint'] == 'yes') {
-                $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, false));
+                $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, $exists));
             }
         }
 
