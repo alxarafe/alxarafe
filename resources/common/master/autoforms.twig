@@ -105,9 +105,9 @@
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="password" class="form-control" value="" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
         {% elseif inputType is same as('datetime') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="datetime-local" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('text') %}
+        {% elseif inputType is same as('text') or inputType is same as('string') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="text" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('select')  or inputType is same as('select2') %}
+        {% elseif inputType is same as('select') or inputType is same as('select2') %}
             {% for key, values in context.indexesTables[item.tableName] %}
                 {% if values is iterable %}
                     {% if values.column is defined and values.column == itemName %}

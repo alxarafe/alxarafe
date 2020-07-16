@@ -1,0 +1,72 @@
+fields:
+    id:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+        autoincrement: 'yes'
+    name:
+        type: string
+        length: '100'
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+    password:
+        type: string
+        length: '100'
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+    date_add:
+        type: datetime
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+    observation:
+        type: string
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+    selected_option:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+    selected_color:
+        type: string
+        length: '100'
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+    selected_value:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+    path_file:
+        type: string
+        length: '100'
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+    is_checked:
+        type: integer
+        length: '1'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+    is_checked2:
+        type: integer
+        length: '1'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'
+    selected_spin:
+        type: integer
+        length: '4'
+        default: null
+        nullable: 'no'
+        unsigned: 'yes'

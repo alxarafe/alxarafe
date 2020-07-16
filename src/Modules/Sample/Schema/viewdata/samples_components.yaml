@@ -1,0 +1,66 @@
+form-type: form-horizontal
+fields:
+    id:
+        type: number
+        label: id
+        shortlabel: col-id
+        placeholder: id
+        min: 0
+        max: 9999
+    name:
+        type: string
+        label: name
+        shortlabel: col-name
+        placeholder: name
+        length: 100
+    password:
+        type: password
+        label: password
+        shortlabel: col-password
+        placeholder: password
+        length: 100
+    date_add:
+        type: datetime
+        label: date_add
+        shortlabel: col-date_add
+        placeholder: date_add
+    observation:
+        type: textarea
+        label: observation
+        shortlabel: col-observation
+        placeholder: observation
+    selected_option:
+        type: radio
+        label: selected_option
+        shortlabel: col-selected_option
+        placeholder: selected_option
+    selected_color:
+        type: color
+        label: selected_color
+        shortlabel: col-selected_color
+        placeholder: selected_color
+    selected_value:
+        type: range
+        label: selected_value
+        shortlabel: col-selected_value
+        placeholder: selected_value
+    path_file:
+        type: file
+        label: path_file
+        shortlabel: col-path_file
+        placeholder: path_file
+    is_checked:
+        type: toggle
+        label: is_checked
+        shortlabel: col-is_checked
+        placeholder: is_checked
+    is_checked2:
+        type: checkbox
+        label: is_checked2
+        shortlabel: col-is_checked2
+        placeholder: is_checked2
+    selected_spin:
+        type: touchspin
+        label: selected_spin
+        shortlabel: col-selected_spin
+        placeholder: selected_spin

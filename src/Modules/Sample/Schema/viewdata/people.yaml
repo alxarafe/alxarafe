@@ -1,27 +1,29 @@
-id:
-    label: id
-    shortlabel: id
-    placeholder: id
-    min: 0
-    max: 1410065407
-name:
-    label: name
-    shortlabel: name
-    placeholder: name
-    length: 50
-cif:
-    label: cif
-    shortlabel: cif
-    placeholder: cif
-    length: 10
-    unique: yes
-edad:
-    label: edad
-    shortlabel: edad
-    placeholder: edad
-    min: 18
-    max: 65
-nacimiento:
-    label: nacimiento
-    shortlabel: nacimiento
-    placeholder: nacimiento
+form-type: form-horizontal
+fields:
+    id:
+        label: id
+        shortlabel: id
+        placeholder: id
+        min: 0
+        max: 1410065407
+    name:
+        label: name
+        shortlabel: name
+        placeholder: name
+        length: 50
+    cif:
+        label: cif
+        shortlabel: cif
+        placeholder: cif
+        length: 10
+        unique: yes
+    edad:
+        label: edad
+        shortlabel: edad
+        placeholder: edad
+        min: 18
+        max: 65
+    nacimiento:
+        label: nacimiento
+        shortlabel: nacimiento
+        placeholder: nacimiento
