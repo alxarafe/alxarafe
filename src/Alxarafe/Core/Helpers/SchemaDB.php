@@ -126,20 +126,25 @@ class SchemaDB
 
         // Erase the deleted or modified indexes
         foreach ($tableIndexes as $key => $value) {
-            if (!isset($indexesList[$key]) || $indexesList[$key] != $value) {
-                if ($key === 'PRIMARY') {
-                    $autoincrement = isset($value['autoincrement']) && $value['autoincrement'] == 'yes';
-                    $sql = ArrayUtils::addToArray($sql, self::createPrimaryIndex($tableName, $indexesList[$key], $autoincrement, true));
+
+            if ($key === 'PRIMARY') {
+                // If deleted of YAML, delete it...
+                if (!isset($indexesList[$key])) {
+                    $sql[] = "ALTER TABLE {$quotedTableName} DROP PRIMARY KEY;";
                     continue;
                 }
+                if ($value != $indexesList[$key]) {
+                    $autoincrement = isset($value['autoincrement']) && $value['autoincrement'] == 'yes';
+                    $sql = ArrayUtils::addToArray($sql, self::createPrimaryIndex($tableName, $indexesList[$key], $autoincrement, true));
+                }
+                continue;
+            }
+
+            if (!isset($indexesList[$key])) {
                 if (isset($value['constraint']) && $value['constraint'] == 'yes') {
                     $sql[] = "ALTER TABLE {$quotedTableName} DROP FOREIGN KEY {$key};";
                 }
-                if (isset($value['unique']) && $value['unique'] == 'yes') {
-                    $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$key};";
-                } else {
-                    $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$key};";
-                }
+                $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$key};";
             }
         }
 
@@ -155,13 +160,16 @@ class SchemaDB
             }
             $value['index'] = $key;
             $exists = isset($tableIndexes[$key]);
-            if (isset($value['unique']) && $value['unique'] == 'yes') {
-                $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, $exists));
-            } else {
-                $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, $exists));
-            }
+
             if (isset($value['constraint']) && $value['constraint'] == 'yes') {
+                $sql[] = "ALTER TABLE {$quotedTableName} DROP CONSTRAINT {$key};";
                 $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, $exists));
+            } else {
+                if (isset($value['unique']) && $value['unique'] == 'yes') {
+                    $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, $exists));
+                } else {
+                    $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, $exists));
+                }
             }
         }
 
