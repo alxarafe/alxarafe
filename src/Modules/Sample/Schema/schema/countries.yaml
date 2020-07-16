@@ -55,7 +55,7 @@ indexes:
     country_name:
         column: name
         unique: 'yes'
-    country_region:
+    countries__regions__id_region:
         column: id_region
         unique: 'no'
         constraint: 'yes'
@@ -63,7 +63,7 @@ indexes:
         referencedfield: id
         deleterule: 'RESTRICT'
         updaterule: 'RESTRICT'
-    country_subregion:
+    countries__subregions__id_subregion:
         column: id_subregion
         unique: 'no'
         constraint: 'yes'
@@ -71,7 +71,7 @@ indexes:
         referencedfield: id
         deleterule: 'RESTRICT'
         updaterule: 'RESTRICT'
-    country_intermediate_region:
+    countries__intermediate_regions__id_intermediate_region:
         column: id_intermediate_region
         unique: 'no'
         constraint: 'yes'

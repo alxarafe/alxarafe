@@ -28,6 +28,22 @@ indexes:
     id_role:
         column: id_role
         unique: 'no'
+    user_roles__users__id_user:
+        column: id_user
+        unique: 'no'
+        constraint: 'yes'
+        referencedtable: users
+        referencedfield: id
+        deleterule: 'RESTRICT'
+        updaterule: 'RESTRICT'
+    user_roles__roles__id_role:
+        column: id_role
+        unique: 'no'
+        constraint: 'yes'
+        referencedtable: roles
+        referencedfield: id
+        deleterule: 'RESTRICT'
+        updaterule: 'RESTRICT'
 values:
     1:
         id: 1

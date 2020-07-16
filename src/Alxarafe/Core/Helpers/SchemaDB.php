@@ -48,8 +48,9 @@ class SchemaDB
 
         $tableExists = self::tableExists($tableName);
         if ($tableExists) {
-            $sql = self::updateFields($tableName, $tabla['fields']);
-            // TODO: Needs to be added call to updated indexes.
+            $sql = [];
+            $sql = ArrayUtils::addToArray($sql, self::updateFields($tableName, $tabla['fields']));
+            $sql = ArrayUtils::addToArray($sql, self::updateIndexes($tableName, $tabla['indexes']));
         } else {
             Database::getInstance()->getDbEngine()->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
@@ -106,6 +107,64 @@ class SchemaDB
             return [];
         }
         return ['ALTER TABLE ' . self::quoteTableName($tableName, true) . $fields . ';'];
+    }
+
+    /**
+     * Update indexes for tablename.
+     *
+     * @param string $tableName
+     * @param array  $indexesList
+     *
+     * @return array
+     */
+    protected static function updateIndexes(string $tableName, array $indexesList): array
+    {
+        $sql = [];
+
+        $tableIndexes = Database::getInstance()->getSqlHelper()->getIndexes($tableName);
+        $quotedTableName = self::quoteTableName($tableName, true);
+
+        // Erase the deleted or modified indexes
+        foreach ($tableIndexes as $key => $value) {
+            if (!isset($indexesList[$key]) || $indexesList[$key] != $value) {
+                if ($key === 'PRIMARY') {
+                    $autoincrement = isset($value['autoincrement']) && $value['autoincrement'] == 'yes';
+                    $sql = ArrayUtils::addToArray($sql, self::createPrimaryIndex($tableName, $indexesList[$key], $autoincrement, true));
+                    continue;
+                }
+                if (isset($value['constraint']) && $value['constraint'] == 'yes') {
+                    $sql[] = "ALTER TABLE {$quotedTableName} DROP FOREIGN KEY {$key};";
+                }
+                if (isset($value['unique']) && $value['unique'] == 'yes') {
+                    $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$key};";
+                } else {
+                    $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$key};";
+                }
+            }
+        }
+
+        // Create the missing indexes
+        foreach ($indexesList as $key => $value) {
+            if ($key === 'PRIMARY') {
+                if (isset($tableIndexes[$key])) {
+                    continue;
+                }
+                $autoincrement = isset($value['autoincrement']) && $value['autoincrement'] == 'yes';
+                self::createPrimaryIndex($tableName, $value, $autoincrement, false);
+                continue;
+            }
+            $value['index']=$key;
+            if (isset($value['unique']) && $value['unique'] == 'yes') {
+                $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, false));
+            } else {
+                $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, false));
+            }
+            if (isset($value['constraint']) && $value['constraint'] == 'yes') {
+                $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, false));
+            }
+        }
+
+        return $sql;
     }
 
     /**

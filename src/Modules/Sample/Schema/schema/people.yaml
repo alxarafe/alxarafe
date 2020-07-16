@@ -12,25 +12,25 @@ fields:
         default: null
         nullable: 'yes'
         unsigned: 'no'
-    cif:
+    vat:
         type: string
         length: '10'
         default: null
         nullable: 'yes'
         unsigned: 'no'
-    edad:
+    age:
         type: integer
         length: '3'
         default: '18'
         nullable: 'yes'
         unsigned: 'yes'
-    nacimiento:
+    birthday:
         type: date
         length: null
         default: null
         nullable: 'yes'
         unsigned: 'no'
-    id_pais:
+    id_country:
         type: integer
         length: '4'
         default: null
@@ -43,8 +43,8 @@ indexes:
     person_name:
         column: name
         unique: 'yes'
-    people_country:
-        column: id_pais
+    people__countries__id_country:
+        column: id_country
         unique: 'no'
         constraint: 'yes'
         referencedtable: countries
