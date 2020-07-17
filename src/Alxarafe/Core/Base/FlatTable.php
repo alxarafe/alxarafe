@@ -6,7 +6,9 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Database\Engine;
 use Alxarafe\Core\Providers\Database;
+use Alxarafe\Core\Providers\Translator;
 
 /**
  * Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its
@@ -29,6 +31,13 @@ class FlatTable extends Entity
     public $modelName;
 
     /**
+     * Contains errors during the process
+     *
+     * @var array
+     */
+    public $errors;
+
+    /**
      * Build a Table model. $table is the name of the table in the database.
      * $params is a parameters array:
      * - create is true if the table is to be created if it does not exist (false by default)
@@ -47,6 +56,7 @@ class FlatTable extends Entity
         $this->idField = $params['idField'] ?? 'id';
         $this->nameField = $params['nameField'] ?? 'name';
         $this->debugTool->stopTimer($this->modelName . '.flat');
+        $this->errors = [];
     }
 
     /**
@@ -172,6 +182,50 @@ class FlatTable extends Entity
         return $this->getDataById($id);
     }
 
+    public function test($values)
+    {
+        $trans = Translator::getInstance();
+        $errors = false;
+        $schema = Engine::$dbStructure[$this->tableName];
+        foreach ($values as $key => $value) {
+            $field = $schema['fields'][$key];
+            $params = ['%field%' => $key, '%value%' => $value];
+            switch ($field['type']) {
+                case 'float':
+                case 'integer':
+                    $unsigned = isset($field['unsigned']) && $field['unsigned'] == 'yes';
+                    $min = $field['min'] ?? null;
+                    $max = $field['max'] ?? null;
+                    if ($unsigned && $value < 0) {
+                        $errors = true;
+                        $this->errors[] = $trans->trans('error-negative-unsigned', $params);
+                    }
+                    if (isset($min) && $value < $min) {
+                        $errors = true;
+                        $params['%min%'] = $min;
+                        $this->errors[] = $trans->trans('error-less-than-minimum', $params);
+                    }
+                    if (isset($max) && $value > $max) {
+                        $errors = true;
+                        $params['%max%'] = $max;
+                        $this->errors[] = $trans->trans('error-greater-than-maximum', $params);
+                    }
+                    break;
+                case 'string':
+                    $maxlen = $field['length'] ?? null;
+                    $strlen=strlen($value);
+                    if (isset($maxlen) && $strlen> $maxlen) {
+                        $errors = true;
+                        $params['%strlen%'] = $strlen;
+                        $params['%maxlen%'] = $maxlen;
+                        $this->errors[] = $trans->trans('error-string-too-long', $params);
+                    }
+                    break;
+            }
+        }
+        return $errors;
+    }
+
     /**
      * Saves the changes made to the active record.
      *
@@ -191,6 +245,11 @@ class FlatTable extends Entity
         // If there are no modifications, we leave without error.
         if (count($values) === 0) {
             return true;
+        }
+
+        $errors = $this->test($values);
+        if (count($errors) > 0) {
+            return false;
         }
 
         // Insert or update the data as appropriate (insert if $this->id == '')
