@@ -45,35 +45,35 @@
         {% if hasCols %}</div>{% endif %}
     {% endif %}
 
-    {% if item.viewData.type is same as('integer') or item.viewData.type is same as('number') %}
+    {% if item.struct.type is same as('integer') or item.struct.type is same as('number') %}
         {% set inputType = 'number' %}
-    {% elseif item.viewData.type is same as('datetime') %}
+    {% elseif item.struct.type is same as('datetime') %}
         {% set inputType = 'datetime' %}
-    {% elseif item.viewData.type is same as('date') %}
+    {% elseif item.struct.type is same as('date') %}
         {% set inputType = 'date' %}
-    {% elseif item.viewData.type is same as('time') %}
+    {% elseif item.struct.type is same as('time') %}
         {% set inputType = 'time' %}
-    {% elseif item.viewData.type is same as('bool') %}
+    {% elseif item.struct.type is same as('bool') %}
         {% set inputType = 'checkbox' %}
-    {% elseif item.viewData.type is same as('string') %}
+    {% elseif item.struct.type is same as('string') %}
         {% set inputType = 'text' %}
-    {% elseif item.viewData.type is same as('select') %}
+    {% elseif item.struct.type is same as('select') %}
         {% set inputType = 'select' %}
-    {% elseif item.viewData.type is same as('select2') %}
+    {% elseif item.struct.type is same as('select2') %}
         {% set inputType = 'select2' %}
-    {% elseif item.viewData.type is same as('radio') %}
+    {% elseif item.struct.type is same as('radio') %}
         {% set inputType = 'radio' %}
-    {% elseif item.viewData.type is same as('color') %}
+    {% elseif item.struct.type is same as('color') %}
         {% set inputType = 'color' %}
-    {% elseif item.viewData.type is same as('range') %}
+    {% elseif item.struct.type is same as('range') %}
         {% set inputType = 'range' %}
-    {% elseif item.viewData.type is same as('textarea') %}
+    {% elseif item.struct.type is same as('textarea') %}
         {% set inputType = 'textarea' %}
-    {% elseif item.viewData.type is same as('file') %}
+    {% elseif item.struct.type is same as('file') %}
         {% set inputType = 'file' %}
-    {% elseif item.viewData.type is same as('toggle') %}
+    {% elseif item.struct.type is same as('toggle') %}
         {% set inputType = 'toggle' %}
-    {% elseif item.viewData.type is same as('touchspin') %}
+    {% elseif item.struct.type is same as('touchspin') %}
         {% set inputType = 'touchspin' %}
     {% else %}
         {% set inputType = 'text' %}
@@ -89,10 +89,14 @@
         'title': null
     } %}
     {% for key, value in extraAttr %}
-        {% if item.viewData[key] is defined %}
-            {% set extraAttrResult = extraAttrResult ~ ' ' ~ key ~ '=' ~ item.viewData[key] %}
+        {% if item.struct[key] is defined %}
+            {% set extraAttrResult = extraAttrResult ~ ' ' ~ key ~ '=' ~ item.struct[key] %}
         {% endif %}
     {% endfor %}
+    {# TODO: Estamos a tiempo de cambiar todos los length por maxlength y evitar esta excepción #}
+    {% if item.struct['length'] is defined %}
+        {% set extraAttrResult = extraAttrResult ~ ' maxlength = ' ~ item.struct['length'] %}
+    {% endif %}
 
     {% set labelInput = labelInput - labelSize %}
     {% if hasCols %}<div class="col-xs-{{ labelInput }}">{% endif %}
@@ -106,7 +110,7 @@
         {% elseif inputType is same as('datetime') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="datetime-local" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
         {% elseif inputType is same as('text') or inputType is same as('string') %}
-            <input id="{{ item.idName }}" name="{{ item.idName }}" type="text" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
+            <input id="{{ item.idName }}" name="{{ item.idName }}" type="text" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
         {% elseif inputType is same as('select') or inputType is same as('select2') %}
             {% for key, values in context.indexesTables[item.tableName] %}
                 {% if values is iterable %}

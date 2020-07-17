@@ -185,11 +185,10 @@ class FlatTable extends Entity
     public function test($values)
     {
         $trans = Translator::getInstance();
-        $errors = false;
         $schema = Engine::$dbStructure[$this->tableName];
         foreach ($values as $key => $value) {
             $field = $schema['fields'][$key];
-            $params = ['%field%' => $key, '%value%' => $value];
+            $params = ['%field%' => $trans->trans($key), '%value%' => $value];
             switch ($field['type']) {
                 case 'float':
                 case 'integer':
@@ -197,25 +196,21 @@ class FlatTable extends Entity
                     $min = $field['min'] ?? null;
                     $max = $field['max'] ?? null;
                     if ($unsigned && $value < 0) {
-                        $errors = true;
                         $this->errors[] = $trans->trans('error-negative-unsigned', $params);
                     }
                     if (isset($min) && $value < $min) {
-                        $errors = true;
                         $params['%min%'] = $min;
                         $this->errors[] = $trans->trans('error-less-than-minimum', $params);
                     }
                     if (isset($max) && $value > $max) {
-                        $errors = true;
                         $params['%max%'] = $max;
                         $this->errors[] = $trans->trans('error-greater-than-maximum', $params);
                     }
                     break;
                 case 'string':
                     $maxlen = $field['length'] ?? null;
-                    $strlen=strlen($value);
-                    if (isset($maxlen) && $strlen> $maxlen) {
-                        $errors = true;
+                    $strlen = strlen($value);
+                    if (isset($maxlen) && $strlen > $maxlen) {
                         $params['%strlen%'] = $strlen;
                         $params['%maxlen%'] = $maxlen;
                         $this->errors[] = $trans->trans('error-string-too-long', $params);
@@ -223,7 +218,6 @@ class FlatTable extends Entity
                     break;
             }
         }
-        return $errors;
     }
 
     /**
@@ -247,8 +241,8 @@ class FlatTable extends Entity
             return true;
         }
 
-        $errors = $this->test($values);
-        if (count($errors) > 0) {
+        $this->test($values);
+        if (count($this->errors)) {
             return false;
         }
 
