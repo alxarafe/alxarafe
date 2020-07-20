@@ -139,14 +139,30 @@ class Schema
             case 'string':
                 $length = (int) ($values['length'] ?? constant('DEFAULT_STRING_LENGTH'));
                 $result['maxlength'] = max([(int) ($result['length'] ?? 0), $length]);
+                if (!$result['type']) {
+                    $result['type'] = $values['type'];
+                }
                 break;
             case 'integer':
                 $length = isset($values['length']) ? (10 ** $values['length']) - 1 : null;
                 $max = (int) ($values['max'] ?? $length ?? (10 ** constant('DEFAULT_INTEGER_SIZE')) - 1);
                 $min = ($values['unsigned'] === 'yes' ? 0 : -$max);
-                // $result['maxlength'] = max([(int) ($result['length'] ?? 0), $length]);
                 $result['min'] = min([(int) ($result['min'] ?? 0), $min]);
                 $result['max'] = max([(int) ($result['min'] ?? 0), $max]);
+                if (!$result['type']) {
+                    $result['type'] = 'number';
+                }
+                break;
+            default:
+                if (isset($result['type'])) {
+                    break;
+                }
+                switch ($values['type']) {
+                    case 'text':
+                        $result['type'] = 'textarea';
+                    default:
+                        $result['type'] = $values['type'];
+                }
                 break;
         }
         return $result;

@@ -203,7 +203,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         }
 
         foreach ($this->fieldsStruct as $field => $values) {
-            $this->viewData['fields'][$field] = Schema::mergeViewField($field, $values, $data[$field] ?? []);
+            $this->viewData['fields'][$field] = Schema::mergeViewField($field, $values, $this->viewData['fields'][$field] ?? []);
         }
 
         // Some fields may need auto-translation
