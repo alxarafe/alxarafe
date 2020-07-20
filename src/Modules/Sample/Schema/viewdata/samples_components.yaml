@@ -8,11 +8,28 @@ fields:
         label: name
         shortlabel: col-name
         placeholder: name
+        maxlength: 90
     password:
         type: password
         label: password
         shortlabel: col-password
         placeholder: password
+    integer_2:
+        label: short-integer
+        shortlabel: col-short-integer
+        placeholder: short-integer
+    integer_2_u:
+        label: word
+        shortlabel: col-word
+        placeholder: word
+    integer_4:
+        label: integer
+        shortlabel: col-integer
+        placeholder: integer
+    integer_4_u:
+        label: longword
+        shortlabel: col-long-word
+        placeholder: long-word
     date_add:
         label: date_add
         shortlabel: col-date_add

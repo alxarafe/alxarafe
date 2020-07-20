@@ -18,6 +18,26 @@ fields:
         default: null
         nullable: 'no'
         unsigned: 'no'
+    integer_2:
+        type: integer
+        length: 2
+        default: 0
+        unsigned: 'no'
+    integer_2_u:
+        type: integer
+        length: 2
+        default: 0
+        unsigned: 'yes'
+    integer_4:
+        type: integer
+        length: 4
+        default: 0
+        unsigned: 'no'
+    integer_4_u:
+        type: integer
+        length: 4
+        default: 0
+        unsigned: 'yes'
     date_add:
         type: datetime
         default: null

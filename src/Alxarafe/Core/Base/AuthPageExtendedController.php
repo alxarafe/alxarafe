@@ -202,10 +202,12 @@ abstract class AuthPageExtendedController extends AuthPageController
             }
         }
 
-        foreach ($this->fieldsStruct as $field => $values) {
-            $this->viewData['fields'][$field] = Schema::mergeViewField($field, $values, $this->viewData['fields'][$field] ?? []);
+        if (DEBUG) {
+            foreach ($this->fieldsStruct as $field => $values) {
+                $this->viewData['fields'][$field] = Schema::mergeViewField($field, $values, $this->viewData['fields'][$field] ?? [], $this->tableName);
+            }
         }
-
+        
         // Some fields may need auto-translation
         foreach ($this->viewData['fields'] as $field => $properties) {
             foreach ($properties as $key => $value) {
@@ -328,7 +330,7 @@ abstract class AuthPageExtendedController extends AuthPageController
             $this->postData = $this->getRecordData();
             FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('register-saved'));
         } else {
-            foreach($this->model->errors as $error) {
+            foreach ($this->model->errors as $error) {
                 FlashMessages::getInstance()::setError($error);
             }
             FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-saved'));

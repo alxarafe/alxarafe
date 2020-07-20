@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Helpers;
 
+use Alxarafe\Core\Database\Engine;
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Providers\Database;
@@ -125,45 +126,81 @@ class Schema
      * @param string $field
      * @param array  $values
      * @param array  $fieldData
+     * @param string $tablename
      *
      * @return array
      */
-    public static function mergeViewField(string $field, array $values, array $fieldData): array
+    public static function mergeViewField(string $field, array $values, array $fieldData, string $tablename = 'undefined'): array
     {
+        $debugTool = DebugTool::getInstance();
+
         $result = $fieldData ?? [];
 
-        $result['label'] = $result['label'] ?? $field;
-        $result['shortlabel'] = $result['shortlabel'] ?? $field;
-        $result['placeholder'] = $result['placeholder'] ?? $field;
+        foreach (['label', 'shortlabel', 'placeholder'] as $fieldName) {
+            if (!isset($result[$fieldName])) {
+                $result[$fieldName] = $field;
+                $debugTool->addMessage('messages', "Field {$field} need '{$fieldName}' in viewdata yaml for {$tablename} table.");
+            }
+        }
+
+        if (!$result['type']) {
+            $result['type'] = $values['type'];
+            $debugTool->addMessage('messages', "The {$field} field need 'type' in viewdata yaml for {$tablename} table.");
+        }
+
         switch ($values['type']) {
             case 'string':
                 $length = (int) ($values['length'] ?? constant('DEFAULT_STRING_LENGTH'));
-                $result['maxlength'] = max([(int) ($result['length'] ?? 0), $length]);
-                if (!$result['type']) {
-                    $result['type'] = $values['type'];
+                $maxlength = max([(int) ($result['length'] ?? 0), $length]);
+                if (!$result['maxlength']) {
+                    $debugTool->addMessage('messages', "The {$field} field need 'maxlength' ({$maxlength} suggest) in viewdata yaml for {$tablename} table.");
+                    $result['maxlength'] = $maxlength;
+                    break;
+                }
+                $maxlength = $result['maxlength'];
+                if ($length != $maxlength) {
+                    $debugTool->addMessage('messages', "Warning! The {$field} field length is {$maxlength} in view and {$length} in struct for table {$tablename} table.");
                 }
                 break;
             case 'integer':
-                $length = isset($values['length']) ? (10 ** $values['length']) - 1 : null;
-                $max = (int) ($values['max'] ?? $length ?? (10 ** constant('DEFAULT_INTEGER_SIZE')) - 1);
-                $min = ($values['unsigned'] === 'yes' ? 0 : -$max);
-                $result['min'] = min([(int) ($result['min'] ?? 0), $min]);
-                $result['max'] = max([(int) ($result['min'] ?? 0), $max]);
-                if (!$result['type']) {
-                    $result['type'] = 'number';
+                $bits = 8 * $values['length'];
+                $total = 2 ** $bits;
+
+                $unsigned = isset($values['unsigned']) && $values['unsigned'] === 'yes';
+                if ($unsigned) {
+                    $min = 0;
+                    $max = $total - 1;
+                } else {
+                    $min = -$total / 2;
+                    $max = $total / 2 - 1;
+                }
+
+                if (!$result['min']) {
+                    $debugTool->addMessage('messages', "The {$field} field need 'min' ({$min} suggest) in viewdata yaml for {$tablename} table.");
+                    $result['min'] = $min;
+                }
+
+                if (!$result['max']) {
+                    $debugTool->addMessage('messages', "The {$field} field need 'max' ({$max} suggest) in viewdata yaml for {$tablename} table.");
+                    $result['max'] = $max;
+                }
+
+                $viewMin=(int) $result['min'];
+                $viewMax=(int) $result['max'];
+
+                if ($viewMin != $min) {
+                    $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMin} in view and {$min} in struct for table {$tablename} table.");
+                }
+                if ($viewMax != $max) {
+                    $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMax} in view and {$max} in struct for table {$tablename} table.");
                 }
                 break;
             default:
-                if (isset($result['type'])) {
-                    break;
-                }
                 switch ($values['type']) {
                     case 'text':
                         $result['type'] = 'textarea';
                     default:
-                        $result['type'] = $values['type'];
                 }
-                break;
         }
         return $result;
     }
