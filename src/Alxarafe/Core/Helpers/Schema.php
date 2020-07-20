@@ -128,7 +128,7 @@ class Schema
      *
      * @return array
      */
-    protected static function mergeViewField(string $field, array $values, array $fieldData): array
+    public static function mergeViewField(string $field, array $values, array $fieldData): array
     {
         $result = $fieldData ?? [];
 
@@ -138,13 +138,13 @@ class Schema
         switch ($values['type']) {
             case 'string':
                 $length = (int) ($values['length'] ?? constant('DEFAULT_STRING_LENGTH'));
-                $result['length'] = max([(int) ($result['length'] ?? 0), $length]);
+                $result['maxlength'] = max([(int) ($result['length'] ?? 0), $length]);
                 break;
             case 'integer':
                 $length = isset($values['length']) ? (10 ** $values['length']) - 1 : null;
                 $max = (int) ($values['max'] ?? $length ?? (10 ** constant('DEFAULT_INTEGER_SIZE')) - 1);
                 $min = ($values['unsigned'] === 'yes' ? 0 : -$max);
-                $result['length'] = max([(int) ($result['length'] ?? 0), $length]);
+                // $result['maxlength'] = max([(int) ($result['length'] ?? 0), $length]);
                 $result['min'] = min([(int) ($result['min'] ?? 0), $min]);
                 $result['max'] = max([(int) ($result['min'] ?? 0), $max]);
                 break;

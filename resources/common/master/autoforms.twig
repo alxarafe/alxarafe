@@ -89,14 +89,10 @@
         'title': null
     } %}
     {% for key, value in extraAttr %}
-        {% if item.struct[key] is defined %}
-            {% set extraAttrResult = extraAttrResult ~ ' ' ~ key ~ '=' ~ item.struct[key] %}
+        {% if item.viewData[key] is defined %}
+            {% set extraAttrResult = extraAttrResult ~ ' ' ~ key ~ '=' ~ item.viewData[key] %}
         {% endif %}
     {% endfor %}
-    {# TODO: Estamos a tiempo de cambiar todos los length por maxlength y evitar esta excepción #}
-    {% if item.struct['length'] is defined %}
-        {% set extraAttrResult = extraAttrResult ~ ' maxlength = ' ~ item.struct['length'] %}
-    {% endif %}
 
     {% set labelInput = labelInput - labelSize %}
     {% if hasCols %}<div class="col-xs-{{ labelInput }}">{% endif %}
