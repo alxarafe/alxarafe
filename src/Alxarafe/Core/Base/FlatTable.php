@@ -192,7 +192,13 @@ class FlatTable extends Entity
             $params = ['%field%' => $trans->trans($key), '%value%' => $value];
             switch ($field['type']) {
                 case 'float':
+                    if ($field['type'] == 'float' && !is_float($value)) {
+                        $this->errors[] = $trans->trans('error-integer-expected', $params);
+                    }
                 case 'integer':
+                    if ($field['type'] == 'integer' && !is_integer($value)) {
+                        $this->errors[] = $trans->trans('error-integer-expected', $params);
+                    }
                     $unsigned = isset($field['unsigned']) && $field['unsigned'] == 'yes';
                     $min = $field['min'] ?? null;
                     $max = $field['max'] ?? null;
