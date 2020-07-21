@@ -170,6 +170,10 @@ class Schema
                     $debugTool->addMessage('messages', "The {$field} field need 'length' in struct yaml for {$tablename} table.");
                 }
 
+                if (isset($values['autoincrement']) && $values['autoincrement'] == 'yes') {
+                    break;
+                }
+
                 $bits = 8 * $length;
                 $total = 2 ** $bits;
 
@@ -199,7 +203,7 @@ class Schema
                     $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMin} in view and {$min} in struct for table {$tablename} table.");
                 }
                 if ($viewMax != $max) {
-                    $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMax} in view and {$max} in struct for table {$tablename} table.");
+                    $debugTool->addMessage('messages', "Warning! The {$field} field max is {$viewMax} in view and {$max} in struct for table {$tablename} table.");
                 }
                 break;
             default:
