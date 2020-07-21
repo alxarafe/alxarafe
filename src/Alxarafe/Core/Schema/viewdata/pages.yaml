@@ -1,0 +1,58 @@
+form-type: form-horizontal
+fields:
+    id:
+        type: integer
+        label: id
+        shortlabel: col-id
+        placeholder: id
+    controller:
+        type: string
+        label: controller
+        shortlabel: col-controller
+        placeholder: controller
+        maxlength: 50
+    title:
+        type: string
+        label: title
+        shortlabel: col-title
+        placeholder: title
+        maxlength: 50
+    description:
+        type: string
+        label: description
+        shortlabel: col-description
+        placeholder: description
+        maxlength: 255
+    menu:
+        type: string
+        label: menu
+        shortlabel: col-menu
+        placeholder: menu
+        maxlength: 255
+    icon:
+        type: string
+        label: icon
+        shortlabel: col-icon
+        placeholder: icon
+        maxlength: 255
+    active:
+        type: bool
+        label: active
+        shortlabel: col-active
+        placeholder: active
+    plugin:
+        type: string
+        label: plugin
+        shortlabel: col-plugin
+        placeholder: plugin
+        maxlength: 50
+    inserted_date:
+        type: datetime
+        label: inserted_date
+        shortlabel: col-inserted_date
+        placeholder: inserted_date
+    updated_date:
+        type: datetime
+        label: updated_date
+        shortlabel: col-updated_date
+        placeholder: updated_date

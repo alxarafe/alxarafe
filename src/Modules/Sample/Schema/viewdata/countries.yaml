@@ -1,41 +1,52 @@
 form-type: form-horizontal
 fields:
     id:
+        type: integer
         label: id
         shortlabel: col-id
         placeholder: id
         min: 0
         max: 9999
     name:
+        type: string
         label: name
         shortlabel: col-name
         placeholder: name
-        length: 100
+        maxlength: 100
     cod_iso:
+        type: string
         label: cod_iso
         shortlabel: cod_iso
         placeholder: cod_iso
         pattern: '[0-9]{3}'
         title: 'Three letter country code'
+        maxlength: 3
     cod_iso2:
+        type: string
         label: cod_iso2
         shortlabel: cod_iso2
         placeholder: cod_iso2
         pattern: '[A-Z]{2}'
+        maxlength: 2
     cod_iso3:
+        type: string
         label: cod_iso3
         shortlabel: cod_iso3
         placeholder: cod_iso3
         pattern: '[A-Z]{3}'
+        maxlength: 3
     id_region:
+        type: select
         label: id_region
         shortlabel: id_region
         placeholder: id_region
     id_subregion:
+        type: select
         label: id_subregion
         shortlabel: id_subregion
         placeholder: id_subregion
     id_intermediate_region:
+        type: select
         label: id_intermediate_region
         shortlabel: id_intermediate_region
         placeholder: id_intermediate_region

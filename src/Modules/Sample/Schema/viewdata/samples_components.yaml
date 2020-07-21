@@ -1,10 +1,12 @@
 form-type: form-horizontal
 fields:
     id:
+        type: integer
         label: id
         shortlabel: col-id
         placeholder: id
     name:
+        type: string
         label: name
         shortlabel: col-name
         placeholder: name
@@ -15,26 +17,32 @@ fields:
         shortlabel: col-password
         placeholder: password
     integer_2:
+        type: integer
         label: short-integer
         shortlabel: col-short-integer
         placeholder: short-integer
     integer_2_u:
+        type: integer
         label: word
         shortlabel: col-word
         placeholder: word
     integer_4:
+        type: integer
         label: integer
         shortlabel: col-integer
         placeholder: integer
     integer_4_u:
+        type: integer
         label: longword
         shortlabel: col-long-word
         placeholder: long-word
     date_add:
+        type: datetime
         label: date_add
         shortlabel: col-date_add
         placeholder: date_add
     observation:
+        type: string
         label: observation
         shortlabel: col-observation
         placeholder: observation

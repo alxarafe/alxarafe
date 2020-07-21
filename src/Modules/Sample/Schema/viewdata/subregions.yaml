@@ -1,13 +1,15 @@
 form-type: form-horizontal
 fields:
     id:
+        type: integer
         label: id
         shortlabel: col-id
         placeholder: id
         min: 0
         max: 9999
     name:
+        type: string
         label: name
         shortlabel: col-name
         placeholder: name
-        length: 100
+        maxlength: 100

@@ -42,6 +42,8 @@ fields:
         default: '0'
         nullable: 'no'
         unsigned: 'yes'
+        min: 0
+        max: 1
     plugin:
         type: string
         length: '50'

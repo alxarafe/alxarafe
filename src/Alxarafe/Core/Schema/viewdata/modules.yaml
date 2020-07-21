@@ -1,28 +1,34 @@
 form-type: form-horizontal
 fields:
     id:
+        type: integer
         label: id
         shortlabel: col-id
         placeholder: id
     name:
+        type: string
         label: name
         shortlabel: col-name
         placeholder: name
-        length: 50
+        maxlength: 50
     path:
+        type: string
         label: path
         shortlabel: col-path
         placeholder: path
-        length: 100
+        maxlength: 100
     enabled:
+        type: check
         label: enabled
         shortlabel: col-enabled
         placeholder: enabled
     inserted_date:
+        type: datetime
         label: inserted_date
         shortlabel: col-inserted_date
         placeholder: inserted_date
     updated_date:
+        type: datetime
         label: updated_date
         shortlabel: col-updated_date
         placeholder: updated_date

@@ -164,6 +164,20 @@ class Schema
                 }
                 break;
             case 'integer':
+                if ($result['type'] == 'bool') {
+                    $result['min'] = 0;
+                    $result['max'] = 1;
+                    break;
+                }
+
+                if ($result['type']=='select') {
+                    break;
+                }
+
+                if ($result['type']=='select2') {
+                    break;
+                }
+
                 $length = $values['length'] ?? 8;
                 if (!isset($values['length'])) {
                     $length = 8;
@@ -186,12 +200,12 @@ class Schema
                     $max = $total / 2 - 1;
                 }
 
-                if (!$result['min']) {
+                if (!isset($result['min'])) {
                     $debugTool->addMessage('messages', "The {$field} field need 'min' ({$min} suggest) in viewdata yaml for {$tablename} table.");
                     $result['min'] = $values['min'] ?? $min;
                 }
 
-                if (!$result['max']) {
+                if (!isset($result['max'])) {
                     $debugTool->addMessage('messages', "The {$field} field need 'max' ({$max} suggest) in viewdata yaml for {$tablename} table.");
                     $result['max'] = $values['max'] ?? $max;
                 }
@@ -199,11 +213,14 @@ class Schema
                 $viewMin = (int) $result['min'];
                 $viewMax = (int) $result['max'];
 
-                if ($viewMin != $min) {
-                    $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMin} in view and {$min} in struct for table {$tablename} table.");
+                $structMin = (int) ($values['min'] ?? $min);
+                $structMax = (int) ($values['max'] ?? $max);
+
+                if ($viewMin != $structMin) {
+                    $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMin} in view and {$structMin} in struct for table {$tablename} table.");
                 }
-                if ($viewMax != $max) {
-                    $debugTool->addMessage('messages', "Warning! The {$field} field max is {$viewMax} in view and {$max} in struct for table {$tablename} table.");
+                if ($viewMax != $structMax) {
+                    $debugTool->addMessage('messages', "Warning! The {$field} field max is {$viewMax} in view and {$structMax} in struct for table {$tablename} table.");
                 }
                 break;
             default:

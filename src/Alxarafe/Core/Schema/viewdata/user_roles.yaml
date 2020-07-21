@@ -1,0 +1,17 @@
+form-type: form-horizontal
+fields:
+    id:
+        type: integer
+        label: id
+        shortlabel: col-id
+        placeholder: id
+    id_user:
+        type: select
+        label: id_user
+        shortlabel: col-id_user
+        placeholder: id_user
+    id_role:
+        type: select
+        label: id_role
+        shortlabel: col-id_role
+        placeholder: id_role

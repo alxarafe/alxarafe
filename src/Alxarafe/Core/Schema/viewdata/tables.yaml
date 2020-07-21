@@ -1,0 +1,20 @@
+form-type: form-horizontal
+fields:
+    tablename:
+        type: string
+        label: tablename
+        shortlabel: col-tablename
+        placeholder: tablename
+        maxlength: 50
+    model:
+        type: string
+        label: model
+        shortlabel: col-model
+        placeholder: model
+        maxlength: 50
+    namespace:
+        type: string
+        label: namespace
+        shortlabel: col-namespace
+        placeholder: namespace
+        maxlength: 250

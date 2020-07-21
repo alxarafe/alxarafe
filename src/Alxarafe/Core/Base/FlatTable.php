@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Core\Base;
 
-use Alxarafe\Core\Database\Engine;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\Translator;
@@ -183,7 +182,13 @@ class FlatTable extends Entity
         return $this->getDataById($id);
     }
 
-    public function test($values)
+    /**
+     * Checks the integrity of the supplied values to generate possible warning errors.
+     * It can also return some corrected values (for example true/false by 1/0)
+     *
+     * @param $values
+     */
+    public function test(&$values)
     {
         $trans = Translator::getInstance();
         $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
@@ -191,13 +196,38 @@ class FlatTable extends Entity
             $field = $schema['fields'][$key];
             $params = ['%field%' => $trans->trans($key), '%value%' => $value];
             switch ($field['type']) {
-                case 'float':
-                    if ($field['type'] == 'float' && !is_float($value)) {
-                        $this->errors[] = $trans->trans('error-float-expected', $params);
+                case 'checkbox':
+                case 'radio':
+                case 'color':
+                case 'range':
+                case 'file':
+                case 'toggle':
+                case 'touchspin':
+                case 'password':
+                case 'textarea':
+                case 'select':
+                case 'select2':
+                    break;
+                case 'bool':
+                    if (in_array(strtolower($value), ['true', 'yes', '1'])) {
+                        $values[$key] = '1';
+                    } elseif (in_array(strtolower($value), ['false', 'no', '0'])) {
+                        $values[$key] = '0';
+                    } else {
+                        $this->errors[] = $trans->trans('error-boolean-expected', $params);
                     }
+                    break;
+                /** @noinspection PhpMissingBreakStatementInspection */ case 'float':
+                $float = floatval($value);
+                if ($field['type'] == 'float' && $float != $value) {
+                    $this->errors[] = $trans->trans('error-float-expected', $params);
+                }
                 case 'integer':
-                    if ($field['type'] == 'integer' && !is_integer($value)) {
-                        $this->errors[] = $trans->trans('error-integer-expected', $params);
+                    if (!isset($float)) {
+                        $integer = intval($value);
+                        if ($field['type'] == 'integer' && $integer != $value) {
+                            $this->errors[] = $trans->trans('error-integer-expected', $params);
+                        }
                     }
                     $unsigned = isset($field['unsigned']) && $field['unsigned'] == 'yes';
                     $min = $field['min'] ?? null;
@@ -215,7 +245,7 @@ class FlatTable extends Entity
                     }
                     break;
                 case 'string':
-                    $maxlen = $field['length'] ?? null;
+                    $maxlen = $field['maxlength'] ?? null;
                     $strlen = strlen($value);
                     if (isset($maxlen) && $strlen > $maxlen) {
                         $params['%strlen%'] = $strlen;
@@ -223,6 +253,9 @@ class FlatTable extends Entity
                         $this->errors[] = $trans->trans('error-string-too-long', $params);
                     }
                     break;
+                default:
+                    $params['%type%'] = $field['type'];
+                    $this->errors[] = $trans->trans('error-type-not-supported', $params);
             }
         }
     }

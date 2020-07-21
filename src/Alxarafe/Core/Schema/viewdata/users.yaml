@@ -1,67 +1,71 @@
 form-type: form-horizontal
 fields:
     id:
+        type: integer
         label: id
         shortlabel: col-id
         placeholder: id
-        type: integer
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     username:
+        type: string
         label: username
         shortlabel: col-username
         placeholder: username
-        length: 50
-        type: string
+        maxlength: 50
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     email:
+        type: email
         label: email
         shortlabel: col-email
         placeholder: email
-        length: 50
-        type: string
+        maxlength: 50
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     password:
+        type: password
         label: password
         shortlabel: col-password
         placeholder: password
-        type: password
         class: col-xs-9
+        maxlength: 255
         label-details:
             show: true
             class: col-xs-3
     register_date:
+        type: datetime
         label: register_date
         shortlabel: col-register_date
         placeholder: register_date
-        type: datetime
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     active:
+        type: bool
         label: active
         shortlabel: col-active
         placeholder: active
-        type: bool
         class: col-xs-9
+        min: 0
+        max: 1
         label-details:
             show: true
             class: col-xs-3
     logkey:
+        type: string
         label: logkey
         shortlabel: col-logkey
         placeholder: logkey
-        type: string
         class: col-xs-9
+        maxlength: 128
         label-details:
             show: true
             class: col-xs-3

@@ -1,0 +1,23 @@
+form-type: form-horizontal
+fields:
+    id:
+        type: integer
+        label: id
+        shortlabel: col-id
+        placeholder: id
+    name:
+        type: string
+        label: name
+        shortlabel: col-name
+        placeholder: name
+        maxlength: 50
+    active:
+        type: bool
+        label: active
+        shortlabel: col-active
+        placeholder: active
+    locked:
+        type: bool
+        label: locked
+        shortlabel: col-locked
+        placeholder: locked

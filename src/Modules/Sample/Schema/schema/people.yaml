@@ -1,7 +1,7 @@
 fields:
     id:
         type: integer
-        length: '9'
+        length: '4'
         default: null
         nullable: 'no'
         unsigned: 'yes'

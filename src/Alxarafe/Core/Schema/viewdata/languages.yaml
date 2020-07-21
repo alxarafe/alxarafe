@@ -1,25 +1,29 @@
 form-type: form-horizontal
 fields:
     id:
+        type: integer
         label: id
         shortlabel: col-id
         placeholder: id
     name:
+        type: string
         label: name
         shortlabel: col-name
         placeholder: name
-        length: 100
+        maxlength: 50
     language:
+        type: string
         label: language-code
         shortlabel: col-language-code
         placeholder: language-code
         pattern: '[a-z]{2}'
-        length: '2'
+        maxlength: '2'
         title: language-code
     variant:
+        type: string
         label: language-variant
         shortlabel: col-language-variant
         placeholder: language-variant
         pattern: '[A-Z]{2}'
-        length: '2'
+        maxlength: '2'
         title: language-variant

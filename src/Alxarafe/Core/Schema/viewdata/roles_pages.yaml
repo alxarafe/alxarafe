@@ -1,109 +1,109 @@
 form-type: form-horizontal
 fields:
     id:
+        type: integer
         label: id
         shortlabel: col-id
         placeholder: id
-        type: integer
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     id_role:
+        type: select
         label: id_role
         shortlabel: col-id_role
         placeholder: id_role
-        type: select
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     id_page:
+        type: select2
         label: id_page
         shortlabel: col-id_page
         placeholder: id_page
-        type: select2
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_access:
+        type: bool
         label: can_access
         shortlabel: col-can_access
         placeholder: can_access
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_create:
+        type: bool
         label: can_create
         shortlabel: col-can_create
         placeholder: can_create
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_read:
+        type: bool
         label: can_read
         shortlabel: col-can_read
         placeholder: can_read
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_update:
+        type: bool
         label: can_update
         shortlabel: col-can_update
         placeholder: can_update
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_delete:
+        type: bool
         label: can_delete
         shortlabel: col-can_delete
         placeholder: can_delete
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_print:
+        type: bool
         label: can_print
         shortlabel: col-can_print
         placeholder: can_print
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_export:
+        type: bool
         label: can_export
         shortlabel: col-can_export
         placeholder: can_export
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     can_sendmail:
+        type: bool
         label: can_sendmail
         shortlabel: col-can_sendmail
         placeholder: can_sendmail
-        type: bool
         class: col-xs-9
         label-details:
             show: true
             class: col-xs-3
     locked:
+        type: bool
         label: locked
         shortlabel: col-locked
         placeholder: locked
-        type: bool
         class: col-xs-9
         label-details:
             show: true
