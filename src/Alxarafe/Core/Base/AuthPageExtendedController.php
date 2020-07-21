@@ -194,33 +194,6 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
         $this->indexesTables[$this->tableName] = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['indexes'];
         $this->viewData = Schema::getFromYamlFile($this->tableName, 'viewdata');
-
-        // If not defined in yaml file, use all table fields
-        if (empty($this->viewData['fields'])) {
-            foreach ($this->fieldsStruct as $key => $value) {
-                $this->viewData['fields'][$key] = [];
-            }
-        }
-
-        if (DEBUG) {
-            foreach ($this->fieldsStruct as $field => $values) {
-                $this->viewData['fields'][$field] = Schema::mergeViewField($field, $values, $this->viewData['fields'][$field] ?? [], $this->tableName);
-            }
-        }
-        
-        // Some fields may need auto-translation
-        foreach ($this->viewData['fields'] as $field => $properties) {
-            foreach ($properties as $key => $value) {
-                switch ($key) {
-                    case 'label':
-                    case 'shortlabel':
-                    case 'placeholder':
-                        $this->viewData['fields'][$field][$key] = Translator::getInstance()->trans($value);
-                        break;
-                }
-            }
-        }
-
         $this->tableData[$this->tableName] = isset($this->postData[$this->tableName]) ? $this->model->getDefaultValues() : $this->postData[$this->tableName][0];
     }
 

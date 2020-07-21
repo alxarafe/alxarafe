@@ -14,6 +14,7 @@ use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Logger;
 use Alxarafe\Core\Providers\ModuleManager;
+use Alxarafe\Core\Providers\Translator;
 use Exception;
 use Kint\Kint;
 use ParseCsv\Csv;
@@ -163,7 +164,13 @@ class Schema
                 }
                 break;
             case 'integer':
-                $bits = 8 * $values['length'];
+                $length = $values['length'] ?? 8;
+                if (!isset($values['length'])) {
+                    $length = 8;
+                    $debugTool->addMessage('messages', "The {$field} field need 'length' in struct yaml for {$tablename} table.");
+                }
+
+                $bits = 8 * $length;
                 $total = 2 ** $bits;
 
                 $unsigned = isset($values['unsigned']) && $values['unsigned'] === 'yes';
@@ -177,16 +184,16 @@ class Schema
 
                 if (!$result['min']) {
                     $debugTool->addMessage('messages', "The {$field} field need 'min' ({$min} suggest) in viewdata yaml for {$tablename} table.");
-                    $result['min'] = $min;
+                    $result['min'] = $values['min'] ?? $min;
                 }
 
                 if (!$result['max']) {
                     $debugTool->addMessage('messages', "The {$field} field need 'max' ({$max} suggest) in viewdata yaml for {$tablename} table.");
-                    $result['max'] = $max;
+                    $result['max'] = $values['max'] ?? $max;
                 }
 
-                $viewMin=(int) $result['min'];
-                $viewMax=(int) $result['max'];
+                $viewMin = (int) $result['min'];
+                $viewMax = (int) $result['max'];
 
                 if ($viewMin != $min) {
                     $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMin} in view and {$min} in struct for table {$tablename} table.");
@@ -219,14 +226,48 @@ class Schema
         if ($fileName === '') {
             return [];
         }
-        if ($type === 'values') {
-            $data = self::loadDataFromCsv($fileName);
-            if (!empty($data)) {
-                return $data;
-            }
-        }
 
-        return self::loadDataFromYaml($fileName);
+        switch ($type) {
+            case 'schema':
+                $data = self::loadDataFromYaml($fileName);
+                break;
+            case 'viewdata':
+                $schema = self::getFromYamlFile($tableName);
+                $data = self::loadDataFromYaml($fileName);
+
+                // If not defined in yaml file, use all table fields
+                if (empty($data['fields'])) {
+                    foreach ($schema['fields'] as $key => $value) {
+                        $data['fields'][$key] = [];
+                    }
+                }
+
+                if (DEBUG) {
+                    foreach ($schema['fields'] as $field => $values) {
+                        $data['fields'][$field] = self::mergeViewField($field, $values, $data['fields'][$field] ?? [], $tableName);
+                    }
+                }
+
+                // Some fields may need auto-translation
+                foreach ($data['fields'] as $field => $properties) {
+                    foreach ($properties as $key => $value) {
+                        switch ($key) {
+                            case 'label':
+                            case 'shortlabel':
+                            case 'placeholder':
+                                $data['fields'][$field][$key] = Translator::getInstance()->trans($value);
+                                break;
+                        }
+                    }
+                }
+                break;
+            case 'values':
+                $data = self::loadDataFromCsv($fileName);
+                break;
+            default:
+                $data = [];
+        }
+        return $data;
     }
 
     /**
@@ -342,7 +383,7 @@ class Schema
         foreach ($structure['fields'] as $key => $value) {
             $ret['fields'][$key] = self::normalizeField($tableName, $key, $value);
         }
-        $ret['checks'] = $structure['checks'] ?? [];
+        $ret['checks'] = self::getFromYamlFile($tableName, 'viewdata');
         return $ret;
     }
 

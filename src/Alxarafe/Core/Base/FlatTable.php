@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Database\Engine;
+use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\Translator;
 
@@ -185,7 +186,7 @@ class FlatTable extends Entity
     public function test($values)
     {
         $trans = Translator::getInstance();
-        $schema = Engine::$dbStructure[$this->tableName];
+        $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
         foreach ($values as $key => $value) {
             $field = $schema['fields'][$key];
             $params = ['%field%' => $trans->trans($key), '%value%' => $value];

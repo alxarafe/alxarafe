@@ -252,46 +252,12 @@ class Table extends SimpleTable
      */
     protected function testData(array $data): bool
     {
-        $ok = true;
         foreach ($data as $tableName => $block) {   // Recorrer tablas
             foreach ($block as $blockId => $record) {            // Recorrer registros de la tabla (seguramente uno)
-                foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['checks'] as $fieldName => $fieldStructure) {
-                    $length = $fieldStructure['length'] ?? null;
-                    if (isset($length) && $length > 0 && strlen($record[$fieldName]) > $length) {
-                        $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%length%' => $length];
-                        FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-max-length', $vars));
-                        $ok = false;
-                    }
-                    $min = $fieldStructure['min'] ?? null;
-                    if (isset($min) && $min > (int) $record[$fieldName]) {
-                        $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%min%' => $min];
-                        FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-minimum', $vars));
-                        $ok = false;
-                    }
-                    $max = $fieldStructure['max'] ?? null;
-                    if (isset($max) && $max < (int) $record[$fieldName]) {
-                        $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%max%' => $max];
-                        FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-exceeds-maximum', $vars));
-                        $ok = false;
-                    }
-                    if (isset($fieldStructure['unique']) && ($fieldStructure['unique'] === 'yes')) {
-                        $sql = "SELECT * FROM {$this->getQuotedTableName()} WHERE {$fieldName}='{$data[$tableName][$blockId][$fieldName]}';";
-                        $bad = Database::getInstance()->getDbEngine()->select($sql);
-                        if ($bad && count($bad) > 0) {
-                            foreach ($bad as $badrecord) {
-                                // TODO: Estoy utilizando 'id', pero tendría que ser el $this->idField del modelo correspondiente
-                                if ($badrecord['id'] !== $data[$tableName][$blockId]['id']) {
-                                    $vars = ['%tableName%' => $tableName, '%fieldName%' => $fieldName, '%value%' => $data[$tableName][$blockId][$fieldName], '%register%' => $badrecord['id']];
-                                    FlashMessages::getInstance()::setError(Translator::getInstance()->trans('tablename-fieldname-register-duplicated', $vars));
-                                    $ok = false;
-                                }
-                            }
-                        }
-                    }
-                }
+                $this->test($record);
             }
+            return count($this->errors) === 0;
         }
-        return $ok;
     }
 
     /**
