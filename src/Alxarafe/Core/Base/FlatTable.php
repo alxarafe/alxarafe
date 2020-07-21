@@ -193,7 +193,7 @@ class FlatTable extends Entity
             switch ($field['type']) {
                 case 'float':
                     if ($field['type'] == 'float' && !is_float($value)) {
-                        $this->errors[] = $trans->trans('error-integer-expected', $params);
+                        $this->errors[] = $trans->trans('error-float-expected', $params);
                     }
                 case 'integer':
                     if ($field['type'] == 'integer' && !is_integer($value)) {
