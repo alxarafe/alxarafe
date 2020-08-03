@@ -153,7 +153,7 @@ class Schema
             case 'string':
                 $length = (int) ($values['length'] ?? constant('DEFAULT_STRING_LENGTH'));
                 $maxlength = max([(int) ($result['length'] ?? 0), $length]);
-                if (!$result['maxlength']) {
+                if (!isset($result['maxlength'])) {
                     $debugTool->addMessage('messages', "The {$field} field need 'maxlength' ({$maxlength} suggest) in viewdata yaml for {$tablename} table.");
                     $result['maxlength'] = $maxlength;
                     break;
