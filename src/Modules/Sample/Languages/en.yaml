@@ -17,3 +17,12 @@ col-is_checked2: Checkbox2
 selected_spin: Spin selector
 col-selected_spin: Spin selector
 controller-sample-components-description: Maintenance to test all editing components.
+short-integer: Integer
+col-short-integer: Integer
+word: Word
+col-word: Word
+integer: Integer
+col-integer: Integer
+longword: Long word
+col-long-word: Long word
+long-word: Long word

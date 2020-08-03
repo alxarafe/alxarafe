@@ -45,36 +45,39 @@
         {% if hasCols %}</div>{% endif %}
     {% endif %}
 
-    {% if item.struct.type is same as('integer') or item.struct.type is same as('number') %}
+    {% set viewInputType = item.viewData.type %}
+    {% if viewInputType is same as('integer') or item.struct.type is same as('number') %}
         {% set inputType = 'number' %}
-    {% elseif item.struct.type is same as('datetime') %}
+    {% elseif viewInputType is same as('datetime') %}
         {% set inputType = 'datetime' %}
-    {% elseif item.struct.type is same as('date') %}
+    {% elseif viewInputType is same as('date') %}
         {% set inputType = 'date' %}
-    {% elseif item.struct.type is same as('time') %}
+    {% elseif viewInputType is same as('time') %}
         {% set inputType = 'time' %}
-    {% elseif item.struct.type is same as('bool') %}
+    {% elseif viewInputType is same as('bool') %}
         {% set inputType = 'checkbox' %}
-    {% elseif item.struct.type is same as('string') %}
+    {% elseif viewInputType is same as('string') %}
         {% set inputType = 'text' %}
-    {% elseif item.struct.type is same as('select') %}
+    {% elseif viewInputType is same as('select') %}
         {% set inputType = 'select' %}
-    {% elseif item.struct.type is same as('select2') %}
+    {% elseif viewInputType is same as('select2') %}
         {% set inputType = 'select2' %}
-    {% elseif item.struct.type is same as('radio') %}
+    {% elseif viewInputType is same as('radio') %}
         {% set inputType = 'radio' %}
-    {% elseif item.struct.type is same as('color') %}
+    {% elseif viewInputType is same as('color') %}
         {% set inputType = 'color' %}
-    {% elseif item.struct.type is same as('range') %}
+    {% elseif viewInputType is same as('range') %}
         {% set inputType = 'range' %}
-    {% elseif item.struct.type is same as('textarea') %}
+    {% elseif viewInputType is same as('textarea') %}
         {% set inputType = 'textarea' %}
-    {% elseif item.struct.type is same as('file') %}
+    {% elseif viewInputType is same as('file') %}
         {% set inputType = 'file' %}
-    {% elseif item.struct.type is same as('toggle') %}
+    {% elseif viewInputType is same as('toggle') %}
         {% set inputType = 'toggle' %}
-    {% elseif item.struct.type is same as('touchspin') %}
+    {% elseif viewInputType is same as('touchspin') %}
         {% set inputType = 'touchspin' %}
+    {% elseif viewInputType is same as('password') %}
+        {% set inputType = 'password' %}
     {% else %}
         {% set inputType = 'text' %}
     {% endif %}
@@ -100,7 +103,7 @@
     {% if editable %}
         {% if inputType is same as('number') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="number" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('date') or inputType is same as('time') or inputType is same as('string') %}
+        {% elseif inputType is same as('date') or inputType is same as('time') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="{{ inputType }}" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
         {% elseif inputType is same as('password') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="password" class="form-control" value="" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>

@@ -10,32 +10,45 @@ fields:
         label: name
         shortlabel: col-name
         placeholder: name
-        maxlength: 90
+        maxlength: 100
     password:
         type: password
         label: password
         shortlabel: col-password
         placeholder: password
+        maxlength: 100
     integer_2:
         type: integer
         label: short-integer
         shortlabel: col-short-integer
         placeholder: short-integer
+        min: -32768
+        max: 32767
+        step: 1
     integer_2_u:
         type: integer
         label: word
         shortlabel: col-word
         placeholder: word
+        min: 0
+        max: 65535
+        step: 1
     integer_4:
         type: integer
         label: integer
         shortlabel: col-integer
         placeholder: integer
+        min: -2147483648
+        max: 2147483647
+        step: 1
     integer_4_u:
         type: integer
         label: longword
         shortlabel: col-long-word
         placeholder: long-word
+        min: 0
+        max: 4294967295
+        step: 1
     date_add:
         type: datetime
         label: date_add
@@ -46,38 +59,51 @@ fields:
         label: observation
         shortlabel: col-observation
         placeholder: observation
+        maxlength: 50
     selected_option:
         type: radio
         label: selected_option
         shortlabel: col-selected_option
         placeholder: selected_option
+        min: 0
+        max: 4294967295
     selected_color:
         type: color
         label: selected_color
         shortlabel: col-selected_color
         placeholder: selected_color
+        maxlength: 100
     selected_value:
         type: range
         label: selected_value
         shortlabel: col-selected_value
         placeholder: selected_value
+        min: 0
+        max: 4294967295
     path_file:
         type: file
         label: path_file
         shortlabel: col-path_file
         placeholder: path_file
+        maxlength: 100
     is_checked:
         type: toggle
         label: is_checked
         shortlabel: col-is_checked
         placeholder: is_checked
+        min: 0
+        max: 255
     is_checked2:
         type: checkbox
         label: is_checked2
         shortlabel: col-is_checked2
         placeholder: is_checked2
+        min: 0
+        max: 255
     selected_spin:
         type: touchspin
         label: selected_spin
         shortlabel: col-selected_spin
         placeholder: selected_spin
+        min: 0
+        max: 4294967295

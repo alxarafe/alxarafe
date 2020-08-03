@@ -1,0 +1,28 @@
+date_add: Instante
+col-date_add: Fecha y hora
+observation: Observaciones
+col-observation: Observaciones
+selected_option: Selector de radio
+col-selected_option: Selector de radio
+selected_color: Selector de color
+col-selected_color: Selector de color
+selected_value: Selector de valores
+col-selected_value: Selector de valores
+path_file: Ruta archivo
+col-path_file: Ruta de archivo
+is_checked: Selector
+col-is_checked: Selector
+is_checked2: Selector2
+col-is_checked2: Selector2
+selected_spin: Selector spin
+col-selected_spin: Selector de spin
+controller-sample-components-description: Mantenimiento para probar todos los componentes de edición.
+short-integer: Entero
+col-short-integer: Entero
+word: Palabra
+col-word: Palabra
+integer: Entero
+col-integer: Entero
+longword: Palabra larga
+col-long-word: Palabra larga
+long-word: Palabra larga
