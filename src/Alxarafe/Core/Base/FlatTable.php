@@ -130,13 +130,17 @@ class FlatTable extends Entity
     }
 
     /**
-     * TODO: Undocummented.
+     * Returns the default values of each field
      *
      * @return array
      */
     public function defaultData()
     {
-        return [];
+        $data = [];
+        foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {
+            $data[$key] = $value['default'] ?? '';
+        }
+        return $data;
     }
 
     /**

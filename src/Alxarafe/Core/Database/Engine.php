@@ -501,11 +501,11 @@ abstract class Engine
      *
      * @param string $tablename
      *
-     * @return mixed
+     * @return array
      */
     final public function getDbTableStructure(string $tablename)
     {
-        return self::$dbStructure[$tablename];
+        return self::$dbStructure[$tablename] ?? [];
     }
 
     /**

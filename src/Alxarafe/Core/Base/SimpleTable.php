@@ -98,20 +98,6 @@ class SimpleTable extends FlatTable
     }
 
     /**
-     * TODO: Undocummented.
-     *
-     * @return array
-     */
-    public function defaultData()
-    {
-        $data = [];
-        foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {
-            $data[$key] = $value['default'] ?? '';
-        }
-        return $data;
-    }
-
-    /**
      * Returns a new instance of the table with the requested record.
      * As a previous step, a getDataBy of the current instance is made, so both will point to the same record.
      * Makes a getDataBy and returns a new instance of the model.

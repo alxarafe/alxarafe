@@ -202,8 +202,6 @@ class Table extends SimpleTable
                 default:
                     $item = $valueData['default'];
             }
-        } else {
-            $item = null;
         }
 
         if ($item === 'CURRENT_TIMESTAMP') {
