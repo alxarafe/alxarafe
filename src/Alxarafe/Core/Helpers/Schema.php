@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Core\Helpers;
 
-use Alxarafe\Core\Database\Engine;
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Providers\Database;
@@ -159,22 +158,22 @@ class Schema
                     break;
                 }
                 $maxlength = $result['maxlength'];
-                if ($length != $maxlength) {
+                if ($length !== $maxlength) {
                     $debugTool->addMessage('messages', "Warning! The {$field} field length is {$maxlength} in view and {$length} in struct for table {$tablename} table.");
                 }
                 break;
             case 'integer':
-                if ($result['type'] == 'bool') {
+                if ($result['type'] === 'bool') {
                     $result['min'] = 0;
                     $result['max'] = 1;
                     break;
                 }
 
-                if ($result['type']=='select') {
+                if ($result['type'] === 'select') {
                     break;
                 }
 
-                if ($result['type']=='select2') {
+                if ($result['type'] === 'select2') {
                     break;
                 }
 
@@ -184,7 +183,7 @@ class Schema
                     $debugTool->addMessage('messages', "The {$field} field need 'length' in struct yaml for {$tablename} table.");
                 }
 
-                if (isset($values['autoincrement']) && $values['autoincrement'] == 'yes') {
+                if (isset($values['autoincrement']) && $values['autoincrement'] === 'yes') {
                     break;
                 }
 
@@ -216,10 +215,10 @@ class Schema
                 $structMin = (int) ($values['min'] ?? $min);
                 $structMax = (int) ($values['max'] ?? $max);
 
-                if ($viewMin != $structMin) {
+                if ($viewMin !== $structMin) {
                     $debugTool->addMessage('messages', "Warning! The {$field} field min is {$viewMin} in view and {$structMin} in struct for table {$tablename} table.");
                 }
-                if ($viewMax != $structMax) {
+                if ($viewMax !== $structMax) {
                     $debugTool->addMessage('messages', "Warning! The {$field} field max is {$viewMax} in view and {$structMax} in struct for table {$tablename} table.");
                 }
                 break;
@@ -229,6 +228,9 @@ class Schema
                         $result['type'] = 'textarea';
                     default:
                 }
+        }
+        if (isset($values['default']) && !isset($result['default'])) {
+            $result['default'] = $values['default'];
         }
         return $result;
     }

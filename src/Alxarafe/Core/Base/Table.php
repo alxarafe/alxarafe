@@ -10,8 +10,6 @@ use Alxarafe\Core\Helpers\FormatUtils;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Helpers\SchemaDB;
 use Alxarafe\Core\Providers\Database;
-use Alxarafe\Core\Providers\FlashMessages;
-use Alxarafe\Core\Providers\Translator;
 
 /**
  * Class Table allows access to a table using an active record.
@@ -204,12 +202,12 @@ class Table extends SimpleTable
                 default:
                     $item = $valueData['default'];
             }
+        } else {
+            $item = null;
         }
 
-        switch ($item) {
-            case 'CURRENT_TIMESTAMP':
-                $item = date(FormatUtils::getFormatDateTime());
-                break;
+        if ($item === 'CURRENT_TIMESTAMP') {
+            $item = date(FormatUtils::getFormatDateTime());
         }
 
         return $item;
