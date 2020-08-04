@@ -198,7 +198,28 @@ class FlatTable extends Entity
     {
         $trans = Translator::getInstance();
         $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
+        $ok = true;
         foreach ($values as $key => $value) {
+            $field = $schema['fields'][$key];
+            $params = ['%field%' => $trans->trans($key), '%value%' => $value];
+            $fieldType = $field['type'];
+            if (!isset($fieldType)) {
+                $fieldType = 'edit';
+                $this->errors[] = $trans->trans('error-type-not-supported', $params);
+            }
+
+            $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($fieldType) . 'Component';
+            if (!class_exists($class)) {
+                $params['%class%'] = $class;
+                $this->errors[] = $trans->trans('class-does-not-exists', $params);
+                $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\EditComponent';
+            }
+
+            $ok = $ok && $class::test($key, $field, $value);
+            $this->errors = array_merge($this->errors, $class::getErrors());
+
+            continue;
+
             $field = $schema['fields'][$key];
             $params = ['%field%' => $trans->trans($key), '%value%' => $value];
             switch ($field['type']) {

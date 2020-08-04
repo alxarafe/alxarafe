@@ -21,13 +21,6 @@ class Button extends AbstractComponent
     public $text;
 
     /**
-     * Contains the style for this component.
-     *
-     * @var string
-     */
-    public $style;
-
-    /**
      * Contains the type for this component.
      *
      * @var string

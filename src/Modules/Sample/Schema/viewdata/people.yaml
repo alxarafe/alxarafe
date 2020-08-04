@@ -11,19 +11,23 @@ fields:
         shortlabel: name
         placeholder: name
         length: 50
-    cif:
+    vat:
         label: cif
         shortlabel: cif
         placeholder: cif
         length: 10
         unique: yes
-    edad:
+    age:
         label: edad
         shortlabel: edad
         placeholder: edad
         min: 18
         max: 65
-    nacimiento:
+    birthday:
         label: nacimiento
         shortlabel: nacimiento
         placeholder: nacimiento
+    id_country:
+        label: Código país
+        shortlabel: Código país
+        placeholder: Código país
