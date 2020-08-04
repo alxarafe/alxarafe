@@ -215,7 +215,7 @@ class FlatTable extends Entity
                 $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\EditComponent';
             }
 
-            $ok = $ok && $class::test($key, $field, $value);
+            $class::test($key, $field, $value);
             $this->errors = array_merge($this->errors, $class::getErrors());
         }
     }
