@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Database;
@@ -17,6 +17,7 @@ use DebugBar\DataCollector\PDO as PDODataCollector;
 use DebugBar\DebugBarException;
 use PDO;
 use PDOException;
+use PDOStatement;
 use Psr\Cache\InvalidArgumentException;
 
 /**
@@ -65,7 +66,7 @@ abstract class Engine
      * Represents a prepared statement and, after the statement is executed,
      * an associated result set.
      *
-     * @var \PDOStatement|bool
+     * @var PDOStatement|bool
      */
     protected static $statement;
 

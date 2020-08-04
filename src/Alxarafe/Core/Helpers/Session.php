@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Helpers;
@@ -9,6 +9,7 @@ namespace Alxarafe\Core\Helpers;
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\Singleton;
+use Aura\Session\Segment;
 use Aura\Session\SessionFactory;
 
 /**
@@ -138,9 +139,9 @@ class Session
     /**
      * Return segment session.
      *
-     * @return \Aura\Session\Segment
+     * @return Segment
      */
-    public function getSegment(): \Aura\Session\Segment
+    public function getSegment(): Segment
     {
         return $this->session->getSegment($this->segmentName);
     }

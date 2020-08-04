@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Helpers;
@@ -222,12 +222,9 @@ class Schema
                     $debugTool->addMessage('messages', "Warning! The {$field} field max is {$viewMax} in view and {$structMax} in struct for table {$tablename} table.");
                 }
                 break;
-            default:
-                switch ($values['type']) {
-                    case 'text':
-                        $result['type'] = 'textarea';
-                    default:
-                }
+            case 'text':
+                $result['type'] = 'textarea';
+                break;
         }
         if (isset($values['default']) && !isset($result['default'])) {
             $result['default'] = $values['default'];

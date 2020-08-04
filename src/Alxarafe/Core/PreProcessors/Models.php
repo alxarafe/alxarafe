@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\PreProcessors;
@@ -12,6 +12,7 @@ use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
 use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -166,7 +167,7 @@ class Models
                 $tableModel->model = $class->modelName;
                 try {
                     $tableModel->namespace = (new ReflectionClass($class))->getName();
-                } catch (\ReflectionException $e) {
+                } catch (ReflectionException $e) {
                     $tableModel->namespace = static::class;
                 }
                 $tableModel->save();

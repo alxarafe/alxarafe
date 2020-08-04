@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Traits;
@@ -86,7 +86,6 @@ trait MagicTrait
                 return $this->{$key} === true;
             default:
                 throw new RuntimeException('Prefix ' . $prefix . ' not yet supported on ' . __CLASS__ . '.');
-                break;
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Controllers;
@@ -11,6 +11,7 @@ use Alxarafe\Core\Models\User;
 use Alxarafe\Core\Providers\FlashMessages;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use function urlencode;
 
 /**
  * Class Login
@@ -95,7 +96,7 @@ class Login extends Controller
                     if ($this->username === null) {
                         $request = $this->request->server->get('REQUEST_URI');
                         if (strpos($request, constant('CALL_CONTROLLER') . '=Login') === false) {
-                            $redirectTo = '&redirect=' . \urlencode(base64_encode($request));
+                            $redirectTo = '&redirect=' . urlencode(base64_encode($request));
                             $url = baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=Login' . $redirectTo);
                             return $this->redirect($url);
                         }

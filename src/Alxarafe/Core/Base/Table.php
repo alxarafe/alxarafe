@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Base;
@@ -248,8 +248,8 @@ class Table extends SimpleTable
      */
     protected function testData(array $data): bool
     {
-        foreach ($data as $tableName => $block) {   // Recorrer tablas
-            foreach ($block as $blockId => $record) {            // Recorrer registros de la tabla (seguramente uno)
+        foreach ($data as $tableName => $block) {       // Recorrer tablas
+            foreach ($block as $blockId => $record) {   // Recorrer registros de la tabla (seguramente uno)
                 $this->test($record);
             }
             return count($this->errors) === 0;

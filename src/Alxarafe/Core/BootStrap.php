@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core;
@@ -21,6 +21,8 @@ use Alxarafe\Core\Providers\Router;
 use Alxarafe\Core\Providers\TemplateRender;
 use Alxarafe\Core\Providers\Translator;
 use Kint\Kint;
+use Modules\xapi\Core\AppApi;
+use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -164,7 +166,7 @@ class BootStrap
     /**
      * The caché core engine adapter.
      *
-     * @var \Symfony\Component\Cache\Adapter\PhpArrayAdapter
+     * @var PhpArrayAdapter
      */
     protected $cacheEngine;
 
@@ -254,7 +256,7 @@ class BootStrap
         switch ($task) {
             case 'cron':
                 break;
-            case'api':
+            case 'api':
                 $this->api();
                 break;
             default:
@@ -341,7 +343,7 @@ class BootStrap
             die(json_encode(['error' => 'Please, install xapi module']));
         }
         include $apiCodePath;
-        $api = new \Modules\xapi\Core\AppApi([
+        $api = new AppApi([
             'basePath' => $this->basePath,
             'router' => $this->router,
             'database' => $this->database,

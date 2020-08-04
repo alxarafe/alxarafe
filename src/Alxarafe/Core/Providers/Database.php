@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Providers;
@@ -122,9 +122,9 @@ class Database
     /**
      * Returns the database engine.
      *
-     * @return Engine|null
+     * @return Engine
      */
-    public function getDbEngine(): ?Engine
+    public function getDbEngine(): Engine
     {
         if (!isset($this->dbEngine)) {
             return (new self())->dbEngine;

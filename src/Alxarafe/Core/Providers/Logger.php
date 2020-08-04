@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Providers;
@@ -45,7 +45,7 @@ class Logger
                 $timeZone = RegionalInfo::getInstance()->getConfig()['timezone'];
                 self::$logger::setTimezone(new DateTimeZone($timeZone));
                 self::$logger->pushHandler(new StreamHandler(basePath(DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'core.log'), MonologLogger::DEBUG));
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Kint::dump($e);
             }
             self::$logger->pushHandler(new FirePHPHandler());

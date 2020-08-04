@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Base;
@@ -117,6 +117,8 @@ class FlatTable extends Entity
     /**
      * Sets the active record in a new record.
      * Note that changes made to the current active record will be lost.
+     *
+     * @param string|null $id
      */
     public function newRecord(?string $id = null): void
     {
@@ -192,7 +194,7 @@ class FlatTable extends Entity
      *
      * @param $values
      */
-    public function test(&$values)
+    public function test(&$values): void
     {
         $trans = Translator::getInstance();
         $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
@@ -222,18 +224,18 @@ class FlatTable extends Entity
                     }
                     break;
                 /** @noinspection PhpMissingBreakStatementInspection */ case 'float':
-                $float = floatval($value);
-                if ($field['type'] == 'float' && $float != $value) {
+                $float = (float) $value;
+                if ($field['type'] === 'float' && $float !== $value) {
                     $this->errors[] = $trans->trans('error-float-expected', $params);
                 }
                 case 'integer':
                     if (!isset($float)) {
-                        $integer = intval($value);
-                        if ($field['type'] == 'integer' && $integer != $value) {
+                        $integer = (int) $value;
+                        if ($field['type'] === 'integer' && $integer !== $value) {
                             $this->errors[] = $trans->trans('error-integer-expected', $params);
                         }
                     }
-                    $unsigned = isset($field['unsigned']) && $field['unsigned'] == 'yes';
+                    $unsigned = isset($field['unsigned']) && $field['unsigned'] === 'yes';
                     $min = $field['min'] ?? null;
                     $max = $field['max'] ?? null;
                     if ($unsigned && $value < 0) {

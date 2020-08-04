@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Helpers\Utils;
@@ -27,12 +27,12 @@ class ArrayUtils
         $ret = [];
         foreach ($array as $value) {
             if (is_array($value)) {
-                // We expect that the indexes will not overlap
-                $ret = array_merge($ret, self::flatArray($value));
+                $ret[] = self::flatArray($value);
             } else {
                 $ret[] = strtolower(trim($value));
             }
         }
+        $ret = array_merge(...$ret);
         return $ret;
     }
 

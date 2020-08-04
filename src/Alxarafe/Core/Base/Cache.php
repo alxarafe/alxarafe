@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Base;
@@ -14,6 +14,7 @@ use Symfony\Component\Cache\Adapter\PdoAdapter;
 use Symfony\Component\Cache\Adapter\PhpArrayAdapter;
 use Symfony\Component\Cache\Adapter\PhpFilesAdapter;
 use Symfony\Component\Cache\Exception\CacheException;
+use function class_exists;
 
 /**
  * Class Cache. This class is fully supported with Symfony Cache.
@@ -85,7 +86,7 @@ class Cache
      */
     private function connectMemcache(): void
     {
-        if (constant('CACHE_HOST') !== '' && \class_exists('Memcache')) {
+        if (constant('CACHE_HOST') !== '' && class_exists('Memcache')) {
             $client = MemcachedAdapter::createConnection(
                 'memcached://' . constant('CACHE_HOST') . ':' . constant('CACHE_PORT')
             );

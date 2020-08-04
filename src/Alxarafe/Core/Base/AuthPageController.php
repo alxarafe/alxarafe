@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Base;
@@ -10,6 +10,7 @@ use Alxarafe\Core\Models\Page;
 use Alxarafe\Core\Models\RolePage;
 use Alxarafe\Core\Models\UserRole;
 use Alxarafe\Core\Providers\Logger;
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -155,7 +156,7 @@ abstract class AuthPageController extends AuthController
     {
         try {
             $random = random_int(PHP_INT_MIN, PHP_INT_MAX);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Logger::getInstance()::exceptionHandler($e);
             $random = rand(PHP_INT_MIN, PHP_INT_MAX);
         }

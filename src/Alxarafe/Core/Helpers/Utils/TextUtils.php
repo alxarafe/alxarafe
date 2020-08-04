@@ -1,12 +1,13 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Helpers\Utils;
 
 use Alxarafe\Core\Providers\Logger;
+use Exception;
 
 /**
  * Class TextUtils
@@ -69,7 +70,7 @@ class TextUtils
         } elseif (function_exists('random_bytes')) {
             try {
                 $bytes = random_bytes($length);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Logger::getInstance()::exceptionHandler($e);
                 $bytes = self::randomString($length);
             }

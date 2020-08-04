@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Traits;
@@ -31,6 +31,7 @@ trait AjaxDataTableTrait
         $this->renderer->setTemplate(null);
 
         // To access more easy to all values
+        // TODO: Warning: Unused local variable 'requestData'. The value of the variable is not used anywhere.
         $requestData = $this->request->request->all();
 
         //$search = $requestData['search'] ?? null;

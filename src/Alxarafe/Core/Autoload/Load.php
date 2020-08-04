@@ -1,12 +1,13 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Autoload;
 
 use RuntimeException;
+use function is_string;
 
 /**
  * Class Load
@@ -102,7 +103,7 @@ class Load
      */
     public static function addDirs($dirs): void
     {
-        if (\is_string($dirs)) {
+        if (is_string($dirs)) {
             $dirs = [$dirs];
         }
         self::$dirs = array_merge(self::$dirs, $dirs);
