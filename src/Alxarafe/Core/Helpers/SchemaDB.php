@@ -160,14 +160,16 @@ class SchemaDB
             $value['index'] = $key;
             $exists = isset($tableIndexes[$key]);
 
-            if (isset($value['constraint']) && $value['constraint'] === 'yes') {
-                $sql[] = "ALTER TABLE {$quotedTableName} DROP CONSTRAINT {$key};";
-                $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, $exists));
-            } else {
-                if (isset($value['unique']) && $value['unique'] === 'yes') {
-                    $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, $exists));
+            if (!$exists) {
+                if (isset($value['constraint']) && $value['constraint'] === 'yes') {
+                    $sql[] = "ALTER TABLE {$quotedTableName} DROP CONSTRAINT {$key};";
+                    $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, $exists));
                 } else {
-                    $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, $exists));
+                    if (isset($value['unique']) && $value['unique'] === 'yes') {
+                        $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, $exists));
+                    } else {
+                        $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, $exists));
+                    }
                 }
             }
         }

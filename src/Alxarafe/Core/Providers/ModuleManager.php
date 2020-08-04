@@ -103,9 +103,11 @@ class ModuleManager
      */
     public static function getEnabledModules(): array
     {
-        self::$enabledModules = [];
-        foreach (self::$module->getEnabledModules() as $module) {
-            self::$enabledModules[$module['name']] = $module;
+        if (!isset(self::$enabledModules)) {
+            self::$enabledModules = [];
+            foreach (self::$module->getEnabledModules() as $module) {
+                self::$enabledModules[$module['name']] = $module;
+            }
         }
         return self::$enabledModules;
     }
