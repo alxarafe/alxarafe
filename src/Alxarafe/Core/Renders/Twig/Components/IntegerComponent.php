@@ -30,7 +30,7 @@ class IntegerComponent extends AbstractEditComponent
             $params['%max%'] = $max;
             self::$errors[] = $trans->trans('error-greater-than-maximum', $params);
         }
-        
+
         return (count(self::$errors) == 0);
     }
 

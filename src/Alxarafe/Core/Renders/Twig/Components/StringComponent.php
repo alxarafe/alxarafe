@@ -24,7 +24,7 @@ class StringComponent extends AbstractEditComponent
             self::$errors[] = $trans->trans('error-string-too-long', $params);
         }
 
-        return(count(self::$errors)==0);
+        return (count(self::$errors) == 0);
     }
 
     /**

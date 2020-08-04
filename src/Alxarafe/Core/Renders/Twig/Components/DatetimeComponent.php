@@ -22,10 +22,10 @@ class DatetimeComponent extends AbstractEditComponent
                 $value = date('Y-m-d H:i:s');
             }
         }
-        if ($value=='') {
+        if ($value == '') {
             self::$errors[] = $trans->trans('date-can-not-be-blank', $params);
         }
-        return(count(self::$errors)==0);
+        return (count(self::$errors) == 0);
     }
 
     /**
