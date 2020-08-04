@@ -212,7 +212,7 @@ class FlatTable extends Entity
             if (!class_exists($class)) {
                 $params['%class%'] = $class;
                 $this->errors[] = $trans->trans('class-does-not-exists', $params);
-                $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\EditComponent';
+                $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\StringComponent';
             }
 
             $class::test($key, $field, $value);
