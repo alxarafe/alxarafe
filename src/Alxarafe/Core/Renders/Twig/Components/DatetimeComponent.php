@@ -8,7 +8,7 @@ namespace Alxarafe\Core\Renders\Twig\Components;
 
 use Alxarafe\Core\Providers\Translator;
 
-class DateComponent extends AbstractEditComponent
+class DatetimeComponent extends AbstractEditComponent
 {
 
     public static function test($key, $struct, &$value)
@@ -19,7 +19,7 @@ class DateComponent extends AbstractEditComponent
         $default = $struct['default'] ?? null;
         if (isset($default)) {
             if (substr(strtoupper($default), 0,7)=='CURRENT') {
-                $value=date('Y-m-d');
+                $value=date('Y-m-d H:i:s');
             }
         }
         if ($value=='') {
