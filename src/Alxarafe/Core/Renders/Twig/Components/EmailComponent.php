@@ -16,18 +16,9 @@ class EmailComponent extends AbstractEditComponent
         $trans = Translator::getInstance();
         $params = ['%field%' => $trans->trans($key), '%value%' => $value];
 
-        /**
-         * TODO: Testi if is a correct email
-
-        $maxlen = $struct['maxlength'] ?? null;
-        $strlen = strlen($value);
-        if (isset($maxlen) && $strlen > $maxlen) {
-        $params['%strlen%'] = $strlen;
-        $params['%maxlen%'] = $maxlen;
-        self::$errors[] = $trans->trans('error-string-too-long', $params);
+        if (!filter_var($value,FILTER_VALIDATE_EMAIL)) {
+            self::$errors[] = $trans->trans('error-invalid-email', $params);
         }
-
-         */
 
         return(count(self::$errors)==0);
     }
