@@ -8,7 +8,7 @@ namespace Alxarafe\Core\Renders\Twig\Components;
 
 use Alxarafe\Core\Providers\Translator;
 
-class DatetimeComponent extends AbstractEditComponent
+class PasswordComponent extends AbstractEditComponent
 {
 
     public static function test($key, $struct, &$value)
@@ -16,16 +16,9 @@ class DatetimeComponent extends AbstractEditComponent
         $trans = Translator::getInstance();
         $params = ['%field%' => $trans->trans($key), '%value%' => $value];
 
-        $default = $struct['default'] ?? null;
-        if (isset($default)) {
-            if (substr(strtoupper($default), 0, 7) == 'CURRENT') {
-                $value = date('Y-m-d H:i:s');
-            }
-        }
-        if ($value=='') {
-            self::$errors[] = $trans->trans('date-can-not-be-blank', $params);
-        }
-        return(count(self::$errors)==0);
+        // TODO: Check here if is a correct password
+
+        return (count(self::$errors) == 0);
     }
 
     /**
@@ -35,6 +28,6 @@ class DatetimeComponent extends AbstractEditComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/date.html';
+        return '@Core/components/password.html';
     }
 }

@@ -16,7 +16,7 @@ class EmailComponent extends AbstractEditComponent
         $trans = Translator::getInstance();
         $params = ['%field%' => $trans->trans($key), '%value%' => $value];
 
-        if (!filter_var($value,FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             self::$errors[] = $trans->trans('error-invalid-email', $params);
         }
 
