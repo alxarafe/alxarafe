@@ -226,13 +226,13 @@ class FlatTable extends Entity
                 /** @noinspection PhpMissingBreakStatementInspection */
                 case 'float':
                     $float = (float) $value;
-                    if ($field['type'] === 'float' && $float !== $value) {
+                    if ($float !== $value) {
                         $this->errors[] = $trans->trans('error-float-expected', $params);
                     }
                 case 'integer':
                     if (!isset($float)) {
                         $integer = (int) $value;
-                        if ($field['type'] === 'integer' && $integer !== $value) {
+                        if ($integer !== $value) {
                             $this->errors[] = $trans->trans('error-integer-expected', $params);
                         }
                     }

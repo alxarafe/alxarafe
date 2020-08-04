@@ -29,6 +29,7 @@ trait AjaxDataTableTrait
     {
         $this->initialize();
         $this->renderer->setTemplate(null);
+        $jsonData = [];
 
         // To access more easy to all values
         // TODO: Warning: Unused local variable 'requestData'. The value of the variable is not used anywhere.

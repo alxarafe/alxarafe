@@ -252,8 +252,8 @@ class Table extends SimpleTable
             foreach ($block as $blockId => $record) {   // Recorrer registros de la tabla (seguramente uno)
                 $this->test($record);
             }
-            return count($this->errors) === 0;
         }
+        return count($this->errors) === 0;
     }
 
     /**
