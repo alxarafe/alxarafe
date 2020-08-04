@@ -28,5 +28,4 @@ abstract class AbstractEditComponent extends AbstractComponent
     }
 
     abstract public static function test($key, $struct, &$value);
-
 }
