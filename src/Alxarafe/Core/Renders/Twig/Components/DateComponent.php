@@ -10,7 +10,6 @@ use Alxarafe\Core\Providers\Translator;
 
 class DateComponent extends AbstractEditComponent
 {
-
     public static function test($key, $struct, &$value)
     {
         $trans = Translator::getInstance();
@@ -18,7 +17,7 @@ class DateComponent extends AbstractEditComponent
 
         $default = $struct['default'] ?? null;
         if (isset($default)) {
-            if (substr(strtoupper($default), 0,7)=='CURRENT') {
+            if (substr(strtoupper($default), 0, 7)=='CURRENT') {
                 $value=date('Y-m-d');
             }
         }

@@ -15,5 +15,4 @@ abstract class EditComponent extends AbstractEditComponent
         dump($struct);
         dump($value);
     }
-
 }
