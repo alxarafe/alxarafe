@@ -27,11 +27,12 @@ class ArrayUtilsTest extends TestCase
     public function testflatArray(): void
     {
         $array1 = [
-            0 => '0',
-            1 => ['1'],
+            0 => [0 => '0'],
+            1 => [0 => '1'],
         ];
         $array2 = ['0', '1'];
         $array3 = $this->object::flatArray($array1);
+        dump($array3);
         $this->assertSame($array2, $array3);
     }
 

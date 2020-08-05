@@ -160,16 +160,14 @@ class SchemaDB
             $value['index'] = $key;
             $exists = isset($tableIndexes[$key]);
 
-            if (!$exists) {
-                if (isset($value['constraint']) && $value['constraint'] === 'yes') {
-                    $sql[] = "ALTER TABLE {$quotedTableName} DROP CONSTRAINT {$key};";
-                    $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, $exists));
+            if (isset($value['constraint']) && $value['constraint'] === 'yes') {
+                $sql[] = "ALTER TABLE {$quotedTableName} DROP CONSTRAINT {$key};";
+                $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, $exists));
+            } else {
+                if (isset($value['unique']) && $value['unique'] === 'yes') {
+                    $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, $exists));
                 } else {
-                    if (isset($value['unique']) && $value['unique'] === 'yes') {
-                        $sql = ArrayUtils::addToArray($sql, self::createUniqueIndex($tableName, $value, $exists));
-                    } else {
-                        $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, $exists));
-                    }
+                    $sql = ArrayUtils::addToArray($sql, self::createStandardIndex($tableName, $value, $exists));
                 }
             }
         }
@@ -325,10 +323,10 @@ class SchemaDB
         $quotedTableName = self::quoteTableName($tableName, true);
         $columnField = self::quoteFieldName($indexData['column']);
         $sql = [];
-        if (!$exists) {
+        if ($exists) {
             $sql[] = "ALTER TABLE {$quotedTableName} DROP PRIMARY KEY;";
-            $sql[] = "ALTER TABLE {$quotedTableName} ADD PRIMARY KEY ({$columnField});";
         }
+        $sql[] = "ALTER TABLE {$quotedTableName} ADD PRIMARY KEY ({$columnField});";
         if ($autoincrement) {
             $length = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']]['length'];
             $sql[] = "ALTER TABLE {$quotedTableName} MODIFY {$columnField} INT({$length}) UNSIGNED AUTO_INCREMENT";
@@ -411,10 +409,10 @@ class SchemaDB
         $quotedTableName = self::quoteTableName($tableName, true);
         $indexName = self::quoteFieldName($indexData['index']);
         $indexColumn = self::quoteFieldName($indexData['column']);
-        if (!$exists) {
+        if ($exists) {
             $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$indexName};";
-            $sql[] = "CREATE INDEX {$indexName} ON {$quotedTableName} ({$indexColumn});";
         }
+        $sql[] = "CREATE INDEX {$indexName} ON {$quotedTableName} ({$indexColumn});";
         return $sql;
     }
 
@@ -440,10 +438,10 @@ class SchemaDB
         $sql = [];
         $quotedTableName = self::quoteTableName($tableName, true);
         $indexName = self::quoteFieldName($indexData['index']);
-        if (!$exists) {
+        if ($exists) {
             $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$indexName};";
-            $sql[] = "ALTER TABLE {$quotedTableName} ADD CONSTRAINT {$indexName} UNIQUE ({$columns})";
         }
+        $sql[] = "ALTER TABLE {$quotedTableName} ADD CONSTRAINT {$indexName} UNIQUE ({$columns})";
         return $sql;
     }
 

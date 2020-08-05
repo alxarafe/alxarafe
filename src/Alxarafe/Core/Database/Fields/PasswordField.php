@@ -4,11 +4,11 @@
  * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Core\Renders\Twig\Components;
+namespace Alxarafe\Core\Database\Fields;
 
 use Alxarafe\Core\Providers\Translator;
 
-class EmailComponent extends AbstractEditComponent
+class PasswordField extends AbstractField
 {
 
     public static function test($key, $struct, &$value)
@@ -16,9 +16,7 @@ class EmailComponent extends AbstractEditComponent
         $trans = Translator::getInstance();
         $params = ['%field%' => $trans->trans($key), '%value%' => $value];
 
-        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            self::$errors[] = $trans->trans('error-invalid-email', $params);
-        }
+        // TODO: Check here if is a correct password
 
         return (count(self::$errors) === 0);
     }
@@ -30,6 +28,6 @@ class EmailComponent extends AbstractEditComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/integer.html';
+        return '@Core/components/password.html';
     }
 }

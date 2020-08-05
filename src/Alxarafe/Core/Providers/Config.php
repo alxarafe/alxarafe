@@ -141,7 +141,7 @@ class Config
         ClassUtils::defineIfNotExists('DEFAULT_METHOD', 'index');
 
         // Use cache on Core
-        ClassUtils::defineIfNotExists('CORE_CACHE_ENABLED', true);
+        ClassUtils::defineIfNotExists('CORE_CACHE_ENABLED', false);
 
         // Default number of rows per page.
         ClassUtils::defineIfNotExists('DEFAULT_ROWS_PER_PAGE', 25);

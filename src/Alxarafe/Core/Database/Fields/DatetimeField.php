@@ -4,11 +4,11 @@
  * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Core\Renders\Twig\Components;
+namespace Alxarafe\Core\Database\Fields;
 
 use Alxarafe\Core\Providers\Translator;
 
-class BoolComponent extends AbstractEditComponent
+class DatetimeField extends AbstractField
 {
 
     public static function test($key, $struct, &$value)
@@ -16,13 +16,16 @@ class BoolComponent extends AbstractEditComponent
         $trans = Translator::getInstance();
         $params = ['%field%' => $trans->trans($key), '%value%' => $value];
 
-        if (in_array(strtolower($value), ['true', 'yes', '1'])) {
-            $value = '1';
-        } elseif (in_array(strtolower($value), ['false', 'no', '0'])) {
-            $value = '0';
-        } else {
-            self::$errors[] = $trans->trans('error-boolean-expected', $params);
+        $default = $struct['default'] ?? null;
+        if (isset($default)) {
+            if (substr(strtoupper($default), 0, 7) === 'CURRENT') {
+                $value = date('Y-m-d H:i:s');
+            }
         }
+        if ($value === '') {
+            self::$errors[] = $trans->trans('date-can-not-be-blank', $params);
+        }
+        return (count(self::$errors) === 0);
     }
 
     /**
@@ -32,6 +35,6 @@ class BoolComponent extends AbstractEditComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/checkbox.html';
+        return '@Core/components/date.html';
     }
 }
