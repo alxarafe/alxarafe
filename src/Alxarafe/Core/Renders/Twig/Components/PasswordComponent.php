@@ -18,7 +18,7 @@ class PasswordComponent extends AbstractEditComponent
 
         // TODO: Check here if is a correct password
 
-        return (count(self::$errors) == 0);
+        return (count(self::$errors) === 0);
     }
 
     /**

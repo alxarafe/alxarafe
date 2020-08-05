@@ -20,7 +20,7 @@ class EmailComponent extends AbstractEditComponent
             self::$errors[] = $trans->trans('error-invalid-email', $params);
         }
 
-        return(count(self::$errors)==0);
+        return (count(self::$errors) === 0);
     }
 
     /**
