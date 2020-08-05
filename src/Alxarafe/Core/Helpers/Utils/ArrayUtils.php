@@ -18,21 +18,23 @@ class ArrayUtils
      * Ignore the value of the indexes of the array, taking only the values.
      * Remove spaces from the result and convert it to lowercase.
      *
+     * TODO: Tests works, but seems not to do what is explained
+     *
      * @param array $array
      *
      * @return array
      */
     public static function flatArray(array $array): array
     {
-        $ret = [[]];
+        $ret = [];
         foreach ($array as $value) {
             if (is_array($value)) {
-                $ret[] = self::flatArray($value);
+                $ret = array_merge($ret, self::flatArray($value));
             } else {
                 $ret[] = strtolower(trim($value));
             }
         }
-        return array_merge(...$ret);
+        return $ret ?? [];
     }
 
     /**
