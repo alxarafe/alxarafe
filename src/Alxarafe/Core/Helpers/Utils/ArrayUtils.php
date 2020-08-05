@@ -33,7 +33,7 @@ class ArrayUtils
             }
         }
         $ret = array_merge(...$ret);
-        return $ret;
+        return $ret ?? [];
     }
 
     /**
