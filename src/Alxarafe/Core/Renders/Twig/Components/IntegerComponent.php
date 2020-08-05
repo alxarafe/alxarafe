@@ -31,7 +31,7 @@ class IntegerComponent extends AbstractEditComponent
             self::$errors[] = $trans->trans('error-greater-than-maximum', $params);
         }
 
-        return (count(self::$errors) == 0);
+        return (count(self::$errors) === 0);
     }
 
     /**
