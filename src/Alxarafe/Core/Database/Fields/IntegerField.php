@@ -4,11 +4,11 @@
  * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Core\Renders\Twig\Components;
+namespace Alxarafe\Core\Database\Fields;
 
 use Alxarafe\Core\Providers\Translator;
 
-class IntegerComponent extends AbstractEditComponent
+class IntegerField extends AbstractField
 {
 
     public static function test($key, $struct, &$value)

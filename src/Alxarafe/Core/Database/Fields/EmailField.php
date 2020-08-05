@@ -4,26 +4,22 @@
  * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Core\Renders\Twig\Components;
+namespace Alxarafe\Core\Database\Fields;
 
 use Alxarafe\Core\Providers\Translator;
 
-class DateComponent extends AbstractEditComponent
+class EmailField extends AbstractField
 {
+
     public static function test($key, $struct, &$value)
     {
         $trans = Translator::getInstance();
         $params = ['%field%' => $trans->trans($key), '%value%' => $value];
 
-        $default = $struct['default'] ?? null;
-        if (isset($default)) {
-            if (substr(strtoupper($default), 0, 7) == 'CURRENT') {
-                $value = date('Y-m-d');
-            }
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            self::$errors[] = $trans->trans('error-invalid-email', $params);
         }
-        if ($value == '') {
-            self::$errors[] = $trans->trans('date-can-not-be-blank', $params);
-        }
+
         return (count(self::$errors) === 0);
     }
 
@@ -34,6 +30,6 @@ class DateComponent extends AbstractEditComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/date.html';
+        return '@Core/components/integer.html';
     }
 }

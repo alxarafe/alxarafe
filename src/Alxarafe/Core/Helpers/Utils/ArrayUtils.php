@@ -24,7 +24,8 @@ class ArrayUtils
      */
     public static function flatArray(array $array): array
     {
-        $ret = [[]];
+        dump($array);
+        $ret = [];
         foreach ($array as $value) {
             if (is_array($value)) {
                 $ret[] = self::flatArray($value);
@@ -32,7 +33,9 @@ class ArrayUtils
                 $ret[] = strtolower(trim($value));
             }
         }
-        return array_merge(...$ret) ?? [];
+        $ret = array_merge(...$ret);
+        dump($ret);
+        return $ret;
     }
 
     /**

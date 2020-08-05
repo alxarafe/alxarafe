@@ -35,7 +35,7 @@ class Table extends SimpleTable
     {
         parent::__construct($tableName, $params);
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Table Constructor');
-        $create = $params['create'] ?? false;
+        $create = $params['create'] ?? true;
         $this->checkStructure($create);
         $this->debugTool->stopTimer($this->shortName);
         $this->setData($this->getDefaultValues());

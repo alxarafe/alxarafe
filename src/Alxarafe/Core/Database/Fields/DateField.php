@@ -4,13 +4,12 @@
  * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Core\Renders\Twig\Components;
+namespace Alxarafe\Core\Database\Fields;
 
 use Alxarafe\Core\Providers\Translator;
 
-class DatetimeComponent extends AbstractEditComponent
+class DateField extends AbstractField
 {
-
     public static function test($key, $struct, &$value)
     {
         $trans = Translator::getInstance();
@@ -18,11 +17,11 @@ class DatetimeComponent extends AbstractEditComponent
 
         $default = $struct['default'] ?? null;
         if (isset($default)) {
-            if (substr(strtoupper($default), 0, 7) === 'CURRENT') {
-                $value = date('Y-m-d H:i:s');
+            if (substr(strtoupper($default), 0, 7) == 'CURRENT') {
+                $value = date('Y-m-d');
             }
         }
-        if ($value === '') {
+        if ($value == '') {
             self::$errors[] = $trans->trans('date-can-not-be-blank', $params);
         }
         return (count(self::$errors) === 0);
