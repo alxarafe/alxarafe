@@ -29,27 +29,24 @@ class FlatTable extends Entity
      * @var string
      */
     public $modelName;
-
-    /**
-     * True if record exists (then, use update instead insert)
-     *
-     * @var bool
-     */
-    protected $exists;
-
-    /**
-     * Contains an array of fields.
-     *
-     * @var AbstractField[]
-     */
-    protected $fields;
-
     /**
      * Contains errors during the process
      *
      * @var array
      */
     public $errors;
+    /**
+     * True if record exists (then, use update instead insert)
+     *
+     * @var bool
+     */
+    protected $exists;
+    /**
+     * Contains an array of fields.
+     *
+     * @var AbstractField[]
+     */
+    protected $fields;
 
     /**
      * Build a Table model. $table is the name of the table in the database.
@@ -75,30 +72,6 @@ class FlatTable extends Entity
         $this->exists = false;
     }
 
-    private function getFieldClass(string $type)
-    {
-        if (!isset($type)) {
-            return false;
-        }
-
-        $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($type) . 'Field';
-        if (!class_exists($class)) {
-            $params['%class%'] = $class;
-            $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
-            $class = 'Alxarafe\\Core\\Database\\Fields\\StringComponent';
-        }
-
-        return new $class();
-    }
-
-    private function mergeDataField($field, $struct, $schema)
-    {
-        $type = $struct['type'];
-        if (!isset($this->fields[$field])) {
-        }
-        return array_merge($struct, $schema);
-    }
-
     private function getDataFields()
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);
@@ -116,10 +89,26 @@ class FlatTable extends Entity
             Schema::saveYamlSummaryFile($this->tableName, $fields);
         }
 
-        if (!isset($this->fields[$key])) {
+        foreach ($fields as $key => $value) {
             $this->fields[$key] = $this->getFieldClass($value['type']);
-            $this->fields[$key]->assignData($fields);
+            $this->fields[$key]->assignData($value);
         }
+    }
+
+    private function getFieldClass(string $type)
+    {
+        if (!isset($type)) {
+            return false;
+        }
+
+        $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($type) . 'Field';
+        if (!class_exists($class)) {
+            $params['%class%'] = $class;
+            $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
+            $class = 'Alxarafe\\Core\\Database\\Fields\\StringComponent';
+        }
+
+        return new $class();
     }
 
     /**
@@ -252,6 +241,41 @@ class FlatTable extends Entity
     }
 
     /**
+     * Saves the changes made to the active record.
+     *
+     * @return bool
+     */
+    public function save(): bool
+    {
+        $values = [];
+        // We create separate arrays with the modified fields
+        foreach ($this->newData as $field => $data) {
+            // The first condition is to prevent nulls from becoming empty strings
+            if ((!isset($this->oldData[$field]) && isset($this->newData[$field])) || $this->newData[$field] !== $this->oldData[$field]) {
+                $values[$field] = $data;
+            }
+        }
+
+        // If there are no modifications, we leave without error.
+        if (count($values) === 0) {
+            return true;
+        }
+
+        $this->test($values);
+        if (count($this->errors)) {
+            return false;
+        }
+
+        // Insert or update the data as appropriate (insert if $this->id == '')
+        $ret = ($this->exists) ? $this->updateRecord($values) : $this->insertRecord($values);
+        if ($ret) {
+            // $this->id = $this->newData[$this->idField] ?? null;
+            $this->oldData = $this->newData;
+        }
+        return $ret;
+    }
+
+    /**
      * Checks the integrity of the supplied values to generate possible warning errors.
      * It can also return some corrected values (for example true/false by 1/0)
      *
@@ -287,41 +311,6 @@ class FlatTable extends Entity
         }
         dump($this->fields);
         */
-    }
-
-    /**
-     * Saves the changes made to the active record.
-     *
-     * @return bool
-     */
-    public function save(): bool
-    {
-        $values = [];
-        // We create separate arrays with the modified fields
-        foreach ($this->newData as $field => $data) {
-            // The first condition is to prevent nulls from becoming empty strings
-            if ((!isset($this->oldData[$field]) && isset($this->newData[$field])) || $this->newData[$field] !== $this->oldData[$field]) {
-                $values[$field] = $data;
-            }
-        }
-
-        // If there are no modifications, we leave without error.
-        if (count($values) === 0) {
-            return true;
-        }
-
-        $this->test($values);
-        if (count($this->errors)) {
-            return false;
-        }
-
-        // Insert or update the data as appropriate (insert if $this->id == '')
-        $ret = ($this->exists) ? $this->updateRecord($values) : $this->insertRecord($values);
-        if ($ret) {
-            // $this->id = $this->newData[$this->idField] ?? null;
-            $this->oldData = $this->newData;
-        }
-        return $ret;
     }
 
     /**
@@ -420,5 +409,13 @@ class FlatTable extends Entity
             $this->oldData = null;
         }
         return $result;
+    }
+
+    private function mergeDataField($field, $struct, $schema)
+    {
+        $type = $struct['type'];
+        if (!isset($this->fields[$field])) {
+        }
+        return array_merge($struct, $schema);
     }
 }
