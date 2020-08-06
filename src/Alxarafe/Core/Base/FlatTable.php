@@ -79,6 +79,7 @@ class FlatTable extends Entity
             $fields = null;
         }
         if ($fields === null) {
+            $fields = [];
             $table = Schema::getFromYamlFile($this->tableName);
             // $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
             foreach ($table['fields'] as $key => $value) {
@@ -115,7 +116,7 @@ class FlatTable extends Entity
         $file = basePath('src/Alxarafe/Core/Database/Fields/' . ucfirst($type) . 'Field.php');
         $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($type) . 'Field';
         if (!file_exists($file)) {
-            $params['%type%'] = $type;
+            $params = ['%type%' => $type];
             trigger_error($this->trans->trans('class-does-not-exists', $params));
             $class = 'Alxarafe\\Core\\Database\\Fields\\StringField';
         }

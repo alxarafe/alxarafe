@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Core\Database\Fields;
 
-class FloatField extends AbstractField
+class FloatField extends AbstractNumericField
 {
     /**
      * AbstractNumericComponent constructor.

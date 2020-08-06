@@ -23,10 +23,6 @@ class PasswordField extends StringField
      */
     public function test($key, &$value): bool
     {
-        $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
-
-        // TODO: Check here if is a correct password
-
         return (count(self::$errors) === 0);
     }
 }

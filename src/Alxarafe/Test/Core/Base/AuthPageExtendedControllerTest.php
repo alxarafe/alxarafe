@@ -26,6 +26,11 @@ abstract class AuthPageExtendedControllerTest extends AuthPageControllerTest
         $this->assertEmpty($this->object->getExtraActions());
     }
 
+    public function testGetStatus(): void
+    {
+        // $this->assertNull($this->object->getStatus);
+    }
+
     public function testEditMethod(): void
     {
         $this->assertInstanceOf(Response::class, $this->object->editMethod());

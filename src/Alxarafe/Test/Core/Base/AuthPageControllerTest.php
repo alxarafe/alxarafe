@@ -32,6 +32,24 @@ abstract class AuthPageControllerTest extends AuthControllerTest
         //$this->markTestIncomplete(
         //    'This test has not been implemented yet.'
         //);
+
+        $methods = [
+            'index',
+            'ajaxSearch',
+            'ajaxTableData',
+            'add',
+            'create',
+            'show',
+            'read',
+            'edit',
+            'update',
+            'remove',
+            'delete',
+        ];
+
+        foreach ($methods as $method) {
+            $this->assertIsObject($this->object->runMethod($method));
+        }
     }
 
     public function testGetUserMenu(): void

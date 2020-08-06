@@ -134,14 +134,14 @@ abstract class AbstractField
             $this->{$property} = $data[$property] ?? null;
             //TODO: Ensure this message is visible when is not a defined property
             if (!property_exists($this, $property)) {
-                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
+                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} not exists, include it if needed.");
             }
         }
         foreach ($this->optionalFields as $property) {
             $this->{$property} = $data[$property] ?? null;
             //TODO: Ensure this message is visible when is not a defined property
             if (!property_exists($this, $property)) {
-                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
+                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} not exists, include it if needed.");
             }
         }
     }

@@ -8,6 +8,8 @@ namespace Alxarafe\Core\Database\Fields;
 
 class StringField extends AbstractField
 {
+    public $maxlength;
+
     /**
      * AbstractNumericComponent constructor.
      *

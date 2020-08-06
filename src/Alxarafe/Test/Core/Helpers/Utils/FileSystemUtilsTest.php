@@ -36,7 +36,7 @@ class FileSystemUtilsTest extends TestCase
     public function testMkdir(): void
     {
         $folder = 'test';
-        $this->assertDirectoryDoesNotExist($folder);
+        $this->assertDirectoryNotExists($folder);
         FileSystemUtils:: mkdir($folder);
         $this->assertDirectoryExists($folder);
     }
@@ -49,7 +49,7 @@ class FileSystemUtilsTest extends TestCase
         $folder = 'test';
         $this->assertDirectoryExists($folder);
         $this->assertTrue(FileSystemUtils:: rrmdir($folder));
-        $this->assertDirectoryDoesNotExist($folder);
+        $this->assertDirectoryNotExists($folder);
     }
 
     /**
