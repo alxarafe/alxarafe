@@ -18,17 +18,47 @@ abstract class AbstractField
      */
     public static $errors = [];
     /**
-     * Contains de translated fields values.
-     *
-     * @var array
-     */
-    public $translatedFields = [];
-    /**
-     * Translator instance
+     * Contains the instance of the translator.
      *
      * @var Translator
      */
     public $trans;
+    /**
+     * TODO: Define
+     *
+     * @var string
+     */
+    public $type;
+    /**
+     * TODO: Define
+     *
+     * @var string
+     */
+    public $length;
+    /**
+     * TODO: Define
+     *
+     * @var string
+     */
+    public $default;
+    /**
+     * TODO: Define
+     *
+     * @var string
+     */
+    public $nullable;
+    /**
+     * TODO: Define
+     *
+     * @var string
+     */
+    public $referencedtable;
+    /**
+     * TODO: Define
+     *
+     * @var string
+     */
+    public $referencedfield;
     /**
      * Contains an array with de name of required fields.
      * Each descendant adds its own using addRequiredFields.
@@ -36,13 +66,14 @@ abstract class AbstractField
      * @var array
      */
     private $requiredFields = [];
+
     /**
-     * Contains an array with the fields that need to be translated into the user's language.
-     * Each descendant adds its own using addTranslatableFields.
+     * Contains an array with the name of the optional fields.
+     * Each descendant adds its own using addRequiredFields.
      *
      * @var array
      */
-    private $translatableFields = [];
+    private $optionalFields = [];
 
     /**
      * AbstractComponent constructor.
@@ -53,7 +84,7 @@ abstract class AbstractField
     {
         $this->trans = Translator::getInstance();
         $this->addRequiredFields(['type', 'length', 'default', 'nullable']);
-        $this->addTranslatableFields(['label', 'shortlabel', 'placeholder']);
+        $this->addOptionalFields(['referencedtable', 'referencedfield']);
     }
 
     public function addRequiredFields(array $fields = [])
@@ -61,9 +92,9 @@ abstract class AbstractField
         $this->requiredFields = array_merge($this->requiredFields, $fields);
     }
 
-    public function addTranslatableFields(array $fields = [])
+    public function addOptionalFields(array $fields = [])
     {
-        $this->translatableFields = array_merge($this->translatableFields, $fields);
+        $this->optionalFields = array_merge($this->optionalFields, $fields);
     }
 
     /**
@@ -78,8 +109,25 @@ abstract class AbstractField
         return $return;
     }
 
-    abstract public function test($key, &$value);
+    /**
+     * The passed value is verified to meet the necessary requirements for the field.
+     * The field name is needed in case you have to show a message, to be able to
+     * report what field it is.
+     * The value of the field may be returned modified if the test can correct it.
+     * Returns true if the value is valid.
+     *
+     * @param $key
+     * @param $value
+     *
+     * @return bool
+     */
+    abstract public function test($key, &$value): bool;
 
+    /**
+     * Assign values to the attributes.
+     *
+     * @param array $data
+     */
     public function assignData(array $data)
     {
         foreach ($this->requiredFields as $property) {
@@ -89,22 +137,28 @@ abstract class AbstractField
                 FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
             }
         }
-
-        foreach ($this->translatableFields as $property) {
-            $this->{$property} = $data[$property] ?? '';
+        foreach ($this->optionalFields as $property) {
+            $this->{$property} = $data[$property] ?? null;
             //TODO: Ensure this message is visible when is not a defined property
             if (!property_exists($this, $property)) {
                 FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
             }
-            $this->translatedFields[$property] = $this->trans->trans($this->{$property});
         }
     }
 
+    /**
+     * Returns an array with all the attributes defined in the class.
+     *
+     * @return array
+     */
     public function getStructArray(): array
     {
         $return = [];
-        foreach ([$this->requiredFields, $this->translatableFields] as $values) {
-            foreach ($values as $fieldName) {
+        foreach ($this->requiredFields as $fieldName) {
+            $return[$fieldName] = $this->{$fieldName};
+        }
+        foreach ($this->optionalFields as $fieldName) {
+            if (isset($this->{$fieldName})) {
                 $return[$fieldName] = $this->{$fieldName};
             }
         }
