@@ -80,13 +80,25 @@ class FlatTable extends Entity
         }
         if ($fields === null) {
             $table = Schema::getFromYamlFile($this->tableName);
-            $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
+            // $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
             foreach ($table['fields'] as $key => $value) {
                 if (!isset($this->fields[$key])) {
                     $this->fields[$key] = $this->getFieldClass($value['type']);
                 }
-                $array = array_merge($value, $schema['fields'][$key]);
-                $this->fields[$key]->assignData($array);
+                // $array = array_merge($value, $schema['fields'][$key]);
+                // $this->fields[$key]->assignData($array);
+
+                if (isset($table['indexes'])) {
+                    foreach ($table['indexes'] as $index) {
+                        if ($index['column'] !== $key || !isset($index['referencedtable']) || !isset($index['referencedfield'])) {
+                            continue;
+                        }
+                        $value['referencedtable'] = $index['referencedtable'];
+                        $value['referencedfield'] = $index['referencedfield'];
+                    }
+                }
+
+                $this->fields[$key]->assignData($value);
                 $fields[$key] = $this->fields[$key]->getStructArray();
             }
             Schema::saveYamlSummaryFile($this->tableName, $fields);
@@ -96,6 +108,8 @@ class FlatTable extends Entity
             $this->fields[$key] = $this->getFieldClass($value['type']);
             $this->fields[$key]->assignData($value);
         }
+
+        dump($this->fields);
     }
 
     private function getFieldClass(string $type)
