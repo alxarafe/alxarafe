@@ -1,7 +1,7 @@
 <?php
 /**
  * Alxarafe. Development of PHP applications in a flash!
- * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
+ * Copyright (C) 2018-2019 Alxarafe <info@alxarafe.com>
  */
 
 namespace Alxarafe\Core\Base;
@@ -9,13 +9,16 @@ namespace Alxarafe\Core\Base;
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Helpers\Utils\TextUtils;
 use Alxarafe\Core\Providers\DebugTool;
+use Alxarafe\Core\Providers\Translator;
 use Kint\Kint;
 use RuntimeException;
 
 /**
- * Class Entity
+ * Entity is an abstract class for the generic manipulation of a data set.
+ * It serves as a starting point for a table, but it can also serve as a
+ * starting point for other data sets.
  *
- * @property bool   $exists
+ *
  * @property string $id
  * @property string $idField
  * @property string $nameField
@@ -34,18 +37,18 @@ abstract class Entity
     public $debugTool;
 
     /**
+     * Translator instance.
+     *
+     * @var Translator
+     */
+    public $trans;
+
+    /**
      * Class short name.
      *
      * @var string
      */
     public $shortName;
-
-    /**
-     * True if record exists (then, use update instead insert)
-     *
-     * @var bool
-     */
-    protected $exists;
 
     /**
      * Value of the main index for the active record. When a record is loaded, this field will contain its id and will
@@ -94,8 +97,8 @@ abstract class Entity
         $this->debugTool = DebugTool::getInstance();
         $this->shortName = ClassUtils::getShortName($this, static::class);
         $this->debugTool->startTimer($this->shortName, $this->shortName . ' Entity Constructor');
+        $this->trans = Translator::getInstance();
         $this->debugTool->stopTimer($this->shortName);
-        $this->exists = false;
     }
 
     /**

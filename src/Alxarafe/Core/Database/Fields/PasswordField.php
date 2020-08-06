@@ -8,7 +8,7 @@ namespace Alxarafe\Core\Database\Fields;
 
 use Alxarafe\Core\Providers\Translator;
 
-class PasswordField extends AbstractField
+class PasswordField extends StringField
 {
 
     public static function test($key, $struct, &$value)
@@ -19,15 +19,5 @@ class PasswordField extends AbstractField
         // TODO: Check here if is a correct password
 
         return (count(self::$errors) === 0);
-    }
-
-    /**
-     * Return the template path to render this component.
-     *
-     * @return string
-     */
-    public function getTemplatePath(): string
-    {
-        return '@Core/components/password.html';
     }
 }

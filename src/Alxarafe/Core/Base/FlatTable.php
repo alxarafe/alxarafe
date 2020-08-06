@@ -6,12 +6,12 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Database\Fields\AbstractField;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Providers\Database;
-use Alxarafe\Core\Providers\Translator;
 
 /**
- * Class SimpleTable has all the basic methods to access and manipulate information, but without modifying its
+ * Class FlatTable has all the basic methods to access and manipulate information, but without modifying its
  * structure.
  */
 class FlatTable extends Entity
@@ -29,6 +29,20 @@ class FlatTable extends Entity
      * @var string
      */
     public $modelName;
+
+    /**
+     * True if record exists (then, use update instead insert)
+     *
+     * @var bool
+     */
+    protected $exists;
+
+    /**
+     * Contains an array of fields.
+     *
+     * @var AbstractField[]
+     */
+    protected $fields;
 
     /**
      * Contains errors during the process
@@ -55,8 +69,57 @@ class FlatTable extends Entity
         $this->tableName = $tableName;
         $this->idField = $params['idField'] ?? 'id';
         $this->nameField = $params['nameField'] ?? 'name';
+        $this->getDataFields();
         $this->debugTool->stopTimer($this->modelName . '.flat');
         $this->errors = [];
+        $this->exists = false;
+    }
+
+    private function getFieldClass(string $type)
+    {
+        if (!isset($type)) {
+            return false;
+        }
+
+        $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($type) . 'Field';
+        if (!class_exists($class)) {
+            $params['%class%'] = $class;
+            $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
+            $class = 'Alxarafe\\Core\\Database\\Fields\\StringComponent';
+        }
+
+        return new $class();
+    }
+
+    private function mergeDataField($field, $struct, $schema)
+    {
+        $type = $struct['type'];
+        if (!isset($this->fields[$field])) {
+        }
+        return array_merge($struct, $schema);
+    }
+
+    private function getDataFields()
+    {
+        $fields = Schema::getFromYamlSummaryFile($this->tableName);
+        if ($fields === null) {
+            $table = Schema::getFromYamlFile($this->tableName);
+            $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
+            foreach ($table['fields'] as $key => $value) {
+                if (!isset($this->fields[$key])) {
+                    $this->fields[$key] = $this->getFieldClass($value['type']);
+                }
+                $array = array_merge($value, $schema['fields'][$key]);
+                $this->fields[$key]->assignData($array);
+                $fields[$key] = $this->fields[$key]->getStructArray();
+            }
+            Schema::saveYamlSummaryFile($this->tableName, $fields);
+        }
+
+        if (!isset($this->fields[$key])) {
+            $this->fields[$key] = $this->getFieldClass($value['type']);
+            $this->fields[$key]->assignData($fields);
+        }
     }
 
     /**
@@ -196,7 +259,6 @@ class FlatTable extends Entity
      */
     public function test(&$values): void
     {
-        $trans = Translator::getInstance();
         $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
         foreach ($values as $key => $value) {
             $field = $schema['fields'][$key];
@@ -217,6 +279,14 @@ class FlatTable extends Entity
             $class::test($key, $field, $value);
             $this->errors = array_merge($this->errors, $class::getErrors());
         }
+
+        /*
+        foreach($struct['fields'] as $key=>$field) {
+            $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($field['type']) . 'Field';
+            $this->fields[$key]=new $class($field);
+        }
+        dump($this->fields);
+        */
     }
 
     /**
