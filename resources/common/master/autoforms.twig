@@ -151,17 +151,17 @@
                 <script src="resources/skins/default/bower_modules/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
                 {% elseif inputType is same as('touchspin') %}
                 <div class="input-group bootstrap-touchspin">
-                <span class="input-group-btn input-group-prepend bootstrap-touchspin-injected">
-                    <button class="btn btn-primary bootstrap-touchspin-down" type="button">
-                        <i class="ft-minus"></i>
-                    </button>
-                </span>
+                    <span class="input-group-btn input-group-prepend bootstrap-touchspin-injected">
+                        <button class="btn btn-primary bootstrap-touchspin-down" type="button">
+                            <i class="ft-minus"></i>
+                        </button>
+                    </span>
                     <input type="text" id="{{ item.idName }}" name="{{ item.idName }}" class="touchspin form-control" value="{{ item.value }}">
                     <span class="input-group-btn input-group-append bootstrap-touchspin-injected">
-                    <button class="btn btn-primary bootstrap-touchspin-up" type="button">
-                        <i class="ft-plus"></i>
-                    </button>
-                </span>
+                        <button class="btn btn-primary bootstrap-touchspin-up" type="button">
+                            <i class="ft-plus"></i>
+                        </button>
+                    </span>
                 </div>
             <link href="resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
                 <script src="resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>

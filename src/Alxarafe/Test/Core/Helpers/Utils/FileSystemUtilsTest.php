@@ -53,6 +53,21 @@ class FileSystemUtilsTest extends TestCase
     }
 
     /**
+     * @use FileSystemUtils::locate
+     */
+    public function testLocate(): void
+    {
+        $subfolder = 'Models';
+        $file = 'Language';
+
+        $path = FileSystemUtils::locate($subfolder, $file, false);
+        $this->assertStringEndsWith($subfolder . DIRECTORY_SEPARATOR . $file . '.php', $path, '');
+
+        $fqcn = FileSystemUtils::locate($subfolder, $file, true);
+        $this->assertStringEndsWith($subfolder . '\\' . $file, $fqcn, '');
+    }
+
+    /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
