@@ -43,6 +43,16 @@ fields:
         default: null
         nullable: 'no'
         unsigned: 'no'
+    date_only:
+        type: date
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
+    time_only:
+        type: time
+        default: null
+        nullable: 'no'
+        unsigned: 'no'
     observation:
         type: string
         default: null

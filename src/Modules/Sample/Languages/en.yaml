@@ -16,6 +16,7 @@ is_checked2: Checkbox2
 col-is_checked2: Checkbox2
 selected_spin: Spin selector
 col-selected_spin: Spin selector
+controller-sample-components-title: Sample components
 controller-sample-components-description: Maintenance to test all editing components.
 short-integer: Integer
 col-short-integer: Integer
@@ -26,3 +27,5 @@ col-integer: Integer
 longword: Long word
 col-long-word: Long word
 long-word: Long word
+col-date_only: Date only
+col-time_only: Time only

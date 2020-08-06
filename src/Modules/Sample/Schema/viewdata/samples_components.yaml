@@ -54,6 +54,16 @@ fields:
         label: date_add
         shortlabel: col-date_add
         placeholder: date_add
+    date_only:
+        type: date
+        label: date_only
+        shortlabel: col-date_only
+        placeholder: date_only
+    time_only:
+        type: time
+        label: time_only
+        shortlabel: col-time_only
+        placeholder: time_only
     observation:
         type: string
         label: observation
