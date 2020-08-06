@@ -7,40 +7,10 @@
 namespace Alxarafe\Core\Database\Fields;
 
 use Alxarafe\Core\Providers\FlashMessages;
-use Alxarafe\Core\Traits\MagicTrait;
+use Alxarafe\Core\Providers\Translator;
 
 abstract class AbstractField
 {
-    use MagicTrait;
-
-    /**
-     * ID tag for the component.
-     *
-     * @var string
-     */
-    public $id;
-
-    /**
-     * Name tag for the component.
-     *
-     * @var string
-     */
-    public $name;
-
-    /**
-     * Class tag for the component.
-     *
-     * @var string
-     */
-    public $class;
-
-    /**
-     * Class style for the component.
-     *
-     * @var string
-     */
-    public $style;
-
     /**
      * Contains an array with the errors accumulated since the last run of getErrors
      *
@@ -49,19 +19,47 @@ abstract class AbstractField
     public static $errors = [];
 
     /**
+     * Contains an array with de name of required fields.
+     * Each descendant adds its own using addRequiredFields.
+     *
+     * @var array
+     */
+    private $requiredFields = [];
+
+    /**
+     * Contains an array with the fields that need to be translated into the user's language.
+     * Each descendant adds its own using addTranslatableFields.
+     *
+     * @var array
+     */
+    private $translatableFields = [];
+
+    /**
+     * Contains de translated fields values.
+     *
+     * @var array
+     */
+    public $translatedFields = [];
+
+    /**
      * AbstractComponent constructor.
      *
      * @param $parameters
      */
-    public function __construct($parameters)
+    public function __construct()
     {
-        foreach ($parameters as $property => $value) {
-            $this->{$property} = $value;
-            //TODO: Ensure this message is visible when is not a defined property
-            if (!property_exists($this, $property)) {
-                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
-            }
-        }
+        $this->addRequiredFields(['type', 'length', 'default', 'nullable']);
+        $this->addTranslatableFields(['label', 'shortlabel', 'placeholder']);
+    }
+
+    public function addRequiredFields(array $fields = [])
+    {
+        $this->requiredFields = array_merge($this->requiredFields, $fields);
+    }
+
+    public function addTranslatableFields(array $fields = [])
+    {
+        $this->translatableFields = array_merge($this->translatableFields, $fields);
     }
 
     /**
@@ -73,6 +71,40 @@ abstract class AbstractField
     {
         $return = self::$errors;
         self::$errors = [];
+        return $return;
+    }
+
+    public function assignData(array $data)
+    {
+        foreach ($this->requiredFields as $property) {
+            $this->{$property} = $data[$property] ?? null;
+            //TODO: Ensure this message is visible when is not a defined property
+            if (!property_exists($this, $property)) {
+                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
+            }
+            unset($data[$property]);
+        }
+
+        $trans = Translator::getInstance();
+        foreach ($this->translatableFields as $property) {
+            $this->{$property} = $data[$property] ?? '';
+            //TODO: Ensure this message is visible when is not a defined property
+            if (!property_exists($this, $property)) {
+                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
+            }
+            $this->translatedFields[$property] = $trans->trans($this->{$property});
+            unset($data[$property]);
+        }
+    }
+
+    public function getStructArray(): array
+    {
+        $return = [];
+        foreach ([$this->requiredFields, $this->translatableFields] as $values) {
+            foreach ($values as $fieldName) {
+                $return[$fieldName] = $this->{$fieldName};
+            }
+        }
         return $return;
     }
 

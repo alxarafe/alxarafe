@@ -24,14 +24,4 @@ class BoolField extends AbstractField
             self::$errors[] = $trans->trans('error-boolean-expected', $params);
         }
     }
-
-    /**
-     * Return the template path to render this component.
-     *
-     * @return string
-     */
-    public function getTemplatePath(): string
-    {
-        return '@Core/components/checkbox.html';
-    }
 }

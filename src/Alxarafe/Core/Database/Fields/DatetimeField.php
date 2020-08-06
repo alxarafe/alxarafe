@@ -27,14 +27,4 @@ class DatetimeField extends AbstractField
         }
         return (count(self::$errors) === 0);
     }
-
-    /**
-     * Return the template path to render this component.
-     *
-     * @return string
-     */
-    public function getTemplatePath(): string
-    {
-        return '@Core/components/date.html';
-    }
 }

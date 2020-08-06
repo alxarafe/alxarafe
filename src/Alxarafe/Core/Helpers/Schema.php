@@ -13,7 +13,6 @@ use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Logger;
 use Alxarafe\Core\Providers\ModuleManager;
-use Alxarafe\Core\Providers\Translator;
 use Exception;
 use Kint\Kint;
 use ParseCsv\Csv;
@@ -143,7 +142,7 @@ class Schema
             }
         }
 
-        if (!$result['type']) {
+        if (!isset($result['type'])) {
             $result['type'] = $values['type'];
             $debugTool->addMessage('messages', "The {$field} field need 'type' in viewdata yaml for {$tablename} table.");
         }
@@ -233,6 +232,38 @@ class Schema
     }
 
     /**
+     * Save the summary file structure in a yaml file
+     *
+     * @param string $tableName
+     * @param array  $data
+     *
+     * @return bool
+     */
+    public static function saveYamlSummaryFile(string $tableName, array $data)
+    {
+        $path = basePath('config/structure');
+        FileSystemUtils::mkdir($path, 0777, true);
+        $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
+        return file_put_contents($path, Yaml::dump($data, 3)) !== false;
+    }
+
+    /**
+     * Returns an array with de summary file structure
+     *
+     * @param string $tableName
+     *
+     * @return array|null
+     */
+    public static function getFromYamlSummaryFile(string $tableName): ?array
+    {
+        $path = basePath("config/structure/{$tableName}.yaml");
+        if (!file_exists($path) || !is_readable($path)) {
+            return null;
+        }
+        return Yaml::parseFile($path);
+    }
+
+    /**
      * Returns an array with data from the specified yaml file
      *
      * @param string $tableName
@@ -269,17 +300,19 @@ class Schema
                 }
 
                 // Some fields may need auto-translation
-                foreach ($data['fields'] as $field => $properties) {
-                    foreach ($properties as $key => $value) {
-                        switch ($key) {
-                            case 'label':
-                            case 'shortlabel':
-                            case 'placeholder':
-                                $data['fields'][$field][$key] = Translator::getInstance()->trans($value);
-                                break;
+                /*
+                    foreach ($data['fields'] as $field => $properties) {
+                        foreach ($properties as $key => $value) {
+                            switch ($key) {
+                                case 'label':
+                                case 'shortlabel':
+                                case 'placeholder':
+                                    $data['fields'][$field][$key] = Translator::getInstance()->trans($value);
+                                    break;
+                            }
                         }
                     }
-                }
+                */
                 break;
             case 'values':
                 $data = self::loadDataFromCsv($fileName);

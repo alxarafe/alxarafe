@@ -6,7 +6,9 @@
 
 namespace Alxarafe\Core\Database\Fields;
 
-class EmailField extends StringField
+use Alxarafe\Core\Providers\Translator;
+
+class CheckboxField extends AbstractField
 {
 
     public static function test($key, $struct, &$value)
@@ -14,10 +16,12 @@ class EmailField extends StringField
         $trans = Translator::getInstance();
         $params = ['%field%' => $trans->trans($key), '%value%' => $value];
 
-        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            self::$errors[] = $trans->trans('error-invalid-email', $params);
+        if (in_array(strtolower($value), ['true', 'yes', '1'])) {
+            $value = '1';
+        } elseif (in_array(strtolower($value), ['false', 'no', '0'])) {
+            $value = '0';
+        } else {
+            self::$errors[] = $trans->trans('error-boolean-expected', $params);
         }
-
-        return (count(self::$errors) === 0);
     }
 }
