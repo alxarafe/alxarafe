@@ -101,75 +101,84 @@
     {% set labelInput = labelInput - labelSize %}
     {% if hasCols %}<div class="col-xs-{{ labelInput }}">{% endif %}
     {% if editable %}
-        {% if inputType is same as('number') %}
-            <input id="{{ item.idName }}" name="{{ item.idName }}" type="number" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('date') or inputType is same as('time') %}
+        <fieldset class="form-group">
+            {% if inputType is same as('number') %}
+                <input id="{{ item.idName }}" name="{{ item.idName }}" type="number" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
+                {% elseif inputType is same as('date') or inputType is same as('time') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="{{ inputType }}" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('password') %}
+                {% elseif inputType is same as('password') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="password" class="form-control" value="" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('datetime') %}
+                {% elseif inputType is same as('datetime') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="datetime-local" class="form-control" value="{{ item.value | replace({' ': 'T'}) }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('text') or inputType is same as('string') %}
+                {% elseif inputType is same as('text') or inputType is same as('string') %}
             <input id="{{ item.idName }}" name="{{ item.idName }}" type="text" class="form-control" value="{{ item.value }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %}>
-        {% elseif inputType is same as('select') or inputType is same as('select2') %}
-            {% for key, values in context.indexesTables[item.tableName] %}
-                {% if values is iterable %}
-                    {% if values.column is defined and values.column == itemName %}
-                        {% set ajaxUrl = context.url ~ '&method=ajaxSearch&table=' ~ values.referencedtable %}
-                        <select id="{{ item.idName }}" name="{{ item.idName }}" class="form-control select2-ajax" style="width: 100%;"
-                                data-ajax--url="{{ ajaxUrl }}"
-                                data-placeholder="{{ trans('select-an-option') }}"
-                                data-id="{% if context.model.getId() is not empty %}{{ item.idName }}{% endif %}"
-                                data-allow-clear="true">
-                            {% if context.model.getId() is not empty %}
-                                <option value="{{ context.model.getId() }}" selected="selected">{{ item.value }} ({{ trans('pre-selected') }})</option>
-                            {% endif %}
-                        </select>
+                {% elseif inputType is same as('select') or inputType is same as('select2') %}
+                {% for key, values in context.indexesTables[item.tableName] %}
+            {% if values is iterable %}
+            {% if values.column is defined and values.column == itemName %}
+                {% set ajaxUrl = context.url ~ '&method=ajaxSearch&table=' ~ values.referencedtable %}
+                <select id="{{ item.idName }}" name="{{ item.idName }}" class="form-control select2-ajax" style="width: 100%;"
+                        data-ajax--url="{{ ajaxUrl }}"
+                        data-placeholder="{{ trans('select-an-option') }}"
+                        data-id="{% if context.model.getId() is not empty %}{{ item.idName }}{% endif %}"
+                        data-allow-clear="true">
+                    {% if context.model.getId() is not empty %}
+                        <option value="{{ context.model.getId() }}" selected="selected">{{ item.value }} ({{ trans('pre-selected') }})</option>
                     {% endif %}
-                {% endif %}
-            {% endfor %}
-        {% elseif inputType is same as('radio') %}
-            {# TODO: Implement, native #}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
-        {% elseif inputType is same as('color') %}
-            {# TODO: Implement, native #}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
-        {% elseif inputType is same as('range') %}
-            {# TODO: Implement, native #}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
-        {% elseif inputType is same as('textarea') %}
-            {# TODO: Implement, native #}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
-        {% elseif inputType is same as('file') %}
-            {# TODO: Implement, native #}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
-        {% elseif inputType is same as('toggle') %}
-            {# TODO: Implement #}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
-        {% elseif inputType is same as('touchspin') %}
-            {# TODO: Implement #}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not implemented</span>
-        {% elseif inputType is same as('bool') %}
-            <span class="help-block">Replace it by checkbox</span>
-        {% elseif inputType is same as('checkbox') %}
-            <div class="input-group">
+                </select>
+            {% endif %}
+            {% endif %}
+                {% endfor %}
+                {% elseif inputType is same as('radio') %}
+                {# TODO: Incomplete, only 1 value, must receive a list of options #}
+            <input type="radio" id="{{ item.idName }}" name="{{ item.idName }}" value="{{ item.value }}">
+                <label for="{{ item.idName }}">{{ item.value }}</label><br>
+                {% elseif inputType is same as('color') %}
+                {% set defaultColor = item.value | default('#000000') %}
+            <input type="color" class="form-control" id="{{ item.idName }}" name="{{ item.idName }}" value="{{ defaultColor }}">
+                {% elseif inputType is same as('range') %}
+            <input type="range" class="form-control" id="{{ item.idName }}" name="{{ item.idName }}" value="{{ item.value }}">
+                {% elseif inputType is same as('textarea') %}
+                <textarea class="form-control" id="{{ item.idName }}" name="{{ item.idName }}" rows="3">{{ item.value }}</textarea>
+                {% elseif inputType is same as('file') %}
+            <input type="file" class="form-control-file" id="{{ item.idName }}">
+                {% elseif inputType is same as('toggle') %}
+                <label>
+                    <input type="checkbox" id="{{ item.idName }}" name="{{ item.idName }}" data-toggle="toggle">
+                    {{ item.value }}
+                </label>
+            <link href="resources/skins/default/bower_modules/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet">
+                <script src="resources/skins/default/bower_modules/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
+                {% elseif inputType is same as('touchspin') %}
+                <div class="input-group bootstrap-touchspin">
+                <span class="input-group-btn input-group-prepend bootstrap-touchspin-injected">
+                    <button class="btn btn-primary bootstrap-touchspin-down" type="button">
+                        <i class="ft-minus"></i>
+                    </button>
+                </span>
+                    <input type="text" id="{{ item.idName }}" name="{{ item.idName }}" class="touchspin form-control" value="{{ item.value }}">
+                    <span class="input-group-btn input-group-append bootstrap-touchspin-injected">
+                    <button class="btn btn-primary bootstrap-touchspin-up" type="button">
+                        <i class="ft-plus"></i>
+                    </button>
+                </span>
+                </div>
+            <link href="resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+                <script src="resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+                {% elseif inputType is same as('bool') %}
+                <span class="help-block">Replace this type with checkbox</span>
+                {% elseif inputType is same as('checkbox') %}
+                <div class="input-group">
                 <span class="input-group-addon">
                     <input type="checkbox" id="{{ item.idName }}" name="{{ item.idName }}" {{ extraAttrResult }} {% if item.isPk %}readonly{% endif %} value="true" {% if item.value is not empty %}checked{% endif %}>
                 </span>
-                <input type="text" class="form-control" value="{{ item.value }}" readonly="readonly">
-            </div>
-        {% else %}
-            <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
-            <span class="help-block">Type {{ inputType }} not defined</span>
-        {% endif %}
-
+                    <input type="text" class="form-control" value="{{ item.value }}" readonly="readonly">
+                </div>
+            {% else %}
+                <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
+                <span class="help-block">Type {{ inputType }} not defined</span>
+            {% endif %}
+        </fieldset>
     {% else %}
         <span id="{{ item.idName }}" name="{{ item.idName }}">{{ item.value }}</span>
     {% endif %}
