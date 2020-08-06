@@ -1,0 +1,36 @@
+{#
+@file input.html.twig
+@author Alxarafe <info@alxarafe.com>
+
+Default theme implementation to display a Bootstrap Input+Button component.
+
+@var id:          Your id
+@var name:        Your name
+@var type:        Input type, by default is text
+@var class:       Your class
+@var value:       Your default value
+
+How to use it:
+    {% include "@Core/components/input.html.twig" with {data:{id:'myInputId', name:'myInputName', type: 'text', value: ''}} %}
+    {% include "@Core/components/input.html.twig" with {data:{id:'myInputId', name:'myInputName', type: 'number', value: ''}} %}
+#}
+
+<input
+        {% if id is defined %}
+            id="input_{{ id }}"
+        {% endif %}
+
+        {% if name is defined %}
+            name="input_{{ name }}"
+        {% endif %}
+
+        {% if type is defined %}
+            type="{{ type }}"
+        {% else %}
+            type="text"
+        {% endif %}
+
+        class="form-control {{ class }}"
+
+        value="{{ value | default('') }}"
+>

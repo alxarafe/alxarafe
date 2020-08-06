@@ -1,0 +1,31 @@
+{#
+@file div.html.twig
+@author Alxarafe <info@alxarafe.com>
+
+Default theme implementation to display a Bootstrap Input+Button component.
+
+@var id:          Your id
+@var name:        Your name
+@var class:       Your class
+@var content:     Your content
+
+How to use it:
+    {% include "@Core/components/div.html.twig" with {data:{id:'myDivId', name:'myDivName', class: '', content: ''}} %}
+    {% include "@Core/components/div.html.twig" with {data:{id:'myDivId', name:'myDivName', class: '', content: ''}} %}
+#}
+
+<div
+        {% if id is defined %}
+            id="input_{{ id }}"
+        {% endif %}
+
+        {% if name is defined %}
+            name="input_{{ name }}"
+        {% endif %}
+
+        {% if class is not empty %}
+            class="{{ class }}"
+        {% endif %}
+>
+    {{ content }}
+</div>
