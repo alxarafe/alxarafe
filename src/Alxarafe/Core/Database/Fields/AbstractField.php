@@ -88,7 +88,6 @@ abstract class AbstractField
             if (!property_exists($this, $property)) {
                 FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
             }
-            unset($data[$property]);
         }
 
         foreach ($this->translatableFields as $property) {
@@ -98,7 +97,6 @@ abstract class AbstractField
                 FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
             }
             $this->translatedFields[$property] = $this->trans->trans($this->{$property});
-            unset($data[$property]);
         }
     }
 

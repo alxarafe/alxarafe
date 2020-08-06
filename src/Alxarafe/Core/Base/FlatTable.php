@@ -7,7 +7,6 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Database\Fields\AbstractField;
-use Alxarafe\Core\Database\Fields\StringField;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Providers\Database;
 
@@ -76,6 +75,9 @@ class FlatTable extends Entity
     private function getDataFields()
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);
+        if (DEBUG) {
+            $fields = null;
+        }
         if ($fields === null) {
             $table = Schema::getFromYamlFile($this->tableName);
             $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
@@ -98,17 +100,13 @@ class FlatTable extends Entity
 
     private function getFieldClass(string $type)
     {
-        if (!isset($type)) {
-            return false;
-        }
-
+        $file = basePath('src/Alxarafe/Core/Database/Fields/' . ucfirst($type) . 'Field.php');
         $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($type) . 'Field';
-        if (!class_exists($class)) {
-            $params['%class%'] = $class;
-            $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
-            $class = StringField::class;
+        if (!file_exists($file)) {
+            $params['%type%'] = $type;
+            trigger_error($this->trans->trans('class-does-not-exists', $params));
+            $class = 'Alxarafe\\Core\\Database\\Fields\\StringField';
         }
-
         return new $class();
     }
 
