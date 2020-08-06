@@ -108,8 +108,6 @@ class FlatTable extends Entity
             $this->fields[$key] = $this->getFieldClass($value['type']);
             $this->fields[$key]->assignData($value);
         }
-
-        dump($this->fields);
     }
 
     private function getFieldClass(string $type)
