@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Database\Fields\AbstractField;
+use Alxarafe\Core\Database\Fields\StringField;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Providers\Database;
 
@@ -105,7 +106,7 @@ class FlatTable extends Entity
         if (!class_exists($class)) {
             $params['%class%'] = $class;
             $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
-            $class = 'Alxarafe\\Core\\Database\\Fields\\StringComponent';
+            $class = StringField::class;
         }
 
         return new $class();
@@ -297,7 +298,7 @@ class FlatTable extends Entity
             if (!class_exists($class)) {
                 $params['%class%'] = $class;
                 $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
-                $class = 'Alxarafe\\Core\\Database\\Fields\\StringComponent';
+                $class = StringField::class;
             }
 
             $class::test($key, $field, $value);
