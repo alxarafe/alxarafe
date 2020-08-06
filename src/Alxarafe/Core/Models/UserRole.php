@@ -35,4 +35,16 @@ class UserRole extends Table
             ]
         );
     }
+
+    /**
+     * Return class dependencies
+     *
+     * @return string[]
+     */
+    public function getDependencies(): array
+    {
+        return [
+            User::class,
+        ];
+    }
 }
