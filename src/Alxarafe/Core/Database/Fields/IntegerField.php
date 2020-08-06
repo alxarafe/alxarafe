@@ -6,8 +6,6 @@
 
 namespace Alxarafe\Core\Database\Fields;
 
-use Alxarafe\Core\Providers\Translator;
-
 class IntegerField extends AbstractNumericField
 {
     /**
@@ -47,24 +45,23 @@ class IntegerField extends AbstractNumericField
         }
     }
 
-    public static function test($key, $struct, &$value)
+    public function test($key, &$value)
     {
-        $trans = Translator::getInstance();
-        $params = ['%field%' => $trans->trans($key), '%value%' => $value];
+        $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
-        $unsigned = isset($struct['unsigned']) && $struct['unsigned'] === 'yes';
-        $min = $struct['min'] ?? null;
-        $max = $struct['max'] ?? null;
+        $unsigned = $this->unsigned === 'yes';
+        $min = $this->min ?? null;
+        $max = $this->max ?? null;
         if ($unsigned && $value < 0) {
-            self::$errors[] = $trans->trans('error-negative-unsigned', $params);
+            self::$errors[] = $this->trans->trans('error-negative-unsigned', $params);
         }
         if (isset($min) && $value < $min) {
             $params['%min%'] = $min;
-            self::$errors[] = $trans->trans('error-less-than-minimum', $params);
+            self::$errors[] = $this->trans->trans('error-less-than-minimum', $params);
         }
         if (isset($max) && $value > $max) {
             $params['%max%'] = $max;
-            self::$errors[] = $trans->trans('error-greater-than-maximum', $params);
+            self::$errors[] = $this->trans->trans('error-greater-than-maximum', $params);
         }
 
         return (count(self::$errors) === 0);

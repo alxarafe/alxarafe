@@ -6,8 +6,6 @@
 
 namespace Alxarafe\Core\Database\Fields;
 
-use Alxarafe\Core\Providers\Translator;
-
 class StringField extends AbstractField
 {
     /**
@@ -32,17 +30,16 @@ class StringField extends AbstractField
     }
 
 
-    public static function test($key, $struct, &$value)
+    public function test($key, &$value)
     {
-        $trans = Translator::getInstance();
-        $params = ['%field%' => $trans->trans($key), '%value%' => $value];
+        $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
         $maxlen = $struct['maxlength'] ?? null;
         $strlen = strlen($value);
         if (isset($maxlen) && $strlen > $maxlen) {
             $params['%strlen%'] = $strlen;
             $params['%maxlen%'] = $maxlen;
-            self::$errors[] = $trans->trans('error-string-too-long', $params);
+            self::$errors[] = $this->trans->trans('error-string-too-long', $params);
         }
 
         return (count(self::$errors) === 0);
