@@ -286,17 +286,17 @@ class FlatTable extends Entity
         $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
         foreach ($values as $key => $value) {
             $field = $schema['fields'][$key];
-            $params = ['%field%' => $trans->trans($key), '%value%' => $value];
+            $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
             $fieldType = $field['type'];
             if (!isset($fieldType)) {
                 $fieldType = 'edit';
-                $this->errors[] = $trans->trans('error-type-not-supported', $params);
+                $this->errors[] = $this->trans->trans('error-type-not-supported', $params);
             }
 
             $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($fieldType) . 'Field';
             if (!class_exists($class)) {
                 $params['%class%'] = $class;
-                $this->errors[] = $trans->trans('class-does-not-exists', $params);
+                $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
                 $class = 'Alxarafe\\Core\\Database\\Fields\\StringComponent';
             }
 
