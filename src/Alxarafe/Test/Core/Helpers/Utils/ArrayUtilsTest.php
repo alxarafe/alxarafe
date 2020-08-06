@@ -32,7 +32,6 @@ class ArrayUtilsTest extends TestCase
         ];
         $array2 = ['0', '1'];
         $array3 = $this->object::flatArray($array1);
-        dump($array3);
         $this->assertSame($array2, $array3);
     }
 
