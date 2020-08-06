@@ -9,7 +9,6 @@ namespace Alxarafe\Core\Base;
 use Alxarafe\Core\Database\Fields\AbstractField;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Providers\Database;
-use Alxarafe\Core\Providers\Translator;
 
 /**
  * Class FlatTable has all the basic methods to access and manipulate information, but without modifying its
@@ -103,7 +102,6 @@ class FlatTable extends Entity
     private function getDataFields()
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);
-        $fields = null;
         if ($fields === null) {
             $table = Schema::getFromYamlFile($this->tableName);
             $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');

@@ -29,7 +29,7 @@ class IntegerField extends AbstractNumericField
         $bits = 8 * $this->length;
         $total = 2 ** $bits;
 
-        $unsigned = $this->unsigned==='yes';
+        $unsigned = $this->unsigned === 'yes';
         if ($unsigned) {
             $min = 0;
             $max = $total - 1;
@@ -38,12 +38,12 @@ class IntegerField extends AbstractNumericField
             $max = $total / 2 - 1;
         }
 
-        if ($this->min===null) {
-            $this->min=$min;
+        if ($this->min === null) {
+            $this->min = $min;
         }
 
-        if ($this->max===null) {
-            $this->max=$max;
+        if ($this->max === null) {
+            $this->max = $max;
         }
     }
 
