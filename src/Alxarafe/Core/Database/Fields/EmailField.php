@@ -9,13 +9,12 @@ namespace Alxarafe\Core\Database\Fields;
 class EmailField extends StringField
 {
 
-    public static function test($key, $struct, &$value)
+    public function test($key, &$value)
     {
-        $trans = Translator::getInstance();
-        $params = ['%field%' => $trans->trans($key), '%value%' => $value];
+        $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            self::$errors[] = $trans->trans('error-invalid-email', $params);
+            self::$errors[] = $this->trans->trans('error-invalid-email', $params);
         }
 
         return (count(self::$errors) === 0);

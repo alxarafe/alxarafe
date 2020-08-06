@@ -17,7 +17,18 @@ abstract class AbstractField
      * @var array
      */
     public static $errors = [];
-
+    /**
+     * Contains de translated fields values.
+     *
+     * @var array
+     */
+    public $translatedFields = [];
+    /**
+     * Translator instance
+     *
+     * @var Translator
+     */
+    public $trans;
     /**
      * Contains an array with de name of required fields.
      * Each descendant adds its own using addRequiredFields.
@@ -25,7 +36,6 @@ abstract class AbstractField
      * @var array
      */
     private $requiredFields = [];
-
     /**
      * Contains an array with the fields that need to be translated into the user's language.
      * Each descendant adds its own using addTranslatableFields.
@@ -35,19 +45,13 @@ abstract class AbstractField
     private $translatableFields = [];
 
     /**
-     * Contains de translated fields values.
-     *
-     * @var array
-     */
-    public $translatedFields = [];
-
-    /**
      * AbstractComponent constructor.
      *
      * @param $parameters
      */
     public function __construct()
     {
+        $this->trans = Translator::getInstance();
         $this->addRequiredFields(['type', 'length', 'default', 'nullable']);
         $this->addTranslatableFields(['label', 'shortlabel', 'placeholder']);
     }
@@ -74,6 +78,8 @@ abstract class AbstractField
         return $return;
     }
 
+    abstract public function test($key, &$value);
+
     public function assignData(array $data)
     {
         foreach ($this->requiredFields as $property) {
@@ -85,14 +91,13 @@ abstract class AbstractField
             unset($data[$property]);
         }
 
-        $trans = Translator::getInstance();
         foreach ($this->translatableFields as $property) {
             $this->{$property} = $data[$property] ?? '';
             //TODO: Ensure this message is visible when is not a defined property
             if (!property_exists($this, $property)) {
                 FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
             }
-            $this->translatedFields[$property] = $trans->trans($this->{$property});
+            $this->translatedFields[$property] = $this->trans->trans($this->{$property});
             unset($data[$property]);
         }
     }
@@ -107,6 +112,4 @@ abstract class AbstractField
         }
         return $return;
     }
-
-    abstract public static function test($key, $struct, &$value);
 }

@@ -283,34 +283,10 @@ class FlatTable extends Entity
      */
     public function test(&$values): void
     {
-        $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
-        foreach ($values as $key => $value) {
-            $field = $schema['fields'][$key];
-            $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
-            $fieldType = $field['type'];
-            if (!isset($fieldType)) {
-                $fieldType = 'edit';
-                $this->errors[] = $this->trans->trans('error-type-not-supported', $params);
-            }
-
-            $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($fieldType) . 'Field';
-            if (!class_exists($class)) {
-                $params['%class%'] = $class;
-                $this->errors[] = $this->trans->trans('class-does-not-exists', $params);
-                $class = 'Alxarafe\\Core\\Database\\Fields\\StringComponent';
-            }
-
-            $class::test($key, $field, $value);
-            $this->errors = array_merge($this->errors, $class::getErrors());
+        foreach ($this->fields as $key => $field) {
+            $field->test($key, $values[$key]);
+            $this->errors = array_merge($this->errors, $field::getErrors());
         }
-
-        /*
-        foreach($struct['fields'] as $key=>$field) {
-            $class = 'Alxarafe\\Core\\Database\\Fields\\' . ucfirst($field['type']) . 'Field';
-            $this->fields[$key]=new $class($field);
-        }
-        dump($this->fields);
-        */
     }
 
     /**

@@ -6,15 +6,12 @@
 
 namespace Alxarafe\Core\Database\Fields;
 
-use Alxarafe\Core\Providers\Translator;
-
 class TouchspinField extends AbstractField
 {
 
-    public static function test($key, $struct, &$value)
+    public function test($key, &$value)
     {
-        $trans = Translator::getInstance();
-        $params = ['%field%' => $trans->trans($key), '%value%' => $value];
+        $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
         if (in_array(strtolower($value), ['true', 'yes', '1'])) {
             $value = '1';
