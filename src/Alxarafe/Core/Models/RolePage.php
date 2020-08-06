@@ -41,4 +41,16 @@ class RolePage extends Table
             ]
         );
     }
+
+    /**
+     * Return class dependencies
+     *
+     * @return string[]
+     */
+    public function getDependencies(): array
+    {
+        return [
+            Role::class,
+        ];
+    }
 }
