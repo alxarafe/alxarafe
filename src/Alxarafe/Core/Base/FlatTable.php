@@ -296,6 +296,9 @@ class FlatTable extends Entity
     public function test(&$values): void
     {
         foreach ($this->fields as $key => $field) {
+            if (!isset($values[$key])) {
+                continue;
+            }
             $field->test($key, $values[$key]);
             $this->errors = array_merge($this->errors, $field::getErrors());
         }
