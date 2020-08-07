@@ -36,6 +36,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var AbstractComponent[]
      */
     public $components;
+    public $formtype;
 
     /**
      * Contains all data received from $_POST.
@@ -86,7 +87,12 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var string
      */
     public $code;
-
+    /**
+     * Contains the indexes of the tables in use
+     *
+     * @var array
+     */
+    public $indexesTables;
     /**
      * Contains all data from table.
      *
@@ -109,21 +115,12 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var array
      */
     protected $oldData;
-
     /**
      * Contains the field structure.
      *
      * @var array
      */
     protected $fieldsStruct;
-
-    /**
-     * Contains the indexes of the tables in use
-     *
-     * @var array
-     */
-    public $indexesTables;
-
     /**
      * Contains the primary key of register in use.
      * If its a new register, contains ''.
@@ -238,32 +235,6 @@ abstract class AuthPageExtendedController extends AuthPageController
         return $this->readMethod();
     }
 
-    private function getComponentClass(array $value)
-    {
-        $type = $value['type'];
-        $file = basePath('src/Alxarafe/Core/Renders/Twig/Components/' . ucfirst($type) . 'Component.php');
-        $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($type) . 'Component';
-        if (!file_exists($file)) {
-            $params = ['%type%' => $type];
-            trigger_error(Translator::getInstance()->trans('component-does-not-exists', $params));
-            $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\SpanComponent';
-        }
-        return new $class($value);
-    }
-
-    private function getComponents()
-    {
-        // TODO: Ahora se usa $this->tableName, pero igual hay que usar el nombre del controlador.
-        $components = Schema::getFromYamlFile($this->tableName, 'viewdata');
-
-        $this->components = [];
-        foreach ($components['fields'] as $key => $value) {
-            if (!isset($this->components[$key])) {
-                $this->components[$key] = $this->getComponentClass($value);
-            }
-        }
-    }
-
     /**
      * Read existing record.
      */
@@ -277,6 +248,40 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->status = 'showing';
         $this->renderer->setTemplate('master/read');
         return $this->sendResponseTemplate();
+    }
+
+    private function getComponents()
+    {
+        // TODO: Ahora se usa $this->tableName, pero igual hay que usar el nombre del controlador.
+        // $components = Schema::getFromYamlFile($this->tableName, 'viewdata');
+        // $this->formtype=$components['form-type']??'form-horizontal';
+        // foreach ($components['fields'] as $key => $value) {
+        //     if (!isset($this->components[$key])) {
+        //         $this->components[$key] = $this->getComponentClass($value);
+        //     }
+        // }
+
+        $components = $this->getListFields();
+        $this->components = [];
+        foreach ($components as $pos => $fieldname) {
+            foreach ($fieldname as $key => $value) {
+                $value['type'] = $value['viewData']['type'];
+                $this->components[$key] = $this->getComponentClass($value);
+            }
+        }
+    }
+
+    private function getComponentClass(array $value)
+    {
+        $type = $value['type'];
+        $file = basePath('src/Alxarafe/Core/Renders/Twig/Components/' . ucfirst($type) . 'Component.php');
+        $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($type) . 'Component';
+        if (!file_exists($file)) {
+            $params = ['%type%' => $type];
+            trigger_error(Translator::getInstance()->trans('component-does-not-exists', $params));
+            $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\SpanComponent';
+        }
+        return new $class($value);
     }
 
     /**

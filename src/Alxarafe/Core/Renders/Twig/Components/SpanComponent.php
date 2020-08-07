@@ -41,6 +41,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/button.html';
+        return '@Core/components/span.html';
     }
 }
