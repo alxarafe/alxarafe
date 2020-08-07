@@ -20,13 +20,12 @@
 		class: 'btn btn-default dropdown-toggle',
 		id:'dropup',
 		name:'dropup',
-		textype:'Home',
+		text:'Home',
 		alignement:'dropdown-menu-right',
 		classes:  ['', '' , 'divider' , ''],
         texts: ['Collapsible Group Item #1', 'Collapsible Group Item #2' , '', 'Collapsible Group Item #3'],
         links: ['https://www.marca.com', 'Collapsible Group Item #2' ,'' , 'Collapsible Group Item #3']
-	
-	} %}
+        } %}
 #}
 {% set randValue = random() %}
 
@@ -34,7 +33,7 @@
 {% set class = dataclass | default('btn btn-default dropdown-toggle') %}
 {% set id = data.id | default('dropdown') %}
 {% set name = data.name | default('dropdown') %}
-{% set textype = data.textype | default('dropdown') %}
+{% set text = data.texte | default('dropdown') %}
 {% set alignement = data.alignement | default('dropdown-menu-left') %}
 {% set classes = data.classes | default (['', '' , 'divider' , '']) %}
 {% set texts = data.texts | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , '', 'Collapsible Group Item #3']) %}
@@ -44,7 +43,7 @@
 <div class="{{ type }}">
     <button class="{{ class }}" type="button" id="{{ id }}" name="{{ name }}" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="true">
-        {{ textype }}
+        {{ text }}
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu {{ alignement }}" aria-labelledby="{{ id }}">
