@@ -264,8 +264,14 @@ abstract class AuthPageExtendedController extends AuthPageController
         $components = $this->getListFields();
         $this->components = [];
         foreach ($components as $pos => $fieldname) {
-            foreach ($fieldname as $key => $value) {
-                $value['type'] = $value['viewData']['type'];
+            foreach ($fieldname as $key => $data) {
+                $value = [];
+                $value['type'] = $data['viewData']['type'];
+                $value['id'] = $data['idName'];
+                $value['name'] = $data['viewData']['label'];
+                $value['label'] = $data['viewData']['label'];
+                $value['shortlabel'] = $data['viewData']['shortlabel'];
+                $value['placeholder'] = $data['viewData']['placeholder'];
                 $this->components[$key] = $this->getComponentClass($value);
             }
         }
