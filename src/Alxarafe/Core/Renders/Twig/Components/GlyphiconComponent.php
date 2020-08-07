@@ -7,20 +7,12 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class GlyphiconComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class GlyphiconComponent extends AbstractComponent
 {
-
-    /**
-     * Contains the content for this component.
-     *
-     * @var string
-     */
-    public $content;
-
     /**
      * Return the template path to render this component.
      *
@@ -28,6 +20,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/glyphicon.html';
     }
 }

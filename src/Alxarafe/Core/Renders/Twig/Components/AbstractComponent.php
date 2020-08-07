@@ -48,6 +48,13 @@ abstract class AbstractComponent
     public $style;
 
     /**
+     * Data attributes for the component.
+     *
+     * @var array
+     */
+    public $dataAttr;
+
+    /**
      * AbstractComponent constructor.
      *
      * @param $parameters

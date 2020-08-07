@@ -7,19 +7,25 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class ListGroupComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class ListGroupComponent extends AbstractComponent
 {
+    /**
+     * Contains if component is dismissible.
+     *
+     * @var bool
+     */
+    public $dismissible;
 
     /**
-     * Contains the content for this component.
+     * Contains the text message for this component.
      *
      * @var string
      */
-    public $content;
+    public $message;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +34,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/list-group.html';
     }
 }

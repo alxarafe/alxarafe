@@ -7,19 +7,32 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class PageHeaderComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class PageHeaderComponent extends AbstractComponent
 {
-
     /**
-     * Contains the content for this component.
+     * Contains title for this component.
      *
      * @var string
      */
-    public $content;
+    public $title;
+
+    /**
+     * Contains header for this component.
+     *
+     * @var string
+     */
+    public $header;
+
+    /**
+     * Contains small title for this component.
+     *
+     * @var string
+     */
+    public $small;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +41,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/page-header.html';
     }
 }

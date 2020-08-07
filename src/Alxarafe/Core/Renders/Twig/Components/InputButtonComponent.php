@@ -7,19 +7,25 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class InputButtonComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class InputButtonComponent extends AbstractComponent
 {
-
     /**
-     * Contains the content for this component.
+     * Contains if component is dismissible.
      *
      * @var string
      */
-    public $content;
+    public $position;
+
+    /**
+     * Contains the text message for this component.
+     *
+     * @var array
+     */
+    public $texts;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +34,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/input-button.html';
     }
 }

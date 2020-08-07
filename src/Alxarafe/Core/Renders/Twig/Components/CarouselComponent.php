@@ -7,25 +7,39 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class Alert component
+ * Class CarouselComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class Alert extends AbstractComponent
+class CarouselComponent extends AbstractComponent
 {
     /**
      * Contains if component is dismissible.
      *
      * @var bool
      */
-    public $dismissible;
+    public $controls;
 
     /**
-     * Contains the text message for this component.
+     * Contains the images for this component.
      *
-     * @var string
+     * @var array
      */
-    public $message;
+    public $images;
+
+    /**
+     * Contains the alternatives text images of this component.
+     *
+     * @var array
+     */
+    public $alts;
+
+    /**
+     * Contains the classes for the images of this component.
+     *
+     * @var array
+     */
+    public $classes;
 
     /**
      * Return the template path to render this component.
@@ -34,6 +48,6 @@ class Alert extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/alert.html';
+        return '@Core/components/carousel.html';
     }
 }

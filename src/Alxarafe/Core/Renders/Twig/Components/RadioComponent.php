@@ -7,19 +7,25 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class RadioComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class RadioComponent extends AbstractComponent
 {
-
     /**
-     * Contains the content for this component.
+     * Contains component type.
      *
      * @var string
      */
-    public $content;
+    public $type;
+
+    /**
+     * Contains the text message for this component.
+     *
+     * @var string
+     */
+    public $message;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +34,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/radio.html';
     }
 }

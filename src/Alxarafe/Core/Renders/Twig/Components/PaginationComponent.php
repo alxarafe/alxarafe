@@ -7,19 +7,32 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class PaginationComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class PaginationComponent extends AbstractComponent
 {
+    /**
+     * Contains links.
+     *
+     * @var array
+     */
+    public $links;
 
     /**
-     * Contains the content for this component.
+     * Contains texts.
      *
-     * @var string
+     * @var array
      */
-    public $content;
+    public $texts;
+
+    /**
+     * Contains classes.
+     *
+     * @var array
+     */
+    public $classes;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +41,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/pagination.html';
     }
 }

@@ -7,19 +7,32 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class SelectComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class SelectComponent extends AbstractComponent
 {
+    /**
+     * Contains if component must use multiple selection.
+     *
+     * @var bool
+     */
+    public $multiple;
 
     /**
-     * Contains the content for this component.
+     * Contains the text for the option.
      *
-     * @var string
+     * @var array
      */
-    public $content;
+    public $texts;
+
+    /**
+     * Contains the values for the option.
+     *
+     * @var array
+     */
+    public $values;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +41,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/select.html';
     }
 }

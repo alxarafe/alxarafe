@@ -7,19 +7,30 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class ThumbnailComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class ThumbnailComponent extends AbstractComponent
 {
-
     /**
-     * Contains the content for this component.
+     * Contains the text message.
      *
      * @var string
      */
-    public $content;
+    public $message;
+    /**
+     * Contains the path.
+     *
+     * @var string
+     */
+    public $path;
+    /**
+     * Contains the link.
+     *
+     * @var string
+     */
+    public $link;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +39,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/thumbnail.html';
     }
 }

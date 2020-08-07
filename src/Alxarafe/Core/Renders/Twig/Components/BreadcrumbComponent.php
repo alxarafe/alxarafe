@@ -7,32 +7,32 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class Button component
+ * Class BreadcrumbComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class Button extends AbstractComponent
+class BreadcrumbComponent extends AbstractComponent
 {
     /**
-     * Contains the text for this component.
+     * Contains the texts for the items for this component.
      *
-     * @var string
+     * @var array
      */
-    public $text;
+    public $texts;
 
     /**
-     * Contains the type for this component.
+     * Contains the classes for the items for this component.
      *
-     * @var string
+     * @var array
      */
-    public $type;
+    public $classes;
 
     /**
-     * Contains the link for this component.
+     * Contains the links for the items for this component.
      *
-     * @var string
+     * @var array
      */
-    public $link;
+    public $links;
 
     /**
      * Return the template path to render this component.
@@ -41,6 +41,6 @@ class Button extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/button.html';
+        return '@Core/components/breadcrumb.html';
     }
 }

@@ -7,19 +7,25 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class SpanComponent
+ * Class TextareaComponent
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-class SpanComponent extends AbstractComponent
+class TextareaComponent extends AbstractComponent
 {
+    /**
+     * Contains the rows for this component.
+     *
+     * @var integer
+     */
+    public $rows;
 
     /**
-     * Contains the content for this component.
+     * Contains the text for this component.
      *
      * @var string
      */
-    public $content;
+    public $text;
 
     /**
      * Return the template path to render this component.
@@ -28,6 +34,6 @@ class SpanComponent extends AbstractComponent
      */
     public function getTemplatePath(): string
     {
-        return '@Core/components/span.html';
+        return '@Core/components/textarea.html';
     }
 }
