@@ -72,6 +72,11 @@ class FlatTable extends Entity
         $this->exists = false;
     }
 
+    public function getField($name)
+    {
+        return $this->fields[$name] ?? null;
+    }
+
     private function getDataFields()
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);

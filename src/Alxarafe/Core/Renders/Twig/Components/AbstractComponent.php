@@ -77,7 +77,6 @@ abstract class AbstractComponent
      */
     public function toHtml(): string
     {
-        dump($this);
         return (new TwigFunctions())->renderComponent($this->getTemplatePath(), $this->toArray());
     }
 

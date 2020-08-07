@@ -216,7 +216,7 @@ class TwigFunctions extends AbstractExtension
         // We need a new instance, and not the same to render the controller
         $renderer = new TemplateRender();
         $renderer->setTemplate($templatePath);
-        return $renderer->render(['data' => $data]);
+        return $renderer->render($data);
     }
 
     /**

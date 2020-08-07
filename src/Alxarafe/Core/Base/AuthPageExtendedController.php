@@ -252,26 +252,17 @@ abstract class AuthPageExtendedController extends AuthPageController
 
     private function getComponents()
     {
-        // TODO: Ahora se usa $this->tableName, pero igual hay que usar el nombre del controlador.
-        // $components = Schema::getFromYamlFile($this->tableName, 'viewdata');
-        // $this->formtype=$components['form-type']??'form-horizontal';
-        // foreach ($components['fields'] as $key => $value) {
-        //     if (!isset($this->components[$key])) {
-        //         $this->components[$key] = $this->getComponentClass($value);
-        //     }
-        // }
-
         $components = $this->getListFields();
         $this->components = [];
         foreach ($components as $pos => $fieldname) {
             foreach ($fieldname as $key => $data) {
                 $value = [];
-                $value['type'] = $data['viewData']['type'];
                 $value['id'] = $data['idName'];
-                $value['name'] = $data['viewData']['label'];
-                $value['label'] = $data['viewData']['label'];
-                $value['shortlabel'] = $data['viewData']['shortlabel'];
-                $value['placeholder'] = $data['viewData']['placeholder'];
+                $value['value'] = $data['value'];
+                $value['struct'] = $this->model->getField($key);
+                foreach ($data['viewData'] as $keyData => $valueData) {
+                    $value[$keyData] = $valueData;
+                }
                 $this->components[$key] = $this->getComponentClass($value);
             }
         }
@@ -279,7 +270,7 @@ abstract class AuthPageExtendedController extends AuthPageController
 
     private function getComponentClass(array $value)
     {
-        $type = $value['type'];
+        $type = $value['component'];
         $file = basePath('src/Alxarafe/Core/Renders/Twig/Components/' . ucfirst($type) . 'Component.php');
         $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($type) . 'Component';
         if (!file_exists($file)) {

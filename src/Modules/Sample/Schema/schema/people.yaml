@@ -20,7 +20,7 @@ fields:
         unsigned: 'no'
     age:
         type: integer
-        length: '3'
+        length: '1'
         default: '18'
         nullable: 'yes'
         unsigned: 'yes'
