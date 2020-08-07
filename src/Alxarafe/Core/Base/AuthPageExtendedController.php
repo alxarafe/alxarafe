@@ -10,6 +10,7 @@ use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
+use Alxarafe\Core\Renders\Twig\Components\AbstractComponent;
 use Alxarafe\Core\Traits\AjaxDataTableTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,14 @@ define('IDSEPARATOR', '~');
 abstract class AuthPageExtendedController extends AuthPageController
 {
     use AjaxDataTableTrait;
+
+    /**
+     * Contains an array of components.
+     * It is possible that this attribute replaces many of those that now exist.
+     *
+     * @var AbstractComponent[]
+     */
+    public $components;
 
     /**
      * Contains all data received from $_POST.
@@ -229,6 +238,32 @@ abstract class AuthPageExtendedController extends AuthPageController
         return $this->readMethod();
     }
 
+    private function getComponentClass(array $value)
+    {
+        $type = $value['type'];
+        $file = basePath('src/Alxarafe/Core/Renders/Twig/Components/' . ucfirst($type) . 'Component.php');
+        $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($type) . 'Component';
+        if (!file_exists($file)) {
+            $params = ['%type%' => $type];
+            trigger_error(Translator::getInstance()->trans('component-does-not-exists', $params));
+            $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\SpanComponent';
+        }
+        return new $class($value);
+    }
+
+    private function getComponents()
+    {
+        // TODO: Ahora se usa $this->tableName, pero igual hay que usar el nombre del controlador.
+        $components = Schema::getFromYamlFile($this->tableName, 'viewdata');
+
+        $this->components = [];
+        foreach ($components['fields'] as $key => $value) {
+            if (!isset($this->components[$key])) {
+                $this->components[$key] = $this->getComponentClass($value);
+            }
+        }
+    }
+
     /**
      * Read existing record.
      */
@@ -236,6 +271,9 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->initialize();
         $this->postData = $this->getRecordData();
+
+        $this->getComponents();
+
         $this->status = 'showing';
         $this->renderer->setTemplate('master/read');
         return $this->sendResponseTemplate();
