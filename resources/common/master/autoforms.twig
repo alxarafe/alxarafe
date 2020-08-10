@@ -147,8 +147,6 @@
                     <input type="checkbox" id="{{ item.idName }}" name="{{ item.idName }}" data-toggle="toggle">
                     {{ item.value }}
                 </label>
-            <link href="resources/skins/default/bower_modules/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet">
-                <script src="resources/skins/default/bower_modules/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
                 {% elseif inputType is same as('touchspin') %}
                 <div class="input-group bootstrap-touchspin">
                     <span class="input-group-btn input-group-prepend bootstrap-touchspin-injected">
@@ -163,8 +161,6 @@
                         </button>
                     </span>
                 </div>
-            <link href="resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-                <script src="resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
                 {% elseif inputType is same as('bool') %}
                 <span class="help-block">Replace this type with checkbox</span>
                 {% elseif inputType is same as('checkbox') %}

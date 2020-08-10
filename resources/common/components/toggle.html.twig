@@ -1,0 +1,27 @@
+{#
+@file div.html.twig
+@author Alxarafe <info@alxarafe.com>
+
+Default theme implementation to display a Bootstrap Input+Button component.
+
+@var id:          Your id
+@var name:        Your name
+@var class:       Your class
+@var value:     Your content
+
+How to use it:
+    {% include "@Core/components/div.html.twig" with {id:'divId', name:'divName', class: '', value: ''} %}
+    {% include "@Core/components/div.html.twig" with {id:'divId', name:'divName', class: '', value: ''} %}
+#}
+
+{% set randValue = random() %}
+
+{% set id = id | default('divId' ~ randValue) %}
+{% set name = name | default('divName' ~ randValue) %}
+{% set class = class | default('form-control') %}
+{% set value = value | default('') %}
+
+<label>
+    <input type="checkbox" id="{{ id }}" name="{{ name }}" class="{{ class }}" data-toggle="toggle">
+    {{ value | raw }}
+</label>
