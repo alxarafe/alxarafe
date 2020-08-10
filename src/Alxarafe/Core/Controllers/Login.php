@@ -7,6 +7,8 @@
 namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\Controller;
+use Alxarafe\Core\Helpers\Schema;
+use Alxarafe\Core\Helpers\SchemaDB;
 use Alxarafe\Core\Models\User;
 use Alxarafe\Core\Providers\FlashMessages;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -241,8 +243,11 @@ class Login extends Controller
      */
     public function setUser($userName, $password, $remember = false): bool
     {
-        $this->user = new User();
         $this->username = null;
+        $this->user = new User();
+        if (!SchemaDB::tableExists($this->user->tableName)) {
+            Schema::DeleteSummaryFiles();
+        }
 
         if ($this->user->getBy('username', $userName) === true) {
             if ($this->user->verifyPassword($password)) {

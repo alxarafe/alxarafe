@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Database\Fields\AbstractField;
 use Alxarafe\Core\Helpers\Schema;
+use Alxarafe\Core\Helpers\SchemaDB;
 use Alxarafe\Core\Providers\Database;
 
 /**
@@ -72,6 +73,15 @@ class FlatTable extends Entity
         $this->exists = false;
     }
 
+    public function getStructArray()
+    {
+        $data = [];
+        foreach ($this->fields as $key => $value) {
+            $data[$key] = $value->getStructArray();
+        }
+        return $data;
+    }
+
     /**
      * Generate the array of fields from the summary yaml file.
      * If the summary yaml file does not exist, it generates it from the schema yaml.
@@ -82,6 +92,7 @@ class FlatTable extends Entity
         if ($fields === null) {
             $fields = [];
             $table = Schema::getFromYamlFile($this->tableName);
+            SchemaDB::checkTableStructure($this->tableName, $table);
             foreach ($table['fields'] as $key => $value) {
                 if (!isset($this->fields[$key])) {
                     $this->fields[$key] = $this->getFieldClass($value['type']);

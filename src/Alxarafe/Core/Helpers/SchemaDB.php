@@ -42,15 +42,17 @@ class SchemaDB
      *
      * @return bool
      */
-    public static function checkTableStructure(string $tableName): bool
+    public static function checkTableStructure(string $tableName, $tabla): bool
     {
-        $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
+        // $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
 
         $tableExists = self::tableExists($tableName);
         if ($tableExists) {
             $sql = [];
             $sql = ArrayUtils::addToArray($sql, self::updateFields($tableName, $tabla['fields']));
-            $sql = ArrayUtils::addToArray($sql, self::updateIndexes($tableName, $tabla['indexes']));
+            if (isset($tabla['indexes'])) {
+                $sql = ArrayUtils::addToArray($sql, self::updateIndexes($tableName, $tabla['indexes']));
+            }
         } else {
             Database::getInstance()->getDbEngine()->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
@@ -71,8 +73,11 @@ class SchemaDB
                 $sql = ArrayUtils::addToArray($sql, self::createIndex($tableName, $name, $index));
             }
 
-            $values = ArrayUtils::addToArray($tabla['values'], Schema::getFromYamlFile($tableName, 'values'));
-            $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $values));
+            $values = $tabla['values'] ?? [];
+            $values = ArrayUtils::addToArray($values, Schema::getFromYamlFile($tableName, 'values'));
+            if (count($values) > 0) {
+                $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $values));
+            }
             $sql = ArrayUtils::addToArray($sql, self::createTableView($tableName));
         }
 
@@ -107,6 +112,67 @@ class SchemaDB
             return [];
         }
         return ['ALTER TABLE ' . self::quoteTableName($tableName, true) . $fields . ';'];
+    }
+
+    /**
+     * Modify (add or change) fields for tablename.
+     *
+     * @param string $tableName
+     * @param array  $fieldsList
+     *
+     * @return string
+     */
+    private static function modifyFields(string $tableName, array $fieldsList): string
+    {
+        $tableFields = Database::getInstance()->getSqlHelper()->getColumns($tableName);
+        $newFields = [];
+        $modifiedFields = [];
+        foreach ($fieldsList as $key => $fields) {
+            unset($fields['key'], $tableFields[$key]['key']);
+            if (!isset($tableFields[$key])) {
+                $newFields[$key] = $fields;
+            } elseif (count(array_diff($fields, $tableFields[$key])) > 0) {
+                $modifiedFields[$key] = $fields;
+            }
+        }
+        $sql1 = self::assignFields($modifiedFields, 'MODIFY COLUMN');
+        $sql2 = self::assignFields($newFields, 'ADD COLUMN');
+
+        return ($sql1 === '') ? $sql2 : $sql1 . ($sql2 === '' ? '' : ',' . $sql2);
+    }
+
+    /**
+     * Convert an array of fields into a string to be added to an SQL command, CREATE TABLE or ALTER TABLE.
+     * You can add a prefix field operation (usually ADD or MODIFY) that will be added at begin of each field.
+     *
+     * @param array  $fieldsList
+     * @param string $fieldOperation (usually ADD, MODIFY or empty string)
+     *
+     * @return string
+     */
+    protected static function assignFields(array $fieldsList, string $fieldOperation = ''): string
+    {
+        $fields = [];
+        foreach ($fieldsList as $index => $col) {
+            $field = Database::getInstance()->getSqlHelper()->getSQLField($index, $col);
+            if ($field !== '') {
+                $fields[] = ' ' . trim($fieldOperation . ' ' . $field);
+            }
+        }
+        return implode(', ', $fields);
+    }
+
+    /**
+     * Returns the name of the table in quotes.
+     *
+     * @param string $tableName
+     * @param bool   $usePrefix
+     *
+     * @return string
+     */
+    private static function quoteTableName($tableName, bool $usePrefix = true): string
+    {
+        return Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix);
     }
 
     /**
@@ -173,133 +239,6 @@ class SchemaDB
         }
 
         return $sql;
-    }
-
-    /**
-     * Modify (add or change) fields for tablename.
-     *
-     * @param string $tableName
-     * @param array  $fieldsList
-     *
-     * @return string
-     */
-    private static function modifyFields(string $tableName, array $fieldsList): string
-    {
-        $tableFields = Database::getInstance()->getSqlHelper()->getColumns($tableName);
-        $newFields = [];
-        $modifiedFields = [];
-        foreach ($fieldsList as $key => $fields) {
-            unset($fields['key'], $tableFields[$key]['key']);
-            if (!isset($tableFields[$key])) {
-                $newFields[$key] = $fields;
-            } elseif (count(array_diff($fields, $tableFields[$key])) > 0) {
-                $modifiedFields[$key] = $fields;
-            }
-        }
-        $sql1 = self::assignFields($modifiedFields, 'MODIFY COLUMN');
-        $sql2 = self::assignFields($newFields, 'ADD COLUMN');
-
-        return ($sql1 === '') ? $sql2 : $sql1 . ($sql2 === '' ? '' : ',' . $sql2);
-    }
-
-    /**
-     * Convert an array of fields into a string to be added to an SQL command, CREATE TABLE or ALTER TABLE.
-     * You can add a prefix field operation (usually ADD or MODIFY) that will be added at begin of each field.
-     *
-     * @param array  $fieldsList
-     * @param string $fieldOperation (usually ADD, MODIFY or empty string)
-     *
-     * @return string
-     */
-    protected static function assignFields(array $fieldsList, string $fieldOperation = ''): string
-    {
-        $fields = [];
-        foreach ($fieldsList as $index => $col) {
-            $field = Database::getInstance()->getSqlHelper()->getSQLField($index, $col);
-            if ($field !== '') {
-                $fields[] = ' ' . trim($fieldOperation . ' ' . $field);
-            }
-        }
-        return implode(', ', $fields);
-    }
-
-    /**
-     * Returns the name of the table in quotes.
-     *
-     * @param string $tableName
-     * @param bool   $usePrefix
-     *
-     * @return string
-     */
-    private static function quoteTableName($tableName, bool $usePrefix = true): string
-    {
-        return Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix);
-    }
-
-    /**
-     * Build the SQL statement to create the fields in the table.
-     * It can also create the primary key if the auto_increment attribute is defined.
-     *
-     * @param string $tableName
-     * @param array  $fieldsList
-     *
-     * @return array
-     */
-    protected static function createFields(string $tableName, array $fieldsList): array
-    {
-        // If the table does not exists
-        $sql = 'CREATE TABLE ' . self::quoteTableName($tableName, true) . ' ('
-            . self::assignFields($fieldsList)
-            . ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;';
-
-        return [$sql];
-    }
-
-    /**
-     * Create the SQL statements for the construction of one index.
-     * In the case of the primary index, it is not necessary if it is auto_increment.
-     *
-     * TODO:
-     *
-     * Moreover, it should not be defined if it is auto_increment because it would
-     * generate an error when it already exists.
-     *
-     * @param string $tableName
-     * @param string $indexName
-     * @param array  $indexData
-     *
-     * @return array
-     */
-    protected static function createIndex(string $tableName, string $indexName, array $indexData): array
-    {
-        $tableIndexes = Database::getInstance()->getSqlHelper()->getIndexes($tableName);
-        $tableIndex = $tableIndexes[$indexName] ?? [];
-        $indexDiff = array_diff($indexData, $tableIndex);
-        $existsIndex = isset($tableIndexes[$indexName]);
-        $changedIndex = (count($indexDiff) > 0);
-        if (!$changedIndex) {
-            return [];
-        }
-
-        $indexData['index'] = $indexName;
-
-        if ($indexName === 'PRIMARY') {
-            $fieldData = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']];
-            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] === 'yes');
-            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
-        }
-
-        $unique = isset($indexData['unique']) && ($indexData['unique'] === 'yes');
-        //$nullable = isset($indexData['nullable']) && ($indexData['nullable'] == 'yes');
-        $constraint = $indexData['constraint'] ?? false;
-
-        if ($constraint) {
-            return self::createConstraint($tableName, $indexData, $existsIndex);
-        }
-
-        return $unique ?
-            self::createUniqueIndex($tableName, $indexData, $existsIndex) :
-            self::createStandardIndex($tableName, $indexData, $existsIndex);
     }
 
     /**
@@ -443,6 +382,72 @@ class SchemaDB
         }
         $sql[] = "ALTER TABLE {$quotedTableName} ADD CONSTRAINT {$indexName} UNIQUE ({$columns})";
         return $sql;
+    }
+
+    /**
+     * Build the SQL statement to create the fields in the table.
+     * It can also create the primary key if the auto_increment attribute is defined.
+     *
+     * @param string $tableName
+     * @param array  $fieldsList
+     *
+     * @return array
+     */
+    protected static function createFields(string $tableName, array $fieldsList): array
+    {
+        // If the table does not exists
+        $sql = 'CREATE TABLE ' . self::quoteTableName($tableName, true) . ' ('
+            . self::assignFields($fieldsList)
+            . ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;';
+
+        return [$sql];
+    }
+
+    /**
+     * Create the SQL statements for the construction of one index.
+     * In the case of the primary index, it is not necessary if it is auto_increment.
+     *
+     * TODO:
+     *
+     * Moreover, it should not be defined if it is auto_increment because it would
+     * generate an error when it already exists.
+     *
+     * @param string $tableName
+     * @param string $indexName
+     * @param array  $indexData
+     *
+     * @return array
+     */
+    protected static function createIndex(string $tableName, string $indexName, array $indexData): array
+    {
+        $tableIndexes = Database::getInstance()->getSqlHelper()->getIndexes($tableName);
+        $tableIndex = $tableIndexes[$indexName] ?? [];
+        $indexDiff = array_diff($indexData, $tableIndex);
+        $existsIndex = isset($tableIndexes[$indexName]);
+        $changedIndex = (count($indexDiff) > 0);
+        if (!$changedIndex) {
+            return [];
+        }
+
+        $indexData['index'] = $indexName;
+
+        if ($indexName === 'PRIMARY') {
+            $fieldData = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']];
+            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] === 'yes');
+            return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
+        }
+
+        $unique = isset($indexData['unique']) && ($indexData['unique'] === 'yes');
+        //$nullable = isset($indexData['nullable']) && ($indexData['nullable'] == 'yes');
+        $constraint = $indexData['constraint'] ?? false;
+
+        if ($constraint) {
+            return self::createConstraint($tableName, $indexData, $existsIndex);
+        }
+
+        return $unique ?
+            self::createUniqueIndex($tableName, $indexData, $existsIndex) :
+            self::createStandardIndex($tableName, $indexData, $existsIndex);
     }
 
     /**

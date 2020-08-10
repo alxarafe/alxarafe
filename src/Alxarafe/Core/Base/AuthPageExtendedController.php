@@ -92,7 +92,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      *
      * @var array
      */
-    public $indexesTables;
+    // public $indexesTables;
     /**
      * Contains all data from table.
      *
@@ -197,8 +197,9 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->currentId = $this->request->query->get($this->model->getIdField());
         $this->postData = $this->getRecordData();
-        $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
-        $this->indexesTables[$this->tableName] = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['indexes'];
+        // $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
+        $this->fieldsStruct = $this->model->getStructArray();
+        // $this->indexesTables[$this->tableName] = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['indexes'];
         $this->viewData = Schema::getFromYamlFile($this->tableName, 'viewdata');
         $this->tableData[$this->tableName] = isset($this->postData[$this->tableName]) ? $this->model->getDefaultValues() : $this->postData[$this->tableName][0];
     }
@@ -215,7 +216,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $ret = [];
         if ($this->currentId == '' || $this->currentId == '0') {
-            $ret[$this->model->tableName][0] = $this->model->getDefaultValues();
+            $ret[$this->model->tableName][0] = $this->model->defaultData();
             $ret[$this->model->tableName][0][$this->model->idField] = '';
         } else {
             $value = $this->model->getDataArray($this->currentId);
