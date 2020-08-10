@@ -10,14 +10,14 @@
     @var text:        Your text
 
     How to use it:
-        {% include "@Core/components/textarea.html.twig" with {data:{id:'myTextareaId', name:'myTextareaName', rows:'3', text: 'My sample text'}} %}
+        {% include "@Core/components/textarea.html.twig" with {id:'myTextareaId', name:'myTextareaName', rows:'3', text: 'My sample text'} %}
 #}
 
 {% set randValue = random() %}
 
-{% set id = data.id | default('textareaId' ~ randValue) %}
-{% set name = data.name | default('textareaName' ~ randValue) %}
-{% set row = data.row | default('2') %}
-{% set text = data.text | default('Escribe un texto') %}
+{% set id = id | default('textareaId' ~ randValue) %}
+{% set name = name | default('textareaName' ~ randValue) %}
+{% set row = row | default('2') %}
+{% set text = text | default('Write a text here') %}
 
-<textarea id="{{ id }}" name="{{ name }}" class="form-control" rows="{{ row }}"> {{ text | raw }} </textarea>
+<textarea id="{{ id }}" name="{{ name }}" class="form-control" rows="{{ row }}">{{ text | raw }}</textarea>

@@ -1,30 +1,36 @@
 {#
-    @file select.html.twig
-    @author Alxarafe <info@alxarafe.com>
+@file select.html.twig
+@author Alxarafe <info@alxarafe.com>
 
-    Default theme implementation to display a Bootstrap Select component.
+Default theme implementation to display a Bootstrap Select component.
 
-    @var id:          Your id
-    @var name:        Your name
-    @var class:       input-sm, input-lg
-    @var multiple:    '' o multiple
-    @var texts:       Array of texts
-    @var values:      Array of values
+@var id:          Your id
+@var name:        Your name
+@var class:       input-sm, input-lg
+@var multiple:    false/true
+@var texts:       Array of texts
+@var values:      Array of values
 
-    How to use it:
-        {% include "@Core/components/select.html.twig" with {data:{id:'mySelectId', name:'mySelectName', class: 'input-sm', multiple: true}} %}
+How to use it:
+    {% include "@Core/components/select.html.twig" with {id:'mySelectId', name:'mySelectName', class: 'input-sm', multiple: true} %}
 #}
 
+{% set randValue = random() %}
 
-{% set id = data.id | default('select') %}
-{% set name = data.name | default('select') %}
-{% set multiple = data.multiple | default('multiple') %}
-{% set values = data.values | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
-{% set texts = data.texts | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
-
+{% set id = id | default('select' ~ randValue) %}
+{% set name = name | default('select' ~ randValue) %}
+{% set multiple = multiple | default(false) %}
+{% set values = values | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
+{% set texts = texts | default(['Collapsible Group Item #1', 'Collapsible Group Item #2' , 'Collapsible Group Item #3']) %}
+{% set multiple = multiple | default(false) %}
+{% if multiple != false %}
+    {% set multiple = "multiple" %}
+{% else %}
+    {% set multiple = "" %}
+{% endif %}
 
 <select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control">
     {% for i in texts %}
-	    <option value="{{ values[loop.index0] }}">{{ texts[loop.index0] | raw }}</option>
+        <option value="{{ values[loop.index0] }}">{{ texts[loop.index0] | raw }}</option>
     {% endfor %}
 </select>

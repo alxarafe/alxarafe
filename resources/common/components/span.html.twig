@@ -7,25 +7,20 @@ Default theme implementation to display a Bootstrap Input+Button component.
 @var id:          Your id
 @var name:        Your name
 @var class:       Your class
-@var content:     Your content
+@var value:       Your content
 
 How to use it:
-    {% include "@Core/components/span.html.twig" with {data:{id:'myDivId', name:'myDivName', class: '', content: ''}} %}
-    {% include "@Core/components/span.html.twig" with {data:{id:'myDivId', name:'myDivName', class: '', content: ''}} %}
+    {% include "@Core/components/span.html.twig" with {id:'spanId', name:'spanName', class: '', value: ''} %}
+    {% include "@Core/components/span.html.twig" with {id:'spanId', name:'spanName', class: '', value: ''} %}
 #}
 
-<span
-    {% if id is defined %}
-        id="input_{{ id }}"
-    {% endif %}
+{% set randValue = random() %}
 
-        {% if name is defined %}
-            name="input_{{ name }}"
-        {% endif %}
+{% set id = id | default('spanId' ~ randValue) %}
+{% set name = name | default('spanName' ~ randValue) %}
+{% set class = class | default('') %}
+{% set value = value | default('') %}
 
-        {% if class is not empty %}
-            class="{{ class }}"
-        {% endif %}
->
-    {{ value }}
+<span id="{{ id }}" name="{{ name }}" class="{{ class }}">
+    {{ value | raw }}
 </span>

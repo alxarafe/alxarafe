@@ -1,32 +1,31 @@
 {#
-    @file button-toolbar.html.twig
-    @author Alxarafe <info@alxarafe.com>
+@file button-toolbar.html.twig
+@author Alxarafe <info@alxarafe.com>
 
-    Default theme implementation to display a Bootstrap Button Toolbar component.
+Default theme implementation to display a Bootstrap Button Toolbar component.
 
-    @var ids:         Array of ids
-    @var names:       Array of names
-    @var texts:       Array of texts
-    @var classes:     Array of classes, btn-default, btn-success, btn-info, btn-warning, btn-danger or button sizes
+@var ids:         Array of ids
+@var names:       Array of names
+@var texts:       Array of texts
+@var classes:     Array of classes, btn-default, btn-success, btn-info, btn-warning, btn-danger or button sizes
 
-    WARNING: Length of arrays (must be the same)
+WARNING: Length of arrays (must be the same)
 
-    How to use it:
-        {% include "@Core/components/button-toolbar.html.twig" with {data:{ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']}} %}
+How to use it:
+    {% include "@Core/components/button-toolbar.html.twig" with {ids: ['buttonIdLeft','buttonIdMiddle','buttonIdRight'], names: ['buttonNameLeft','buttonNameMiddle','buttonNameRight'], texts: ['Left','Middle','Right'], classes: ['btn-default','btn-default','btn-default']} %}
 #}
 
-{% set class = data.class | default('btn-group-lg') %}
-{% set role = data.role | default('toolbar') %}
-{% set ids = data.ids | default(['#1', '#2' , '#3']) %}
-{% set names = data.names | default(['#1', '#2' , '#3']) %}
-{% set texts = data.texts | default(['#1', '#2' , '#3']) %}
-{% set classes = data.classes | default(['btn btn-default', 'btn btn-default' , 'btn btn-default']) %}
-
+{% set class = class | default('btn-group-lg') %}
+{% set role = role | default('toolbar') %}
+{% set ids = ids | default(['#1', '#2' , '#3']) %}
+{% set names = names | default(['#1', '#2' , '#3']) %}
+{% set texts = texts | default(['#1', '#2' , '#3']) %}
+{% set classes = classes | default(['btn btn-default', 'btn btn-default' , 'btn btn-default']) %}
 
 <div class="{{ class }}" role="{{ role }}" aria-label="...">
     {% for id in ids %}
-    <button id="{{ ids[loop.index0] }}" name="{{ names[loop.index0] }}" type="button"
-            class={{ classes[loop.index0] }}">{{ texts[loop.index0] | raw }}</button>
-        {% endfor %}
- </div>
- 
+        <button id="{{ ids[loop.index0] }}" name="{{ names[loop.index0] }}" type="button" class="{{ classes[loop.index0] }}">
+            {{ texts[loop.index0] | raw }}
+        </button>
+    {% endfor %}
+</div>

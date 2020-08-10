@@ -1,38 +1,37 @@
 {#
-    @file panel.html.twig
-    @author Alxarafe <info@alxarafe.com>
+@file panel.html.twig
+@author Alxarafe <info@alxarafe.com>
 
-    Default theme implementation to display a Bootstrap Panel component.
+Default theme implementation to display a Bootstrap Panel component.
 
-    @var id:          Your id
-    @var name:        Your name
-    @var class:       panel-default, panel-primary, panel-success, panel-info, panel-warning, panel-danger
-    @var header:      Your header type: h1, h2, h3, ...
-    @var header_text: Your text header
-    @var body_text:   Your text body
-    @var footer_text: Your text footer
+@var id:          Your id
+@var name:        Your name
+@var class:       panel-default, panel-primary, panel-success, panel-info, panel-warning, panel-danger
+@var header:      Your header type: h1, h2, h3, ...
+@var header_text: Your text header
+@var body_text:   Your text body
+@var footer_text: Your text footer
 
-    How to use it:
-        {% include "@Core/components/panel.html.twig" with {
-        data:{id:'myPanelId1',
-        name:'myPanelName1',
-        class:'panel-default',
-        header_text: 'Title',
-        body_text: 'Body',
-        footer_text: 'Footer'}}
-        %}
+How to use it:
+    {% include "@Core/components/panel.html.twig" with {
+    data:{id:'myPanelId1',
+    name:'myPanelName1',
+    class:'panel-default',
+    header_text: 'Title',
+    body_text: 'Body',
+    footer_text: 'Footer'}}
+    %}
 #}
+
 {% set randValue = random() %}
 
-{% set id = data.id | default('panel' ~ randValue) %}
-{% set name = data.name | default('panel' ~ randValue) %}
-{% set class = data.class | default('panel panel-default') %}
-{% set header_text = data.header_text | default('') %}
-{% set header = data.header | default('panel-title') %}
-{% set body_text = data.body_text | default(''
-	) %}
-{% set footer_text = data.footer_text | default('') %}
-
+{% set id = id | default('panel' ~ randValue) %}
+{% set name = name | default('panel' ~ randValue) %}
+{% set class = class | default('panel panel-default') %}
+{% set header = header | default('panel-title') %}
+{% set header_text = header_text | default('') %}
+{% set body_text = body_text | default('') %}
+{% set footer_text = footer_text | default('') %}
 
 <div id="{{ id }}" name="{{ name }}" class="{{ class }}">
     {% if header_text != '' %}

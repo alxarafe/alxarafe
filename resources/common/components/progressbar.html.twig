@@ -1,34 +1,32 @@
 {#
-    @file progressbar.html.twig
-    @author Alxarafe <info@alxarafe.com>
+@file progressbar.html.twig
+@author Alxarafe <info@alxarafe.com>
 
-    Default theme implementation to display a Bootstrap Progresbar component.
+Default theme implementation to display a Bootstrap Progresbar component.
 
-    @var id:          Your id
-    @var name:        Your name
-    @var class:       progress-bar-success, progress-bar-info, progress-bar-warning, progress-bar-danger, progress-bar-striped, active
-    @var percentage:  Your percentage value
-    @var text:        Your text
+@var id:          Your id
+@var name:        Your name
+@var class:       progress-bar-success, progress-bar-info, progress-bar-warning, progress-bar-danger, progress-bar-striped, active
+@var percentage:  Your percentage value
+@var text:        Your text
 
-    How to use it:
-        {% include "@Core/components/progressbar.html.twig" with {data:{id: 'myProgressBarId1', name: 'myProgressBarName1', class: 'progress-bar-default progress-bar-striped active', percentage: '25', text: 'Completed'}} %}
+How to use it:
+    {% include "@Core/components/progressbar.html.twig" with {id: 'myProgressBarId1', name: 'myProgressBarName1', class: 'progress-bar-default progress-bar-striped active', percentage: '25', text: 'Completed'} %}
 #}
 
 {% set randValue = random() %}
 
-{% set id = data.id | default('barradeprogeso' ~ randValue) %}
-{% set name = data.name | default('barradeprogeso' ~ randValue) %}
-{% set class = data.class | default('progress-bar') %}
-{% set percentage = data.percentage | default('40') %}
-{% set text = data.text | default('') %}
-
+{% set id = id | default('barradeprogeso' ~ randValue) %}
+{% set name = name | default('barradeprogeso' ~ randValue) %}
+{% set class = class | default('progress-bar') %}
+{% set percentage = percentage | default('40') %}
+{% set text = text | default('') %}
 
 <div id="{{ id }}" name="{{ name }}" class="progress">
-    <div class="{{ class }}" role="progressbar" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
-         style="width: {{ percentage }}%;">
+    <div class="{{ class }}" role="progressbar" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage }}%;">
         {% if text != '' %}
             <span class="sr-only">
-                    {{ percentage }} {{ text | raw }}
+                {{ percentage }} {{ text | raw }}
             </span>
             {{ percentage }}% {{ text | raw }}
         {% endif %}

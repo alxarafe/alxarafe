@@ -1,23 +1,25 @@
 {#
-    @file badge.html.twig
-    @author Alxarafe <info@alxarafe.com>
+@file badge.html.twig
+@author Alxarafe <info@alxarafe.com>
 
-    Default theme implementation to display a Bootstrap Badge component.
+Default theme implementation to display a Bootstrap Badge component.
 
-    @var id:          Your id
-    @var name:        Your name
-    @var class:       Your class
-    @var badge:       Your value
+@var id:          Your id
+@var name:        Your name
+@var class:       Your class
+@var badge:       Your value
 
-    How to use it:
-        {% include "@Core/components/badge.html.twig" with {data:{id:'myBadgeId', name:'myBadgeName', badge: '3'}} %}
+How to use it:
+    {% include "@Core/components/badge.html.twig" with {id:'myBadgeId', name:'myBadgeName', badge: '3'} %}
 #}
 
 {% set randValue = random() %}
 
-{% set id = data.id | default('badgeid' ~ randValue) %}
-{% set name = data.name | default('badgeName' ~ randValue) %}
-{% set class = data.class | default('badge badge-light') %}
-{% set badge = data.badge | default(randValue) %}
+{% set id = id | default('badgeId' ~ randValue) %}
+{% set name = name | default('badgeName' ~ randValue) %}
+{% set class = class | default('badge badge-light') %}
+{% set badge = badge | default(randValue) %}
 
-<span id="{{ id }}" name="{{ name }}" class="{{ class }}"> {{ badge }}</span>
+<span id="{{ id }}" name="{{ name }}" class="{{ class }}">
+    {{ badge }}
+</span>

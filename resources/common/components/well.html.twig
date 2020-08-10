@@ -10,16 +10,15 @@
     @var message:     Your text message
 
     How to use it:
-        {% include "@Core/components/well.html.twig" with {data:{id:'myWellId', name:'myWellName', class: 'well-lg', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
+        {% include "@Core/components/well.html.twig" with {id:'myWellId', name:'myWellName', class: 'well-lg', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'} %}
 #}
 
 {% set randValue = random() %}
 
-{% set id = data.id | default('wellid' ~ randValue) %}
-{% set name = data.name | default('WellName' ~ randValue) %}
-{% set class = data.class | default('well well-lg') %}
-{% set text = data.text | default('Escribe un texto') %}
-
+{% set id = id | default('wellid' ~ randValue) %}
+{% set name = name | default('WellName' ~ randValue) %}
+{% set class = class | default('well well-lg') %}
+{% set text = text | default('Write a text here') %}
 
 <div id="{{ id }}" name="{{ name }}" class="{{ class }}">
     {{ text | raw }}

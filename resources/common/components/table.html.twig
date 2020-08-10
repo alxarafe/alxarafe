@@ -16,15 +16,25 @@
     @var first:           true/false
 
     How to use it:
-        {% include "@Core/components/table.html.twig" with {data:{id:'myTableId', name:'myTableName', tableClass: '', theadClass: '', tbodyClass: '', tfootClass: '', thead: '', tbody: '', tfoot: '', first: ''}} %}
+        {% include "@Core/components/table.html.twig" with {id:'myTableId', name:'myTableName', tableClass: '', theadClass: '', tbodyClass: '', tfootClass: '', thead: '', tbody: '', tfoot: '', first: ''} %}
 #}
 
 {% import _self as table %}
 
-<table class="table{% if tableClass is defined %} {{ tableClass }}{% endif %}"{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}>
+{% set randValue = random() %}
+
+{% set id = id | default('tableId' ~ randValue) %}
+{% set name = name | default('tableName' ~ randValue) %}
+
+{% set tableClass = tableClass | default('') %}
+{% set theadClass = theadClass | default('') %}
+{% set tbodyClasses = tbodyClasses | default('') %}
+{% set tfootClass = tfootClass | default('') %}
+
+<table class="table {{ tableClass }}" id="{{ id }}" name="{{ name }}">
     {% if thead is defined %}
-        <thead{% if theadClass is defined %} class="{{ theadClass }}"{% endif %}>
-            {{ table.generateContent(thead, first, 'th', []) }}
+        <thead class="{{ theadClass }}">
+        {{ table.generateContent(thead, first, 'th', []) }}
         </thead>
     {% endif %}
     {% if tbody is defined %}
@@ -37,8 +47,8 @@
         </tbody>
     {% endif %}
     {% if tfoot is defined %}
-        <tfoot{% if tfootClass is defined %} class="{{ tfootClass }}"{% endif %}>
-            {{ table.generateContent(tfoot, first, 'th', []) }}
+        <tfoot class="{{ tfootClass }}">
+        {{ table.generateContent(tfoot, first, 'th', []) }}
         </tfoot>
     {% endif %}
 </table>

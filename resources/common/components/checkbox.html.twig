@@ -5,24 +5,24 @@
     Default theme implementation to display a Bootstrap Checkbox component.
 
     @var data:             Can contains all this key => value:
-    @var data.id:          Your id
-    @var data.name:        Your name
-    @var data.text:        Button text
-    @var data.type:        input, label
+    @var id:          Your id
+    @var name:        Your name
+    @var text:        Button text
+    @var type:        input, label
 
     How to use it:
         <input>
-            {% include "@Core/components/checkbox.html.twig" with {data:{id:'myCheckboxId1', name:'myCheckboxName1', text: 'Esto es un placeholder', type: 'input'}} %}
+            {% include "@Core/components/checkbox.html.twig" with {id:'myCheckboxId1', name:'myCheckboxName1', text: 'Esto es un placeholder', type: 'input'} %}
         <label>
-            {% include "@Core/components/checkbox.html.twig" with {data:{id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'}} %}
+            {% include "@Core/components/checkbox.html.twig" with {id:'myCheckboxId2', name:'myCheckboxName2', text: 'Acepto', type: 'label'} %}
 #}
 
 {% set randValue = random() %}
 
-{% set type = data.type | default('input') %}
-{% set id = data.id | default('chekboxid' ~ randValue) %}
-{% set name = data.name | default('chekboxid' ~ randValue) %}
-{% set text = data.text | default('Escribe un texto') %}
+{% set type = type | default('input') %}
+{% set id = id | default('checkboxId' ~ randValue) %}
+{% set name = name | default('checkboxName' ~ randValue) %}
+{% set text = text | default('Write a text here') %}
 
 {% if type == 'input' %}
     <div class="input-group">

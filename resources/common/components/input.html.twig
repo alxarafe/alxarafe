@@ -11,26 +11,16 @@ Default theme implementation to display a Bootstrap Input+Button component.
 @var value:       Your default value
 
 How to use it:
-    {% include "@Core/components/input.html.twig" with {data:{id:'myInputId', name:'myInputName', type: 'text', value: ''}} %}
-    {% include "@Core/components/input.html.twig" with {data:{id:'myInputId', name:'myInputName', type: 'number', value: ''}} %}
+    {% include "@Core/components/input.html.twig" with {id:'myInputId', name:'myInputName', type: 'text', value: ''} %}
+    {% include "@Core/components/input.html.twig" with {id:'myInputId', name:'myInputName', type: 'number', value: ''} %}
 #}
 
-<input
-        {% if id is defined %}
-            id="input_{{ id }}"
-        {% endif %}
+{% set randValue = random() %}
 
-        {% if name is defined %}
-            name="input_{{ name }}"
-        {% endif %}
+{% set id = id | default('inputId' ~ randValue) %}
+{% set name = name | default('inputName' ~ randValue) %}
+{% set type = type | default('text') %}
+{% set class = class | default('') %}
+{% set value = value | default('') %}
 
-        {% if type is defined %}
-            type="{{ type }}"
-        {% else %}
-            type="text"
-        {% endif %}
-
-        class="form-control {{ class }}"
-
-        value="{{ value | default('') }}"
->
+<input id="{{ id }}" name="{{ name }}" type="{{ type }}" class="form-control {{ class }}" value="{{ value }}">

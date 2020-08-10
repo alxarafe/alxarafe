@@ -11,22 +11,26 @@
     @var small:       Your small title
 
     How to use it:
-        {% include "@Core/components/page-header.html.twig" with {data:{id:'myPageHeaderId1', name:'myPageHeaderName1', title: 'My header1', header: '', small: 'Small header info1'}} %}
-        {% include "@Core/components/page-header.html.twig" with {data:{id:'myPageHeaderId2', name:'myPageHeaderName2', title: 'My header2', small: 'Small header info2'}} %}
+        {% include "@Core/components/page-header.html.twig" with {id:'myPageHeaderId1', name:'myPageHeaderName1', title: 'My header1', header: '', small: 'Small header info1'} %}
+        {% include "@Core/components/page-header.html.twig" with {id:'myPageHeaderId2', name:'myPageHeaderName2', title: 'My header2', small: 'Small header info2'} %}
 #}
 
+{% set randValue = random() %}
 
-<div{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-        class="page-header">
+{% set id = id | default('navId' ~ randValue) %}
+{% set name = name | default('navName' ~ randValue) %}
+
+<div id="{{ id }}" name="{{ name }}" class="page-header">
     {% if header is defined and header != '' %}
-        <{{ header }}>
-    {% else %}
-        <h1>
-    {% endif %}
+    <{{ header }}>
+{% else %}
+    <h1>
+        {% endif %}
 
-    {% if title is defined and title != '' %}
-        {{ title | raw }}
-    {% endif %}
+        {% if title is defined and title != '' %}
+            {{ title | raw }}
+        {% endif %}
+
     {% if small is defined and small != '' %}
         <small>{{ small | raw }}</small>
     {% endif %}

@@ -11,27 +11,30 @@
     @var texts:       Your texts, in order for respective input-group
 
     How to use it:
-        {% include "@Core/components/input-group.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'left', texts: ['Text1', 'Text2']}} %}
-        {% include "@Core/components/input-group.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'right', texts: ['Text1', 'Text2']}} %}
-        {% include "@Core/components/input-group.html.twig" with {data:{id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'both', texts: ['Text1', 'Text2', 'Text3']}} %}
+        {% include "@Core/components/input-group.html.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'left', texts: ['Text1', 'Text2']} %}
+        {% include "@Core/components/input-group.html.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'right', texts: ['Text1', 'Text2']} %}
+        {% include "@Core/components/input-group.html.twig" with {id:'myInputButtonId', name:'myInputButtonName', class: '', position: 'both', texts: ['Text1', 'Text2', 'Text3']} %}
 #}
 
-<div class="input-group{% if class is defined %} {{ class }}{% endif %}">
+{% set randValue = random() %}
+
+{% set id = id | default('inputGroupId' ~ randValue) %}
+{% set name = name | default('inputGroupinputButtonName' ~ randValue) %}
+{% set class = class | default('') %}
+{% set position = position | default('left') %}
+
+<div class="input-group {{ class }}">
     {% if position == 'left' %}
         <span class="input-group-addon" id="addon_{{ id }}">
           {% if texts[0] is defined %}
               {{ texts[0] | raw }}
           {% endif %}
         </span>
-        <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-                type="text"
-                class="form-control"
+        <input id="{{ id }}" name="{{ name }}" type="text" class="form-control"
                 {% if texts[1] is defined %} placeholder="{{ texts[1] | raw }}"{% endif %}
                 {% if id is defined %} aria-describedby="addon_{{ id }}"{% endif %}>
     {% elseif position == 'right' %}
-        <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-                type="text"
-                class="form-control"
+        <input id="{{ id }}" name="{{ name }}" type="text" class="form-control"
                 {% if texts[0] is defined %} placeholder="{{ texts[0] | raw }}"{% endif %}
                 {% if id is defined %} aria-describedby="addon_{{ id }}"{% endif %}>
         <span class="input-group-addon" id="addon_{{ id }}">
@@ -45,9 +48,7 @@
               {{ texts[0] | raw }}
           {% endif %}
         </span>
-        <input{% if id is defined %} id="{{ id }}"{% endif %}{% if name is defined %} name="{{ name }}"{% endif %}
-                type="text"
-                class="form-control"
+        <input id="{{ id }}" name="{{ name }}" type="text" class="form-control"
                 {% if texts[1] is defined %} aria-label="{{ texts[1] | raw }}"{% endif %}>
         <span class="input-group-addon">
           {% if texts[2] is defined %}

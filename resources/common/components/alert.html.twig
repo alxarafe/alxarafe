@@ -1,27 +1,27 @@
 {#
-    @file alert.html.twig
-    @author Alxarafe <info@alxarafe.com>
+@file alert.html.twig
+@author Alxarafe <info@alxarafe.com>
 
-    Default theme implementation to display a Bootstrap Alert component.
+Default theme implementation to display a Bootstrap Alert component.
 
-    @var data:             Can contains all this key => value:
-    @var data.id:          Your id
-    @var data.name:        Your name
-    @var data.class:       alert-success, alert-info, alert-warning, alert-danger
-    @var data.dismissible: bool
-    @var data.message:     Your text message
+@var data:             Can contains all this key => value:
+@var id:          Your id
+@var name:        Your name
+@var class:       alert-success, alert-info, alert-warning, alert-danger
+@var dismissible: bool
+@var message:     Your text message
 
-    How to use it:
-        {% include "@Core/components/alert.html.twig" with {data:{id:'myAlertId', name:'myAlertName', class: 'alert-success', dismissible: true, message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
+How to use it:
+    {% include "@Core/components/alert.html.twig" with {id:'myAlertId', name:'myAlertName', class: 'alert-success', dismissible: true, message: '<strong>Hello World</strong> Testing templating BS components with Twig!'} %}
 #}
 
 {% set randValue = random() %}
 
-{% set id = data.id | default('alertId' ~ randValue) %}
-{% set name = data.name | default('alertName' ~ randValue) %}
-{% set class = data.class | default('alert alert-success') %}
-{% set dismissible = data.dismissible | default(false) %}
-{% set message = data.message | default('Message not setted') %}
+{% set id = id | default('alertId' ~ randValue) %}
+{% set name = name | default('alertName' ~ randValue) %}
+{% set class = class | default('alert alert-success') %}
+{% set dismissible = dismissible | default(false) %}
+{% set message = message | default('Write a text here') %}
 
 <div id="{{ id }}" name="{{ name }}" class="{{ class }} {% if dismissible==true %}alert-dismissible fade in{% endif %}" role="alert">
     {% if dismissible==true %}

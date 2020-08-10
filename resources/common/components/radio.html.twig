@@ -10,29 +10,32 @@
     @var type:        input or label
 
     How to use it:
-        {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId', name:'myRadioName', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'}} %}
+        {% include "@Core/components/radio.html.twig" with {id:'myRadioId', name:'myRadioName', message: '<strong>Hello World</strong> Testing templating BS components with Twig!'} %}
         <input>
-            {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId1', name:'myRadioName1', text: 'Esto es un placeholder', type: 'input'}} %}
+            {% include "@Core/components/radio.html.twig" with {id:'myRadioId1', name:'myRadioName1', text: 'Esto es un placeholder', type: 'input'} %}
         <label>
-            {% include "@Core/components/radio.html.twig" with {data:{id:'myRadioId2', name:'myRadioName2', text: 'Recuerdame', type: 'label'}} %}
+            {% include "@Core/components/radio.html.twig" with {id:'myRadioId2', name:'myRadioName2', text: 'Recuerdame', type: 'label'} %}
 #}
 
 {% set randValue = random() %}
 
-{% set type = data.type | default('input') %}
-{% set id = data.id | default('radioID' ~ randValue) %}
-{% set name = data.name | default('radioName' ~ randValue) %}
-{% set text = data.text | default('Message not setted') %}
-
-
+{% set type = type | default('input') %}
+{% set id = id | default('radioID' ~ randValue) %}
+{% set name = name | default('radioName' ~ randValue) %}
+{% set type = type | default('input') %}
+{% set text = text | default('Write a text here') %}
 
 {% if type == 'input' %}
     <div class="input-group">
-	    <span class="input-group-addon"><input id="{{ id }}" name="{{ name }}" type="radio" aria-label="..."></span>
-	    <input type="text" class="form-control" placeholder="{{ text | raw }}" aria-label="...">
+	    <span class="input-group-addon">
+            <input id="{{ id }}" name="{{ name }}" type="radio" aria-label="...">
+        </span>
+        <input type="text" class="form-control" placeholder="{{ text | raw }}" aria-label="...">
     </div>
 {% elseif type == 'label' %}
-	<label><input id="{{ id }}" name="{{ name }}" type="radio"> {{ text | raw }}</label>
+    <label>
+        <input id="{{ id }}" name="{{ name }}" type="radio"> {{ text | raw }}
+    </label>
 {% else %}
     Something is wrong with your code!
 {% endif %}
