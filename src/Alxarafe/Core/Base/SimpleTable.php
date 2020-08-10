@@ -29,8 +29,6 @@ class SimpleTable extends FlatTable
     {
         parent::__construct($tableName, $params);
         $this->debugTool->startTimer($this->modelName, $this->modelName . ' SimpleTable Constructor');
-        // TODO: setStructure should only be invoked when the yaml files have been removed from the config/structure folder
-        // $this->setStructure();
         if (!isset($this->idField) && Database::getInstance()->getDbEngine()->issetDbTableStructureKey($this->tableName, 'fields')) {
             $this->idField = 'id';
             foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {

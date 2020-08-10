@@ -80,19 +80,13 @@ class FlatTable extends Entity
     private function getDataFields()
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);
-        if (DEBUG) {
-            $fields = null;
-        }
         if ($fields === null) {
             $fields = [];
             $table = Schema::getFromYamlFile($this->tableName);
-            // $schema = Schema::getFromYamlFile($this->tableName, 'viewdata');
             foreach ($table['fields'] as $key => $value) {
                 if (!isset($this->fields[$key])) {
                     $this->fields[$key] = $this->getFieldClass($value['type']);
                 }
-                // $array = array_merge($value, $schema['fields'][$key]);
-                // $this->fields[$key]->assignData($array);
 
                 if (isset($table['indexes'])) {
                     foreach ($table['indexes'] as $index) {

@@ -232,38 +232,6 @@ class Schema
     }
 
     /**
-     * Save the summary file structure in a yaml file
-     *
-     * @param string $tableName
-     * @param array  $data
-     *
-     * @return bool
-     */
-    public static function saveYamlSummaryFile(string $tableName, array $data)
-    {
-        $path = basePath('config/structure');
-        FileSystemUtils::mkdir($path, 0777, true);
-        $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
-        return file_put_contents($path, Yaml::dump($data, 3)) !== false;
-    }
-
-    /**
-     * Returns an array with de summary file structure
-     *
-     * @param string $tableName
-     *
-     * @return array|null
-     */
-    public static function getFromYamlSummaryFile(string $tableName): ?array
-    {
-        $path = basePath("config/structure/{$tableName}.yaml");
-        if (!file_exists($path) || !is_readable($path)) {
-            return null;
-        }
-        return Yaml::parseFile($path);
-    }
-
-    /**
      * Returns an array with data from the specified yaml file
      *
      * @param string $tableName
@@ -355,23 +323,6 @@ class Schema
     }
 
     /**
-     * Load data from CSV file.
-     *
-     * @param string $fileName
-     *
-     * @return array
-     */
-    public static function loadDataFromCsv(string $fileName): array
-    {
-        if (file_exists($fileName)) {
-            $csv = new Csv();
-            $csv->auto($fileName);
-            return $csv->data;
-        }
-        return [];
-    }
-
-    /**
      * Load data from Yaml file.
      *
      * @param string $fileName
@@ -398,6 +349,23 @@ class Schema
     }
 
     /**
+     * Load data from CSV file.
+     *
+     * @param string $fileName
+     *
+     * @return array
+     */
+    public static function loadDataFromCsv(string $fileName): array
+    {
+        if (file_exists($fileName)) {
+            $csv = new Csv();
+            $csv->auto($fileName);
+            return $csv->data;
+        }
+        return [];
+    }
+
+    /**
      * Save the data array in a .yaml file
      *
      * @param array  $data
@@ -413,6 +381,49 @@ class Schema
         $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
         self::$files[$path] = $data;
         return file_put_contents($path, Yaml::dump($data, 3)) !== false;
+    }
+
+    public static function getSumaryFilesDir()
+    {
+        return basePath('config/structure');
+    }
+
+    public static function DeleteSummaryFiles()
+    {
+        $path = self::getSumaryFilesDir();
+        return delTree($path);
+    }
+
+    /**
+     * Save the summary file structure in a yaml file
+     *
+     * @param string $tableName
+     * @param array  $data
+     *
+     * @return bool
+     */
+    public static function saveYamlSummaryFile(string $tableName, array $data)
+    {
+        $path = self::getSumaryFilesDir();
+        FileSystemUtils::mkdir($path, 0777, true);
+        $path .= DIRECTORY_SEPARATOR . $tableName . '.yaml';
+        return file_put_contents($path, Yaml::dump($data, 3)) !== false;
+    }
+
+    /**
+     * Returns an array with de summary file structure
+     *
+     * @param string $tableName
+     *
+     * @return array|null
+     */
+    public static function getFromYamlSummaryFile(string $tableName): ?array
+    {
+        $path = basePath("config/structure/{$tableName}.yaml");
+        if (!file_exists($path) || !is_readable($path)) {
+            return null;
+        }
+        return Yaml::parseFile($path);
     }
 
     /**
