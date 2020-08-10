@@ -45,6 +45,15 @@ class SchemaDB
     public static function checkTableStructure(string $tableName, $tabla): bool
     {
         // $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
+        if (isset($tabla['indexes'])) {
+            foreach ($tabla['indexes'] as $key => $index) {
+                $autoincrement = ($tabla['fields'][$index['column']]['autoincrement'] ?? 'no') === 'yes';
+                if ($autoincrement) {
+                    $tabla['indexes'][$key]['autoincrement'] = 'yes';
+                    $tabla['indexes'][$key]['length'] = $tabla['fields'][$index['column']]['length'];
+                }
+            }
+        }
 
         $tableExists = self::tableExists($tableName);
         if ($tableExists) {
@@ -220,7 +229,7 @@ class SchemaDB
                     continue;
                 }
                 $autoincrement = isset($value['autoincrement']) && $value['autoincrement'] === 'yes';
-                self::createPrimaryIndex($tableName, $value, $autoincrement, false);
+                $sql = ArrayUtils::addToArray($sql, self::createPrimaryIndex($tableName, $value, $autoincrement, false));
                 continue;
             }
             $value['index'] = $key;
@@ -267,7 +276,7 @@ class SchemaDB
         }
         $sql[] = "ALTER TABLE {$quotedTableName} ADD PRIMARY KEY ({$columnField});";
         if ($autoincrement) {
-            $length = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']]['length'];
+            $length = $indexData['length'];
             $sql[] = "ALTER TABLE {$quotedTableName} MODIFY {$columnField} INT({$length}) UNSIGNED AUTO_INCREMENT";
         }
         return $sql;
