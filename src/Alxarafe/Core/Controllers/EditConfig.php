@@ -155,8 +155,6 @@ class EditConfig extends AuthPageController
                 break;
             case 'regenerate-data':
                 $this->clearCache();
-                CacheCore::getInstance()->getEngine()->clear();
-                FlashMessages::getInstance()::setSuccess($this->translator->trans('cache-cleared-successfully'));
                 ModuleManager::getInstance()::executePreprocesses();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));

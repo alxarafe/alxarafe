@@ -8,6 +8,7 @@ application-access: 'Acceso a la aplicación'
 auth-is-null: 'La autenticación es nula'
 back: Volver
 cache-cleared-successfully: 'Cache limpiada satisfactoriamente'
+summary-files-deleted-successfully: 'Ficheros de resumen eliminados satisfactoriamente'
 call-to: 'Llamada a %called%'
 can_access: 'Puede acceder'
 can_create: 'Puede crear'
