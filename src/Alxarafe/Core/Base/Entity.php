@@ -130,6 +130,7 @@ abstract class Entity
      */
     public function setData(array $data): self
     {
+        // TODO: This can never happen! If it's null, it cannot be 0.
         if (!isset($this->id) && $this->id == 0) {
             $this->id = $data[$this->getIdField()] ?? null;
         }

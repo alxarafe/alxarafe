@@ -38,7 +38,7 @@ class Table extends SimpleTable
         $create = $params['create'] ?? true;
         $this->checkStructure($create);
         $this->debugTool->stopTimer($this->shortName);
-        $this->setData($this->getDefaultValues());
+        $this->setData($this->defaultData());
     }
 
     /**

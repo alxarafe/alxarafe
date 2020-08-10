@@ -24,6 +24,8 @@ fields:
         default: '18'
         nullable: 'yes'
         unsigned: 'yes'
+        min: 18
+        max: 65
     birthday:
         type: date
         length: null

@@ -72,11 +72,10 @@ class FlatTable extends Entity
         $this->exists = false;
     }
 
-    public function getField($name)
-    {
-        return $this->fields[$name] ?? null;
-    }
-
+    /**
+     * Generate the array of fields from the summary yaml file.
+     * If the summary yaml file does not exist, it generates it from the schema yaml.
+     */
     private function getDataFields()
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);
@@ -110,6 +109,14 @@ class FlatTable extends Entity
         }
     }
 
+    /**
+     * Returns an instance of an object of the requested class.
+     * If the class does not exist, it returns one of type StringField and reports the error in the debugging bar.
+     *
+     * @param string $type
+     *
+     * @return AbstractField
+     */
     private function getFieldClass(string $type)
     {
         $file = basePath('src/Alxarafe/Core/Database/Fields/' . ucfirst($type) . 'Field.php');
@@ -120,6 +127,18 @@ class FlatTable extends Entity
             $class = 'Alxarafe\\Core\\Database\\Fields\\StringField';
         }
         return new $class();
+    }
+
+    /**
+     * Returns the instance of the requested field, or null if it does not exist.
+     *
+     * @param $name
+     *
+     * @return AbstractField|null
+     */
+    public function getField($name)
+    {
+        return $this->fields[$name] ?? null;
     }
 
     /**
@@ -202,8 +221,8 @@ class FlatTable extends Entity
     public function defaultData()
     {
         $data = [];
-        foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {
-            $data[$key] = $value['default'] ?? '';
+        foreach ($this->fields as $key => $field) {
+            $data[$key] = $field->default;
         }
         return $data;
     }
@@ -399,13 +418,5 @@ class FlatTable extends Entity
             $this->oldData = null;
         }
         return $result;
-    }
-
-    private function mergeDataField($field, $struct, $schema)
-    {
-        $type = $struct['type'];
-        if (!isset($this->fields[$field])) {
-        }
-        return array_merge($struct, $schema);
     }
 }
