@@ -64,7 +64,7 @@
                 'message': '<h4>' ~ trans('title-messages-' ~ message.type) ~ '</h4>' ~ message.msg | raw,
                 'style': 'width: 100%'
             } %}
-            {% include "@Core/components/alert.html.twig" with {data: data} %}
+            {% include "@Core/components/alert.html.twig" with data %}
         {% endfor %}
     {% endif %}
 </div>
