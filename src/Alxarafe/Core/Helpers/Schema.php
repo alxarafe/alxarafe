@@ -264,15 +264,11 @@ class Schema
      */
     public static function loadDataFromCsv(string $fileName): array
     {
-        die($fileName);
         if (file_exists($fileName)) {
             $csv = new Csv();
-            dump($csv);
-            die('here');
             $csv->auto($fileName);
             return $csv->data;
         }
-        die('2');
         return [];
     }
 
