@@ -83,6 +83,38 @@ class FlatTable extends Entity
     }
 
     /**
+     * Generates the Yaml Summary from the schema yaml.
+     *
+     * @return array
+     */
+    public function generateYamlSummaryFile()
+    {
+        $fields = [];
+        $table = Schema::getFromYamlFile($this->tableName);
+        SchemaDB::checkTableStructure($this->tableName, $table);
+        foreach ($table['fields'] as $key => $value) {
+            if (!isset($this->fields[$key])) {
+                $this->fields[$key] = $this->getFieldClass($value['type']);
+            }
+
+            if (isset($table['indexes'])) {
+                foreach ($table['indexes'] as $index) {
+                    if ($index['column'] !== $key || !isset($index['referencedtable']) || !isset($index['referencedfield'])) {
+                        continue;
+                    }
+                    $value['referencedtable'] = $index['referencedtable'];
+                    $value['referencedfield'] = $index['referencedfield'];
+                }
+            }
+
+            $this->fields[$key]->assignData($value);
+            $fields[$key] = $this->fields[$key]->getStructArray();
+        }
+        Schema::saveYamlSummaryFile($this->tableName, $fields);
+        return $fields;
+    }
+
+    /**
      * Generate the array of fields from the summary yaml file.
      * If the summary yaml file does not exist, it generates it from the schema yaml.
      */
@@ -90,30 +122,7 @@ class FlatTable extends Entity
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);
         if ($fields === null) {
-            $fields = [];
-            $table = Schema::getFromYamlFile($this->tableName);
-            // $values = Schema::getFromYamlFile($this->tableName, 'values');
-            SchemaDB::checkTableStructure($this->tableName, $table);
-            // SchemaDB::checkStructure($this->tableName, $table);
-            foreach ($table['fields'] as $key => $value) {
-                if (!isset($this->fields[$key])) {
-                    $this->fields[$key] = $this->getFieldClass($value['type']);
-                }
-
-                if (isset($table['indexes'])) {
-                    foreach ($table['indexes'] as $index) {
-                        if ($index['column'] !== $key || !isset($index['referencedtable']) || !isset($index['referencedfield'])) {
-                            continue;
-                        }
-                        $value['referencedtable'] = $index['referencedtable'];
-                        $value['referencedfield'] = $index['referencedfield'];
-                    }
-                }
-
-                $this->fields[$key]->assignData($value);
-                $fields[$key] = $this->fields[$key]->getStructArray();
-            }
-            Schema::saveYamlSummaryFile($this->tableName, $fields);
+            $fields = $this->generateYamlSumaryFile();
         }
 
         foreach ($fields as $key => $value) {

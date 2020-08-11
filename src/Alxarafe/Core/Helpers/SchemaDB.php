@@ -520,6 +520,7 @@ class SchemaDB
                 dump('refTable');
                 dump($refTable);
                 $class = $refTable->namespace;
+                dump($class);
                 if (empty($class)) {
                     throw new RuntimeException(
                         "Model class for table '" . $indexData['referencedtable'] . "' not loaded. Do you forgot to add 'getDependencies()' to model for '" . $tableName . "' table'."
