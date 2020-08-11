@@ -32,17 +32,6 @@ class SchemaDB
         return ArrayUtils::flatArray($queryResult);
     }
 
-    public static function checkStructure(string $tableName, array $table, string $values = ''): bool
-    {
-        // Clear the table of the cache
-        Database::getInstance()->getDbEngine()->clearCoreCache($tableName . '-exists');
-
-        $sqlHelper = Database::getInstance()->getSqlHelper();
-        $columns = $sqlHelper->getColumns($tableName);
-        dump($columns);
-        die('here');
-    }
-
     /**
      * Create or update the structure of the table.
      * It does not destroy fields of the structure, it only creates, adds or modifies the existing ones.
@@ -68,12 +57,6 @@ class SchemaDB
         }
 
         $tableExists = self::tableExists($tableName);
-        if ($tableName === 'languages') {
-            dump($tableName);
-            dump($tabla);
-            dump('Exists ' . ($tableExists ? 'sí' : 'no'));
-        }
-
         if ($tableExists) {
             $sql = [];
             $sql = ArrayUtils::addToArray($sql, self::updateFields($tableName, $tabla['fields']));
@@ -104,11 +87,6 @@ class SchemaDB
                 $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $values));
             }
             $sql = ArrayUtils::addToArray($sql, self::createTableView($tableName, $tabla));
-        }
-
-        if ($tableName === 'languages') {
-            dump($sql);
-            // die('here ' . $tableName);
         }
         return Database::getInstance()->getDbEngine()->batchExec($sql);
     }
@@ -221,28 +199,14 @@ class SchemaDB
 
         // Erase the deleted or modified indexes
         foreach ($tableIndexes as $key => $value) {
-            if ($tableName === 'languages') {
-                dump($key);
-                dump($value);
-                dump($indexesList[$key]);
-            }
-
             if ($key === 'PRIMARY') {
                 // If deleted of YAML, delete it...
                 if (!isset($indexesList[$key])) {
                     $sql = ArrayUtils::addToArray($sql, ["ALTER TABLE {$quotedTableName} DROP PRIMARY KEY;"]);
                     continue;
                 }
-                if ($tableName === 'languages') {
-                    dump($value);
-                    dump($indexesList[$key]);
-                }
                 if ($value != $indexesList[$key]) {
                     $autoincrement = isset($indexesList[$key]['autoincrement']) && $indexesList[$key]['autoincrement'] === 'yes';
-                    if ($tableName === 'languages') {
-                        dump('pasa por aquí...');
-                        dump($autoincrement);
-                    }
                     $sql = ArrayUtils::addToArray($sql, self::createPrimaryIndex($tableName, $indexesList[$key], $autoincrement, true));
                 }
                 continue;
@@ -475,10 +439,7 @@ class SchemaDB
         $indexData['index'] = $indexName;
 
         if ($indexName === 'PRIMARY') {
-            dump($tableName);
-            dump($indexName);
-            dump($indexData);
-            $autoincrement = (($indexData[$indexName]['autoincrement'] ?? 'no') === 'yes');
+            $autoincrement = (($indexData['autoincrement'] ?? 'no') === 'yes');
             return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
         }
 
@@ -504,6 +465,8 @@ class SchemaDB
      */
     protected static function createTableView(string $tableName, array $table): array
     {
+        return [];
+
         $primaryColumn = [];
         $nameColumn = [];
         // $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);

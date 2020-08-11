@@ -122,7 +122,7 @@ class FlatTable extends Entity
     {
         $fields = Schema::getFromYamlSummaryFile($this->tableName);
         if ($fields === null) {
-            $fields = $this->generateYamlSumaryFile();
+            $fields = $this->generateYamlSummaryFile();
         }
 
         foreach ($fields as $key => $value) {
