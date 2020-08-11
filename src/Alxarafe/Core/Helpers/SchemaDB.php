@@ -10,7 +10,6 @@ use Alxarafe\Core\Helpers\Utils\ArrayUtils;
 use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
-use RuntimeException;
 
 /**
  * The SchemaDB class contains static methods that allow you to manipulate the database. It is used to create and
@@ -514,26 +513,19 @@ class SchemaDB
         // Ignore indexes that aren't constraints
         foreach ($indexes as $indexName => $indexData) {
             if (isset($indexData['constraint'])) {
-                dump($tableName);
-                dump($indexData['referencedtable']);
                 $refTable = (new TableModel())->get($indexData['referencedtable']);
-                dump('refTable');
-                dump($refTable);
-                $class = $refTable->namespace;
-                dump($class);
-                if (empty($class)) {
-                    throw new RuntimeException(
-                        "Model class for table '" . $indexData['referencedtable'] . "' not loaded. Do you forgot to add 'getDependencies()' to model for '" . $tableName . "' table'."
-                    );
+                $newClass = $refTable->namespace;
+                if (!empty($newClass)) {
+                    $class = new $newClass();
+                    $tableNameIndex = $refTable->tablename;
+                    $tableIndex[$indexName] = Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
+                    $primaryColumn[$indexName] = $table['indexes']['PRIMARY']['column'];
+                    $nameColumn[$indexName] = $class->getNameField();
+                } else {
+                    // throw new RuntimeException(
+                    //     "Model class for table '" . $indexData['referencedtable'] . "' not loaded. Do you forgot to add 'getDependencies()' to model for '" . $tableName . "' table'."
+                    // );
                 }
-                $class = new $class();
-                dump($table);
-                dump($class);
-                die('revisar');
-                $tableNameIndex = $refTable->tablename;
-                $tableIndex[$indexName] = Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
-                $primaryColumn[$indexName] = $table['indexes']['PRIMARY']['column'];
-                $nameColumn[$indexName] = $class->getNameField();
             } else {
                 unset($indexes[$indexName]);
             }
@@ -548,19 +540,25 @@ class SchemaDB
         $sqlView = "CREATE OR REPLACE VIEW {$quotedViewTableName} AS SELECT ";
         $sep = '';
         foreach ($fields as $fieldName => $fieldData) {
-            $sqlView .= "{$sep}{$quotedTableName}." . self::quoteFieldName($fieldName);
-            $sep = ', ';
+            if (!is_null($fieldName)) {
+                $sqlView .= "{$sep}{$quotedTableName}." . self::quoteFieldName($fieldName);
+                $sep = ', ';
+            }
         }
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= $sep . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($nameColumn[$indexName])
-                . " AS {$indexData['referencedtable']}_{$nameColumn[$indexName]}";
-            $sep = ', ';
+            if (!is_null($nameColumn[$indexName])) {
+                $sqlView .= $sep . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($nameColumn[$indexName])
+                    . " AS {$indexData['referencedtable']}_{$nameColumn[$indexName]}";
+                $sep = ', ';
+            }
         }
         $sqlView .= " FROM {$quotedTableName}";
         foreach ($indexes as $indexName => $indexData) {
-            $sqlView .= ' LEFT JOIN ' . self::quoteTableName($indexData['referencedtable'], true)
-                . " ON {$quotedTableName}." . self::quoteFieldName($indexData['column']) . ' = '
-                . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($primaryColumn[$indexName]);
+            if (!is_null($indexData['column']) && !is_null($primaryColumn[$indexName])) {
+                $sqlView .= ' LEFT JOIN ' . self::quoteTableName($indexData['referencedtable'], true)
+                    . " ON {$quotedTableName}." . self::quoteFieldName($indexData['column']) . ' = '
+                    . self::quoteTableName($indexData['referencedtable'], true) . '.' . self::quoteFieldName($primaryColumn[$indexName]);
+            }
         }
         $sqlView .= ';';
         return [$sqlView];
