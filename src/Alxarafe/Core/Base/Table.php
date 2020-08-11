@@ -39,22 +39,6 @@ class Table extends SimpleTable
     }
 
     /**
-     * Create a new table if it does not exist and it has been passed true as a parameter.
-     *
-     * This should check if there are differences between the defined in dbStructure and the physical table,
-     * correcting the differences if true is passed as parameter.
-     *
-     * @param bool $create
-     *        public function _checkStructure(bool $create = false): void
-     *        {
-     * if (!$create || !Database::getInstance()->getDbEngine()->issetDbTableStructure($this->tableName)) {
-            * return;
-        * }
-        * SchemaDB::checkTableStructure($this->tableName);
-     * }
-     */
-
-    /**
      * Perform a search of a record by the name, returning the id of the corresponding record, or '' if it is not found
      * or does not have a name field.
      *
@@ -125,98 +109,6 @@ class Table extends SimpleTable
         }
         return $return;
     }
-
-    /**
-     * Return a list of key indexes.
-     * Each final model that needed, must overwrite it.
-     *
-     * TODO: Why "*FromTable()" need to be overwrited on final model? Is not from model definition.
-     *
-     * @return array
-    * public function getIndexesFromTable(): array
-    * {
-        * return Database::getInstance()->getSqlHelper()->getIndexes($this->tableName, true);
-     * }
-     */
-
-    /**
-     * Return a list of default values.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     * public function _getDefaultValues(): array
-    * {
-        * $items = [];
-        * foreach ($this->getStructure()['fields'] as $key => $valueData) {
-            * $items[$key] = $this->getDefaultValue($valueData);
-        * }
-     * return $items;
-    * }
-     */
-
-    /**
-     * Get default value data for this valueData.
-     *
-     * @param array $valueData
-     *
-     * @return bool|false|int|string
-     * private function _getDefaultValue(array $valueData)
-     * {
-     * // TODO: The issets to verify that they exist, should still be in a check in debug mode, or in external code.
-        * $item = $valueData['default'] ?? '';
-        * if (isset($valueData['nullable']) && strtolower($valueData['nullable']) === 'no') {
-            * switch ($valueData['type']) {
-                * case 'integer':
-                * case 'number':
-                    * if (isset($valueData['autoincrement']) && strtolower($valueData['autoincrement']) === 'yes') {
-                        * $item = null;
-                        * break;
-                    * }
-                * case 'email':
-                    * $item = 0;
-                    * break;
-                * case 'checkbox':
-                    * $item = false;
-                    * break;
-                * case 'date':
-                    * $item = FormatUtils::getFormattedDate();
-                    * break;
-                * case 'datetime':
-                    * $item = FormatUtils::getFormattedDateTime();
-                    * break;
-                * case 'time':
-                    * $item = FormatUtils::getFormattedTime();
-                    * break;
-                * case 'string':
-                * case 'text':
-                * case 'textarea':
-                * case 'blob':
-                * case 'data':
-                * case 'link':
-                    * $item = '';
-                    * break;
-                * default:
-                    * $item = $valueData['default'];
-            * }
-        * }
- *
-* if ($item === 'CURRENT_TIMESTAMP') {
-            * $item = date(FormatUtils::getFormatDateTime());
-        * }
- *
-* return $item;
-    * }
-     */
-
-    /**
-     * TODO: Undocumented
-     *
-     * @return array
-    * public function getChecksFromTable(): array
-    * {
-        * return Schema::getFromYamlFile($this->tableName, 'viewdata');
-    * }
-     */
 
     /**
      * Save the data to a record if pass the test and returns true/false based on the result.

@@ -15,87 +15,6 @@ use Alxarafe\Core\Providers\Database;
 class SimpleTable extends FlatTable
 {
     /**
-     * Build a Table model. $table is the name of the table in the database.
-     * $params is a parameters array:
-     * - create is true if the table is to be created if it does not exist (false by default)
-     * - idField is the name of the primary key (default id)
-     * - nameField is the name of the descriptive field (name by default)
-     *
-     * @param string $tableName
-     * @param array  $params
-    * public function __construct(string $tableName, array $params = [])
-    * {
-        * parent::__construct($tableName, $params);
-        * $this->debugTool->startTimer($this->modelName, $this->modelName . ' SimpleTable Constructor');
-        * if (!isset($this->idField) && Database::getInstance()->getDbEngine()->issetDbTableStructureKey($this->tableName, 'fields')) {
-            * $this->idField = 'id';
-            * foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $value) {
-                * if (isset($value['key']) && ($value['key'] === 'primary')) {
-                    * $this->idField = $key;
-                    * break;
-                * }
-            * }
-        * }
-        * $this->debugTool->stopTimer($this->modelName);
-     * }
-     */
-
-    /**
-     * Execute a call to setTableStructure with an array containing 3 arrays with the fields, keys and default values
-     * for the table.
-     *
-     * The development will be more ambitious than what is defined.
-     *
-     * Currently Table includes a single table, but the idea is to be able to relate tables to form complex data
-     * models.
-     * public function _setStructure(): void
-    * {
-        * $this->debugTool->startTimer($this->modelName . '->setStructure()', $this->modelName . ' SimpleTable->setStructure()');
-        * $this->setTableStructure($this->tableName, $this->getStructureArray());
-        * $this->debugTool->stopTimer($this->modelName . '->setStructure()');
-    * }
-     */
-
-    /**
-     * Save the structure of the table in a static array, so that it is available at all times.
-     *
-     * @param string $table
-     * @param array  $structure
-     *        protected function _setTableStructure(string $table, array $structure): void
-    * {
-        * if (!Database::getInstance()->getDbEngine()->issetDbTableStructure($table)) {
-            * Database::getInstance()->getDbEngine()->setDbTableStructure($table, Schema::setNormalizedStructure($structure, $table));
-        * }
-    * }
-     */
-
-    /**
-     * A raw array is built with all the information available in the table, configuration files and code.
-     *
-     * @return array
-     * protected function _getStructureArray(): array
-    * {
-        * $struct = Schema::getFromYamlFile($this->tableName);
-        * if (count($struct) > 0) {
-     * return $struct;
-     * }
-     * $struct['fields'] = method_exists($this, 'getFields') ? /** @scrutinizer ignore-call * /
-            * $this->getFields() : ($this->getFieldsFromTable());
-        * return $struct;
-    * }
-*/
-
-    /**
-     * Return a list of fields and their table structure. Each final model that needed, must overwrite it.
-     *
-     * @return array
-    * public function _getFieldsFromTable(): array
-    * {
-        * return Database::getInstance()->getSqlHelper()->getColumns($this->tableName);
-    * }
-     */
-
-    /**
      * Returns a new instance of the table with the requested record.
      * As a previous step, a getDataBy of the current instance is made, so both will point to the same record.
      * Makes a getDataBy and returns a new instance of the model.
@@ -136,16 +55,6 @@ class SimpleTable extends FlatTable
         $this->exists = true;
         return true;
     }
-
-    /**
-     * Returns the structure of the normalized table
-     *
-     * @return array
-    * public function _getStructure(): array
-    * {
-        * return Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName);
-    * }
-     */
 
     /**
      * Get an array with all data in table.

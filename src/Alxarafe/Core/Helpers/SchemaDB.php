@@ -44,6 +44,8 @@ class SchemaDB
      */
     public static function checkTableStructure(string $tableName, $tabla): bool
     {
+        Database::getInstance()->getDbEngine()->clearCoreCache($tableName . '-exists');
+
         // $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
         if (isset($tabla['indexes'])) {
             foreach ($tabla['indexes'] as $key => $index) {
@@ -63,9 +65,7 @@ class SchemaDB
                 $sql = ArrayUtils::addToArray($sql, self::updateIndexes($tableName, $tabla['indexes']));
             }
         } else {
-            Database::getInstance()->getDbEngine()->clearCoreCache($tableName . '-exists');
             $sql = self::createFields($tableName, $tabla['fields']);
-
             if (!Database::getInstance()->getDbEngine()->batchExec($sql)) {
                 $data = [
                     'error' => "Maybe the file 'schema" . DIRECTORY_SEPARATOR . $tableName . ".yaml' is missing.",
@@ -204,7 +204,7 @@ class SchemaDB
             if ($key === 'PRIMARY') {
                 // If deleted of YAML, delete it...
                 if (!isset($indexesList[$key])) {
-                    $sql[] = "ALTER TABLE {$quotedTableName} DROP PRIMARY KEY;";
+                    $sql = ArrayUtils::addToArray($sql, ["ALTER TABLE {$quotedTableName} DROP PRIMARY KEY;"]);
                     continue;
                 }
                 if ($value != $indexesList[$key]) {
@@ -216,9 +216,9 @@ class SchemaDB
 
             if (!isset($indexesList[$key])) {
                 if (isset($value['constraint']) && $value['constraint'] === 'yes') {
-                    $sql[] = "ALTER TABLE {$quotedTableName} DROP FOREIGN KEY {$key};";
+                    $sql = ArrayUtils::addToArray($sql, ["ALTER TABLE {$quotedTableName} DROP FOREIGN KEY {$key};"]);
                 }
-                $sql[] = "ALTER TABLE {$quotedTableName} DROP INDEX {$key};";
+                $sql = ArrayUtils::addToArray($sql, ["ALTER TABLE {$quotedTableName} DROP INDEX {$key};"]);
             }
         }
 
@@ -236,7 +236,7 @@ class SchemaDB
             $exists = isset($tableIndexes[$key]);
 
             if (isset($value['constraint']) && $value['constraint'] === 'yes') {
-                $sql[] = "ALTER TABLE {$quotedTableName} DROP CONSTRAINT {$key};";
+                $sql = ArrayUtils::addToArray($sql, ["ALTER TABLE {$quotedTableName} DROP CONSTRAINT {$key};"]);
                 $sql = ArrayUtils::addToArray($sql, self::createConstraint($tableName, $value, $exists));
             } else {
                 if (isset($value['unique']) && $value['unique'] === 'yes') {

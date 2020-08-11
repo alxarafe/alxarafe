@@ -100,7 +100,11 @@ if (!function_exists('delTree')) {
      */
     function delTree($dir)
     {
-        $files = array_diff(scandir($dir), array('.','..'));
+        $files = scandir($dir);
+        if ($files === false) {
+            return false;
+        }
+        $files = array_diff($files, ['.', '..']);
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
         }

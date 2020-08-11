@@ -27,10 +27,15 @@ class Select2Field extends AbstractField
 
         if (in_array(strtolower($value), ['true', 'yes', '1'])) {
             $value = '1';
-        } elseif (in_array(strtolower($value), ['false', 'no', '0'])) {
-            $value = '0';
-        } else {
-            self::$errors[] = $this->trans->trans('error-boolean-expected', $params);
+            return true;
         }
+
+        if (in_array(strtolower($value), ['false', 'no', '0'])) {
+            $value = '0';
+            return true;
+        }
+
+        self::$errors[] = $this->trans->trans('error-boolean-expected', $params);
+        return false;
     }
 }
