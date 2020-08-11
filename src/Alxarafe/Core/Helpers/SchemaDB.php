@@ -80,11 +80,10 @@ class SchemaDB
             foreach ($tabla['indexes'] as $name => $index) {
                 $sql = ArrayUtils::addToArray($sql, self::createIndex($tableName, $name, $index));
             }
-
             $values = $tabla['values'] ?? [];
             $values = ArrayUtils::addToArray($values, Schema::getFromYamlFile($tableName, 'values'));
             if (count($values) > 0) {
-                $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $values));
+                $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $tabla, $values));
             }
             $sql = ArrayUtils::addToArray($sql, self::createTableView($tableName, $tabla));
         }
@@ -274,8 +273,8 @@ class SchemaDB
         }
         $sql[] = "ALTER TABLE {$quotedTableName} ADD PRIMARY KEY ({$columnField});";
         if ($autoincrement) {
-            $length = $indexData['length'];
-            $sql[] = "ALTER TABLE {$quotedTableName} MODIFY {$columnField} INT({$length}) UNSIGNED AUTO_INCREMENT";
+            $type = Database::getInstance()->getSqlHelper()->toNative('integer', $indexData['length']);
+            $sql[] = "ALTER TABLE {$quotedTableName} MODIFY {$columnField} $type UNSIGNED AUTO_INCREMENT";
         }
         return $sql;
     }
@@ -478,8 +477,8 @@ class SchemaDB
                 $newClass = $refTable->namespace;
                 if (!empty($newClass)) {
                     $class = new $newClass();
-                    $tableNameIndex = $refTable->tablename;
-                    $tableIndex[$indexName] = Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
+                    // $tableNameIndex = $refTable->tablename;
+                    // $tableIndex[$indexName] = Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
                     $primaryColumn[$indexName] = $table['indexes']['PRIMARY']['column'];
                     $nameColumn[$indexName] = $class->getNameField();
                 } else {

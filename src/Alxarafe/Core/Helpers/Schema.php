@@ -280,7 +280,7 @@ class Schema
      *
      * @return array
      */
-    public static function setValues(string $tableName, array $values): array
+    public static function setValues(string $tableName, array $tabla, array $values): array
     {
         $quotedTableName = Database::getInstance()->getSqlHelper()->quoteTableName($tableName);
         if (empty($values)) {
@@ -295,10 +295,10 @@ class Schema
             $datos = $sep . '(';
             foreach ($value as $fname => $fvalue) {
                 $fields .= Database::getInstance()->getSqlHelper()->quoteFieldName($fname) . ', ';
-                // $definitionDataField = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$fname];
-                // if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
-                //     $fvalue = $definitionDataField['default'] ?? null;
-                // }
+                $definitionDataField = $tabla['fields'][$fname];
+                if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
+                    $fvalue = $definitionDataField['default'] ?? null;
+                }
                 $datos .= Database::getInstance()->getSqlHelper()->quoteLiteral($fvalue) . ', ';
             }
             $fields = substr($fields, 0, -2) . ')';

@@ -25,7 +25,7 @@ class SqlMySql extends SqlHelper
         $this->tableQuote = '`';
         $this->fieldQuote = '`';
         $this->fieldTypes = [
-            'integer' => ['int', 'tinyint'],
+            'integer' => ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'],
             'decimal' => ['decimal'],
             'string' => ['char', 'varchar'],
             'text' => ['text', 'blob'],
@@ -142,8 +142,22 @@ class SqlMySql extends SqlHelper
     private function toInteger(int $length = 0): string
     {
         // https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
-        // TODO: Integer Types - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT
-        $type = ($length > 2) ? 'int' : 'tinyint';
+        switch ($length) {
+            case 1:
+                $type = 'tinyint';
+                break;
+            case 2:
+                $type = 'smallint';
+                break;
+            case 3:
+                $type = 'mediumint';
+                break;
+            case 8:
+                $type = 'bigint';
+                break;
+            default:
+                $type = 'int';
+        }
         return ($length > 0) ? $type . '(' . $length . ')' : $type;
     }
 
