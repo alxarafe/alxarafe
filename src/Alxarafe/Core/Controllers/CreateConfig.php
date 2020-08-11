@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Controller for editing database and skin settings.
+ * Controller for create the initial configuration and preparation of the environment.
  *
  * @package Alxarafe\Core\Controllers
  */
