@@ -92,7 +92,9 @@ class FlatTable extends Entity
         if ($fields === null) {
             $fields = [];
             $table = Schema::getFromYamlFile($this->tableName);
+            // $values = Schema::getFromYamlFile($this->tableName, 'values');
             SchemaDB::checkTableStructure($this->tableName, $table);
+            // SchemaDB::checkStructure($this->tableName, $table);
             foreach ($table['fields'] as $key => $value) {
                 if (!isset($this->fields[$key])) {
                     $this->fields[$key] = $this->getFieldClass($value['type']);

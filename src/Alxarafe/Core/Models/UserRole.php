@@ -45,6 +45,7 @@ class UserRole extends Table
     {
         return [
             User::class,
+            Role::class,
         ];
     }
 }

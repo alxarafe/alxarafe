@@ -33,6 +33,17 @@ class SchemaDB
         return ArrayUtils::flatArray($queryResult);
     }
 
+    public static function checkStructure(string $tableName, array $table, string $values = ''): bool
+    {
+        // Clear the table of the cache
+        Database::getInstance()->getDbEngine()->clearCoreCache($tableName . '-exists');
+
+        $sqlHelper = Database::getInstance()->getSqlHelper();
+        $columns = $sqlHelper->getColumns($tableName);
+        dump($columns);
+        die('here');
+    }
+
     /**
      * Create or update the structure of the table.
      * It does not destroy fields of the structure, it only creates, adds or modifies the existing ones.
@@ -58,6 +69,12 @@ class SchemaDB
         }
 
         $tableExists = self::tableExists($tableName);
+        if ($tableName === 'languages') {
+            dump($tableName);
+            dump($tabla);
+            dump('Exists ' . ($tableExists ? 'sí' : 'no'));
+        }
+
         if ($tableExists) {
             $sql = [];
             $sql = ArrayUtils::addToArray($sql, self::updateFields($tableName, $tabla['fields']));
@@ -87,9 +104,13 @@ class SchemaDB
             if (count($values) > 0) {
                 $sql = ArrayUtils::addToArray($sql, Schema::setValues($tableName, $values));
             }
-            $sql = ArrayUtils::addToArray($sql, self::createTableView($tableName));
+            $sql = ArrayUtils::addToArray($sql, self::createTableView($tableName, $tabla));
         }
 
+        if ($tableName === 'languages') {
+            dump($sql);
+            // die('here ' . $tableName);
+        }
         return Database::getInstance()->getDbEngine()->batchExec($sql);
     }
 
@@ -201,14 +222,28 @@ class SchemaDB
 
         // Erase the deleted or modified indexes
         foreach ($tableIndexes as $key => $value) {
+            if ($tableName === 'languages') {
+                dump($key);
+                dump($value);
+                dump($indexesList[$key]);
+            }
+
             if ($key === 'PRIMARY') {
                 // If deleted of YAML, delete it...
                 if (!isset($indexesList[$key])) {
                     $sql = ArrayUtils::addToArray($sql, ["ALTER TABLE {$quotedTableName} DROP PRIMARY KEY;"]);
                     continue;
                 }
+                if ($tableName === 'languages') {
+                    dump($value);
+                    dump($indexesList[$key]);
+                }
                 if ($value != $indexesList[$key]) {
-                    $autoincrement = isset($value['autoincrement']) && $value['autoincrement'] === 'yes';
+                    $autoincrement = isset($indexesList[$key]['autoincrement']) && $indexesList[$key]['autoincrement'] === 'yes';
+                    if ($tableName === 'languages') {
+                        dump('pasa por aquí...');
+                        dump($autoincrement);
+                    }
                     $sql = ArrayUtils::addToArray($sql, self::createPrimaryIndex($tableName, $indexesList[$key], $autoincrement, true));
                 }
                 continue;
@@ -441,8 +476,10 @@ class SchemaDB
         $indexData['index'] = $indexName;
 
         if ($indexName === 'PRIMARY') {
-            $fieldData = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$indexData['column']];
-            $autoincrement = isset($fieldData['autoincrement']) && ($fieldData['autoincrement'] === 'yes');
+            dump($tableName);
+            dump($indexName);
+            dump($indexData);
+            $autoincrement = (($indexData[$indexName]['autoincrement'] ?? 'no') === 'yes');
             return self::createPrimaryIndex($tableName, $indexData, $autoincrement, $existsIndex);
         }
 
@@ -466,28 +503,35 @@ class SchemaDB
      *
      * @return array
      */
-    protected static function createTableView(string $tableName): array
+    protected static function createTableView(string $tableName, array $table): array
     {
         $primaryColumn = [];
         $nameColumn = [];
-        $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
-        $fields = $tabla['fields'];
-        $indexes = $tabla['indexes'];
+        // $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
+        $fields = $table['fields'];
+        $indexes = $table['indexes'];
 
         // Ignore indexes that aren't constraints
         foreach ($indexes as $indexName => $indexData) {
             if (isset($indexData['constraint'])) {
-                $table = (new TableModel())->get($indexData['referencedtable']);
-                $class = $table->namespace;
+                dump($tableName);
+                dump($indexData['referencedtable']);
+                $refTable = (new TableModel())->get($indexData['referencedtable']);
+                dump('refTable');
+                dump($refTable);
+                $class = $refTable->namespace;
                 if (empty($class)) {
                     throw new RuntimeException(
                         "Model class for table '" . $indexData['referencedtable'] . "' not loaded. Do you forgot to add 'getDependencies()' to model for '" . $tableName . "' table'."
                     );
                 }
                 $class = new $class();
-                $tableNameIndex = $table->tablename;
+                dump($table);
+                dump($class);
+                die('revisar');
+                $tableNameIndex = $refTable->tablename;
                 $tableIndex[$indexName] = Database::getInstance()->getDbEngine()->getDbTableStructure($tableNameIndex);
-                $primaryColumn[$indexName] = $tabla['indexes']['PRIMARY']['column'];
+                $primaryColumn[$indexName] = $table['indexes']['PRIMARY']['column'];
                 $nameColumn[$indexName] = $class->getNameField();
             } else {
                 unset($indexes[$indexName]);

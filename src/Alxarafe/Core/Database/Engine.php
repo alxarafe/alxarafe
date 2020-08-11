@@ -38,8 +38,8 @@ abstract class Engine
      * Each table is a index of the associative array.
      *
      * @var array
+    * public static $dbStructure = [];
      */
-    public static $dbStructure = [];
 
     /**
      * Data Source Name
@@ -491,11 +491,11 @@ abstract class Engine
      * Returns database structure.
      *
      * @return array
+    * final public function getDbStructure(): array
+    * {
+        * return self::$dbStructure;
+     * }
      */
-    final public function getDbStructure(): array
-    {
-        return self::$dbStructure;
-    }
 
     /**
      * Returns database table structure.
@@ -503,11 +503,11 @@ abstract class Engine
      * @param string $tablename
      *
      * @return array
+    * final public function getDbTableStructure(string $tablename)
+    * {
+        * return self::$dbStructure[$tablename] ?? [];
+     * }
      */
-    final public function getDbTableStructure(string $tablename)
-    {
-        return self::$dbStructure[$tablename] ?? [];
-    }
 
     /**
      * Returns if table is set to database structure.
@@ -515,11 +515,11 @@ abstract class Engine
      * @param string $tablename
      *
      * @return bool
+    * final public function issetDbTableStructure(string $tablename): bool
+    * {
+        * return isset(self::$dbStructure[$tablename]);
+    * }
      */
-    final public function issetDbTableStructure(string $tablename): bool
-    {
-        return isset(self::$dbStructure[$tablename]);
-    }
 
     /**
      * Returns if key is set to database structure.
@@ -528,20 +528,20 @@ abstract class Engine
      * @param string $key
      *
      * @return bool
+    * final public function issetDbTableStructureKey(string $tablename, string $key): bool
+    * {
+        * return isset(self::$dbStructure[$tablename][$key]);
+    * }
      */
-    final public function issetDbTableStructureKey(string $tablename, string $key): bool
-    {
-        return isset(self::$dbStructure[$tablename][$key]);
-    }
 
     /**
      * Sets database structure for a tablename.
      *
      * @param string $tablename
      * @param array  $data
+    * final public function setDbTableStructure(string $tablename, array $data): void
+    * {
+        * self::$dbStructure[$tablename] = $data;
+    * }
      */
-    final public function setDbTableStructure(string $tablename, array $data): void
-    {
-        self::$dbStructure[$tablename] = $data;
-    }
 }

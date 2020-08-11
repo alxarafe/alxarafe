@@ -7,7 +7,6 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Schema;
-use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
 use Alxarafe\Core\Renders\Twig\Components\AbstractComponent;
@@ -482,7 +481,6 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @param array $record
      *
      * @return array
-     */
     protected function setDefaults(array $record): array
     {
         $ret = [];
@@ -493,4 +491,5 @@ abstract class AuthPageExtendedController extends AuthPageController
         }
         return $ret;
     }
+     */
 }

@@ -8,7 +8,6 @@ namespace Alxarafe\Core\Helpers;
 
 use Alxarafe\Core\Helpers\Utils\ClassUtils;
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
-use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\DebugTool;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -103,6 +102,8 @@ class Schema
      * @param string $tableName
      *
      * @return array
+     *
+     * @deprecated: Remove. It may no longer be useful.
      */
     public static function setNormalizedStructure(array $structure, string $tableName): array
     {
@@ -181,21 +182,6 @@ class Schema
                         $data['fields'][$field] = SchemaGenerator::mergeViewField($field, $values, $data['fields'][$field] ?? [], $tableName);
                     }
                 }
-
-                // Some fields may need auto-translation
-                /*
-                    foreach ($data['fields'] as $field => $properties) {
-                        foreach ($properties as $key => $value) {
-                            switch ($key) {
-                                case 'label':
-                                case 'shortlabel':
-                                case 'placeholder':
-                                    $data['fields'][$field][$key] = Translator::getInstance()->trans($value);
-                                    break;
-                            }
-                        }
-                    }
-                */
                 break;
             case 'values':
                 $data = self::loadDataFromCsv($fileName);
@@ -227,8 +213,7 @@ class Schema
         }
 
         // We make sure the module table exists
-        $module = new Module();
-        if (!SchemaDB::tableExists($module->tableName)) {
+        if (!SchemaDB::tableExists('modules')) {
             return '';
         }
 
@@ -279,11 +264,15 @@ class Schema
      */
     public static function loadDataFromCsv(string $fileName): array
     {
+        die($fileName);
         if (file_exists($fileName)) {
             $csv = new Csv();
+            dump($csv);
+            die('here');
             $csv->auto($fileName);
             return $csv->data;
         }
+        die('2');
         return [];
     }
 
@@ -310,10 +299,10 @@ class Schema
             $datos = $sep . '(';
             foreach ($value as $fname => $fvalue) {
                 $fields .= Database::getInstance()->getSqlHelper()->quoteFieldName($fname) . ', ';
-                $definitionDataField = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$fname];
-                if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
-                    $fvalue = $definitionDataField['default'] ?? null;
-                }
+                // $definitionDataField = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName)['fields'][$fname];
+                // if ($fvalue === '' && $definitionDataField['nullable'] === 'yes') {
+                //     $fvalue = $definitionDataField['default'] ?? null;
+                // }
                 $datos .= Database::getInstance()->getSqlHelper()->quoteLiteral($fvalue) . ', ';
             }
             $fields = substr($fields, 0, -2) . ')';
