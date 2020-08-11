@@ -51,6 +51,7 @@ class RolePage extends Table
     {
         return [
             Role::class,
+            Page::class,
         ];
     }
 }
