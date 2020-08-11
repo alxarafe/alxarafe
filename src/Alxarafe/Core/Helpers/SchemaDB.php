@@ -465,8 +465,6 @@ class SchemaDB
      */
     protected static function createTableView(string $tableName, array $table): array
     {
-        return [];
-
         $primaryColumn = [];
         $nameColumn = [];
         // $tabla = Database::getInstance()->getDbEngine()->getDbTableStructure($tableName);
