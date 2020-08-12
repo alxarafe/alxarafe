@@ -115,10 +115,10 @@ class SchemaGenerator
             }
         }
 
-        if (!isset($result['type'])) {
-            $result['type'] = $values['type'];
-            $debugTool->addMessage('messages', "The {$field} field need 'type' in viewdata yaml for {$tablename} table.");
-        }
+        // if (!isset($result['type'])) {
+        //     $result['type'] = $values['type'];
+        //     $debugTool->addMessage('messages', "The {$field} field need 'type' in viewdata yaml for {$tablename} table.");
+        // }
 
         switch ($values['type']) {
             case 'string':
@@ -141,11 +141,11 @@ class SchemaGenerator
                     break;
                 }
 
-                if ($result['type'] === 'select') {
+                if ($result['component'] === 'select') {
                     break;
                 }
 
-                if ($result['type'] === 'select2') {
+                if ($result['component'] === 'select2') {
                     break;
                 }
 

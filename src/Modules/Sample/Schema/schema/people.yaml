@@ -34,7 +34,7 @@ fields:
         unsigned: 'no'
     id_country:
         type: integer
-        length: '4'
+        length: '2'
         default: null
         nullable: 'no'
         unsigned: 'yes'
