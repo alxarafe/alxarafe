@@ -135,7 +135,7 @@ class Table extends SimpleTable
     protected function saveData(array $data): bool
     {
         $ret = true;
-        foreach ($data[$this->tableName] as $key => $value) {
+        foreach ($data as $key => $value) {
             $this->load($key);
             $this->newData = $value;
             $ret &= $this->save();

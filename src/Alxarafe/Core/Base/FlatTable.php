@@ -73,13 +73,21 @@ class FlatTable extends Entity
         $this->exists = false;
     }
 
-    public function getStructArray()
+    /**
+     * Generate the array of fields from the summary yaml file.
+     * If the summary yaml file does not exist, it generates it from the schema yaml.
+     */
+    private function getDataFields()
     {
-        $data = [];
-        foreach ($this->fields as $key => $value) {
-            $data[$key] = $value->getStructArray();
+        $fields = Schema::getFromYamlSummaryFile($this->tableName);
+        if ($fields === null) {
+            $fields = $this->generateYamlSummaryFile();
         }
-        return $data;
+
+        foreach ($fields as $key => $value) {
+            $this->fields[$key] = $this->getFieldClass($value['type']);
+            $this->fields[$key]->assignData($value);
+        }
     }
 
     /**
@@ -115,23 +123,6 @@ class FlatTable extends Entity
     }
 
     /**
-     * Generate the array of fields from the summary yaml file.
-     * If the summary yaml file does not exist, it generates it from the schema yaml.
-     */
-    private function getDataFields()
-    {
-        $fields = Schema::getFromYamlSummaryFile($this->tableName);
-        if ($fields === null) {
-            $fields = $this->generateYamlSummaryFile();
-        }
-
-        foreach ($fields as $key => $value) {
-            $this->fields[$key] = $this->getFieldClass($value['type']);
-            $this->fields[$key]->assignData($value);
-        }
-    }
-
-    /**
      * Returns an instance of an object of the requested class.
      * If the class does not exist, it returns one of type StringField and reports the error in the debugging bar.
      *
@@ -149,6 +140,15 @@ class FlatTable extends Entity
             $class = 'Alxarafe\\Core\\Database\\Fields\\StringField';
         }
         return new $class();
+    }
+
+    public function getStructArray()
+    {
+        $data = [];
+        foreach ($this->fields as $key => $value) {
+            $data[$key] = $value->getStructArray();
+        }
+        return $data;
     }
 
     /**
@@ -333,15 +333,19 @@ class FlatTable extends Entity
      *
      * @param $values
      */
-    public function test(&$values): void
+    public function test(&$values): bool
     {
+        $result = true;
         foreach ($this->fields as $key => $field) {
             if (!isset($values[$key])) {
                 continue;
             }
-            $field->test($key, $values[$key]);
+            $ok = $field->test($key, $values[$key]);
+            $result = $result && $ok;
             $this->errors = array_merge($this->errors, $field::getErrors());
         }
+        dump($this->errors);
+        return $result;
     }
 
     /**

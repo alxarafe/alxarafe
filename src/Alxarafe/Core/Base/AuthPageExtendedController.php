@@ -338,7 +338,8 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->getDataPost();
         $this->oldData = $this->getRecordData();
-        if ($this->model->saveRecord($this->postData[$this->tableName])) {
+        $this->model->setData($this->postData[$this->tableName]);
+        if ($this->model->save()) {
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
             FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('register-saved'));
