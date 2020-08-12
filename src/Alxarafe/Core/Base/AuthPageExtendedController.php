@@ -262,6 +262,7 @@ abstract class AuthPageExtendedController extends AuthPageController
                 foreach ($data['viewData'] as $keyData => $valueData) {
                     $value[$keyData] = $valueData;
                 }
+                $value['ctrlUrl'] = $this->url;
                 $this->components[$key] = $this->getComponentClass($value);
             }
         }

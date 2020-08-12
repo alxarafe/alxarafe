@@ -44,7 +44,7 @@ class Select2Component extends AbstractComponent
         parent::__construct($parameters);
 
         $this->dataAttr = [
-            'ajax--url' => '&method=ajaxSearch&table=' . $parameters['struct']->referencedtable,
+            'ajax--url' => $parameters['ctrlUrl'] . '&method=ajaxSearch&table=' . $parameters['struct']->referencedtable,
             'placeholder' => $parameters['placeholder'] ?? '',
             'id' => $parameters['value'] ?? null,
             'allow-clear' => 'true',
