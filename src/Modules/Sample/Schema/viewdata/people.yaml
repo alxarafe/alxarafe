@@ -38,7 +38,7 @@ fields:
         shortlabel: nacimiento
         placeholder: nacimiento
     id_country:
-        component: select
+        component: select2
         label: Código país
         shortlabel: Código país
         placeholder: Código país

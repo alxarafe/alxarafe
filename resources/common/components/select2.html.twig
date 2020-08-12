@@ -29,8 +29,17 @@ How to use it:
     {% set multiple = "" %}
 {% endif %}
 
-<select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control">
+{% set url = context.url | default('') %}
+{% set ajaxUrl = url ~ '&method=ajaxSearch&table=' ~ values.referencedtable %}
+
+<select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control select2-ajax" style="width: 100%;"
+        {% for key, value in dataAttr %}
+            data-{{ key }}="{{ value }}"
+        {% endfor %}
+>
+    {#
     {% for i in texts %}
         <option value="{{ values[loop.index0] }}">{{ texts[loop.index0] | raw }}</option>
     {% endfor %}
+    #}
 </select>
