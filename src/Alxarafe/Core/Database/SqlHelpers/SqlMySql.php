@@ -152,11 +152,11 @@ class SqlMySql extends SqlHelper
             case 3:
                 $type = 'mediumint';
                 break;
-            case 8:
-                $type = 'bigint';
+            case 4:
+                $type = 'int';
                 break;
             default:
-                $type = 'int';
+                $type = 'bigint';
         }
         return ($length > 0) ? $type . '(' . $length . ')' : $type;
     }
