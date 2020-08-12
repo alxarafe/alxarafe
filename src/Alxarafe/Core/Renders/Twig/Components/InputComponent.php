@@ -27,6 +27,10 @@ class InputComponent extends AbstractComponent
      */
     public $value;
 
+    public $min;
+    public $max;
+    public $pattern;
+
     /**
      * Return the template path to render this component.
      *

@@ -27,12 +27,21 @@
     {% endif %}
 
     <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit&' ~ ctrl.model.getIdField() ~ '=' ~ pk }}" method="post" accept-charset="utf-8" {{ encType }} class="{{ formType }}">
+        {#
         {% for regKey, registers in listFields %}
             {% for itemKey, item in registers %}
                 <div class="row">
                     {{ forms.generateField(item, itemKey, true, true, true, ctrl) }}
                 </div>
             {% endfor %}
+        {% endfor %}
+        #}
+
+        {% set listFields = ctrl.components %}
+        {% for item in listFields %}
+            <div class="row">
+                {{ item.toHtml() | raw }}
+            </div>
         {% endfor %}
 
         <div class="row">

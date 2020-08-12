@@ -201,6 +201,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         // $this->indexesTables[$this->tableName] = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['indexes'];
         $this->viewData = Schema::getFromYamlFile($this->tableName, 'viewdata');
         $this->tableData[$this->tableName] = isset($this->postData[$this->tableName]) ? $this->model->getDefaultValues() : $this->postData[$this->tableName][0];
+        $this->getComponents();
     }
 
     /**
@@ -242,9 +243,6 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->initialize();
         $this->postData = $this->getRecordData();
-
-        $this->getComponents();
-
         $this->status = 'showing';
         $this->renderer->setTemplate('master/read');
         return $this->sendResponseTemplate();
@@ -258,6 +256,7 @@ abstract class AuthPageExtendedController extends AuthPageController
             foreach ($fieldname as $key => $data) {
                 $value = [];
                 $value['id'] = $data['idName'];
+                $value['name'] = $data['name'];
                 $value['value'] = $data['value'];
                 $value['struct'] = $this->model->getField($key);
                 foreach ($data['viewData'] as $keyData => $valueData) {

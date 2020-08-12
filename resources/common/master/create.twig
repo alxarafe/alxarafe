@@ -25,6 +25,7 @@
     {% endif %}
 
     <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit' }}" method="post" accept-charset="utf-8" {{ encType }} class="{{ formType }}">
+        {#
         {% set listFields = ctrl.getListFields() %}
 
         {% for regKey, registers in listFields %}
@@ -33,6 +34,14 @@
                     {{ forms.generateField(item, itemKey, true, true, true, ctrl) }}
                 </div>
             {% endfor %}
+        {% endfor %}
+        #}
+
+        {% set listFields = ctrl.components %}
+        {% for item in listFields %}
+            <div class="row">
+                {{ item.toHtml() | raw }}
+            </div>
         {% endfor %}
 
         <div class="row">

@@ -1,6 +1,7 @@
 form-type: form-horizontal
 fields:
     id:
+        component: input
         type: integer
         label: id
         shortlabel: col-id
@@ -8,12 +9,14 @@ fields:
         min: 0
         max: 9999
     name:
+        component: input
         type: string
         label: name
         shortlabel: col-name
         placeholder: name
         maxlength: 100
     cod_iso:
+        component: input
         type: string
         label: cod_iso
         shortlabel: cod_iso
@@ -22,6 +25,7 @@ fields:
         title: 'Three letter country code'
         maxlength: 3
     cod_iso2:
+        component: input
         type: string
         label: cod_iso2
         shortlabel: cod_iso2
@@ -29,6 +33,7 @@ fields:
         pattern: '[A-Z]{2}'
         maxlength: 2
     cod_iso3:
+        component: input
         type: string
         label: cod_iso3
         shortlabel: cod_iso3
@@ -36,16 +41,17 @@ fields:
         pattern: '[A-Z]{3}'
         maxlength: 3
     id_region:
-        type: select
+        component: select
         label: id_region
         shortlabel: id_region
         placeholder: id_region
     id_subregion:
-        type: select
+        component: select
         label: id_subregion
         shortlabel: id_subregion
         placeholder: id_subregion
     id_intermediate_region:
+        component: select
         type: select
         label: id_intermediate_region
         shortlabel: id_intermediate_region
