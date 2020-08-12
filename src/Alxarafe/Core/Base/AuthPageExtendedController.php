@@ -337,7 +337,7 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->getDataPost();
         $this->oldData = $this->getRecordData();
-        if ($this->model->saveRecord($this->postData)) {
+        if ($this->model->saveRecord($this->postData[$this->tableName])) {
             $this->currentId = $this->model->{$this->model->getIdField()};
             $this->postData = $this->getRecordData();
             FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('register-saved'));
@@ -358,13 +358,8 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     protected function getDataPost(): void
     {
-        $this->postData = [];
-        foreach ($_POST as $key => $value) {
-            if (substr_count($key, constant('IDSEPARATOR')) === 2) {
-                $field = explode(constant('IDSEPARATOR'), $key);
-                $this->postData[$field[0]][$field[1]][$field[2]] = is_array($value) ? array_values($value)[0] : $value;
-            }
-        }
+        $this->postData = $_POST;
+        return;
     }
 
     /**
@@ -480,15 +475,16 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @param array $record
      *
      * @return array
-    protected function setDefaults(array $record): array
-    {
-        $ret = [];
-        if (isset(Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'])) {
-            foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key => $struct) {
-                $ret[$key] = $record[$key] ?? $struct['default'] ?? '';
-            }
-        }
-        return $ret;
-    }
+     * protected function setDefaults(array $record): array
+     * {
+     * $ret = [];
+     * if (isset(Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'])) {
+     * foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key =>
+     * $struct) {
+     * $ret[$key] = $record[$key] ?? $struct['default'] ?? '';
+     * }
+     * }
+     * return $ret;
+     * }
      */
 }
