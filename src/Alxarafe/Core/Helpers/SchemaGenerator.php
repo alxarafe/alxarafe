@@ -135,11 +135,11 @@ class SchemaGenerator
                 }
                 break;
             case 'integer':
-                if ($result['type'] === 'bool') {
-                    $result['min'] = 0;
-                    $result['max'] = 1;
-                    break;
-                }
+                // if ($result['type'] === 'bool') {
+                //     $result['min'] = 0;
+                //     $result['max'] = 1;
+                //     break;
+                // }
 
                 if ($result['component'] === 'select') {
                     break;
