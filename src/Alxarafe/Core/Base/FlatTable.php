@@ -344,7 +344,6 @@ class FlatTable extends Entity
             $result = $result && $ok;
             $this->errors = array_merge($this->errors, $field::getErrors());
         }
-        dump($this->errors);
         return $result;
     }
 
