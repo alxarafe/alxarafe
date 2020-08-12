@@ -18,27 +18,27 @@ fields:
     vat:
         component: input
         type: text
-        label: cif
-        shortlabel: cif
-        placeholder: cif
+        label: vat
+        shortlabel: vat
+        placeholder: vat
         maxlength: 10
         unique: yes
     age:
         component: input
         type: number
-        label: edad
-        shortlabel: edad
-        placeholder: edad
+        label: age
+        shortlabel: age
+        placeholder: age
         min: 18
         max: 65
     birthday:
         component: input
         type: date
-        label: nacimiento
-        shortlabel: nacimiento
-        placeholder: nacimiento
+        label: birthday
+        shortlabel: birthday
+        placeholder: birthday
     id_country:
         component: select2
-        label: Código país
-        shortlabel: Código país
-        placeholder: Código país
+        label: country
+        shortlabel: country
+        placeholder: country

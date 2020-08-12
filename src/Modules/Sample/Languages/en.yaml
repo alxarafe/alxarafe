@@ -1,31 +1,35 @@
-date_add: Timestamp
+age: Age
+birthday: Birthday
 col-date_add: Timestamp
-observation: Observation
-col-observation: Observation
-selected_option: Radio buttons
-col-selected_option: Radio buttons
-selected_color: Color selector
-col-selected_color: Color selector
-selected_value: Range selector
-col-selected_value: Range selector
-path_file: Pathfile
-col-path_file: Pathfile
-is_checked: Checkbox
-col-is_checked: Checkbox
-is_checked2: Checkbox2
-col-is_checked2: Checkbox2
-selected_spin: Spin selector
-col-selected_spin: Spin selector
-controller-sample-components-title: Sample components
-controller-sample-components-description: Maintenance to test all editing components.
-short-integer: Integer
-col-short-integer: Integer
-word: Word
-col-word: Word
-integer: Integer
+col-date_only: "Date only"
 col-integer: Integer
-longword: Long word
-col-long-word: Long word
-long-word: Long word
-col-date_only: Date only
-col-time_only: Time only
+col-is_checked: Checkbox
+col-is_checked2: Checkbox2
+col-long-word: "Long word"
+col-observation: Observation
+col-path_file: Pathfile
+col-selected_color: "Color selector"
+col-selected_option: "Radio buttons"
+col-selected_spin: "Spin selector"
+col-selected_value: "Range selector"
+col-short-integer: Integer
+col-time_only: "Time only"
+col-word: Word
+controller-sample-components-description: "Maintenance to test all editing components."
+controller-sample-components-title: "Sample components"
+country: Country
+date_add: Timestamp
+integer: Integer
+is_checked: Checkbox
+is_checked2: Checkbox2
+long-word: "Long word"
+longword: "Long word"
+observation: Observation
+path_file: Pathfile
+selected_color: "Color selector"
+selected_option: "Radio buttons"
+selected_spin: "Spin selector"
+selected_value: "Range selector"
+short-integer: Integer
+vat: VAT
+word: Word
