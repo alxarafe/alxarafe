@@ -142,4 +142,15 @@ class Table extends SimpleTable
         }
         return (bool) $ret;
     }
+
+    /**
+     * Return the value of the field description.
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        $field = $this->getNameField();
+        return $this->{$field};
+    }
 }

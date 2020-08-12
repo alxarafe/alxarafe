@@ -6,6 +6,8 @@
 
 namespace Alxarafe\Core\Renders\Twig\Components;
 
+use Alxarafe\Core\Models\TableModel;
+
 /**
  * Class Select2Component
  *
@@ -49,6 +51,13 @@ class Select2Component extends AbstractComponent
             'id' => $parameters['value'] ?? null,
             'allow-clear' => 'true',
         ];
+
+        if (isset($parameters['value']) && !empty($parameters['value'])) {
+            $refTable = (new TableModel())->get($parameters['struct']->referencedtable);
+            $newClass = $refTable->namespace;
+            $item = (new $newClass())->get($parameters['value']);
+            $this->dataAttr['text'] = $item->getDescription();
+        }
 
         if (isset($parameters['data']) && !empty($parameters['data'])) {
             $this->dataAttr = array_merge($this->dataAttr, $parameters['data']);

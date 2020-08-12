@@ -8,8 +8,6 @@ Default theme implementation to display a Bootstrap Select component.
 @var name:        Your name
 @var class:       input-sm, input-lg
 @var multiple:    false/true
-@var texts:       Array of texts
-@var values:      Array of values
 
 How to use it:
     {% include "@Core/components/select.html.twig" with {id:'mySelectId', name:'mySelectName', class: 'input-sm', multiple: true} %}
@@ -19,9 +17,7 @@ How to use it:
 
 {% set id = id | default('select' ~ randValue) %}
 {% set name = name | default('select' ~ randValue) %}
-{% set multiple = multiple | default(false) %}
-{% set values = values | default(['1', '2' , '3']) %}
-{% set texts = texts | default(['Sample #1', 'Sample #2' , 'Sample #3']) %}
+{% set class = class | default('select2-ajax') %}
 {% set multiple = multiple | default(false) %}
 {% if multiple != false %}
     {% set multiple = "multiple" %}
@@ -29,9 +25,12 @@ How to use it:
     {% set multiple = "" %}
 {% endif %}
 
-<select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control select2-ajax" style="width: 100%;"
+<select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control {{ class }}" style="width: 100%;"
         {% for key, value in dataAttr %}
             data-{{ key }}="{{ value }}"
         {% endfor %}
 >
+    {% if dataAttr.id is not empty %}
+        <option value="{{ dataAttr.id }}" selected="selected">{{ dataAttr.text }}</option>
+    {% endif %}
 </select>
