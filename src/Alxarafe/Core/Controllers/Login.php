@@ -246,7 +246,7 @@ class Login extends Controller
         $this->username = null;
         $this->user = new User();
         if (!SchemaDB::tableExists($this->user->tableName)) {
-            Schema::DeleteSummaryFiles();
+            Schema::deleteSummaryFiles();
         }
 
         if ($this->user->getBy('username', $userName) === true) {

@@ -41,18 +41,17 @@ fields:
         pattern: '[A-Z]{3}'
         maxlength: 3
     id_region:
-        component: select
+        component: select2
         label: id_region
         shortlabel: id_region
-        placeholder: id_region
+        placeholder: region
     id_subregion:
-        component: select
+        component: select2
         label: id_subregion
         shortlabel: id_subregion
-        placeholder: id_subregion
+        placeholder: subregion
     id_intermediate_region:
-        component: select
-        type: select
+        component: select2
         label: id_intermediate_region
         shortlabel: id_intermediate_region
-        placeholder: id_intermediate_region
+        placeholder: intermediate_region

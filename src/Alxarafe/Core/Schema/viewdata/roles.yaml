@@ -1,23 +1,27 @@
 form-type: form-horizontal
 fields:
     id:
-        type: integer
+        component: input
+        type: number
         label: id
         shortlabel: col-id
         placeholder: id
     name:
-        type: string
+        component: input
+        type: text
         label: name
         shortlabel: col-name
         placeholder: name
         maxlength: 50
     active:
-        type: bool
+        component: input
+        type: checkbox
         label: active
         shortlabel: col-active
         placeholder: active
     locked:
-        type: bool
+        component: input
+        type: checkbox
         label: locked
         shortlabel: col-locked
         placeholder: locked

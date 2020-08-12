@@ -1,24 +1,28 @@
 form-type: form-horizontal
 fields:
     id:
-        type: integer
+        component: input
+        type: number
         label: id
         shortlabel: col-id
         placeholder: id
     name:
-        type: string
+        component: input
+        type: text
         label: name
         shortlabel: col-name
         placeholder: name
         maxlength: 100
     password:
+        component: input
         type: password
         label: password
         shortlabel: col-password
         placeholder: password
         maxlength: 100
     integer_2:
-        type: integer
+        component: input
+        type: number
         label: short-integer
         shortlabel: col-short-integer
         placeholder: short-integer
@@ -26,7 +30,8 @@ fields:
         max: 32767
         step: 1
     integer_2_u:
-        type: integer
+        component: input
+        type: number
         label: word
         shortlabel: col-word
         placeholder: word
@@ -34,7 +39,8 @@ fields:
         max: 65535
         step: 1
     integer_4:
-        type: integer
+        component: input
+        type: number
         label: integer
         shortlabel: col-integer
         placeholder: integer
@@ -42,7 +48,8 @@ fields:
         max: 2147483647
         step: 1
     integer_4_u:
-        type: integer
+        component: input
+        type: number
         label: longword
         shortlabel: col-long-word
         placeholder: long-word
@@ -50,27 +57,32 @@ fields:
         max: 4294967295
         step: 1
     date_add:
+        component: input
         type: datetime
         label: date_add
         shortlabel: col-date_add
         placeholder: date_add
     date_only:
+        component: input
         type: date
         label: date_only
         shortlabel: col-date_only
         placeholder: date_only
     time_only:
+        component: input
         type: time
         label: time_only
         shortlabel: col-time_only
         placeholder: time_only
     observation:
-        type: string
+        component: input
+        type: text
         label: observation
         shortlabel: col-observation
         placeholder: observation
         maxlength: 50
     selected_option:
+        component: input
         type: radio
         label: selected_option
         shortlabel: col-selected_option
@@ -78,12 +90,14 @@ fields:
         min: 0
         max: 4294967295
     selected_color:
+        component: input
         type: color
         label: selected_color
         shortlabel: col-selected_color
         placeholder: selected_color
         maxlength: 100
     selected_value:
+        component: input
         type: range
         label: selected_value
         shortlabel: col-selected_value
@@ -91,19 +105,21 @@ fields:
         min: 0
         max: 4294967295
     path_file:
+        component: input
         type: file
         label: path_file
         shortlabel: col-path_file
         placeholder: path_file
         maxlength: 100
     is_checked:
-        type: toggle
+        component: toggle
         label: is_checked
         shortlabel: col-is_checked
         placeholder: is_checked
         min: 0
         max: 1
     is_checked2:
+        component: input
         type: checkbox
         label: is_checked2
         shortlabel: col-is_checked2
@@ -111,7 +127,7 @@ fields:
         min: 0
         max: 1
     selected_spin:
-        type: touchspin
+        component: touchspin
         label: selected_spin
         shortlabel: col-selected_spin
         placeholder: selected_spin

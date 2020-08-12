@@ -214,7 +214,7 @@ class EditConfig extends AuthPageController
     {
         CacheCore::getInstance()->getEngine()->clear();
         FlashMessages::getInstance()::setSuccess($this->translator->trans('cache-cleared-successfully'));
-        if (Schema::DeleteSummaryFiles()) {
+        if (Schema::deleteSummaryFiles()) {
             FlashMessages::getInstance()::setSuccess($this->translator->trans('summary-files-deleted-successfully'));
             return true;
         }

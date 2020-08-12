@@ -48,7 +48,7 @@ class Schema
         self::$files[$path] = $data;
     }
 
-    public static function DeleteSummaryFiles()
+    public static function deleteSummaryFiles()
     {
         $path = self::getSumaryFilesDir();
         return delTree($path);

@@ -29,7 +29,7 @@
         {% for item in listFields %}
             <div class="row">
                 <div class="col-xs-3 col-sm-2 col-md-1">
-                    {% include "@Core/components/span.html.twig" with {id: 'label~' ~ item.id, name: 'label~' ~ item.id, class: '', value: item.label} %}
+                    {% include "@Core/components/span.html.twig" with {id: 'label~' ~ item.id, name: 'label~' ~ item.id, class: '', value: trans(item.label)} %}
                 </div>
                 <div class="col-xs-9 col-sm-10 col-md-11">
                     {{ item.toHtml() | raw }}
