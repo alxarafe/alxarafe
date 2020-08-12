@@ -1,7 +1,8 @@
 form-type: form-horizontal
 fields:
     id:
-        type: integer
+        component: input
+        type: number
         label: id
         shortlabel: col-id
         placeholder: id
@@ -10,7 +11,8 @@ fields:
             show: true
             class: col-xs-3
     username:
-        type: string
+        component: input
+        type: text
         label: username
         shortlabel: col-username
         placeholder: username
@@ -20,6 +22,7 @@ fields:
             show: true
             class: col-xs-3
     email:
+        component: input
         type: email
         label: email
         shortlabel: col-email
@@ -30,6 +33,7 @@ fields:
             show: true
             class: col-xs-3
     password:
+        component: input
         type: password
         label: password
         shortlabel: col-password
@@ -40,6 +44,7 @@ fields:
             show: true
             class: col-xs-3
     register_date:
+        component: input
         type: datetime
         label: register_date
         shortlabel: col-register_date
@@ -49,7 +54,8 @@ fields:
             show: true
             class: col-xs-3
     active:
-        type: bool
+        component: input
+        type: checkbox
         label: active
         shortlabel: col-active
         placeholder: active
@@ -60,6 +66,7 @@ fields:
             show: true
             class: col-xs-3
     logkey:
+        component: input
         type: string
         label: logkey
         shortlabel: col-logkey

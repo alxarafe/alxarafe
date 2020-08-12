@@ -1,17 +1,18 @@
 form-type: form-horizontal
 fields:
     id:
-        type: integer
+        component: input
+        type: number
         label: id
         shortlabel: col-id
         placeholder: id
     id_user:
-        type: select
+        component: select2
         label: id_user
         shortlabel: col-id_user
-        placeholder: id_user
+        placeholder: user
     id_role:
-        type: select
+        component: select2
         label: id_role
         shortlabel: col-id_role
-        placeholder: id_role
+        placeholder: role
