@@ -19,6 +19,10 @@ controller-sample-components-description: "Mantenimiento para probar todos los c
 controller-sample-components-title: "Componentes de ejemplo"
 country: País
 date_add: Instante
+date_only: "Sólo fecha"
+id_region: Región
+id_subregion: Subregión
+id_intermediate_region: "Región intermedia"
 integer: Entero
 is_checked: Selector
 is_checked2: Selector2
@@ -31,5 +35,6 @@ selected_option: "Selector de radio"
 selected_spin: "Selector spin"
 selected_value: "Selector de valores"
 short-integer: Entero
+time_only: "Sólo hora"
 vat: CIF
 word: Palabra

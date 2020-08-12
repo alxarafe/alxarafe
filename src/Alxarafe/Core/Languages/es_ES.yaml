@@ -21,6 +21,7 @@ cancel: Cancelar
 cant-increase-time-limit: "No se puede incrementar el tiempo limite"
 changes-not-stored: "Cambios no guardados"
 changes-stored: "Cambios guardados"
+class-does-not-exists: "No hay clase definida para el tipo %type%."
 clear-cache: "Limpiar caché"
 close: Cerrar
 cod_iso: "Código ISO"
@@ -43,6 +44,7 @@ col-decimals: Decimales
 col-description: Descripción
 col-email: Email
 col-enabled: Activado
+col-from-date: Desde
 col-icon: Icono
 col-id: Id.
 col-id_page: "Id. de página"
@@ -64,9 +66,11 @@ col-plugin: Plugin
 col-register_date: "Registrado el"
 col-tablename: "Nombre de tabla"
 col-title: Título
+col-to-date: Hasta
 col-unicode: Unicode
 col-updated_date: "Actualizado el"
 col-username: "Nombre de usuario"
+component-does-not-exists: "No hay componente definido para el tipo %type%."
 confirm: Confirmar
 confirm-are-you-sure-delete-register: "Estás seguro que quieres eliminar este registro?"
 controller: Controlador
@@ -158,6 +162,14 @@ email: Email
 enable: Activar
 enabled: Activado
 enter: Entrar
+error-boolean-expected: "El campo %field% debe de ser lógico, %value% no lo es."
+error-float-expected: "El campo %field% debe de ser un número real, %value% no lo es."
+error-greater-than-maximum: "El valor %value% no puede ser mayor que el máximo %max% en %field%"
+error-integer-expected: "El campo %field% debe de ser un valor entero, %value% no lo es."
+error-less-than-minimum: "El valor %value% no puede ser menor que el mínimo %min% en %field%"
+error-negative-unsigned: "El número %value% tiene que ser positivo en %field%"
+error-string-too-long: "La longitud máxima de %maxlen%, ha sido excedida en %field% con un total de %strlen% caracteres"
+error-type-not-supported: "Revise el tipo de datos del campo %field% en viewdata. El tipo de datos %type% no está soportado."
 exit: Salir
 export-data: "Exportar datos"
 extra-actions: "Acciones extra"
@@ -225,6 +237,7 @@ select-an-option: "Selecciona una opción"
 selected: Seleccionado
 show: Mostrar
 showing: Mostrando
+summary-files-deleted-successfully: "Ficheros de resumen eliminados satisfactoriamente"
 table-name: "Nombre de tabla"
 tablename: "Nombre de tabla"
 tablename-fieldname-exceeds-maximum: "%tableName%-%fieldName% excede el máximo %max%"

@@ -19,6 +19,10 @@ controller-sample-components-description: "Maintenance to test all editing compo
 controller-sample-components-title: "Sample components"
 country: Country
 date_add: Timestamp
+date_only: Date only
+id_region: Region
+id_subregion: Subregion
+id_intermediate_region: "Intermediate region"
 integer: Integer
 is_checked: Checkbox
 is_checked2: Checkbox2
@@ -31,5 +35,6 @@ selected_option: "Radio buttons"
 selected_spin: "Spin selector"
 selected_value: "Range selector"
 short-integer: Integer
+time_only: Time only
 vat: VAT
 word: Word

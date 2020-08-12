@@ -44,6 +44,7 @@ col-decimals: Decimales
 col-description: Descripción
 col-email: Email
 col-enabled: Activado
+col-from-date: Desde
 col-icon: Icono
 col-id: Id.
 col-id_page: "Id. de página"
@@ -65,6 +66,7 @@ col-plugin: Plugin
 col-register_date: "Registrado el"
 col-tablename: "Nombre de tabla"
 col-title: Título
+col-to-date: Hasta
 col-unicode: Unicode
 col-updated_date: "Actualizado el"
 col-username: "Nombre de usuario"
