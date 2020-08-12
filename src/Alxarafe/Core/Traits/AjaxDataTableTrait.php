@@ -258,7 +258,7 @@ trait AjaxDataTableTrait
 
                 $list[$pos][$key] = [
                     'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
-                    'value' => $valueData[$key],
+                    'value' => $valueData[$key] ?? null,
                     'idName' => $this->tableName . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $key,
                     'name' => "{$this->tableName}[{$key}]",
                     'listPosition' => $pos,
