@@ -25,22 +25,15 @@
     {% endif %}
 
     <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit' }}" method="post" accept-charset="utf-8" {{ encType }} class="{{ formType }}">
-        {#
-        {% set listFields = ctrl.getListFields() %}
-
-        {% for regKey, registers in listFields %}
-            {% for itemKey, item in registers %}
-                <div class="row">
-                    {{ forms.generateField(item, itemKey, true, true, true, ctrl) }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-        #}
-
         {% set listFields = ctrl.components %}
         {% for item in listFields %}
             <div class="row">
-                {{ item.toHtml() | raw }}
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    {% include "@Core/components/span.html.twig" with {id: 'label~' ~ item.id, name: 'label~' ~ item.id, class: '', value: item.label} %}
+                </div>
+                <div class="col-xs-9 col-sm-10 col-md-11">
+                    {{ item.toHtml() | raw }}
+                </div>
             </div>
         {% endfor %}
 
