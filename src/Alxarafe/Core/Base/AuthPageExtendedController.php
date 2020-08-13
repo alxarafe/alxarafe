@@ -264,6 +264,9 @@ abstract class AuthPageExtendedController extends AuthPageController
                 }
                 $value['ctrlUrl'] = $this->url;
                 $this->components[$key] = $this->getComponentClass($value);
+                if (isset($_POST[$this->tableName][$key])) {
+                    $this->components[$key]->setValue($_POST[$this->tableName][$key]);
+                }
             }
         }
     }
