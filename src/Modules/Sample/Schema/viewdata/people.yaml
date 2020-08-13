@@ -42,3 +42,11 @@ fields:
         label: country
         shortlabel: country
         placeholder: country
+    country_name:
+        dataset: countries
+        fieldname: name
+        component: input
+        type: text
+        label: country
+        shortlabel: country
+        placeholder: country

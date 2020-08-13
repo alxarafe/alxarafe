@@ -177,9 +177,20 @@ class Schema
                     }
                 }
 
+                /**
+                 * TODO: Dataset must be mandatory?
+                 * Either the dataset is set as mandatory, or it is assumed to be the main table of the controller,
+                 * having to extract this assignment in case we are not in debug mode.
+                 * The other option is to generate verified yaml for the viewdata, as is done with the structure.
+                 */
                 if (DEBUG) {
+                    $debugTool = DebugTool::getInstance();
                     foreach ($schema['fields'] as $field => $values) {
                         $data['fields'][$field] = SchemaGenerator::mergeViewField($field, $values, $data['fields'][$field] ?? [], $tableName);
+                        if ($data['fields'][$field]['dataset'] === null) {
+                            $debugTool->addMessage('messages', "Field {$field} need 'dataset' in viewdata yaml for {$tableName} table?");
+                            $data['fields'][$field]['dataset'] = $tableName;
+                        }
                     }
                 }
                 break;

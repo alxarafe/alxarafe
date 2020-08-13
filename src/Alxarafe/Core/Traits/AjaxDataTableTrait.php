@@ -56,6 +56,21 @@ trait AjaxDataTableTrait
     }
 
     /**
+     * Initialize common properties
+     */
+    abstract public function initialize(): void;
+
+    /**
+     * Send the Response with data received.
+     *
+     * @param string $reply
+     * @param int    $status
+     *
+     * @return Response
+     */
+    abstract public function sendResponse(string $reply, $status = Response::HTTP_OK): Response;
+
+    /**
      * Return the table data using AJAX
      */
     public function ajaxTableDataMethod(): Response
@@ -85,11 +100,6 @@ trait AjaxDataTableTrait
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
         return $this->sendResponse(json_encode($jsonData, $print));
     }
-
-    /**
-     * Initialize common properties
-     */
-    abstract public function initialize(): void;
 
     /**
      * Realize the search to database table.
@@ -182,16 +192,6 @@ trait AjaxDataTableTrait
     abstract public function getActionButtons(string $id = ''): array;
 
     /**
-     * Send the Response with data received.
-     *
-     * @param string $reply
-     * @param int    $status
-     *
-     * @return Response
-     */
-    abstract public function sendResponse(string $reply, $status = Response::HTTP_OK): Response;
-
-    /**
      * Returns the header for table.
      */
     public function getTableHeader(): array
@@ -223,15 +223,18 @@ trait AjaxDataTableTrait
         if (isset($this->postData[$this->tableName])) {
             foreach ($this->postData[$this->tableName] as $pos => $valueData) {
                 foreach ($this->viewData['fields'] as $key => $viewDataValue) {
+                    $dataset = $viewDataValue['dataset'] ?? $this->tableName;
+                    $fieldname = $viewDataValue['fieldname'] ?? $key;
                     $list[$pos][$key] = [
                         'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
                         'value' => $valueData[$key],
-                        'idName' => $this->tableName . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $key,
-                        'name' => "{$this->tableName}[{$key}]",
+                        'idName' => $dataset . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $fieldname,
+                        'name' => "{$dataset}[{$fieldname}]",
                         'listPosition' => $pos,
                         'isPk' => $key === $this->model->getIdField(),
                         'struct' => $this->fieldsStruct[$key],
-                        'tableName' => $this->tableName,
+                        'tableName' => $dataset,
+                        'fieldname' => $fieldname,
                         'viewData' => $viewDataValue,
                     ];
                 }
@@ -256,15 +259,25 @@ trait AjaxDataTableTrait
                     }
                 }
 
+                $dataset = $viewDataValue['dataset'] ?? $this->tableName;
+                $fieldname = $viewDataValue['fieldname'] ?? $key;
+
+                // If is a related field, get its value
+                $value = $valueData[$key] ?? null;
+                if (!isset($value) && $dataset !== $this->tableName) {
+                    $value = $this->models[$dataset]->{$fieldname};
+                }
+
                 $list[$pos][$key] = [
                     'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
-                    'value' => $valueData[$key] ?? null,
-                    'idName' => $this->tableName . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $key,
-                    'name' => "{$this->tableName}[{$key}]",
+                    'value' => $value,
+                    'idName' => $dataset . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $fieldname,
+                    'name' => "{$dataset}[{$fieldname}]",
                     'listPosition' => $pos,
                     'isPk' => $key === $this->model->getIdField(),
                     'struct' => $this->fieldsStruct[$key],
-                    'tableName' => $this->tableName,
+                    'tableName' => $dataset,
+                    'fieldname' => $fieldname,
                     'viewData' => $viewDataValue,
                 ];
             }

@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Schema;
+use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
 use Alxarafe\Core\Renders\Twig\Components\AbstractComponent;
@@ -35,7 +36,6 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var AbstractComponent[]
      */
     public $components;
-    public $formtype;
 
     /**
      * Contains all data received from $_POST.
@@ -50,6 +50,13 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var Table
      */
     public $model;
+
+    /**
+     * Used models
+     *
+     * @var Table[]
+     */
+    public $models;
 
     /**
      * The table relate to the model.
@@ -200,6 +207,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->fieldsStruct = $this->model->getStructArray();
         // $this->indexesTables[$this->tableName] = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['indexes'];
         $this->viewData = Schema::getFromYamlFile($this->tableName, 'viewdata');
+        $this->getModels();
         $this->tableData[$this->tableName] = isset($this->postData[$this->tableName]) ? $this->model->getDefaultValues() : $this->postData[$this->tableName][0];
         $this->getComponents();
     }
@@ -227,6 +235,41 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
+     * TODO: This may have to be in FlatTable and not here.
+     * Creates an array with all the models used by the current record, positioning each element in the used record.
+     */
+    private function getModels()
+    {
+        $this->models = [];
+        $this->models[$this->tableName] = $this->getModel($this->tableName, $this->currentId);
+    }
+
+    /**
+     * TODO: This may have to be in FlatTable and not here.
+     * Performs a recursive search to instantiate each of the model records related to the current record.
+     *
+     * @param string $tableName
+     * @param string $id
+     *
+     * @return Table|null
+     */
+    private function getModel(string $tableName, string $id)
+    {
+        $model = TableModel::getModel($tableName);
+        $model->load($id);
+        foreach ($model->getData() as $key => $value) {
+            $field = $model->getField($key);
+            if (!isset($field->referencedtable)) {
+                continue;
+            }
+            if (!isset($this->models[$field->referencedtable])) {
+                $this->models[$field->referencedtable] = $this->getModel($field->referencedtable, $model->{$key});
+            }
+        }
+        return $model;
+    }
+
+    /**
      * Build the list of components.
      */
     private function getComponents()
@@ -245,9 +288,12 @@ abstract class AuthPageExtendedController extends AuthPageController
                 }
                 $value['ctrlUrl'] = $this->url;
                 $this->components[$key] = $this->getComponentClass($value);
+
                 // Update the value of the component with the one received by POST
-                if (isset($_POST[$this->tableName][$key])) {
-                    $this->components[$key]->setValue($_POST[$this->tableName][$key]);
+                $tablename = $this->components[$key]->dataset ?? $this->tableName;
+                $fieldname = $this->components[$key]->fieldname ?? $key;
+                if (isset($_POST[$tablename][$fieldname])) {
+                    $this->components[$key]->setValue($_POST[$tablename][$fieldname]);
                 }
             }
         }
