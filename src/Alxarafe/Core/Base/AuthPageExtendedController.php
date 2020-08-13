@@ -8,6 +8,7 @@ namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Models\TableModel;
+use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Providers\Translator;
 use Alxarafe\Core\Renders\Twig\Components\AbstractComponent;
@@ -398,18 +399,36 @@ abstract class AuthPageExtendedController extends AuthPageController
     {
         $this->getDataPost();
         $this->oldData = $this->getRecordData();
-        $this->model->setData($this->postData[$this->tableName]);
-        if ($this->model->save()) {
-            $this->currentId = $this->model->{$this->model->getIdField()};
+
+        $database = Database::getInstance();
+        $engine = $database->getDbEngine();
+        $engine->beginTransaction();
+
+        $ok = true;
+        foreach ($this->models as $tableName => $model) {
+            if (!isset($this->postData[$tableName])) {
+                continue;
+            }
+            $model->setData($this->postData[$tableName]);
+            $save = $model->save();
+            $ok = $ok && $save;
+        }
+
+        if ($ok) {
+            $engine->commit();
             $this->postData = $this->getRecordData();
             $this->getComponents();
+            $this->currentId = $this->model->{$this->model->getIdField()};
             FlashMessages::getInstance()::setSuccess(Translator::getInstance()->trans('register-saved'));
-        } else {
-            foreach ($this->model->errors as $error) {
-                FlashMessages::getInstance()::setError($error);
-            }
-            FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-saved'));
+            return;
         }
+
+        foreach ($this->model->errors as $error) {
+            FlashMessages::getInstance()::setError($error);
+        }
+        FlashMessages::getInstance()::setError(Translator::getInstance()->trans('register-not-saved'));
+        $engine->rollBack();
+        return;
     }
 
     /**
