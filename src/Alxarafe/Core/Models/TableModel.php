@@ -37,6 +37,23 @@ class TableModel extends Table
     }
 
     /**
+     * Returns an instance of the requested model
+     *
+     * @param $tableName
+     *
+     * @return Table|null
+     */
+    public static function getModel(string $tableName)
+    {
+        $table = new TableModel();
+        if (!$table->load($tableName)) {
+            return null;
+        }
+        $modelRoute = $table->namespace;
+        return new $modelRoute();
+    }
+
+    /**
      * Return class dependencies
      *
      * @return string[]

@@ -227,6 +227,53 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
+     * Build the list of components.
+     */
+    private function getComponents()
+    {
+        $components = $this->getListFields();
+        $this->components = [];
+        foreach ($components as $pos => $fieldname) {
+            foreach ($fieldname as $key => $data) {
+                $value = [];
+                $value['id'] = $data['idName'];
+                $value['name'] = $data['name'];
+                $value['value'] = $data['value'];
+                $value['struct'] = $this->model->getField($key);
+                foreach ($data['viewData'] as $keyData => $valueData) {
+                    $value[$keyData] = $valueData;
+                }
+                $value['ctrlUrl'] = $this->url;
+                $this->components[$key] = $this->getComponentClass($value);
+                // Update the value of the component with the one received by POST
+                if (isset($_POST[$this->tableName][$key])) {
+                    $this->components[$key]->setValue($_POST[$this->tableName][$key]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns a component with the data supplied as arguments.
+     *
+     * @param array $value
+     *
+     * @return AbstractComponent
+     */
+    private function getComponentClass(array $value)
+    {
+        $type = $value['component'];
+        $file = basePath('src/Alxarafe/Core/Renders/Twig/Components/' . ucfirst($type) . 'Component.php');
+        $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($type) . 'Component';
+        if (!file_exists($file)) {
+            $params = ['%type%' => $type];
+            trigger_error(Translator::getInstance()->trans('component-does-not-exists', $params));
+            $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\SpanComponent';
+        }
+        return new $class($value);
+    }
+
+    /**
      * Read existing record, used as alias
      *
      * @return Response
@@ -246,42 +293,6 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->status = 'showing';
         $this->renderer->setTemplate('master/read');
         return $this->sendResponseTemplate();
-    }
-
-    private function getComponents()
-    {
-        $components = $this->getListFields();
-        $this->components = [];
-        foreach ($components as $pos => $fieldname) {
-            foreach ($fieldname as $key => $data) {
-                $value = [];
-                $value['id'] = $data['idName'];
-                $value['name'] = $data['name'];
-                $value['value'] = $data['value'];
-                $value['struct'] = $this->model->getField($key);
-                foreach ($data['viewData'] as $keyData => $valueData) {
-                    $value[$keyData] = $valueData;
-                }
-                $value['ctrlUrl'] = $this->url;
-                $this->components[$key] = $this->getComponentClass($value);
-                if (isset($_POST[$this->tableName][$key])) {
-                    $this->components[$key]->setValue($_POST[$this->tableName][$key]);
-                }
-            }
-        }
-    }
-
-    private function getComponentClass(array $value)
-    {
-        $type = $value['component'];
-        $file = basePath('src/Alxarafe/Core/Renders/Twig/Components/' . ucfirst($type) . 'Component.php');
-        $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($type) . 'Component';
-        if (!file_exists($file)) {
-            $params = ['%type%' => $type];
-            trigger_error(Translator::getInstance()->trans('component-does-not-exists', $params));
-            $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\SpanComponent';
-        }
-        return new $class($value);
     }
 
     /**
@@ -473,24 +484,4 @@ abstract class AuthPageExtendedController extends AuthPageController
 
         return $actionButtons;
     }
-
-    /**
-     * Se le pasa un registro con datos de la tabla actual, y cumplimenta los que
-     * falten con los datos por defecto.
-     *
-     * @param array $record
-     *
-     * @return array
-     * protected function setDefaults(array $record): array
-     * {
-     * $ret = [];
-     * if (isset(Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'])) {
-     * foreach (Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'] as $key =>
-     * $struct) {
-     * $ret[$key] = $record[$key] ?? $struct['default'] ?? '';
-     * }
-     * }
-     * return $ret;
-     * }
-     */
 }

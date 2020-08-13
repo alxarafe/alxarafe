@@ -64,6 +64,22 @@ class Select2Component extends AbstractComponent
         }
     }
 
+    public function setValue($data)
+    {
+        parent::setValue($data);
+        if (!isset($this->struct)) {
+            return false;
+        }
+
+        $referenced = TableModel::getModel($this->struct->referencedtable);
+        if ($referenced === null || !$referenced->load($data)) {
+            return false;
+        }
+        $this->dataAttr['id'] = $data;
+        $this->dataAttr['text'] = $referenced->getDescription();
+        return true;
+    }
+
     /**
      * Return the template path to render this component.
      *
