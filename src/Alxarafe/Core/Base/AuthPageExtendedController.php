@@ -242,7 +242,9 @@ abstract class AuthPageExtendedController extends AuthPageController
     private function getModels()
     {
         $this->models = [];
-        $this->models[$this->tableName] = $this->getModel($this->tableName, $this->currentId);
+        if (isset($this->currentId)) {
+            $this->models[$this->tableName] = $this->getModel($this->tableName, $this->currentId);
+        }
     }
 
     /**
