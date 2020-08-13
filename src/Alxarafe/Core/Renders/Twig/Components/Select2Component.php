@@ -64,6 +64,13 @@ class Select2Component extends AbstractComponent
         }
     }
 
+    /**
+     * Sets default value for id and text fields (value and text of select).
+     *
+     * @param $data
+     *
+     * @return bool
+     */
     public function setValue($data)
     {
         parent::setValue($data);
