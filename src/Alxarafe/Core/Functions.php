@@ -62,7 +62,7 @@ if (!function_exists('baseUrl')) {
         }
         $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
             . '://' . $defaultHost . $port . constant('APP_URI') . $folder;
-        return empty($url) ? $baseUrl : $baseUrl . '/' . trim($url, '/');
+        return empty($url) ? $baseUrl : trim($baseUrl, '/') . '/' . trim($url, '/');
     }
 }
 

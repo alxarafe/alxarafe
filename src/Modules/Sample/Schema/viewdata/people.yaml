@@ -50,3 +50,11 @@ fields:
         label: country
         shortlabel: country
         placeholder: country
+    region_name:
+        dataset: regions
+        fieldname: name
+        component: input
+        type: text
+        label: country
+        shortlabel: country
+        placeholder: country
