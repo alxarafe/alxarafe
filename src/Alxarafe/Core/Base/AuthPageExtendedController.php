@@ -95,13 +95,14 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var string
      */
     public $code;
+
     /**
      * Contains the indexes of the tables in use
      *
      * @var array
      */
-    // public $indexesTables;
     public $sql;
+
     /**
      * Contains all data from table.
      *
@@ -124,12 +125,14 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var array
      */
     protected $oldData;
+
     /**
      * Contains the field structure.
      *
      * @var array
      */
     protected $fieldsStruct;
+
     /**
      * Contains the primary key of register in use.
      * If its a new register, contains ''.
@@ -137,6 +140,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var string|null
      */
     protected $currentId;
+
     /**
      * Can contain: listing, adding or editing.
      *
@@ -156,7 +160,7 @@ abstract class AuthPageExtendedController extends AuthPageController
         parent::__construct();
         $this->renderer->setTemplate('default');
         $this->sql = new SqlGenerator(
-            $this->model->getStructArray(),
+            $this->tableName,
             Schema::getFromYamlFile($this->tableName, 'viewdata')['fields'] ?? null
         );
     }
@@ -224,6 +228,8 @@ abstract class AuthPageExtendedController extends AuthPageController
      *
      * This method can do additional things in more complex situations.
      *
+     * TODO: If is $this->currentId is null?
+     *
      * @return array
      */
     protected function getRecordData(): array
@@ -233,6 +239,7 @@ abstract class AuthPageExtendedController extends AuthPageController
             $ret[$this->model->tableName][0] = $this->model->defaultData();
             $ret[$this->model->tableName][0][$this->model->idField] = '';
         } else {
+            // TODO: Parece que sólo obtiene el registro de la tabla principal, pero no de las relacionadas.
             $value = $this->model->getDataArray($this->currentId);
             // TODO: ¿Y si hay más de un campo formando el índice principal?
             $ret[$this->model->tableName][$this->currentId] = $value;

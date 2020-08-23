@@ -187,7 +187,7 @@ class Schema
                     $debugTool = DebugTool::getInstance();
                     foreach ($schema['fields'] as $field => $values) {
                         $data['fields'][$field] = SchemaGenerator::mergeViewField($field, $values, $data['fields'][$field] ?? [], $tableName);
-                        if ($data['fields'][$field]['dataset'] === null) {
+                        if (($data['fields'][$field]['dataset'] ?? null) === null) {
                             $debugTool->addMessage('messages', "Field {$field} need 'dataset' in viewdata yaml for {$tableName} table?");
                             $data['fields'][$field]['dataset'] = $tableName;
                         }

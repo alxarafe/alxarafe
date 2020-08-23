@@ -85,7 +85,7 @@ trait AjaxDataTableTrait
         $data = [];
 
         if ($this->canAccess && $this->canRead) {
-            $this->searchData($data, $recordsFiltered, $requestData);
+            $this->sql->searchData($data, $recordsFiltered, $requestData);
         }
 
         $this->fillActions($data);
@@ -99,60 +99,6 @@ trait AjaxDataTableTrait
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
         return $this->sendResponse(json_encode($jsonData, $print));
-    }
-
-    /**
-     * Realize the search to database table.
-     *
-     * @param array $data
-     * @param int   $recordsFiltered
-     * @param array $requestData
-     */
-    private function searchData(array &$data, int &$recordsFiltered, array $requestData = []): void
-    {
-        // Page to start
-        $offset = $requestData['start'];
-        // Columns used un table by order
-        $columns = $this->getDefaultColumnsSearch();
-        // Remove this extra column for search (not in table)
-        if (in_array('col-action', $columns, true)) {
-            unset($columns[array_search('col-action', $columns, true)]);
-        }
-        // Order
-        $order = '';
-        if (isset($columns[$requestData['order'][0]['column']])) {
-            $order = $columns[$requestData['order'][0]['column']] . " " . $requestData['order'][0]['dir'];
-        }
-        // Default data
-        $recordsTotal = $this->model->countAllRecords();
-        // All registers in the actual page
-        $recordsFiltered = $recordsTotal;
-        if (!empty($requestData['search']['value'])) {
-            // Data for this search
-            $search = $requestData['search']['value'];
-            $data = $this->model->search($search, $columns, $offset, $order);
-            $recordsFiltered = $this->model->searchCount($search, $columns);
-        } else {
-            $search = '';
-            $data = $this->model->search($search, $columns, $offset, $order);
-        }
-    }
-
-    /**
-     * Return a default list of col.
-     *
-     * @return array
-     */
-    public function getDefaultColumnsSearch(): array
-    {
-        $list = [];
-        $i = 0;
-        foreach ($this->viewData['fields'] as $key => $value) {
-            $list[$i] = $key;
-            $i++;
-        }
-        $list[$i] = 'col-action';
-        return $list;
     }
 
     /**
@@ -232,7 +178,8 @@ trait AjaxDataTableTrait
                         'name' => "{$dataset}[{$fieldname}]",
                         'listPosition' => $pos,
                         'isPk' => $key === $this->model->getIdField(),
-                        'struct' => $this->fieldsStruct[$key],
+                        // 'struct' => $this->fieldsStruct[$key],
+                        'struct' => $this->sql->getModel($dataset)->getStructArray()[$fieldname],
                         'tableName' => $dataset,
                         'fieldname' => $fieldname,
                         'viewData' => $viewDataValue,
@@ -249,6 +196,41 @@ trait AjaxDataTableTrait
     public function getListFields(): array
     {
         $list = [];
+        foreach ($this->postData[$this->tableName] as $pos => $valueData) {
+            foreach ($this->viewData['fields'] as $key => $viewDataValue) {
+                // Translate common user details
+                $translate = ['title', 'placeholder'];
+                foreach ($translate as $keyTrans => $valueTrans) {
+                    if (isset($viewDataValue[$keyTrans])) {
+                        $viewDataValue[$keyTrans] = Translator::getInstance()->trans($viewDataValue[$keyTrans]);
+                    }
+                }
+
+                $dataset = $viewDataValue['dataset'] ?? $this->tableName;
+                $fieldname = $viewDataValue['fieldname'] ?? $key;
+
+                // If is a related field, get its value
+                $value = $valueData[$key] ?? null;
+                if (!isset($value) && $dataset !== $this->tableName) {
+                    $value = $this->sql->getModel($dataset)->{$fieldname};
+                }
+
+                $list[$pos][$key] = [
+                    'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
+                    'value' => $value,
+                    'idName' => $dataset . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $fieldname,
+                    'name' => "{$dataset}[{$fieldname}]",
+                    'listPosition' => $pos,
+                    'isPk' => $key === $this->model->getIdField(),
+                    // 'struct' => $this->fieldsStruct[$key],
+                    'struct' => $this->sql->getModel($dataset)->getStructArray()[$fieldname],
+                    'tableName' => $dataset,
+                    'fieldname' => $fieldname,
+                    'viewData' => $viewDataValue,
+                ];
+            }
+        }
+        /*
         foreach ($this->postData[$this->tableName] as $pos => $valueData) {
             foreach ($this->viewData['fields'] as $key => $viewDataValue) {
                 // Translate common user details
@@ -282,6 +264,7 @@ trait AjaxDataTableTrait
                 ];
             }
         }
+        */
         return $list;
     }
 
@@ -291,5 +274,59 @@ trait AjaxDataTableTrait
     public function getTableFooter(): array
     {
         return [];
+    }
+
+    /**
+     * Realize the search to database table.
+     *
+     * @param array $data
+     * @param int   $recordsFiltered
+     * @param array $requestData
+     */
+    private function searchData(array &$data, int &$recordsFiltered, array $requestData = []): void
+    {
+        // Page to start
+        $offset = $requestData['start'];
+        // Columns used un table by order
+        $columns = $this->getDefaultColumnsSearch();
+        // Remove this extra column for search (not in table)
+        if (in_array('col-action', $columns, true)) {
+            unset($columns[array_search('col-action', $columns, true)]);
+        }
+        // Order
+        $order = '';
+        if (isset($columns[$requestData['order'][0]['column']])) {
+            $order = $columns[$requestData['order'][0]['column']] . " " . $requestData['order'][0]['dir'];
+        }
+        // Default data
+        $recordsTotal = $this->model->countAllRecords();
+        // All registers in the actual page
+        $recordsFiltered = $recordsTotal;
+        if (!empty($requestData['search']['value'])) {
+            // Data for this search
+            $search = $requestData['search']['value'];
+            $data = $this->sql->search($search, $columns, $offset, $order);
+            $recordsFiltered = $this->sql->searchCount($search, $columns);
+        } else {
+            $search = '';
+            $data = $this->sql->search($search, $columns, $offset, $order);
+        }
+    }
+
+    /**
+     * Return a default list of col.
+     *
+     * @return array
+     */
+    public function getDefaultColumnsSearch(): array
+    {
+        $list = [];
+        $i = 0;
+        foreach ($this->viewData['fields'] as $key => $value) {
+            $list[$i] = $key;
+            $i++;
+        }
+        $list[$i] = 'col-action';
+        return $list;
     }
 }

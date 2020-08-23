@@ -176,7 +176,7 @@ class SchemaDB
      *
      * @return string
      */
-    private static function quoteTableName($tableName, bool $usePrefix = true): string
+    public static function quoteTableName($tableName, bool $usePrefix = true): string
     {
         return Database::getInstance()->getSqlHelper()->quoteTableName($tableName, $usePrefix);
     }
@@ -286,7 +286,7 @@ class SchemaDB
      *
      * @return string
      */
-    private static function quoteFieldName($fieldName): string
+    public static function quoteFieldName($fieldName): string
     {
         return Database::getInstance()->getSqlHelper()->quoteFieldName($fieldName);
     }
