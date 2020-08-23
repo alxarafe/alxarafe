@@ -105,6 +105,8 @@ class SimpleTable extends FlatTable
      * @param string $order   By default the main name field if defined
      *
      * @return array
+     *
+     * @deprecated Use SqlGenerator instead.
      */
     public function search(string $query, array $columns = [], int $offset = 0, string $order = ''): array
     {
@@ -118,11 +120,15 @@ class SimpleTable extends FlatTable
 
     /**
      * Return the main part of the search SQL query.
+     * TODO: Must return LEFT JOIN with related tables. See @param string $query
      *
-     * @param string $query
-     * @param array  $columns
+     * @param array $columns
      *
      * @return string
+     *
+     * @deprecated .
+     *
+     * @deprecated Use SqlGenerator instead.
      */
     public function searchQuery(string $query, array $columns = []): string
     {
@@ -157,6 +163,8 @@ class SimpleTable extends FlatTable
      * @param array  $columns For example: [0 => 'name']
      *
      * @return int
+     *
+     * @deprecated Use SqlGenerator instead.
      */
     public function searchCount(string $query, array $columns = []): int
     {

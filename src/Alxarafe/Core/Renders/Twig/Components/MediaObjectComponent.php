@@ -56,6 +56,8 @@ class MediaObjectComponent extends AbstractComponent
      */
     public $imgStyle;
 
+    public $value;
+
     /**
      * Return the template path to render this component.
      *

@@ -7,6 +7,7 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Schema;
+use Alxarafe\Core\Helpers\SqlGenerator;
 use Alxarafe\Core\Models\TableModel;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -100,6 +101,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var array
      */
     // public $indexesTables;
+    public $sql;
     /**
      * Contains all data from table.
      *
@@ -135,7 +137,6 @@ abstract class AuthPageExtendedController extends AuthPageController
      * @var string|null
      */
     protected $currentId;
-
     /**
      * Can contain: listing, adding or editing.
      *
@@ -154,6 +155,10 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->tableName = $this->model->tableName;
         parent::__construct();
         $this->renderer->setTemplate('default');
+        $this->sql = new SqlGenerator(
+            $this->model->getStructArray(),
+            Schema::getFromYamlFile($this->tableName, 'viewdata')['fields'] ?? null
+        );
     }
 
     /**

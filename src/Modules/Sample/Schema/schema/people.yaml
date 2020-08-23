@@ -18,16 +18,22 @@ fields:
         default: null
         nullable: 'yes'
         unsigned: 'no'
-    age:
+    salary:
         type: integer
-        length: '1'
+        length: '2'
         default: '18'
         nullable: 'yes'
         unsigned: 'yes'
-        min: 18
-        max: 65
+        min: 0
+        max: 100000
     birthday:
         type: date
+        length: null
+        default: null
+        nullable: 'yes'
+        unsigned: 'no'
+    photo:
+        type: text
         length: null
         default: null
         nullable: 'yes'

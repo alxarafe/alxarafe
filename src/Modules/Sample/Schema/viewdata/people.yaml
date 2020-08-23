@@ -23,20 +23,24 @@ fields:
         placeholder: vat
         maxlength: 10
         unique: yes
-    age:
+    salary:
         component: input
         type: number
         label: age
         shortlabel: age
         placeholder: age
-        min: 18
-        max: 65
     birthday:
         component: input
         type: date
         label: birthday
         shortlabel: birthday
         placeholder: birthday
+    photo:
+        component: MediaObject
+        type: text
+        label: country
+        shortlabel: country
+        placeholder: country
     id_country:
         component: select2
         label: country
