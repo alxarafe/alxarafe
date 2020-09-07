@@ -10,6 +10,7 @@ use Alxarafe\Core\Database\Fields\AbstractField;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Helpers\SchemaDB;
 use Alxarafe\Core\Providers\Database;
+use Alxarafe\Core\Providers\FlashMessages;
 
 /**
  * Class FlatTable has all the basic methods to access and manipulate information, but without modifying its
@@ -243,6 +244,11 @@ class FlatTable extends Entity
     public function defaultData()
     {
         $data = [];
+        if (constant('DEBUG') == true && !is_array($this->fields)) {
+            $x = FlashMessages::getInstance();
+            $x->setWarning($this->tableName . ' no tiene fields...');
+            return $data;
+        }
         foreach ($this->fields as $key => $field) {
             $data[$key] = $field->default;
         }

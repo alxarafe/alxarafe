@@ -282,6 +282,8 @@ trait AjaxDataTableTrait
      * @param array $data
      * @param int   $recordsFiltered
      * @param array $requestData
+     *
+     * @deprecated Use SqlGenerator searchData.
      */
     private function searchData(array &$data, int &$recordsFiltered, array $requestData = []): void
     {

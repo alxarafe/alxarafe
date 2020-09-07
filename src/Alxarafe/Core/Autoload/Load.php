@@ -146,6 +146,9 @@ class Load
             // Only throw the exception if missing class is from ower paths
             // NOTE: Can be '\Modules\Sample\Models\Country', 'Modules\Sample\Models\Country' or Country::class
             if (in_array(strpos($class, 'Alxarafe'), [0, 1], true) || in_array(strpos($class, 'Modules'), [0, 1], true)) {
+                if (constant('DEBUG')) {
+                    dump(debug_backtrace());
+                }
                 throw new RuntimeException(self::UNABLE_TO_LOAD . ' ' . $class);
             }
             $success = true;

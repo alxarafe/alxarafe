@@ -88,9 +88,8 @@ class SimpleTable extends FlatTable
      *
      * @return array
      */
-    public function getAllRecordsPaged(int $offset = 0): array
+    public function getAllRecordsPaged(int $offset = 0, int $limit = DEFAULT_ROWS_PER_PAGE): array
     {
-        $limit = constant('DEFAULT_ROWS_PER_PAGE');
         $sql = "SELECT * FROM {$this->getQuotedTableName()} LIMIT {$limit} OFFSET {$offset};";
         return Database::getInstance()->getDbEngine()->select($sql);
     }

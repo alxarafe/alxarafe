@@ -59,7 +59,7 @@ class SchemaDB
         $tableExists = self::tableExists($tableName);
         if ($tableExists) {
             $sql = [];
-            $sql = ArrayUtils::addToArray($sql, self::updateFields($tableName, $tabla['fields']));
+            $sql = ArrayUtils::addToArray($sql, self::updateFields($tableName, $tabla['fields'] ?? []));
             if (isset($tabla['indexes'])) {
                 $sql = ArrayUtils::addToArray($sql, self::updateIndexes($tableName, $tabla['indexes']));
             }

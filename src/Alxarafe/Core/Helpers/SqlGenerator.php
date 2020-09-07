@@ -129,7 +129,6 @@ class SqlGenerator
         $limit = constant('DEFAULT_ROWS_PER_PAGE');
         $sql .= (!empty($order) ? " ORDER BY {$order}" : '')
             . " LIMIT {$limit} OFFSET {$offset};";
-
         return Database::getInstance()->getDbEngine()->select($sql);
     }
 
@@ -196,10 +195,11 @@ class SqlGenerator
                 unset($indexes[$indexName]);
             }
         }
+
         // If no indexes for constraints, we don't need a related view
-        if (empty($indexes)) {
-            return [];
-        }
+        // if (empty($indexes)) {
+        // return [];
+        // }
 
         $quotedTableName = SchemaDb::quoteTableName($this->tablename, true);
         $sqlView = "SELECT ";
