@@ -20,9 +20,9 @@ How to use it:
 
 {% set id = id | default('thumbnailId' ~ randValue) %}
 {% set name = name | default('thumbnailName' ~ randValue) %}
-{% set class = class | default('img-responsive') %}
+{% set class = class | default('img-thumbnail img-responsive') %}
 {% set path = path | default('#') %}
-{% set message = message | default('Write a text here') %}
+{% set message = message | default('Alternative text') %}
 
 {% if links is defined and link != null %}
 <a href="{{ link }}" class="thumbnail">
