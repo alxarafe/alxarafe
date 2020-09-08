@@ -153,24 +153,4 @@ class SimpleTable extends FlatTable
 
         return $sql;
     }
-
-    /**
-     * Do a search to a table.
-     * Returns the result per page.
-     *
-     * @param string $query   What to look for
-     * @param array  $columns For example: [0 => 'name']
-     *
-     * @return int
-     *
-     * @deprecated Use SqlGenerator instead.
-     */
-    public function searchCount(string $query, array $columns = []): int
-    {
-        $sql = $this->searchQuery($query, $columns);
-        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField());
-        $sql = str_replace('SELECT * ', "SELECT COUNT({$idField}) AS total ", $sql);
-        $data = Database::getInstance()->getDbEngine()->select($sql);
-        return empty($data) ? 0 : (int) $data[0]['total'];
-    }
 }

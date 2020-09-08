@@ -37,11 +37,9 @@ trait AjaxDataTableTrait
         $tableModel = new TableModel();
         if ($tableModel->getBy('tablename', $table)) {
             $className = $tableModel->namespace;
-            $model = new $className();
-            $data = $model->getAllKeyValue($search);
-        } else {
-            $data = $this->model->getAllKeyValue($search);
+            $this->model = new $className();
         }
+        $data = $this->model->getAllKeyValue($search);
 
         $result = [];
         foreach ($data as $key => $value) {
@@ -80,7 +78,7 @@ trait AjaxDataTableTrait
         // To access more easy to all values
         $requestData = $this->request->request->all();
 
-        $recordsTotal = 0;
+        $recordsTotal = $this->model->countAllRecords();
         $recordsFiltered = 0;
         $data = [];
 
@@ -230,41 +228,7 @@ trait AjaxDataTableTrait
                 ];
             }
         }
-        /*
-        foreach ($this->postData[$this->tableName] as $pos => $valueData) {
-            foreach ($this->viewData['fields'] as $key => $viewDataValue) {
-                // Translate common user details
-                $translate = ['title', 'placeholder'];
-                foreach ($translate as $keyTrans => $valueTrans) {
-                    if (isset($viewDataValue[$keyTrans])) {
-                        $viewDataValue[$keyTrans] = Translator::getInstance()->trans($viewDataValue[$keyTrans]);
-                    }
-                }
 
-                $dataset = $viewDataValue['dataset'] ?? $this->tableName;
-                $fieldname = $viewDataValue['fieldname'] ?? $key;
-
-                // If is a related field, get its value
-                $value = $valueData[$key] ?? null;
-                if (!isset($value) && $dataset !== $this->tableName) {
-                    $value = $this->models[$dataset]->{$fieldname};
-                }
-
-                $list[$pos][$key] = [
-                    'label' => Translator::getInstance()->trans($viewDataValue['shortlabel'] ?? 'col-' . $key),
-                    'value' => $value,
-                    'idName' => $dataset . constant('IDSEPARATOR') . $pos . constant('IDSEPARATOR') . $fieldname,
-                    'name' => "{$dataset}[{$fieldname}]",
-                    'listPosition' => $pos,
-                    'isPk' => $key === $this->model->getIdField(),
-                    'struct' => $this->fieldsStruct[$key],
-                    'tableName' => $dataset,
-                    'fieldname' => $fieldname,
-                    'viewData' => $viewDataValue,
-                ];
-            }
-        }
-        */
         return $list;
     }
 
@@ -308,7 +272,7 @@ trait AjaxDataTableTrait
             // Data for this search
             $search = $requestData['search']['value'];
             $data = $this->sql->search($search, $columns, $offset, $order);
-            $recordsFiltered = $this->sql->searchCount($search, $columns);
+            $recordsFiltered = $this->sql->searchCount($this->model->tableName, $search, $columns);
         } else {
             $search = '';
             $data = $this->sql->search($search, $columns, $offset, $order);

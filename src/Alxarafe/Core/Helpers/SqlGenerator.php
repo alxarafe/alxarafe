@@ -18,7 +18,7 @@ class SqlGenerator
     /**
      * Contains an array of used models.
      *
-     * @var Array
+     * @var array
      */
     protected $models;
     /**
@@ -68,7 +68,7 @@ class SqlGenerator
     public function searchData(array &$data, int &$recordsFiltered, array $requestData = []): void
     {
         // Page to start
-        $offset = $requestData['start']??0;
+        $offset = $requestData['start'] ?? 0;
         // Columns used un table by order
         $columns = $this->getDefaultColumnsSearch();
         // Remove this extra column for search (not in table)
@@ -88,7 +88,7 @@ class SqlGenerator
             // Data for this search
             $search = $requestData['search']['value'];
             $data = $this->search($search, $columns, $offset, $order);
-            $recordsFiltered = $this->searchCount($search, $columns);
+            $recordsFiltered = $this->searchCount($this->tablename, $search, $columns);
         } else {
             $search = '';
             $data = $this->search($search, $columns, $offset, $order);
@@ -142,31 +142,10 @@ class SqlGenerator
      */
     public function searchQuery($query, $columns = [])
     {
-        /*
-        $query = str_replace(' ', '%', $query);
-        $quotedTableName = Database::getInstance()->getSqlHelper()->quoteTableName($this->tableName, $usePrefix);
-
-        if ($this->getNameField() !== '' && empty($columns)) {
-            $columns = [0 => $this->getNameField()];
+        $fillColumns = false;
+        if (empty($columns)) {
+            $fillColumns = true;
         }
-
-        $sql = "SELECT * FROM {$this->getQuotedTableName()}";
-        $sep = '';
-        if (!empty($columns) && !empty($query)) {
-            $sql .= ' WHERE (';
-            foreach ($columns as $pos => $col) {
-                if ($col !== null && $col !== 'col-action') {
-                    $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($col);
-                    $sql .= $sep . "lower({$fieldName}) LIKE '%" . $query . "%'";
-                    $sep = ' OR ';
-                }
-            }
-            $sql .= ')';
-        }
-
-        return $sql;
-        */
-
         $table = Schema::getFromYamlFile($this->tablename);
 
         $primaryColumn = [];
@@ -196,16 +175,12 @@ class SqlGenerator
             }
         }
 
-        // If no indexes for constraints, we don't need a related view
-        // if (empty($indexes)) {
-        // return [];
-        // }
-
         $quotedTableName = SchemaDB::quoteTableName($this->tablename, true);
         $sqlView = "SELECT ";
         $sep = '';
         foreach ($fields as $fieldName => $fieldData) {
             if (!is_null($fieldName)) {
+                $columns[] = $fillColumns ? $quotedTableName . '.' . SchemaDB::quoteFieldName($fieldName) : '';
                 $sqlView .= "{$sep}{$quotedTableName}." . SchemaDB::quoteFieldName($fieldName);
                 $sep = ', ';
             }
@@ -225,6 +200,21 @@ class SqlGenerator
                     . SchemaDB::quoteTableName($indexData['referencedtable'], true) . '.' . SchemaDB::quoteFieldName($primaryColumn[$indexName]);
             }
         }
+
+        $query = str_replace(' ', '%', $query);
+
+        $sep = '';
+        if (!empty($columns) && !empty($query)) {
+            $sqlView .= ' WHERE (';
+            foreach ($columns as $pos => $fieldName) {
+                if ($fieldName !== null && $fieldName !== 'col-action') {
+                    $sqlView .= $sep . "lower({$fieldName}) LIKE '%" . $query . "%'";
+                    $sep = ' OR ';
+                }
+            }
+            $sqlView .= ')';
+        }
+
         $sqlView .= ';';
         return $sqlView;
     }
@@ -233,16 +223,18 @@ class SqlGenerator
      * Do a search to a table.
      * Returns the result per page.
      *
+     * @param string $tableName
      * @param string $query   What to look for
      * @param array  $columns For example: [0 => 'name']
      *
      * @return int
      */
-    public function searchCount(string $query, array $columns = []): int
+    public function searchCount(string $tableName, string $query, array $columns = []): int
     {
         $sql = $this->searchQuery($query, $columns);
-        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($this->getIdField());
-        $sql = str_replace('SELECT * ', "SELECT COUNT({$idField}) AS total ", $sql);
+        $idField = $this->models[$tableName]->getIdField();
+        $idField = Database::getInstance()->getSqlHelper()->quoteFieldName($idField);
+        $sql = str_replace('SELECT ', "SELECT COUNT({$idField}) AS total, ", $sql);
         $data = Database::getInstance()->getDbEngine()->select($sql);
         return empty($data) ? 0 : (int) $data[0]['total'];
     }
