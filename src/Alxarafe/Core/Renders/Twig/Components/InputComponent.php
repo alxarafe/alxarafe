@@ -84,12 +84,4 @@ class InputComponent extends AbstractComponent
     {
         return '@Core/components/input.html';
     }
-
-    /**
-     * @param $parameteres
-     */
-    private function fixCheckboxParams(&$parameteres)
-    {
-
-    }
 }
