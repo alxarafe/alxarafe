@@ -7,7 +7,9 @@
 namespace Alxarafe\Core\Renders\Twig\Components;
 
 /**
- * Class ThumbnailComponent
+ * Class ThumbnailComponent.
+ *
+ * Adds a component with a thumbnail of an image.
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
@@ -31,6 +33,20 @@ class ThumbnailComponent extends AbstractComponent
      * @var string
      */
     public $link;
+
+    /**
+     * ThumbnailComponent constructor.
+     *
+     * @param $parameters
+     */
+    public function __construct($parameters)
+    {
+        parent::__construct($parameters);
+
+        if (!isset($this->path)) {
+            $this->path = $parameters['value'];
+        }
+    }
 
     /**
      * Return the template path to render this component.

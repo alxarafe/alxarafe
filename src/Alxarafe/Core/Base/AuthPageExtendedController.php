@@ -323,7 +323,7 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     private function getComponentClass(array $value)
     {
-        $type = $value['component'];
+        $type = $value['component'] ?? 'Undefined';
         $file = basePath('src/Alxarafe/Core/Renders/Twig/Components/' . ucfirst($type) . 'Component.php');
         $class = 'Alxarafe\\Core\\Renders\\Twig\\Components\\' . ucfirst($type) . 'Component';
         if (!file_exists($file)) {

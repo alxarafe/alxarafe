@@ -141,12 +141,10 @@ class SchemaGenerator
                 //     break;
                 // }
 
-                if ($result['component'] === 'select') {
-                    break;
-                }
-
-                if ($result['component'] === 'select2') {
-                    break;
+                if (isset($result['component'])) {
+                    if ($result['component'] === 'select' || $result['component'] === 'select2') {
+                        break;
+                    }
                 }
 
                 $length = $values['length'] ?? 8;
