@@ -65,6 +65,9 @@ class InputComponent extends AbstractComponent
     public function __construct($parameters)
     {
         parent::__construct($parameters);
+        // TODO: Verify all fields
+        // TESTED: checkbox, number, datetime-local, text
+        // NOT TESTED: button, color, date, email, file, hidden, image, month, password, radio, range, reset, search, submit, tel, time, url, week
     }
 
     /**
