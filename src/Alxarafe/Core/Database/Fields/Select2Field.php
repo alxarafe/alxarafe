@@ -25,19 +25,7 @@ class Select2Field extends AbstractField
      */
     public function test($key, &$value): bool
     {
-        $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
-
-        if (in_array(strtolower($value), ['true', 'yes', '1'])) {
-            $value = '1';
-            return true;
-        }
-
-        if (in_array(strtolower($value), ['false', 'no', '0'])) {
-            $value = '0';
-            return true;
-        }
-
-        self::$errors[] = $this->trans->trans('error-boolean-expected', $params);
-        return false;
+        // Revise test in StringField for example!
+        return true;
     }
 }

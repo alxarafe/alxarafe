@@ -10,8 +10,6 @@ class PasswordField extends StringField
 {
 
     /**
-     * TODO IMPORTANT! We have to check that the test method is correct for this field.
-     *
      * The passed value is verified to meet the necessary requirements for the field.
      * The field name is needed in case you have to show a message, to be able to
      * report what field it is.
@@ -25,6 +23,7 @@ class PasswordField extends StringField
      */
     public function test($key, &$value): bool
     {
-        return (count(self::$errors) === 0);
+        // Revise test in StringField for example!
+        return true;
     }
 }

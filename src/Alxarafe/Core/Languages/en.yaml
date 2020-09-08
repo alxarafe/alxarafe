@@ -134,7 +134,7 @@ dataTable-sZeroRecords: "No matching records found"
 database-data-not-changed: "Database data not changed"
 database-data-updated-successfully: "Database data updated successfully"
 database-engine: "Database engine"
-date-can-not-be-blank: "<b>%field%<b> can not be blank"
+date-can-not-be-blank: "%field% can not be blank"
 dateFormat: "Date format"
 datetimeFormat: "Date time format"
 datetime-error: "%value% is not a valid time for %field%"
@@ -153,7 +153,7 @@ default-timezone: "Default timezone"
 delete: Delete
 description: Description
 dev-tools: "Development tools"
-directory-not-created: "Directory <b>%directory%</b> not created"
+directory-not-created: "Directory %directory% not created"
 disable: Disable
 edit: Edit
 edit-configuration: "Edit configuration"
@@ -163,19 +163,19 @@ email: Email
 enable: Enable
 enabled: Enabled
 enter: Enter
-error-boolean-expected: "The field <b>%field%<b> must be an boolean value, <b>%value%<b> is not."
-error-float-expected: "The field <b>%field%<b> must be an real number value, <b>%value%<b> is not."
-error-greater-than-maximum: "The value <b>%value%<b> cannot be greater than the maximum %max% in <b>%field%<b>."
-error-integer-expected: "The field <b>%field%<b> must be an integer value, <b>%value%<b> is not."
-error-less-than-minimum: "The value <b>%value%<b> cannot be less than the minimum %min% in <b>%field%<b>."
-error-negative-unsigned: "The number <b>%value%<b> has to be positive in <b>%field%<b>."
-error-string-too-long: "%maxlen% exceeds the maximum length allowed for the string, which is %strlen% characters in <b>%field%<b>."
-error-type-not-supported: "Check the data type of the field <b>%field%<b> in viewdata. The data type %type% is not supported."
+error-boolean-expected: "The field %field% must be an boolean value, %value% is not."
+error-float-expected: "The field %field% must be an real number value, %value% is not."
+error-greater-than-maximum: "The value %value% cannot be greater than the maximum %max% in %field%."
+error-integer-expected: "The field %field% must be an integer value, %value% is not."
+error-less-than-minimum: "The value %value% cannot be less than the minimum %min% in %field%."
+error-negative-unsigned: "The number %value% has to be positive in %field%."
+error-string-too-long: "%maxlen% exceeds the maximum length allowed for the string, which is %strlen% characters in %field%."
+error-type-not-supported: "Check the data type of the field %field% in viewdata. The data type %type% is not supported."
 exit: Exit
 export-data: "Export data"
 extra-actions: "Extra actions"
 fake-data: "Generate fake data"
-file-not-created: "File <b>%file%</b> not created."
+file-not-created: "File %file% not created."
 fork-us: "Fork us"
 icon: Icon
 id: Id.
@@ -244,7 +244,7 @@ tablename: "Table name"
 tablename-fieldname-exceeds-maximum: "%tableName%-%fieldName% exceeds maximum %max%"
 tablename-fieldname-exceeds-minimum: "%tableName%-%fieldName% exceeds minimum %min%"
 tablename-fieldname-max-length: "%tableName%-%fieldName% maximum length %length%"
-tablename-fieldname-register-duplicated: "%tableName%-%fieldName% value <b>%value%<b> register duplicated %register%"
+tablename-fieldname-register-duplicated: "%tableName%-%fieldName% value %value% register duplicated %register%"
 templaterender-data-not-changed: "Template render data not changed"
 timeFormat: "Time format"
 title: Title

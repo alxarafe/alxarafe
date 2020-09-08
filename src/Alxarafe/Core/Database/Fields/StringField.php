@@ -33,8 +33,6 @@ class StringField extends AbstractField
 
 
     /**
-     * TODO IMPORTANT! We have to check that the test method is correct for this field.
-     *
      * The passed value is verified to meet the necessary requirements for the field.
      * The field name is needed in case you have to show a message, to be able to
      * report what field it is.
@@ -50,14 +48,13 @@ class StringField extends AbstractField
     {
         $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
-        $maxlen = $struct['maxlength'] ?? null;
+        $maxlen = (integer) $this->length;
         $strlen = strlen($value);
         if (isset($maxlen) && $strlen > $maxlen) {
             $params['%strlen%'] = $strlen;
             $params['%maxlen%'] = $maxlen;
             self::$errors[] = $this->trans->trans('error-string-too-long', $params);
         }
-
         return (count(self::$errors) === 0);
     }
 }
