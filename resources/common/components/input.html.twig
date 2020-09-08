@@ -27,4 +27,28 @@ How to use it:
 {% set pattern = pattern | default('') %}
 {% set placeholder = placeholder | default('') %}
 
-<input id="{{ id }}" name="{{ name }}" type="{{ type }}" class="form-control {{ class }}" value="{{ value }}" {% if min!='' %}min="{{ min }}" {% endif %}{% if max!='' %}max="{{ max }}" {% endif %}{% if pattern!='' %}pattern="{{ pattern }}" {% endif %}{% if placeholder!='' %}placeholder="{{ placeholder }}"{% endif %}>
+{# Auto-fix #}
+{% if type == 'datetime' %}
+    {% set type = 'datetime-local' %}
+{% endif %}
+
+{% set checked = '' %}
+{% if type == 'checkbox' %}
+    {% if value is not empty and value is not null and value %}
+        {% set checked = 'checked' %}
+    {% endif %}
+    {% set value = 'TRUE' %}
+{% endif %}
+
+<input
+        id="{{ id }}"
+        name="{{ name }}"
+        type="{{ type }}"
+        class="form-control {{ class }}"
+        value="{{ value }}"
+        {{ checked }}
+        {% if min!='' %}min="{{ min }}" {% endif %}
+        {% if max!='' %}max="{{ max }}" {% endif %}
+        {% if pattern!='' %}pattern="{{ pattern }}" {% endif %}
+        {% if placeholder!='' %}placeholder="{{ placeholder }}"{% endif %}
+>

@@ -16,7 +16,9 @@ class InputComponent extends AbstractComponent
     /**
      * Contains component type.
      *
-     * @var bool
+     * @doc https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+     *
+     * @var string
      */
     public $type;
 
@@ -27,10 +29,51 @@ class InputComponent extends AbstractComponent
      */
     public $value;
 
+    /**
+     * Contains component minimum value.
+     *
+     * @var float
+     */
     public $min;
+
+    /**
+     * Contains component maximum value.
+     *
+     * @var float
+     */
     public $max;
+
+    /**
+     * Contains component pattern for regex validation.
+     *
+     * @var string
+     */
     public $pattern;
+
+    /**
+     * Contains component placeholder.
+     *
+     * @var string
+     */
     public $placeholder;
+
+    /**
+     * InputComponent constructor.
+     *
+     * @param $parameters
+     */
+    public function __construct($parameters)
+    {
+        parent::__construct($parameters);
+
+        if (isset($parameters['type'])) {
+            switch ($parameters['type']) {
+                case 'checkbox':
+                    $this->fixCheckboxParams($parameters);
+                    break;
+            }
+        }
+    }
 
     /**
      * Return the template path to render this component.
@@ -40,5 +83,13 @@ class InputComponent extends AbstractComponent
     public function getTemplatePath(): string
     {
         return '@Core/components/input.html';
+    }
+
+    /**
+     * @param $parameteres
+     */
+    private function fixCheckboxParams(&$parameteres)
+    {
+
     }
 }
