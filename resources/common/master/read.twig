@@ -33,8 +33,7 @@
                     {% include "@Core/components/span.html.twig" with {id: 'label~' ~ item.id, name: 'label~' ~ item.id, class: '', value: trans(item.label) } %}
                 </div>
                 <div class="col-xs-9 col-sm-10 col-md-11">
-                    {% include "@Core/components/span.html.twig" with {id: item.id, name: item.id, class: item.class, value: item.value} %}
-                    {# {{ item.toHtml() | raw }} #}
+                    {{ item.toHtml(true) | raw }}
                 </div>
             </div>
         {% endfor %}

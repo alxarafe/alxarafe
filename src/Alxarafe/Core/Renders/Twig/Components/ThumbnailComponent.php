@@ -27,6 +27,7 @@ class ThumbnailComponent extends AbstractComponent
      * @var string
      */
     public $path;
+    public $value;
     /**
      * Contains the link.
      *
@@ -43,9 +44,21 @@ class ThumbnailComponent extends AbstractComponent
     {
         parent::__construct($parameters);
 
-        if (!isset($this->path)) {
-            $this->path = $parameters['value'];
+        if (isset($this->value) && !isset($this->path)) {
+            $this->setValue($this->value);
         }
+
+        if (!isset($this->path) && isset($parameters['value'])) {
+            $this->setValue($parameters['value']);
+        }
+    }
+
+    /**
+     * @param $value
+     */
+    public function setValue($value)
+    {
+        $this->path = $value;
     }
 
     /**

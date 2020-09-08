@@ -109,6 +109,9 @@ trait AjaxDataTableTrait
     {
         foreach ($data as $pos => $item) {
             foreach ($item as $key => $value) {
+                if ($item[$this->model->getIdField()] == $item[$key]) {
+                    continue;
+                }
                 if (isset($this->components[$key])) {
                     $this->components[$key]->setValue($value);
                     $data[$pos][$key] = $this->components[$key]->toHtml(true);
