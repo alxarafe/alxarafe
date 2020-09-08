@@ -10,8 +10,6 @@ class DatetimeField extends AbstractField
 {
 
     /**
-     * TODO IMPORTANT! We have to check that the test method is correct for this field.
-     *
      * The passed value is verified to meet the necessary requirements for the field.
      * The field name is needed in case you have to show a message, to be able to
      * report what field it is.
@@ -26,15 +24,8 @@ class DatetimeField extends AbstractField
     public function test($key, &$value): bool
     {
         $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
-
-        $default = $struct['default'] ?? null;
-        if (isset($default)) {
-            if (substr(strtoupper($default), 0, 7) === 'CURRENT') {
-                $value = date('Y-m-d H:i:s');
-            }
-        }
-        if ($value === '') {
-            self::$errors[] = $this->trans->trans('date-can-not-be-blank', $params);
+        if (!strtotime($value)) {
+            self::$errors[] = $this->trans->trans('datetime-error', $params);
         }
         return (count(self::$errors) === 0);
     }
