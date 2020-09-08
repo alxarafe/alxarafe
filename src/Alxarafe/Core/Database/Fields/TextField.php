@@ -23,6 +23,8 @@ class TextField extends AbstractField
      */
     public function test($key, &$value): bool
     {
+        return true;
+
         $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
         if (in_array(strtolower($value), ['true', 'yes', '1'])) {
