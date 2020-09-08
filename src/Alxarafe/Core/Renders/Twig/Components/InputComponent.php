@@ -65,14 +65,6 @@ class InputComponent extends AbstractComponent
     public function __construct($parameters)
     {
         parent::__construct($parameters);
-
-        if (isset($parameters['type'])) {
-            switch ($parameters['type']) {
-                case 'checkbox':
-                    $this->fixCheckboxParams($parameters);
-                    break;
-            }
-        }
     }
 
     /**
