@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Renders\Twig\Components;
 
+use Alxarafe\Core\Base\Entity;
 use Alxarafe\Core\Helpers\TwigFunctions;
 use Alxarafe\Core\Providers\FlashMessages;
 use Alxarafe\Core\Traits\MagicTrait;
@@ -15,7 +16,7 @@ use Alxarafe\Core\Traits\MagicTrait;
  *
  * @package Alxarafe\Core\Renders\Twig\Components
  */
-abstract class AbstractComponent
+abstract class AbstractComponent extends Entity
 {
     use MagicTrait;
 
@@ -63,9 +64,11 @@ abstract class AbstractComponent
     {
         foreach ($parameters as $property => $value) {
             $this->{$property} = $value;
-            //TODO: Ensure this message is visible when is not a defined property
+            // Ensure this message is visible when is not a defined property
             if (!property_exists($this, $property)) {
-                FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
+                if (constant('DEBUG')) {
+                    FlashMessages::getInstance()::setError(__CLASS__ . ": {$property} with value {$value} not exists, include it if needed.");
+                }
             }
         }
     }
@@ -75,9 +78,9 @@ abstract class AbstractComponent
      *
      * @return string
      */
-    public function toHtml(): string
+    public function toHtml($readOnly = false): string
     {
-        return (new TwigFunctions())->renderComponent($this->getTemplatePath(), $this->toArray());
+        return (new TwigFunctions())->renderComponent($this->getTemplatePath(), $this->toArray($readOnly));
     }
 
     /**
@@ -90,9 +93,11 @@ abstract class AbstractComponent
     /**
      * Returns this object public properties to array.
      *
+     * @param false $readOnly
+     *
      * @return array $array populated array
      */
-    public function toArray(): array
+    public function toArray($readOnly = false): array
     {
         $array = [];
         // get public properties of this object
@@ -100,6 +105,11 @@ abstract class AbstractComponent
         foreach ($propertyList as $property) {
             $array[$property] = $this->$property;
         }
+
+        if ($readOnly) {
+            $array['readonly'] = true;
+        }
+
         return $array;
     }
 }

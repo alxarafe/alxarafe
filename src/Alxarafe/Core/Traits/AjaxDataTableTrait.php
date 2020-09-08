@@ -86,6 +86,7 @@ trait AjaxDataTableTrait
             $this->sql->searchData($data, $recordsFiltered, $requestData);
         }
 
+        $this->renderValue($data);
         $this->fillActions($data);
 
         $jsonData = [
@@ -97,6 +98,23 @@ trait AjaxDataTableTrait
 
         $print = constant('DEBUG') === true ? constant('JSON_PRETTY_PRINT') : 0;
         return $this->sendResponse(json_encode($jsonData, $print));
+    }
+
+    /**
+     * Render the returned value with html component in readonly.
+     *
+     * @param $data
+     */
+    private function renderValue(&$data): void
+    {
+        foreach ($data as $pos => $item) {
+            foreach ($item as $key => $value) {
+                if (isset($this->components[$key])) {
+                    $this->components[$key]->setValue($value);
+                    $data[$pos][$key] = $this->components[$key]->toHtml(true);
+                }
+            }
+        }
     }
 
     /**
