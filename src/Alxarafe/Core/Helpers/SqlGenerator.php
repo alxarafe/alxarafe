@@ -201,18 +201,18 @@ class SqlGenerator
         // return [];
         // }
 
-        $quotedTableName = SchemaDb::quoteTableName($this->tablename, true);
+        $quotedTableName = SchemaDB::quoteTableName($this->tablename, true);
         $sqlView = "SELECT ";
         $sep = '';
         foreach ($fields as $fieldName => $fieldData) {
             if (!is_null($fieldName)) {
-                $sqlView .= "{$sep}{$quotedTableName}." . SchemaDb::quoteFieldName($fieldName);
+                $sqlView .= "{$sep}{$quotedTableName}." . SchemaDB::quoteFieldName($fieldName);
                 $sep = ', ';
             }
         }
         foreach ($indexes as $indexName => $indexData) {
             if (!is_null($nameColumn[$indexName])) {
-                $sqlView .= $sep . SchemaDb::quoteTableName($indexData['referencedtable'], true) . '.' . SchemaDb::quoteFieldName($nameColumn[$indexName])
+                $sqlView .= $sep . SchemaDB::quoteTableName($indexData['referencedtable'], true) . '.' . SchemaDB::quoteFieldName($nameColumn[$indexName])
                     . " AS {$indexData['referencedtable']}_{$nameColumn[$indexName]}";
                 $sep = ', ';
             }
@@ -220,9 +220,9 @@ class SqlGenerator
         $sqlView .= " FROM {$quotedTableName}";
         foreach ($indexes as $indexName => $indexData) {
             if (!is_null($indexData['column']) && !is_null($primaryColumn[$indexName])) {
-                $sqlView .= ' LEFT JOIN ' . SchemaDb::quoteTableName($indexData['referencedtable'], true)
-                    . " ON {$quotedTableName}." . SchemaDb::quoteFieldName($indexData['column']) . ' = '
-                    . SchemaDb::quoteTableName($indexData['referencedtable'], true) . '.' . SchemaDb::quoteFieldName($primaryColumn[$indexName]);
+                $sqlView .= ' LEFT JOIN ' . SchemaDB::quoteTableName($indexData['referencedtable'], true)
+                    . " ON {$quotedTableName}." . SchemaDB::quoteFieldName($indexData['column']) . ' = '
+                    . SchemaDB::quoteTableName($indexData['referencedtable'], true) . '.' . SchemaDB::quoteFieldName($primaryColumn[$indexName]);
             }
         }
         $sqlView .= ';';
