@@ -31,7 +31,6 @@ class StringField extends AbstractField
         }
     }
 
-
     /**
      * The passed value is verified to meet the necessary requirements for the field.
      * The field name is needed in case you have to show a message, to be able to

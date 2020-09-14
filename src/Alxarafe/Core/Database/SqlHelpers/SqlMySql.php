@@ -28,7 +28,7 @@ class SqlMySql extends SqlHelper
             'integer' => ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'],
             'decimal' => ['decimal'],
             'string' => ['char', 'varchar'],
-            'text' => ['text', 'blob'],
+            'text' => ['tinytext', 'text', 'mediumtext', 'longtext', 'blob'],
             'float' => ['real', 'double'],
             'date' => ['date'],
             'time' => ['time'],
@@ -115,6 +115,10 @@ class SqlMySql extends SqlHelper
             case 'string':
                 $return = $this->toString($length);
                 break;
+            case 'text':
+            case 'blob':
+                $return = $this->toText($type, $length);
+                break;
             case 'float':
                 $return = 'double'; // real use 4 bytes and double 8 bytes
                 break;
@@ -171,6 +175,33 @@ class SqlMySql extends SqlHelper
     private function toString(int $length = 0): string
     {
         return $length > 6 ? 'varchar(' . $length . ')' : 'char(' . $length . ')';
+    }
+
+    /**
+     * TODO: Undocumented
+     *
+     * @param string $type
+     * @param int    $length
+     *
+     * @return string
+     */
+    private function toText(string $type, int $length = 0): string
+    {
+        // https://dev.mysql.com/doc/refman/8.0/en/blob.html
+        switch ($length) {
+            case 1:
+                $type = 'tiny' . $type;
+                break;
+            case 3:
+                $type = 'medium' . $type;
+                break;
+            case 4:
+                $type = 'long' . $type;
+                break;
+            case 2:
+            default:
+        }
+        return $type;
     }
 
     /**

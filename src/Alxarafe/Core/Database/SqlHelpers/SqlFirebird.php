@@ -27,7 +27,7 @@ class SqlFirebird extends SqlHelper
             'integer' => ['int', 'tinyint'],
             'decimal' => ['decimal'],
             'string' => ['char', 'varchar'],
-            'text' => ['text', 'blob'],
+            'text' => ['tinytext', 'text', 'mediumtext', 'longtext', 'blob'],
             'float' => ['real', 'double'],
             'date' => ['date'],
             'datetime' => ['timestamp'],
