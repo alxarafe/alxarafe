@@ -74,12 +74,20 @@ class Select2Component extends AbstractComponent
     public function setValue($data)
     {
         parent::setValue($data);
+
         if (!isset($this->struct)) {
             return false;
         }
 
+        // If no data, return empty string
+        if ($data === null) {
+            $this->dataAttr['id'] = null;
+            $this->dataAttr['text'] = '';
+            return true;
+        }
+
         $referenced = TableModel::getModel($this->struct->referencedtable);
-        if ($referenced === null || !$referenced->load($data)) {
+        if ($referenced === null || $data === null || !$referenced->load($data)) {
             return false;
         }
         $this->dataAttr['id'] = $data;
