@@ -159,10 +159,12 @@ abstract class AuthPageExtendedController extends AuthPageController
         $this->tableName = $this->model->tableName;
         parent::__construct();
         $this->renderer->setTemplate('default');
-        $this->sql = new SqlGenerator(
-            $this->tableName,
-            Schema::getFromYamlFile($this->tableName, 'viewdata')['fields'] ?? null
-        );
+        if ($this->tableName !== null) {
+            $this->sql = new SqlGenerator(
+                $this->tableName,
+                Schema::getFromYamlFile($this->tableName, 'viewdata')['fields'] ?? null
+            );
+        }
     }
 
     /**
