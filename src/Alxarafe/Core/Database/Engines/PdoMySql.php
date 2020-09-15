@@ -38,4 +38,14 @@ class PdoMySql extends Engine
         $config[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         return parent::connect($config);
     }
+
+    /**
+     * Returns details about last error.
+     *
+     * @return array
+     */
+    public function getError(): array
+    {
+        return self::$dbHandler->errorInfo();
+    }
 }

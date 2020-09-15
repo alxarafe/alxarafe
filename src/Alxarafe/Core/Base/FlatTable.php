@@ -376,7 +376,13 @@ class FlatTable extends Entity
         $sql = "UPDATE {$this->getQuotedTableName()} SET {$fieldList} WHERE {$idField} = :id;";
         $vars['id'] = $this->id;
 
-        return Database::getInstance()->getDbEngine()->exec($sql, $vars);
+        $result = Database::getInstance()->getDbEngine()->exec($sql, $vars);
+
+        if (!$result) {
+            $this->errors[] = implode('; ', Database::getInstance()->getDbEngine()->getError());
+        }
+
+        return $result;
     }
 
     /**
@@ -413,7 +419,6 @@ class FlatTable extends Entity
         $valueList = implode(', ', $fieldVars);
 
         $sql = "INSERT INTO {$this->getQuotedTableName()} ($fieldList) VALUES ($valueList);";
-
         $result = Database::getInstance()->getDbEngine()->exec($sql, $vars);
 
         if ($result) {
@@ -423,6 +428,8 @@ class FlatTable extends Entity
                 $this->id = Database::getInstance()->getDbEngine()->getLastInserted();
                 $this->newData[$this->idField] = $this->id;
             }
+        } else {
+            $this->errors[] = implode('; ', Database::getInstance()->getDbEngine()->getError());
         }
 
         return $result;

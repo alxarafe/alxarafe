@@ -154,4 +154,14 @@ class Database
     {
         return $this->config;
     }
+
+    /**
+     * Returns details about last error.
+     *
+     * @return array
+     */
+    public function getError(): array
+    {
+        return $this->dbEngine->getError();
+    }
 }

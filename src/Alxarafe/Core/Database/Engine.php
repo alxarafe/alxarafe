@@ -539,9 +539,16 @@ abstract class Engine
      *
      * @param string $tablename
      * @param array  $data
-    * final public function setDbTableStructure(string $tablename, array $data): void
-    * {
-        * self::$dbStructure[$tablename] = $data;
-    * }
+     *     final public function setDbTableStructure(string $tablename, array $data): void
+     *     {
+     *     self::$dbStructure[$tablename] = $data;
+     *     }
      */
+
+    /**
+     * Returns details about last error.
+     *
+     * @return array
+     */
+    abstract public function getError(): array;
 }
