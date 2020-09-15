@@ -29,6 +29,7 @@
     "ext-openssl": "*",
     "ext-json": "*",
     "ext-curl": "*",
+    "ext-fileinfo": "*",
     "symfony/finder": "^4.2",
     "symfony/cache": "^4.2",
     "parsecsv/php-parsecsv": "^1.1",
