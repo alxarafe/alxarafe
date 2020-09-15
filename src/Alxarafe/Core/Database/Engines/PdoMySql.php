@@ -46,6 +46,6 @@ class PdoMySql extends Engine
      */
     public function getError(): array
     {
-        return self::$dbHandler->errorInfo();
+        return self::$statement->errorInfo();
     }
 }
