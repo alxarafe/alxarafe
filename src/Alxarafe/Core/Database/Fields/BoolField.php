@@ -25,6 +25,11 @@ class BoolField extends AbstractField
     {
         $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
+        if ($this->nullable === 'yes' && ($value == null || strtolower($value) == 'null')) {
+            $value = null;
+            return true;
+        }
+
         if (in_array(strtolower($value), ['true', 'yes', '1'])) {
             $value = '1';
             return true;
