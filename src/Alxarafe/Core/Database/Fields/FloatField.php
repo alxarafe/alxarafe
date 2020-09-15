@@ -56,7 +56,7 @@ class FloatField extends AbstractNumericField
         $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
 
         $float = (float) $value;
-        if ($float !== $value) {
+        if (!is_numeric($value) && $float == $value) {
             self::$errors[] = $this->trans->trans('error-float-expected', $params);
         }
 
