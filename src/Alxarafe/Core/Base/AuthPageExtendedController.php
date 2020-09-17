@@ -156,10 +156,10 @@ abstract class AuthPageExtendedController extends AuthPageController
     public function __construct($model = null)
     {
         $this->model = $model;
-        $this->tableName = $this->model->tableName;
         parent::__construct();
         $this->renderer->setTemplate('default');
-        if ($this->tableName !== null) {
+        if ($this->model !== null) {
+            $this->tableName = $this->model->tableName;
             $this->sql = new SqlGenerator(
                 $this->tableName,
                 Schema::getFromYamlFile($this->tableName, 'viewdata')['fields'] ?? null
@@ -213,6 +213,9 @@ abstract class AuthPageExtendedController extends AuthPageController
      */
     public function initialize(): void
     {
+        if ($this->model === null) {
+            return;
+        }
         $this->currentId = $this->request->query->get($this->model->getIdField());
         $this->postData = $this->getRecordData();
         // $this->fieldsStruct = Database::getInstance()->getDbEngine()->getDbTableStructure($this->tableName)['fields'];
