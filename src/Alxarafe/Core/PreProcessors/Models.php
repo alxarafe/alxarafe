@@ -100,7 +100,8 @@ class Models
         $models = Finder::create()
             ->files()
             ->name('*.php')
-            ->in($dir);
+            ->in($dir)
+            ->notContains('index');
         foreach ($models->getIterator() as $modelFile) {
             $class = str_replace([$dir, '/', '\\', '.php'], '', $modelFile);
             if ($namespace === 'Alxarafe') {

@@ -18,6 +18,6 @@
 {% set id = id | default('textareaId' ~ randValue) %}
 {% set name = name | default('textareaName' ~ randValue) %}
 {% set row = row | default('2') %}
-{% set text = text | default('Write a text here') %}
+{% set text = text | default('') %}
 
 <textarea id="{{ id }}" name="{{ name }}" class="form-control" rows="{{ row }}">{{ text | raw }}</textarea>

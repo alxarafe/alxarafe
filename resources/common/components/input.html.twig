@@ -26,6 +26,7 @@ How to use it:
 {% set max = max | default('') %}
 {% set pattern = pattern | default('') %}
 {% set placeholder = placeholder | default('') %}
+{% set style = style | default('') %}
 
 {% set checked = '' %}
 
@@ -48,6 +49,7 @@ How to use it:
             {% set checked = 'checked' %}
         {% endif %}
         {% set value = 'TRUE' %}
+        {% set style = 'width: 34px !important;' ~ (style | default('')) %}
     {% endif %}
 
     <input
@@ -57,6 +59,7 @@ How to use it:
             class="form-control {{ class }}"
             value="{{ value }}"
             {{ checked }}
+            {% if style!='' %}style="{{ style }}" {% endif %}
             {% if min!='' %}min="{{ min }}" {% endif %}
             {% if max!='' %}max="{{ max }}" {% endif %}
             {% if pattern!='' %}pattern="{{ pattern }}" {% endif %}

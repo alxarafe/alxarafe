@@ -23,7 +23,7 @@
 {% set id = id | default('radioID' ~ randValue) %}
 {% set name = name | default('radioName' ~ randValue) %}
 {% set type = type | default('input') %}
-{% set text = text | default('Write a text here') %}
+{% set text = text | default('') %}
 
 {% if type == 'input' %}
     <div class="input-group">

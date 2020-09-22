@@ -21,7 +21,7 @@ How to use it:
 {% set name = name | default('alertName' ~ randValue) %}
 {% set class = class | default('alert alert-success') %}
 {% set dismissible = dismissible | default(false) %}
-{% set message = message | default('Write a text here') %}
+{% set message = message | default('') %}
 
 <div id="{{ id }}" name="{{ name }}" class="{{ class }} {% if dismissible==true %}alert-dismissible fade in{% endif %}" role="alert">
     {% if dismissible==true %}

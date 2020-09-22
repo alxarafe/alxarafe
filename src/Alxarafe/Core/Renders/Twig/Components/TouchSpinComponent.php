@@ -30,6 +30,11 @@ class TouchSpinComponent extends AbstractComponent
         parent::__construct($parameters);
         // $this->addCSS('resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css');
         // $this->addJS('resources/skins/default/bower_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js');
+
+        // TODO: Verify all fields
+//        if (!isset($this->path)) {
+//            $this->path = $parameters['value'];
+//        }
     }
 
     /**

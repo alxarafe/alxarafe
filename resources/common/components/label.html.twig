@@ -18,7 +18,7 @@
 {% set id = id | default('labelId' ~ randValue) %}
 {% set name = name | default('labelName' ~ randValue) %}
 {% set class = class | default('label label-default') %}
-{% set value = text | default('Write a text here') %}
+{% set value = text | default('') %}
 
 <span id="{{ id }}" name="{{ name }}" class="{{ class }}">
     {{ value | raw }}

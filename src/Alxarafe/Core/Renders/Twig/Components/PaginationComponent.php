@@ -35,6 +35,21 @@ class PaginationComponent extends AbstractComponent
     public $classes;
 
     /**
+     * PaginationComponent constructor.
+     *
+     * @param $parameters
+     */
+    public function __construct($parameters)
+    {
+        parent::__construct($parameters);
+
+        // TODO: Verify all fields
+//        if (!isset($this->path)) {
+//            $this->path = $parameters['value'];
+//        }
+    }
+
+    /**
      * Return the template path to render this component.
      *
      * @return string

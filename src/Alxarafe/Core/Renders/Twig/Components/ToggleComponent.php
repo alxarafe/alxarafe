@@ -30,6 +30,11 @@ class ToggleComponent extends AbstractComponent
         parent::__construct($parameters);
         // $this->addCSS('resources/skins/default/bower_modules/bootstrap-toggle/css/bootstrap-toggle.min.css');
         // $this->addJS('resources/skins/default/bower_modules/bootstrap-toggle/js/bootstrap-toggle.min.js');
+
+        // TODO: Verify all fields
+//        if (!isset($this->path)) {
+//            $this->path = $parameters['value'];
+//        }
     }
 
     /**

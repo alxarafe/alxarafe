@@ -22,17 +22,36 @@
 {% set type = type | default('input') %}
 {% set id = id | default('checkboxId' ~ randValue) %}
 {% set name = name | default('checkboxName' ~ randValue) %}
-{% set text = text | default('Write a text here') %}
+{% set class = class | default('') %}
+{% set text = text | default('') %}
+{% set style = style | default('') %}
 
 {% if type == 'input' %}
     <div class="input-group">
           <span class="input-group-addon">
-            <input id="{{ id }}" name="{{ name }}" type="checkbox" aria-label="...">
+            <input
+                    id="{{ id }}"
+                    name="{{ name }}"
+                    type="checkbox"
+                    {% if style!='' %}style="{{ style }}" {% endif %}
+            >
           </span>
-        <input type="text" class="form-control" placeholder="{{ text | raw }}" aria-label="...">
+        <input
+                type="text"
+                class="form-control {{ class }}"
+                placeholder="{{ text | raw }}"
+        >
     </div>
 {% elseif type == 'label' %}
+    {% set style = 'width: 34px !important;' ~ (style | default('')) %}
     <label>
-        <input id="id" name="name " type="checkbox"> {{ text | raw }}
+        <input
+                id="{{ id }}"
+                name="{{ name }}"
+                type="checkbox"
+                class="form-control {{ class }}"
+                value="{{ value }}"
+                {% if style!='' %}style="{{ style }}" {% endif %}
+        > {{ text | raw }}
     </label>
 {% endif %}
