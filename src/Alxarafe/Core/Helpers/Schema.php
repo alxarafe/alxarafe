@@ -217,7 +217,7 @@ class Schema
 
         // First, it is checked if it exists in the core
         $folder = realpath(constant('ALXARAFE_FOLDER') . DIRECTORY_SEPARATOR . 'Schema') . DIRECTORY_SEPARATOR . $type;
-        FileSystemUtils::mkdir($folder, 0777, true);
+//        FileSystemUtils::mkdir($folder, 0777, true);
         $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
         if (file_exists($path)) {
             return $path;
@@ -231,7 +231,7 @@ class Schema
         // And then if it exists in the application
         foreach (ModuleManager::getInstance()::getEnabledModules() as $module) {
             $folder = basePath($module['path'] . DIRECTORY_SEPARATOR . 'Schema' . DIRECTORY_SEPARATOR . $type);
-            FileSystemUtils::mkdir($folder, 0777, true);
+//            FileSystemUtils::mkdir($folder, 0777, true);
             $path = $folder . DIRECTORY_SEPARATOR . $tableName . $extension;
             if (file_exists($path)) {
                 return $path;

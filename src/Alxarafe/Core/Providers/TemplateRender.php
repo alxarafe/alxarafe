@@ -210,9 +210,12 @@ class TemplateRender
     {
         $result = [];
         foreach ($folders as $key => $folder) {
-            $result[$folder['name']] = $folder['path'] . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER;
-            FileSystemUtils::mkdir($result[$folder['name']], 0777, true);
-            DebugTool::getInstance()->addMessage('messages', 'Added template render folder ' . $result[$folder['name']]);
+            $fullFolder = $folder['path'] . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER;
+            if (file_exists($fullFolder) && is_dir($fullFolder)) {
+                $result[$folder['name']] = $fullFolder;
+//                FileSystemUtils::mkdir($result[$folder['name']], 0777, true);
+                DebugTool::getInstance()->addMessage('messages', 'Added template render folder ' . $result[$folder['name']]);
+            }
         }
         self::$templatesFolders = array_merge(self::$templatesFolders, $result);
     }
@@ -319,11 +322,13 @@ class TemplateRender
             self::$loader->addPath(basePath(self::TEMPLATES_FOLDER), 'Core');
 
             foreach (self::$templatesFolders as $moduleName => $modulePath) {
-                FileSystemUtils::mkdir($modulePath, 0777, true);
-                // Adds without namespace
-                self::$loader->prependPath($modulePath);
-                // Adds with namespace Module + $modulePath
-                self::$loader->prependPath($modulePath, 'Module' . $moduleName);
+//                FileSystemUtils::mkdir($modulePath, 0777, true);
+                if (file_exists($modulePath) && is_dir($modulePath)) {
+                    // Adds without namespace
+                    self::$loader->prependPath($modulePath);
+                    // Adds with namespace Module + $modulePath
+                    self::$loader->prependPath($modulePath, 'Module' . $moduleName);
+                }
             }
         } catch (LoaderError $e) {
             Logger::getInstance()::exceptionHandler($e);

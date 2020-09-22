@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Core\Providers;
 
-use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
@@ -179,9 +178,12 @@ class Translator
     public function addDirs(array $folders = [])
     {
         foreach ($folders as $key => $folder) {
-            $folders[$key] = $folder . self::LANG_FOLDER;
-            FileSystemUtils::mkdir($folders[$key], 0777, true);
-            DebugTool::getInstance()->addMessage('messages', 'Added translation folder ' . $folders[$key]);
+            $fullFolder = $folder . self::LANG_FOLDER;
+//            FileSystemUtils::mkdir($folders[$key], 0777, true);
+            if (file_exists($fullFolder) && is_dir($fullFolder)) {
+                $folders[$key] = $fullFolder;
+                DebugTool::getInstance()->addMessage('messages', 'Added translation folder ' . $folders[$key]);
+            }
         }
         self::$languageFolders = array_merge(self::$languageFolders, $folders);
         $this->loadLangFiles();
@@ -208,16 +210,18 @@ class Translator
     {
         $languages = [];
         $dir = $this->getBaseLangFolder();
-        FileSystemUtils::mkdir($dir, 0777, true);
-        $langFiles = Finder::create()
-            ->files()
-            ->name('*' . self::EXT)
-            ->in($dir)
-            ->sortByName();
+//        FileSystemUtils::mkdir($dir, 0777, true);
+        if (file_exists($dir) && is_dir($dir)) {
+            $langFiles = Finder::create()
+                ->files()
+                ->name('*' . self::EXT)
+                ->in($dir)
+                ->sortByName();
 
-        foreach ($langFiles as $langFile) {
-            $langCode = str_replace(self::EXT, '', $langFile->getRelativePathName());
-            $languages[$langCode] = $this->trans('language-' . $langCode);
+            foreach ($langFiles as $langFile) {
+                $langCode = str_replace(self::EXT, '', $langFile->getRelativePathName());
+                $languages[$langCode] = $this->trans('language-' . $langCode);
+            }
         }
         return $languages;
     }
