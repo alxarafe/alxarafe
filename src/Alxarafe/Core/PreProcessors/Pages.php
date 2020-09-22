@@ -79,7 +79,7 @@ class Pages
                 ->files()
                 ->name('*.php')
                 ->in($dir)
-                ->notContains('index');
+                ->notName('index.php');
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
                 $this->instantiateClass($namespace, $className);

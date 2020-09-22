@@ -101,7 +101,7 @@ class Models
             ->files()
             ->name('*.php')
             ->in($dir)
-            ->notContains('index');
+            ->notName('index.php');
         foreach ($models->getIterator() as $modelFile) {
             $class = str_replace([$dir, '/', '\\', '.php'], '', $modelFile);
             if ($namespace === 'Alxarafe') {

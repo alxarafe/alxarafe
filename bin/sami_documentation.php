@@ -17,7 +17,7 @@ $iterator = Finder::create()
     ->files()
     ->name('*.php')
     ->in($dir = 'src')
-    ->notContains('index');
+    ->notName('index.php');
 
 $versions = GitVersionCollection::create($dir)
     ->add('master', 'master branch');

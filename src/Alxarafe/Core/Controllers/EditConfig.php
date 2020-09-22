@@ -9,10 +9,9 @@ namespace Alxarafe\Core\Controllers;
 use Alxarafe\Core\Base\AuthPageController;
 use Alxarafe\Core\Base\CacheCore;
 use Alxarafe\Core\Database\Engine;
-use Alxarafe\Core\Helpers\Schema;
+use Alxarafe\Core\Helpers\SystemCache;
 use Alxarafe\Core\Providers\Database;
 use Alxarafe\Core\Providers\FlashMessages;
-use Alxarafe\Core\Providers\ModuleManager;
 use Alxarafe\Core\Providers\RegionalInfo;
 use Alxarafe\Core\Providers\Translator;
 use Symfony\Component\HttpFoundation\Response;
@@ -151,11 +150,10 @@ class EditConfig extends AuthPageController
         $this->setDefaultData();
         switch ($this->request->request->get('action')) {
             case 'clear-cache':
-                $this->clearCache();
+                SystemCache::clearCache();
                 break;
             case 'regenerate-data':
-                $this->clearCache();
-                ModuleManager::getInstance()::executePreprocesses();
+                SystemCache::regenerateData();
                 // Previous execution is instanciate a new controller, we need to redirect to this page to avoid false execution.
                 return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
             case 'save':
@@ -203,23 +201,6 @@ class EditConfig extends AuthPageController
         $this->regionalConfig['dateFormat'] = $regionalConfig['dateFormat'] ?? 'Y-m-d';
         $this->regionalConfig['timeFormat'] = $regionalConfig['timeFormat'] ?? 'H:i:s';
         $this->regionalConfig['datetimeFormat'] = $regionalConfig['datetimeFormat'] ?? $this->regionalConfig['dateFormat'] . ' ' . $this->regionalConfig['timeFormat'];
-    }
-
-    /**
-     * Clean the cache and yaml files that contain the summary of the table structure.
-     *
-     * @return bool
-     */
-    public function clearCache()
-    {
-        CacheCore::getInstance()->getEngine()->clear();
-        FlashMessages::getInstance()::setSuccess($this->translator->trans('cache-cleared-successfully'));
-        if (Schema::deleteSummaryFiles()) {
-            FlashMessages::getInstance()::setSuccess($this->translator->trans('summary-files-deleted-successfully'));
-            return true;
-        }
-        FlashMessages::getInstance()::setError($this->translator->trans('error-deleting-summary-files'));
-        return false;
     }
 
     /**

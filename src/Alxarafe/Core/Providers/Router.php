@@ -98,7 +98,7 @@ class Router
             ->files()
             ->name('*.php')
             ->in($dir = 'src' . constant('DIRECTORY_SEPARATOR') . 'Alxarafe' . constant('DIRECTORY_SEPARATOR') . 'Core' . constant('DIRECTORY_SEPARATOR') . 'Controllers')
-            ->notContains('index');
+            ->notName('index.php');
         foreach ($controllers as $controllerFile) {
             $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
             $fqdn = str_replace(['src/', '/'], ['', '\\'], str_replace(['.php'], '', $controllerFile));

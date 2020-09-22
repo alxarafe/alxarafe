@@ -66,7 +66,7 @@ class Routes
                 ->files()
                 ->name('*.php')
                 ->in($dir)
-                ->notContains('index');
+                ->notName('index.php');
             foreach ($controllers as $controllerFile) {
                 if (array_key_exists($namespace, $this->searchDir)) {
                     $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
