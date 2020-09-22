@@ -65,7 +65,8 @@ class Routes
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')
-                ->in($dir);
+                ->in($dir)
+                ->notContains('index');
             foreach ($controllers as $controllerFile) {
                 if (array_key_exists($namespace, $this->searchDir)) {
                     $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);

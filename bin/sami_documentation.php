@@ -16,7 +16,8 @@ use Symfony\Component\Finder\Finder;
 $iterator = Finder::create()
     ->files()
     ->name('*.php')
-    ->in($dir = 'src');
+    ->in($dir = 'src')
+    ->notContains('index');
 
 $versions = GitVersionCollection::create($dir)
     ->add('master', 'master branch');

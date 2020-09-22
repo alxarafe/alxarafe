@@ -78,7 +78,8 @@ class Pages
             $controllers = Finder::create()
                 ->files()
                 ->name('*.php')
-                ->in($dir);
+                ->in($dir)
+                ->notContains('index');
             foreach ($controllers as $controllerFile) {
                 $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
                 $this->instantiateClass($namespace, $className);
