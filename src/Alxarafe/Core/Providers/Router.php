@@ -8,7 +8,10 @@ namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Controllers\CreateConfig;
 use Alxarafe\Core\Controllers\EditConfig;
+use Alxarafe\Core\Controllers\Languages;
 use Alxarafe\Core\Controllers\Login;
+use Alxarafe\Core\Controllers\Modules;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class Routes
@@ -83,21 +86,25 @@ class Router
      */
     public static function getDefaultValues(): array
     {
-        return [
+        $defaultRoutes = [
             'CreateConfig' => CreateConfig::class,
             'EditConfig' => EditConfig::class,
+            'Languages' => Languages::class,
             'Login' => Login::class,
+            'Modules' => Modules::class,
         ];
-    }
 
-    /**
-     * Return this instance.
-     *
-     * @return self
-     */
-    public static function getInstance(): self
-    {
-        return self::getInstanceTrait();
+        $controllers = Finder::create()
+            ->files()
+            ->name('*.php')
+            ->in($dir = 'src' . constant('DIRECTORY_SEPARATOR') . 'Alxarafe' . constant('DIRECTORY_SEPARATOR') . 'Core' . constant('DIRECTORY_SEPARATOR') . 'Controllers')
+            ->notContains('index');
+        foreach ($controllers as $controllerFile) {
+            $className = str_replace([$dir . DIRECTORY_SEPARATOR, '.php'], '', $controllerFile);
+            $fqdn = str_replace(['src/', '/'], ['', '\\'], str_replace(['.php'], '', $controllerFile));
+            $defaultRoutes[$className] = $fqdn;
+        }
+        return $defaultRoutes;
     }
 
     /**

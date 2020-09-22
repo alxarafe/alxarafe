@@ -211,9 +211,9 @@ class TemplateRender
         $result = [];
         foreach ($folders as $key => $folder) {
             $fullFolder = $folder['path'] . DIRECTORY_SEPARATOR . self::TEMPLATES_FOLDER;
+//            FileSystemUtils::mkdir($result[$folder['name']], 0777, true);
             if (file_exists($fullFolder) && is_dir($fullFolder)) {
                 $result[$folder['name']] = $fullFolder;
-//                FileSystemUtils::mkdir($result[$folder['name']], 0777, true);
                 DebugTool::getInstance()->addMessage('messages', 'Added template render folder ' . $result[$folder['name']]);
             }
         }
