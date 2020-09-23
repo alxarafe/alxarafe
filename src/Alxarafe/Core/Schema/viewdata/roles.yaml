@@ -6,6 +6,7 @@ fields:
         label: id
         shortlabel: col-id
         placeholder: id
+        dataset: roles
     name:
         component: input
         type: text
@@ -13,15 +14,18 @@ fields:
         shortlabel: col-name
         placeholder: name
         maxlength: 50
+        dataset: roles
     active:
         component: input
         type: checkbox
         label: active
         shortlabel: col-active
         placeholder: active
+        dataset: roles
     locked:
         component: input
         type: checkbox
         label: locked
         shortlabel: col-locked
         placeholder: locked
+        dataset: roles

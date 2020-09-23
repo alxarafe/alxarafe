@@ -115,10 +115,10 @@ class SchemaGenerator
             }
         }
 
-        // if (!isset($result['type'])) {
-        //     $result['type'] = $values['type'];
-        //     $debugTool->addMessage('messages', "The {$field} field need 'type' in viewdata yaml for {$tablename} table.");
-        // }
+        if ($result['type'] == 'checkbox') {
+            $result['min'] = 0;
+            $result['max'] = 1;
+        }
 
         switch ($values['type']) {
             case 'string':
@@ -129,7 +129,7 @@ class SchemaGenerator
                     $result['maxlength'] = $maxlength;
                     break;
                 }
-                $maxlength = $result['maxlength'];
+                $maxlength = (integer) $result['maxlength'];
                 if ($length !== $maxlength) {
                     $debugTool->addMessage('messages', "Warning! The {$field} field length is {$maxlength} in view and {$length} in struct for table {$tablename} table.");
                 }

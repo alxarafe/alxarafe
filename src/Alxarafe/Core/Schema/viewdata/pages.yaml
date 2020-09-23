@@ -6,6 +6,7 @@ fields:
         label: id
         shortlabel: col-id
         placeholder: id
+        dataset: pages
     controller:
         component: input
         type: text
@@ -13,6 +14,7 @@ fields:
         shortlabel: col-controller
         placeholder: controller
         maxlength: 50
+        dataset: pages
     title:
         component: input
         type: text
@@ -20,6 +22,7 @@ fields:
         shortlabel: col-title
         placeholder: title
         maxlength: 50
+        dataset: pages
     description:
         component: input
         type: text
@@ -27,6 +30,7 @@ fields:
         shortlabel: col-description
         placeholder: description
         maxlength: 255
+        dataset: pages
     menu:
         component: input
         type: text
@@ -34,6 +38,7 @@ fields:
         shortlabel: col-menu
         placeholder: menu
         maxlength: 255
+        dataset: pages
     icon:
         component: input
         type: text
@@ -41,12 +46,14 @@ fields:
         shortlabel: col-icon
         placeholder: icon
         maxlength: 255
+        dataset: pages
     active:
         component: input
         type: checkbox
         label: active
         shortlabel: col-active
         placeholder: active
+        dataset: pages
     plugin:
         component: input
         type: text
@@ -54,15 +61,18 @@ fields:
         shortlabel: col-plugin
         placeholder: plugin
         maxlength: 50
+        dataset: pages
     inserted_date:
         component: input
         type: datetime
         label: inserted_date
         shortlabel: col-inserted_date
         placeholder: inserted_date
+        dataset: pages
     updated_date:
         component: input
         type: datetime
         label: updated_date
         shortlabel: col-updated_date
         placeholder: updated_date
+        dataset: pages
