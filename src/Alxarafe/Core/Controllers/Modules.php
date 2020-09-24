@@ -8,7 +8,6 @@ namespace Alxarafe\Core\Controllers;
 
 use Alxarafe\Core\Base\AuthPageExtendedController;
 use Alxarafe\Core\Helpers\FormatUtils;
-use Alxarafe\Core\Helpers\SystemCache;
 use Alxarafe\Core\Helpers\Utils\FileSystemUtils;
 use Alxarafe\Core\Models\Module;
 use Alxarafe\Core\Providers\FlashMessages;
@@ -172,8 +171,6 @@ class Modules extends AuthPageExtendedController
             ModuleManager::getInstance()::enableModule($modelName);
         }
 
-        SystemCache::regenerateData();
-
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
 
@@ -194,8 +191,6 @@ class Modules extends AuthPageExtendedController
             $modelName = $this->model->{$this->model->getNameField()};
             ModuleManager::getInstance()::disableModule($modelName);
         }
-
-        SystemCache::regenerateData();
 
         return $this->redirect(baseUrl('index.php?' . constant('CALL_CONTROLLER') . '=' . $this->shortName));
     }
