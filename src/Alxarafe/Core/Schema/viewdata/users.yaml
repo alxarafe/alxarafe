@@ -71,7 +71,7 @@ fields:
         dataset: users
     logkey:
         component: input
-        type: string
+        type: text
         label: logkey
         shortlabel: col-logkey
         placeholder: logkey

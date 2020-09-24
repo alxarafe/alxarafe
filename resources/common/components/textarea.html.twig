@@ -20,4 +20,9 @@
 {% set row = row | default('2') %}
 {% set text = text | default('') %}
 
-<textarea id="{{ id }}" name="{{ name }}" class="form-control" rows="{{ row }}">{{ text | raw }}</textarea>
+{% if readonly %}
+    {% set data = {'id': id, 'name': name, 'value' : text | raw} %}
+    {% include "@Core/components/span.html.twig" with {data: data} %}
+{% else %}
+    <textarea id="{{ id }}" name="{{ name }}" class="form-control" rows="{{ row }}">{{ text | raw }}</textarea>
+{% endif %}

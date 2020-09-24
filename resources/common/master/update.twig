@@ -18,8 +18,6 @@
     {% if ctrl.encType is not empty %}
         {% set encType = 'enctype="' ~ ctrl.encType ~ '"' %}
     {% endif %}
-    {% set listFields = ctrl.getListFields() %}
-    {% set pk =  ctrl.model.getOldData()[ctrl.model.getIdField()] %}
 
     {% set formType = 'form-horizontal' %}
     {% if ctrl.viewData.form-type is not empty %}
@@ -28,6 +26,7 @@
 
     <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit&' ~ ctrl.model.getIdField() ~ '=' ~ pk }}" method="post" accept-charset="utf-8" {{ encType }} class="{{ formType }}">
         {% set listFields = ctrl.components %}
+
         {% for item in listFields %}
             <div class="row">
                 <div class="col-xs-3 col-sm-2 col-md-1">

@@ -2,7 +2,7 @@ form-type: form-horizontal
 fields:
     id:
         component: input
-        type: integer
+        type: number
         label: id
         shortlabel: col-id
         placeholder: id
@@ -10,14 +10,14 @@ fields:
         max: 9999
     name:
         component: input
-        type: string
+        type: text
         label: name
         shortlabel: col-name
         placeholder: name
         maxlength: 100
     cod_iso:
         component: input
-        type: string
+        type: text
         label: cod_iso
         shortlabel: cod_iso
         placeholder: cod_iso
@@ -26,7 +26,7 @@ fields:
         maxlength: 3
     cod_iso2:
         component: input
-        type: string
+        type: text
         label: cod_iso2
         shortlabel: cod_iso2
         placeholder: cod_iso2
@@ -34,7 +34,7 @@ fields:
         maxlength: 2
     cod_iso3:
         component: input
-        type: string
+        type: text
         label: cod_iso3
         shortlabel: cod_iso3
         placeholder: cod_iso3

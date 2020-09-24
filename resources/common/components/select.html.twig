@@ -28,9 +28,21 @@ How to use it:
 {% else %}
     {% set multiple = "" %}
 {% endif %}
+{% set selected = selected %}
 
-<select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control">
+{% if readonly %}
+    {% set name = '' %}
     {% for i in texts %}
-        <option value="{{ values[loop.index0] }}">{{ texts[loop.index0] | raw }}</option>
+        {% if i == selected %}
+            {% set name = texts[i] | raw %}
+        {% endif %}
     {% endfor %}
-</select>
+    {% set data = {'id': id, 'name': name, 'value' : name} %}
+    {% include "@Core/components/span.html.twig" with {data: data} %}
+{% else %}
+    <select id="{{ id }}" name="{{ name }}" {{ multiple }} class="form-control">
+        {% for i in texts %}
+            <option value="{{ values[loop.index0] }}">{{ texts[loop.index0] | raw }}</option>
+        {% endfor %}
+    </select>
+{% endif %}

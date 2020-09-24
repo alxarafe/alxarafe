@@ -71,6 +71,7 @@ col-unicode: Unicode
 col-updated_date: "Updated at"
 col-username: "User name"
 component-does-not-exists: "There is no component defined for type %type%."
+component-not-setted: "Component not setted on Schema/viewdata"
 confirm: Confirm
 confirm-are-you-sure-delete-register: "Are you sure you want to delete this register?"
 controller: Controller

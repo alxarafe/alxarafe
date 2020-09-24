@@ -71,6 +71,7 @@ col-unicode: Unicode
 col-updated_date: "Actualizado el"
 col-username: "Nombre de usuario"
 component-does-not-exists: "No hay componente definido para el tipo %type%."
+component-not-setted: "Componente no asignado en Schema/viewdata"
 confirm: Confirmar
 confirm-are-you-sure-delete-register: "Estás seguro que quieres eliminar este registro?"
 controller: Controlador
