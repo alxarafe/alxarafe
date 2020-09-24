@@ -1,7 +1,7 @@
 fields:
     id:
         type: integer
-        length: '9'
+        length: '4'
         default: null
         nullable: 'no'
         unsigned: 'yes'
@@ -18,12 +18,16 @@ fields:
         default: '0'
         nullable: 'no'
         unsigned: 'yes'
+        min: 0
+        max: 1
     locked:
         type: integer
         length: '1'
         default: '0'
         nullable: 'no'
         unsigned: 'yes'
+        min: 0
+        max: 1
 indexes:
     PRIMARY:
         column: id

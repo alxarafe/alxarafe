@@ -1,7 +1,7 @@
 fields:
     id:
         type: integer
-        length: '9'
+        length: '4'
         default: null
         nullable: 'no'
         unsigned: 'yes'
@@ -35,7 +35,9 @@ fields:
         length: '1'
         default: '0'
         nullable: 'yes'
-        unsigned: 'no'
+        unsigned: 'yes'
+        min: 0
+        max: 1
     logkey:
         type: string
         length: '128'
