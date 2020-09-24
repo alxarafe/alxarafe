@@ -334,7 +334,7 @@ class TemplateRender
             self::$loader->addPath(basePath(self::TEMPLATES_FOLDER), 'Core');
 
             foreach (self::$templatesFolders as $moduleName => $modulePath) {
-                self::addPath($modulePath, $moduleName);
+                $this->addPath($modulePath, $moduleName);
             }
         } catch (LoaderError $e) {
             Logger::getInstance()::exceptionHandler($e);
