@@ -228,6 +228,7 @@ abstract class AuthPageController extends AuthController
                     return $this->{$method}();
                 }
                 break;
+            /** @noinspection PhpMissingBreakStatementInspection */
             case 'add':
                 $method = 'createMethod';
             // no-break
@@ -237,6 +238,7 @@ abstract class AuthPageController extends AuthController
                     return $this->{$method}();
                 }
                 break;
+            /** @noinspection PhpMissingBreakStatementInspection */
             case 'show':
                 $method = 'readMethod';
             // no-break
@@ -246,6 +248,7 @@ abstract class AuthPageController extends AuthController
                     return $this->{$method}();
                 }
                 break;
+            /** @noinspection PhpMissingBreakStatementInspection */
             case 'edit':
                 $method = 'updateMethod';
             // no-break
@@ -255,6 +258,7 @@ abstract class AuthPageController extends AuthController
                     return $this->{$method}();
                 }
                 break;
+            /** @noinspection PhpMissingBreakStatementInspection */
             case 'remove':
                 $method = 'deleteMethod';
             // no-break
