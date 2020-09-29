@@ -243,6 +243,7 @@ class CreateConfig extends Controller
      */
     public function getTimezoneList(): array
     {
+        $backup = date_default_timezone_get();
         $zonesArray = [];
         $timestamp = time();
         foreach (timezone_identifiers_list() as $key => $zone) {
@@ -250,6 +251,7 @@ class CreateConfig extends Controller
             $zonesArray[$key]['zone'] = $zone;
             $zonesArray[$key]['diff_from_GMT'] = 'UTC/GMT ' . date('P', $timestamp);
         }
+        date_default_timezone_set($backup);
         return $zonesArray;
     }
 }
