@@ -18,6 +18,9 @@ use Alxarafe\Core\Providers\FlashMessages;
  */
 class FlatTable extends Entity
 {
+    const TIMESTAMP_CREATION = 'inserted_date';
+    const TIMESTAMP_LAST_UPDATE = 'updated_date';
+
     /**
      * It is the name of the table.
      *
@@ -100,6 +103,11 @@ class FlatTable extends Entity
     {
         $fields = [];
         $table = Schema::getFromYamlFile($this->tableName);
+        $table['fields'][self::TIMESTAMP_CREATION]['type'] = 'datetime';
+        $table['fields'][self::TIMESTAMP_CREATION]['default'] = 'CURRENT_TIMESTAMP';
+        $table['fields'][self::TIMESTAMP_CREATION]['nullable'] = 'no';
+        $table['fields'][self::TIMESTAMP_LAST_UPDATE]['type'] = 'datetime';
+        $table['fields'][self::TIMESTAMP_LAST_UPDATE]['nullable'] = 'no';
         SchemaDB::checkTableStructure($this->tableName, $table);
         foreach ($table['fields'] as $key => $value) {
             if (!isset($this->fields[$key])) {
@@ -323,6 +331,8 @@ class FlatTable extends Entity
         if (count($this->errors)) {
             return false;
         }
+
+        $values[self::TIMESTAMP_LAST_UPDATE] = date('Y-m-d H:i:s');
 
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->exists) ? $this->updateRecord($values) : $this->insertRecord($values);
