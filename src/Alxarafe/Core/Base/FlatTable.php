@@ -337,7 +337,7 @@ class FlatTable extends Entity
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->exists) ? $this->updateRecord($values) : $this->insertRecord($values);
         if ($ret) {
-            // $this->id = $this->newData[$this->idField] ?? null;
+            $this->newData[self::TIMESTAMP_LAST_UPDATE] = $values[self::TIMESTAMP_LAST_UPDATE];
             $this->oldData = $this->newData;
         }
         return $ret;
