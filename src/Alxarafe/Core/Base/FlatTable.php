@@ -327,6 +327,8 @@ class FlatTable extends Entity
             return true;
         }
 
+        unset($values[self::TIMESTAMP_CREATION]);
+
         $this->test($values);
         if (count($this->errors)) {
             return false;
@@ -337,8 +339,9 @@ class FlatTable extends Entity
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->exists) ? $this->updateRecord($values) : $this->insertRecord($values);
         if ($ret) {
-            $this->newData[self::TIMESTAMP_LAST_UPDATE] = $values[self::TIMESTAMP_LAST_UPDATE];
-            $this->oldData = $this->newData;
+            $this->getDataById($this->id);
+            // $this->newData[self::TIMESTAMP_LAST_UPDATE] = $values[self::TIMESTAMP_LAST_UPDATE];
+            // $this->oldData = $this->newData;
         }
         return $ret;
     }
