@@ -24,7 +24,7 @@
         {% set formType = ctrl.viewData.form-type %}
     {% endif %}
 
-    <form action="{{ ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit&' ~ ctrl.model.getIdField() ~ '=' ~ pk }}" method="post" accept-charset="utf-8" {{ encType }} class="{{ formType }}">
+    <form action="{{ (ctrl.url ~ '&' ~ constant('METHOD_CONTROLLER') ~ '=edit&' ~ ctrl.model.getIdField() ~ '=' ~ ctrl.getCurrentId()) | raw }}" method="post" accept-charset="utf-8" {{ encType }} class="{{ formType }}">
         {% set listFields = ctrl.components %}
 
         {% for item in listFields %}

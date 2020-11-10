@@ -209,6 +209,16 @@ abstract class AuthPageExtendedController extends AuthPageController
     }
 
     /**
+     * Return the current ID.
+     *
+     * @return string|null
+     */
+    public function getCurrentId()
+    {
+        return $this->currentId;
+    }
+
+    /**
      * Initialize common properties
      */
     public function initialize(): void

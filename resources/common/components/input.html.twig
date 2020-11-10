@@ -45,11 +45,19 @@ How to use it:
     {% endif %}
 
     {% if type == 'checkbox' %}
-        {% if value is not empty and value is not null and value %}
+        {% if value == 1 %}
             {% set checked = 'checked' %}
         {% endif %}
-        {% set value = 'TRUE' %}
         {% set style = 'width: 34px !important;' ~ (style | default('')) %}
+        {#
+        Para que el checkbox retorne 1 o 0 según esté marcado o no, se crea un campo oculto que contendrá el valor.
+        Mediante una función js embebida en el onchange del checkbox, se actualizará el valor del campo oculto.
+        #}
+        <input id="{{ id }}" name="{{ name }}" value="{{ value }}" hidden>
+        {% set value = '1' %}
+        {% set hid = id %}
+        {% set id = 'chk_' ~ id %}
+        {% set name = id %}
     {% endif %}
 
     <input
@@ -58,10 +66,11 @@ How to use it:
             type="{{ type }}"
             class="form-control {{ class }}"
             value="{{ value }}"
+            {% if type=='checkbox' %}onchange="(function(){var hid=this.document.getElementById('{{ hid }}');var chk=this.document.getElementById('{{ id }}').checked;hid.value=chk?1:0})()"{% endif %}
             {{ checked }}
             {% if style!='' %}style="{{ style }}" {% endif %}
-            {% if min!='' %}min="{{ min }}" {% endif %}
-            {% if max!='' %}max="{{ max }}" {% endif %}
+            {% if not min is same as ('') %}min="{{ min }}" {% endif %}
+            {% if not max is same as ('') %}max="{{ max }}" {% endif %}
             {% if pattern!='' %}pattern="{{ pattern }}" {% endif %}
             {% if placeholder!='' %}placeholder="{{ placeholder }}"{% endif %}
     >

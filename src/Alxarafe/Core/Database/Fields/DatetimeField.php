@@ -24,6 +24,10 @@ class DatetimeField extends AbstractField
     public function test($key, &$value): bool
     {
         $params = ['%field%' => $this->trans->trans($key), '%value%' => $value];
+        if ($value == '') {
+            $value = null;
+            return $this->nullable == 'yes';
+        }
         if (!strtotime($value)) {
             self::$errors[] = $this->trans->trans('datetime-error', $params);
         }
