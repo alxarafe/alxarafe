@@ -90,6 +90,38 @@ class Table extends SimpleTable
     }
 
     /**
+     * Get an array with all keys of selected records
+     *
+     * @param string $key
+     * @param        $value
+     * @param string $comparison
+     * @param string $orderBy
+     *
+     * @return array
+     */
+    public function getAllKeysBy(string $key, $value, string $comparison = '=', string $orderBy = ''): array
+    {
+        $fieldName = Database::getInstance()->getSqlHelper()->quoteFieldName($key);
+        if (!empty($orderBy)) {
+            $orderBy = " ORDER BY {$orderBy}";
+        }
+        if ($value === 'NULL') {
+            $isNull = $comparison === '=' ? ' IS NULL' : ' IS NOT NULL';
+            $sql = "SELECT {$this->idField} AS id FROM {$this->getQuotedTableName()} WHERE {$fieldName}{$isNull}{$orderBy};";
+        } else {
+            $sql = "SELECT {$this->idField} AS id FROM {$this->getQuotedTableName()} WHERE {$fieldName} {$comparison} :value{$orderBy};";
+        }
+        $vars = [];
+        $vars['value'] = $value;
+        $result = [];
+        $dbResult = Database::getInstance()->getDbEngine()->select($sql, $vars);
+        foreach ($dbResult as $data) {
+            $result[$data['id']] = $data['id'];
+        }
+        return $result;
+    }
+
+    /**
      * Return an array $key=>$value with all or selected records on the table.
      *
      * @param string $search
