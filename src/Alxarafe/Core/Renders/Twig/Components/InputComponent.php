@@ -70,6 +70,9 @@ class InputComponent extends AbstractComponent
         switch ($parameters['type']) {
             case 'datetime':
                 if (isset($parameters['value']) && $parameters['value'] != '') {
+                    if ($parameters['value'] === 'CURRENT_TIMESTAMP') {
+                        $parameters['value'] = date('Y-m-d\TH:i:s');
+                    }
                     $dt = new DateTime($parameters['value']);
                     $parameters['value'] = $dt->format('Y-m-d\TH:i:s');
                 }
