@@ -108,7 +108,10 @@ class FlatTable extends Entity
         $table['fields'][self::TIMESTAMP_CREATION]['nullable'] = 'no';
         $table['fields'][self::TIMESTAMP_LAST_UPDATE]['type'] = 'datetime';
         $table['fields'][self::TIMESTAMP_LAST_UPDATE]['nullable'] = 'no';
-        SchemaDB::checkTableStructure($this->tableName, $table);
+        $ok = SchemaDB::checkTableStructure($this->tableName, $table);
+        if (!$ok) {
+            FlashMessages::getInstance()::setError(print_r($this->errors, true), 'PDO ERROR in exec: ' . $query);
+        }
         foreach ($table['fields'] as $key => $value) {
             if (!isset($this->fields[$key])) {
                 $this->fields[$key] = $this->getFieldClass($value['type']);

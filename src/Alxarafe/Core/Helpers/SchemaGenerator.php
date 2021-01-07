@@ -115,6 +115,10 @@ class SchemaGenerator
             }
         }
 
+        if (!isset($result['type'])) {
+            $result['type'] = $values['type'];
+        }
+
         if ($result['type'] == 'checkbox') {
             $result['min'] = 0;
             $result['max'] = 1;
