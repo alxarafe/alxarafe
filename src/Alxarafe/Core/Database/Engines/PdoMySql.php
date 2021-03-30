@@ -42,10 +42,14 @@ class PdoMySql extends Engine
     /**
      * Returns details about last error.
      *
-     * @return array
+     * @return string
      */
-    public function getError(): array
+    public function getError(): string
     {
-        return self::$statement->errorInfo();
+        $error_array = self::$statement->errorInfo();
+        if (!is_array($error_array) || count($error_array) < 3) {
+            return 'Generic error in PdoMySql::getError';
+        }
+        return $error_array[2];
     }
 }

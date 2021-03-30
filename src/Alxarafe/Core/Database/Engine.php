@@ -548,7 +548,7 @@ abstract class Engine
     /**
      * Returns details about last error.
      *
-     * @return array
+     * @return string
      */
-    abstract public function getError(): array;
+    abstract public function getError(): string;
 }

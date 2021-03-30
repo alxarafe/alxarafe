@@ -103,10 +103,10 @@ class FlatTable extends Entity
     {
         $fields = [];
         $table = Schema::getFromYamlFile($this->tableName);
-        $table['fields'][self::TIMESTAMP_CREATION]['type'] = 'datetime';
+        $table['fields'][self::TIMESTAMP_CREATION]['type'] = 'timestamp';
         $table['fields'][self::TIMESTAMP_CREATION]['default'] = 'CURRENT_TIMESTAMP';
         $table['fields'][self::TIMESTAMP_CREATION]['nullable'] = 'no';
-        $table['fields'][self::TIMESTAMP_LAST_UPDATE]['type'] = 'datetime';
+        $table['fields'][self::TIMESTAMP_LAST_UPDATE]['type'] = 'timestamp';
         $table['fields'][self::TIMESTAMP_LAST_UPDATE]['nullable'] = 'no';
         $ok = SchemaDB::checkTableStructure($this->tableName, $table);
         if (!$ok) {
@@ -337,7 +337,7 @@ class FlatTable extends Entity
             return false;
         }
 
-        $values[self::TIMESTAMP_LAST_UPDATE] = date('Y-m-d H:i:s');
+        $values[self::TIMESTAMP_LAST_UPDATE] = gmdate('Y-m-d\TH:i:s');
 
         // Insert or update the data as appropriate (insert if $this->id == '')
         $ret = ($this->exists) ? $this->updateRecord($values) : $this->insertRecord($values);
@@ -411,6 +411,10 @@ class FlatTable extends Entity
      */
     private function insertRecord($values): bool
     {
+        if (!isset($values[self::TIMESTAMP_CREATION])) {
+            $values[self::TIMESTAMP_CREATION] = $values[self::TIMESTAMP_LAST_UPDATE];
+        }
+
         $fieldNames = [];
         $fieldVars = [];
         $vars = [];
@@ -445,7 +449,7 @@ class FlatTable extends Entity
                 $this->newData[$this->idField] = $this->id;
             }
         } else {
-            $this->errors[] = implode('; ', Database::getInstance()->getDbEngine()->getError());
+            $this->errors[] = Database::getInstance()->getDbEngine()->getError();
         }
 
         return $result;

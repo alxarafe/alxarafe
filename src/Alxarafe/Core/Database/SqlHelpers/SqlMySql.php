@@ -32,7 +32,7 @@ class SqlMySql extends SqlHelper
             'float' => ['real', 'double'],
             'date' => ['date'],
             'time' => ['time'],
-            'datetime' => ['timestamp'],
+            'datetime' => ['datetime', 'timestamp'],
             'bool' => ['boolean'],
         ];
     }
@@ -123,7 +123,7 @@ class SqlMySql extends SqlHelper
                 $return = 'double'; // real use 4 bytes and double 8 bytes
                 break;
             case 'datetime':
-                $return = 'timestamp';
+                $return = $type;
                 break;
             case 'bool':
                 $return = 'boolean';

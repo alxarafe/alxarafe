@@ -30,7 +30,7 @@ class SqlFirebird extends SqlHelper
             'text' => ['tinytext', 'text', 'mediumtext', 'longtext', 'blob'],
             'float' => ['real', 'double'],
             'date' => ['date'],
-            'datetime' => ['timestamp'],
+            'datetime' => ['datetime', 'timestamp'],
         ];
     }
 

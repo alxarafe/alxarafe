@@ -49,4 +49,13 @@ class PdoFirebird extends Engine
         }
         return $result;
     }
+
+    public function getError(): string
+    {
+        $error_array = self::$statement->errorInfo();
+        if (!is_array($error_array) || count($error_array) < 3) {
+            return 'Generic error in PdoFirebird::getError';
+        }
+        return $error_array[2];
+    }
 }

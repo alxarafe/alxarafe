@@ -69,9 +69,10 @@ class InputComponent extends AbstractComponent
         // TODO: Verify all fields
         switch ($parameters['type']) {
             case 'datetime':
+            case 'timestamp':
                 if (isset($parameters['value']) && $parameters['value'] != '') {
                     if ($parameters['value'] === 'CURRENT_TIMESTAMP') {
-                        $parameters['value'] = date('Y-m-d\TH:i:s');
+                        $parameters['value'] = gmdate('Y-m-d\TH:i:s');
                     }
                     $dt = new DateTime($parameters['value']);
                     $parameters['value'] = $dt->format('Y-m-d\TH:i:s');
