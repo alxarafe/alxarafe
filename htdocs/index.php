@@ -24,9 +24,26 @@ if (count($_GET) > 0 && !isset($_GET['module'])) {
 }
 
 // Roll the ball...
-$autoload_file = __DIR__ . '/vendor/autoload.php';
+const BASE_FOLDER = __DIR__;
+
+$autoload_file = constant('BASE_FOLDER') . '/vendor/autoload.php';
 if (!file_exists($autoload_file)) {
     die('<h1>COMPOSER ERROR</h1><p>You need to run: composer install</p>');
 }
 
 require_once $autoload_file;
+
+$moduleName = ucfirst(filter_input(INPUT_GET, 'module') ?? 'main');
+$controllerName = ucfirst(filter_input(INPUT_GET, 'controller') ?? 'init');
+
+$className = 'Alxarafe\\Modules\\' . $moduleName . '\\' . $controllerName;
+$filename = constant('BASE_FOLDER') . '/Modules/' . $moduleName . '/' . $controllerName . '.php';
+
+if (file_exists($filename)) {
+    $controller = new $className();
+    $controller->run();
+    die();
+}
+
+// If the controller to load cannot be found, Dolibarr is loaded
+include 'index_dol.php';

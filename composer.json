@@ -74,7 +74,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Alxarafe\\": ""
+			"Alxarafe\\": "htdocs/"
 		},
 		"files": [
 			"htdocs/base/functions.php"
