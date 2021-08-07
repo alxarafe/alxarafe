@@ -1,5 +1,4 @@
 [![Scrutinizer logo](https://scrutinizer-ci.com/images/logo.png)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
-
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
 [![Code Coverage](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
 [![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=master)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/build-status/master)
