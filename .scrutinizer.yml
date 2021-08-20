@@ -12,7 +12,7 @@ build:
         postgresql: false
         mysql: 5.7
         apache2:
-            modules: ['rewrite', 'expires', 'ssl', 'macro', 'headers']
+            modules: [ 'rewrite', 'expires', 'ssl', 'macro', 'headers', 'memcached' ]
             sites:
                 alxarafe:
                     host: 'local.dev'
