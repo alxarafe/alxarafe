@@ -16,18 +16,29 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Alxarafe\Modules\Main;
+namespace Alxarafe\Modules\Main\Controllers;
 
-use Alxarafe\Base\Controller;
+use Alxarafe\Core\Base\Controller;
+use Alxarafe\Core\Base\View;
+use Alxarafe\Modules\Main\Views\IndexView;
 
+/**
+ * Class Init
+ *
+ *
+ *
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
+ * @version 08 2021
+ *
+ * @package Alxarafe\Modules\Main
+ */
 class Init extends Controller
 {
-    public function __construct()
+    /**
+     * @throws \DebugBar\DebugBarException
+     */
+    function setView(): View
     {
-    }
-
-    public function run()
-    {
-        echo 'Yes!';
+        return new IndexView($this);
     }
 }

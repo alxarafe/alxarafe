@@ -25,7 +25,6 @@
  *	\brief      Dolibarr home page
  */
 
-
 define('CSRFCHECK_WITH_TOKEN', 1);	// We force need to use a token to login when making a POST
 
 require 'main.inc.php';
@@ -36,7 +35,6 @@ $_GET['mainmenu'] = GETPOST('mainmenu', 'aZ09') ? GETPOST('mainmenu', 'aZ09') : 
 $action = GETPOST('action', 'aZ09');
 
 $hookmanager->initHooks(array('index'));
-
 
 /*
  * Actions

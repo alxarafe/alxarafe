@@ -16,9 +16,31 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Alxarafe\Base;
+namespace Alxarafe\Modules\Main\Views;
 
-class Controller
+use Alxarafe\Core\Base\View;
+
+/**
+ * Class Login
+ *
+ * @package Alxarafe\Views
+ */
+class ModulesView extends View
 {
+    /**
+     * TODO: Undocummented
+     */
+    public function addCss()
+    {
+        parent::addCss();
+        $this->addToVar('cssCode', $this->addResource('/css/login', 'css'));
+    }
 
+    /**
+     * Assign the template.
+     */
+    function setTemplate(): void
+    {
+        $this->template = 'modules';
+    }
 }

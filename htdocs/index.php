@@ -18,6 +18,9 @@
 
 // If it's invoked with parameters, but without the 'module' parameter,
 // control is passed to Dolibarr.
+use Alxarafe\Core\Helpers\Dispatcher;
+use DebugBar\DebugBarException;
+
 if (count($_GET) > 0 && !isset($_GET['module'])) {
     include 'index_dol.php';
     die();
@@ -33,17 +36,22 @@ if (!file_exists($autoload_file)) {
 
 require_once $autoload_file;
 
-$moduleName = ucfirst(filter_input(INPUT_GET, 'module') ?? 'main');
-$controllerName = ucfirst(filter_input(INPUT_GET, 'controller') ?? 'init');
-
-$className = 'Alxarafe\\Modules\\' . $moduleName . '\\' . $controllerName;
-$filename = constant('BASE_FOLDER') . '/Modules/' . $moduleName . '/' . $controllerName . '.php';
-
-if (file_exists($filename)) {
-    $controller = new $className();
-    $controller->run();
-    die();
+$dispatcher = new Dispatcher();
+try {
+    if (!$dispatcher->run()) {
+        include 'index_dol.php';
+        die();
+    }
+} catch (DebugBarException $e) {
+    dump($e);
+    die('DebugBarException');
+} catch (Twig_Error_Loader $e) {
+    dump($e);
+    die('Twig_Error_Loader');
+} catch (Twig_Error_Runtime $e) {
+    dump($e);
+    die('Twig_Error_Runtime');
+} catch (Twig_Error_Syntax $e) {
+    dump($e);
+    die('Twig_Error_Sintax');
 }
-
-// If the controller to load cannot be found, Dolibarr is loaded
-include 'index_dol.php';

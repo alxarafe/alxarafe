@@ -1,0 +1,6 @@
+<!-- Including Error messages -->
+{% block errors %}
+    {% for error in view.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
+{% endblock %}
