@@ -1,8 +1,8 @@
 components/
 htdocs/vendor/
 htdocs/config/config.yaml
-htdocs/skins/dolibarr/
-htdocs/skins/modern/
+htdocs/html/skins/dolibarr/
+htdocs/html/skins/modern/
 nbproject
 default.properties
 .DS_Store
