@@ -58,7 +58,6 @@
     "ext-gd": "*",
     "ext-dom": "*",
     "ext-imagick": "*",
-    "ext-memcached": "*",
     "ext-pdo": "*"
   },
   "require-dev": {

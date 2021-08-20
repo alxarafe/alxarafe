@@ -9,8 +9,6 @@ build:
             ini:
                 'apc.enable_cli': '1'
                 'apc.enabled': '0'
-        pecl_extensions:
-            - memcached
         postgresql: false
         mysql: 5.7
         apache2:
