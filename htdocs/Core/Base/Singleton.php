@@ -15,13 +15,6 @@ abstract class Singleton
     protected static bool $singletonArray = false;
 
     /**
-     * Name of the class
-     *
-     * @var string
-     */
-    private static string $className;
-
-    /**
      * Hold the classes on instance.
      *
      * @var array

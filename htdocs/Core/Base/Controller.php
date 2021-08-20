@@ -150,7 +150,7 @@ abstract class Controller extends Globals
      *
      * @return View
      */
-    abstract function setView(): View;
+    abstract public function setView(): View;
 
     /**
      * ¿Not used?

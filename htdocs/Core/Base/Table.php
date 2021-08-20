@@ -9,7 +9,9 @@ namespace Alxarafe\Core\Base;
 use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Database\Engine;
+use Alxarafe\Database\SqlHelper;
 use Alxarafe\Modules\Main\Helpers\Utils;
+use DebugBar\DebugBarException;
 
 /**
  * Class Table allows access to a table using an active record.
@@ -18,13 +20,30 @@ use Alxarafe\Modules\Main\Helpers\Utils;
  */
 abstract class Table
 {
-
+    /**
+     * The database engine.
+     *
+     * @var Engine
+     */
+    public static Engine $engine;
+    /**
+     * The database SQL Helper.
+     *
+     * @var SqlHelper
+     */
+    public static SqlHelper $sqlHelper;
+    /**
+     * A Config instance.
+     *
+     * @var Config
+     */
+    public static Config $config;
     /**
      * It is the name of the table.
      *
      * @var string
      */
-    public $tableName;
+    public string $tableName;
     /**
      * Value of the main index for the active record.
      * When a record is loaded, this field will contain its id and will be the
@@ -35,7 +54,7 @@ abstract class Table
      */
     protected string $id;
     /**
-     * It is the name of the main id field. By default 'id'
+     * It is the name of the main id field. By default, 'id'
      *
      * @var string
      */
@@ -52,20 +71,20 @@ abstract class Table
      *
      * @var array
      */
-    protected $tableStructure;
+    protected array $tableStructure;
     /**
      * It contains the data previous to the modification of the current record
      *
      * @var array
      */
-    protected $oldData;
+    protected array $oldData;
     /**
      * Contains the new data of the current record.
      * It will start when loading a record and will be used when making a save.
      *
      * @var array
      */
-    protected $newData;
+    protected array $newData;
 
     /**
      * Build a Table model. $table is the name of the table in the database.
@@ -79,7 +98,11 @@ abstract class Table
      */
     public function __construct(string $tableName, array $params = [])
     {
+        self::$config = Config::getInstance();
         $this->tableName = Engine::getTablename($tableName);
+
+        self::$engine = self::$config->getEngine();
+        self::$sqlHelper = self::$config->getSqlHelper();
 
         $this->idField = $params['idField'] ?? 'id';
         $this->nameField = $params['nameField'] ?? 'name';
@@ -95,7 +118,7 @@ abstract class Table
      *
      * The development will be more ambitious than what is defined.
      *
-     * Currently Table includes a single table, but the idea is to be able to
+     * Currently, Table includes a single table, but the idea is to be able to
      * relate tables to form complex data models.
      */
     public function setStructure()
@@ -115,8 +138,8 @@ abstract class Table
      */
     protected function setTableStructure(string $table, array $structure)
     {
-        if (!isset(Config::getInstance()->bbddStructure[$table])) {
-            Config::getInstance()->bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
+        if (!isset(self::$config->getInstance()->bbddStructure[$table])) {
+            self::$config->getInstance()->bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
         }
     }
 
@@ -126,7 +149,7 @@ abstract class Table
      *
      * @return array
      */
-    public function getFields()
+    public function getFields(): array
     {
         return [
             'id' => [
@@ -144,7 +167,7 @@ abstract class Table
      *
      * @return array
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return [];
     }
@@ -155,7 +178,7 @@ abstract class Table
      *
      * @return array
      */
-    public function getDefaultValues()
+    public function getDefaultValues(): array
     {
         return [];
     }
@@ -170,11 +193,11 @@ abstract class Table
      *
      * @param bool $create
      *
-     * @throws \DebugBar\DebugBarException
+     * @throws DebugBarException
      */
     public function checkStructure(bool $create = false)
     {
-        if (isset(Config::getInstance()->bbddStructure[$this->tableName])) {
+        if (isset(self::$config->getInstance()->bbddStructure[$this->tableName])) {
             if ($create && !Schema::tableExists($this->tableName)) {
                 Schema::createTable($this->tableName);
             }
@@ -191,15 +214,16 @@ abstract class Table
      */
     public function __call(string $method, array $params): string
     {
-        $command = substr($method, 0, 3); // set o get
-        $field = Utils::camelToSnake(substr($method, 3)); // Lo que hay detrás del set o get
+        $command = substr($method, 0, 3); // set or get
+        $field = Utils::camelToSnake(substr($method, 3)); // What follows set or get
         switch ($command) {
             case 'set' :
                 return $this->newData[$field] = $params[0] ?? '';
             case 'get':
                 return $this->newData[$field];
             default:
-                DebugTool::testArray("Review $method in {$this->tableName}. Error collecting the '$command/$field' attribute", $params, true);
+                dump("Review $method in $this->tableName. Error collecting the '$command/$field' attribute");
+                dump($params);
                 throw /** @scrutinizer ignore-call */ Exception('Program halted!');
         }
     }
@@ -235,8 +259,7 @@ abstract class Table
     }
 
     /**
-     * Returns the name of the main key field of the table (PK-Primary Key). By
-     * default it will be id.
+     * Returns the name of the main key field of the table (PK-Primary Key). By default, it will be id.
      *
      * @return string
      */
@@ -246,8 +269,8 @@ abstract class Table
     }
 
     /**
-     * Returns the name of the identification field of the record. By default it
-     * will be name.
+     * Returns the name of the identification field of the record. By default, it
+     * will be "name".
      *
      * @return string
      */
@@ -285,8 +308,8 @@ abstract class Table
      */
     private function getData(string $id): bool
     {
-        $sql = "SELECT * FROM {$this->tableName} WHERE {$this->idField}='$id'";
-        $data = Config::$dbEngine->select($sql);
+        $sql = "SELECT * FROM $this->tableName WHERE $this->idField='$id'";
+        $data = self::$engine->select($sql);
         if (!isset($data) || count($data) == 0) {
             $this->newRecord();
             return false;
@@ -305,7 +328,7 @@ abstract class Table
     {
         $this->id = '';
         $this->newData = [];
-        foreach (Config::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
+        foreach (self::$config->bbddStructure[$this->tableName]['fields'] as $key => $value) {
             $this->newData[$key] = $value['default'] ?? '';
         }
         $this->oldData = $this->newData;
@@ -318,11 +341,11 @@ abstract class Table
      * Warning: If an $id is set, any unsaved data will be lost when searching
      * for the new record.
      *
-     * @param string $id
+     * @param string|null $id
      *
      * @return array
      */
-    public function getDataArray(string $id = null): array
+    public function getDataArray(?string $id = null): array
     {
         if (isset($id) && ($id != $this->id)) {
             $this->getData($id);
@@ -386,13 +409,13 @@ abstract class Table
      *
      * @return bool
      */
-    private function insertRecord($fields, $values): bool
+    private function insertRecord(array $fields, array $values): bool
     {
         $fieldList = implode(',', $fields);
         $valueList = implode(',', $values);
-        $ret = Config::$dbEngine->exec("INSERT INTO  {$this->tableName} ($fieldList) VALUES ($valueList)");
+        $ret = self::$engine->exec("INSERT INTO  $this->tableName ($fieldList) VALUES ($valueList)");
         // Asigna el valor de la clave primaria del registro recién insertado
-        $this->id = $this->newData[$this->idField] ?? Config::$dbEngine->getLastInserted();
+        $this->id = $this->newData[$this->idField] ?? self::$engine->getLastInserted();
         return $ret;
     }
 
@@ -404,10 +427,10 @@ abstract class Table
      *
      * @return bool
      */
-    private function updateRecord($data): bool
+    private function updateRecord(array $data): bool
     {
         $value = implode(',', $data);
-        return Config::$dbEngine->exec("UPDATE {$this->tableName} SET $value WHERE {$this->idField}='{$this->id}'");
+        return self::$engine->exec("UPDATE $this->tableName SET $value WHERE $this->idField='$this->id'");
     }
 
     /**
@@ -417,7 +440,7 @@ abstract class Table
      */
     public function getStructure(): array
     {
-        return Config::$bbddStructure[$this->tableName];
+        return self::$config->bbddStructure[$this->tableName];
     }
 
     /**
@@ -427,8 +450,8 @@ abstract class Table
      */
     public function getAllRecords(): array
     {
-        $sql = "SELECT * FROM  {$this->tableName}";
-        return Config::$dbEngine->select($sql);
+        $sql = "SELECT * FROM  $this->tableName";
+        return self::$engine->select($sql);
     }
 
     /**
@@ -446,8 +469,8 @@ abstract class Table
             return '';
         }
 
-        $sql = "SELECT {$this->idField} AS id FROM {$this->tableName} WHERE {$this->nameField}='$name'";
-        $data = Config::$dbEngine->select($sql);
+        $sql = "SELECT $this->idField AS id FROM $this->tableName WHERE $this->nameField='$name'";
+        $data = self::$engine->select($sql);
         if (!empty($data) && count($data) > 0) {
             return $data[0]['id'];
         }

@@ -15,7 +15,6 @@ use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Core\Singletons\Logger;
 use Alxarafe\Core\Singletons\Session;
 use Alxarafe\Core\Singletons\TemplateRender;
-use DebugBar\DebugBarException;
 
 /**
  * Class Globals, load all globals utilities.
@@ -61,6 +60,7 @@ abstract class Globals
     protected FlashMessages $flashMessages;
     protected DebugTool $debug;
     protected Logger $logger;
+    protected RegionalInfo $regional;
 
     /**
      * Globals constructor.
