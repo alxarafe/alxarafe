@@ -9,10 +9,12 @@ build:
             ini:
                 'apc.enable_cli': '1'
                 'apc.enabled': '0'
+        pecl_extensions:
+            - memcached
         postgresql: false
         mysql: 5.7
         apache2:
-            modules: [ 'rewrite', 'expires', 'ssl', 'macro', 'headers', 'memcache' ]
+            modules: [ 'rewrite', 'expires', 'ssl', 'macro', 'headers' ]
             sites:
                 alxarafe:
                     host: 'local.dev'
@@ -26,7 +28,7 @@ build:
             - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
             - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
             - cp config/build/scrutinizer/config.yaml config/config.yaml
-            - cat config/build/scrutinizer/id_rsa.pub >> ~/.ssh/authorized_keys
+            - REM cat config/build/scrutinizer/id_rsa.pub >> ~/.ssh/authorized_keys
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
