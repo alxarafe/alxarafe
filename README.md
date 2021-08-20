@@ -1,4 +1,4 @@
-[![Scrutinizer logo](https://scrutinizer-ci.com/images/logo.png)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=master)
+[![Scrutinizer logo](https://scrutinizer-ci.com/images/logo.png)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
 [![Code Coverage](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
 [![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=master)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/build-status/master)
@@ -6,8 +6,13 @@
 
 # alxarafe
 
-Alxarafe is a refactoring of the ERP-CRM Dolibarr.
+Alxarafe, it reads Aljarafe, is a free software project, which aims to become a simple but powerful development
+environment, designed with PHP 7.4 and composer, following an MVC design pattern.
 
-Alxarafe is installed on Dolibarr with the idea of replacing it completely, using NameSpaces, an MVC pattern, object-oriented programming, and a more up-to-date version of PHP.
+The main objective is to keep a learning curve, as short as possible, with a simple, flexible and robust development (
+almost nothing!).
 
-The objective would be to find an alternative to migrate the Dolibarr facilities to more modern software, with the idea of being able to replace it completely without ceasing to use what already exists.
+Alxarafe will be designed to be an independent project, but it may overlap with Dolibarr to try to replace it in the
+future.
+
+The code developed here can be used by the Dolibarr community to improve its product.
