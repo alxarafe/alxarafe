@@ -30,14 +30,14 @@ build:
         override:
             - php-scrutinizer-run --enable-security-analysis
             # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
-            -   command: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            - command: htdocs/vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
             # Run PHP-CS.
-            -   command: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            - command: htdocs/vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
             # Run PHPUnit test.
-            -   command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
-                coverage:
-                    file: reports/coverage.xml
-                    format: php-clover
+            - command: htdocs/vendor/bin/phpunit --coverage-clover=reports/coverage.xml
+              coverage:
+                  file: reports/coverage.xml
+                  format: php-clover
 filter:
     paths: [htdocs/*]
     excluded_paths:

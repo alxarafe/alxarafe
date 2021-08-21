@@ -6,14 +6,14 @@
 
 namespace Alxarafe\Core\Providers;
 
-use Alxarafe\Core\Base\Provider;
+use Alxarafe\Core\Base\Provider as parentAlias;
 
 /**
  * Class RegionalInfo
  *
  * @package Alxarafe\Core\Providers
  */
-abstract class ConfigProvider extends Provider
+abstract class ConfigProvider extends parentAlias
 {
     /**
      * Contains the config content.
@@ -42,7 +42,7 @@ abstract class ConfigProvider extends Provider
     public function getConfigContent(): array
     {
         if (empty(self::$configContent)) {
-            self::$configContent = self::getConfig();
+            self::$configContent = $this->getConfig();
         }
         return self::$configContent;
     }

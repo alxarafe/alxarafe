@@ -57,6 +57,13 @@ abstract class View extends Globals
     private array $vars;
 
     /**
+     * Contains an array with the main menu options.
+     *
+     * @var array
+     */
+    private array $menu;
+
+    /**
      * Load the JS and CSS files and define the ctrl, view and user variables
      * for the templates.
      *
@@ -86,7 +93,7 @@ abstract class View extends Globals
     /**
      * Method to assign the template to the view.
      */
-    abstract function setTemplate(): void;
+    public abstract function setTemplate(): void;
 
     /**
      * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.

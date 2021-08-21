@@ -106,7 +106,7 @@ class Auth extends Singleton
      *
      * @return string|null
      */
-    public function getUser()
+    public function getUser(): ?string
     {
         return $this->user;
     }
@@ -123,7 +123,7 @@ class Auth extends Singleton
      * @see dol_hash in "htdocs/core/lib/security.lib.php"
      *
      */
-    public function setUser($user, $password)
+    public function setUser($user, $password): bool
     {
         $username_field = 'login';  // Alxarafe use 'username', but Dolibarr use 'login'
         $password_field = 'pass_crypted';  // Alxarafe use 'password', but Dolibarr use 'pass_crypted'
@@ -145,13 +145,5 @@ class Auth extends Singleton
             }
         }
         return $this->user != null;
-    }
-
-    /**
-     * TODO: Undocummented
-     */
-    private function setCookieUser()
-    {
-        setcookie('user', $this->user === null ? '' : $this->user, self::COOKIE_EXPIRATION);
     }
 }
