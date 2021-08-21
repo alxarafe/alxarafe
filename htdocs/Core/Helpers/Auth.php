@@ -125,12 +125,12 @@ class Auth extends Singleton
      */
     public function setUser($user, $password): bool
     {
-        $username_field = 'login';  // Alxarafe use 'username', but Dolibarr use 'login'
-        $password_field = 'pass_crypted';  // Alxarafe use 'password', but Dolibarr use 'pass_crypted'
-        $encrypt_method = "password_hash"; // Alxarafe use 'md5', but Dolibarr use a function called dol_hash
+        $usernameField = 'login';  // Alxarafe use 'username', but Dolibarr use 'login'
+        $passwordField = 'pass_crypted';  // Alxarafe use 'password', but Dolibarr use 'pass_crypted'
+        $encryptMethod = "password_hash"; // Alxarafe use 'md5', but Dolibarr use a function called dol_hash
 
-        $_user = Engine::select("SELECT * FROM {$this->users->tableName} WHERE $username_field='$user';");
-        if (count($_user) > 0 && password_verify($password, $_user[0][$password_field])) {
+        $_user = Engine::select("SELECT * FROM {$this->users->tableName} WHERE $usernameField='$user';");
+        if (count($_user) > 0 && password_verify($password, $_user[0][$passwordField])) {
             $this->user = $user;
             setcookie('user', $user);
             $this->debug->addMessage('SQL', "$user autenticado");
@@ -139,9 +139,9 @@ class Auth extends Singleton
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {
-                $this->debug->addMessage('SQL', "Comprobado {$encrypt_method}:" . $encrypt_method($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$password_field]);
+                $this->debug->addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$passwordField]);
             } else {
-                $this->debug->addMessage('SQL', "Comprobado {$encrypt_method}:" . $encrypt_method($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
+                $this->debug->addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
             }
         }
         return $this->user != null;

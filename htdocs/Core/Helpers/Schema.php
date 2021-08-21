@@ -237,30 +237,30 @@ class Schema
                     $default = '1';
                 }
                 if ($max == 0) {
-                    $_length = DEFAULT_INTEGER_SIZE;
-                    $max = pow(10, $_length) - 1;
+                    $tmpLength = DEFAULT_INTEGER_SIZE;
+                    $max = pow(10, $tmpLength) - 1;
                 } else {
-                    $_length = strlen($max);
+                    $tmpLength = strlen($max);
                 }
 
                 if ($min == 0) {
                     $min = $unsigned ? 0 : -$max;
                 } else {
-                    if ($_length < strlen($min)) {
-                        $_length = strlen($min);
+                    if ($tmpLength < strlen($min)) {
+                        $tmpLength = strlen($min);
                     }
                 }
 
                 if (isset($structure['decimals'])) {
                     $decimales = $structure['decimals'];
                     $precision = pow(10, -$decimales);
-                    $_length += $decimales;
-                    $dbType = "decimal($_length,$decimales)" . ($unsigned ? ' unsigned' : '');
+                    $tmpLength += $decimales;
+                    $dbType = "decimal($tmpLength,$decimales)" . ($unsigned ? ' unsigned' : '');
                     $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
                     $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
                 } else {
                     $precision = null;
-                    $dbType = "integer($_length)" . ($unsigned ? ' unsigned' : '');
+                    $dbType = "integer($tmpLength)" . ($unsigned ? ' unsigned' : '');
                     $ret['min'] = $min;
                     $ret['max'] = $max;
                 }
@@ -349,13 +349,13 @@ class Schema
                 $sql .= ' PRIMARY KEY AUTO_INCREMENT';
             }
 
-            $_defecto = $col['default'] ?? null;
+            $tmpDefecto = $col['default'] ?? null;
             $defecto = '';
-            if (isset($_defecto)) {
-                if ($_defecto == 'CURRENT_TIMESTAMP') {
-                    $defecto = "$_defecto";
+            if (isset($tmpDefecto)) {
+                if ($tmpDefecto == 'CURRENT_TIMESTAMP') {
+                    $defecto = "$tmpDefecto";
                 } else {
-                    $defecto = "'$_defecto'";
+                    $defecto = "'$tmpDefecto'";
                 }
             } else {
                 if ($nulo) {

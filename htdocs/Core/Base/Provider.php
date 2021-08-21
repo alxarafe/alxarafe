@@ -45,7 +45,7 @@ abstract class Provider extends Singleton
      *
      * @return array
      */
-    abstract function getDefaultValues(): array;
+    public abstract function getDefaultValues(): array;
 
     /**
      * The object is created from within the class itself only if the class

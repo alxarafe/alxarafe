@@ -220,12 +220,12 @@ class Config extends Singleton
         return false;
     }
 
-    function getEngine()
+    public function getEngine(): Engine
     {
         return $this->dbEngine;
     }
 
-    function getSqlHelper()
+    public function getSqlHelper(): SqlHelper
     {
         return $this->sqlHelper;
     }
