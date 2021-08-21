@@ -35,7 +35,7 @@ class Logout extends Controller
     {
         parent::__construct();
 
-        $auth = new Auth();
+        $auth = Auth::getInstance();
         $auth->logout();
 
         header('Location: ' . BASE_URI . '?module=Main&controller=Login');

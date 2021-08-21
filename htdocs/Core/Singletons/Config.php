@@ -271,7 +271,6 @@ class Config extends Singleton
         if (!isset($configFile)) {
             return false;
         }
-
         return file_put_contents($configFile, YAML::dump(self::$global, 3)) !== false;
     }
 

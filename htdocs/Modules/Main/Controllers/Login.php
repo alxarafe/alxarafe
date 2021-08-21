@@ -35,7 +35,7 @@ class Login extends Controller
 {
     public function doAction()
     {
-        $auth = new Auth();
+        $auth = Auth::getInstance();
         switch ($this->action) {
             case 'login':
                 if ($auth->setUser($_POST['username'], $_POST['password'])) {
