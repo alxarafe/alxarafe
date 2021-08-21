@@ -21,7 +21,9 @@
 use Alxarafe\Core\Helpers\Dispatcher;
 use DebugBar\DebugBarException;
 
+// If there are parameters, but the "module" parameter is not present, Dolibarr is launched.
 if (count($_GET) > 0 && !isset($_GET['module'])) {
+    // Copy the index.php from Dolibarr as index_dol.php
     include 'index_dol.php';
     die();
 }
@@ -31,14 +33,16 @@ const BASE_FOLDER = __DIR__;
 
 $autoload_file = constant('BASE_FOLDER') . '/vendor/autoload.php';
 if (!file_exists($autoload_file)) {
-    die('<h1>COMPOSER ERROR</h1><p>You need to run: composer install</p>');
+    die('<h1>COMPOSER ERROR</h1><p>You need to run: "composer install"</p>');
 }
 
 require_once $autoload_file;
 
 $dispatcher = new Dispatcher();
 try {
+    // We launch the requested controller.
     if (!$dispatcher->run()) {
+        // If we can't launch the requested controller, we launch Dolibarr
         include 'index_dol.php';
         die();
     }
