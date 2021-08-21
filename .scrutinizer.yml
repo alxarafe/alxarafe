@@ -30,9 +30,9 @@ build:
         override:
             - php-scrutinizer-run --enable-security-analysis
             # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
-            - command: htdocs/vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            - command: htdocs/vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
             # Run PHP-CS.
-            - command: htdocs/vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Alxarafe/Core -s
+            - command: htdocs/vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
             # Run PHPUnit test.
             - command: htdocs/vendor/bin/phpunit --coverage-clover=reports/coverage.xml
               coverage:
