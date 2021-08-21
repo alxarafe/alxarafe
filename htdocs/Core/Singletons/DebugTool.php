@@ -61,8 +61,10 @@ class DebugTool extends Singleton
      *
      * @throws DebugBarException
      */
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
+        parent::__construct($index);
+
         self::$logger = Logger::getInstance();
 
         $shortName = ClassUtils::getShortName($this, $this);

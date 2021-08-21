@@ -36,8 +36,9 @@ class Session extends Singleton
     /**
      * Session constructor.
      */
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
+        parent::__construct($index);
         $shortName = ClassUtils::getShortName($this, static::class);
         $debugTool = DebugTool::getInstance();
         $debugTool->startTimer($shortName, $shortName . ' Constructor');

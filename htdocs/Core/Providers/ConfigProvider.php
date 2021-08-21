@@ -25,11 +25,10 @@ abstract class ConfigProvider extends Provider
     /**
      * Container constructor.
      */
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
-        parent::__construct();
+        parent::__construct($index);
 
-        self::$separateConfigFile = false;
         self::getConfigContent();
     }
 

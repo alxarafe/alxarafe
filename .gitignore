@@ -3,6 +3,7 @@ htdocs/vendor/
 htdocs/config/config.yaml
 htdocs/html/skins/dolibarr/
 htdocs/html/skins/modern/
+htdocs/index_dol.php
 nbproject
 default.properties
 .DS_Store

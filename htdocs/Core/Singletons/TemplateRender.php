@@ -85,8 +85,9 @@ class TemplateRender extends Singleton
 
     private $debug;
 
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
+        parent::__construct($index);
         self::$currentSkin = 'default';
         self::$currentTemplate = 'default';
         self::$templatesFolder = '';

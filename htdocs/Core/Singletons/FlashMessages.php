@@ -39,8 +39,9 @@ class FlashMessages extends Singleton
     /**
      * Container constructor.
      */
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
+        parent::__construct($index);
         self::$session = Session::getInstance();
         self::$messagesListNow = [];
         self::$messagesListNext = [];

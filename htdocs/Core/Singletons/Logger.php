@@ -31,8 +31,10 @@ class Logger extends Singleton
     /**
      * Logger constructor.
      */
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
+        parent::__construct($index);
+
         self::$logger = new MonologLogger('core_logger');
         set_exception_handler([$this, 'exceptionHandler']);
         try {

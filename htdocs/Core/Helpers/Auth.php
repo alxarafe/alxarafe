@@ -52,8 +52,9 @@ class Auth extends Singleton
     /**
      * Auth constructor.
      */
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
+        parent::__construct($index);
         $this->users = new Users();
         $this->getCookieUser();
         $this->debug = DebugTool::getInstance();

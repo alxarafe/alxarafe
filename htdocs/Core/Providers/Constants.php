@@ -74,9 +74,9 @@ class Constants extends Provider
     public static function loadConstants(): void
     {
         self::$configFilename = self::getConfigFileName();
-        self::$configFileContent = Yaml::parseFile(self::$configFilename);
-        if (!empty(self::$configFileContent) && isset(self::$configFileContent['constants'])) {
-            foreach (self::$configFileContent['constants'] as $type => $data) {
+        $configFileContent = Yaml::parseFile(self::$configFilename);
+        if (!empty($configFileContent) && isset($configFileContent['constants'])) {
+            foreach ($configFileContent['constants'] as $type => $data) {
                 foreach ($data as $name => $value) {
                     if (!defined($name)) {
                         switch (strtolower($type)) {

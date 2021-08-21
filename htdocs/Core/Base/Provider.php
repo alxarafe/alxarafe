@@ -15,28 +15,21 @@ abstract class Provider extends Singleton
      *
      * @var string
      */
-    protected static string $basePath;
+    private static string $basePath;
+    private static array $defaultValues;
 
-    /**
-     * Set to true if you want to save configuration in a separate file
-     *
-     * @var bool
-     */
-    protected static bool $separateConfigFile = false;
-
-    protected static array $configFileContent;
-
-    public function __construct()
+    public function __construct(string $index = 'main')
     {
-        self::$configFileContent = $this->getDefaultValues();
+        parent::__construct($index);
+
+        // Save the default values in the first instantiation of the class
+        $className = self::getClassName();
+        if (!isset(self::$defaultValues[$className])) {
+            self::$defaultValues[$className] = $this->getDefaultValues();
+        }
     }
 
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    abstract public function getDefaultValues(): array;
+    abstract function getDefaultValues(): array;
 
     public static function getInstance(string $index = 'main')
     {
@@ -56,45 +49,23 @@ abstract class Provider extends Singleton
     public function setConfig(array $params, bool $merge = true, string $index = 'main'): bool
     {
         $paramsToSave = [];
-        if ($this->separateConfigFile) {
-            $content = $this->getYamlContent();
-            if (!$merge) {
-                unset($content[$index]);
-            }
-            $paramsToSave[$index] = $params;
-        } else {
-            $content = Config::getInstance()->getConfig();
-            if (!$merge) {
-                unset($content[self::yamlName()][$index]);
-            }
-            $paramsToSave[self::yamlName()][$index] = $params;
+        $content = Config::getInstance()->getConfig();
+        if (!$merge) {
+            unset($content[self::yamlName()][$index]);
         }
-
+        $paramsToSave[self::yamlName()][$index] = $params;
         $content = ArrayUtils::arrayMergeRecursiveEx($content, $paramsToSave);
-
         return file_put_contents($this->getFilePath(), Yaml::dump($content, 3), LOCK_EX) !== false;
     }
 
     /**
-     * Returns the content of the Yaml file.
+     * Return the classname for yaml file.
      *
-     * @return array
+     * @return string
      */
-    private static function getYamlContent(): array
+    public static function yamlName(): string
     {
-        $yamlContent = [];
-        $file = self::getFilePath();
-        if (self::fileExists($file)) {
-            try {
-                $yamlContent = Yaml::parseFile($file);
-            } catch (ParseException $e) {
-                //                Logger::getInstance()::exceptionHandler($e);
-                FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
-                $yamlContent = [];
-            }
-        }
-        $content = self::$separateConfigFile ? $yamlContent : $yamlContent[self::yamlName()] ?? [];
-        return $content ?? [];
+        return strtolower(parent::getClassName());
     }
 
     /**
@@ -114,17 +85,48 @@ abstract class Provider extends Singleton
      */
     public static function getFileName(): string
     {
-        return (self::$separateConfigFile ? self::yamlName() : 'config');
+        return (self::yamlName());
     }
 
     /**
-     * Return the classname for yaml file.
+     * Returns the yaml config params.
      *
-     * @return string
+     * @param string $index
+     *
+     * @return array
      */
-    public static function yamlName(): string
+    public function getConfig(string $index = 'main'): array
     {
-        return strtolower(parent::getClassName());
+        $className = self::getClassName();
+        $result = self::$defaultValues[$className];
+        $yamlContent = self::getYamlContent();
+        if (isset($yamlContent[$index])) {
+            $result = array_merge($result, $yamlContent[$index]);
+        }
+        return $result;
+    }
+
+    /**
+     * Returns the content of the Yaml file.
+     *
+     * @return array
+     */
+    private static function getYamlContent(): array
+    {
+        $className = self::getClassName();
+        $yamlContent = self::$defaultValues[$className];
+        $file = self::getFilePath();
+        if (self::fileExists($file)) {
+            try {
+                $yamlContent = Yaml::parseFile($file);
+            } catch (ParseException $e) {
+                //                Logger::getInstance()::exceptionHandler($e);
+                FlashMessages::getInstance()::setError($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
+                $yamlContent = [];
+            }
+        }
+        $content = $yamlContent;
+        return $content ?? [];
     }
 
     /**
@@ -137,20 +139,6 @@ abstract class Provider extends Singleton
     protected static function fileExists(string $filename): bool
     {
         return (file_exists($filename) && is_file($filename));
-    }
-
-    /**
-     * Returns the yaml config params.
-     *
-     * @param string $index
-     *
-     * @return array
-     */
-    public function getConfig(string $index = 'main'): array
-    {
-        $yamlContent = self::getYamlContent();
-        $content = self::$separateConfigFile ? $yamlContent : $yamlContent[$index] ?? [];
-        return array_merge(self::$configFileContent, $content);
     }
 
 }

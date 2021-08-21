@@ -7,19 +7,31 @@ use Alxarafe\Core\Utils\ClassUtils;
 abstract class Singleton
 {
     /**
-     * Set to true if you want use more that one singleton using and index
-     * param in getInstance
-     *
-     * @var bool
-     */
-    protected static bool $singletonArray = false;
-
-    /**
      * Hold the classes on instance.
      *
      * @var array
      */
     private static array $instances = [];
+
+    public function __construct(string $index = 'main')
+    {
+        $className = self::getClassName();
+        if (isset(self::$instances[$className][$index])) {
+            die("Please use '$className:getInstance()' instead of 'new' to instantiate a Singleton.");
+        }
+        self::$instances[$className][$index] = $this;
+    }
+
+    /**
+     * Returns the class name.
+     *
+     * @return string
+     */
+    protected static function getClassName(): string
+    {
+        $class = static::class;
+        return ClassUtils::getShortName($class, $class);
+    }
 
     /**
      * The object is created from within the class itself only if the class
@@ -34,24 +46,11 @@ abstract class Singleton
      */
     public static function getInstance(string $index = 'main')
     {
-        if (!self::$singletonArray) {
-            $index = 'main';
+        $className = self::getClassName();
+        if (!isset(self::$instances[$className][$index])) {
+            new static($index);
         }
-        if (!isset(self::$instances[self::getClassName()][$index])) {
-            self::$instances[self::getClassName()][$index] = new static();
-        }
-        return self::$instances[self::getClassName()][$index];
-    }
-
-    /**
-     * Returns the class name.
-     *
-     * @return string
-     */
-    protected static function getClassName(): string
-    {
-        $class = static::class;
-        return ClassUtils::getShortName($class, $class);
+        return self::$instances[$className][$index];
     }
 
 }
