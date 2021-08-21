@@ -41,7 +41,7 @@ build:
 filter:
     paths: [htdocs/*]
     excluded_paths:
-        - src/Alxarafe/Test/*
+        - Test/*
         - bin/sami_documentation.php
 checks:
     php:
