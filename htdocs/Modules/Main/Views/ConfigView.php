@@ -39,6 +39,7 @@ class ConfigView extends View
     public $skins;
     public $skin;
     public $dbConfig;
+    public $checkDebug;
 
     /**
      * Login constructor.
@@ -60,6 +61,8 @@ class ConfigView extends View
 
         $this->skins = $this->render->getSkins();
         $this->skin = $vars['templaterender']['main']['skin'] ?? $this->skins[0] ?? '';
+
+        $this->checkDebug = $vars['constants']['boolean']['DEBUG'] ?? false;
 
         $this->languages = $this->translator->getAvailableLanguages();
         $this->language = $vars['translator']['main']['language'] ?? key($this->languages) ?? 'en';

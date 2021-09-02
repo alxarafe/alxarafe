@@ -88,10 +88,8 @@ class TemplateRender extends Singleton
     public function __construct(string $index = 'main')
     {
         parent::__construct($index);
-        self::$currentSkin = 'default';
-        self::$currentTemplate = 'default';
-        self::$templatesFolder = '';
         $this->debug = DebugTool::getInstance();
+        $this->setSkin('default');
     }
 
     /**
@@ -139,14 +137,10 @@ class TemplateRender extends Singleton
 
     /**
      * TODO: Undocumented
-     *
-     * @param $skin
-     *
-     * @throws DebugBarException
      */
     public function setSkin($skin)
     {
-        if (isset(self::$currentSkin) && $skin != self::$currentSkin) {
+        if (!isset(self::$currentSkin) || self::$currentSkin !== $skin) {
             self::$currentSkin = $skin;
             self::setTemplatesFolder($skin);
             $this->debug->addMessage('messages', "Setting '$skin' skin");

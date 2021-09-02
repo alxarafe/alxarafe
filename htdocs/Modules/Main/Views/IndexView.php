@@ -35,7 +35,7 @@ class IndexView extends View
     public function addCss()
     {
         parent::addCss();
-        $this->addToVar('cssCode', $this->addResource('/css/login', 'css'));
+//        $this->addToVar('cssCode', $this->addResource('/css/login', 'css'));
     }
 
     /**

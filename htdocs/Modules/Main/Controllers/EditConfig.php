@@ -37,7 +37,9 @@ class EditConfig extends Controller
      */
     public function doSave()
     {
+
         $config = Config::getInstance();
+        $config->setVar('constants', 'boolean', 'DEBUG', isset($_POST['debug']));
         $config->setVar('translator', 'main', 'language', $_POST['language'] ?? 'en');
         $config->setVar('templaterender', 'main', 'skin', $_POST['skin'] ?? 'default');
         $config->setVar('database', 'main', 'dbEngineName', $_POST['dbEngineName'] ?? '');

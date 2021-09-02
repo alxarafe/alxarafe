@@ -87,8 +87,8 @@ class Config extends Singleton
     {
         parent::__construct($index);
         $this->username = null;
-        $this->debug = DebugTool::getInstance();
         $this->render = TemplateRender::getInstance();
+        $this->debug = DebugTool::getInstance();
     }
 
     /**

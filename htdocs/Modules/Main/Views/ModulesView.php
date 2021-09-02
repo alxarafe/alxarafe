@@ -28,15 +28,6 @@ use Alxarafe\Core\Base\View;
 class ModulesView extends View
 {
     /**
-     * TODO: Undocummented
-     */
-    public function addCss()
-    {
-        parent::addCss();
-        $this->addToVar('cssCode', $this->addResource('/css/login', 'css'));
-    }
-
-    /**
      * Assign the template.
      */
     function setTemplate(): void

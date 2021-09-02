@@ -76,8 +76,8 @@ abstract class Globals
         $this->flashMessages = FlashMessages::getInstance();
         $this->regional = RegionalInfo::getInstance();
         $this->logger = Logger::getInstance();
-        $this->render = TemplateRender::getInstance();
         $this->config = Config::getInstance();
+        $this->render = TemplateRender::getInstance();
         $this->session = Session::getInstance();
         $this->translator = Translator::getInstance();
     }

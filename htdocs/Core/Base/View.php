@@ -61,7 +61,7 @@ abstract class View extends Globals
      *
      * @var array
      */
-    private array $menu;
+    public array $menu;
 
     /**
      * Load the JS and CSS files and define the ctrl, view and user variables
@@ -103,8 +103,8 @@ abstract class View extends Globals
      */
     public function addCSS()
     {
-        $this->addToVar('cssCode', $this->addResource('/bower_modules/bootstrap/dist/css/bootstrap.min', 'css'));
-        $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
+        //        $this->addToVar('cssCode', $this->addResource('/bower_modules/bootstrap/dist/css/bootstrap.min', 'css'));
+        //        $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
     }
 
     /**
@@ -168,9 +168,9 @@ abstract class View extends Globals
      */
     public function addJS()
     {
-        $this->addToVar('jsCode', $this->addResource('/bower_modules/jquery/dist/jquery.min', 'js'));
-        $this->addToVar('jsCode', $this->addResource('/bower_modules/bootstrap/dist/js/bootstrap.min', 'js'));
-        $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
+        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/jquery/dist/jquery.min', 'js'));
+        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/bootstrap/dist/js/bootstrap.min', 'js'));
+        //        $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
     }
 
     private function getMenus()

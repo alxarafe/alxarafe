@@ -2,7 +2,7 @@ components/
 htdocs/vendor/
 htdocs/config/config.yaml
 htdocs/html/skins/dolibarr/
-htdocs/html/skins/modern/
+htdocs/html/skins/default/original/
 htdocs/index_dol.php
 nbproject
 default.properties
