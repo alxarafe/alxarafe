@@ -37,40 +37,12 @@ class Schema
     const CRLF = "\r\n";
 
     /**
-     * Instance of SqlHelper
-     *
-     * @var SqlHelper
-     */
-    static protected SqlHelper $_SqlHelper;
-
-    /**
      * Contains the database structure data.
      * Each table is an index of the associative array.
      *
      * @var array
      */
     public static array $bbddStructure;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    protected $_model;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    protected $_tableName;
-
-    /**
-     * TODO: Undocummented
-     *
-     * @var
-     */
-    protected $structure;
 
     /**
      * Save the database structure in a yaml file
