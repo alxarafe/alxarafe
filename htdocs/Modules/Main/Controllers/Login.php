@@ -25,6 +25,7 @@ use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Modules\Main\Views\IndexView;
 use Alxarafe\Modules\Main\Views\LoginView;
+use DebugBar\DebugBarException;
 
 /**
  * Class Login
@@ -33,24 +34,26 @@ use Alxarafe\Modules\Main\Views\LoginView;
  */
 class Login extends Controller
 {
-    public function doAction()
+    public function doAction(): bool
     {
         $auth = Auth::getInstance();
         switch ($this->action) {
             case 'login':
-                if ($auth->setUser($_POST['username'], $_POST['password'])) {
-                    header('Location: ' . BASE_URI . '?x');
-                    die();
+                if (!$auth->setUser($_POST['username'], $_POST['password'])) {
+                    FlashMessages::setError('User authentication error. Please check the username and password.');
+                    break;
                 }
-                FlashMessages::setError('User authentication error. Please check the username and password.');
-                break;
+                // TODO: There should be a break here. We use the redirect to test that Dolibarr continues to run.
+                header('Location: ' . BASE_URI . '?x');
+                die();
             default:
-                parent::doAction();
+                return parent::doAction();
         }
+        return true;
     }
 
     /**
-     * @throws \DebugBar\DebugBarException
+     * @throws DebugBarException
      */
     public function setView(): View
     {

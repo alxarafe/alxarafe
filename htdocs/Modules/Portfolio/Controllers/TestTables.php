@@ -20,19 +20,27 @@ namespace Alxarafe\Modules\Portfolio\Controllers;
 
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Base\View;
+use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Modules\Portfolio\Models\PortfolioAssets;
 use Alxarafe\Modules\Main\Views\IndexView;
+use DebugBar\DebugBarException;
 
-class Index extends Controller
+class TestTables extends Controller
 {
     /**
+     * Check structure of table PortfolioAssets.
      *
      * @return View
-     * @throws \DebugBar\DebugBarException
+     * @throws DebugBarException
      */
     public function setView(): View
     {
-        new PortfolioAssets();
+        $tablename = 'llx_portfolio_assets';
+        if (Schema::tableExists($tablename) && !self::$engine->exec("DROP TABLE $tablename")) {
+            die("No se ha podido eliminar la tabla llx_portfolio_assets");
+        }
+
+        $x = new PortfolioAssets(true);
         return new IndexView($this);
     }
 }

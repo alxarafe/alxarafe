@@ -41,6 +41,7 @@ class Config extends Singleton
      * @var string::null
      */
     private static string $configFilename;
+
     /**
      * Contains an array with the variables defined in the configuration file.
      * Use setVar to assign or getVar to access the variables of the array.
@@ -48,25 +49,21 @@ class Config extends Singleton
      * @var array
      */
     private static array $global;
-    /**
-     * Contains the database structure data.
-     * Each table is an index of the associative array.
-     *
-     * @var array
-     */
-    public array $bbddStructure;
+
     /**
      * Contains the instance to the database engine (or null)
      *
      * @var Engine
      */
     private Engine $dbEngine;
+
     /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
      * @var sqlHelper
      */
     private SqlHelper $sqlHelper;
+
     /**
      * It is a static instance of the Auth class that contains the data of the
      * currently identified user.
@@ -74,12 +71,14 @@ class Config extends Singleton
      * @var Auth
      */
     private Auth $user;
+
     /**
      * Contains the user's name or null
      *
      * @var string|null
      */
     private ?string $username;
+
     private TemplateRender $render;
     private DebugTool $debug;
 

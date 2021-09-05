@@ -53,13 +53,60 @@ abstract class Globals
      */
     const DEFAULT_CONTROLLER_NAME = 'init';
 
+    /**
+     * Contains an instance of the Config singleton.
+     *
+     * @var Config
+     */
     protected Config $config;
+
+    /**
+     * Contains an instance of the TemplateRender singleton.
+     *
+     * @var TemplateRender
+     */
     protected TemplateRender $render;
+
+    /**
+     * Contains an instance of the Translator provider
+     *
+     * @var Translator
+     */
     protected Translator $translator;
+
+    /**
+     * Contains an instance of the Session singleton
+     *
+     * @var Session
+     */
     protected Session $session;
+
+    /**
+     * Contains an instance of the FlashMessages singleton
+     *
+     * @var FlashMessages
+     */
     protected FlashMessages $flashMessages;
+
+    /**
+     * Contains an instance of the DebugTool singleton
+     *
+     * @var DebugTool
+     */
     protected DebugTool $debug;
+
+    /**
+     * Contains an instance of the Logger singleton
+     *
+     * @var Logger
+     */
     protected Logger $logger;
+
+    /**
+     * Contains an instance of the RegionalInfo provider
+     *
+     * @var RegionalInfo
+     */
     protected RegionalInfo $regional;
 
     /**
@@ -67,11 +114,15 @@ abstract class Globals
      */
     public function __construct()
     {
+        // Load constants and configuration file, if they are not already loaded.
         if (!defined('APP_URI')) {
             Constants::defineConstants();
-            Constants::loadConstants();
+            if (!Constants::loadConstants()) {
+                die('No config file!');
+            }
         }
 
+        // Instance in correct order all singletons and providers
         $this->debug = DebugTool::getInstance();
         $this->flashMessages = FlashMessages::getInstance();
         $this->regional = RegionalInfo::getInstance();

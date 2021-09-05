@@ -16,8 +16,16 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Constants extends Provider
 {
+    /**
+     * Configuration file name.
+     *
+     * @var string|null
+     */
     public static ?string $configFilename;
 
+    /**
+     * Constants constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -32,7 +40,7 @@ class Constants extends Provider
      * define it in the constant CONFIGURATION_PATH before invoking this method,
      * this folder must exist.
      *
-     * @return string
+     * @return ?string
      */
     public static function getConfigFileName(): string
     {
@@ -69,11 +77,14 @@ class Constants extends Provider
     /**
      * Loads the constants defined in the config.yaml file
      *
-     * @return void
+     * @return bool
      */
-    public static function loadConstants(): void
+    public static function loadConstants(): bool
     {
         self::$configFilename = self::getConfigFileName();
+        if (self::$configFilename === null) {
+            return false;
+        }
         $configFileContent = Yaml::parseFile(self::$configFilename);
         if (!empty($configFileContent) && isset($configFileContent['constants'])) {
             foreach ($configFileContent['constants'] as $type => $data) {
@@ -98,6 +109,7 @@ class Constants extends Provider
                 }
             }
         }
+        return true;
     }
 
     /**

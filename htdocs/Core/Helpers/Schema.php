@@ -28,46 +28,42 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * The Schema class contains static methods that allow you to manipulate the
  * database. It is used to create and modify tables and indexes in the database.
- *
- * There is part of this code that is not being used. It should be used with caution.
  */
 class Schema
 {
-
     /**
      * Carriage Return and Line Feed
      */
     const CRLF = "\r\n";
 
     /**
-     * It is an array that contains the structure of the database in a standardized format.
-     *
-     * @var array
-     *
-     * @deprecated Not being used!
-     */
-    static protected array $databaseStructure;
-
-    /**
      * Instance of SqlHelper
      *
      * @var SqlHelper
      */
-    static protected SqlHelper $SqlHelper;
+    static protected SqlHelper $_SqlHelper;
+
+    /**
+     * Contains the database structure data.
+     * Each table is an index of the associative array.
+     *
+     * @var array
+     */
+    public static array $bbddStructure;
 
     /**
      * TODO: Undocummented
      *
      * @var
      */
-    protected $model;
+    protected $_model;
 
     /**
      * TODO: Undocummented
      *
      * @var
      */
-    protected $tableName;
+    protected $_tableName;
 
     /**
      * TODO: Undocummented
@@ -79,7 +75,7 @@ class Schema
     /**
      * Save the database structure in a yaml file
      */
-    public static function saveStructure()
+    public static function _saveStructure()
     {
         $folder = BASE_FOLDER . '/schema';
         if (!is_dir($folder)) {
@@ -106,10 +102,7 @@ class Schema
     public static function tableExists($tableName): bool
     {
         $dbName = Config::getInstance()->getVar('database', 'main', 'dbName');
-        $data = Engine::select("
-            SELECT COUNT(*) AS Total 
-            FROM  information_schema.tables
-            WHERE table_schema = '{$dbName}' AND table_name='{$tableName}'");
+        $data = Engine::select("SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableName}'");
         $result = reset($data);
         return $result['Total'] === '1';
     }
@@ -120,7 +113,7 @@ class Schema
      * @return array
      * @throws DebugBarException
      */
-    public static function getTables(): array
+    public static function _getTables(): array
     {
         $query = Config::$sqlHelper->getTables();
         return Utils::flatArray(Config::$dbEngine->select($query));
@@ -133,7 +126,7 @@ class Schema
      *
      * @return array
      */
-    public static function getStructure(string $tableName): array
+    public static function _getStructure(string $tableName): array
     {
         return Config::$dbEngine->getStructure($tableName);
     }
@@ -313,7 +306,7 @@ class Schema
      */
     public static function createTable(string $tableName): bool
     {
-        $tabla = Config::getInstance()->bbddStructure[$tableName];
+        $tabla = self::$bbddStructure[$tableName];
         $sql = self::createFields($tableName, $tabla['fields']);
 
         foreach ($tabla['keys'] as $name => $index) {
@@ -431,7 +424,7 @@ class Schema
                         die('Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname);
                     }
                     $refTable = key($references);
-                    $fields = '(' . implode($references, ',') . ')';
+                    $fields = '(' . implode(',', $references) . ')';
                 } else {
                     die('FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname);
                 }
@@ -447,7 +440,7 @@ class Schema
             }
         } else {
             if (is_array($fields)) {
-                $fields = '(' . implode($fields, ',') . ')';
+                $fields = '(' . implode(',', $fields) . ')';
             } else {
                 $fields = "($fields)";
             }

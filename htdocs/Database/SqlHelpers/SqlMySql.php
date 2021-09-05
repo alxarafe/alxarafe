@@ -6,9 +6,8 @@
 
 namespace Alxarafe\Database\SqlHelpers;
 
+use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\Modules\Main\Helpers\Config;
-use Alxarafe\Modules\Main\Helpers\DebugTool;
 use Alxarafe\Modules\Main\Helpers\Utils;
 
 /**

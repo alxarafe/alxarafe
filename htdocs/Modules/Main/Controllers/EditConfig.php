@@ -33,9 +33,9 @@ class EditConfig extends Controller
     /**
      * Save the form changes in the configuration file
      *
-     * @return void
+     * @return bool
      */
-    public function doSave()
+    public function doSave(): bool
     {
 
         $config = Config::getInstance();
@@ -50,7 +50,7 @@ class EditConfig extends Controller
         $config->setVar('database', 'main', 'dbPort', $_POST['dbPort'] ?? '');
         $config->setVar('database', 'main', 'dbPrefix', $_POST['dbPrefix'] ?? '');
 
-        $config->saveConfigFile();
+        return $config->saveConfigFile();
     }
 
     /**

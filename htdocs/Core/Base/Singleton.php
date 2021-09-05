@@ -13,6 +13,9 @@ abstract class Singleton
      */
     private static array $instances = [];
 
+    /**
+     * @param string $index
+     */
     public function __construct(string $index = 'main')
     {
         $className = self::getClassName();

@@ -26,24 +26,28 @@ abstract class Table
      * @var Engine
      */
     public static Engine $engine;
+
     /**
      * The database SQL Helper.
      *
      * @var SqlHelper
      */
     public static SqlHelper $sqlHelper;
+
     /**
      * A Config instance.
      *
      * @var Config
      */
     public static Config $config;
+
     /**
      * It is the name of the table.
      *
      * @var string
      */
     public string $tableName;
+
     /**
      * Value of the main index for the active record.
      * When a record is loaded, this field will contain its id and will be the
@@ -53,12 +57,14 @@ abstract class Table
      * @var string
      */
     protected string $id;
+
     /**
      * It is the name of the main id field. By default, 'id'
      *
      * @var string
      */
     protected string $idField;
+
     /**
      * It is the name of the field name. By default 'name'.
      * TODO: See if it may not exist, in which case, null or ''?
@@ -66,18 +72,21 @@ abstract class Table
      * @var string
      */
     protected $nameField;
+
     /**
      * Contains an array with the table structure
      *
      * @var array
      */
     protected array $tableStructure;
+
     /**
      * It contains the data previous to the modification of the current record
      *
      * @var array
      */
     protected array $oldData;
+
     /**
      * Contains the new data of the current record.
      * It will start when loading a record and will be used when making a save.
@@ -87,7 +96,7 @@ abstract class Table
     protected array $newData;
 
     /**
-     * Build a Table model. $table is the name of the table in the database.
+     * Build a Table model. $tableName is the name of the table in the database.
      * $params is a parameters array:
      * - create is true if the table is to be created if it does not exist (false by default)
      * - idField is the name of the primary key (default id)
@@ -95,6 +104,8 @@ abstract class Table
      *
      * @param string $tableName
      * @param array  $params
+     *
+     * @throws DebugBarException
      */
     public function __construct(string $tableName, array $params = [])
     {
@@ -138,8 +149,8 @@ abstract class Table
      */
     protected function setTableStructure(string $table, array $structure)
     {
-        if (!isset(self::$config->getInstance()->bbddStructure[$table])) {
-            self::$config->getInstance()->bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
+        if (!isset(Schema::$bbddStructure[$table])) {
+            Schema::$bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
         }
     }
 
@@ -186,8 +197,6 @@ abstract class Table
     /**
      * Create a new table if it does not exist and it has been passed true as a parameter.
      *
-     * TODO: Undocumented
-     *
      * This should check if there are differences between the defined in bbddStructure
      * and the physical table, correcting the differences if true is passed as parameter.
      *
@@ -197,7 +206,7 @@ abstract class Table
      */
     public function checkStructure(bool $create = false)
     {
-        if (isset(self::$config->getInstance()->bbddStructure[$this->tableName])) {
+        if (isset(Schema::$bbddStructure[$this->tableName])) {
             if ($create && !Schema::tableExists($this->tableName)) {
                 Schema::createTable($this->tableName);
             }
@@ -328,7 +337,7 @@ abstract class Table
     {
         $this->id = '';
         $this->newData = [];
-        foreach (self::$config->bbddStructure[$this->tableName]['fields'] as $key => $value) {
+        foreach (Schema::$bbddStructure[$this->tableName]['fields'] as $key => $value) {
             $this->newData[$key] = $value['default'] ?? '';
         }
         $this->oldData = $this->newData;
@@ -440,7 +449,7 @@ abstract class Table
      */
     public function getStructure(): array
     {
-        return self::$config->bbddStructure[$this->tableName];
+        return Schema::$bbddStructure[$this->tableName];
     }
 
     /**

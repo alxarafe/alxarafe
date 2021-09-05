@@ -21,25 +21,32 @@ use PDOStatement;
  */
 abstract class Engine
 {
+    /**
+     * @var DebugTool
+     */
     static DebugTool $debug;
+
     /**
      * Data Source Name
      *
      * @var string
      */
     static protected string $dsn;
+
     /**
      * Array that contains the access data to the database.
      *
      * @var array
      */
     static protected array $dbConfig;
+
     /**
      * The handler of the database.
      *
      * @var PDO
      */
     static protected PDO $dbHandler;
+
     /**
      * Represents a prepared statement and, after the statement is executed,
      * an associated result set.
@@ -47,12 +54,14 @@ abstract class Engine
      * @var PDOStatement|false
      */
     static protected $statement;
+
     /**
      * True if the database engine supports SAVEPOINT in transactions
      *
      * @var bool
      */
     static protected bool $savePointsSupport = true;
+
     /**
      * Number of transactions in execution
      *
@@ -73,7 +82,6 @@ abstract class Engine
 
     /**
      * Obtain an array with the available engines
-     * TODO: Most of the tests have been done with MySQL engine (PdoMySql)
      *
      * @return array
      */
@@ -99,24 +107,7 @@ abstract class Engine
      */
     public static function getTablename($tablename): string
     {
-        return strtolower(Config::getInstance()->getVar('database', 'main', 'dbPrefix') . $tablename);
-    }
-
-    /**
-     * Obtain an array with the table structure with a standardized format.
-     *
-     * @param $tableName
-     *
-     * @return mixed
-     */
-    public static function getStructure($tableName)
-    {
-        return [
-            'fields' => Config::getIntance()->sqlHelper->getColumns($tableName),
-            'indexes' => Config::getIntance()->sqlHelper->getIndexes($tableName),
-            // 'constraints' => Config::getIntance()->sqlHelper->getConstraints($tableName),
-            // 'values' => Config::getIntance()->sqlHelper->getValues($tableName)
-        ];
+        return strtolower(Config::getVar('database', 'main', 'dbPrefix') . $tablename);
     }
 
     /**
@@ -169,11 +160,9 @@ abstract class Engine
      * @param string $query
      *
      * @return bool
-     * @throws DebugBarException
      */
     final public static function exec(string $query): bool
     {
-        //        $this->debug->addMessage('SQL', 'PDO exec: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement != null && self::$statement) {
             return self::$statement->execute([]);
@@ -202,11 +191,9 @@ abstract class Engine
      * @param string $query
      *
      * @return array
-     * @throws DebugBarException
      */
     public static function select(string $query): array
     {
-        //        $this->debug->addMessage('SQL', 'PDO select: ' . $query);
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement != null && self::$statement && self::$statement->execute([])) {
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);
@@ -215,7 +202,7 @@ abstract class Engine
     }
 
     /**
-     * TODO: Undocumented
+     * Checks if there is an active connection to the database.
      *
      * @return bool
      */
@@ -276,25 +263,12 @@ abstract class Engine
      */
 
     /**
-     * Returns an array containing all of the result set rows
-     *
-     * @return array
-     * @throws DebugBarException
-     */
-    final public function _resultSet(): array
-    {
-        self::execute();
-        return self::$statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * Executes a prepared statement
      * http://php.net/manual/en/pdostatement.execute.php
      *
      * @param array $inputParameters
      *
      * @return bool
-     * @throws DebugBarException
      */
     final public function execute(array $inputParameters = []): bool
     {
@@ -309,7 +283,6 @@ abstract class Engine
      * source: https://www.ibm.com/support/knowledgecenter/es/SSEPGG_9.1.0/com.ibm.db2.udb.apdv.php.doc/doc/t0023166.htm
      *
      * @return bool
-     * @throws DebugBarException
      */
     final public function beginTransaction(): bool
     {
@@ -330,7 +303,6 @@ abstract class Engine
      * Commit current transaction
      *
      * @return bool
-     * @throws DebugBarException
      */
     final public function commit()
     {
