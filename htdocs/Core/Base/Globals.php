@@ -118,7 +118,7 @@ abstract class Globals
         if (!defined('APP_URI')) {
             Constants::defineConstants();
             if (!Constants::loadConstants()) {
-                die('No config file!');
+                trigger_error('No config file!');
             }
         }
 

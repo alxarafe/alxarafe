@@ -20,7 +20,7 @@ abstract class Singleton
     {
         $className = self::getClassName();
         if (isset(self::$instances[$className][$index])) {
-            die("Please use '$className:getInstance()' instead of 'new' to instantiate a Singleton.");
+            trigger_error("Please use '$className:getInstance()' instead of 'new' to instantiate a Singleton.");
         }
         self::$instances[$className][$index] = $this;
     }

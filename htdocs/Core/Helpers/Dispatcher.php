@@ -63,7 +63,7 @@ class Dispatcher extends Globals
         $configFile = $this->config->getConfigFileName();
         if (!file_exists($configFile)) {
             if (!$this->createConfigFromDolibarr()) {
-                die('No Dolibarr configuration found!');
+                trigger_error('No Dolibarr configuration found!');
             }
         }
         // $this->config->loadConfig();

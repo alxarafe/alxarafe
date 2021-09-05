@@ -1,3 +1,6 @@
+constants:
+  boolean:
+    DEBUG: '1'
 templaterender:
   main:
     skin: default

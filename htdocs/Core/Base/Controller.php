@@ -67,7 +67,7 @@ abstract class Controller extends Globals
 
         $this->protectedClose = false;
         if (!$this->preLoad()) {
-            die('preLoad fails!');
+            trigger_error('preLoad fails!');
         }
     }
 
@@ -137,9 +137,8 @@ abstract class Controller extends Globals
         switch ($this->action) {
             case 'save':
                 return $this->doSave();
-                break;
             case 'exit':
-                return $this->doExit();
+                $this->doExit();
                 break;
             default:
                 trigger_error("The '$this->action' action has not been defined!");
@@ -160,9 +159,9 @@ abstract class Controller extends Globals
     /**
      * Exit to the main route
      *
-     * @return bool
+     * @return void
      */
-    public function doExit(): bool
+    public function doExit(): void
     {
         header('Location: ' . BASE_URI);
         die();

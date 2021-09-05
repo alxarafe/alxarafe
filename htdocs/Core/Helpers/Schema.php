@@ -45,25 +45,6 @@ class Schema
     public static array $bbddStructure;
 
     /**
-     * Save the database structure in a yaml file
-     */
-    public static function _saveStructure()
-    {
-        $folder = BASE_FOLDER . '/schema';
-        if (!is_dir($folder)) {
-            mkdir($folder);
-        }
-        if (is_dir($folder)) {
-            $tables = Config::$sqlHelper->getTables();
-            foreach ($tables as $table) {
-                $filename = $folder . '/' . $table . '.yaml';
-                $data = Config::$dbEngine->getStructure($table);
-                file_put_contents($filename, YAML::dump($data));
-            }
-        }
-    }
-
-    /**
      * Return true if $tableName exists in database
      *
      * @param string $tableName
@@ -77,30 +58,6 @@ class Schema
         $data = Engine::select("SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableName}'");
         $result = reset($data);
         return $result['Total'] === '1';
-    }
-
-    /**
-     * TODO: Undocumentend
-     *
-     * @return array
-     * @throws DebugBarException
-     */
-    public static function _getTables(): array
-    {
-        $query = Config::$sqlHelper->getTables();
-        return Utils::flatArray(Config::$dbEngine->select($query));
-    }
-
-    /**
-     * TODO: Undocumented
-     *
-     * @param string $tableName
-     *
-     * @return array
-     */
-    public static function _getStructure(string $tableName): array
-    {
-        return Config::$dbEngine->getStructure($tableName);
     }
 
     /**
