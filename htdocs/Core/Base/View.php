@@ -11,6 +11,7 @@ use Alxarafe\Core\Singletons\DebugTool;
 use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Core\Singletons\TemplateRender;
 use Alxarafe\Core\Utils\ClassUtils;
+use Alxarafe\Modules\Main\Models\Menu;
 use DebugBar\DebugBarException;
 
 /**
@@ -49,19 +50,26 @@ abstract class View extends Globals
     public ?string $template = null;
 
     /**
+     * Contains an array with the main menu options. (top menu)
+     *
+     * @var array
+     */
+    public array $menu;
+
+    /**
+     * Contains an array with the submenu options. (left menu)
+     *
+     * @var array
+     */
+    public array $submenu;
+
+    /**
      * Array that contains the variables that will be passed to the template.
      * Among others it will contain the user name, the view and the controller.
      *
      * @var array
      */
     private array $vars;
-
-    /**
-     * Contains an array with the main menu options.
-     *
-     * @var array
-     */
-    public array $menu;
 
     /**
      * Load the JS and CSS files and define the ctrl, view and user variables
@@ -87,7 +95,8 @@ abstract class View extends Globals
         $this->vars['templateuri'] = $this->render->getTemplatesUri();
         $this->addCSS();
         $this->addJS();
-        $this->getMenus();
+        $this->getMenu();
+        $this->getSubmenu();
     }
 
     /**
@@ -105,6 +114,356 @@ abstract class View extends Globals
     {
         //        $this->addToVar('cssCode', $this->addResource('/bower_modules/bootstrap/dist/css/bootstrap.min', 'css'));
         //        $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
+    }
+
+    /**
+     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
+     *
+     * @return void
+     * @throws DebugBarException
+     */
+    public function addJS()
+    {
+        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/jquery/dist/jquery.min', 'js'));
+        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/bootstrap/dist/js/bootstrap.min', 'js'));
+        //        $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
+    }
+
+    /**
+     * The menu options in Dolibarr are defined in eldy.lib.php in the print_eldy_menu function.
+     * In the case of using the Auguria template, change eldy to auguria.
+     *
+     * TODO: The options not allowed for the user should be disabled
+     * TODO: Soon, this information will be in a template yaml file
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version sept. 2021
+     *
+     */
+    private function getMenu()
+    {
+        /**
+         * Array
+         * (
+         * [0] => Array (
+         *   [name] => Home
+         *   [link] => /index.php?mainmenu=home&leftmenu=home
+         *   [title] => Home
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => home
+         *   [leftmenu] =>
+         *   [position] => 10
+         *   [id] => mainmenu
+         *   [idsel] => home
+         *   [classname] => class="tmenusel"
+         *   [prefix] => fa fa-home
+         * )
+         *
+         * [1] => Array (
+         *   [name] => Members
+         *   [link] => /adherents/index.php?mainmenu=members&leftmenu=
+         *   [title] => MenuMembers
+         *   [level] => 0
+         *   [enabled] => 0
+         *   [target] =>
+         *   [mainmenu] => members
+         *   [leftmenu] =>
+         *   [position] => 18
+         *   [id] => mainmenu
+         *   [idsel] => members
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-user-alt
+         * )
+         *
+         * [2] => Array (
+         *   [name] => Companies
+         *   [link] => /societe/index.php?mainmenu=companies&leftmenu=
+         *   [title] => ThirdParties
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => companies
+         *   [leftmenu] =>
+         *   [position] => 20
+         *   [id] => mainmenu
+         *   [idsel] => companies
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-building
+         *   [session] => 1
+         * )
+         *
+         * [3] => Array (
+         *   [name] => Products
+         *   [link] => /product/index.php?mainmenu=products&leftmenu=
+         *   [title] => Array (
+         *     [0] => TMenuProducts
+         *     [1] =>  |
+         *     [2] => TMenuServices
+         *   )
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => products
+         *   [leftmenu] =>
+         *   [position] => 30
+         *   [id] => mainmenu
+         *   [idsel] => products
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-cube
+         *   [session] => 1
+         * )
+         *
+         * [4] => Array (
+         *   [name] => TMenuMRP
+         *   [link] => /mrp/index.php?mainmenu=mrp&leftmenu=
+         *   [title] => TMenuMRP
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => mrp
+         *   [leftmenu] =>
+         *   [position] => 31
+         *   [id] => mainmenu
+         *   [idsel] => mrp
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-cubes
+         *   [session] => 1
+         * )
+         *
+         * [5] => Array (
+         *   [name] => Projet
+         *   [link] => /projet/index.php?mainmenu=project&leftmenu=
+         *   [title] => Projects
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => project
+         *   [leftmenu] =>
+         *   [position] => 35
+         *   [id] => mainmenu
+         *   [idsel] => project
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-project-diagram
+         *   [session] => 1
+         * )
+         *
+         * [6] => Array (
+         *   [name] => Commercial
+         *   [link] => /comm/index.php?mainmenu=commercial&leftmenu=
+         *   [title] => Commercial
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => commercial
+         *   [leftmenu] =>
+         *   [position] => 40
+         *   [id] => mainmenu
+         *   [idsel] => commercial
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-suitcase
+         *   [session] => 1
+         * )
+         *
+         * [7] => Array (
+         *   [name] => Compta
+         *   [link] => /compta/index.php?mainmenu=billing&leftmenu=
+         *   [title] => MenuFinancial
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => billing
+         *   [leftmenu] =>
+         *   [position] => 50
+         *   [id] => mainmenu
+         *   [idsel] => billing
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-file-invoice-dollar
+         *   [session] => 1
+         * )
+         *
+         * [8] => Array (
+         *   [name] => Bank
+         *   [link] => /compta/bank/list.php?mainmenu=bank&leftmenu=
+         *   [title] => MenuBankCash
+         *   [level] => 0
+         *   [enabled] => 0
+         *   [target] =>
+         *   [mainmenu] => bank
+         *   [leftmenu] =>
+         *   [position] => 52
+         *   [id] => mainmenu
+         *   [idsel] => bank
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-university
+         *   [session] => 1
+         * )
+         *
+         * [9] => Array (
+         *   [name] => Accounting
+         *   [link] => /accountancy/index.php?mainmenu=accountancy&leftmenu=
+         *   [title] => MenuAccountancy
+         *   [level] => 0
+         *   [enabled] => 0
+         *   [target] =>
+         *   [mainmenu] => accountancy
+         *   [leftmenu] =>
+         *   [position] => 54
+         *   [id] => mainmenu
+         *   [idsel] => accountancy
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-search-dollar
+         *   [session] => 1
+         * )
+         *
+         * [10] => Array (
+         *   [name] => HRM
+         *   [link] => /hrm/index.php?mainmenu=hrm&leftmenu=
+         *   [title] => HRM
+         *   [level] => 0
+         *   [enabled] => 0
+         *   [target] =>
+         *   [mainmenu] => hrm
+         *   [leftmenu] =>
+         *   [position] => 80
+         *   [id] => mainmenu
+         *   [idsel] => hrm
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-user-tie
+         *   [session] => 1
+         * )
+         *
+         * [11] => Array (
+         *   [name] => Ticket
+         *   [link] => /ticket/index.php?mainmenu=ticket&leftmenu=
+         *   [title] => Tickets
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => ticket
+         *   [leftmenu] =>
+         *   [position] => 88
+         *   [id] => mainmenu
+         *   [idsel] => ticket
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-ticket-alt
+         *   [session] => 1
+         * )
+         *
+         * [12] => Array (
+         *   [name] => Tools
+         *   [link] => /core/tools.php?mainmenu=tools&leftmenu=
+         *   [title] => Tools
+         *   [level] => 0
+         *   [enabled] => 1
+         *   [target] =>
+         *   [mainmenu] => tools
+         *   [leftmenu] =>
+         *   [position] => 90
+         *   [id] => mainmenu
+         *   [idsel] => tools
+         *   [classname] => class="tmenu"
+         *   [prefix] => fas fa-tools
+         *   [session] => 1
+         * )
+         */
+        $module = strtolower(filter_input(INPUT_GET, 'module'));
+        $this->menu = [];
+        $this->menu[] = $this->addItem(
+            'home',
+            $this->trans('home'),
+            '/dolibarr/htdocs/index.php?mainmenu=home&amp;leftmenu=home',
+            $module === 'main' || empty($module)
+        );
+        $this->menu[] = $this->addItem(
+            'members',
+            $this->trans('MenuMembers'),
+            '/dolibarr/htdocs/adherents/index.php?mainmenu=members&leftmenu=',
+            $module === 'members'
+        );
+        $this->menu[] = $this->addItem(
+            'companies',
+            $this->trans('companies'),
+            '/dolibarr/htdocs/societe/index.php?mainmenu=companies&amp;leftmenu=',
+            $module === 'companies'
+        );
+        $this->menu[] = $this->addItem(
+            'products',
+            $this->trans('products'),
+            '/dolibarr/htdocs/product/index.php?mainmenu=products&leftmenu=',
+            $module === 'products'
+        );
+        $this->menu[] = $this->addItem(
+            'mrp',
+            $this->trans('TMenuMRP'),
+            '/dolibarr/htdocs/mrp/index.php?mainmenu=mrp&leftmenu=',
+            $module === 'mrp'
+        );
+        $this->menu[] = $this->addItem(
+            'project',
+            $this->trans('Projects'),
+            '/dolibarr/htdocs/mrp/index.php?mainmenu=mrp&leftmenu=',
+            $module === 'project'
+        );
+        $this->menu[] = $this->addItem(
+            'commercial',
+            $this->trans('commercial'),
+            '/dolibarr/htdocs/fourn/commande/index.php?mainmenu=commercial&amp;leftmenu=',
+            $module === 'commercial'
+        );
+        $this->menu[] = $this->addItem(
+            'compta',
+            $this->trans('Compta'),
+            '/dolibarr/htdocs/compta/index.php?mainmenu=billing&amp;leftmenu=',
+            $module === 'billing'
+        );
+        $this->menu[] = $this->addItem(
+            'billing',
+            $this->trans('billing'),
+            '/dolibarr/htdocs/compta/index.php?mainmenu=billing&amp;leftmenu=',
+            $module === 'billing'
+        );
+        $this->menu[] = $this->addItem(
+            'tools',
+            $this->trans('tools'),
+            '/dolibarr/htdocs/portfolio/portfolioindex.php?idmenu=1&mainmenu=portfolio&amp;leftmenu=',
+            $module === 'tools'
+        );
+        $this->menu[] = $this->addItem(
+            'portfolio',
+            $this->trans('portfolio'),
+            '?module=Portfolio&controller=Index',
+            $module === 'portfolio'
+        );
+    }
+
+    private function addItem($id, $title, $href, $active = false)
+    {
+        return [
+            'id' => $id,
+            'title' => $title,
+            'href' => $href,
+            'active' => $active,
+        ];
+    }
+
+    /**
+     * The left menu options in Dolibarr are defined in eldy.lib.php in the print_left_eldy_menu function.
+     * In the case of using the Auguria template, change eldy to auguria.
+     *
+     * TODO: The options not allowed for the user should be disabled
+     * TODO: The initial implementation is very basic. Needs improvements.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version sept. 2021
+     *
+     */
+    private function getSubmenu()
+    {
+        $module = strtolower(filter_input(INPUT_GET, 'module'));
+        $menu = new Menu();
+        $this->submenu = $menu->getSubmenu($module);
     }
 
     /**
@@ -158,40 +517,6 @@ abstract class View extends Globals
             $this->debug->addMessage('messages', "Absolute resource '$path' not found!");
         }
         return $path;
-    }
-
-    /**
-     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
-     *
-     * @return void
-     * @throws DebugBarException
-     */
-    public function addJS()
-    {
-        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/jquery/dist/jquery.min', 'js'));
-        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/bootstrap/dist/js/bootstrap.min', 'js'));
-        //        $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
-    }
-
-    private function getMenus()
-    {
-        $this->menu = [];
-        $this->menu[] = $this->addItem('home', $this->trans('home'), '/dolibarr/htdocs/index.php?mainmenu=home&amp;leftmenu=home', true);
-        $this->menu[] = $this->addItem('companies', $this->trans('companies'), '/dolibarr/htdocs/societe/index.php?mainmenu=companies&amp;leftmenu=');
-        $this->menu[] = $this->addItem('commercial', $this->trans('commercial'), '/dolibarr/htdocs/fourn/commande/index.php?mainmenu=commercial&amp;leftmenu=');
-        $this->menu[] = $this->addItem('billing', $this->trans('billing'), '/dolibarr/htdocs/compta/index.php?mainmenu=billing&amp;leftmenu=');
-        $this->menu[] = $this->addItem('tools', $this->trans('tools'), '/dolibarr/htdocs/portfolio/portfolioindex.php?idmenu=1&mainmenu=portfolio&amp;leftmenu=');
-        $this->menu[] = $this->addItem('portfolio', $this->trans('portfolio'), '/dolibarr/htdocs/portfolio/portfolioindex.php?idmenu=1&mainmenu=portfolio&amp;leftmenu=');
-    }
-
-    private function addItem($id, $title, $href, $active = false)
-    {
-        return [
-            'id' => $id,
-            'title' => $title,
-            'href' => $href,
-            'active' => $active,
-        ];
     }
 
     /**
