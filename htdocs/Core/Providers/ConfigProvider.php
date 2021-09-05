@@ -39,10 +39,10 @@ abstract class ConfigProvider extends parentAlias
      *
      * @return array
      */
-    public function getConfigContent(): array
+    public static function getConfigContent(): array
     {
         if (empty(self::$configContent)) {
-            self::$configContent = $this->getConfig();
+            self::$configContent = self::getConfig();
         }
         return self::$configContent;
     }

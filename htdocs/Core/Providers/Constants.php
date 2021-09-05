@@ -42,7 +42,7 @@ class Constants extends Provider
      *
      * @return ?string
      */
-    public static function getConfigFileName(): string
+    public static function getConfigFileName(): ?string
     {
         if (isset(self::$configFilename)) {
             return self::$configFilename;
@@ -86,25 +86,26 @@ class Constants extends Provider
             return false;
         }
         $configFileContent = Yaml::parseFile(self::$configFilename);
-        if (!empty($configFileContent) && isset($configFileContent['constants'])) {
-            foreach ($configFileContent['constants'] as $type => $data) {
-                foreach ($data as $name => $value) {
-                    if (!defined($name)) {
-                        switch (strtolower($type)) {
-                            case 'boolean':
-                                define($name, boolval($value));
-                                break;
-                            case 'integer':
-                                define($name, intval($value));
-                                break;
-                            case 'float':
-                            case 'real':
-                            case 'numeric':
-                                define($name, floatval($value));
-                                break;
-                            default:
-                                define($name, $value);
-                        }
+        if (empty($configFileContent) || !isset($configFileContent['constants'])) {
+            return true;
+        }
+        foreach ($configFileContent['constants'] as $type => $data) {
+            foreach ($data as $name => $value) {
+                if (!defined($name)) {
+                    switch (strtolower($type)) {
+                        case 'boolean':
+                            define($name, boolval($value));
+                            break;
+                        case 'integer':
+                            define($name, intval($value));
+                            break;
+                        case 'float':
+                        case 'real':
+                        case 'numeric':
+                            define($name, floatval($value));
+                            break;
+                        default:
+                            define($name, $value);
                     }
                 }
             }

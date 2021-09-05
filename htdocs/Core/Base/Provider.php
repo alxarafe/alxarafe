@@ -125,7 +125,7 @@ abstract class Provider extends Singleton
      *
      * @return array
      */
-    public function getConfig(string $index = 'main'): array
+    public static function getConfig(string $index = 'main'): array
     {
         $className = self::getClassName();
         $result = self::$defaultValues[$className];
