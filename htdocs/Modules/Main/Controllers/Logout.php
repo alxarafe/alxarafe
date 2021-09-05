@@ -45,7 +45,7 @@ class Logout extends Controller
     /**
      * @throws DebugBarException
      */
-    function setView(): View
+    public function setView(): View
     {
         return new LoginView($this);
     }

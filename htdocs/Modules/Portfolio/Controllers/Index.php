@@ -27,7 +27,7 @@ class Index extends Controller
     /**
      * @throws \DebugBar\DebugBarException
      */
-    function setView(): View
+    public function setView(): View
     {
         return new IndexView($this);
     }

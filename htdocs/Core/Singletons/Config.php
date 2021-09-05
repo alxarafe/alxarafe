@@ -113,7 +113,7 @@ class Config extends Singleton
             }
             $this->render->setSkin(self::getVar('templaterender', 'main', 'skin'));
         }
-        if (!self::connectToDataBase()) {
+        if (!$this->connectToDataBase()) {
             FlashMessages::setError('Database Connection error...');
             return false;
         }
@@ -176,7 +176,7 @@ class Config extends Singleton
      *
      * @return string|null ?string
      */
-    public function getVar(string $module, string $section, string $name): ?string
+    static public function getVar(string $module, string $section, string $name): ?string
     {
         return self::$global[$module][$section][$name] ?? null;
     }

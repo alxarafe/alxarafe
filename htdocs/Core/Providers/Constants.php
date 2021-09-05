@@ -32,9 +32,9 @@ class Constants extends Provider
      * define it in the constant CONFIGURATION_PATH before invoking this method,
      * this folder must exist.
      *
-     * @return string|null
+     * @return string
      */
-    public static function getConfigFileName(): ?string
+    public static function getConfigFileName(): string
     {
         if (isset(self::$configFilename)) {
             return self::$configFilename;
