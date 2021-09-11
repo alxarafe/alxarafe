@@ -6,7 +6,7 @@
 
 namespace Alxarafe\Database;
 
-use Alxarafe\Modules\Main\Helpers\Config;
+use Alxarafe\Core\Singletons\Config;
 
 /**
  * The SqlHelper class provides support for creating SQL queries and commands.

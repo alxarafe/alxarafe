@@ -6,9 +6,8 @@
 
 namespace Alxarafe\Core\Helpers\Utils;
 
-use Alxarafe\Core\Providers\FlashMessages;
-use Alxarafe\Core\Providers\ModuleManager;
 use Alxarafe\Core\Providers\Translator;
+use Alxarafe\Core\Singletons\FlashMessages;
 use DirectoryIterator;
 use Exception;
 use RuntimeException;
@@ -102,14 +101,19 @@ class FileSystemUtils
      * @param bool   $fqcn
      *
      * @return ?string
+     *
+     * @deprecated See the code in case it needs to be reused!
      */
     public static function locate(string $subfolder, string $file, bool $fqcn = true): ?string
     {
         $modules = [];
+        /*
+        // ModuleManager does not exists!
         foreach (ModuleManager::getEnabledModules() as $value) {
             $cad = $value['path'];
             $modules[] = substr($cad, strlen('src/'));    // Delete initial 'src\'
         }
+        */
         $modules[] = 'Alxarafe\Core';
         foreach ($modules as $module) {
             $filename = BASE_PATH . '/src/' . str_replace('\\', '/', $module) . '/' . $subfolder . '/' . $file . '.php';

@@ -55,7 +55,7 @@ class Config extends Singleton
      *
      * @var Engine
      */
-    private Engine $dbEngine;
+    public Engine $dbEngine;
 
     /**
      * Contains the instance to the specific SQL engine helper (or null)

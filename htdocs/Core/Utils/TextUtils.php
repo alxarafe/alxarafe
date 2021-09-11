@@ -4,9 +4,9 @@
  * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Core\Helpers\Utils;
+namespace Alxarafe\Core\Helpers;
 
-use Alxarafe\Core\Providers\Logger;
+use Alxarafe\Core\Singletons\Logger;
 use Exception;
 
 /**

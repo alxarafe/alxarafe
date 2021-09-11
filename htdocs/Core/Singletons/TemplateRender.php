@@ -122,7 +122,7 @@ class TemplateRender extends Singleton
     {
         $path = BASE_FOLDER . self::SKINS_FOLDER;
         if (!is_dir($path)) {
-            Config::setError("Directory '$path' does not exists!");
+            FlashMessages::setError("Directory '$path' does not exists!");
             return [];
         }
         $skins = scandir($path);
@@ -142,7 +142,7 @@ class TemplateRender extends Singleton
     {
         if (!isset(self::$currentSkin) || self::$currentSkin !== $skin) {
             self::$currentSkin = $skin;
-            self::setTemplatesFolder($skin);
+            $this->setTemplatesFolder($skin);
             $this->debug->addMessage('messages', "Setting '$skin' skin");
         }
     }

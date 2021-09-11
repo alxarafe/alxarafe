@@ -8,6 +8,8 @@ namespace Alxarafe\Core\Providers;
 
 use Alxarafe\Core\Base\Provider;
 use Alxarafe\Core\Singletons\DebugTool;
+use Alxarafe\Core\Singletons\FlashMessages;
+use Alxarafe\Core\Singletons\Logger;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
