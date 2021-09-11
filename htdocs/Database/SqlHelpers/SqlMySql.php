@@ -6,9 +6,11 @@
 
 namespace Alxarafe\Database\SqlHelpers;
 
+use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Core\Singletons\DebugTool;
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\Modules\Main\Helpers\Utils;
+use Symfony\Component\Debug\Debug;
 
 /**
  * Personalization of SQL queries to use MySQL.
@@ -67,7 +69,7 @@ class SqlMySql extends SqlHelper
      * Modifies the structure returned by the query generated with
      * getColumnsSql to the normalized format that returns getColumns
      *
-     * @param array $fields
+     * @param array $row
      *
      * @return array
      */
@@ -93,7 +95,7 @@ class SqlMySql extends SqlHelper
         $result['type'] = $virtualType;
         if ($virtualType === false) {
             $result['type'] = $type['type'];
-            $this->debug->addMessage('Deprecated', 'Correct the data type ' . $type['type'] . ' in MySql database');
+            DebugTool::getInstance()->addMessage('Deprecated', 'Correct the data type ' . $type['type'] . ' in MySql database');
         }
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;

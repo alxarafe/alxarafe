@@ -7,10 +7,10 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Schema;
+use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
-use Alxarafe\Modules\Main\Helpers\Utils;
 use DebugBar\DebugBarException;
 
 /**

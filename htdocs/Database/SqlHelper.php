@@ -67,7 +67,7 @@ abstract class SqlHelper
      */
     public function quoteFieldName(string $fieldName): string
     {
-        return Config::$sqlHelper->fieldQuote . $fieldName . Config::$sqlHelper->fieldQuote;
+        return $this->fieldQuote . $fieldName . $this->fieldQuote;
     }
 
     /**
