@@ -112,6 +112,8 @@ abstract class Engine
 
     /**
      * Engine destructor
+     *
+     * @throws DebugBarException
      */
     public function __destruct()
     {
@@ -120,8 +122,10 @@ abstract class Engine
 
     /**
      * Undo all active transactions
+     *
+     * @throws DebugBarException
      */
-    final function rollbackTransactions()
+    final public function rollbackTransactions()
     {
         while (self::$transactionDepth > 0) {
             $this->rollback();
@@ -132,7 +136,7 @@ abstract class Engine
      * Rollback current transaction,
      *
      * @return bool
-     * @throws DebugBarException|PDOException if there is no transaction started
+     * @throws PDOException if there is no transaction started
      */
     final public function rollBack(): bool
     {
@@ -224,7 +228,7 @@ abstract class Engine
     public function connect(array $config = []): bool
     {
         if (isset(self::$dbHandler)) {
-            $this->debug->addMessage('SQL', "PDO: Already connected " . self::$dsn);
+            self::$debug->addMessage('SQL', "PDO: Already connected " . self::$dsn);
             return true;
         }
         self::$debug->addMessage('SQL', "PDO: " . self::$dsn);
@@ -286,17 +290,19 @@ abstract class Engine
      */
     final public function beginTransaction(): bool
     {
-        $ret = true;
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->beginTransaction();
         } else {
-            $exec = $this->exec('SAVEPOINT LEVEL' . self::$transactionDepth);
+            $ret = $this->exec('SAVEPOINT LEVEL' . self::$transactionDepth);
         }
 
+        if (!$ret) {
+            return false;
+        }
         self::$transactionDepth++;
-        $this->debug->addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
+        self::$debug->addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
 
-        return $ret;
+        return true;
     }
 
     /**
@@ -304,11 +310,11 @@ abstract class Engine
      *
      * @return bool
      */
-    final public function commit()
+    final public function commit(): bool
     {
         $ret = true;
 
-        $this->debug->addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
+        self::$debug->addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {

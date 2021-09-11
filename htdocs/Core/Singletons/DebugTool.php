@@ -75,7 +75,7 @@ class DebugTool extends Singleton
         }
 
         $this->debugBar = new StandardDebugBar();
-        self::startTimer($shortName, $shortName . ' DebugTool Constructor');
+        $this->startTimer($shortName, $shortName . ' DebugTool Constructor');
 
         $this->debugBar->addCollector(new MessagesCollector('SQL'));
         $this->debugBar->addCollector(new PhpCollector());
@@ -86,9 +86,9 @@ class DebugTool extends Singleton
         $this->debugBar->addCollector(new TranslatorCollector($translator));
 
         $baseUrl = VENDOR_URI . '/maximebf/debugbar/src/DebugBar/Resources';
-        self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, BASE_FOLDER);
+        self::$render = $this->getDebugBar()->getJavascriptRenderer($baseUrl, BASE_FOLDER);
 
-        self::stopTimer($shortName);
+        $this->stopTimer($shortName);
     }
 
     /**

@@ -51,7 +51,7 @@ class Constants extends Provider
         if (file_exists($filename) || is_dir(constant('CONFIGURATION_PATH')) || mkdir(constant('CONFIGURATION_PATH'), 0777, true)) {
             self::$configFilename = $filename;
         }
-        return self::$configFilename;
+        return null;
     }
 
     /**
