@@ -30,7 +30,7 @@ class ModulesView extends View
     /**
      * Assign the template.
      */
-    function setTemplate(): void
+    public function setTemplate(): void
     {
         $this->template = 'modules';
     }

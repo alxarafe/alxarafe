@@ -65,7 +65,7 @@ class LoginView extends View
     /**
      * Assign the template.
      */
-    function setTemplate(): void
+    public function setTemplate(): void
     {
         $this->template = 'login';
         $this->title = self::APP_NAME . ' - Login';
