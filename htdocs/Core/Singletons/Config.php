@@ -119,7 +119,7 @@ class Config extends Singleton
         if (!isset($this->user)) {
             $this->user = new Auth();
             $this->username = $this->user->getUser();
-            if ($this->username == null) {
+            if ($this->username === null) {
                 $this->user->login();
             }
         }

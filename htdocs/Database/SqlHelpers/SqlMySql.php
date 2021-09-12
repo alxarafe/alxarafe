@@ -10,7 +10,6 @@ use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\DebugTool;
 use Alxarafe\Database\SqlHelper;
-use Symfony\Component\Debug\Debug;
 
 /**
  * Personalization of SQL queries to use MySQL.
@@ -129,9 +128,6 @@ class SqlMySql extends SqlHelper
         $pos = array_search('zerofill', $explode);
         $zerofill = $pos ? 'zerofill' : null;
 
-        $pos = array_search('zerofill', $explode);
-        $zerofill = $pos ? 'zerofill' : null;
-
         return ['type' => $type, 'length' => $length, 'unsigned' => $unsigned, 'zerofill' => $zerofill];
     }
 
@@ -177,6 +173,8 @@ class SqlMySql extends SqlHelper
      */
     private function getConstraintData(string $tableName, string $constraintName): array
     {
+        $dbName = Config::getVar('dbName') ?? 'Unknown';
+
         return Config::$dbEngine->select('
 SELECT
 	TABLE_NAME,
@@ -187,7 +185,7 @@ SELECT
 FROM
 	INFORMATION_SCHEMA.KEY_COLUMN_USAGE
 WHERE
-	TABLE_SCHEMA = ' . $this->quoteFieldName(Config::getVar('dbName')) . ' AND
+	TABLE_SCHEMA = ' . $this->quoteFieldName($dbName) . ' AND
 	TABLE_NAME = ' . $this->quoteFieldName($tableName) . ' AND
 	constraint_name = ' . $this->quoteFieldName($constraintName) . ' AND
 	REFERENCED_COLUMN_NAME IS NOT NULL;
@@ -207,6 +205,8 @@ WHERE
      */
     private function getConstraintRules(string $tableName, string $constraintName): array
     {
+        $dbName = Config::getVar('dbName') ?? 'Unknown';
+
         return Config::$dbEngine->select('
 SELECT
 	MATCH_OPTION,
@@ -214,7 +214,7 @@ SELECT
 	DELETE_RULE
 FROM information_schema.REFERENTIAL_CONSTRAINTS
 WHERE
-	constraint_schema = ' . $this->quoteFieldName(Config::getVar('dbName')) . ' AND
+	constraint_schema = ' . $this->quoteFieldName($dbName) . ' AND
 	table_name = ' . $this->quoteFieldName($tableName) . ' AND
 	constraint_name = ' . $this->quoteFieldName($constraintName) . ';
         ');
@@ -232,6 +232,6 @@ WHERE
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::$sqlHelper->quoteTableName($tableName);
+        return 'SHOW INDEX FROM ' . Config::getInstance()->getSqlHelper()->quoteTableName($tableName);
     }
 }

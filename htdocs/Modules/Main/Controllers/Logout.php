@@ -21,7 +21,7 @@ namespace Alxarafe\Modules\Main\Controllers;
 use Alxarafe\Core\Base\View;
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Helpers\Auth;
-use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Modules\Main\Views\LoginView;
 use DebugBar\DebugBarException;
 
 /**
