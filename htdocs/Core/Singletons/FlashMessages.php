@@ -20,14 +20,14 @@ class FlashMessages extends Singleton
      *
      * @var array
      */
-    protected static $messagesListNow;
+    protected static array $messagesListNow;
 
     /**
      * Contains a message list for next.
      *
      * @var array
      */
-    protected static $messagesListNext;
+    protected static array $messagesListNext;
 
     /**
      * Contains the session.
@@ -54,7 +54,7 @@ class FlashMessages extends Singleton
      */
     public static function getContainer(): array
     {
-        return self::$messagesListNow;
+        return self::$session->getFlash('messages');
     }
 
     /**

@@ -20,7 +20,6 @@ namespace Alxarafe\Modules\Main\Views;
 
 use Alxarafe\Core\Base\View;
 use Alxarafe\Core\Singletons\Config;
-use Alxarafe\Core\Singletons\TemplateRender;
 use Alxarafe\Database\Engine;
 use DebugBar\DebugBarException;
 

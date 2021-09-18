@@ -9,7 +9,6 @@ namespace Alxarafe\Core\Base;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\DebugTool;
 use Alxarafe\Core\Singletons\FlashMessages;
-use Alxarafe\Core\Singletons\TemplateRender;
 use Alxarafe\Core\Utils\ClassUtils;
 use Alxarafe\Modules\Main\Models\Menu;
 use DebugBar\DebugBarException;
@@ -63,6 +62,8 @@ abstract class View extends Globals
      */
     public array $submenu;
 
+    public bool $hasMenu = false;
+
     /**
      * Array that contains the variables that will be passed to the template.
      * Among others it will contain the user name, the view and the controller.
@@ -79,7 +80,7 @@ abstract class View extends Globals
      *
      * @throws DebugBarException
      */
-    public function __construct(Controller $controller)
+    public function __construct(BasicController $controller)
     {
         parent::__construct();
 
@@ -95,8 +96,11 @@ abstract class View extends Globals
         $this->vars['templateuri'] = $this->render->getTemplatesUri();
         $this->addCSS();
         $this->addJS();
-        $this->getMenu();
-        $this->getSubmenu();
+        $this->hasMenu = $controller->hasMenu;
+        if ($this->hasMenu) {
+            $this->getMenu();
+            $this->getSubmenu();
+        }
     }
 
     /**
@@ -583,7 +587,7 @@ abstract class View extends Globals
      */
     public function getErrors(): array
     {
-        return $this->flashMessages->getContainer();
+        return FlashMessages::getContainer();
     }
 
 }

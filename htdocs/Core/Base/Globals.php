@@ -15,6 +15,7 @@ use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Core\Singletons\Logger;
 use Alxarafe\Core\Singletons\Session;
 use Alxarafe\Core\Singletons\TemplateRender;
+use Alxarafe\Modules\Main\Controllers\EditConfig;
 
 /**
  * Class Globals, load all globals utilities.
@@ -117,8 +118,11 @@ abstract class Globals
         // Load constants and configuration file, if they are not already loaded.
         if (!defined('APP_URI')) {
             Constants::defineConstants();
-            if (!Constants::loadConstants()) {
-                trigger_error('No config file!');
+            $hasConfig = Constants::loadConstants();
+            if (!$hasConfig) {
+                $data = new EditConfig();
+                $data->main();
+                die();
             }
         }
 

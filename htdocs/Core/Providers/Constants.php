@@ -51,7 +51,7 @@ class Constants extends Provider
         if (file_exists($filename) || is_dir(constant('CONFIGURATION_PATH')) || mkdir(constant('CONFIGURATION_PATH'), 0777, true)) {
             self::$configFilename = $filename;
         }
-        return null;
+        return self::$configFilename;
     }
 
     /**
@@ -82,7 +82,7 @@ class Constants extends Provider
     public static function loadConstants(): bool
     {
         self::$configFilename = self::getConfigFileName();
-        if (self::$configFilename === null) {
+        if (self::$configFilename === null || !file_exists(self::$configFilename)) {
             return false;
         }
         $configFileContent = Yaml::parseFile(self::$configFilename);

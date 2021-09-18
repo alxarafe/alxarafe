@@ -112,6 +112,14 @@ class Config extends Singleton
             }
             $this->render->setSkin(self::getVar('templaterender', 'main', 'skin'));
         }
+        return true;
+    }
+
+    /**
+     * @throws DebugBarException
+     */
+    public function connectToDatabaseAndAuth(): bool
+    {
         if (!$this->connectToDataBase()) {
             FlashMessages::setError('Database Connection error...');
             return false;

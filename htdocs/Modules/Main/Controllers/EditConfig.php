@@ -18,17 +18,18 @@
 
 namespace Alxarafe\Modules\Main\Controllers;
 
-use Alxarafe\Core\Base\Controller;
+use Alxarafe\Core\Base\BasicController;
 use Alxarafe\Core\Base\View;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Modules\Main\Views\ConfigView;
+use DebugBar\DebugBarException;
 
 /**
  * Controller for editing database and skin settings
  *
  * @package Alxarafe\Controllers
  */
-class EditConfig extends Controller
+class EditConfig extends BasicController
 {
     /**
      * Save the form changes in the configuration file
@@ -37,7 +38,6 @@ class EditConfig extends Controller
      */
     public function doSave(): bool
     {
-
         $config = Config::getInstance();
         $config->setVar('constants', 'boolean', 'DEBUG', isset($_POST['debug']));
         $config->setVar('translator', 'main', 'language', $_POST['language'] ?? 'en');
@@ -50,11 +50,23 @@ class EditConfig extends Controller
         $config->setVar('database', 'main', 'dbPort', $_POST['dbPort'] ?? '');
         $config->setVar('database', 'main', 'dbPrefix', $_POST['dbPrefix'] ?? '');
 
-        return $config->saveConfigFile();
+        $result = $config->connectToDatabase();
+        if (!$result) {
+            $this->flashMessages->setError('database_not_found', 'next');
+        }
+
+        $result = $config->saveConfigFile();
+        if ($result) {
+            $this->flashMessages->setSuccess('saved', 'next');
+            header('location: ' . self::url('Main', 'EditConfig'));
+            die();
+        }
+
+        return $result;
     }
 
     /**
-     * @throws \DebugBar\DebugBarException
+     * @throws DebugBarException
      */
     public function setView(): View
     {

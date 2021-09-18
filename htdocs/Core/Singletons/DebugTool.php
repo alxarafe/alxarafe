@@ -70,8 +70,6 @@ class DebugTool extends Singleton
         $shortName = ClassUtils::getShortName($this, $this);
         if (!defined('DEBUG')) {
             define('DEBUG', false);
-            dump('La constante DEBUG no ha sido definida en DebugTool::__construct()');
-            dump(debug_backtrace());
         }
 
         $this->debugBar = new StandardDebugBar();
@@ -134,10 +132,10 @@ class DebugTool extends Singleton
      */
     public static function getRenderHeader(): string
     {
-        if (defined('DEBUG') && constant('DEBUG')) {
-            return self::$render->renderHead();
+        if (constant('DEBUG') !== true) {
+            return '';
         }
-        return '';
+        return self::$render->renderHead();
     }
 
     /**
@@ -147,10 +145,10 @@ class DebugTool extends Singleton
      */
     public static function getRenderFooter(): string
     {
-        if (defined('DEBUG') && constant('DEBUG')) {
-            return self::$render->render();
+        if (constant('DEBUG') !== true) {
+            return '';
         }
-        return '';
+        return self::$render->render();
     }
 
     /**
@@ -162,6 +160,9 @@ class DebugTool extends Singleton
      */
     public function addException($exception): void
     {
+        if (constant('DEBUG') !== true) {
+            return;
+        }
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(BASE_FOLDER));
         $this->debugBar['exceptions']->addException($exception); // Use addThrowable instead!
@@ -176,6 +177,9 @@ class DebugTool extends Singleton
      */
     public function addMessage(string $channel, string $message): void
     {
+        if (constant('DEBUG') !== true) {
+            return;
+        }
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(BASE_FOLDER));
         $this->debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);

@@ -17,13 +17,16 @@
 </head>
 <body class="hold-transition sidebar-mini"{% if view.protectClose %} onBeforeUnload='return iCanClose()'{% endif %}>
 
-<div class="wrapper">
-    {% block topmenu %}{% include 'master/topmenu.twig' %}{% endblock %}
-    {% block sidenav %}{% include 'master/sidenav.twig' %}{% endblock %}
-    {% block ctrlsidebar %}{% include 'master/ctrlsidebar.twig' %}{% endblock %}
-</div>
+{% if view.hasMenu %}
+    <div class="wrapper">
+        {% block topmenu %}{% include 'master/topmenu.twig' %}{% endblock %}
+        {% block sidenav %}{% include 'master/sidenav.twig' %}{% endblock %}
+        {% block ctrlsidebar %}{% include 'master/ctrlsidebar.twig' %}{% endblock %}
+    </div>
 
-{% block menu %}{% include 'master/menu.twig' %}{% endblock %}
+    {% block menu %}{% include 'master/menu.twig' %}{% endblock %}
+{% endif %}
+
 <div class="container-fluid">
     {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
     {% block body %}{% endblock %}
