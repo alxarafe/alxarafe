@@ -198,7 +198,6 @@ class TemplateRender extends Singleton
     private function renderIt(array $vars): string
     {
         $this->debug->startTimer('render', 'Rendering time');
-        $this->debug->addMessage('messages', 'Iniciando temporizador render');
 
         $templateVars = array_merge($vars, [
             '_REQUEST' => $_REQUEST,

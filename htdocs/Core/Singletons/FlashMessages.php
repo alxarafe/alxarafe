@@ -54,7 +54,7 @@ class FlashMessages extends Singleton
      */
     public static function getContainer(): array
     {
-        return self::$session->getFlash('messages');
+        return self::$session->getFlash('messages') ?? [];
     }
 
     /**

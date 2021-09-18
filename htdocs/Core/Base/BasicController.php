@@ -39,14 +39,13 @@ abstract class BasicController extends Globals
      * @var bool
      */
     public bool $hasMenu = false;
-    protected bool $configExists;
+
     /**
-     * It contains an instance of the view class, or null if it is
-     * not assigned, or does not have an associated view.
+     * Indicates whether to use menu or not
      *
-     * @var View
+     * @var bool
      */
-    private View $View;
+    protected bool $configExists;
 
     /**
      * Controller constructor.

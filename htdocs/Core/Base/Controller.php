@@ -56,11 +56,7 @@ abstract class Controller extends BasicController
      */
     public function preLoad(): bool
     {
-        if (!parent::preLoad() || !$this->configExists) {
-            die('No existe el archivo de configuración!'); // No tendría que haber llegado aquí, pero sin configuración, no se puede utilizar base de datos.
-        }
-
-        if (!$this->config->connectToDatabaseAndAuth()) {
+        if (!parent::preLoad() || !$this->configExists || !$this->config->connectToDatabaseAndAuth()) {
             return false;
         }
 

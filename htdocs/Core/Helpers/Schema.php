@@ -19,11 +19,8 @@
 namespace Alxarafe\Core\Helpers;
 
 use Alxarafe\Core\Singletons\Config;
-use Alxarafe\Core\Singletons\DebugTool;
 use Alxarafe\Database\Engine;
-use Alxarafe\Database\SqlHelper;
 use DebugBar\DebugBarException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * The Schema class contains static methods that allow you to manipulate the
