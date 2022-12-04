@@ -6,13 +6,10 @@
 
 # alxarafe
 
-Alxarafe, it reads Aljarafe, is a free software project, which aims to become a simple but powerful development
-environment, designed with PHP 7.4 and composer, following an MVC design pattern.
+Alxarafe, se lee Aljarafe, es un proyecto de software libre que proporciona el soporte básico para mantener aplicaciones
+de base de datos, con un alto grado de automatización. Alxarafe sigue el patrón de diseño MVC.
 
-The main objective is to keep a learning curve, as short as possible, with a simple, flexible and robust development (
-almost nothing!).
+El principal objetivo es hacer que la aplicación sea robusta y sencilla de mantener, con una baja curva de aprendizaje.
 
-Alxarafe will be designed to be an independent project, but it may overlap with Dolibarr to try to replace it in the
-future.
-
-The code developed here can be used by the Dolibarr community to improve its product.
+Muchas de sus funcionalidades se podrán extender y ser utilizadas por aplicaciones más complejas y especialmente 
+obsoletas en su diseño.

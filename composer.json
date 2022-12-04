@@ -1,9 +1,8 @@
 {
   "name": "alxarafe/alxarafe",
   "type": "project",
-  "description": "Alxarafe is a refactoring of Dolibarr ERP & CRM",
+  "description": "Alxarafe is a tiny core for simple database applications",
   "keywords": [
-    "dolibarr",
     "erp",
     "crm",
     "invoice",
@@ -20,9 +19,6 @@
     "forum": "https://www.alxarafe.com/forum",
     "wiki": "https://wiki.alxarafe.com",
     "source": "https://github.com/rsanjoseo/alxarafe"
-  },
-  "config": {
-    "vendor-dir": "htdocs/vendor"
   },
   "require": {
     "php": ">=7.4",
@@ -77,10 +73,16 @@
   },
   "autoload": {
     "psr-4": {
-      "Alxarafe\\": "htdocs/"
+      "Alxarafe\\": "src/",
+      "Modules\\": "Modules/"
     },
     "files": [
-      "htdocs/Core/Utils/functions.php"
+      "src/Core/Utils/functions.php"
     ]
+  },
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
   }
 }

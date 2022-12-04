@@ -1,9 +1,4 @@
 components/
-htdocs/vendor/
-htdocs/config/config.yaml
-htdocs/html/skins/dolibarr/
-htdocs/html/skins/default/original/
-htdocs/index_dol.php
 nbproject
 default.properties
 .DS_Store
@@ -20,3 +15,4 @@ Thumbs.db
 .vagrant
 composer.phar
 /composer.lock
+/vendor/
