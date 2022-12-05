@@ -10,7 +10,7 @@ build:
                 'apc.enable_cli': '1'
                 'apc.enabled': '0'
         postgresql: false
-        mysql: 5.7
+        mysql: 5.5
         apache2:
             modules: [ 'rewrite', 'expires', 'ssl', 'macro', 'headers' ]
             sites:
