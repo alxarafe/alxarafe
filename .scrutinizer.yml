@@ -26,7 +26,7 @@ build:
             - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
             - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
             - cp config/build/scrutinizer/config.yaml config/config.yaml
-            - cp config/build/scrutinizer/config.yaml /home/scrutinizer/build/src/Test/config/config.yaml
+            - cp config/build/scrutinizer/config.yaml /home/scrutinizer/build/Test/config/config.yaml
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
