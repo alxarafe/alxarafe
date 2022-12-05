@@ -5,7 +5,7 @@
         beStrictAboutTestsThatDoNotTestAnything="false"
         backupGlobals="true"
         backupStaticAttributes="false"
-        bootstrap="htdocs/Test/BootStrap.php"
+        bootstrap="src/Test/BootStrap.php"
         cacheTokens="false"
         colors="true"
         convertErrorsToExceptions="true"
@@ -28,31 +28,31 @@
                     suffix="Test.php"
                     phpVersion="7.4"
                     phpVersionOperator=">=">
-                htdocs/Test/Core/Autoload/
+                src/Test/Core/Autoload/
             </directory>
             <directory
                     suffix="Test.php"
                     phpVersion="7.4"
                     phpVersionOperator=">=">
-                htdocs/Test/Core/Base/
+                src/Test/Core/Base/
             </directory>
             <directory
                     suffix="Test.php"
                     phpVersion="7.4"
                     phpVersionOperator=">=">
-                htdocs/Test/Core/Controllers/
+                src/Test/Core/Controllers/
             </directory>
             <directory
                     suffix="Test.php"
                     phpVersion="7.4"
                     phpVersionOperator=">=">
-                htdocs/Test/Core/Helpers/
+                src/Test/Core/Helpers/
             </directory>
             <directory
                     suffix="Test.php"
                     phpVersion="7.4"
                     phpVersionOperator=">=">
-                htdocs/Test/Core/Models/
+                src/Test/Core/Models/
             </directory>
         </testsuite>
     </testsuites>
@@ -63,12 +63,12 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <exclude>
-                <file>htdocs/Test/BootStrap.php</file>
-                <file>htdocs/Test/Core/Base/ControllerTest.php</file>
-                <file>htdocs/Test/Core/Base/AuthControllerTest.php</file>
-                <file>htdocs/Test/Core/Base/AuthPageControllerTest.php</file>
-                <file>htdocs/Test/Core/Base/AuthPageExtendedControllerTest.php</file>
-                <!--<directory suffix=".php">htdocs/Test</directory>-->
+                <file>src/Test/BootStrap.php</file>
+                <file>src/Test/Core/Base/ControllerTest.php</file>
+                <file>src/Test/Core/Base/AuthControllerTest.php</file>
+                <file>src/Test/Core/Base/AuthPageControllerTest.php</file>
+                <file>src/Test/Core/Base/AuthPageExtendedControllerTest.php</file>
+                <!--<directory suffix=".php">src/Test</directory>-->
             </exclude>
         </whitelist>
     </filter>

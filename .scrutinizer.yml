@@ -26,21 +26,21 @@ build:
             - mysql -uroot -e 'DROP DATABASE IF EXISTS scrutinizer;'
             - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS scrutinizer;'
             - cp config/build/scrutinizer/config.yaml config/config.yaml
-            - cp config/build/scrutinizer/config.yaml /home/scrutinizer/build/htdocs/Test/config/config.yaml
+            - cp config/build/scrutinizer/config.yaml /home/scrutinizer/build/src/Test/config/config.yaml
     tests:
         override:
             - php-scrutinizer-run --enable-security-analysis
             # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
-            - command: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
+            - command: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
             # Run PHP-CS.
-            - command: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
+            - command: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
             # Run PHPUnit test.
             - command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
               coverage:
                   file: reports/coverage.xml
                   format: php-clover
 filter:
-    paths: [htdocs/*]
+    paths: [src/*]
     excluded_paths:
         - Test/*
         - bin/sami_documentation.php
