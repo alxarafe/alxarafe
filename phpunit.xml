@@ -28,31 +28,7 @@
                     suffix="Test.php"
                     phpVersion="7.4"
                     phpVersionOperator=">=">
-                Test/Core/Autoload/
-            </directory>
-            <directory
-                    suffix="Test.php"
-                    phpVersion="7.4"
-                    phpVersionOperator=">=">
                 Test/Core/Base/
-            </directory>
-            <directory
-                    suffix="Test.php"
-                    phpVersion="7.4"
-                    phpVersionOperator=">=">
-                Test/Core/Controllers/
-            </directory>
-            <directory
-                    suffix="Test.php"
-                    phpVersion="7.4"
-                    phpVersionOperator=">=">
-                Test/Core/Helpers/
-            </directory>
-            <directory
-                    suffix="Test.php"
-                    phpVersion="7.4"
-                    phpVersionOperator=">=">
-                Test/Core/Models/
             </directory>
         </testsuite>
     </testsuites>
