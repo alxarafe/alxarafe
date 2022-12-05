@@ -106,7 +106,7 @@ abstract class View extends Globals
     /**
      * Method to assign the template to the view.
      */
-    public abstract function setTemplate(): void;
+    abstract public function setTemplate(): void;
 
     /**
      * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
@@ -589,5 +589,4 @@ abstract class View extends Globals
     {
         return FlashMessages::getContainer();
     }
-
 }

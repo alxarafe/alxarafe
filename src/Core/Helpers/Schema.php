@@ -94,7 +94,7 @@ class Schema
      *
      * @return array
      */
-    static protected function normalizeField(string $tableName, string $field, array $structure): array
+    protected static function normalizeField(string $tableName, string $field, array $structure): array
     {
         if (!isset($structure['type'])) {
             dump("The type parameter is mandatory in {$field}. Error in table " . $tableName);
@@ -251,7 +251,7 @@ class Schema
      *
      * @return string
      */
-    static protected function createFields(string $tablename, array $fieldList): string
+    protected static function createFields(string $tablename, array $fieldList): string
     {
         $sql = "CREATE TABLE $tablename ( ";
         foreach ($fieldList as $index => $col) {
@@ -309,7 +309,7 @@ class Schema
      *
      * @return string
      */
-    static protected function createIndex($tableName, $indexname, $indexData)
+    protected static function createIndex($tableName, $indexname, $indexData)
     {
         $sql = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
 
@@ -389,7 +389,7 @@ class Schema
      *
      * @return string
      */
-    static protected function setValues(string $tableName, array $values): string
+    protected static function setValues(string $tableName, array $values): string
     {
         $sql = "INSERT INTO $tableName ";
         $header = true;

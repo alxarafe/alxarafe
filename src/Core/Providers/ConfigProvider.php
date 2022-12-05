@@ -46,5 +46,4 @@ abstract class ConfigProvider extends parentAlias
         }
         return self::$configContent;
     }
-
 }

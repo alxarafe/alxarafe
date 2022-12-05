@@ -184,5 +184,4 @@ class DebugTool extends Singleton
         $caller['file'] = substr($caller['file'], strlen(BASE_FOLDER));
         $this->debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
     }
-
 }

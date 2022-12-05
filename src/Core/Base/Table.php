@@ -226,7 +226,7 @@ abstract class Table
         $command = substr($method, 0, 3); // set or get
         $field = Utils::camelToSnake(substr($method, 3)); // What follows set or get
         switch ($command) {
-            case 'set' :
+            case 'set':
                 return $this->newData[$field] = $params[0] ?? '';
             case 'get':
                 return $this->newData[$field];

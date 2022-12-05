@@ -129,5 +129,4 @@ class FlashMessages extends Singleton
         // Logger::getInstance()->getLogger()->addNotice($msg);
         self::setFlash($when, $message);
     }
-
 }

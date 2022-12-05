@@ -161,5 +161,4 @@ abstract class Globals
     {
         return Translator::trans($txt, $parameters, $domain, $locale);
     }
-
 }

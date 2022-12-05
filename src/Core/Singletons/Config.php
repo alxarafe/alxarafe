@@ -183,7 +183,7 @@ class Config extends Singleton
      *
      * @return string|null ?string
      */
-    static public function getVar(string $module, string $section, string $name): ?string
+    public static function getVar(string $module, string $section, string $name): ?string
     {
         return self::$global[$module][$section][$name] ?? null;
     }

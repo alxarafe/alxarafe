@@ -72,5 +72,4 @@ abstract class Controller extends BasicController
 
         return true;
     }
-
 }

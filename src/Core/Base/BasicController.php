@@ -83,7 +83,7 @@ abstract class BasicController extends Globals
      *
      * @return string
      */
-    static public function url(string $module = self::DEFAULT_MODULE_NAME, string $controller = self::DEFAULT_CONTROLLER_NAME): string
+    public static function url(string $module = self::DEFAULT_MODULE_NAME, string $controller = self::DEFAULT_CONTROLLER_NAME): string
     {
         return BASE_URI . '?' . self::MODULE_GET_VAR . '=' . $module . '&' . self::CONTROLLER_GET_VAR . '=' . $controller;
     }
@@ -149,5 +149,4 @@ abstract class BasicController extends Globals
      * @return View
      */
     abstract public function setView(): View;
-
 }

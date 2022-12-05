@@ -45,7 +45,7 @@ abstract class Provider extends Singleton
      *
      * @return array
      */
-    public abstract function getDefaultValues(): array;
+    abstract public function getDefaultValues(): array;
 
     /**
      * The object is created from within the class itself only if the class
@@ -170,5 +170,4 @@ abstract class Provider extends Singleton
     {
         return (file_exists($filename) && is_file($filename));
     }
-
 }
