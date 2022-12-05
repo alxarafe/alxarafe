@@ -31,11 +31,11 @@ build:
         override:
             - php-scrutinizer-run --enable-security-analysis
             # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
-            - command: htdocs/vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
+            - command: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
             # Run PHP-CS.
-            - command: htdocs/vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
+            - command: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml htdocs/Core -s
             # Run PHPUnit test.
-            - command: htdocs/vendor/bin/phpunit --coverage-clover=reports/coverage.xml
+            - command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
               coverage:
                   file: reports/coverage.xml
                   format: php-clover
@@ -164,7 +164,7 @@ tools:
         timeout: 600
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -173,7 +173,7 @@ tools:
         enabled: true
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -185,7 +185,7 @@ tools:
             standard: PSR2
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -196,7 +196,7 @@ tools:
         enabled: false
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -208,7 +208,7 @@ tools:
             level: psr2
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -218,7 +218,7 @@ tools:
         enabled: true
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -236,7 +236,7 @@ tools:
                 short_variable: { minimum: 2 }
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -246,7 +246,7 @@ tools:
         enabled: true
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
@@ -268,7 +268,7 @@ tools:
                     isser_method_name: ^(?:[_a-zA-Z]|__)[a-zA-Z0-9]*$ #Allow underscores & caps
         filter:
             excluded_paths:
-                - 'htdocs/vendor/*'
+                - 'vendor/*'
                 - 'docs/*'
                 - 'reports/*'
                 - 'src/Alxarafe/Test/*'
