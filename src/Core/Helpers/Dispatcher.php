@@ -145,8 +145,8 @@ class Dispatcher extends Globals
      */
     public function processFolder(string $module, string $controller, string $method = 'main'): bool
     {
-        $className = 'Alxarafe\\Modules\\' . $module . '\\Controllers\\' . $controller;
-        $filename = constant('BASE_FOLDER') . '/src/Modules/' . $module . '/Controllers/' . $controller . '.php';
+        $className = 'Modules\\' . $module . '\\Controllers\\' . $controller;
+        $filename = constant('BASE_FOLDER') . '/Modules/' . $module . '/Controllers/' . $controller . '.php';
         if (file_exists($filename)) {
             $this->debug->addMessage('messages', "$className exists!");
             $controller = new $className();

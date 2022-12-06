@@ -506,6 +506,9 @@ abstract class View extends Globals
     {
         $path = $resourceName . '.' . $resourceExtension;
         if ($relative) {
+            if (file_exists(BASE_FOLDER . '/vendor/almasaeed2010/adminlte/' . $path)) {
+                return BASE_URI . '/vendor/almasaeed2010/adminlte/' . $path;
+            }
             if (file_exists($this->render->getTemplatesFolder() . $path)) {
                 return $this->render->getTemplatesUri() . $path;
             }

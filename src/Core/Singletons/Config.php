@@ -202,7 +202,6 @@ class Config extends Singleton
         if (isset($this->dbEngine)) {
             return true;
         }
-
         $dbEngineName = self::$global['database'][$db]['dbEngineName'] ?? 'PdoMySql';
         $helperName = 'Sql' . substr($dbEngineName, 3);
 

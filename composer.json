@@ -54,7 +54,8 @@
     "ext-gd": "*",
     "ext-dom": "*",
     "ext-imagick": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "almasaeed2010/adminlte": "~3.2"
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "*",
