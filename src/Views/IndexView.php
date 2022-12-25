@@ -16,31 +16,33 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Modules\Portfolio\Controllers;
+namespace Alxarafe\Views;
 
-use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Base\View;
-use Alxarafe\Database\Schema;
+use Alxarafe\Core\Singletons\TemplateRender;
 use DebugBar\DebugBarException;
-use Alxarafe\Views\IndexView;
-use Modules\Portfolio\Models\PortfolioAssets;
 
-class TestTables extends Controller
+/**
+ * Class Login
+ *
+ * @package Alxarafe\Views
+ */
+class IndexView extends View
 {
     /**
-     * Check structure of table PortfolioAssets.
-     *
-     * @return View
-     * @throws DebugBarException
+     * TODO: Undocummented
      */
-    public function setView(): View
+    public function addCss()
     {
-        $tablename = 'llx_portfolio_assets';
-        if (Schema::tableExists($tablename) && !self::$engine->exec("DROP TABLE $tablename")) {
-            die("No se ha podido eliminar la tabla llx_portfolio_assets");
-        }
+        parent::addCss();
+//        $this->addToVar('cssCode', $this->addResource('/css/login', 'css'));
+    }
 
-        $x = new PortfolioAssets(true);
-        return new IndexView($this);
+    /**
+     * Assign the template.
+     */
+    public function setTemplate(): void
+    {
+        $this->template = 'default';
     }
 }

@@ -78,7 +78,7 @@
       "Modules\\": "Modules/"
     },
     "files": [
-      "src/Core/Utils/functions.php"
+      "src/Core/Utils/Functions.php"
     ]
   },
   "config": {

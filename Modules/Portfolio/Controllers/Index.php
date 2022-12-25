@@ -21,7 +21,7 @@ namespace Modules\Portfolio\Controllers;
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Base\View;
 use Modules\Portfolio\Models\PortfolioAssets;
-use Modules\Main\Views\IndexView;
+use Alxarafe\Views\IndexView;
 
 class Index extends Controller
 {

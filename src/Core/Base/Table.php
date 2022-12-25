@@ -6,10 +6,10 @@
 
 namespace Alxarafe\Core\Base;
 
-use Alxarafe\Core\Helpers\Schema;
 use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Database\Engine;
+use Alxarafe\Database\Schema;
 use Alxarafe\Database\SqlHelper;
 use DebugBar\DebugBarException;
 
@@ -42,7 +42,13 @@ abstract class Table
     public static Config $config;
 
     /**
-     * It is the name of the table.
+     * It's the name of the table without the database prefix
+     * @var string
+     */
+    public string $name;
+
+    /**
+     * It is the name of the table including the database prefix.
      *
      * @var string
      */
@@ -109,18 +115,15 @@ abstract class Table
      */
     public function __construct(string $tableName, array $params = [])
     {
-        self::$config = Config::getInstance();
+        $this->name = $tableName;
         $this->tableName = Engine::getTablename($tableName);
-
-        self::$engine = self::$config->getEngine();
-        self::$sqlHelper = self::$config->getSqlHelper();
-
         $this->idField = $params['idField'] ?? 'id';
         $this->nameField = $params['nameField'] ?? 'name';
         $create = $params['create'] ?? false;
 
-        $this->setStructure();
-        $this->checkStructure($create);
+        Schema::checkStructure($tableName, $create);
+                // $this->setStructure();
+                $this->checkStructure($create);
     }
 
     /**
@@ -206,9 +209,9 @@ abstract class Table
      */
     public function checkStructure(bool $create = false)
     {
-        if (isset(Schema::$bbddStructure[$this->tableName])) {
-            if ($create && !Schema::tableExists($this->tableName)) {
-                Schema::createTable($this->tableName);
+        if (isset(Schema::$bbddStructure[$this->name])) {
+            if ($create && !Schema::tableExists($this->name)) {
+                Schema::createTable($this->name);
             }
         }
     }

@@ -6,6 +6,8 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
 use DebugBar\DebugBarException;
@@ -56,18 +58,18 @@ abstract class Controller extends BasicController
      */
     public function preLoad(): bool
     {
-        if (!parent::preLoad() || !$this->configExists || !$this->config->connectToDatabaseAndAuth()) {
+        if (!parent::preLoad() || /* !$this->configExists || */ !Config::connectToDatabaseAndAuth()) {
             return false;
         }
 
-        self::$engine = $this->config->getEngine();
-        self::$sqlHelper = $this->config->getSqlHelper();
+        self::$engine = Config::getEngine();
+        self::$sqlHelper = Config::getSqlHelper();
 
         $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
 
         // TODO: This will have to be assigned in a yaml file, when activating and deactivating modules.
-        $this->translator->addDirs([
-            constant('BASE_FOLDER') . '/Modules/Main',
+        Translator::addDirs([
+            constant('BASE_FOLDER'),
         ]);
 
         return true;

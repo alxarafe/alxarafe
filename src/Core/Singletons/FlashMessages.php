@@ -6,14 +6,12 @@
 
 namespace Alxarafe\Core\Singletons;
 
-use Alxarafe\Core\Base\Singleton;
-
 /**
  * Class FlashMessages
  *
  * @package Alxarafe\Core\Providers
  */
-class FlashMessages extends Singleton
+class FlashMessages
 {
     /**
      * Contains a message list for now.
@@ -30,19 +28,10 @@ class FlashMessages extends Singleton
     protected static array $messagesListNext;
 
     /**
-     * Contains the session.
-     *
-     * @var Session
-     */
-    protected static $session;
-
-    /**
      * Container constructor.
      */
     public function __construct(string $index = 'main')
     {
-        parent::__construct($index);
-        self::$session = Session::getInstance();
         self::$messagesListNow = [];
         self::$messagesListNext = [];
     }
@@ -54,7 +43,7 @@ class FlashMessages extends Singleton
      */
     public static function getContainer(): array
     {
-        return self::$session->getFlash('messages') ?? [];
+        return Session::getFlash('messages') ?? [];
     }
 
     /**
@@ -81,12 +70,12 @@ class FlashMessages extends Singleton
         switch ($when) {
             case 'now':
                 self::$messagesListNow[] = $message;
-                self::$session->setFlashNow('messages', self::$messagesListNow);
+                Session::setFlashNow('messages', self::$messagesListNow);
                 break;
             case 'next':
             default:
                 self::$messagesListNext[] = $message;
-                self::$session->setFlashNext('messages', self::$messagesListNext);
+                Session::setFlashNext('messages', self::$messagesListNext);
                 break;
         }
     }

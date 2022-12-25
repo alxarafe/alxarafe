@@ -16,31 +16,37 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Modules\Portfolio\Controllers;
+namespace Alxarafe\Controllers;
 
-use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Base\View;
-use Alxarafe\Database\Schema;
+use Alxarafe\Core\Base\Controller;
+use Alxarafe\Core\Helpers\Auth;
+use Alxarafe\Views\LoginView;
 use DebugBar\DebugBarException;
-use Alxarafe\Views\IndexView;
-use Modules\Portfolio\Models\PortfolioAssets;
 
-class TestTables extends Controller
+/**
+ * Class Login
+ *
+ * @package Alxarafe\Controllers
+ */
+class Logout extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $auth = Auth::getInstance();
+        $auth->logout();
+
+        header('Location: ' . BASE_URI . '?module=Main&controller=Login');
+        die();
+    }
+
     /**
-     * Check structure of table PortfolioAssets.
-     *
-     * @return View
      * @throws DebugBarException
      */
     public function setView(): View
     {
-        $tablename = 'llx_portfolio_assets';
-        if (Schema::tableExists($tablename) && !self::$engine->exec("DROP TABLE $tablename")) {
-            die("No se ha podido eliminar la tabla llx_portfolio_assets");
-        }
-
-        $x = new PortfolioAssets(true);
-        return new IndexView($this);
+        return new LoginView($this);
     }
 }

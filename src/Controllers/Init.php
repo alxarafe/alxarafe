@@ -16,31 +16,29 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Modules\Portfolio\Controllers;
+namespace Alxarafe\Controllers;
 
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Base\View;
-use Alxarafe\Database\Schema;
-use DebugBar\DebugBarException;
 use Alxarafe\Views\IndexView;
-use Modules\Portfolio\Models\PortfolioAssets;
 
-class TestTables extends Controller
+/**
+ * Class Init
+ *
+ *
+ *
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
+ * @version 08 2021
+ *
+ * @package Modules\Main
+ */
+class Init extends Controller
 {
     /**
-     * Check structure of table PortfolioAssets.
-     *
-     * @return View
-     * @throws DebugBarException
+     * @throws \DebugBar\DebugBarException
      */
     public function setView(): View
     {
-        $tablename = 'llx_portfolio_assets';
-        if (Schema::tableExists($tablename) && !self::$engine->exec("DROP TABLE $tablename")) {
-            die("No se ha podido eliminar la tabla llx_portfolio_assets");
-        }
-
-        $x = new PortfolioAssets(true);
         return new IndexView($this);
     }
 }

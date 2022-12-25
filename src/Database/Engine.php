@@ -7,7 +7,7 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Core\Singletons\Config;
-use Alxarafe\Core\Singletons\DebugTool;
+use Alxarafe\Core\Singletons\Debug;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DataCollector\PDO\TraceablePDO;
 use DebugBar\DebugBarException;
@@ -21,11 +21,6 @@ use PDOStatement;
  */
 abstract class Engine
 {
-    /**
-     * @var DebugTool
-     */
-    static DebugTool $debug;
-
     /**
      * Data Source Name
      *
@@ -77,7 +72,6 @@ abstract class Engine
     public function __construct(array $dbConfig)
     {
         self::$dbConfig = $dbConfig;
-        self::$debug = DebugTool::getInstance();
     }
 
     /**
@@ -146,7 +140,7 @@ abstract class Engine
             throw new PDOException('Rollback error : There is no transaction started');
         }
 
-        self::$debug->addMessage('SQL', 'Rollback, savepoint LEVEL' . self::$transactionDepth);
+        Debug::addMessage('SQL', 'Rollback, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
@@ -228,17 +222,17 @@ abstract class Engine
     public function connect(array $config = []): bool
     {
         if (isset(self::$dbHandler)) {
-            self::$debug->addMessage('SQL', "PDO: Already connected " . self::$dsn);
+            Debug::addMessage('SQL', "PDO: Already connected " . self::$dsn);
             return true;
         }
-        self::$debug->addMessage('SQL', "PDO: " . self::$dsn);
+        Debug::addMessage('SQL', "PDO: " . self::$dsn);
         try {
             // Logs SQL queries. You need to wrap your PDO object into a DebugBar\DataCollector\PDO\TraceablePDO object.
             // http://phpdebugbar.com/docs/base-collectors.html
             self::$dbHandler = new TraceablePDO(new PDO(self::$dsn, self::$dbConfig['dbUser'], self::$dbConfig['dbPass'], $config));
-            self::$debug->debugBar->addCollector(new PDOCollector(self::$dbHandler));
+            Debug::addCollector(new PDOCollector(self::$dbHandler));
         } catch (PDOException $e) {
-            self::$debug->addException($e);
+            Debug::addException($e);
             return false;
         }
         return isset(self::$dbHandler);
@@ -300,7 +294,7 @@ abstract class Engine
             return false;
         }
         self::$transactionDepth++;
-        self::$debug->addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
+        Debug::addMessage('SQL', 'Transaction started, savepoint LEVEL' . self::$transactionDepth . ' saved');
 
         return true;
     }
@@ -314,7 +308,7 @@ abstract class Engine
     {
         $ret = true;
 
-        self::$debug->addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
+        Debug::addMessage('SQL', 'Commit, savepoint LEVEL' . self::$transactionDepth);
         self::$transactionDepth--;
 
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {

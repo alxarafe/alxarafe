@@ -6,19 +6,21 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Helpers\Globals;
 use Alxarafe\Core\Singletons\Config;
-use Alxarafe\Core\Singletons\DebugTool;
+use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\FlashMessages;
+use Alxarafe\Core\Singletons\Render;
+use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Core\Utils\ClassUtils;
-use Modules\Main\Models\Menu;
-use DebugBar\DebugBarException;
+use Alxarafe\Models\Menu;
 
 /**
  * Class View
  *
  * @package Alxarafe\Base
  */
-abstract class View extends Globals
+abstract class View
 {
     /**
      * Error messages to show
@@ -26,13 +28,6 @@ abstract class View extends Globals
      * @var string[]
      */
     public array $errors;
-
-    /**
-     * Dolibarr requires a body ID.
-     *
-     * @var string
-     */
-    public string $bodyId = 'mainbody';
 
     /**
      * Title of the HTML page
@@ -82,18 +77,16 @@ abstract class View extends Globals
      */
     public function __construct(BasicController $controller)
     {
-        parent::__construct();
-
         $title = ClassUtils::getShortName($controller, $controller);
-        $this->title = $this->trans(strtolower($title)) . ' - ' . self::APP_NAME . ' ' . self::APP_VERSION;
+        $this->title = Translator::trans(strtolower($title)) . ' - ' . Globals::APP_NAME . ' ' . Globals::APP_VERSION;
 
         $this->setTemplate();
-        $this->render->setTemplate($this->template);
+        Render::setTemplate($this->template);
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
-        $this->vars['user'] = Config::getInstance()->getUsername();
-        $this->vars['templateuri'] = $this->render->getTemplatesUri();
+        $this->vars['user'] = Config::getUsername();
+        $this->vars['templateuri'] = Render::getTemplatesUri();
         $this->addCSS();
         $this->addJS();
         $this->hasMenu = $controller->hasMenu;
@@ -376,67 +369,67 @@ abstract class View extends Globals
         $this->menu = [];
         $this->menu[] = $this->addItem(
             'home',
-            $this->trans('home'),
+            Translator::trans('home'),
             '/dolibarr/htdocs/index.php?mainmenu=home&amp;leftmenu=home',
             $module === 'main' || empty($module)
         );
         $this->menu[] = $this->addItem(
             'members',
-            $this->trans('MenuMembers'),
+            Translator::trans('MenuMembers'),
             '/dolibarr/htdocs/adherents/index.php?mainmenu=members&leftmenu=',
             $module === 'members'
         );
         $this->menu[] = $this->addItem(
             'companies',
-            $this->trans('companies'),
+            Translator::trans('companies'),
             '/dolibarr/htdocs/societe/index.php?mainmenu=companies&amp;leftmenu=',
             $module === 'companies'
         );
         $this->menu[] = $this->addItem(
             'products',
-            $this->trans('products'),
+            Translator::trans('products'),
             '/dolibarr/htdocs/product/index.php?mainmenu=products&leftmenu=',
             $module === 'products'
         );
         $this->menu[] = $this->addItem(
             'mrp',
-            $this->trans('TMenuMRP'),
+            Translator::trans('TMenuMRP'),
             '/dolibarr/htdocs/mrp/index.php?mainmenu=mrp&leftmenu=',
             $module === 'mrp'
         );
         $this->menu[] = $this->addItem(
             'project',
-            $this->trans('Projects'),
+            Translator::trans('Projects'),
             '/dolibarr/htdocs/mrp/index.php?mainmenu=mrp&leftmenu=',
             $module === 'project'
         );
         $this->menu[] = $this->addItem(
             'commercial',
-            $this->trans('commercial'),
+            Translator::trans('commercial'),
             '/dolibarr/htdocs/fourn/commande/index.php?mainmenu=commercial&amp;leftmenu=',
             $module === 'commercial'
         );
         $this->menu[] = $this->addItem(
             'compta',
-            $this->trans('Compta'),
+            Translator::trans('Compta'),
             '/dolibarr/htdocs/compta/index.php?mainmenu=billing&amp;leftmenu=',
             $module === 'billing'
         );
         $this->menu[] = $this->addItem(
             'billing',
-            $this->trans('billing'),
+            Translator::trans('billing'),
             '/dolibarr/htdocs/compta/index.php?mainmenu=billing&amp;leftmenu=',
             $module === 'billing'
         );
         $this->menu[] = $this->addItem(
             'tools',
-            $this->trans('tools'),
+            Translator::trans('tools'),
             '/dolibarr/htdocs/portfolio/portfolioindex.php?idmenu=1&mainmenu=portfolio&amp;leftmenu=',
             $module === 'tools'
         );
         $this->menu[] = $this->addItem(
             'portfolio',
-            $this->trans('portfolio'),
+            Translator::trans('portfolio'),
             '?module=Portfolio&controller=Index',
             $module === 'portfolio'
         );
@@ -509,19 +502,19 @@ abstract class View extends Globals
             if (file_exists(BASE_FOLDER . '/vendor/almasaeed2010/adminlte/' . $path)) {
                 return BASE_URI . '/vendor/almasaeed2010/adminlte/' . $path;
             }
-            if (file_exists($this->render->getTemplatesFolder() . $path)) {
-                return $this->render->getTemplatesUri() . $path;
+            if (file_exists(Render::getTemplatesFolder() . $path)) {
+                return Render::getTemplatesUri() . $path;
             }
-            if (file_exists($this->render->getCommonTemplatesFolder() . $path)) {
-                return $this->render->getCommonTemplatesUri() . $path;
+            if (file_exists(Render::getCommonTemplatesFolder() . $path)) {
+                return Render::getCommonTemplatesUri() . $path;
             }
             if (file_exists(BASE_FOLDER . $path)) {
                 return BASE_URI . $path;
             }
-            $this->debug->addMessage('messages', "Relative resource '$path' not found!");
+            Debug::addMessage('messages', "Relative resource '$path' not found!");
         }
         if (!file_exists($path)) {
-            $this->debug->addMessage('messages', "Absolute resource '$path' not found!");
+            Debug::addMessage('messages', "Absolute resource '$path' not found!");
         }
         return $path;
     }
@@ -533,10 +526,10 @@ abstract class View extends Globals
      */
     public function __destruct()
     {
-        if (!$this->render->hasTemplate()) {
-            $this->render->setTemplate('default');
+        if (!Render::hasTemplate()) {
+            Render::setTemplate('default');
         }
-        echo $this->render->render($this->vars);
+        echo Render::render($this->vars);
     }
 
     /**
@@ -571,7 +564,7 @@ abstract class View extends Globals
      */
     public function getHeader(): string
     {
-        return DebugTool::getRenderHeader();
+        return Debug::getRenderHeader();
     }
 
     /**
@@ -580,7 +573,7 @@ abstract class View extends Globals
      */
     public function getFooter(): string
     {
-        return DebugTool::getRenderFooter();
+        return Debug::getRenderFooter();
     }
 
     /**

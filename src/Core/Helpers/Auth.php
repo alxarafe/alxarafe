@@ -18,11 +18,11 @@
 
 namespace Alxarafe\Core\Helpers;
 
-use Alxarafe\Core\Base\Singleton;
+use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\DebugTool;
 use Alxarafe\Database\Engine;
-use Modules\Main\Controllers\Login;
-use Modules\Main\Models\Users;
+use Alxarafe\Controllers\Login;
+use Alxarafe\Models\Users;
 use DebugBar\DebugBarException;
 
 /**
@@ -30,7 +30,7 @@ use DebugBar\DebugBarException;
  *
  * @package Alxarafe\Helpers
  */
-class Auth extends Singleton
+class Auth
 {
 
     /**
@@ -43,31 +43,27 @@ class Auth extends Singleton
      *
      * @var string|null
      */
-    private $user = null;
+    private static $user = null;
 
-    private $users;
-
-    private $debug;
+    private static $users;
 
     /**
      * Auth constructor.
      */
     public function __construct(string $index = 'main')
     {
-        parent::__construct($index);
-        $this->users = new Users();
-        $this->getCookieUser();
-        $this->debug = DebugTool::getInstance();
+        self::$users = new Users();
+        self::getCookieUser();
     }
 
     /**
      * TODO: Undocummented
      */
-    private function getCookieUser()
+    private static function getCookieUser()
     {
-        if ($this->user === null) {
+        if (self::$user === null) {
             if (isset($_COOKIE['user'])) {
-                $this->user = $_COOKIE['user'];
+                self::$user = $_COOKIE['user'];
             }
         }
     }
@@ -76,7 +72,7 @@ class Auth extends Singleton
      * TODO: Undocummented
      * Esto no puede ser porque invoca a Login y carga el controlador.
      */
-    public function login()
+    public static function login()
     {
         //        dump(debug_backtrace());
         new Login();
@@ -85,17 +81,17 @@ class Auth extends Singleton
     /**
      * @throws DebugBarException
      */
-    public function logout()
+    public static function logout()
     {
-        $this->debug->addMessage('messages', 'Auth::Logout(): ' . ($this->user === null ? 'There was no identified user.' : 'User' . $this->user . ' has successfully logged out'));
-        $this->user = null;
-        $this->clearCookieUser();
+        Debug::addMessage('messages', 'Auth::Logout(): ' . (self::$user === null ? 'There was no identified user.' : 'User' . self::$user . ' has successfully logged out'));
+        self::$user = null;
+        self::clearCookieUser();
     }
 
     /**
      * TODO: Undocummented
      */
-    private function clearCookieUser()
+    private static function clearCookieUser()
     {
         setcookie('user', '');
         unset($_COOKIE['user']);
@@ -106,9 +102,9 @@ class Auth extends Singleton
      *
      * @return string|null
      */
-    public function getUser(): ?string
+    public static function getUser(): ?string
     {
-        return $this->user;
+        return self::$user;
     }
 
     /**
@@ -123,27 +119,28 @@ class Auth extends Singleton
      * @see dol_hash in "htdocs/core/lib/security.lib.php"
      *
      */
-    public function setUser($user, $password): bool
+    public static function setUser($user, $password): bool
     {
         $usernameField = 'login';  // Alxarafe use 'username', but Dolibarr use 'login'
         $passwordField = 'pass_crypted';  // Alxarafe use 'password', but Dolibarr use 'pass_crypted'
         $encryptMethod = "password_hash"; // Alxarafe use 'md5', but Dolibarr use a function called dol_hash
 
-        $_user = Engine::select("SELECT * FROM {$this->users->tableName} WHERE $usernameField='$user';");
+        $tablename=self::$users->tableName;
+        $_user = Engine::select("SELECT * FROM {$tablename} WHERE $usernameField='$user';");
         if (count($_user) > 0 && password_verify($password, $_user[0][$passwordField])) {
-            $this->user = $user;
+            self::$user = $user;
             setcookie('user', $user);
-            $this->debug->addMessage('SQL', "$user autenticado");
+            Debug::addMessage('SQL', "$user autenticado");
         } else {
-            $this->user = null;
+            self::$user = null;
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {
-                $this->debug->addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$passwordField]);
+                Debug::addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$passwordField]);
             } else {
-                $this->debug->addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
+                Debug::addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
             }
         }
-        return $this->user != null;
+        return self::$user != null;
     }
 }

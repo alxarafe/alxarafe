@@ -6,8 +6,8 @@
 
 namespace Alxarafe\Core\Base;
 
-use Alxarafe\Database\Engine;
-use Alxarafe\Database\SqlHelper;
+use Alxarafe\Core\Helpers\Globals;
+use Alxarafe\Core\Singletons\Config;
 use DebugBar\DebugBarException;
 
 /**
@@ -17,7 +17,7 @@ use DebugBar\DebugBarException;
  *
  * @package Alxarafe\Core\Base
  */
-abstract class BasicController extends Globals
+abstract class BasicController
 {
     /**
      * Indicates whether the closing of the browser is protected
@@ -45,7 +45,7 @@ abstract class BasicController extends Globals
      *
      * @var bool
      */
-    protected bool $configExists;
+    //protected bool $configExists;
 
     /**
      * Controller constructor.
@@ -54,7 +54,7 @@ abstract class BasicController extends Globals
      */
     public function __construct()
     {
-        parent::__construct();
+// parent::__construct();
 
         $this->protectedClose = false;
         if (!$this->preLoad()) {
@@ -70,7 +70,7 @@ abstract class BasicController extends Globals
      */
     public function preLoad(): bool
     {
-        $this->configExists = $this->config->loadConfig();
+//        $this->configExists = Config::loadConfig();
         $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
         return true;
     }

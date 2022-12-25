@@ -2,6 +2,7 @@
 
 namespace Alxarafe\Test\Core\Base;
 
+use Alxarafe\Models\Controller;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

@@ -17,39 +17,37 @@ use Aura\Session\SessionFactory;
  *
  * @package Alxarafe\Core\Helpers
  */
-class Session extends Singleton
+class Session
 {
     /**
      * Session info from cookie.
      *
      * @var \Aura\Session\Session
      */
-    protected \Aura\Session\Session $session;
+    protected static \Aura\Session\Session $session;
 
     /**
      * Segment name.
      *
      * @var string
      */
-    protected string $segmentName = 'Alxarafe';
+    protected static string $segmentName = 'Alxarafe';
 
     /**
      * Session constructor.
      */
     public function __construct(string $index = 'main')
     {
-        parent::__construct($index);
         $shortName = ClassUtils::getShortName($this, static::class);
-        $debugTool = DebugTool::getInstance();
-        $debugTool->startTimer($shortName, $shortName . ' Constructor');
+        Debug::startTimer($shortName, $shortName . ' Constructor');
 
-        $this->session = (new SessionFactory())->newInstance($_COOKIE);
+        self::$session = (new SessionFactory())->newInstance($_COOKIE);
         if (session_status() === PHP_SESSION_NONE) {
-            $this->session->start();
+            self::$session->start();
         }
         // https://github.com/auraphp/Aura.Session#cross-site-request-forgery
 
-        $debugTool->stopTimer($shortName);
+        Debug::stopTimer($shortName);
     }
 
     /**
@@ -57,9 +55,9 @@ class Session extends Singleton
      *
      * @return string
      */
-    public function getCsrfToken(): string
+    public static function getCsrfToken(): string
     {
-        return $this->session->getCsrfToken()->getValue();
+        return self::$session->getCsrfToken()->getValue();
     }
 
     /**
@@ -69,9 +67,9 @@ class Session extends Singleton
      *
      * @return bool
      */
-    public function isValid(string $csrfToken): bool
+    public static function isValid(string $csrfToken): bool
     {
-        return $this->session->getCsrfToken()->isValid($csrfToken);
+        return self::$session->getCsrfToken()->isValid($csrfToken);
     }
 
     /**
@@ -79,9 +77,9 @@ class Session extends Singleton
      *
      * @return \Aura\Session\Session
      */
-    public function getSession(): \Aura\Session\Session
+    public static function getSession(): \Aura\Session\Session
     {
-        return $this->session;
+        return self::$session;
     }
 
     /**
@@ -91,10 +89,10 @@ class Session extends Singleton
      *
      * @return Session
      */
-    public function setSegment(string $segmentName): self
+    public static function setSegment(string $segmentName): self
     {
-        $this->segmentName = $segmentName;
-        return $this;
+        self::$segmentName = $segmentName;
+        return self();
     }
 
     /**
@@ -106,7 +104,7 @@ class Session extends Singleton
      */
     public function get(string $key)
     {
-        return $this->getSegment()->get($key);
+        return self::getSegment()->get($key);
     }
 
     /**
@@ -114,9 +112,9 @@ class Session extends Singleton
      *
      * @return Segment
      */
-    public function getSegment(): Segment
+    public static function getSegment(): Segment
     {
-        return $this->session->getSegment($this->segmentName);
+        return self::$session->getSegment(self::$segmentName);
     }
 
     /**
@@ -129,7 +127,7 @@ class Session extends Singleton
      */
     public function set(string $key, $value): self
     {
-        $this->getSegment()->set($key, $value);
+        self::getSegment()->set($key, $value);
         return $this;
     }
 
@@ -157,7 +155,7 @@ class Session extends Singleton
      */
     public function setFlashNext(string $key, $value): self
     {
-        $this->getSegment()->setFlash($key, $value);
+        self::getSegment()->setFlash($key, $value);
         return $this;
     }
 
@@ -168,9 +166,9 @@ class Session extends Singleton
      *
      * @return mixed
      */
-    public function getFlash(string $key)
+    public static function getFlash(string $key)
     {
-        return $this->getFlashNow($key);
+        return self::getFlashNow($key);
     }
 
     /**
@@ -180,9 +178,9 @@ class Session extends Singleton
      *
      * @return mixed
      */
-    public function getFlashNow(string $key)
+    public static function getFlashNow(string $key)
     {
-        return $this->getSegment()->getFlash($key);
+        return self::getSegment()->getFlash($key);
     }
 
     /**
@@ -193,10 +191,10 @@ class Session extends Singleton
      *
      * @return $this
      */
-    public function setFlashNow(string $key, $value): self
+    public static function setFlashNow(string $key, $value): self
     {
-        $this->getSegment()->setFlashNow($key, $value);
-        return $this;
+        self::getSegment()->setFlashNow($key, $value);
+        return self();
     }
 
     /**
@@ -206,8 +204,8 @@ class Session extends Singleton
      *
      * @return mixed
      */
-    public function getFlashNext(string $key)
+    public static function getFlashNext(string $key)
     {
-        return $this->getSegment()->getFlashNext($key);
+        return self::getSegment()->getFlashNext($key);
     }
 }

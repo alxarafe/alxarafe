@@ -2,6 +2,7 @@
 
 namespace Alxarafe\Test\Core\Base;
 
+use Alxarafe\Controllers\EditConfig;
 use Alxarafe\Core\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\FileCookieJar;

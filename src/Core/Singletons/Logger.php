@@ -19,7 +19,7 @@ use Monolog\Logger as MonologLogger;
  *
  * @package Alxarafe\Core\Providers
  */
-class Logger extends Singleton
+class Logger
 {
     /**
      * The logger.
@@ -33,8 +33,6 @@ class Logger extends Singleton
      */
     public function __construct(string $index = 'main')
     {
-        parent::__construct($index);
-
         self::$logger = new MonologLogger('core_logger');
         set_exception_handler([$this, 'exceptionHandler']);
         try {
@@ -69,7 +67,7 @@ class Logger extends Singleton
      *
      * @return MonologLogger
      */
-    public function getLogger(): MonologLogger
+    public static function getLogger(): MonologLogger
     {
         return self::$logger;
     }

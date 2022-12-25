@@ -19,21 +19,12 @@
 namespace Alxarafe\Core\Singletons;
 
 use Alxarafe\Core\Helpers\Auth;
-use Alxarafe\Core\Base\Singleton;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
-use DebugBar\DebugBarException;
 use Exception;
 use Symfony\Component\Yaml\Yaml;
 
-/**
- * All variables and global functions are centralized through the static class Config.
- * The Config class can be instantiated and passed to the class that needs it,
- * sharing the data and methods that are in them.
- *
- * @package Alxarafe\Helpers
- */
-class Config extends Singleton
+class Config
 {
     /**
      * Contains the full name of the configuration file or null
@@ -55,14 +46,28 @@ class Config extends Singleton
      *
      * @var Engine
      */
-    public Engine $dbEngine;
+    public static Engine $dbEngine;
+
+    /**
+     * Database name.
+     *
+     * @var string
+     */
+    public static string $dbName;
+
+    /**
+     * Contains de database tablename prefix
+     *
+     * @var string
+     */
+    public static string $dbPrefix;
 
     /**
      * Contains the instance to the specific SQL engine helper (or null)
      *
      * @var sqlHelper
      */
-    private SqlHelper $sqlHelper;
+    private static SqlHelper $sqlHelper;
 
     /**
      * It is a static instance of the Auth class that contains the data of the
@@ -70,24 +75,40 @@ class Config extends Singleton
      *
      * @var Auth
      */
-    private Auth $user;
+    private static Auth $user;
 
     /**
      * Contains the user's name or null
      *
      * @var string|null
      */
-    private ?string $username;
+    private static ?string $username = null;
 
     private TemplateRender $render;
     private DebugTool $debug;
 
-    public function __construct(string $index = 'main')
+    /**
+     * Define todas las constantes de la sección 'constants' del archivo config.yaml
+     * La sección constants contiene las constantes en grupos de tipo.
+     * TODO: De momento se contempla boolean y el resto.
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2022.1218
+     *
+     */
+    private static function defineConstants()
     {
-        parent::__construct($index);
-        $this->username = null;
-        $this->render = TemplateRender::getInstance();
-        $this->debug = DebugTool::getInstance();
+        foreach (self::$global['constants'] ?? [] as $type => $types) {
+            foreach ($types as $name => $value) {
+                switch ($type) {
+                    case 'boolean':
+                        define($name, in_array(strtolower($value), ['1', 'true']));
+                        break;
+                    default:
+                        define($name, $value);
+                }
+            }
+        }
     }
 
     /**
@@ -97,38 +118,43 @@ class Config extends Singleton
      * @return bool
      * @throws DebugBarException
      */
-    public function loadConfig(): bool
+    public static function loadConfig(): bool
     {
         if (!isset(self::$global)) {
             self::$global = self::loadConfigurationFile();
         }
 
-        if (isset(self::$global['templaterender']['main']['skin'])) {
-            $templatesFolder = BASE_FOLDER . TemplateRender::SKINS_FOLDER;
-            $skinFolder = $templatesFolder . '/' . self::$global['templaterender']['main']['skin'];
-            if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
-                FlashMessages::setError("Skin folder '$skinFolder' does not exists!");
-                return false;
-            }
-            $this->render->setSkin(self::getVar('templaterender', 'main', 'skin'));
-        }
+        self::defineConstants();
+        /*
+                TODO: Esto igual debe de instanciarse en Render.
+
+                if (isset(self::$global['templaterender']['main']['skin'])) {
+                    $templatesFolder = BASE_FOLDER . Render::SKINS_FOLDER;
+                    $skinFolder = $templatesFolder . '/' . self::$global['templaterender']['main']['skin'];
+                    if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
+                        FlashMessages::setError("Skin folder '$skinFolder' does not exists!");
+                        return false;
+                    }
+                    Render::setSkin(self::getVar('templaterender', 'main', 'skin'));
+                }
+        */
         return true;
     }
 
     /**
      * @throws DebugBarException
      */
-    public function connectToDatabaseAndAuth(): bool
+    public static function connectToDatabaseAndAuth(): bool
     {
-        if (!$this->connectToDataBase()) {
+        if (!self::connectToDataBase()) {
             FlashMessages::setError('Database Connection error...');
             return false;
         }
-        if (!isset($this->user)) {
-            $this->user = new Auth();
-            $this->username = $this->user->getUser();
-            if ($this->username === null) {
-                $this->user->login();
+        if (!isset(self::$user)) {
+            self::$user = new Auth();
+            self::$username = self::$user->getUser();
+            if (self::$username === null) {
+                self::$user->login();
             }
         }
         return true;
@@ -189,51 +215,55 @@ class Config extends Singleton
     }
 
     /**
-     * If $this->dbEngine contain null, create an Engine instance with the
-     * database connection and assigns it to $this->dbEngine.
+     * If self::$dbEngine contain null, create an Engine instance with the
+     * database connection and assigns it to self::$dbEngine.
      *
      * @param string $db
      *
      * @return bool
      * @throws DebugBarException
      */
-    public function connectToDatabase($db = 'main'): bool
+    public static function connectToDatabase($db = 'main'): bool
     {
-        if (isset($this->dbEngine)) {
+        if (isset(self::$dbEngine)) {
             return true;
         }
+
+        Config::$dbPrefix = self::$global['database'][$db]['dbPrefix'] ?? '';
+        Config::$dbName = self::$global['database'][$db]['dbName'];
+
         $dbEngineName = self::$global['database'][$db]['dbEngineName'] ?? 'PdoMySql';
         $helperName = 'Sql' . substr($dbEngineName, 3);
 
-        $this->debug->addMessage('SQL', "Using '$dbEngineName' engine.");
-        $this->debug->addMessage('SQL', "Using '$helperName' SQL helper engine.");
+        Debug::addMessage('SQL', "Using '$dbEngineName' engine.");
+        Debug::addMessage('SQL', "Using '$helperName' SQL helper engine.");
 
         $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
         $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;
         try {
-            $this->sqlHelper = new $sqlEngine();
-            $this->dbEngine = new $engine([
+            self::$sqlHelper = new $sqlEngine();
+            self::$dbEngine = new $engine([
                 'dbUser' => self::$global['database'][$db]['dbUser'],
                 'dbPass' => self::$global['database'][$db]['dbPass'],
                 'dbName' => self::$global['database'][$db]['dbName'],
                 'dbHost' => self::$global['database'][$db]['dbHost'],
                 'dbPort' => self::$global['database'][$db]['dbPort'],
             ]);
-            return isset($this->dbEngine) && $this->dbEngine->connect() && $this->dbEngine->checkConnection();
+            return isset(self::$dbEngine) && self::$dbEngine->connect() && self::$dbEngine->checkConnection();
         } catch (Exception $e) {
-            $this->debug->addException($e);
+            Debug::addException($e);
         }
         return false;
     }
 
-    public function getEngine(): Engine
+    public static function getEngine(): Engine
     {
-        return $this->dbEngine;
+        return self::$dbEngine;
     }
 
-    public function getSqlHelper(): SqlHelper
+    public static function getSqlHelper(): SqlHelper
     {
-        return $this->sqlHelper;
+        return self::$sqlHelper;
     }
 
     /**
@@ -241,14 +271,14 @@ class Config extends Singleton
      *
      * @return bool
      */
-    public function configFileExists(): bool
+    public static function configFileExists(): bool
     {
         return (file_exists(self::getConfigFileName()));
     }
 
-    public function getUsername()
+    public static function getUsername()
     {
-        return $this->username;
+        return self::$username;
     }
 
     /**
@@ -260,8 +290,8 @@ class Config extends Singleton
     {
         dump(debug_backtrace());
         die('loadViewsConfig');
-        $this->render->setSkin(self::getVar('templaterender', 'main', 'skin') ?? 'default');
-        $this->render->setTemplate(self::getVar('templaterender', 'main', 'skin') ?? 'default');
+        Render::setSkin(self::getVar('templaterender', 'main', 'skin') ?? 'default');
+        Render::setTemplate(self::getVar('templaterender', 'main', 'skin') ?? 'default');
     }
 
     /**
@@ -271,7 +301,7 @@ class Config extends Singleton
      *
      * @return bool
      */
-    public function saveConfigFile(): bool
+    public static function saveConfigFile(): bool
     {
         $configFile = self::getConfigFileName();
         if (!isset($configFile)) {
@@ -288,7 +318,7 @@ class Config extends Singleton
      * @param string $name
      * @param string $value
      */
-    public function setVar(string $module, string $section, string $name, string $value)
+    public static function setVar(string $module, string $section, string $name, string $value)
     {
         self::$global[$module][$section][$name] = $value;
     }

@@ -18,137 +18,33 @@
 
 namespace Alxarafe\Core\Helpers;
 
-use Alxarafe\Core\Base\Globals;
-use Alxarafe\Core\Singletons\Config;
-use DebugBar\DebugBarException;
+use Alxarafe\Core\Singletons\Debug;
 
-/**
- * Class Dispatcher
- *
- * The dispatcher class is in charge of directing the appropriate controller based on the GET variables
- *
- * @package Modules\Main\Helpers
- */
-class Dispatcher extends Globals
+class Dispatcher
 {
-    /**
-     * Dispatcher constructor.
-     */
     public function __construct()
     {
-        parent::__construct();
-
-        // $this->config=Config::getInstance();
-        $this->getConfiguration();
+        new Globals();
     }
 
-    /**
-     * Load the constants and the configuration file.
-     * If the configuration file does not exist, it takes us to the form for its creation.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version ago. 2021
-     *
-     */
-    private function getConfiguration()
-    {
-        // Ésto se ha pasado al Config.
-        // $this->defineConstants();
-
-        // First set the display options to be able to show the possible warnings and errors.
-        // $this->config->loadViewsConfig();
-
-        // This block, copy the Dolibarr configuration to Alxarafe
-        $configFile = $this->config->getConfigFileName();
-        if (!file_exists($configFile)) {
-            if (!$this->createConfigFromDolibarr()) {
-                trigger_error('No Dolibarr configuration found!');
-            }
-        }
-        // $this->config->loadConfig();
-    }
-
-    /**
-     * Creates the Alxarafe configuration file with the existing data in the Dolibarr one.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version ago. 2021
-     *
-     * @return bool
-     */
-    private function createConfigFromDolibarr(): bool
-    {
-        $configDolibarrFile = constant('BASE_FOLDER') . '/conf/conf.php';
-        if (!file_exists($configDolibarrFile)) {
-            return false;
-        }
-        require_once $configDolibarrFile;
-
-        $config = Config::getInstance();
-
-        $config->setVar('templaterender', 'main', 'skin', 'default');
-        $config->setVar('database', 'main', 'dbEngineName', 'PdoMySql');
-
-        $dolibarrDbVars = [
-            'dbUser' => 'dolibarr_main_db_user',
-            'dbPass' => 'dolibarr_main_db_pass',
-            'dbName' => 'dolibarr_main_db_name',
-            'dbHost' => 'dolibarr_main_db_host',
-            'dbPort' => 'dolibarr_main_db_port',
-            'dbPrefix' => 'dolibarr_main_db_prefix',
-        ];
-
-        foreach ($dolibarrDbVars as $name => $dolibarrVar) {
-            if (!empty(${$dolibarrVar})) {
-                $config->setVar('database', 'main', $name, ${$dolibarrVar});
-            }
-        }
-
-        return $config->saveConfigFile();
-    }
-
-    /**
-     * Roll the ball!
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version ago. 2021
-     *
-     * @return bool
-     * @throws DebugBarException
-     */
     public function run(): bool
     {
-        $module = ucfirst($_GET[self::MODULE_GET_VAR] ?? self::DEFAULT_MODULE_NAME);
-        $controller = ucfirst($_GET[self::CONTROLLER_GET_VAR] ?? self::DEFAULT_CONTROLLER_NAME);
-        $this->debug->addMessage('messages', "Dispatcher::process() trying for '$module':'$controller'");
+        $module = ucfirst($_GET[Globals::MODULE_GET_VAR] ?? Globals::DEFAULT_MODULE_NAME);
+        $controller = ucfirst($_GET[Globals::CONTROLLER_GET_VAR] ?? Globals::DEFAULT_CONTROLLER_NAME);
+        Debug::addMessage('messages', "Dispatcher::process() trying for '$module':'$controller'");
         if ($this->processFolder($module, $controller)) {
-            $this->debug->addMessage('messages', "Dispatcher::process(): Ok");
+            Debug::addMessage('messages', "Dispatcher::process(): Ok");
             return true;
         }
         return false;
     }
 
-    /**
-     * Try to locate the $call class in $path, and execute the $method.
-     * Returns true if it locates the class and the method exists,
-     * executing it.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version ago. 2021
-     *
-     * @param string $module
-     * @param string $controller
-     * @param string $method
-     *
-     * @return bool
-     * @throws DebugBarException
-     */
     public function processFolder(string $module, string $controller, string $method = 'main'): bool
     {
         $className = 'Modules\\' . $module . '\\Controllers\\' . $controller;
         $filename = constant('BASE_FOLDER') . '/Modules/' . $module . '/Controllers/' . $controller . '.php';
         if (file_exists($filename)) {
-            $this->debug->addMessage('messages', "$className exists!");
+            Debug::addMessage('messages', "$className exists!");
             $controller = new $className();
             $controller->{$method}();
             return true;
