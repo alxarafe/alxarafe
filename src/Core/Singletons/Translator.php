@@ -86,7 +86,7 @@ class Translator
     {
         $config = Config::loadConfigurationFile()['translator']['main'] ?? 'en';
 
-        self::$languageFolder = constant('BASE_FOLDER') . self::LANG_FOLDER;
+        self::$languageFolder = constant('BASE_FOLDER') . '/src' . self::LANG_FOLDER;
         self::$translator = new SymfonyTranslator($config['language'] ?? self::FALLBACK_LANG);
         self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
         self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
@@ -134,10 +134,18 @@ class Translator
      */
     public static function getLangFolders(): array
     {
-        return array_merge(
-            [self::getBaseLangFolder()],
-            self::$languageFolders
-        );
+        $modulePath = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER');
+        $dirs = [];
+        $dirs[] = self::getBaseLangFolder();
+        foreach (scandir($modulePath) as $dir) {
+            $path = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER') . '/' . $dir . self::LANG_FOLDER;
+            // TODO: Sólo habría que incorporar los módulos activos.
+            if (in_array($dir, ['.', '..']) || !is_dir($path)) {
+                continue;
+            }
+            $dirs[] = $path;
+        }
+        return $dirs;
     }
 
     /**

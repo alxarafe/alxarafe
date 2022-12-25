@@ -17,6 +17,7 @@
  */
 
 use Alxarafe\Core\Helpers\Dispatcher;
+use Alxarafe\Core\Singletons\Translator;
 
 const BASE_FOLDER = __DIR__;
 
@@ -29,5 +30,5 @@ require_once $autoload_file;
 
 $dispatcher = new Dispatcher();
 if (!$dispatcher->run()) {
-    die('The application could not be executed!');
+    die(Translator::trans('dispatcher-error'));
 }

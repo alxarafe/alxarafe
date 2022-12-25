@@ -69,6 +69,8 @@ class Globals
         define('CONFIGURATION_PATH', BASE_FOLDER . '/config');
         define('DEFAULT_STRING_LENGTH', 50);
         define('DEFAULT_INTEGER_SIZE', 10);
+
+        define('MODULES_FOLDER', 'Modules');
     }
 
     public function __construct()

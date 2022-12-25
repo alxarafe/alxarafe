@@ -41,8 +41,8 @@ class Dispatcher
 
     public function processFolder(string $module, string $controller, string $method = 'main'): bool
     {
-        $className = 'Modules\\' . $module . '\\Controllers\\' . $controller;
-        $filename = constant('BASE_FOLDER') . '/Modules/' . $module . '/Controllers/' . $controller . '.php';
+        $className = constant('MODULES_FOLDER') . '\\' . $module . '\\Controllers\\' . $controller;
+        $filename = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER') . '/' . $module . '/Controllers/' . $controller . '.php';
         if (file_exists($filename)) {
             Debug::addMessage('messages', "$className exists!");
             $controller = new $className();

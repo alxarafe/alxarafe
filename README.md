@@ -20,7 +20,7 @@ complejas y especialmente obsoletas en su diseño.
 
 La estructura de la aplicación es la siguiente:
 
-- La carpeta **html** contiene las plantillas, inicialmente usando el motor *Twig*, aunque se podría cambiar por otro como *Blade con bastante facilidad. 
+- La carpeta **html** contiene las plantillas, inicialmente usando el motor *Twig*, aunque se podría cambiar por otro como *Blade* con bastante facilidad. 
 - La carpeta **Modules** contiene los módulos que amplían las funcionalidades de la aplicación. Cada módulo tendrá como mínimo las siguientes carpetas, aunque se pueden crear otras, como por ejemplo las existentes en en núcleo (como Helpers o Extensions). Las mismas carpetas existen en **src** para los archivos de los controladores, modelos y vistas del núcleo:
   - La carpeta **Controllers** contiene los controladores del módulo.
   - La carpeta **Languages** contiene archivos yaml con las traducciones a distintos idiomas. Se proporciona inglés (en) y español (es), pero se pueden añadir nuevos idiomas (por ejemplo fr para francés) o personalizar los existentes (por ejemplo es_ES para español de España).

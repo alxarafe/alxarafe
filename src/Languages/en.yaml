@@ -155,6 +155,7 @@ delete: Delete
 description: Description
 dev-tools: "Development tools"
 directory-not-created: "Directory %directory% not created"
+dispatcher-error: "The application could not be executed!"
 disable: Disable
 edit: Edit
 edit-configuration: "Edit configuration"

@@ -68,9 +68,9 @@ abstract class Controller extends BasicController
         $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
 
         // TODO: This will have to be assigned in a yaml file, when activating and deactivating modules.
-        Translator::addDirs([
-            constant('BASE_FOLDER'),
-        ]);
+//        Translator::addDirs([
+//            constant('BASE_FOLDER'),
+//        ]);
 
         return true;
     }
