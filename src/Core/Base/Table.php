@@ -10,7 +10,6 @@ use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\Schema;
-use Alxarafe\Database\SqlHelper;
 use DebugBar\DebugBarException;
 
 /**
@@ -26,13 +25,6 @@ abstract class Table
      * @var Engine
      */
     public static Engine $engine;
-
-    /**
-     * The database SQL Helper.
-     *
-     * @var SqlHelper
-     */
-    public static SqlHelper $sqlHelper;
 
     /**
      * A Config instance.
@@ -80,13 +72,6 @@ abstract class Table
     protected $nameField;
 
     /**
-     * Contains an array with the table structure
-     *
-     * @var array
-     */
-    protected array $tableStructure;
-
-    /**
      * It contains the data previous to the modification of the current record
      *
      * @var array
@@ -124,77 +109,6 @@ abstract class Table
         Schema::checkStructure($tableName, $create);
                 // $this->setStructure();
                 $this->checkStructure($create);
-    }
-
-    /**
-     * Execute a call to setTableStructure with an array containing 3 arrays with
-     * the fields, keys and default values for the table.
-     *
-     * The development will be more ambitious than what is defined.
-     *
-     * Currently, Table includes a single table, but the idea is to be able to
-     * relate tables to form complex data models.
-     */
-    public function setStructure()
-    {
-        $this->setTableStructure($this->tableName, [
-            'fields' => $this->getFields(),
-            'keys' => $this->getKeys(),
-            'values' => $this->getDefaultValues(),
-        ]);
-    }
-
-    /**
-     * Save the structure of the table in a static array, so that it is available at all times.
-     *
-     * @param string $table
-     * @param array  $structure
-     */
-    protected function setTableStructure(string $table, array $structure)
-    {
-        if (!isset(Schema::$bbddStructure[$table])) {
-            Schema::$bbddStructure[$table] = Schema::setNormalizedStructure($structure, $table);
-        }
-    }
-
-    /**
-     * Return a list of fields and their table structure.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getFields(): array
-    {
-        return [
-            'id' => [
-                'label' => 'ID.',
-                'type' => 'int',
-                'key' => 'PRI',
-                'extra' => 'auto_increment',
-            ],
-        ];
-    }
-
-    /**
-     * Return a list of key indexes.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getKeys(): array
-    {
-        return [];
-    }
-
-    /**
-     * Return a list of default values.
-     * Each final model that needed, must overwrite it.
-     *
-     * @return array
-     */
-    public function getDefaultValues(): array
-    {
-        return [];
     }
 
     /**

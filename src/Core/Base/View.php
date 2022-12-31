@@ -368,66 +368,6 @@ abstract class View
         $module = strtolower(filter_input(INPUT_GET, 'module'));
         $this->menu = [];
         $this->menu[] = $this->addItem(
-            'home',
-            Translator::trans('home'),
-            '/dolibarr/htdocs/index.php?mainmenu=home&amp;leftmenu=home',
-            $module === 'main' || empty($module)
-        );
-        $this->menu[] = $this->addItem(
-            'members',
-            Translator::trans('MenuMembers'),
-            '/dolibarr/htdocs/adherents/index.php?mainmenu=members&leftmenu=',
-            $module === 'members'
-        );
-        $this->menu[] = $this->addItem(
-            'companies',
-            Translator::trans('companies'),
-            '/dolibarr/htdocs/societe/index.php?mainmenu=companies&amp;leftmenu=',
-            $module === 'companies'
-        );
-        $this->menu[] = $this->addItem(
-            'products',
-            Translator::trans('products'),
-            '/dolibarr/htdocs/product/index.php?mainmenu=products&leftmenu=',
-            $module === 'products'
-        );
-        $this->menu[] = $this->addItem(
-            'mrp',
-            Translator::trans('TMenuMRP'),
-            '/dolibarr/htdocs/mrp/index.php?mainmenu=mrp&leftmenu=',
-            $module === 'mrp'
-        );
-        $this->menu[] = $this->addItem(
-            'project',
-            Translator::trans('Projects'),
-            '/dolibarr/htdocs/mrp/index.php?mainmenu=mrp&leftmenu=',
-            $module === 'project'
-        );
-        $this->menu[] = $this->addItem(
-            'commercial',
-            Translator::trans('commercial'),
-            '/dolibarr/htdocs/fourn/commande/index.php?mainmenu=commercial&amp;leftmenu=',
-            $module === 'commercial'
-        );
-        $this->menu[] = $this->addItem(
-            'compta',
-            Translator::trans('Compta'),
-            '/dolibarr/htdocs/compta/index.php?mainmenu=billing&amp;leftmenu=',
-            $module === 'billing'
-        );
-        $this->menu[] = $this->addItem(
-            'billing',
-            Translator::trans('billing'),
-            '/dolibarr/htdocs/compta/index.php?mainmenu=billing&amp;leftmenu=',
-            $module === 'billing'
-        );
-        $this->menu[] = $this->addItem(
-            'tools',
-            Translator::trans('tools'),
-            '/dolibarr/htdocs/portfolio/portfolioindex.php?idmenu=1&mainmenu=portfolio&amp;leftmenu=',
-            $module === 'tools'
-        );
-        $this->menu[] = $this->addItem(
             'portfolio',
             Translator::trans('portfolio'),
             '?module=Portfolio&controller=Index',

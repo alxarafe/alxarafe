@@ -163,170 +163,6 @@ class Schema
         self::$bbddStructure[$tableName] = $structure;
     }
 
-    /**
-     * Normalize an array that has the file structure defined in the model by setStructure,
-     * so that it has fields with all the values it must have. Those that do not exist are
-     * created with the default value, avoiding having to do the check each time, or
-     * calculating their value based on the data provided by the other fields.
-     *
-     * It also ensures that the keys and default values exist as an empty array if they
-     * did not exist.
-     *
-     * @param array  $structure
-     * @param string $tableName
-     *
-     * @return array
-     */
-    public static function setNormalizedStructure(array $structure, string $tableName): array
-    {
-        $ret['keys'] = $structure['keys'] ?? [];
-        $ret['values'] = $structure['values'] ?? [];
-        foreach ($structure['fields'] as $key => $value) {
-            $ret['fields'][$key] = self::normalizeField($tableName, $key, $value);
-        }
-        return $ret;
-    }
-
-    /**
-     * Take the definition of a field, and make sure you have all the information
-     * that is necessary for its creation or maintenance, calculating the missing
-     * data if possible.
-     * It can cause an exception if some vital data is missing, but this should
-     * only occur at the design stage.
-     *
-     * @param string $tableName
-     * @param string $field
-     * @param array  $structure
-     *
-     * @return array
-     */
-    protected static function normalizeField(string $tableName, string $field, array $structure): array
-    {
-        if (!isset($structure['type'])) {
-            dump("The type parameter is mandatory in {$field}. Error in table " . $tableName);
-            dump($structure);
-        }
-
-        $dbType = $structure['type'];
-
-        if ($dbType == 'boolean') {
-            $dbType = 'tinyint';
-            $structure['min'] = 0;
-            $structure['max'] = 1;
-        }
-
-        if ($dbType == 'int' || $dbType == 'tinyint' || $dbType == 'number') {
-            $type = 'number';
-        } else {
-            if ($dbType == 'float') {
-                $type = 'float';
-            } else {
-                if ($dbType == 'double') {
-                    $type = 'double';
-                } else {
-                    if ($dbType == 'char' || $dbType == 'varchar' || $dbType == 'text') {
-                        $type = 'text';
-                    } else {
-                        if ($dbType == 'date') {
-                            $type = 'date';
-                        } else {
-                            if ($dbType == 'datetime' || $dbType == 'timestamp') {
-                                $type = 'datetime-local';
-                            } else {
-                                echo "<p>Check Schema.normalizeField if you think that {$dbType} might be necessary.</p>";
-                                die("Type {$dbType} is not valid for field {$field} of table {$tableName}");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        $min = (isset($structure['min'])) ? $structure['min'] : 0;
-        $max = (isset($structure['max'])) ? $structure['max'] : 0;
-        $default = (isset($structure['default'])) ? $structure['default'] : null;
-        $label = (isset($structure['label'])) ? $structure['label'] : $field;
-        $unsigned = (!isset($structure['unsigned']) || $structure['unsigned'] == true);
-        $null = ((isset($structure['null'])) && $structure['null'] == true);
-
-        $ret = [];
-        if ($type == 'text') {
-            if ($max == 0) {
-                $max = DEFAULT_STRING_LENGTH;
-            }
-            $dbType = "$dbType($max)";
-            $ret['pattern'] = '.{' . $min . ',' . $max . '}';
-        } else {
-            if ($type == 'number') {
-                if ($default === true) {
-                    $default = '1';
-                }
-                if ($max == 0) {
-                    $tmpLength = DEFAULT_INTEGER_SIZE;
-                    $max = pow(10, $tmpLength) - 1;
-                } else {
-                    $tmpLength = strlen($max);
-                }
-
-                if ($min == 0) {
-                    $min = $unsigned ? 0 : -$max;
-                } else {
-                    if ($tmpLength < strlen($min)) {
-                        $tmpLength = strlen($min);
-                    }
-                }
-
-                if (isset($structure['decimals'])) {
-                    $decimales = $structure['decimals'];
-                    $precision = pow(10, -$decimales);
-                    $tmpLength += $decimales;
-                    $dbType = "decimal($tmpLength,$decimales)" . ($unsigned ? ' unsigned' : '');
-                    $ret['min'] = $min == 0 ? 0 : ($min < 0 ? $min - 1 + $precision : $min + 1 - $precision);
-                    $ret['max'] = $max > 0 ? $max + 1 - $precision : $max - 1 + $precision;
-                } else {
-                    $precision = null;
-                    $dbType = "integer($tmpLength)" . ($unsigned ? ' unsigned' : '');
-                    $ret['min'] = $min;
-                    $ret['max'] = $max;
-                }
-            }
-        }
-
-        $ret['type'] = $type;
-        $ret['dbtype'] = $dbType;
-        $ret['default'] = $default;
-        $ret['null'] = $null;
-        $ret['label'] = $label;
-        if (isset($precision)) {
-            $ret['step'] = $precision;
-        }
-        if (isset($structure['key'])) {
-            $ret['key'] = $structure['key'];
-        }
-        if (isset($structure['placeholder'])) {
-            $ret['placeholder'] = $structure['placeholder'];
-        }
-        if (isset($structure['extra'])) {
-            $ret['extra'] = $structure['extra'];
-        }
-        if (isset($structure['help'])) {
-            $ret['help'] = $structure['help'];
-        }
-        if (isset($structure['unique']) && $structure['unique']) {
-            $ret['unique'] = $structure['unique'];
-        }
-
-        if (isset($structure['relations'][$field]['table'])) {
-            $ret['relation'] = [
-                'table' => $structure['relations'][$field]['table'],
-                'id' => isset($structure['relations'][$field]['id']) ? $structure['relations'][$field]['id'] : 'id',
-                'name' => isset($structure['relations'][$field]['name']) ? $structure['relations'][$field]['name'] : 'name',
-            ];
-        }
-
-        return $ret;
-    }
-
     private static function getTypeOf(string $type): string
     {
         foreach (self::TYPES as $index => $types) {
@@ -546,6 +382,100 @@ class Schema
         return $column;
     }
 
+    public function compare_columns($table_name, $xml_cols, $db_cols)
+    {
+        $sql = '';
+
+        foreach ($xml_cols as $xml_col) {
+            if (mb_strtolower($xml_col['tipo']) == 'integer') {
+                /**
+                 * Desde la pestaña avanzado el panel de control se puede cambiar
+                 * el tipo de entero a usar en las columnas.
+                 */
+                $xml_col['tipo'] = FS_DB_INTEGER;
+            }
+
+            /**
+             * Si el campo no está en la tabla, procedemos a su creación
+             */
+            $db_col = $this->search_in_array($db_cols, 'name', $xml_col['nombre']);
+            if (empty($db_col)) {
+                $sql .= 'ALTER TABLE `' . $table_name . '` ADD `' . $xml_col['nombre'] . '` ';
+                if ($xml_col['tipo'] == 'serial') {
+                    $sql .= '`' . $xml_col['nombre'] . '` ' . constant('FS_DB_INTEGER') . ' NOT NULL AUTO_INCREMENT;';
+                    continue;
+                }
+                if ($xml_col['tipo'] == 'autoincrement') {
+                    $sql .= '`' . $xml_col['nombre'] . '` ' . constant('DB_INDEX_TYPE') . ' NOT NULL AUTO_INCREMENT;';
+                    continue;
+                }
+                if ($xml_col['tipo'] == 'relationship') {
+                    $xml_col['tipo'] = constant('DB_INDEX_TYPE');
+                }
+
+                $sql .= $xml_col['tipo'];
+                $sql .= ($xml_col['nulo'] == 'NO') ? " NOT NULL" : " NULL";
+
+                if ($xml_col['defecto'] !== null) {
+                    $sql .= " DEFAULT " . $xml_col['defecto'];
+                } elseif ($xml_col['nulo'] == 'YES') {
+                    $sql .= " DEFAULT NULL";
+                }
+
+                $sql .= ';';
+
+                continue;
+            }
+
+            /**
+             * Si el campo es un autoincremental o relacionado a uno, asignamos el tipo correcto para la constraint.
+             * Si además es el índice, nos aseguramos de que no pueda ser nulo.
+             */
+            if (in_array($xml_col['tipo'], ['autoincrement', 'relationship'])) {
+                if ($xml_col['tipo'] === 'autoincrement') {
+                    $xml_col['nulo'] = 'NO';
+                }
+                $xml_col['tipo'] = constant('DB_INDEX_TYPE');
+            }
+
+            /// columna ya presente en db_cols. La modificamos
+            if (!$this->compare_data_types($db_col['type'], $xml_col['tipo'])) {
+                // Buscar todas las constraints relacionadas con este campo y eliminarlas
+                foreach ($this->get_referenced_field_constraint($table_name, $xml_col['nombre']) as $pos => $constraint) {
+                    $sql .= "ALTER TABLE `" . $constraint['TABLE_NAME'] . "` DROP FOREIGN KEY " . $constraint['CONSTRAINT_NAME'] . ";";
+                }
+                $sql .= 'ALTER TABLE `' . $table_name . '` MODIFY `' . $xml_col['nombre'] . '` ' . $xml_col['tipo'] . ';';
+            }
+
+            if ($db_col['is_nullable'] == $xml_col['nulo']) {
+                /// do nothing
+            } elseif ($xml_col['nulo'] == 'YES') {
+                $sql .= 'ALTER TABLE `' . $table_name . '` MODIFY `' . $xml_col['nombre'] . '` ' . $xml_col['tipo'] . ' NULL;';
+            } else {
+                $sql .= 'ALTER TABLE `' . $table_name . '` MODIFY `' . $xml_col['nombre'] . '` ' . $xml_col['tipo'] . ' NOT NULL;';
+            }
+
+            if ($this->compare_defaults($db_col['default'], $xml_col['defecto'])) {
+                /// do nothing
+            } elseif (is_null($xml_col['defecto'])) {
+                if ($this->exists_index($table_name, $db_col['name']) && !$this->unique_equals($table_name, $db_col, $xml_col)) {
+                    $sql .= 'ALTER TABLE `' . $table_name . '` ALTER `' . $xml_col['nombre'] . '` DROP DEFAULT;';
+                }
+            } elseif (mb_strtolower(substr($xml_col['defecto'], 0, 9)) == "nextval('") { /// nextval es para postgresql
+                if ($db_col['extra'] != 'auto_increment') {
+                    $sql .= 'ALTER TABLE `' . $table_name . '` MODIFY `' . $xml_col['nombre'] . '` ' . $xml_col['tipo'];
+                    $sql .= ($xml_col['nulo'] == 'YES') ? ' NULL AUTO_INCREMENT;' : ' NOT NULL AUTO_INCREMENT;';
+                }
+            } else {
+                if ($db_col['default'] != $xml_col['defecto'] && ($db_col['default'] != null && $xml_col['defecto'] == 'NULL')) {
+                    $sql .= 'ALTER TABLE `' . $table_name . '` ALTER `' . $xml_col['nombre'] . '` SET DEFAULT ' . $xml_col['defecto'] . ";";
+                }
+            }
+        }
+
+        return $this->fix_postgresql($sql);
+    }
+
     /**
      * Create a table in the database.
      * Build the default fields, indexes and values defined in the model.
@@ -555,6 +485,7 @@ class Schema
      * @return bool
      * @throws DebugBarException
      */
+
     public static function createTable(string $tableName): bool
     {
         $tabla = self::$bbddStructure[$tableName];
