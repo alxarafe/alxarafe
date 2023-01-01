@@ -83,9 +83,9 @@ abstract class BasicController
      *
      * @return string
      */
-    public static function url(string $module = self::DEFAULT_MODULE_NAME, string $controller = self::DEFAULT_CONTROLLER_NAME): string
+    public static function url(string $module = Globals::DEFAULT_MODULE_NAME, string $controller = Globals::DEFAULT_CONTROLLER_NAME): string
     {
-        return BASE_URI . '?' . self::MODULE_GET_VAR . '=' . $module . '&' . self::CONTROLLER_GET_VAR . '=' . $controller;
+        return BASE_URI . '?' . Globals::MODULE_GET_VAR . '=' . $module . '&' . Globals::CONTROLLER_GET_VAR . '=' . $controller;
     }
 
     /**

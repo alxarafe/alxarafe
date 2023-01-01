@@ -18,8 +18,8 @@
 
 namespace Alxarafe\Core\Singletons;
 
+use Alxarafe\Core\Utils\Utils;
 use Symfony\Component\Yaml\Yaml;
-use function Alxarafe\Core\Helpers\debug_message;
 
 /**
  * Simple YAML file cache
@@ -47,8 +47,8 @@ class PhpFileCache
         ];
 
         self::$yamlPath = $tmpPath . 'yamlcache/';
-        createDir(self::$yamlPath);
-        createDir(self::$config['cache_path']);
+        Utils::createDir(self::$yamlPath);
+        Utils::createDir(self::$config['cache_path']);
     }
 
     /**
@@ -173,7 +173,7 @@ class PhpFileCache
     {
         $path = self::$yamlPath . $folder . '/';
         if (!file_exists($path)) {
-            if (!createDir($path)) {
+            if (!Utils::createDir($path)) {
                 debug_message('No se ha podido crear la carpeta ' . $path);
             }
         }

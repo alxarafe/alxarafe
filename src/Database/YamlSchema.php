@@ -22,28 +22,6 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class YamlSchema
 {
-    public const TYPE_INTEGER = 'integer';
-    public const TYPE_FLOAT = 'float';
-    public const TYPE_DECIMAL = 'decimal';
-    public const TYPE_STRING = 'string';
-    public const TYPE_TEXT = 'text';
-    public const TYPE_DATE = 'date';
-    public const TYPE_TIME = 'time';
-    public const TYPE_DATETIME = 'datetime';
-    public const TYPE_BOOLEAN = 'bool';
-
-    public const TYPES = [
-        self::TYPE_INTEGER => ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'],
-        self::TYPE_FLOAT => ['real', 'double'],
-        self::TYPE_DECIMAL => ['decimal', 'numeric'],
-        self::TYPE_STRING => ['char', 'varchar'],
-        self::TYPE_TEXT => ['tinytext', 'text', 'mediumtext', 'longtext', 'blob'],
-        self::TYPE_DATE => ['date'],
-        self::TYPE_TIME => ['time'],
-        self::TYPE_DATETIME => ['datetime', 'timestamp'],
-        self::TYPE_BOOLEAN => ['boolean'],
-    ];
-
     public const PHP_CACHE_FOLDER = 'models';
 
     /**

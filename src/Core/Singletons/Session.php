@@ -153,10 +153,9 @@ class Session
      *
      * @return $this
      */
-    public function setFlashNext(string $key, $value): self
+    public static function setFlashNext(string $key, $value)
     {
         self::getSegment()->setFlash($key, $value);
-        return $this;
     }
 
     /**

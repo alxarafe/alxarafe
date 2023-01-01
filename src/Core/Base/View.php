@@ -96,6 +96,11 @@ abstract class View
         }
     }
 
+    public function trans($text)
+    {
+        return Translator::trans($text);
+    }
+
     /**
      * Method to assign the template to the view.
      */

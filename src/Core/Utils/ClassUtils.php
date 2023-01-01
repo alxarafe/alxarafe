@@ -10,11 +10,6 @@ use Alxarafe\Core\Singletons\Logger;
 use ReflectionClass;
 use ReflectionException;
 
-/**
- * Class ClassUtils
- *
- * @package Alxarafe\Core\Helpers
- */
 class ClassUtils
 {
     /**

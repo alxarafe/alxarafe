@@ -6,9 +6,9 @@
 
 namespace Alxarafe\Database\SqlHelpers;
 
-use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\DebugTool;
+use Alxarafe\Core\Utils\ClassUtils;
 use Alxarafe\Database\DB;
 use Alxarafe\Database\Schema;
 use Alxarafe\Database\SqlHelper;
@@ -51,7 +51,7 @@ class SqlMySql extends SqlHelper
     public static function getTables(): array
     {
         $query = 'SHOW TABLES';
-        return Utils::flatArray(DB::select($query));
+        return ClassUtils::flatArray(DB::select($query));
     }
 
     /**
