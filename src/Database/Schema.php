@@ -28,8 +28,20 @@ use const Alxarafe\Core\Helpers\DEFAULT_INTEGER_SIZE;
 use const Alxarafe\Core\Helpers\DEFAULT_STRING_LENGTH;
 
 /**
- * The Schema class contains static methods that allow you to manipulate the
- * database. It is used to create and modify tables and indexes in the database.
+ * Class Schema
+ *
+ * La clase abstracta Schema, define un esquema de base de datos teórico al que
+ * se traduce la base de datos real y viceversa, de manera que el código sea
+ * en la medida de lo posible, no dependiente de la base de datos real.
+ *
+ * Lo dependiente de la base de datos está en DBSchema.
+ *
+ * TODO: ¿La información cacheada se procesa en YamlSchema o no merece la pena?
+ *
+ * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+ * @version 2023.0101
+ *
+ * @package Alxarafe\Database
  */
 class Schema
 {
@@ -43,17 +55,6 @@ class Schema
     public const TYPE_DATETIME = 'datetime';
     public const TYPE_BOOLEAN = 'bool';
 
-    public const TYPES = [
-        self::TYPE_INTEGER => ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'],
-        self::TYPE_FLOAT => ['real', 'double'],
-        self::TYPE_DECIMAL => ['decimal', 'numeric'],
-        self::TYPE_STRING => ['char', 'varchar'],
-        self::TYPE_TEXT => ['tinytext', 'text', 'mediumtext', 'longtext', 'blob'],
-        self::TYPE_DATE => ['date'],
-        self::TYPE_TIME => ['time'],
-        self::TYPE_DATETIME => ['datetime', 'timestamp'],
-        self::TYPE_BOOLEAN => ['boolean'],
-    ];
     public const YAML_CACHE_TABLES_FOLDER = 'models';
 
     /**
@@ -163,9 +164,19 @@ class Schema
         self::$bbddStructure[$tableName] = $structure;
     }
 
-    private static function getTypeOf(string $type): string
+    /**
+     * Obtiene el tipo genérico del tipo de dato que se le ha pasado.
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0101
+     *
+     * @param string $type
+     *
+     * @return string
+     */
+    public static function getTypeOf(string $type): string
     {
-        foreach (self::TYPES as $index => $types) {
+        foreach (DB::getDataTypes() as $index => $types) {
             if (in_array(strtolower($type), $types)) {
                 return $index;
             }

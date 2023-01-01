@@ -62,7 +62,7 @@ class PhpFileCache
      */
     public function get($key, $raw = false, $custom_time = null)
     {
-        if (!$this->file_expired($file = $this->get_route($key), $custom_time)) {
+        if (!$this->fileExpired($file = $this->getRoute($key), $custom_time)) {
             $content = file_get_contents($file);
             return $raw ? $content : unserialize($content);
         }
@@ -80,7 +80,7 @@ class PhpFileCache
      *
      * @return bool if the file has expired or not
      */
-    public function file_expired($file, $time = null)
+    public function fileExpired($file, $time = null)
     {
         if (file_exists($file)) {
             return (time() > (filemtime($file) + 60 * ($time ?? self::$config['expires'])));
@@ -98,7 +98,7 @@ class PhpFileCache
      *
      * @return string the filename of the php file
      */
-    public function get_route($key)
+    public function getRoute($key)
     {
         return self::$config['cache_path'] . '/' . md5($key) . '.php';
     }
@@ -116,7 +116,7 @@ class PhpFileCache
      */
     public function put($key, $content, $raw = false)
     {
-        $dest_file_name = $this->get_route($key);
+        $dest_file_name = $this->getRoute($key);
         /** Use a unique temporary filename to make writes atomic with rewrite */
         $temp_file_name = str_replace(".php", uniqid("-", true) . ".php", $dest_file_name);
         $ret = @file_put_contents($temp_file_name, $raw ? $content : serialize($content));
@@ -139,7 +139,7 @@ class PhpFileCache
     public function delete($key)
     {
         $done = true;
-        $ruta = $this->get_route($key);
+        $ruta = $this->getRoute($key);
         if (file_exists($ruta)) {
             $done = @unlink($ruta);
         }

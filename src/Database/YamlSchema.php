@@ -149,27 +149,6 @@ abstract class YamlSchema
     }
 
     /**
-     * Obtiene el tipo genérico del tipo de dato que se le ha pasado.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2022.0903
-     *
-     * @param string $type
-     *
-     * @return string
-     */
-    public static function getTypeOf(string $type): string
-    {
-        foreach (YamlSchema::TYPES as $index => $types) {
-            if (in_array(strtolower($type), $types)) {
-                return $index;
-            }
-        }
-        debug_message($type . ' not found in DBSchema::getTypeOf()');
-        return 'text';
-    }
-
-    /**
      * Elimina la lista de tablas leídas de la base de datos, para comprobar si existe si tener que consultar cada vez.
      *
      * @author  Rafael San José Tovar <info@rsanjoseo.com>
@@ -630,7 +609,7 @@ abstract class YamlSchema
         $length = $typeArray['length'];
         $unsigned = $typeArray['unsigned'] === 'yes';
         $zerofill = $typeArray['zerofill'] === 'yes';
-        $genericType = static::getTypeOf($type);
+        $genericType = Schema::getTypeOf($type);
 
         $column['realtype'] = $type;
         $column['generictype'] = $genericType;
@@ -766,24 +745,6 @@ abstract class YamlSchema
         }
         XnetDebugBar::stopTimer('creaxml' . $tablename);
         return $result;
-    }
-
-    /**
-     * Obtiene un array asociativo con las columnas de la tabla.
-     * Es igual que getColumns, sólo que el índice del array es el nombre de la columna.
-     *
-     * @author     Rafael San José Tovar <info@rsanjoseo.com>
-     * @version    2022.0903
-     *
-     * @param string $table_name
-     *
-     * @return array
-     *
-     * @deprecated Utilice getColumns, ya es lo mismo
-     */
-    public static function getColumnsAssociativeArray(string $table_name): array
-    {
-        return static::getColumns($table_name);
     }
 
     public static function getConstraints(string $table_name, bool $extended = false): array

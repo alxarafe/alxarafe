@@ -41,8 +41,13 @@ class Dispatcher
 
     public function processFolder(string $module, string $controller, string $method = 'main'): bool
     {
-        $className = constant('MODULES_FOLDER') . '\\' . $module . '\\Controllers\\' . $controller;
-        $filename = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER') . '/' . $module . '/Controllers/' . $controller . '.php';
+        if ($module === ucfirst(Globals::DEFAULT_MODULE_NAME)) {
+            $className = 'Alxarafe\\Controllers\\' . $controller;
+            $filename = constant('BASE_FOLDER') . '/src/Controllers/' . $controller . '.php';
+        } else {
+            $className = constant('MODULES_FOLDER') . '\\' . $module . '\\Controllers\\' . $controller;
+            $filename = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER') . '/' . $module . '/Controllers/' . $controller . '.php';
+        }
         if (file_exists($filename)) {
             Debug::addMessage('messages', "$className exists!");
             $controller = new $className();

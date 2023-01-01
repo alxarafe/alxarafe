@@ -20,6 +20,8 @@ namespace Alxarafe\Views;
 
 use Alxarafe\Core\Base\View;
 use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Core\Singletons\Render;
+use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Database\Engine;
 use DebugBar\DebugBarException;
 
@@ -51,19 +53,17 @@ class ConfigView extends View
     {
         parent::__construct($ctrl);
 
-        $config = Config::getInstance();
-
-        $vars = $config->configFileExists() ? $config->loadConfigurationFile() : [];
+        $vars = Config::configFileExists() ? Config::loadConfigurationFile() : [];
 
         $this->dbEngines = Engine::getEngines();
         $this->dbEngineName = $vars['database']['main']['dbEngineName'] ?? $this->dbEngines[0] ?? '';
 
-        $this->skins = $this->render->getSkins();
+        $this->skins = Render::getSkins();
         $this->skin = $vars['templaterender']['main']['skin'] ?? $this->skins[0] ?? '';
 
         $this->checkDebug = $vars['constants']['boolean']['DEBUG'] ?? false;
 
-        $this->languages = $this->translator->getAvailableLanguages();
+        $this->languages = Translator::getAvailableLanguages();
         $this->language = $vars['translator']['main']['language'] ?? key($this->languages) ?? 'es';
 
         $this->dbConfig['dbUser'] = $vars['database']['main']['dbUser'] ?? 'root';

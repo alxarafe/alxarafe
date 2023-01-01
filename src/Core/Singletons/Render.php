@@ -115,7 +115,7 @@ class Render
      *
      * @return array
      */
-    public function getSkins(): array
+    public static function getSkins(): array
     {
         $path = BASE_FOLDER . self::SKINS_FOLDER;
         if (!is_dir($path)) {

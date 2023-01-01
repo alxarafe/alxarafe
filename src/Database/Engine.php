@@ -26,21 +26,21 @@ abstract class Engine
      *
      * @var string
      */
-    static protected string $dsn;
+    protected static string $dsn;
 
     /**
      * Array that contains the access data to the database.
      *
      * @var array
      */
-    static protected array $dbConfig;
+    protected static array $dbConfig;
 
     /**
      * The handler of the database.
      *
      * @var PDO
      */
-    static protected PDO $dbHandler;
+    protected static PDO $dbHandler;
 
     /**
      * Represents a prepared statement and, after the statement is executed,
@@ -48,21 +48,21 @@ abstract class Engine
      *
      * @var PDOStatement|false
      */
-    static protected $statement;
+    protected static $statement;
 
     /**
      * True if the database engine supports SAVEPOINT in transactions
      *
      * @var bool
      */
-    static protected bool $savePointsSupport = true;
+    protected static bool $savePointsSupport = true;
 
     /**
      * Number of transactions in execution
      *
      * @var int
      */
-    static protected int $transactionDepth = 0;
+    protected static int $transactionDepth = 0;
 
     /**
      * Engine constructor

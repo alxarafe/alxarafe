@@ -12,70 +12,89 @@ use Alxarafe\Core\Singletons\Config;
  * The SqlHelper class provides support for creating SQL queries and commands.
  * The class will have to be extended by completing the particularities of each of them.
  */
+
+/**
+ * Class SqlHelper
+ *
+ * Proporciona soporte para la creación de comandos y consultas SQL.
+ * Esta clase deberá de extenderse para cada controlador de base de datos específico.
+ *
+ * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+ * @version 2023.0101
+ *
+ * @package Alxarafe\Database
+ */
 abstract class SqlHelper
 {
     /**
-     * Character used as quotes to enclose the name of the table
+     * Retorna el carácter que se usa como separador de nombre de tabla en la consulta SQL.
      *
-     * @var string
-     */
-    protected string $tableQuote;
-
-    /**
-     * Character used as quotes to enclose the name of a field
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0101
      *
-     * @var string
+     * @return string
      */
-    protected string $fieldQuote;
+    abstract public static function getTableQuote(): string;
 
     /**
-     * It contains an associative array in which each index is a type of virtual
-     * field, and its content is each of the types it represents.
+     * Retorna el carácter que se usa como separador de nombre de campo en la consulta SQL.
      *
-     * @var array
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0101
+     *
+     * @return string
      */
-    protected array $fieldTypes;
+    abstract public static function getFieldQuote(): string;
 
     /**
-     * SqlHelper constructor.
-     */
-    public function __construct()
-    {
-        $this->tableQuote = '';
-        $this->fieldQuote = '';
-        $this->fieldTypes = [];
-    }
-
-    /**
-     * Returns the name of the table in quotes.
+     * Retorna el nombre de la tabla entre comillas.
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0101
      *
      * @param string $tableName
      *
      * @return string
      */
-    public function quoteTableName(string $tableName): string
+    public static function quoteTableName(string $tableName): string
     {
-        return $this->tableQuote . $tableName . $this->tableQuote;
+        return static::getTableQuote() . $tableName . static::getTableQuote();
     }
 
     /**
-     * Returns the name of the field in quotes.
+     * Retorna el nombre de un campo entre comillas.
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0101
      *
      * @param string $fieldName
      *
      * @return string
      */
-    public function quoteFieldName(string $fieldName): string
+    public static function quoteFieldName(string $fieldName): string
     {
-        return $this->fieldQuote . $fieldName . $this->fieldQuote;
+        return static::getFieldQuote() . $fieldName . static::getFieldQuote();
     }
 
     /**
-     * Returns an array with the name of all the tables in the database.
+     * Retorna un array con los distintos tipos de datos del motor
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0101
      *
      * @return array
      */
-    abstract public function getTables(): array;
+    abstract public function getDataTypes(): array;
+
+    /**
+     * Retorna un array con el nombre de todas las tablas de la base de datos.
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0101
+     *
+     * @return array
+     */
+    abstract public static function getTables(): array;
 
     /**
      * Returns an array with all the columns of a table
@@ -102,7 +121,7 @@ abstract class SqlHelper
     public function getColumns(string $tableName): array
     {
         $query = $this->getColumnsSql($tableName);
-        $data = Config::$dbEngine->select($query);
+        $data = DB::select($query);
         $result = [];
         foreach ($data as $value) {
             $row = $this->normalizeFields($value);
@@ -143,7 +162,7 @@ abstract class SqlHelper
     public function getIndexes(string $tableName): array
     {
         $query = $this->getIndexesSql($tableName);
-        $data = Config::$dbEngine->select($query);
+        $data = DB::select($query);
         $result = [];
         foreach ($data as $value) {
             $row = $this->normalizeIndexes($value);
@@ -170,7 +189,7 @@ abstract class SqlHelper
       public function getConstraints(string $tableName): array
       {
       $query = $this->getConstraintsSql($tableName);
-      $data = Config::$dbEngine->select($query);
+      $data = DB::select($query);
       $result = [];
       foreach ($data as $value) {
       $row = $this->normalizeConstraints($value);

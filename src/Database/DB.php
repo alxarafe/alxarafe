@@ -18,6 +18,8 @@
 
 namespace Alxarafe\Database;
 
+use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Database\SqlHelpers\SqlMySql;
 use PDO;
 
 /**
@@ -38,36 +40,12 @@ class DB
      */
     public static $engine;
 
+    public static $sqlHelper;
+
     public function __construct()
     {
-        if (!isset(self::$engine)) {
-            $config = [
-                'dbName' => constant('FS_DB_NAME'),
-                'dbUser' => constant('FS_DB_USER'),
-                'dbPass' => constant('FS_DB_PASS'),
-                'dbHost' => constant('FS_DB_HOST'),
-                'dbPort' => constant('FS_DB_PORT'),
-                'dbOptions' => [
-                    // PDO::ATTR_EMULATE_PREPARES => false,
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                ],
-            ];
-
-            $engine = constant('FS_DB_TYPE');
-            switch (mb_strtolower($engine)) {
-                case 'mysql':
-                    self::$engine = new MySql($config);
-                    break;
-                case 'mariadb':
-                    self::$engine = new MariaDb($config);
-                    break;
-                case 'postgresql':
-                    self::$engine = new PostgreSql($config);
-                    break;
-                default:
-                    die('Unknown engine: ' . $engine);
-            }
-        }
+        self::$engine = Config::getEngine();
+        self::$sqlHelper = Config::getSqlHelper();
     }
 
     public static function connect()
@@ -83,6 +61,11 @@ class DB
     public static function connected()
     {
         return self::$engine->connected();
+    }
+
+    public static function getDataTypes()
+    {
+        return self::$sqlHelper->getDataTypes();
     }
 
     /**

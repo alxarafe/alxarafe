@@ -21,6 +21,7 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Core\Base\BasicController;
 use Alxarafe\Core\Base\View;
 use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Views\ConfigView;
 use DebugBar\DebugBarException;
 
@@ -38,26 +39,25 @@ class EditConfig extends BasicController
      */
     public function doSave(): bool
     {
-        $config = Config::getInstance();
-        $config->setVar('constants', 'boolean', 'DEBUG', isset($_POST['debug']));
-        $config->setVar('translator', 'main', 'language', $_POST['language'] ?? 'en');
-        $config->setVar('templaterender', 'main', 'skin', $_POST['skin'] ?? 'default');
-        $config->setVar('database', 'main', 'dbEngineName', $_POST['dbEngineName'] ?? '');
-        $config->setVar('database', 'main', 'dbUser', $_POST['dbUser'] ?? '');
-        $config->setVar('database', 'main', 'dbPass', $_POST['dbPass'] ?? '');
-        $config->setVar('database', 'main', 'dbName', $_POST['dbName'] ?? '');
-        $config->setVar('database', 'main', 'dbHost', $_POST['dbHost'] ?? '');
-        $config->setVar('database', 'main', 'dbPort', $_POST['dbPort'] ?? '');
-        $config->setVar('database', 'main', 'dbPrefix', $_POST['dbPrefix'] ?? '');
+        Config::setVar('constants', 'boolean', 'DEBUG', isset($_POST['debug']));
+        Config::setVar('translator', 'main', 'language', $_POST['language'] ?? 'en');
+        Config::setVar('templaterender', 'main', 'skin', $_POST['skin'] ?? 'default');
+        Config::setVar('database', 'main', 'dbEngineName', $_POST['dbEngineName'] ?? '');
+        Config::setVar('database', 'main', 'dbUser', $_POST['dbUser'] ?? '');
+        Config::setVar('database', 'main', 'dbPass', $_POST['dbPass'] ?? '');
+        Config::setVar('database', 'main', 'dbName', $_POST['dbName'] ?? '');
+        Config::setVar('database', 'main', 'dbHost', $_POST['dbHost'] ?? '');
+        Config::setVar('database', 'main', 'dbPort', $_POST['dbPort'] ?? '');
+        Config::setVar('database', 'main', 'dbPrefix', $_POST['dbPrefix'] ?? '');
 
-        $result = $config->connectToDatabase();
+        $result = Config::connectToDatabase();
         if (!$result) {
-            $this->flashMessages->setError('database_not_found', 'next');
+            FlashMessages::setError('database_not_found', 'next');
         }
 
-        $result = $config->saveConfigFile();
+        $result = Config::saveConfigFile();
         if ($result) {
-            $this->flashMessages->setSuccess('saved', 'next');
+            FlashMessages::setSuccess('saved', 'next');
             header('location: ' . self::url('Main', 'EditConfig'));
             die();
         }

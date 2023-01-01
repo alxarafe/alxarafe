@@ -9,26 +9,37 @@ namespace Alxarafe\Database\SqlHelpers;
 use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\DebugTool;
+use Alxarafe\Database\DB;
+use Alxarafe\Database\Schema;
 use Alxarafe\Database\SqlHelper;
 
 /**
- * Personalization of SQL queries to use MySQL.
+ * Clase abstracta para la presonalización de las consultas según el motor utilizado.
  */
 class SqlMySql extends SqlHelper
 {
-    /**
-     * SqlMySql constructor.
-     */
-    public function __construct()
+    public static function getTableQuote(): string
     {
-        $this->tableQuote = '`';
-        $this->fieldQuote = '"';
-        $this->fieldTypes = [
-            'integer' => ['int', 'tinyint'],
-            'string' => ['varchar'],
-            'float' => ['real', 'double'],
-            'date' => ['date'],
-            'datetime' => ['datetime'],
+        return '`';
+    }
+
+    public static function getFieldQuote(): string
+    {
+        return '"';
+    }
+
+    public function getDataTypes(): array
+    {
+        return [
+            Schema::TYPE_INTEGER => ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'],
+            Schema::TYPE_FLOAT => ['real', 'double'],
+            Schema::TYPE_DECIMAL => ['decimal', 'numeric'],
+            Schema::TYPE_STRING => ['char', 'varchar'],
+            Schema::TYPE_TEXT => ['tinytext', 'text', 'mediumtext', 'longtext', 'blob'],
+            Schema::TYPE_DATE => ['date'],
+            Schema::TYPE_TIME => ['time'],
+            Schema::TYPE_DATETIME => ['datetime', 'timestamp'],
+            Schema::TYPE_BOOLEAN => ['boolean'],
         ];
     }
 
@@ -37,10 +48,10 @@ class SqlMySql extends SqlHelper
      *
      * @return array
      */
-    public function getTables(): array
+    public static function getTables(): array
     {
         $query = 'SHOW TABLES';
-        return Utils::flatArray(Config::$dbEngine->select($query));
+        return Utils::flatArray(DB::select($query));
     }
 
     /**
@@ -175,7 +186,7 @@ class SqlMySql extends SqlHelper
     {
         $dbName = Config::getVar('dbName') ?? 'Unknown';
 
-        return Config::$dbEngine->select('
+        return DB::select('
 SELECT
 	TABLE_NAME,
 	COLUMN_NAME,
@@ -207,7 +218,7 @@ WHERE
     {
         $dbName = Config::getVar('dbName') ?? 'Unknown';
 
-        return Config::$dbEngine->select('
+        return DB::selectselect('
 SELECT
 	MATCH_OPTION,
 	UPDATE_RULE,

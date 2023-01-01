@@ -204,10 +204,10 @@ class Translator
      *
      * @return array
      */
-    public function getAvailableLanguages(): array
+    public static function getAvailableLanguages(): array
     {
         $languages = [];
-        $dir = $this->getBaseLangFolder();
+        $dir = static::getBaseLangFolder();
         //        FileSystemUtils::mkdir($dir, 0777, true);
         if (file_exists($dir) && is_dir($dir)) {
             $langFiles = Finder::create()
@@ -218,7 +218,7 @@ class Translator
 
             foreach ($langFiles as $langFile) {
                 $langCode = str_replace(self::EXT, '', $langFile->getRelativePathName());
-                $languages[$langCode] = $this->trans('language-' . $langCode);
+                $languages[$langCode] = static::trans('language-' . $langCode);
             }
         }
         return $languages;

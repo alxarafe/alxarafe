@@ -19,6 +19,7 @@
 namespace Alxarafe\Core\Singletons;
 
 use Alxarafe\Core\Helpers\Auth;
+use Alxarafe\Database\DB;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
 use Exception;
@@ -249,6 +250,7 @@ class Config
                 'dbHost' => self::$global['database'][$db]['dbHost'],
                 'dbPort' => self::$global['database'][$db]['dbPort'],
             ]);
+            new DB();
             return isset(self::$dbEngine) && self::$dbEngine->connect() && self::$dbEngine->checkConnection();
         } catch (Exception $e) {
             Debug::addException($e);
