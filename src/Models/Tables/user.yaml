@@ -1,5 +1,0 @@
-id:
-  type: autoincrement
-name:
-  type: string
-  length: 50

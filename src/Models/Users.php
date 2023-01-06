@@ -33,7 +33,7 @@ class Users extends Table
      */
     public function __construct()
     {
-        parent::__construct('user', ['create' => false]);
+        parent::__construct('user', ['create' => true]);
     }
 
     /**

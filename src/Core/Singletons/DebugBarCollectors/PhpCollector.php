@@ -20,7 +20,7 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @var string
      */
-    protected $name;
+    private static $name;
 
     /**
      * List of messages. Each item includes:
@@ -28,7 +28,7 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @var array
      */
-    protected $messages = [];
+    private static $messages = [];
 
     /**
      * PHPCollector constructor.
@@ -37,7 +37,7 @@ class PhpCollector extends DataCollector implements Renderable
      */
     public function __construct(string $name = 'Error handler')
     {
-        $this->name = $name;
+        self::$name = $name;
         set_error_handler([$this, 'errorHandler'], E_ALL);
     }
 
@@ -62,7 +62,7 @@ class PhpCollector extends DataCollector implements Renderable
      */
     public function getMessages(): array
     {
-        $messages = $this->messages;
+        $messages = self::$messages;
 
         usort($messages, function ($itemA, $itemB) {
             if ($itemA['time'] === $itemB['time']) {
@@ -82,7 +82,7 @@ class PhpCollector extends DataCollector implements Renderable
      */
     public function getWidgets(): array
     {
-        $name = $this->getName();
+        $name = self::$name;
         return [
             $name => [
                 'icon' => 'list',
@@ -104,7 +104,7 @@ class PhpCollector extends DataCollector implements Renderable
      */
     public function getName(): string
     {
-        return $this->name;
+        return self::$name;
     }
 
     /**
@@ -119,8 +119,8 @@ class PhpCollector extends DataCollector implements Renderable
     {
         for ($i = 0; $i < 15; $i++) {
             if ($type = $severity & (2 ** $i)) {
-                $label = $this->friendlyErrorType($type);
-                $this->messages[] = [
+                $label = self::friendlyErrorType($type);
+                self::$messages[] = [
                     'message' => $message . ' (' . $fileName . ':' . $line . ')',
                     'message_html' => null,
                     'is_string' => true,
@@ -140,7 +140,7 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @return string Error name.
      */
-    private function friendlyErrorType($type): string
+    private static function friendlyErrorType(int $type): string
     {
         $errors = [
             E_ERROR => 'ERROR',

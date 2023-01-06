@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Database;
 
+use Alxarafe\Core\Helpers\Dispatcher;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\PhpFileCache;
@@ -55,7 +56,7 @@ class Schema
     public const TYPE_DATETIME = 'datetime';
     public const TYPE_BOOLEAN = 'bool';
 
-    public const YAML_CACHE_TABLES_FOLDER = 'models';
+    public const YAML_CACHE_TABLES_DIR = 'models';
 
     /**
      * Carriage Return and Line Feed
@@ -72,6 +73,20 @@ class Schema
      * @var array
      */
     public static array $bbddStructure;
+
+    public static function checkDatabaseStructure()
+    {
+        // Se obtiene la relación de tablas definidas para la base de datos
+        if (empty(self::$tables)) {
+            Schema::getTables();
+        }
+
+        foreach (self::$tables as $key=>$table) {
+            dump("Verificando la tabla $key, definida en $table.");
+            static::checkTable($key);
+        }
+        die();
+    }
 
     /**
      * Return true if $tableName exists in database
@@ -93,17 +108,44 @@ class Schema
         return $result['Total'] === '1';
     }
 
+    private static function getFieldsAndIndexes($tableName):array
+    {
+        $yamlSourceFilename = self::$tables[$tableName];
+        if (!file_exists($yamlSourceFilename)) {
+            dump('No existe el archivo ' . $yamlSourceFilename);
+        }
+
+        $data = Yaml::parseFile($yamlSourceFilename);
+
+        $result = [];
+        foreach ($data['fields']??[] as $key => $datum) {
+            $datum['key'] = $key;
+            $result['fields'][$key] = Schema::normalize($datum);
+            if ($result['fields'][$key]['type']==='autoincrement') {
+                // TODO: Ver cómo tendría que ser la primary key
+                $result['indexes']['primary'] = $key;
+            }
+        }
+        foreach ($data['indexes']??[] as $key=>$datum) {
+            $datum['key'] = $key;
+            $result['indexes'][$key] = $datum;
+        }
+
+        /*
+        Igual conviene crear una clase:
+        - DBSchema (con los datos de la base de datos real)
+        - DefinedSchema (con los datos definidos)
+        y que Schema cree o adapte según los datos de ambas. Que cada una lleve lo suyo
+
+        Que el resultado se guarde en el yaml y que se encargue de realizar las conversines
+    oportunas siempre que no suponga una pérdida de datos.
+        */
+
+        return $result;
+    }
+
     private static function getFields($tableName): array
     {
-        $yamlFilename = PhpFileCache::getYamlFileName(self::YAML_CACHE_TABLES_FOLDER, $tableName);
-        if (file_exists($yamlFilename)) {
-            return PhpFileCache::loadYamlFile(self::YAML_CACHE_TABLES_FOLDER, $tableName);
-        }
-
-        if (empty(self::$tables)) {
-            self::$tables = YamlSchema::getTables();
-        }
-
         $yamlSourceFilename = self::$tables[$tableName];
         if (!file_exists($yamlSourceFilename)) {
             dump('No existe el archivo ' . $yamlSourceFilename);
@@ -148,20 +190,68 @@ class Schema
         return $result;
     }
 
-    public static function checkStructure(string $tableName, bool $create)
+    private static function checkTable(string $tableName, bool $create=true): array
     {
-        if (!empty(self::$bbddStructure[$tableName])) {
-            return;
-        }
-
-        $structure = [];
-        $structure['fields'] = self::getFields($tableName);
-        $structure['indexes'] = self::getIndexes($tableName);
-        $structure['related'] = self::getRelated($tableName);
+        $structure = self::getFieldsAndIndexes($tableName);
+        //$structure['fields'] = self::getFields($tableName); // Del yaml
+        //$structure['indexes'] = self::getIndexes($tableName); // Del yaml
+        $structure['related'] = self::getRelated($tableName); // ¿De la base de datos, de la integridad referencial?. Igual hay que hacerlo en un 2º paso
         if ($create) {
             $structure['seed'] = self::getSeed($tableName);
         }
-        self::$bbddStructure[$tableName] = $structure;
+        return $structure;
+    }
+
+    /**
+     * Comprueba la estructura de la tabla y la crea si no existe y así se solicita.
+     * Si los datos de la estructura no están en la caché, los regenera y almacena.
+     * Al regenerar los datos para la caché, también realiza una verificación de
+     * la estructura por si hay cambios que aplicar en la misma.
+     *
+     * TODO: Es mejor que haya un checkStructure que genere TODAS las tablas e índices
+     * Ese checkstructure se debe de generar tras limpiar caché.
+     * La caché deberá de limpiarse cada vez que se active o desactive un módulo.
+     * El último paso de la generación de tablas, sería comprobar las dependencias
+     * de tablas para saber cuántas tablas usan una constraint de cada tabla para poder
+     * realizar cambios en la base de datos y tener una visión más nítida de la misma en
+     * cualquier momento, si bien, esa estructura no será clara hasta que no se hayan leído
+     * todas, y si hay un cambio entre medias, pues igual la única solución viable es
+     * determinarlo por la propia base de datos.
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0105
+     *
+     * @param string $tableName
+     * @param bool   $create
+     *
+     * @return bool
+     */
+    public static function checkStructure(string $tableName, bool $create = true): bool
+    {
+        if (empty(self::$tables)) {
+            Schema::getTables();
+        }
+
+        // Si el dato ya ha sido cargado, retornamos porque no hay nada que hacer.
+        if (!empty(self::$bbddStructure[$tableName])) {
+            return true;
+        }
+
+        // Si no está, pero está cacheado, se recupera de la caché y se retorna.
+        self::$bbddStructure[$tableName] = YamlSchema::loadCacheYamlFile(self::YAML_CACHE_TABLES_DIR, $tableName);
+        if (!empty(self::$bbddStructure[$tableName])) {
+            return true;
+        }
+
+        // Si no está cacheado, entonces hay que comprobar si hay cambios en la estructura y regenerarla.
+        self::$bbddStructure[$tableName] = self::checkTable($tableName, $create);
+        dump(self::$bbddStructure);
+
+        if (!YamlSchema::saveCacheYamlFile(self::YAML_CACHE_TABLES_DIR, $tableName, self::$bbddStructure[$tableName])) {
+            Debug::addMessage('No se ha podido guardar la información de caché para la tabla ' . $tableName);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -393,6 +483,11 @@ class Schema
         return $column;
     }
 
+    private static function getTables()
+    {
+        self::$tables = Dispatcher::getFiles('Tables', 'yaml');
+    }
+
     public function compare_columns($table_name, $xml_cols, $db_cols)
     {
         $sql = '';
@@ -508,6 +603,9 @@ class Schema
         if (isset($tabla['values'])) {
             $sql .= self::setValues($tableName, $tabla['values']);
         }
+
+        dump($sql);
+        die('?');
 
         return Engine::exec($sql);
     }

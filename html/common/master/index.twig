@@ -5,7 +5,7 @@
 </head>
 <body{% if view.protectClose %} onBeforeUnload='return iCanClose()'{% endif %}>
 
-{% block menu %}{% include 'master/menu.twig' %}{% endblock %}
+{% block menu %}{% include 'master/login.twig' %}{% endblock %}
 <div class="container-fluid">
     {% block errors %}{% include 'master/errors.twig' %}{% endblock %}
     {% block body %}{% endblock %}

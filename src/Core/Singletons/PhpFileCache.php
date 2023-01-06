@@ -19,35 +19,23 @@
 namespace Alxarafe\Core\Singletons;
 
 use Alxarafe\Core\Utils\Utils;
-use Symfony\Component\Yaml\Yaml;
 
 /**
- * Simple YAML file cache
+ * Simple file cache
  */
 class PhpFileCache
 {
-    /**
-     * Configuration
-     *
-     * @access private
-     */
     private static $config;
-
-    private static $yamlPath;
 
     /**
      * php_file_cache constructor.
      */
     public function __construct()
     {
-        $tmpPath = constant('BASE_FOLDER') . '/tmp/';
         self::$config = [
-            'cache_path' => $tmpPath . 'cache',
+            'cache_path' => constant('TMP_DIR') . 'cache',
             'expires' => 60 * 24 * 365,
         ];
-
-        self::$yamlPath = $tmpPath . 'yamlcache/';
-        Utils::createDir(self::$yamlPath);
         Utils::createDir(self::$config['cache_path']);
     }
 
@@ -164,37 +152,4 @@ class PhpFileCache
         return true;
     }
 
-    public static function clearYamlCache(): bool
-    {
-        return delTree(self::$yamlPath);
-    }
-
-    public static function getYamlFileName(string $folder, string $filename): string
-    {
-        $path = self::$yamlPath . $folder . '/';
-        if (!file_exists($path)) {
-            if (!Utils::createDir($path)) {
-                debug_message('No se ha podido crear la carpeta ' . $path);
-            }
-        }
-        return $path . $filename . '.yaml';;
-    }
-
-    public static function saveYamlFile(string $folder, string $filename, array $content, int $maxLevel = 3): bool
-    {
-        $path = self::getYamlFileName($folder, $filename);
-        return file_put_contents($path, Yaml::dump($content, $maxLevel)) !== false;
-    }
-
-    public static function loadYamlFile(string $folder, string $filename): array
-    {
-        $path = self::getYamlFileName($folder, $filename);
-        if (empty($path) || !file_exists($path) || !is_readable($path)) {
-            return [];
-        }
-        if (!isset($path)) {
-            dump($path);
-        }
-        return Yaml::parseFile($path);
-    }
 }

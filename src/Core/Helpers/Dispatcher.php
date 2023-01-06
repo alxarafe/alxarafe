@@ -27,6 +27,59 @@ class Dispatcher
         new Globals();
     }
 
+    public static function getFolders($folder): array
+    {
+        $modulesFolder = constant('BASE_DIR') . '/Modules/';
+        $folder = trim($folder, '/') . '/';
+
+        $return = [];
+        $return[] = constant('BASE_DIR') . '/src/' . $folder;
+        foreach (scandir($modulesFolder) as $path) {
+            if ($path === '.' || $path === '..') {
+                continue;
+            }
+            $tableFolder = $modulesFolder . $path . '/' . $folder;
+            if (is_dir($tableFolder)) {
+                $return[] = $tableFolder;
+            }
+        }
+        return $return;
+    }
+
+    /**
+     * Busca archivos en las carpetas de los módulos y del núcleo, retornando un array con todos los archivos
+     * encontrados.
+     *
+     * TODO: Hay que resolver los siguientes puntos en cuanto se comience a trabajar con módulos:
+     * - Es posible que un archivo pueda estar repetido, en cuyo caso, habrá que ver cómo solventarlo.
+     * - Es posible que el orden importe, por ejemplo porque un módulo sobreescriba una funcionalidad.
+     *
+     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @version 2023.0105
+     *
+     * @param string $folder
+     * @param string $extension
+     *
+     * @return array
+     */
+    public static function getFiles(string $folder, string $extension): array
+    {
+        if (strpos($extension, '.') !== 0) {
+            $extension = '.' . $extension;
+        }
+        $length = strlen($extension);
+
+        $return = [];
+        foreach (self::getFolders($folder) as $path) {
+            foreach (scandir($path) as $file) {
+                if ($file != '.' && $file != '..' && substr($file, -$length) == $extension) {
+                    $return[substr($file, 0, strlen($file) - $length)] = $path . $file;
+                }
+            }
+        }
+        return $return;
+    }
+
     public function run(): bool
     {
         $module = ucfirst($_GET[Globals::MODULE_GET_VAR] ?? Globals::DEFAULT_MODULE_NAME);
@@ -43,10 +96,10 @@ class Dispatcher
     {
         if ($module === ucfirst(Globals::DEFAULT_MODULE_NAME)) {
             $className = 'Alxarafe\\Controllers\\' . $controller;
-            $filename = constant('BASE_FOLDER') . '/src/Controllers/' . $controller . '.php';
+            $filename = constant('BASE_DIR') . '/src/Controllers/' . $controller . '.php';
         } else {
-            $className = constant('MODULES_FOLDER') . '\\' . $module . '\\Controllers\\' . $controller;
-            $filename = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER') . '/' . $module . '/Controllers/' . $controller . '.php';
+            $className = constant('MODULES_DIR') . '\\' . $module . '\\Controllers\\' . $controller;
+            $filename = constant('BASE_DIR') . '/' . constant('MODULES_DIR') . '/' . $module . '/Controllers/' . $controller . '.php';
         }
         if (file_exists($filename)) {
             Debug::addMessage('messages', "$className exists!");

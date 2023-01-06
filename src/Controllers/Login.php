@@ -36,15 +36,13 @@ class Login extends Controller
 {
     public function doAction(): bool
     {
-        $auth = Auth::getInstance();
         switch ($this->action) {
             case 'login':
-                if (!$auth->setUser($_POST['username'], $_POST['password'])) {
+                if (!Auth::setUser($_POST['username'], $_POST['password'])) {
                     FlashMessages::setError('User authentication error. Please check the username and password.');
                     break;
                 }
-                // TODO: There should be a break here. We use the redirect to test that Dolibarr continues to run.
-                header('Location: ' . BASE_URI . '?x');
+                header('Location: ' . BASE_URI);
                 die();
             default:
                 return parent::doAction();
@@ -57,7 +55,7 @@ class Login extends Controller
      */
     public function setView(): View
     {
-        if (Config::getInstance()->getUsername() !== null) {
+        if (Config::getUsername() !== null) {
             return new IndexView($this);
         }
         return new LoginView($this);

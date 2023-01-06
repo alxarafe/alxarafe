@@ -444,7 +444,7 @@ abstract class View
     {
         $path = $resourceName . '.' . $resourceExtension;
         if ($relative) {
-            if (file_exists(BASE_FOLDER . '/vendor/almasaeed2010/adminlte/' . $path)) {
+            if (file_exists(BASE_DIR . '/vendor/almasaeed2010/adminlte/' . $path)) {
                 return BASE_URI . '/vendor/almasaeed2010/adminlte/' . $path;
             }
             if (file_exists(Render::getTemplatesFolder() . $path)) {
@@ -453,7 +453,7 @@ abstract class View
             if (file_exists(Render::getCommonTemplatesFolder() . $path)) {
                 return Render::getCommonTemplatesUri() . $path;
             }
-            if (file_exists(BASE_FOLDER . $path)) {
+            if (file_exists(BASE_DIR . $path)) {
                 return BASE_URI . $path;
             }
             Debug::addMessage('messages', "Relative resource '$path' not found!");

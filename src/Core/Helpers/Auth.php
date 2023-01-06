@@ -121,24 +121,24 @@ class Auth
      */
     public static function setUser($user, $password): bool
     {
-        $usernameField = 'login';  // Alxarafe use 'username', but Dolibarr use 'login'
-        $passwordField = 'pass_crypted';  // Alxarafe use 'password', but Dolibarr use 'pass_crypted'
-        $encryptMethod = "password_hash"; // Alxarafe use 'md5', but Dolibarr use a function called dol_hash
+        $usernameField = 'username';
+        $passwordField = 'password';
+        $encryptMethod = "md5";
 
-        $tablename=self::$users->tableName;
+        $tablename = self::$users->tableName;
         $_user = Engine::select("SELECT * FROM {$tablename} WHERE $usernameField='$user';");
         if (count($_user) > 0 && password_verify($password, $_user[0][$passwordField])) {
             self::$user = $user;
             setcookie('user', $user);
-            Debug::addMessage('SQL', "$user autenticado");
+            Debug::addMessage('messages', "$user autenticado");
         } else {
             self::$user = null;
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {
-                Debug::addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$passwordField]);
+                Debug::addMessage('messages', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$passwordField]);
             } else {
-                Debug::addMessage('SQL', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
+                Debug::addMessage('messages', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
             }
         }
         return self::$user != null;

@@ -6,11 +6,10 @@
 
 namespace Alxarafe\Core\Singletons\DebugBarCollectors;
 
-use Alxarafe\Core\Providers\Translator;
+use Alxarafe\Core\Singletons\Translator;
 use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
-use function Alxarafe\Core\DebugBarCollectors\count;
 
 /**
  * This class collects the translations
@@ -20,28 +19,26 @@ use function Alxarafe\Core\DebugBarCollectors\count;
 class TranslatorCollector extends DataCollector implements Renderable, AssetProvider
 {
     /**
-     * Translation engine
+     * Nombre de la pestaña
      *
-     * @var Translator
+     * @var string
      */
-    protected static Translator $translator;
+    private static string $name;
 
     /**
      * Array containing the translations
      *
      * @var array
      */
-    protected array $translations;
+    private static array $translations;
 
     /**
      * TranslationCollector constructor.
-     *
-     * @param Translator $translator
      */
-    public function __construct(Translator &$translator)
+    public function __construct(string $name = 'translations')
     {
-        static::$translator = $translator;
-        $this->translations = [];
+        self::$name = $name;
+        self::$translations = [];
     }
 
     /**
@@ -51,7 +48,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      */
     public function getName(): string
     {
-        return 'translations';
+        return self::$name;
     }
 
     /**
@@ -62,16 +59,17 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      */
     public function getWidgets(): array
     {
+        $name = self::$name;
         return [
-            'translations' => [
+            $name => [
                 'icon' => 'language',
-                'tooltip' => 'Translations',
+                                'tooltip' => 'Translations',
                 'widget' => 'PhpDebugBar.Widgets.TranslationsWidget',
-                'map' => 'translations',
+                'map' => "translations",
                 'default' => '[]',
             ],
-            'translations:badge' => [
-                'map' => 'translations.nb_statements',
+            "$name:badge" => [
+                'map' => "$name.nb_statements",
                 'default' => 0,
             ],
         ];
@@ -85,8 +83,8 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
     public function getAssets(): array
     {
         return [
-            'css' => baseUrl('/html/common/css/phpdebugbar.custom-widget.css'),
-            'js' => baseUrl('/html/common/js/phpdebugbar.custom-widget.js'),
+            'css' => BASE_URI . '/html/common/css/phpdebugbar.custom-widget.css',
+            'js' => BASE_URI . '/html/common/js/phpdebugbar.custom-widget.js',
         ];
     }
 
@@ -97,23 +95,23 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      */
     public function collect(): array
     {
-        $this->addTranslations();
-
+        self::addTranslations();
         return [
-            'nb_statements' => count($this->translations),
-            'translations' => $this->translations,
+            'nb_statements' => count(self::$translations),
+            'translations' => self::$translations,
         ];
     }
 
     /**
      * Add a translation key to the collector
      */
-    private function addTranslations()
+    private static function addTranslations()
     {
-        foreach (static::$translator->getMissingStrings() as $key => $value) {
-            $this->translations[] = [
+        foreach (Translator::getMissingStrings() as $key => $value) {
+            self::$translations[] = [
                 'key' => $key,
                 'value' => $value,
+//                'message' => 'Not found ' . $key . ' for local language. Used ' . $value,
             ];
         }
     }

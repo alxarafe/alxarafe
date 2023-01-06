@@ -19,6 +19,7 @@
 namespace Alxarafe\Views;
 
 use Alxarafe\Core\Base\View;
+use Alxarafe\Core\Helpers\Globals;
 use Alxarafe\Core\Singletons\TemplateRender;
 
 /**
@@ -68,6 +69,6 @@ class LoginView extends View
     public function setTemplate(): void
     {
         $this->template = 'login';
-        $this->title = self::APP_NAME . ' - Login';
+        $this->title = Globals::APP_NAME . ' - Login';
     }
 }

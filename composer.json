@@ -75,7 +75,8 @@
   "autoload": {
     "psr-4": {
       "Alxarafe\\": "src/",
-      "Modules\\": "Modules/"
+      "Modules\\": "Modules/",
+      "Test\\": "Test/"
     },
     "files": [
       "src/Core/Utils/Functions.php"

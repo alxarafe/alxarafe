@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Test\Core\Base;
+namespace Test\Core\Base;
 
 use Alxarafe\Models\Controller;
 use PHPUnit\Framework\TestCase;

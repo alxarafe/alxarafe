@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Test\Core\Base;
+namespace Test\Core\Base;
 
 use Alxarafe\Controllers\EditConfig;
 use Alxarafe\Core\Models\User;

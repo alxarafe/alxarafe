@@ -1,0 +1,3 @@
+username;name;password;email;admin;enabled
+admin;Administrador;$2y$10$EnHzsPV7bInLuvG6NOePheXecIw7q04dRMsLJUetM3SW0FZDjnQxq;admin@alxarafe.com;1;1
+user;Usuario;$2y$10$xekBja41Thhnkdn/GLs2seJUU3lHTh4TZBk.ARpORtFfHFq/HppvG;user@alxarafe.com;0;1

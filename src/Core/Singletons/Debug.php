@@ -19,6 +19,8 @@
 namespace Alxarafe\Core\Singletons;
 
 use Alxarafe\Core\Singletons\DebugBarCollectors\PhpCollector;
+use Alxarafe\Core\Singletons\DebugBarCollectors\MonologCollector;
+use Alxarafe\Core\Singletons\DebugBarCollectors\TranslatorCollector;
 use DebugBar\DataCollector\DataCollectorInterface;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBar;
@@ -67,13 +69,11 @@ class Debug
         self::addCollector(new MessagesCollector('SQL'));
         self::addCollector(new PhpCollector());
         self::addCollector(new MessagesCollector('Deprecated'));
-        //        self::addCollector(new MonologCollector(self::$logger->getLogger()));
-
-        //        $translator = Translator::getInstance();
-        //        self::addCollector(new TranslatorCollector($translator));
+        self::addCollector(new MonologCollector(Logger::getLogger()));
+        self::addCollector(new TranslatorCollector());
 
         $baseUrl = VENDOR_URI . '/maximebf/debugbar/src/DebugBar/Resources';
-        self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, constant('BASE_FOLDER'));
+        self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, constant('BASE_DIR'));
 
         $this->stopTimer($shortName);
     }
@@ -161,7 +161,7 @@ class Debug
             return;
         }
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(BASE_FOLDER));
+        $caller['file'] = substr($caller['file'], strlen(BASE_DIR));
         self::$debugBar['exceptions']->addException($exception); // Use addThrowable instead!
         Logger::info('Exception: ' . $exception->getMessage());
     }
@@ -178,7 +178,7 @@ class Debug
             return;
         }
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(BASE_FOLDER));
+        $caller['file'] = substr($caller['file'], strlen(BASE_DIR));
         self::$debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
     }
 }

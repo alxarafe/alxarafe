@@ -10,6 +10,7 @@ use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\Schema;
+use Alxarafe\Database\YamlSchema;
 use DebugBar\DebugBarException;
 
 /**
@@ -35,6 +36,7 @@ abstract class Table
 
     /**
      * It's the name of the table without the database prefix
+     *
      * @var string
      */
     public string $name;
@@ -107,8 +109,9 @@ abstract class Table
         $create = $params['create'] ?? false;
 
         Schema::checkStructure($tableName, $create);
-                // $this->setStructure();
-                $this->checkStructure($create);
+        die('?');
+        // $this->setStructure();
+        // $this->checkStructure($create);
     }
 
     /**

@@ -1,0 +1,8 @@
+<!-- Including login/logout -->
+{% block menu %}
+    {% if empty(user) %}
+        <a href="?module=Main&controller=Login">Login</a>
+    {% else %}
+        {{ user }} <a href="?module=Main&controller=Logout">Logout</a>
+    {% endif %}
+{% endblock %}

@@ -6,13 +6,19 @@
 
 namespace Alxarafe\Core\Helpers;
 
+use Alxarafe\Controllers\EditConfig;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\FlashMessages;
+use Alxarafe\Core\Singletons\Logger;
 use Alxarafe\Core\Singletons\PhpFileCache;
+use Alxarafe\Core\Singletons\RegionalInfo;
 use Alxarafe\Core\Singletons\Render;
 use Alxarafe\Core\Singletons\Session;
 use Alxarafe\Core\Singletons\Translator;
+use Alxarafe\Database\DB;
+use Alxarafe\Database\Schema;
+use Alxarafe\Database\YamlSchema;
 
 /**
  * Class Globals, load all globals utilities.
@@ -65,29 +71,41 @@ class Globals
         define('BASE_URI', SITE_URL . APP_URI);
 
         define('VENDOR_URI', BASE_URI . '/vendor/');
+        define('TMP_DIR', BASE_DIR . '/tmp/');
 
-        define('CONFIGURATION_PATH', BASE_FOLDER . '/config');
+        define('CONFIGURATION_DIR', BASE_DIR . '/config/');
         define('DEFAULT_STRING_LENGTH', 50);
         define('DEFAULT_INTEGER_SIZE', 10);
 
-        define('MODULES_FOLDER', 'Modules');
+        define('MODULES_DIR', 'Modules');
     }
 
     public function __construct()
     {
         self::defineConstants();
 
-        // Se carga la configuración
-        new Config();
-        if (!Config::loadConfig()) {
-            // Si falla la carga de la configuración, es que hay que generar el archivo.
-        }
-
         new Session();
         new FlashMessages();
+        new RegionalInfo();
+        new Logger();
         new Debug();
         new Translator();
         new Render();
         new PhpFileCache();
+
+        new Config();
+        if (!Config::loadConfig() || !Config::connectToDatabase()) {
+            // Si falla la carga de la configuración, es que hay que generar el archivo.
+            $run=new EditConfig();
+            $run->main();
+            die();
+        }
+
+        // TODO: Sólo debería de limpiarse caché al activar y desactivar un plugin, o a demanda.
+        //       Pero en modo de depuración, debería de limpiarse para actualizar los cambios en las tablas.
+        if (!YamlSchema::clearYamlCache()) {
+            die('No se ha podido eliminar la caché');
+        }
+        Schema::checkDatabaseStructure();
     }
 }

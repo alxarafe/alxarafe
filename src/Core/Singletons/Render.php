@@ -37,7 +37,7 @@ class Render
      * The skins folder contains any folder for each skin, which defines the css, js, html files and images that
      * provide a visual aspect to the application.
      */
-    const SKINS_FOLDER = '/html/skins';
+    const SKINS_DIR = '/html/skins';
 
     /**
      * The common folder basically contains the html and js files that provide the operation of the page, they
@@ -45,7 +45,7 @@ class Render
      *
      * The system search any file in the skin, and if it not exists, search it in common.
      */
-    const COMMON_FOLDER = '/html/common';
+    const COMMON_DIR = '/html/common';
 
     /**
      * It is the name of the template that is being used.
@@ -53,8 +53,8 @@ class Render
      * The template is the name of the file to load. It will be searched first in the skin, and if it is not
      * found, then in common.
      *
-     * First, search SKIN_FOLDER + $currentSkin + $currentTemplate
-     * If not found, seach in COMMON_FOLDER + $currentTemplate
+     * First, search SKIN_DIR + $currentSkin + $currentTemplate
+     * If not found, seach in COMMON_DIR + $currentTemplate
      *
      * @var string
      */
@@ -63,7 +63,7 @@ class Render
     /**
      * It is the name of the skin that is being used.
      *
-     * The files are searched first in SKIN_FOLDER + $currentSkin
+     * The files are searched first in SKIN_DIR + $currentSkin
      *
      * @var string
      */
@@ -117,7 +117,7 @@ class Render
      */
     public static function getSkins(): array
     {
-        $path = BASE_FOLDER . self::SKINS_FOLDER;
+        $path = BASE_DIR . self::SKINS_DIR;
         if (!is_dir($path)) {
             FlashMessages::setError("Directory '$path' does not exists!");
             return [];
@@ -151,7 +151,7 @@ class Render
      */
     public static function setTemplatesFolder(string $template)
     {
-        self::$templatesFolder = self::SKINS_FOLDER . ('/' . trim($template, '/'));
+        self::$templatesFolder = self::SKINS_DIR . ('/' . trim($template, '/'));
         Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
     }
 
@@ -210,7 +210,7 @@ class Render
         //                $loader = new Twig_Loader_Filesystem($usePath);
         $loader = new FilesystemLoader($usePath);
         // TODO: Would not it be better to use a random constant instead of twig.Twig?
-        $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => (BASE_FOLDER ?? '') . '/tmp/twig.Twig'];
+        $options = defined('DEBUG') && DEBUG ? ['debug' => true] : ['cache' => (BASE_DIR ?? '') . '/tmp/twig.Twig'];
 
         //                $twig = new Twig_Environment($loader, $options);
         $twig = new Environment($loader, $options);
@@ -239,11 +239,11 @@ class Render
         // Only use really existing path
         $usePath = [];
         $paths = [
-            BASE_FOLDER . self::SKINS_FOLDER,
+            BASE_DIR . self::SKINS_DIR,
             self::getTemplatesFolder(),
             self::getCommonTemplatesFolder(),
-            //            DEFAULT_TEMPLATES_FOLDER,
-            //            ALXARAFE_TEMPLATES_FOLDER,
+            //            DEFAULT_TEMPLATES_DIR,
+            //            ALXARAFE_TEMPLATES_DIR,
         ];
         foreach ($paths as $path) {
             if (file_exists($path)) {
@@ -260,7 +260,7 @@ class Render
      */
     public static function getTemplatesFolder(): string
     {
-        return constant('BASE_FOLDER') . self::$templatesFolder;
+        return constant('BASE_DIR') . self::$templatesFolder;
     }
 
     /**
@@ -270,7 +270,7 @@ class Render
      */
     public static function getCommonTemplatesFolder(): string
     {
-        return BASE_FOLDER . self::COMMON_FOLDER;
+        return BASE_DIR . self::COMMON_DIR;
     }
 
     /**
@@ -308,11 +308,11 @@ class Render
         if (file_exists($this->getCommonTemplatesFolder())) {
             $usePath[] = ['path' => $this->getCommonTemplatesFolder(), 'uri' => $this->getCommonTemplatesUri()];
         }
-        //        if (file_exists(DEFAULT_TEMPLATES_FOLDER)) {
-        //            $usePath[] = ['path' => DEFAULT_TEMPLATES_FOLDER, 'uri' => DEFAULT_TEMPLATES_URI];
+        //        if (file_exists(DEFAULT_TEMPLATES_DIR)) {
+        //            $usePath[] = ['path' => DEFAULT_TEMPLATES_DIR, 'uri' => DEFAULT_TEMPLATES_URI];
         //        }
-        //        if (file_exists(ALXARAFE_TEMPLATES_FOLDER)) {
-        //            $usePath[] = ['path' => ALXARAFE_TEMPLATES_FOLDER, 'uri' => ALXARAFE_TEMPLATES_URI];
+        //        if (file_exists(ALXARAFE_TEMPLATES_DIR)) {
+        //            $usePath[] = ['path' => ALXARAFE_TEMPLATES_DIR, 'uri' => ALXARAFE_TEMPLATES_URI];
         //        }
         return $usePath;
     }
@@ -336,6 +336,6 @@ class Render
      */
     public function getCommonTemplatesUri(): string
     {
-        return BASE_URI . self::COMMON_FOLDER;
+        return BASE_URI . self::COMMON_DIR;
     }
 }

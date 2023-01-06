@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Helpers\Auth;
 use Alxarafe\Core\Helpers\Globals;
 use Alxarafe\Core\Singletons\Config;
 use DebugBar\DebugBarException;
@@ -41,25 +42,20 @@ abstract class BasicController
     public bool $hasMenu = false;
 
     /**
-     * Indicates whether to use menu or not
-     *
-     * @var bool
-     */
-    //protected bool $configExists;
-
-    /**
      * Controller constructor.
      *
      * @throws DebugBarException
      */
     public function __construct()
     {
-// parent::__construct();
+        // parent::__construct();
 
         $this->protectedClose = false;
         if (!$this->preLoad()) {
             trigger_error('preLoad fails!');
         }
+
+        new Auth();
     }
 
     /**
@@ -70,7 +66,7 @@ abstract class BasicController
      */
     public function preLoad(): bool
     {
-//        $this->configExists = Config::loadConfig();
+        //        $this->configExists = Config::loadConfig();
         $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
         return true;
     }

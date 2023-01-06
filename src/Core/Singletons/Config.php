@@ -123,6 +123,9 @@ class Config
     {
         if (!isset(self::$global)) {
             self::$global = self::loadConfigurationFile();
+            if (empty(self::$global)) {
+                return false;
+            }
         }
 
         self::defineConstants();
@@ -130,7 +133,7 @@ class Config
                 TODO: Esto igual debe de instanciarse en Render.
 
                 if (isset(self::$global['templaterender']['main']['skin'])) {
-                    $templatesFolder = BASE_FOLDER . Render::SKINS_FOLDER;
+                    $templatesFolder = BASE_DIR . Render::SKINS_DIR;
                     $skinFolder = $templatesFolder . '/' . self::$global['templaterender']['main']['skin'];
                     if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
                         FlashMessages::setError("Skin folder '$skinFolder' does not exists!");
@@ -184,7 +187,7 @@ class Config
      * Returns the name of the configuration file. By default, create the config
      * folder and enter the config.yaml file inside it.
      * If you want to use another folder for the configuration, you will have to
-     * define it in the constant CONFIGURATION_PATH before invoking this method,
+     * define it in the constant CONFIGURATION_DIR before invoking this method,
      * this folder must exist.
      *
      * @return string|null
@@ -194,8 +197,9 @@ class Config
         if (isset(self::$configFilename)) {
             return self::$configFilename;
         }
-        $filename = CONFIGURATION_PATH . '/config.yaml';
-        if (file_exists($filename) || is_dir(CONFIGURATION_PATH) || mkdir(CONFIGURATION_PATH, 0777, true)) {
+        $filename = constant('CONFIGURATION_DIR') . 'config.yaml';
+        if (
+            file_exists($filename) || is_dir(constant('CONFIGURATION_DIR')) || mkdir(constant('CONFIGURATION_DIR'), 0777, true)) {
             self::$configFilename = $filename;
         }
         return self::$configFilename;

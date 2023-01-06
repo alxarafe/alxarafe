@@ -188,12 +188,11 @@ class Session
      * @param string $key
      * @param mixed  $value
      *
-     * @return $this
+     * @return void
      */
-    public static function setFlashNow(string $key, $value): self
+    public static function setFlashNow(string $key, $value)
     {
         self::getSegment()->setFlashNow($key, $value);
-        return self();
     }
 
     /**

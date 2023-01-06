@@ -81,7 +81,7 @@ abstract class Engine
      */
     public static function getEngines(): array
     {
-        $path = constant('BASE_FOLDER') . '/src/Database/Engines';
+        $path = constant('BASE_DIR') . '/src/Database/Engines';
         $engines = scandir($path);
         $ret = [];
         foreach ($engines as $engine) {

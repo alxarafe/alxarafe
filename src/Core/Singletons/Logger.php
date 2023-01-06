@@ -6,8 +6,6 @@
 
 namespace Alxarafe\Core\Singletons;
 
-use Alxarafe\Core\Base\Singleton;
-use Alxarafe\Core\Providers\RegionalInfo;
 use DateTimeZone;
 use Exception;
 use Monolog\Handler\FirePHPHandler;
@@ -36,10 +34,11 @@ class Logger
         self::$logger = new MonologLogger('core_logger');
         set_exception_handler([$this, 'exceptionHandler']);
         try {
-            // Maybe is needed a different timezone, at this moment sets the same.
-            $timeZone = RegionalInfo::getInstance()->getConfig()['timezone'];
-            self::$logger->setTimezone(new DateTimeZone($timeZone));
-            self::$logger->pushHandler(new StreamHandler(basePath(DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'core.log'), MonologLogger::DEBUG));
+            $timeZone = RegionalInfo::$config['timezone'];
+            self::$logger->setTimezone(
+                new DateTimeZone($timeZone)
+            );
+            self::$logger->pushHandler(new StreamHandler(CONFIGURATION_DIR . '/core.log', MonologLogger::DEBUG));
         } catch (Exception $e) {
             dump($e);
         }
@@ -53,7 +52,7 @@ class Logger
      */
     public static function exceptionHandler($e): void
     {
-        FlashMessages::getInstance()::setError($e->getMessage());
+        FlashMessages::setError($e->getMessage());
         dump($e);
         self::$logger->error(
             'Exception [' . $e->getCode() . ']: ' . $e->getMessage() . PHP_EOL

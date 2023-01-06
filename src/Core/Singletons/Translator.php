@@ -27,7 +27,7 @@ class Translator
     /**
      * Base folder where languages files are stored.
      */
-    public const LANG_FOLDER = DIRECTORY_SEPARATOR . 'Languages';
+    public const LANG_DIR = DIRECTORY_SEPARATOR . 'Languages';
 
     /**
      * Default language to use.
@@ -86,7 +86,7 @@ class Translator
     {
         $config = Config::loadConfigurationFile()['translator']['main'] ?? 'en';
 
-        self::$languageFolder = constant('BASE_FOLDER') . '/src' . self::LANG_FOLDER;
+        self::$languageFolder = constant('BASE_DIR') . '/src' . self::LANG_DIR;
         self::$translator = new SymfonyTranslator($config['language'] ?? self::FALLBACK_LANG);
         self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
         self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
@@ -134,11 +134,11 @@ class Translator
      */
     public static function getLangFolders(): array
     {
-        $modulePath = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER');
+        $modulePath = constant('BASE_DIR') . '/' . constant('MODULES_DIR');
         $dirs = [];
         $dirs[] = self::getBaseLangFolder();
         foreach (scandir($modulePath) as $dir) {
-            $path = constant('BASE_FOLDER') . '/' . constant('MODULES_FOLDER') . '/' . $dir . self::LANG_FOLDER;
+            $path = constant('BASE_DIR') . '/' . constant('MODULES_DIR') . '/' . $dir . self::LANG_DIR;
             // TODO: Sólo habría que incorporar los módulos activos.
             if (in_array($dir, ['.', '..']) || !is_dir($path)) {
                 continue;
@@ -176,7 +176,7 @@ class Translator
     public static function addDirs(array $folders = [])
     {
         foreach ($folders as $key => $folder) {
-            $fullFolder = $folder . self::LANG_FOLDER;
+            $fullFolder = $folder . self::LANG_DIR;
             //            FileSystemUtils::mkdir($folders[$key], 0777, true);
             if (file_exists($fullFolder) && is_dir($fullFolder)) {
                 $folders[$key] = $fullFolder;
@@ -286,7 +286,7 @@ class Translator
      *
      * @return array
      */
-    public function getMissingStrings(): array
+    public static function getMissingStrings(): array
     {
         return self::$missingStrings;
     }

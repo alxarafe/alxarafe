@@ -19,9 +19,9 @@
 use Alxarafe\Core\Helpers\Dispatcher;
 use Alxarafe\Core\Singletons\Translator;
 
-const BASE_FOLDER = __DIR__;
+const BASE_DIR = __DIR__;
 
-$autoload_file = constant('BASE_FOLDER') . '/vendor/autoload.php';
+$autoload_file = constant('BASE_DIR') . '/vendor/autoload.php';
 if (!file_exists($autoload_file)) {
     die('<h1>COMPOSER ERROR</h1><p>You need to run: "composer install"</p>');
 }

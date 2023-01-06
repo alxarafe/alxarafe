@@ -69,7 +69,7 @@ abstract class Controller extends BasicController
 
         // TODO: This will have to be assigned in a yaml file, when activating and deactivating modules.
 //        Translator::addDirs([
-//            constant('BASE_FOLDER'),
+//            constant('BASE_DIR'),
 //        ]);
 
         return true;
