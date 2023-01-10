@@ -139,19 +139,6 @@ abstract class SqlHelper
      */
     abstract public static function normalizeDbField(array $row): array;
 
-    /**
-     * Recibiendo un array con los datos de un campo tal y como están en el yaml de
-     * definición, devuelve la información normalizada para ser utilizada por Schema.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2023.0108
-     *
-     * @param array $row
-     *
-     * @return array
-     */
-    abstract public static function normalizeYamlField(array $row): array;
-
     abstract public static function yamlFieldToDb(array $data):array;
     abstract public static function yamlFieldToSchema(array $data):array;
     abstract public static function dbFieldToSchema(array $data):array;
