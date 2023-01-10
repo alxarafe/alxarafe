@@ -6,11 +6,10 @@
 
 namespace Alxarafe\Core\Base;
 
-use Alxarafe\Core\Helpers\Utils;
 use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Database\DB;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\Schema;
-use Alxarafe\Database\YamlSchema;
 use DebugBar\DebugBarException;
 
 /**
@@ -106,12 +105,6 @@ abstract class Table
         $this->tableName = Engine::getTablename($tableName);
         $this->idField = $params['idField'] ?? 'id';
         $this->nameField = $params['nameField'] ?? 'name';
-        $create = $params['create'] ?? false;
-
-        Schema::checkStructure($tableName, $create);
-        die('?');
-        // $this->setStructure();
-        // $this->checkStructure($create);
     }
 
     /**
@@ -123,15 +116,15 @@ abstract class Table
      * @param bool $create
      *
      * @throws DebugBarException
-     */
     public function checkStructure(bool $create = false)
     {
         if (isset(Schema::$bbddStructure[$this->name])) {
-            if ($create && !Schema::tableExists($this->name)) {
+            if ($create && !DB::tableExists($this->name)) {
                 Schema::createTable($this->name);
             }
         }
     }
+     */
 
     /**
      * Execute a magic method of the setField or getField style

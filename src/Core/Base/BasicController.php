@@ -6,45 +6,53 @@
 
 namespace Alxarafe\Core\Base;
 
-use Alxarafe\Core\Helpers\Auth;
 use Alxarafe\Core\Helpers\Globals;
-use Alxarafe\Core\Singletons\Config;
-use DebugBar\DebugBarException;
 
 /**
- * Class Controller
+ * Class BasicController
  *
- * The controller is who responds to the various events.
+ * Define el controlador básico.
+ * No requiere uso de base de datos ni de autenticación.
+ *
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
+ * @version 2023.0108
  *
  * @package Alxarafe\Core\Base
  */
 abstract class BasicController
 {
     /**
-     * Indicates whether the closing of the browser is protected
-     * against accidental exit or closing
+     * Indica si hay que proteger la edición de la salida o cierre accidental del navegador.
+     * Si true, se necesita pulsar el botón aceptar o cancelar, o confirmar el cierre.
      *
      * @var bool
      */
     public bool $protectedClose;
 
     /**
-     * Contains the action to execute or null if there is no action
+     * Contiene la acción a ejecutar por el controlador o null, si no hay acción.
      *
      * @var string|null
      */
     public ?string $action;
+
     /**
-     * A BasicController does not have menu.
+     * Indica si hay o no menú que mostrar.
+     * Los controladores básicos no usan menú.
      *
      * @var bool
      */
     public bool $hasMenu = false;
 
     /**
-     * Controller constructor.
+     * Contiene una instancia de la clase View o nulo si no ha sido asignada.
      *
-     * @throws DebugBarException
+     * @var View
+     */
+    public View $view;
+
+    /**
+     * BasicController constructor
      */
     public function __construct()
     {
@@ -54,25 +62,25 @@ abstract class BasicController
         if (!$this->preLoad()) {
             trigger_error('preLoad fails!');
         }
-
-        new Auth();
     }
 
     /**
-     * Initialization of variables required for all controllers
+     * Realiza la carga inicial de variables del controlador.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @return bool
-     * @throws DebugBarException
      */
     public function preLoad(): bool
     {
-        //        $this->configExists = Config::loadConfig();
-        $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
+        $this->action = filter_input(INPUT_POST, 'action');
         return true;
     }
 
     /**
-     * Returns an url to access to any controller of a specific module
+     * Forma la ruta para recargar usando el mismo módulo y controlador, ignorando
+     * el resto de variables GET.
      *
      * @param string $module
      * @param string $controller
@@ -85,7 +93,13 @@ abstract class BasicController
     }
 
     /**
-     * Main is the entry point (execution) of the controller.
+     * Punto de entrada del controlador.
+     * El dispatcher:
+     * - En primer lugar instancia (carga el controlador y se ejecuta el __construct)
+     * - Y a continuación, lanza el método indicado, por defecto es main()
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @return bool
      */
@@ -100,7 +114,10 @@ abstract class BasicController
     }
 
     /**
-     * Executes any action
+     * Ejecuta una acción
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @return bool
      */
@@ -119,7 +136,12 @@ abstract class BasicController
     }
 
     /**
-     * Execute the Save action (overwrite it, if necessary!)
+     * Guarda los cambios. Por defecto no hace nada, hay que sobreescribirlo.
+     * TODO: Analizar si puede convenir que sea un método abstracto.
+     *       Podría ser un método abstracto, pero es posible que no sea necesario.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @return bool
      */
@@ -129,9 +151,11 @@ abstract class BasicController
     }
 
     /**
-     * Exit to the main route
+     * Regresa a la pantalla principal.
      *
-     * @return void
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
      */
     public function doExit(): void
     {
@@ -140,7 +164,12 @@ abstract class BasicController
     }
 
     /**
-     * Return an instance to the corresponding View class
+     * Retorna una instancia de la vista.
+     * TODO: Analizar si es necesario tener las vistas por separado o si es preferible
+     *       definir todos los métodos en el controlador para simplificar.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @return View
      */

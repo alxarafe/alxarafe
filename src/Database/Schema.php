@@ -18,15 +18,12 @@
 
 namespace Alxarafe\Database;
 
-use Alxarafe\Core\Helpers\Dispatcher;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
-use Alxarafe\Core\Singletons\PhpFileCache;
+use Alxarafe\Core\Singletons\FlashMessages;
+use Alxarafe\Core\Singletons\Translator;
 use DebugBar\DebugBarException;
 use Symfony\Component\Yaml\Yaml;
-use function Alxarafe\Core\Helpers\count;
-use const Alxarafe\Core\Helpers\DEFAULT_INTEGER_SIZE;
-use const Alxarafe\Core\Helpers\DEFAULT_STRING_LENGTH;
 
 /**
  * Class Schema
@@ -35,40 +32,70 @@ use const Alxarafe\Core\Helpers\DEFAULT_STRING_LENGTH;
  * se traduce la base de datos real y viceversa, de manera que el código sea
  * en la medida de lo posible, no dependiente de la base de datos real.
  *
- * Lo dependiente de la base de datos está en DBSchema.
- *
  * TODO: ¿La información cacheada se procesa en YamlSchema o no merece la pena?
  *
- * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
  * @version 2023.0101
  *
  * @package Alxarafe\Database
  */
 class Schema
 {
+    /**
+     * Tipo entero. Número sin decimales.
+     */
     public const TYPE_INTEGER = 'integer';
+
+    /**
+     * Tipo real o coma flotante. Número con decimales. Puede dar problema con redondeos.
+     */
     public const TYPE_FLOAT = 'float';
+
+    /**
+     * Tipo numérico de coma fija. Número con N decimales y precisión absoluta.
+     * Es igual que un integer, pero se asume que un número determinado de dígitos son decimales.
+     */
     public const TYPE_DECIMAL = 'decimal';
+
+    /**
+     * Tipo cadena de texto
+     */
     public const TYPE_STRING = 'string';
+
+    /**
+     * Tipo bloque de texto
+     */
     public const TYPE_TEXT = 'text';
+
+    /**
+     * Tipo fecha
+     */
     public const TYPE_DATE = 'date';
+
+    /**
+     * Tipo hora
+     */
     public const TYPE_TIME = 'time';
+
+    /**
+     * Tipo fecha + hora.
+     * TODO: Hay que revisar el tema de la zona horaria.
+     *       De lógica, siempre se debe de almacenar como UTC y convertir al guardar y leer.
+     */
     public const TYPE_DATETIME = 'datetime';
+
+    /**
+     * Tipo lógico: TRUE o FALSE.
+     */
     public const TYPE_BOOLEAN = 'bool';
 
-    public const YAML_CACHE_TABLES_DIR = 'models';
-
     /**
-     * Carriage Return and Line Feed
+     * Retorno de carro y salto de línea
      */
     const CRLF = "\r\n";
-    const DB_INDEX_TYPE = 'bigint (20) unsigned';
-
-    public static array $tables = [];
 
     /**
-     * Contains the database structure data.
-     * Each table is an index of the associative array.
+     * Contiene la definición ampliada de la estructura de la base de datos.
      *
      * @var array
      */
@@ -76,16 +103,15 @@ class Schema
 
     public static function checkDatabaseStructure()
     {
-        // Se obtiene la relación de tablas definidas para la base de datos
-        if (empty(self::$tables)) {
-            Schema::getTables();
-        }
-
-        foreach (self::$tables as $key=>$table) {
+        foreach (YamlSchema::getTables() as $key => $table) {
+            if (!file_exists($table)) {
+                Debug::message('No existe la tabla ' . $table);
+            }
             dump("Verificando la tabla $key, definida en $table.");
-            static::checkTable($key);
+            if (!static::checkStructure($key, $table)) {
+                FlashMessages::setError('Error al comprobar la estructura de la tabla ' . $table);
+            }
         }
-        die();
     }
 
     /**
@@ -108,25 +134,23 @@ class Schema
         return $result['Total'] === '1';
     }
 
-    private static function getFieldsAndIndexes($tableName):array
+    private static function getFieldsAndIndexes($tableName, $path): array
     {
-        $yamlSourceFilename = self::$tables[$tableName];
-        if (!file_exists($yamlSourceFilename)) {
-            dump('No existe el archivo ' . $yamlSourceFilename);
-        }
+        $data = Yaml::parseFile($path);
 
-        $data = Yaml::parseFile($yamlSourceFilename);
+        dump([$path => $data]);
 
         $result = [];
-        foreach ($data['fields']??[] as $key => $datum) {
+        foreach ($data['fields'] ?? [] as $key => $datum) {
             $datum['key'] = $key;
-            $result['fields'][$key] = Schema::normalize($datum);
-            if ($result['fields'][$key]['type']==='autoincrement') {
+            $result['fields'][$key]['db'] = DB::normalizeFromYaml($datum);
+            $result['fields'][$key]['info'] = Schema::normalize($datum);
+            if ($result['fields'][$key]['type'] === 'autoincrement') {
                 // TODO: Ver cómo tendría que ser la primary key
                 $result['indexes']['primary'] = $key;
             }
         }
-        foreach ($data['indexes']??[] as $key=>$datum) {
+        foreach ($data['indexes'] ?? [] as $key => $datum) {
             $datum['key'] = $key;
             $result['indexes'][$key] = $datum;
         }
@@ -190,16 +214,25 @@ class Schema
         return $result;
     }
 
-    private static function checkTable(string $tableName, bool $create=true): array
+    private static function checkTable(string $tableName, string $path, bool $create = true): array
     {
-        $structure = self::getFieldsAndIndexes($tableName);
-        //$structure['fields'] = self::getFields($tableName); // Del yaml
-        //$structure['indexes'] = self::getIndexes($tableName); // Del yaml
-        $structure['related'] = self::getRelated($tableName); // ¿De la base de datos, de la integridad referencial?. Igual hay que hacerlo en un 2º paso
-        if ($create) {
-            $structure['seed'] = self::getSeed($tableName);
+        $yaml = Yaml::parseFile($path);
+        $fields = $yaml['fields'] ?? [];
+
+        $data = [];
+        foreach ($fields as $key => $field) {
+            $field['key'] = $key;
+            $schema = DB::yamlFieldToSchema($field);
+            $data[$key]['db'] = DB::yamlFieldToDb($schema);
+            $data[$key]['schema'] = $schema;
         }
-        return $structure;
+
+        $indexes = $yaml['indexes'] ?? [];
+
+        return [
+            'fields' => $data,
+            'indexes' => $indexes,
+        ];
     }
 
     /**
@@ -218,7 +251,7 @@ class Schema
      * todas, y si hay un cambio entre medias, pues igual la única solución viable es
      * determinarlo por la propia base de datos.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0105
      *
      * @param string $tableName
@@ -226,29 +259,42 @@ class Schema
      *
      * @return bool
      */
-    public static function checkStructure(string $tableName, bool $create = true): bool
+    private static function checkStructure(string $tableName, string $path, bool $create = true): bool
     {
-        if (empty(self::$tables)) {
-            Schema::getTables();
-        }
-
         // Si el dato ya ha sido cargado, retornamos porque no hay nada que hacer.
         if (!empty(self::$bbddStructure[$tableName])) {
             return true;
         }
 
         // Si no está, pero está cacheado, se recupera de la caché y se retorna.
-        self::$bbddStructure[$tableName] = YamlSchema::loadCacheYamlFile(self::YAML_CACHE_TABLES_DIR, $tableName);
+        self::$bbddStructure[$tableName] = YamlSchema::loadCacheYamlFile(YamlSchema::YAML_CACHE_TABLES_DIR, $tableName);
         if (!empty(self::$bbddStructure[$tableName])) {
             return true;
         }
 
         // Si no está cacheado, entonces hay que comprobar si hay cambios en la estructura y regenerarla.
-        self::$bbddStructure[$tableName] = self::checkTable($tableName, $create);
+        self::$bbddStructure[$tableName] = self::checkTable($tableName, $path, $create);
+
         dump(self::$bbddStructure);
 
-        if (!YamlSchema::saveCacheYamlFile(self::YAML_CACHE_TABLES_DIR, $tableName, self::$bbddStructure[$tableName])) {
-            Debug::addMessage('No se ha podido guardar la información de caché para la tabla ' . $tableName);
+        if (DB::tableExists($tableName)) {
+            dump('La tabla ' . $tableName . ' existe');
+            if (!self::updateTable($tableName)) {
+                dump(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
+                FlashMessages::setError(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
+            }
+        } else {
+            dump('La tabla ' . $tableName . ' NO existe');
+            if (!self::createTable($tableName)) {
+                dump(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
+                FlashMessages::setError(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
+            }
+        }
+
+        die('Por aquí vamos ahora...');
+
+        if (!YamlSchema::saveCacheYamlFile(YamlSchema::YAML_CACHE_TABLES_DIR, $tableName, self::$bbddStructure[$tableName])) {
+            Debug::message('No se ha podido guardar la información de caché para la tabla ' . $tableName);
             return false;
         }
         return true;
@@ -257,7 +303,7 @@ class Schema
     /**
      * Obtiene el tipo genérico del tipo de dato que se le ha pasado.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0101
      *
      * @param string $type
@@ -271,7 +317,7 @@ class Schema
                 return $index;
             }
         }
-        Debug::addMessage('messages', $type . ' not found in DBSchema::getTypeOf()');
+        Debug::message($type . ' not found in DBSchema::getTypeOf()');
         return 'text';
     }
 
@@ -290,7 +336,7 @@ class Schema
         $modifiedType = (str_replace($replacesSources, $replacesDestination, $originalType));
 
         if ($originalType !== $modifiedType) {
-            Debug::addMessage('messages', "XML: Uso de '{$originalType}' en lugar de '{$modifiedType}'.");
+            Debug::message("XML: Uso de '{$originalType}' en lugar de '{$modifiedType}'.");
         }
         $explode = explode(' ', strtolower($modifiedType));
 
@@ -317,7 +363,41 @@ class Schema
     /**
      * Toma los datos del fichero de definición de una tabla y genera el definitivo.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * TODO: Tiene que recopilar la estructura tal y como la tiene que retornar la base de datos.
+     *       Se le pasan los datos de definición a SqlHelper para que retorne la estructura física final.
+     *       Se generan datos comunes a cualquier base de datos para poder trabajar con comodidad.
+     *
+     * Si tomamos como ejemplo MySQL, se invocará a SqlMySql para que retorne algo parecido a ésto:
+     *
+     *   "database" => array:7 [▼
+     *     "field" => "id"
+     *     "type" => "bigint"
+     *     "length" => 20
+     *     "default" => null
+     *     "nullable" => "YES"
+     *     "primary" => ""
+     *     "autoincrement" => 1
+     *   ]
+     *
+     * En SqlMySql existe un normalize que convierte la respuesta a ese aspecto.
+     *
+     *   "logical" => array:9 [▼
+     *     "key" => "id"
+     *     "type" => "autoincrement"
+     *     "dbtype" => "bigint (20) unsigned"
+     *     "realtype" => "bigint"
+     *     "generictype" => "integer"
+     *     "null" => "YES"
+     *     "default" => null
+     *     "min" => 0
+     *     "max" => 1.844674407371E+19
+     *   ]
+     *
+     * Porque con esa estructura será mucho más facil crear el campo o compararlo con el de la base de datos.
+     *
+     * Aparte, se necesitará información adicional, que será común a todas las bases de datos:
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2022.1224
      *
      * @param array $structure
@@ -461,7 +541,7 @@ class Schema
                     if ($minXmlLength > $minDataLength) {
                         $min = $minXmlLength;
                     } else {
-                        Debug::addMessage('messages', "({$key}): Se ha especificado un min {$minXmlLength} en el XML, pero por el tipo de datos, el mínimo es {$minDataLength}.");
+                        Debug::message("({$key}): Se ha especificado un min {$minXmlLength} en el XML, pero por el tipo de datos, el mínimo es {$minDataLength}.");
                     }
                 }
                 if (isset($structure['max'])) {
@@ -469,7 +549,7 @@ class Schema
                     if ($maxXmlLength < $maxDataLength) {
                         $max = $maxXmlLength;
                     } else {
-                        Debug::addMessage('messages', "({$key}): Se ha especificado un min {$maxXmlLength} en el XML, pero por el tipo de datos, el máximo es {$maxDataLength}.");
+                        Debug::message("({$key}): Se ha especificado un min {$maxXmlLength} en el XML, pero por el tipo de datos, el máximo es {$maxDataLength}.");
                     }
                 }
 
@@ -481,11 +561,6 @@ class Schema
         }
 
         return $column;
-    }
-
-    private static function getTables()
-    {
-        self::$tables = Dispatcher::getFiles('Tables', 'yaml');
     }
 
     public function compare_columns($table_name, $xml_cols, $db_cols)
@@ -592,7 +667,7 @@ class Schema
      * @throws DebugBarException
      */
 
-    public static function createTable(string $tableName): bool
+    private static function createTable(string $tableName): bool
     {
         $tabla = self::$bbddStructure[$tableName];
         $sql = self::createFields($tableName, $tabla['fields']);
@@ -600,12 +675,52 @@ class Schema
         foreach ($tabla['keys'] as $name => $index) {
             $sql .= self::createIndex($tableName, $name, $index);
         }
+        // TODO: values no existe, hay que cargar los datos de seeds.
         if (isset($tabla['values'])) {
             $sql .= self::setValues($tableName, $tabla['values']);
         }
 
-        dump($sql);
-        die('?');
+        return Engine::exec($sql);
+    }
+
+    private static function updateField(string $tableName, string $fieldName, array $structure): string
+    {
+        dump([
+            'tablename' => $tableName,
+            'fieldname' => $fieldName,
+            'new structure' => self::$bbddStructure[$tableName]['fields'][$fieldName],
+            'structure' => $structure,
+        ]);
+        return '';
+    }
+
+    private static function updateTable(string $tableName): bool
+    {
+        $yamlStructure = self::$bbddStructure[$tableName];
+        $dbStructure = DB::getColumns($tableName);
+
+        foreach ($yamlStructure['fields'] as $field => $newStructure) {
+            $oldDb = $dbStructure[$field];
+            $newDb = $newStructure['db'];
+
+            $dif = array_diff($oldDb, $newDb);
+            $data = [
+                'field' => $field,
+                'dbStructure' => $dbStructure[$field],
+                'fields of ' . $tableName => $newStructure['db'],
+                'oldDb' => $oldDb,
+                'newDb' => $newDb,
+            ];
+            if (count($dif) > 0) {
+                $data['diferencias 1'] = $dif;
+                $data['diferencias 2'] = array_diff($newDb, $oldDb);
+                $data['sql'] = DB::modify($tableName, $oldDb, $newDb);
+            }
+
+            dump($data);
+        }
+
+        die('Here');
 
         return Engine::exec($sql);
     }

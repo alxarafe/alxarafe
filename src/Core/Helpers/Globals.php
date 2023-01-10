@@ -96,7 +96,7 @@ class Globals
         new Config();
         if (!Config::loadConfig() || !Config::connectToDatabase()) {
             // Si falla la carga de la configuración, es que hay que generar el archivo.
-            $run=new EditConfig();
+            $run = new EditConfig();
             $run->main();
             die();
         }

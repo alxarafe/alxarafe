@@ -166,13 +166,23 @@ class Debug
         Logger::info('Exception: ' . $exception->getMessage());
     }
 
+    public static function message(string $message): void
+    {
+        self::addMessage('messages', $message);
+    }
+
+    public static function sqlMessage(string $message): void
+    {
+        self::addMessage('SQL', $message);
+    }
+
     /**
      * Write a message in a channel (tab) of the debug bar.
      *
      * @param string $channel
      * @param string $message
      */
-    public static function addMessage(string $channel, string $message): void
+    private static function addMessage(string $channel, string $message): void
     {
         if (constant('DEBUG') !== true) {
             return;

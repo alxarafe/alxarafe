@@ -54,7 +54,7 @@ class Dispatcher
      * - Es posible que un archivo pueda estar repetido, en cuyo caso, habrá que ver cómo solventarlo.
      * - Es posible que el orden importe, por ejemplo porque un módulo sobreescriba una funcionalidad.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0105
      *
      * @param string $folder
@@ -84,9 +84,9 @@ class Dispatcher
     {
         $module = ucfirst($_GET[Globals::MODULE_GET_VAR] ?? Globals::DEFAULT_MODULE_NAME);
         $controller = ucfirst($_GET[Globals::CONTROLLER_GET_VAR] ?? Globals::DEFAULT_CONTROLLER_NAME);
-        Debug::addMessage('messages', "Dispatcher::process() trying for '$module':'$controller'");
+        Debug::message("Dispatcher::process() trying for '$module':'$controller'");
         if ($this->processFolder($module, $controller)) {
-            Debug::addMessage('messages', "Dispatcher::process(): Ok");
+            Debug::message("Dispatcher::process(): Ok");
             return true;
         }
         return false;
@@ -102,7 +102,7 @@ class Dispatcher
             $filename = constant('BASE_DIR') . '/' . constant('MODULES_DIR') . '/' . $module . '/Controllers/' . $controller . '.php';
         }
         if (file_exists($filename)) {
-            Debug::addMessage('messages', "$className exists!");
+            Debug::message("$className exists!");
             $controller = new $className();
             $controller->{$method}();
             return true;

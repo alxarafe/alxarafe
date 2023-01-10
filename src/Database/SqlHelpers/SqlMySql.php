@@ -6,29 +6,83 @@
 
 namespace Alxarafe\Database\SqlHelpers;
 
+use Alxarafe\Core\Utils\ArrayUtils;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\DebugTool;
-use Alxarafe\Core\Utils\ClassUtils;
 use Alxarafe\Database\DB;
 use Alxarafe\Database\Schema;
 use Alxarafe\Database\SqlHelper;
 
 /**
- * Clase abstracta para la presonalización de las consultas según el motor utilizado.
+ * Class SqlMySql
+ *
+ * Soporte específico para la creación de comandos y consultas usando el motor MySQL.
+ * Es usado directamente por la clase estática DB.
+ *
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
+ * @version 2023.0108
+ *
+ * @package Alxarafe\Database\SqlHelpers
  */
 class SqlMySql extends SqlHelper
 {
+    /**
+     * Retorna las comillas que encierran al nombre de la tabla en una consulta SQL.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @return string
+     */
     public static function getTableQuote(): string
     {
         return '`';
     }
 
+    /**
+     * Retorna las comillas que encierran al nombre de un campo en una consulta SQL
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @return string
+     */
     public static function getFieldQuote(): string
     {
         return '"';
     }
 
-    public function getDataTypes(): array
+    /**
+     * Retorna true si la tabla existe en la base de datos.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0106
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     */
+    public static function tableExists(string $tableName): bool
+    {
+        $dbName = Config::$dbName;
+        $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableName}'";
+
+        $data = DB::select($sql);
+        $result = reset($data);
+
+        return $result['Total'] === '1';
+    }
+
+    /**
+     * Retorna un array con la asociación de tipos del motor SQL para cada tipo definido
+     * en el Schema.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @return array[]
+     */
+    public static function getDataTypes(): array
     {
         return [
             Schema::TYPE_INTEGER => ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'],
@@ -44,50 +98,507 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * Returns an array with the name of all the tables in the database.
+     * Retorna un array con el nombre de todas las tablas de la base de datos.
      *
      * @return array
      */
     public static function getTables(): array
     {
         $query = 'SHOW TABLES';
-        return ClassUtils::flatArray(DB::select($query));
+        return ArrayUtils::flatArray(DB::select($query));
     }
 
     /**
-     * SQL statement that returns the fields in the table
+     * Retorna el tipo de dato que se utiliza para los índices autoincrementados
      *
-     * @param string $tableName
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @return string
      */
-    public function getColumnsSql(string $tableName): string
+    public static function getIndexType(): string
     {
-        /**
-         * array (size=6)
-         * 'Field' => string 'id' (length=2)
-         * 'Type' => string 'int(10) unsigned' (length=16)
-         * 'Null' => string 'NO' (length=2)
-         * 'Key' => string 'PRI' (length=3)
-         * 'Default' => null
-         * 'Extra' => string 'auto_increment' (length=14)
-         */
-        return 'SHOW COLUMNS FROM ' . $this->quoteTableName($tableName) . ';';
+        return 'bigint(20) unsigned';
     }
 
     /**
-     * Modifies the structure returned by the query generated with
-     * getColumnsSql to the normalized format that returns getColumns
+     * Retorna un array asociativo con la información de cada columna de la tabla.
+     * El resultado será dependiente del motor de base de datos.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @param string $tableName
+     *
+     * @return array
+     */
+    public static function getColumns(string $tableName): array
+    {
+        $query = 'SHOW COLUMNS FROM ' . self::quoteTableName($tableName) . ';';
+        $rows = DB::select($query);
+        $result = [];
+        foreach ($rows as $row) {
+            $result[$row['Field']] = $row;
+        }
+        return $result;
+    }
+
+    public static function yamlFieldToSchema(array $data): array
+    {
+        $column = [];
+        $key = (string) $data['key'];
+        $type = (string) $data['type'];
+        $column['key'] = $key;
+
+        /**
+         * Entrada:
+         * - type es el tipo lógico del campo y tiene que estar definido como índice en
+         *   TYPES, o ser uno de los predefinidos como 'autoincrement', 'relationship', etc.
+         *
+         * Salida:
+         * - type queda intacto.
+         * - dbtype es como queda definido en la tabla, por ejemplo, varchar(20)
+         * - realtype es el tipo resultado, por ejemplo varchar (sin el tamaño)
+         * - generictype es uno de los índices de TYPE. P.E. autoincrement se cambiará por integer
+         *
+         */
+
+        $column['type'] = $type;
+        switch ($type) {
+            case 'autoincrement':
+            case 'relationship':
+                $colType = DB::getIndexType();
+                break;
+            default:
+                $colType = $type;
+        }
+
+        $typeArray = static::splitType($colType);
+        /**
+         * ^ array:4 [▼
+         *        "type" => "bigint"
+         *        "length" => null
+         *        "unsigned" => "yes"
+         *        "zerofill" => "no"
+         * ]
+         */
+
+        $type = $typeArray['type'];
+        $length = $typeArray['length'] ?? $data['length'];
+        $unsigned = $typeArray['unsigned'] === 'yes';
+        $zerofill = $typeArray['zerofill'] === 'yes';
+        $genericType = Schema::getTypeOf($type);
+
+        $column['dbtype'] = $colType;
+        $column['realtype'] = $type;
+        $column['generictype'] = $genericType;
+
+        $column['null'] = 'YES';
+        if ($data['null'] && mb_strtolower($data['null']) == 'no') {
+            $column['null'] = 'NO';
+        }
+
+        if (empty($data['default'])) {
+            $column['default'] = null;
+        } else {
+            $column['default'] = (string) $data['default'];
+        }
+
+        /**
+         * Pueden existir otras definiciones de limitaciones físicas como min y max
+         * De existir, tienen que ser contempladas en el método test y tener mayor peso que
+         * la limitación en plantilla.
+         */
+        foreach (['min', 'max'] as $field) {
+            if (isset($data[$field])) {
+                $column[$field] = (string) $data[$field];
+            }
+        }
+
+        if (isset($data['comment'])) {
+            $column['comentario'] = (string) $data['comment'];
+        }
+
+        if (isset($data['default'])) {
+            $column['default'] = trim($data['default'], " \"'`");
+        }
+
+        switch ($genericType) {
+            case 'text':
+                $column['dbtype'] = 'varchar(' . $length . ')';
+                $column['maxlength'] = $length;
+                break;
+            case 'integer':
+                /**
+                 * Lo primero es ver la capacidad física máxima según el tipo de dato.
+                 */
+                $bytes = 4;
+                switch ($type) {
+                    case 'tinyint':
+                        $bytes = 1;
+                        break;
+                    case 'smallint':
+                        $bytes = 2;
+                        break;
+                    case 'mediumint':
+                        $bytes = 3;
+                        break;
+                    case 'int':
+                        $bytes = 4;
+                        break;
+                    case 'bigint':
+                        $bytes = 8;
+                        break;
+                }
+                $bits = 8 * (int) $bytes;
+                $physicalMaxLength = 2 ** $bits;
+
+                /**
+                 * $minDataLength y $maxDataLength contendrán el mínimo y máximo valor que puede contener el campo.
+                 */
+                $minDataLength = $unsigned ? 0 : -$physicalMaxLength / 2;
+                $maxDataLength = ($unsigned ? $physicalMaxLength : $physicalMaxLength / 2) - 1;
+
+                /**
+                 * De momento, se asignan los límites máximos por el tipo de dato.
+                 * En $min y $max, iremos arrastrando los límites conforme se vayan comprobando.
+                 * $min nunca podrá ser menor que $minDataLength.
+                 * $max nunca podrá ser mayor que $maxDataLength.
+                 */
+                $min = $minDataLength;
+                $max = $maxDataLength;
+
+                /**
+                 * Se puede hacer una limitación física Se puede haber definido en el xml un min y un max.
+                 * A todos los efectos, lo definido en el XML como min o max se toma como limitación
+                 * física del campo.
+                 */
+                if (isset($data['min'])) {
+                    $minXmlLength = $data['min'];
+                    if ($minXmlLength > $minDataLength) {
+                        $min = $minXmlLength;
+                    } else {
+                        Debug::message("({$key}): Se ha especificado un min {$minXmlLength} en el XML, pero por el tipo de datos, el mínimo es {$minDataLength}.");
+                    }
+                }
+                if (isset($data['max'])) {
+                    $maxXmlLength = $data['max'];
+                    if ($maxXmlLength < $maxDataLength) {
+                        $max = $maxXmlLength;
+                    } else {
+                        Debug::message("({$key}): Se ha especificado un min {$maxXmlLength} en el XML, pero por el tipo de datos, el máximo es {$maxDataLength}.");
+                    }
+                }
+
+                $column['min'] = $min;
+                $column['max'] = $max;
+                break;
+            default:
+                // ???
+        }
+        return $column;
+    }
+
+    public static function yamlFieldToDb(array $data): array
+    {
+        $result = [];
+        $result['Field'] = $data['key'];
+        $result['Type'] = $data['dbtype'];
+        $result['Null'] = !isset($data['nullable']) || $data['nullable'] ? 'YES' : 'NO';
+        $result['Key'] = $data['type'] === 'autoincrement' ? 'PRI' : '';
+        $result['Default'] = $data['default'] ?? null;
+        $result['Extra'] = $data['type'] === 'autoincrement' ? 'auto_increment' : '';
+        return $result;
+    }
+
+    public static function dbFieldToSchema(array $data): array
+    {
+        return $data;
+    }
+
+    public static function dbFieldToYaml(array $data): array
+    {
+        return $data;
+    }
+
+    /**
+     * Recibiendo un array con los datos de un campo tal y como lo retorna la base de
+     * datos, devuelve la información normalizada para ser utilizada por Schema.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @param array $row
      *
      * @return array
      */
-    public function normalizeFields(array $row): array
+    public static function normalizeDbField(array $row): array
+    {
+        $result = [];
+        $result['Field'] = $row['key'];
+        $result['Type'] = $row['type'];
+        $result['Null'] = $row['nullable'] ? 'YES' : 'NO';
+        $result['Key'] = $row['type'] === 'autoincrement' ? 'PRI' : '';
+        $result['Default'] = $row['default'] ?? null;
+        $result['Extra'] = $row['type'] === 'autoincrement' ? 'auto_increment' : '';
+        return $result;
+    }
+
+    /**
+     * Transforma la definición de un campo en el archivo yaml de definición de tablas en
+     * la respuesta que se obtendría para el campo al consultar la estructura de en la base
+     * de datos.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0107
+     *
+     * @param array $row
+     *
+     * @return array
+     */
+    public static function normalizeYamlField(array $row): array
+    {
+        $column = [];
+        $key = (string) $row['key'];
+        $type = (string) $row['type'];
+        $column['key'] = $key;
+
+        /**
+         * Entrada:
+         * - type es el tipo lógico del campo y tiene que estar definido como índice en
+         *   TYPES, o ser uno de los predefinidos como 'autoincrement', 'relationship', etc.
+         *
+         * Salida:
+         * - type queda intacto.
+         * - dbtype es como queda definido en la tabla, por ejemplo, varchar(20)
+         * - realtype es el tipo resultado, por ejemplo varchar (sin el tamaño)
+         * - generictype es uno de los índices de TYPE. P.E. autoincrement se cambiará por integer
+         *
+         */
+
+        $column['type'] = $type;
+        switch ($type) {
+            case 'autoincrement':
+            case 'relationship':
+                $colType = DB::getIndexType();
+                break;
+            default:
+                $colType = $type;
+        }
+
+        $typeArray = static::splitType($colType);
+        /**
+         * ^ array:4 [▼
+         *        "type" => "bigint"
+         *        "length" => null
+         *        "unsigned" => "yes"
+         *        "zerofill" => "no"
+         * ]
+         */
+
+        $type = $typeArray['type'];
+        $length = $typeArray['length'] ?? $row['length'];
+        $unsigned = $typeArray['unsigned'] === 'yes';
+        $zerofill = $typeArray['zerofill'] === 'yes';
+        $genericType = Schema::getTypeOf($type);
+
+        $column['dbtype'] = $colType;
+        $column['realtype'] = $type;
+        $column['generictype'] = $genericType;
+
+        $column['null'] = 'YES';
+        if ($row['null'] && mb_strtolower($row['null']) == 'no') {
+            $column['null'] = 'NO';
+        }
+
+        if (empty($row['default'])) {
+            $column['default'] = null;
+        } else {
+            $column['default'] = (string) $row['default'];
+        }
+
+        /**
+         * Pueden existir otras definiciones de limitaciones físicas como min y max
+         * De existir, tienen que ser contempladas en el método test y tener mayor peso que
+         * la limitación en plantilla.
+         */
+        foreach (['min', 'max'] as $field) {
+            if (isset($row[$field])) {
+                $column[$field] = (string) $row[$field];
+            }
+        }
+
+        if (isset($row['comment'])) {
+            $column['comentario'] = (string) $row['comment'];
+        }
+
+        if (isset($row['default'])) {
+            $column['default'] = trim($row['default'], " \"'`");
+        }
+
+        switch ($genericType) {
+            case 'text':
+                $column['dbtype'] = 'varchar(' . $length . ')';
+                $column['maxlength'] = $length;
+                break;
+            case 'integer':
+                /**
+                 * Lo primero es ver la capacidad física máxima según el tipo de dato.
+                 */
+                $bytes = 4;
+                switch ($type) {
+                    case 'tinyint':
+                        $bytes = 1;
+                        break;
+                    case 'smallint':
+                        $bytes = 2;
+                        break;
+                    case 'mediumint':
+                        $bytes = 3;
+                        break;
+                    case 'int':
+                        $bytes = 4;
+                        break;
+                    case 'bigint':
+                        $bytes = 8;
+                        break;
+                }
+                $bits = 8 * (int) $bytes;
+                $physicalMaxLength = 2 ** $bits;
+
+                /**
+                 * $minDataLength y $maxDataLength contendrán el mínimo y máximo valor que puede contener el campo.
+                 */
+                $minDataLength = $unsigned ? 0 : -$physicalMaxLength / 2;
+                $maxDataLength = ($unsigned ? $physicalMaxLength : $physicalMaxLength / 2) - 1;
+
+                /**
+                 * De momento, se asignan los límites máximos por el tipo de dato.
+                 * En $min y $max, iremos arrastrando los límites conforme se vayan comprobando.
+                 * $min nunca podrá ser menor que $minDataLength.
+                 * $max nunca podrá ser mayor que $maxDataLength.
+                 */
+                $min = $minDataLength;
+                $max = $maxDataLength;
+
+                /**
+                 * Se puede hacer una limitación física Se puede haber definido en el xml un min y un max.
+                 * A todos los efectos, lo definido en el XML como min o max se toma como limitación
+                 * física del campo.
+                 */
+                if (isset($row['min'])) {
+                    $minXmlLength = $row['min'];
+                    if ($minXmlLength > $minDataLength) {
+                        $min = $minXmlLength;
+                    } else {
+                        Debug::message("({$key}): Se ha especificado un min {$minXmlLength} en el XML, pero por el tipo de datos, el mínimo es {$minDataLength}.");
+                    }
+                }
+                if (isset($row['max'])) {
+                    $maxXmlLength = $row['max'];
+                    if ($maxXmlLength < $maxDataLength) {
+                        $max = $maxXmlLength;
+                    } else {
+                        Debug::message("({$key}): Se ha especificado un min {$maxXmlLength} en el XML, pero por el tipo de datos, el máximo es {$maxDataLength}.");
+                    }
+                }
+
+                $column['min'] = $min;
+                $column['max'] = $max;
+                break;
+            default:
+                // ???
+        }
+
+        dump([
+            $colType => $typeArray,
+            'row' => $row,
+            'column' => $column,
+        ]);
+
+        return $column;
+    }
+
+    public static function normalizeDbField2(array $row): array
+    {
+        /*
+
+        Crear un método para cada uno que sea complejo
+    Ver si es necesario crear el método inverso
+
+    yaml->esquema base de datos->normalizado(incluyeno el esquema)
+        normalizado->esquema base de datos
+posibilidad de comprar esquema con esquema para modificar datos .
+    ver necesidades con campos en índices .
+    Tratar de que el resultado se pueda adaptar a otros motores de base de datos
+*/
+
+        $result = [];
+        $result['Field'] = $row['key'];
+        $result['Type'] = $row['type'];
+        $result['Null'] = $row['nullable'] ? 'YES' : 'NO';
+        $result['Key'] = $row['type'] === 'autoincrement' ? 'PRI' : '';
+        $result['Default'] = $row['default'] ?? null;
+        $result['Extra'] = $row['type'] === 'autoincrement' ? 'auto_increment' : '';
+        return $result;
+    }
+
+    /**
+     * Returns an array with all the columns of a table
+     *
+     * TODO: Review the types. The variants will depend on type + length.
+     *
+     * 'name_of_the_field' => {
+     *  (Required type and length or bytes)
+     *      'type' => (string/integer/float/decimal/boolean/date/datetime/text/blob)
+     *      'length' => It is the number of characters that the field needs (optional if bytes exists)
+     *      'bytes' => Number of bytes occupied by the data (optional if length exists)
+     *  (Optional)
+     *      'default' => Default value
+     *      'nullable' => True if it can be null
+     *      'primary' => True if it is the primary key
+     *      'autoincrement' => True if it is an autoincremental number
+     *      'zerofilled' => True if it completes zeros on the left
+     * }
+     *
+     * @param string $tableName
+     *
+     * @return array
+     */
+    public static function getColumns2(string $tableName): array
+    {
+        $query = 'SHOW COLUMNS FROM ' . self::quoteTableName($tableName) . ';';
+        $data = DB::select($query);
+        $result = [];
+        foreach ($data as $value) {
+            $row = self::normalizeField($value);
+            $result[$row['field']] = $row;
+        }
+        return $result;
+    }
+
+    /**
+     * Transforma la definición de un campo en el archivo yaml de definición de tablas en
+     * la respuesta que se obtendría para el campo al consultar la estructura de en la base
+     * de datos.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0107
+     *
+     * @param array $row
+     *
+     * @return array
+     */
+    public static function normalizeYamlField2(array $row): array
     {
         $result = [];
         $result['field'] = $row['Field'];
-        $type = $this->splitType($row['Type']);
+
+        dump($row);
+
+        $type = self::splitType($row['type']);
+
+        dump($type);
 
         /**
          * I thought that this would work
@@ -95,7 +606,7 @@ class SqlMySql extends SqlHelper
          * $virtualType = array_search($type['type'], $this->fieldTypes);
          */
         $virtualType = $type['type'];
-        foreach ($this->fieldTypes as $key => $values) {
+        foreach (self::getDataTypes() as $key => $values) {
             if (in_array($type['type'], $values)) {
                 $virtualType = $key;
                 break;
@@ -107,6 +618,7 @@ class SqlMySql extends SqlHelper
             $result['type'] = $type['type'];
             DebugTool::getInstance()->addMessage('Deprecated', 'Correct the data type ' . $type['type'] . ' in MySql database');
         }
+        $result['unsigned'] = $type['unsigned'] === 'unsigned';
         $result['length'] = $type['length'] ?? null;
         $result['default'] = $row['Default'] ?? null;
         $result['nullable'] = $row['Null'];
@@ -244,5 +756,23 @@ WHERE
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
         return 'SHOW INDEX FROM ' . Config::getInstance()->getSqlHelper()->quoteTableName($tableName);
+    }
+
+    public static function modify(string $tableName, array $oldField, array $newField): string
+    {
+        $sql = 'ALTER TABLE ' . self::quoteTableName($tableName) . ' ' . $oldField['Field'] . ' ' . $newField['Field'] . ' ';
+        $sql .= $newField['Type'] . ' ';
+        if ($newField) {
+            if ($oldField['Null'] === 'NO') {
+                $sql .= 'NOT ';
+            }
+        }
+        $sql .= 'NULL';
+        if ($newField['Default'] !== null) {
+            $sql .= ' DEFAULT "' . $newField['Default'] . '"';
+        }
+        $sql .= ';';
+
+        return $sql;
     }
 }

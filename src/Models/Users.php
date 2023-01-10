@@ -45,7 +45,7 @@ class Users extends Table
             'rowid' => [
                 'label' => 'id',
                 'type' => 'int',
-                'extra' => 'auto_increment' // It is assumed to be the primary key
+                'extra' => 'auto_increment', // It is assumed to be the primary key
             ],
             'login' => [
                 'label' => 'username',

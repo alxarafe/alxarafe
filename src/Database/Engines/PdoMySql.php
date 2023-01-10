@@ -17,7 +17,7 @@ class PdoMySql extends Engine
 
     /**
      * PdoMySql constructor.
-     * Add aditional parameters to self::$dsn string.
+     * Añade los parámetros adicionales a la cadena self::$dsn.
      *
      * @param array $dbConfig
      */
@@ -34,11 +34,10 @@ class PdoMySql extends Engine
      *
      * @return bool
      */
-    public function connect(array $config = []): bool
+    public static function connect(array $config = []): bool
     {
         $config[PDO::ATTR_EMULATE_PREPARES] = 1;
         $config[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
         return parent::connect($config);
     }
-
 }

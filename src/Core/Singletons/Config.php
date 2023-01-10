@@ -93,7 +93,7 @@ class Config
      * La sección constants contiene las constantes en grupos de tipo.
      * TODO: De momento se contempla boolean y el resto.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2022.1218
      *
      */
@@ -234,14 +234,14 @@ class Config
             return true;
         }
 
-        Config::$dbPrefix = self::$global['database'][$db]['dbPrefix'] ?? '';
-        Config::$dbName = self::$global['database'][$db]['dbName'];
+        Config::$dbPrefix = strtolower(self::$global['database'][$db]['dbPrefix'] ?? '');
+        Config::$dbName = strtolower(self::$global['database'][$db]['dbName']);
 
         $dbEngineName = self::$global['database'][$db]['dbEngineName'] ?? 'PdoMySql';
         $helperName = 'Sql' . substr($dbEngineName, 3);
 
-        Debug::addMessage('SQL', "Using '$dbEngineName' engine.");
-        Debug::addMessage('SQL', "Using '$helperName' SQL helper engine.");
+        Debug::sqlMessage("Using '$dbEngineName' engine.");
+        Debug::sqlMessage("Using '$helperName' SQL helper engine.");
 
         $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
         $engine = '\\Alxarafe\\Database\\Engines\\' . $dbEngineName;

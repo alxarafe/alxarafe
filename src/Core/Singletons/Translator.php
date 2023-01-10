@@ -180,7 +180,7 @@ class Translator
             //            FileSystemUtils::mkdir($folders[$key], 0777, true);
             if (file_exists($fullFolder) && is_dir($fullFolder)) {
                 $folders[$key] = $fullFolder;
-                Debug::addMessage('messages', 'Added translation folder ' . $folders[$key]);
+                Debug::message('Added translation folder ' . $folders[$key]);
             }
         }
         self::$languageFolders = array_merge(self::$languageFolders, $folders);

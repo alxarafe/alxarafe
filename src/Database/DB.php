@@ -130,4 +130,74 @@ class DB
     {
         return self::$engine->server_info();
     }
+
+    public static function tableExists(string $tableName)
+    {
+        return self::$sqlHelper->tableExists(Config::$dbPrefix . $tableName);
+    }
+
+    public static function getColumns(string $tableName)
+    {
+        return self::$sqlHelper->getColumns(Config::$dbPrefix . $tableName);
+    }
+
+    public static function yamlFieldToDb(array $data): array
+    {
+        return self::$sqlHelper::yamlFieldToDb($data);
+    }
+
+    public static function yamlFieldToSchema(array $data): array
+    {
+        return self::$sqlHelper::yamlFieldToSchema($data);
+    }
+
+    public static function dbFieldToSchema(array $data): array
+    {
+        return self::$sqlHelper::dbFieldToSchema($data);
+    }
+
+    public static function dbFieldToYaml(array $data): array
+    {
+        return self::$sqlHelper::dbFieldToYaml($data);
+    }
+
+    public static function normalizeFromDb(array $data)
+    {
+        $result = self::$sqlHelper::normalizeDbField($data);
+        dump([
+            'normalizeFromDb',
+            'data' => $data,
+            'result' => $result,
+        ]);
+        return $result;
+    }
+
+    public static function normalizeFromYaml(array $yamlFields)
+    {
+        $result = [];
+        foreach ($yamlFields as $field => $yamlField) {
+            $result[$field] = self::$sqlHelper::normalizeYamlField($yamlField);
+        }
+        dump([
+            'normalizeFromYaml',
+            'data' => $yamlFields,
+            'result' => $result,
+        ]);
+        return $result;
+    }
+
+    public static function normalize(array $data)
+    {
+        return self::$sqlHelper->normalizeField($data);
+    }
+
+    public static function getIndexType(): string
+    {
+        return self::$sqlHelper->getIndexType();
+    }
+
+    public static function modify(string $tableName, array $oldField, array $newField):string
+    {
+        return self::$sqlHelper->modify(Config::$dbPrefix . $tableName, $oldField, $newField);
+    }
 }

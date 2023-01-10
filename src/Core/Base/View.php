@@ -456,10 +456,10 @@ abstract class View
             if (file_exists(BASE_DIR . $path)) {
                 return BASE_URI . $path;
             }
-            Debug::addMessage('messages', "Relative resource '$path' not found!");
+            Debug::message("Relative resource '$path' not found!");
         }
         if (!file_exists($path)) {
-            Debug::addMessage('messages', "Absolute resource '$path' not found!");
+            Debug::message("Absolute resource '$path' not found!");
         }
         return $path;
     }

@@ -63,7 +63,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
         return [
             $name => [
                 'icon' => 'language',
-                                'tooltip' => 'Translations',
+                'tooltip' => 'Translations',
                 'widget' => 'PhpDebugBar.Widgets.TranslationsWidget',
                 'map' => "translations",
                 'default' => '[]',
@@ -111,7 +111,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
             self::$translations[] = [
                 'key' => $key,
                 'value' => $value,
-//                'message' => 'Not found ' . $key . ' for local language. Used ' . $value,
+                //                'message' => 'Not found ' . $key . ' for local language. Used ' . $value,
             ];
         }
     }

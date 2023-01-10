@@ -4,7 +4,7 @@
  * Copyright (C) 2018-2020 Alxarafe <info@alxarafe.com>
  */
 
-namespace Alxarafe\Core\ArrayUtils;
+namespace Alxarafe\Core\Utils;
 
 class ArrayUtils
 {

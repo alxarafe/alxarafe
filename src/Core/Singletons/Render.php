@@ -140,7 +140,7 @@ class Render
         if (!isset(self::$currentSkin) || self::$currentSkin !== $skin) {
             self::$currentSkin = $skin;
             self::setTemplatesFolder($skin);
-            Debug::addMessage('messages', "Setting '$skin' skin");
+            Debug::message("Setting '$skin' skin");
         }
     }
 
@@ -152,7 +152,7 @@ class Render
     public static function setTemplatesFolder(string $template)
     {
         self::$templatesFolder = self::SKINS_DIR . ('/' . trim($template, '/'));
-        Debug::addMessage('messages', "Setting '" . self::$templatesFolder . "' templates folder");
+        Debug::message("Setting '" . self::$templatesFolder . "' templates folder");
     }
 
     /**
@@ -165,7 +165,7 @@ class Render
     public static function setTemplate($template)
     {
         self::$currentTemplate = $template;
-        Debug::addMessage('messages', "Setting '$template' template");
+        Debug::message("Setting '$template' template");
     }
 
     /**
@@ -178,8 +178,8 @@ class Render
      */
     public static function render(array $vars): string
     {
-        Debug::addMessage('messages', 'Templates folder: ' . self::$templatesFolder);
-        Debug::addMessage('messages', 'Current template: ' . self::$currentTemplate);
+        Debug::message('Templates folder: ' . self::$templatesFolder);
+        Debug::message('Current template: ' . self::$currentTemplate);
 
         return self::renderIt($vars);
     }
@@ -205,7 +205,7 @@ class Render
 
         $usePath = self::getPaths();
 
-        Debug::addMessage('messages', 'Using:' . print_r($usePath, true));
+        Debug::message('Using:' . print_r($usePath, true));
 
         //                $loader = new Twig_Loader_Filesystem($usePath);
         $loader = new FilesystemLoader($usePath);
@@ -216,7 +216,7 @@ class Render
         $twig = new Environment($loader, $options);
 
         $template = ($templateVars['template'] ?? self::$currentTemplate) . '.twig';
-        Debug::addMessage('messages', "Using '$template' template");
+        Debug::message("Using '$template' template");
         try {
             $return = $twig->render($template, $templateVars);
         } catch (LoaderError $e) {
@@ -284,12 +284,12 @@ class Render
     {
         foreach ($this->getPathsUri() as $path) {
             if (file_exists($path['path'] . $string)) {
-                Debug::addMessage('messages', 'Return: ' . $path['uri'] . $string);
+                Debug::message('Return: ' . $path['uri'] . $string);
                 return $path['uri'] . $string;
             }
         }
 
-        Debug::addMessage('messages', 'Not found: ' . $string);
+        Debug::message('Not found: ' . $string);
         return $string;
     }
 

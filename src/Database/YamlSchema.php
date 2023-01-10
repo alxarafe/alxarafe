@@ -18,18 +18,35 @@
 
 namespace Alxarafe\Database;
 
+use Alxarafe\Core\Helpers\Dispatcher;
 use Alxarafe\Core\Utils\Utils;
 use Symfony\Component\Yaml\Yaml;
 
 abstract class YamlSchema
 {
     const YAML_CACHE_DIR = TMP_DIR . 'yamlcache/';
+    public const YAML_CACHE_TABLES_DIR = 'models';
+
+    /**
+     * Contiene un array asociativo de las tablas y la ruta al archivo de definición.
+     *
+     * @var array
+     */
+    public static array $tables = [];
 
     private static $yamlPath;
 
     public static function clearYamlCache(): bool
     {
         return Utils::delTree(self::YAML_CACHE_DIR) && Utils::createDir(self::YAML_CACHE_DIR);
+    }
+
+    public static function getTables()
+    {
+        if (empty(self::$tables)) {
+            self::$tables = Dispatcher::getFiles('Tables', 'yaml');
+        }
+        return self::$tables;
     }
 
     public static function getYamlFileName(string $folder, string $filename): string

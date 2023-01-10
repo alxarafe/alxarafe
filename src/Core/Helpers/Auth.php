@@ -83,7 +83,7 @@ class Auth
      */
     public static function logout()
     {
-        Debug::addMessage('messages', 'Auth::Logout(): ' . (self::$user === null ? 'There was no identified user.' : 'User' . self::$user . ' has successfully logged out'));
+        Debug::message('Auth::Logout(): ' . (self::$user === null ? 'There was no identified user.' : 'User' . self::$user . ' has successfully logged out'));
         self::$user = null;
         self::clearCookieUser();
     }
@@ -130,15 +130,15 @@ class Auth
         if (count($_user) > 0 && password_verify($password, $_user[0][$passwordField])) {
             self::$user = $user;
             setcookie('user', $user);
-            Debug::addMessage('messages', "$user autenticado");
+            Debug::message("$user autenticado");
         } else {
             self::$user = null;
             setcookie('user', '');
             unset($_COOKIE['user']);
             if (isset($_user[0])) {
-                Debug::addMessage('messages', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$passwordField]);
+                Debug::message("Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero: ' . $_user[0][$passwordField]);
             } else {
-                Debug::addMessage('messages', "Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
+                Debug::message("Comprobado {$encryptMethod}:" . $encryptMethod($password, PASSWORD_DEFAULT) . ', en fichero no existe usuario ' . $user);
             }
         }
         return self::$user != null;

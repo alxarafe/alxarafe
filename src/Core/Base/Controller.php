@@ -35,19 +35,12 @@ abstract class Controller extends BasicController
      */
     public static SqlHelper $sqlHelper;
 
-    /**
-     * It contains an instance of the view class, or null if it is
-     * not assigned, or does not have an associated view.
-     *
-     * @var View
-     */
-    public View $view;
-
     public function __construct()
     {
         parent::__construct();
 
         $this->hasMenu = true;
+        new Auth();
     }
 
     /**
@@ -68,9 +61,9 @@ abstract class Controller extends BasicController
         $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
 
         // TODO: This will have to be assigned in a yaml file, when activating and deactivating modules.
-//        Translator::addDirs([
-//            constant('BASE_DIR'),
-//        ]);
+        //        Translator::addDirs([
+        //            constant('BASE_DIR'),
+        //        ]);
 
         return true;
     }

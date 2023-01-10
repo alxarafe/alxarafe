@@ -6,20 +6,14 @@
 
 namespace Alxarafe\Database;
 
-use Alxarafe\Core\Singletons\Config;
-
-/**
- * The SqlHelper class provides support for creating SQL queries and commands.
- * The class will have to be extended by completing the particularities of each of them.
- */
-
 /**
  * Class SqlHelper
  *
  * Proporciona soporte para la creación de comandos y consultas SQL.
  * Esta clase deberá de extenderse para cada controlador de base de datos específico.
+ * Se usa desde la clase estática DB.
  *
- * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
  * @version 2023.0101
  *
  * @package Alxarafe\Database
@@ -27,29 +21,9 @@ use Alxarafe\Core\Singletons\Config;
 abstract class SqlHelper
 {
     /**
-     * Retorna el carácter que se usa como separador de nombre de tabla en la consulta SQL.
-     *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
-     * @version 2023.0101
-     *
-     * @return string
-     */
-    abstract public static function getTableQuote(): string;
-
-    /**
-     * Retorna el carácter que se usa como separador de nombre de campo en la consulta SQL.
-     *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
-     * @version 2023.0101
-     *
-     * @return string
-     */
-    abstract public static function getFieldQuote(): string;
-
-    /**
      * Retorna el nombre de la tabla entre comillas.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0101
      *
      * @param string $tableName
@@ -64,7 +38,7 @@ abstract class SqlHelper
     /**
      * Retorna el nombre de un campo entre comillas.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0101
      *
      * @param string $fieldName
@@ -77,19 +51,52 @@ abstract class SqlHelper
     }
 
     /**
-     * Retorna un array con los distintos tipos de datos del motor
+     * Retorna las comillas que encierran al nombre de la tabla en una consulta SQL.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0101
+     *
+     * @return string
+     */
+    abstract public static function getTableQuote(): string;
+
+    /**
+     * Retorna las comillas que encierran al nombre de un campo en una consulta SQL
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0101
+     *
+     * @return string
+     */
+    abstract public static function getFieldQuote(): string;
+
+    /**
+     * Permite saber si una tabla existe.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0106
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     */
+    abstract public static function tableExists(string $tableName): bool;
+
+    /**
+     * Retorna un array con la asociación de tipos del motor SQL para cada tipo definido
+     * en el Schema.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0101
      *
      * @return array
      */
-    abstract public function getDataTypes(): array;
+    abstract public static function getDataTypes(): array;
 
     /**
      * Retorna un array con el nombre de todas las tablas de la base de datos.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0101
      *
      * @return array
@@ -97,57 +104,58 @@ abstract class SqlHelper
     abstract public static function getTables(): array;
 
     /**
-     * Returns an array with all the columns of a table
+     * Retorna el tipo de dato que se utiliza para los índices autoincrementados
      *
-     * TODO: Review the types. The variants will depend on type + length.
-     *
-     * 'name_of_the_field' => {
-     *  (Required type and length or bytes)
-     *      'type' => (string/integer/float/decimal/boolean/date/datetime/text/blob)
-     *      'length' => It is the number of characters that the field needs (optional if bytes exists)
-     *      'bytes' => Number of bytes occupied by the data (optional if length exists)
-     *  (Optional)
-     *      'default' => Default value
-     *      'nullable' => True if it can be null
-     *      'primary' => True if it is the primary key
-     *      'autoincrement' => True if it is an autoincremental number
-     *      'zerofilled' => True if it completes zeros on the left
-     * }
-     *
-     * @param string $tableName
-     *
-     * @return array
-     */
-    public function getColumns(string $tableName): array
-    {
-        $query = $this->getColumnsSql($tableName);
-        $data = DB::select($query);
-        $result = [];
-        foreach ($data as $value) {
-            $row = $this->normalizeFields($value);
-            $result[$row['field']] = $row;
-        }
-        return $result;
-    }
-
-    /**
-     * SQL statement that returns the fields in the table
-     *
-     * @param string $tableName
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
      *
      * @return string
      */
-    abstract public function getColumnsSql(string $tableName): string;
+    abstract public static function getIndexType(): string;
 
     /**
-     * Modifies the structure returned by the query generated with
-     * getColumnsSql to the normalized format that returns getColumns
+     * Retorna un array asociativo con la información de cada columna de la tabla.
+     * El resultado será dependiente del motor de base de datos.
      *
-     * @param array $fields
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @param string $tableName
      *
      * @return array
      */
-    abstract public function normalizeFields(array $fields): array;
+    abstract public static function getColumns(string $tableName): array;
+
+    /**
+     * Recibiendo un array con los datos de un campo tal y como lo retorna la base de
+     * datos, devuelve la información normalizada para ser utilizada por Schema.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @param array $row
+     *
+     * @return array
+     */
+    abstract public static function normalizeDbField(array $row): array;
+
+    /**
+     * Recibiendo un array con los datos de un campo tal y como están en el yaml de
+     * definición, devuelve la información normalizada para ser utilizada por Schema.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @param array $row
+     *
+     * @return array
+     */
+    abstract public static function normalizeYamlField(array $row): array;
+
+    abstract public static function yamlFieldToDb(array $data):array;
+    abstract public static function yamlFieldToSchema(array $data):array;
+    abstract public static function dbFieldToSchema(array $data):array;
+    abstract public static function dbFieldToYaml(array $data):array;
 
     //abstract public function normalizeConstraints(array $fields): array;
 
@@ -183,6 +191,7 @@ abstract class SqlHelper
 
     abstract public function normalizeIndexes(array $fields): array;
 
+    abstract public static function modify(string $tableName, array $oldField, array $newField):string;
     /*
       abstract public function getConstraintsSql(string $tableName): string;
 

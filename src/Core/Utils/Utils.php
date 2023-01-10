@@ -101,7 +101,7 @@ class Utils
     /**
      * Crea una carpeta con los permisos seleccionados.
      *
-     * @author  Rafael San José Tovar <rafael.sanjose@x-netdigital.com>
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0101
      *
      * @param string $directory
@@ -114,6 +114,7 @@ class Utils
     {
         return (\is_dir($directory) || @\mkdir($directory, $permissions, $recursive) || \is_dir($directory));
     }
+
     public static function delTree($dir)
     {
         $files = scandir($dir);
