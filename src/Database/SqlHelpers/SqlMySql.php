@@ -140,6 +140,7 @@ class SqlMySql extends SqlHelper
         foreach ($rows as $row) {
             $result[$row['Field']] = $row;
         }
+        dump($rows);
         return $result;
     }
 
@@ -220,7 +221,11 @@ class SqlMySql extends SqlHelper
         }
 
         if (isset($data['default'])) {
-            $column['default'] = trim($data['default'], " \"'`");
+            if (is_bool($data['default'])) {
+                $column['default'] = $data['default'] ? '1' : '0';
+            } else {
+                $column['default'] = trim($data['default'], " \"'`");
+            }
         }
 
         switch ($genericType) {
@@ -510,12 +515,6 @@ class SqlMySql extends SqlHelper
                 // ???
         }
 
-        dump([
-            $colType => $typeArray,
-            'row' => $row,
-            'column' => $column,
-        ]);
-
         return $column;
     }
 
@@ -594,11 +593,7 @@ posibilidad de comprar esquema con esquema para modificar datos .
         $result = [];
         $result['field'] = $row['Field'];
 
-        dump($row);
-
         $type = self::splitType($row['type']);
-
-        dump($type);
 
         /**
          * I thought that this would work
@@ -760,7 +755,7 @@ WHERE
 
     public static function modify(string $tableName, array $oldField, array $newField): string
     {
-        $sql = 'ALTER TABLE ' . self::quoteTableName($tableName) . ' ' . $oldField['Field'] . ' ' . $newField['Field'] . ' ';
+        $sql = 'ALTER TABLE ' . self::quoteTableName($tableName) . ' CHANGE ' . $oldField['Field'] . ' ' . $newField['Field'] . ' ';
         $sql .= $newField['Type'] . ' ';
         if ($newField) {
             if ($oldField['Null'] === 'NO') {

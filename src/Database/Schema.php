@@ -291,6 +291,7 @@ class Schema
             }
         }
 
+        return true;
         die('Por aquí vamos ahora...');
 
         if (!YamlSchema::saveCacheYamlFile(YamlSchema::YAML_CACHE_TABLES_DIR, $tableName, self::$bbddStructure[$tableName])) {
@@ -720,9 +721,9 @@ class Schema
             dump($data);
         }
 
-        die('Here');
+//        die('Here');
 
-        return Engine::exec($sql);
+        return Engine::exec(DB::modify($tableName, $oldDb, $newDb));
     }
 
     /**
@@ -739,7 +740,8 @@ class Schema
         $tablenameWithPrefix = Config::$dbPrefix . $tablename;
 
         $sql = "CREATE TABLE $tablenameWithPrefix ( ";
-        foreach ($fieldList as $index => $col) {
+        foreach ($fieldList as $index => $column) {
+            $col = $column['schema'];
             if (!isset($col['dbtype'])) {
                 die('Tipo no especificado en createTable ' . $index);
             }
