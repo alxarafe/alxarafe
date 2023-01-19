@@ -24,6 +24,7 @@ use Alxarafe\Core\Singletons\DebugBarCollectors\TranslatorCollector;
 use DebugBar\DataCollector\DataCollectorInterface;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DebugBar;
+use DebugBar\DebugBarException;
 use DebugBar\JavascriptRenderer;
 use DebugBar\StandardDebugBar;
 
@@ -55,16 +56,10 @@ class Debug
      */
     public function __construct()
     {
-        //        self::$logger = Logger::getInstance();
-
-        //        $shortName = ClassUtils::getShortName($this, $this);
-        if (!defined('DEBUG')) {
-            define('DEBUG', false);
-        }
         $shortName = 'Debug';
 
         self::$debugBar = new StandardDebugBar();
-        $this->startTimer($shortName, $shortName . ' DebugTool Constructor');
+        self::startTimer($shortName, $shortName . ' DebugTool Constructor');
 
         self::addCollector(new MessagesCollector('SQL'));
         self::addCollector(new PhpCollector());
@@ -72,10 +67,10 @@ class Debug
         self::addCollector(new MonologCollector(Logger::getLogger()));
         self::addCollector(new TranslatorCollector());
 
-        $baseUrl = VENDOR_URI . '/maximebf/debugbar/src/DebugBar/Resources';
+        $baseUrl = constant('VENDOR_URI') . '/maximebf/debugbar/src/DebugBar/Resources';
         self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, constant('BASE_DIR'));
 
-        $this->stopTimer($shortName);
+        self::stopTimer($shortName);
     }
 
     public static function addCollector(DataCollectorInterface $collector): DebugBar
@@ -130,7 +125,7 @@ class Debug
     public static function getRenderHeader(): string
     {
         if (constant('DEBUG') !== true) {
-            return '';
+            return '<!-- Debug is disabled -->';
         }
         return self::$render->renderHead();
     }
@@ -143,7 +138,7 @@ class Debug
     public static function getRenderFooter(): string
     {
         if (constant('DEBUG') !== true) {
-            return '';
+            return '<!-- Debug is disabled -->';
         }
         return self::$render->render();
     }
@@ -163,7 +158,7 @@ class Debug
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(BASE_DIR));
         self::$debugBar['exceptions']->addException($exception); // Use addThrowable instead!
-        Logger::info('Exception: ' . $exception->getMessage());
+// Logger::info('Exception: ' . $exception->getMessage());
     }
 
     public static function message(string $message): void
@@ -184,7 +179,7 @@ class Debug
      */
     private static function addMessage(string $channel, string $message): void
     {
-        if (constant('DEBUG') !== true) {
+        if (!defined('DEBUG') || constant('DEBUG') !== true) {
             return;
         }
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];

@@ -1,3 +1,4 @@
+database-connection-error: "Error al conectar a la base de datos. Revise el nombre de la base de datos y el usuario y contraseña"
 forgotpassword: "Contraseña olvidada"
 login: "Login"
 password: "Contraseña"

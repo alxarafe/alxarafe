@@ -6,6 +6,7 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Helpers\Auth;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Database\Engine;

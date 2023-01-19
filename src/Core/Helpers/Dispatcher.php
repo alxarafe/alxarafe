@@ -24,7 +24,7 @@ class Dispatcher
 {
     public function __construct()
     {
-        new Globals();
+        new Loader();
     }
 
     public static function getFolders($folder): array

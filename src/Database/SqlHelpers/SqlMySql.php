@@ -140,7 +140,6 @@ class SqlMySql extends SqlHelper
         foreach ($rows as $row) {
             $result[$row['Field']] = $row;
         }
-        dump($rows);
         return $result;
     }
 

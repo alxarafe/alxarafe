@@ -107,7 +107,7 @@ class Schema
             if (!file_exists($table)) {
                 Debug::message('No existe la tabla ' . $table);
             }
-            dump("Verificando la tabla $key, definida en $table.");
+            Debug::message("Verificando la tabla $key, definida en $table.");
             if (!static::checkStructure($key, $table)) {
                 FlashMessages::setError('Error al comprobar la estructura de la tabla ' . $table);
             }
@@ -137,8 +137,6 @@ class Schema
     private static function getFieldsAndIndexes($tableName, $path): array
     {
         $data = Yaml::parseFile($path);
-
-        dump([$path => $data]);
 
         $result = [];
         foreach ($data['fields'] ?? [] as $key => $datum) {
@@ -275,18 +273,14 @@ class Schema
         // Si no está cacheado, entonces hay que comprobar si hay cambios en la estructura y regenerarla.
         self::$bbddStructure[$tableName] = self::checkTable($tableName, $path, $create);
 
-        dump(self::$bbddStructure);
-
         if (DB::tableExists($tableName)) {
-            dump('La tabla ' . $tableName . ' existe');
+            Debug::message('La tabla ' . $tableName . ' existe');
             if (!self::updateTable($tableName)) {
-                dump(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
                 FlashMessages::setError(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
             }
         } else {
-            dump('La tabla ' . $tableName . ' NO existe');
+            Debug::message('La tabla ' . $tableName . ' NO existe');
             if (!self::createTable($tableName)) {
-                dump(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
                 FlashMessages::setError(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
             }
         }
@@ -403,30 +397,27 @@ class Schema
         $yamlStructure = self::$bbddStructure[$tableName];
         $dbStructure = DB::getColumns($tableName);
 
+        $changes = [];
         foreach ($yamlStructure['fields'] as $field => $newStructure) {
             $oldDb = $dbStructure[$field];
             $newDb = $newStructure['db'];
 
             $dif = array_diff($oldDb, $newDb);
-            $data = [
-                'field' => $field,
-                'dbStructure' => $dbStructure[$field],
-                'fields of ' . $tableName => $newStructure['db'],
-                'oldDb' => $oldDb,
-                'newDb' => $newDb,
-            ];
             if (count($dif) > 0) {
-                $data['diferencias 1'] = $dif;
-                $data['diferencias 2'] = array_diff($newDb, $oldDb);
-                $data['sql'] = DB::modify($tableName, $oldDb, $newDb);
+                $changes[] = DB::modify($tableName, $oldDb, $newDb);
             }
-
-            dump($data);
         }
 
-//        die('Here');
+        if (empty($changes)) {
+            return true;
+        }
 
-        return Engine::exec(DB::modify($tableName, $oldDb, $newDb));
+        // dump(['changes in ' . $tableName => $changes]);
+        $result = true;
+        foreach ($changes as $change) {
+            $result = $result && Engine::exec($change);
+        }
+        return $result;
     }
 
     /**

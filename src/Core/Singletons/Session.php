@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Core\Singletons;
 
-use Alxarafe\Core\Base\Singleton;
 use Alxarafe\Core\Utils\ClassUtils;
 use Aura\Session\Segment;
 use Aura\Session\SessionFactory;

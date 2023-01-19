@@ -1,3 +1,4 @@
+database-connection-error: "Database connection error. Check the database name, the user and the password"
 forgotpassword: "Forgot password"
 login: "Login"
 password: "Password"

@@ -88,6 +88,17 @@ class Config
     private TemplateRender $render;
     private DebugTool $debug;
 
+    public function __construct()
+    {
+        if (!isset(self::$global)) {
+            self::$global = self::loadConfigurationFile();
+            if (empty(self::$global)) {
+                return false;
+            }
+        }
+        self::defineConstants();
+    }
+
     /**
      * Define todas las constantes de la sección 'constants' del archivo config.yaml
      * La sección constants contiene las constantes en grupos de tipo.
@@ -110,39 +121,6 @@ class Config
                 }
             }
         }
-    }
-
-    /**
-     * Initializes the global variable with the configuration, connects with
-     * the database and authenticates the user.
-     *
-     * @return bool
-     * @throws DebugBarException
-     */
-    public static function loadConfig(): bool
-    {
-        if (!isset(self::$global)) {
-            self::$global = self::loadConfigurationFile();
-            if (empty(self::$global)) {
-                return false;
-            }
-        }
-
-        self::defineConstants();
-        /*
-                TODO: Esto igual debe de instanciarse en Render.
-
-                if (isset(self::$global['templaterender']['main']['skin'])) {
-                    $templatesFolder = BASE_DIR . Render::SKINS_DIR;
-                    $skinFolder = $templatesFolder . '/' . self::$global['templaterender']['main']['skin'];
-                    if (is_dir($templatesFolder) && !is_dir($skinFolder)) {
-                        FlashMessages::setError("Skin folder '$skinFolder' does not exists!");
-                        return false;
-                    }
-                    Render::setSkin(self::getVar('templaterender', 'main', 'skin'));
-                }
-        */
-        return true;
     }
 
     /**
