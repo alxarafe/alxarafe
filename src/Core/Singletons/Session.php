@@ -16,41 +16,42 @@ use Aura\Session\SessionFactory;
  *
  * @package Alxarafe\Core\Helpers
  */
-class Session
+abstract class Session
 {
     /**
-     * Session info from cookie.
+     * Información de sesión de la cookie.
      *
      * @var \Aura\Session\Session
      */
     protected static \Aura\Session\Session $session;
 
     /**
-     * Segment name.
+     * Nombre del segmento utilizado.
      *
      * @var string
      */
     protected static string $segmentName = 'Alxarafe';
 
     /**
-     * Session constructor.
+     * Inicia la sesión.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     * @source https://github.com/auraphp/Aura.Session#cross-site-request-forgery
+     *
+     * @param string $index
      */
-    public function __construct(string $index = 'main')
+    public static function load(string $index = 'main')
     {
-        $shortName = ClassUtils::getShortName($this, static::class);
-        Debug::startTimer($shortName, $shortName . ' Constructor');
-
         self::$session = (new SessionFactory())->newInstance($_COOKIE);
         if (session_status() === PHP_SESSION_NONE) {
             self::$session->start();
         }
-        // https://github.com/auraphp/Aura.Session#cross-site-request-forgery
-
-        Debug::stopTimer($shortName);
     }
 
     /**
-     * Gets the value of the outgoing CSRF token.
+     * Obtiene un valor para el token CSRF.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @return string
      */
@@ -60,7 +61,9 @@ class Session
     }
 
     /**
-     * Checks whether an incoming CSRF token value is valid.
+     * Comprueba si el token es válido.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $csrfToken
      *
@@ -72,7 +75,9 @@ class Session
     }
 
     /**
-     * Return this session.
+     * Retorna una instancia de la sesión.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @return \Aura\Session\Session
      */
@@ -82,11 +87,13 @@ class Session
     }
 
     /**
-     * Sets segment name.
+     * Establece un nombre de segmento
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $segmentName
      *
-     * @return Session
+     * @return static
      */
     public static function setSegment(string $segmentName): self
     {
@@ -95,7 +102,9 @@ class Session
     }
 
     /**
-     * Get data from segment.
+     * Obtiene los datos del segmento
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
      *
@@ -107,7 +116,9 @@ class Session
     }
 
     /**
-     * Return segment session.
+     * Obtiene el segmento de sesión
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @return Segment
      */
@@ -117,10 +128,12 @@ class Session
     }
 
     /**
-     * Set data key.
+     * Establece un valor a una clave.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
-     * @param mixed  $value
+     * @param        $value
      *
      * @return $this
      */
@@ -131,10 +144,12 @@ class Session
     }
 
     /**
-     * Sets flash next data by key.
+     * Establece un valor a una clave 'flash'
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
-     * @param mixed  $value
+     * @param        $value
      *
      * @return $this
      */
@@ -145,12 +160,12 @@ class Session
     }
 
     /**
-     * Sets flash next data by key.
+     * Establece un valor a una clave, para la próxima sesión
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
-     * @param mixed  $value
-     *
-     * @return $this
+     * @param        $value
      */
     public static function setFlashNext(string $key, $value)
     {
@@ -158,7 +173,9 @@ class Session
     }
 
     /**
-     * Get flash now data by key.
+     * Obtiene datos de una clave actual
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
      *
@@ -170,7 +187,9 @@ class Session
     }
 
     /**
-     * Get flash now data by key.
+     * Obtiene datos de una clave actual
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
      *
@@ -182,12 +201,12 @@ class Session
     }
 
     /**
-     * Sets flash now data by key.
+     * Establece un valor a una clave 'Flash'
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
-     * @param mixed  $value
-     *
-     * @return void
+     * @param        $value
      */
     public static function setFlashNow(string $key, $value)
     {
@@ -195,7 +214,9 @@ class Session
     }
 
     /**
-     * Get flash next data by key.
+     * Obtiene los datos de una clave 'flash' para la próxima sesión
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $key
      *

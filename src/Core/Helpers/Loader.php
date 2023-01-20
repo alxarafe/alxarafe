@@ -16,14 +16,9 @@ use Alxarafe\Core\Singletons\RegionalInfo;
 use Alxarafe\Core\Singletons\Render;
 use Alxarafe\Core\Singletons\Session;
 use Alxarafe\Core\Singletons\Translator;
+use Alxarafe\Database\DB;
 use Alxarafe\Database\YamlSchema;
 use Alxarafe\Database\Schema;
-
-/**
- * Class Loader, load all globals utilities.
- *
- * @package Alxarafe\Core\Base
- */
 
 /**
  * Class Loader
@@ -31,31 +26,31 @@ use Alxarafe\Database\Schema;
  * Inicializa las clases globales
  *
  * @author  Rafael San José Tovar <info@rsanjoseo.com>
- * @version 2023.0115
  *
  * @package Alxarafe\Core\Helpers
  */
-class Loader
+abstract class Loader
 {
     /**
-     * Constructor de Loader
+     * Inicializa todas las clases necesarias para que el núcleo funcione
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @throws \DebugBar\DebugBarException
      */
-    public function __construct()
+    public static function load()
     {
-        new Globals();
-        new Config();
-        new Session();
-        new FlashMessages();
-        new RegionalInfo();
-        new Logger();
-        new Debug();
-        new Translator();
-        new Render();
-        new PhpFileCache();
+        Globals::load();
+        Config::load();
+        FlashMessages::load();
+        RegionalInfo::load();
+        Logger::load();
+        Debug::load();
+        Translator::load();
+        Render::load();
+        PhpFileCache::load();
 
-        if (!Config::connectToDatabase()) {
+        if (!DB::connectToDatabase()) {
             FlashMessages::setError(Translator::trans('database-connection-error'));
             $run = new EditConfig();
             $run->main();

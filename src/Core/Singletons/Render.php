@@ -30,7 +30,7 @@ use Twig\Loader\FilesystemLoader;
  *
  * @package Alxarafe\Helpers
  */
-class Render
+abstract class Render
 {
 
     /**
@@ -84,7 +84,7 @@ class Render
 
     private $debug;
 
-    public function __construct(string $index = 'main')
+    public static function load(string $index = 'main')
     {
         self::setSkin('default');
     }

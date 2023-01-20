@@ -133,7 +133,7 @@ abstract class Engine
      */
     public static function getTableName($tableName): string
     {
-        return Config::$dbPrefix . strtolower($tableName);
+        return DB::$dbPrefix . strtolower($tableName);
     }
 
     /**

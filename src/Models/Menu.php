@@ -34,7 +34,7 @@ class Menu extends Table
      */
     public function __construct()
     {
-        parent::__construct('menu', ['create' => true]);
+        parent::__construct('menus', ['create' => true]);
     }
 
     public function getMenu(string $module)

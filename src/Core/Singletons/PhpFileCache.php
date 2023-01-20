@@ -23,14 +23,14 @@ use Alxarafe\Core\Utils\Utils;
 /**
  * Simple file cache
  */
-class PhpFileCache
+abstract class PhpFileCache
 {
     private static $config;
 
     /**
      * php_file_cache constructor.
      */
-    public function __construct()
+    public static function load()
     {
         self::$config = [
             'cache_path' => constant('TMP_DIR') . 'cache',

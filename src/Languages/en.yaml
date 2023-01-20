@@ -1,3 +1,4 @@
+bad-authentication: "User authentication error. Please check the username and password"
 database-connection-error: "Database connection error. Check the database name, the user and the password"
 forgotpassword: "Forgot password"
 login: "Login"

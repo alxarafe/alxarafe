@@ -9,35 +9,46 @@ namespace Alxarafe\Core\Singletons;
 /**
  * Class FlashMessages
  *
- * @package Alxarafe\Core\Providers
+ * Gestiona los mensajes de aviso y error de la aplicación.
+ *
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
+ *
+ * @package Alxarafe\Core\Singletons
  */
-class FlashMessages
+abstract class FlashMessages
 {
     /**
-     * Contains a message list for now.
+     * Contiene la lista actual de mensajes
      *
      * @var array
      */
-    protected static array $messagesListNow;
+    private static array $messagesListNow;
 
     /**
-     * Contains a message list for next.
+     * Contiene la lista de mensajes para la próxima sesión
      *
      * @var array
      */
-    protected static array $messagesListNext;
+    private static array $messagesListNext;
 
     /**
-     * Container constructor.
+     * Inicializa las variables
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $index
      */
-    public function __construct(string $index = 'main')
+    public static function load(string $index = 'main')
     {
+        Session::load($index);
         self::$messagesListNow = [];
         self::$messagesListNext = [];
     }
 
     /**
-     * Return the full container.
+     * Retorna el contenido completo de los mensajes de sesión.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @return array
      */
@@ -47,7 +58,9 @@ class FlashMessages
     }
 
     /**
-     * Register a new error message
+     * Registra un nuevo mensaje de error
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $msg
      * @param string $when
@@ -60,7 +73,9 @@ class FlashMessages
     }
 
     /**
-     * Set flash message.
+     * Registra un nuevo mensaje flash
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $when
      * @param array  $message
@@ -81,7 +96,9 @@ class FlashMessages
     }
 
     /**
-     * Register a new warning message
+     * Registra un nuevo mensaje de aviso
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $msg
      * @param string $when
@@ -94,7 +111,9 @@ class FlashMessages
     }
 
     /**
-     * Register a new info message
+     * Registra un nuevo mensaje informativo
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $msg
      * @param string $when
@@ -107,7 +126,9 @@ class FlashMessages
     }
 
     /**
-     * Register a new error message
+     * Registra un nuevo mensaje de error
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $msg
      * @param string $when

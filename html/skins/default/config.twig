@@ -38,7 +38,7 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for "language">{{ view.trans('language') }}</label>
+                                        <label for="language">{{ view.trans('language') }}</label>
                                         <select id="language" name="language" class="form-control">
                                             {% for lang,language in view.languages %}
                                                 <option value="{{ lang }}" {{ lang==view.language ? "selected":"" }}>{{ language }}</option>

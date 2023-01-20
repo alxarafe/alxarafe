@@ -12,29 +12,60 @@ use Exception;
 /**
  * Class RegionalInfo
  *
- * @package Alxarafe\Core\Providers
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
+ *
+ * @package Alxarafe\Core\Singletons
  */
-class RegionalInfo
+abstract class RegionalInfo
 {
-    public static $config;
+    /**
+     * Contiene la información regional obtenida del fichero de configuración,
+     * o en su defecto, los valores por defecto de la aplicación.
+     *
+     * @var array
+     */
+    public static array $config;
 
-    public function __construct()
-    {
-        self::getConfig();
-    }
-
-    private static function getConfig()
+    /**
+     * Carga los datos de configuración regional en $config
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     */
+    public static function load()
     {
         $default = self::getDefaultValues();
+        $config = Config::getModuleVar('RegionalInfo');
         foreach ($default as $var => $value) {
-            self::$config[$var] = Config::getVar('RegionalInfo', 'main', $var) ?? $value;
+            self::$config[$var] = $config[$var] ?? $value;
         }
     }
 
     /**
-     * Returns a list of date formats
+     * Obtiene los valores por defecto para las variables regionales
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @return string[]
      */
-    public static function getDateFormats(): array
+    private static function getDefaultValues(): array
+    {
+        return [
+            'dateFormat' => 'Y-m-d',
+            'timeFormat' => 'H:i:s',
+            'datetimeFormat' => 'Y-m-d H:i:s',
+            'timezone' => 'Europe/Madrid',
+        ];
+    }
+
+    /**
+     * Obtiene un listado de formatos de fecha
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @return array
+     */
+    private static function getDateFormats(): array
     {
         $styles = [
             'Y-m-d',
@@ -54,9 +85,11 @@ class RegionalInfo
     }
 
     /**
-     * Fill list with key => value, where key is style and value a sample.
+     * Retorna un array asociativo de estilos con el texto formateado como valor.
      *
-     * @param array $styles
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param $styles
      *
      * @return array
      */
@@ -70,7 +103,9 @@ class RegionalInfo
     }
 
     /**
-     * Return formatted string.
+     * Retorna una cadena formateada para un instante dado
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @param string $style
      * @param string $time
@@ -91,9 +126,13 @@ class RegionalInfo
     }
 
     /**
-     * Returns a list of time formats
+     * Retorna distintos formatos de tiempo
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @return array
      */
-    public static function getTimeFormats(): array
+    private static function getTimeFormats(): array
     {
         $styles = [
             'H:i',
@@ -102,20 +141,5 @@ class RegionalInfo
             'h:i:s A',
         ];
         return self::fillList($styles);
-    }
-
-    /**
-     * Return default values
-     *
-     * @return array
-     */
-    public static function getDefaultValues(): array
-    {
-        return [
-            'dateFormat' => 'Y-m-d',
-            'timeFormat' => 'H:i:s',
-            'datetimeFormat' => 'Y-m-d H:i:s',
-            'timezone' => 'Europe/Madrid',
-        ];
     }
 }

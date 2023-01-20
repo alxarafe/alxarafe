@@ -17,7 +17,7 @@ use Monolog\Logger as MonologLogger;
  *
  * @package Alxarafe\Core\Providers
  */
-class Logger
+abstract class Logger
 {
     /**
      * The logger.
@@ -29,10 +29,10 @@ class Logger
     /**
      * Logger constructor.
      */
-    public function __construct(string $index = 'main')
+    public static function load(string $index = 'main')
     {
         self::$logger = new MonologLogger('core_logger');
-        set_exception_handler([$this, 'exceptionHandler']);
+        set_exception_handler(['static', 'exceptionHandler']);
         try {
             $timeZone = RegionalInfo::$config['timezone'];
             self::$logger->setTimezone(

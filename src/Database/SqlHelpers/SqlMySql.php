@@ -64,7 +64,7 @@ class SqlMySql extends SqlHelper
      */
     public static function tableExists(string $tableName): bool
     {
-        $dbName = Config::$dbName;
+        $dbName = DB::$dbName;
         $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableName}'";
 
         $data = DB::select($sql);

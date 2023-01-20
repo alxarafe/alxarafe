@@ -6,19 +6,16 @@
 
 namespace Alxarafe\Core\Helpers;
 
-use Alxarafe\Core\Singletons\Config;
-
 /**
  * Class Globals
  *
  * Carga las constantes predefinidas
  *
  * @author  Rafael San José Tovar <info@rsanjoseo.com>
- * @version 2023.0115
  *
  * @package Alxarafe\Core\Helpers
  */
-class Globals
+abstract class Globals
 {
     /**
      * Nombre de la aplicación
@@ -53,11 +50,9 @@ class Globals
     /**
      * Define las constantes de la aplicación
      *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2023.0115
-     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      */
-    public static function defineConstants()
+    public static function load()
     {
         define('APP_URI', pathinfo(filter_input(INPUT_SERVER, 'SCRIPT_NAME'), PATHINFO_DIRNAME));
 
@@ -75,13 +70,5 @@ class Globals
         define('DEFAULT_INTEGER_SIZE', 10);
 
         define('MODULES_DIR', 'Modules');
-    }
-
-    /**
-     * Constructor de Globals
-     */
-    public function __construct()
-    {
-        self::defineConstants();
     }
 }

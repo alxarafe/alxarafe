@@ -7,8 +7,7 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Auth;
-use Alxarafe\Core\Singletons\Config;
-use Alxarafe\Core\Singletons\Translator;
+use Alxarafe\Database\DB;
 use Alxarafe\Database\Engine;
 use Alxarafe\Database\SqlHelper;
 use DebugBar\DebugBarException;
@@ -52,12 +51,12 @@ abstract class Controller extends BasicController
      */
     public function preLoad(): bool
     {
-        if (!parent::preLoad() || /* !$this->configExists || */ !Config::connectToDatabaseAndAuth()) {
+        if (!parent::preLoad() || /* !$this->configExists || */ !DB::connectToDatabaseAndAuth()) {
             return false;
         }
 
-        self::$engine = Config::getEngine();
-        self::$sqlHelper = Config::getSqlHelper();
+//        self::$engine = Config::getEngine();
+//        self::$sqlHelper = Config::getSqlHelper();
 
         $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
 

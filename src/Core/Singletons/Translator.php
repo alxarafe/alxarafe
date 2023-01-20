@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @package Alxarafe\Core\Providers
  */
-class Translator
+abstract class Translator
 {
     /**
      * Default language to use if language file not exists.
@@ -82,18 +82,20 @@ class Translator
     /**
      * Lang constructor.
      */
-    public function __construct()
+    public static function load()
     {
-        $config = Config::loadConfigurationFile()['translator']['main'] ?? 'en';
+        $config = Config::getModuleVar('translator');
+        $language = $config['main']['language'] ?? self::FALLBACK_LANG;
 
         self::$languageFolder = constant('BASE_DIR') . '/src' . self::LANG_DIR;
-        self::$translator = new SymfonyTranslator($config['language'] ?? self::FALLBACK_LANG);
+        self::$translator = new SymfonyTranslator($language);
         self::$translator->setFallbackLocales([self::FALLBACK_LANG]);
         self::$translator->addLoader(self::FORMAT, new YamlFileLoader());
         self::$usedStrings = [];
         self::$missingStrings = [];
         self::$languageFolders = [];
-        $this->loadLangFiles();
+
+        self::loadLangFiles();
     }
 
     /**

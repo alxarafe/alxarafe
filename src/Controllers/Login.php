@@ -21,8 +21,8 @@ namespace Alxarafe\Controllers;
 use Alxarafe\Core\Base\Controller;
 use Alxarafe\Core\Base\View;
 use Alxarafe\Core\Helpers\Auth;
-use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\FlashMessages;
+use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Views\IndexView;
 use Alxarafe\Views\LoginView;
 use DebugBar\DebugBarException;
@@ -39,7 +39,7 @@ class Login extends Controller
         switch ($this->action) {
             case 'login':
                 if (!Auth::setUser($_POST['username'], $_POST['password'])) {
-                    FlashMessages::setError('User authentication error. Please check the username and password.');
+                    FlashMessages::setError(Translator::trans('bad-authentication'));
                     break;
                 }
                 header('Location: ' . BASE_URI);
@@ -55,7 +55,7 @@ class Login extends Controller
      */
     public function setView(): View
     {
-        if (Config::getUsername() !== null) {
+        if (Auth::getUser() !== null) {
             return new IndexView($this);
         }
         return new LoginView($this);

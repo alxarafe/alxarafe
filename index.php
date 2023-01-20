@@ -17,7 +17,9 @@
  */
 
 use Alxarafe\Core\Helpers\Dispatcher;
+use Alxarafe\Core\Helpers\Loader;
 use Alxarafe\Core\Singletons\Translator;
+use DebugBar\DebugBarException;
 
 const BASE_DIR = __DIR__;
 
@@ -28,7 +30,13 @@ if (!file_exists($autoload_file)) {
 
 require_once $autoload_file;
 
-$dispatcher = new Dispatcher();
-if (!$dispatcher->run()) {
+try {
+    Loader::load();
+} catch (DebugBarException $e) {
+    dump($e);
+    die(Translator::trans('loading-error'));
+}
+
+if (!Dispatcher::run()) {
     die(Translator::trans('dispatcher-error'));
 }

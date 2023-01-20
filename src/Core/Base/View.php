@@ -7,12 +7,12 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Globals;
-use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Core\Singletons\Render;
 use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Core\Utils\ClassUtils;
+use Alxarafe\Database\DB;
 use Alxarafe\Models\Menu;
 
 /**
@@ -85,7 +85,7 @@ abstract class View
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
-        $this->vars['user'] = Config::getUsername();
+        $this->vars['user'] = DB::getUsername();
         $this->vars['templateuri'] = Render::getTemplatesUri();
         $this->addCSS();
         $this->addJS();
@@ -144,232 +144,6 @@ abstract class View
      */
     private function getMenu()
     {
-        /**
-         * Array
-         * (
-         * [0] => Array (
-         *   [name] => Home
-         *   [link] => /index.php?mainmenu=home&leftmenu=home
-         *   [title] => Home
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => home
-         *   [leftmenu] =>
-         *   [position] => 10
-         *   [id] => mainmenu
-         *   [idsel] => home
-         *   [classname] => class="tmenusel"
-         *   [prefix] => fa fa-home
-         * )
-         *
-         * [1] => Array (
-         *   [name] => Members
-         *   [link] => /adherents/index.php?mainmenu=members&leftmenu=
-         *   [title] => MenuMembers
-         *   [level] => 0
-         *   [enabled] => 0
-         *   [target] =>
-         *   [mainmenu] => members
-         *   [leftmenu] =>
-         *   [position] => 18
-         *   [id] => mainmenu
-         *   [idsel] => members
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-user-alt
-         * )
-         *
-         * [2] => Array (
-         *   [name] => Companies
-         *   [link] => /societe/index.php?mainmenu=companies&leftmenu=
-         *   [title] => ThirdParties
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => companies
-         *   [leftmenu] =>
-         *   [position] => 20
-         *   [id] => mainmenu
-         *   [idsel] => companies
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-building
-         *   [session] => 1
-         * )
-         *
-         * [3] => Array (
-         *   [name] => Products
-         *   [link] => /product/index.php?mainmenu=products&leftmenu=
-         *   [title] => Array (
-         *     [0] => TMenuProducts
-         *     [1] =>  |
-         *     [2] => TMenuServices
-         *   )
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => products
-         *   [leftmenu] =>
-         *   [position] => 30
-         *   [id] => mainmenu
-         *   [idsel] => products
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-cube
-         *   [session] => 1
-         * )
-         *
-         * [4] => Array (
-         *   [name] => TMenuMRP
-         *   [link] => /mrp/index.php?mainmenu=mrp&leftmenu=
-         *   [title] => TMenuMRP
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => mrp
-         *   [leftmenu] =>
-         *   [position] => 31
-         *   [id] => mainmenu
-         *   [idsel] => mrp
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-cubes
-         *   [session] => 1
-         * )
-         *
-         * [5] => Array (
-         *   [name] => Projet
-         *   [link] => /projet/index.php?mainmenu=project&leftmenu=
-         *   [title] => Projects
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => project
-         *   [leftmenu] =>
-         *   [position] => 35
-         *   [id] => mainmenu
-         *   [idsel] => project
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-project-diagram
-         *   [session] => 1
-         * )
-         *
-         * [6] => Array (
-         *   [name] => Commercial
-         *   [link] => /comm/index.php?mainmenu=commercial&leftmenu=
-         *   [title] => Commercial
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => commercial
-         *   [leftmenu] =>
-         *   [position] => 40
-         *   [id] => mainmenu
-         *   [idsel] => commercial
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-suitcase
-         *   [session] => 1
-         * )
-         *
-         * [7] => Array (
-         *   [name] => Compta
-         *   [link] => /compta/index.php?mainmenu=billing&leftmenu=
-         *   [title] => MenuFinancial
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => billing
-         *   [leftmenu] =>
-         *   [position] => 50
-         *   [id] => mainmenu
-         *   [idsel] => billing
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-file-invoice-dollar
-         *   [session] => 1
-         * )
-         *
-         * [8] => Array (
-         *   [name] => Bank
-         *   [link] => /compta/bank/list.php?mainmenu=bank&leftmenu=
-         *   [title] => MenuBankCash
-         *   [level] => 0
-         *   [enabled] => 0
-         *   [target] =>
-         *   [mainmenu] => bank
-         *   [leftmenu] =>
-         *   [position] => 52
-         *   [id] => mainmenu
-         *   [idsel] => bank
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-university
-         *   [session] => 1
-         * )
-         *
-         * [9] => Array (
-         *   [name] => Accounting
-         *   [link] => /accountancy/index.php?mainmenu=accountancy&leftmenu=
-         *   [title] => MenuAccountancy
-         *   [level] => 0
-         *   [enabled] => 0
-         *   [target] =>
-         *   [mainmenu] => accountancy
-         *   [leftmenu] =>
-         *   [position] => 54
-         *   [id] => mainmenu
-         *   [idsel] => accountancy
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-search-dollar
-         *   [session] => 1
-         * )
-         *
-         * [10] => Array (
-         *   [name] => HRM
-         *   [link] => /hrm/index.php?mainmenu=hrm&leftmenu=
-         *   [title] => HRM
-         *   [level] => 0
-         *   [enabled] => 0
-         *   [target] =>
-         *   [mainmenu] => hrm
-         *   [leftmenu] =>
-         *   [position] => 80
-         *   [id] => mainmenu
-         *   [idsel] => hrm
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-user-tie
-         *   [session] => 1
-         * )
-         *
-         * [11] => Array (
-         *   [name] => Ticket
-         *   [link] => /ticket/index.php?mainmenu=ticket&leftmenu=
-         *   [title] => Tickets
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => ticket
-         *   [leftmenu] =>
-         *   [position] => 88
-         *   [id] => mainmenu
-         *   [idsel] => ticket
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-ticket-alt
-         *   [session] => 1
-         * )
-         *
-         * [12] => Array (
-         *   [name] => Tools
-         *   [link] => /core/tools.php?mainmenu=tools&leftmenu=
-         *   [title] => Tools
-         *   [level] => 0
-         *   [enabled] => 1
-         *   [target] =>
-         *   [mainmenu] => tools
-         *   [leftmenu] =>
-         *   [position] => 90
-         *   [id] => mainmenu
-         *   [idsel] => tools
-         *   [classname] => class="tmenu"
-         *   [prefix] => fas fa-tools
-         *   [session] => 1
-         * )
-         */
         $module = strtolower(filter_input(INPUT_GET, 'module'));
         $this->menu = [];
         $this->menu[] = $this->addItem(
@@ -522,7 +296,9 @@ abstract class View
     }
 
     /**
-     * Obtains an array with all errors messages in the stack
+     * Obtiene todos los errores que quedan pendientes de mostrar
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
      *
      * @return array
      */

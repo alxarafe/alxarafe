@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Database;
 
+use Alxarafe\Core\Helpers\Dispatcher;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\FlashMessages;
@@ -124,8 +125,8 @@ class Schema
      */
     public static function tableExists($tableName): bool
     {
-        $tableNameWithPrefix = Config::$dbPrefix . $tableName;
-        $dbName = Config::$dbName;
+        $tableNameWithPrefix = DB::$dbPrefix . $tableName;
+        $dbName = DB::$dbName;
         $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableNameWithPrefix}'";
 
         $data = Engine::select($sql);
@@ -206,12 +207,6 @@ class Schema
         return $result;
     }
 
-    private static function getSeed($tableName): array
-    {
-        $result = [];
-        return $result;
-    }
-
     private static function checkTable(string $tableName, string $path, bool $create = true): array
     {
         $yaml = Yaml::parseFile($path);
@@ -253,9 +248,11 @@ class Schema
      * @version 2023.0105
      *
      * @param string $tableName
+     * @param string $path
      * @param bool   $create
      *
      * @return bool
+     * @throws DebugBarException
      */
     private static function checkStructure(string $tableName, string $path, bool $create = true): bool
     {
@@ -370,15 +367,75 @@ class Schema
         $tabla = self::$bbddStructure[$tableName];
         $sql = self::createFields($tableName, $tabla['fields']);
 
-        foreach ($tabla['keys'] as $name => $index) {
+        foreach ($tabla['indexes'] as $name => $index) {
             $sql .= self::createIndex($tableName, $name, $index);
         }
-        // TODO: values no existe, hay que cargar los datos de seeds.
+
         if (isset($tabla['values'])) {
             $sql .= self::setValues($tableName, $tabla['values']);
+        } else {
+            $sql .= self::getSeed($tableName);
         }
 
         return Engine::exec($sql);
+    }
+
+    private static function getSeed($tableName): string
+    {
+        $tableNameWithPrefix = DB::$dbPrefix . $tableName;
+
+        $seeds = Dispatcher::getFiles('Seeds', 'csv');
+
+        if (!isset($seeds[$tableName])) {
+            return '';
+        }
+
+        $filename = $seeds[$tableName];
+        if (!file_exists($filename)) {
+            return '';
+        }
+
+        $rows = 10; // Indicamos el número de registros que vamos a insertar de una vez
+        $handle = fopen($filename, "r");
+        if ($handle === false) {
+            FlashMessages::addError('No ha sido posible abrir el archivo ' . $filename);
+            return '';
+        }
+
+        // Asumimos que la primera fila es la cabecera...
+        $header = fgetcsv($handle, 0, ';');
+        if ($header === false) {
+            FlashMessages::addError('No ha sido posible leer la primera línea del archivo ' . $filename);
+            fclose($handle);
+            return '';
+        }
+
+        $sqlHeader = "INSERT INTO `{$tableNameWithPrefix}` (`" . implode('`, `', $header) . '`) VALUES ';
+        $row = 0;
+        $sqlData = [];
+        while (($data = fgetcsv($handle, 0, ';')) !== false) {
+            // Entrecomillamos lo que no sea null.
+            foreach ($data as $key => $datum) {
+                if (mb_strtoupper($datum) !== 'NULL') {
+                    $data[$key] = "'$datum'";
+                }
+            }
+
+            if ($row % $rows === 0) {
+                if (count($sqlData) > 0) {
+                    $result .= ($sqlHeader . implode(', ', $sqlData) . ';' . PHP_EOL);
+                }
+                $sqlData = [];
+            }
+            $sqlData[] = '(' . implode(', ', $data) . ')';
+            $row++;
+        }
+        if (count($sqlData) > 0) {
+            $result .= ($sqlHeader . implode(', ', $sqlData) . ';' . PHP_EOL);
+        }
+        fclose($handle);
+
+        return $result;
     }
 
     private static function updateField(string $tableName, string $fieldName, array $structure): string
@@ -431,7 +488,7 @@ class Schema
      */
     protected static function createFields(string $tablename, array $fieldList): string
     {
-        $tablenameWithPrefix = Config::$dbPrefix . $tablename;
+        $tablenameWithPrefix = DB::$dbPrefix . $tablename;
 
         $sql = "CREATE TABLE $tablenameWithPrefix ( ";
         foreach ($fieldList as $index => $column) {
@@ -443,11 +500,12 @@ class Schema
             $sql .= '`' . $index . '` ' . $col['dbtype'];
             $nulo = isset($col['null']) && $col['null'];
 
-            $sql .= ($nulo ? '' : ' NOT') . ' NULL';
-
-            if (isset($col['extra']) && (strtolower($col['extra']) == 'auto_increment')) {
+            if (strtolower($col['type']) === 'autoincrement') {
+                $nulo = false;
                 $sql .= ' PRIMARY KEY AUTO_INCREMENT';
             }
+
+            $sql .= ($nulo ? '' : ' NOT') . ' NULL';
 
             $tmpDefecto = $col['default'] ?? null;
             $defecto = '';
@@ -492,28 +550,30 @@ class Schema
      */
     protected static function createIndex($tableName, $indexname, $indexData)
     {
-        $sql = "ALTER TABLE $tableName ADD CONSTRAINT $indexname ";
+        $tableNameWithPrefix = DB::$dbPrefix . $tableName;
+
+        $sql = "ALTER TABLE $tableNameWithPrefix ADD CONSTRAINT $indexname ";
 
         $command = '';
         // https://www.w3schools.com/sql/sql_primarykey.asp
         // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
-        if (isset($indexData['PRIMARY'])) {
+        if (isset($indexData['primary'])) {
             $command = 'PRIMARY KEY ';
-            $fields = $indexData['PRIMARY'];
+            $fields = $indexData['primary'];
         }
 
         // https://www.w3schools.com/sql/sql_create_index.asp
         // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
-        if (isset($indexData['INDEX'])) {
+        if (isset($indexData['index'])) {
             $command = 'INDEX ';
-            $fields = $indexData['INDEX'];
+            $fields = $indexData['index'];
         }
 
         // https://www.w3schools.com/sql/sql_unique.asp
         // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
-        if (isset($indexData['UNIQUE'])) {
+        if (isset($indexData['unique'])) {
             $command = 'UNIQUE INDEX ';
-            $fields = $indexData['UNIQUE'];
+            $fields = $indexData['column'];
         }
 
         if ($command == '') {
@@ -525,15 +585,15 @@ class Schema
                 if (isset($indexData['REFERENCES'])) {
                     $references = $indexData['REFERENCES'];
                     if (!is_array($references)) {
-                        die('Esperaba un array en REFERENCES: ' . $tableName . '/' . $indexname);
+                        die('Esperaba un array en REFERENCES: ' . $tableNameWithPrefix . '/' . $indexname);
                     }
                     if (count($references) != 1) {
-                        die('Esperaba un array de 1 elemento en REFERENCES: ' . $tableName . '/' . $indexname);
+                        die('Esperaba un array de 1 elemento en REFERENCES: ' . $tableNameWithPrefix . '/' . $indexname);
                     }
                     $refTable = key($references);
                     $fields = '(' . implode(',', $references) . ')';
                 } else {
-                    die('FOREIGN necesita REFERENCES en ' . $tableName . '/' . $indexname);
+                    die('FOREIGN necesita REFERENCES en ' . $tableNameWithPrefix . '/' . $indexname);
                 }
 
                 $sql .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
@@ -553,7 +613,7 @@ class Schema
             }
 
             if ($command == 'INDEX ') {
-                $sql = "CREATE INDEX {$indexname} ON {$tableName}" . $fields;
+                $sql = "CREATE INDEX {$indexname} ON {$tableNameWithPrefix}" . $fields;
             } else {
                 $sql .= $command . ' ' . $fields;
             }
@@ -572,7 +632,9 @@ class Schema
      */
     protected static function setValues(string $tableName, array $values): string
     {
-        $sql = "INSERT INTO $tableName ";
+        $tablenameWithPrefix = DB::$dbPrefix . $tableName;
+
+        $sql = "INSERT INTO $tablenameWithPrefix ";
         $header = true;
         foreach ($values as $value) {
             $fields = "(";

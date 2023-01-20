@@ -28,7 +28,7 @@ use DebugBar\DebugBarException;
 use DebugBar\JavascriptRenderer;
 use DebugBar\StandardDebugBar;
 
-class Debug
+abstract class Debug
 {
     /**
      * Private logger instance
@@ -54,7 +54,7 @@ class Debug
      *
      * @throws DebugBarException
      */
-    public function __construct()
+    public static function load()
     {
         $shortName = 'Debug';
 

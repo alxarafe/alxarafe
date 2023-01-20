@@ -18,7 +18,10 @@
 
 namespace Alxarafe\Database;
 
+use Alxarafe\Core\Helpers\Auth;
 use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Core\Singletons\Debug;
+use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Database\SqlHelpers\SqlMySql;
 use PDO;
 
@@ -31,7 +34,7 @@ use PDO;
  * @version 2022.0721
  *
  */
-class DB
+abstract class DB
 {
     /**
      * Motor utilizado, puede ser MySql, MariaDB, PostgreSql o cualquier otro PDO
@@ -40,12 +43,81 @@ class DB
      */
     public static $engine;
 
-    public static $sqlHelper;
+    /**
+     * Instancia de la clase con el código SQL específico del motor.
+     *
+     * @var SqlHelper
+     */
+    public static $helper;
+
+    /**
+     * Database name.
+     *
+     * @var string
+     */
+    public static string $dbName;
+
+    /**
+     * Contains de database tablename prefix
+     *
+     * @var string
+     */
+    public static string $dbPrefix;
+
+    public static $user;
+    public static $username;
+
+    /**
+     * Establece conexión con la base de datos
+     *
+     * @param string $db
+     *
+     * @return bool
+     * @throws DebugBarException
+     */
+    public static function connectToDatabase($db = 'main'): bool
+    {
+        if (isset(self::$engine)) {
+            return true;
+        }
+
+        $dbInfo = Config::getModuleVar('database');
+        if ($dbInfo === null) {
+            Debug::sqlMessage('empty-database-config');
+            return false;
+        }
+
+        self::$dbPrefix = strtolower($dbInfo[$db]['dbPrefix'] ?? '');
+        self::$dbName = strtolower($dbInfo[$db]['dbName']);
+
+        $engineName = $dbInfo[$db]['dbEngineName'] ?? 'PdoMySql';
+        $helperName = 'Sql' . substr($engineName, 3);
+
+        Debug::sqlMessage("Using '$engineName' engine.");
+        Debug::sqlMessage("Using '$helperName' SQL helper engine.");
+
+        $sqlEngine = '\\Alxarafe\\Database\\SqlHelpers\\' . $helperName;
+        $engine = '\\Alxarafe\\Database\\Engines\\' . $engineName;
+        try {
+            self::$helper = new $sqlEngine();
+            self::$engine = new $engine([
+                'dbUser' => $dbInfo[$db]['dbUser'],
+                'dbPass' => $dbInfo[$db]['dbPass'],
+                'dbName' => $dbInfo[$db]['dbName'],
+                'dbHost' => $dbInfo[$db]['dbHost'],
+                'dbPort' => $dbInfo[$db]['dbPort'],
+            ]);
+            return isset(self::$engine) && self::$engine->connect() && self::$engine->checkConnection();
+        } catch (Exception $e) {
+            Debug::addException($e);
+        }
+        return false;
+    }
 
     public function __construct()
     {
         self::$engine = Config::getEngine();
-        self::$sqlHelper = Config::getSqlHelper();
+        self::$helper = Config::getSqlHelper();
     }
 
     public static function connect()
@@ -65,7 +137,7 @@ class DB
 
     public static function getDataTypes()
     {
-        return self::$sqlHelper->getDataTypes();
+        return self::$helper->getDataTypes();
     }
 
     /**
@@ -133,37 +205,37 @@ class DB
 
     public static function tableExists(string $tableName)
     {
-        return self::$sqlHelper->tableExists(Config::$dbPrefix . $tableName);
+        return self::$helper->tableExists(self::$dbPrefix . $tableName);
     }
 
     public static function getColumns(string $tableName)
     {
-        return self::$sqlHelper->getColumns(Config::$dbPrefix . $tableName);
+        return self::$helper->getColumns(self::$dbPrefix . $tableName);
     }
 
     public static function yamlFieldToDb(array $data): array
     {
-        return self::$sqlHelper::yamlFieldToDb($data);
+        return self::$helper::yamlFieldToDb($data);
     }
 
     public static function yamlFieldToSchema(array $data): array
     {
-        return self::$sqlHelper::yamlFieldToSchema($data);
+        return self::$helper::yamlFieldToSchema($data);
     }
 
     public static function dbFieldToSchema(array $data): array
     {
-        return self::$sqlHelper::dbFieldToSchema($data);
+        return self::$helper::dbFieldToSchema($data);
     }
 
     public static function dbFieldToYaml(array $data): array
     {
-        return self::$sqlHelper::dbFieldToYaml($data);
+        return self::$helper::dbFieldToYaml($data);
     }
 
     public static function normalizeFromDb(array $data)
     {
-        $result = self::$sqlHelper::normalizeDbField($data);
+        $result = self::$helper::normalizeDbField($data);
         dump([
             'normalizeFromDb',
             'data' => $data,
@@ -176,7 +248,7 @@ class DB
     {
         $result = [];
         foreach ($yamlFields as $field => $yamlField) {
-            $result[$field] = self::$sqlHelper::normalizeYamlField($yamlField);
+            $result[$field] = self::$helper::normalizeYamlField($yamlField);
         }
         dump([
             'normalizeFromYaml',
@@ -188,16 +260,38 @@ class DB
 
     public static function normalize(array $data)
     {
-        return self::$sqlHelper->normalizeField($data);
+        return self::$helper->normalizeField($data);
     }
 
     public static function getIndexType(): string
     {
-        return self::$sqlHelper->getIndexType();
+        return self::$helper->getIndexType();
     }
 
-    public static function modify(string $tableName, array $oldField, array $newField):string
+    public static function modify(string $tableName, array $oldField, array $newField): string
     {
-        return self::$sqlHelper->modify(Config::$dbPrefix . $tableName, $oldField, $newField);
+        return self::$helper->modify(self::$dbPrefix . $tableName, $oldField, $newField);
     }
+
+    public static function getUsername()
+    {
+        return self::$username;
+    }
+
+    public static function connectToDatabaseAndAuth(): bool
+    {
+        if (!self::connectToDataBase()) {
+            FlashMessages::setError('Database Connection error...');
+            return false;
+        }
+        if (!isset(self::$user)) {
+            self::$user = new Auth();
+            self::$username = self::$user->getUser();
+            if (self::$username === null) {
+                self::$user->login();
+            }
+        }
+        return true;
+    }
+
 }

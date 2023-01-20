@@ -20,13 +20,30 @@ namespace Alxarafe\Core\Helpers;
 
 use Alxarafe\Core\Singletons\Debug;
 
-class Dispatcher
+/**
+ * Class Dispatcher
+ *
+ * Interpreta las variables GET para ejecutar el controlador del módulo indicado.
+ *
+ * @author  Rafael San José Tovar <info@rsanjoseo.com>
+ *
+ * @package Alxarafe\Core\Helpers
+ */
+abstract class Dispatcher
 {
-    public function __construct()
-    {
-        new Loader();
-    }
-
+    /**
+     * Obtiene un array con la ruta a las carpetas $folder, buscando inicialmente en el núcleo, y a continuación
+     * en cada uno de los módulos.
+     *
+     * TODO: Es posible que haga falta una opción de buscar sólo en los activos y en un orden concreto,
+     *       tomando los datos de la tabla 'modules' en lugar de tomarlos de la carpeta.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param $folder
+     *
+     * @return array
+     */
     public static function getFolders($folder): array
     {
         $modulesFolder = constant('BASE_DIR') . '/Modules/';
@@ -80,19 +97,27 @@ class Dispatcher
         return $return;
     }
 
-    public function run(): bool
+    /**
+     * Ejecuta el controlador del módulo indicado en la barra de direcciones por las variables GET.
+     * Si tiene éxito al ejecutarlo, retorna true, si no, false.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @return bool
+     */
+    public static function run(): bool
     {
         $module = ucfirst($_GET[Globals::MODULE_GET_VAR] ?? Globals::DEFAULT_MODULE_NAME);
         $controller = ucfirst($_GET[Globals::CONTROLLER_GET_VAR] ?? Globals::DEFAULT_CONTROLLER_NAME);
         Debug::message("Dispatcher::process() trying for '$module':'$controller'");
-        if ($this->processFolder($module, $controller)) {
+        if (self::processFolder($module, $controller)) {
             Debug::message("Dispatcher::process(): Ok");
             return true;
         }
         return false;
     }
 
-    public function processFolder(string $module, string $controller, string $method = 'main'): bool
+    private static function processFolder(string $module, string $controller, string $method = 'main'): bool
     {
         if ($module === ucfirst(Globals::DEFAULT_MODULE_NAME)) {
             $className = 'Alxarafe\\Controllers\\' . $controller;
