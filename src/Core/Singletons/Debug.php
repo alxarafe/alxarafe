@@ -182,7 +182,7 @@ abstract class Debug
         if (!defined('DEBUG') || constant('DEBUG') !== true) {
             return;
         }
-        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
+        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
         $caller['file'] = substr($caller['file'], strlen(BASE_DIR));
         self::$debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
     }

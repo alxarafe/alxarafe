@@ -7,10 +7,12 @@ fields:
     nullable: no
   username:
     type: string
+    minlength: 4
     length: 50
     nullable: no
   password:
     type: string
+    minlength: 4
     length: 255
     nullable: no
   email:
