@@ -20,6 +20,13 @@ namespace Alxarafe\Database;
  */
 abstract class SqlHelper
 {
+    public static array $types;
+
+    public function __construct()
+    {
+        self::$types = static::getDataTypes();
+    }
+
     /**
      * Retorna el nombre de la tabla entre comillas.
      *
@@ -137,14 +144,31 @@ abstract class SqlHelper
      *
      * @return array
      */
-    abstract public static function normalizeDbField(array $row): array;
+    abstract public static function _normalizeDbField(array $row): array;
 
-    abstract public static function yamlFieldToDb(array $data):array;
-    abstract public static function yamlFieldToSchema(array $data):array;
-    abstract public static function dbFieldToSchema(array $data):array;
-    abstract public static function dbFieldToYaml(array $data):array;
+    abstract public static function yamlFieldToDb(array $data): array;
 
-    //abstract public function normalizeConstraints(array $fields): array;
+    abstract public static function _dbFieldToSchema(array $data): array;
+
+    abstract public static function _dbFieldToYaml(array $data): array;
+
+    abstract public static function getSqlField(array $column):string;
+
+    //abstract public function _normalizeConstraints(array $fields): array;
+
+    /**
+     * Retorna un array con el nombre, tamaño, mínimo y máximo valor para un tipo
+     * entero de tamaño size. El tamaño se ajustará al primero disponible, retornando
+     * el tamaño real asumido.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param int  $size
+     * @param bool $unsigned
+     *
+     * @return array
+     */
+    abstract public static function getIntegerMinMax(int $size, bool $unsigned): array;
 
     /**
      * Obtains an array of indexes for a table
@@ -154,7 +178,7 @@ abstract class SqlHelper
      * @return array
      * @throws \DebugBar\DebugBarException
      */
-    public function getIndexes(string $tableName): array
+    public function _getIndexes(string $tableName): array
     {
         $query = $this->getIndexesSql($tableName);
         $data = DB::select($query);
@@ -174,15 +198,15 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function getIndexesSql(string $tableName): string;
+    abstract public function _getIndexesSql(string $tableName): string;
 
-    abstract public function normalizeIndexes(array $fields): array;
+    abstract public function _normalizeIndexes(array $fields): array;
 
-    abstract public static function modify(string $tableName, array $oldField, array $newField):string;
+    abstract public static function _modify(string $tableName, array $oldField, array $newField): string;
     /*
-      abstract public function getConstraintsSql(string $tableName): string;
+      abstract public function _getConstraintsSql(string $tableName): string;
 
-      public function getConstraints(string $tableName): array
+      public function _getConstraints(string $tableName): array
       {
       $query = $this->getConstraintsSql($tableName);
       $data = DB::select($query);

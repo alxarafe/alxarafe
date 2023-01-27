@@ -23,6 +23,7 @@ use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Core\Singletons\Translator;
+use Alxarafe\Core\Utils\MathUtils;
 use DebugBar\DebugBarException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -91,6 +92,21 @@ class Schema
     public const TYPE_BOOLEAN = 'bool';
 
     /**
+     * Longitud de un string si no se ha detallado ninguna
+     */
+    public const DEFAULT_STRING_LENGTH = 50;
+
+    /**
+     * Bytes que usará un integer si no se ha detallado tamaño
+     */
+    public const DEFAULT_INTEGER_SIZE = 4;
+
+    /**
+     * Si un integer usa signo por defecto o no. True si no utiliza signo por defecto.
+     */
+    public const DEFAULT_INTEGER_UNSIGNED = true;
+
+    /**
      * Retorno de carro y salto de línea
      */
     const CRLF = "\r\n";
@@ -102,8 +118,19 @@ class Schema
      */
     public static array $bbddStructure;
 
+    /**
+     * Realiza una comprobación integral de la base de datos, verificando que la configuración
+     * indicada en los archivos yaml de configuración de tablas, se corresponde con lo
+     * creado en la base de datos.
+     * Adecúa la base de datos a la información facilitada por los archivos yaml.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @throws DebugBarException
+     */
     public static function checkDatabaseStructure()
     {
+        DB::$engine->exec('DROP TABLE `tc_menus`;');
         foreach (YamlSchema::getTables() as $key => $table) {
             if (!file_exists($table)) {
                 Debug::message('No existe la tabla ' . $table);
@@ -115,96 +142,195 @@ class Schema
         }
     }
 
-    /**
-     * Return true if $tableName exists in database
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     * @throws DebugBarException
-     */
-    public static function tableExists($tableName): bool
+    private static function getGenericType(array $data): array
     {
-        $tableNameWithPrefix = DB::$dbPrefix . $tableName;
-        $dbName = DB::$dbName;
-        $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableNameWithPrefix}'";
-
-        $data = Engine::select($sql);
-        $result = reset($data);
-
-        return $result['Total'] === '1';
-    }
-
-    private static function getFieldsAndIndexes($tableName, $path): array
-    {
-        $data = Yaml::parseFile($path);
-
         $result = [];
-        foreach ($data['fields'] ?? [] as $key => $datum) {
-            $datum['key'] = $key;
-            $result['fields'][$key]['db'] = DB::normalizeFromYaml($datum);
-            $result['fields'][$key]['info'] = Schema::normalize($datum);
-            if ($result['fields'][$key]['type'] === 'autoincrement') {
-                // TODO: Ver cómo tendría que ser la primary key
-                $result['indexes']['primary'] = $key;
+        $type = $data['type'];
+
+        switch ($type) {
+            case 'autoincrement':
+            case 'relationship':
+                $type = Schema::TYPE_INTEGER;
+                $result['size'] = 8;
+                break;
+        }
+
+        // Si es un tipo genérico, se retorna automáticamente.
+        if (isset(DB::$helper::$types[$type])) {
+            $result['generictype'] = $type;
+            return $result;
+        }
+
+        foreach (DB::$helper::$types as $key => $types) {
+            if (in_array($type, $types)) {
+                $result['generictype'] = $key;
+                return $result;
             }
         }
-        foreach ($data['indexes'] ?? [] as $key => $datum) {
-            $datum['key'] = $key;
-            $result['indexes'][$key] = $datum;
-        }
 
-        /*
-        Igual conviene crear una clase:
-        - DBSchema (con los datos de la base de datos real)
-        - DefinedSchema (con los datos definidos)
-        y que Schema cree o adapte según los datos de ambas. Que cada una lleve lo suyo
-
-        Que el resultado se guarde en el yaml y que se encargue de realizar las conversines
-    oportunas siempre que no suponga una pérdida de datos.
-        */
-
+        Debug::message("No se ha encontrado genérico para {$type}. Se asume 'string'.");
+        $result['generictype'] = 'string';
         return $result;
     }
 
-    private static function getFields($tableName): array
+    private static function yamlFieldAnyToSchema(string $genericType, array $data): array
     {
-        $yamlSourceFilename = self::$tables[$tableName];
-        if (!file_exists($yamlSourceFilename)) {
-            dump('No existe el archivo ' . $yamlSourceFilename);
-        }
-
-        $data = Yaml::parseFile($yamlSourceFilename);
-
+        $type = DB::$helper::getDataTypes()[$data['type']];
         $result = [];
-        foreach ($data as $key => $datum) {
-            $datum['key'] = $key;
-            $result[$key] = Schema::normalize($datum);
-        }
-
-        /*
-        Igual conviene crear una clase:
-        - DBSchema (con los datos de la base de datos real)
-        - DefinedSchema (con los datos definidos)
-        y que Schema cree o adapte según los datos de ambas. Que cada una lleve lo suyo
-
-        Que el resultado se guarde en el yaml y que se encargue de realizar las conversines
-    oportunas siempre que no suponga una pérdida de datos.
-        */
-
+        $result['genericType'] = $genericType;
+        $result['dbtype'] = $type;
+        dump(['ANY' => $data]);
         return $result;
     }
 
-    private static function getIndexes($tableName): array
+    /**
+     * Cumplimenta los datos faltantes del yaml de definición al de caché para
+     * tipos enteros.
+     * Posibles valores que se pueden recibir en $data:
+     * - min, es el valor mínimo aceptado por el entero.
+     * - max, es el valor máximo aceptado por el entero.
+     * - size, es el número de bytes que ocupa el entero.
+     * - unsigned, indica si necesita signo o no.
+     * La respuesta puede modificar algunos de esos valores.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    private static function yamlFieldIntegerToSchema(array $data): array
     {
-        $result = [];
-        return $result;
+        $min = $data['min'] ?? null;
+        $max = $data['max'] ?? null;
+
+        // Si hay mínimo y máximo, se ajusta el resto de parámetros a esos datos.
+        if ($min !== null && $max !== null) {
+            $unsigned = $min >= 0;
+            $size = MathUtils::howManyBytes($max, $min, $unsigned);
+            $extra = DB::$helper::getIntegerMinMax($size, $unsigned);
+            return [
+                'dbtype' => $extra['dbtype'],
+                'min' => $min,
+                'max' => $max,
+                'size' => $extra['size'],
+                'unsigned' => $extra['unsigned'],
+            ];
+        }
+
+        // Si tenemos máximo, pero no tenemos mínimo, se ajusta al máximo y se toma signo por defecto
+        if ($max !== null) {
+            $unsigned = $data['unsigned'] ?? self::DEFAULT_INTEGER_UNSIGNED;
+            $size = MathUtils::howManyBytes($max);
+            $extra = DB::$helper::getIntegerMinMax($size, $unsigned);
+            return [
+                'dbtype' => $extra['dbtype'],
+                'min' => $extra['min'],
+                'max' => $max,
+                'size' => $extra['size'],
+                'unsigned' => $extra['unsigned'],
+            ];
+        }
+
+        // Si lo que no tenemos es máximo, ajustamos el tamaño al mínimo y se ajusta el signo al mínimo
+        if ($min !== null) {
+            $unsigned = $min >= 0;
+            $size = MathUtils::howManyBytes($min, $min, $unsigned);
+            $extra = DB::$helper::getIntegerMinMax($size, $unsigned);
+            return [
+                'dbtype' => $extra['dbtype'],
+                'min' => 0, // TODO: Si unsigned, será el menor entero negativo.
+                'max' => $max,
+                'size' => $extra['size'],
+                'unsigned' => $extra['unsigned'],
+            ];
+        }
+
+        // Mínimo y máximo son nulos
+        $size = $data['size'] ?? self::DEFAULT_INTEGER_SIZE;
+        $unsigned = $data['unsigned'] ?? self::DEFAULT_INTEGER_UNSIGNED;
+        return DB::$helper::getIntegerMinMax($size, $unsigned);
     }
 
-    private static function getRelated($tableName): array
+    private static function yamlFieldStringToSchema(array $data): array
     {
-        $result = [];
-        return $result;
+        return [
+            'dbtype' => 'varchar',
+            'minlength' => $data['minlength'] ?? 0,
+            'length' => $data['length'] ?? self::DEFAULT_STRING_LENGTH,
+        ];
+    }
+
+    /**
+     * Tomando la definición de un campo de una tabla en un archivo yaml de definición,
+     * genera toda la información necesaria para la creación, actualización de la tabla
+     * y el mantenimiento de los datos del campo.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function yamlFieldToSchema(array $data): array
+    {
+        /**
+         * Los datos que vienen del yaml son los siguientes:
+         * - name es el nombre del campo
+         * - type es el tipo genérico del campo
+         * El resto, será dependiente del tipo genérico de dato.
+         * Puede ocurrir que no venga un tipo genérico, sino uno fijo, en ese caso
+         * se intentará corregir, pero se notificará en la barra de depuración.
+         * Si hay error en la conversión, se generará un error.
+         */
+        $column = [];
+        $column['name'] = (string) $data['name'];
+        $column['type'] = (string) $data['type'];
+        $column['nullable'] = $data['nullable'] ?? 'yes';
+        $column['default'] = $data['default'] ?? null;
+        $column = array_merge($column, self::getGenericType($data));
+
+        switch ($column['generictype']) {
+            case Schema::TYPE_INTEGER:
+                foreach (['min', 'max', 'unsigned', 'size'] as $field) {
+                    if (isset($data[$field])) {
+                        $column[$field] = $data[$field];
+                        unset($data[$field]);
+                    }
+                }
+                $result = self::yamlFieldIntegerToSchema($column);
+                break;
+            case Schema::TYPE_STRING:
+                foreach (['minlength', 'length'] as $field) {
+                    if (isset($data[$field])) {
+                        $column[$field] = $data[$field];
+                        unset($data[$field]);
+                    }
+                }
+                $result = self::yamlFieldStringToSchema($column);
+                break;
+            case Schema::TYPE_FLOAT:
+            case Schema::TYPE_DECIMAL:
+            case Schema::TYPE_TEXT:
+            case Schema::TYPE_DATE:
+            case Schema::TYPE_TIME:
+            case Schema::TYPE_DATETIME:
+            case Schema::TYPE_BOOLEAN:
+            default:
+                $result = self::yamlFieldAnyToSchema($column['generictype'], $column);
+        }
+
+        unset($data['name']);
+        unset($data['type']);
+        unset($data['default']);
+        unset($data['nullable']);
+
+        $column = array_merge($column, $result);
+
+        if (count($data) > 0) {
+            dump(['Ignorado en data' => $data]);
+        }
+        return $column;
     }
 
     private static function checkTable(string $tableName, string $path, bool $create = true): array
@@ -214,10 +340,11 @@ class Schema
 
         $data = [];
         foreach ($fields as $key => $field) {
-            $field['key'] = $key;
-            $schema = DB::yamlFieldToSchema($field);
-            $data[$key]['db'] = DB::yamlFieldToDb($schema);
-            $data[$key]['schema'] = $schema;
+            $field['name'] = $key;
+            $schema = Schema::yamlFieldToSchema($field);
+            $data['yamldef'][$key] = $field;
+            $data['schema'][$key] = $schema;
+            $data['db'][$key] = DB::$helper::yamlFieldToDb($schema);
         }
 
         $indexes = $yaml['indexes'] ?? [];
@@ -270,7 +397,9 @@ class Schema
         // Si no está cacheado, entonces hay que comprobar si hay cambios en la estructura y regenerarla.
         self::$bbddStructure[$tableName] = self::checkTable($tableName, $path, $create);
 
-        if (DB::tableExists($tableName)) {
+        dump([$tableName => self::$bbddStructure[$tableName]]);
+
+        if (DB::$helper::tableExists($tableName)) {
             Debug::message('La tabla ' . $tableName . ' existe');
             if (!self::updateTable($tableName)) {
                 FlashMessages::setError(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
@@ -281,9 +410,6 @@ class Schema
                 FlashMessages::setError(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
             }
         }
-
-        return true;
-        die('Por aquí vamos ahora...');
 
         if (!YamlSchema::saveCacheYamlFile(YamlSchema::YAML_CACHE_TABLES_DIR, $tableName, self::$bbddStructure[$tableName])) {
             Debug::message('No se ha podido guardar la información de caché para la tabla ' . $tableName);
@@ -302,7 +428,7 @@ class Schema
      *
      * @return string
      */
-    public static function getTypeOf(string $type): string
+    public static function _getTypeOf(string $type): string
     {
         foreach (DB::getDataTypes() as $index => $types) {
             if (in_array(strtolower($type), $types)) {
@@ -313,7 +439,7 @@ class Schema
         return 'text';
     }
 
-    private static function splitType(string $originalType): array
+    private static function _splitType(string $originalType): array
     {
         $replacesSources = [
             'character varying',
@@ -361,12 +487,12 @@ class Schema
      * @return bool
      * @throws DebugBarException
      */
-
     private static function createTable(string $tableName): bool
     {
         $tabla = self::$bbddStructure[$tableName];
-        $sql = self::createFields($tableName, $tabla['fields']);
+        $sql = self::createFields($tableName, $tabla['fields']['db']);
 
+        /*
         foreach ($tabla['indexes'] as $name => $index) {
             $sql .= self::createIndex($tableName, $name, $index);
         }
@@ -376,11 +502,12 @@ class Schema
         } else {
             $sql .= self::getSeed($tableName);
         }
+        */
 
         return Engine::exec($sql);
     }
 
-    private static function getSeed($tableName): string
+    private static function _getSeed($tableName): string
     {
         $tableNameWithPrefix = DB::$dbPrefix . $tableName;
 
@@ -438,7 +565,7 @@ class Schema
         return $result;
     }
 
-    private static function updateField(string $tableName, string $fieldName, array $structure): string
+    private static function _updateField(string $tableName, string $fieldName, array $structure): string
     {
         dump([
             'tablename' => $tableName,
@@ -449,7 +576,7 @@ class Schema
         return '';
     }
 
-    private static function updateTable(string $tableName): bool
+    private static function _updateTable(string $tableName): bool
     {
         $yamlStructure = self::$bbddStructure[$tableName];
         $dbStructure = DB::getColumns($tableName);
@@ -486,7 +613,7 @@ class Schema
      *
      * @return string
      */
-    protected static function createFields(string $tablename, array $fieldList): string
+    protected static function _createFields(string $tablename, array $fieldList): string
     {
         $tablenameWithPrefix = DB::$dbPrefix . $tablename;
 
@@ -533,6 +660,20 @@ class Schema
         return $sql;
     }
 
+    protected static function createFields(string $tablename, array $fieldList): string
+    {
+        $tablenameWithPrefix = DB::$dbPrefix . $tablename;
+
+        $sql = "CREATE TABLE $tablenameWithPrefix ( ";
+        foreach ($fieldList as $column) {
+            $sql .= DB::$helper::getSqlField($column) . ', ';
+        }
+        $sql = substr($sql, 0, -2); // Quitamos la coma y el espacio del final
+        $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
+
+        return $sql;
+    }
+
     /**
      * Create the SQL statements for the construction of one index.
      * In the case of the primary index, it is not necessary if it is auto_increment.
@@ -548,7 +689,7 @@ class Schema
      *
      * @return string
      */
-    protected static function createIndex($tableName, $indexname, $indexData)
+    protected static function _createIndex($tableName, $indexname, $indexData)
     {
         $tableNameWithPrefix = DB::$dbPrefix . $tableName;
 
@@ -630,7 +771,7 @@ class Schema
      *
      * @return string
      */
-    protected static function setValues(string $tableName, array $values): string
+    protected static function _setValues(string $tableName, array $values): string
     {
         $tablenameWithPrefix = DB::$dbPrefix . $tableName;
 
@@ -655,5 +796,97 @@ class Schema
         }
 
         return substr($sql, 0, -2) . self::CRLF;
+    }
+
+    /**
+     * Return true if $tableName exists in database
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     * @throws DebugBarException
+     */
+    public static function _tableExists($tableName): bool
+    {
+        $tableNameWithPrefix = DB::$dbPrefix . $tableName;
+        $dbName = DB::$dbName;
+        $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableNameWithPrefix}'";
+
+        $data = Engine::select($sql);
+        $result = reset($data);
+
+        return $result['Total'] === '1';
+    }
+
+    private static function _getFieldsAndIndexes($tableName, $path): array
+    {
+        $data = Yaml::parseFile($path);
+
+        $result = [];
+        foreach ($data['fields'] ?? [] as $key => $datum) {
+            $datum['key'] = $key;
+            $result['fields'][$key]['db'] = DB::normalizeFromYaml($datum);
+            $result['fields'][$key]['info'] = Schema::normalize($datum);
+            if ($result['fields'][$key]['type'] === 'autoincrement') {
+                // TODO: Ver cómo tendría que ser la primary key
+                $result['indexes']['primary'] = $key;
+            }
+        }
+        foreach ($data['indexes'] ?? [] as $key => $datum) {
+            $datum['key'] = $key;
+            $result['indexes'][$key] = $datum;
+        }
+
+        /*
+        Igual conviene crear una clase:
+        - DBSchema (con los datos de la base de datos real)
+        - DefinedSchema (con los datos definidos)
+        y que Schema cree o adapte según los datos de ambas. Que cada una lleve lo suyo
+
+        Que el resultado se guarde en el yaml y que se encargue de realizar las conversines
+    oportunas siempre que no suponga una pérdida de datos.
+        */
+
+        return $result;
+    }
+
+    private static function _getFields($tableName): array
+    {
+        $yamlSourceFilename = self::$tables[$tableName];
+        if (!file_exists($yamlSourceFilename)) {
+            dump('No existe el archivo ' . $yamlSourceFilename);
+        }
+
+        $data = Yaml::parseFile($yamlSourceFilename);
+
+        $result = [];
+        foreach ($data as $key => $datum) {
+            $datum['key'] = $key;
+            $result[$key] = Schema::normalize($datum);
+        }
+
+        /*
+        Igual conviene crear una clase:
+        - DBSchema (con los datos de la base de datos real)
+        - DefinedSchema (con los datos definidos)
+        y que Schema cree o adapte según los datos de ambas. Que cada una lleve lo suyo
+
+        Que el resultado se guarde en el yaml y que se encargue de realizar las conversines
+    oportunas siempre que no suponga una pérdida de datos.
+        */
+
+        return $result;
+    }
+
+    private static function _getIndexes($tableName): array
+    {
+        $result = [];
+        return $result;
+    }
+
+    private static function _getRelated($tableName): array
+    {
+        $result = [];
+        return $result;
     }
 }

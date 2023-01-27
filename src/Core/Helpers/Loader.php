@@ -14,7 +14,6 @@ use Alxarafe\Core\Singletons\Logger;
 use Alxarafe\Core\Singletons\PhpFileCache;
 use Alxarafe\Core\Singletons\RegionalInfo;
 use Alxarafe\Core\Singletons\Render;
-use Alxarafe\Core\Singletons\Session;
 use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Database\DB;
 use Alxarafe\Database\YamlSchema;
@@ -57,8 +56,6 @@ abstract class Loader
             die();
         }
 
-        // TODO: Sólo debería de limpiarse caché al activar y desactivar un plugin, o a demanda.
-        //       Pero en modo de depuración, debería de limpiarse para actualizar los cambios en las tablas.
         if (!YamlSchema::clearYamlCache()) {
             die('No se ha podido eliminar la caché');
         }

@@ -92,7 +92,7 @@ abstract class Engine
     /**
      * Engine destructor. Cancela las transacciones pendientes.
      */
-    public function __destruct()
+    public function ___destruct()
     {
         $this->rollbackTransactions();
     }
@@ -108,7 +108,7 @@ abstract class Engine
      *
      * @return array
      */
-    public static function getEngines(): array
+    public static function _getEngines(): array
     {
         $engines = scandir(self::ENGINES_FOLDER);
         $ret = [];
@@ -143,7 +143,7 @@ abstract class Engine
      * @version 2023.0108
      *
      */
-    final public static function rollbackTransactions()
+    final public static function _rollbackTransactions()
     {
         while (self::$transactionDepth > 0) {
             self::rollback();
@@ -158,7 +158,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public static function rollBack(): bool
+    final public static function _rollBack(): bool
     {
         $ret = true;
 
@@ -205,7 +205,7 @@ abstract class Engine
      *
      * @return string
      */
-    final public static function getLastInserted(): string
+    final public static function _getLastInserted(): string
     {
         $data = self::select('SELECT @@identity AS id');
         if (count($data) > 0) {
@@ -254,7 +254,6 @@ abstract class Engine
      * Retorna true si existe conexión, asignando el handler a self::$dbHandler.
      *
      * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2023.0108
      *
      * @param array $config
      *
@@ -292,7 +291,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public static function prepare(string $sql, array $options = []): bool
+    final public static function _prepare(string $sql, array $options = []): bool
     {
         if (!isset(self::$dbHandler)) {
             return false;
@@ -313,7 +312,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public static function execute(array $inputParameters = []): bool
+    final public static function _execute(array $inputParameters = []): bool
     {
         if (!isset(self::$statement) || !self::$statement) {
             return false;
@@ -331,7 +330,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public static function beginTransaction(): bool
+    final public static function _beginTransaction(): bool
     {
         if (self::$transactionDepth == 0 || !self::$savePointsSupport) {
             $ret = self::$dbHandler->beginTransaction();
@@ -356,7 +355,7 @@ abstract class Engine
      *
      * @return bool
      */
-    final public static function commit(): bool
+    final public static function _commit(): bool
     {
         $ret = true;
 

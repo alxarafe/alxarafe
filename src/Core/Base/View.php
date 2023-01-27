@@ -6,13 +6,13 @@
 
 namespace Alxarafe\Core\Base;
 
+use Alxarafe\Core\Helpers\Auth;
 use Alxarafe\Core\Helpers\Globals;
 use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Core\Singletons\Render;
 use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Core\Utils\ClassUtils;
-use Alxarafe\Database\DB;
 use Alxarafe\Models\Menu;
 
 /**
@@ -85,7 +85,7 @@ abstract class View
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
-        $this->vars['user'] = DB::getUsername();
+        $this->vars['user'] = Auth::getUser();
         $this->vars['templateuri'] = Render::getTemplatesUri();
         $this->addCSS();
         $this->addJS();

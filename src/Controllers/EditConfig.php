@@ -50,7 +50,7 @@ class EditConfig extends BasicController
         Config::setVar('database', 'main', 'dbPort', $_POST['dbPort'] ?? '');
         Config::setVar('database', 'main', 'dbPrefix', $_POST['dbPrefix'] ?? '');
 
-        $result = Config::connectToDatabase();
+        $result = DB::connectToDatabase();
         if (!$result) {
             FlashMessages::setError('database_not_found', 'next');
         }

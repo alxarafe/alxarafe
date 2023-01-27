@@ -66,9 +66,6 @@ abstract class Globals
         define('TMP_DIR', constant('BASE_DIR') . '/tmp/');
 
         define('CONFIGURATION_DIR', constant('BASE_DIR') . '/config/');
-        define('DEFAULT_STRING_LENGTH', 50);
-        define('DEFAULT_INTEGER_SIZE', 10);
-
         define('MODULES_DIR', 'Modules');
     }
 }

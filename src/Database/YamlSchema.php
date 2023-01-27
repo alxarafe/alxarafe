@@ -60,7 +60,7 @@ abstract class YamlSchema
         return $path . $filename . '.yaml';;
     }
 
-    public static function loadYamlFile(string $filename): array
+    public static function _loadYamlFile(string $filename): array
     {
         if (!file_exists($filename) || !is_readable($filename)) {
             return [];

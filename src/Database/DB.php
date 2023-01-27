@@ -18,12 +18,11 @@
 
 namespace Alxarafe\Database;
 
-use Alxarafe\Core\Helpers\Auth;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
-use Alxarafe\Core\Singletons\FlashMessages;
-use Alxarafe\Database\SqlHelpers\SqlMySql;
-use PDO;
+use Alxarafe\Core\Singletons\Translator;
+use DebugBar\DebugBarException;
+use Exception;
 
 /**
  * Class DB
@@ -41,49 +40,57 @@ abstract class DB
      *
      * @var Engine
      */
-    public static $engine;
+    public static Engine $engine;
 
     /**
      * Instancia de la clase con el código SQL específico del motor.
      *
      * @var SqlHelper
      */
-    public static $helper;
+    public static SqlHelper $helper;
 
     /**
-     * Database name.
-     *
-     * @var string
-     */
-    public static string $dbName;
-
-    /**
-     * Contains de database tablename prefix
+     * Prefijo de la base de datos en uso
      *
      * @var string
      */
     public static string $dbPrefix;
 
+    /**
+     * Nombre de la base de datos en uso
+     *
+     * @var string
+     */
+    public static string $dbName;
+
     public static $user;
     public static $username;
 
     /**
-     * Establece conexión con la base de datos
+     * Establece conexión con una base de datos.
+     *
+     * TODO: La idea en un futuro, es que se pueda establecer conexión con múltiples
+     *       bases de datos pasándole el nombre de la conexión.
+     *       El problema es, cómo invocar de forma fácil qué conexión queremos.
+     *       Si se mantiene como clase abstracta es complicado, lo más fácil sería
+     *       creando una instancia para cada conexión, pero no se podría utilizar como
+     *       clase abstracta (o ahora mismo, no caigo en cómo hacerlo).
      *
      * @param string $db
      *
      * @return bool
      * @throws DebugBarException
      */
-    public static function connectToDatabase($db = 'main'): bool
+    public static function connectToDatabase(string $db = 'main'): bool
     {
+        // TODO: Revisar ésto, porque debe de haber una conexión para cada base de datos según $db
         if (isset(self::$engine)) {
             return true;
         }
 
         $dbInfo = Config::getModuleVar('database');
-        if ($dbInfo === null) {
-            Debug::sqlMessage('empty-database-config');
+        if (!isset($dbInfo[$db])) {
+            Debug::sqlMessage(Translator::trans('empty-database-config', ['%name%' => $db]));
             return false;
         }
 
@@ -103,7 +110,7 @@ abstract class DB
             self::$engine = new $engine([
                 'dbUser' => $dbInfo[$db]['dbUser'],
                 'dbPass' => $dbInfo[$db]['dbPass'],
-                'dbName' => $dbInfo[$db]['dbName'],
+                'dbName' => self::$dbName,
                 'dbHost' => $dbInfo[$db]['dbHost'],
                 'dbPort' => $dbInfo[$db]['dbPort'],
             ]);
@@ -114,30 +121,24 @@ abstract class DB
         return false;
     }
 
-    public function __construct()
+    public static function _connect()
     {
-        self::$engine = Config::getEngine();
-        self::$helper = Config::getSqlHelper();
+        return self::$engine[$db]->connect();
     }
 
-    public static function connect()
+    public static function _disconnect()
     {
-        return self::$engine->connect();
+        return self::$engine[$db]->disconnect();
     }
 
-    public static function disconnect()
+    public static function _connected()
     {
-        return self::$engine->disconnect();
+        return self::$engine[$db]->connected();
     }
 
-    public static function connected()
+    public static function _getDataTypes()
     {
-        return self::$engine->connected();
-    }
-
-    public static function getDataTypes()
-    {
-        return self::$helper->getDataTypes();
+        return self::$helper[$db]->getDataTypes();
     }
 
     /**
@@ -173,69 +174,76 @@ abstract class DB
         return self::$engine->select($query, $vars);
     }
 
-    public static function getErrors()
+    /**
+     * Retorna el tipo de datos que se utiliza para los índices
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @return string
+     */
+    public static function getIndexType(): string
     {
-        return self::$engine->getErrors();
+        return self::$helper->getIndexType();
     }
 
-    public static function beginTransaction()
+    public static function _getErrors()
     {
-        return self::$engine->beginTransaction();
+        return self::$engine[$db]->getErrors();
     }
 
-    public static function commit()
+    public static function _beginTransaction()
     {
-        return self::$engine->commit();
+        return self::$engine[$db]->beginTransaction();
     }
 
-    public static function close()
+    public static function _commit()
     {
-        return self::$engine->close();
+        return self::$engine[$db]->commit();
     }
 
-    public static function rollback()
+    public static function _close()
     {
-        return self::$engine->rollback();
+        return self::$engine[$db]->close();
     }
 
-    public static function version()
+    public static function _rollback()
     {
-        return self::$engine->server_info();
+        return self::$engine[$db]->rollback();
     }
 
-    public static function tableExists(string $tableName)
+    public static function _version()
     {
-        return self::$helper->tableExists(self::$dbPrefix . $tableName);
+        return self::$engine[$db]->server_info();
     }
 
-    public static function getColumns(string $tableName)
+    public static function _tableExists(string $tableName)
     {
-        return self::$helper->getColumns(self::$dbPrefix . $tableName);
+        return self::$helper[$db]->tableExists(self::$dbPrefix . $tableName);
     }
 
-    public static function yamlFieldToDb(array $data): array
+    public static function _getColumns(string $tableName)
     {
-        return self::$helper::yamlFieldToDb($data);
+        return self::$helper[$db]->getColumns(self::$dbPrefix . $tableName);
     }
 
-    public static function yamlFieldToSchema(array $data): array
+    public static function _yamlFieldToDb(array $data): array
     {
-        return self::$helper::yamlFieldToSchema($data);
+        return self::$helper[$db]::yamlFieldToDb($data);
     }
 
-    public static function dbFieldToSchema(array $data): array
+    public static function _dbFieldToSchema(array $data): array
     {
-        return self::$helper::dbFieldToSchema($data);
+        return self::$helper[$db]::dbFieldToSchema($data);
     }
 
-    public static function dbFieldToYaml(array $data): array
+    public static function _dbFieldToYaml(array $data): array
     {
-        return self::$helper::dbFieldToYaml($data);
+        return self::$helper[$db]::dbFieldToYaml($data);
     }
 
-    public static function normalizeFromDb(array $data)
+    public static function _normalizeFromDb(array $data)
     {
-        $result = self::$helper::normalizeDbField($data);
+        $result = self::$helper[$db]::normalizeDbField($data);
         dump([
             'normalizeFromDb',
             'data' => $data,
@@ -244,11 +252,11 @@ abstract class DB
         return $result;
     }
 
-    public static function normalizeFromYaml(array $yamlFields)
+    public static function _normalizeFromYaml(array $yamlFields)
     {
         $result = [];
         foreach ($yamlFields as $field => $yamlField) {
-            $result[$field] = self::$helper::normalizeYamlField($yamlField);
+            $result[$field] = self::$helper[$db]::normalizeYamlField($yamlField);
         }
         dump([
             'normalizeFromYaml',
@@ -258,27 +266,22 @@ abstract class DB
         return $result;
     }
 
-    public static function normalize(array $data)
+    public static function _normalize(array $data)
     {
-        return self::$helper->normalizeField($data);
+        return self::$helper[$db]->normalizeField($data);
     }
 
-    public static function getIndexType(): string
+    public static function _modify(string $tableName, array $oldField, array $newField): string
     {
-        return self::$helper->getIndexType();
+        return self::$helper[$db]->modify(self::$dbPrefix . $tableName, $oldField, $newField);
     }
 
-    public static function modify(string $tableName, array $oldField, array $newField): string
-    {
-        return self::$helper->modify(self::$dbPrefix . $tableName, $oldField, $newField);
-    }
-
-    public static function getUsername()
+    public static function _getUsername()
     {
         return self::$username;
     }
 
-    public static function connectToDatabaseAndAuth(): bool
+    public static function _connectToDatabaseAndAuth(): bool
     {
         if (!self::connectToDataBase()) {
             FlashMessages::setError('Database Connection error...');

@@ -14,9 +14,9 @@ fields:
     type: string
     length: 50
   position:
-    type: int
+    type: integer
   level:
-    type: tinyint
+    type: mediumint
     min: 1
     max: 10
 indexes:

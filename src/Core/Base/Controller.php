@@ -51,7 +51,7 @@ abstract class Controller extends BasicController
      */
     public function preLoad(): bool
     {
-        if (!parent::preLoad() || /* !$this->configExists || */ !DB::connectToDatabaseAndAuth()) {
+        if (!parent::preLoad()  /*|| !$this->configExists || !DB::connectToDatabaseAndAuth()*/ ) {
             return false;
         }
 
