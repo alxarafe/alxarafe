@@ -229,11 +229,15 @@ class SqlMySql extends SqlHelper
                 break;
             case Schema::TYPE_FLOAT:
             case Schema::TYPE_DECIMAL:
+                break;
             case Schema::TYPE_STRING:
+                $type = 'varchar(' . $data['length'] . ')';
+                break;
             case Schema::TYPE_TEXT:
             case Schema::TYPE_DATE:
             case Schema::TYPE_TIME:
             case Schema::TYPE_DATETIME:
+                break;
             case Schema::TYPE_BOOLEAN:
                 $type = 'tinyint(1)';
                 break;

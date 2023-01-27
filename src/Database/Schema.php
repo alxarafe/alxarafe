@@ -130,7 +130,10 @@ class Schema
      */
     public static function checkDatabaseStructure()
     {
-        DB::$engine->exec('DROP TABLE `tc_menus`;');
+        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
+        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
+        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
+
         foreach (YamlSchema::getTables() as $key => $table) {
             if (!file_exists($table)) {
                 Debug::message('No existe la tabla ' . $table);
@@ -175,11 +178,11 @@ class Schema
 
     private static function yamlFieldAnyToSchema(string $genericType, array $data): array
     {
-        $type = DB::$helper::getDataTypes()[$data['type']];
+        $types=DB::$helper::getDataTypes();
+        $type = $types[$genericType];
         $result = [];
-        $result['genericType'] = $genericType;
-        $result['dbtype'] = $type;
-        dump(['ANY' => $data]);
+        $result['generictype'] = $genericType;
+        $result['dbtype'] = reset($type);
         return $result;
     }
 
@@ -316,6 +319,8 @@ class Schema
             case Schema::TYPE_TIME:
             case Schema::TYPE_DATETIME:
             case Schema::TYPE_BOOLEAN:
+                $result = self::yamlFieldAnyToSchema($column['generictype'], $column);
+                break;
             default:
                 $result = self::yamlFieldAnyToSchema($column['generictype'], $column);
         }
