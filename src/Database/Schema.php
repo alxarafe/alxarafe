@@ -130,9 +130,10 @@ class Schema
      */
     public static function checkDatabaseStructure()
     {
-        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
-        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
-        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
+        // TODO: Eliminar cuando ya cree y actualice correctamente las tablas
+        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
+        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
+        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
 
         foreach (YamlSchema::getTables() as $key => $table) {
             if (!file_exists($table)) {
@@ -153,7 +154,7 @@ class Schema
         switch ($type) {
             case 'autoincrement':
                 $result['nullable'] = 'no';
-                // No se hace break intencionadamente
+            // No se hace break intencionadamente
             case 'relationship':
                 $type = Schema::TYPE_INTEGER;
                 $result['size'] = 8;
@@ -483,7 +484,7 @@ class Schema
         return ['type' => $type, 'length' => $length, 'unsigned' => $unsigned, 'zerofill' => $zerofill];
     }
 
-    private static function _getSeed($tableName): string
+    private static function getSeed($tableName): string
     {
         $tableNameWithPrefix = DB::$dbPrefix . $tableName;
 
@@ -566,7 +567,6 @@ class Schema
         $tabla = self::$bbddStructure[$tableName];
         $sql = self::createFields($tableName, $tabla['fields']['db']);
 
-        /*
         foreach ($tabla['indexes'] as $name => $index) {
             $sql .= self::createIndex($tableName, $name, $index);
         }
@@ -576,7 +576,6 @@ class Schema
         } else {
             $sql .= self::getSeed($tableName);
         }
-        */
 
         return Engine::exec($sql);
     }
@@ -691,7 +690,7 @@ class Schema
      *
      * @return string
      */
-    protected static function _createIndex($tableName, $indexname, $indexData)
+    protected static function createIndex($tableName, $indexname, $indexData)
     {
         $tableNameWithPrefix = DB::$dbPrefix . $tableName;
 
@@ -773,7 +772,7 @@ class Schema
      *
      * @return string
      */
-    protected static function _setValues(string $tableName, array $values): string
+    protected static function setValues(string $tableName, array $values): string
     {
         $tablenameWithPrefix = DB::$dbPrefix . $tableName;
 
