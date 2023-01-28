@@ -152,6 +152,8 @@ abstract class SqlHelper
 
     abstract public static function _dbFieldToYaml(array $data): array;
 
+    abstract public static function sanitizeDbStructure(string $genericType, array $structure): array;
+
     abstract public static function getSqlField(array $column):string;
 
     //abstract public function _normalizeConstraints(array $fields): array;

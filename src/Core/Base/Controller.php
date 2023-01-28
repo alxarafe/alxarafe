@@ -51,12 +51,12 @@ abstract class Controller extends BasicController
      */
     public function preLoad(): bool
     {
-        if (!parent::preLoad()  /*|| !$this->configExists || !DB::connectToDatabaseAndAuth()*/ ) {
+        if (!parent::preLoad()) {
             return false;
         }
 
-//        self::$engine = Config::getEngine();
-//        self::$sqlHelper = Config::getSqlHelper();
+        //        self::$engine = Config::getEngine();
+        //        self::$sqlHelper = Config::getSqlHelper();
 
         $this->action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT);
 

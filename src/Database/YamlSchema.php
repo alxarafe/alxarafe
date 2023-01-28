@@ -57,7 +57,7 @@ abstract class YamlSchema
                 debug_message('No se ha podido crear la carpeta ' . $path);
             }
         }
-        return $path . $filename . '.yaml';;
+        return $path . $filename . '.yaml';
     }
 
     public static function _loadYamlFile(string $filename): array

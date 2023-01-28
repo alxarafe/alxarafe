@@ -153,6 +153,7 @@ class Schema
         switch ($type) {
             case 'autoincrement':
                 $result['nullable'] = 'no';
+                // No se hace break intencionadamente
             case 'relationship':
                 $type = Schema::TYPE_INTEGER;
                 $result['size'] = 8;
