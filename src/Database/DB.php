@@ -216,14 +216,14 @@ abstract class DB
         return self::$engine[$db]->server_info();
     }
 
-    public static function _tableExists(string $tableName)
+    public static function tableExists(string $tableName)
     {
-        return self::$helper[$db]->tableExists(self::$dbPrefix . $tableName);
+        return self::$helper->tableExists(self::$dbPrefix . $tableName);
     }
 
-    public static function _getColumns(string $tableName)
+    public static function getColumns(string $tableName)
     {
-        return self::$helper[$db]->getColumns(self::$dbPrefix . $tableName);
+        return self::$helper->getColumns(self::$dbPrefix . $tableName);
     }
 
     public static function _yamlFieldToDb(array $data): array
@@ -271,9 +271,9 @@ abstract class DB
         return self::$helper[$db]->normalizeField($data);
     }
 
-    public static function _modify(string $tableName, array $oldField, array $newField): string
+    public static function modify(string $tableName, array $oldField, array $newField): string
     {
-        return self::$helper[$db]->modify(self::$dbPrefix . $tableName, $oldField, $newField);
+        return self::$helper->modify(self::$dbPrefix . $tableName, $oldField, $newField);
     }
 
     public static function _getUsername()

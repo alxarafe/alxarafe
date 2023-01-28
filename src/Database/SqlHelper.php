@@ -202,7 +202,7 @@ abstract class SqlHelper
 
     abstract public function _normalizeIndexes(array $fields): array;
 
-    abstract public static function _modify(string $tableName, array $oldField, array $newField): string;
+    abstract public static function modify(string $tableName, array $oldField, array $newField): string;
     /*
       abstract public function _getConstraintsSql(string $tableName): string;
 

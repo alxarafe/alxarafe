@@ -217,7 +217,7 @@ class SqlMySql extends SqlHelper
 
     public static function yamlFieldToDb(array $data): array
     {
-        $unsigned = $data['unsigned'] ?? false;
+        $nullable = strtolower($data['nullable']) !== 'no';
 
         $result = [];
         $result['Field'] = $data['name'];
@@ -239,11 +239,11 @@ class SqlMySql extends SqlHelper
             case Schema::TYPE_DATETIME:
                 break;
             case Schema::TYPE_BOOLEAN:
-                $type = 'tinyint(1)';
+                //                $type = 'tinyint(1)';
                 break;
         }
         $result['Type'] = $type;
-        $result['Null'] = !isset($data['nullable']) || $data['nullable'] ? 'YES' : 'NO';
+        $result['Null'] = $nullable ? 'YES' : 'NO';
         $result['Key'] = $data['type'] === 'autoincrement' ? 'PRI' : '';
         $result['Default'] = $data['default'] ?? null;
         $result['Extra'] = $data['type'] === 'autoincrement' ? 'auto_increment' : '';
@@ -452,21 +452,61 @@ WHERE
         return 'SHOW INDEX FROM ' . Config::getInstance()->getSqlHelper()->quoteTableName($tableName);
     }
 
-    public static function _modify(string $tableName, array $oldField, array $newField): string
+    /**
+     * Toma la estructura de un campo obtenida de la base de datos, y la retorna
+     * de la misma forma en la que se usó al ser creada.
+     * Esto es necesario, porque algunas bases de datos cambian tipos como boolean por
+     * tinyint(1), o int por int(10)
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $genericType
+     * @param array  $structure
+     *
+     * @return array
+     */
+    public static function sanitizeDbStructure(string $genericType, array $structure): array
+    {
+        $type = $structure['Type'];
+        switch ($genericType) {
+            // Tipos que no cambian
+            case Schema::TYPE_FLOAT:
+            case Schema::TYPE_DECIMAL:
+            case Schema::TYPE_STRING:
+            case Schema::TYPE_TEXT:
+            case Schema::TYPE_DATE:
+            case Schema::TYPE_TIME:
+            case Schema::TYPE_DATETIME:
+                break;
+            // Tipos a los que hay que quitar los paréntesis
+            case Schema::TYPE_INTEGER:
+                $type = preg_replace("/\((.*?)\)/i", "", $type);
+                break;
+            // Tipos que cambian durante la creación
+            case Schema::TYPE_BOOLEAN:
+                $type = 'boolean'; // Se crea como boolean y se retorna como tinyint(1)
+                $structure['Default'] = ($structure['Default'] === '1');
+                break;
+        }
+        $structure['Type'] = $type;
+        return $structure;
+    }
+
+    public static function modify(string $tableName, array $oldField, array $newField): string
     {
         $sql = 'ALTER TABLE ' . self::quoteTableName($tableName) . ' CHANGE ' . $oldField['Field'] . ' ' . $newField['Field'] . ' ';
         $sql .= $newField['Type'] . ' ';
-        if ($newField) {
-            if ($oldField['Null'] === 'NO') {
-                $sql .= 'NOT ';
-            }
+        if (strtolower($newField['Null']) === 'no') {
+            $sql .= 'NOT ';
         }
         $sql .= 'NULL';
         if ($newField['Default'] !== null) {
+            if ($newField['Type'] === 'boolean') {
+                $newField['Default'] = $newField['Default'] ? '1' : '0';
+            }
             $sql .= ' DEFAULT "' . $newField['Default'] . '"';
         }
         $sql .= ';';
-
         return $sql;
     }
 }

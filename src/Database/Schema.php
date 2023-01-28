@@ -130,9 +130,9 @@ class Schema
      */
     public static function checkDatabaseStructure()
     {
-        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
-        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
-        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
+        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
+        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
+        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
 
         foreach (YamlSchema::getTables() as $key => $table) {
             if (!file_exists($table)) {
@@ -152,6 +152,7 @@ class Schema
 
         switch ($type) {
             case 'autoincrement':
+                $result['nullable'] = 'no';
             case 'relationship':
                 $type = Schema::TYPE_INTEGER;
                 $result['size'] = 8;
@@ -178,7 +179,7 @@ class Schema
 
     private static function yamlFieldAnyToSchema(string $genericType, array $data): array
     {
-        $types=DB::$helper::getDataTypes();
+        $types = DB::$helper::getDataTypes();
         $type = $types[$genericType];
         $result = [];
         $result['generictype'] = $genericType;
@@ -402,9 +403,7 @@ class Schema
         // Si no está cacheado, entonces hay que comprobar si hay cambios en la estructura y regenerarla.
         self::$bbddStructure[$tableName] = self::checkTable($tableName, $path, $create);
 
-        dump([$tableName => self::$bbddStructure[$tableName]]);
-
-        if (DB::$helper::tableExists($tableName)) {
+        if (DB::tableExists($tableName)) {
             Debug::message('La tabla ' . $tableName . ' existe');
             if (!self::updateTable($tableName)) {
                 FlashMessages::setError(Translator::trans('table_creation_error', ['%tablename%' => $tableName]));
@@ -483,35 +482,6 @@ class Schema
         return ['type' => $type, 'length' => $length, 'unsigned' => $unsigned, 'zerofill' => $zerofill];
     }
 
-    /**
-     * Create a table in the database.
-     * Build the default fields, indexes and values defined in the model.
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     * @throws DebugBarException
-     */
-    private static function createTable(string $tableName): bool
-    {
-        $tabla = self::$bbddStructure[$tableName];
-        $sql = self::createFields($tableName, $tabla['fields']['db']);
-
-        /*
-        foreach ($tabla['indexes'] as $name => $index) {
-            $sql .= self::createIndex($tableName, $name, $index);
-        }
-
-        if (isset($tabla['values'])) {
-            $sql .= self::setValues($tableName, $tabla['values']);
-        } else {
-            $sql .= self::getSeed($tableName);
-        }
-        */
-
-        return Engine::exec($sql);
-    }
-
     private static function _getSeed($tableName): string
     {
         $tableNameWithPrefix = DB::$dbPrefix . $tableName;
@@ -581,19 +551,46 @@ class Schema
         return '';
     }
 
-    private static function _updateTable(string $tableName): bool
+    /**
+     * Create a table in the database.
+     * Build the default fields, indexes and values defined in the model.
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     * @throws DebugBarException
+     */
+    private static function createTable(string $tableName): bool
+    {
+        $tabla = self::$bbddStructure[$tableName];
+        $sql = self::createFields($tableName, $tabla['fields']['db']);
+
+        /*
+        foreach ($tabla['indexes'] as $name => $index) {
+            $sql .= self::createIndex($tableName, $name, $index);
+        }
+
+        if (isset($tabla['values'])) {
+            $sql .= self::setValues($tableName, $tabla['values']);
+        } else {
+            $sql .= self::getSeed($tableName);
+        }
+        */
+
+        return Engine::exec($sql);
+    }
+
+    private static function updateTable(string $tableName): bool
     {
         $yamlStructure = self::$bbddStructure[$tableName];
         $dbStructure = DB::getColumns($tableName);
 
         $changes = [];
-        foreach ($yamlStructure['fields'] as $field => $newStructure) {
-            $oldDb = $dbStructure[$field];
-            $newDb = $newStructure['db'];
-
-            $dif = array_diff($oldDb, $newDb);
+        foreach ($yamlStructure['fields']['db'] as $field => $newStructure) {
+            $oldStructure = DB::$helper::sanitizeDbStructure($yamlStructure['fields']['schema'][$field]['generictype'], $dbStructure[$field]);
+            $dif = array_diff($oldStructure, $newStructure);
             if (count($dif) > 0) {
-                $changes[] = DB::modify($tableName, $oldDb, $newDb);
+                $changes[] = DB::modify($tableName, $oldStructure, $newStructure);
             }
         }
 
@@ -601,7 +598,6 @@ class Schema
             return true;
         }
 
-        // dump(['changes in ' . $tableName => $changes]);
         $result = true;
         foreach ($changes as $change) {
             $result = $result && Engine::exec($change);
