@@ -133,6 +133,12 @@ abstract class SqlHelper
      */
     abstract public static function getColumns(string $tableName): array;
 
+    abstract public static function createIndex(string $tableName, string $index, array $data): string;
+
+    abstract public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string;
+
+    abstract public static function removeIndex(string $tableName, string $index): string;
+
     /**
      * Recibiendo un array con los datos de un campo tal y como lo retorna la base de
      * datos, devuelve la información normalizada para ser utilizada por Schema.
@@ -148,13 +154,15 @@ abstract class SqlHelper
 
     abstract public static function yamlFieldToDb(array $data): array;
 
+    abstract public static function yamlIndexToDb(array $data): array;
+
     abstract public static function _dbFieldToSchema(array $data): array;
 
     abstract public static function _dbFieldToYaml(array $data): array;
 
     abstract public static function sanitizeDbStructure(string $genericType, array $structure): array;
 
-    abstract public static function getSqlField(array $column):string;
+    abstract public static function getSqlField(array $column): string;
 
     //abstract public function _normalizeConstraints(array $fields): array;
 
@@ -172,26 +180,7 @@ abstract class SqlHelper
      */
     abstract public static function getIntegerMinMax(int $size, bool $unsigned): array;
 
-    /**
-     * Obtains an array of indexes for a table
-     *
-     * @param string $tableName
-     *
-     * @return array
-     * @throws \DebugBar\DebugBarException
-     */
-    public function _getIndexes(string $tableName): array
-    {
-        $query = $this->getIndexesSql($tableName);
-        $data = DB::select($query);
-        $result = [];
-        foreach ($data as $value) {
-            $row = $this->normalizeIndexes($value);
-            $result[$row['index']] = $row;
-        }
-
-        return $result;
-    }
+    abstract static public function getIndexes(string $tableName): array;
 
     /**
      * Get the SQL sentence for obtains the index list of a table.
@@ -200,9 +189,9 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public function _getIndexesSql(string $tableName): string;
+    abstract static public function getIndexesSql(string $tableName): string;
 
-    abstract public function _normalizeIndexes(array $fields): array;
+    abstract static public function normalizeIndexes(array $fields): array;
 
     abstract public static function modify(string $tableName, array $oldField, array $newField): string;
     /*

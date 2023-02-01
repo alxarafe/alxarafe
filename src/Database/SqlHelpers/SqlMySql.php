@@ -186,6 +186,7 @@ class SqlMySql extends SqlHelper
         $rows = DB::select($query);
         $result = [];
         foreach ($rows as $row) {
+            unset($row['Key']);  // Los índices están gestionados por separado
             $result[$row['Field']] = $row;
         }
         return $result;
@@ -197,8 +198,8 @@ class SqlMySql extends SqlHelper
         // TODO: Aunque lo que está comentado va, igual no hace falta si al comparar
         //       ignoramos el tamaño a mostrar para los integer
 
-        /*
         $unsigned = $data['unsigned'] ?? false;
+        /*
         switch ($type) {
             case 'tinyint':
                 return $type . ($unsigned ? '(3) unsigned' : '(4)');
@@ -248,6 +249,20 @@ class SqlMySql extends SqlHelper
         $result['Default'] = $data['default'] ?? null;
         $result['Extra'] = $data['type'] === 'autoincrement' ? 'auto_increment' : '';
         return $result;
+    }
+
+    public static function yamlIndexToDb(array $data): array
+    {
+        $result = [];
+        foreach ($data['fields'] as $name => $field) {
+            if ($field['type'] === 'autoincrement') {
+                $result['PRIMARY'] = [
+                    'column' => $name,
+                    'primary' => 'yes',
+                ];
+            }
+        }
+        return array_merge($result, $data['indexes'] ?? []);
     }
 
     public static function getSqlField(array $column): string
@@ -355,20 +370,20 @@ class SqlMySql extends SqlHelper
      *
      * @return array
      */
-    public function _normalizeIndexes(array $row): array
+    public static function normalizeIndexes(array $row): array
     {
         $result = [];
         $result['index'] = $row['Key_name'];
         $result['column'] = $row['Column_name'];
         $result['unique'] = $row['Non_unique'] == '0' ? 1 : 0;
         $result['nullable'] = $row['Null'] == 'YES' ? 1 : 0;
-        $constrait = $this->getConstraintData($row['Table'], $row['Key_name']);
+        $constrait = self::getConstraintData($row['Table'], $row['Key_name']);
         if (count($constrait) > 0) {
             $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
             $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
             $result['referencedfield'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
         }
-        $constrait = $this->getConstraintRules($row['Table'], $row['Key_name']);
+        $constrait = self::getConstraintRules($row['Table'], $row['Key_name']);
         if (count($constrait) > 0) {
             $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
             $result['updaterule'] = $constrait[0]['UPDATE_RULE'];
@@ -388,9 +403,9 @@ class SqlMySql extends SqlHelper
      *
      * @return array
      */
-    private function _getConstraintData(string $tableName, string $constraintName): array
+    private static function getConstraintData(string $tableName, string $constraintName): array
     {
-        $dbName = Config::getVar('dbName') ?? 'Unknown';
+        $dbName = DB::$dbName;
 
         return DB::select('
 SELECT
@@ -402,9 +417,9 @@ SELECT
 FROM
 	INFORMATION_SCHEMA.KEY_COLUMN_USAGE
 WHERE
-	TABLE_SCHEMA = ' . $this->quoteFieldName($dbName) . ' AND
-	TABLE_NAME = ' . $this->quoteFieldName($tableName) . ' AND
-	constraint_name = ' . $this->quoteFieldName($constraintName) . ' AND
+	TABLE_SCHEMA = ' . self::quoteFieldName($dbName) . ' AND
+	TABLE_NAME = ' . self::quoteFieldName($tableName) . ' AND
+	constraint_name = ' . self::quoteFieldName($constraintName) . ' AND
 	REFERENCED_COLUMN_NAME IS NOT NULL;
         ');
     }
@@ -420,20 +435,20 @@ WHERE
      *
      * @return array
      */
-    private function _getConstraintRules(string $tableName, string $constraintName): array
+    private static function getConstraintRules(string $tableName, string $constraintName): array
     {
-        $dbName = Config::getVar('dbName') ?? 'Unknown';
+        $dbName = DB::$dbName;
 
-        return DB::selectselect('
+        return DB::select('
 SELECT
 	MATCH_OPTION,
 	UPDATE_RULE,
 	DELETE_RULE
 FROM information_schema.REFERENTIAL_CONSTRAINTS
 WHERE
-	constraint_schema = ' . $this->quoteFieldName($dbName) . ' AND
-	table_name = ' . $this->quoteFieldName($tableName) . ' AND
-	constraint_name = ' . $this->quoteFieldName($constraintName) . ';
+	constraint_schema = ' . self::quoteFieldName($dbName) . ' AND
+	table_name = ' . self::quoteFieldName($tableName) . ' AND
+	constraint_name = ' . self::quoteFieldName($constraintName) . ';
         ');
     }
 
@@ -445,11 +460,11 @@ WHERE
      *
      * @return string
      */
-    public function _getIndexesSql(string $tableName): string
+    public static function getIndexesSql(string $tableName): string
     {
         // https://stackoverflow.com/questions/5213339/how-to-see-indexes-for-a-database-or-table-in-mysql
 
-        return 'SHOW INDEX FROM ' . Config::getInstance()->getSqlHelper()->quoteTableName($tableName);
+        return 'SHOW INDEX FROM ' . self::quoteTableName($tableName);
     }
 
     /**
@@ -509,4 +524,86 @@ WHERE
         $sql .= ';';
         return $sql;
     }
+
+    /**
+     * Obtains an array of indexes for a table
+     *
+     * @param string $tableName
+     *
+     * @return array
+     * @throws \DebugBar\DebugBarException
+     */
+    public static function getIndexes(string $tableName): array
+    {
+        $query = self::getIndexesSql($tableName);
+        $data = DB::select($query);
+        $result = [];
+        foreach ($data as $value) {
+            $row = self::normalizeIndexes($value);
+            $result[$row['index']] = $row;
+        }
+
+        return $result;
+    }
+
+    public static function createIndex(string $tableName, string $index, array $data): string
+    {
+        $name = $data['column'];
+        $primary = $data['primary'] === 'yes';
+        $unique = $data['unique'] === 'yes';
+        $sql = "ALTER TABLE `$tableName` ADD CONSTRAINT `$index` ";
+        if ($primary) {
+            $sql .= "PRIMARY KEY(`$name`)";
+        }
+        if ($unique) {
+            $sql .= "UNIQUE(`$name`)";
+        }
+        $sql .= ';';
+
+        return $sql;
+    }
+
+    public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string
+    {
+        $oldPrimary = $oldData['index'] === 'PRIMARY';
+        $oldUnique = $oldData['unique'] === 1;
+
+        $newPrimary = $newData['primary'] === 'yes';
+        $newUnique = $newData['unique'] === 'yes';
+
+        $ok = true;
+        $ok = $ok && ($oldData['column'] === $newData['column']);
+        $ok = $ok && ($oldPrimary === $newPrimary);
+
+        // Si es primaria, es unique siempre así que solo comprobamos si no es unique
+        if ($ok && !$oldPrimary) {
+            $ok = $ok && $oldUnique === $newUnique;
+        }
+
+        // No hay cambios
+        if ($ok) {
+            return '';
+        }
+
+        $name = $newData['column'];
+
+        $sql = "ALTER TABLE `$tableName` ADD CONSTRAINT  `$index` ";
+        if ($newPrimary) {
+            $sql .= "PRIMARY KEY(`$name`)";
+        }
+        if ($newUnique) {
+            $sql .= "UNIQUE(`$name`)";
+        }
+        $sql .= ';';
+
+        return $sql;
+    }
+
+    public static function removeIndex(string $tableName, string $index): string
+    {
+        $sql = "ALTER TABLE `$tableName` DROP CONSTRAINT `$index`";
+
+        return $sql;
+    }
+
 }

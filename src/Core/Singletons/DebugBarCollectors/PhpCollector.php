@@ -64,7 +64,7 @@ class PhpCollector extends DataCollector implements Renderable
     {
         $messages = self::$messages;
 
-        usort($messages, function($itemA, $itemB) {
+        usort($messages, function ($itemA, $itemB) {
             if ($itemA['time'] === $itemB['time']) {
                 return 0;
             }

@@ -4,3 +4,7 @@ fields:
   name:
     type: string
     length: 50
+indexes:
+  name:
+    column: name
+    unique: yes

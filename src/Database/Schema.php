@@ -19,7 +19,6 @@
 namespace Alxarafe\Database;
 
 use Alxarafe\Core\Helpers\Dispatcher;
-use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\FlashMessages;
 use Alxarafe\Core\Singletons\Translator;
@@ -131,9 +130,9 @@ class Schema
     public static function checkDatabaseStructure()
     {
         // TODO: Eliminar cuando ya cree y actualice correctamente las tablas
-        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
-        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
-        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
+        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
+        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
+        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
 
         foreach (YamlSchema::getTables() as $key => $table) {
             if (!file_exists($table)) {
@@ -355,7 +354,7 @@ class Schema
             $data['db'][$key] = DB::$helper::yamlFieldToDb($schema);
         }
 
-        $indexes = $yaml['indexes'] ?? [];
+        $indexes = DB::$helper::yamlIndexToDb($yaml);
 
         return [
             'fields' => $data,
@@ -594,13 +593,34 @@ class Schema
             }
         }
 
+        $indexes = DB::getIndexes($tableName);
+        $newStructureArray = $yamlStructure['indexes'];
+        // Primero se eliminan los índices que ya no existen
+        foreach ($indexes as $index => $oldStructure) {
+            $newStructure = $newStructureArray[$index] ?? null;
+            if (!isset($newStructure)) {
+                $changes[] = DB::removeIndex($tableName, $index, $oldStructure);
+                continue;
+            }
+            $changes[] = DB::changeIndex($tableName, $index, $oldStructure, $newStructure);
+        }
+        foreach ($newStructureArray as $index => $newStructure) {
+            $oldStructure = $indexes[$index] ?? null;
+            if (isset($oldStructure)) {
+                continue;
+            }
+            $changes[] = DB::createIndex($tableName, $index, $newStructure);
+        }
+
         if (empty($changes)) {
             return true;
         }
 
         $result = true;
         foreach ($changes as $change) {
-            $result = $result && Engine::exec($change);
+            if (!empty($change)) {
+                $result = $result && Engine::exec($change);
+            }
         }
         return $result;
     }
@@ -679,7 +699,7 @@ class Schema
      * Create the SQL statements for the construction of one index.
      * In the case of the primary index, it is not necessary if it is auto_increment.
      *
-     * TODO:
+     * TODO: Éste método tiene que refactorizarse y eliminar dependencias del motor.
      *
      * Moreover, it should not be defined if it is auto_increment because it would
      * generate an error when it already exists.
@@ -692,6 +712,11 @@ class Schema
      */
     protected static function createIndex($tableName, $indexname, $indexData)
     {
+        // La clave primaria se construye con los campos para mysql
+        if (isset($indexData['primary'])) {
+            return '';
+        }
+
         $tableNameWithPrefix = DB::$dbPrefix . $tableName;
 
         $sql = "ALTER TABLE $tableNameWithPrefix ADD CONSTRAINT $indexname ";

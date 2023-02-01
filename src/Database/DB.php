@@ -23,6 +23,7 @@ use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\Translator;
 use DebugBar\DebugBarException;
 use Exception;
+use mysql_xdevapi\SqlStatementResult;
 
 /**
  * Class DB
@@ -121,26 +122,6 @@ abstract class DB
         return false;
     }
 
-    public static function _connect()
-    {
-        return self::$engine[$db]->connect();
-    }
-
-    public static function _disconnect()
-    {
-        return self::$engine[$db]->disconnect();
-    }
-
-    public static function _connected()
-    {
-        return self::$engine[$db]->connected();
-    }
-
-    public static function _getDataTypes()
-    {
-        return self::$helper[$db]->getDataTypes();
-    }
-
     /**
      * Ejecuta una sentencia SQL retornando TRUE si ha tenido éxito
      *
@@ -174,46 +155,9 @@ abstract class DB
         return self::$engine->select($query, $vars);
     }
 
-    /**
-     * Retorna el tipo de datos que se utiliza para los índices
-     *
-     * @author Rafael San José Tovar <info@rsanjoseo.com>
-     *
-     * @return string
-     */
-    public static function getIndexType(): string
+    public static function getIndexes(string $tableName): array
     {
-        return self::$helper->getIndexType();
-    }
-
-    public static function _getErrors()
-    {
-        return self::$engine[$db]->getErrors();
-    }
-
-    public static function _beginTransaction()
-    {
-        return self::$engine[$db]->beginTransaction();
-    }
-
-    public static function _commit()
-    {
-        return self::$engine[$db]->commit();
-    }
-
-    public static function _close()
-    {
-        return self::$engine[$db]->close();
-    }
-
-    public static function _rollback()
-    {
-        return self::$engine[$db]->rollback();
-    }
-
-    public static function _version()
-    {
-        return self::$engine[$db]->server_info();
+        return self::$helper::getIndexes(DB::$dbPrefix . $tableName);
     }
 
     public static function tableExists(string $tableName)
@@ -224,6 +168,21 @@ abstract class DB
     public static function getColumns(string $tableName)
     {
         return self::$helper->getColumns(self::$dbPrefix . $tableName);
+    }
+
+    public static function createIndex(string $tableName, string $index, array $data): string
+    {
+        return self::$helper->createIndex(self::$dbPrefix . $tableName, $index, $data);
+    }
+
+    public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string
+    {
+        return self::$helper->changeIndex($tableName, $index, $oldData, $newData);
+    }
+
+    public static function removeIndex(string $tableName, string $index): string
+    {
+        return self::$helper->removeIndex(self::$dbPrefix . $tableName, $index);
     }
 
     public static function _yamlFieldToDb(array $data): array
