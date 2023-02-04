@@ -91,6 +91,19 @@ class Schema
     public const TYPE_BOOLEAN = 'bool';
 
     /**
+     * Nombre del campo que se usa por defecto como clave primaria
+     */
+    public const DEFAULT_PRIMARY_KEY_FIELD = 'id';
+
+    /**
+     * Nombre del campo que se usa por defecto como nombre
+     */
+    public const DEFAULT_NAME_FIELD = 'name';
+
+    public const DEFAULT_UPDATE_RULE = 'restrict';
+    public const DEFAULT_DELETE_RULE = 'restrict';
+
+    /**
      * Longitud de un string si no se ha detallado ninguna
      */
     public const DEFAULT_STRING_LENGTH = 50;
@@ -130,9 +143,9 @@ class Schema
     public static function checkDatabaseStructure()
     {
         // TODO: Eliminar cuando ya cree y actualice correctamente las tablas
-        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
-        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
-        //        DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
+        // DB::$engine->exec('DROP TABLE IF EXISTS `tc_users`;');
+        // DB::$engine->exec('DROP TABLE IF EXISTS `tc_menus`;');
+        // DB::$engine->exec('DROP TABLE IF EXISTS `tc_portfolio_assets`;');
 
         foreach (YamlSchema::getTables() as $key => $table) {
             if (!file_exists($table)) {
@@ -277,7 +290,7 @@ class Schema
      *
      * @return array
      */
-    public static function yamlFieldToSchema(array $data): array
+    private static function yamlFieldToSchema(array $data): array
     {
         /**
          * Los datos que vienen del yaml son los siguientes:
@@ -340,25 +353,53 @@ class Schema
         return $column;
     }
 
+    private static function yamlIndexToSchema(array $data): array
+    {
+        $index = [];
+
+        $index['column'] = strtolower($data['column']);
+        if ($data['primary']) {
+            $index['primary'] = 'yes';
+            $data['unique'] = 'yes';
+        }
+        $index['unique'] = $data['unique'] ?? 'no';
+
+        // Es una relación
+        if (isset($data['referencedtable'])) {
+            $index['name'] = (string) $data['name'];
+            $index['referencedtable'] = DB::$dbPrefix . strtolower($data['referencedtable']);
+            $index['referencedfields'] = strtolower($data['referencedfields']) ?? self::DEFAULT_PRIMARY_KEY_FIELD;
+            $index['updaterule'] = strtolower($data['updaterule']) ?? self::DEFAULT_UPDATE_RULE;
+            $index['deleterule'] = strtolower($data['deleterule']) ?? self::DEFAULT_DELETE_RULE;
+        }
+
+        return $index;
+    }
+
     private static function checkTable(string $tableName, string $path, bool $create = true): array
     {
         $yaml = Yaml::parseFile($path);
         $fields = $yaml['fields'] ?? [];
 
-        $data = [];
+        $dataFields = [];
         foreach ($fields as $key => $field) {
             $field['name'] = $key;
             $schema = Schema::yamlFieldToSchema($field);
-            $data['yamldef'][$key] = $field;
-            $data['schema'][$key] = $schema;
-            $data['db'][$key] = DB::$helper::yamlFieldToDb($schema);
+            $dataFields['yamldef'][$key] = $field;
+            $dataFields['schema'][$key] = $schema;
+            $dataFields['db'][$key] = DB::$helper::yamlFieldToDb($schema);
         }
 
         $indexes = DB::$helper::yamlIndexToDb($yaml);
+        $dataIndexes = [];
+        foreach ($indexes as $key => $index) {
+            $index['name'] = $key;
+            $dataIndexes[$key] = Schema::yamlIndexToSchema($index);
+        }
 
         return [
-            'fields' => $data,
-            'indexes' => $indexes,
+            'fields' => $dataFields,
+            'indexes' => $dataIndexes,
         ];
     }
 
@@ -567,7 +608,7 @@ class Schema
         $sql = self::createFields($tableName, $tabla['fields']['db']);
 
         foreach ($tabla['indexes'] as $name => $index) {
-            $sql .= self::createIndex($tableName, $name, $index);
+            $sql .= DB::createIndex($tableName, $name, $index);
         }
 
         if (isset($tabla['values'])) {

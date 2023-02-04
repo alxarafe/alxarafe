@@ -549,16 +549,27 @@ WHERE
     public static function createIndex(string $tableName, string $index, array $data): string
     {
         $name = $data['column'];
-        $primary = $data['primary'] === 'yes';
-        $unique = $data['unique'] === 'yes';
+
+        // Si es una clave primaria, ya fue creada en la definición de la tabla
+        if ($data['primary'] === 'yes') {
+            return ''; // return "ALTER TABLE `$tableName` PRIMARY KEY ($name);";
+        }
+
         $sql = "ALTER TABLE `$tableName` ADD CONSTRAINT `$index` ";
-        if ($primary) {
-            $sql .= "PRIMARY KEY(`$name`)";
+        if ($data['unique'] === 'yes') {
+            return $sql . "UNIQUE ($name);";
         }
-        if ($unique) {
-            $sql .= "UNIQUE(`$name`)";
+
+        if (!isset($data['referencedtable'])) {
+            return $sql . "INDEX ($name);";
         }
-        $sql .= ';';
+
+        $referencedTable = $data['referencedtable'];
+        $referencedFields = $data['referencedfields'];
+        $updaterule = strtoupper($data['updaterule']);
+        $deleterule = strtoupper($data['deleterule']);
+
+        $sql .= "FOREIGN KEY ($name) REFERENCES $referencedTable ($referencedFields) ON DELETE $deleterule ON UPDATE $updaterule;";
 
         return $sql;
     }

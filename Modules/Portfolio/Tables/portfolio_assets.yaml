@@ -4,7 +4,16 @@ fields:
   name:
     type: string
     length: 50
+  id_user:
+    type: relationship
 indexes:
-  name:
+  portfolio_name:
     column: name
     unique: yes
+  portfolio_user:
+    column: id_user
+    unique: no
+    referencedtable: users
+    referencedfields: id
+    deleterule: RESTRICT
+    updaterule: RESTRICT
