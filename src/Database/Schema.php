@@ -542,14 +542,14 @@ class Schema
         $rows = 10; // Indicamos el número de registros que vamos a insertar de una vez
         $handle = fopen($filename, "r");
         if ($handle === false) {
-            FlashMessages::addError('No ha sido posible abrir el archivo ' . $filename);
+            FlashMessages::setError('No ha sido posible abrir el archivo ' . $filename);
             return '';
         }
 
         // Asumimos que la primera fila es la cabecera...
         $header = fgetcsv($handle, 0, ';');
         if ($header === false) {
-            FlashMessages::addError('No ha sido posible leer la primera línea del archivo ' . $filename);
+            FlashMessages::setError('No ha sido posible leer la primera línea del archivo ' . $filename);
             fclose($handle);
             return '';
         }
@@ -640,7 +640,7 @@ class Schema
         foreach ($indexes as $index => $oldStructure) {
             $newStructure = $newStructureArray[$index] ?? null;
             if (!isset($newStructure)) {
-                $changes[] = DB::removeIndex($tableName, $index, $oldStructure);
+                $changes[] = DB::removeIndex($tableName, $index);
                 continue;
             }
             $changes[] = DB::changeIndex($tableName, $index, $oldStructure, $newStructure);
@@ -660,6 +660,7 @@ class Schema
         $result = true;
         foreach ($changes as $change) {
             if (!empty($change)) {
+                dump($change);
                 $result = $result && Engine::exec($change);
             }
         }

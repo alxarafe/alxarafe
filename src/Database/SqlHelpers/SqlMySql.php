@@ -121,6 +121,17 @@ class SqlMySql extends SqlHelper
         return 'bigint(20) unsigned';
     }
 
+    /**
+     * Retorna los datos necesarios para definir un número enero, sabiendo cuántos
+     * bytes tiene de tamaño y si tiene o no signo.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param int  $size
+     * @param bool $unsigned
+     *
+     * @return array
+     */
     public static function getIntegerMinMax(int $size, bool $unsigned): array
     {
         switch ($size) {
@@ -381,7 +392,7 @@ class SqlMySql extends SqlHelper
         if (count($constrait) > 0) {
             $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
             $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
-            $result['referencedfield'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
+            $result['referencedfields'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
         }
         $constrait = self::getConstraintRules($row['Table'], $row['Key_name']);
         if (count($constrait) > 0) {
@@ -578,41 +589,47 @@ WHERE
     {
         $oldPrimary = $oldData['index'] === 'PRIMARY';
         $oldUnique = $oldData['unique'] === 1;
+        $oldReferencedTable = $oldData['referencedtable'] ?? null;
 
         $newPrimary = $newData['primary'] === 'yes';
         $newUnique = $newData['unique'] === 'yes';
+        $newReferencedTable = $newData['referencedtable'] ?? null;
 
         $ok = true;
         $ok = $ok && ($oldData['column'] === $newData['column']);
         $ok = $ok && ($oldPrimary === $newPrimary);
+        $ok = $ok && ($oldReferencedTable === $newReferencedTable);
 
         // Si es primaria, es unique siempre así que solo comprobamos si no es unique
         if ($ok && !$oldPrimary) {
             $ok = $ok && $oldUnique === $newUnique;
         }
 
-        // No hay cambios
-        if ($ok) {
+        // No hay cambios y no hay constraint
+        if ($ok && !isset($newReferencedTable)) {
             return '';
         }
 
-        $name = $newData['column'];
+        // Si hay constraint, entonces hay que verificar si ha cambiado.
+        $oldReferencedFields = strtolower($oldData['referencedfields']) ?? '';
+        $oldUpdateRule = strtolower($oldData['updaterule']) ?? '';
+        $oldDeleteRule = strtolower($oldData['deleterule']) ?? '';
 
-        $sql = "ALTER TABLE `$tableName` ADD CONSTRAINT  `$index` ";
-        if ($newPrimary) {
-            $sql .= "PRIMARY KEY(`$name`)";
-        }
-        if ($newUnique) {
-            $sql .= "UNIQUE(`$name`)";
-        }
-        $sql .= ';';
+        $newReferencedFields = strtolower($newData['referencedfields']) ?? '';
+        $newUpdateRule = strtolower($newData['updaterule']) ?? '';
+        $newDeleteRule = strtolower($newData['deleterule']) ?? '';
 
-        return $sql;
+        if ($oldReferencedFields === $newReferencedFields && $oldUpdateRule === $newUpdateRule && $oldDeleteRule === $newDeleteRule) {
+            return '';
+        }
+
+        // Se elimina el índice y se vuelve a crear
+        return self::removeIndex($tableName, $index) . self::createIndex($tableName, $index, $newData);
     }
 
     public static function removeIndex(string $tableName, string $index): string
     {
-        $sql = "ALTER TABLE `$tableName` DROP CONSTRAINT `$index`";
+        $sql = "ALTER TABLE `$tableName` DROP CONSTRAINT `$index`;";
 
         return $sql;
     }

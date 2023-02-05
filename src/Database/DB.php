@@ -177,7 +177,7 @@ abstract class DB
 
     public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string
     {
-        return self::$helper->changeIndex($tableName, $index, $oldData, $newData);
+        return self::$helper->changeIndex(self::$dbPrefix . $tableName, $index, $oldData, $newData);
     }
 
     public static function removeIndex(string $tableName, string $index): string
