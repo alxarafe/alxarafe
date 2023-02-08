@@ -191,7 +191,7 @@ class Schema
         return $result;
     }
 
-    private static function yamlFieldAnyToSchema(string $genericType, array $data): array
+    private static function yamlFieldAnyToSchema(string $genericType): array
     {
         $types = DB::$helper::getDataTypes();
         $type = $types[$genericType];
@@ -327,17 +327,15 @@ class Schema
                 }
                 $result = self::yamlFieldStringToSchema($column);
                 break;
-            case Schema::TYPE_FLOAT:
-            case Schema::TYPE_DECIMAL:
-            case Schema::TYPE_TEXT:
-            case Schema::TYPE_DATE:
-            case Schema::TYPE_TIME:
-            case Schema::TYPE_DATETIME:
-            case Schema::TYPE_BOOLEAN:
-                $result = self::yamlFieldAnyToSchema($column['generictype'], $column);
-                break;
+            // case Schema::TYPE_FLOAT:
+            // case Schema::TYPE_DECIMAL:
+            // case Schema::TYPE_TEXT:
+            // case Schema::TYPE_DATE:
+            // case Schema::TYPE_TIME:
+            // case Schema::TYPE_DATETIME:
+            // case Schema::TYPE_BOOLEAN:
             default:
-                $result = self::yamlFieldAnyToSchema($column['generictype'], $column);
+                $result = self::yamlFieldAnyToSchema($column['generictype']);
         }
 
         unset($data['name']);
