@@ -356,11 +356,12 @@ class Schema
         $index = [];
 
         $index['column'] = strtolower($data['column']);
-        if ($data['primary']) {
+        $index['primary'] = strtolower($data['primary'] ?? 'no');
+        $index['unique'] = strtolower($data['unique'] ?? 'no');
+        if ($index['primary'] !== 'no') {
             $index['primary'] = 'yes';
-            $data['unique'] = 'yes';
+            $index['unique'] = 'yes';
         }
-        $index['unique'] = $data['unique'] ?? 'no';
 
         // Es una relación
         if (isset($data['referencedtable'])) {
