@@ -56,4 +56,21 @@ class MathUtils
 
         return $bytes;
     }
+
+    public static function getMinMax(int $size, $unsigned = true): array
+    {
+        $bits = 8 * (int) $size;
+        $physicalMaxLength = 2 ** $bits;
+
+        /**
+         * $minDataLength y $maxDataLength contendrán el mínimo y máximo valor que puede contener el campo.
+         */
+        $minDataLength = $unsigned ? 0 : -$physicalMaxLength / 2;
+        $maxDataLength = ($unsigned ? $physicalMaxLength : $physicalMaxLength / 2) - 1;
+
+        return [
+            'min' => $minDataLength,
+            'max' => $maxDataLength,
+        ];
+    }
 }

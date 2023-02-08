@@ -23,7 +23,6 @@ use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Singletons\Translator;
 use DebugBar\DebugBarException;
 use Exception;
-use mysql_xdevapi\SqlStatementResult;
 
 /**
  * Class DB
@@ -37,7 +36,7 @@ use mysql_xdevapi\SqlStatementResult;
 abstract class DB
 {
     /**
-     * Motor utilizado, puede ser MySql, MariaDB, PostgreSql o cualquier otro PDO
+     * Motor utilizado, puede ser 'MySql', 'MariaDB', 'PostgreSql' o cualquier otro PDO
      *
      * @var Engine
      */
@@ -64,9 +63,6 @@ abstract class DB
      */
     public static string $dbName;
 
-    public static $user;
-    public static $username;
-
     /**
      * Establece conexión con una base de datos.
      *
@@ -80,11 +76,10 @@ abstract class DB
      * @param string $db
      *
      * @return bool
-     * @throws DebugBarException
      */
     public static function connectToDatabase(string $db = 'main'): bool
     {
-        // TODO: Revisar ésto, porque debe de haber una conexión para cada base de datos según $db
+        // TODO: En un futuro, desearemos poder tener conexión con más de una base de datos.
         if (isset(self::$engine)) {
             return true;
         }
@@ -139,7 +134,7 @@ abstract class DB
     }
 
     /**
-     * Ejecuta una sentencia SELECT, retornando false si hay error, o un array
+     * Ejecuta una sentencia SELECT retornando 'false' si hay error, o un array
      * con el resultado de la consulta.
      *
      * @author  Rafael San José Tovar <info@rsanjoseo.com>
@@ -155,105 +150,110 @@ abstract class DB
         return self::$engine->select($query, $vars);
     }
 
+    /**
+     * Retorna 'true' si la tabla existe en la base de datos.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     */
+    public static function tableExists(string $tableName): bool
+    {
+        return self::$helper->tableExists(self::$dbPrefix . $tableName);
+    }
+
+    /**
+     * Retorna un array asociativo con los campos de la tabla
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     *
+     * @return array
+     */
+    public static function getColumns(string $tableName): array
+    {
+        return self::$helper->getColumns(self::$dbPrefix . $tableName);
+    }
+
+    /**
+     * Retorna un array asociativo con los índices de la tabla
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     *
+     * @return array
+     * @throws DebugBarException
+     */
     public static function getIndexes(string $tableName): array
     {
         return self::$helper::getIndexes(DB::$dbPrefix . $tableName);
     }
 
-    public static function tableExists(string $tableName)
-    {
-        return self::$helper->tableExists(self::$dbPrefix . $tableName);
-    }
-
-    public static function getColumns(string $tableName)
-    {
-        return self::$helper->getColumns(self::$dbPrefix . $tableName);
-    }
-
+    /**
+     * Retorna la sentencia SQL para la creación de un índice
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     * @param array  $data
+     *
+     * @return string
+     */
     public static function createIndex(string $tableName, string $index, array $data): string
     {
         return self::$helper->createIndex(self::$dbPrefix . $tableName, $index, $data);
     }
 
+    /**
+     * Retorna la sentencia SQL para cambiar un índice o constraint
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     * @param array  $oldData
+     * @param array  $newData
+     *
+     * @return string
+     */
     public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string
     {
         return self::$helper->changeIndex(self::$dbPrefix . $tableName, $index, $oldData, $newData);
     }
 
+    /**
+     * Retorna la sentencia SQL para la eliminación de un índice
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     *
+     * @return string
+     */
     public static function removeIndex(string $tableName, string $index): string
     {
         return self::$helper->removeIndex(self::$dbPrefix . $tableName, $index);
     }
 
-    public static function _yamlFieldToDb(array $data): array
-    {
-        return self::$helper[$db]::yamlFieldToDb($data);
-    }
-
-    public static function _dbFieldToSchema(array $data): array
-    {
-        return self::$helper[$db]::dbFieldToSchema($data);
-    }
-
-    public static function _dbFieldToYaml(array $data): array
-    {
-        return self::$helper[$db]::dbFieldToYaml($data);
-    }
-
-    public static function _normalizeFromDb(array $data)
-    {
-        $result = self::$helper[$db]::normalizeDbField($data);
-        dump([
-            'normalizeFromDb',
-            'data' => $data,
-            'result' => $result,
-        ]);
-        return $result;
-    }
-
-    public static function _normalizeFromYaml(array $yamlFields)
-    {
-        $result = [];
-        foreach ($yamlFields as $field => $yamlField) {
-            $result[$field] = self::$helper[$db]::normalizeYamlField($yamlField);
-        }
-        dump([
-            'normalizeFromYaml',
-            'data' => $yamlFields,
-            'result' => $result,
-        ]);
-        return $result;
-    }
-
-    public static function _normalize(array $data)
-    {
-        return self::$helper[$db]->normalizeField($data);
-    }
-
+    /**
+     * Retorna la secuencia SQL para modificar un campo de la tabla
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param array  $oldField
+     * @param array  $newField
+     *
+     * @return string
+     */
     public static function modify(string $tableName, array $oldField, array $newField): string
     {
         return self::$helper->modify(self::$dbPrefix . $tableName, $oldField, $newField);
     }
-
-    public static function _getUsername()
-    {
-        return self::$username;
-    }
-
-    public static function _connectToDatabaseAndAuth(): bool
-    {
-        if (!self::connectToDataBase()) {
-            FlashMessages::setError('Database Connection error...');
-            return false;
-        }
-        if (!isset(self::$user)) {
-            self::$user = new Auth();
-            self::$username = self::$user->getUser();
-            if (self::$username === null) {
-                self::$user->login();
-            }
-        }
-        return true;
-    }
-
 }

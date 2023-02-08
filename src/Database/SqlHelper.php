@@ -78,6 +78,17 @@ abstract class SqlHelper
     abstract public static function getFieldQuote(): string;
 
     /**
+     * Retorna un array con la asociación de tipos del motor SQL para cada tipo definido
+     * en el Schema.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0101
+     *
+     * @return array
+     */
+    abstract public static function getDataTypes(): array;
+
+    /**
      * Permite saber si una tabla existe.
      *
      * @author  Rafael San José Tovar <info@rsanjoseo.com>
@@ -88,17 +99,6 @@ abstract class SqlHelper
      * @return bool
      */
     abstract public static function tableExists(string $tableName): bool;
-
-    /**
-     * Retorna un array con la asociación de tipos del motor SQL para cada tipo definido
-     * en el Schema.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2023.0101
-     *
-     * @return array
-     */
-    abstract public static function getDataTypes(): array;
 
     /**
      * Retorna un array con el nombre de todas las tablas de la base de datos.
@@ -118,7 +118,7 @@ abstract class SqlHelper
      *
      * @return string
      */
-    abstract public static function getIndexType(): string;
+    abstract public static function _getIndexType(): string;
 
     /**
      * Retorna un array asociativo con la información de cada columna de la tabla.
@@ -133,10 +133,54 @@ abstract class SqlHelper
      */
     abstract public static function getColumns(string $tableName): array;
 
+    /**
+     * Obtiene un array asociativo con los índices de la tabla
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     *
+     * @return array
+     */
+    abstract public static function getIndexes(string $tableName): array;
+
+    /**
+     * Retorna la sentencia SQL para la creación de un índice
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     * @param array  $data
+     *
+     * @return string
+     */
     abstract public static function createIndex(string $tableName, string $index, array $data): string;
 
+    /**
+     * Retorna la sentencia SQL para cambiar un índice o constraint
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     * @param array  $oldData
+     * @param array  $newData
+     *
+     * @return string
+     */
     abstract public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string;
 
+    /**
+     * Retorna la sentencia SQL para la eliminación de un índice
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     *
+     * @return string
+     */
     abstract public static function removeIndex(string $tableName, string $index): string;
 
     /**
@@ -152,19 +196,55 @@ abstract class SqlHelper
      */
     abstract public static function _normalizeDbField(array $row): array;
 
+    /**
+     * Recibe los datos del yaml de definición de un campo, y retorna la información
+     * necesaria para la creación del campo en la base de datos.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     abstract public static function yamlFieldToDb(array $data): array;
 
+    /**
+     * Recibe los datos del yaml de definición de los índices, y retorna la información
+     * necesaria para la creación de los mismos en la base de datos.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     abstract public static function yamlIndexToDb(array $data): array;
 
-    abstract public static function _dbFieldToSchema(array $data): array;
-
-    abstract public static function _dbFieldToYaml(array $data): array;
-
+    /**
+     * Toma la estructura de un campo obtenida de la base de datos, y la retorna
+     * de la misma forma en la que se usó al ser creada.
+     * Esto es necesario, porque algunas bases de datos cambian tipos como boolean por
+     * tinyint(1), o int por int(10)
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $genericType
+     * @param array  $structure
+     *
+     * @return array
+     */
     abstract public static function sanitizeDbStructure(string $genericType, array $structure): array;
 
+    /**
+     * Obtiene la secuencia SQL para la creación o edición de una columna
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $column
+     *
+     * @return string
+     */
     abstract public static function getSqlField(array $column): string;
-
-    //abstract public function _normalizeConstraints(array $fields): array;
 
     /**
      * Retorna un array con el nombre, tamaño, mínimo y máximo valor para un tipo
@@ -180,34 +260,36 @@ abstract class SqlHelper
      */
     abstract public static function getIntegerMinMax(int $size, bool $unsigned): array;
 
-    abstract static public function getIndexes(string $tableName): array;
-
     /**
-     * Get the SQL sentence for obtains the index list of a table.
+     * Obtiene la secuencia SQL para listar los índices de la tabla.
      *
      * @param string $tableName
      *
      * @return string
      */
-    abstract static public function getIndexesSql(string $tableName): string;
+    abstract public static function getIndexesSql(string $tableName): string;
 
-    abstract static public function normalizeIndexes(array $fields): array;
-
-    abstract public static function modify(string $tableName, array $oldField, array $newField): string;
-    /*
-      abstract public function _getConstraintsSql(string $tableName): string;
-
-      public function _getConstraints(string $tableName): array
-      {
-      $query = $this->getConstraintsSql($tableName);
-      $data = DB::select($query);
-      $result = [];
-      foreach ($data as $value) {
-      $row = $this->normalizeConstraints($value);
-      $result[$row['constraint']] = $row;
-      }
-
-      return $result;
-      }
+    /**
+     * Retorna un array con la información del índice, y de la constraint si existe.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $fields
+     *
+     * @return array
      */
+    abstract public static function normalizeIndexes(array $fields): array;
+
+    /**
+     * Retorna la secuencia SQL para modificar un campo de la tabla
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param array  $oldField
+     * @param array  $newField
+     *
+     * @return string
+     */
+    abstract public static function modify(string $tableName, array $oldField, array $newField): string;
 }

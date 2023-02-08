@@ -6,7 +6,6 @@
 
 namespace Alxarafe\Database;
 
-use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\Debug;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DataCollector\PDO\TraceablePDO;
@@ -185,14 +184,15 @@ abstract class Engine
      * @version 2023.0108
      *
      * @param string $query
+     * @param array  $vars
      *
      * @return bool
      */
-    final public static function exec(string $query): bool
+    final public static function exec(string $query, array $vars = []): bool
     {
         self::$statement = self::$dbHandler->prepare($query);
         if (self::$statement != null && self::$statement) {
-            return self::$statement->execute([]);
+            return self::$statement->execute($vars);
         }
         return false;
     }
@@ -223,13 +223,14 @@ abstract class Engine
      * @version 2023.0108
      *
      * @param string $query
+     * @param array  $vars
      *
      * @return array|false
      */
-    public static function select(string $query)
+    public static function select(string $query, array $vars = [])
     {
         self::$statement = self::$dbHandler->prepare($query);
-        if (self::$statement != null && self::$statement && self::$statement->execute([])) {
+        if (self::$statement != null && self::$statement && self::$statement->execute($vars)) {
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);
         }
         return [];

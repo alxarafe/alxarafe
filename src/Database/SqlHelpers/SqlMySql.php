@@ -6,9 +6,8 @@
 
 namespace Alxarafe\Database\SqlHelpers;
 
-use Alxarafe\Core\Singletons\Debug;
 use Alxarafe\Core\Utils\ArrayUtils;
-use Alxarafe\Core\Singletons\Config;
+use Alxarafe\Core\Utils\MathUtils;
 use Alxarafe\Database\DB;
 use Alxarafe\Database\Schema;
 use Alxarafe\Database\SqlHelper;
@@ -53,27 +52,6 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * Retorna true si la tabla existe en la base de datos.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2023.0106
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     */
-    public static function tableExists(string $tableName): bool
-    {
-        $dbName = DB::$dbName;
-        $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableName}'";
-
-        $data = DB::select($sql);
-        $result = reset($data);
-
-        return $result['Total'] === '1';
-    }
-
-    /**
      * Retorna un array con la asociación de tipos del motor SQL para cada tipo definido
      * en el Schema.
      *
@@ -98,6 +76,27 @@ class SqlMySql extends SqlHelper
     }
 
     /**
+     * Retorna true si la tabla existe en la base de datos.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0106
+     *
+     * @param string $tableName
+     *
+     * @return bool
+     */
+    public static function tableExists(string $tableName): bool
+    {
+        $dbName = DB::$dbName;
+        $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableName}'";
+
+        $data = DB::select($sql);
+        $result = reset($data);
+
+        return $result['Total'] === '1';
+    }
+
+    /**
      * Retorna un array con el nombre de todas las tablas de la base de datos.
      *
      * @return array
@@ -116,9 +115,53 @@ class SqlMySql extends SqlHelper
      *
      * @return string
      */
-    public static function getIndexType(): string
+    public static function _getIndexType(): string
     {
         return 'bigint(20) unsigned';
+    }
+
+    /**
+     * Retorna un array asociativo con la información de cada columna de la tabla.
+     * El resultado será dependiente del motor de base de datos.
+     *
+     * @author  Rafael San José Tovar <info@rsanjoseo.com>
+     * @version 2023.0108
+     *
+     * @param string $tableName
+     *
+     * @return array
+     */
+    public static function getColumns(string $tableName): array
+    {
+        $query = 'SHOW COLUMNS FROM ' . self::quoteTableName($tableName) . ';';
+        $rows = DB::select($query);
+        $result = [];
+        foreach ($rows as $row) {
+            unset($row['Key']);  // Los índices están gestionados por separado
+            $result[$row['Field']] = $row;
+        }
+        return $result;
+    }
+
+    /**
+     * Retorna un array asociativo con los índices de la tabla.
+     *
+     * @param string $tableName
+     *
+     * @return array
+     * @throws \DebugBar\DebugBarException
+     */
+    public static function getIndexes(string $tableName): array
+    {
+        $query = self::getIndexesSql($tableName);
+        $data = DB::select($query);
+        $result = [];
+        foreach ($data as $value) {
+            $row = self::normalizeIndexes($value);
+            $result[$row['index']] = $row;
+        }
+
+        return $result;
     }
 
     /**
@@ -153,54 +196,15 @@ class SqlMySql extends SqlHelper
                 break;
         }
 
-        $bits = 8 * (int) $size;
-        $physicalMaxLength = 2 ** $bits;
-
-        /**
-         * $minDataLength y $maxDataLength contendrán el mínimo y máximo valor que puede contener el campo.
-         */
-        $minDataLength = $unsigned ? 0 : -$physicalMaxLength / 2;
-        $maxDataLength = ($unsigned ? $physicalMaxLength : $physicalMaxLength / 2) - 1;
-
-        /**
-         * De momento, se asignan los límites máximos por el tipo de dato.
-         * En $min y $max, iremos arrastrando los límites conforme se vayan comprobando.
-         * $min nunca podrá ser menor que $minDataLength.
-         * $max nunca podrá ser mayor que $maxDataLength.
-         */
-        $min = $minDataLength;
-        $max = $maxDataLength;
+        $minMax = MathUtils::getMinMax($size, $unsigned);
 
         return [
             'dbtype' => $type,
-            'min' => $min,
-            'max' => $max,
+            'min' => $minMax['min'],
+            'max' => $minMax['max'],
             'size' => $size,
             'unsigned' => $unsigned,
         ];
-    }
-
-    /**
-     * Retorna un array asociativo con la información de cada columna de la tabla.
-     * El resultado será dependiente del motor de base de datos.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2023.0108
-     *
-     * @param string $tableName
-     *
-     * @return array
-     */
-    public static function getColumns(string $tableName): array
-    {
-        $query = 'SHOW COLUMNS FROM ' . self::quoteTableName($tableName) . ';';
-        $rows = DB::select($query);
-        $result = [];
-        foreach ($rows as $row) {
-            unset($row['Key']);  // Los índices están gestionados por separado
-            $result[$row['Field']] = $row;
-        }
-        return $result;
     }
 
     public static function yamlFieldIntegerToDb(array $data): string
@@ -225,104 +229,6 @@ class SqlMySql extends SqlHelper
         }
         */
         return $type . ($unsigned ? ' unsigned' : '');
-    }
-
-    public static function yamlFieldToDb(array $data): array
-    {
-        $nullable = strtolower($data['nullable']) !== 'no';
-
-        $result = [];
-        $result['Field'] = $data['name'];
-
-        $type = $data['dbtype'];
-        switch ($data['generictype']) {
-            case Schema::TYPE_INTEGER:
-                $type = self::yamlFieldIntegerToDb($data);
-                break;
-            case Schema::TYPE_FLOAT:
-            case Schema::TYPE_DECIMAL:
-                break;
-            case Schema::TYPE_STRING:
-                $type = 'varchar(' . $data['length'] . ')';
-                break;
-            case Schema::TYPE_TEXT:
-            case Schema::TYPE_DATE:
-            case Schema::TYPE_TIME:
-            case Schema::TYPE_DATETIME:
-                break;
-            case Schema::TYPE_BOOLEAN:
-                //                $type = 'tinyint(1)';
-                break;
-        }
-        $result['Type'] = $type;
-        $result['Null'] = $nullable ? 'YES' : 'NO';
-        $result['Key'] = $data['type'] === 'autoincrement' ? 'PRI' : '';
-        $result['Default'] = $data['default'] ?? null;
-        $result['Extra'] = $data['type'] === 'autoincrement' ? 'auto_increment' : '';
-        return $result;
-    }
-
-    public static function yamlIndexToDb(array $data): array
-    {
-        $result = [];
-        foreach ($data['fields'] as $name => $field) {
-            if ($field['type'] === 'autoincrement') {
-                $result['PRIMARY'] = [
-                    'column' => $name,
-                    'primary' => 'yes',
-                ];
-            }
-        }
-        return array_merge($result, $data['indexes'] ?? []);
-    }
-
-    public static function getSqlField(array $column): string
-    {
-        $field = $column['Field'];
-        $type = $column['Type'];
-        $null = $column['Null'];
-        $key = $column['Key'];
-        $default = $column['Default'];
-        $extra = $column['Extra'];
-
-        $sql = self::quoteTableName($field) . ' ' . $type;
-        $nulo = ($null === 'YES');
-        if ($extra === 'auto_increment') {
-            $nulo = false;
-            $sql .= ' PRIMARY KEY AUTO_INCREMENT';
-        }
-
-        $sql .= ($nulo ? '' : ' NOT') . ' NULL';
-
-        $defecto = '';
-        if (isset($default)) {
-            if ($default === 'CURRENT_TIMESTAMP') {
-                $defecto = $default;
-            } elseif (is_bool($default)) {
-                $defecto = $default ? 1 : 0;
-            } else {
-                $defecto = "'$defecto'";
-            }
-        } else {
-            if ($nulo) {
-                $defecto = 'NULL';
-            }
-        }
-
-        if (!empty($defecto)) {
-            $sql .= ' DEFAULT ' . $defecto;
-        }
-        return $sql;
-    }
-
-    public static function _dbFieldToSchema(array $data): array
-    {
-        return $data;
-    }
-
-    public static function _dbFieldToYaml(array $data): array
-    {
-        return $data;
     }
 
     /**
@@ -375,32 +281,270 @@ class SqlMySql extends SqlHelper
     }
 
     /**
-     * Returns an array with the index information, and if there are, also constraints.
+     * Retorna la sentencia SQL para la creación de un índice
      *
-     * @param array $row
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     * @param array  $data
+     *
+     * @return string
+     */
+    public static function createIndex(string $tableName, string $index, array $data): string
+    {
+        $name = $data['column'];
+
+        // Si es una clave primaria, ya fue creada en la definición de la tabla
+        if ($data['primary'] === 'yes') {
+            return ''; // return "ALTER TABLE `$tableName` PRIMARY KEY ($name);";
+        }
+
+        $sql = "ALTER TABLE `$tableName` ADD CONSTRAINT `$index` ";
+        if ($data['unique'] === 'yes') {
+            return $sql . "UNIQUE ($name);";
+        }
+
+        if (!isset($data['referencedtable'])) {
+            return $sql . "INDEX ($name);";
+        }
+
+        $referencedTable = $data['referencedtable'];
+        $referencedFields = $data['referencedfields'];
+        $updaterule = strtoupper($data['updaterule']);
+        $deleterule = strtoupper($data['deleterule']);
+
+        $sql .= "FOREIGN KEY ($name) REFERENCES $referencedTable ($referencedFields) ON DELETE $deleterule ON UPDATE $updaterule;";
+
+        return $sql;
+    }
+
+    /**
+     * Retorna la sentencia SQL para cambiar un índice o constraint
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     * @param array  $oldData
+     * @param array  $newData
+     *
+     * @return string
+     */
+    public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string
+    {
+        $oldPrimary = $oldData['index'] === 'PRIMARY';
+        $oldUnique = $oldData['unique'] === 1;
+        $oldReferencedTable = $oldData['referencedtable'] ?? null;
+
+        $newPrimary = $newData['primary'] === 'yes';
+        $newUnique = $newData['unique'] === 'yes';
+        $newReferencedTable = $newData['referencedtable'] ?? null;
+
+        $ok = true;
+        $ok = $ok && ($oldData['column'] === $newData['column']);
+        $ok = $ok && ($oldPrimary === $newPrimary);
+        $ok = $ok && ($oldReferencedTable === $newReferencedTable);
+
+        // Si es primaria, es unique siempre así que solo comprobamos si no es unique
+        if ($ok && !$oldPrimary) {
+            $ok = $ok && $oldUnique === $newUnique;
+        }
+
+        // No hay cambios y no hay constraint
+        if ($ok && !isset($newReferencedTable)) {
+            return '';
+        }
+
+        // Si hay constraint, entonces hay que verificar si ha cambiado.
+        $oldReferencedFields = strtolower($oldData['referencedfields']) ?? '';
+        $oldUpdateRule = strtolower($oldData['updaterule']) ?? '';
+        $oldDeleteRule = strtolower($oldData['deleterule']) ?? '';
+
+        $newReferencedFields = strtolower($newData['referencedfields']) ?? '';
+        $newUpdateRule = strtolower($newData['updaterule']) ?? '';
+        $newDeleteRule = strtolower($newData['deleterule']) ?? '';
+
+        if ($oldReferencedFields === $newReferencedFields && $oldUpdateRule === $newUpdateRule && $oldDeleteRule === $newDeleteRule) {
+            return '';
+        }
+
+        // Se elimina el índice y se vuelve a crear
+        return self::removeIndex($tableName, $index) . self::createIndex($tableName, $index, $newData);
+    }
+
+    /**
+     * Retorna la sentencia SQL para la eliminación de un índice
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param string $index
+     *
+     * @return string
+     */
+    public static function removeIndex(string $tableName, string $index): string
+    {
+        $sql = "ALTER TABLE `$tableName` DROP CONSTRAINT `$index`;";
+
+        return $sql;
+    }
+
+    /**
+     * Recibe los datos del yaml de definición de un campo, y retorna la información
+     * necesaria para la creación del campo en la base de datos.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $data
      *
      * @return array
      */
-    public static function normalizeIndexes(array $row): array
+    public static function yamlFieldToDb(array $data): array
+    {
+        $nullable = strtolower($data['nullable']) !== 'no';
+
+        $result = [];
+        $result['Field'] = $data['name'];
+
+        $type = $data['dbtype'];
+        switch ($data['generictype']) {
+            case Schema::TYPE_INTEGER:
+                $type = self::yamlFieldIntegerToDb($data);
+                break;
+            case Schema::TYPE_FLOAT:
+            case Schema::TYPE_DECIMAL:
+                break;
+            case Schema::TYPE_STRING:
+                $type = 'varchar(' . $data['length'] . ')';
+                break;
+            case Schema::TYPE_TEXT:
+            case Schema::TYPE_DATE:
+            case Schema::TYPE_TIME:
+            case Schema::TYPE_DATETIME:
+                break;
+            case Schema::TYPE_BOOLEAN:
+                //                $type = 'tinyint(1)';
+                break;
+        }
+        $result['Type'] = $type;
+        $result['Null'] = $nullable ? 'YES' : 'NO';
+        $result['Key'] = $data['type'] === 'autoincrement' ? 'PRI' : '';
+        $result['Default'] = $data['default'] ?? null;
+        $result['Extra'] = $data['type'] === 'autoincrement' ? 'auto_increment' : '';
+        return $result;
+    }
+
+    /**
+     * Recibe los datos del yaml de definición de los índices, y retorna la información
+     * necesaria para la creación de los mismos en la base de datos.
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function yamlIndexToDb(array $data): array
     {
         $result = [];
-        $result['index'] = $row['Key_name'];
-        $result['column'] = $row['Column_name'];
-        $result['unique'] = $row['Non_unique'] == '0' ? 1 : 0;
-        $result['nullable'] = $row['Null'] == 'YES' ? 1 : 0;
-        $constrait = self::getConstraintData($row['Table'], $row['Key_name']);
-        if (count($constrait) > 0) {
-            $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
-            $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
-            $result['referencedfields'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
+        foreach ($data['fields'] as $name => $field) {
+            if ($field['type'] === 'autoincrement') {
+                $result['PRIMARY'] = [
+                    'column' => $name,
+                    'primary' => 'yes',
+                ];
+            }
         }
-        $constrait = self::getConstraintRules($row['Table'], $row['Key_name']);
-        if (count($constrait) > 0) {
-            $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
-            $result['updaterule'] = $constrait[0]['UPDATE_RULE'];
-            $result['deleterule'] = $constrait[0]['DELETE_RULE'];
+        return array_merge($result, $data['indexes'] ?? []);
+    }
+
+    /**
+     * Toma la estructura de un campo obtenida de la base de datos, y la retorna
+     * de la misma forma en la que se usó al ser creada.
+     * Esto es necesario, porque algunas bases de datos cambian tipos como boolean por
+     * tinyint(1), o int por int(10)
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $genericType
+     * @param array  $structure
+     *
+     * @return array
+     */
+    public static function sanitizeDbStructure(string $genericType, array $structure): array
+    {
+        $type = $structure['Type'];
+        switch ($genericType) {
+            // Tipos que no cambian
+            case Schema::TYPE_FLOAT:
+            case Schema::TYPE_DECIMAL:
+            case Schema::TYPE_STRING:
+            case Schema::TYPE_TEXT:
+            case Schema::TYPE_DATE:
+            case Schema::TYPE_TIME:
+            case Schema::TYPE_DATETIME:
+                break;
+            // Tipos a los que hay que quitar los paréntesis
+            case Schema::TYPE_INTEGER:
+                $type = preg_replace("/\((.*?)\)/i", "", $type);
+                break;
+            // Tipos que cambian durante la creación
+            case Schema::TYPE_BOOLEAN:
+                $type = 'boolean'; // Se crea como boolean y se retorna como tinyint(1)
+                $structure['Default'] = ($structure['Default'] === '1');
+                break;
         }
-        return $result;
+        $structure['Type'] = $type;
+        return $structure;
+    }
+
+    /**
+     * Obtiene la secuencia SQL para la creación o edición de una columna
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param array $column
+     *
+     * @return string
+     */
+    public static function getSqlField(array $column): string
+    {
+        $field = $column['Field'];
+        $type = $column['Type'];
+        $null = $column['Null'];
+        $key = $column['Key'];
+        $default = $column['Default'];
+        $extra = $column['Extra'];
+
+        $sql = self::quoteTableName($field) . ' ' . $type;
+        $nulo = ($null === 'YES');
+        if ($extra === 'auto_increment') {
+            $nulo = false;
+            $sql .= ' PRIMARY KEY AUTO_INCREMENT';
+        }
+
+        $sql .= ($nulo ? '' : ' NOT') . ' NULL';
+
+        $defecto = '';
+        if (isset($default)) {
+            if ($default === 'CURRENT_TIMESTAMP') {
+                $defecto = $default;
+            } elseif (is_bool($default)) {
+                $defecto = $default ? 1 : 0;
+            } else {
+                $defecto = "'$defecto'";
+            }
+        } else {
+            if ($nulo) {
+                $defecto = 'NULL';
+            }
+        }
+
+        if (!empty($defecto)) {
+            $sql .= ' DEFAULT ' . $defecto;
+        }
+        return $sql;
     }
 
     /**
@@ -464,8 +608,7 @@ WHERE
     }
 
     /**
-     * Obtain an array with the basic information about the indexes of the table,
-     * which will be supplemented with the restrictions later.
+     * Obtiene la secuencia SQL para listar los índices de la tabla.
      *
      * @param string $tableName
      *
@@ -479,45 +622,45 @@ WHERE
     }
 
     /**
-     * Toma la estructura de un campo obtenida de la base de datos, y la retorna
-     * de la misma forma en la que se usó al ser creada.
-     * Esto es necesario, porque algunas bases de datos cambian tipos como boolean por
-     * tinyint(1), o int por int(10)
+     * Retorna un array con la información del índice, y de la constraint si existe.
      *
-     * @author Rafael San José Tovar <info@rsanjoseo.com>
-     *
-     * @param string $genericType
-     * @param array  $structure
+     * @param array $row
      *
      * @return array
      */
-    public static function sanitizeDbStructure(string $genericType, array $structure): array
+    public static function normalizeIndexes(array $row): array
     {
-        $type = $structure['Type'];
-        switch ($genericType) {
-            // Tipos que no cambian
-            case Schema::TYPE_FLOAT:
-            case Schema::TYPE_DECIMAL:
-            case Schema::TYPE_STRING:
-            case Schema::TYPE_TEXT:
-            case Schema::TYPE_DATE:
-            case Schema::TYPE_TIME:
-            case Schema::TYPE_DATETIME:
-                break;
-            // Tipos a los que hay que quitar los paréntesis
-            case Schema::TYPE_INTEGER:
-                $type = preg_replace("/\((.*?)\)/i", "", $type);
-                break;
-            // Tipos que cambian durante la creación
-            case Schema::TYPE_BOOLEAN:
-                $type = 'boolean'; // Se crea como boolean y se retorna como tinyint(1)
-                $structure['Default'] = ($structure['Default'] === '1');
-                break;
+        $result = [];
+        $result['index'] = $row['Key_name'];
+        $result['column'] = $row['Column_name'];
+        $result['unique'] = $row['Non_unique'] == '0' ? 1 : 0;
+        $result['nullable'] = $row['Null'] == 'YES' ? 1 : 0;
+        $constrait = self::getConstraintData($row['Table'], $row['Key_name']);
+        if (count($constrait) > 0) {
+            $result['constraint'] = $constrait[0]['CONSTRAINT_NAME'];
+            $result['referencedtable'] = $constrait[0]['REFERENCED_TABLE_NAME'];
+            $result['referencedfields'] = $constrait[0]['REFERENCED_COLUMN_NAME'];
         }
-        $structure['Type'] = $type;
-        return $structure;
+        $constrait = self::getConstraintRules($row['Table'], $row['Key_name']);
+        if (count($constrait) > 0) {
+            $result['matchoption'] = $constrait[0]['MATCH_OPTION'];
+            $result['updaterule'] = $constrait[0]['UPDATE_RULE'];
+            $result['deleterule'] = $constrait[0]['DELETE_RULE'];
+        }
+        return $result;
     }
 
+    /**
+     * Retorna la secuencia SQL para modificar un campo de la tabla
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param string $tableName
+     * @param array  $oldField
+     * @param array  $newField
+     *
+     * @return string
+     */
     public static function modify(string $tableName, array $oldField, array $newField): string
     {
         $sql = 'ALTER TABLE ' . self::quoteTableName($tableName) . ' CHANGE ' . $oldField['Field'] . ' ' . $newField['Field'] . ' ';
@@ -533,104 +676,6 @@ WHERE
             $sql .= ' DEFAULT "' . $newField['Default'] . '"';
         }
         $sql .= ';';
-        return $sql;
-    }
-
-    /**
-     * Obtains an array of indexes for a table
-     *
-     * @param string $tableName
-     *
-     * @return array
-     * @throws \DebugBar\DebugBarException
-     */
-    public static function getIndexes(string $tableName): array
-    {
-        $query = self::getIndexesSql($tableName);
-        $data = DB::select($query);
-        $result = [];
-        foreach ($data as $value) {
-            $row = self::normalizeIndexes($value);
-            $result[$row['index']] = $row;
-        }
-
-        return $result;
-    }
-
-    public static function createIndex(string $tableName, string $index, array $data): string
-    {
-        $name = $data['column'];
-
-        // Si es una clave primaria, ya fue creada en la definición de la tabla
-        if ($data['primary'] === 'yes') {
-            return ''; // return "ALTER TABLE `$tableName` PRIMARY KEY ($name);";
-        }
-
-        $sql = "ALTER TABLE `$tableName` ADD CONSTRAINT `$index` ";
-        if ($data['unique'] === 'yes') {
-            return $sql . "UNIQUE ($name);";
-        }
-
-        if (!isset($data['referencedtable'])) {
-            return $sql . "INDEX ($name);";
-        }
-
-        $referencedTable = $data['referencedtable'];
-        $referencedFields = $data['referencedfields'];
-        $updaterule = strtoupper($data['updaterule']);
-        $deleterule = strtoupper($data['deleterule']);
-
-        $sql .= "FOREIGN KEY ($name) REFERENCES $referencedTable ($referencedFields) ON DELETE $deleterule ON UPDATE $updaterule;";
-
-        return $sql;
-    }
-
-    public static function changeIndex(string $tableName, string $index, array $oldData, array $newData): string
-    {
-        $oldPrimary = $oldData['index'] === 'PRIMARY';
-        $oldUnique = $oldData['unique'] === 1;
-        $oldReferencedTable = $oldData['referencedtable'] ?? null;
-
-        $newPrimary = $newData['primary'] === 'yes';
-        $newUnique = $newData['unique'] === 'yes';
-        $newReferencedTable = $newData['referencedtable'] ?? null;
-
-        $ok = true;
-        $ok = $ok && ($oldData['column'] === $newData['column']);
-        $ok = $ok && ($oldPrimary === $newPrimary);
-        $ok = $ok && ($oldReferencedTable === $newReferencedTable);
-
-        // Si es primaria, es unique siempre así que solo comprobamos si no es unique
-        if ($ok && !$oldPrimary) {
-            $ok = $ok && $oldUnique === $newUnique;
-        }
-
-        // No hay cambios y no hay constraint
-        if ($ok && !isset($newReferencedTable)) {
-            return '';
-        }
-
-        // Si hay constraint, entonces hay que verificar si ha cambiado.
-        $oldReferencedFields = strtolower($oldData['referencedfields']) ?? '';
-        $oldUpdateRule = strtolower($oldData['updaterule']) ?? '';
-        $oldDeleteRule = strtolower($oldData['deleterule']) ?? '';
-
-        $newReferencedFields = strtolower($newData['referencedfields']) ?? '';
-        $newUpdateRule = strtolower($newData['updaterule']) ?? '';
-        $newDeleteRule = strtolower($newData['deleterule']) ?? '';
-
-        if ($oldReferencedFields === $newReferencedFields && $oldUpdateRule === $newUpdateRule && $oldDeleteRule === $newDeleteRule) {
-            return '';
-        }
-
-        // Se elimina el índice y se vuelve a crear
-        return self::removeIndex($tableName, $index) . self::createIndex($tableName, $index, $newData);
-    }
-
-    public static function removeIndex(string $tableName, string $index): string
-    {
-        $sql = "ALTER TABLE `$tableName` DROP CONSTRAINT `$index`;";
-
         return $sql;
     }
 
