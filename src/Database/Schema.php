@@ -658,74 +658,17 @@ class Schema
         $result = true;
         foreach ($changes as $change) {
             if (!empty($change)) {
-                dump($change);
                 $result = $result && Engine::exec($change);
             }
         }
         return $result;
     }
 
-    /**
-     * Build the SQL statement to create the fields in the table.
-     * It can also create the primary key if the auto_increment attribute is defined.
-     *
-     * @param string $tablename
-     * @param array  $fieldList
-     *
-     * @return string
-     */
-    protected static function _createFields(string $tablename, array $fieldList): string
-    {
-        $tablenameWithPrefix = DB::$dbPrefix . $tablename;
-
-        $sql = "CREATE TABLE $tablenameWithPrefix ( ";
-        foreach ($fieldList as $index => $column) {
-            $col = $column['schema'];
-            if (!isset($col['dbtype'])) {
-                die('Tipo no especificado en createTable ' . $index);
-            }
-
-            $sql .= '`' . $index . '` ' . $col['dbtype'];
-            $nulo = isset($col['null']) && $col['null'];
-
-            if (strtolower($col['type']) === 'autoincrement') {
-                $nulo = false;
-                $sql .= ' PRIMARY KEY AUTO_INCREMENT';
-            }
-
-            $sql .= ($nulo ? '' : ' NOT') . ' NULL';
-
-            $tmpDefecto = $col['default'] ?? null;
-            $defecto = '';
-            if (isset($tmpDefecto)) {
-                if ($tmpDefecto == 'CURRENT_TIMESTAMP') {
-                    $defecto = "$tmpDefecto";
-                } else {
-                    $defecto = "'$tmpDefecto'";
-                }
-            } else {
-                if ($nulo) {
-                    $defecto = 'NULL';
-                }
-            }
-
-            if ($defecto != '') {
-                $sql .= ' DEFAULT ' . $defecto;
-            }
-
-            $sql .= ', ';
-        }
-        $sql = substr($sql, 0, -2); // Quitamos la coma y el espacio del final
-        $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
-
-        return $sql;
-    }
-
     protected static function createFields(string $tablename, array $fieldList): string
     {
-        $tablenameWithPrefix = DB::$dbPrefix . $tablename;
+        $tableNameWithPrefix = DB::$dbPrefix . $tablename;
 
-        $sql = "CREATE TABLE $tablenameWithPrefix ( ";
+        $sql = "CREATE TABLE $tableNameWithPrefix ( ";
         foreach ($fieldList as $column) {
             $sql .= DB::$helper::getSqlField($column) . ', ';
         }
@@ -733,100 +676,6 @@ class Schema
         $sql .= ') ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;' . self::CRLF;
 
         return $sql;
-    }
-
-    /**
-     * Create the SQL statements for the construction of one index.
-     * In the case of the primary index, it is not necessary if it is auto_increment.
-     *
-     * TODO: Éste método tiene que refactorizarse y eliminar dependencias del motor.
-     *
-     * Moreover, it should not be defined if it is auto_increment because it would
-     * generate an error when it already exists.
-     *
-     * @param string $tableName
-     * @param string $indexname
-     * @param array  $indexData
-     *
-     * @return string
-     */
-    protected static function createIndex($tableName, $indexname, $indexData)
-    {
-        // La clave primaria se construye con los campos para mysql
-        if (isset($indexData['primary'])) {
-            return '';
-        }
-
-        $tableNameWithPrefix = DB::$dbPrefix . $tableName;
-
-        $sql = "ALTER TABLE $tableNameWithPrefix ADD CONSTRAINT $indexname ";
-
-        $command = '';
-        // https://www.w3schools.com/sql/sql_primarykey.asp
-        // ALTER TABLE Persons ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
-        if (isset($indexData['primary'])) {
-            $command = 'PRIMARY KEY ';
-            $fields = $indexData['primary'];
-        }
-
-        // https://www.w3schools.com/sql/sql_create_index.asp
-        // CREATE INDEX idx_pname ON Persons (LastName, FirstName);
-        if (isset($indexData['index'])) {
-            $command = 'INDEX ';
-            $fields = $indexData['index'];
-        }
-
-        // https://www.w3schools.com/sql/sql_unique.asp
-        // ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
-        if (isset($indexData['unique'])) {
-            $command = 'UNIQUE INDEX ';
-            $fields = $indexData['column'];
-        }
-
-        if ($command == '') {
-            // https://www.w3schools.com/sql/sql_foreignkey.asp
-            // ALTER TABLE Orders ADD CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
-            if (isset($indexData['FOREIGN'])) {
-                $command = 'FOREIGN KEY ';
-                $foreignField = $indexData['FOREIGN'];
-                if (isset($indexData['REFERENCES'])) {
-                    $references = $indexData['REFERENCES'];
-                    if (!is_array($references)) {
-                        die('Esperaba un array en REFERENCES: ' . $tableNameWithPrefix . '/' . $indexname);
-                    }
-                    if (count($references) != 1) {
-                        die('Esperaba un array de 1 elemento en REFERENCES: ' . $tableNameWithPrefix . '/' . $indexname);
-                    }
-                    $refTable = key($references);
-                    $fields = '(' . implode(',', $references) . ')';
-                } else {
-                    die('FOREIGN necesita REFERENCES en ' . $tableNameWithPrefix . '/' . $indexname);
-                }
-
-                $sql .= $command . ' ' . $foreignField . ' REFERENCES ' . $refTable . $fields;
-
-                if (isset($indexData['ON']) && is_array($indexData['ON'])) {
-                    foreach ($indexData['ON'] as $key => $value) {
-                        $sql .= ' ON ' . $key . ' ' . $value . ', ';
-                    }
-                    $sql = substr($sql, 0, -2); // Quitamos el ', ' de detrás
-                }
-            }
-        } else {
-            if (is_array($fields)) {
-                $fields = '(' . implode(',', $fields) . ')';
-            } else {
-                $fields = "($fields)";
-            }
-
-            if ($command == 'INDEX ') {
-                $sql = "CREATE INDEX {$indexname} ON {$tableNameWithPrefix}" . $fields;
-            } else {
-                $sql .= $command . ' ' . $fields;
-            }
-        }
-
-        return $sql . ';' . self::CRLF;
     }
 
     /**
@@ -862,97 +711,5 @@ class Schema
         }
 
         return substr($sql, 0, -2) . self::CRLF;
-    }
-
-    /**
-     * Return true if $tableName exists in database
-     *
-     * @param string $tableName
-     *
-     * @return bool
-     * @throws DebugBarException
-     */
-    public static function _tableExists($tableName): bool
-    {
-        $tableNameWithPrefix = DB::$dbPrefix . $tableName;
-        $dbName = DB::$dbName;
-        $sql = "SELECT COUNT(*) AS Total FROM information_schema.tables WHERE table_schema = '{$dbName}' AND table_name='{$tableNameWithPrefix}'";
-
-        $data = Engine::select($sql);
-        $result = reset($data);
-
-        return $result['Total'] === '1';
-    }
-
-    private static function _getFieldsAndIndexes($tableName, $path): array
-    {
-        $data = Yaml::parseFile($path);
-
-        $result = [];
-        foreach ($data['fields'] ?? [] as $key => $datum) {
-            $datum['key'] = $key;
-            $result['fields'][$key]['db'] = DB::normalizeFromYaml($datum);
-            $result['fields'][$key]['info'] = Schema::normalize($datum);
-            if ($result['fields'][$key]['type'] === 'autoincrement') {
-                // TODO: Ver cómo tendría que ser la primary key
-                $result['indexes']['primary'] = $key;
-            }
-        }
-        foreach ($data['indexes'] ?? [] as $key => $datum) {
-            $datum['key'] = $key;
-            $result['indexes'][$key] = $datum;
-        }
-
-        /*
-        Igual conviene crear una clase:
-        - DBSchema (con los datos de la base de datos real)
-        - DefinedSchema (con los datos definidos)
-        y que Schema cree o adapte según los datos de ambas. Que cada una lleve lo suyo
-
-        Que el resultado se guarde en el yaml y que se encargue de realizar las conversines
-    oportunas siempre que no suponga una pérdida de datos.
-        */
-
-        return $result;
-    }
-
-    private static function _getFields($tableName): array
-    {
-        $yamlSourceFilename = self::$tables[$tableName];
-        if (!file_exists($yamlSourceFilename)) {
-            dump('No existe el archivo ' . $yamlSourceFilename);
-        }
-
-        $data = Yaml::parseFile($yamlSourceFilename);
-
-        $result = [];
-        foreach ($data as $key => $datum) {
-            $datum['key'] = $key;
-            $result[$key] = Schema::normalize($datum);
-        }
-
-        /*
-        Igual conviene crear una clase:
-        - DBSchema (con los datos de la base de datos real)
-        - DefinedSchema (con los datos definidos)
-        y que Schema cree o adapte según los datos de ambas. Que cada una lleve lo suyo
-
-        Que el resultado se guarde en el yaml y que se encargue de realizar las conversines
-    oportunas siempre que no suponga una pérdida de datos.
-        */
-
-        return $result;
-    }
-
-    private static function _getIndexes($tableName): array
-    {
-        $result = [];
-        return $result;
-    }
-
-    private static function _getRelated($tableName): array
-    {
-        $result = [];
-        return $result;
     }
 }
