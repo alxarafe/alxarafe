@@ -26,7 +26,7 @@ use DebugBar\DebugBarException;
  *
  * @package Modules\Portfolio\Models
  */
-class PortfolioAssets extends Table
+class PortfolioAsset extends Table
 {
 
     /**

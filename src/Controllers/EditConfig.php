@@ -19,11 +19,12 @@
 namespace Alxarafe\Controllers;
 
 use Alxarafe\Core\Base\BasicController;
-use Alxarafe\Core\Base\View;
 use Alxarafe\Core\Singletons\Config;
 use Alxarafe\Core\Singletons\FlashMessages;
-use Alxarafe\Views\ConfigView;
-use DebugBar\DebugBarException;
+use Alxarafe\Core\Singletons\Render;
+use Alxarafe\Core\Singletons\Translator;
+use Alxarafe\Database\DB;
+use Alxarafe\Database\Engine;
 
 /**
  * Controller for editing database and skin settings
@@ -32,6 +33,33 @@ use DebugBar\DebugBarException;
  */
 class EditConfig extends BasicController
 {
+    public $language;
+
+    public $checkDebug;
+
+    public function main(): void
+    {
+        $this->dbEngines = Engine::getEngines();
+        $this->dbEngineName = Config::getVar('database', 'main', 'dbEngineName') ?? $this->dbEngines[0] ?? '';
+
+        $this->skins = Render::getSkins();
+        $this->skin = Config::getVar('templaterender', 'main', 'skin') ?? $this->skins[0] ?? '';
+
+        $this->checkDebug = Config::getVar('constants', 'boolean', 'DEBUG') ?? false;
+
+        $this->languages = Translator::getAvailableLanguages();
+        $this->language = Config::getVar('translator', 'main', 'language') ?? key($this->languages) ?? 'es';
+
+        $this->dbConfig['dbUser'] = Config::getVar('database', 'main', 'dbUser') ?? 'root';
+        $this->dbConfig['dbPass'] = Config::getVar('database', 'main', 'dbPass') ?? '';
+        $this->dbConfig['dbName'] = Config::getVar('database', 'main', 'dbName') ?? 'alxarafe';
+        $this->dbConfig['dbHost'] = Config::getVar('database', 'main', 'dbHost') ?? 'localhost';
+        $this->dbConfig['dbPrefix'] = Config::getVar('database', 'main', 'dbPrefix') ?? 'tc_';
+        $this->dbConfig['dbPort'] = Config::getVar('database', 'main', 'dbPort') ?? '';
+
+        parent::main();
+    }
+
     /**
      * Save the form changes in the configuration file
      *
@@ -65,11 +93,8 @@ class EditConfig extends BasicController
         return $result;
     }
 
-    /**
-     * @throws DebugBarException
-     */
-    public function setView(): View
+    public function setTemplate(): string
     {
-        return new ConfigView($this);
+        return 'config';
     }
 }

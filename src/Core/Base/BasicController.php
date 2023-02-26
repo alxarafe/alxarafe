@@ -7,6 +7,8 @@
 namespace Alxarafe\Core\Base;
 
 use Alxarafe\Core\Helpers\Globals;
+use Alxarafe\Core\Singletons\Render;
+use DebugBar\DebugBarException;
 
 /**
  * Class BasicController
@@ -101,16 +103,18 @@ abstract class BasicController
      * @author  Rafael San José Tovar <info@rsanjoseo.com>
      * @version 2023.0108
      *
-     * @return bool
+     * @return void
+     * @throws DebugBarException
      */
-    public function main(): bool
+    public function main(): void
     {
         $result = true;
         if (isset($this->action)) {
             $result = $this->doAction();
         }
-        $this->view = $this->setView();
-        return $result;
+        Render::setTemplate($this->setTemplate());
+        $view = new View($this);
+        // $view->render();
     }
 
     /**
@@ -164,14 +168,32 @@ abstract class BasicController
     }
 
     /**
-     * Retorna una instancia de la vista.
-     * TODO: Analizar si es necesario tener las vistas por separado o si es preferible
-     *       definir todos los métodos en el controlador para simplificar.
-     *
-     * @author  Rafael San José Tovar <info@rsanjoseo.com>
-     * @version 2023.0108
-     *
-     * @return View
+     * Method to assign the template to the view.
      */
-    abstract public function setView(): View;
+    abstract public function setTemplate(): string;
+
+    /**
+     * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
+     *
+     * @return void
+     * @throws DebugBarException
+     */
+    public function addCSS()
+    {
+        //        $this->addToVar('cssCode', $this->addResource('/bower_modules/bootstrap/dist/css/bootstrap.min', 'css'));
+        //        $this->addToVar('cssCode', $this->addResource('/css/alxarafe', 'css'));
+    }
+
+    /**
+     * addJS includes the common JS files to all views templates. Also defines JS folders templates.
+     *
+     * @return void
+     */
+    public function addJS()
+    {
+        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/jquery/dist/jquery.min', 'js'));
+        //        $this->addToVar('jsCode', $this->addResource('/bower_modules/bootstrap/dist/js/bootstrap.min', 'js'));
+        //        $this->addToVar('jsCode', $this->addResource('/js/alxarafe', 'js'));
+    }
+
 }

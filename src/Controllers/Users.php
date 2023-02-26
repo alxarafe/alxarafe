@@ -18,38 +18,14 @@
 
 namespace Alxarafe\Controllers;
 
-use Alxarafe\Core\Base\View;
-use Alxarafe\Core\Base\Controller;
-use Alxarafe\Core\Helpers\Auth;
-use Alxarafe\Views\LoginView;
-use DebugBar\DebugBarException;
+use Alxarafe\Core\Base\CrudController;
 
-/**
- * Class Login
- *
- * @package Alxarafe\Controllers
- */
-class Logout extends Controller
+class Users extends CrudController
 {
-    public function __construct()
-    {
-        parent::__construct();
 
-        Auth::logout();
-
-        header('Location: ' . BASE_URI . '?controller=Login');
-    }
-
-    /**
-     * @throws DebugBarException
-     */
-    public function setView(): View
-    {
-        return new LoginView($this);
-    }
 
     public function setTemplate(): string
     {
-        return 'login';
+        return 'users';
     }
 }

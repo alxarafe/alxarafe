@@ -135,7 +135,7 @@ abstract class FlashMessages
      */
     public static function setSuccess(string $msg, string $when = 'now'): void
     {
-        $message = ['type' => 'success', 'msg' => $msg];
+        $message = ['type' => 'success', 'msg' => Translator::trans($msg)];
         // Logger::getInstance()->getLogger()->addNotice($msg);
         self::setFlash($when, $message);
     }

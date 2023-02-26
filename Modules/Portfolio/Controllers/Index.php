@@ -25,14 +25,8 @@ use Alxarafe\Views\IndexView;
 
 class Index extends Controller
 {
-    /**
-     *
-     * @return View
-     * @throws \DebugBar\DebugBarException
-     */
-    public function setView(): View
+    public function setTemplate(): string
     {
-        new PortfolioAssets();
-        return new IndexView($this);
+        return 'default';
     }
 }

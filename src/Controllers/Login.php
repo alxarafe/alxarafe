@@ -60,4 +60,9 @@ class Login extends Controller
         }
         return new LoginView($this);
     }
+
+    public function setTemplate(): string
+    {
+        return 'login';
+    }
 }

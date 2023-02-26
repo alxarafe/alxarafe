@@ -21,11 +21,11 @@ namespace Alxarafe\Models;
 use Alxarafe\Core\Base\Table;
 
 /**
- * Class Users
+ * Class User
  *
  * @package Modules\Main\Models
  */
-class Users extends Table
+class User extends Table
 {
 
     /**

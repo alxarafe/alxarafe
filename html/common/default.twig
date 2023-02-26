@@ -3,9 +3,9 @@
 {% block title %}Plantilla por defecto{% endblock %}
 
 {% block body %}
-    <h1>{{ view.title }}</h1>
-    {% if user=="" %}
-        <h2><a href="{{ ctrl.url('Main','Login') }}">Login</a></h2>
-    {% endif %}
-    <h2><a href="{{ ctrl.url('Main','EditConfig') }}">Editar configuración</a></h2>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <h1>En un lugar de la Mancha de cuyo nombre no quiero acordarme...</h1>
+    </div>
+    <!-- /.content-wrapper -->
 {% endblock %}

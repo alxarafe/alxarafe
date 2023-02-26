@@ -107,7 +107,7 @@ abstract class Engine
      *
      * @return array
      */
-    public static function _getEngines(): array
+    public static function getEngines(): array
     {
         $engines = scandir(self::ENGINES_FOLDER);
         $ret = [];

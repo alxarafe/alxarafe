@@ -115,16 +115,31 @@ class Utils
         return (\is_dir($directory) || @\mkdir($directory, $permissions, $recursive) || \is_dir($directory));
     }
 
+    /**
+     * Elimina una carpeta
+     *
+     * @author Rafael San José Tovar <info@rsanjoseo.com>
+     *
+     * @param $dir
+     *
+     * @return bool
+     */
     public static function delTree($dir)
     {
+        if (!file_exists($dir)) {
+            return true;
+        }
+
         $files = scandir($dir);
         if ($files === false) {
             return false;
         }
+
         $files = array_diff($files, ['.', '..']);
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? self::delTree("$dir/$file") : unlink("$dir/$file");
         }
+
         return rmdir($dir);
     }
 }

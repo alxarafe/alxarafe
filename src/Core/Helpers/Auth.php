@@ -19,10 +19,9 @@
 namespace Alxarafe\Core\Helpers;
 
 use Alxarafe\Core\Singletons\Debug;
-use Alxarafe\Core\Singletons\DebugTool;
 use Alxarafe\Database\Engine;
 use Alxarafe\Controllers\Login;
-use Alxarafe\Models\Users;
+use Alxarafe\Models\User;
 use DebugBar\DebugBarException;
 
 /**
@@ -52,7 +51,7 @@ class Auth
      */
     public function __construct(string $index = 'main')
     {
-        self::$users = new Users();
+        self::$users = new User();
         self::getCookieUser();
     }
 

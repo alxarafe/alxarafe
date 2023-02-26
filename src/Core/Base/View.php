@@ -14,13 +14,14 @@ use Alxarafe\Core\Singletons\Render;
 use Alxarafe\Core\Singletons\Translator;
 use Alxarafe\Core\Utils\ClassUtils;
 use Alxarafe\Models\Menu;
+use Symfony\Component\Finder\Glob;
 
 /**
  * Class View
  *
  * @package Alxarafe\Base
  */
-abstract class View
+final class View
 {
     /**
      * Error messages to show
@@ -80,8 +81,6 @@ abstract class View
         $title = ClassUtils::getShortName($controller, $controller);
         $this->title = Translator::trans(strtolower($title)) . ' - ' . Globals::APP_NAME . ' ' . Globals::APP_VERSION;
 
-        $this->setTemplate();
-        Render::setTemplate($this->template);
         $this->vars = [];
         $this->vars['ctrl'] = $controller;
         $this->vars['view'] = $this;
@@ -104,7 +103,7 @@ abstract class View
     /**
      * Method to assign the template to the view.
      */
-    abstract public function setTemplate(): void;
+    //abstract public function setTemplate(): void;
 
     /**
      * addCSS includes the common CSS files to all views templates. Also defines CSS folders templates.
@@ -305,5 +304,18 @@ abstract class View
     public function getErrors(): array
     {
         return FlashMessages::getContainer();
+    }
+
+    public function getUrl($module = null, $controller = null)
+    {
+        $params = '';
+        if (isset($module)) {
+            $params = '?' . Globals::MODULE_GET_VAR . '=' . $module;
+        }
+        if (isset($controller)) {
+            $params .= (empty($params) ? '?' : '&');
+            $params .= Globals::CONTROLLER_GET_VAR . '=' . $controller;
+        }
+        return constant('BASE_URI') . 'index.php' . $params;
     }
 }

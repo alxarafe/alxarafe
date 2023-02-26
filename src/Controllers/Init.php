@@ -41,4 +41,9 @@ class Init extends Controller
     {
         return new IndexView($this);
     }
+
+    public function setTemplate(): string
+    {
+    return 'default';
+    }
 }
