@@ -1,0 +1,129 @@
+version: '3'
+services:
+    alxarafe_httpd:
+        image: nginx:latest
+        container_name: ${HTTPD_CONTAINER}
+        restart: on-failure
+        env_file:
+            - ".env"
+        ports:
+            - ${HTTPD_PORT}:80
+        environment:
+            - PROJECT_NAME=${PROJECT_NAME}
+            - HTTPD_HOST=${HTTPD_HOST}
+            - XDEBUG_MODE=${PHP_XDEBUG_MODE}
+        command: /bin/sh -c "envsubst '$$HTTPD_HOST $$PROJECT_NAME' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;' && find ./storage -exec chown www-data:www-data {} \; && find ./storage -type f -exec chmod 644 {} \; && find ./storage -type d -exec chmod 755 {} \; && find ./bootstrap/cache -exec chown www-data:www-data {} \; && find ./bootstrap/cache -type f -exec chmod 644 {} \; && find ./bootstrap/cache -type d -exec chmod 755 {} \; && composer install && composer dump-autoload"
+        networks:
+            - ${NETWORK}
+        volumes:
+            - ${HTTPD_CONFIG_DIRECTORY}/default.conf:/etc/nginx/conf.d/default.conf
+            - ${HTTPD_CONFIG_DIRECTORY}/default.template.conf:/etc/nginx/conf.d/default.template
+            - ${HTTPD_CONFIG_DIRECTORY}/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf:ro
+            - ${CODE_DIRECTORY}:/var/www/${PROJECT_NAME}
+            - ${HTTPD_LOG_DIRECTORY}:/var/log/nginx
+        depends_on:
+            - alxarafe_php
+            - alxarafe_db
+
+    alxarafe_php:
+        container_name: ${PHP_CONTAINER}
+        restart: on-failure
+        env_file:
+            - ".env"
+        build:
+            dockerfile: ${PHP_DIRECTORY}/Dockerfile
+            context: .
+            args:
+                USER_ID: ${USER_ID:-0}
+                GROUP_ID: ${GROUP_ID:-0}
+                PHP_VERSION: ${PHP_VERSION}
+        environment:
+            - XDEBUG_CONFIG:client_host=172.17.0.1 client_port=9003
+        networks:
+            - ${NETWORK}
+        volumes:
+            - ${PHP_CONFIG_DIRECTORY}/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ${CODE_DIRECTORY}:/var/www/${PROJECT_NAME}
+
+    alxarafe_composer:
+        image: "composer"
+        container_name: ${COMPOSER_CONTAINER}
+        volumes:
+            - ${CODE_DIRECTORY}:/app
+        command: install
+
+    alxarafe_db:
+        image: mysql:${MYSQL_VERSION}
+        container_name: ${MYSQL_CONTAINER}
+        restart: on-failure
+        env_file:
+            - ".env"
+        build:
+            dockerfile: ${MYSQL_DOCKERFILE_DIRECTORY}/Dockerfile
+            context: .
+        security_opt:
+            - seccomp:unconfined
+        ports:
+            - ${MYSQL_PORT}:3306
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_LOG_CONSOLE=${MYSQL_LOG_ENABLED}
+        networks:
+            - ${NETWORK}
+        volumes:
+            - ${MYSQL_INIT_DB_DIRECTORY}:/docker-entrypoint-initdb.d
+            - ${MYSQL_CONFIG_DB_DIRECTORY}/my.cnf:/etc/mysql/conf.d/my.cnf
+
+    alxarafe_db_test:
+        image: mysql:${MYSQL_VERSION}
+        container_name: ${MYSQL_TEST_CONTAINER}
+        restart: on-failure
+        env_file:
+            - ".env"
+        build:
+            dockerfile: ${MYSQL_TEST_DOCKERFILE_DIRECTORY}/Dockerfile
+            context: .
+        #   https://github.com/docker-library/mysql/issues/422
+        #   https://stackoverflow.com/questions/55559386/how-to-fix-mbind-operation-not-permitted-in-mysql-error-log
+        security_opt:
+            - seccomp:unconfined
+        ports:
+            - ${MYSQL_TEST_PORT}:3306
+        environment:
+            - MYSQL_DATABASE=${MYSQL_TEST_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_TEST_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_TEST_USER}
+            - MYSQL_PASSWORD=${MYSQL_TEST_PASSWORD}
+            - MYSQL_LOG_CONSOLE=${MYSQL_LOG_ENABLED}
+        networks:
+            - ${NETWORK}
+        volumes:
+            - ${MYSQL_TEST_INIT_DB_DIRECTORY}:/docker-entrypoint-initdb.d
+            - ${MYSQL_TEST_CONFIG_DB_DIRECTORY}/my.cnf:/etc/mysql/conf.d/my.cnf
+
+    alxarafe_memcached:
+        image: memcached:latest
+        container_name: ${MEMCACHED_CONTAINER}
+        restart: on-failure
+        env_file:
+            - ".env"
+        expose:
+            - 11211
+        networks:
+            - ${NETWORK}
+
+    alxarafe_redis:
+        image: redis:latest
+        container_name: ${REDIS_CONTAINER}
+        restart: on-failure
+        env_file:
+            - ".env"
+        expose:
+            - 6379
+        networks:
+            - ${NETWORK}
+networks:
+    alxarafe_network:
