@@ -70,7 +70,7 @@ COPY ./etc/php/config/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker
 
 # Cleaning
 RUN docker-php-source delete
-RUN apg-get clean
+RUN apt-get clean
 RUN apt-get remove -y g++ wget
 RUN apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y
 RUN rm -rf /var/lib/apt/lists/*
