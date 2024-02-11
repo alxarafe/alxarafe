@@ -29,9 +29,13 @@ You can test the application using Docker. Switch to the docker path from the ap
 
 >cd docker
 
+Copy or rename .env.example to .env.
+
+>cp .env.example .env
+
 Build docker image using:
 
->docker-compose build --no-cache --force-rm d
+>docker-compose build --no-cache --force-rm
 
 Afterwards, you can start the image execution with:
 

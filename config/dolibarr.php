@@ -96,6 +96,6 @@ return [
             public_path() . DIRECTORY_SEPARATOR . 'htdocs' . DIRECTORY_SEPARATOR . 'documents'
         ),
 
-        'dol-core-modules-root' => env('')
+        // 'dol-core-modules-root' => env('')
     ],
 ];
