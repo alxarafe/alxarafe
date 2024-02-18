@@ -66,7 +66,85 @@ return [
         | Set the Euro currency character.
         |
         */
-        'euro' => '€'
+        'euro' => '€',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Copyright information
+        |--------------------------------------------------------------------------
+        |
+        | Copyright information to show in the console
+        |
+        */
+        'copyright' => 'Copyright (c) 2020 El Estado Web Research & Development. All rights reserved.',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Application version
+        |--------------------------------------------------------------------------
+        |
+        | Alxarafe version to show in the console
+        |
+        */
+        'version' => ENV('APP_VERSION', '1.0'),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Application version
+        |--------------------------------------------------------------------------
+        |
+        | Alxarafe version to show in the console
+        |
+        */
+        'subversion' => ENV('APP_SUBVERSION', '2024-Q1'),
+
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | Information related to i18n
+    |--------------------------------------------------------------------------
+    |
+    | All configurations related to i18n
+    |
+    */
+    'i18n' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Translated languages list file
+        |--------------------------------------------------------------------------
+        |
+        | File which contains the list of available languages.
+        |
+        */
+        'available_install_languages' => [
+            'en_US',
+            'am_ET',
+            'ar_SA',
+            'bn_DB',
+            'bs_BA',
+            'ca_ES',
+            'cs_CZ',
+            'da_DK',
+            'et_EE',
+            'el_GR',
+            'eu_ES',
+            'fa_IR',
+            'he_IL',
+            'ka_GE',
+            'km_KH',
+            'kn_IN',
+            'ko_KR',
+            'ja_JP',
+            'lo_LA',
+            'nb_NO',
+            'sq_AL',
+            'sr_RS',
+            'sv_SE',
+            'sl_SI',
+            'uk_UA',
+            'vi_VN',
+            'zh_CN',
+        ],
     ],
     'filesystem' => [
         /*
@@ -79,7 +157,7 @@ return [
         */
         'dol-main-document-root' => env(
             'DOLIBARR_MAIN_DOCUMENT_ROOT',
-            public_path() . DIRECTORY_SEPARATOR . 'htdocs'
+            public_path().DIRECTORY_SEPARATOR.'htdocs'
         ),
 
         /*
@@ -93,7 +171,7 @@ return [
         */
         'dol-main-data-root' => env(
             'DOLIBARR_MAIN_DATA_ROOT',
-            public_path() . DIRECTORY_SEPARATOR . 'htdocs' . DIRECTORY_SEPARATOR . 'documents'
+            public_path().DIRECTORY_SEPARATOR.'htdocs'.DIRECTORY_SEPARATOR.'documents'
         ),
 
         // 'dol-core-modules-root' => env('')

@@ -45,6 +45,17 @@ Once the image has started running, you can run Alxarafe by starting it in your 
 
 >http://localhost:8090/
 
+## Laravel 10 considerations
+
+### i18n
+The language feature (i18n) is not a base feature that comes available, out of the box, in our folder tree after a clean installation of Laravel 10, so, if you want to make the folder available, you must run the command `php artisan lang:publish` in order to create the folder and the base languages files for all languages
+
+
+### XDebug in Console
+export XDEBUG_CONFIG="remote_enable=1 remote_mode=req remote_port=9000 remote_host={{gateway IP}} remote_connect_back=0 idekey=PHPSTORM"
+export PHP_IDE_CONFIG="serverName=localhost"
+php bin/script.php
+
 ## Contributors
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/alxarafe/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
