@@ -182,6 +182,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'i18n' => Modules\Core\App\Facades\I18n::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

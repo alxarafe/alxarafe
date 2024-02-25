@@ -90,6 +90,26 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | ${CARET}
+        |--------------------------------------------------------------------------
+        |
+        | TO COMPLETE
+        |
+        */
+        'version-message' => 'Version: %s - Subversion: %s',
+
+        /*
+        |--------------------------------------------------------------------------
+        | ${CARET}
+        |--------------------------------------------------------------------------
+        |
+        | TO COMPLETE
+        |
+        */
+        'love-message' => 'Craft with ♥ in Spain',
+
+        /*
+        |--------------------------------------------------------------------------
         | Application version
         |--------------------------------------------------------------------------
         |
@@ -110,40 +130,22 @@ return [
     'i18n' => [
         /*
         |--------------------------------------------------------------------------
-        | Translated languages list file
+        | Default Languages for App areas
         |--------------------------------------------------------------------------
         |
-        | File which contains the list of available languages.
+        | Defaulta languages for each application areas
         |
         */
-        'available_install_languages' => [
-            'en_US',
-            'am_ET',
-            'ar_SA',
-            'bn_DB',
-            'bs_BA',
-            'ca_ES',
-            'cs_CZ',
-            'da_DK',
-            'et_EE',
-            'el_GR',
-            'eu_ES',
-            'fa_IR',
-            'he_IL',
-            'ka_GE',
-            'km_KH',
-            'kn_IN',
-            'ko_KR',
-            'ja_JP',
-            'lo_LA',
-            'nb_NO',
-            'sq_AL',
-            'sr_RS',
-            'sv_SE',
-            'sl_SI',
-            'uk_UA',
-            'vi_VN',
-            'zh_CN',
+        'default_locale' => [
+            /*
+            |--------------------------------------------------------------------------
+            | Default Console Language
+            |--------------------------------------------------------------------------
+            |
+            | Default Console Language as American English
+            |
+            */
+            'default_console_locale' => 'en_US',
         ],
     ],
     'filesystem' => [

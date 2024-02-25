@@ -1,0 +1,11 @@
+{
+    "name": "Install",
+    "alias": "install",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Install\\App\\Providers\\InstallServiceProvider"
+    ],
+    "files": []
+}
