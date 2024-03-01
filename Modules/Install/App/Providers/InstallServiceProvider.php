@@ -1,9 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Modules\Install\App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Install\App\Console\InstallCommand;
 
 class InstallServiceProvider extends ServiceProvider
 {
@@ -33,27 +46,6 @@ class InstallServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register commands in the format of Command::class
-     */
-    protected function registerCommands(): void
-    {
-        $this->commands([
-            \Modules\Install\App\Console\InstallCommand::class,
-        ]);
-    }
-
-    /**
-     * Register command Schedules.
-     */
-    protected function registerCommandSchedules(): void
-    {
-        // $this->app->booted(function () {
-        //     $schedule = $this->app->make(Schedule::class);
-        //     $schedule->command('inspire')->hourly();
-        // });
-    }
-
-    /**
      * Register translations.
      */
     public function registerTranslations(): void
@@ -67,15 +59,6 @@ class InstallServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
             $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'));
         }
-    }
-
-    /**
-     * Register config.
-     */
-    protected function registerConfig(): void
-    {
-        $this->publishes([module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
-        $this->mergeConfigFrom(module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
     }
 
     /**
@@ -100,6 +83,36 @@ class InstallServiceProvider extends ServiceProvider
     public function provides(): array
     {
         return [];
+    }
+
+    /**
+     * Register commands in the format of Command::class.
+     */
+    protected function registerCommands(): void
+    {
+        $this->commands([
+            InstallCommand::class,
+        ]);
+    }
+
+    /**
+     * Register command Schedules.
+     */
+    protected function registerCommandSchedules(): void
+    {
+        // $this->app->booted(function () {
+        //     $schedule = $this->app->make(Schedule::class);
+        //     $schedule->command('inspire')->hourly();
+        // });
+    }
+
+    /**
+     * Register config.
+     */
+    protected function registerConfig(): void
+    {
+        $this->publishes([module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
+        $this->mergeConfigFrom(module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
     }
 
     private function getPublishableViewPaths(): array

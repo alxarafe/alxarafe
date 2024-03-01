@@ -1,5 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 return [
     'country' => 'US',
     'country_name' => 'United States of America',
@@ -17,6 +29,5 @@ return [
     'currency_symbol' => '$',
     'currency_symbol_local' => 'US$',
     'currency_name' => 'Dollar',
-    'currency_name_local' => 'US Dollar'
+    'currency_name_local' => 'US Dollar',
 ];
-

@@ -1,8 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 return [
-    'NoConfigFile' => 'Debe especificar un fichero configfile para ejecutar la instalación.',
-    'ConfigFileNotReadable' => 'El fichero config_file no existe o no puede ser leído.',
+    'unknown-language' => 'The given language is not recognized. Please check the list of available languages.',
+    'no-config-file' => 'Debe especificar un fichero configfile para ejecutar la instalación.',
+    'config-file-not-readable' => 'El fichero config_file no existe o no puede ser leído.',
     'InstallEasy' => 'Hemos procurado que la instalación sea lo más simple posible, usted sólo tiene que seguir los pasos uno a uno.',
     'MiscellaneousChecks' => 'Comprobación de los prerrequisitos',
     'ConfFileExists' => 'El archivo de configuración **:configfile** existe.',

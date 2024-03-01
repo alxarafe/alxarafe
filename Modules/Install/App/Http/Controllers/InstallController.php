@@ -1,11 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Modules\Install\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class InstallController extends Controller
 {
@@ -28,13 +39,14 @@ class InstallController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
-    {
+    public function store(Request $request) {
         //
     }
 
     /**
      * Show the specified resource.
+     *
+     * @param mixed $id
      */
     public function show($id)
     {
@@ -43,6 +55,8 @@ class InstallController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param mixed $id
      */
     public function edit($id)
     {
@@ -51,6 +65,8 @@ class InstallController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param mixed $id
      */
     public function update(Request $request, $id)
     {
@@ -59,6 +75,8 @@ class InstallController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param mixed $id
      */
     public function destroy($id)
     {

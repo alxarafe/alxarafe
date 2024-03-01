@@ -1,8 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 return [
-    'NoConfigFile' => 'You must specify a config_file to run installation.',
-    'ConfigFileNotReadable' => 'Te config_file is not readable or it does not exist.',
+    'unknown-language' => 'The given language is not recognized. Please check the list of available languages.',
+    'no-config-file' => 'You must specify a config_file to run installation.',
+    'config-file-not-readable' => 'Te config_file is not readable or it does not exist.',
     'InstallEasy' => 'Just follow the instructions step by step.',
     'MiscellaneousChecks' => 'Prerequisites check',
     'ConfFileExists' => 'Configuration file **:configfile** exists.',

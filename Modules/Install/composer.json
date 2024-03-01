@@ -1,5 +1,5 @@
 {
-    "name": "Alxarafe/install",
+    "name": "alxarafe/install",
     "description": "",
     "authors": [
         {
@@ -11,16 +11,15 @@
         "laravel": {
             "providers": [],
             "aliases": {
-
             }
         }
     },
     "autoload": {
         "psr-4": {
             "Modules\\Install\\": "",
-            "Modules\\Install\\App\\": "app/",
-            "Modules\\Install\\Database\\Factories\\": "database/factories/",
-            "Modules\\Install\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Install\\App\\": "App/",
+            "Modules\\Install\\Database\\Factories\\": "Database/Factories/",
+            "Modules\\Install\\Database\\Seeders\\": "Database/Seeders/"
         }
     },
     "autoload-dev": {

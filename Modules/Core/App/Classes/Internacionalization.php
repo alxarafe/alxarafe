@@ -1,14 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Modules\Core\App\Classes;
 
-use Exception;
 use Illuminate\Support\Facades\Lang;
 
 class Internacionalization
 {
     /**
-     * <options only can be one of these values bold, underscore, blink, reverse, conceal
+     * <options only can be one of these values bold, underscore, blink, reverse, conceal.
      *
      * @var array[]
      *
@@ -20,7 +31,7 @@ class Internacionalization
         '<options=reverse>' => ['<code>'],
         '</>' => ['</b>', '</strong>', '</i>', '</em>', '</code>'],
         PHP_EOL => ['<br>', '</p>'],
-        '' => ['<p>']
+        '' => ['<p>'],
     ];
 
     /**
@@ -28,17 +39,16 @@ class Internacionalization
      * The array must be in the lang file format.
      *
      * @author Cayetano H. Osma <chernandez@elestadoweb.com>
+     *
      * @version Feb.2024
      *
-     * @param string $module        The module name where the lang file is located. if module is
-     *                              set to 'app', it means that the lang file is located in the
-     *                              app/lang folder.
-     * @param string $domain        The name of the lang file
-     * @param mixed $messagesKeys   The messages keys
+     * @param string $module       The module name where the lang file is located. if module is
+     *                             set to 'app', it means that the lang file is located in the
+     *                             app/lang folder.
+     * @param string $domain       The name of the lang file
+     * @param mixed  $messagesKeys The messages keys
      *
-     * @return mixed
-     *
-     * @throws Exception
+     * @throws \Exception
      */
     public function alxTrans(string $module, string $domain, mixed $messagesKeys): mixed
     {
@@ -46,45 +56,32 @@ class Internacionalization
             sprintf('%s.%s', $domain, $messagesKeys) :
             sprintf('%s::%s.%s', $module, $domain, $messagesKeys);
 
-        return match(gettype($messagesKeys)) {
+        return match (\gettype($messagesKeys)) {
             'array' => self::translateArray($domain, $messagesKeys),
             'string' => trans($message),
-            default => throw new Exception('Unexpected match value'),
+            default => throw new \Exception('Unexpected match value'),
         };
     }
 
     /**
-     * Translate and return a group of keys given in $array parameter
+     * Get the list of languages codes.
      *
      * @author Cayetano H. Osma <chernandez@elestadoweb.com>
+     *
      * @version Feb.2024
-     *
-     * @param string $domain
-     * @param array $array
-     *
-     * @return array
-     *
      */
-    private function translateArray(string $domain, array $array): array
+    public function getLanguageIdentifiers(): array
     {
-        $result = [];
-
-        foreach ($array as $key => $value) {
-            $result[$key] = trans(sprintf('%s.%s', $domain, $value));
-        }
-
-        return $result;
+        return array_keys(Lang::get('core::languages'));
     }
 
     /**
      * Return the list of available languages in Alxarafe project
-     * The language list always be
+     * The language list always be.
      *
      * @author Cayetano H. Osma <chernandez@elestadoweb.com>
+     *
      * @version Feb.2024
-     *
-     * @return array
-     *
      */
     public function getAvailableLanguages(): array
     {
@@ -95,12 +92,8 @@ class Internacionalization
      * Transcode the HTML text to Symfony Console Codes.
      *
      * @author Cayetano H. Osma <chernandez@elestadoweb.com>
+     *
      * @version Feb.2024
-     *
-     * @param string $text
-     *
-     * @return string
-     *
      */
     public static function HTMLToConsole(string $text): string
     {
@@ -113,5 +106,23 @@ class Internacionalization
         }
 
         return $text;
+    }
+
+    /**
+     * Translate and return a group of keys given in $array parameter.
+     *
+     * @author Cayetano H. Osma <chernandez@elestadoweb.com>
+     *
+     * @version Feb.2024
+     */
+    private function translateArray(string $domain, array $array): array
+    {
+        $result = [];
+
+        foreach ($array as $key => $value) {
+            $result[$key] = trans(sprintf('%s.%s', $domain, $value));
+        }
+
+        return $result;
     }
 }

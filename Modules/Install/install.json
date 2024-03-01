@@ -1,0 +1,21 @@
+{
+  "language": "es_ES",
+  "root_dir": "/var/www/dolibarr/htdocs",
+  "doc_dir": "/var/www/dolibarr/htdocs/docs",
+  "app_url": "http://localhost:8080",
+  "database": {
+    "name": "",
+    "driver": "",
+    "server": {
+      "address": "",
+      "port": "",
+      "unix_socket": ""
+    },
+    "username": "",
+    "password": "",
+    "charset": "",
+    "collation": "",
+    "table_prefix": "",
+    "create_user": "true|false"
+  }
+}

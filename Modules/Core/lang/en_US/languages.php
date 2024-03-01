@@ -1,33 +1,16 @@
 <?php
-/********************************************************************************
- * Project Name:    Alxarafe
- * Filename:        languages.php
- * Description:     Our enhanced vision for an ERP and CRM, inspired by the
- * Dolibarr project, incorporates numerous improvements.
- * Crafted with passion and love in Spain.
- * Forked From:     Dolibarr ERP & CRM (URL: https://github.com/Dolibarr/dolibarr)
+
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
  *
- * Founders:
- *      Rafael S. Tovar     <rsanjose@alxarafe.com>
- *      Frances P. Segarra  <fpineda@alxarafe.com>
- *      Joshua D. Robayna   <jrobayna@alxarafe.com>
- *      Cayetano H. Osma    <chernandez@alxarafe.com>
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
- * Copyright (C) 2024 El Estado Web Research & Development
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ********************************************************************************/
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 /*
 |--------------------------------------------------------------------------
