@@ -1,15 +1,13 @@
 build:
   environment:
-    timezone: UTC
-  php:
-    version: 8.1
+    variables:
+      PHP_VERSION: 8.1
   dependencies:
     before:
       - composer install
   tests:
     override:
       - phpunit --coverage-clover=coverage.clover
-
 filter:
   paths:
     - src/*

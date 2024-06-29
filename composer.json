@@ -32,7 +32,7 @@
       "Alxarafe\\": "src/"
     },
     "files": [
-      "Core/Lib/Functions.php"
+      "src/Core/Lib/Functions.php"
     ]
   }
 }
