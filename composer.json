@@ -34,5 +34,8 @@
     "files": [
       "src/Core/Lib/Functions.php"
     ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
   }
 }
