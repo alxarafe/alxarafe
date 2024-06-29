@@ -19,8 +19,14 @@ build:
 coding_style:
   php:
     spaces:
-      before_semicolon: false
-      within_cast_parentheses: false
+      around_operators: true
+      before_keywords: false
+      before_left_brace: true
+      before_parentheses: false
+      within:
+        parentheses: false
+        brackets: false
+        array_initializers: false
     braces:
       classes_function: new-line
     conventions:
