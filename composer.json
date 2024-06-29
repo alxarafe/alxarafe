@@ -1,90 +1,38 @@
 {
-  "name": "alxarafe/alxarafe",
-  "type": "project",
-  "description": "Alxarafe is a tiny core for simple database applications",
-  "keywords": [
-    "erp",
-    "crm",
-    "invoice",
-    "sme",
-    "proposal",
-    "order",
-    "stock",
-    "agenda"
-  ],
-  "homepage": "https://www.alxarafe.com",
+  "name": "rsanjoseo/alxarafe",
+  "description": "Microframework for rapid application development.",
+  "type": "library",
+  "homepage": "https://github.com/rsanjoseo/alxarafe",
   "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Rafael San José",
+      "email": "rsanjose@alxarafe.com",
+      "homepage": "https://alxarafe.com",
+      "role": "Developer"
+    }
+  ],
   "support": {
     "issues": "https://github.com/rsanjoseo/alxarafe/issues",
-    "forum": "https://www.alxarafe.com/forum",
-    "wiki": "https://wiki.alxarafe.com",
     "source": "https://github.com/rsanjoseo/alxarafe"
   },
+  "config": {
+    "vendor-dir": "vendor",
+    "process-timeout": 0,
+    "platform": {
+      "php": "8.1"
+    }
+  },
   "require": {
-    "php": ">=7.4",
-    "phpmailer/phpmailer": "*",
-    "monolog/monolog": "*",
-    "components/jquery": "*",
-    "components/bootstrap": "*",
-    "components/font-awesome": "*",
-    "mk-j/php_xlsxwriter": "*",
-    "twbs/bootstrap": "*",
-    "thomaspark/bootswatch": "*",
-    "makeusabrew/bootbox": "*",
-    "rospdf/pdf-php": "*",
-    "maximebf/debugbar": "*",
-    "shuchkin/simplexlsx": "*",
-    "parsecsv/php-parsecsv": "*",
-    "mischiefcollective/colorjizz": "*",
-    "twig/twig": "*",
-    "symfony/http-foundation": "*",
-    "symfony/translation": "*",
-    "symfony/finder": "*",
-    "symfony/yaml": "*",
-    "symfony/var-dumper": "*",
-    "mouse0270/bootstrap-growl": "*",
-    "select2/select2": "*",
-    "aura/session": "*",
-    "ext-mbstring": "*",
-    "ext-zip": "*",
-    "ext-json": "*",
-    "ext-curl": "*",
-    "ext-bcmath": "*",
-    "ext-simplexml": "*",
-    "ext-gd": "*",
-    "ext-dom": "*",
-    "ext-imagick": "*",
-    "ext-pdo": "*",
-    "almasaeed2010/adminlte": "~3.2"
-  },
-  "require-dev": {
-    "php-parallel-lint/php-parallel-lint": "*",
-    "php-parallel-lint/php-console-highlighter": "*",
-    "phpunit/phpunit": "*",
-    "squizlabs/php_codesniffer": "*",
-    "phpunit/phpunit-selenium": "*"
-  },
-  "suggest": {
-    "ext-gd": "Image manipulation (Required but maybe built-in PHP)",
-    "ext-imagick": "Generation of thumbs from PDF",
-    "ext-mysqli": "",
-    "ext-pgsql": "",
-    "ext-intl": "",
-    "ext-fileinfo": ""
+    "php": ">=8.1.0",
+    "ext-pdo": "*"
   },
   "autoload": {
     "psr-4": {
-      "Alxarafe\\": "src/",
-      "Modules\\": "Modules/",
-      "Test\\": "Test/"
+      "Alxarafe\\": "src/"
     },
     "files": [
-      "src/Core/Utils/Functions.php"
+      "Core/Lib/Functions.php"
     ]
-  },
-  "config": {
-    "platform": {
-      "php": "7.4"
-    }
   }
 }

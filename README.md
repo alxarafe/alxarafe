@@ -1,55 +1,41 @@
-[![Scrutinizer logo](https://scrutinizer-ci.com/images/logo.png)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
-[![Code Coverage](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
-[![Build Status](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/build.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/build-status/main)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
-
 # Alxarafe
 
-Alxarafe, se lee Aljarafe, es un proyecto de software libre que proporciona el soporte básico
-para mantener aplicaciones de base de datos, con un alto grado de automatización. Alxarafe
-sigue el patrón de diseño MVC.
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=main)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/build-status/main)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/rsanjoseo/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg?style=flat-square)](https://php.net/)
 
-El principal objetivo es hacer que la aplicación sea robusta y sencilla de mantener, con una
-baja curva de aprendizaje.
+## LICENSE
 
-Muchas de sus funcionalidades se podrán extender y ser utilizadas por aplicaciones más
-complejas y especialmente obsoletas en su diseño.
+Alxarafe is released under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version (GPL-3+).
 
-## Estructura de Alxarafe
+See the [COPYING](https://github.com/rsanjoseo/alxarafe/blob/develop/COPYING) file for a full copy of the license.
 
-La estructura de la aplicación es la siguiente:
+Other licenses apply for some included dependencies. See [COPYRIGHT](https://github.com/rsanjoseo/alxarafe/blob/develop/COPYRIGHT) for a full list.
 
-- La carpeta **html** contiene las plantillas, inicialmente usando el motor *Twig*, aunque se podría cambiar por otro
-  como *Blade* con bastante facilidad.
-- La carpeta **Modules** contiene los módulos que amplían las funcionalidades de la aplicación. Cada módulo tendrá como
-  mínimo las siguientes carpetas, aunque se pueden crear otras, como por ejemplo las existentes en en núcleo (como
-  Helpers o Extensions). Las mismas carpetas existen en **src** para los archivos de los controladores, modelos y vistas
-  del núcleo:
-    - La carpeta **Controllers** contiene los controladores del módulo.
-    - La carpeta **Languages** contiene archivos yaml con las traducciones a distintos idiomas. Se proporciona inglés (
-      en) y español (es), pero se pueden añadir nuevos idiomas (por ejemplo fr para francés) o personalizar los
-      existentes (por ejemplo es_ES para español de España).
-    - La carpeta **Models** contiene los modelos (básicamente tablas y sus relaciones).
-        - La carpeta **Structure** contiene la definición de las tablas en formato YAML.
-        - La carpeta **Seed** contiene archivos csv con los datos iniciales de las tablas.
-    - La carpeta **Views** contiene código personalizado para su ejecución desde las vistas. *Está por ver si esto es
-      necesario, o si utilizar directamente código del controlador*.
-- La carpeta **src** contiene en núcleo de *Alxarafe*:
-    - La carpeta **Core** contiene el código principal del núcleo:
-        - La carpeta **Base** contiene las clases abstractas de las que extienden los controladores, modelos y vistas de
-          los distintos módulos.
-        - La carpeta **Helpers** contiene clases de apoyo al núcleo. Son clases de uso directo con funcionalidades
-          específicas.
-        - La carpeta **Singletons** contiene clases, generalmente abstractas, que se instancian una única vez.
-          *Inicialmente extendían una clase **Singleton** que se instanciaban una vez, y las siguientes veces que se
-          instanciaba, retornaba la misma instancia, de ahí su nombre*.
-        - La carpeta **Utils** contiene librerías de uso general.
-    - La carpeta **Database** contiene código para la manipulación de la base de datos:
-        - La carpeta **Engines** contiene código para personalizar cada uno de los motores de bases de datos soportados.
-          Inicialmente, se proporciona la clase PdoMySql, para MySql. Para crear nuevos motores, basta con crear nueva
-          clases como PdoMariaDB, PdoPosgreSql o PdoFirebird, por ejemplo.
-        - La carpeta **SqlHelpers** contiene código para personalizar aspectos específicos del tratamiento SQL del
-          motor. Deberían de existir los mismos que existan en *Engines*, pero cambiando Pdo por Sql. Se proporciona *
-          *SqlMySql**.
-    - La carpeta **Extensions** contiene código que extiende nuevas funcionalidades de uso general, al núcleo.
+## INSTALLING
+
+### Simple setup
+
+composer require rsanjoseo/alxarafe
+
+## DOCUMENTATION
+
+Pending
+
+## CONTRIBUTING
+
+This project exists thanks to all the people who contribute.
+Please read the instructions on how to contribute (report a bug/error, a feature request, send code, ...)  [[Contributing](https://github.com/rsanjoseo/alxarafe/blob/develop/.github/CONTRIBUTING.md)]
+
+## CREDITS
+
+alxarafe is the work of many contributors over the years and uses some fine PHP libraries.
+
+See [COPYRIGHT](https://github.com/rsanjoseo/alxarafe/blob/develop/COPYRIGHT) file.
+
+## NEWS AND SOCIAL NETWORKS
+
+Follow alxarafe project on:
+
+- [GitHub](https://github.com/rsanjoseo/alxarafe)
