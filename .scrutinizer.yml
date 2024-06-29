@@ -17,14 +17,19 @@ build:
       - phpunit --coverage-clover=coverage.clover
 
 coding_style:
-  checks:
-    php:
-      code_rating: true
-      php_style:
-        disabled: false
-      syntax_error:
-        disabled: false
-      unused_variables: true
+  php:
+    spaces:
+      before_semicolon: false
+      within_cast_parentheses: false
+    braces:
+      classes_function: new-line
+    conventions:
+      visibility: true
+      private: true
+      protected: true
+    ordering:
+      use_statements: alpha
+      within_class: alpha
 
 repository:
   exclusions:
