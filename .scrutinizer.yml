@@ -5,8 +5,6 @@ build:
       PHP_VERSION: 8.1
   dependencies:
     before:
-      - sudo apt-get update
-      - sudo apt-get install -y libssl-dev
       - composer install
   tests:
     override:
