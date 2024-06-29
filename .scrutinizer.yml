@@ -1,22 +1,12 @@
 build:
   environment:
-    timezone: UTC
-    # https://scrutinizer-ci.com/docs/build/languages
-    hosts:
-      local.dev: '127.0.0.1'
     variables:
       PHP_VERSION: 8.1
   dependencies:
     before:
+      - sudo apt-get update
+      - sudo apt-get install -y libssl-dev
       - composer install
-  postgresql: false
-  mysql: 5.5
-  apache2:
-    modules: [ 'rewrite', 'expires', 'ssl', 'macro', 'headers' ]
-    sites:
-      alxarafe:
-        host: 'local.dev'
-        web_root: ''
   tests:
     override:
       - phpunit --coverage-clover=coverage.clover
