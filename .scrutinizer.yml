@@ -1,20 +1,27 @@
-filter:
-  paths:
-    - src/*
-
-tools:
-  php_analyzer: true
-  external_code_coverage: true
-
 build:
   environment:
-    php: 8.1
+    timezone: UTC
+  php:
+    version: 8.1
   dependencies:
     before:
       - composer install
   tests:
     override:
       - phpunit --coverage-clover=coverage.clover
+
+filter:
+  paths:
+    - src/*
+
+tools:
+  php_analyzer: true
+  external_code_coverage:
+    enabled: false
+    timeout: 600
+    filter:
+      excluded_paths:
+        - 'vendor/*'
 
 coding_style:
   php:
