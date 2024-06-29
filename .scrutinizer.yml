@@ -1,4 +1,5 @@
 build:
+  image: default-bionic
   environment:
     variables:
       PHP_VERSION: 8.1
