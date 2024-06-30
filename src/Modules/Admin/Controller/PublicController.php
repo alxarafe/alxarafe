@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Modules\Admin\Controller;
+namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Controller\PublicController as BasePublicController;
 

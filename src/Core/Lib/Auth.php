@@ -110,5 +110,4 @@ abstract class Auth
         setcookie(self::COOKIE_USER, '', time() - 60);
         setcookie(self::COOKIE_NAME, '', time() - 60);
     }
-
 }

@@ -17,43 +17,48 @@
  * or see https://www.gnu.org/
  */
 
-/**
- * Obtains the main url
- *
- * @return string
- */
-function getUrl()
+namespace Alxarafe\Lib;
+
+abstract class Functions
 {
-    $ssl = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on';
-    $proto = strtolower($_SERVER['SERVER_PROTOCOL']);
-    $proto = substr($proto, 0, strpos($proto, '/')) . ($ssl ? 's' : '');
-    if (isset($_SERVER['HTTP_HOST'])) {
-        $host = $_SERVER['HTTP_HOST'];
-    } else {
-        $port = $_SERVER['SERVER_PORT'];
-        $port = ((!$ssl && $port == '80') || ($ssl && $port == '443')) ? '' : ':' . $port;
-        $host = $_SERVER['SERVER_NAME'] . $port;
+    /**
+     * Obtains the main url
+     *
+     * @return string
+     */
+    public static function getUrl()
+    {
+        $ssl = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on';
+        $proto = strtolower($_SERVER['SERVER_PROTOCOL']);
+        $proto = substr($proto, 0, strpos($proto, '/')) . ($ssl ? 's' : '');
+        if (isset($_SERVER['HTTP_HOST'])) {
+            $host = $_SERVER['HTTP_HOST'];
+        } else {
+            $port = $_SERVER['SERVER_PORT'];
+            $port = ((!$ssl && $port == '80') || ($ssl && $port == '443')) ? '' : ':' . $port;
+            $host = $_SERVER['SERVER_NAME'] . $port;
+        }
+
+        $script = $_SERVER['SCRIPT_NAME'];
+
+        $script = substr($script, 0, strlen($script) - strlen('/index.php'));
+        return $proto . '://' . $host . $script;
     }
 
-    $script = $_SERVER['SCRIPT_NAME'];
-
-    $script = substr($script, 0, strlen($script) - strlen('/index.php'));
-    return $proto . '://' . $host . $script;
-}
-
-/**
- * This function is used to obtain the value of a POST variable, and if it does not exist
- * (for example, the first time the form is loaded), take a default value.
- *
- * @param $postVar
- * @param $defaultValue
- * @return mixed
- */
-function getIfIsset($postVar, $defaultValue)
-{
-    $return = filter_input(INPUT_POST, $postVar);
-    if ($return === null || $return === false) {
-        return $defaultValue;
+    /**
+     * This function is used to obtain the value of a POST variable, and if it does not exist
+     * (for example, the first time the form is loaded), take a default value.
+     *
+     * @param $postVar
+     * @param $defaultValue
+     * @return mixed
+     */
+    public static function getIfIsset($postVar, $defaultValue)
+    {
+        $return = filter_input(INPUT_POST, $postVar);
+        if ($return === null || $return === false) {
+            return $defaultValue;
+        }
+        return $return;
     }
-    return $return;
 }

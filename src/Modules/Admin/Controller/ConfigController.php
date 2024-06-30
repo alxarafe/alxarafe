@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Modules\Admin\Controller;
+namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Controller\ViewController;
 
@@ -27,7 +27,7 @@ class ConfigController extends ViewController
     {
         /**
          * TODO: The value of this variable will be filled in when the roles
-         * are correctly implemented.
+         *       are correctly implemented.
          */
         $restricted_access = false;
 
@@ -49,7 +49,7 @@ class ConfigController extends ViewController
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
         if (!Auth::login($username, $password)) {
-            $this->advice[] = $this->langs->('ErrorBadLoginPassword');
+            $this->advice[] = $this->langs->trans('ErrorBadLoginPassword');
             dump([
                 'ConfigController' => $this
             ]);

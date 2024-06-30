@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Modules\Admin\Controller;
+namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Base\Controller\ViewController;
@@ -70,7 +70,7 @@ class AuthController extends ViewController
         }
 
         if (!Auth::login($this->username, $this->password)) {
-            static::addAdvice($this->langs->('ErrorBadLoginPassword'););
+            static::addAdvice($this->langs->trans('ErrorBadLoginPassword'));
             return true;
         }
 

@@ -24,17 +24,26 @@ class Dispatcher
      * Run the controller for the indicated module, if it exists.
      * Returns true if it can be executed.
      *
-     * @param $module
-     * @param $controller
+     * @param string $module
+     * @param string $controller
+     * @param array $alternative_routes
      *
      * @return bool
      */
-    public static function run($module, $controller): bool
+    public static function run(string $module, string $controller, array $alternative_routes = []): bool
     {
+        /**
+         * Adding core module path
+         */
+        $routes = array_merge($alternative_routes, [
+            'CoreModules' => 'vendor/rsanjoseo/alxarafe/src/Modules/',
+        ]);
         $controller .= 'Controller';
-        if (static::processFolder($module, $controller)) {
-            Debug::message("Dispatcher::process(): Ok");
-            return true;
+        foreach ($routes as $class => $route) {
+            if (static::processFolder($class, $route, $module, $controller)) {
+                Debug::message("Dispatcher::process(): Ok");
+                return true;
+            }
         }
         Debug::message("Dispatcher::fail(): $module:$controller.");
         return false;
@@ -47,11 +56,14 @@ class Dispatcher
      * @param string $controller
      * @return bool
      */
-    protected static function processFolder(string $module, string $controller): bool
+    private static function processFolder($class, $route, string $module, string $controller): bool
     {
-        $className = 'Modules\\' . $module . '\\Controller\\' . $controller;
-        $basepath = realpath(constant('BASE_PATH') . '/../Modules/' . $module);
-        $filename = $basepath . '/Controller/' . $controller . '.php';
+        $realpath = realpath(__DIR__ . '/../../../../../../' . $route) . '/';
+        $basepath = $realpath . $module;
+
+        $className = $class . '\\' . $module . '\\Controller\\' . $controller;
+        $filename = $basepath . '/Controller/' . $controller . '.php';;
+
         Debug::message('Filename: ' . $filename);
         Debug::message('Class: ' . $className);
         if (!file_exists($filename)) {

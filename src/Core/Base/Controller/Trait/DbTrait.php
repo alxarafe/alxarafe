@@ -19,22 +19,14 @@
 namespace Alxarafe\Base\Controller\Trait;
 
 use Alxarafe\Base\Config;
-use DoliModules\Install\Controller\InstallController;
 
 trait DbTrait
 {
     public static function connectDb(\stdClass|null $db = null): bool
     {
-        if ($db === null) {
+        if ($db === null || !Config::checkDatabaseConnection($db)) {
             return false;
-        }
-
-        $checkDatabase = Config::checkDatabaseConnection($db);
-        if (!$checkDatabase) {
-            (new InstallController())->doIndex();
-            die();
         }
         return true;
     }
-
 }

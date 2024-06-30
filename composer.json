@@ -30,11 +30,8 @@
   "autoload": {
     "psr-4": {
       "Alxarafe\\": "src/Core",
-      "Modules\\": "src/Modules"
-    },
-    "files": [
-      "src/Core/Lib/Functions.php"
-    ]
+      "CoreModules\\": "src/Modules"
+    }
   },
   "require-dev": {
     "phpunit/phpunit": "^10.5",
