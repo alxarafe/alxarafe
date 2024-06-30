@@ -63,6 +63,7 @@ class Dispatcher
         Functions::defineIfNotDefined('BASE_PATH', realpath(__DIR__ . '/../../../../../..') . '/public');
 
         $realpath = realpath(constant('BASE_PATH') . '/..') . '/' . $route;
+        $basepath = $realpath;
         if (!empty($module)) {
             $basepath = $realpath . '/' . $module;
         }

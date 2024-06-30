@@ -18,7 +18,14 @@
 
 namespace Alxarafe\Base\Controller\Trait;
 
-use Jenssegers\Blade\Blade;
+use Illuminate\Container\Container;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\View\Engines\CompilerEngine;
+use Illuminate\View\Engines\EngineResolver;
+use Illuminate\View\FileViewFinder;
+use Illuminate\View\Factory;
+use Illuminate\View\Compilers\BladeCompiler;
 
 trait ViewTrait
 {
@@ -88,10 +95,42 @@ trait ViewTrait
             die('Could not create cache directory for templates: ' . $cachePaths);
         }
 
-        var_dump($cachePaths);
+        $container = new Container;
 
-        $blade = new Blade($viewPaths, $cachePaths);
-        echo $blade->render($this->template, $vars);
+        $container->singleton('files', function () {
+            return new Filesystem;
+        });
+
+        $container->singleton('view.finder', function ($app) use ($viewPaths) {
+            return new FileViewFinder($app['files'], $viewPaths);
+        });
+
+        $container->singleton('blade.compiler', function ($app) use ($cachePaths) {
+            return new BladeCompiler($app['files'], $cachePaths);
+        });
+
+        $container->singleton('view.engine.resolver', function ($app) {
+            $resolver = new EngineResolver;
+
+            // Registrar Blade engine
+            $resolver->register('blade', function () use ($app) {
+                return new CompilerEngine($app['blade.compiler']);
+            });
+
+            return $resolver;
+        });
+
+        $container->singleton('view', function ($app) {
+            $resolver = $app['view.engine.resolver'];
+            $finder = $app['view.finder'];
+            $dispatcher = new Dispatcher($app);
+
+            return new Factory($resolver, $finder, $dispatcher);
+        });
+
+        $viewFactory = $container['view'];
+
+        echo $viewFactory->make($this->template, $vars)->render();
     }
 
     public static function getMessages()
