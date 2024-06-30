@@ -18,7 +18,6 @@
 
 namespace Alxarafe\Base;
 
-use DoliCore\Base\Constants;
 use Exception;
 use PDO;
 use stdClass;
@@ -104,8 +103,6 @@ abstract class Config
         if ($reload || !isset(self::$config)) {
             self::$config = self::loadConfig($reload);
         }
-
-        Constants::define(self::$config);
 
         return self::$config;
     }

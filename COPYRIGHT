@@ -7,15 +7,12 @@ A copy of this license is available in the COPYING file.
 Alxarafe depends on third-party components and code snippets released under their own license (obviously, all compatible with the one of Alxarafe).
 These dependencies are listed in the bottom of this file.
 
-The Dolibarr images resources (available in the doc directory) is distributed under the Creative Commons Attribution 4.0 International license (CC BY 4.0).
+The Alxarafe images resources (available in the doc directory) is distributed under the Creative Commons Attribution 4.0 International license (CC BY 4.0).
 
-The name Dolibarr is a trademark initially registered by Laurent Destailleur and ceased to the Dolibarr foundation. You can use the name Dolibarr
-for your own need as long as you follow the rules defined on the page https://wiki.dolibarr.org/index.php/Rules_to_use_the_brand_name_%22Dolibarr%22
-The use of the name DoliStore is also restricted to the same rules defined on https://wiki.dolibarr.org/index.php/Rules_to_use_the_brand_name_%22Dolibarr%22
+The name Alxarafe is a trademark initially registered by Laurent Destailleur and ceased to the Alxarafe foundation. You can use the name Alxarafe
+for your own need as long as you follow the rules defined on the page https://wiki.Alxarafe.org/index.php/Rules_to_use_the_brand_name_%22Alxarafe%22
 
-
-
-Licence of dependencies of third-party components used by Dolibarr (all compatible with the Licence of Dolibarr):
+Licence of dependencies of third-party components used by Alxarafe (all compatible with the Licence of Alxarafe):
 
 Component              Version       License                     GPL Compatible  Usage
 -------------------------------------------------------------------------------------

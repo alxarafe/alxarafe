@@ -19,7 +19,6 @@
 namespace Alxarafe\Base;
 
 use DebugBar\DebugBarException;
-use DoliCore\Tools\Debug;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
 
