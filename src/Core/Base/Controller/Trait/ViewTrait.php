@@ -63,30 +63,33 @@ trait ViewTrait
         }
 
         if (!isset($this->theme)) {
-            $this->theme = 'alixar';
+            $this->theme = 'alxarafe';
         }
 
         if (!isset($this->title)) {
-            $this->title = 'Alixar';
+            $this->title = 'Alxarafe';
         }
 
         $this->alerts = static::getMessages();
 
         $vars = ['me' => $this];
         $viewPaths = [
-            BASE_PATH . '/Templates',
-            BASE_PATH . '/Templates/theme/' . $this->theme,
-            BASE_PATH . '/Templates/common',
+            constant('BASE_PATH') . '/Templates',
+            constant('BASE_PATH') . '/Templates/theme/' . $this->theme,
+            constant('BASE_PATH') . '/Templates/common',
         ];
 
         if (isset($this->templatesPath)) {
             array_unshift($viewPaths, $this->templatesPath);
         }
 
-        $cachePaths = realpath(BASE_PATH . '/..') . '/tmp/blade';
+        $cachePaths = realpath(constant('BASE_PATH') . '/..') . '/tmp/blade';
         if (!is_dir($cachePaths) && !mkdir($cachePaths, 0777, true) && !is_dir($cachePaths)) {
             die('Could not create cache directory for templates: ' . $cachePaths);
         }
+
+        var_dump($cachePaths);
+
         $blade = new Blade($viewPaths, $cachePaths);
         echo $blade->render($this->template, $vars);
     }

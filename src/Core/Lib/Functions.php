@@ -61,4 +61,17 @@ abstract class Functions
         }
         return $return;
     }
+
+    /**
+     * Defines the constant $name, if it is not already defined.
+     *
+     * @param string $name
+     * @param        $value
+     */
+    public static function defineIfNotDefined(string $name, $value)
+    {
+        if (!defined($name)) {
+            define($name, $value);
+        }
+    }
 }

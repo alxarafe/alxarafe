@@ -18,6 +18,8 @@
 
 namespace Alxarafe\Tools;
 
+use Alxarafe\Lib\Functions;
+
 class Dispatcher
 {
     /**
@@ -58,25 +60,33 @@ class Dispatcher
      */
     private static function processFolder($class, $route, string $module, string $controller): bool
     {
-        $realpath = realpath(__DIR__ . '/../../../../../../' . $route) . '/';
-        $basepath = $realpath . $module;
+        Functions::defineIfNotDefined('BASE_PATH', realpath(__DIR__ . '/../../../../../..') . '/public');
 
+        $realpath = realpath(constant('BASE_PATH') . '/..') . '/' . $route;
+        if (!empty($module)) {
+            $basepath = $realpath . '/' . $module;
+        }
         $className = $class . '\\' . $module . '\\Controller\\' . $controller;
-        $filename = $basepath . '/Controller/' . $controller . '.php';;
+        $filename = $basepath . '/Controller/' . $controller . '.php';
 
         Debug::message('Filename: ' . $filename);
         Debug::message('Class: ' . $className);
         if (!file_exists($filename)) {
             return false;
         }
+
         $controller = new $className();
         if ($controller === null) {
             return false;
         }
+
         if (method_exists($controller, 'setTemplatesPath')) {
-            $controller->setTemplatesPath($basepath . '/Templates');
+            $templates_path = $basepath . '/Templates';
+            Debug::message('Templates: ' . $templates_path);
+            $controller->setTemplatesPath($templates_path);
         }
         $controller->index();
+
         return true;
     }
 }
