@@ -3,6 +3,7 @@ build:
   environment:
     variables:
       PHP_VERSION: 8.1
+      SKIP_COPY_ASSETS: true
   dependencies:
     before:
       - composer install

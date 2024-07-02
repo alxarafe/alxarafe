@@ -6,6 +6,11 @@ abstract class Installer
 {
     public static function copyAssets()
     {
+        if (getenv('SKIP_COPY_ASSETS')) {
+            echo "Prevented copyAssets in scrutinizer environment.\n";
+            return;
+        }
+
         $baseDir = dirname(__DIR__);
         $publicDir = $baseDir . '/public/vendor/alxarafe';
 
