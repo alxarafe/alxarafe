@@ -11,18 +11,16 @@ abstract class Installer
             return;
         }
 
-        $baseDir = dirname(__DIR__);
-        $publicDir = $baseDir . '/public/vendor/alxarafe';
+        $source = realpath(__DIR__ . '/../assets');
+        $target = realpath(__DIR__ . '/../../../../public/alxarafe');
 
-        var_dump([$baseDir, $publicDir]);
-
-        if (!file_exists($publicDir)) {
-            mkdir($publicDir, 0777, true);
+        if (!file_exists($target)) {
+            mkdir($target, 0777, true);
         }
 
-        static::copyAssetsFolder($baseDir, $publicDir, 'css');
-        static::copyAssetsFolder($baseDir, $publicDir, 'js');
-        static::copyAssetsFolder($baseDir, $publicDir, 'img');
+        static::copyAssetsFolder($source, $target, 'css');
+        static::copyAssetsFolder($source, $target, 'js');
+        static::copyAssetsFolder($source, $target, 'img');
     }
 
     private static function copyAssetsFolder($baseDir, $publicDir, $extension)
