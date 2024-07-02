@@ -54,19 +54,39 @@ class Dispatcher
     /**
      * Process modern application controller paths.
      *
+     * @param string $class
+     * @param string $route
      * @param string $module
      * @param string $controller
      * @return bool
      */
-    private static function processFolder($class, $route, string $module, string $controller): bool
+    private static function processFolder(string $class, string $route, string $module, string $controller): bool
     {
-        Functions::defineIfNotDefined('BASE_PATH', realpath(__DIR__ . '/../../../../../..') . '/public');
+        /**
+         * Define BASE_PATH if it does not exist.
+         * It's usually created in main index.php.
+         * It's the full path to the public folder.
+         */
+        Functions::defineIfNotDefined('ALX_PATH', realpath(__DIR__ . '/../../..'));
+        Functions::defineIfNotDefined('APP_PATH', realpath(constant('ALX_PATH') . '/../../..'));
+        Functions::defineIfNotDefined('BASE_PATH', constant('APP_PATH') . '/public');
 
-        $realpath = realpath(constant('BASE_PATH') . '/..') . '/' . $route;
+        /**
+         * Defines the full path ($realpath) to the modules folder ($route).
+         */
+        $realpath = constant('APP_PATH') . '/' . $route;
+
+        /**
+         * Adds the module to the path ($basepath), if it's a module.
+         */
         $basepath = $realpath;
         if (!empty($module)) {
             $basepath = $realpath . '/' . $module;
         }
+
+        /**
+         * Defines full classname and filename
+         */
         $className = $class . '\\' . $module . '\\Controller\\' . $controller;
         $filename = $basepath . '/Controller/' . $controller . '.php';
 
@@ -81,11 +101,19 @@ class Dispatcher
             return false;
         }
 
+        /**
+         * If the class exists and is successfully instantiated, the module blade templates folder
+         * is added, if they exist.
+         */
         if (method_exists($controller, 'setTemplatesPath')) {
             $templates_path = $basepath . '/Templates';
             Debug::message('Templates: ' . $templates_path);
             $controller->setTemplatesPath($templates_path);
         }
+
+        /**
+         * Runs the index method to launch the controller.
+         */
         $controller->index();
 
         return true;

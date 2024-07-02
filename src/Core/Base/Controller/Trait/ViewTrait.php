@@ -81,9 +81,12 @@ trait ViewTrait
 
         $vars = ['me' => $this];
         $viewPaths = [
-            constant('BASE_PATH') . '/Templates',
-            constant('BASE_PATH') . '/Templates/theme/' . $this->theme,
-            constant('BASE_PATH') . '/Templates/common',
+            constant('APP_PATH') . '/Templates',
+            constant('APP_PATH') . '/Templates/theme/' . $this->theme,
+            constant('APP_PATH') . '/Templates/common',
+            constant('ALX_PATH') . '/Templates',
+            constant('ALX_PATH') . '/Templates/theme/' . $this->theme,
+            constant('ALX_PATH') . '/Templates/common',
         ];
 
         if (isset($this->templatesPath)) {
@@ -95,10 +98,10 @@ trait ViewTrait
             die('Could not create cache directory for templates: ' . $cachePaths);
         }
 
-        $container = new Container;
+        $container = new Container();
 
         $container->singleton('files', function () {
-            return new Filesystem;
+            return new Filesystem();
         });
 
         $container->singleton('view.finder', function ($app) use ($viewPaths) {
@@ -110,9 +113,9 @@ trait ViewTrait
         });
 
         $container->singleton('view.engine.resolver', function ($app) {
-            $resolver = new EngineResolver;
+            $resolver = new EngineResolver();
 
-            // Registrar Blade engine
+            // Register Blade engine
             $resolver->register('blade', function () use ($app) {
                 return new CompilerEngine($app['blade.compiler']);
             });

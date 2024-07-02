@@ -38,8 +38,8 @@ abstract class Controller extends ViewController
     {
         parent::__construct();
 
-        if (!static::connectDb($this->config->db)) {
-            throw new \Exception('Cannot connect to database.');
+        if (!isset($this->config->db) || !static::connectDb($this->config->db)) {
+            header('Location: ' . BASE_URL . '/index.php?module=Admin&controller=Config');
         }
 
         $this->db = new Database($this->config->db);

@@ -18,10 +18,14 @@
 
 namespace CoreModules\Admin\Controller;
 
+use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\ViewController;
+use Alxarafe\Lib\Functions;
+use stdClass;
 
 class ConfigController extends ViewController
 {
+    public $data;
 
     public function doIndex(): bool
     {
@@ -35,7 +39,25 @@ class ConfigController extends ViewController
         if (isset($this->config) && $restricted_access) {
             $this->template = 'page/forbidden';
         }
+
+        $this->getPost();
+
         return true;
+    }
+
+    private function getPost()
+    {
+        if (!isset($this->data)) {
+            $this->data = new stdClass();
+        }
+        foreach (Config::getConfig() as $section => $values) {
+            if (!isset($this->data->{$section})) {
+                $this->data->{$section} = new stdClass();
+            }
+            foreach ($values as $variable => $value) {
+                $this->data->{$section}->{$variable} = Functions::getIfIsset($variable, $value);
+            }
+        }
     }
 
     public function doLogin()
@@ -64,11 +86,40 @@ class ConfigController extends ViewController
         return true;
     }
 
+    public function doCheckConnection()
+    {
+        $this->template = 'page/config';
+
+        static::getPost();
+        var_dump($this->data->db);
+        $ok = Config::checkDatabaseConnection($this->data->db);
+        if (!$ok) {
+            static::addError('Error al conectar a la base de datos "' . $this->data->db->name . '".');
+            return true;
+        }
+        static::addMessage('Conexión satisfactoria con la base de datos "' . $this->data->db->name . '".');
+        return true;
+    }
+
     public function doSave(): bool
     {
-        dump([
-            'ConfigController save' => $_POST,
-        ]);
-        return false;
+        static::getPost();
+        /**
+         * Converts the stdClass to an array
+         */
+        $data = json_decode(json_encode($this->data), true);
+
+        $result = config::setConfig($data);
+        if (!$result) {
+            $this->template = 'page/config';
+            static::addError('Error al guardar la configuración');
+            return false;
+        }
+        /**
+         * TODO: Loads public page
+         */
+        $this->template = 'page/public';
+        static::addMessage('Configuración guardada correctamente');
+        return true;
     }
 }
