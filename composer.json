@@ -20,11 +20,11 @@
     "vendor-dir": "vendor",
     "process-timeout": 0,
     "platform": {
-      "php": "8.1"
+      "php": "8.3"
     }
   },
   "require": {
-    "php": ">=8.1.0",
+    "php": ">=8.3.0",
     "jenssegers/blade": "^2.0",
     "illuminate/database": "^10.48",
     "illuminate/events": "^10.48",
@@ -34,7 +34,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AlxRoot\\": "src/",
+      "Rsanjoseo\\Alxarafe\\": "src/",
       "Alxarafe\\": "src/Core",
       "CoreModules\\": "src/Modules"
     }
@@ -45,10 +45,10 @@
   },
   "scripts": {
     "post-package-install": [
-      "AlxRoot\\Installer::copyAssets;"
+      "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
     ],
     "post-package-update": [
-      "AlxRoot\\Installer::copyAssets;"
+      "Rsanjoseo\\Alxarafe\\Scripts::ComposerScripts::postUpdate"
     ]
   }
 }
