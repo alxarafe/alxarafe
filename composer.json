@@ -45,10 +45,10 @@
   },
   "scripts": {
     "post-package-install": [
-      "AlxRoot\\Installer::copyAssets();"
+      "AlxRoot\\Installer::copyAssets;"
     ],
     "post-package-update": [
-      "AlxRoot\\Installer::copyAssets();"
+      "AlxRoot\\Installer::copyAssets;"
     ]
   }
 }
