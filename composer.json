@@ -45,12 +45,9 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "copy-assets"
+      "AlxRoot\\Installer::copyAssets"
     ],
     "post-update-cmd": [
-      "copy-assets"
-    ],
-    "copy-assets": [
       "AlxRoot\\Installer::copyAssets"
     ]
   }
