@@ -88,6 +88,5 @@ abstract class Functions
             $_attributes .= $key . '="' . htmlspecialchars($value) . '" ';
         }
         return trim($_attributes);
-
     }
 }
