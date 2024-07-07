@@ -39,7 +39,7 @@
       "CoreModules\\": "src/Modules"
     },
     "files": [
-      "src/Lib/Functions.php"
+      "src/Core/Lib/Functions.php"
     ]
   },
   "require-dev": {
