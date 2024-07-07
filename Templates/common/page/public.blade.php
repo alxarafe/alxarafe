@@ -1,4 +1,4 @@
-@extends('layout.empty')
+@extends('page.layout.empty')
 
 @section('content')
     <h1>Public Test</h1>

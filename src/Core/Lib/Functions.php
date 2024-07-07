@@ -74,4 +74,20 @@ abstract class Functions
             define($name, $value);
         }
     }
+
+    /**
+     * Convert an array of attributes to a string.
+     *
+     * @param array $attributes
+     * @return string
+     */
+    public static function htmlAttributes(array $attributes): string
+    {
+        $_attributes = '';
+        foreach ($attributes as $key => $value) {
+            $_attributes .= $key . '="' . htmlspecialchars($value) . '" ';
+        }
+        return trim($_attributes);
+
+    }
 }

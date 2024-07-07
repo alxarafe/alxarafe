@@ -24,6 +24,13 @@ abstract class ComposerScripts
 {
     public static function postUpdate(Event $event)
     {
+        echo "\n*** Starting assets update process...\n\n";
+
+        if (getenv('SKIP_COPY_ASSETS')) {
+            echo "Prevented copyAssets in scrutinizer environment.\n";
+            return;
+        }
+
         $composer = $event->getComposer();
         $io = $event->getIO();
 
@@ -36,11 +43,6 @@ abstract class ComposerScripts
     private static function copyAssets()
     {
         echo "Starting copyAssets...\n";
-
-        if (getenv('SKIP_COPY_ASSETS')) {
-            echo "Prevented copyAssets in scrutinizer environment.\n";
-            return;
-        }
 
         $source = realpath(__DIR__ . '/../assets');
         if ($source === false) {

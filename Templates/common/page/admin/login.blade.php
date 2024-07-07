@@ -1,4 +1,4 @@
-@extends('layout.empty')
+@extends('page.layout.empty')
 
 @section('content')
     <div class="login-logo">
