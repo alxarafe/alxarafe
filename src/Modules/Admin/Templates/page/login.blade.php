@@ -1,4 +1,4 @@
-@extends('page.layout.empty')
+@extends('partial.layout.main', ['empty' => true])
 
 @section('content')
     <h2 class="my-4">Registro</h2>

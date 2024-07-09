@@ -25,12 +25,19 @@ Parameters:
 @php
     use Alxarafe\Lib\Functions;
 
-    $fluid = $fluid ?? false;
-    $class = $class ?? ($fluid ? 'container-fluid' : 'container');
-
+    $_class = $class ?? 'container';
+    if ($fluid ?? false) {
+        $_class .= '-fluid';
+    }
     $_attributes = Functions::htmlAttributes($attributes ?? []);
+
+    $_id = '';
+    if (isset($id)) {
+        $_id = "id=\"$id\"";
+    }
+
 @endphp
 
-<div class="{{ $class }}" {!! $_attributes !!}>
+<div {{ $_id }} class="{{ $_class }}" {!! $_attributes !!}>
     {{ $slot }}
 </div>

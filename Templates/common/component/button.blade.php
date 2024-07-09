@@ -19,10 +19,10 @@ Parameters:
     $class = $class ?? 'primary';
     $slot = $slot ?? $value ?? 'Button';
     if (isset($spacing)) {
-        $class .= ' '.$spacing;
+        $class .= ' ' . $spacing;
     }
 
-    $_type = "type=\"{$type}\"";
+    $_type = "type={$type}";
     $_class = "class=\"btn btn-{$class}\"";
 
     $_name = isset($name) ? "name=\"{$name}\"" : '';
@@ -31,6 +31,6 @@ Parameters:
     $_attributes = is_array($attributes ?? null) ? implode(' ', $attributes) : '';
 @endphp
 
-<button {{ $_type }} {{ $_class }} {{ $_name }} {{ $_value }} {{ $_attributes }}>
-    {{ $slot }}
+<button {!! $_type !!} {!! $_class !!} {!! $_name !!} {!! $_value !!} {!! $_attributes !!}>
+    {!! $slot !!}
 </button>

@@ -29,6 +29,7 @@
     "illuminate/database": "^10.48",
     "illuminate/events": "^10.48",
     "illuminate/view": "^10.48",
+    "maximebf/debugbar": "^1.22",
     "symfony/var-dumper": "^6.4",
     "ext-pdo": "*"
   },
@@ -51,7 +52,7 @@
       "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
     ],
     "post-package-update": [
-      "Rsanjoseo\\Alxarafe\\Scripts::ComposerScripts::postUpdate"
+      "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
     ]
   }
 }

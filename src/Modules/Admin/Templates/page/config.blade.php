@@ -1,4 +1,4 @@
-@extends('page.layout.empty')
+@extends('partial.layout.main', ['empty' => true])
 
 @section('content')
     @component('form.form', [])
@@ -17,7 +17,7 @@
                                 @component('component.card', ['title' => 'Título 1', 'name' => 'card1'])
                                     @slot('slot')
                                         @include('form.input', ['type' => 'text', 'name' => 'prefix', 'label' => 'DB Prefix', 'value' => $me->data->db->prefix])
-                                        @include('form.input', ['type' => 'text', 'name' => 'charset', 'label' => 'charset', 'value' => $me->data->db->charset ?? 'utf-8'])
+                                        @include('form.input', ['type' => 'text', 'name' => 'charset', 'label' => 'charset', 'value' => $me->data->db->charset ?? 'utf8mb4'])
                                         @include('form.input', ['type' => 'text', 'name' => 'collation', 'label' => 'collation', 'value' => $me->data->db->collation ?? 'utf8mb4_unicode_ci'])
                                     @endslot
                                 @endcomponent
@@ -37,10 +37,10 @@
                         @endcomponent
                     @endslot
                 @endcomponent
-                @component('component.button', ['type'=>'submit', 'value'=>'checkConnection'])
+                @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'checkConnection'])
                     Comprobar conexión
                 @endcomponent
-                @component('component.button', ['type'=>'submit', 'value'=>'save'])
+                @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'save'])
                     Guardar los cambios
                 @endcomponent
             @endslot

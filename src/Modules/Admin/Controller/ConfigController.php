@@ -91,9 +91,12 @@ class ConfigController extends ViewController
         $this->template = 'page/config';
 
         static::getPost();
-        var_dump($this->data->db);
         $ok = Config::checkDatabaseConnection($this->data->db);
         if (!$ok) {
+            $messages = Config::getMessages();
+            foreach ($messages as $message) {
+                static::addAdvice($message);
+            }
             static::addError('Error al conectar a la base de datos "' . $this->data->db->name . '".');
             return true;
         }
@@ -104,6 +107,7 @@ class ConfigController extends ViewController
     public function doSave(): bool
     {
         static::getPost();
+
         /**
          * Converts the stdClass to an array
          */
@@ -115,6 +119,7 @@ class ConfigController extends ViewController
             static::addError('Error al guardar la configuración');
             return false;
         }
+
         /**
          * TODO: Loads public page
          */

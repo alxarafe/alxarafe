@@ -36,6 +36,7 @@ class AuthController extends ViewController
     public function __construct()
     {
         parent::__construct();
+
         if (!static::connectDb($this->config->db)) {
             throw new \Exception('Cannot connect to database.');
         }

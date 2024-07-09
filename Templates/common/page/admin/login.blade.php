@@ -1,4 +1,4 @@
-@extends('page.layout.empty')
+@extends('partial.layout.main', ['empty' => true])
 
 @section('content')
     <div class="login-logo">

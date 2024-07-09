@@ -69,6 +69,8 @@ abstract class Config
      */
     private static ?stdClass $config = null;
 
+    private static array $messages = [];
+
     /**
      * Checks if the connection to the database is possible with the parameters
      * defined in the configuration file.
@@ -92,12 +94,33 @@ abstract class Config
             $pdo->query('SELECT 1');
         } catch (Exception $e) {
             // Catch errors and return false if connection fails
-            error_log($e->getMessage());
+            $message = $e->getMessage();
+            static::addNewMessage($message);
+            error_log($message);
+            dump(Config::getMessages());
             return false;
         }
         return true;
     }
 
+    /**
+     * Adds a new message that will then be returned by getMessages.
+     *
+     * @param $message
+     * @return void
+     */
+    private static function addNewMessage($message)
+    {
+        static::$messages[] = $message;
+    }
+
+    /**
+     * Gets the information defined in the configuration file.
+     * To reload the configuration file, set $reload to true.
+     *
+     * @param bool $reload
+     * @return stdClass|null
+     */
     public static function getConfig(bool $reload = false): ?stdClass
     {
         if ($reload || !isset(self::$config)) {
@@ -148,43 +171,6 @@ abstract class Config
     }
 
     /**
-     * Those configuration parameters that we can obtain at run time,
-     * or their default values, are obtained.
-     *
-     * @return stdClass
-     */
-    public static function getDefaultMainFileInfo(): stdClass
-    {
-        $result = new stdClass();
-        $result->path = constant('BASE_PATH');
-        $result->url = constant('BASE_URL');
-        return $result;
-    }
-
-    /**
-     * Updates the configuration file with the information it has in memory.
-     *
-     * @return bool
-     */
-    private static function saveConfig(): bool
-    {
-        if (empty(self::$config)) {
-            return true;
-        }
-        return file_put_contents(self::getConfigFilename(), json_encode(self::$config, JSON_PRETTY_PRINT)) !== false;
-    }
-
-    /**
-     * Returns the config.json complete path.
-     *
-     * @return string
-     */
-    private static function getConfigFilename(): string
-    {
-        return realpath(BASE_PATH . '/..') . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
-    }
-
-    /**
      * Returns a stdClass with the program configuration.
      * If the configuration file does not exist, is not accessible, or is not correct, returns null.
      * The configuration is loaded from the file only once and stored in a variable. You can set $reload
@@ -214,6 +200,55 @@ abstract class Config
             self::$config = $result;
         }
 
+        return $result;
+    }
+
+    /**
+     * Returns the config.json complete path.
+     *
+     * @return string
+     */
+    private static function getConfigFilename(): string
+    {
+        return realpath(constant('BASE_PATH') . '/..') . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+    }
+
+    /**
+     * Those configuration parameters that we can obtain at run time,
+     * or their default values, are obtained.
+     *
+     * @return stdClass
+     */
+    public static function getDefaultMainFileInfo(): stdClass
+    {
+        $result = new stdClass();
+        $result->path = constant('BASE_PATH');
+        $result->url = constant('BASE_URL');
+        return $result;
+    }
+
+    /**
+     * Updates the configuration file with the information it has in memory.
+     *
+     * @return bool
+     */
+    private static function saveConfig(): bool
+    {
+        if (empty(self::$config)) {
+            return true;
+        }
+        return file_put_contents(self::getConfigFilename(), json_encode(self::$config, JSON_PRETTY_PRINT)) !== false;
+    }
+
+    /**
+     * Returns an array with the messages accumulated since the last call.
+     *
+     * @return array
+     */
+    public static function getMessages()
+    {
+        $result = static::$messages;
+        static::$messages = [];
         return $result;
     }
 }
