@@ -1,33 +1,17 @@
 @extends('partial.layout.main', ['empty' => true])
 
 @section('content')
-    <h2 class="my-4">Registro</h2>
-    <form action="{!! $me->url() !!}" method="POST">
-        @component('component.card', ['title' => 'Título 1', 'name' => 'panel1'])
-            @slot()
-                @include('form.input', ['type' => 'text', 'name' => 'name', 'label' => 'Nombre1'])
-                @include('form.input', ['type' => 'email', 'name' => 'email', 'label' => 'Correo Electrónico1'])
+    @component('form.form', [])
+        @component('component.card', ['name' => 'panel1'])
+            @slot('slot')
+                @include('form.input', ['type' => 'text', 'name' => 'username', 'label' => 'Nombre de usuario'])
+                @include('form.input', ['type' => 'password', 'name' => 'password', 'label' => 'Contraseña'])
             @endslot
         @endcomponent
-        <div class="row">
-            <div class="col-6">
-                @component('component.card', ['title' => 'Título 2', 'name' => 'card1'])
-                    @slot()
-                        @include('form.input', ['type' => 'text', 'name' => 'name', 'label' => 'Nombre2'])
-                        @include('form.input', ['type' => 'email', 'name' => 'email', 'label' => 'Correo Electrónico2'])
-                    @endslot
-                @endcomponent
-            </div>
-            <div class="col-6">
-                @component('component.card', ['title' => 'Título 3', 'name' => 'card1'])
-                    @slot()
-                        @include('form.input', ['type' => 'text', 'name' => 'name', 'label' => 'Nombre3'])
-                        @include('form.input', ['type' => 'email', 'name' => 'email', 'label' => 'Correo Electrónico3'])
-                    @endslot
-                @endcomponent
-            </div>
-        </div>
-    </form>
+        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'login'])
+            Login
+        @endcomponent
+    @endcomponent
 @endsection
 
 @push('scripts')

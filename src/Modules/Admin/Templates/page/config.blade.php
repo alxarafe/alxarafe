@@ -10,7 +10,7 @@
                             @slot('slot')
                                 @component('component.card', ['title' => 'Título 1', 'name' => 'card1'])
                                     @slot('slot')
-                                        @include('form.input', ['type' => 'text', 'name' => 'theme', 'label' => 'Theme', 'value' => $me->data->main->theme ?? ''])
+                                        @include('form.input', ['type' => 'text', 'name' => 'theme', 'label' => $me::_('theme'), 'value' => $me->data->main->theme ?? ''])
                                         @include('form.input', ['type' => 'text', 'name' => 'language', 'label' => 'Language', 'value' => $me->data->main->language ?? ''])
                                     @endslot
                                 @endcomponent

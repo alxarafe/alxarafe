@@ -19,6 +19,7 @@
 namespace Alxarafe\Tools;
 
 use Alxarafe\Lib\Functions;
+use Alxarafe\Lib\Trans;
 
 class Dispatcher
 {

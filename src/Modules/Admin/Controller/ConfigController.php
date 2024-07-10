@@ -62,7 +62,7 @@ class ConfigController extends ViewController
 
     public function doLogin()
     {
-        $this->template = 'page/admin/login';
+        $this->template = 'page/login';
         $login = filter_input(INPUT_POST, 'login');
         if (!$login) {
             return true;

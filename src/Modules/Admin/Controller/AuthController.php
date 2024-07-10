@@ -59,7 +59,7 @@ class AuthController extends ViewController
 
     public function doLogin()
     {
-        $this->template = 'page/admin/login';
+        $this->template = 'page/login';
 
         $this->username = filter_input(INPUT_POST, 'username');
         $this->password = filter_input(INPUT_POST, 'password');

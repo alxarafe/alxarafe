@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Base\Controller;
 
+use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
 use Illuminate\Support\Str;
 use stdClass;
@@ -102,7 +103,7 @@ abstract class GenericController
     {
         $actionMethod = 'do' . ucfirst(Str::camel($this->action ?? 'index'));
         if (!method_exists($this, $actionMethod)) {
-            Debug::message('Does not exist the method ' . $actionMethod);
+            Debug::message(Trans::_('unknown_method', ['method' => $actionMethod]));
             return false;
         }
         return $this->beforeAction() && $this->$actionMethod() && $this->afterAction();

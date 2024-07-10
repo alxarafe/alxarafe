@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Base\Controller\Trait;
 
+use Alxarafe\Lib\Trans;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
@@ -47,6 +48,11 @@ trait ViewTrait
     public $template;
     public $title;
     public $alerts;
+
+    public static function _($message, array $parameters = [], $locale = null)
+    {
+        return Trans::_($message, $parameters, $locale);
+    }
 
     public static function addMessage($message)
     {

@@ -20,6 +20,8 @@ namespace Alxarafe\Base\Controller;
 
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\ViewTrait;
+use Alxarafe\Lib\Trans;
+use Alxarafe\Tools\Debug;
 
 /**
  * Class ViewController. The views controller adds support for views to the generic controller.
@@ -36,5 +38,7 @@ abstract class ViewController extends GenericController
     {
         parent::__construct();
         $this->config = Config::getConfig();
+        Trans::setLang($this->config->main->language);
+        Debug::load();
     }
 }
