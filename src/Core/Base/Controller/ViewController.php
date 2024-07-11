@@ -33,12 +33,31 @@ abstract class ViewController extends GenericController
     use ViewTrait;
 
     public $config = null;
+    public $debug = true;
+
+    public function getRenderHeader(): string
+    {
+        if (!$this->debug) {
+            return "\n<!-- getRenderHeader is disabled -->\n";
+        }
+        return Debug::getRenderHeader();
+    }
+
+    public function getRenderFooter(): string
+    {
+        if (!$this->debug) {
+            return "\n<!-- getRenderFooter is disabled -->\n";
+        }
+        return Debug::getRenderFooter();
+    }
 
     public function __construct()
     {
         parent::__construct();
         $this->config = Config::getConfig();
+        if ($this->debug) {
+            Debug::load();
+        }
         Trans::setLang($this->config->main->language);
-        Debug::load();
     }
 }

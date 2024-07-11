@@ -18,7 +18,9 @@
 
 namespace Alxarafe\Tools;
 
+use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\DebugBarCollector\PhpCollector;
+use Alxarafe\Tools\DebugBarCollector\TranslatorCollector;
 use DebugBar\DataCollector\DataCollectorInterface;
 use DebugBar\DebugBar;
 use DebugBar\DebugBarException;
@@ -41,6 +43,24 @@ abstract class Debug
     private static StandardDebugBar $debugBar;
 
     /**
+     * Gets the necessary calls to include the debug bar in the page header
+     *
+     * @return string
+     */
+    public static function getRenderHeader(): string
+    {
+        if (!isset(self::$debugBar)) {
+            static::load();
+        }
+        $result = "\n<!-- getRenderHeader -->\n";
+        if (!isset(self::$render)) {
+            return $result . '<!-- self::$render is not defined -->';
+        }
+
+        return $result . self::$render->renderHead();
+    }
+
+    /**
      * DebugTool constructor.
      *
      * @throws DebugBarException
@@ -53,13 +73,15 @@ abstract class Debug
         self::startTimer($shortName, $shortName . ' DebugTool Constructor');
 
         self::addCollector(new PhpCollector());
-        // self::addCollector(new MessagesCollector('Deprecated'));
-        // self::addCollector(new MonologCollector(Logger::getLogger()));
-        // self::addCollector(new TranslatorCollector());
+        self::addCollector(new TranslatorCollector(Trans::getInstance()));
 
 
-        $baseUrl = constant('BASE_URL') . '/Templates/DebugBar/Resources';
-        self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, constant('BASE_PATH'));
+        // $baseUrl = constant('BASE_URL') . '/alxarafe/assets/DebugBar/Resources';
+        // $basePath = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/vendor/maximebf/debugbar/src/DebugBar/Resources/');
+        $baseUrl = constant('BASE_URL') . '/alxarafe/assets/debugbar';
+        $basePath = realpath(constant('BASE_PATH') . '/..') . '/';
+
+        self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, $basePath);
 
         self::stopTimer($shortName);
     }
@@ -73,13 +95,16 @@ abstract class Debug
     public static function startTimer(string $name, string $message): void
     {
         if (!isset(self::$debugBar)) {
-            self::$debugBar = new StandardDebugBar();
+            static::load();
         }
         self::$debugBar['time']->startMeasure($name, $message);
     }
 
     public static function addCollector(DataCollectorInterface $collector): DebugBar
     {
+        if (!isset(self::$debugBar)) {
+            static::load();
+        }
         return self::$debugBar->addCollector($collector);
     }
 
@@ -92,7 +117,7 @@ abstract class Debug
     public static function getDebugBar(): ?StandardDebugBar
     {
         if (!isset(self::$debugBar)) {
-            return null;
+            static::load();
         }
         return self::$debugBar;
     }
@@ -104,21 +129,10 @@ abstract class Debug
      */
     public static function stopTimer(string $name): void
     {
-        self::$debugBar['time']->stopMeasure($name);
-    }
-
-    /**
-     * Gets the necessary calls to include the debug bar in the page header
-     *
-     * @return string
-     */
-    public static function getRenderHeader(): string
-    {
-        return self::$render->renderHead();
-        if (constant('DEBUG') !== true) {
-            return '<!-- Debug is disabled -->';
+        if (!isset(self::$debugBar)) {
+            static::load();
         }
-        return self::$render->renderHead();
+        self::$debugBar['time']->stopMeasure($name);
     }
 
     /**
@@ -128,11 +142,15 @@ abstract class Debug
      */
     public static function getRenderFooter(): string
     {
-        return self::$render->render();
-        if (constant('DEBUG') !== true) {
-            return '<!-- Debug is disabled -->';
+        if (!isset(self::$debugBar)) {
+            static::load();
         }
-        return self::$render->render();
+        $result = "\n<!-- getRenderFooter -->\n";
+        if (!isset(self::$render)) {
+            return $result . '<!-- self::$render is not defined -->';
+        }
+
+        return $result . self::$render->render();
     }
 
     /**
@@ -146,6 +164,9 @@ abstract class Debug
     {
         if (constant('DEBUG') !== true) {
             return;
+        }
+        if (!isset(self::$debugBar)) {
+            static::load();
         }
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(BASE_PATH) - 7);
@@ -166,7 +187,12 @@ abstract class Debug
      */
     private static function addMessage(string $channel, string $message): void
     {
+        if (!isset(self::$debugBar)) {
+            static::load();
+        }
+
         if (!isset(self::$debugBar[$channel])) {
+            self::$debugBar->addMessage('channel ' . $channel . ' does not exist. Message: ' . $message);
             return;
         }
 

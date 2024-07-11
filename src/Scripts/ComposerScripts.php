@@ -60,35 +60,43 @@ abstract class ComposerScripts
         }
 
         echo "Copying assets from $source to $target...\n";
-        static::copyAssetsFolder($source, $target, 'css');
-        static::copyAssetsFolder($source, $target, 'js');
-        static::copyAssetsFolder($source, $target, 'img');
+        if (!static::copyFolder($source, $target)) {
+            echo "An error has ocurred copying Assets.\n";
+            return;
+        }
         echo "Assets copied successfully.\n";
     }
 
-    private static function copyAssetsFolder($baseDir, $publicDir, $extension)
+    private static function copyFolder(string $source, string $target): bool
     {
-        $dir = $baseDir . '/assets/' . $extension;
-        if (!is_dir($dir)) {
-            echo "Directory $dir does not exist.\n";
-            return;
-        }
+        $result = true;
 
-        $targetDir = $publicDir . '/' . $extension;
-        if (!is_dir($targetDir)) {
-            if (!mkdir($targetDir, 0777, true) && !is_dir($targetDir)) {
-                echo "Failed to create directory: $targetDir\n";
-                return;
+        $dir = opendir($source);
+
+        while (false !== ($file = readdir($dir))) {
+            if (in_array($file, ['.', '..'])) {
+                continue;
+            }
+
+            $sourcePath = $source . '/' . $file;
+            $targetPath = $target . '/' . $file;
+
+            if (is_dir($sourcePath)) {
+                if (!static::copyFolder($sourcePath, $targetPath)) {
+                    echo "\nError copying $sourcePath folder to $targetPath\n";
+                    $result = false;
+                }
+                continue;
+            }
+
+            if (!copy($sourcePath, $targetPath)) {
+                echo "\nError copying $sourcePath to $targetPath\n";
+                $result = false;
             }
         }
 
-        foreach (glob($dir . '/*.' . $extension) as $file) {
-            if (!copy($file, $publicDir . '/' . $extension . '/' . basename($file))) {
-                echo "Failed to copy $file to $targetDir.\n";
-                return;
-            }
-        }
+        closedir($dir);
 
-        echo "Directory $dir copied successfully.\n";
+        return $result;
     }
 }

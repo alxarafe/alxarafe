@@ -42,7 +42,7 @@ trait ViewTrait
      *
      * @var string
      */
-    public $lang = 'en';
+    public $lang = Trans::FALLBACK_LANG;
     public $body_class;
     public $templatesPath;
     public $template;
