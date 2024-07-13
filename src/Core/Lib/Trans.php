@@ -88,7 +88,7 @@ abstract class Trans
      * @param string|null $locale
      * @return string
      */
-    public static function _(string $message, array $parameters = [], ?string $locale = null) : string
+    public static function _(string $message, array $parameters = [], ?string $locale = null): string
     {
         if (!isset(self::$translator)) {
             self::initialize();

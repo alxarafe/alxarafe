@@ -123,7 +123,7 @@ class ConfigController extends ViewController
     {
         $this->template = 'page/config';
 
-        static::getPost();
+        $this->getPost();
         $ok = Config::checkDatabaseConnection($this->data->db);
         if (!$ok) {
             $messages = Config::getMessages();
@@ -144,7 +144,7 @@ class ConfigController extends ViewController
      */
     public function doSave(): bool
     {
-        static::getPost();
+        $this->getPost();
 
         /**
          * Converts the stdClass to an array

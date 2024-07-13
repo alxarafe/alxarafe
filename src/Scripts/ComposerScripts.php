@@ -31,7 +31,7 @@ abstract class ComposerScripts
             return;
         }
 
-        $composer = $event->getComposer();
+        $event->getComposer();
         $io = $event->getIO();
 
         // Perform operations here

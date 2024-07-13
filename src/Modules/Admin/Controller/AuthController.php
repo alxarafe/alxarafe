@@ -22,6 +22,7 @@ use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Base\Database;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Trans;
 use Alxarafe\Model\User;
 
 class AuthController extends ViewController
@@ -71,12 +72,12 @@ class AuthController extends ViewController
         }
 
         if (!Auth::login($this->username, $this->password)) {
-            static::addAdvice($this->langs->trans('ErrorBadLoginPassword'));
+            static::addAdvice(Trans::_('authenticated_error'));
             return true;
         }
 
         $this->template = 'page/info';
-        static::addMessage('Usuario ' . $this->username . ' identificado correctamente1');
+        static::addMessage(Trans::_('authenticated_user', ['user' => $this->username]));
 
         return true;
     }
