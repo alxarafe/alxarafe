@@ -111,7 +111,7 @@ abstract class Config
      */
     private static function addNewMessage($message)
     {
-        static::$messages[] = $message;
+        self::$messages[] = $message;
     }
 
     /**
@@ -247,8 +247,8 @@ abstract class Config
      */
     public static function getMessages()
     {
-        $result = static::$messages;
-        static::$messages = [];
+        $result = self::$messages;
+        self::$messages = [];
         return $result;
     }
 }

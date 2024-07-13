@@ -31,22 +31,37 @@ abstract class Controller extends ViewController
 {
     use DbTrait;
 
+    /**
+     * Instance of Database
+     *
+     * @var Database|null
+     */
     public $db = null;
+
+    /**
+     * Name of the user
+     *
+     * @var string
+     */
     public $username;
 
+    /**
+     * Controller constructor.
+     *
+     * @throws \DebugBar\DebugBarException
+     */
     public function __construct()
     {
         parent::__construct();
 
         if (!isset($this->config->db) || !static::connectDb($this->config->db)) {
-            header('Location: ' . BASE_URL . '/index.php?module=Admin&controller=Config');
+            header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Config');
         }
 
         $this->db = new Database($this->config->db);
 
         if (!Auth::isLogged()) {
-            die('Usuario no identificado1');
-            header('Location: ' . BASE_URL . '/index.php?module=Admin&controller=Auth');
+            header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Auth');
         }
 
         $this->username = Auth::$user->name;

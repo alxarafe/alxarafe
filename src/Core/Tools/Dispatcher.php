@@ -71,11 +71,12 @@ class Dispatcher
         Functions::defineIfNotDefined('ALX_PATH', realpath(__DIR__ . '/../../..'));
         Functions::defineIfNotDefined('APP_PATH', realpath(constant('ALX_PATH') . '/../../..'));
         Functions::defineIfNotDefined('BASE_PATH', constant('APP_PATH') . '/public');
+        Functions::defineIfNotDefined('BASE_URL', Functions::getUrl());
 
         /**
          * Defines the full path ($realpath) to the modules folder ($route).
          */
-        $realpath = constant('APP_PATH') . '/' . $route;
+        $realpath = realpath(constant('APP_PATH') . '/' . $route);
 
         /**
          * Adds the module to the path ($basepath), if it's a module.

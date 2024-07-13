@@ -20,13 +20,28 @@ namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\ViewController;
+use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Functions;
+use Alxarafe\Lib\Trans;
 use stdClass;
 
+/**
+ * Class ConfigController. App settings controller.
+ */
 class ConfigController extends ViewController
 {
+    /**
+     * Configuration file information
+     *
+     * @var stdClass
+     */
     public $data;
 
+    /**
+     * Index action.
+     *
+     * @return bool
+     */
     public function doIndex(): bool
     {
         /**
@@ -45,7 +60,12 @@ class ConfigController extends ViewController
         return true;
     }
 
-    private function getPost()
+    /**
+     * Sets $data with the information sent by POST
+     *
+     * @return void
+     */
+    private function getPost(): void
     {
         if (!isset($this->data)) {
             $this->data = new stdClass();
@@ -60,7 +80,12 @@ class ConfigController extends ViewController
         }
     }
 
-    public function doLogin()
+    /**
+     * Login action.
+     *
+     * @return bool
+     */
+    public function doLogin(): bool
     {
         $this->template = 'page/login';
         $login = filter_input(INPUT_POST, 'login');
@@ -71,22 +96,30 @@ class ConfigController extends ViewController
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
         if (!Auth::login($username, $password)) {
-            $this->advice[] = $this->langs->trans('ErrorBadLoginPassword');
-            dump([
-                'ConfigController' => $this
-            ]);
-            return true;
+            self::addAdvice(Trans::_('bad_login'));
+            return false;
         }
         $this->template = 'page/admin/info';
-    }
-
-    public function doLogout()
-    {
-        Auth::logout(true);
         return true;
     }
 
-    public function doCheckConnection()
+    /**
+     * Logout action.
+     *
+     * @return bool
+     */
+    public function doLogout(): bool
+    {
+        Auth::logout();
+        return true;
+    }
+
+    /**
+     * CheckConnection action.
+     *
+     * @return bool
+     */
+    public function doCheckConnection(): bool
     {
         $this->template = 'page/config';
 
@@ -104,6 +137,11 @@ class ConfigController extends ViewController
         return true;
     }
 
+    /**
+     * Save action.
+     *
+     * @return bool
+     */
     public function doSave(): bool
     {
         static::getPost();

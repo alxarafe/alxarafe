@@ -37,8 +37,6 @@ abstract class GenericController
      */
     public ?string $action;
 
-    private $path;
-
     /**
      * GenericController constructor.
      */
@@ -64,7 +62,7 @@ abstract class GenericController
     {
         $url = '';
         if ($full) {
-            $url .= BASE_URL . '/index.php';
+            $url .= constant('BASE_URL') . '/index.php';
         }
 
         $url .=

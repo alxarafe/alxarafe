@@ -37,13 +37,13 @@ trait ViewTrait
      * @var string
      */
     public $theme;
+
     /**
      * Code lang for <html lang> tag
      *
      * @var string
      */
     public $lang = Trans::FALLBACK_LANG;
-    public $body_class;
     public $templatesPath;
     public $template;
     public $title;
