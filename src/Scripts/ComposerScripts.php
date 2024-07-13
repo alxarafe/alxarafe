@@ -18,11 +18,11 @@
 
 namespace Scripts;
 
-use Composer\Script\Event;
+use Composer\Installer\PackageEvent;
 
 abstract class ComposerScripts
 {
-    public static function postUpdate(Event $event)
+    public static function postUpdate(PackageEvent $event)
     {
         echo "\n*** Starting assets update process...\n\n";
 
