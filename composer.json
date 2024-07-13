@@ -37,7 +37,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Rsanjoseo\\Alxarafe\\": "src/",
+      "Scripts\\": "src/Scripts",
       "Alxarafe\\": "src/Core",
       "CoreModules\\": "src/Modules"
     },
@@ -51,10 +51,10 @@
   },
   "scripts": {
     "post-package-install": [
-      "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
+      "Scripts\\ComposerScripts::postUpdate"
     ],
     "post-package-update": [
-      "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
+      "Scripts\\ComposerScripts::postUpdate"
     ]
   }
 }
