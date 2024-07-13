@@ -61,11 +61,12 @@ abstract class Debug
     }
 
     /**
-     * DebugTool constructor.
+     * Load the debugbar and collectors.
      *
+     * @return bool
      * @throws DebugBarException
      */
-    public static function load()
+    public static function load(): bool
     {
         $shortName = 'Debug';
 
@@ -75,15 +76,14 @@ abstract class Debug
         self::addCollector(new PhpCollector());
         self::addCollector(new TranslatorCollector(Trans::getInstance()));
 
-
-        // $baseUrl = constant('BASE_URL') . '/alxarafe/assets/DebugBar/Resources';
-        // $basePath = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/vendor/maximebf/debugbar/src/DebugBar/Resources/');
         $baseUrl = constant('BASE_URL') . '/alxarafe/assets/debugbar';
         $basePath = realpath(constant('BASE_PATH') . '/..') . '/';
 
         self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, $basePath);
 
         self::stopTimer($shortName);
+
+        return isset(self::$render);
     }
 
     /**
@@ -91,6 +91,7 @@ abstract class Debug
      *
      * @param string $name
      * @param string $message
+     * @throws DebugBarException
      */
     public static function startTimer(string $name, string $message): void
     {
@@ -111,7 +112,7 @@ abstract class Debug
     /**
      * Return the internal debug instance for get the html code.
      *
-     * @return StandardDebugBar
+     * @return StandardDebugBar|null
      * @throws DebugBarException
      */
     public static function getDebugBar(): ?StandardDebugBar
@@ -126,6 +127,7 @@ abstract class Debug
      * Stop the timer
      *
      * @param string $name
+     * @throws DebugBarException
      */
     public static function stopTimer(string $name): void
     {
@@ -139,6 +141,7 @@ abstract class Debug
      * Gets the necessary calls to include the debug bar in the page footer
      *
      * @return string
+     * @throws DebugBarException
      */
     public static function getRenderFooter(): string
     {
@@ -159,6 +162,7 @@ abstract class Debug
      * TODO: addException is deprecated!
      *
      * @param $exception
+     * @throws DebugBarException
      */
     public static function addException($exception): void
     {

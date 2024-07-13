@@ -52,15 +52,13 @@ abstract class Auth
      * Return true if login is correct with user/mail and password.
      * TODO: This is a test. It will be checked against a user database.
      *
-     * @param $email
-     * @param $password
+     * @param string $email
+     * @param string $password
      *
      * @return bool
      */
-    public static function login($username, $password)
+    public static function login(string $username, string $password): bool
     {
-        //static::logout();
-
         $user = User::where('name', $username)->first();
         if (!isset($user)) {
             return false;
