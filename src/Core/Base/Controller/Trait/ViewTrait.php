@@ -30,74 +30,116 @@ use Illuminate\View\Compilers\BladeCompiler;
 
 trait ViewTrait
 {
-    public static $messages = [];
     /**
-     * Theme name. TODO: Has to be updated according to the configuration.
+     * Contains messages, advices and errors pending to be shown.
+     *
+     * @var array
+     */
+    public static array $messages = [];
+
+    /**
+     * Theme name.
      *
      * @var string
      */
-    public $theme;
+    public static string $theme = '';
 
     /**
-     * Code lang for <html lang> tag
+     * Template routes added by modules.
+     *
+     * @var array
+     */
+    public static array $templatesPath = [];
+
+    /**
+     * Contains the name of the blade template to print
      *
      * @var string
      */
-    public $lang = Trans::FALLBACK_LANG;
-    public $templatesPath;
-    public $template;
-    public $title;
-    public $alerts;
+    public string $template;
 
-    public static function _($message, array $parameters = [], $locale = null)
+    /**
+     * Contains the title of the view.
+     *
+     * @var string
+     */
+    public string $title;
+
+    /**
+     * Contains an array with the messages to be displayed, indicating the
+     * type (message, advice or error) and the text to be displayed.
+     *
+     * @var array
+     */
+    public array $alerts;
+
+    /**
+     * Shows a translated text
+     *
+     * @param $message
+     * @param array $parameters
+     * @param $locale
+     * @return string
+     */
+    public static function _($message, array $parameters = [], $locale = null): string
     {
         return Trans::_($message, $parameters, $locale);
     }
 
-    public static function addMessage($message)
+    /**
+     * Add a new message (success) to show the user
+     *
+     * @param $message
+     * @return void
+     */
+    public static function addMessage($message): void
     {
         self::$messages[]['success'] = $message;
     }
 
-    public static function addAdvice($message)
+    /**
+     * Add a new advice (warning) to show the user
+     *
+     * @param $message
+     * @return void
+     */
+    public static function addAdvice($message): void
     {
         self::$messages[]['warning'] = $message;
     }
 
-    public static function addError($message)
+    /**
+     * Add a new error (danger) to show the user
+     *
+     * @param $message
+     * @return void
+     */
+    public static function addError($message): void
     {
         self::$messages[]['danger'] = $message;
     }
 
+    /**
+     * Upon completion of the controller execution, the template is displayed.
+     */
     public function __destruct()
     {
         if (!isset($this->template)) {
             return;
         }
 
-        if (!isset($this->theme)) {
-            $this->theme = 'alxarafe';
+        if (!isset(self::$theme)) {
+            self::$theme = 'alxarafe';
         }
 
         if (!isset($this->title)) {
             $this->title = 'Alxarafe';
         }
 
-        $this->alerts = static::getMessages();
+        $this->alerts = self::getMessages();
 
         $vars = ['me' => $this];
-        $viewPaths = [
-            constant('APP_PATH') . '/Templates',
-            constant('APP_PATH') . '/Templates/theme/' . $this->theme,
-            constant('APP_PATH') . '/Templates/common',
-            constant('ALX_PATH') . '/Templates',
-            constant('ALX_PATH') . '/Templates/theme/' . $this->theme,
-            constant('ALX_PATH') . '/Templates/common',
-        ];
-
-        if (isset($this->templatesPath)) {
-            array_unshift($viewPaths, $this->templatesPath);
-        }
+        $viewPaths = self::getViewPaths();
 
         $cachePaths = realpath(constant('BASE_PATH') . '/..') . '/tmp/blade';
         if (!is_dir($cachePaths) && !mkdir($cachePaths, 0777, true) && !is_dir($cachePaths)) {
@@ -142,7 +184,13 @@ trait ViewTrait
         echo $viewFactory->make($this->template, $vars)->render();
     }
 
-    public static function getMessages()
+    /**
+     * Generates an array with the messages to be displayed, indicating the
+     * type (message, advice or error) and the text to be displayed.
+     *
+     * @return array
+     */
+    private static function getMessages(): array
     {
         $alerts = [];
         foreach (self::$messages as $message) {
@@ -157,13 +205,41 @@ trait ViewTrait
         return $alerts;
     }
 
-    public function getTemplatesPath(): string
+    /**
+     * Returns the routes to the application templates.
+     *
+     * @return string[]
+     */
+    private static function getViewPaths(): array
     {
-        return $this->templatesPath;
+        $viewPaths = [
+            constant('APP_PATH') . '/Templates',
+            constant('APP_PATH') . '/Templates/theme/' . self::$theme,
+            constant('APP_PATH') . '/Templates/common',
+            constant('ALX_PATH') . '/Templates',
+            constant('ALX_PATH') . '/Templates/theme/' . self::$theme,
+            constant('ALX_PATH') . '/Templates/common',
+        ];
+
+        if (!empty(self::$templatesPath)) {
+            $viewPaths = array_merge(self::$templatesPath, $viewPaths);
+        }
+
+        return $viewPaths;
     }
 
-    public function setTemplatesPath(string $path)
+    /**
+     * Sets a new path for the templates, prepending the current selection.
+     *
+     * @param array|string $path
+     * @return void
+     */
+    public function setTemplatesPath(array|string $path): void
     {
-        $this->templatesPath = $path;
+        if (is_array($path)) {
+            self::$templatesPath = array_merge($path, self::$templatesPath);
+            return;
+        }
+        array_unshift(self::$templatesPath, $path);
     }
 }

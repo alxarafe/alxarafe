@@ -26,6 +26,9 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class Trans
 {
+    /**
+     * It is the default language when none has been specified yet.
+     */
     public const FALLBACK_LANG = 'en';
 
     protected static $translator;
@@ -43,10 +46,10 @@ abstract class Trans
 
     public static function getInstance()
     {
-        if (!isset(static::$translator)) {
-            static::initialize();
+        if (!isset(self::$translator)) {
+            self::initialize();
         }
-        return static::$translator;
+        return self::$translator;
     }
 
     /**
@@ -56,63 +59,67 @@ abstract class Trans
      */
     private static function initialize()
     {
-        if (isset(static::$translator)) {
+        if (isset(self::$translator)) {
             return true;
         }
 
-        self::$translator = new Translator(static::FALLBACK_LANG);
-        return isset(static::$translator);
+        self::$translator = new Translator(self::FALLBACK_LANG);
+        return isset(self::$translator);
     }
 
     public static function getMissingStrings()
     {
-        static::$missingStringsDebug = [];
-        $locale = static::$translator->getLocale();
-        foreach (static::$missingStrings as $name => $value) {
+        self::$missingStringsDebug = [];
+        $locale = self::$translator->getLocale();
+        foreach (self::$missingStrings as $name => $value) {
             if ($value['lang'] === $locale) {
                 continue;
             }
-            static::$missingStringsDebug[$name] = '(' . $value['lang'] . ') ' . $value['text'];
+            self::$missingStringsDebug[$name] = '(' . $value['lang'] . ') ' . $value['text'];
         }
-        return static::$missingStringsDebug;
+        return self::$missingStringsDebug;
     }
 
     /**
      * Return a text in the selected language.
      *
-     * @param $message
+     * @param string $message
      * @param array $parameters
-     * @param $locale
-     * @return mixed
+     * @param string|null $locale
+     * @return string
      */
-    public static function _($message, array $parameters = [], $locale = null)
+    public static function _(string $message, array $parameters = [], ?string $locale = null) : string
     {
-        if (!isset(static::$translator)) {
-            static::initialize();
+        if (!isset(self::$translator)) {
+            self::initialize();
         }
 
         if (!isset($locale)) {
-            $locale = static::$translator->getLocale();
-        }
-
-        if (empty(static::$translations)) {
-            static::$translations = static::getTranslations($locale ?? self::FALLBACK_LANG);
+            $locale = self::$translator->getLocale();
         }
 
         $params = [];
         foreach ($parameters as $name => $value) {
             $params['%' . $name . '%'] = $value;
         }
+
+        if (!isset(self::$translations[$message])) {
+            self::$missingStrings[$message] = [
+                'lang' => self::FALLBACK_LANG,
+                'text' => 'Not defined!',
+            ];
+        }
+
         return self::$translator->trans($message, $params, null, $locale);
     }
 
     private static function getTranslations($lang)
     {
-        if (!isset(static::$translator)) {
-            static::initialize();
+        if (!isset(self::$translator)) {
+            self::initialize();
         }
 
-        if (!isset(static::$translations)) {
+        if (empty(self::$translations)) {
             $module = $_GET['module'];
             $main_route = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src');
             $routes = [
@@ -123,12 +130,12 @@ abstract class Trans
             self::$translator->addLoader('array', new ArrayLoader());
             foreach ($routes as $route) {
                 if ($lang !== self::FALLBACK_LANG) {
-                    static::loadLang(self::FALLBACK_LANG, $route);
+                    self::loadLang(self::FALLBACK_LANG, $route);
                 }
-                static::loadLang($lang, $route);
+                self::loadLang($lang, $route);
             }
 
-            self::$translator->addResource('array', static::$translations, $lang);
+            self::$translator->addResource('array', self::$translations, $lang);
         }
     }
 
@@ -141,7 +148,7 @@ abstract class Trans
     private static function loadLang(string $lang, string $folder): void
     {
         if (strlen($lang) > 2) {
-            static::loadLang(substr($lang, 0, 2), $folder);
+            self::loadLang(substr($lang, 0, 2), $folder);
         }
 
         $filename = $folder . '/' . $lang . '.yaml';
@@ -157,8 +164,8 @@ abstract class Trans
         }
 
         foreach ($translates as $name => $translate) {
-            static::$translations[$name] = $translate;
-            static::$missingStrings[$name] = [
+            self::$translations[$name] = $translate;
+            self::$missingStrings[$name] = [
                 'lang' => $lang,
                 'text' => $translate
             ];
@@ -177,7 +184,7 @@ abstract class Trans
      */
     public static function trans($message, array $parameters = [], $domain = 'messages', $locale = null)
     {
-        return static::_($message, $parameters, $locale);
+        return self::_($message, $parameters, $locale);
     }
 
     /**

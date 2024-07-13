@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="{!! $me->lang ?? 'en' !!}">
+<html lang="{!! $me->config->main->language ?? 'en' !!}">
 <head>
+    <title>{!! $me->title !!}</title>
     @include('partial.head')
 </head>
 <body class="container">

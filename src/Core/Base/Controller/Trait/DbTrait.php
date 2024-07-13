@@ -19,10 +19,20 @@
 namespace Alxarafe\Base\Controller\Trait;
 
 use Alxarafe\Base\Config;
+use stdClass;
 
+/**
+ * Trait for use in controllers that use databases
+ */
 trait DbTrait
 {
-    public static function connectDb(\stdClass|null $db = null): bool
+    /**
+     * Connect to the specified database
+     *
+     * @param stdClass|null $db
+     * @return bool
+     */
+    public static function connectDb(stdClass|null $db = null): bool
     {
         if ($db === null || !Config::checkDatabaseConnection($db)) {
             return false;

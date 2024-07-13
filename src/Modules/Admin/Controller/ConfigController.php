@@ -130,10 +130,10 @@ class ConfigController extends ViewController
             foreach ($messages as $message) {
                 static::addAdvice($message);
             }
-            static::addError('Error al conectar a la base de datos "' . $this->data->db->name . '".');
+            static::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
             return true;
         }
-        static::addMessage('Conexión satisfactoria con la base de datos "' . $this->data->db->name . '".');
+        static::addMessage(Trans::_('successful-connection-database', ['db' => $this->data->db->name]));
         return true;
     }
 
@@ -154,7 +154,7 @@ class ConfigController extends ViewController
         $result = config::setConfig($data);
         if (!$result) {
             $this->template = 'page/config';
-            static::addError('Error al guardar la configuración');
+            static::addError(Trans::_('error-saving-settings'));
             return false;
         }
 
@@ -162,7 +162,7 @@ class ConfigController extends ViewController
          * TODO: Loads public page
          */
         $this->template = 'page/public';
-        static::addMessage('Configuración guardada correctamente');
+        static::addMessage(Trans::_('settings-saved-successfully'));
         return true;
     }
 }
