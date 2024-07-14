@@ -24,29 +24,28 @@ abstract class ComposerScripts
 {
     public static function postUpdate(PackageEvent $event)
     {
-        echo "\n*** Starting assets update process...\n\n";
+        $io = $event->getIO();
+
+        $io->write("*** Starting assets update process");
 
         if (getenv('SKIP_COPY_ASSETS')) {
             echo "Prevented copyAssets in scrutinizer environment.\n";
             return;
         }
 
-        $event->getComposer();
-        $io = $event->getIO();
-
         // Perform operations here
         $io->write("Running post-update script");
 
-        static::copyAssets();
+        static::copyAssets($io);
     }
 
-    private static function copyAssets()
+    private static function copyAssets($io)
     {
-        echo "Starting copyAssets...\n";
+        $io->write("Starting copyAssets...");
 
         $source = realpath(__DIR__ . '/../assets');
         if ($source === false) {
-            echo "Source directory does not exist.\n";
+            $io->write("Source directory does not exist.");
             return;
         }
 
@@ -54,20 +53,20 @@ abstract class ComposerScripts
         if ($target === false) {
             $target = __DIR__ . '/../../../../public/alxarafe';
             if (!mkdir($target, 0777, true) && !is_dir($target)) {
-                echo "Failed to create target directory: $target\n";
+                $io->write("Failed to create target directory: $target");
                 return;
             }
         }
 
-        echo "Copying assets from $source to $target...\n";
-        if (!static::copyFolder($source, $target)) {
-            echo "An error has ocurred copying Assets.\n";
+        $io->write("Copying assets from $source to $target...");
+        if (!static::copyFolder($io, $source, $target)) {
+            $io->write("An error has ocurred copying Assets.");
             return;
         }
-        echo "Assets copied successfully.\n";
+        $io->write("Assets copied successfully.");
     }
 
-    private static function copyFolder(string $source, string $target): bool
+    private static function copyFolder($io, string $source, string $target): bool
     {
         $result = true;
 
@@ -82,15 +81,15 @@ abstract class ComposerScripts
             $targetPath = $target . '/' . $file;
 
             if (is_dir($sourcePath)) {
-                if (!static::copyFolder($sourcePath, $targetPath)) {
-                    echo "\nError copying $sourcePath folder to $targetPath\n";
+                if (!static::copyFolder($io, $sourcePath, $targetPath)) {
+                    $io->write("\nError copying $sourcePath folder to $targetPath");
                     $result = false;
                 }
                 continue;
             }
 
             if (!copy($sourcePath, $targetPath)) {
-                echo "\nError copying $sourcePath to $targetPath\n";
+                $io->write("\nError copying $sourcePath to $targetPath");
                 $result = false;
             }
         }
