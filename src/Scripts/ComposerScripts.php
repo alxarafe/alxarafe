@@ -44,7 +44,7 @@ abstract class ComposerScripts
         $io->write("Starting copyAssets...");
         $io->write("Current directory: " . __DIR__);
 
-        $source = realpath(__DIR__ . '/../assets');
+        $source = realpath(__DIR__ . '/../../assets');
         if ($source === false) {
             $io->write("Source directory does not exist.");
             return;
@@ -52,7 +52,7 @@ abstract class ComposerScripts
 
         $target = realpath(__DIR__ . '/../../../../public/alxarafe');
         if ($target === false) {
-            $target = __DIR__ . '/../../../../public/alxarafe';
+            $target = __DIR__ . '/../../../../../public/alxarafe';
             if (!mkdir($target, 0777, true) && !is_dir($target)) {
                 $io->write("Failed to create target directory: $target");
                 return;
