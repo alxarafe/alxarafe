@@ -19,9 +19,14 @@
 namespace Rsanjoseo\Alxarafe;
 
 use Composer\Installer\PackageEvent;
+use Composer\Script\Event;
 
 abstract class ComposerScripts
 {
+    public static function postUpdateFromScript(Event $event)
+    {
+        static::postUpdate(new PackageEvent($event->getName(), $event->getComposer(), $event->getIO(), $event->isDevMode(), [], []));
+    }
     public static function postUpdate(PackageEvent $event)
     {
         $io = $event->getIO();
@@ -50,9 +55,9 @@ abstract class ComposerScripts
             return;
         }
 
-        $target = realpath(__DIR__ . '/../../../../public/alxarafe');
+        $targetSource = __DIR__ . '/../../../../../public/alxarafe';
+        $target = realpath($targetSource);
         if ($target === false) {
-            $target = __DIR__ . '/../../../../../public/alxarafe';
             if (!mkdir($target, 0777, true) && !is_dir($target)) {
                 $io->write("Failed to create target directory: $target");
                 return;
