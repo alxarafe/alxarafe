@@ -108,6 +108,13 @@ abstract class ComposerScripts
                 continue;
             }
 
+            if (!is_dir($target)) {
+                if (!mkdir($target, 0777, true) && !is_dir($target)) {
+                    $io->write("Failed to create target directory: $target");
+                    continue;
+                }
+            }
+
             if (!copy($sourcePath, $targetPath)) {
                 $io->write("\nError copying $sourcePath to $targetPath");
                 $result = false;
