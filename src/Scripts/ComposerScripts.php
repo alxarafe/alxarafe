@@ -23,14 +23,14 @@ use Composer\Script\Event;
 
 abstract class ComposerScripts
 {
-    public static function postUpdateFromScript(Event $event, InstalledRepositoryInterface $localRepo)
+    public static function postUpdateFromScript(Event $event)
     {
         $packageEvent = new PackageEvent(
             $event->getName(),
             $event->getComposer(),
             $event->getIO(),
             $event->isDevMode(),
-            $localRepo,
+            new InstalledRepositoryInterface(),
             $event->getComposer()->getRepositoryManager()->getLocalRepository(),
             []
         );
