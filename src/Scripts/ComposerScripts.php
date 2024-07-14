@@ -42,6 +42,7 @@ abstract class ComposerScripts
     private static function copyAssets($io)
     {
         $io->write("Starting copyAssets...");
+        $io->write("Current directory: " . __DIR__);
 
         $source = realpath(__DIR__ . '/../assets');
         if ($source === false) {
