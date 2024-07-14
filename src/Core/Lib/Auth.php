@@ -27,9 +27,9 @@ abstract class Auth
     private const COOKIE_EXPIRE_TIME = 30 * 86400; // 30 days
     private const COOKIE_SAMESITE = 'Strict';
 
-    public static $user = null;
+    public static ?string $user = null;
 
-    public static function isLogged()
+    public static function isLogged(): bool
     {
         $userId = FILTER_INPUT(INPUT_COOKIE, self::COOKIE_USER);
         $token = FILTER_INPUT(INPUT_COOKIE, self::COOKIE_NAME);
@@ -52,7 +52,7 @@ abstract class Auth
      * Return true if login is correct with user/mail and password.
      * TODO: This is a test. It will be checked against a user database.
      *
-     * @param string $email
+     * @param string $username
      * @param string $password
      *
      * @return bool
@@ -73,7 +73,7 @@ abstract class Auth
         return true;
     }
 
-    public static function setLoginCookie($userId)
+    public static function setLoginCookie($userId): void
     {
         $token = self::generateToken();
 
@@ -97,12 +97,12 @@ abstract class Auth
         setcookie(self::COOKIE_NAME, $token, $cookie_options);
     }
 
-    private static function generateToken($length = 32)
+    private static function generateToken(): string
     {
-        return bin2hex(random_bytes($length));
+        return bin2hex(random_bytes(32));
     }
 
-    public static function logout()
+    public static function logout(): void
     {
         // Erase old cookies.
         setcookie(self::COOKIE_USER, '', time() - 60);

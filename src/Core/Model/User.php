@@ -12,7 +12,7 @@ class User extends Model
     protected $fillable = ['name', 'email', 'password', 'token', 'is_admin'];
     protected $hidden = ['password', 'token'];
 
-    public static function createTable()
+    public static function createTable(): void
     {
         DB::schema()->create((new static())->table, function (Blueprint $table) {
             $table->increments('id');

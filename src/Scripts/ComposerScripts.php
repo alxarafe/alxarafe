@@ -63,7 +63,7 @@ abstract class ComposerScripts
 
         $targetSource = __DIR__ . '/../../../../../public/alxarafe';
         $target = realpath($targetSource);
-        if (!static::makeDir($target)) {
+        if (!static::makeDir($io, $target)) {
             return;
         }
 
@@ -77,12 +77,16 @@ abstract class ComposerScripts
 
     private static function copyFolder($io, string $source, string $target): bool
     {
+        if (!static::makeDir($io, $target)) {
+            return false;
+        }
+
         $result = true;
 
         $dir = opendir($source);
 
         while (false !== ($file = readdir($dir))) {
-            if (in_array($file, ['.', '..']) || !static::makeDir($io, $target)) {
+            if (in_array($file, ['.', '..'])) {
                 continue;
             }
 
