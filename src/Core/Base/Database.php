@@ -58,8 +58,6 @@ class Database extends CapsuleManager
         // Obtains Eloquent PDO
         $pdo = $this->getConnection()->getPdo();
         $debugBar = Debug::getDebugBar();
-        if ($debugBar) {
-            $debugBar->addCollector(new PDOCollector($pdo));
-        }
+        $debugBar->addCollector(new PDOCollector($pdo));
     }
 }

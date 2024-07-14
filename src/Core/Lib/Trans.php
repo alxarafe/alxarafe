@@ -178,11 +178,10 @@ abstract class Trans
      *
      * @param $message
      * @param array $parameters
-     * @param $domain
      * @param $locale
      * @return mixed
      */
-    public static function trans($message, array $parameters = [], $domain = 'messages', $locale = null)
+    public static function trans($message, array $parameters = [], $locale = null)
     {
         return self::_($message, $parameters, $locale);
     }

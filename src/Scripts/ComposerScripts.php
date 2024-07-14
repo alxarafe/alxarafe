@@ -23,24 +23,6 @@ use Composer\Script\Event;
 
 abstract class ComposerScripts
 {
-    public static function postUpdateFromScript(Event $event)
-    {
-        $composer = $event->getComposer();
-        $localRepo = $composer->getRepositoryManager()->getLocalRepository();
-
-        $packageEvent = new PackageEvent(
-            $event->getName(),
-            $composer,
-            $event->getIO(),
-            $event->isDevMode(),
-            $localRepo,
-            $composer->getRepositoryManager()->getLocalRepository(),
-            []
-        );
-
-        static::postUpdate($packageEvent);
-    }
-
     public static function postUpdate(PackageEvent $event)
     {
         $io = $event->getIO();
@@ -58,6 +40,16 @@ abstract class ComposerScripts
         static::copyAssets($io);
     }
 
+    private static function makeDir($io, $path) {
+        if ($path === false) {
+            if (!mkdir($path, 0777, true) && !is_dir($path)) {
+                $io->write("Failed to create target directory: $path");
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static function copyAssets($io)
     {
         $io->write("Starting copyAssets...");
@@ -71,11 +63,8 @@ abstract class ComposerScripts
 
         $targetSource = __DIR__ . '/../../../../../public/alxarafe';
         $target = realpath($targetSource);
-        if ($target === false) {
-            if (!mkdir($target, 0777, true) && !is_dir($target)) {
-                $io->write("Failed to create target directory: $target");
-                return;
-            }
+        if (!static::makeDir($target)) {
+            return;
         }
 
         $io->write("Copying assets from $source to $target...");
@@ -93,7 +82,7 @@ abstract class ComposerScripts
         $dir = opendir($source);
 
         while (false !== ($file = readdir($dir))) {
-            if (in_array($file, ['.', '..'])) {
+            if (in_array($file, ['.', '..']) || !static::makeDir($io, $target)) {
                 continue;
             }
 
@@ -106,13 +95,6 @@ abstract class ComposerScripts
                     $result = false;
                 }
                 continue;
-            }
-
-            if (!is_dir($target)) {
-                if (!mkdir($target, 0777, true) && !is_dir($target)) {
-                    $io->write("Failed to create target directory: $target");
-                    continue;
-                }
             }
 
             if (!copy($sourcePath, $targetPath)) {
