@@ -25,13 +25,16 @@ abstract class ComposerScripts
 {
     public static function postUpdateFromScript(Event $event)
     {
+        $composer = $event->getComposer();
+        $localRepo = $composer->getRepositoryManager()->getLocalRepository();
+
         $packageEvent = new PackageEvent(
             $event->getName(),
-            $event->getComposer(),
+            $composer,
             $event->getIO(),
             $event->isDevMode(),
-            new InstalledRepositoryInterface(),
-            $event->getComposer()->getRepositoryManager()->getLocalRepository(),
+            $localRepo,
+            $composer->getRepositoryManager()->getLocalRepository(),
             []
         );
 
