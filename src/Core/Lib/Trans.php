@@ -31,7 +31,7 @@ abstract class Trans
      */
     public const FALLBACK_LANG = 'en';
 
-    protected static $translator;
+    private static $translator;
 
     private static $translations = [];
 
@@ -44,20 +44,12 @@ abstract class Trans
 
     private static $missingStringsDebug;
 
-    public static function getInstance()
-    {
-        if (!isset(self::$translator)) {
-            self::initialize();
-        }
-        return self::$translator;
-    }
-
     /**
      * Initializes the translator.
      *
      * @return bool
      */
-    private static function initialize()
+    public static function initialize()
     {
         if (isset(self::$translator)) {
             return true;
@@ -90,10 +82,6 @@ abstract class Trans
      */
     public static function _(string $message, array $parameters = [], ?string $locale = null): string
     {
-        if (!isset(self::$translator)) {
-            self::initialize();
-        }
-
         if (!isset($locale)) {
             $locale = self::$translator->getLocale();
         }
@@ -115,10 +103,6 @@ abstract class Trans
 
     private static function getTranslations($lang)
     {
-        if (!isset(self::$translator)) {
-            self::initialize();
-        }
-
         if (empty(self::$translations)) {
             $module = $_GET['module'];
             $main_route = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src');

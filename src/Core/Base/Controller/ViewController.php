@@ -55,9 +55,7 @@ abstract class ViewController extends GenericController
     {
         parent::__construct();
         $this->config = Config::getConfig();
-        if ($this->debug) {
-            Debug::load();
-        }
+
         Trans::setLang($this->config->main->language);
     }
 }

@@ -20,6 +20,7 @@ namespace Alxarafe\Tools;
 
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Trans;
+use DebugBar\DebugBarException;
 
 class Dispatcher
 {
@@ -32,9 +33,12 @@ class Dispatcher
      * @param array $alternative_routes
      *
      * @return bool
+     * @throws DebugBarException
      */
     public static function run(string $module, string $controller, array $alternative_routes = []): bool
     {
+        self::initialize();
+
         /**
          * Adding core module path
          */
@@ -53,15 +57,20 @@ class Dispatcher
     }
 
     /**
-     * Process modern application controller paths.
+     * Initializes all the utilities and libraries of the framework environment.
      *
-     * @param string $class
-     * @param string $route
-     * @param string $module
-     * @param string $controller
-     * @return bool
+     * @return void
+     * @throws DebugBarException
      */
-    private static function processFolder(string $class, string $route, string $module, string $controller): bool
+    private static function initialize()
+    {
+        self::initialize_constants();
+
+        Trans::initialize();
+        Debug::initialize();
+    }
+
+    private static function initialize_constants()
     {
         /**
          * Define BASE_PATH if it does not exist.
@@ -72,7 +81,19 @@ class Dispatcher
         Functions::defineIfNotDefined('APP_PATH', realpath(constant('ALX_PATH') . '/../../..'));
         Functions::defineIfNotDefined('BASE_PATH', constant('APP_PATH') . '/public');
         Functions::defineIfNotDefined('BASE_URL', Functions::getUrl());
+    }
 
+    /**
+     * Process modern application controller paths.
+     *
+     * @param string $class
+     * @param string $route
+     * @param string $module
+     * @param string $controller
+     * @return bool
+     */
+    private static function processFolder(string $class, string $route, string $module, string $controller): bool
+    {
         /**
          * Defines the full path ($realpath) to the modules folder ($route).
          */

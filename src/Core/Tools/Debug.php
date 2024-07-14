@@ -18,7 +18,6 @@
 
 namespace Alxarafe\Tools;
 
-use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\DebugBarCollector\PhpCollector;
 use Alxarafe\Tools\DebugBarCollector\TranslatorCollector;
 use DebugBar\DataCollector\DataCollectorInterface;
@@ -35,6 +34,7 @@ abstract class Debug
      * @var JavascriptRenderer
      */
     private static JavascriptRenderer $render;
+
     /**
      * DebugBar instance
      *
@@ -43,15 +43,28 @@ abstract class Debug
     private static StandardDebugBar $debugBar;
 
     /**
+     * Initializes the Debug
+     *
+     * @return bool
+     * @throws DebugBarException
+     */
+    public static function initialize()
+    {
+        if (isset(self::$debugBar)) {
+            return true;
+        }
+
+        return self::load();
+    }
+
+    /**
      * Gets the necessary calls to include the debug bar in the page header
      *
      * @return string
+     * @throws DebugBarException
      */
     public static function getRenderHeader(): string
     {
-        if (!isset(self::$debugBar)) {
-            static::load();
-        }
         $result = "\n<!-- getRenderHeader -->\n";
         if (!isset(self::$render)) {
             return $result . '<!-- self::$render is not defined -->';
@@ -66,15 +79,15 @@ abstract class Debug
      * @return bool
      * @throws DebugBarException
      */
-    public static function load(): bool
+    private static function load(): bool
     {
-        $shortName = 'Debug';
-
         self::$debugBar = new StandardDebugBar();
+
+        $shortName = 'Debug';
         self::startTimer($shortName, $shortName . ' DebugTool Constructor');
 
         self::addCollector(new PhpCollector());
-        self::addCollector(new TranslatorCollector(Trans::getInstance()));
+        self::addCollector(new TranslatorCollector());
 
         $baseUrl = constant('BASE_URL') . '/alxarafe/assets/debugbar';
         $basePath = realpath(constant('BASE_PATH') . '/..') . '/';
@@ -96,16 +109,20 @@ abstract class Debug
     public static function startTimer(string $name, string $message): void
     {
         if (!isset(self::$debugBar)) {
-            static::load();
+            return;
         }
         self::$debugBar['time']->startMeasure($name, $message);
     }
 
+    /**
+     * Add a new debugbar collector
+     *
+     * @param DataCollectorInterface $collector
+     * @return DebugBar
+     * @throws DebugBarException
+     */
     public static function addCollector(DataCollectorInterface $collector): DebugBar
     {
-        if (!isset(self::$debugBar)) {
-            static::load();
-        }
         return self::$debugBar->addCollector($collector);
     }
 
@@ -113,12 +130,11 @@ abstract class Debug
      * Return the internal debug instance for get the html code.
      *
      * @return StandardDebugBar|null
-     * @throws DebugBarException
      */
     public static function getDebugBar(): ?StandardDebugBar
     {
         if (!isset(self::$debugBar)) {
-            static::load();
+            return null;
         }
         return self::$debugBar;
     }
@@ -132,7 +148,7 @@ abstract class Debug
     public static function stopTimer(string $name): void
     {
         if (!isset(self::$debugBar)) {
-            static::load();
+            return;
         }
         self::$debugBar['time']->stopMeasure($name);
     }
@@ -145,9 +161,6 @@ abstract class Debug
      */
     public static function getRenderFooter(): string
     {
-        if (!isset(self::$debugBar)) {
-            static::load();
-        }
         $result = "\n<!-- getRenderFooter -->\n";
         if (!isset(self::$render)) {
             return $result . '<!-- self::$render is not defined -->';
@@ -159,23 +172,28 @@ abstract class Debug
     /**
      * Add an exception to the exceptions tab of the debug bar.
      *
-     * TODO: addException is deprecated!
-     *
      * @param $exception
      * @throws DebugBarException
      */
     public static function addException($exception): void
     {
-        if (constant('DEBUG') !== true) {
+        if (!isset(self::$debugBar)) {
             return;
         }
-        if (!isset(self::$debugBar)) {
-            static::load();
-        }
+        $caller = self::getCaller();
+        self::$debugBar['exceptions']->addThrowable($caller['file'] . ' (' . $caller['line'] . '): ' . $exception);
+    }
+
+    /**
+     * Locate last error
+     *
+     * @return array
+     */
+    private static function getCaller():array
+    {
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
-        $caller['file'] = substr($caller['file'], strlen(BASE_PATH) - 7);
-        self::$debugBar['exceptions']->addException($exception); // Use addThrowable instead!
-        // Logger::info('Exception: ' . $exception->getMessage());
+        $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')) - 7);
+        return $caller;
     }
 
     public static function message(string $message): void
@@ -188,11 +206,12 @@ abstract class Debug
      *
      * @param string $channel
      * @param string $message
+     * @throws DebugBarException
      */
     private static function addMessage(string $channel, string $message): void
     {
         if (!isset(self::$debugBar)) {
-            static::load();
+            return;
         }
 
         if (!isset(self::$debugBar[$channel])) {
@@ -200,16 +219,7 @@ abstract class Debug
             return;
         }
 
-//        if (!defined('DEBUG') || constant('DEBUG') !== true) {
-//            return;
-//        }
-        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
-        $caller['file'] = substr($caller['file'], strlen(BASE_PATH) - 7);
+        $caller = self::getCaller();
         self::$debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
-    }
-
-    public static function sqlMessage(string $message): void
-    {
-        self::addMessage('SQL', $message);
     }
 }
