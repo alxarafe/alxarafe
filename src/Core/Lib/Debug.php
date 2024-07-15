@@ -119,12 +119,12 @@ abstract class Debug
      * Add a new debugbar collector
      *
      * @param DataCollectorInterface $collector
-     * @return DebugBar
+     * @return DebugBar|null
      * @throws DebugBarException
      */
-    public static function addCollector(DataCollectorInterface $collector): DebugBar
+    public static function addCollector(DataCollectorInterface $collector): ?DebugBar
     {
-        return self::$debugBar->addCollector($collector);
+        return isset(self::$debugBar) ? self::$debugBar->addCollector($collector) : null;
     }
 
     /**
@@ -134,10 +134,7 @@ abstract class Debug
      */
     public static function getDebugBar(): ?StandardDebugBar
     {
-        if (!isset(self::$debugBar)) {
-            return null;
-        }
-        return self::$debugBar;
+        return self::$debugBar ?? null;
     }
 
     /**

@@ -175,9 +175,9 @@ trait ViewTrait
      * and view factory services. It ensures that the cache directory for compiled
      * Blade templates exists and is writable.
      *
-     * @return \Illuminate\Container\Container Configured service container for Blade rendering.
+     * @return Container|null Configured service container for Blade rendering.
      */
-    private function getContainer(): Container
+    private static function getContainer(): ?Container
     {
         $viewPaths = self::getViewPaths();
 

@@ -157,10 +157,10 @@ abstract class Trans
         $main_route = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src');
 
         $routes = [];
-        $routes[] =$main_route . '/Lang';
+        $routes[] = $main_route . '/Lang';
         if (isset($_GET['module'])) {
             $module = $_GET['module'];
-            $routes[]=$main_route . '/Modules/' . $module . '/Lang';
+            $routes[] = $main_route . '/Modules/' . $module . '/Lang';
         }
 
         self::$translator->addLoader('array', new ArrayLoader());
