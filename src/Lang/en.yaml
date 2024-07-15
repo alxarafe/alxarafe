@@ -1,2 +1,6 @@
+en: English
+es: Spanish
+en_US: English (USA)
+es_ES: Spanish (Spain)
 unknown_method: The method %method% does not exists!
-test_english_only: Not available in spanish
+test_english_only: Message only in english!

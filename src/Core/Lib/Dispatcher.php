@@ -16,10 +16,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Alxarafe\Tools;
+namespace Alxarafe\Lib;
 
-use Alxarafe\Lib\Functions;
-use Alxarafe\Lib\Trans;
 use DebugBar\DebugBarException;
 
 class Dispatcher
@@ -64,13 +62,13 @@ class Dispatcher
      */
     private static function initialize()
     {
-        self::initialize_constants();
+        self::initializeConstants();
 
         Trans::initialize();
         Debug::initialize();
     }
 
-    private static function initialize_constants()
+    private static function initializeConstants()
     {
         /**
          * Define BASE_PATH if it does not exist.

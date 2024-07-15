@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Tools\DebugBarCollector;
+namespace Alxarafe\Lib\DebugBarCollector;
 
 use Alxarafe\Lib\Trans;
 use DebugBar\DataCollector\AssetProvider;

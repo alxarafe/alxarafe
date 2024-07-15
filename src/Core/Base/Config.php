@@ -18,6 +18,9 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Lib\Debug;
+use Alxarafe\Lib\Trans;
+use DebugBar\DebugBarException;
 use Exception;
 use PDO;
 use stdClass;
@@ -35,7 +38,7 @@ abstract class Config
     /**
      * Defines the configuration file structure
      */
-    private const  CONFIG_STRUCTURE = [
+    public const  CONFIG_STRUCTURE = [
         'main' => [
             'path', // Path to the public folder (usually htdocs)
             'url',
@@ -57,6 +60,7 @@ abstract class Config
             'encrypt_type', // Pending review: Encryption type ('0' if none, '1' if DES and '2' if AES)
         ],
         'security' => [
+            'debug',
             'unique_id', // Unique identifier of the installation.
             'https', // If true, the use of https is forced (recommended)
         ]
@@ -95,9 +99,12 @@ abstract class Config
         } catch (Exception $e) {
             // Catch errors and return false if connection fails
             $message = $e->getMessage();
-            static::addNewMessage($message);
+            self::addNewMessage($message);
             error_log($message);
-            dump(Config::getMessages());
+            $errors = Config::getMessages();
+            foreach ($errors as $error) {
+                self::addNewMessage($error);
+            }
             return false;
         }
         return true;
@@ -112,6 +119,18 @@ abstract class Config
     private static function addNewMessage($message)
     {
         self::$messages[] = $message;
+    }
+
+    /**
+     * Returns an array with the messages accumulated since the last call.
+     *
+     * @return array
+     */
+    public static function getMessages()
+    {
+        $result = self::$messages;
+        self::$messages = [];
+        return $result;
     }
 
     /**
@@ -135,6 +154,7 @@ abstract class Config
      *
      * @param array $data
      * @return bool
+     * @throws DebugBarException
      */
     public static function setConfig(array $data): bool
     {
@@ -167,7 +187,48 @@ abstract class Config
         /**
          * Save the configuration in the configuration file.
          */
-        return self::saveConfig();
+        Trans::setLang(self::$config->main->language ?? Trans::FALLBACK_LANG);
+        $ok = self::saveConfig();
+        self::getConfig(true);
+        Debug::initialize(true);
+        return $ok;
+    }
+
+    /**
+     * Those configuration parameters that we can obtain at run time,
+     * or their default values, are obtained.
+     *
+     * @return stdClass
+     */
+    public static function getDefaultMainFileInfo(): stdClass
+    {
+        $result = new stdClass();
+        $result->path = constant('BASE_PATH');
+        $result->url = constant('BASE_URL');
+        return $result;
+    }
+
+    /**
+     * Updates the configuration file with the information it has in memory.
+     *
+     * @return bool
+     */
+    private static function saveConfig(): bool
+    {
+        if (empty(self::$config)) {
+            return true;
+        }
+        return file_put_contents(self::getConfigFilename(), json_encode(self::$config, JSON_PRETTY_PRINT)) !== false;
+    }
+
+    /**
+     * Returns the config.json complete path.
+     *
+     * @return string
+     */
+    private static function getConfigFilename(): string
+    {
+        return realpath(constant('BASE_PATH') . '/..') . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
     }
 
     /**
@@ -200,55 +261,6 @@ abstract class Config
             self::$config = $result;
         }
 
-        return $result;
-    }
-
-    /**
-     * Returns the config.json complete path.
-     *
-     * @return string
-     */
-    private static function getConfigFilename(): string
-    {
-        return realpath(constant('BASE_PATH') . '/..') . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
-    }
-
-    /**
-     * Those configuration parameters that we can obtain at run time,
-     * or their default values, are obtained.
-     *
-     * @return stdClass
-     */
-    public static function getDefaultMainFileInfo(): stdClass
-    {
-        $result = new stdClass();
-        $result->path = constant('BASE_PATH');
-        $result->url = constant('BASE_URL');
-        return $result;
-    }
-
-    /**
-     * Updates the configuration file with the information it has in memory.
-     *
-     * @return bool
-     */
-    private static function saveConfig(): bool
-    {
-        if (empty(self::$config)) {
-            return true;
-        }
-        return file_put_contents(self::getConfigFilename(), json_encode(self::$config, JSON_PRETTY_PRINT)) !== false;
-    }
-
-    /**
-     * Returns an array with the messages accumulated since the last call.
-     *
-     * @return array
-     */
-    public static function getMessages()
-    {
-        $result = self::$messages;
-        self::$messages = [];
         return $result;
     }
 }

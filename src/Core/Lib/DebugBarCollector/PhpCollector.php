@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Tools\DebugBarCollector;
+namespace Alxarafe\Lib\DebugBarCollector;
 
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
@@ -11,7 +11,7 @@ use DebugBar\DataCollector\Renderable;
  * This class collects all PHP errors, notice, advices, trigger_error, ...
  * Supports 15 different types included.
  *
- * @package Alxarafe\Tools\DebugBarCollector
+ * @package Alxarafe\Lib\DebugBarCollector
  */
 class PhpCollector extends DataCollector implements Renderable
 {

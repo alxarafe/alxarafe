@@ -1,2 +1,10 @@
 theme: Theme
 language: Language
+error_connecting_database: Error connecting to database %db%
+successful_connection_database: Successful connection to database %db%
+error_saving_settings: Error saving settings
+settings_saved_successfully: Settings saved successfully
+use_debugbar: Use debugbar
+check_db_connection: Check database connection
+save_configuration: Save configuration
+exit: Exit

@@ -38,6 +38,22 @@ class ConfigController extends ViewController
     public $data;
 
     /**
+     * Array with availables languages
+     *
+     * @var array
+     */
+    public $languages;
+    public $themes;
+
+    public function afterAction(): bool
+    {
+        $this->languages = Trans::getAvailableLanguages();
+        $this->themes = Functions::getThemes();
+
+        return parent::afterAction();
+    }
+
+    /**
      * Index action.
      *
      * @return bool
@@ -67,15 +83,21 @@ class ConfigController extends ViewController
      */
     private function getPost(): void
     {
+        $this->data = Config::getConfig();
         if (!isset($this->data)) {
             $this->data = new stdClass();
         }
-        foreach (Config::getConfig() as $section => $values) {
+
+        foreach (Config::CONFIG_STRUCTURE as $section => $values) {
             if (!isset($this->data->{$section})) {
                 $this->data->{$section} = new stdClass();
             }
-            foreach ($values as $variable => $value) {
-                $this->data->{$section}->{$variable} = Functions::getIfIsset($variable, $value);
+            foreach ($values as $variable) {
+                $value = Functions::getIfIsset($variable, $this->data->{$section}->{$variable} ?? null);
+                if (!isset($value)) {
+                    continue;
+                }
+                $this->data->{$section}->{$variable} = $value;
             }
         }
     }
@@ -133,7 +155,7 @@ class ConfigController extends ViewController
             static::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
             return true;
         }
-        static::addMessage(Trans::_('successful-connection-database', ['db' => $this->data->db->name]));
+        static::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
         return true;
     }
 
@@ -145,6 +167,7 @@ class ConfigController extends ViewController
     public function doSave(): bool
     {
         $this->getPost();
+        $this->template = 'page/config';
 
         /**
          * Converts the stdClass to an array
@@ -152,17 +175,23 @@ class ConfigController extends ViewController
         $data = json_decode(json_encode($this->data), true);
 
         $result = config::setConfig($data);
+
         if (!$result) {
-            $this->template = 'page/config';
-            static::addError(Trans::_('error-saving-settings'));
+            static::addError(Trans::_('error_saving_settings'));
             return false;
         }
 
+        static::addMessage(Trans::_('settings_saved_successfully'));
+        return true;
+    }
+
+    public function doExit()
+    {
         /**
          * TODO: Loads public page
          */
         $this->template = 'page/public';
-        static::addMessage(Trans::_('settings-saved-successfully'));
+        static::addMessage(Trans::_('settings_saved_successfully'));
         return true;
     }
 }

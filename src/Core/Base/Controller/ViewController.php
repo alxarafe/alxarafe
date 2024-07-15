@@ -20,8 +20,8 @@ namespace Alxarafe\Base\Controller;
 
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\ViewTrait;
+use Alxarafe\Lib\Debug;
 use Alxarafe\Lib\Trans;
-use Alxarafe\Tools\Debug;
 
 /**
  * Class ViewController. The views controller adds support for views to the generic controller.
@@ -34,6 +34,14 @@ abstract class ViewController extends GenericController
 
     public $config = null;
     public $debug = true;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->config = Config::getConfig();
+
+        Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
+    }
 
     public function getRenderHeader(): string
     {
@@ -49,13 +57,5 @@ abstract class ViewController extends GenericController
             return "\n<!-- getRenderFooter is disabled -->\n";
         }
         return Debug::getRenderFooter();
-    }
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->config = Config::getConfig();
-
-        Trans::setLang($this->config->main->language);
     }
 }

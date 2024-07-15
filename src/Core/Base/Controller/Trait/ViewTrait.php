@@ -138,7 +138,47 @@ trait ViewTrait
 
         $this->alerts = self::getMessages();
 
-        $vars = ['me' => $this];
+        $container = self::getContainer();
+
+        $viewFactory = $container['view'];
+
+        echo $viewFactory->make($this->template, ['me' => $this])->render();
+    }
+
+    /**
+     * Generates an array with the messages to be displayed, indicating the
+     * type (message, advice or error) and the text to be displayed.
+     *
+     * @return array
+     */
+    private static function getMessages(): array
+    {
+        $alerts = [];
+        foreach (self::$messages as $message) {
+            foreach ($message as $type => $text) {
+                $alerts[] = [
+                    'type' => $type,
+                    'text' => $text
+                ];
+            }
+        }
+        self::$messages = [];
+        return $alerts;
+    }
+
+    /**
+     * Set up and return a service container configured for Blade template rendering.
+     *
+     * This function initializes and configures an Illuminate\Container\Container instance
+     * with the necessary services and dependencies required for Blade templating.
+     * It sets up the file system, view finder, Blade compiler, view engine resolver,
+     * and view factory services. It ensures that the cache directory for compiled
+     * Blade templates exists and is writable.
+     *
+     * @return \Illuminate\Container\Container Configured service container for Blade rendering.
+     */
+    private function getContainer(): Container
+    {
         $viewPaths = self::getViewPaths();
 
         $cachePaths = realpath(constant('BASE_PATH') . '/..') . '/tmp/blade';
@@ -179,30 +219,7 @@ trait ViewTrait
             return new Factory($resolver, $finder, $dispatcher);
         });
 
-        $viewFactory = $container['view'];
-
-        echo $viewFactory->make($this->template, $vars)->render();
-    }
-
-    /**
-     * Generates an array with the messages to be displayed, indicating the
-     * type (message, advice or error) and the text to be displayed.
-     *
-     * @return array
-     */
-    private static function getMessages(): array
-    {
-        $alerts = [];
-        foreach (self::$messages as $message) {
-            foreach ($message as $type => $text) {
-                $alerts[] = [
-                    'type' => $type,
-                    'text' => $text
-                ];
-            }
-        }
-        self::$messages = [];
-        return $alerts;
+        return $container;
     }
 
     /**

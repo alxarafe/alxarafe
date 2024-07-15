@@ -89,4 +89,22 @@ abstract class Functions
         }
         return trim($_attributes);
     }
+
+    public static function getThemes()
+    {
+        $result = [];
+        $pattern = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/Templates/theme');
+        if ($pattern === false) {
+            return $result;
+        }
+        $files = glob($pattern . '/*');
+        foreach ($files as $file) {
+            $theme = substr($file, 1 + strlen($pattern));
+            if (in_array($theme, ['.', '..'])) {
+                continue;
+            }
+            $result[$theme] = $theme;
+        }
+        return $result;
+    }
 }

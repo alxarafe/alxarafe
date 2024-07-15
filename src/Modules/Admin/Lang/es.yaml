@@ -1,2 +1,10 @@
 theme: Tema
 language: Idioma
+error_connecting_database: Error al conectar con la base de datos %db%
+successful_connection_database: Conexión satisfactoria con la base de datos %db%
+error_saving_settings: Error al guardar la configuración
+settings_saved_successfully: Configuración guardada correctamente
+use_debugbar: Activar la barra de depuración
+check_db_connection: Comprobar conexión con base de datos
+save_configuration: Guardar la configuración
+exit: Salir

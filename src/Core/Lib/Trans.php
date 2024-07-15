@@ -18,10 +18,8 @@
 
 namespace Alxarafe\Lib;
 
-use Alxarafe\Tools\Debug;
-use DebugBar\DebugBar;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\Yaml\Yaml;
 
 abstract class Trans
@@ -45,31 +43,20 @@ abstract class Trans
     private static $missingStringsDebug;
 
     /**
-     * Initializes the translator.
+     * Gets a list of available languages
      *
-     * @return bool
+     * @return array
      */
-    public static function initialize()
+    public static function getAvailableLanguages()
     {
-        if (isset(self::$translator)) {
-            return true;
+        $pattern = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src/Lang');
+        $files = glob($pattern . '/*.yaml');
+        $result = [];
+        foreach ($files as $file) {
+            $lang = substr($file, 1 + strlen($pattern), -5);
+            $result[$lang] = self::_($lang);
         }
-
-        self::$translator = new Translator(self::FALLBACK_LANG);
-        return isset(self::$translator);
-    }
-
-    public static function getMissingStrings()
-    {
-        self::$missingStringsDebug = [];
-        $locale = self::$translator->getLocale();
-        foreach (self::$missingStrings as $name => $value) {
-            if ($value['lang'] === $locale) {
-                continue;
-            }
-            self::$missingStringsDebug[$name] = '(' . $value['lang'] . ') ' . $value['text'];
-        }
-        return self::$missingStringsDebug;
+        return $result;
     }
 
     /**
@@ -101,26 +88,90 @@ abstract class Trans
         return self::$translator->trans($message, $params, null, $locale);
     }
 
+    /**
+     * Return a text in the selected language.
+     * Call directly to extra short function _
+     *
+     * @param $message
+     * @param array $parameters
+     * @param $locale
+     * @return mixed
+     */
+    public static function trans($message, array $parameters = [], $locale = null)
+    {
+        return self::_($message, $parameters, $locale);
+    }
+
+    /**
+     * Initializes the translator.
+     *
+     * @return bool
+     */
+    public static function initialize()
+    {
+        if (isset(self::$translator)) {
+            return true;
+        }
+
+        self::$translator = new Translator(self::FALLBACK_LANG);
+        return isset(self::$translator);
+    }
+
+    /**
+     * Returns an array with the strings that are not found in your language.
+     * Keep in mind that those that do exist in your main language also appear
+     * (e.g. it may be in "en", but not in "en_US").
+     * Generally, for extended languages, such as "en_US", only texts that
+     * change from "en" should be included.
+     *
+     * @return array
+     */
+    public static function getMissingStrings(): array
+    {
+        self::$missingStringsDebug = [];
+        $locale = self::$translator->getLocale();
+        foreach (self::$missingStrings as $name => $value) {
+            if ($value['lang'] === $locale) {
+                continue;
+            }
+            self::$missingStringsDebug[$name] = '(' . $value['lang'] . ') ' . $value['text'];
+        }
+        return self::$missingStringsDebug;
+    }
+
+    /**
+     * Loads core and module lang files
+     *
+     * @param $lang
+     * @return void
+     */
+    public static function setLang($lang)
+    {
+        self::$translations = [];
+        self::$translator->setLocale($lang);
+        self::getTranslations($lang);
+    }
+
     private static function getTranslations($lang)
     {
-        if (empty(self::$translations)) {
+        $main_route = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src');
+
+        $routes = [];
+        $routes[] =$main_route . '/Lang';
+        if (isset($_GET['module'])) {
             $module = $_GET['module'];
-            $main_route = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src');
-            $routes = [
-                $main_route . '/Lang',
-                $main_route . '/Modules/' . $module . '/Lang',
-            ];
-
-            self::$translator->addLoader('array', new ArrayLoader());
-            foreach ($routes as $route) {
-                if ($lang !== self::FALLBACK_LANG) {
-                    self::loadLang(self::FALLBACK_LANG, $route);
-                }
-                self::loadLang($lang, $route);
-            }
-
-            self::$translator->addResource('array', self::$translations, $lang);
+            $routes[]=$main_route . '/Modules/' . $module . '/Lang';
         }
+
+        self::$translator->addLoader('array', new ArrayLoader());
+        foreach ($routes as $route) {
+            if ($lang !== self::FALLBACK_LANG) {
+                self::loadLang(self::FALLBACK_LANG, $route);
+            }
+            self::loadLang($lang, $route);
+        }
+
+        self::$translator->addResource('array', self::$translations, $lang);
     }
 
     /**
@@ -154,31 +205,5 @@ abstract class Trans
                 'text' => $translate
             ];
         }
-    }
-
-    /**
-     * Return a text in the selected language.
-     * Call directly to extra short function _
-     *
-     * @param $message
-     * @param array $parameters
-     * @param $locale
-     * @return mixed
-     */
-    public static function trans($message, array $parameters = [], $locale = null)
-    {
-        return self::_($message, $parameters, $locale);
-    }
-
-    /**
-     * Loads core and module lang files
-     *
-     * @param $lang
-     * @return void
-     */
-    public static function setLang($lang)
-    {
-        self::$translator->setLocale($lang);
-        self::getTranslations($lang);
     }
 }

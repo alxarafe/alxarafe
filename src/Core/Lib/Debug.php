@@ -16,10 +16,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Alxarafe\Tools;
+namespace Alxarafe\Lib;
 
-use Alxarafe\Tools\DebugBarCollector\PhpCollector;
-use Alxarafe\Tools\DebugBarCollector\TranslatorCollector;
+use Alxarafe\Base\Config;
+use Alxarafe\Lib\DebugBarCollector\PhpCollector;
+use Alxarafe\Lib\DebugBarCollector\TranslatorCollector;
 use DebugBar\DataCollector\DataCollectorInterface;
 use DebugBar\DebugBar;
 use DebugBar\DebugBarException;
@@ -29,18 +30,25 @@ use DebugBar\StandardDebugBar;
 abstract class Debug
 {
     /**
+     * True if debugbar is enabled.
+     *
+     * @var bool
+     */
+    private static bool $enabled;
+
+    /**
      * Private render instance
      *
-     * @var JavascriptRenderer
+     * @var JavascriptRenderer|null
      */
-    private static JavascriptRenderer $render;
+    private static JavascriptRenderer|null $render;
 
     /**
      * DebugBar instance
      *
-     * @var StandardDebugBar
+     * @var StandardDebugBar|null
      */
-    private static StandardDebugBar $debugBar;
+    private static StandardDebugBar|null $debugBar;
 
     /**
      * Initializes the Debug
@@ -48,29 +56,13 @@ abstract class Debug
      * @return bool
      * @throws DebugBarException
      */
-    public static function initialize()
+    public static function initialize(bool $reload = false)
     {
-        if (isset(self::$debugBar)) {
+        if (!$reload && isset(self::$debugBar)) {
             return true;
         }
 
         return self::load();
-    }
-
-    /**
-     * Gets the necessary calls to include the debug bar in the page header
-     *
-     * @return string
-     * @throws DebugBarException
-     */
-    public static function getRenderHeader(): string
-    {
-        $result = "\n<!-- getRenderHeader -->\n";
-        if (!isset(self::$render)) {
-            return $result . '<!-- self::$render is not defined -->';
-        }
-
-        return $result . self::$render->renderHead();
     }
 
     /**
@@ -81,6 +73,15 @@ abstract class Debug
      */
     private static function load(): bool
     {
+        self::$debugBar = null;
+        self::$render = null;
+
+        $config = Config::getConfig();
+        self::$enabled = $config->security->debug ?? false;
+        if (!self::$enabled) {
+            return false;
+        }
+
         self::$debugBar = new StandardDebugBar();
 
         $shortName = 'Debug';
@@ -154,6 +155,22 @@ abstract class Debug
     }
 
     /**
+     * Gets the necessary calls to include the debug bar in the page header
+     *
+     * @return string
+     * @throws DebugBarException
+     */
+    public static function getRenderHeader(): string
+    {
+        $result = "\n<!-- getRenderHeader -->\n";
+        if (!isset(self::$render)) {
+            return $result . '<!-- self::$render is not defined -->';
+        }
+
+        return $result . self::$render->renderHead();
+    }
+
+    /**
      * Gets the necessary calls to include the debug bar in the page footer
      *
      * @return string
@@ -189,7 +206,7 @@ abstract class Debug
      *
      * @return array
      */
-    private static function getCaller():array
+    private static function getCaller(): array
     {
         $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[0];
         $caller['file'] = substr($caller['file'], strlen(constant('BASE_PATH')) - 7);

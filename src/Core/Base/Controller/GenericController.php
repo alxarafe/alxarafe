@@ -18,10 +18,9 @@
 
 namespace Alxarafe\Base\Controller;
 
+use Alxarafe\Lib\Debug;
 use Alxarafe\Lib\Trans;
-use Alxarafe\Tools\Debug;
 use Illuminate\Support\Str;
-use stdClass;
 
 /**
  * Class GenericController. The generic controller contains what is necessary for any controller
