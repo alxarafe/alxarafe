@@ -27,7 +27,7 @@ abstract class Auth
     private const COOKIE_EXPIRE_TIME = 30 * 86400; // 30 days
     private const COOKIE_SAMESITE = 'Strict';
 
-    public static ?string $user = null;
+    public static ?User $user = null;
 
     public static function isLogged(): bool
     {
@@ -75,11 +75,15 @@ abstract class Auth
 
     public static function setLoginCookie($userId): void
     {
+        $user = User::find($userId);
+        self::$user = User::find($userId);
+
         $token = self::generateToken();
 
         if (!isset(self::$user)) {
             self::$user = User::find($userId);
         }
+
         if (isset(self::$user)) {
             self::$user->saveToken($token);
         }

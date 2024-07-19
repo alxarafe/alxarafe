@@ -92,7 +92,7 @@ abstract class GenericController
 
         return [
             'base' => static::MENU,
-            'options'=>static::SIDEBAR_MENU,
+            'options' => static::SIDEBAR_MENU,
         ];
     }
 
@@ -167,5 +167,4 @@ abstract class GenericController
     {
         return true;
     }
-
 }

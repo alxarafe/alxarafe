@@ -1,7 +1,10 @@
-<!-- Begin side-nav id-left -->
-<div class="side-nav">
-    <div id="id-left">
-        <!-- Begin left menu -->
-        <!-- End left menu -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <?php renderSideMenu($sideMenu); ?>
+        </div>
+        <div class="col-9">
+            <!-- Contenido principal -->
+        </div>
     </div>
-</div> <!-- End side-nav id-left -->
+</div>

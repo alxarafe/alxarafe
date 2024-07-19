@@ -20,12 +20,18 @@ namespace Alxarafe\Tools;
 
 abstract class ModuleManager
 {
+    /**
+     * Regenerate menus and actions.
+     * This is temporary, everything will be cached by user or role.
+     *
+     * @return void
+     */
     public static function regenerate()
     {
         dump([
             'acciones' => self::getActions(),
-            'menú refactorizado' => self::buildMultiLevelMenu(self::getMenu()),
-            'menú lateral' => self::buildMultiLevelMenu(self::getSidebarMenu())
+            'menú refactorizado' => self::getArrayMenu(),
+            'menú lateral' => self::getArraySidebarMenu()
         ]);
     }
 
@@ -148,6 +154,18 @@ abstract class ModuleManager
     }
 
     /**
+     * Regenerate the top menu.
+     * This is temporary.
+     * The menus to be displayed will be cached by user or role.
+     *
+     * @return array|mixed
+     */
+    public static function getArrayMenu()
+    {
+        return self::buildMultiLevelMenu(self::getMenu());
+    }
+
+    /**
      * Converts an array where the index is a menu path with the
      * hierarchy separated by pipelines, to a nested array.
      *
@@ -230,6 +248,18 @@ abstract class ModuleManager
         return 'index.php?module=' . $module . '&controller=' . $controller;
     }
 
+    /**
+     * Regenerate the sidebar menu.
+     * This is temporary.
+     * The menus to be displayed will be cached by user or role.
+     *
+     * @return array|mixed
+     */
+    public static function getArraySidebarMenu()
+    {
+        return self::buildMultiLevelMenu(self::getSidebarMenu());
+    }
+
     private static function getSidebarMenu()
     {
         $result = [];
@@ -248,5 +278,4 @@ abstract class ModuleManager
         }
         return $result;
     }
-
 }
