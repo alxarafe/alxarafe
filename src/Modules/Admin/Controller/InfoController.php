@@ -22,6 +22,7 @@ use Alxarafe\Base\Controller\Controller;
 
 class InfoController extends Controller
 {
+    const MENU = 'admin|info';
 
     public function doIndex(): bool
     {

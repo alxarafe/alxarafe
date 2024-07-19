@@ -18,8 +18,8 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Lib\Debug;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Tools\Debug;
 use DebugBar\DebugBarException;
 use Exception;
 use PDO;

@@ -22,6 +22,7 @@ use Alxarafe\Base\Controller\PublicController as BasePublicController;
 
 class PublicController extends BasePublicController
 {
+    const MENU = 'public|public';
 
     public function doIndex(): bool
     {

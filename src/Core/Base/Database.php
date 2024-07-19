@@ -18,7 +18,7 @@
 
 namespace Alxarafe\Base;
 
-use Alxarafe\Lib\Debug;
+use Alxarafe\Tools\Debug;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DebugBarException;
 use Illuminate\Database\Capsule\Manager as CapsuleManager;

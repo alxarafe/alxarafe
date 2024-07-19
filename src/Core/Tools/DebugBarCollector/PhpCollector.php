@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Lib\DebugBarCollector;
+namespace Alxarafe\Tools\DebugBarCollector;
 
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;

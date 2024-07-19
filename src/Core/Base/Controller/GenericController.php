@@ -18,8 +18,8 @@
 
 namespace Alxarafe\Base\Controller;
 
-use Alxarafe\Lib\Debug;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Tools\Debug;
 use Illuminate\Support\Str;
 
 /**
@@ -76,6 +76,46 @@ abstract class GenericController
         return $url;
     }
 
+    public static function getMenu()
+    {
+        if (!defined('static::MENU')) {
+            return false;
+        }
+        return static::MENU;
+    }
+
+    public static function getSidebarMenu()
+    {
+        if (!defined('static::MENU') || !defined('static::SIDEBAR_MENU')) {
+            return false;
+        }
+
+        return [
+            'base' => static::MENU,
+            'options'=>static::SIDEBAR_MENU,
+        ];
+    }
+
+    /**
+     * Returns an array with the controller actions.
+     *
+     * @return array
+     */
+    public static function getActions(): array
+    {
+        $actions = [];
+
+        $methods = get_class_methods(static::class);
+        foreach ($methods as $method) {
+            if (!str_starts_with($method, 'do')) {
+                continue;
+            }
+            $actions[static::class][] = lcfirst(substr($method, 2));
+        }
+
+        return $actions;
+    }
+
     /**
      * Execute the selected action, returning true if successful.
      *
@@ -106,7 +146,6 @@ abstract class GenericController
         return $this->beforeAction() && $this->$actionMethod() && $this->afterAction();
     }
 
-
     /**
      * You can include code here that is common to call all controller actions.
      * If you need to do something, override this method.
@@ -118,7 +157,6 @@ abstract class GenericController
         return true;
     }
 
-
     /**
      * You can include code here common to calling all controller actions, which will be executed after the action.
      * If you need to do something, override this method.
@@ -129,4 +167,5 @@ abstract class GenericController
     {
         return true;
     }
+
 }

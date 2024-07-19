@@ -23,6 +23,7 @@ use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Tools\ModuleManager;
 use stdClass;
 
 /**
@@ -30,6 +31,14 @@ use stdClass;
  */
 class ConfigController extends ViewController
 {
+    const MENU = 'admin|config';
+    const SIDEBAR_MENU = [
+        ['option' => 'admin|auth|logout', 'url' => 'index.php?module=Admin&controller=Auth&method=logout'],
+        ['option' => 'general', 'url' => 'index.php?module=Admin&controller=Config&method=general'],
+        ['option' => 'appearance', 'url' => 'index.php?module=Admin&controller=Config&method=appearance'],
+        ['option' => 'security', 'url' => 'index.php?module=Admin&controller=Config&method=security']
+    ];
+
     /**
      * Configuration file information
      *
@@ -47,6 +56,8 @@ class ConfigController extends ViewController
 
     public function afterAction(): bool
     {
+        $this->template = 'page/config';
+
         $this->languages = Trans::getAvailableLanguages();
         $this->themes = Functions::getThemes();
 
@@ -66,7 +77,6 @@ class ConfigController extends ViewController
          */
         $restricted_access = false;
 
-        $this->template = 'page/config';
         if (isset($this->config) && $restricted_access) {
             $this->template = 'page/forbidden';
         }
@@ -143,8 +153,6 @@ class ConfigController extends ViewController
      */
     public function doCheckConnection(): bool
     {
-        $this->template = 'page/config';
-
         $this->getPost();
         $ok = Config::checkDatabaseConnection($this->data->db);
         if (!$ok) {
@@ -167,7 +175,6 @@ class ConfigController extends ViewController
     public function doSave(): bool
     {
         $this->getPost();
-        $this->template = 'page/config';
 
         /**
          * Converts the stdClass to an array
@@ -192,6 +199,12 @@ class ConfigController extends ViewController
          */
         $this->template = 'page/public';
         static::addMessage(Trans::_('settings_saved_successfully'));
+        return true;
+    }
+
+    public function doRegenerate()
+    {
+        ModuleManager::regenerate();
         return true;
     }
 }

@@ -27,6 +27,13 @@ use Alxarafe\Model\User;
 
 class AuthController extends ViewController
 {
+    const MENU = 'admin|auth';
+    const SIDEBAR_MENU = [
+        ['option' => 'admin|auth|login', 'url' => 'index.php?module=Admin&controller=Auth&method=login'],
+        ['option' => 'admin|auth|register', 'url' => 'index.php?module=Admin&controller=Auth&method=register'],
+        ['option' => 'admin|auth|forgot_password', 'url' => 'index.php?module=Admin&controller=Auth&method=forgotPassword']
+    ];
+
     use DbTrait;
 
     public $username;

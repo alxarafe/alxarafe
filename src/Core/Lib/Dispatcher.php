@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Lib;
 
+use Alxarafe\Tools\Debug;
 use DebugBar\DebugBarException;
 
 class Dispatcher
@@ -28,12 +29,13 @@ class Dispatcher
      *
      * @param string $module
      * @param string $controller
+     * @param string $method
      * @param array $alternative_routes
      *
      * @return bool
      * @throws DebugBarException
      */
-    public static function run(string $module, string $controller, array $alternative_routes = []): bool
+    public static function run(string $module, string $controller, string $method, array $alternative_routes = []): bool
     {
         self::initialize();
 
@@ -45,12 +47,12 @@ class Dispatcher
         ]);
         $controller .= 'Controller';
         foreach ($routes as $class => $route) {
-            if (static::processFolder($class, $route, $module, $controller)) {
-                Debug::message("Dispatcher::process(): Ok");
+            if (static::processFolder($class, $route, $module, $controller, $method)) {
+                Debug::message("Dispatcher::process($module:$controller:$method): Ok");
                 return true;
             }
         }
-        Debug::message("Dispatcher::fail(): $module:$controller.");
+        Debug::message("Dispatcher::fail(): $module:$controller:$method.");
         return false;
     }
 
@@ -88,9 +90,10 @@ class Dispatcher
      * @param string $route
      * @param string $module
      * @param string $controller
+     * @param string $method
      * @return bool
      */
-    private static function processFolder(string $class, string $route, string $module, string $controller): bool
+    private static function processFolder(string $class, string $route, string $module, string $controller, string $method): bool
     {
         /**
          * Defines the full path ($realpath) to the modules folder ($route).
@@ -132,10 +135,15 @@ class Dispatcher
             $controller->setTemplatesPath($templates_path);
         }
 
+        if (!method_exists($controller, $method)) {
+            Debug::message('Method ' . $method . ' not found in controller ' . $className);
+            $method = 'index';
+        }
+
         /**
          * Runs the index method to launch the controller.
          */
-        $controller->index();
+        $controller->{$method}();
 
         return true;
     }

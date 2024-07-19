@@ -16,11 +16,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Alxarafe\Lib;
+namespace Alxarafe\Tools;
 
 use Alxarafe\Base\Config;
-use Alxarafe\Lib\DebugBarCollector\PhpCollector;
-use Alxarafe\Lib\DebugBarCollector\TranslatorCollector;
+use Alxarafe\Tools\DebugBarCollector\PhpCollector;
+use Alxarafe\Tools\DebugBarCollector\TranslatorCollector;
 use DebugBar\DataCollector\DataCollectorInterface;
 use DebugBar\DebugBar;
 use DebugBar\DebugBarException;

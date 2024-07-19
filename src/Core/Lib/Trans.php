@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Lib;
 
+use Alxarafe\Tools\Debug;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Yaml\Yaml;

@@ -44,6 +44,9 @@
                 @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'save'])
                     {!! $me->_('save_configuration') !!}
                 @endcomponent
+                @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'regenerate', 'class'=>'warning'])
+                    {!! $me->_('regenerate') !!}
+                @endcomponent
                 @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'exit', 'class' => 'danger'])
                     {!! $me->_('exit') !!}
                 @endcomponent
