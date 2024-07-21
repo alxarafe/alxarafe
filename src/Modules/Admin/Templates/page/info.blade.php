@@ -1,4 +1,4 @@
-@extends('partial.layout.main', ['empty' => true])
+@extends('partial.layout.main')
 
 @section('content')
     @component('component.card', ['title' => 'Private page', 'name' => 'private'])

@@ -20,6 +20,7 @@ namespace Alxarafe\Base\Controller;
 
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
+use Alxarafe\Tools\ModuleManager;
 use Illuminate\Support\Str;
 
 /**
@@ -36,6 +37,9 @@ abstract class GenericController
      */
     public ?string $action;
 
+    public array $top_menu = [];
+    public array $sidebar_menu = [];
+
     /**
      * GenericController constructor.
      */
@@ -48,6 +52,14 @@ abstract class GenericController
         if ($this->action === null) {
             $this->action = 'index';
         }
+
+        $this->top_menu = ModuleManager::getArrayMenu();
+
+        $this->sidebar_menu = ModuleManager::getArraySidebarMenu();
+
+        // Debe de tomar el sidebar_menu que se corresponda con la página cargada.
+
+        // $this->sidebar_menu = $sidebar_menu['prueba']['ejemplo'] ?? [];
     }
 
     /**

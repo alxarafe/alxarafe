@@ -1,4 +1,4 @@
-@extends('partial.layout.main', ['empty' => true])
+@extends('partial.layout.main')
 
 @section('content')
     @component('form.form', [])
