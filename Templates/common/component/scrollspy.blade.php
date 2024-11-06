@@ -1,7 +1,7 @@
 <!-- Templates/common/component/scrollspy.blade.php -->
 {{--
 
-@link: https://getbootstrap.com/docs/5.0/components/scrollspy/
+@link: https://getbootstrap.com/docs/5.2/components/scrollspy/
 
 --}}
 

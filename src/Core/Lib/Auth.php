@@ -60,6 +60,7 @@ abstract class Auth
     public static function login(string $username, string $password): bool
     {
         $user = User::where('name', $username)->first();
+
         if (!isset($user)) {
             return false;
         }

@@ -1,7 +1,7 @@
 <!-- Templates/common/component/progress.blade.php -->
 {{--
 
-@link: https://getbootstrap.com/docs/5.0/components/progress/
+@link: https://getbootstrap.com/docs/5.2/components/progress/
 
 --}}
 

@@ -13,7 +13,7 @@ USE:
         <p>This is the card body content with <strong>HTML</strong> support.</p>
     @endslot
 
-@link: https://getbootstrap.com/docs/5.0/components/card/
+@link: https://getbootstrap.com/docs/5.2/components/card/
 
 Parameters:
     title is optional

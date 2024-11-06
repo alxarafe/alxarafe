@@ -92,19 +92,37 @@ abstract class Functions
 
     public static function getThemes()
     {
-        $result = [];
-        $pattern = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/Templates/theme');
-        if ($pattern === false) {
-            return $result;
-        }
-        $files = glob($pattern . '/*');
-        foreach ($files as $file) {
-            $theme = substr($file, 1 + strlen($pattern));
-            if (in_array($theme, ['.', '..'])) {
+        $routes = [
+            '/Templates/theme',
+            '/vendor/rsanjoseo/alxarafe/Templates/theme',
+        ];
+        return Functions::getFirstNonEmptyDirectory($routes, '');
+    }
+
+    /**
+     * Gets the list of files that match a pattern, at the first path in the array
+     * where the matching files exist.
+     *
+     * @param $pathArray
+     * @param $pattern
+     * @return string[]
+     */
+    public static function getFirstNonEmptyDirectory($pathArray, $pattern): array
+    {
+        foreach ($pathArray as $path) {
+            $realPath = realpath(constant('BASE_PATH') . '/..' . $path);
+            if ($realPath === false || !is_dir($realPath)) {
                 continue;
             }
-            $result[$theme] = $theme;
+            $files = glob($realPath . '/*' . $pattern);
+            if (!empty($files)) {
+                $result = [];
+                foreach ($files as $file) {
+                    $result[$file] = basename($file, $pattern);
+                }
+                return $result;
+            }
         }
-        return $result;
+        return [];
     }
 }

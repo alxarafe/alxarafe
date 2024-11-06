@@ -18,6 +18,8 @@
 
 namespace Alxarafe\Base\Controller;
 
+use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Dispatcher;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
 use Alxarafe\Tools\ModuleManager;
@@ -54,12 +56,8 @@ abstract class GenericController
         }
 
         $this->top_menu = ModuleManager::getArrayMenu();
-
         $this->sidebar_menu = ModuleManager::getArraySidebarMenu();
-
-        // Debe de tomar el sidebar_menu que se corresponda con la página cargada.
-
-        // $this->sidebar_menu = $sidebar_menu['prueba']['ejemplo'] ?? [];
+        dump([$this->top_menu, $this->sidebar_menu]);
     }
 
     /**
@@ -77,8 +75,8 @@ abstract class GenericController
         }
 
         $url .=
-            '?module=' . filter_input(INPUT_GET, 'module') .
-            '&controller=' . filter_input(INPUT_GET, 'controller');
+            '?' . Dispatcher::MODULE . '=' . filter_input(INPUT_GET, Dispatcher::MODULE) .
+            '&' . Dispatcher::CONTROLLER . '=' . filter_input(INPUT_GET, Dispatcher::CONTROLLER);
 
         $action = filter_input(INPUT_GET, 'action');
         if ($action) {

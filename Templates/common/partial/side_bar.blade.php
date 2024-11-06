@@ -1,6 +1,5 @@
 <!-- Start sidebar menu -->
 @if(!empty($me->sidebar_menu))
-    @dump(['sidebar_menu'=>$me->sidebar_menu])
     <div class="sidebar">
         @foreach ($me->sidebar_menu as $key => $subMenu)
             <h6 class="px-3 mt-3">{{ ucfirst($key) }}</h6>

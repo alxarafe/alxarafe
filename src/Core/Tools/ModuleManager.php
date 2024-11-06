@@ -116,6 +116,9 @@ abstract class ModuleManager
     private static function getModuleControllers(string $namespace, string $path): array
     {
         $result = [];
+        if (!is_dir($path)) {
+            return [];
+        }
         $directories = scandir($path);
         foreach ($directories as $directory) {
             if ($directory === '.' || $directory === '..' || !is_dir($path . '/' . $directory)) {

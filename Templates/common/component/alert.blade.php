@@ -1,7 +1,7 @@
 <!-- Templates/common/component/alert.blade.php -->
 {{--
 
-@link: https://getbootstrap.com/docs/5.0/components/alerts/
+@link: https://getbootstrap.com/docs/5.2/components/alerts/
 
 --}}
 

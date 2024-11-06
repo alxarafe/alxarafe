@@ -3,3 +3,4 @@ es: Español
 en_US: Inglés (EEUU)
 es_ES: Español (España)
 unknown_method: ¡No se ha encontrado el método '%method%'!
+test_english_only: ¡Prueba con mensajes sólo en inglés!

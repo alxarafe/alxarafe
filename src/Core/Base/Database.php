@@ -57,6 +57,6 @@ class Database extends CapsuleManager
 
         $pdo = $this->getConnection()->getPdo();
         $debugBar = Debug::getDebugBar();
-        $debugBar->addCollector(new PDOCollector($pdo));
+        $debugBar?->addCollector(new PDOCollector($pdo));
     }
 }

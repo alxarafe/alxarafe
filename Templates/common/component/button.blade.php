@@ -3,7 +3,7 @@
 USE:
     @include('component.button', ['type' => 'submit', 'class' => 'success', 'spacing' => 'mx-1', 'name' => 'action', 'value' => 'save', 'slot' => 'Save the record', 'attributes' => ['disabled']])
 
-@link: https://getbootstrap.com/docs/5.0/components/buttons/
+@link: https://getbootstrap.com/docs/5.2/components/buttons/
 
 Parameters:
     type is optional (default "button")

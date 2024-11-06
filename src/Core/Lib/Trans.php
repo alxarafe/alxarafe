@@ -50,11 +50,12 @@ abstract class Trans
      */
     public static function getAvailableLanguages()
     {
-        $pattern = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src/Lang');
-        $files = glob($pattern . '/*.yaml');
+        $routes = [
+            '/Lang',
+            '/vendor/rsanjoseo/alxarafe/src/Lang'
+        ];
         $result = [];
-        foreach ($files as $file) {
-            $lang = substr($file, 1 + strlen($pattern), -5);
+        foreach (Functions::getFirstNonEmptyDirectory($routes, '.yaml') as $lang) {
             $result[$lang] = self::_($lang);
         }
         return $result;
@@ -155,17 +156,25 @@ abstract class Trans
 
     private static function getTranslations($lang)
     {
-        $main_route = realpath(constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src');
+        $app_route = constant('BASE_PATH') . '/..';
+        $main_route = constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src';
 
         $routes = [];
-        $routes[] = $main_route . '/Lang';
-        if (isset($_GET['module'])) {
-            $module = $_GET['module'];
-            $routes[] = $main_route . '/Modules/' . $module . '/Lang';
+        $routes[] = $app_route;
+        $routes[] = $main_route;
+        if (isset($_GET[Dispatcher::MODULE])) {
+            $module = $_GET[Dispatcher::MODULE];
+            $routes[] = $app_route . '/Modules/' . $module;
+            $routes[] = $main_route . '/Modules/' . $module;
         }
 
         self::$translator->addLoader('array', new ArrayLoader());
         foreach ($routes as $route) {
+            $route .= '/Lang';
+            $route = realpath($route);
+            if ($route === false || !file_exists($route)) {
+                continue;
+            }
             if ($lang !== self::FALLBACK_LANG) {
                 self::loadLang(self::FALLBACK_LANG, $route);
             }

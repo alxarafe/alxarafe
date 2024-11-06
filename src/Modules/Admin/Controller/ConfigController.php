@@ -181,9 +181,7 @@ class ConfigController extends ViewController
          */
         $data = json_decode(json_encode($this->data), true);
 
-        $result = config::setConfig($data);
-
-        if (!$result) {
+        if (!config::setConfig($data)) {
             static::addError(Trans::_('error_saving_settings'));
             return false;
         }
@@ -198,7 +196,6 @@ class ConfigController extends ViewController
          * TODO: Loads public page
          */
         $this->template = 'page/public';
-        static::addMessage(Trans::_('settings_saved_successfully'));
         return true;
     }
 

@@ -1,7 +1,7 @@
 <!-- Templates/common/component/collapse.blade.php -->
 {{--
 
-@link: https://getbootstrap.com/docs/5.0/components/collapse/
+@link: https://getbootstrap.com/docs/5.2/components/collapse/
 
 --}}
 

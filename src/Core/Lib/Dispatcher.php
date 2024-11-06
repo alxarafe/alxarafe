@@ -24,6 +24,16 @@ use DebugBar\DebugBarException;
 class Dispatcher
 {
     /**
+     * Get variable containing the name of the module to which the controller to be executed belongs.
+     */
+    public const MODULE = 'module';
+
+    /**
+     * Get variable containing the name of the controller to execute.
+     */
+    public const CONTROLLER = 'controller';
+
+    /**
      * Run the controller for the indicated module, if it exists.
      * Returns true if it can be executed.
      *
@@ -35,7 +45,7 @@ class Dispatcher
      * @return bool
      * @throws DebugBarException
      */
-    public static function run(string $module, string $controller, string $method, array $alternative_routes = []): bool
+    public static function run(string $module, string $controller, string $method = 'index', array $alternative_routes = []): bool
     {
         self::initialize();
 
@@ -43,6 +53,7 @@ class Dispatcher
          * Adding core module path
          */
         $routes = array_merge($alternative_routes, [
+            'Modules' => 'Modules/',
             'CoreModules' => 'vendor/rsanjoseo/alxarafe/src/Modules/',
         ]);
         $controller .= 'Controller';
@@ -93,7 +104,7 @@ class Dispatcher
      * @param string $method
      * @return bool
      */
-    private static function processFolder(string $class, string $route, string $module, string $controller, string $method): bool
+    private static function processFolder(string $class, string $route, string $module, string $controller, string $method = 'index'): bool
     {
         /**
          * Defines the full path ($realpath) to the modules folder ($route).
@@ -119,6 +130,8 @@ class Dispatcher
         if (!file_exists($filename)) {
             return false;
         }
+
+        require_once $filename;
 
         $controller = new $className();
         if ($controller === null) {

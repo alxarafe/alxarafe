@@ -1,8 +1,7 @@
 <!-- Templates/common/layout/container.blade.php -->
 {{--
 USE:
-    @component('layout.container', [
-        'fluid' => true,
+    @component('layout.div', [
         'class' => 'custom-container-class',
         'attributes' => ['style' => 'padding: 1rem;']
     ])
@@ -14,11 +13,12 @@ USE:
         @endslot
     @endcomponent
 
-@link: https://getbootstrap.com/docs/5.0/layout/containers/
+@link: https://getbootstrap.com/docs/5.2/layout/containers/
+@link: https://getbootstrap.com/docs/5.2/layout/grid/
+@link: https://getbootstrap.com/docs/5.2/layout/columns/
 
 Parameters:
-    fluid is optional (default false)
-    class is optional (default "container" or "container-fluid" if fluid is true)
+    class is optional (default "container")
     attributes is optional (additional HTML attributes for the container)
 --}}
 
@@ -26,9 +26,6 @@ Parameters:
     use Alxarafe\Lib\Functions;
 
     $_class = $class ?? 'container';
-    if ($fluid ?? false) {
-        $_class .= '-fluid';
-    }
     $_attributes = Functions::htmlAttributes($attributes ?? []);
 
     $_id = '';
