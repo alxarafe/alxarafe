@@ -63,6 +63,7 @@ abstract class Config
             'debug',
             'unique_id', // Unique identifier of the installation.
             'https', // If true, the use of https is forced (recommended)
+            'jwt_secret_key',
         ]
     ];
 
@@ -152,11 +153,11 @@ abstract class Config
     /**
      * Add the configuration parameters received in $data in the configuration file.
      *
-     * @param array $data
+     * @param stdClass $data
      * @return bool
      * @throws DebugBarException
      */
-    public static function setConfig(array $data): bool
+    public static function setConfig(stdClass $data): bool
     {
         /**
          * If the configuration file is empty, we add the parameters
@@ -169,18 +170,18 @@ abstract class Config
 
         foreach (self::CONFIG_STRUCTURE as $section => $values) {
             foreach ($values as $key) {
-                if (!isset($data[$section])) {
+                if (!isset($data->$section)) {
                     error_log($section . ' is not defined!');
                     continue;
                 }
-                if (!isset($data[$section][$key])) {
+                if (!isset($data->$section->$key)) {
                     error_log($key . ' is not defined in ' . $section . '!');
                     continue;
                 }
-                if (!isset(self::$config->{$section})) {
-                    self::$config->{$section} = new stdClass();
+                if (!isset(self::$config->$section)) {
+                    self::$config->$section = new stdClass();
                 }
-                self::$config->{$section}->{$key} = $data[$section][$key];
+                self::$config->$section->$key = $data->$section->$key;
             }
         }
 

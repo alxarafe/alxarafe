@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Model;
+namespace CoreModules\Admin\Model;
 
 use Alxarafe\Base\Model\Model;
 use Illuminate\Database\Capsule\Manager as DB;

@@ -18,7 +18,7 @@
 
 namespace Alxarafe\Lib;
 
-use Alxarafe\Model\User;
+use CoreModules\Admin\Model\User;
 
 abstract class Auth
 {

@@ -24,6 +24,7 @@ use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\ModuleManager;
+use DebugBar\DebugBarException;
 use stdClass;
 
 /**
@@ -171,17 +172,13 @@ class ConfigController extends ViewController
      * Save action.
      *
      * @return bool
+     * @throws DebugBarException
      */
     public function doSave(): bool
     {
         $this->getPost();
 
-        /**
-         * Converts the stdClass to an array
-         */
-        $data = json_decode(json_encode($this->data), true);
-
-        if (!config::setConfig($data)) {
+        if (!config::setConfig($this->data)) {
             static::addError(Trans::_('error_saving_settings'));
             return false;
         }

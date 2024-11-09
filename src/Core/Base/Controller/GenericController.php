@@ -57,7 +57,7 @@ abstract class GenericController
 
         $this->top_menu = ModuleManager::getArrayMenu();
         $this->sidebar_menu = ModuleManager::getArraySidebarMenu();
-        dump([$this->top_menu, $this->sidebar_menu]);
+        //dump([$this->top_menu, $this->sidebar_menu]);
     }
 
     /**

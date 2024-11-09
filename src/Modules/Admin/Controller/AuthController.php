@@ -23,7 +23,7 @@ use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Base\Database;
 use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Trans;
-use Alxarafe\Model\User;
+use CoreModules\Admin\Model\User;
 
 class AuthController extends ViewController
 {
