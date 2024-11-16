@@ -18,10 +18,9 @@
 
 namespace Alxarafe\Base\Controller;
 
-use Alxarafe\Lib\Auth;
-use Alxarafe\Lib\Dispatcher;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
+use Alxarafe\Tools\Dispatcher;
 use Alxarafe\Tools\ModuleManager;
 use Illuminate\Support\Str;
 

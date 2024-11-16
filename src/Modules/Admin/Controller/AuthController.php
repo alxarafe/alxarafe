@@ -50,14 +50,6 @@ class AuthController extends ViewController
         }
 
         $this->db = new Database($this->config->db);
-
-        if (!User::exists()) {
-            User::createTable();
-        }
-
-        if (User::count() === 0) {
-            User::createAdmin();
-        }
     }
 
     public function doIndex()

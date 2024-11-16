@@ -10,6 +10,7 @@ db_type: Type
 db_host: Host
 db_user: User
 db_password: Password
+db_create: Create database if not exists
 db_name: Database name
 db_port: Database port
 error_connecting_database: Error connecting to database %db%

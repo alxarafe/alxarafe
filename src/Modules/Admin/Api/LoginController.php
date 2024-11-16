@@ -19,6 +19,7 @@
 namespace CoreModules\Admin\Api;
 
 use Alxarafe\Base\Controller\ApiController;
+use CoreModules\Admin\Model\User;
 use DebugBar\DebugBarException;
 use Firebase\JWT\JWT;
 use Luracast\Restler\RestException;
@@ -27,14 +28,18 @@ class LoginController extends ApiController
 {
     /**
      * @url POST /login
-     * @throws DebugBarException
      * @throws RestException
      */
     public function __construct()
     {
+        parent::__construct();
+
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
         $secret_key = static::getSecurityKey();
+
+        $user = User::where('username', $username)->first();
+        dd($user);
 
         if ($username == 'rsanjose' && $password == 'xxx') {
             $token = [
@@ -44,7 +49,7 @@ class LoginController extends ApiController
                     'username' => $username
                 ]
             ];
-            return ['token' => JWT::encode($token, $secret_key, 'HS256')];
+            self::jsonResponse(['token' => JWT::encode($token, $secret_key, 'HS256')]);
         } else {
             throw new RestException(401, "Credenciales inválidas");
         }

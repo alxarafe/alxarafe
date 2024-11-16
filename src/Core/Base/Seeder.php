@@ -16,34 +16,40 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Alxarafe\Base\Controller\Trait;
+namespace Alxarafe\Base;
 
-use Alxarafe\Base\Database;
-use stdClass;
+use Alxarafe\Base\Model\Model;
 
 /**
- * Trait for use in controllers that use databases
+ * Create a PDO database connection
+ *
+ * @package Alxarafe\Base
  */
-trait DbTrait
+abstract class Seeder
 {
-    /**
-     * Instance of Database
-     *
-     * @var Database|null
-     */
-    public $db = null;
+    public function __construct($truncate = false)
+    {
+        $model = static::model();
+
+        if ($truncate) {
+            $model::truncate();
+        }
+
+        if ($model::count() === 0) {
+            $this->run($model);
+        }
+    }
 
     /**
-     * Connect to the specified database
-     *
-     * @param stdClass|null $db
-     * @return bool
+     * Returns the name of the seeder table.
      */
-    public static function connectDb(stdClass|null $db = null): bool
-    {
-        if ($db === null || !Database::checkDatabaseConnection($db)) {
-            return false;
-        }
-        return true;
-    }
+    abstract protected static function model();
+
+    /**
+     * Execute the seeder
+     *
+     * @param string $model
+     * @return mixed
+     */
+    abstract protected function run(string $model): void;
 }

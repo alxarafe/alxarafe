@@ -19,9 +19,10 @@
 namespace Alxarafe\Base\Controller;
 
 use Alxarafe\Base\Config;
+use Alxarafe\Base\Controller\Trait\DbTrait;
+use Alxarafe\Base\Database;
 use CoreModules\Admin\Model\User;
-use Firebase\JWT\JWT;
-use Luracast\Restler\RestException;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class ApiController. The generic API controller contains what is necessary for any API controller
@@ -30,8 +31,52 @@ use Luracast\Restler\RestException;
  */
 abstract class ApiController
 {
-    private static $security_key=null;
+    use DbTrait;
 
+    /**
+     * Contains the identified user
+     *
+     * @var User|null
+     */
+    public static ?User $user = null;
+    /**
+     * Contains the JWT security key
+     *
+     * @var string|null
+     */
+    private static ?string $security_key = null;
+
+    public function __construct()
+    {
+        $config = Config::getConfig();
+        if (!isset($config->db) || !static::connectDb($config->db)) {
+            header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Config');
+        }
+
+        $this->db = new Database($config->db);
+    }
+
+    /**
+     * Returns a successful API response and ends the execution of the application.
+     *
+     * @param $response
+     * @param $httpCode
+     * @return void
+     */
+    final public static function jsonResponse($response, $httpCode = 200)
+    {
+        http_response_code($httpCode);
+        header('Content-Type: application/json');
+        die(json_encode($response));
+    }
+
+    /**
+     * Return the JWT security Key
+     *
+     * @return string|null
+     * @throws \DebugBar\DebugBarException
+     * @throws \Random\RandomException
+     */
     protected static function getSecurityKey()
     {
         if (self::$security_key !== null) {
@@ -50,12 +95,17 @@ abstract class ApiController
         return self::$security_key;
     }
 
-    public static function badApiCall()
+    /**
+     * Returns an erroneous API response and ends the execution of the call
+     *
+     * @param $response
+     * @param $httpCode
+     * @return void
+     */
+    final public static function badApiCall($response = 'Bad API call', $httpCode = 400)
     {
-
-    }
-
-    public static function jsonResponse($response, $httpCode = 200) {
-
+        http_response_code($httpCode);
+        header('Content-Type: application/json');
+        die(json_encode($response));
     }
 }

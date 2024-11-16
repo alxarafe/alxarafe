@@ -18,11 +18,11 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Lib\Routes;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
+use CoreModules\Admin\Model\Migration;
 use DebugBar\DebugBarException;
-use Exception;
-use PDO;
 use stdClass;
 
 /**
@@ -75,52 +75,6 @@ abstract class Config
     private static ?stdClass $config = null;
 
     private static array $messages = [];
-
-    /**
-     * Checks if the connection to the database is possible with the parameters
-     * defined in the configuration file.
-     *
-     * @param $data
-     * @return bool
-     */
-    public static function checkDatabaseConnection($data): bool
-    {
-        $dsn = "$data->type:host=$data->host;dbname=$data->name;charset=$data->charset";
-        try {
-            $options = [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ];
-
-            $pdo = new PDO($dsn, $data->user, $data->pass, $options);
-
-            // Run a simple query to verify the connection
-            $pdo->query('SELECT 1');
-        } catch (Exception $e) {
-            // Catch errors and return false if connection fails
-            $message = $e->getMessage();
-            self::addNewMessage($message);
-            error_log($message);
-            $errors = Config::getMessages();
-            foreach ($errors as $error) {
-                self::addNewMessage($error);
-            }
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Adds a new message that will then be returned by getMessages.
-     *
-     * @param $message
-     * @return void
-     */
-    private static function addNewMessage($message)
-    {
-        self::$messages[] = $message;
-    }
 
     /**
      * Returns an array with the messages accumulated since the last call.
@@ -230,6 +184,72 @@ abstract class Config
     private static function getConfigFilename(): string
     {
         return realpath(constant('BASE_PATH') . '/..') . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+    }
+
+    public static function runMigrations(): void
+    {
+        $routes = Routes::getAllRoutes();
+        if (empty($routes['Migrations'])) {
+            return;
+        }
+
+        $migrations = $routes['Migrations'];
+
+        $result = [];
+        foreach ($migrations as $module => $data) {
+            foreach ($data as $filename => $migration) {
+                $route_array = explode('|', $migration);
+                $filepath = $route_array[1];
+
+                $result[$filename . '@' . $module] = $filepath;
+            }
+        }
+        ksort($result);
+
+        $batch = 1 + Migration::getLastBatch();
+        foreach ($result as $filename => $filepath) {
+            if (Migration::where(['migration' => $filename])->first()) {
+                continue;
+            }
+
+            $migration = require_once $filepath;
+            $migration->up();
+            Migration::create([
+                'migration' => $filename,
+                'batch' => $batch,
+            ]);
+        }
+    }
+
+    public static function runSeeders()
+    {
+        $routes = Routes::getAllRoutes();
+        if (empty($routes['Seeders'])) {
+            return;
+        }
+
+        $seeders = $routes['Seeders'];
+
+        $result = [];
+        foreach ($seeders as $data) {
+            foreach ($data as $seeder) {
+                $route_array = explode('|', $seeder);
+                $classname = $route_array[0];
+                new $classname();
+            }
+        }
+
+    }
+
+    /**
+     * Adds a new message that will then be returned by getMessages.
+     *
+     * @param $message
+     * @return void
+     */
+    private static function addNewMessage($message)
+    {
+        self::$messages[] = $message;
     }
 
     /**

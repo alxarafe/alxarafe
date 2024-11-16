@@ -22,6 +22,7 @@ use Alxarafe\Tools\Debug;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DebugBarException;
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
+use PDO;
 
 /**
  * Create a PDO database connection
@@ -55,8 +56,85 @@ class Database extends CapsuleManager
         $this->setAsGlobal();
         $this->bootEloquent();
 
-        $pdo = $this->getConnection()->getPdo();
         $debugBar = Debug::getDebugBar();
+        if ($debugBar->hasCollector('pdo')) {
+            return;
+        }
+
+        $pdo = $this->getConnection()->getPdo();
         $debugBar?->addCollector(new PDOCollector($pdo));
+    }
+
+    /**
+     * Checks if the connection to the database is possible with the parameters
+     * defined in the configuration file.
+     *
+     * @param $data
+     * @param bool $create
+     * @return bool
+     */
+    public static function checkDatabaseConnection($data, $create = false): bool
+    {
+        if (!static::checkIfDatabaseExists($data)) {
+            if (!$create) {
+                return false;
+            }
+            if (!static::createDatabaseIfNotExists($data)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static function checkIfDatabaseExists(\stdClass $data): bool
+    {
+        if (!static::checkConnection($data)) {
+            return false;
+        }
+
+        $dsn = "$data->type:host=$data->host;dbname=$data->name;charset=$data->charset";
+        try {
+            new PDO($dsn, $data->user, $data->pass);
+            return true;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Checks if there is a connection to the database engine.
+     *
+     * @param $data
+     * @return bool
+     */
+    public static function checkConnection(\stdClass $data): bool
+    {
+        $dsn = "$data->type:host=$data->host";
+        try {
+            new PDO($dsn, $data->user, $data->pass);
+            return true;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public static function createDatabaseIfNotExists(\stdClass $data): bool
+    {
+        if (static::checkIfDatabaseExists($data)) {
+            return true;
+        }
+
+        $dsn = "$data->type:host=$data->host";
+        try {
+            $pdo = new PDO($dsn, $data->user, $data->pass);
+            $pdo->exec('CREATE DATABASE ' . $data->name);
+            return true;
+        } catch (\PDOException $e) {
+            error_log($e->getMessage());
+            dump($e->getMessage());
+            return false;
+        }
     }
 }

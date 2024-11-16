@@ -16,34 +16,25 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Alxarafe\Base\Controller\Trait;
+namespace Alxarafe\Tools\Dispatcher;
 
-use Alxarafe\Base\Database;
-use stdClass;
-
-/**
- * Trait for use in controllers that use databases
- */
-trait DbTrait
+abstract class Dispatcher
 {
     /**
-     * Instance of Database
-     *
-     * @var Database|null
+     * Get variable containing the name of the module to which the controller to be executed belongs.
      */
-    public $db = null;
+    public const MODULE = 'module';
 
     /**
-     * Connect to the specified database
-     *
-     * @param stdClass|null $db
-     * @return bool
+     * Get variable containing the name of the controller to execute.
      */
-    public static function connectDb(stdClass|null $db = null): bool
-    {
-        if ($db === null || !Database::checkDatabaseConnection($db)) {
-            return false;
-        }
-        return true;
-    }
+    public const CONTROLLER = 'controller';
+
+    /**
+     * Get variable containing the name of the method to execute.
+     * Not normally used. The action is executed automatically from the index method.
+     */
+    private const METHOD = 'method';
+
+    abstract static protected function dieWithMessage($message);
 }

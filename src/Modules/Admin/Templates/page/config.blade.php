@@ -31,6 +31,7 @@
                                     @include('form.input', ['type' => 'text', 'name' => 'host', 'label' => $me->_('db_host'), 'value' => $me->data->db->host ?? 'localhost'])
                                     @include('form.input', ['type' => 'text', 'name' => 'user', 'label' => $me->_('db_user'), 'value' => $me->data->db->user ?? ''])
                                     @include('form.input', ['type' => 'password', 'name' => 'pass', 'label' => $me->_('db_password'), 'value' => $me->data->db->pass ?? ''])
+                                    @include('form.checkbox', ['name' => 'db_create', 'label' => $me::_('db_create'), 'value' => $me->db_create ?? false])
                                     @include('form.input', ['type' => 'text', 'name' => 'name', 'label' => $me->_('db_name'), 'value' => $me->data->db->name ?? 'alxarafe'])
                                     @include('form.input', ['type' => 'number', 'name' => 'port', 'label' => $me->_('db_port'), 'value' => $me->data->db->port ?? 0])
                                 @endslot

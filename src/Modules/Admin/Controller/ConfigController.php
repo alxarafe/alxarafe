@@ -20,7 +20,9 @@ namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\ViewController;
+use Alxarafe\Base\Database;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\DB;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\ModuleManager;
@@ -54,6 +56,8 @@ class ConfigController extends ViewController
      */
     public $languages;
     public $themes;
+
+    public $db_create;
 
     public function afterAction(): bool
     {
@@ -111,6 +115,8 @@ class ConfigController extends ViewController
                 $this->data->{$section}->{$variable} = $value;
             }
         }
+
+        $this->db_create = filter_input(INPUT_POST, 'db_create');
     }
 
     /**
@@ -151,11 +157,12 @@ class ConfigController extends ViewController
      * CheckConnection action.
      *
      * @return bool
+     * @throws DebugBarException
      */
     public function doCheckConnection(): bool
     {
         $this->getPost();
-        $ok = Config::checkDatabaseConnection($this->data->db);
+        $ok = Database::checkDatabaseConnection($this->data->db, $this->db_create);
         if (!$ok) {
             $messages = Config::getMessages();
             foreach ($messages as $message) {
@@ -165,6 +172,12 @@ class ConfigController extends ViewController
             return true;
         }
         static::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
+
+        new Database($this->data->db);
+
+        Config::runMigrations();
+        Config::runSeeders();
+
         return true;
     }
 

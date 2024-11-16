@@ -32,13 +32,6 @@ abstract class Controller extends ViewController
     use DbTrait;
 
     /**
-     * Instance of Database
-     *
-     * @var Database|null
-     */
-    public $db = null;
-
-    /**
      * Name of the user
      *
      * @var string

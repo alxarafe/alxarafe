@@ -54,9 +54,8 @@ abstract class Routes
                     $class_only_name = basename($filename, $suffix . '.php');
                     $class_name = "$class\\$module\\$class_type\\$class_only_name$suffix";
 
-                    $routes[$module][$class_only_name] = $class_name.'|'.$filename;
+                    $routes[$module][$class_only_name] = $class_name . '|' . $filename;
                 }
-
             }
         }
 
@@ -73,6 +72,8 @@ abstract class Routes
             'Controller' => 'Controller',
             'Api' => 'Controller',
             'Model' => '',
+            'Migrations' => '',
+            'Seeders' => '',
         ];
 
         foreach ($routes as $class_type => $suffix) {
@@ -81,6 +82,4 @@ abstract class Routes
 
         return static::$routes;
     }
-
-
 }

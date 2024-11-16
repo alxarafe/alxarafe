@@ -22,9 +22,6 @@ use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\ViewTrait;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionMethod;
 
 /**
  * Class ViewController. The views controller adds support for views to the generic controller.
