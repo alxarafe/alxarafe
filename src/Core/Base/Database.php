@@ -57,7 +57,7 @@ class Database extends CapsuleManager
         $this->bootEloquent();
 
         $debugBar = Debug::getDebugBar();
-        if ($debugBar->hasCollector('pdo')) {
+        if (!isset($debugBar) || $debugBar->hasCollector('pdo')) {
             return;
         }
 

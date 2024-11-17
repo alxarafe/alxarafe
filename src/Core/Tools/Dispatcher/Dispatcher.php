@@ -36,5 +36,5 @@ abstract class Dispatcher
      */
     private const METHOD = 'method';
 
-    abstract static protected function dieWithMessage($message);
+    abstract protected static function dieWithMessage($message);
 }

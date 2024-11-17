@@ -19,8 +19,9 @@
 namespace CoreModules\Admin\Api;
 
 use Alxarafe\Base\Controller\ApiController;
+use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Trans;
 use CoreModules\Admin\Model\User;
-use DebugBar\DebugBarException;
 use Firebase\JWT\JWT;
 use Luracast\Restler\RestException;
 
@@ -36,22 +37,24 @@ class LoginController extends ApiController
 
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
-        $secret_key = static::getSecurityKey();
-
-        $user = User::where('username', $username)->first();
-        dd($user);
-
-        if ($username == 'rsanjose' && $password == 'xxx') {
-            $token = [
-                'iat' => time(),
-                'exp' => time() + (60 * 60),
-                'data' => [
-                    'username' => $username
-                ]
-            ];
-            self::jsonResponse(['token' => JWT::encode($token, $secret_key, 'HS256')]);
-        } else {
-            throw new RestException(401, "Credenciales inválidas");
+        $secret_key = Auth::getSecurityKey();
+        if ($secret_key === null) {
+            self::badApiCall(Trans::_('bad_secret_key'), 401);
         }
+
+        $user = User::where('name', $username)->first();
+        if ($user === null || !sodium_crypto_pwhash_str_verify($user->password, $password)) {
+            self::badApiCall(Trans::_('bad_api_call'), 401);
+        }
+
+        $payload = [
+            'iat' => time(),
+            'exp' => time() + (60 * 60),
+            'data' => [
+                'user' => $username
+            ]
+        ];
+
+        self::jsonResponse(JWT::encode($payload, $secret_key, 'HS256'), 200, 'token');
     }
 }

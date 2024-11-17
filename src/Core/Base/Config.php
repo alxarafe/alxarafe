@@ -186,16 +186,25 @@ abstract class Config
         return realpath(constant('BASE_PATH') . '/..') . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
     }
 
-    public static function runMigrations(): void
+    /**
+     * Obtains an associative array with all migrations. The index is the name of the
+     * migration and the name of the module separated by an @ sign, which ensures that
+     * the migration is registered as executed; and the value is the relative path of
+     * the file containing the migration.
+     *
+     * @return array
+     */
+    private static function getMigrations(): array
     {
+        $result = [];
+
         $routes = Routes::getAllRoutes();
         if (empty($routes['Migrations'])) {
-            return;
+            return $result;
         }
 
         $migrations = $routes['Migrations'];
 
-        $result = [];
         foreach ($migrations as $module => $data) {
             foreach ($data as $filename => $migration) {
                 $route_array = explode('|', $migration);
@@ -205,6 +214,20 @@ abstract class Config
             }
         }
         ksort($result);
+
+        return $result;
+    }
+
+    /**
+     * Runs pending migrations in alphabetical order.
+     * By default, migration names are preceded by the date in Japanese format,
+     * which ensures chronological execution.
+     *
+     * @return void
+     */
+    public static function runMigrations(): void
+    {
+        $result = static::getMigrations();
 
         $batch = 1 + Migration::getLastBatch();
         foreach ($result as $filename => $filepath) {
@@ -238,7 +261,6 @@ abstract class Config
                 new $classname();
             }
         }
-
     }
 
     /**

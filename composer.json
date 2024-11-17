@@ -35,7 +35,8 @@
     "symfony/translation": "^6.4",
     "symfony/var-dumper": "^6.4",
     "symfony/yaml": "^6.4",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "paragonie/sodium_compat": "^2.1"
   },
   "autoload": {
     "psr-4": {

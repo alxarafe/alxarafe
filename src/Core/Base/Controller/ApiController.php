@@ -21,8 +21,12 @@ namespace Alxarafe\Base\Controller;
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Base\Database;
+use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Trans;
 use CoreModules\Admin\Model\User;
-use Psr\Container\ContainerInterface;
+use Exception;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 /**
  * Class ApiController. The generic API controller contains what is necessary for any API controller
@@ -39,12 +43,6 @@ abstract class ApiController
      * @var User|null
      */
     public static ?User $user = null;
-    /**
-     * Contains the JWT security key
-     *
-     * @var string|null
-     */
-    private static ?string $security_key = null;
 
     public function __construct()
     {
@@ -54,45 +52,22 @@ abstract class ApiController
         }
 
         $this->db = new Database($config->db);
+
+        if (isset($_REQUEST['token'])) {
+            $this->checkToken();
+        }
     }
 
-    /**
-     * Returns a successful API response and ends the execution of the application.
-     *
-     * @param $response
-     * @param $httpCode
-     * @return void
-     */
-    final public static function jsonResponse($response, $httpCode = 200)
+    public function checkToken()
     {
-        http_response_code($httpCode);
-        header('Content-Type: application/json');
-        die(json_encode($response));
-    }
-
-    /**
-     * Return the JWT security Key
-     *
-     * @return string|null
-     * @throws \DebugBar\DebugBarException
-     * @throws \Random\RandomException
-     */
-    protected static function getSecurityKey()
-    {
-        if (self::$security_key !== null) {
-            return self::$security_key;
+        $jwt = $_REQUEST['token'];
+        $secret_key = Auth::getSecurityKey();
+        try {
+            $decoded = JWT::decode($jwt, new Key($secret_key, 'HS256'));
+            print_r($decoded);
+        } catch (Exception $e) {
+            self::badApiCall(Trans::_('bad_secret_key'), 401);
         }
-
-        $config = Config::getConfig();
-        if (!isset($config->security->jwt_secret_key)) {
-            $config->security->jwt_secret_key = bin2hex(random_bytes(20));
-            if (!Config::setConfig($config)) {
-                static::badApiCall();
-            }
-        }
-
-        self::$security_key = $config->security->jwt_secret_key;
-        return self::$security_key;
     }
 
     /**
@@ -104,8 +79,53 @@ abstract class ApiController
      */
     final public static function badApiCall($response = 'Bad API call', $httpCode = 400)
     {
+        $result = [
+            'ok' => false,
+            'status' => $httpCode,
+            'message' => $response,
+        ];
+
         http_response_code($httpCode);
         header('Content-Type: application/json');
-        die(json_encode($response));
+        die(json_encode(static::debugEnabled($result)));
+    }
+
+    /**
+     * Return true if debug is enabled in config
+     *
+     * @return array
+     */
+    private static function debugEnabled($info): array
+    {
+        $config = Config::getConfig();
+        $debug = $config->security->debug ?? false;
+
+        if (!$debug) {
+            return $info;
+        }
+
+        return array_merge($info, [
+            'debug' => debug_backtrace(),
+        ]);
+    }
+
+    /**
+     * Returns a successful API response and ends the execution of the application.
+     *
+     * @param $response
+     * @param $httpCode
+     * @return void
+     */
+    final public static function jsonResponse($response, $httpCode = 200, $result_message = 'result')
+    {
+        $result = [
+            'ok' => true,
+            'status' => $httpCode,
+            $result_message => $response,
+        ];
+
+        http_response_code($httpCode);
+        header('Content-Type: application/json');
+        die(json_encode(static::debugEnabled($result)));
     }
 }

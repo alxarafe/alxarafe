@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Lib;
 
+use Alxarafe\Base\Config;
 use CoreModules\Admin\Model\User;
 
 abstract class Auth
@@ -26,6 +27,13 @@ abstract class Auth
     private const COOKIE_USER = self::COOKIE_NAME . '_user';
     private const COOKIE_EXPIRE_TIME = 30 * 86400; // 30 days
     private const COOKIE_SAMESITE = 'Strict';
+
+    /**
+     * Contains the JWT security key
+     *
+     * @var string|null
+     */
+    private static ?string $security_key = null;
 
     public static ?User $user = null;
 
@@ -112,5 +120,30 @@ abstract class Auth
         // Erase old cookies.
         setcookie(self::COOKIE_USER, '', time() - 60);
         setcookie(self::COOKIE_NAME, '', time() - 60);
+    }
+
+    /**
+     * Return the JWT security Key
+     *
+     * @return string|null
+     * @throws \DebugBar\DebugBarException
+     * @throws \Random\RandomException
+     */
+    public static function getSecurityKey()
+    {
+        if (self::$security_key !== null) {
+            return self::$security_key;
+        }
+
+        $config = Config::getConfig();
+        if (!isset($config->security->jwt_secret_key)) {
+            $config->security->jwt_secret_key = bin2hex(random_bytes(20));
+            if (!Config::setConfig($config)) {
+                return null;
+            }
+        }
+
+        self::$security_key = $config->security->jwt_secret_key;
+        return self::$security_key;
     }
 }

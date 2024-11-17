@@ -27,7 +27,7 @@ class WebDispatcher extends Dispatcher
 {
     protected static function dieWithMessage($message)
     {
-        Debug::message('WebDispatcher error: '.$message);
+        Debug::message('WebDispatcher error: ' . $message);
         new Error404Controller();
         die();
     }
