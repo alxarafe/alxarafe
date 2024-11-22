@@ -20,11 +20,11 @@
     "vendor-dir": "vendor",
     "process-timeout": 0,
     "platform": {
-      "php": "8.1"
+      "php": "8.2"
     }
   },
   "require": {
-    "php": ">=8.1.0",
+    "php": ">=8.2",
     "firebase/php-jwt": "^6.10",
     "illuminate/database": "^10.48",
     "illuminate/events": "^10.48",

@@ -2,12 +2,9 @@
 
 namespace CoreModules\Admin\Seeders;
 
-use Alxarafe\Base\Controller\ApiController;
+use Alxarafe\Base\Model\Model;
 use Alxarafe\Base\Seeder;
-use Alxarafe\Lib\Auth;
 use CoreModules\Admin\Model\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +12,7 @@ class UserSeeder extends Seeder
      * Returns the name of the seeder table.
      */
 
-    protected static function model()
+    protected static function model(): Model
     {
         return new User();
     }
@@ -38,7 +35,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@mycompany.com',
             'password' => $hashedPassword,
-            'is_admin' => 1,
+            'is_admin' => true,
         ]);
 
         $model::create([

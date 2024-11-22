@@ -19,10 +19,11 @@
 namespace Alxarafe\Base\Controller\Trait;
 
 use Alxarafe\Base\Database;
+use DebugBar\DebugBarException;
 use stdClass;
 
 /**
- * Trait for use in controllers that use databases
+ * Trait for controllers using databases.
  */
 trait DbTrait
 {
@@ -31,19 +32,26 @@ trait DbTrait
      *
      * @var Database|null
      */
-    public $db = null;
+    public static ?Database $db = null;
 
     /**
-     * Connect to the specified database
+     * Connect to the specified database.
      *
      * @param stdClass|null $db
      * @return bool
+     * @throws DebugBarException
      */
     public static function connectDb(stdClass|null $db = null): bool
     {
-        if ($db === null || !Database::checkDatabaseConnection($db)) {
+        if (static::$db !== null) {
+            return true;
+        }
+
+        if ($db === null || !Database::checkDatabaseConnection($db, true)) {
             return false;
         }
+
+        static::$db = new Database($db);
         return true;
     }
 }

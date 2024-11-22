@@ -20,10 +20,10 @@ namespace Alxarafe\Base\Controller;
 
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\DbTrait;
-use Alxarafe\Base\Database;
 use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Trans;
 use CoreModules\Admin\Model\User;
+use DebugBar\DebugBarException;
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -44,30 +44,41 @@ abstract class ApiController
      */
     public static ?User $user = null;
 
+    /**
+     * ApiController constructor.
+     * @throws DebugBarException
+     */
     public function __construct()
     {
         $config = Config::getConfig();
         if (!isset($config->db) || !static::connectDb($config->db)) {
             header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Config');
+            die();
         }
 
-        $this->db = new Database($config->db);
-
         if (isset($_REQUEST['token'])) {
-            $this->checkToken();
+            static::checkToken();
         }
     }
 
-    public function checkToken()
+    /**
+     * Verifies the received token and loads the user associated with it.
+     *
+     * @return bool
+     */
+    public static function checkToken(): bool
     {
         $jwt = $_REQUEST['token'];
         $secret_key = Auth::getSecurityKey();
         try {
             $decoded = JWT::decode($jwt, new Key($secret_key, 'HS256'));
-            print_r($decoded);
         } catch (Exception $e) {
             self::badApiCall(Trans::_('bad_secret_key'), 401);
+            return false;
         }
+
+        static::$user = User::where('user', $decoded->data->user)->first();
+        return static::$user !== null;
     }
 
     /**

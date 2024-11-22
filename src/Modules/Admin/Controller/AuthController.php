@@ -20,10 +20,8 @@ namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Base\Controller\ViewController;
-use Alxarafe\Base\Database;
 use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Trans;
-use CoreModules\Admin\Model\User;
 
 class AuthController extends ViewController
 {
@@ -39,7 +37,6 @@ class AuthController extends ViewController
     public $username;
     public $password;
     public $remember;
-    public $db;
 
     public function __construct()
     {
@@ -48,8 +45,6 @@ class AuthController extends ViewController
         if (!static::connectDb($this->config->db)) {
             throw new \Exception('Cannot connect to database.');
         }
-
-        $this->db = new Database($this->config->db);
     }
 
     public function doIndex()

@@ -28,6 +28,9 @@ use Illuminate\View\FileViewFinder;
 use Illuminate\View\Factory;
 use Illuminate\View\Compilers\BladeCompiler;
 
+/**
+ * Trait for controllers using Blade templates.
+ */
 trait ViewTrait
 {
     /**

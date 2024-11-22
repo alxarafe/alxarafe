@@ -6,6 +6,9 @@ use Alxarafe\Base\Model\Model;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Schema\Blueprint;
 
+/**
+ * @method static find($user)
+ */
 class User extends Model
 {
     protected $table = 'users';

@@ -20,6 +20,8 @@ namespace Alxarafe\Lib;
 
 use Alxarafe\Base\Config;
 use CoreModules\Admin\Model\User;
+use DebugBar\DebugBarException;
+use Random\RandomException;
 
 abstract class Auth
 {
@@ -126,8 +128,8 @@ abstract class Auth
      * Return the JWT security Key
      *
      * @return string|null
-     * @throws \DebugBar\DebugBarException
-     * @throws \Random\RandomException
+     * @throws DebugBarException
+     * @throws RandomException
      */
     public static function getSecurityKey()
     {

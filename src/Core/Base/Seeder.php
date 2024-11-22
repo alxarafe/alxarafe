@@ -43,7 +43,7 @@ abstract class Seeder
     /**
      * Returns the name of the seeder table.
      */
-    abstract protected static function model();
+    abstract protected static function model(): Model;
 
     /**
      * Execute the seeder

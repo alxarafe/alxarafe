@@ -23,6 +23,8 @@ use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DebugBarException;
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
 use PDO;
+use PDOException;
+use stdClass;
 
 /**
  * Create a PDO database connection
@@ -34,11 +36,11 @@ class Database extends CapsuleManager
     /**
      * Construct the database access
      *
-     * @param $db
+     * @param stdClass $db
      *
      * @throws DebugBarException
      */
-    public function __construct($db)
+    public function __construct(stdClass $db)
     {
         parent::__construct();
 
@@ -62,18 +64,18 @@ class Database extends CapsuleManager
         }
 
         $pdo = $this->getConnection()->getPdo();
-        $debugBar?->addCollector(new PDOCollector($pdo));
+        $debugBar->addCollector(new PDOCollector($pdo));
     }
 
     /**
      * Checks if the connection to the database is possible with the parameters
      * defined in the configuration file.
      *
-     * @param $data
+     * @param stdClass $data
      * @param bool $create
      * @return bool
      */
-    public static function checkDatabaseConnection($data, $create = false): bool
+    public static function checkDatabaseConnection(stdClass $data, bool $create = false): bool
     {
         if (!static::checkIfDatabaseExists($data)) {
             if (!$create) {
@@ -86,7 +88,13 @@ class Database extends CapsuleManager
         return true;
     }
 
-    public static function checkIfDatabaseExists(\stdClass $data): bool
+    /**
+     * Returns true if the database already exists.
+     *
+     * @param stdClass $data
+     * @return bool
+     */
+    public static function checkIfDatabaseExists(stdClass $data): bool
     {
         if (!static::checkConnection($data)) {
             return false;
@@ -96,7 +104,7 @@ class Database extends CapsuleManager
         try {
             new PDO($dsn, $data->user, $data->pass);
             return true;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
         }
@@ -105,22 +113,28 @@ class Database extends CapsuleManager
     /**
      * Checks if there is a connection to the database engine.
      *
-     * @param $data
+     * @param stdClass $data
      * @return bool
      */
-    public static function checkConnection(\stdClass $data): bool
+    public static function checkConnection(stdClass $data): bool
     {
         $dsn = "$data->type:host=$data->host";
         try {
             new PDO($dsn, $data->user, $data->pass);
             return true;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
         }
     }
 
-    public static function createDatabaseIfNotExists(\stdClass $data): bool
+    /**
+     * Creates the database if it does not exist. Returns true if the creation succeeds.
+     *
+     * @param stdClass $data
+     * @return bool
+     */
+    public static function createDatabaseIfNotExists(stdClass $data): bool
     {
         if (static::checkIfDatabaseExists($data)) {
             return true;
@@ -131,7 +145,7 @@ class Database extends CapsuleManager
             $pdo = new PDO($dsn, $data->user, $data->pass);
             $pdo->exec('CREATE DATABASE ' . $data->name);
             return true;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             error_log($e->getMessage());
             dump($e->getMessage());
             return false;
