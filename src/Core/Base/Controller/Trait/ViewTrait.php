@@ -211,7 +211,7 @@ trait ViewTrait
      *
      * @return void
      */
-    private function setDefaultTemplate():void
+    private function setDefaultTemplate(): void
     {
         if (empty($this->template)) {
             $this->template = 'page/' . $this->getDefaultTemplateName();

@@ -192,10 +192,12 @@ abstract class Config
 
                 $migration = require_once $filepath;
                 $migration->up();
-                if (!Migration::create([
+                if (
+                    !Migration::create([
                     'migration' => $filename,
                     'batch' => $batch,
-                ])) {
+                    ])
+                ) {
                     Messages::addError('Fail creating migration ' . $filename);
                     return false;
                 }
@@ -240,7 +242,7 @@ abstract class Config
         return $result;
     }
 
-    public static function runSeeders():bool
+    public static function runSeeders(): bool
     {
         $routes = Routes::getAllRoutes();
         if (empty($routes['Seeders'])) {
