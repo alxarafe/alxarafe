@@ -13,8 +13,10 @@ db_password: Password
 db_create: Create database if not exists
 db_name: Database name
 db_port: Database port
-error_connecting_database: Error connecting to database %db%
-successful_connection_database: Successful connection to database %db%
+pdo_connection_error: Error connecting to the database engine
+pdo_db_connection_error: Error connecting to database %db%
+pdo_db_does_not_exists: Database does not exists "%message%"
+successful_connection_database: Successful connection to database '%db%'
 error_saving_settings: Error saving settings
 settings_saved_successfully: Settings saved successfully
 use_debugbar: Use debugbar
@@ -22,3 +24,4 @@ check_db_connection: Check database connection
 save_configuration: Save configuration
 regenerate: Regenerate
 exit: Exit
+template_not_found: 'Template not found: "%name%"'

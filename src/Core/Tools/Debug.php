@@ -90,7 +90,7 @@ abstract class Debug
         self::addCollector(new PhpCollector());
         self::addCollector(new TranslatorCollector());
 
-        $baseUrl = constant('BASE_URL') . '/alxarafe/assets/debugbar';
+        $baseUrl = constant('BASE_URL') . '/alxarafe/assets/DebugBar/Resources/';
         $basePath = realpath(constant('BASE_PATH') . '/..') . '/';
 
         self::$render = self::getDebugBar()->getJavascriptRenderer($baseUrl, $basePath);

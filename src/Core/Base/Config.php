@@ -18,11 +18,13 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Routes;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
 use CoreModules\Admin\Model\Migration;
 use DebugBar\DebugBarException;
+use Exception;
 use stdClass;
 
 /**
@@ -73,20 +75,6 @@ abstract class Config
      * @var stdClass|null
      */
     private static ?stdClass $config = null;
-
-    private static array $messages = [];
-
-    /**
-     * Returns an array with the messages accumulated since the last call.
-     *
-     * @return array
-     */
-    public static function getMessages()
-    {
-        $result = self::$messages;
-        self::$messages = [];
-        return $result;
-    }
 
     /**
      * Gets the information defined in the configuration file.
@@ -187,6 +175,40 @@ abstract class Config
     }
 
     /**
+     * Runs pending migrations in alphabetical order.
+     * By default, migration names are preceded by the date in Japanese format,
+     * which ensures chronological execution.
+     *
+     * @return bool
+     */
+    public static function runMigrations(): bool
+    {
+        try {
+            $batch = 1 + Migration::getLastBatch();
+            foreach (static::getMigrations() as $filename => $filepath) {
+                if (Migration::where(['migration' => $filename])->first()) {
+                    continue;
+                }
+
+                $migration = require_once $filepath;
+                $migration->up();
+                if (!Migration::create([
+                    'migration' => $filename,
+                    'batch' => $batch,
+                ])) {
+                    Messages::addError('Fail creating migration ' . $filename);
+                    return false;
+                }
+            }
+        } catch (Exception $e) {
+            Messages::addError($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Obtains an associative array with all migrations. The index is the name of the
      * migration and the name of the module separated by an @ sign, which ensures that
      * the migration is registered as executed; and the value is the relative path of
@@ -194,7 +216,7 @@ abstract class Config
      *
      * @return array
      */
-    private static function getMigrations(): array
+    public static function getMigrations(): array
     {
         $result = [];
 
@@ -218,60 +240,29 @@ abstract class Config
         return $result;
     }
 
-    /**
-     * Runs pending migrations in alphabetical order.
-     * By default, migration names are preceded by the date in Japanese format,
-     * which ensures chronological execution.
-     *
-     * @return void
-     */
-    public static function runMigrations(): void
-    {
-        $result = static::getMigrations();
-
-        $batch = 1 + Migration::getLastBatch();
-        foreach ($result as $filename => $filepath) {
-            if (Migration::where(['migration' => $filename])->first()) {
-                continue;
-            }
-
-            $migration = require_once $filepath;
-            $migration->up();
-            Migration::create([
-                'migration' => $filename,
-                'batch' => $batch,
-            ]);
-        }
-    }
-
-    public static function runSeeders()
+    public static function runSeeders():bool
     {
         $routes = Routes::getAllRoutes();
         if (empty($routes['Seeders'])) {
-            return;
+            return true;
         }
 
         $seeders = $routes['Seeders'];
 
-        $result = [];
         foreach ($seeders as $data) {
             foreach ($data as $seeder) {
                 $route_array = explode('|', $seeder);
                 $classname = $route_array[0];
-                new $classname();
+                try {
+                    new $classname();
+                } catch (Exception $e) {
+                    Messages::addError($e->getMessage());
+                    return false;
+                }
             }
         }
-    }
 
-    /**
-     * Adds a new message that will then be returned by getMessages.
-     *
-     * @param $message
-     * @return void
-     */
-    private static function addNewMessage($message)
-    {
-        self::$messages[] = $message;
+        return true;
     }
 
     /**

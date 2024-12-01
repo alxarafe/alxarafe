@@ -38,6 +38,8 @@ abstract class ViewController extends GenericController
     public function __construct()
     {
         parent::__construct();
+
+        $this->setDefaultTemplate();
         $this->config = Config::getConfig();
 
         Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);

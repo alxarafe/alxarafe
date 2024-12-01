@@ -47,7 +47,7 @@ trait DbTrait
             return true;
         }
 
-        if ($db === null || !Database::checkDatabaseConnection($db, true)) {
+        if ($db === null || !Database::checkDatabaseConnection($db)) {
             return false;
         }
 

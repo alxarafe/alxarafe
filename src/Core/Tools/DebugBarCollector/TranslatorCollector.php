@@ -68,8 +68,8 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
     public function getAssets(): array
     {
         return [
-            'css' => constant('BASE_URL') . '/alxarafe/assets/debugbar/translations.css',
-            'js' => constant('BASE_URL') . '/alxarafe/assets/debugbar/translations.js',
+            'css' => constant('BASE_URL') . '/alxarafe/assets/DebugBar/Resources/translations.css',
+            'js' => constant('BASE_URL') . '/alxarafe/assets/DebugBar/Resources/translations.js',
         ];
     }
 

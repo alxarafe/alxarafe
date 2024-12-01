@@ -18,6 +18,8 @@
 
 namespace Alxarafe\Base;
 
+use Alxarafe\Lib\Messages;
+use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DebugBarException;
@@ -77,11 +79,11 @@ class Database extends CapsuleManager
      */
     public static function checkDatabaseConnection(stdClass $data, bool $create = false): bool
     {
-        if (!static::checkIfDatabaseExists($data)) {
+        if (!static::checkIfDatabaseExists($data, true)) {
             if (!$create) {
                 return false;
             }
-            if (!static::createDatabaseIfNotExists($data)) {
+            if (!static::createDatabaseIfNotExists($data, true)) {
                 return false;
             }
         }
@@ -94,38 +96,43 @@ class Database extends CapsuleManager
      * @param stdClass $data
      * @return bool
      */
-    public static function checkIfDatabaseExists(stdClass $data): bool
+    public static function checkIfDatabaseExists(stdClass $data, bool $quiet = false): bool
     {
-        if (!static::checkConnection($data)) {
+        if (!static::checkConnection($data, true)) {
             return false;
         }
 
         $dsn = "$data->type:host=$data->host;dbname=$data->name;charset=$data->charset";
         try {
             new PDO($dsn, $data->user, $data->pass);
-            return true;
         } catch (PDOException $e) {
-            error_log($e->getMessage());
+            if (!$quiet) {
+                Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
+            }
             return false;
         }
+        return true;
     }
 
     /**
      * Checks if there is a connection to the database engine.
      *
      * @param stdClass $data
+     * @param bool $quiet
      * @return bool
      */
-    public static function checkConnection(stdClass $data): bool
+    public static function checkConnection(stdClass $data, bool $quiet = false): bool
     {
         $dsn = "$data->type:host=$data->host";
         try {
             new PDO($dsn, $data->user, $data->pass);
-            return true;
         } catch (PDOException $e) {
-            error_log($e->getMessage());
+            if (!$quiet) {
+                Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
+            }
             return false;
         }
+        return true;
     }
 
     /**
@@ -136,7 +143,7 @@ class Database extends CapsuleManager
      */
     public static function createDatabaseIfNotExists(stdClass $data): bool
     {
-        if (static::checkIfDatabaseExists($data)) {
+        if (static::checkIfDatabaseExists($data, true)) {
             return true;
         }
 
@@ -146,8 +153,8 @@ class Database extends CapsuleManager
             $pdo->exec('CREATE DATABASE ' . $data->name);
             return true;
         } catch (PDOException $e) {
-            error_log($e->getMessage());
-            dump($e->getMessage());
+            Messages::addError($e->getMessage());
+            Messages::addError(Trans::_('pdo_fail_db_creation', ['message' => $e->getMessage()]));
             return false;
         }
     }

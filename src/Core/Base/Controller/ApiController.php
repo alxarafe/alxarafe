@@ -21,6 +21,7 @@ namespace Alxarafe\Base\Controller;
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 use CoreModules\Admin\Model\User;
 use DebugBar\DebugBarException;
@@ -77,7 +78,7 @@ abstract class ApiController
             return false;
         }
 
-        static::$user = User::where('user', $decoded->data->user)->first();
+        static::$user = User::where('name', $decoded->data->user)->first();
         return static::$user !== null;
     }
 
@@ -93,7 +94,8 @@ abstract class ApiController
         $result = [
             'ok' => false,
             'status' => $httpCode,
-            'message' => $response,
+            'response' => $response,
+            'message' => Messages::getMessages(),
         ];
 
         http_response_code($httpCode);
@@ -133,6 +135,7 @@ abstract class ApiController
             'ok' => true,
             'status' => $httpCode,
             $result_message => $response,
+            'message' => Messages::getMessages(),
         ];
 
         http_response_code($httpCode);

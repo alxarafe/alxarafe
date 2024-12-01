@@ -4,3 +4,4 @@ en_US: English (USA)
 es_ES: Spanish (Spain)
 unknown_method: The method %method% does not exists!
 test_english_only: Message only in english!
+error_message: 'Error: "%message%"'

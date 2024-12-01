@@ -18,12 +18,13 @@
 
 namespace CoreModules\Admin\Controller;
 
+use Alxarafe\Base\Controller\Controller;
 use Alxarafe\Base\Controller\Trait\DbTrait;
-use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 
-class AuthController extends ViewController
+class AuthController extends Controller
 {
     const MENU = 'admin|auth';
     const SIDEBAR_MENU = [
@@ -42,9 +43,9 @@ class AuthController extends ViewController
     {
         parent::__construct();
 
-        if (!static::connectDb($this->config->db)) {
-            throw new \Exception('Cannot connect to database.');
-        }
+//        if (!static::connectDb($this->config->db)) {
+//            throw new \Exception('Cannot connect to database.');
+//        }
     }
 
     public function doIndex()
@@ -66,12 +67,12 @@ class AuthController extends ViewController
         }
 
         if (!Auth::login($this->username, $this->password)) {
-            static::addAdvice(Trans::_('authenticated_error'));
+            Messages::addAdvice(Trans::_('authenticated_error'));
             return true;
         }
 
         $this->template = 'page/info';
-        static::addMessage(Trans::_('authenticated_user', ['user' => $this->username]));
+        Messages::addMessage(Trans::_('authenticated_user', ['user' => $this->username]));
 
         return true;
     }

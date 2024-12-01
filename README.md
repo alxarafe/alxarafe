@@ -3,7 +3,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/?branch=main)
 [![Build Status](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/badges/build.png?b=main)](https://scrutinizer-ci.com/g/rsanjoseo/alxarafe/build-status/main)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/rsanjoseo/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg?style=flat-square)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-8892BF.svg?style=flat-square)](https://php.net/)
 
 ## LICENSE
 

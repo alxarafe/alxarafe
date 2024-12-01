@@ -18,7 +18,6 @@
 
 namespace Alxarafe\Base\Controller;
 
-use Alxarafe\Base\Database;
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Lib\Auth;
 
@@ -49,12 +48,12 @@ abstract class Controller extends ViewController
 
         if (!isset($this->config->db) || !static::connectDb($this->config->db)) {
             header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Config');
+            die();
         }
-
-        $this->db = new Database($this->config->db);
 
         if (!Auth::isLogged()) {
             header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Auth');
+            die();
         }
 
         $this->username = Auth::$user->name;

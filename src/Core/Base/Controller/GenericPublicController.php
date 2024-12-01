@@ -25,7 +25,7 @@ use Alxarafe\Base\Controller\Trait\DbTrait;
  *
  * @package Alxarafe\Base
  */
-abstract class PublicController extends ViewController
+abstract class GenericPublicController extends ViewController
 {
     use DbTrait;
 

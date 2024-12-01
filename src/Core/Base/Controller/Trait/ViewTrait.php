@@ -18,28 +18,23 @@
 
 namespace Alxarafe\Base\Controller\Trait;
 
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
+use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\EngineResolver;
-use Illuminate\View\FileViewFinder;
 use Illuminate\View\Factory;
-use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\View\FileViewFinder;
 
 /**
  * Trait for controllers using Blade templates.
  */
 trait ViewTrait
 {
-    /**
-     * Contains messages, advices and errors pending to be shown.
-     *
-     * @var array
-     */
-    public static array $messages = [];
-
     /**
      * Theme name.
      *
@@ -57,9 +52,9 @@ trait ViewTrait
     /**
      * Contains the name of the blade template to print
      *
-     * @var string
+     * @var null|string
      */
-    public string $template;
+    public null|string $template;
 
     /**
      * Contains the title of the view.
@@ -75,52 +70,6 @@ trait ViewTrait
      * @var array
      */
     public array $alerts;
-
-    /**
-     * Shows a translated text
-     *
-     * @param $message
-     * @param array $parameters
-     * @param $locale
-     * @return string
-     */
-    public static function _($message, array $parameters = [], $locale = null): string
-    {
-        return Trans::_($message, $parameters, $locale);
-    }
-
-    /**
-     * Add a new message (success) to show the user
-     *
-     * @param $message
-     * @return void
-     */
-    public static function addMessage($message): void
-    {
-        self::$messages[]['success'] = $message;
-    }
-
-    /**
-     * Add a new advice (warning) to show the user
-     *
-     * @param $message
-     * @return void
-     */
-    public static function addAdvice($message): void
-    {
-        self::$messages[]['warning'] = $message;
-    }
-
-    /**
-     * Add a new error (danger) to show the user
-     *
-     * @param $message
-     * @return void
-     */
-    public static function addError($message): void
-    {
-        self::$messages[]['danger'] = $message;
-    }
 
     /**
      * Upon completion of the controller execution, the template is displayed.
@@ -139,34 +88,28 @@ trait ViewTrait
             $this->title = 'Alxarafe';
         }
 
-        $this->alerts = self::getMessages();
+        $this->alerts = Messages::getMessages();
 
         $container = self::getContainer();
 
         $viewFactory = $container['view'];
 
+        dump([$container,$viewFactory]);
+
         echo $viewFactory->make($this->template, ['me' => $this])->render();
     }
 
     /**
-     * Generates an array with the messages to be displayed, indicating the
-     * type (message, advice or error) and the text to be displayed.
+     * Shows a translated text
      *
-     * @return array
+     * @param $message
+     * @param array $parameters
+     * @param $locale
+     * @return string
      */
-    private static function getMessages(): array
+    public static function _($message, array $parameters = [], $locale = null): string
     {
-        $alerts = [];
-        foreach (self::$messages as $message) {
-            foreach ($message as $type => $text) {
-                $alerts[] = [
-                    'type' => $type,
-                    'text' => $text
-                ];
-            }
-        }
-        self::$messages = [];
-        return $alerts;
+        return Trans::_($message, $parameters, $locale);
     }
 
     /**
@@ -261,5 +204,35 @@ trait ViewTrait
             return;
         }
         array_unshift(self::$templatesPath, $path);
+    }
+
+    /**
+     * Assign the default template for the class.
+     *
+     * @return void
+     */
+    private function setDefaultTemplate():void
+    {
+        if (empty($this->template)) {
+            $this->template = 'page/' . $this->getDefaultTemplateName();
+        }
+    }
+
+    /**
+     * Returns the name of the template, given the class name.
+     * The default template name is the class name with the "Controller"
+     * removed from the end and converted to 'snake_case'.
+     *
+     * For example, for the UserTestController class, it will return user_test.
+     *
+     * @return string
+     */
+    private function getDefaultTemplateName(): string
+    {
+        $array_object = explode('\\', get_class($this));
+        if (empty($array_object)) {
+            return '';
+        }
+        return Str::snake(substr(end($array_object), 0, -10));
     }
 }

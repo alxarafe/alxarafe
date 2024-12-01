@@ -50,6 +50,8 @@ class WebDispatcher extends Dispatcher
         $routes = Routes::getAllRoutes();
         $endpoint = $routes['Controller'][$module][$controller] ?? null;
         if ($endpoint === null) {
+            Debug::message("Dispatcher::runWeb error: $module:$controller does not exists");
+            new Error404Controller();
             return false;
         }
 

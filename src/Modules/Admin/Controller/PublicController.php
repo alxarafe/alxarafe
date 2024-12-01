@@ -18,7 +18,7 @@
 
 namespace CoreModules\Admin\Controller;
 
-use Alxarafe\Base\Controller\PublicController as BasePublicController;
+use Alxarafe\Base\Controller\GenericPublicController as BasePublicController;
 
 class PublicController extends BasePublicController
 {
@@ -26,7 +26,7 @@ class PublicController extends BasePublicController
 
     public function doIndex(): bool
     {
-        $this->template = 'page/public';
+        // $this->template = 'page/public';
         return true;
     }
 }

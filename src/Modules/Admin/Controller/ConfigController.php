@@ -24,6 +24,7 @@ use Alxarafe\Base\Database;
 use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\DB;
 use Alxarafe\Lib\Functions;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\ModuleManager;
 use DebugBar\DebugBarException;
@@ -58,19 +59,38 @@ class ConfigController extends ViewController
     public $themes;
 
     public $db_create;
+    public bool $pdo_connection;
+    public bool $pdo_db_exists;
 
-    public function afterAction(): bool
+    public function beforeAction(): bool
     {
-        $this->template = 'page/config';
+        //$this->template = 'page/config';
+
+        $this->getPost();
 
         $this->languages = Trans::getAvailableLanguages();
         $this->themes = Functions::getThemes();
 
-        return parent::afterAction();
+        Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
+
+        $this->checkDatabaseStatus();
+
+        return parent::beforeAction();
+    }
+
+    private function checkDatabaseStatus()
+    {
+        $this->pdo_connection = Database::checkConnection($this->data->db);
+        $this->pdo_db_exists = Database::checkIfDatabaseExists($this->data->db);
+        if (!$this->pdo_connection) {
+            Messages::addAdvice(Trans::_('pdo_connection_error'));
+        } elseif (!$this->pdo_db_exists) {
+            Messages::addAdvice(Trans::_('pdo_db_connection_error', ['db' => $this->data->db->name]));
+        }
     }
 
     /**
-     * Index action.
+     * The 'index' action: Default action
      *
      * @return bool
      */
@@ -85,8 +105,6 @@ class ConfigController extends ViewController
         if (isset($this->config) && $restricted_access) {
             $this->template = 'page/forbidden';
         }
-
-        $this->getPost();
 
         return true;
     }
@@ -120,37 +138,27 @@ class ConfigController extends ViewController
     }
 
     /**
-     * Login action.
+     * The 'createDatabase' action: Creates the database
      *
      * @return bool
      */
-    public function doLogin(): bool
+    public function doCreateDatabase(): bool
     {
-        $this->template = 'page/login';
-        $login = filter_input(INPUT_POST, 'login');
-        if (!$login) {
+        $new = new MigrationController();
+        $new->action = 'runMigrationsAndSeeders';
+        $new->index();
+        dd($new);
+
+        die('X');
+
+
+        if (!Database::createDatabaseIfNotExists($this->data->db)) {
+            Messages::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
             return true;
         }
+        Messages::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
 
-        $username = filter_input(INPUT_POST, 'username');
-        $password = filter_input(INPUT_POST, 'password');
-        if (!Auth::login($username, $password)) {
-            self::addAdvice(Trans::_('bad_login'));
-            return false;
-        }
-        $this->template = 'page/admin/info';
-        return true;
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return bool
-     */
-    public function doLogout(): bool
-    {
-        Auth::logout();
-        return true;
+        return static::doRunMigrationsAndSeeders();
     }
 
     /**
@@ -161,18 +169,22 @@ class ConfigController extends ViewController
      */
     public function doCheckConnection(): bool
     {
-        $this->getPost();
         $ok = Database::checkDatabaseConnection($this->data->db, $this->db_create);
         if (!$ok) {
-            $messages = Config::getMessages();
-            foreach ($messages as $message) {
-                static::addAdvice($message);
-            }
-            static::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
+//            $messages = Messages::getMessages();
+//            foreach ($messages as $message) {
+//                Messages::addAdvice($message);
+//            }
+            Messages::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
             return true;
         }
-        static::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
+        Messages::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
 
+        return static::doRunMigrationsAndSeeders();
+    }
+
+    public function doRunMigrationsAndSeeders(): bool
+    {
         new Database($this->data->db);
 
         Config::runMigrations();
@@ -189,14 +201,12 @@ class ConfigController extends ViewController
      */
     public function doSave(): bool
     {
-        $this->getPost();
-
         if (!config::setConfig($this->data)) {
-            static::addError(Trans::_('error_saving_settings'));
+            Messages::addError(Trans::_('error_saving_settings'));
             return false;
         }
 
-        static::addMessage(Trans::_('settings_saved_successfully'));
+        Messages::addMessage(Trans::_('settings_saved_successfully'));
         return true;
     }
 

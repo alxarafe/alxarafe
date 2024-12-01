@@ -18,7 +18,7 @@
 
 namespace CoreModules\Admin\Controller;
 
-use Alxarafe\Base\Controller\PublicController as BasePublicController;
+use Alxarafe\Base\Controller\GenericPublicController as BasePublicController;
 
 class Error404Controller extends BasePublicController
 {
@@ -26,7 +26,8 @@ class Error404Controller extends BasePublicController
 
     public function doIndex(): bool
     {
-        $this->template = 'page/error404';
+        //$this->template = 'page/error404';
+        $this->setTemplatesPath(constant('ALX_PATH') . '/Modules/Admin/Templates');
         return true;
     }
 }
