@@ -23,7 +23,7 @@ use Composer\Script\Event;
 
 abstract class ComposerScripts
 {
-    public static function postUpdate(Event $event)
+    public static function postUpdate(PackageEvent $event)
     {
         $io = $event->getIO();
 

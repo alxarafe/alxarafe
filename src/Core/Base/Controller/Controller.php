@@ -20,6 +20,9 @@ namespace Alxarafe\Base\Controller;
 
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Functions;
+use CoreModules\Admin\Controller\AuthController;
+use CoreModules\Admin\Controller\ConfigController;
 
 /**
  * Class Controller. Controller is the general purpose controller and requires the user to be authenticated.
@@ -47,15 +50,13 @@ abstract class Controller extends ViewController
         parent::__construct();
 
         if (!isset($this->config->db) || !static::connectDb($this->config->db)) {
-            header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Config');
-            die();
+            Functions::httpRedirect(ConfigController::url());
         }
 
-        if (!Auth::isLogged()) {
-            header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Auth');
-            die();
+        if (!Auth::isLogged() && static::class !== 'CoreModules\Admin\Controller\AuthController') {
+            Functions::httpRedirect(AuthController::url());
         }
 
-        $this->username = Auth::$user->name;
+        $this->username = Auth::$user->name ?? null;
     }
 }

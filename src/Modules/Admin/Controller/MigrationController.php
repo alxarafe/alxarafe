@@ -21,7 +21,7 @@ namespace CoreModules\Admin\Controller;
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Base\Database;
-use Alxarafe\Lib\Routes;
+use Alxarafe\Lib\Trans;
 
 /**
  * Class ConfigController. App settings controller.
@@ -30,22 +30,61 @@ class MigrationController extends ViewController
 {
     const MENU = 'admin|migrations';
 
-    public function doGetProcesses():void
+    /**
+     * Returns the module name for use in url function
+     *
+     * @return string
+     */
+    public static function getModuleName(): string
     {
-        $this->template=null;
-        $result = array_merge(Config::getMigrations());
+        return 'Admin';
+    }
+
+    /**
+     * Returns the controller name for use in url function
+     *
+     * @return string
+     */
+    public static function getControllerName(): string
+    {
+        return 'Migration';
+    }
+
+    public function doGetProcesses(): void
+    {
+        $this->template = null;
+        $migrations = array_merge(Config::getMigrations());
+        $result = [];
+        foreach ($migrations as $key => $migration) {
+            $data = explode("@", $key);
+            if (count($data) < 2) {
+                continue;
+            }
+            $class = $data[0];
+            $module = $data[1];
+            $result[] = [
+                'class' => $class,
+                'module' => $module,
+                'migration' => $migration,
+                'message' => Trans::_('processing_migration', ['name' => $module . '::' . $class]),
+            ];
+        }
         die(json_encode($result));
     }
 
-    public function executeAjaxAction()
+    public function doExecuteProcess(): void
     {
-        $this->template=null;
-        $result = $_POST;
+        $this->template = null;
+        $result = [
+            'status' => 'success',
+            'message' => 'Processed successfully ' . $_POST['module'] . '::' . $_POST['class']
+        ];
         die(json_encode($result));
     }
 
     public function doRunMigrationsAndSeeders(): bool
     {
+        dump($this->data);
         new Database($this->data->db);
 
         Config::runMigrations();

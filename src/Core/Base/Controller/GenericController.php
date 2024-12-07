@@ -56,33 +56,6 @@ abstract class GenericController
 
         $this->top_menu = ModuleManager::getArrayMenu();
         $this->sidebar_menu = ModuleManager::getArraySidebarMenu();
-        //dump([$this->top_menu, $this->sidebar_menu]);
-    }
-
-    /**
-     * Returns the generic url of the controller;
-     *
-     * @param $full
-     *
-     * @return string
-     */
-    public static function url($full = true)
-    {
-        $url = '';
-        if ($full) {
-            $url .= constant('BASE_URL') . '/index.php';
-        }
-
-        $url .=
-            '?' . Dispatcher::MODULE . '=' . filter_input(INPUT_GET, Dispatcher::MODULE) .
-            '&' . Dispatcher::CONTROLLER . '=' . filter_input(INPUT_GET, Dispatcher::CONTROLLER);
-
-        $action = filter_input(INPUT_GET, 'action');
-        if ($action) {
-            $url .= '&action=' . $action;
-        }
-
-        return $url;
     }
 
     public static function getMenu()

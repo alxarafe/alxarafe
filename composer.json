@@ -55,4 +55,5 @@
     "post-package-update": [
       "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
     ]
-  }}
+  }
+}

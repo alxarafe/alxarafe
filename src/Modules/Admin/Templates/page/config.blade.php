@@ -20,7 +20,7 @@
                                         @php
                                             $readonly = $me->pdo_connection ? ['readonly' => null] : [];
                                         @endphp
-                                        @include('form.input', ['type' => 'text', 'name' => 'type', 'label' => $me->_('db_type'), 'value' => $me->data->db->type ?? 'mysql', 'attributes' => $readonly])
+                                        @include('form.select', ['name' => 'type', 'label' => $me->_('db_type'), 'values' => $me->dbtypes, 'value' => $me->data->db->type, 'attributes' => $readonly])
                                         @include('form.input', ['type' => 'text', 'name' => 'host', 'label' => $me->_('db_host'), 'value' => $me->data->db->host ?? 'localhost', 'attributes' => $readonly])
                                         @include('form.input', ['type' => 'text', 'name' => 'user', 'label' => $me->_('db_user'), 'value' => $me->data->db->user ?? '', 'attributes' => $readonly])
                                         @include('form.input', ['type' => 'password', 'name' => 'pass', 'label' => $me->_('db_password'), 'value' => $me->data->db->pass ?? '', 'attributes' => $readonly])

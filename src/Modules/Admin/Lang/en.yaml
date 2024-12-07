@@ -25,3 +25,4 @@ save_configuration: Save configuration
 regenerate: Regenerate
 exit: Exit
 template_not_found: 'Template not found: "%name%"'
+processing_migration: 'Processing migration: "%name%"'

@@ -21,8 +21,10 @@ namespace Alxarafe\Base\Controller;
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
+use CoreModules\Admin\Controller\ConfigController;
 use CoreModules\Admin\Model\User;
 use DebugBar\DebugBarException;
 use Exception;
@@ -53,8 +55,7 @@ abstract class ApiController
     {
         $config = Config::getConfig();
         if (!isset($config->db) || !static::connectDb($config->db)) {
-            header('Location: ' . constant('BASE_URL') . '/index.php?module=Admin&controller=Config');
-            die();
+            Functions::httpRedirect(ConfigController::url());
         }
 
         if (isset($_REQUEST['token'])) {

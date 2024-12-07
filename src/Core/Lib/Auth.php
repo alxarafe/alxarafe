@@ -27,9 +27,10 @@ abstract class Auth
 {
     private const COOKIE_NAME = 'alxarafe_login';
     private const COOKIE_USER = self::COOKIE_NAME . '_user';
-    private const COOKIE_EXPIRE_TIME = 30 * 86400; // 30 days
+    private const COOKIE_EXPIRE_TIME = 30 * 24 * 60 * 60; // 30 days
     private const COOKIE_SAMESITE = 'Strict';
 
+    public static ?User $user = null;
     /**
      * Contains the JWT security key
      *
@@ -37,12 +38,11 @@ abstract class Auth
      */
     private static ?string $security_key = null;
 
-    public static ?User $user = null;
-
     public static function isLogged(): bool
     {
         $userId = FILTER_INPUT(INPUT_COOKIE, self::COOKIE_USER);
         $token = FILTER_INPUT(INPUT_COOKIE, self::COOKIE_NAME);
+
         if (empty($token)) {
             return false;
         }
@@ -99,11 +99,15 @@ abstract class Auth
             self::$user->saveToken($token);
         }
 
+        /**
+         * Ideally, "secure" is set to true, but this does not work with self-signed certificates.
+         * With "secure" set to false, it is important that samesite is set to Strict.
+         */
         $cookie_options = [
             'expires' => time() + self::COOKIE_EXPIRE_TIME,
             'path' => '/',
             'domain' => $_SERVER['HTTP_HOST'],
-            'secure' => true,
+            'secure' => false,
             'httponly' => true,
             'samesite' => self::COOKIE_SAMESITE,
         ];

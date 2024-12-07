@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Tools\Dispatcher;
 
+use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Routes;
 use Alxarafe\Tools\Debug;
 use CoreModules\Admin\Controller\Error404Controller;
@@ -25,13 +26,6 @@ use DebugBar\DebugBarException;
 
 class WebDispatcher extends Dispatcher
 {
-    protected static function dieWithMessage($message)
-    {
-        Debug::message('WebDispatcher error: ' . $message);
-        new Error404Controller();
-        die();
-    }
-
     /**
      * Run the controller for the indicated module, if it exists.
      * Returns true if it can be executed.
@@ -50,9 +44,7 @@ class WebDispatcher extends Dispatcher
         $routes = Routes::getAllRoutes();
         $endpoint = $routes['Controller'][$module][$controller] ?? null;
         if ($endpoint === null) {
-            Debug::message("Dispatcher::runWeb error: $module:$controller does not exists");
-            new Error404Controller();
-            return false;
+            static::dieWithMessage($module . '::' . $controller . 'does not exists');
         }
 
         Debug::message("Dispatcher::runWeb executing $module::$controller ($endpoint)");
@@ -61,18 +53,14 @@ class WebDispatcher extends Dispatcher
         $filename = $route_array[1];
 
         if (!file_exists($filename)) {
-            Debug::message("Dispatcher::runWeb error: $filename does not exists");
-            new Error404Controller();
-            return false;
+            static::dieWithMessage($filename . 'does not exists');
         }
 
         require_once $filename;
 
         $controller = new $className();
         if ($controller === null) {
-            Debug::message("Dispatcher::runApi error: $className not found");
-            new Error404Controller();
-            return false;
+            static::dieWithMessage($className . ' not found');
         }
 
         $templates_path = [
@@ -101,5 +89,11 @@ class WebDispatcher extends Dispatcher
         $controller->{$method}();
 
         return true;
+    }
+
+    protected static function dieWithMessage($message)
+    {
+        Debug::message('WebDispatcher error: ' . $message);
+        Functions::httpRedirect(Error404Controller::url());
     }
 }

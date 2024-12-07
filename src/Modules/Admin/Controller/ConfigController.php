@@ -21,8 +21,6 @@ namespace CoreModules\Admin\Controller;
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Base\Database;
-use Alxarafe\Lib\Auth;
-use Alxarafe\Lib\DB;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
@@ -57,10 +55,31 @@ class ConfigController extends ViewController
      */
     public $languages;
     public $themes;
+    public $dbtypes;
 
     public $db_create;
     public bool $pdo_connection;
     public bool $pdo_db_exists;
+
+    /**
+     * Returns the module name for use in url function
+     *
+     * @return string
+     */
+    public static function getModuleName(): string
+    {
+        return 'Admin';
+    }
+
+    /**
+     * Returns the controller name for use in url function
+     *
+     * @return string
+     */
+    public static function getControllerName(): string
+    {
+        return 'Config';
+    }
 
     public function beforeAction(): bool
     {
@@ -70,12 +89,41 @@ class ConfigController extends ViewController
 
         $this->languages = Trans::getAvailableLanguages();
         $this->themes = Functions::getThemes();
+        $this->dbtypes = Database::getDbDrivers();
 
         Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
 
         $this->checkDatabaseStatus();
 
         return parent::beforeAction();
+    }
+
+    /**
+     * Sets $data with the information sent by POST
+     *
+     * @return void
+     */
+    private function getPost(): void
+    {
+        $this->data = Config::getConfig();
+        if (!isset($this->data)) {
+            $this->data = new stdClass();
+        }
+
+        foreach (Config::CONFIG_STRUCTURE as $section => $values) {
+            if (!isset($this->data->{$section})) {
+                $this->data->{$section} = new stdClass();
+            }
+            foreach ($values as $variable) {
+                $value = Functions::getIfIsset($variable, $this->data->{$section}->{$variable} ?? '');
+                if (!isset($value)) {
+                    continue;
+                }
+                $this->data->{$section}->{$variable} = $value;
+            }
+        }
+
+        $this->db_create = filter_input(INPUT_POST, 'db_create');
     }
 
     private function checkDatabaseStatus()
@@ -110,46 +158,13 @@ class ConfigController extends ViewController
     }
 
     /**
-     * Sets $data with the information sent by POST
-     *
-     * @return void
-     */
-    private function getPost(): void
-    {
-        $this->data = Config::getConfig();
-        if (!isset($this->data)) {
-            $this->data = new stdClass();
-        }
-
-        foreach (Config::CONFIG_STRUCTURE as $section => $values) {
-            if (!isset($this->data->{$section})) {
-                $this->data->{$section} = new stdClass();
-            }
-            foreach ($values as $variable) {
-                $value = Functions::getIfIsset($variable, $this->data->{$section}->{$variable} ?? null);
-                if (!isset($value)) {
-                    continue;
-                }
-                $this->data->{$section}->{$variable} = $value;
-            }
-        }
-
-        $this->db_create = filter_input(INPUT_POST, 'db_create');
-    }
-
-    /**
      * The 'createDatabase' action: Creates the database
      *
      * @return bool
      */
     public function doCreateDatabase(): bool
     {
-        $new = new MigrationController();
-        $new->action = 'runMigrationsAndSeeders';
-        $new->index();
-        dd($new);
-
-        die('X');
+        Functions::httpRedirect(MigrationController::url());
 
 
         if (!Database::createDatabaseIfNotExists($this->data->db)) {
@@ -159,6 +174,16 @@ class ConfigController extends ViewController
         Messages::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
 
         return static::doRunMigrationsAndSeeders();
+    }
+
+    public function doRunMigrationsAndSeeders(): bool
+    {
+        new Database($this->data->db);
+
+        Config::runMigrations();
+        Config::runSeeders();
+
+        return true;
     }
 
     /**
@@ -181,16 +206,6 @@ class ConfigController extends ViewController
         Messages::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
 
         return static::doRunMigrationsAndSeeders();
-    }
-
-    public function doRunMigrationsAndSeeders(): bool
-    {
-        new Database($this->data->db);
-
-        Config::runMigrations();
-        Config::runSeeders();
-
-        return true;
     }
 
     /**

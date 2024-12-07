@@ -69,6 +69,13 @@ class Database extends CapsuleManager
         $debugBar->addCollector(new PDOCollector($pdo));
     }
 
+    public static function getDbDrivers():array{
+        return [
+            'mysql' => 'MySQL',
+            'pgsql' => 'PostgreSQL',
+        ];
+    }
+
     /**
      * Checks if the connection to the database is possible with the parameters
      * defined in the configuration file.

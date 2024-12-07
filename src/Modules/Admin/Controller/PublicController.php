@@ -24,6 +24,26 @@ class PublicController extends BasePublicController
 {
     const MENU = 'public|public';
 
+    /**
+     * Returns the module name for use in url function
+     *
+     * @return string
+     */
+    public static function getModuleName(): string
+    {
+        return 'Admin';
+    }
+
+    /**
+     * Returns the controller name for use in url function
+     *
+     * @return string
+     */
+    public static function getControllerName(): string
+    {
+        return 'Public';
+    }
+
     public function doIndex(): bool
     {
         // $this->template = 'page/public';

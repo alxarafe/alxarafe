@@ -24,6 +24,26 @@ class InfoController extends Controller
 {
     const MENU = 'admin|info';
 
+    /**
+     * Returns the module name for use in url function
+     *
+     * @return string
+     */
+    public static function getModuleName(): string
+    {
+        return 'Admin';
+    }
+
+    /**
+     * Returns the controller name for use in url function
+     *
+     * @return string
+     */
+    public static function getControllerName(): string
+    {
+        return 'Info';
+    }
+
     public function doIndex(): bool
     {
         //$this->template = 'page/info';

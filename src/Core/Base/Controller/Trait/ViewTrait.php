@@ -72,6 +72,59 @@ trait ViewTrait
     public array $alerts;
 
     /**
+     * Shows a translated text
+     *
+     * @param $message
+     * @param array $parameters
+     * @param $locale
+     * @return string
+     */
+    public static function _($message, array $parameters = [], $locale = null): string
+    {
+        return Trans::_($message, $parameters, $locale);
+    }
+
+    /**
+     * Returns the generic url of the controller;
+     *
+     * @param $full
+     *
+     * @return string
+     */
+    public static function url($full = true)
+    {
+        $url = '';
+        if ($full) {
+            $url .= constant('BASE_URL') . '/index.php';
+        }
+
+        $url .=
+            '?' . \Alxarafe\Tools\Dispatcher::MODULE . '=' . static::getModuleName() .
+            '&' . \Alxarafe\Tools\Dispatcher::CONTROLLER . '=' . static::getControllerName();
+
+        $action = filter_input(INPUT_GET, 'action');
+        if ($action) {
+            $url .= '&action=' . $action;
+        }
+
+        return $url;
+    }
+
+    /**
+     * Returns the module name for use in url function
+     *
+     * @return string
+     */
+    abstract public static function getModuleName(): string;
+
+    /**
+     * Returns the controller name for use in url function
+     *
+     * @return string
+     */
+    abstract public static function getControllerName(): string;
+
+    /**
      * Upon completion of the controller execution, the template is displayed.
      */
     public function __destruct()
@@ -94,22 +147,7 @@ trait ViewTrait
 
         $viewFactory = $container['view'];
 
-        dump([$container,$viewFactory]);
-
         echo $viewFactory->make($this->template, ['me' => $this])->render();
-    }
-
-    /**
-     * Shows a translated text
-     *
-     * @param $message
-     * @param array $parameters
-     * @param $locale
-     * @return string
-     */
-    public static function _($message, array $parameters = [], $locale = null): string
-    {
-        return Trans::_($message, $parameters, $locale);
     }
 
     /**

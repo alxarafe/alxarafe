@@ -85,7 +85,7 @@ abstract class Functions
     {
         $_attributes = '';
         foreach ($attributes as $key => $value) {
-            $_attributes .= $key . '="' . htmlspecialchars($value) . '" ';
+            $_attributes .= $key . '="' . htmlspecialchars($value ?? '') . '" ';
         }
         return trim($_attributes);
     }
@@ -124,5 +124,11 @@ abstract class Functions
             }
         }
         return [];
+    }
+
+    public static function httpRedirect(string $url)
+    {
+        header('Location: ' . $url);
+        die();
     }
 }

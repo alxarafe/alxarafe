@@ -22,27 +22,28 @@
                 .then(actions => {
                     // Paso 2: Ejecutar acciones secuencialmente
                     const executeNext = (index) => {
-                        if (index >= actions.length) return; // Todas las acciones completadas
+                        if (index >= actions.length) {
+                            return;
+                        }
 
                         const action = actions[index];
                         const listItem = document.createElement('li');
                         listItem.className = 'list-group-item';
-                        listItem.textContent = `Ejecutando: ${action.name}`;
+                        listItem.textContent = 'Executing: ' + action.name;
                         resultsContainer.appendChild(listItem);
 
-                        // Ejecutar acción por AJAX
                         fetch('{!! $me->url() !!}&action=ExecuteProcess', {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: new URLSearchParams({ action_id: action.id })
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            body: new URLSearchParams(action)
                         })
                             .then(response => response.json())
                             .then(data => {
-                                listItem.textContent = data.message; // Actualiza el resultado
-                                executeNext(index + 1); // Ejecuta la siguiente acción
+                                listItem.textContent = data.message;
+                                executeNext(index + 1);
                             })
                             .catch(() => {
-                                listItem.textContent = `Error ejecutando ${action.name}`;
+                                listItem.textContent = 'Error executing ' + action.name;
                             });
                     };
 
@@ -51,7 +52,7 @@
                 .catch(() => {
                     const errorItem = document.createElement('li');
                     errorItem.className = 'list-group-item list-group-item-danger';
-                    errorItem.textContent = 'Error al obtener las acciones';
+                    errorItem.textContent = 'Error getting the actions';
                     resultsContainer.appendChild(errorItem);
                 });
         });
