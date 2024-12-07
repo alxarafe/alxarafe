@@ -75,6 +75,16 @@ class PhpCollector extends DataCollector implements Renderable
     }
 
     /**
+     * Returns the unique name of the collector.
+     *
+     * @return string The widget name.
+     */
+    public function getName(): string
+    {
+        return self::$name;
+    }
+
+    /**
      * Returns a hash where keys are control names and their values an array of options as defined in
      * {@see DebugBar\JavascriptRenderer::addControl()}
      *
@@ -98,22 +108,12 @@ class PhpCollector extends DataCollector implements Renderable
     }
 
     /**
-     * Returns the unique name of the collector.
-     *
-     * @return string The widget name.
-     */
-    public function getName(): string
-    {
-        return self::$name;
-    }
-
-    /**
      * Exception error handler. Called from constructor with set_error_handler to add all details.
      *
-     * @param int    $severity Error type.
-     * @param string $message  Message of error.
+     * @param int $severity Error type.
+     * @param string $message Message of error.
      * @param string $fileName File where error is generated.
-     * @param int    $line     Line number where error is generated.
+     * @param int $line Line number where error is generated.
      */
     public function errorHandler($severity, $message, $fileName, $line)
     {
