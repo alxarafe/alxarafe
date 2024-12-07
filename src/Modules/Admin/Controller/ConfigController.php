@@ -83,8 +83,6 @@ class ConfigController extends ViewController
 
     public function beforeAction(): bool
     {
-        //$this->template = 'page/config';
-
         $this->getPost();
 
         $this->languages = Trans::getAvailableLanguages();
@@ -164,26 +162,17 @@ class ConfigController extends ViewController
      */
     public function doCreateDatabase(): bool
     {
-        Functions::httpRedirect(MigrationController::url());
-
-
         if (!Database::createDatabaseIfNotExists($this->data->db)) {
             Messages::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
             return true;
         }
         Messages::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
-
-        return static::doRunMigrationsAndSeeders();
+        return false;
     }
 
-    public function doRunMigrationsAndSeeders(): bool
+    public function doGoMigrations(): void
     {
-        new Database($this->data->db);
-
-        Config::runMigrations();
-        Config::runSeeders();
-
-        return true;
+        Functions::httpRedirect(MigrationController::url());
     }
 
     /**
@@ -206,6 +195,16 @@ class ConfigController extends ViewController
         Messages::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
 
         return static::doRunMigrationsAndSeeders();
+    }
+
+    public function doRunMigrationsAndSeeders(): bool
+    {
+        new Database($this->data->db);
+
+        Config::runMigrations();
+        Config::runSeeders();
+
+        return true;
     }
 
     /**

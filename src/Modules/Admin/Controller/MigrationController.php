@@ -21,6 +21,7 @@ namespace CoreModules\Admin\Controller;
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Base\Database;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 
 /**
@@ -84,8 +85,9 @@ class MigrationController extends ViewController
 
     public function doRunMigrationsAndSeeders(): bool
     {
-        dump($this->data);
+        dd($this->data);
         new Database($this->data->db);
+
 
         Config::runMigrations();
         Config::runSeeders();

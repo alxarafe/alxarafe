@@ -110,7 +110,7 @@ abstract class GenericController
         if (!$executeActions) {
             return false;
         }
-        return $this->executeAction();
+        return $this->beforeAction() && $this->executeAction();
     }
 
     /**

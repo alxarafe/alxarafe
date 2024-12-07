@@ -53,6 +53,10 @@
                         @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'createDatabase'])
                             {!! $me->_('create_database') !!}
                         @endcomponent
+                    @else
+                        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'runMigrations'])
+                            {!! $me->_('go_migrations') !!}
+                        @endcomponent
                     @endif
                     @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'regenerate', 'class'=>'warning'])
                         {!! $me->_('regenerate') !!}
