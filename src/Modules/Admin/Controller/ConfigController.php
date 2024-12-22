@@ -224,13 +224,9 @@ class ConfigController extends ViewController
         return true;
     }
 
-    public function doExit()
+    public function doExit(): void
     {
-        /**
-         * TODO: Loads public page
-         */
-        $this->template = 'page/public';
-        return true;
+        Functions::httpRedirect(PublicController::url());
     }
 
     public function doRegenerate()
