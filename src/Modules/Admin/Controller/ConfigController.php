@@ -176,38 +176,6 @@ class ConfigController extends ViewController
     }
 
     /**
-     * CheckConnection action.
-     *
-     * @return bool
-     * @throws DebugBarException
-     */
-    public function doCheckConnection(): bool
-    {
-        $ok = Database::checkDatabaseConnection($this->data->db, $this->db_create);
-        if (!$ok) {
-//            $messages = Messages::getMessages();
-//            foreach ($messages as $message) {
-//                Messages::addAdvice($message);
-//            }
-            Messages::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
-            return true;
-        }
-        Messages::addMessage(Trans::_('successful_connection_database', ['db' => $this->data->db->name]));
-
-        return static::doRunMigrationsAndSeeders();
-    }
-
-    public function doRunMigrationsAndSeeders(): bool
-    {
-        new Database($this->data->db);
-
-        Config::runMigrations();
-        Config::runSeeders();
-
-        return true;
-    }
-
-    /**
      * Save action.
      *
      * @return bool
@@ -229,9 +197,14 @@ class ConfigController extends ViewController
         Functions::httpRedirect(PublicController::url());
     }
 
-    public function doRegenerate()
+    public function doRegenerate(): bool
     {
         ModuleManager::regenerate();
         return true;
+    }
+
+    public function doRunMigrations(): void
+    {
+        Functions::httpRedirect(MigrationController::url());
     }
 }

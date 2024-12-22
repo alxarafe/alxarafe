@@ -181,7 +181,7 @@ abstract class Config
      *
      * @return bool
      */
-    public static function runMigrations(): bool
+    public static function doRunMigrations(): bool
     {
         try {
             $batch = 1 + Migration::getLastBatch();

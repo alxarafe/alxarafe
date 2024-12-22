@@ -58,8 +58,8 @@ class WebDispatcher extends Dispatcher
 
         require_once $filename;
 
-        $controller = new $className();
-        if ($controller === null) {
+        $controllerClass = new $className();
+        if ($controllerClass === null) {
             static::dieWithMessage($className . ' not found');
         }
 
@@ -72,13 +72,13 @@ class WebDispatcher extends Dispatcher
          * If the class exists and is successfully instantiated, the module blade templates folder
          * is added, if they exist.
          */
-        if (method_exists($controller, 'setTemplatesPath')) {
+        if (method_exists($controllerClass, 'setTemplatesPath')) {
             Debug::message('Templates: ' . $templates_path[0]);
             Debug::message('Templates: ' . $templates_path[1]);
-            $controller->setTemplatesPath($templates_path);
+            $controllerClass->setTemplatesPath($templates_path);
         }
 
-        if (!method_exists($controller, $method)) {
+        if (!method_exists($controllerClass, $method)) {
             Debug::message('Method ' . $method . ' not found in controller ' . $className);
             $method = 'index';
         }
@@ -86,7 +86,7 @@ class WebDispatcher extends Dispatcher
         /**
          * Runs the index method to launch the controller.
          */
-        $controller->{$method}();
+        $controllerClass->{$method}();
 
         return true;
     }

@@ -19,6 +19,7 @@
 namespace Alxarafe\Lib;
 
 use Alxarafe\Base\Config;
+use CoreModules\Admin\Controller\ConfigController;
 use CoreModules\Admin\Model\User;
 use DebugBar\DebugBarException;
 use Random\RandomException;
@@ -47,12 +48,11 @@ abstract class Auth
             return false;
         }
 
-        if (!isset(self::$user)) {
+        try {
             self::$user = User::find($userId);
-        }
-
-        if (!isset(self::$user)) {
-            return false;
+        } catch (\Exception $e) {
+            Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
+            Functions::httpRedirect(ConfigController::url());
         }
 
         return self::$user->token === $token;

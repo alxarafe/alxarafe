@@ -48,8 +48,8 @@
                 @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'save'])
                     {!! $me->_('save_configuration') !!}
                 @endcomponent
-                @if ($me->pdo_connection)
-                    @if (!$me->pdo_db_exists)
+                @if ($me->pdo_connection ?? false)
+                    @if (!$me->pdo_db_exists ?? false)
                         @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'createDatabase'])
                             {!! $me->_('create_database') !!}
                         @endcomponent
