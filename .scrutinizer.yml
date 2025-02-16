@@ -1,24 +1,22 @@
 build:
-  image: default-bionic
-  environment:
-    variables:
-      PHP_VERSION: 8.2
-      SKIP_COPY_ASSETS: true
+  nodes:
+    analysis:
+      image: 'php:8.3'
+      environment:
+        variables:
+          PHP_VERSION: '8.3'
+          SKIP_COPY_ASSETS: true
   dependencies:
     before:
       - composer install
   tests:
     override:
       - php-scrutinizer-run --enable-security-analysis
-      # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
       - command: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
-      # Run PHP-CS.
       - command: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
-      # Run PHPUnit test.
-      # - command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
 filter:
   paths:
-    - src/*
+    - public/*
 
 tools:
   php_analyzer: true
