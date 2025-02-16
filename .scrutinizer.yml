@@ -1,22 +1,25 @@
 build:
   nodes:
     analysis:
-      image: 'php:8.3'
+      image: 'php:8.3' # Using Docker Image with PHP 8.3
       environment:
         variables:
           PHP_VERSION: '8.3'
           SKIP_COPY_ASSETS: true
   dependencies:
     before:
-      - composer install
+      - composer install # Installing dependencies before testing
   tests:
     override:
       - php-scrutinizer-run --enable-security-analysis
+      # Run PHP-CS Beautifier and Fixer
       - command: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
+      # Run PHP-CS
       - command: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
 filter:
   paths:
-    - public/*
+    - public/* # Routes included in the analysis
+    - Modules/*
 
 tools:
   php_analyzer: true
@@ -25,7 +28,7 @@ tools:
     timeout: 600
     filter:
       excluded_paths:
-        - 'vendor/*'
+        - 'vendor/*' # Exclude vendor folder from coverage scan
 
 coding_style:
   php:
