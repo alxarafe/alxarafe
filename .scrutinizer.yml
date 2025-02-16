@@ -2,7 +2,7 @@ build:
   image: default-bionic
   environment:
     variables:
-      PHP_VERSION: 8.1
+      PHP_VERSION: 8.2
       SKIP_COPY_ASSETS: true
   dependencies:
     before:
