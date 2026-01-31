@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Rsanjoseo\Alxarafe;
+namespace Alxarafe\Scripts;
 
 use Composer\Installer\PackageEvent;
 use Composer\Script\Event;

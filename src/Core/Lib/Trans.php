@@ -53,7 +53,7 @@ abstract class Trans
     {
         $routes = [
             '/Lang',
-            '/vendor/rsanjoseo/alxarafe/src/Lang'
+            '/vendor/alxarafe/alxarafe/src/Lang'
         ];
         $result = [];
         foreach (Functions::getFirstNonEmptyDirectory($routes, '.yaml') as $lang) {
@@ -158,7 +158,7 @@ abstract class Trans
     private static function getTranslations($lang)
     {
         $app_route = constant('BASE_PATH') . '/..';
-        $main_route = constant('BASE_PATH') . '/../vendor/rsanjoseo/alxarafe/src';
+        $main_route = constant('BASE_PATH') . '/../vendor/alxarafe/alxarafe/src';
 
         $routes = [];
         $routes[] = $app_route;

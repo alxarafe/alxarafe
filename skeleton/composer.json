@@ -1,0 +1,24 @@
+{
+    "name": "alxarafe/demo-app",
+    "description": "Aplicación de demo y desarrollo para Alxarafe",
+    "type": "project",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": ".."
+        }
+    ],
+    "require": {
+        "alxarafe/alxarafe": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\": "Modules/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

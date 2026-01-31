@@ -17,3 +17,8 @@ composer.phar
 /composer.lock
 /vendor/
 /.phpunit.cache/
+
+# Skeleton Development App
+skeleton/vendor/
+skeleton/tmp/
+skeleton/data/

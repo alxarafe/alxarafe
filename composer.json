@@ -1,8 +1,8 @@
 {
-  "name": "rsanjoseo/alxarafe",
+  "name": "alxarafe/alxarafe",
   "description": "Microframework for rapid application development.",
   "type": "library",
-  "homepage": "https://github.com/rsanjoseo/alxarafe",
+  "homepage": "https://github.com/alxarafe/alxarafe",
   "license": "GPL-3.0-or-later",
   "authors": [
     {
@@ -13,8 +13,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/rsanjoseo/alxarafe/issues",
-    "source": "https://github.com/rsanjoseo/alxarafe"
+    "issues": "https://github.com/alxarafe/alxarafe/issues",
+    "source": "https://github.com/alxarafe/alxarafe"
   },
   "config": {
     "vendor-dir": "vendor",
@@ -39,7 +39,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Rsanjoseo\\Alxarafe\\": "src/Scripts",
+      "Alxarafe\\Scripts\\": "src/Scripts",
       "Alxarafe\\": "src/Core",
       "CoreModules\\": "src/Modules"
     }
@@ -50,10 +50,10 @@
   },
   "scripts": {
     "post-package-install": [
-      "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
+      "Alxarafe\\Scripts\\ComposerScripts::postUpdate"
     ],
     "post-package-update": [
-      "Rsanjoseo\\Alxarafe\\ComposerScripts::postUpdate"
+      "Alxarafe\\Scripts\\ComposerScripts::postUpdate"
     ]
   }
 }

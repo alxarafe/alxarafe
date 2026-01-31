@@ -25,7 +25,7 @@ abstract class Routes
 
     private static $search_routes = [
         'Modules' => 'Modules/',
-        'CoreModules' => 'vendor/rsanjoseo/alxarafe/src/Modules/',
+        'CoreModules' => 'vendor/alxarafe/alxarafe/src/Modules/',
     ];
 
     public static function addRoutes(array $routes = [])

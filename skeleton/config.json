@@ -1,0 +1,28 @@
+{
+    "main": {
+        "path": "/var/www/html/skeleton",
+        "url": "http://localhost:8081",
+        "data": "./data",
+        "theme": "alxarafe",
+        "language": "es"
+    },
+    "db": {
+        "type": "mysql",
+        "host": "db",
+        "user": "alxarafe",
+        "pass": "password",
+        "name": "alxarafe",
+        "port": 3306,
+        "prefix": "alx_",
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_unicode_ci",
+        "encryption": false,
+        "encrypt_type": 0
+    },
+    "security": {
+        "debug": true,
+        "unique_id": "demo-docker-instance",
+        "https": false,
+        "jwt_secret_key": "secret-key-for-development-use-only"
+    }
+}
