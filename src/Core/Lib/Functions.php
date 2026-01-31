@@ -94,7 +94,7 @@ abstract class Functions
     {
         $routes = [
             '/Templates/theme',
-            '/vendor/rsanjoseo/alxarafe/Templates/theme',
+            '/vendor/alxarafe/alxarafe/Templates/theme',
         ];
         return Functions::getFirstNonEmptyDirectory($routes, '');
     }

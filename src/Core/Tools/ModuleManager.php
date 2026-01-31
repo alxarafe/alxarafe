@@ -95,7 +95,7 @@ abstract class ModuleManager
         $base_path = realpath(constant('BASE_PATH') . '/..');
         $result = [];
         $result[] = [
-            'path' => $base_path . '/vendor/rsanjoseo/alxarafe/src/Modules',
+            'path' => $base_path . '/vendor/alxarafe/alxarafe/src/Modules',
             'namespace' => 'CoreModules',
         ];
         $result[] = [

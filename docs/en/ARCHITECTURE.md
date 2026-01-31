@@ -20,7 +20,7 @@ The framework does not enforce a single `index.php`, but the recommended flow is
 Alxarafe **does not use route files**. Routes are generated dynamically by scanning code directories.
 
 *   Class: `Alxarafe\Lib\Routes`
-*   Mechanism: Scans `src/Modules/` and `vendor/rsanjoseo/alxarafe/src/Modules/`.
+*   Mechanism: Scans `src/Modules/` and `vendor/alxarafe/alxarafe/src/Modules/`.
 *   Recognized Patterns:
     *   `*Controller.php` -> Web Routes.
     *   `*Api.php` -> API Routes.

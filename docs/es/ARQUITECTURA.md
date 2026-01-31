@@ -20,7 +20,7 @@ El framework no impone un `index.php` único, pero el flujo recomendado es:
 Alxarafe **no utiliza archivos de rutas**. Las rutas se generan dinámicamente escaneando los directorios de código.
 
 *   Clase: `Alxarafe\Lib\Routes`
-*   Mecanismo: Busca en `src/Modules/` y `vendor/rsanjoseo/alxarafe/src/Modules/`.
+*   Mecanismo: Busca en `src/Modules/` y `vendor/alxarafe/alxarafe/src/Modules/`.
 *   Patrones reconocidos:
     *   `*Controller.php` -> Rutas Web.
     *   `*Api.php` -> Rutas API.

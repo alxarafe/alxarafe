@@ -18,7 +18,7 @@ For more licenses compatibility information: [Licenses](https://www.gnu.org/lice
 
 # Authors
 
-See page [Contributors](https://github.com/rsanjoseo/alxarafe/graphs/contributors)
+See page [Contributors](https://github.com/alxarafe/alxarafe/graphs/contributors)
 
 # Contributions
 
