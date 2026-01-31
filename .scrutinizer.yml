@@ -17,8 +17,13 @@ build:
       # Run PHPUnit test.
       # - command: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
 filter:
+  excluded_paths:
+    - 'skeleton/*'
+    - '.docker/*'
+    - 'docs/*'
+    - 'vendor/*'
   paths:
-    - src/*
+    - 'src/*'
 
 tools:
   php_analyzer: true
