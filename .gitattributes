@@ -1,0 +1,17 @@
+# Excluir archivos de desarrollo del paquete final (ZIP de Composer)
+.docker/ export-ignore
+skeleton/ export-ignore
+docs/ export-ignore
+tests/ export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
+.dockerignore export-ignore
+docker-compose.yml export-ignore
+init-dev.sh export-ignore
+CONTRIBUTING.md export-ignore
+GUIA_CONTRIBUCION.md export-ignore
+
+# Asegurar configuración de git correcta
+*.php text eol=lf
+*.md text eol=lf
+*.json text eol=lf
