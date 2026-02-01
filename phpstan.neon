@@ -4,5 +4,3 @@ parameters:
         - src
     excludePaths:
         - src/Core/Base/Model/Trait/DtoTrait.php
-        - src/Core/Component/*
-        - src/Core/Base/Controller/ResourceController.php
