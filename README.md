@@ -1,9 +1,8 @@
 # Alxarafe
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/?branch=main)
-[![Build Status](https://scrutinizer-ci.com/g/alxarafe/alxarafe/badges/build.png?b=main)](https://scrutinizer-ci.com/g/alxarafe/alxarafe/build-status/main)
+![CI](https://github.com/alxarafe/alxarafe/actions/workflows/ci.yml/badge.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/alxarafe/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-8892BF.svg?style=flat-square)](https://php.net/)
+![PHP 8.5.1](https://img.shields.io/badge/PHP-8.5.1%20(custom%20Docker)-blue?style=flat-square)
 
 ## LICENSE
 
