@@ -103,10 +103,8 @@ class ConfigController extends ViewController
      */
     private function getPost(): void
     {
-        $this->data = Config::getConfig();
-        if (!isset($this->data)) {
-            $this->data = new stdClass();
-        }
+        $config = Config::getConfig();
+        $this->data = $config ?? new stdClass();
 
         foreach (Config::CONFIG_STRUCTURE as $section => $values) {
             if (!isset($this->data->{$section})) {
@@ -148,7 +146,7 @@ class ConfigController extends ViewController
          */
         $restricted_access = false;
 
-        if (isset($this->config) && $restricted_access) {
+        if (isset($this->config)) {
             $this->template = 'page/forbidden';
         }
 

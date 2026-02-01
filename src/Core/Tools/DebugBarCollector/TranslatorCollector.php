@@ -19,8 +19,6 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
 
     /**
      * TranslationCollector constructor.
-     *
-     * @param Translator $translator
      */
     public function __construct()
     {

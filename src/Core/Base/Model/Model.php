@@ -11,10 +11,9 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
  */
 abstract class Model extends EloquentModel
 {
-    public static function exists(): bool
+    public function exists(): bool
     {
-        $instance = new static();
-        $table_name = $instance->table;
+        $table_name = $this->getTable();
         if (empty($table_name)) {
             return false;
         }

@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Tools\Dispatcher;
 
+use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Routes;
 use Alxarafe\Tools\Debug;
@@ -59,8 +60,8 @@ class WebDispatcher extends Dispatcher
         require_once $filename;
 
         $controllerClass = new $className();
-        if ($controllerClass === null) {
-            static::dieWithMessage($className . ' not found');
+        if (!$controllerClass instanceof ViewController) {
+            static::dieWithMessage($className . ' is not a ViewController');
         }
 
         $templates_path = [

@@ -85,11 +85,7 @@ class MigrationController extends ViewController
 
     public function doRunMigrationsAndSeeders(): bool
     {
-        dd($this->data);
-        new Database($this->data->db);
-
-
-        Config::runMigrations();
+        Config::doRunMigrations();
         Config::runSeeders();
 
         return true;

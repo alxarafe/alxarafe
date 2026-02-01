@@ -34,7 +34,7 @@ abstract class Dispatcher
      * Get variable containing the name of the method to execute.
      * Not normally used. The action is executed automatically from the index method.
      */
-    private const METHOD = 'method';
+    protected const METHOD = 'method';
 
     abstract protected static function dieWithMessage($message);
 }
