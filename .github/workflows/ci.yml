@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  quality:
     runs-on: ubuntu-latest
 
     container:
@@ -16,27 +16,49 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Mostrar versión de PHP
+      - name: PHP Version
         run: php -v
 
-      - name: Cache Composer
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
-          restore-keys: composer-
-
-      - name: Instalar dependencias de Composer
+      - name: Install Composer deps
         run: composer install --no-interaction --no-progress
 
-      - name: Análisis de seguridad Scrutinizer local
-        run: php-scrutinizer-run --enable-security-analysis
-
+      # ---------------------------
+      # PHPCS + PHPCBF (estilo)
+      # ---------------------------
       - name: PHPCBF (autofix)
         run: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
 
       - name: PHPCS (lint)
         run: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
 
-      # - name: PHPUnit
-      #   run: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
+      # ---------------------------
+      # PHPStan (análisis estático)
+      # ---------------------------
+      - name: PHPStan
+        run: vendor/bin/phpstan analyse --memory-limit=1G
+
+      # ---------------------------
+      # Psalm (análisis profundo)
+      # ---------------------------
+      - name: Psalm
+        run: vendor/bin/psalm --output-format=github
+
+      # ---------------------------
+      # PHPMD (complejidad, duplicación)
+      # ---------------------------
+      - name: PHPMD
+        run: vendor/bin/phpmd src/Core text cleancode,codesize,controversial,design,naming,unusedcode
+
+      # ---------------------------
+      # PHP Metrics (score de calidad)
+      # ---------------------------
+      - name: PHP Metrics
+        run: |
+          mkdir -p reports
+          vendor/bin/phpmetrics --report-html=reports/metrics src/Core
+
+      - name: Upload PHP Metrics report
+        uses: actions/upload-artifact@v4
+        with:
+          name: phpmetrics-report
+          path: reports/metrics
