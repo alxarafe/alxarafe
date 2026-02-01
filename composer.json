@@ -49,13 +49,5 @@
     "phpstan/phpstan": "^2.1",
     "php-debugbar/php-debugbar": "^3.3",
     "vimeo/psalm": "^6.15"
-  },
-  "scripts": {
-    "post-install-cmd": [
-      "Alxarafe\\Scripts\\ComposerScripts::postUpdate"
-    ],
-    "post-update-cmd": [
-      "Alxarafe\\Scripts\\ComposerScripts::postUpdate"
-    ]
   }
 }
