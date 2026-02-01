@@ -18,12 +18,11 @@
 
 namespace Alxarafe\Scripts;
 
-use Composer\Installer\PackageEvent;
 use Composer\Script\Event;
 
 abstract class ComposerScripts
 {
-    public static function postUpdate(PackageEvent $event)
+    public static function postUpdate(Event $event)
     {
         $io = $event->getIO();
 

@@ -1,0 +1,12 @@
+data/
+data/**
+logs/
+logs/**
+scripts/
+scripts/**
+
+# Added by Cayetano H. Osma. due to use the Visual Studio Code.
+.history
+.history/**
+.vscode
+.vscode/**

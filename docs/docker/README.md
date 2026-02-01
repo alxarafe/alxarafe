@@ -10,7 +10,7 @@ Alxarafe incluye una configuración Docker completa para desarrollo local.
 
 1.  Ejecuta desde la raíz del proyecto:
     ```bash
-    docker-compose up -d --build
+    docker compose up -d
     ```
 
 2.  Accede a la aplicación:
