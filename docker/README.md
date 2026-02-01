@@ -10,7 +10,7 @@ Una vez creados, igual es necesario ejecutar el composer.
 
 Ejecutando el siguiente comando, se accede al contenedor en el que se encuentra el código.
 
-<code>docker exec -it xnet_php bash</code>
+<code>docker exec -it alxarafe_php bash</code>
 
 Desde ahí se puede ejecutar.
 
@@ -22,18 +22,18 @@ Desde ahí se puede ejecutar.
 
 ### Para ejecutar mysql con el usuario dbuser (contraseña dbuser)
 
-mysql -h xnet_db -P 3306 -u dbuser -p
+mysql -h alxarafe_db -P 3306 -u dbuser -p
 
 ### Cambiar la base de datos
 
 Se puede eliminar la base de datos existente:
 
-<code>drop database xnet;</code>
+<code>drop database alxarafe;</code>
 
-<code>create database xnet;</code>
+<code>create database alxarafe;</code>
 
-<code>use xnet;</code>
+<code>use alxarafe;</code>
 
-La base de datos a importar se copia a la carpeta tmp y así queda disponible en el contenedor. Si por ejemplo es xnet_db.sql
+La base de datos a importar se copia a la carpeta tmp y así queda disponible en el contenedor. Si por ejemplo es alxarafe_db.sql
 
-<code>source tmp/xnet_db.sql;</code>
+<code>source tmp/alxarafe_db.sql;</code>
