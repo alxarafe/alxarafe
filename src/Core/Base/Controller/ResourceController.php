@@ -13,8 +13,8 @@ namespace Alxarafe\Base\Controller;
 abstract class ResourceController extends Controller
 {
     // Modes
-    const MODE_LIST = 'list';
-    const MODE_EDIT = 'edit';
+    public const MODE_LIST = 'list';
+    public const MODE_EDIT = 'edit';
 
     protected string $mode = self::MODE_LIST;
     /**
@@ -122,7 +122,7 @@ abstract class ResourceController extends Controller
     /**
      * Main entry point.
      */
-    protected function private_core()
+    protected function privateCore()
     {
         $this->detectMode();
         $this->buildConfiguration();
