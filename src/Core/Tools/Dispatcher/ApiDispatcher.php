@@ -64,9 +64,9 @@ class ApiDispatcher extends Dispatcher
 
         require_once $filename;
 
-        $controller = new $className();
-        if ($controller === null) {
-            Debug::message("Dispatcher::runApi error: $className not found");
+        $controllerInstance = new $className();
+        if (!$controllerInstance instanceof ApiController) {
+            Debug::message("Dispatcher::runApi error: $className is not an ApiController");
             ApiController::badApiCall();
         }
     }

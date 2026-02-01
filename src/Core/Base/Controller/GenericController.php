@@ -38,6 +38,7 @@ abstract class GenericController
      */
     public ?string $action;
 
+    public $data;
     public array $top_menu = [];
     public array $sidebar_menu = [];
 

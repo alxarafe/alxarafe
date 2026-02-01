@@ -112,7 +112,9 @@ abstract class Debug
         if (!isset(self::$debugBar)) {
             return;
         }
-        self::$debugBar['time']->startMeasure($name, $message);
+        /** @var \DebugBar\DataCollector\TimeDataCollector $timeCollector */
+        $timeCollector = self::$debugBar['time'];
+        $timeCollector->startMeasure($name, $message);
     }
 
     /**
@@ -148,7 +150,9 @@ abstract class Debug
         if (!isset(self::$debugBar)) {
             return;
         }
-        self::$debugBar['time']->stopMeasure($name);
+        /** @var \DebugBar\DataCollector\TimeDataCollector $timeCollector */
+        $timeCollector = self::$debugBar['time'];
+        $timeCollector->stopMeasure($name);
     }
 
     /**
@@ -195,7 +199,14 @@ abstract class Debug
             return;
         }
         $caller = self::getCaller();
-        self::$debugBar['exceptions']->addThrowable($caller['file'] . ' (' . $caller['line'] . '): ' . $exception);
+        /** @var \DebugBar\DataCollector\ExceptionsCollector $exceptionsCollector */
+        $exceptionsCollector = self::$debugBar['exceptions'];
+        $message = $caller['file'] . ' (' . $caller['line'] . '): ' . $exception;
+        if ($exception instanceof \Throwable) {
+            $exceptionsCollector->addThrowable($exception);
+        } else {
+            $exceptionsCollector->addThrowable(new \Exception($message));
+        }
     }
 
     /**
@@ -229,11 +240,12 @@ abstract class Debug
         }
 
         if (!isset(self::$debugBar[$channel])) {
-            self::$debugBar->addMessage('channel ' . $channel . ' does not exist. Message: ' . $message);
             return;
         }
 
         $caller = self::getCaller();
-        self::$debugBar[$channel]->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
+        /** @var \DebugBar\DataCollector\MessagesCollector $messagesCollector */
+        $messagesCollector = self::$debugBar[$channel];
+        $messagesCollector->addMessage($caller['file'] . ' (' . $caller['line'] . '): ' . $message);
     }
 }

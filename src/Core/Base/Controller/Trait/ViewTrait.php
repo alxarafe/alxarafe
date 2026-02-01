@@ -268,9 +268,6 @@ trait ViewTrait
     private function getDefaultTemplateName(): string
     {
         $array_object = explode('\\', get_class($this));
-        if (empty($array_object)) {
-            return '';
-        }
         return Str::snake(substr(end($array_object), 0, -10));
     }
 }

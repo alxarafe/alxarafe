@@ -63,7 +63,7 @@ abstract class ModuleManager
      */
     private static function iterateFunction($function)
     {
-        $iterate = static::iterate();
+        $iterate = self::iterate();
         $result = [];
         foreach ($iterate as $module) {
             $namespace = $module['namespace'];
@@ -88,7 +88,7 @@ abstract class ModuleManager
     /**
      * Returns the paths that can contain modules.
      *
-     * @return string[]
+     * @return array<int, array<string, string>>
      */
     private static function routes(): array
     {

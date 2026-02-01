@@ -9,20 +9,20 @@ use Illuminate\Database\Schema\Blueprint;
 /**
  * The "migrations" table contains the list of updates to the database tables.
  */
-class Migration extends Model
+final class Migration extends Model
 {
     protected $table = 'migrations';
     protected $fillable = ['migration', 'batch'];
 
     public static function getLastBatch()
     {
-        $instance = new static;
+        $instance = new self();
 
         if (!Capsule::schema()->hasTable($instance->getTable())) {
-            static::createTable();
+            self::createTable();
         }
 
-        return static::max('batch') ?? 0;
+        return self::max('batch') ?? 0;
     }
 
     /**

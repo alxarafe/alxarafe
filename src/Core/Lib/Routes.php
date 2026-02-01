@@ -30,15 +30,15 @@ abstract class Routes
 
     public static function addRoutes(array $routes = [])
     {
-        static::$routes = [];
-        static::$search_routes = array_merge($routes, static::$search_routes);
+        self::$routes = [];
+        self::$search_routes = array_merge($routes, self::$search_routes);
     }
 
     private static function getRoutesFor($class_type, $suffix): array
     {
         $routes = [];
 
-        foreach (static::$search_routes as $class => $route) {
+        foreach (self::$search_routes as $class => $route) {
             $full_path = realpath(constant('BASE_PATH') . '/../' . $route);
             if (empty($full_path)) {
                 continue;
@@ -64,8 +64,8 @@ abstract class Routes
 
     public static function getAllRoutes()
     {
-        if (!empty(static::$routes)) {
-            return static::$routes;
+        if (!empty(self::$routes)) {
+            return self::$routes;
         }
 
         $routes = [
@@ -77,9 +77,9 @@ abstract class Routes
         ];
 
         foreach ($routes as $class_type => $suffix) {
-            static::$routes[$class_type] = static::getRoutesFor($class_type, $suffix);
+            self::$routes[$class_type] = self::getRoutesFor($class_type, $suffix);
         }
 
-        return static::$routes;
+        return self::$routes;
     }
 }

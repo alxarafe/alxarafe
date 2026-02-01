@@ -101,7 +101,7 @@ abstract class ApiController
 
         http_response_code($httpCode);
         header('Content-Type: application/json');
-        die(json_encode(static::debugEnabled($result)));
+        die(json_encode(self::debugEnabled($result)));
     }
 
     /**
@@ -141,6 +141,6 @@ abstract class ApiController
 
         http_response_code($httpCode);
         header('Content-Type: application/json');
-        die(json_encode(static::debugEnabled($result)));
+        die(json_encode(self::debugEnabled($result)));
     }
 }

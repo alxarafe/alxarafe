@@ -49,7 +49,9 @@ abstract class Auth
         }
 
         try {
-            self::$user = User::find($userId);
+            /** @var User|null $user */
+            $user = User::find($userId);
+            self::$user = $user;
         } catch (\Exception $e) {
             Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
             Functions::httpRedirect(ConfigController::url());
@@ -86,14 +88,11 @@ abstract class Auth
 
     public static function setLoginCookie($userId): void
     {
+        /** @var User|null $user */
         $user = User::find($userId);
-        self::$user = User::find($userId);
+        self::$user = $user;
 
         $token = self::generateToken();
-
-        if (!isset(self::$user)) {
-            self::$user = User::find($userId);
-        }
 
         if (isset(self::$user)) {
             self::$user->saveToken($token);

@@ -29,6 +29,7 @@ abstract class Seeder
 {
     public function __construct($truncate = false)
     {
+        /** @var class-string<Model> $model */
         $model = static::model();
 
         if ($truncate) {
@@ -42,14 +43,15 @@ abstract class Seeder
 
     /**
      * Returns the name of the seeder table.
+     * @return class-string<Model>
      */
-    abstract protected static function model(): Model;
+    abstract protected static function model(): string;
 
     /**
      * Execute the seeder
      *
      * @param string $model
-     * @return mixed
+     * @return void
      */
     abstract protected function run(string $model): void;
 }

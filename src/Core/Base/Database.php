@@ -91,7 +91,7 @@ class Database extends CapsuleManager
             if (!$create) {
                 return false;
             }
-            if (!static::createDatabaseIfNotExists($data, true)) {
+            if (!static::createDatabaseIfNotExists($data)) {
                 return false;
             }
         }

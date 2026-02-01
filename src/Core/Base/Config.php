@@ -192,15 +192,10 @@ abstract class Config
 
                 $migration = require_once $filepath;
                 $migration->up();
-                if (
-                    !Migration::create([
+                Migration::create([
                     'migration' => $filename,
                     'batch' => $batch,
-                    ])
-                ) {
-                    Messages::addError('Fail creating migration ' . $filename);
-                    return false;
-                }
+                ]);
             }
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
@@ -289,7 +284,7 @@ abstract class Config
 
         $config = file_get_contents($filename);
         if ($config === false) {
-            return self::$config;
+            return null;
         }
 
         $result = json_decode($config);

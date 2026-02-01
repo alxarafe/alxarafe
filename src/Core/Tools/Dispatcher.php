@@ -66,9 +66,9 @@ class Dispatcher
             return;
         }
 
-        $module = filter_input(INPUT_GET, static::MODULE) ?? 'Admin';
-        $controller = filter_input(INPUT_GET, static::CONTROLLER) ?? 'Info';
-        $method = filter_input(INPUT_GET, static::METHOD) ?? 'index';
+        $module = filter_input(INPUT_GET, self::MODULE) ?? 'Admin';
+        $controller = filter_input(INPUT_GET, self::CONTROLLER) ?? 'Info';
+        $method = filter_input(INPUT_GET, self::METHOD) ?? 'index';
         WebDispatcher::run($module, $controller, $method);
     }
 

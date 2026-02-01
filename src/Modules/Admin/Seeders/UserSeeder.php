@@ -12,9 +12,9 @@ class UserSeeder extends Seeder
      * Returns the name of the seeder table.
      */
 
-    protected static function model(): Model
+    protected static function model(): string
     {
-        return new User();
+        return User::class;
     }
 
     /**

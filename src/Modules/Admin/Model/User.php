@@ -9,7 +9,10 @@ use Illuminate\Database\Schema\Blueprint;
 /**
  * @method static find($user)
  */
-class User extends Model
+/**
+ * @property string $token
+ */
+final class User extends Model
 {
     protected $table = 'users';
     protected $fillable = ['name', 'email', 'password', 'token', 'is_admin'];
