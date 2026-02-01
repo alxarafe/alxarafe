@@ -1,0 +1,25 @@
+{
+  "name": "alxarafe",
+  "version": "1.0.0",
+  "description": "Alxarafe: A lightweight and modern PHP framework.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "watch": "echo 'Alxarafe Node environment is active...' && tail -f /dev/null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alxarafe/alxarafe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/alxarafe/alxarafe/issues"
+  },
+  "homepage": "https://github.com/alxarafe/alxarafe#readme"
+}

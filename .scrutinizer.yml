@@ -1,14 +1,16 @@
 build:
-  image: default-bionic
   environment:
+    docker:
+      image: rsanjose/php851:latest
     variables:
-      PHP_VERSION: 8.2
       SKIP_COPY_ASSETS: true
   dependencies:
     before:
       - composer install
   tests:
     override:
+      - php -v
+      - composer install --no-interaction --no-progress
       - php-scrutinizer-run --enable-security-analysis
       # Run PHP-CS Beautifier and Fixer: to format some common non PSR code that can be auto-fixed.
       - command: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
