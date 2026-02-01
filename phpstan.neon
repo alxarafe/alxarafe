@@ -2,4 +2,4 @@ parameters:
     level: 5
     paths:
         - src
-    memoryLimit: 1G
+    memory_limit: 1G
