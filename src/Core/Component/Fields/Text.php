@@ -1,5 +1,4 @@
 <?php
-<?php
 
 /* Copyright (C) 2026      Rafael San José      <rsanjose@alxarafe.com>
  *
