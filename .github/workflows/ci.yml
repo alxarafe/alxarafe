@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: rsanjose/php851:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Mostrar versión de PHP
+        run: php -v
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Instalar dependencias de Composer
+        run: composer install --no-interaction --no-progress
+
+      - name: Análisis de seguridad Scrutinizer local
+        run: php-scrutinizer-run --enable-security-analysis
+
+      - name: PHPCBF (autofix)
+        run: vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
+
+      - name: PHPCS (lint)
+        run: vendor/bin/phpcs --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s
+
+      # - name: PHPUnit
+      #   run: vendor/bin/phpunit --coverage-clover=reports/coverage.xml
