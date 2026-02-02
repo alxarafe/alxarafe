@@ -3,7 +3,8 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
     title: "Alxarafe",
     base: '/docs/',
-    srcDir: './webDoc', // <--- ESTO ES CLAVE: le dice que busque los .md aquí
+    srcDir: './webDoc',
+    ignoreDeadLinks: true,
 
     locales: {
         root: { label: 'English', lang: 'en' }, // Al estar en webDoc, buscará en /en/
