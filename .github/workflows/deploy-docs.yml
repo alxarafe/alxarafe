@@ -1,0 +1,61 @@
+name: Deploy Multi-Language Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'webDoc/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install & Build
+        run: |
+          npm install
+          npm run docs:build
+
+      # Guardamos el resultado de la compilación para los siguientes pasos
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-dist
+          path: .vitepress/dist/
+
+  deploy-com:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-dist
+          path: dist
+      - name: Deploy to Alxarafe.com (EN)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER_COM }}
+          username: ${{ secrets.FTP_USER_COM }}
+          password: ${{ secrets.FTP_PASS_COM }}
+          local-dir: ./dist/
+          server-dir: public_html/docs/
+
+  deploy-es:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-dist
+          path: dist
+      - name: Deploy to Alxarafe.es (ES)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER_ES }}
+          username: ${{ secrets.FTP_USER_ES }}
+          password: ${{ secrets.FTP_PASS_ES }}
+          local-dir: ./dist/
+          server-dir: public_html/docs/

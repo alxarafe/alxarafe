@@ -18,6 +18,7 @@ composer.phar
 /vendor/
 /webDoc/
 /.phpunit.cache/
+/dist/
 
 # Skeleton Development App
 skeleton/vendor/

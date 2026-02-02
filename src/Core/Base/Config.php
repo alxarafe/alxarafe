@@ -35,7 +35,7 @@ abstract class Config
     /**
      * Configuration filename.
      */
-    private const CONFIG_FILENAME = 'config.json';
+    protected const CONFIG_FILENAME = 'config.json';
 
     /**
      * Defines the configuration file structure
@@ -156,7 +156,7 @@ abstract class Config
      *
      * @return bool
      */
-    private static function saveConfig(): bool
+    public static function saveConfig(): bool
     {
         if (empty(self::$config)) {
             return true;
@@ -169,7 +169,7 @@ abstract class Config
      *
      * @return string
      */
-    private static function getConfigFilename(): string
+    public static function getConfigFilename(): string
     {
         return realpath(constant('BASE_PATH') . '/..') . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
     }
