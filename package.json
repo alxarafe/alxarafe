@@ -8,7 +8,10 @@
     "test": "tests"
   },
   "scripts": {
-    "watch": "echo 'Alxarafe Node environment is active...' && tail -f /dev/null"
+    "watch": "echo 'Alxarafe Node environment is active...' && tail -f /dev/null",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,10 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "devDependencies": {
+    "vitepress": "latest",
+    "vue": "latest"
+  },
   "bugs": {
     "url": "https://github.com/alxarafe/alxarafe/issues"
   },
