@@ -1,6 +1,6 @@
 # Guía de Contribución y Desarrollo
 
-Esta guía detalla cómo configurar un entorno de desarrollo local para trabajar en el framework **Alxarafe**.
+Esta guía detalla cómo configurar un entorno de desarrollo local para trabajar en el framework **Alxarafe**
 
 ## Entorno de Desarrollo (Monorepo)
 
