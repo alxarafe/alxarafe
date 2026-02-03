@@ -16,7 +16,6 @@ Thumbs.db
 composer.phar
 /composer.lock
 /vendor/
-/webDoc/
 /.phpunit.cache/
 /dist/
 
