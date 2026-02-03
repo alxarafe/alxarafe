@@ -7,8 +7,8 @@ export default defineConfig({
     ignoreDeadLinks: true,
 
     locales: {
-        root: { label: 'English', lang: 'en' }, // Al estar en webDoc, buscará en /en/
-        es: { label: 'Español', lang: 'es', link: '/es/' }
+        root: { label: 'Español', lang: 'es', link: '/es/' },
+        en: { label: 'English', lang: 'en', link: '/en/' }
     },
 
     themeConfig: {

@@ -1,6 +1,6 @@
 # Análisis de Puntos Débiles y Plan de Mejora
 
-Este documento resume el análisis técnico del estado actual de **Alxarafe Microframework**. Su objetivo es identificar barreras para la adopción y proponer una hoja de ruta para su modernización.
+Este documento resume el análisis técnico del estado actual de **Alxarafe Microframework**. Su objetivo es identificar barreras para la adopción y proponer una hoja de ruta para su modernización
 
 ## 1. Puntos Débiles (Diagnosticados)
 
