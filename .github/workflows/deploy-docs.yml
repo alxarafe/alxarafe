@@ -36,9 +36,9 @@ jobs:
       - name: Deploy to Alxarafe.com (EN)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER_COM }}
-          username: ${{ secrets.FTP_USER_COM }}
-          password: ${{ secrets.FTP_PASS_COM }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
           local-dir: ./dist/
           server-dir: /
           protocol: ftp
