@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
     title: "Alxarafe",
-    base: '/docs/',
+    base: '/',
     srcDir: './webDoc',
     ignoreDeadLinks: true,
 
