@@ -16,13 +16,37 @@ Other licenses apply for some included dependencies. See [COPYRIGHT](https://git
 
 ## INSTALLING
 
-### Simple setup
+### Local development with Docker
 
+Alxarafe includes a complete Docker development environment. To use it:
+
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+2. Start the containers using the provided script:
+   ```bash
+   ./bin/docker_start.sh
+   ```
+3. Run the migrations:
+   ```bash
+   ./bin/run_migrations.sh
+   ```
+4. Access the application at [http://localhost:8081](http://localhost:8081).
+
+For more details, see the [Docker documentation](https://alxarafe.github.io/alxarafe/en/docker).
+
+### Manual installation
+
+```bash
 composer require alxarafe/alxarafe
+```
 
 ## DOCUMENTATION
 
-Pending
+Official documentation is available at: [https://alxarafe.github.io/alxarafe/](https://alxarafe.github.io/alxarafe/)
+
+You can also find the markdown source in the `webDoc/` directory.
 
 ## CONTRIBUTING
 

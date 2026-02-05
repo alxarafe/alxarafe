@@ -12,9 +12,39 @@ export default defineConfig({
     },
 
     themeConfig: {
+        nav: [
+            { text: 'Inicio', link: '/' },
+        ],
+
         sidebar: {
-            '/en/': [{ text: 'Documentation', items: [{ text: 'Home', link: '/en/' }] }],
-            '/es/': [{ text: 'Documentación', items: [{ text: 'Inicio', link: '/es/' }] }]
+            '/en/': [
+                {
+                    text: 'Documentation',
+                    items: [
+                        { text: 'Home', link: '/en/' },
+                        { text: 'Architecture', link: '/en/architecture' },
+                        { text: 'Docker Usage', link: '/en/docker' },
+                        { text: 'Improvement Plan', link: '/en/improvement_plan' },
+                        { text: 'PHP 8.5 Diagnosis', link: '/en/php85_diagnosis' },
+                        { text: 'Publishing Guide', link: '/en/publishing_guide' },
+                        { text: 'Contribution Guide', link: '/en/contribution_guide' },
+                    ]
+                }
+            ],
+            '/es/': [
+                {
+                    text: 'Documentación',
+                    items: [
+                        { text: 'Inicio', link: '/es/' },
+                        { text: 'Arquitectura', link: '/es/arquitectura' },
+                        { text: 'Uso de Docker', link: '/es/docker' },
+                        { text: 'Análisis de Mejoras', link: '/es/analisis_de_mejoras' },
+                        { text: 'Diagnóstico PHP 8.5', link: '/es/diagnostico_php85' },
+                        { text: 'Guía de Publicación', link: '/es/guia_de_publicacion' },
+                        { text: 'Guía de Contribución', link: '/es/guia_de_contribucion' },
+                    ]
+                }
+            ]
         }
     }
 })

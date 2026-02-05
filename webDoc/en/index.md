@@ -1,12 +1,12 @@
 # Alxarafe Microframework
 
-**Alxarafe** is a modern PHP microframework (8.2+) designed for rapid web application and RESTful API development. It focuses on simplicity, modularity, and convention over configuration.
+**Alxarafe** is a modern PHP microframework (8.2+) designed for rapid development of web applications and RESTful APIs. It focuses on simplicity, modularity, and convention over configuration.
 
 ## Key Features
 
-*   **Modular Architecture:** Code is organized into Modules (Core and User) encapsulating business logic.
+*   **Modular Architecture:** Code is organized into Modules (Core and User) that encapsulate business logic.
 *   **API First:** Native support for REST APIs with integrated JWT authentication.
-*   **Automatic Routing:** Intelligent routing system maps URLs to Controllers based on naming conventions, eliminating the need for manual route files.
+*   **Automatic Routing:** Intelligent routing system that maps URLs to Controllers based on naming conventions, without the need for manual route files.
 *   **Flexible Database:** Lightweight database abstraction layer with support for automatic migrations and seeders.
 *   **Centralized Configuration:** A single `config.json` file manages the entire environment.
 *   **Internationalization (i18n):** Native support for multiple languages.
@@ -40,18 +40,18 @@ my-project/
 │   ├── index.php        # Entry point
 │   └── .htaccess        # Rewrite rules
 ├── src/
-│   └── Modules/         # Application Modules
+│   └── Modules/         # Your application's modules
 │       └── MyModule/
 │           ├── Controller/
 │           ├── Model/
-│           ├── Api/
+│           └── Api/
 └── vendor/              # Dependencies (including Alxarafe)
 ```
 
 ## Getting Started
 
 ### 1. Configuration (`config.json`)
-Create a `config.json` file in your project root. This file defines database connection, routes, and security keys.
+Create a `config.json` file in the root of your project. This file defines the database connection, routes, and security keys.
 
 ### 2. Create a Module
 Create a folder in `src/Modules/` (e.g., `src/Modules/HelloWorld`).
@@ -59,19 +59,19 @@ Inside, create `Controller/HelloWorldController.php`.
 
 ### 3. Automatic Routes
 Alxarafe will automatically detect your controller.
-If your module is `HelloWorld` and your controller is `GreetingController`, the route could be something like:
-`/HelloWorld/Greeting
+If your module is `HelloWorld` and your controller is `GreetingController`, the route might be something like:
+`/HelloWorld/Greeting`
 
 ## Development and Contribution
 
-If you want to contribute to the framework development or test changes locally without publishing to Packagist, refer to the [Contribution Guide](CONTRIBUTING.md).
+If you want to contribute to the framework's development or test changes locally without publishing to Packagist, see the [Contribution Guide](contribution_guide.md).
 
-The repository includes a ready-to-use `skeleton` application as a development environment.`
+The repository includes a `skeleton` application ready to use as a development environment.
 
 ## Additional Documentation
 
-*   [Architecture and Core Concepts](../en/ARCHITECTURE.md)
-*   [Release and Versioning Guide](../en/RELEASE_GUIDE.md)
-*   [Contribution Guide](../en/CONTRIBUTING.md)
-*   [Module Guide](MODULES.md) (Pending)
+*   [Architecture and Core Concepts](architecture.md)
+*   [Publication and Versioning Guide](publishing_guide.md)
+*   [Contribution Guide](contribution_guide.md)
+*   [Modules Guide](MODULES.md) (Pending)
 *   [API Reference](API.md) (Pending)
