@@ -23,3 +23,7 @@ composer.phar
 skeleton/vendor/
 skeleton/tmp/
 skeleton/data/
+
+# VitePress deployment
+/.vitepress/dist/
+/.vitepress/cache/

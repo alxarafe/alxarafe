@@ -85,6 +85,15 @@ class MigrationController extends ViewController
 
     public function doRunMigrationsAndSeeders(): bool
     {
+        $this->template = null;
+        if (php_sapi_name() === 'cli') {
+            echo "Running migrations...\n";
+            Config::doRunMigrations();
+            echo "Running seeders...\n";
+            Config::runSeeders();
+            echo "Done.\n";
+            return true;
+        }
         Config::doRunMigrations();
         Config::runSeeders();
 

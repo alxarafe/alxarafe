@@ -26,3 +26,5 @@ regenerate: Regenerate
 exit: Exit
 template_not_found: 'Template not found: "%name%"'
 processing_migration: 'Processing migration: "%name%"'
+pending_migrations_advice: System tables not found. Please run migrations.
+error_message: "Error: %message%"

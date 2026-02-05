@@ -154,10 +154,9 @@ class PhpCollector extends DataCollector implements Renderable
             E_USER_ERROR => 'USER_ERROR',
             E_USER_WARNING => 'USER_WARNING',
             E_USER_NOTICE => 'USER_NOTICE',
-            E_STRICT => 'STRICT',
-            E_RECOVERABLE_ERROR => 'RECOVERABLE_ERROR',
-            E_DEPRECATED => 'DEPRECATED',
             E_USER_DEPRECATED => 'USER_DEPRECATED',
+            E_DEPRECATED => 'DEPRECATED',
+            E_RECOVERABLE_ERROR => 'RECOVERABLE_ERROR',
         ];
 
         return $errors[$type] ?? '';

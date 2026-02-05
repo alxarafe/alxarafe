@@ -19,11 +19,14 @@
 namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Config;
+use Alxarafe\Base\Controller\Controller;
 use Alxarafe\Base\Database;
 use Alxarafe\Lib\Functions;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Tools\ModuleManager;
+use CoreModules\Admin\Model\Migration;
 use stdClass;
-use Alxarafe\Base\Controller\ResourceController;
 use Alxarafe\Component\Fields\Select;
 use Alxarafe\Component\Fields\Text;
 use Alxarafe\Component\Fields\Boolean;
@@ -31,7 +34,7 @@ use Alxarafe\Component\Fields\Boolean;
 /**
  * Class ConfigController. App settings controller.
  */
-class ConfigController extends ResourceController
+class ConfigController extends Controller
 {
     const MENU = 'admin|config';
     const SIDEBAR_MENU = [
@@ -58,8 +61,8 @@ class ConfigController extends ResourceController
     public $dbtypes;
 
     public $db_create;
-    public bool $pdo_connection;
-    public bool $pdo_db_exists;
+    public bool $pdo_connection = false;
+    public bool $pdo_db_exists = false;
 
     protected function getModelClass()
     {
@@ -123,7 +126,7 @@ class ConfigController extends ResourceController
     protected function handleRequest()
     {
         $this->checkDatabaseStatus();
-        
+
         if (isset($_GET['ajax'])) {
             if ($_GET['ajax'] === 'get_record') {
                 $this->jsonResponse($this->fetchRecordData());
@@ -150,7 +153,7 @@ class ConfigController extends ResourceController
         $config = Config::getConfig(true);
         // Flatten or nested? ResourceController's saveRecord expects flat keys if they match property names.
         // But for Config, we might want to keep the structure.
-        
+
         return [
             'id' => 'current',
             'data' => $config,
@@ -260,6 +263,17 @@ class ConfigController extends ResourceController
             Messages::addAdvice(Trans::_('pdo_connection_error'));
         } elseif (!$this->pdo_db_exists) {
             Messages::addAdvice(Trans::_('pdo_db_connection_error', ['db' => $this->data->db->name]));
+        } else {
+            // Check if tables are missing
+            $migrations = Config::getMigrations();
+            if (!empty($migrations)) {
+                // Ensure Database (Capsule) is initialized before using models
+                static::connectDb($this->data->db);
+                $migrationModel = new Migration();
+                if (!$migrationModel->exists()) {
+                    Messages::addAdvice(Trans::_('pending_migrations_advice'));
+                }
+            }
         }
     }
 
@@ -276,8 +290,10 @@ class ConfigController extends ResourceController
          */
         $restricted_access = false;
 
+        $this->template = 'page/config';
+
         if (isset($this->config)) {
-            $this->template = 'page/forbidden';
+            // $this->template = 'page/forbidden';
         }
 
         return true;

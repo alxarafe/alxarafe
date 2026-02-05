@@ -49,5 +49,13 @@
     "phpstan/phpstan": "^2.1",
     "php-debugbar/php-debugbar": "^3.3",
     "vimeo/psalm": "^6.15"
+  },
+  "scripts": {
+    "post-package-install": [
+      "AlxRoot\\Installer::copyAssets();"
+    ],
+    "post-package-update": [
+      "AlxRoot\\Installer::copyAssets();"
+    ]
   }
 }

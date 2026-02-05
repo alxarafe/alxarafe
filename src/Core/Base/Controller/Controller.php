@@ -49,12 +49,16 @@ abstract class Controller extends ViewController
     {
         parent::__construct();
 
-        if (!isset($this->config->db) || !static::connectDb($this->config->db)) {
-            Functions::httpRedirect(ConfigController::url());
+        if (static::class === ConfigController::class) {
+            return;
         }
 
-        if (!Auth::isLogged() && static::class !== 'CoreModules\Admin\Controller\AuthController') {
-            Functions::httpRedirect(AuthController::url());
+        if (!isset($this->config->db) || !static::connectDb($this->config->db)) {
+            Functions::httpRedirect(ConfigController::url(true, false));
+        }
+
+        if (!Auth::isLogged() && static::class !== AuthController::class) {
+            Functions::httpRedirect(AuthController::url(true, false));
         }
 
         $this->username = Auth::$user->name ?? null;

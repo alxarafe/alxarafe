@@ -95,6 +95,6 @@ class WebDispatcher extends Dispatcher
     protected static function dieWithMessage($message)
     {
         Debug::message('WebDispatcher error: ' . $message);
-        Functions::httpRedirect(Error404Controller::url());
+        Functions::httpRedirect(Error404Controller::url(true, false));
     }
 }

@@ -26,9 +26,15 @@ if ($config && isset($config->main->language)) {
 }
 
 // Simple Routing for Demo
-$module = $_GET['module'] ?? 'Demo';
-$controller = $_GET['controller'] ?? 'Home';
-$method = $_GET['method'] ?? 'index';
+if (php_sapi_name() === 'cli') {
+    $module = $argv[1] ?? 'Demo';
+    $controller = $argv[2] ?? 'Home';
+    $method = $argv[3] ?? 'index';
+} else {
+    $module = $_GET['module'] ?? 'Demo';
+    $controller = $_GET['controller'] ?? 'Home';
+    $method = $_GET['method'] ?? 'index';
+}
 
 try {
     WebDispatcher::run($module, $controller, $method);

@@ -54,7 +54,7 @@ abstract class Auth
             self::$user = $user;
         } catch (\Exception $e) {
             Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
-            Functions::httpRedirect(ConfigController::url());
+            Functions::httpRedirect(ConfigController::url(true, false));
         }
 
         return self::$user->token === $token;
@@ -71,7 +71,12 @@ abstract class Auth
      */
     public static function login(string $username, string $password): bool
     {
-        $user = User::where('name', $username)->first();
+        try {
+            $user = User::where('name', $username)->first();
+        } catch (\Exception $e) {
+            Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
+            return false;
+        }
 
         if (!isset($user)) {
             return false;

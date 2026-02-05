@@ -87,11 +87,12 @@ trait ViewTrait
     /**
      * Returns the generic url of the controller;
      *
-     * @param $full
+     * @param bool $full
+     * @param bool $includeAction
      *
      * @return string
      */
-    public static function url($full = true)
+    public static function url($full = true, $includeAction = true)
     {
         $url = '';
         if ($full) {
@@ -102,9 +103,11 @@ trait ViewTrait
             '?' . \Alxarafe\Tools\Dispatcher::MODULE . '=' . static::getModuleName() .
             '&' . \Alxarafe\Tools\Dispatcher::CONTROLLER . '=' . static::getControllerName();
 
-        $action = filter_input(INPUT_GET, 'action');
-        if ($action) {
-            $url .= '&action=' . $action;
+        if ($includeAction) {
+            $action = filter_input(INPUT_GET, 'action');
+            if ($action) {
+                $url .= '&action=' . $action;
+            }
         }
 
         return $url;

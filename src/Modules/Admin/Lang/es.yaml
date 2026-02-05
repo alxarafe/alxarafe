@@ -23,3 +23,5 @@ check_db_connection: Comprobar la conexión con base de datos
 save_configuration: Guardar la configuración
 regenerate: Regenerar
 exit: Salir
+pending_migrations_advice: No se han encontrado las tablas del sistema. Por favor, ejecute las migraciones.
+error_message: "Error: %message%"
