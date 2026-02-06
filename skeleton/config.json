@@ -1,9 +1,9 @@
 {
     "main": {
-        "path": "\/var\/www\/html\/skeleton",
-        "url": "http:\/\/localhost:8081",
-        "data": ".\/data",
-        "theme": "\/var\/www\/html\/Templates\/theme\/alxarafe",
+        "path": "/var/www/html/skeleton",
+        "url": "http://localhost:8081",
+        "data": "./data",
+        "theme": "/var/www/html/Templates/theme/alxarafe",
         "language": "es"
     },
     "db": {

@@ -23,6 +23,7 @@ namespace Alxarafe\Base\Controller;
 
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\Trait\ViewTrait;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
 
@@ -44,7 +45,20 @@ abstract class ViewController extends GenericController
     /**
      * Debug mode flag.
      */
+    /**
+     * Debug mode flag.
+     */
     public bool $debug = true;
+
+    /**
+     * Page title.
+     */
+    public string $title = '';
+
+    /**
+     * Alerts/Messages to display.
+     */
+    public array $alerts = [];
 
     /**
      * Initializes templates, configuration, and language settings.
@@ -58,7 +72,32 @@ abstract class ViewController extends GenericController
 
         // Nullsafe operator to prevent errors if config is missing
         Trans::setLang($this->config?->main?->language ?? Trans::FALLBACK_LANG);
+
+        // Inject $me as the controller itself, preserving property access
+        $this->addVariable('me', $this);
+
+        $this->title = static::getModuleName() . ' - ' . static::getControllerName();
     }
+
+    /**
+     * Proxy for translation method to allow $me::_() or $this::_() in templates
+     */
+    public static function _(string $key, array $replace = [], ?string $domain = null): string
+    {
+        return Trans::_($key, $replace, $domain);
+    }
+
+    /**
+     * Proxy for instance calls $me->_()
+     */
+    public function __call($name, $arguments)
+    {
+        if ($name === '_') {
+            return self::_($arguments[0], $arguments[1] ?? [], $arguments[2] ?? null);
+        }
+        return null;
+    }
+
 
     /**
      * Renders the debug header if enabled.
@@ -80,5 +119,18 @@ abstract class ViewController extends GenericController
             return "\n\n";
         }
         return Debug::getRenderFooter();
+    }
+
+    /**
+     * Hook executed after the main action.
+     */
+    public function afterAction(): bool
+    {
+        // Load messages before rendering
+        $this->alerts = Messages::getMessages();
+
+        // Automatically render the default template if one is set
+        echo $this->render();
+        return true;
     }
 }

@@ -40,4 +40,12 @@ final class Migration extends Model
         });
     }
 
+    public function exists($exists = false): bool
+    {
+        if (!Capsule::schema()->hasTable($this->getTable())) {
+            self::createTable();
+            return false;
+        }
+        return parent::exists($exists);
+    }
 }

@@ -1,0 +1,78 @@
+<?php
+
+use Xnet\Core\Controller\XnetResourceController;
+use Xnet\Core\Component\Fields\Boolean;
+use Xnet\Core\Component\Fields\Date;
+use Xnet\Core\Component\Fields\DateExpiration;
+use Xnet\Core\Component\Fields\Text;
+use Xnet\Core\Component\Fields\Icon;
+use Xnet\Core\Component\Filter\TextFilter;
+use Xnet\Core\Component\Filter\RelationFilter;
+use Xnet\Core\Component\Filter\DateRangeFilter;
+
+/**
+ * Controlador Licenses (Clon de Licencias)
+ */
+class licenses extends XnetResourceController
+{
+    protected function getModelClass()
+    {
+        return 'licencia';
+    }
+
+    protected function getListFields(): array
+    {
+        return [
+            'id',
+            'referencia', // Linked to articulo
+            'cliente.nombre' => ['label' => 'Cliente'],
+            'propietario.nombre' => ['label' => 'Propietario'],
+            'reseller.nombre' => ['label' => 'Reseller'],
+            'fechaalta',
+            new Date('fecha_proximo_pago', 'Próximo Pago', [
+                'alerts' => [
+                    ['days' => 0, 'class' => 'text-danger'],  // Caducado (< 0)
+                    ['days' => 15, 'class' => 'text-danger'], // Vence en < 15 días
+                    ['days' => 30, 'class' => 'text-warning'], // Vence en < 30 días
+                ]
+            ]),
+            'licencias' => ['label' => '#Licencias'],
+            'observacion',
+            new Boolean('activo', 'Activo')
+        ];
+    }
+
+    protected function getFilters(): array
+    {
+        return [
+            new RelationFilter('codcliente', 'cliente', 'Cliente'),
+            new RelationFilter('codpropietario', 'cliente', 'Propietario'),
+            new RelationFilter('codreseller', 'cliente', 'Reseller'),
+            new RelationFilter('referencia', 'articulo', 'Artículo'),
+            new DateRangeFilter('fechaalta', 'Fecha Alta'),
+            new DateRangeFilter('fecha_proximo_pago', 'Fecha Caducidad'),
+        ];
+    }
+
+    protected function getEditFields(): array
+    {
+        // Minimal setup for Edit fields based on list
+        return [
+            'referencia',
+            'codcliente',
+            'codpropietario',
+            'codreseller',
+            'fechaalta',
+            new Date('fecha_proximo_pago', 'Fecha Caducidad', [
+                'alerts' => [
+                    ['days' => 0, 'class' => 'text-danger'],
+                    ['days' => 15, 'class' => 'text-danger'],
+                    ['days' => 30, 'class' => 'text-warning'],
+                ]
+            ]),
+            'licencias',
+            'observacion',
+            new Boolean('activo', 'Activo')
+        ];
+    }
+}

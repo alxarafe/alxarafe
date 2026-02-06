@@ -22,8 +22,10 @@ composer.phar
 # Skeleton Development App
 skeleton/vendor/
 skeleton/tmp/
+skeleton/var/cache/*
 skeleton/data/
 
 # VitePress deployment
 /.vitepress/dist/
 /.vitepress/cache/
+/node_modules/

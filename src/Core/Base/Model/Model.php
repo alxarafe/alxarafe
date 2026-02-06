@@ -58,13 +58,15 @@ abstract class Model extends EloquentModel
     {
         $instance = new static();
         $table = $instance->getTable();
+        $connection = $instance->getConnection();
+        $fullTable = $connection->getTablePrefix() . $table;
         $schema = DB::schema();
 
         if (!$schema->hasTable($table)) {
             return [];
         }
 
-        $columns = DB::select("SHOW COLUMNS FROM `{$table}`");
+        $columns = DB::select("SHOW COLUMNS FROM `{$fullTable}`");
         $fields = [];
 
         foreach ($columns as $column) {
@@ -102,7 +104,7 @@ abstract class Model extends EloquentModel
         $dbType = strtolower($dbType);
 
         return match (true) {
-            str_contains($dbType, 'bool') => 'boolean',
+            str_contains($dbType, 'bool') || str_contains($dbType, 'tinyint(1)') => 'boolean',
             str_contains($dbType, 'int'),
             str_contains($dbType, 'decimal'),
             str_contains($dbType, 'float'),

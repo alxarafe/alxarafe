@@ -21,6 +21,7 @@ namespace CoreModules\Admin\Controller;
 use Alxarafe\Base\Controller\Controller;
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 
@@ -35,7 +36,7 @@ class AuthController extends Controller
 
     use DbTrait;
 
-    public $username;
+    public ?string $username = null;
     public $password;
     public $remember;
 
@@ -43,9 +44,9 @@ class AuthController extends Controller
     {
         parent::__construct();
 
-//        if (!static::connectDb($this->config->db)) {
-//            throw new \Exception('Cannot connect to database.');
-//        }
+        //        if (!static::connectDb($this->config->db)) {
+        //            throw new \Exception('Cannot connect to database.');
+        //        }
     }
 
     /**
@@ -75,7 +76,7 @@ class AuthController extends Controller
 
     public function doLogin()
     {
-        $this->template = 'page/login';
+        $this->setDefaultTemplate('page/login');
 
         $this->username = filter_input(INPUT_POST, 'username');
         $this->password = filter_input(INPUT_POST, 'password');
@@ -91,7 +92,12 @@ class AuthController extends Controller
             return true;
         }
 
-        $this->template = 'page/info';
+        $redirect = filter_input(INPUT_GET, 'redirect') ?? filter_input(INPUT_POST, 'redirect');
+        if ($redirect) {
+            Functions::httpRedirect(urldecode($redirect));
+        }
+
+        $this->setDefaultTemplate('page/info');
         Messages::addMessage(Trans::_('authenticated_user', ['user' => $this->username]));
 
         return true;
@@ -102,5 +108,4 @@ class AuthController extends Controller
         Auth::logout();
         return true;
     }
-
 }

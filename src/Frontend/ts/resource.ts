@@ -105,68 +105,92 @@ export class AlxarafeResource {
             </button>
         `;
 
-        this.container.innerHTML = `
-            <div class="alxarafe-resource-list animate__animated animate__fadeIn">
-                
-                <!-- Tabs Navigation (if multiple) -->
-                ${this.renderTabsNav()}
+        if (this.config.templates && this.config.templates['layout_list']) {
+            this.container.innerHTML = this.config.templates['layout_list'];
 
-                <!-- Action Toolbar: Left and Right Groups -->
-                <div class="d-flex justify-content-between mb-3">
-                    <div class="btn-group">
-                        <!-- Left Buttons -->
-                        ${leftButtons.map(renderBtn).join('')}
-                    </div>
-                    <div class="d-flex gap-2">
-                        <!-- Right Buttons -->
-                        ${rightButtons.map(renderBtn).join('')}
-                    </div>
-                </div>
+            // Inject Tabs
+            const tabsContainer = this.container.querySelector('#alxarafe-tabs-container');
+            if (tabsContainer) tabsContainer.innerHTML = this.renderTabsNav();
 
-                <!-- Collapsible Filters Panel (Default Open) -->
-                <div class="card border mb-3 shadow-sm">
-                    <div class="card-header bg-white d-flex justify-content-between align-items-center" 
-                         style="cursor: pointer;"
-                         data-bs-toggle="collapse" 
-                         data-bs-target="#alxarafe-filters-collapse" 
-                         aria-expanded="true">
-                        <h6 class="mb-0 text-primary"><i class="fas fa-search me-2"></i>Filtros de búsqueda</h6>
-                        <i class="fas fa-chevron-up text-muted"></i>
+            // Inject Buttons
+            const leftContainer = this.container.querySelector('#alxarafe-toolbar-left');
+            if (leftContainer) leftContainer.innerHTML = leftButtons.map(renderBtn).join('');
+
+            const rightContainer = this.container.querySelector('#alxarafe-toolbar-right');
+            if (rightContainer) rightContainer.innerHTML = rightButtons.map(renderBtn).join('');
+
+            // Inject Table Headers
+            const theadRow = this.container.querySelector('#alxarafe-table-head');
+            if (theadRow) {
+                theadRow.innerHTML = currentTab.columns.map((col: any) => `
+                        <th class="py-3 px-4 border-0">${col.label}</th>
+                  `).join('') + '<th class="text-end py-3 px-4 border-0" style="width: 120px;">Acciones</th>';
+            }
+
+        } else {
+            this.container.innerHTML = `
+                <div class="alxarafe-resource-list animate__animated animate__fadeIn">
+                    
+                    <!-- Tabs Navigation (if multiple) -->
+                    ${this.renderTabsNav()}
+
+                    <!-- Action Toolbar: Left and Right Groups -->
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="btn-group">
+                            <!-- Left Buttons -->
+                            ${leftButtons.map(renderBtn).join('')}
+                        </div>
+                        <div class="d-flex gap-2">
+                            <!-- Right Buttons -->
+                            ${rightButtons.map(renderBtn).join('')}
+                        </div>
                     </div>
-                    <div class="collapse show" id="alxarafe-filters-collapse">
-                        <div class="card-body bg-light">
-                            <div class="row g-2" id="alxarafe-filters-row">
-                                <!-- Filters injected here -->
+
+                    <!-- Collapsible Filters Panel (Default Open) -->
+                    <div class="card border mb-3 shadow-sm">
+                        <div class="card-header bg-white d-flex justify-content-between align-items-center" 
+                             style="cursor: pointer;"
+                             data-bs-toggle="collapse" 
+                             data-bs-target="#alxarafe-filters-collapse" 
+                             aria-expanded="true">
+                            <h6 class="mb-0 text-primary"><i class="fas fa-search me-2"></i>Filtros de búsqueda</h6>
+                            <i class="fas fa-chevron-up text-muted"></i>
+                        </div>
+                        <div class="collapse show" id="alxarafe-filters-collapse">
+                            <div class="card-body bg-light">
+                                <div class="row g-2" id="alxarafe-filters-row">
+                                    <!-- Filters injected here -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card border shadow-sm">
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <!-- Added table-striped for "pijama" effect -->
-                            <table class="table table-striped table-hover align-middle mb-0" id="alxarafe-table">
-                                <thead class="bg-light text-secondary text-uppercase small fw-bold">
-                                    <tr>
-                                        ${currentTab.columns.map((col: any) => `
-                                            <th class="py-3 px-4 border-0">${col.label}</th>
-                                        `).join('')}
-                                        <th class="text-end py-3 px-4 border-0" style="width: 120px;">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="alxarafe-table-body" class="border-top-0">
-                                   <!-- Rows injected here -->
-                                </tbody>
-                            </table>
+                    <div class="card border shadow-sm">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <!-- Added table-striped for "pijama" effect -->
+                                <table class="table table-striped table-hover align-middle mb-0" id="alxarafe-table">
+                                    <thead class="bg-light text-secondary text-uppercase small fw-bold">
+                                        <tr>
+                                            ${currentTab.columns.map((col: any) => `
+                                                <th class="py-3 px-4 border-0">${col.label}</th>
+                                            `).join('')}
+                                            <th class="text-end py-3 px-4 border-0" style="width: 120px;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="alxarafe-table-body" class="border-top-0">
+                                       <!-- Rows injected here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 py-3 px-4" id="alxarafe-pagination">
+                            <!-- Pagination injected here -->
                         </div>
                     </div>
-                    <div class="card-footer bg-white border-0 py-3 px-4" id="alxarafe-pagination">
-                        <!-- Pagination injected here -->
-                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
 
         this.renderFilters(currentTab.filters || []);
 
@@ -531,10 +555,28 @@ export class AlxarafeResource {
 
     private formatValue(value: any, col: any): string {
         if (typeof col === 'string') {
-            // Legacy call support (if any)
             col = { type: col };
         }
 
+        const type = col.component || col.type || 'text';
+
+        // Try generic template first
+        const tpl = this.config.templates?.[type.toLowerCase() + '_list'];
+        if (tpl) {
+            let html = tpl;
+            const safeValue = value !== null && value !== undefined ? value : '';
+            html = html.split('{{value}}').join(safeValue);
+
+            // Boolean check for checked property if needed in list
+            if (type === 'boolean') {
+                const isChecked = Boolean(value) && String(value) !== '0';
+                html = html.split('{{checked}}').join(isChecked ? 'checked' : '');
+            }
+
+            return html;
+        }
+
+        // Fallback Logic
         if (value === null || value === undefined) return '';
 
         if (col.type === 'icon' || col.component === 'icon') {
@@ -548,10 +590,6 @@ export class AlxarafeResource {
 
         if (col.type === 'boolean' || col.component === 'boolean') {
             const isChecked = Boolean(value) && String(value) !== '0';
-            const tpl = this.config.templates?.['boolean_list'];
-            if (tpl) {
-                return tpl.replace('{{checked}}', isChecked ? 'checked' : '');
-            }
             return `<div class="text-center"><input type="checkbox" class="form-check-input" ${isChecked ? 'checked' : ''} disabled></div>`;
         }
 
@@ -559,6 +597,7 @@ export class AlxarafeResource {
             if (!value) return '';
             const displayDate = value.split('T')[0].split('-').reverse().join('-');
 
+            // Logic for alerts (omitted for brevity if template handles it, keeping legacy support)
             // Alert / Coloring Logic
             const alerts = col.alerts || [];
 
@@ -581,8 +620,6 @@ export class AlxarafeResource {
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
                 let activeClass = '';
-                // Check alerts in order. First match wins.
-                // Logic: strict inequality (< threshold)
                 for (const rule of alerts) {
                     if (diffDays < rule.days) {
                         activeClass = rule.class;
@@ -590,25 +627,15 @@ export class AlxarafeResource {
                     }
                 }
 
-                // If no rule matched, but we are in explicit date_expiration mode, default to success
-                if (!activeClass && col.type === 'date_expiration') {
-                    activeClass = 'text-success';
-                }
+                if (!activeClass && col.type === 'date_expiration') activeClass = 'text-success';
 
                 if (activeClass) {
-                    // Try to use template if exists for date_expiration
-                    const tpl = this.config.templates?.['dateexpiration_list'];
-                    if (tpl && col.type === 'date_expiration') { // Only use template if specifically date_expiration for now to keep parity
-                        return tpl
-                            .split('{{value}}').join(displayDate)
-                            .replace('{{color_class}}', activeClass);
-                    }
                     return `<span class="${activeClass}">${displayDate}</span>`;
                 }
             }
-
             return displayDate;
         }
+
         if (col.type === 'datetime') {
             return value.replace('T', ' ').substring(0, 16);
         }
@@ -624,30 +651,34 @@ export class AlxarafeResource {
     // --- EDIT MODE METHODS ---
 
     private renderEdit() {
-        this.container.innerHTML = `
-            <div class="alxarafe-resource-edit animate__animated animate__fadeIn">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="mb-0 fw-bold text-dark">
-                        <i class="fas fa-edit text-primary me-2"></i>Editar Registro
-                    </h3>
-                    <div class="actions">
-                        <button class="btn btn-outline-secondary me-2" onclick="history.back()">
-                            <i class="fas fa-arrow-left me-1"></i> Volver
-                        </button>
-                        <button class="btn btn-success shadow-sm" id="btn-save">
-                            <i class="fas fa-save me-1"></i> Guardar
-                        </button>
+        if (this.config.templates && this.config.templates['layout_edit']) {
+            this.container.innerHTML = this.config.templates['layout_edit'];
+        } else {
+            this.container.innerHTML = `
+                <div class="alxarafe-resource-edit animate__animated animate__fadeIn">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="mb-0 fw-bold text-dark">
+                            <i class="fas fa-edit text-primary me-2"></i>Editar Registro
+                        </h3>
+                        <div class="actions">
+                            <button class="btn btn-outline-secondary me-2" onclick="history.back()">
+                                <i class="fas fa-arrow-left me-1"></i> Volver
+                            </button>
+                            <button class="btn btn-success shadow-sm" id="btn-save">
+                                <i class="fas fa-save me-1"></i> Guardar
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div id="edit-form-container">
-                    <div class="text-center p-5">
-                       <div class="spinner-border text-primary" role="status"></div>
-                       <p class="mt-2 text-muted">Cargando datos...</p>
+                    <div id="edit-form-container">
+                        <div class="text-center p-5">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2 text-muted">Cargando datos...</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
 
         this.loadRecordData();
         this.setupAlertHelper();
@@ -711,8 +742,12 @@ export class AlxarafeResource {
                         <div class="row">
             `;
 
+            // If fields are defined in the section configuration (from getEditFields), use them
+            // This preserves order and specific configurations like readonly, label overrides, etc.
             if (sec.fields) {
-                sec.fields.forEach((field: any) => {
+                // Ensure sec.fields is an array (it comes as an object/array from PHP)
+                const fieldsArray = Object.values(sec.fields);
+                fieldsArray.forEach((field: any) => {
                     const value = data[field.field] !== undefined ? data[field.field] : '';
                     contentHtml += this.renderField(field, value);
                 });
@@ -730,27 +765,40 @@ export class AlxarafeResource {
     }
 
     private renderField(field: any, value: any): string {
-        // TODO: Support select, date, bool, etc.
         const type = field.type || field.component || 'text';
+        const tpl = this.config.templates?.[type.toLowerCase() + '_edit'];
 
-        if (type === 'boolean') {
-            const isChecked = Boolean(value) && String(value) !== '0';
-            const tpl = this.config.templates?.['boolean_edit'];
-            if (tpl) {
-                return tpl
-                    .split('{{field}}').join(field.field)
-                    .replace('{{label}}', field.label)
-                    .replace('{{checked}}', isChecked ? 'checked' : '');
-            }
-        }
-
-        // Try generic template for type
-        const tpl = this.config.templates?.[type + '_edit'];
         if (tpl) {
-            return tpl
-                .split('{{field}}').join(field.field)
-                .replace('{{label}}', field.label)
-                .replace('{{value}}', value);
+            let html = tpl;
+            html = html.split('{{field}}').join(field.field);
+            html = html.split('{{label}}').join(field.label);
+            html = html.split('{{value}}').join(value !== null && value !== undefined ? value : '');
+
+            // Boolean Attributes (required, readonly)
+            const boolAttrs = ['required', 'readonly', 'disabled'];
+            boolAttrs.forEach(attr => {
+                const hasAttr = field[attr] === true || field.options?.[attr] === true;
+                html = html.split(`{{${attr}}}`).join(hasAttr ? attr : '');
+            });
+
+            // Value Attributes (min, max, step, maxlength)
+            const valAttrs = ['min', 'max', 'step', 'maxlength', 'placeholder'];
+            valAttrs.forEach(attr => {
+                const val = field[attr] ?? field.options?.[attr];
+                if (val !== undefined && val !== null) {
+                    html = html.split(`{{${attr}}}`).join(`${attr}="${val}"`);
+                } else {
+                    html = html.split(`{{${attr}}}`).join('');
+                }
+            });
+
+            // Specific Check for Boolean checked
+            if (type === 'boolean') {
+                const isChecked = Boolean(value) && String(value) !== '0';
+                html = html.split('{{checked}}').join(isChecked ? 'checked' : '');
+            }
+
+            return html;
         }
 
         // Fallback for text
@@ -794,23 +842,19 @@ export class AlxarafeResource {
         }
 
         try {
-            // We need to send 'data' array as expected by PHP saveRecord: $_POST['data']
-            const params = new URLSearchParams();
+            // Send as JSON
+            const payload: any = { data: {} };
             for (const [key, val] of Object.entries(data)) {
-                if (typeof val === 'boolean') {
-                    params.append(`data[${key}]`, val ? '1' : '0');
-                } else {
-                    params.append(`data[${key}]`, String(val));
-                }
+                payload.data[key] = val;
             }
 
             const response = await fetch(url.toString(), {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest'
                 },
-                body: params
+                body: JSON.stringify(payload)
             });
 
             const result = await response.json();

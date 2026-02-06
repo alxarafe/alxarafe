@@ -97,7 +97,15 @@ class MigrationController extends ViewController
         Config::doRunMigrations();
         Config::runSeeders();
 
+        // Return true to avoid rendering template since we have no output
+        // Or echo a simple success message
+        echo "Migrations and seeders executed.";
         return true;
+    }
+
+    public function doIndex(): bool
+    {
+        return $this->doRunMigrationsAndSeeders();
     }
 
     public function doExit()

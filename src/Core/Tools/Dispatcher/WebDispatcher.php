@@ -65,8 +65,13 @@ class WebDispatcher extends Dispatcher
         }
 
         $templates_path = [
+            constant('ALX_PATH') . '/src/Modules/' . $module . '/templates/',
             constant('ALX_PATH') . '/src/Modules/' . $module . '/Templates/',
+            constant('BASE_PATH') . '/../Modules/' . $module . '/templates/',
             constant('BASE_PATH') . '/../Modules/' . $module . '/Templates/',
+            // Add common templates path
+            constant('ALX_PATH') . '/templates/',
+            constant('ALX_PATH') . '/templates/common/',
         ];
 
         /**

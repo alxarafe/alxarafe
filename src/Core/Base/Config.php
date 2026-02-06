@@ -121,6 +121,11 @@ abstract class Config
     public static function doRunMigrations(): bool
     {
         try {
+            $config = static::getConfig();
+            if ($config && isset($config->db)) {
+                Database::createConnection($config->db);
+            }
+
             $batch = Migration::getLastBatch() + 1;
 
             foreach (static::getMigrations() as $name => $path) {

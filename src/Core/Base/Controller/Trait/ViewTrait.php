@@ -43,9 +43,16 @@ trait ViewTrait
     /**
      * Sets the default template for the controller.
      */
+    /**
+     * Sets the default template for the controller.
+     */
     public function setDefaultTemplate(?string $templateName = null): void
     {
-        $this->template = new Template($templateName);
+        if ($this->template === null) {
+            $this->template = new Template($templateName);
+        } else {
+            $this->template->setTemplateName($templateName);
+        }
     }
 
     /**
@@ -68,9 +75,20 @@ trait ViewTrait
     }
 
     /**
+     * Sets the paths where templates are located.
+     */
+    public function setTemplatesPath(array $paths): void
+    {
+        if ($this->template === null) {
+            $this->setDefaultTemplate();
+        }
+        $this->template->setPaths($paths);
+    }
+
+    /**
      * Renders a specific view file within the current template.
      */
-    public function render(string $viewPath): string
+    public function render(?string $viewPath = null): string
     {
         if ($this->template === null) {
             $this->setDefaultTemplate();

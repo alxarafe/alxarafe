@@ -1,0 +1,83 @@
+<?php
+
+namespace Alxarafe\Base\Frontend;
+
+use Alxarafe\Base\Config;
+
+class ThemeManager
+{
+    protected string $activeSkin = 'default';
+    protected string $basePath;
+
+    public function __construct()
+    {
+        $this->basePath = constant('ALX_PATH') . '/templates';
+        if (defined('THEME_SKIN')) {
+            $this->activeSkin = constant('THEME_SKIN');
+        }
+    }
+
+    public function getActiveSkin(): string
+    {
+        // TODO: Could also fetch from user preferences via Auth::user()
+        return $this->activeSkin;
+    }
+
+    public function getLayoutTemplates(): array
+    {
+        $baseTemplates = $this->scanTemplates($this->basePath . '/components/layouts', 'layout_');
+
+        $skin = $this->getActiveSkin();
+        $skinTemplates = [];
+        if ($skin && $skin !== 'default') {
+            $skinTemplates = $this->scanTemplates($this->basePath . "/themes/{$skin}/components/layouts", 'layout_');
+        }
+
+        return array_merge($baseTemplates, $skinTemplates);
+    }
+
+    public function getFieldTemplates(): array
+    {
+        $baseTemplates = $this->scanFieldTemplatesRecursive($this->basePath . '/components/fields');
+
+        $skin = $this->getActiveSkin();
+        $skinTemplates = [];
+        if ($skin && $skin !== 'default') {
+            $skinTemplates = $this->scanFieldTemplatesRecursive($this->basePath . "/themes/{$skin}/components/fields");
+        }
+
+        return array_merge($baseTemplates, $skinTemplates);
+    }
+
+    private function scanFieldTemplatesRecursive(string $basePath): array
+    {
+        $templates = [];
+        if (!is_dir($basePath)) return $templates;
+
+        // Scan List Templates (templates/components/fields/list)
+        $templates = array_merge($templates, $this->scanTemplates($basePath . '/list', '', '_list'));
+
+        // Scan Edit Templates (templates/components/fields/edit)
+        $templates = array_merge($templates, $this->scanTemplates($basePath . '/edit', '', '_edit'));
+
+        return $templates;
+    }
+
+    private function scanTemplates(string $path, string $prefix = '', string $suffix = ''): array
+    {
+        $templates = [];
+        if (!is_dir($path)) {
+            return $templates;
+        }
+
+        $files = scandir($path);
+        foreach ($files as $file) {
+            if ($file === '.' || $file === '..' || !str_ends_with($file, '.blade.php')) continue;
+
+            $type = substr($file, 0, -10); // remove .blade.php
+            $key = strtolower($prefix . $type . $suffix);
+            $templates[$key] = file_get_contents($path . '/' . $file);
+        }
+        return $templates;
+    }
+}

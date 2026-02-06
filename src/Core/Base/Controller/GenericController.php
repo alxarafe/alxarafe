@@ -49,8 +49,7 @@ abstract class GenericController
     public function __construct(
         ?string      $action = null,
         public mixed $data = null
-    )
-    {
+    ) {
         $this->action = $action
             ?? $_POST['action']
             ?? $_GET['action']
@@ -64,9 +63,12 @@ abstract class GenericController
      * Returns the menu defined in the MENU constant.
      * * @return array|false
      */
-    public static function getMenu(): array|false
+    public static function getMenu(): string|array|false
     {
-        return constant(static::class . '::MENU') ?? false;
+        if (!defined(static::class . '::MENU')) {
+            return false;
+        }
+        return constant(static::class . '::MENU');
     }
 
     /**
@@ -75,6 +77,10 @@ abstract class GenericController
      */
     public static function getSidebarMenu(): array|false
     {
+        if (!defined(static::class . '::MENU') || !defined(static::class . '::SIDEBAR_MENU')) {
+            return false;
+        }
+
         $menu = constant(static::class . '::MENU');
         $sidebar = constant(static::class . '::SIDEBAR_MENU');
 
@@ -141,5 +147,68 @@ abstract class GenericController
     public function afterAction(): bool
     {
         return true;
+    }
+
+    /**
+     * Returns the module name, parsing class namespace if not overridden.
+     */
+    public static function getModuleName(): string
+    {
+        $parts = explode('\\', static::class);
+        // Expecting Vendor\Module\... or Modules\Module\...
+        if (count($parts) >= 2 && ($parts[0] === 'CoreModules' || $parts[0] === 'Modules')) {
+            return $parts[1];
+        }
+        return '';
+    }
+
+    /**
+     * Returns the controller name, parsing class name if not overridden.
+     */
+    public static function getControllerName(): string
+    {
+        $parts = explode('\\', static::class);
+        $classname = end($parts);
+        if (str_ends_with($classname, 'Controller')) {
+            return substr($classname, 0, -10);
+        }
+        return $classname;
+    }
+
+    /**
+     * Generates a URL for this controller.
+     *
+     * @param string|bool $action Action name (or 'index'), or legacy bool flag.
+     * @param array|bool $params  Query parameters, or legacy bool flag.
+     * @return string
+     */
+    public static function url($action = 'index', $params = []): string
+    {
+        $module = static::getModuleName();
+        $controller = static::getControllerName();
+
+        $url = "index.php?module={$module}&controller={$controller}";
+
+        if (is_string($action) && $action !== 'index' && $action !== '') {
+            $url .= "&action={$action}";
+        }
+
+        if (is_array($params) && !empty($params)) {
+            $url .= '&' . http_build_query($params);
+        }
+
+        return $url;
+    }
+
+    /**
+     * Output JSON response and exit.
+     * 
+     * @param array $data
+     */
+    protected function jsonResponse(array $data)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
     }
 }

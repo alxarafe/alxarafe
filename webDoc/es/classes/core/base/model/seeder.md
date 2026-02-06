@@ -48,6 +48,6 @@ class PaisSeeder extends Seeder
 
 ## Cambios Técnicos (v8.5.1)
 
-- Tipado de Clase Estricto: Se utiliza el tipo class-string<Model> para garantizar que el seeder solo opere con clases que hereden de nuestro Modelo base.
+- Tipado de Clase Estricto: Se utiliza el tipo `class-string<Model>` para garantizar que el seeder solo opere con clases que hereden de nuestro Modelo base.
 - Tipado Escalar: Se ha añadido bool al parámetro del constructor y void como retorno de run().
 - Protección de Datos: Se ha reforzado la lógica de guardado para evitar colisiones accidentales durante el proceso de migración automática.

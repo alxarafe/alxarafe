@@ -49,7 +49,7 @@ class ConfigController extends Controller
      *
      * @var stdClass
      */
-    public $data;
+    public mixed $data;
 
     /**
      * Array with availables languages
@@ -224,6 +224,8 @@ class ConfigController extends Controller
 
         Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
 
+
+
         $this->checkDatabaseStatus();
 
         return parent::beforeAction();
@@ -269,8 +271,13 @@ class ConfigController extends Controller
             if (!empty($migrations)) {
                 // Ensure Database (Capsule) is initialized before using models
                 static::connectDb($this->data->db);
-                $migrationModel = new Migration();
-                if (!$migrationModel->exists()) {
+                try {
+                    $migrationModel = new Migration();
+                    if (!$migrationModel->exists()) {
+                        Messages::addAdvice(Trans::_('pending_migrations_advice'));
+                    }
+                } catch (\Exception $e) {
+                    // Table not found or other DB error - assume migrations needed
                     Messages::addAdvice(Trans::_('pending_migrations_advice'));
                 }
             }
@@ -290,10 +297,10 @@ class ConfigController extends Controller
          */
         $restricted_access = false;
 
-        $this->template = 'page/config';
+        $this->setDefaultTemplate('page/config');
 
         if (isset($this->config)) {
-            // $this->template = 'page/forbidden';
+            // $this->setDefaultTemplate('page/forbidden');
         }
 
         return true;
@@ -314,7 +321,7 @@ class ConfigController extends Controller
         return false;
     }
 
-    public function doGoMigrations(): void
+    public function doRunMigrations(): void
     {
         Functions::httpRedirect(MigrationController::url());
     }

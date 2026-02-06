@@ -41,10 +41,10 @@ abstract class Auth
 
     public static function isLogged(): bool
     {
-        $userId = FILTER_INPUT(INPUT_COOKIE, self::COOKIE_USER);
-        $token = FILTER_INPUT(INPUT_COOKIE, self::COOKIE_NAME);
+        $userId = $_COOKIE[self::COOKIE_USER] ?? null;
+        $token = $_COOKIE[self::COOKIE_NAME] ?? null;
 
-        if (empty($token)) {
+        if (empty($token) || empty($userId)) {
             return false;
         }
 
@@ -55,6 +55,10 @@ abstract class Auth
         } catch (\Exception $e) {
             Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
             Functions::httpRedirect(ConfigController::url(true, false));
+        }
+
+        if (!self::$user) {
+            return false;
         }
 
         return self::$user->token === $token;
@@ -103,20 +107,16 @@ abstract class Auth
             self::$user->saveToken($token);
         }
 
-        /**
-         * Ideally, "secure" is set to true, but this does not work with self-signed certificates.
-         * With "secure" set to false, it is important that samesite is set to Strict.
-         */
+        // Cookie options for maximum compatibility (Lax instead of Strict prevents loss on some redirects)
         $cookie_options = [
             'expires' => time() + self::COOKIE_EXPIRE_TIME,
             'path' => '/',
-            'domain' => $_SERVER['HTTP_HOST'],
-            'secure' => false,
+            'secure' => false, // Set to true if HTTPS is enabled
             'httponly' => true,
-            'samesite' => self::COOKIE_SAMESITE,
+            'samesite' => 'Lax',
         ];
 
-        setcookie(self::COOKIE_USER, $userId);
+        setcookie(self::COOKIE_USER, (string)$userId, $cookie_options);
         setcookie(self::COOKIE_NAME, $token, $cookie_options);
     }
 

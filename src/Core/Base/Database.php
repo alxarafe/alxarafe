@@ -156,4 +156,12 @@ class Database extends CapsuleManager
             return false;
         }
     }
+
+    /**
+     * Factory method to initialize the Capsule global instance.
+     */
+    public static function createConnection(stdClass $db): self
+    {
+        return new self($db);
+    }
 }

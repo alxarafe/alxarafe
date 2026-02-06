@@ -65,7 +65,8 @@ abstract class Controller extends ViewController
 
         // 2. Ensure Authentication (except for AuthController itself)
         if (static::class !== AuthController::class && !Auth::isLogged()) {
-            Functions::httpRedirect(AuthController::url(true, false));
+            $currentUrl = Functions::getUrl() . '/index.php?' . $_SERVER['QUERY_STRING'];
+            Functions::httpRedirect(AuthController::url(true, false) . '&redirect=' . urlencode($currentUrl));
         }
 
         $this->username = Auth::$user?->name;
