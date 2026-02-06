@@ -1,57 +1,60 @@
 <?php
 
-/* Copyright (C) 2024      Rafael San José      <rsanjose@alxarafe.com>
+/*
+ * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
  *
- * This program is free software; you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * any later version.
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+declare(strict_types=1);
+
 namespace Alxarafe\Base\Controller\Trait;
 
 use Alxarafe\Base\Database;
-use DebugBar\DebugBarException;
 use stdClass;
 
 /**
- * Trait for controllers using databases.
+ * Trait DbTrait.
+ * * Provides static database connection management for controllers.
  */
 trait DbTrait
 {
     /**
-     * Instance of Database
-     *
-     * @var Database|null
+     * Database instance shared across the controller lifecycle.
      */
     public static ?Database $db = null;
 
     /**
-     * Connect to the specified database.
+     * Connects to the specified database if not already connected.
      *
-     * @param stdClass|null $db
-     * @return bool
-     * @throws DebugBarException
+     * @param stdClass|null $dbConfig Database configuration object.
+     * @return bool True if connected or already established, false otherwise.
      */
-    public static function connectDb(stdClass|null $db = null): bool
+    public static function connectDb(?stdClass $dbConfig = null): bool
     {
-        if (static::$db !== null) {
+        // Singleton-like pattern: return true if already connected
+        if (static::$db instanceof Database) {
             return true;
         }
 
-        if ($db === null || !Database::checkDatabaseConnection($db)) {
+        // Validate configuration and connectivity before instantiating
+        if ($dbConfig === null || !Database::checkDatabaseConnection($dbConfig)) {
             return false;
         }
 
-        static::$db = new Database($db);
+        static::$db = new Database($dbConfig);
+
         return true;
     }
 }

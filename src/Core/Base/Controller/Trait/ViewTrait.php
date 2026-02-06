@@ -1,276 +1,81 @@
 <?php
 
-/* Copyright (C) 2024      Rafael San José      <rsanjose@alxarafe.com>
+/*
+ * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
  *
- * This program is free software; you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * any later version.
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+declare(strict_types=1);
+
 namespace Alxarafe\Base\Controller\Trait;
 
-use Alxarafe\Lib\Messages;
-use Alxarafe\Lib\Trans;
-use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
-use Illuminate\View\Compilers\BladeCompiler;
-use Illuminate\View\Engines\CompilerEngine;
-use Illuminate\View\Engines\EngineResolver;
-use Illuminate\View\Factory;
-use Illuminate\View\FileViewFinder;
+use Alxarafe\Base\Template;
 
 /**
- * Trait for controllers using Blade templates.
+ * Trait ViewTrait.
+ *
+ * Provides template management and view variable injection for controllers.
  */
 trait ViewTrait
 {
     /**
-     * Theme name.
-     *
-     * @var string
+     * Instance of the template engine.
      */
-    public static string $theme = '';
+    public ?Template $template = null;
 
     /**
-     * Template routes added by modules.
-     *
-     * @var array
+     * Array of variables to be passed to the view.
      */
-    public static array $templatesPath = [];
+    protected array $viewData = [];
 
     /**
-     * Contains the name of the blade template to print
-     *
-     * @var null|string
+     * Sets the default template for the controller.
      */
-    public null|string $template;
-
-    /**
-     * Contains the title of the view.
-     *
-     * @var string
-     */
-    public string $title;
-
-    /**
-     * Contains an array with the messages to be displayed, indicating the
-     * type (message, advice or error) and the text to be displayed.
-     *
-     * @var array
-     */
-    public array $alerts;
-
-    /**
-     * Shows a translated text
-     *
-     * @param $message
-     * @param array $parameters
-     * @param $locale
-     * @return string
-     */
-    public static function _($message, array $parameters = [], $locale = null): string
+    public function setDefaultTemplate(?string $templateName = null): void
     {
-        return Trans::_($message, $parameters, $locale);
+        $this->template = new Template($templateName);
     }
 
     /**
-     * Returns the generic url of the controller;
+     * Adds a variable to be accessible in the view.
      *
-     * @param bool $full
-     * @param bool $includeAction
-     *
-     * @return string
+     * @param string $name Variable name.
+     * @param mixed $value Variable value.
      */
-    public static function url($full = true, $includeAction = true)
+    public function addVariable(string $name, mixed $value): void
     {
-        $url = '';
-        if ($full) {
-            $url .= constant('BASE_URL') . '/index.php';
-        }
-
-        $url .=
-            '?' . \Alxarafe\Tools\Dispatcher::MODULE . '=' . static::getModuleName() .
-            '&' . \Alxarafe\Tools\Dispatcher::CONTROLLER . '=' . static::getControllerName();
-
-        if ($includeAction) {
-            $action = filter_input(INPUT_GET, 'action');
-            if ($action) {
-                $url .= '&action=' . $action;
-            }
-        }
-
-        return $url;
+        $this->viewData[$name] = $value;
     }
 
     /**
-     * Returns the module name for use in url function
-     *
-     * @return string
+     * Bulk adds variables to the view data.
      */
-    abstract public static function getModuleName(): string;
-
-    /**
-     * Returns the controller name for use in url function
-     *
-     * @return string
-     */
-    abstract public static function getControllerName(): string;
-
-    /**
-     * Upon completion of the controller execution, the template is displayed.
-     */
-    public function __destruct()
+    public function addVariables(array $variables): void
     {
-        if (!isset($this->template)) {
-            return;
-        }
-
-        if (!isset(self::$theme)) {
-            self::$theme = 'alxarafe';
-        }
-
-        if (!isset($this->title)) {
-            $this->title = 'Alxarafe';
-        }
-
-        $this->alerts = Messages::getMessages();
-
-        $container = self::getContainer();
-
-        $viewFactory = $container['view'];
-
-        echo $viewFactory->make($this->template, ['me' => $this])->render();
+        $this->viewData = array_merge($this->viewData, $variables);
     }
 
     /**
-     * Set up and return a service container configured for Blade template rendering.
-     *
-     * This function initializes and configures an Illuminate\Container\Container instance
-     * with the necessary services and dependencies required for Blade templating.
-     * It sets up the file system, view finder, Blade compiler, view engine resolver,
-     * and view factory services. It ensures that the cache directory for compiled
-     * Blade templates exists and is writable.
-     *
-     * @return Container|null Configured service container for Blade rendering.
+     * Renders a specific view file within the current template.
      */
-    private static function getContainer(): ?Container
+    public function render(string $viewPath): string
     {
-        $viewPaths = self::getViewPaths();
-
-        $cachePaths = realpath(constant('BASE_PATH') . '/..') . '/tmp/blade';
-        if (!is_dir($cachePaths) && !mkdir($cachePaths, 0777, true) && !is_dir($cachePaths)) {
-            die('Could not create cache directory for templates: ' . $cachePaths);
+        if ($this->template === null) {
+            $this->setDefaultTemplate();
         }
 
-        $container = new Container();
-
-        $container->singleton('files', function () {
-            return new Filesystem();
-        });
-
-        $container->singleton('view.finder', function ($app) use ($viewPaths) {
-            return new FileViewFinder($app['files'], $viewPaths);
-        });
-
-        $container->singleton('blade.compiler', function ($app) use ($cachePaths) {
-            return new BladeCompiler($app['files'], $cachePaths);
-        });
-
-        $container->singleton('view.engine.resolver', function ($app) {
-            $resolver = new EngineResolver();
-
-            // Register Blade engine
-            $resolver->register('blade', function () use ($app) {
-                return new CompilerEngine($app['blade.compiler']);
-            });
-
-            return $resolver;
-        });
-
-        $container->singleton('view', function ($app) {
-            $resolver = $app['view.engine.resolver'];
-            $finder = $app['view.finder'];
-            $dispatcher = new Dispatcher($app);
-
-            return new Factory($resolver, $finder, $dispatcher);
-        });
-
-        return $container;
-    }
-
-    /**
-     * Returns the routes to the application templates.
-     *
-     * @return string[]
-     */
-    private static function getViewPaths(): array
-    {
-        $viewPaths = [
-            constant('APP_PATH') . '/Templates',
-            constant('APP_PATH') . '/Templates/theme/' . self::$theme,
-            constant('APP_PATH') . '/Templates/common',
-            constant('ALX_PATH') . '/Templates',
-            constant('ALX_PATH') . '/Templates/theme/' . self::$theme,
-            constant('ALX_PATH') . '/Templates/common',
-        ];
-
-        if (!empty(self::$templatesPath)) {
-            $viewPaths = array_merge(self::$templatesPath, $viewPaths);
-        }
-
-        return $viewPaths;
-    }
-
-    /**
-     * Sets a new path for the templates, prepending the current selection.
-     *
-     * @param array|string $path
-     * @return void
-     */
-    public function setTemplatesPath(array|string $path): void
-    {
-        if (is_array($path)) {
-            self::$templatesPath = array_merge($path, self::$templatesPath);
-            return;
-        }
-        array_unshift(self::$templatesPath, $path);
-    }
-
-    /**
-     * Assign the default template for the class.
-     *
-     * @return void
-     */
-    private function setDefaultTemplate(): void
-    {
-        if (empty($this->template)) {
-            $this->template = 'page/' . $this->getDefaultTemplateName();
-        }
-    }
-
-    /**
-     * Returns the name of the template, given the class name.
-     * The default template name is the class name with the "Controller"
-     * removed from the end and converted to 'snake_case'.
-     *
-     * For example, for the UserTestController class, it will return user_test.
-     *
-     * @return string
-     */
-    private function getDefaultTemplateName(): string
-    {
-        $array_object = explode('\\', get_class($this));
-        return Str::snake(substr(end($array_object), 0, -10));
+        return $this->template->render($viewPath, $this->viewData);
     }
 }

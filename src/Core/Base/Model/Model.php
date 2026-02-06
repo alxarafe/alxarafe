@@ -1,25 +1,49 @@
 <?php
 
+/*
+ * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
 namespace Alxarafe\Base\Model;
 
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 /**
+ * Base Model class extending Eloquent.
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  * @mixin \Illuminate\Database\Query\Builder
  */
 abstract class Model extends EloquentModel
 {
-    public function exists(): bool
+    /**
+     * Checks if the table associated with the model exists in the database.
+     */
+    public function existsInSchema(): bool
     {
-        $table_name = $this->getTable();
-        if (empty($table_name)) {
-            return false;
-        }
-        return DB::schema()->hasTable($table_name);
+        $tableName = $this->getTable();
+        return !empty($tableName) && DB::schema()->hasTable($tableName);
     }
 
+    /**
+     * Returns the primary key column name.
+     */
     public function primaryColumn(): string
     {
         return $this->getKeyName();
@@ -28,7 +52,7 @@ abstract class Model extends EloquentModel
     /**
      * Get field metadata from the database schema.
      *
-     * @return array
+     * @return array<string, array>
      */
     public static function getFields(): array
     {
@@ -44,12 +68,12 @@ abstract class Model extends EloquentModel
         $fields = [];
 
         foreach ($columns as $column) {
-            $columnName = $column->Field;
-            $dbType = $column->Type;
+            $columnName = (string) $column->Field;
+            $dbType = (string) $column->Type;
             $nullable = $column->Null === 'YES';
             $default = $column->Default;
-            
-            // Extract length/values if present
+
+            // Extract length/values if present using modern preg_match
             $length = null;
             if (preg_match('/\((.*)\)/', $dbType, $matches)) {
                 $length = $matches[1];
@@ -58,10 +82,10 @@ abstract class Model extends EloquentModel
             $fields[$columnName] = [
                 'field' => $columnName,
                 'label' => ucfirst(str_replace('_', ' ', $columnName)),
-                'generictype' => self::mapToGenericType($dbType),
-                'db_type' => $dbType,
+                'genericType' => self::mapToGenericType($dbType),
+                'dbType' => $dbType,
                 'required' => !$nullable && $default === null && $column->Key !== 'PRI' && $column->Extra !== 'auto_increment',
-                'length' => is_numeric($length) ? (int)$length : $length,
+                'length' => is_numeric($length) ? (int) $length : $length,
                 'nullable' => $nullable,
                 'default' => $default,
             ];
@@ -71,22 +95,22 @@ abstract class Model extends EloquentModel
     }
 
     /**
-     * Maps database types to generic types used by ResourceController.
-     *
-     * @param string $dbType
-     * @return string
+     * Maps database types to generic types used for UI generation.
      */
     protected static function mapToGenericType(string $dbType): string
     {
         $dbType = strtolower($dbType);
-        if (str_contains($dbType, 'bool')) return 'boolean';
-        if (str_contains($dbType, 'int')) return 'number';
-        if (str_contains($dbType, 'decimal') || str_contains($dbType, 'float') || str_contains($dbType, 'double')) return 'number';
-        if (str_contains($dbType, 'date')) {
-            return str_contains($dbType, 'time') ? 'datetime' : 'date';
-        }
-        if (str_contains($dbType, 'text') || str_contains($dbType, 'blob')) return 'textarea';
-        
-        return 'text';
+
+        return match (true) {
+            str_contains($dbType, 'bool') => 'boolean',
+            str_contains($dbType, 'int'),
+            str_contains($dbType, 'decimal'),
+            str_contains($dbType, 'float'),
+            str_contains($dbType, 'double') => 'number',
+            str_contains($dbType, 'date') => str_contains($dbType, 'time') ? 'datetime' : 'date',
+            str_contains($dbType, 'text'),
+            str_contains($dbType, 'blob') => 'textarea',
+            default => 'text',
+        };
     }
 }
