@@ -6,8 +6,8 @@
 
 *   **Modular Architecture:** Code is organized into Modules (Core and User) that encapsulate business logic.
 *   **API First:** Native support for REST APIs with integrated JWT authentication.
-*   **Automatic Routing:** Intelligent routing system that maps URLs to Controllers based on naming conventions, without the need for manual route files.
-*   **Flexible Database:** Lightweight database abstraction layer with support for automatic migrations and seeders.
+*   **Automatic Routing:** Intelligent routing system that maps URLs to Controllers based on naming conventions, without the need to define manual route files.
+*   **Flexible Database:** Lightweight database abstraction layer with support for migrations and automatic seeders.
 *   **Centralized Configuration:** A single `config.json` file manages the entire environment.
 *   **Internationalization (i18n):** Native support for multiple languages.
 
@@ -40,7 +40,7 @@ my-project/
 │   ├── index.php        # Entry point
 │   └── .htaccess        # Rewrite rules
 ├── src/
-│   └── Modules/         # Your application's modules
+│   └── Modules/         # Your application Modules
 │       └── MyModule/
 │           ├── Controller/
 │           ├── Model/
@@ -54,24 +54,24 @@ my-project/
 Create a `config.json` file in the root of your project. This file defines the database connection, routes, and security keys.
 
 ### 2. Create a Module
-Create a folder in `src/Modules/` (e.g., `src/Modules/HelloWorld`).
+Create a folder in `src/Modules/` (e.g. `src/Modules/HelloWorld`).
 Inside, create `Controller/HelloWorldController.php`.
 
 ### 3. Automatic Routes
 Alxarafe will automatically detect your controller.
-If your module is `HelloWorld` and your controller is `GreetingController`, the route might be something like:
+If your module is `HelloWorld` and your controller `GreetingController`, the route could be something like:
 `/HelloWorld/Greeting`
 
 ## Development and Contribution
 
-If you want to contribute to the framework's development or test changes locally without publishing to Packagist, see the [Contribution Guide](contribution_guide.md).
+If you wish to contribute to the development of the framework or test changes locally without publishing to Packagist, check the [Contribution Guide](contribution_guide.md).
 
 The repository includes a `skeleton` application ready to use as a development environment.
 
 ## Additional Documentation
 
 *   [Architecture and Core Concepts](architecture.md)
-*   [Publication and Versioning Guide](publishing_guide.md)
+*   [Publishing and Versioning Guide](publishing_guide.md)
 *   [Contribution Guide](contribution_guide.md)
-*   [Modules Guide](MODULES.md) (Pending)
+*   [Module Guide](MODULOS.md) (Pending)
 *   [API Reference](API.md) (Pending)
