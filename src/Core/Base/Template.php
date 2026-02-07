@@ -49,13 +49,10 @@ class Template
             $this->blade = new Blade($this->paths, $cachePath, $container);
         }
 
+        $viewName = str_replace('/', '.', $view);
+
         if ($this->blade) {
             // Using Blade to render
-            // Note: Jenssegers/Blade expects dot notation for views usually, e.g. 'page.login'
-            // But if $view is 'page/login', we might need to convert or ensure it works.
-            // Blade typically supports / as separator too depending on version, but . is standard.
-            $viewName = str_replace('/', '.', $view);
-
             if ($this->blade->exists($viewName)) {
                 return $this->blade->make($viewName, $data)->render();
             }
@@ -65,17 +62,20 @@ class Template
         extract($data);
         ob_start();
 
-        $found = false;
         // Search in provided paths first
         foreach ($this->paths as $path) {
-            // ... legacy include logic if needed, but Blade should handle it ...
+            $file = $path . '/' . $view . '.php';
+            if (file_exists($file)) {
+                include $file;
+                return ob_get_clean();
+            }
         }
 
         // Simple fallback message if Blade fails
-        if (!$found && (!$this->blade || !$this->blade->exists($viewName))) {
+        if ($this->blade && !$this->blade->exists($viewName)) {
             return "View not found: $view. Searched in: " . implode(', ', $this->paths);
         }
 
-        return ob_get_clean();
+        return "View not found (Legacy): $view";
     }
 }

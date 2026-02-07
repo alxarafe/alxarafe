@@ -8,9 +8,15 @@ use Illuminate\Database\Schema\Blueprint;
 
 /**
  * @method static find($user)
+ * @method static where($column, $operator = null, $value = null, $boolean = 'and')
  */
 /**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
  * @property string $token
+ * @property bool $is_admin
  */
 final class User extends Model
 {

@@ -46,6 +46,6 @@ final class Migration extends Model
             self::createTable();
             return false;
         }
-        return parent::exists($exists);
+        return $this->newQuery()->exists();
     }
 }

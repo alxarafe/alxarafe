@@ -29,7 +29,6 @@ abstract class Auth
     private const COOKIE_NAME = 'alxarafe_login';
     private const COOKIE_USER = self::COOKIE_NAME . '_user';
     private const COOKIE_EXPIRE_TIME = 30 * 24 * 60 * 60; // 30 days
-    private const COOKIE_SAMESITE = 'Strict';
 
     public static ?User $user = null;
     /**
@@ -73,7 +72,7 @@ abstract class Auth
 
 
 
-        return self::$user && self::$user->token === $token;
+        return self::$user->token === $token;
     }
 
     /**

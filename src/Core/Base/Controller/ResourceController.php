@@ -450,10 +450,10 @@ abstract class ResourceController extends Controller
      * Add a column to a List Tab.
      *
      * @param string $tabId
-     * @param string|AbstractColumn $fieldOrColumn
-     * @param string $label (Deprecated if using AbstractColumn)
-     * @param string $type (Deprecated if using AbstractColumn)
-     * @param array $options (Deprecated if using AbstractColumn)
+     * @param string|AbstractField $fieldOrColumn
+     * @param string $label (Deprecated if using AbstractField)
+     * @param string $type (Deprecated if using AbstractField)
+     * @param array $options (Deprecated if using AbstractField)
      */
     protected function addListColumn(string $tabId, $fieldOrColumn, string $label = '', string $type = 'text', array $options = [])
     {
@@ -500,7 +500,7 @@ abstract class ResourceController extends Controller
             return;
         }
 
-        if ($fieldOrObject instanceof AbstractField || $fieldOrObject instanceof FormField) {
+        if ($fieldOrObject instanceof AbstractField) {
             $this->structConfig['edit']['sections'][$sectionId]['fields'][] = $fieldOrObject;
         } else {
             // Legacy support
@@ -580,9 +580,7 @@ abstract class ResourceController extends Controller
                 $safeQ = addslashes($globalQuery);
                 $searchParts[] = "LOWER({$field}) LIKE LOWER('%{$safeQ}%')";
             }
-            if (!empty($searchParts)) {
-                $whereParts[] = '(' . implode(' OR ', $searchParts) . ')';
-            }
+            $whereParts[] = '(' . implode(' OR ', $searchParts) . ')';
         }
 
         // 1. Apply Filters
@@ -617,11 +615,13 @@ abstract class ResourceController extends Controller
         try {
             // Total count (filters applied)
             $countSql = "SELECT COUNT(*) as total FROM " . $table . " WHERE " . $whereSQL;
+            /** @phpstan-ignore-next-line */
             $countRes = DB::select($countSql);
             $total = $countRes[0]->total ?? 0;
 
             // Fetch Data
             $sql = "SELECT * FROM " . $table . " WHERE " . $whereSQL . " ORDER BY " . ($model->primaryColumn() ?? 'id') . " DESC LIMIT " . (int)$limit . " OFFSET " . (int)$this->offset;
+            /** @phpstan-ignore-next-line */
             $rows = DB::select($sql);
         } catch (\Exception $e) {
             return ['error' => 'Database error: ' . $e->getMessage()];
@@ -942,7 +942,7 @@ abstract class ResourceController extends Controller
 
         foreach ($fields as $key => $value) {
             // Case 1: Value is a Field Object (Unified or Legacy FormField)
-            if (is_object($value) && ($value instanceof AbstractField || $value instanceof FormField)) {
+            if (is_object($value) && ($value instanceof AbstractField)) {
                 $this->addEditField($sectionId, $value);
                 continue;
             }

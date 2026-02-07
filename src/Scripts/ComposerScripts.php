@@ -22,7 +22,10 @@ use Composer\Script\Event;
 
 abstract class ComposerScripts
 {
-    public static function postUpdate(Event $event)
+    /**
+     * @param object $event Expected Composer\Script\Event but using object to avoid dependency requirement in this file
+     */
+    public static function postUpdate(object $event)
     {
         $io = $event->getIO();
 
@@ -31,7 +34,7 @@ abstract class ComposerScripts
         // Perform operations here
         $io->write("Running post-update script");
 
-        static::copyAssets($io);
+        self::copyAssets($io);
     }
 
     private static function copyAssets($io)
@@ -50,13 +53,13 @@ abstract class ComposerScripts
         $io->write("Public directory: " . $public);
 
         $target = $public . '/alxarafe/assets';
-        if (!static::makeDir($io, $target)) {
+        if (!self::makeDir($io, $target)) {
             return;
         }
         $io->write("Target directory: " . $target);
 
         $io->write("Copying assets from $source to $target...");
-        if (!static::copyFolder($io, $source, $target)) {
+        if (!self::copyFolder($io, $source, $target)) {
             $io->write("An error has ocurred copying Assets.");
             return;
         }
@@ -78,7 +81,7 @@ abstract class ComposerScripts
 
     private static function copyFolder($io, string $source, string $target): bool
     {
-        if (!static::makeDir($io, $target)) {
+        if (!self::makeDir($io, $target)) {
             return false;
         }
 
@@ -95,11 +98,11 @@ abstract class ComposerScripts
             $targetPath = $target . '/' . $file;
 
             if (is_dir($sourcePath)) {
-                if (!static::makeDir($io, $targetPath)) {
+                if (!self::makeDir($io, $targetPath)) {
                     return false;
                 }
 
-                if (!static::copyFolder($io, $sourcePath, $targetPath)) {
+                if (!self::copyFolder($io, $sourcePath, $targetPath)) {
                     $io->write("\nError copying $sourcePath folder to $targetPath");
                     $result = false;
                 }

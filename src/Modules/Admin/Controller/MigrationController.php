@@ -113,7 +113,7 @@ class MigrationController extends ViewController
         /**
          * TODO: Loads public page
          */
-        $this->template = 'page/public';
+        $this->setDefaultTemplate('page/public');
         return true;
     }
 }

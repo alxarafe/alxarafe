@@ -71,7 +71,7 @@ abstract class ViewController extends GenericController
         $this->config = Config::getConfig();
 
         // Nullsafe operator to prevent errors if config is missing
-        Trans::setLang($this->config?->main?->language ?? Trans::FALLBACK_LANG);
+        Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
 
         // Inject $me as the controller itself, preserving property access
         $this->addVariable('me', $this);

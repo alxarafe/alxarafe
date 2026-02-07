@@ -180,7 +180,7 @@ abstract class Config
 
         foreach ($seeders as $moduleSeeders) {
             foreach ($moduleSeeders as $entry) {
-                $className = explode('|', $entry)[0] ?? '';
+                $className = explode('|', $entry)[0];
                 if (class_exists($className)) {
                     try {
                         new $className();

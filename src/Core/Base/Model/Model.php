@@ -56,6 +56,7 @@ abstract class Model extends EloquentModel
      */
     public static function getFields(): array
     {
+        /** @phpstan-ignore-next-line */
         $instance = new static();
         $table = $instance->getTable();
         $connection = $instance->getConnection();
@@ -66,6 +67,7 @@ abstract class Model extends EloquentModel
             return [];
         }
 
+        /** @phpstan-ignore-next-line */
         $columns = DB::select("SHOW COLUMNS FROM `{$fullTable}`");
         $fields = [];
 

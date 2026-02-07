@@ -28,7 +28,6 @@ class ApiDispatcher extends Dispatcher
     {
         Debug::message('ApiDispatcher error:');
         ApiController::badApiCall();
-        die();
     }
 
     /**

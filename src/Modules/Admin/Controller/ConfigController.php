@@ -19,7 +19,7 @@
 namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Config;
-use Alxarafe\Base\Controller\Controller;
+use Alxarafe\Base\Controller\ResourceController;
 use Alxarafe\Base\Database;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Messages;
@@ -34,7 +34,7 @@ use Alxarafe\Component\Fields\Boolean;
 /**
  * Class ConfigController. App settings controller.
  */
-class ConfigController extends Controller
+class ConfigController extends ResourceController
 {
     const MENU = 'admin|config';
     const SIDEBAR_MENU = [
@@ -329,8 +329,8 @@ class ConfigController extends Controller
     /**
      * Save action.
      *
+     *
      * @return bool
-     * @throws DebugBarException
      */
     public function doSave(): bool
     {

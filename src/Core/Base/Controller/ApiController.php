@@ -85,7 +85,6 @@ abstract class ApiController
             return static::$user !== null;
         } catch (Exception) {
             self::badApiCall(Trans::_('bad_secret_key'), 401);
-            return false;
         }
     }
 

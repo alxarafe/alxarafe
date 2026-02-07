@@ -9,6 +9,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 abstract class TestCase extends BaseTestCase
 {
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,6 +29,7 @@ abstract class TestCase extends BaseTestCase
         Capsule::connection()->beginTransaction();
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         // Rollback Transaction

@@ -2,6 +2,7 @@
 
 ![PHP Version](https://img.shields.io/badge/PHP-8.5.1-blueviolet?style=flat-square)
 ![CI](https://github.com/alxarafe/alxarafe/actions/workflows/ci.yml/badge.svg)
+![Tests](https://github.com/alxarafe/alxarafe/actions/workflows/tests.yml/badge.svg)
 [![Quality Report](https://img.shields.io/badge/quality-report-brightgreen?style=flat-square)](https://alxarafe.github.io/alxarafe/quality/)
 ![Static Analysis](https://img.shields.io/badge/static%20analysis-PHPStan%20%2B%20Psalm-blue?style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/alxarafe/alxarafe/issues?utf8=✓&q=is%3Aopen%20is%3Aissue)

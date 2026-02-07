@@ -47,7 +47,7 @@ class Error404Controller extends BasePublicController
     public function doIndex(): bool
     {
         //$this->template = 'page/error404';
-        $this->setTemplatesPath(constant('ALX_PATH') . '/Modules/Admin/Templates');
+        $this->setTemplatesPath([constant('ALX_PATH') . '/Modules/Admin/Templates']);
         return true;
     }
 }
