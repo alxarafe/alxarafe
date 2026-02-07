@@ -44,7 +44,7 @@ class Person extends Model
      * @var array
      */
     protected $casts = [
-        'birth_date' => 'date',
+        'birth_date' => 'date:Y-m-d',
         'active' => 'boolean',
     ];
 

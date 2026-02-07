@@ -29,6 +29,14 @@ export default defineConfig({
                         { text: 'Publishing Guide', link: '/en/publishing_guide' },
                         { text: 'Contribution Guide', link: '/en/contribution_guide' },
                     ]
+                },
+                {
+                    text: 'Class Reference',
+                    items: [
+                        { text: 'Resource Controller', link: '/en/classes/core/base/controller/resource-controller' },
+                        { text: 'API Controller', link: '/en/classes/core/base/controller/api-controller' },
+                        { text: 'Full API (phpDoc)', link: '/api/' },
+                    ]
                 }
             ],
             '/es/': [
@@ -42,6 +50,14 @@ export default defineConfig({
                         { text: 'Diagnóstico PHP 8.5', link: '/es/diagnostico_php85' },
                         { text: 'Guía de Publicación', link: '/es/guia_de_publicacion' },
                         { text: 'Guía de Contribución', link: '/es/guia_de_contribucion' },
+                    ]
+                },
+                {
+                    text: 'Referencia de Clases',
+                    items: [
+                        { text: 'Controlador de Recursos', link: '/es/classes/core/base/controller/resource-controller' },
+                        { text: 'Controlador API', link: '/es/classes/core/base/controller/api-controller' },
+                        { text: 'API Completa (phpDoc)', link: '/api/' },
                     ]
                 }
             ]
