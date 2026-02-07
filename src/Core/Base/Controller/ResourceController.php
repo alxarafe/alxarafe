@@ -976,6 +976,9 @@ abstract class ResourceController extends Controller
 
     protected function jsonResponse($data)
     {
+        if (defined('ALX_TESTING')) {
+            throw new \Alxarafe\Base\Testing\HttpResponseException($data);
+        }
         header('Content-Type: application/json');
         echo json_encode($data);
     }

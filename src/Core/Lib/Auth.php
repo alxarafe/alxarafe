@@ -41,6 +41,16 @@ abstract class Auth
 
     public static function isLogged(): bool
     {
+        if (defined('ALX_TESTING') && defined('ALX_TEST_USER')) {
+            if (!self::$user && !empty(ALX_TEST_USER)) {
+                // Mock user object
+                self::$user = new User();
+                self::$user->id = 1;
+                self::$user->name = 'Tester';
+                return true;
+            }
+        }
+
         $userId = $_COOKIE[self::COOKIE_USER] ?? null;
         $token = $_COOKIE[self::COOKIE_NAME] ?? null;
 
@@ -61,7 +71,9 @@ abstract class Auth
             return false;
         }
 
-        return self::$user->token === $token;
+
+
+        return self::$user && self::$user->token === $token;
     }
 
     /**

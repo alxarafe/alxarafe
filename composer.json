@@ -40,7 +40,12 @@
     "psr-4": {
       "Alxarafe\\Scripts\\": "src/Scripts",
       "Alxarafe\\": "src/Core",
-      "CoreModules\\": "src/Modules"
+      "CoreModules\\": "src/Modules",
+      "Modules\\": "skeleton/Modules/",
+      "Tests\\": [
+        "Tests/",
+        "skeleton/Tests/"
+      ]
     }
   },
   "require-dev": {

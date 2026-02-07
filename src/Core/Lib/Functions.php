@@ -128,6 +128,9 @@ abstract class Functions
 
     public static function httpRedirect(string $url)
     {
+        if (defined('ALX_TESTING')) {
+            throw new \Alxarafe\Base\Testing\HttpResponseException(['redirect' => $url], "Redirect to $url");
+        }
         header('Location: ' . $url);
         die();
     }

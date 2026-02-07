@@ -447,12 +447,12 @@ export class AlxarafeResource {
         const currentTab = this.config.config.list?.tabs?.[this.activeTab];
 
         tbody.innerHTML = rows.map((row: any) => `
-            <tr onclick="window.location.href='?page=${this.getPageName()}&id=${row.id ?? row.code}'" style="cursor: pointer; transition: background-color 0.2s;">
+            <tr onclick="window.location.href='?${this.getRoutingParams()}&id=${row.id ?? row.code}'" style="cursor: pointer; transition: background-color 0.2s;">
                 ${currentTab.columns.map((col: any) => `
                     <td class="px-4 py-3 text-secondary">${this.formatValue(row[col.field], col)}</td>
                 `).join('')}
                 <td class="text-end px-4 py-3">
-                    <a href="?page=${this.getPageName()}&id=${row.id ?? row.code}" class="btn btn-sm btn-outline-primary rounded-pill px-3" title="Editar">
+                    <a href="?${this.getRoutingParams()}&id=${row.id ?? row.code}" class="btn btn-sm btn-outline-primary rounded-pill px-3" title="Editar">
                         <i class="fas fa-pen small"></i>
                     </a>
                 </td>
@@ -643,9 +643,13 @@ export class AlxarafeResource {
         return String(value);
     }
 
-    private getPageName(): string {
+    private getRoutingParams(): string {
         const url = new URL(window.location.href);
-        return url.searchParams.get('page') || '';
+        const params = new URLSearchParams();
+        if (url.searchParams.has('page')) params.set('page', url.searchParams.get('page')!);
+        if (url.searchParams.has('module')) params.set('module', url.searchParams.get('module')!);
+        if (url.searchParams.has('controller')) params.set('controller', url.searchParams.get('controller')!);
+        return params.toString();
     }
 
     // --- EDIT MODE METHODS ---

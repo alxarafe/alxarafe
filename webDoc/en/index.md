@@ -73,5 +73,6 @@ The repository includes a `skeleton` application ready to use as a development e
 *   [Architecture and Core Concepts](architecture.md)
 *   [Publishing and Versioning Guide](publishing_guide.md)
 *   [Contribution Guide](contribution_guide.md)
+*   [Testing Guide](testing.md)
 *   [Module Guide](MODULOS.md) (Pending)
 *   [API Reference](API.md) (Pending)

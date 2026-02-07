@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="vendor/autoload.php" colors="true" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" cacheDirectory=".phpunit.cache">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="Tests/bootstrap.php" colors="true" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" cacheDirectory=".phpunit.cache">
   <testsuites>
-    <!--
-      <testsuite name="My Test Suite">
-        <directory>tests</directory>
-      </testsuite>
-    -->
+    <testsuite name="Unit">
+      <directory>Tests/Unit</directory>
+      <directory>skeleton/Tests/Unit</directory>
+    </testsuite>
+    <testsuite name="Feature">
+      <directory>Tests/Feature</directory>
+      <directory>skeleton/Tests/Feature</directory>
+    </testsuite>
   </testsuites>
 </phpunit>

@@ -73,5 +73,6 @@ El repositorio incluye una aplicación `skeleton` lista para usar como entorno d
 *   [Arquitectura y Conceptos Core](../es/arquitectura.md)
 *   [Guía de Publicación y Versionado](../es/guia_de_publicacion.md)
 *   [Guía de Contribución](../es/guia_de_contribucion.md)
+*   [Guía de Testing](../es/testing.md)
 *   [Guía de Módulos](MODULOS.md) (Pendiente)
 *   [Referencia de API](API.md) (Pendiente)
