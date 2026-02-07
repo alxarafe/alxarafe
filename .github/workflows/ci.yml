@@ -17,6 +17,20 @@ jobs:
   quality:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: alxarafe_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     container:
       image: rsanjose/php851:latest
       options: --user root
@@ -45,6 +59,13 @@ jobs:
 
       - name: PHPMD
         run: vendor/bin/phpmd src/Core text cleancode,codesize,controversial,design,naming,unusedcode
+
+      - name: PHPUnit
+        run: vendor/bin/phpunit
+        env:
+          DB_HOST: mysql
+          DB_USER: root
+          DB_PASS: root
 
       - name: Generate PHP Metrics report
         run: |

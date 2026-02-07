@@ -39,6 +39,20 @@ class Bootstrapper
             if (isset($config->db)) {
                 $config->db->name = 'alxarafe_test';
 
+                // Allow overriding DB config via environment variables (CI/CD)
+                if (getenv('DB_HOST') !== false) {
+                    $config->db->host = getenv('DB_HOST');
+                }
+                if (getenv('DB_USER') !== false) {
+                    $config->db->user = getenv('DB_USER');
+                }
+                if (getenv('DB_PASS') !== false) {
+                    $config->db->pass = getenv('DB_PASS');
+                }
+                if (getenv('DB_PORT') !== false) {
+                    $config->db->port = getenv('DB_PORT');
+                }
+
                 // Ensure connection to server to create DB if needed
                 Database::checkDatabaseConnection($config->db, true);
 
