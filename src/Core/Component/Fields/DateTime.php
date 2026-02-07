@@ -23,6 +23,7 @@ use Alxarafe\Component\AbstractField;
 class DateTime extends AbstractField
 {
     protected string $component = 'datetime';
+    #[\Override]
     public function getType(): string
     {
         return 'datetime';

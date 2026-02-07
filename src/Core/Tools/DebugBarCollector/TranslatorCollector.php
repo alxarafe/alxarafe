@@ -30,6 +30,12 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return string
      */
+    /**
+     * Returns the unique name of the collector
+     *
+     * @return string
+     */
+    #[\Override]
     public function getName(): string
     {
         return 'translations';
@@ -39,8 +45,9 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      * Returns a hash where keys are control names and their values
      * an array of options as defined in {@see DebugBar\JavascriptRenderer::addControl()}
      *
-     * @return array
+     * @return array<string, array{default?: float|int|string, icon?: string, map?: string, title?: string, tooltip?: string, widget?: string}>
      */
+    #[\Override]
     public function getWidgets(): array
     {
         return [
@@ -61,8 +68,9 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
     /**
      * Returns the needed assets
      *
-     * @return array
+     * @return array{base_path?: null|string, base_url?: null|string, css?: array<int|string, string>|string, inline_css?: array<int|string, string>, inline_head?: array<int|string, string>, inline_js?: array<int|string, string>, js?: array<int|string, string>|string}
      */
+    #[\Override]
     public function getAssets(): array
     {
         return [
@@ -76,6 +84,7 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return array Collected data
      */
+    #[\Override]
     public function collect(): array
     {
         $this->addTranslations();

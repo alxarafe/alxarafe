@@ -52,6 +52,7 @@ class RelationFilter extends AbstractFilter
         }
     }
 
+    #[\Override]
     public function apply(array &$whereParts, $value): void
     {
         $searchSQL = $this->getSearchSQL($value);
@@ -84,13 +85,14 @@ class RelationFilter extends AbstractFilter
 
         $parts = [];
         foreach ($fields as $field) {
-                $safeValue = addslashes($value);
-                $parts[] = "LOWER({$field}) LIKE LOWER('%{$safeValue}%')";
+            $safeValue = addslashes($value);
+            $parts[] = "LOWER({$field}) LIKE LOWER('%{$safeValue}%')";
         }
 
         return empty($parts) ? '' : '(' . implode(' OR ', $parts) . ')';
     }
 
+    #[\Override]
     public function getType(): string
     {
         return 'text'; // En el frontend se comporta como un input texto

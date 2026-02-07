@@ -22,12 +22,14 @@ use Alxarafe\Component\AbstractFilter;
 
 class SelectFilter extends AbstractFilter
 {
+    #[\Override]
     public function apply(array &$whereParts, $value): void
     {
         $safeValue = addslashes($value);
         $whereParts[] = "{$this->field} = '{$safeValue}'";
     }
 
+    #[\Override]
     public function getType(): string
     {
         // Si se pasa la opción 'searchable' => true en el constructor, 

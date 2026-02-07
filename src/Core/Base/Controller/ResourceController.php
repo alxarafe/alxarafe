@@ -714,7 +714,6 @@ abstract class ResourceController extends Controller
         }
 
         // Determine Model
-        $modelClass = null;
         if (method_exists($this, 'get_model_class_name')) {
             $modelClass = $this->get_model_class_name();
         } else {
@@ -764,7 +763,6 @@ abstract class ResourceController extends Controller
         $rawInput = file_get_contents('php://input');
 
         // Try to decode JSON if content type matches or if raw input looks like JSON
-        $json = null;
         if (stripos($contentType, 'application/json') !== false || ($rawInput && $rawInput[0] === '{')) {
             $json = json_decode($rawInput, true);
             if (is_array($json)) {
@@ -786,7 +784,6 @@ abstract class ResourceController extends Controller
         }
 
         // Determine Model
-        $modelClass = null;
         if (method_exists($this, 'get_model_class_name')) {
             $modelClass = $this->get_model_class_name();
         } else {
@@ -974,6 +971,7 @@ abstract class ResourceController extends Controller
         }
     }
 
+    #[\Override]
     protected function jsonResponse($data)
     {
         if (defined('ALX_TESTING')) {

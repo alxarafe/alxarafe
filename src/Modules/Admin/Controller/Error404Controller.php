@@ -29,6 +29,7 @@ class Error404Controller extends BasePublicController
      *
      * @return string
      */
+    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
@@ -39,6 +40,7 @@ class Error404Controller extends BasePublicController
      *
      * @return string
      */
+    #[\Override]
     public static function getControllerName(): string
     {
         return 'Error404';

@@ -14,6 +14,7 @@ class Select extends AbstractField
         parent::__construct($field, $label, $options);
     }
 
+    #[\Override]
     public function getType(): string
     {
         return 'select';

@@ -58,6 +58,7 @@ abstract class AbstractField implements JsonSerializable
     }
 
     #[\ReturnTypeWillChange]
+    #[\Override]
     public function jsonSerialize()
     {
         return array_merge([

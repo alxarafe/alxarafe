@@ -22,12 +22,14 @@ use Alxarafe\Component\AbstractFilter;
 
 class TextFilter extends AbstractFilter
 {
+    #[\Override]
     public function apply(array &$whereParts, $value): void
     {
-            $safeValue = addslashes($value);
-            $whereParts[] = "LOWER({$this->field}) LIKE LOWER('%{$safeValue}%')";
+        $safeValue = addslashes($value);
+        $whereParts[] = "LOWER({$this->field}) LIKE LOWER('%{$safeValue}%')";
     }
 
+    #[\Override]
     public function getType(): string
     {
         return 'text';

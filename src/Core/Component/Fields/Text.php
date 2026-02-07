@@ -24,6 +24,7 @@ class Text extends AbstractField
 {
     protected string $component = 'text';
 
+    #[\Override]
     public function getType(): string
     {
         return 'text';

@@ -64,6 +64,7 @@ abstract class AbstractFilter implements \JsonSerializable
     }
 
     #[\ReturnTypeWillChange]
+    #[\Override]
     public function jsonSerialize()
     {
         return $this->toArray();

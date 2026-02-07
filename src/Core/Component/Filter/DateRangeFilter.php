@@ -22,6 +22,7 @@ use Alxarafe\Component\AbstractFilter;
 
 class DateRangeFilter extends AbstractFilter
 {
+    #[\Override]
     public function apply(array &$whereParts, $value): void
     {
         // DateRange values usually come as separate params handled by the controller logic
@@ -39,6 +40,7 @@ class DateRangeFilter extends AbstractFilter
         }
     }
 
+    #[\Override]
     public function getType(): string
     {
         return 'date_range';

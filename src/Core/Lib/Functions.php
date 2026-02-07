@@ -56,10 +56,7 @@ abstract class Functions
     public static function getIfIsset($postVar, $defaultValue)
     {
         $return = filter_input(INPUT_POST, $postVar);
-        if ($return === null || $return === false) {
-            return $defaultValue;
-        }
-        return $return;
+        return ($return === null || $return === false) ? $defaultValue : $return;
     }
 
     /**

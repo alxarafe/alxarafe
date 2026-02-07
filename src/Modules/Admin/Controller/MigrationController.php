@@ -36,6 +36,7 @@ class MigrationController extends ViewController
      *
      * @return string
      */
+    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
@@ -46,6 +47,7 @@ class MigrationController extends ViewController
      *
      * @return string
      */
+    #[\Override]
     public static function getControllerName(): string
     {
         return 'Migration';

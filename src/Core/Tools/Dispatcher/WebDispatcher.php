@@ -97,6 +97,7 @@ class WebDispatcher extends Dispatcher
         return true;
     }
 
+    #[\Override]
     protected static function dieWithMessage($message)
     {
         Debug::message('WebDispatcher error: ' . $message);

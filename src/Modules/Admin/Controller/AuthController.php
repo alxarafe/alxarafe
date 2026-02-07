@@ -54,6 +54,7 @@ class AuthController extends Controller
      *
      * @return string
      */
+    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
@@ -64,6 +65,7 @@ class AuthController extends Controller
      *
      * @return string
      */
+    #[\Override]
     public static function getControllerName(): string
     {
         return 'Auth';

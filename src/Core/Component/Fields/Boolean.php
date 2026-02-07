@@ -23,6 +23,7 @@ use Alxarafe\Component\AbstractField;
 class Boolean extends AbstractField
 {
     protected string $component = 'boolean';
+    #[\Override]
     public function getType(): string
     {
         return 'boolean';
