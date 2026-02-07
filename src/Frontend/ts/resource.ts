@@ -105,91 +105,31 @@ export class AlxarafeResource {
             </button>
         `;
 
-        if (this.config.templates && this.config.templates['layout_list']) {
-            this.container.innerHTML = this.config.templates['layout_list'];
+        // Require template
+        if (!this.config.templates || !this.config.templates['layout_list']) {
+            this.container.innerHTML = '<div class="alert alert-danger">Internal Error: Missing template "layout_list"</div>';
+            return;
+        }
 
-            // Inject Tabs
-            const tabsContainer = this.container.querySelector('#alxarafe-tabs-container');
-            if (tabsContainer) tabsContainer.innerHTML = this.renderTabsNav();
+        this.container.innerHTML = this.config.templates['layout_list'];
 
-            // Inject Buttons
-            const leftContainer = this.container.querySelector('#alxarafe-toolbar-left');
-            if (leftContainer) leftContainer.innerHTML = leftButtons.map(renderBtn).join('');
+        // Inject Tabs
+        const tabsContainer = this.container.querySelector('#alxarafe-tabs-container');
+        if (tabsContainer) tabsContainer.innerHTML = this.renderTabsNav();
 
-            const rightContainer = this.container.querySelector('#alxarafe-toolbar-right');
-            if (rightContainer) rightContainer.innerHTML = rightButtons.map(renderBtn).join('');
+        // Inject Buttons
+        const leftContainer = this.container.querySelector('#alxarafe-toolbar-left');
+        if (leftContainer) leftContainer.innerHTML = leftButtons.map(renderBtn).join('');
 
-            // Inject Table Headers
-            const theadRow = this.container.querySelector('#alxarafe-table-head');
-            if (theadRow) {
-                theadRow.innerHTML = currentTab.columns.map((col: any) => `
-                        <th class="py-3 px-4 border-0">${col.label}</th>
-                  `).join('') + '<th class="text-end py-3 px-4 border-0" style="width: 120px;">Acciones</th>';
-            }
+        const rightContainer = this.container.querySelector('#alxarafe-toolbar-right');
+        if (rightContainer) rightContainer.innerHTML = rightButtons.map(renderBtn).join('');
 
-        } else {
-            this.container.innerHTML = `
-                <div class="alxarafe-resource-list animate__animated animate__fadeIn">
-                    
-                    <!-- Tabs Navigation (if multiple) -->
-                    ${this.renderTabsNav()}
-
-                    <!-- Action Toolbar: Left and Right Groups -->
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="btn-group">
-                            <!-- Left Buttons -->
-                            ${leftButtons.map(renderBtn).join('')}
-                        </div>
-                        <div class="d-flex gap-2">
-                            <!-- Right Buttons -->
-                            ${rightButtons.map(renderBtn).join('')}
-                        </div>
-                    </div>
-
-                    <!-- Collapsible Filters Panel (Default Open) -->
-                    <div class="card border mb-3 shadow-sm">
-                        <div class="card-header bg-white d-flex justify-content-between align-items-center" 
-                             style="cursor: pointer;"
-                             data-bs-toggle="collapse" 
-                             data-bs-target="#alxarafe-filters-collapse" 
-                             aria-expanded="true">
-                            <h6 class="mb-0 text-primary"><i class="fas fa-search me-2"></i>Filtros de búsqueda</h6>
-                            <i class="fas fa-chevron-up text-muted"></i>
-                        </div>
-                        <div class="collapse show" id="alxarafe-filters-collapse">
-                            <div class="card-body bg-light">
-                                <div class="row g-2" id="alxarafe-filters-row">
-                                    <!-- Filters injected here -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card border shadow-sm">
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <!-- Added table-striped for "pijama" effect -->
-                                <table class="table table-striped table-hover align-middle mb-0" id="alxarafe-table">
-                                    <thead class="bg-light text-secondary text-uppercase small fw-bold">
-                                        <tr>
-                                            ${currentTab.columns.map((col: any) => `
-                                                <th class="py-3 px-4 border-0">${col.label}</th>
-                                            `).join('')}
-                                            <th class="text-end py-3 px-4 border-0" style="width: 120px;">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="alxarafe-table-body" class="border-top-0">
-                                       <!-- Rows injected here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-white border-0 py-3 px-4" id="alxarafe-pagination">
-                            <!-- Pagination injected here -->
-                        </div>
-                    </div>
-                </div>
-            `;
+        // Inject Table Headers
+        const theadRow = this.container.querySelector('#alxarafe-table-head');
+        if (theadRow) {
+            theadRow.innerHTML = currentTab.columns.map((col: any) => `
+                    <th class="py-3 px-4 border-0">${col.label}</th>
+                `).join('') + '<th class="text-end py-3 px-4 border-0" style="width: 120px;">Acciones</th>';
         }
 
         this.renderFilters(currentTab.filters || []);
@@ -502,23 +442,27 @@ export class AlxarafeResource {
             pagesParams.push(totalPages);
         }
 
-        container.innerHTML = `
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <div class="text-muted small mb-2 mb-md-0">
-                    Mostrando ${start} - ${end} de ${total} registros
-                </div>
-                <nav>
-                    <ul class="pagination pagination-sm mb-0">
-                        ${buildPageItem(currentPage - 1, '<i class="fas fa-chevron-left"></i>', currentPage === 1)}
-                        ${pagesParams.map(p => {
+        const itemsHtml = `
+            ${buildPageItem(currentPage - 1, '<i class="fas fa-chevron-left"></i>', currentPage === 1)}
+            ${pagesParams.map(p => {
             if (p === '...') return '<li class="page-item disabled"><span class="page-link">...</span></li>';
             return buildPageItem(p, String(p), false, p === currentPage);
         }).join('')}
-                        ${buildPageItem(currentPage + 1, '<i class="fas fa-chevron-right"></i>', currentPage === totalPages)}
-                    </ul>
-                </nav>
-            </div>
+            ${buildPageItem(currentPage + 1, '<i class="fas fa-chevron-right"></i>', currentPage === totalPages)}
         `;
+
+        if (this.config.templates && this.config.templates['layout_pagination']) {
+            let html = this.config.templates['layout_pagination'];
+            html = html.split('{{start}}').join(String(start));
+            html = html.split('{{end}}').join(String(end));
+            html = html.split('{{total}}').join(String(total));
+            html = html.split('{{items}}').join(itemsHtml);
+            container.innerHTML = html;
+        } else {
+            // Minimal fallback or error? User wants decoupling.
+            // But avoiding hard error for non-critical component if template missing
+            container.innerHTML = '<div class="alert alert-warning">Missing template: layout_pagination</div>';
+        }
 
         // Bind Events
         container.querySelectorAll('button[data-page]:not([disabled])').forEach(btn => {
@@ -658,30 +602,8 @@ export class AlxarafeResource {
         if (this.config.templates && this.config.templates['layout_edit']) {
             this.container.innerHTML = this.config.templates['layout_edit'];
         } else {
-            this.container.innerHTML = `
-                <div class="alxarafe-resource-edit animate__animated animate__fadeIn">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h3 class="mb-0 fw-bold text-dark">
-                            <i class="fas fa-edit text-primary me-2"></i>Editar Registro
-                        </h3>
-                        <div class="actions">
-                            <button class="btn btn-outline-secondary me-2" onclick="history.back()">
-                                <i class="fas fa-arrow-left me-1"></i> Volver
-                            </button>
-                            <button class="btn btn-success shadow-sm" id="btn-save">
-                                <i class="fas fa-save me-1"></i> Guardar
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="edit-form-container">
-                        <div class="text-center p-5">
-                        <div class="spinner-border text-primary" role="status"></div>
-                        <p class="mt-2 text-muted">Cargando datos...</p>
-                        </div>
-                    </div>
-                </div>
-            `;
+            this.container.innerHTML = '<div class="alert alert-danger">Internal Error: Missing template "layout_edit"</div>';
+            return;
         }
 
         this.loadRecordData();
