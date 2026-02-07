@@ -43,7 +43,8 @@ class ApiDispatcher extends Dispatcher
         $array = explode('/', $route);
         $module = $array[0];
         $controller = $array[1] ?? null;
-        // $method = $array[2] ?? null;
+        $method = $array[2] ?? null; // Uncommented to support method routing
+        $params = array_slice($array, 3); // Extract parameters
 
         $routes = Routes::getAllRoutes();
         $endpoint = $routes['Api'][$module][$controller] ?? null;
@@ -68,6 +69,14 @@ class ApiDispatcher extends Dispatcher
         if (!$controllerInstance instanceof ApiController) {
             Debug::message("Dispatcher::runApi error: $className is not an ApiController");
             ApiController::badApiCall();
+        }
+
+        // Execute method if defined
+        if ($method && method_exists($controllerInstance, $method)) {
+            call_user_func_array([$controllerInstance, $method], $params);
+        } elseif ($method) {
+            Debug::message("Dispatcher::runApi error: Method $method not found in $className");
+            ApiController::badApiCall("Method $method not found", 404);
         }
     }
 }
