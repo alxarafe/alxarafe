@@ -98,6 +98,8 @@ class PersonTest extends TestCase
 
 ### 2. Tests de API y Controladores (Feature)
 
+Para detalles sobre la implementación y documentación de APIs, consulta la [Guía de Desarrollo de APIs](desarrollo_de_apis.md).
+
 Probar controladores en Alxarafe tiene particularidades debido a que el framework maneja respuestas HTTP y redirecciones.
 
 #### Manejo de Respuestas (`HttpResponseException`)

@@ -75,4 +75,4 @@ El repositorio incluye una aplicación `skeleton` lista para usar como entorno d
 *   [Guía de Contribución](../es/guia_de_contribucion.md)
 *   [Guía de Testing](../es/testing.md)
 *   [Guía de Módulos](MODULOS.md) (Pendiente)
-*   [Referencia de API](API.md) (Pendiente)
+*   [Desarrollo y Documentación de APIs](desarrollo_de_apis.md)
