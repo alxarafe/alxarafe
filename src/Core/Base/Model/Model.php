@@ -106,14 +106,13 @@ abstract class Model extends EloquentModel
         $dbType = strtolower($dbType);
 
         return match (true) {
-            str_contains($dbType, 'bool') || str_contains($dbType, 'tinyint(1)') => 'boolean',
-            str_contains($dbType, 'int'),
-            str_contains($dbType, 'decimal'),
-            str_contains($dbType, 'float'),
-            str_contains($dbType, 'double') => 'number',
-            str_contains($dbType, 'date') => str_contains($dbType, 'time') ? 'datetime' : 'date',
-            str_contains($dbType, 'text'),
-            str_contains($dbType, 'blob') => 'textarea',
+            str_contains($dbType, 'bool') || str_contains($dbType, 'tinyint') => 'boolean', // Covers tinyint(1), tinyint(4), etc.
+            str_contains($dbType, 'int') => 'integer',
+            str_contains($dbType, 'decimal') || str_contains($dbType, 'float') || str_contains($dbType, 'double') => 'decimal',
+            str_contains($dbType, 'datetime') || str_contains($dbType, 'timestamp') => 'datetime',
+            str_contains($dbType, 'date') => 'date',
+            str_contains($dbType, 'time') => 'time',
+            str_contains($dbType, 'text') || str_contains($dbType, 'blob') => 'textarea',
             default => 'text',
         };
     }

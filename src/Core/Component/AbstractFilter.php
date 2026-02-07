@@ -44,10 +44,10 @@ abstract class AbstractFilter implements \JsonSerializable
     /**
      * Aplica el filtro a la consulta SQL.
      * 
-     * @param array $whereParts Array de condiciones WHERE (por referencia)
+     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
      * @param mixed $value Valor del filtro enviado por el usuario
      */
-    abstract public function apply(array &$whereParts, $value): void;
+    abstract public function apply($query, $value): void;
 
     /**
      * Devuelve la definición del filtro para el frontend (JSON/Array).

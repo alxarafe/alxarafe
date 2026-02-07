@@ -23,10 +23,9 @@ use Alxarafe\Component\AbstractFilter;
 class SelectFilter extends AbstractFilter
 {
     #[\Override]
-    public function apply(array &$whereParts, $value): void
+    public function apply($query, $value): void
     {
-        $safeValue = addslashes($value);
-        $whereParts[] = "{$this->field} = '{$safeValue}'";
+        $query->where($this->field, '=', $value);
     }
 
     #[\Override]

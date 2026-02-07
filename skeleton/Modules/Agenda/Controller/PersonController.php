@@ -34,8 +34,8 @@ class PersonController extends ResourceController
             'id',
             'name',
             'lastname',
-            'active',
-            'birth_date'
+            'active' => ['type' => 'boolean'],
+            'birth_date' => ['type' => 'date']
         ];
     }
 
@@ -47,8 +47,8 @@ class PersonController extends ResourceController
             'updated_at' => ['readonly' => true],
             'name',
             'lastname',
-            'active',
-            'birth_date',
+            'active' => ['type' => 'boolean'],
+            'birth_date' => ['type' => 'date'],
             'observations'
         ];
     }

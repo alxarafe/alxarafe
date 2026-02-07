@@ -297,32 +297,34 @@ abstract class ResourceController extends Controller
                 case 'datetime':
                     $components[] = new \Alxarafe\Component\Fields\DateTime($field, $label, $options);
                     break;
-                case 'number':
-                case 'decimal':
-                case 'float':
+                case 'time':
+                    $components[] = new \Alxarafe\Component\Fields\Time($field, $label, $options);
+                    break;
                 case 'integer':
-                    $options['type'] = 'number';
-
-                    // Integer Step
-                    if ($type === 'integer') {
-                        $options['step'] = 1;
-                    } else {
-                        // Decimals
-                        $options['step'] = 'any';
-                    }
-
-                    // Unsigned => Min 0
+                    // Integer Logic
                     if (str_contains($dbType, 'unsigned')) {
                         $options['min'] = 0;
                     }
-
-                    $components[] = new \Alxarafe\Component\Fields\Text($field, $label, $options);
+                    $components[] = new \Alxarafe\Component\Fields\Integer($field, $label, $options);
+                    break;
+                case 'decimal':
+                    // Decimal Logic
+                    if (str_contains($dbType, 'unsigned')) {
+                        $options['min'] = 0;
+                    }
+                    $components[] = new \Alxarafe\Component\Fields\Decimal($field, $label, $options);
                     break;
                 case 'textarea':
                     $options['multiline'] = true;
-                    // Usually texarea doesn't respect maxlength attribute the same way visually, but valid HTML.
-                    $components[] = new \Alxarafe\Component\Fields\Text($field, $label, $options);
+                    $components[] = new \Alxarafe\Component\Fields\Textarea($field, $label, $options);
                     break;
+
+                // Fallback for number if somehow reaches here (deprecated generic)
+                case 'number':
+                    $options['type'] = 'number';
+                    $components[] = new \Alxarafe\Component\Fields\Decimal($field, $label, $options);
+                    break;
+
                 default:
                     $components[] = new \Alxarafe\Component\Fields\Text($field, $label, $options);
                     break;
@@ -549,25 +551,23 @@ abstract class ResourceController extends Controller
 
         $tabConfig = $this->structConfig['list']['tabs'][$tabId];
         $modelClass = $tabConfig['model'];
+        /** @var \Alxarafe\Base\Model\Model $model */
         $model = new $modelClass();
-        $connection = $model->getConnection();
-        $table = $connection->getTablePrefix() . $model->getTable();
 
         $limit = $this->structConfig['list']['limit'];
 
         // --- QUERY BUILDING ---
-        $whereParts = ['1=1'];
+        $query = $model->newQuery();
 
         // Apply Tab Conditions (Implicit Filters)
         if (!empty($tabConfig['conditions'])) {
             foreach ($tabConfig['conditions'] as $key => $val) {
                 if ($val === null) {
-                    $whereParts[] = "{$key} IS NULL";
+                    $query->whereNull($key);
                 } elseif ($val === 'NOT NULL') {
-                    $whereParts[] = "{$key} IS NOT NULL";
+                    $query->whereNotNull($key);
                 } else {
-                    $safeVal = addslashes($val);
-                    $whereParts[] = "{$key} = '{$safeVal}'";
+                    $query->where($key, '=', $val);
                 }
             }
         }
@@ -575,21 +575,16 @@ abstract class ResourceController extends Controller
         // 0. Global Search
         $globalQuery = $_GET['q'] ?? null;
         if ($globalQuery && !empty($this->globalSearchFields)) {
-            $searchParts = [];
-            foreach ($this->globalSearchFields as $field) {
-                $safeQ = addslashes($globalQuery);
-                $searchParts[] = "LOWER({$field}) LIKE LOWER('%{$safeQ}%')";
-            }
-            $whereParts[] = '(' . implode(' OR ', $searchParts) . ')';
+            $query->where(function ($q) use ($globalQuery) {
+                foreach ($this->globalSearchFields as $field) {
+                    $q->orWhereRaw("LOWER({$field}) LIKE LOWER(?)", ["%{$globalQuery}%"]);
+                }
+            });
         }
 
         // 1. Apply Filters
         foreach ($tabConfig['filters'] as $filter) {
             $field = $filter->getField();
-
-            // Handle values.
-            // For simple types: param = filter_{tab}_{field}
-            // For ranges: params = filter_{tab}_{field}_from, ..._to
 
             if ($filter->getType() === 'date_range') {
                 $paramFrom = 'filter_' . $tabId . '_' . $field . '_from';
@@ -598,31 +593,28 @@ abstract class ResourceController extends Controller
                 $valTo = $_GET[$paramTo] ?? null;
 
                 if ($valFrom || $valTo) {
-                    $filter->apply($whereParts, ['from' => $valFrom, 'to' => $valTo]);
+                    $filter->apply($query, ['from' => $valFrom, 'to' => $valTo]);
                 }
             } else {
                 $paramName = 'filter_' . $tabId . '_' . $field;
                 $value = $_GET[$paramName] ?? null;
 
                 if ($value !== null && $value !== '') {
-                    $filter->apply($whereParts, $value);
+                    $filter->apply($query, $value);
                 }
             }
         }
 
-        $whereSQL = implode(' AND ', $whereParts);
-
         try {
-            // Total count (filters applied)
-            $countSql = "SELECT COUNT(*) as total FROM " . $table . " WHERE " . $whereSQL;
-            /** @phpstan-ignore-next-line */
-            $countRes = DB::select($countSql);
-            $total = $countRes[0]->total ?? 0;
+            // Total count
+            $total = $query->count();
 
             // Fetch Data
-            $sql = "SELECT * FROM " . $table . " WHERE " . $whereSQL . " ORDER BY " . ($model->primaryColumn() ?? 'id') . " DESC LIMIT " . (int)$limit . " OFFSET " . (int)$this->offset;
-            /** @phpstan-ignore-next-line */
-            $rows = DB::select($sql);
+            $query->orderBy($model->primaryColumn() ?? 'id', 'DESC');
+            $query->limit((int)$limit);
+            $query->offset((int)$this->offset);
+
+            $rows = $query->get()->toArray();
         } catch (\Exception $e) {
             return ['error' => 'Database error: ' . $e->getMessage()];
         }
@@ -630,21 +622,54 @@ abstract class ResourceController extends Controller
         // Process rows to include computed columns / relations
         $results = [];
         foreach ($rows as $row) {
-            $row = (array) $row;
-            $item = new $modelClass($row);
-            $processed = $row; // Start with raw data
+            // $row is now an array because we used toArray() on Collection
+            // But we need the model instance to call accessors if needed
+            // Actually, Eloquent get() returns Collection of Models.
+            // But toArray() converts models to arrays.
+            // Let's optimize: use the Models directly first?
+            // The original logic hydrated a new model from array row.
+            // Eloquent returns hydrated models.
+            // So let's NOT call toArray() immediately if we want to use model methods.
+            // Re-fetching logic:
+        }
 
-            foreach ($tabConfig['columns'] as $col) {
+        // Optimized Fetch Logic: get() returns Collection of Models
+        // We re-query to get models (actually we already got them if we remove toArray())
+        // Wait, $query->get() returns Eloquent Collection of Objects.
+        // Original code used DB::select which returns stdClass objects, then hydrated manually `new $modelClass($row)`.
+        // Eloquent returns instances of $modelClass automatically.
+
+        // So let's revert the toArray calling on $rows line.
+        // And adjust the loop.
+
+        return $this->processResultModels($query->get(), $tabConfig['columns'], $total, $limit);
+    }
+
+    protected function processResultModels($models, $columns, $total, $limit): array
+    {
+        $results = [];
+        foreach ($models as $item) {
+            // Eloquent model instance
+            $row = $item->toArray(); // Get basic attributes
+            $processed = $row;
+
+            foreach ($columns as $col) {
                 if ($col instanceof AbstractField) {
                     $col = $col->jsonSerialize();
                 }
                 $field = $col['field'];
 
-                // If field is already in row, good. If not, try to fetch from model.
+                // If field is present in array, use it.
+                // UNLESS it's a computed accessor or relation that toArray doesn't include by default (appends).
+                // But let's follow logic: if key exists, keep it? 
+                // Original logic: "If field is already in row, good. If not, try to fetch from model."
+
                 if (!array_key_exists($field, $row)) {
                     $val = null;
 
-                    // 1. Try getter method (get_field or getField)
+                    // 1. Try getter/accessor
+                    // Eloquent uses getAttribute logic.
+                    // But we also support custom get_X methods.
                     $getter = 'get_' . $field;
                     $getterCamel = 'get' . str_replace('_', '', ucwords($field, '_'));
 
@@ -652,22 +677,26 @@ abstract class ResourceController extends Controller
                         $val = $item->$getter();
                     } elseif (method_exists($item, $getterCamel)) {
                         $val = $item->$getterCamel();
-                    } elseif (property_exists($item, $field)) {
-                        $val = $item->$field;
-                    } // 2. Try Dot Notation (e.g. partner.nombre)
-                    elseif (strpos($field, '.') !== false) {
+                    } else {
+                        // Try attribute via Eloquent magic (mutators/relations)
+                        // But if it wasn't in toArray(), it might be hidden or a relation.
+                        try {
+                            $val = $item->$field;
+                        } catch (\Exception $e) {
+                            $val = null;
+                        }
+                    }
+
+                    // 2. Try Dot Notation (partner.nombre)
+                    if ($val === null && strpos($field, '.') !== false) {
                         $parts = explode('.', $field);
                         $obj = $item;
                         foreach ($parts as $part) {
-                            $partGetter = 'get_' . $part;
                             if (is_object($obj)) {
-                                if (method_exists($obj, $partGetter)) {
-                                    $obj = $obj->$partGetter();
-                                } elseif (isset($obj->$part)) {
+                                // Eloquent relations are accessible as properties
+                                try {
                                     $obj = $obj->$part;
-                                } else {
-                                    // Try generic 'get_'$part if relation
-                                    // This is naive, but might work for simple cases
+                                } catch (\Exception $e) {
                                     $obj = null;
                                 }
                             } else {
@@ -677,7 +706,7 @@ abstract class ResourceController extends Controller
                         $val = $obj;
                     }
 
-                    // If we found an object (like a related model), try to get a string representation
+                    // Object to String conversion
                     if (is_object($val)) {
                         if (method_exists($val, 'get_name')) {
                             $val = $val->get_name();

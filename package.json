@@ -9,6 +9,8 @@
   },
   "scripts": {
     "watch": "echo 'Alxarafe Node environment is active...' && tail -f /dev/null",
+    "dev": "webpack --mode development",
+    "watch:ts": "webpack --watch --mode development",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"

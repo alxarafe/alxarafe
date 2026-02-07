@@ -53,13 +53,15 @@ class RelationFilter extends AbstractFilter
     }
 
     #[\Override]
-    public function apply(array &$whereParts, $value): void
+    public function apply($query, $value): void
     {
         $searchSQL = $this->getSearchSQL($value);
         if ($searchSQL) {
-            // Construimos la subconsulta:
+            // Construimos la subconsulta usando whereRaw para aprovechar el SQL generado
             // FIELD IN (SELECT PK FROM RELATED_TABLE WHERE SEARCH_SQL)
-            $whereParts[] = "{$this->field} IN (SELECT {$this->relatedPK} FROM {$this->relatedTable} WHERE {$searchSQL})";
+            // Nota: getSearchSQL ya devuelve un string SQL sanitizado (semi), lo inyectamos en la subconsulta.
+            // Para mayor seguridad futura, getSearchSQL debiera devolver bindings, pero por ahora mantenemos compatibilidad.
+            $query->whereRaw("{$this->field} IN (SELECT {$this->relatedPK} FROM {$this->relatedTable} WHERE {$searchSQL})");
         }
     }
 

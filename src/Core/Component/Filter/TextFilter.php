@@ -23,10 +23,9 @@ use Alxarafe\Component\AbstractFilter;
 class TextFilter extends AbstractFilter
 {
     #[\Override]
-    public function apply(array &$whereParts, $value): void
+    public function apply($query, $value): void
     {
-        $safeValue = addslashes($value);
-        $whereParts[] = "LOWER({$this->field}) LIKE LOWER('%{$safeValue}%')";
+        $query->whereRaw("LOWER({$this->field}) LIKE LOWER(?)", ["%{$value}%"]);
     }
 
     #[\Override]

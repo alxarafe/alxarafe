@@ -398,6 +398,68 @@ export class AlxarafeResource {
                 </td>
             </tr>
         `).join('');
+
+        // Trigger local data formatting after render
+        this.formatLocalData();
+    }
+
+    private formatLocalData() {
+        // 1. Dates
+        const dateEls = this.container.querySelectorAll('.alx-date-local');
+        dateEls.forEach((el: any) => {
+            const val = el.dataset.value;
+            if (!val) return;
+            try {
+                const date = new Date(val);
+                if (!isNaN(date.getTime())) {
+                    el.innerText = date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-');
+                }
+            } catch (e) { }
+        });
+
+        // 2. DateTimes
+        const dateTimeEls = this.container.querySelectorAll('.alx-datetime-local');
+        dateTimeEls.forEach((el: any) => {
+            const val = el.dataset.value;
+            if (!val) return;
+            try {
+                const date = new Date(val);
+                if (!isNaN(date.getTime())) {
+                    el.innerText = date.toLocaleString();
+                }
+            } catch (e) { }
+        });
+
+        // 3. Decimals / Numbers
+        const decimalEls = this.container.querySelectorAll('.alx-decimal-local');
+        decimalEls.forEach((el: any) => {
+            const val = parseFloat(el.dataset.value);
+            if (isNaN(val)) return;
+            try {
+                el.innerText = val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+            } catch (e) { }
+        });
+
+        // 4. Time
+        const timeEls = this.container.querySelectorAll('.alx-time-local');
+        timeEls.forEach((el: any) => {
+            // Time usually comes as HH:MM:SS. We can just show it as is or try to format it?
+            // Browser doesn't have a simple "Time String Formatter" from just a time string without date.
+            // We can use a dummy date.
+            const val = el.dataset.value;
+            if (!val) return;
+            // Basic check if it is HH:MM:SS
+            if (val.includes(':')) {
+                // Leave as is or format:
+                // el.innerText = val.substring(0, 5); // HH:MM
+                // Let's truncate seconds if they are 00?
+                // User wants "browser configuration". Browser usually shows HH:MM for time inputs.
+                // Let's stick with HH:MM
+                if (val.length === 8) {
+                    el.innerText = val.substring(0, 5);
+                }
+            }
+        });
     }
 
     private renderPagination(meta: any) {
@@ -421,24 +483,18 @@ export class AlxarafeResource {
             </li>
         `;
 
-        // Logic for sliding window: [1] ... [current-2] [current-1] [current] [current+1] [current+2] ... [last]
+        // Logic for sliding window
         let pagesParams: (number | string)[] = [];
 
         if (totalPages <= 7) {
-            // Show all if few
             for (let i = 1; i <= totalPages; i++) pagesParams.push(i);
         } else {
-            // Always show 1
             pagesParams.push(1);
             if (currentPage > 3) pagesParams.push('...');
-
-            // Neighbors
             for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
                 pagesParams.push(i);
             }
-
             if (currentPage < totalPages - 2) pagesParams.push('...');
-            // Always show last
             pagesParams.push(totalPages);
         }
 
@@ -459,22 +515,15 @@ export class AlxarafeResource {
             html = html.split('{{items}}').join(itemsHtml);
             container.innerHTML = html;
         } else {
-            // Minimal fallback or error? User wants decoupling.
-            // But avoiding hard error for non-critical component if template missing
             container.innerHTML = '<div class="alert alert-warning">Missing template: layout_pagination</div>';
         }
 
-        // Bind Events
         container.querySelectorAll('button[data-page]:not([disabled])').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const target = e.target as HTMLElement;
-                // Handle icon clicks
                 const btnEl = target.closest('button');
                 if (!btnEl || !btnEl.dataset.page) return;
-
                 const targetPage = parseInt(btnEl.dataset.page);
-
-                // Calculate new offset
                 this.currentOffset = (targetPage - 1) * limit;
                 this.fetchData();
             });
@@ -504,17 +553,30 @@ export class AlxarafeResource {
 
         const type = col.component || col.type || 'text';
 
-        // Try generic template first
+        // Try generic template first (Including date/datetime now)
         const tpl = this.config.templates?.[type.toLowerCase() + '_list'];
         if (tpl) {
             let html = tpl;
             const safeValue = value !== null && value !== undefined ? value : '';
             html = html.split('{{value}}').join(safeValue);
 
-            // Boolean check for checked property if needed in list
+            // Boolean check
             if (type === 'boolean') {
-                const isChecked = Boolean(value) && String(value) !== '0';
+                const isChecked = safeValue === true || safeValue === 1 || safeValue === '1' || safeValue === 'true';
                 html = html.split('{{checked}}').join(isChecked ? 'checked' : '');
+            } else {
+                html = html.split('{{checked}}').join('');
+            }
+
+            // Date formatting in list
+            if (type === 'date' && safeValue) {
+                try {
+                    const date = new Date(safeValue);
+                    if (!isNaN(date.getTime())) {
+                        const formatted = date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-');
+                        html = html.split(safeValue).join(formatted);
+                    }
+                } catch (e) { }
             }
 
             return html;
@@ -532,57 +594,12 @@ export class AlxarafeResource {
             return '';
         }
 
-        if (col.type === 'boolean' || col.component === 'boolean') {
+        if (col.type === 'boolean') {
             const isChecked = Boolean(value) && String(value) !== '0';
             return `<div class="text-center"><input type="checkbox" class="form-check-input" ${isChecked ? 'checked' : ''} disabled></div>`;
         }
 
-        if (col.type === 'date' || col.type === 'date_expiration') {
-            if (!value) return '';
-            const displayDate = value.split('T')[0].split('-').reverse().join('-');
-
-            // Logic for alerts (omitted for brevity if template handles it, keeping legacy support)
-            // Alert / Coloring Logic
-            const alerts = col.alerts || [];
-
-            // Backward compatibility for date_expiration simple config (simulate alerts)
-            if (col.type === 'date_expiration' && alerts.length === 0) {
-                const warningDays = col.warning_days !== undefined ? parseInt(col.warning_days) : 30;
-                const dangerDays = col.danger_days !== undefined ? parseInt(col.danger_days) : 15;
-                alerts.push({ days: 0, class: 'text-danger' }); // Expired
-                alerts.push({ days: dangerDays, class: 'text-danger' });
-                alerts.push({ days: warningDays, class: 'text-warning' });
-            }
-
-            if (alerts.length > 0) {
-                const isoDate = value.split('T')[0];
-                const date = new Date(isoDate);
-                const now = new Date();
-                now.setHours(0, 0, 0, 0);
-
-                const diffTime = date.getTime() - now.getTime();
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                let activeClass = '';
-                for (const rule of alerts) {
-                    if (diffDays < rule.days) {
-                        activeClass = rule.class;
-                        break;
-                    }
-                }
-
-                if (!activeClass && col.type === 'date_expiration') activeClass = 'text-success';
-
-                if (activeClass) {
-                    return `<span class="${activeClass}">${displayDate}</span>`;
-                }
-            }
-            return displayDate;
-        }
-
-        if (col.type === 'datetime') {
-            return value.replace('T', ' ').substring(0, 16);
-        }
+        // Date/Datetime HARDCODED LOGIC REMOVED - using templates now.
 
         return String(value);
     }
@@ -692,13 +709,34 @@ export class AlxarafeResource {
 
     private renderField(field: any, value: any): string {
         const type = field.type || field.component || 'text';
+        console.log('[AlxarafeResource] renderField:', { field: field.field, type, value });
         const tpl = this.config.templates?.[type.toLowerCase() + '_edit'];
 
         if (tpl) {
             let html = tpl;
             html = html.split('{{field}}').join(field.field);
             html = html.split('{{label}}').join(field.label);
-            html = html.split('{{value}}').join(value !== null && value !== undefined ? value : '');
+            let safeValue = value !== null && value !== undefined ? value : '';
+
+            // Normailize type check
+            const lowerType = type.toLowerCase();
+
+            if (lowerType === 'date') {
+                // Ensure string to match regex
+                const strVal = String(safeValue);
+                // Extract YYYY-MM-DD
+                const match = strVal.match(/(\d{4}-\d{2}-\d{2})/);
+                if (match) {
+                    safeValue = match[1];
+                } else if (safeValue instanceof Date) {
+                    // Fallback if value was a Date object (unlikely via JSON but possible in some setups)
+                    const y = safeValue.getFullYear();
+                    const m = String(safeValue.getMonth() + 1).padStart(2, '0');
+                    const d = String(safeValue.getDate()).padStart(2, '0');
+                    safeValue = `${y}-${m}-${d}`;
+                }
+            }
+            html = html.split('{{value}}').join(safeValue);
 
             // Boolean Attributes (required, readonly)
             const boolAttrs = ['required', 'readonly', 'disabled'];
@@ -720,8 +758,12 @@ export class AlxarafeResource {
 
             // Specific Check for Boolean checked
             if (type === 'boolean') {
-                const isChecked = Boolean(value) && String(value) !== '0';
+                // Check various truthy values
+                const isChecked = value === true || value === 1 || value === '1' || value === 'true';
                 html = html.split('{{checked}}').join(isChecked ? 'checked' : '');
+            } else {
+                // Clean up leftover {{checked}} for non-boolean fields just in case
+                html = html.split('{{checked}}').join('');
             }
 
             return html;

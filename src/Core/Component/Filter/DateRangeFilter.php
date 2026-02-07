@@ -23,7 +23,7 @@ use Alxarafe\Component\AbstractFilter;
 class DateRangeFilter extends AbstractFilter
 {
     #[\Override]
-    public function apply(array &$whereParts, $value): void
+    public function apply($query, $value): void
     {
         // DateRange values usually come as separate params handled by the controller logic
         // But if passed as an array ['from' => '...', 'to' => '...']:
@@ -31,12 +31,10 @@ class DateRangeFilter extends AbstractFilter
         $to = $value['to'] ?? null;
 
         if ($from) {
-            $safeFrom = addslashes($from);
-            $whereParts[] = "{$this->field} >= '{$safeFrom} 00:00:00'";
+            $query->where($this->field, '>=', $from . ' 00:00:00');
         }
         if ($to) {
-            $safeTo = addslashes($to);
-            $whereParts[] = "{$this->field} <= '{$safeTo} 23:59:59'";
+            $query->where($this->field, '<=', $to . ' 23:59:59');
         }
     }
 
