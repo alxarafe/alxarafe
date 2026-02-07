@@ -8,6 +8,7 @@ class FrameworkTest extends TestCase
 {
     public function testFrameworkIsTestable(): void
     {
-        $this->assertTrue(true);
+        // @phpstan-ignore-next-line
+        $this->assertTrue(defined('ALX_TESTING'));
     }
 }

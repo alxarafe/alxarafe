@@ -8,6 +8,7 @@ class FrameworkFeatureTest extends TestCase
 {
     public function testFeatureTestsAreEnabled(): void
     {
-        $this->assertTrue(true);
+        // @phpstan-ignore-next-line
+        $this->assertTrue(defined('ALX_TESTING'));
     }
 }

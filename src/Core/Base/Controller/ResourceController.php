@@ -610,39 +610,15 @@ abstract class ResourceController extends Controller
             $total = $query->count();
 
             // Fetch Data
-            $query->orderBy($model->primaryColumn() ?? 'id', 'DESC');
+            $query->orderBy($model->primaryColumn(), 'DESC');
             $query->limit((int)$limit);
             $query->offset((int)$this->offset);
 
-            $rows = $query->get()->toArray();
+            $models = $query->get();
+            return $this->processResultModels($models, $tabConfig['columns'], $total, $limit);
         } catch (\Exception $e) {
             return ['error' => 'Database error: ' . $e->getMessage()];
         }
-
-        // Process rows to include computed columns / relations
-        $results = [];
-        foreach ($rows as $row) {
-            // $row is now an array because we used toArray() on Collection
-            // But we need the model instance to call accessors if needed
-            // Actually, Eloquent get() returns Collection of Models.
-            // But toArray() converts models to arrays.
-            // Let's optimize: use the Models directly first?
-            // The original logic hydrated a new model from array row.
-            // Eloquent returns hydrated models.
-            // So let's NOT call toArray() immediately if we want to use model methods.
-            // Re-fetching logic:
-        }
-
-        // Optimized Fetch Logic: get() returns Collection of Models
-        // We re-query to get models (actually we already got them if we remove toArray())
-        // Wait, $query->get() returns Eloquent Collection of Objects.
-        // Original code used DB::select which returns stdClass objects, then hydrated manually `new $modelClass($row)`.
-        // Eloquent returns instances of $modelClass automatically.
-
-        // So let's revert the toArray calling on $rows line.
-        // And adjust the loop.
-
-        return $this->processResultModels($query->get(), $tabConfig['columns'], $total, $limit);
     }
 
     protected function processResultModels($models, $columns, $total, $limit): array
