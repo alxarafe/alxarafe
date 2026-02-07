@@ -40,19 +40,19 @@ class Bootstrapper
                 $config->db->name = 'alxarafe_test';
 
                 // Allow overriding DB config via environment variables (CI/CD)
-                $dbHost = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? false);
+                $dbHost = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? ($_SERVER['DB_HOST'] ?? false));
                 if ($dbHost !== false) {
                     $config->db->host = $dbHost;
                 }
-                $dbUser = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? false);
+                $dbUser = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? ($_SERVER['DB_USER'] ?? false));
                 if ($dbUser !== false) {
                     $config->db->user = $dbUser;
                 }
-                $dbPass = getenv('DB_PASS') ?: ($_ENV['DB_PASS'] ?? false);
+                $dbPass = getenv('DB_PASS') ?: ($_ENV['DB_PASS'] ?? ($_SERVER['DB_PASS'] ?? false));
                 if ($dbPass !== false) {
                     $config->db->pass = $dbPass;
                 }
-                $dbPort = getenv('DB_PORT') ?: ($_ENV['DB_PORT'] ?? false);
+                $dbPort = getenv('DB_PORT') ?: ($_ENV['DB_PORT'] ?? ($_SERVER['DB_PORT'] ?? false));
                 if ($dbPort !== false) {
                     $config->db->port = $dbPort;
                 }
