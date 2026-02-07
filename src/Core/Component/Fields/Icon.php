@@ -37,12 +37,14 @@ class Icon extends AbstractField
         $this->map = $map;
     }
 
+    #[\Override]
     public function getType(): string
     {
         return 'icon';
     }
 
-    public function jsonSerialize()
+    #[\Override]
+    public function jsonSerialize(): mixed
     {
         $data = parent::jsonSerialize();
         $data['map'] = $this->map;

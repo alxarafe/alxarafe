@@ -12,17 +12,13 @@ class UserSeeder extends Seeder
      * Returns the name of the seeder table.
      */
 
-    protected static function model(): string
-    {
-        return User::class;
-    }
-
     /**
      * Auto generated seed file
      *
      * @return void
      */
-    protected function run($model): void
+    #[\Override]
+    protected function run($modelClass): void
     {
         $password = 'password';
         $hashedPassword = sodium_crypto_pwhash_str(
@@ -31,17 +27,23 @@ class UserSeeder extends Seeder
             SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE
         );
 
-        $model::create([
+        $modelClass::create([
             'name' => 'admin',
             'email' => 'admin@mycompany.com',
             'password' => $hashedPassword,
             'is_admin' => true,
         ]);
 
-        $model::create([
+        $modelClass::create([
             'name' => 'user',
             'email' => 'user@mycompany.com',
             'password' => $hashedPassword,
         ]);
+    }
+
+    #[\Override]
+    protected static function model(): string
+    {
+        return User::class;
     }
 }

@@ -46,6 +46,7 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @return array Collected data.
      */
+    #[\Override]
     public function collect(): array
     {
         $messages = $this->getMessages();
@@ -79,6 +80,7 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @return string The widget name.
      */
+    #[\Override]
     public function getName(): string
     {
         return self::$name;
@@ -88,8 +90,9 @@ class PhpCollector extends DataCollector implements Renderable
      * Returns a hash where keys are control names and their values an array of options as defined in
      * {@see DebugBar\JavascriptRenderer::addControl()}
      *
-     * @return array Needed details to render the widget.
+     * @return array<string, array{default?: float|int|string, icon?: string, map?: string, title?: string, tooltip?: string, widget?: string}>
      */
+    #[\Override]
     public function getWidgets(): array
     {
         $name = self::$name;

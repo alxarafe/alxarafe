@@ -64,12 +64,14 @@ class ConfigController extends ResourceController
     public bool $pdo_connection = false;
     public bool $pdo_db_exists = false;
 
+    #[\Override]
     protected function getModelClass()
     {
         // Config is not a standard Eloquent Model, but we can treat it specially in handleRequest/fetchRecordData
         return 'Alxarafe\Base\Config';
     }
 
+    #[\Override]
     protected function setup()
     {
         // Add custom buttons for Config
@@ -86,6 +88,7 @@ class ConfigController extends ResourceController
         }
     }
 
+    #[\Override]
     protected function getEditFields(): array
     {
         $this->languages = Trans::getAvailableLanguages();
@@ -116,6 +119,7 @@ class ConfigController extends ResourceController
         ];
     }
 
+    #[\Override]
     protected function detectMode()
     {
         // Config is always in Edit Mode
@@ -123,6 +127,7 @@ class ConfigController extends ResourceController
         $this->recordId = 'current';
     }
 
+    #[\Override]
     protected function handleRequest()
     {
         $this->checkDatabaseStatus();
@@ -148,6 +153,7 @@ class ConfigController extends ResourceController
         parent::handleRequest();
     }
 
+    #[\Override]
     protected function fetchRecordData(): array
     {
         $config = Config::getConfig(true);
@@ -163,6 +169,7 @@ class ConfigController extends ResourceController
         ];
     }
 
+    #[\Override]
     protected function saveRecord()
     {
         $data = $_POST['data'] ?? [];
@@ -199,6 +206,7 @@ class ConfigController extends ResourceController
      *
      * @return string
      */
+    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
@@ -209,11 +217,13 @@ class ConfigController extends ResourceController
      *
      * @return string
      */
+    #[\Override]
     public static function getControllerName(): string
     {
         return 'Config';
     }
 
+    #[\Override]
     public function beforeAction(): bool
     {
         $this->getPost();
@@ -289,13 +299,14 @@ class ConfigController extends ResourceController
      *
      * @return bool
      */
+    #[\Override]
     public function doIndex(): bool
     {
         /**
          * TODO: The value of this variable will be filled in when the roles
          *       are correctly implemented.
          */
-        $restricted_access = false;
+        // $restricted_access = false;
 
         $this->setDefaultTemplate('page/config');
 

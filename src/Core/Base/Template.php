@@ -27,7 +27,7 @@ class Template
         $this->templateName = $name;
     }
 
-    public function render(?string $view = null, array $data = []): string
+    public function render(?string $view = null, array $data = []): string|false
     {
         $view = $view ?? $this->templateName;
         if (!$view) {

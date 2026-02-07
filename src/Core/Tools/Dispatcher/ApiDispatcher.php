@@ -24,6 +24,7 @@ use Alxarafe\Tools\Debug;
 
 class ApiDispatcher extends Dispatcher
 {
+    #[\Override]
     protected static function dieWithMessage($message)
     {
         Debug::message('ApiDispatcher error:');
@@ -42,7 +43,7 @@ class ApiDispatcher extends Dispatcher
         $array = explode('/', $route);
         $module = $array[0];
         $controller = $array[1] ?? null;
-        $method = $array[2] ?? null;
+        // $method = $array[2] ?? null;
 
         $routes = Routes::getAllRoutes();
         $endpoint = $routes['Api'][$module][$controller] ?? null;
