@@ -40,19 +40,9 @@ class Bootstrapper
                 $config->db->name = 'alxarafe_test';
 
                 // Allow overriding DB config via environment variables (CI/CD)
-                $envHost = getenv('DB_HOST');
-                $serverHost = $_SERVER['DB_HOST'] ?? 'NOT_SET';
-                $envArrayHost = $_ENV['DB_HOST'] ?? 'NOT_SET';
-
-                echo "\n[DEBUG] DB_HOST sources: getenv='$envHost', _SERVER='$serverHost', _ENV='$envArrayHost'\n";
-
                 $dbHost = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? ($_SERVER['DB_HOST'] ?? false));
-
                 if ($dbHost !== false) {
-                    echo "[DEBUG] Overriding DB Host to: '$dbHost'\n";
                     $config->db->host = $dbHost;
-                } else {
-                    echo "[DEBUG] No DB_HOST override found. Using default: '{$config->db->host}'\n";
                 }
                 $dbUser = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? ($_SERVER['DB_USER'] ?? false));
                 if ($dbUser !== false) {
