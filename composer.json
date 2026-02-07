@@ -54,7 +54,8 @@
     "phpstan/phpstan": "^2.1",
     "php-debugbar/php-debugbar": "^3.3",
     "vimeo/psalm": "^6.15",
-    "phpmd/phpmd": "^2.15"
+    "phpmd/phpmd": "^2.15",
+    "phpmetrics/phpmetrics": "^2.9"
   },
   "scripts": {
     "post-package-install": [
