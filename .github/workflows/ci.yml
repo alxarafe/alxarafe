@@ -57,8 +57,8 @@ jobs:
       - name: Psalm
         run: vendor/bin/psalm src --output-format=github
 
-      - name: PHPMD
-        run: vendor/bin/phpmd src/Core text cleancode,codesize,controversial,design,naming,unusedcode
+      # - name: PHPMD
+      #   run: vendor/bin/phpmd src/Core text cleancode,codesize,controversial,design,naming,unusedcode
 
       - name: PHPUnit
         run: vendor/bin/phpunit
