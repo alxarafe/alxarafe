@@ -36,6 +36,7 @@ class Person extends Model
         'active',
         'birth_date',
         'observations',
+        'country_id',
     ];
 
     /**
@@ -46,6 +47,7 @@ class Person extends Model
     protected $casts = [
         'birth_date' => 'date:Y-m-d',
         'active' => 'boolean',
+        'country_id' => 'integer',
     ];
 
     public function addresses()
@@ -56,5 +58,10 @@ class Person extends Model
     public function phones()
     {
         return $this->hasMany(Phone::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 }

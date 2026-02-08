@@ -75,6 +75,11 @@ abstract class ResourceController extends Controller
     protected ?string $modelClass = null;
 
     /**
+     * @var array Relations to eager load (e.g. ['user', 'category'])
+     */
+    protected array $with = [];
+
+    /**
      * @var array Configuration structure
      */
     protected array $structConfig = [
@@ -133,10 +138,14 @@ abstract class ResourceController extends Controller
     /**
      * Main entry point.
      */
+    /**
+     * Main entry point.
+     */
     protected function privateCore()
     {
         $this->detectMode();
         $this->buildConfiguration();
+        $this->checkTableIntegrity();
 
         $this->setup(); // Standard buttons
         $this->handleRequest();
@@ -234,6 +243,8 @@ abstract class ResourceController extends Controller
         // --- 2. BUILD EDIT CONFIG ---
 
         $fields = $this->getEditFields();
+
+        // Auto-scaffold if empty
         if (empty($fields)) {
             $modelClass = $this->structConfig['list']['tabs'][$defaultTab]['model'] ?? null;
             if ($modelClass && class_exists($modelClass) && method_exists($modelClass, 'getFields')) {
@@ -241,11 +252,89 @@ abstract class ResourceController extends Controller
             }
         }
 
+        // Normalize to Tabs Structure
+        $tabsConfig = [];
         if (!empty($fields)) {
-            // Similar heuristic for sections could apply
-            $defaultSection = 'main';
-            $this->addEditSection($defaultSection, 'General');
-            $this->setEditFields($fields, $defaultSection);
+            $first = reset($fields);
+            if ($first instanceof \Alxarafe\Component\AbstractField) {
+                // Flat Array -> Default Tab
+                $tabsConfig['main'] = ['label' => 'General', 'fields' => $fields];
+            } else {
+                // Structured Array -> Multi-Tab
+                foreach ($fields as $key => $tabData) {
+                    if (is_array($tabData) && isset($tabData['fields'])) {
+                        $tabsConfig[$key] = [
+                            'label' => $tabData['label'] ?? ucfirst($key),
+                            'fields' => $tabData['fields']
+                        ];
+                    }
+                }
+            }
+        }
+
+        // Apply Configuration and Metadata Enrichment
+        if (!empty($tabsConfig)) {
+            // Prepare Metadata Lookup
+            $fieldsByName = [];
+            if ($this->modelClass && method_exists($this->modelClass, 'getFields')) {
+                $dbFields = $this->modelClass::getFields();
+                foreach ($dbFields as $f) {
+                    if (!empty($f['field'])) {
+                        $fieldsByName[$f['field']] = $f;
+                    }
+                }
+            }
+
+            foreach ($tabsConfig as $sectionId => $sectionData) {
+                $this->addEditSection($sectionId, $sectionData['label']);
+
+                $sectionFields = $sectionData['fields'];
+
+                // Metadata Enrichment Loop
+                if (!empty($fieldsByName)) {
+                    foreach ($sectionFields as $fieldObj) {
+                        if (!($fieldObj instanceof \Alxarafe\Component\AbstractField)) continue;
+
+                        $fName = $fieldObj->getField();
+                        if (!isset($fieldsByName[$fName])) continue;
+
+                        $dbDef = $fieldsByName[$fName];
+                        $currentOpts = $fieldObj->getOptions()['options'] ?? [];
+                        $newOpts = [];
+
+                        // 1. Max Length (Varchar)
+                        if (!isset($currentOpts['maxlength']) && !empty($dbDef['length']) && is_numeric($dbDef['length'])) {
+                            $newOpts['maxlength'] = (int)$dbDef['length'];
+                        }
+
+                        // 2. Numeric Constraints
+                        if (isset($dbDef['type'])) {
+                            $isNumeric = in_array(strtolower($dbDef['type']), ['int', 'integer', 'tinyint', 'smallint', 'mediumint', 'bigint', 'decimal', 'float', 'double']);
+                            if ($isNumeric) {
+                                if (!isset($currentOpts['min']) && !empty($dbDef['unsigned'])) {
+                                    $newOpts['min'] = 0;
+                                }
+
+                                if (strtolower($dbDef['type']) === 'tinyint') {
+                                    if (!empty($dbDef['unsigned'])) {
+                                        if (!isset($currentOpts['max'])) $newOpts['max'] = 255;
+                                    } else {
+                                        if (!isset($currentOpts['min'])) $newOpts['min'] = -128;
+                                        if (!isset($currentOpts['max'])) $newOpts['max'] = 127;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!empty($newOpts)) {
+                            $fieldObj->mergeOptions($newOpts);
+                        }
+                    }
+                }
+
+                // Register fields for this section
+                $this->setEditFields($sectionFields, $sectionId);
+            }
         }
     }
 
@@ -344,6 +433,8 @@ abstract class ResourceController extends Controller
 
         if ($this->recordId) {
             $this->mode = self::MODE_EDIT;
+            // Auto-enable protection in edit mode
+            $this->protectChanges = true;
         } else {
             $this->mode = self::MODE_LIST;
         }
@@ -559,6 +650,10 @@ abstract class ResourceController extends Controller
         // --- QUERY BUILDING ---
         $query = $model->newQuery();
 
+        if (!empty($this->with)) {
+            $query->with($this->with);
+        }
+
         // Apply Tab Conditions (Implicit Filters)
         if (!empty($tabConfig['conditions'])) {
             foreach ($tabConfig['conditions'] as $key => $val) {
@@ -627,6 +722,10 @@ abstract class ResourceController extends Controller
         foreach ($models as $item) {
             // Eloquent model instance
             $row = $item->toArray(); // Get basic attributes
+
+            // DEBUG: Check if relations are loaded
+            // \Alxarafe\Tools\Debug::message("Row " . $item->id . " keys: " . implode(',', array_keys($row)));
+
             $processed = $row;
 
             foreach ($columns as $col) {
@@ -744,7 +843,13 @@ abstract class ResourceController extends Controller
         }
 
         $model = new $modelClass();
-        $data = $model::find($this->recordId);
+        $query = $model->newQuery();
+
+        if (!empty($this->with)) {
+            $query->with($this->with);
+        }
+
+        $data = $query->find($this->recordId);
 
         if (!$data) {
             return ['error' => 'Record not found'];
@@ -815,33 +920,137 @@ abstract class ResourceController extends Controller
         // Populate Model
         // Avoid overwriting ID and Timestamps with empty values from form
         $pkName = $model->getKeyName();
-        foreach ($data as $key => $value) {
-            if (($key === $pkName || $key === 'created_at' || $key === 'updated_at') && empty($value)) {
-                continue;
+        // Separate Main Model Data and Relation Data
+        $modelData = [];
+        $relationData = [];
+
+        $editFields = $this->getEditFields();
+        // Map field names to their definition to check types
+        $fieldDefs = [];
+        foreach ($editFields as $f) {
+            if ($f instanceof \Alxarafe\Component\AbstractField) {
+                $fieldDefs[$f->getField()] = $f;
             }
-            $model->$key = $value;
         }
 
-        if ($model->save()) {
+        foreach ($data as $key => $value) {
+            // Check if exact match exists
+            if (isset($fieldDefs[$key])) {
+                if ($fieldDefs[$key]->getType() === 'relation_list') {
+                    $relationData[$key] = $value;
+                } else {
+                    $modelData[$key] = $value;
+                }
+                continue;
+            }
+
+            // Check if it's a bracketed key belonging to a relation (e.g. addresses[0][street])
+            $foundRelation = false;
+            foreach ($fieldDefs as $fieldName => $def) {
+                if ($def->getType() === 'relation_list') {
+                    // Check if key starts with "fieldName["
+                    if (strpos($key, $fieldName . '[') === 0) {
+                        // It's part of this relation.
+                        // We need to structure it into $relationData[$fieldName]
+                        // Parse: addresses[123][street] -> value
+                        // This requires expanding the dot/bracket notation.
+                        // Simple regex extraction:
+                        if (preg_match('/^' . preg_quote($fieldName, '/') . '\[([^\]]+)\]\[([^\]]+)\]$/', $key, $matches)) {
+                            // matches[1] = index, matches[2] = subfield
+                            $relationData[$fieldName][$matches[1]][$matches[2]] = $value;
+                        }
+                        $foundRelation = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!$foundRelation) {
+                $modelData[$key] = $value;
+            }
+        }
+
+        DB::connection()->beginTransaction();
+
+        try {
+            // Populate Main Model
+            $pkName = $model->getKeyName();
+            foreach ($modelData as $key => $value) {
+                if (($key === $pkName || $key === 'created_at' || $key === 'updated_at') && empty($value)) {
+                    continue;
+                }
+                // Determine if field belongs to model (simple check: is fillable or column exists)
+                // For now, trusting fillable or robust assignment
+                $model->$key = $value;
+            }
+
+            if (!$model->save()) {
+                DB::connection()->rollBack();
+                $this->jsonResponse(['error' => 'Failed to save record']);
+                exit;
+            }
+
+            // Save Relations
+            // Save Relations
+            foreach ($relationData as $relationName => $rows) {
+                if (!method_exists($model, $relationName)) continue;
+
+                $relation = $model->$relationName();
+                $relatedModel = $relation->getRelated();
+                $foreignKey = $relation->getForeignKeyName(); // e.g. person_id
+                $localKey = $model->getKey(); // Person ID
+                $relatedKeyName = $relatedModel->getKeyName();
+
+                // 1. Sync: Delete records missing from submission
+                $keepIds = [];
+                if (is_array($rows)) {
+                    foreach ($rows as $row) {
+                        if (is_array($row) && !empty($row[$relatedKeyName])) {
+                            $keepIds[] = $row[$relatedKeyName];
+                        }
+                    }
+                }
+
+                // Delete records belonging to this parent that are NOT in the keep list
+                $query = $relatedModel->where($foreignKey, $localKey);
+                if (!empty($keepIds)) {
+                    $query->whereNotIn($relatedKeyName, $keepIds);
+                }
+                $query->delete();
+
+                // 2. Upsert: Create or Update submitted records
+                if (is_array($rows)) {
+                    foreach ($rows as $row) {
+                        if (!is_array($row)) continue;
+
+                        // ID for update, or null for create
+                        $rowId = $row[$relatedKeyName] ?? null;
+                        if (isset($row[$relatedKeyName])) unset($row[$relatedKeyName]);
+
+                        // Set Foreign Key
+                        $row[$foreignKey] = $localKey;
+
+                        $relatedModel->updateOrCreate(
+                            [$relatedKeyName => $rowId],
+                            $row
+                        );
+                    }
+                }
+            }
+
+            DB::connection()->commit();
             $this->jsonResponse([
                 'status' => 'success',
                 'id' => $model->{$model->primaryColumn()},
                 'data' => $model->toArray(),
                 'message' => 'Record saved successfully'
             ]);
-        } else {
-            $errors = ['Error saving record'];
-            if (method_exists($model, 'getResponseObject')) {
-                $response = $model::getResponseObject();
-                if (!empty($response->errors)) {
-                    $errors = $response->errors;
-                }
-            }
-
+        } catch (\Exception $e) {
+            DB::connection()->rollBack();
             $this->jsonResponse([
                 'status' => 'error',
-                'error' => implode('; ', $errors),
-                'errors' => $errors
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
             ]);
         }
         exit;
@@ -865,6 +1074,7 @@ abstract class ResourceController extends Controller
             'mode' => $this->mode,
             'recordId' => $this->recordId,
             'config' => $this->structConfig,
+            'protectChanges' => $this->protectChanges,
             'templates' => $templates
         ]));
     }
@@ -976,13 +1186,54 @@ abstract class ResourceController extends Controller
         }
     }
 
-    #[\Override]
-    protected function jsonResponse($data)
+    protected function jsonResponse(mixed $data)
     {
         if (defined('ALX_TESTING')) {
             throw new \Alxarafe\Base\Testing\HttpResponseException($data);
         }
         header('Content-Type: application/json');
         echo json_encode($data);
+        exit;
+    }
+
+    /**
+     * Checks if the table(s) for the model(s) exist.
+     */
+    protected function checkTableIntegrity()
+    {
+        $missing = [];
+        $models = []; // Collect models
+
+        if ($this->structConfig['list']['tabs']) {
+            foreach ($this->structConfig['list']['tabs'] as $t) {
+                if (isset($t['model'])) $models[] = $t['model'];
+            }
+        }
+        if (empty($models) && $this->modelClass) {
+            $models[] = $this->modelClass;
+        }
+
+        foreach (array_unique($models) as $m) {
+            if (!class_exists($m)) continue;
+            try {
+                $instance = new $m();
+                $table = $instance->getTable();
+                if (!DB::schema()->hasTable($table)) {
+                    $missing[] = $table;
+                }
+            } catch (\Exception $e) {
+            }
+        }
+
+        if (!empty($missing)) {
+            $msg = 'Faltan tablas en la base de datos: ' . implode(', ', $missing) . '. Por favor, ejecute las migraciones.';
+            if (isset($_GET['ajax'])) {
+                $this->jsonResponse(['status' => 'error', 'error' => $msg]);
+            }
+            $this->alerts[] = ['type' => 'danger', 'message' => $msg];
+            // Simple render
+            echo '<div class="alert alert-danger m-5"><h1>Error de Base de Datos</h1><p>' . $msg . '</p></div>';
+            exit;
+        }
     }
 }

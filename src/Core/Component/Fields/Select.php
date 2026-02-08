@@ -10,8 +10,8 @@ class Select extends AbstractField
 
     public function __construct(string $field, string $label, array $values = [], array $options = [])
     {
-        $options['values'] = $values;
-        parent::__construct($field, $label, $options);
+        $payload = array_merge($options, ['values' => $values]);
+        parent::__construct($field, $label, ['options' => $payload]);
     }
 
     #[\Override]

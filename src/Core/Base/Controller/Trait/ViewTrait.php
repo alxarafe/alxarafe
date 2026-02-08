@@ -41,6 +41,11 @@ trait ViewTrait
     protected array $viewData = [];
 
     /**
+     * @var bool If true, enables protection against unsaved changes (warns on exit).
+     */
+    public bool $protectChanges = false;
+
+    /**
      * Sets the default template for the controller.
      */
     /**

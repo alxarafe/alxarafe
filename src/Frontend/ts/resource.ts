@@ -1,6 +1,7 @@
 export interface StructConfig {
     mode: 'list' | 'edit';
     recordId?: string | number;
+    protectChanges?: boolean;
     config: {
         list?: {
             tabs: Record<string, any>;
@@ -22,6 +23,7 @@ export class AlxarafeResource {
     private currentOffset: number = 0;
     private activeFilters: Record<string, string> = {};
     private searchDebounceTimer: any = null;
+    // Using global window.alxarafe_unsaved_changes
 
     constructor(container: HTMLElement, config: StructConfig) {
         this.container = container;
@@ -45,9 +47,12 @@ export class AlxarafeResource {
             this.fetchData();
         } else {
             this.renderEdit();
+            // Global script in footer handles beforeunload if protectChanges is true
         }
         this.injectStyles();
     }
+
+    // Removed setupUnsavedChangesProtection as it is handled globally in footer.blade.php
 
     private injectStyles() {
         const styleId = 'alxarafe-resource-styles';
@@ -57,27 +62,23 @@ export class AlxarafeResource {
         style.id = styleId;
         style.innerHTML = `
             /* Scoped Select2 Fixes for Alxarafe Resource */
-            .alxarafe-select2-wrapper .select2-container--bootstrap-5 {
-                font-size: 0.875rem !important;
-            }
             .alxarafe-select2-wrapper .select2-container--bootstrap-5 .select2-selection {
-                font-size: 0.875rem !important;
-                min-height: calc(1.5em + 0.5rem + 2px) !important;
-                padding: 0.25rem 0.5rem !important;
+                min-height: calc(1.5em + 0.75rem + 2px) !important; /* Standard BS5 input height */
+                padding: 0.375rem 0.75rem !important;
+                display: flex !important;
+                align-items: center !important;
             }
             .alxarafe-select2-wrapper .select2-container--bootstrap-5 .select2-selection__rendered {
-                font-size: 0.875rem !important;
                 line-height: 1.5 !important;
                 color: #212529 !important;
+                padding-left: 0 !important; /* Reset padding as parent has it */
             }
             .alxarafe-select2-wrapper .select2-container--bootstrap-5 .select2-selection__placeholder {
-                font-size: 0.875rem !important;
                 line-height: 1.5 !important;
             }
             /* Fix Dropdown too */
             .select2-container--bootstrap-5 .select2-dropdown .select2-results__option {
-                font-size: 0.875rem !important;
-                padding: 0.25rem 0.75rem !important;
+                padding: 0.375rem 0.75rem !important;
             }
         `;
         document.head.appendChild(style);
@@ -389,7 +390,7 @@ export class AlxarafeResource {
         tbody.innerHTML = rows.map((row: any) => `
             <tr onclick="window.location.href='?${this.getRoutingParams()}&id=${row.id ?? row.code}'" style="cursor: pointer; transition: background-color 0.2s;">
                 ${currentTab.columns.map((col: any) => `
-                    <td class="px-4 py-3 text-secondary">${this.formatValue(row[col.field], col)}</td>
+                    <td class="px-4 py-3 text-secondary">${this.formatValue(row[col.field], col, row)}</td>
                 `).join('')}
                 <td class="text-end px-4 py-3">
                     <a href="?${this.getRoutingParams()}&id=${row.id ?? row.code}" class="btn btn-sm btn-outline-primary rounded-pill px-3" title="Editar">
@@ -546,9 +547,20 @@ export class AlxarafeResource {
 
     // --- UTILS ---
 
-    private formatValue(value: any, col: any): string {
+    private formatValue(cellValue: any, col: any, row: any): string {
         if (typeof col === 'string') {
             col = { type: col };
+        }
+
+        // 1. If PHP already resolved the value (e.g. "Spain"), use it.
+        // PHP ResourceController::processResultModels resolves dot notation into flat keys.
+        let value = cellValue;
+
+        // 2. Only if value is missing, retry dot notation on the full row object (redundancy)
+        if ((value === null || value === undefined) && col.field && col.field.includes('.')) {
+            try {
+                value = col.field.split('.').reduce((acc: any, part: string) => (acc && acc[part] !== undefined) ? acc[part] : null, row);
+            } catch (e) { value = null; }
         }
 
         const type = col.component || col.type || 'text';
@@ -626,7 +638,23 @@ export class AlxarafeResource {
         this.loadRecordData();
         this.setupAlertHelper();
 
-        this.container.querySelector('#btn-save')?.addEventListener('click', () => this.handleSave());
+        const btnSave = this.container.querySelector('#btn-save');
+        if (btnSave) {
+            btnSave.addEventListener('click', () => this.handleSave());
+
+            // Add Revert Button next to Save
+            const btnRevert = document.createElement('button');
+            btnRevert.type = 'button';
+            btnRevert.className = 'btn btn-secondary ms-2';
+            btnRevert.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Recargar';
+            btnRevert.onclick = () => {
+                if (confirm('¿Seguro que quieres descartar los cambios y recargar los datos originales?')) {
+                    this.loadRecordData();
+                    (window as any).alxarafe_unsaved_changes = false;
+                }
+            };
+            btnSave.parentNode?.insertBefore(btnRevert, btnSave.nextSibling);
+        }
     }
 
     private async loadRecordData() {
@@ -705,21 +733,43 @@ export class AlxarafeResource {
         contentHtml += '</div></form>';
 
         container.innerHTML = navHtml + contentHtml;
+
+        // Monitor changes
+        if (this.config.protectChanges) {
+            const form = container.querySelector('form');
+            if (form) {
+                form.addEventListener('input', () => { (window as any).alxarafe_unsaved_changes = true; });
+                form.addEventListener('change', () => { (window as any).alxarafe_unsaved_changes = true; });
+            }
+        }
+    }
+
+    private getColClass(field: any): string {
+        if (field.options?.full_width) return 'col-12';
+        if (field.options?.col) return `col-md-${field.options.col}`;
+        return 'col-md-6';
     }
 
     private renderField(field: any, value: any): string {
         const type = field.type || field.component || 'text';
+        const lowerType = type.toLowerCase();
         console.log('[AlxarafeResource] renderField:', { field: field.field, type, value });
-        const tpl = this.config.templates?.[type.toLowerCase() + '_edit'];
+        const tpl = this.config.templates?.[lowerType + '_edit'];
+
+        const colClass = this.getColClass(field);
 
         if (tpl) {
             let html = tpl;
             html = html.split('{{field}}').join(field.field);
             html = html.split('{{label}}').join(field.label);
+
+            // Attempt to replace standard column class if present in template
+            html = html.replace('col-md-6', colClass);
+
             let safeValue = value !== null && value !== undefined ? value : '';
 
+
             // Normailize type check
-            const lowerType = type.toLowerCase();
 
             if (lowerType === 'date') {
                 // Ensure string to match regex
@@ -769,9 +819,194 @@ export class AlxarafeResource {
             return html;
         }
 
+        // Select Field
+        if (lowerType === 'select') {
+            const options = field.options?.values || {};
+            let optionsHtml = '<option value="">-- Seleccionar --</option>';
+            const safeValue = value !== null && value !== undefined ? value : '';
+
+            // Handle both object {k:v} and array [{id:k, name:v}] formats if needed
+            // Standardizing on { value: label } object/map
+            if (Array.isArray(options)) {
+                // If simple array of strings/numbers
+                options.forEach((opt: any) => {
+                    const val = typeof opt === 'object' ? opt.id : opt;
+                    const lab = typeof opt === 'object' ? (opt.name || opt.label) : opt;
+                    const selected = String(val) === String(safeValue) ? 'selected' : '';
+                    optionsHtml += `<option value="${val}" ${selected}>${lab}</option>`;
+                });
+            } else {
+                Object.entries(options).forEach(([k, v]) => {
+                    const selected = String(k) === String(safeValue) ? 'selected' : '';
+                    optionsHtml += `<option value="${k}" ${selected}>${v}</option>`;
+                });
+            }
+
+            const selectId = `select-${field.field}-${Math.random().toString(36).substr(2, 9)}`;
+
+            // Post-render init hook
+            setTimeout(() => {
+                if ((window as any).jQuery && (window as any).jQuery().select2) {
+                    (window as any).jQuery(`#${selectId}`).select2({
+                        theme: 'bootstrap-5',
+                        width: '100%',
+                        placeholder: '-- Seleccionar --',
+                        allowClear: !field.options?.required
+                    }).on('change', (e: any) => {
+                        // Trigger native change for dirty checking
+                        e.target.dispatchEvent(new Event('change', { bubbles: true }));
+                    });
+                }
+            }, 100);
+
+            return `
+                <div class="${colClass} mb-3 alxarafe-select2-wrapper">
+                    <label class="form-label small fw-bold text-secondary">${field.label}</label>
+                    <select class="form-select alx-select2" id="${selectId}" name="${field.field}" 
+                        ${field.options?.required ? 'required' : ''} 
+                        ${field.options?.disabled ? 'disabled' : ''}>
+                        ${optionsHtml}
+                    </select>
+                </div>
+            `;
+        }
+
+        // Relation List (HasMany)
+        if (lowerType === 'relation_list' || lowerType === 'relationlist') {
+            const rows = Array.isArray(value) ? value : [];
+            let cols = field.options?.columns || [];
+
+            // Support associative array from PHP (Object in JS)
+            if (!Array.isArray(cols) && typeof cols === 'object') {
+                cols = Object.entries(cols).map(([k, v]) => ({ field: k, label: v }));
+            }
+
+            if (cols.length === 0 && rows.length > 0) {
+                // Auto-detect columns from first row if not provided (simple fallback)
+                Object.keys(rows[0]).forEach(k => {
+                    if (k !== 'id' && k !== 'created_at' && k !== 'updated_at' && k !== 'deleted_at') {
+                        cols.push(k);
+                    }
+                });
+            }
+
+            // Start Inline Edit Logic
+            const tableId = `relation-table-${field.field}`;
+
+            // Helper to render a single row (edit mode)
+            const renderRow = (row: any, index: number) => {
+                const cells = cols.map((c: any) => {
+                    const f = typeof c === 'string' ? c : c.field;
+                    const val = row[f] ?? '';
+                    const inputName = `${field.field}[${index}][${f}]`;
+                    return `
+                        <td class="ps-3 py-2 small">
+                            <input type="text" class="form-control form-control-sm" name="${inputName}" value="${val}">
+                        </td>
+                    `;
+                }).join('');
+
+                const idInput = row.id ? `<input type="hidden" name="${field.field}[${index}][id]" value="${row.id}">` : '';
+
+                // Soft Delete (Disable inputs to trigger backend Sync deletion)
+                const deleteJs = `
+                    const tr = this.closest('tr');
+                    const isDel = tr.classList.contains('table-danger');
+                    if (isDel) {
+                        tr.classList.remove('table-danger', 'text-decoration-line-through');
+                        tr.style.opacity = '1';
+                        tr.querySelectorAll('input').forEach(i => i.disabled = false);
+                        this.className = 'btn btn-sm btn-outline-danger';
+                        this.innerHTML = '<i class="fas fa-trash"></i>';
+                    } else {
+                        tr.classList.add('table-danger', 'text-decoration-line-through');
+                        tr.style.opacity = '0.6';
+                        tr.querySelectorAll('input').forEach(i => i.disabled = true);
+                        this.className = 'btn btn-sm btn-outline-secondary';
+                        this.innerHTML = '<i class="fas fa-undo"></i>';
+                    }
+                    if(window.alxarafe_unsaved_changes !== undefined) window.alxarafe_unsaved_changes = true;
+                `.replace(/\s+/g, ' ');
+
+                const safeDeleteJs = deleteJs.replace(/"/g, '&quot;');
+
+                const deleteBtn = `
+                    <td class="text-end pe-3 py-2">
+                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="${safeDeleteJs}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+
+                return `<tr>${cells}${deleteBtn}${idInput}</tr>`;
+            };
+
+            const renderBody = () => {
+                if (rows.length === 0) {
+                    // Start with one empty row? Or message?
+                    // Let's return empty and rely on Add button.
+                    return '';
+                }
+                return rows.map((row: any, i: number) => renderRow(row, i)).join('');
+            };
+
+            const renderHeader = () => {
+                const headers = cols.map((c: any) => {
+                    const label = typeof c === 'string' ? (c.charAt(0).toUpperCase() + c.slice(1)) : (c.label || c.field);
+                    return `<th class="small text-muted border-0 ps-3">${label}</th>`;
+                }).join('');
+                // Action column
+                return `${headers}<th class="small text-muted border-0 text-end pe-3" style="width: 50px;"></th>`;
+            };
+
+            // Expose addRow function globally (hack for inline onclick)
+            // Ideally we'd bind events.
+            (window as any)[`addRelationRow_${field.field}`] = () => {
+                const tbody = document.querySelector(`#${tableId} tbody`);
+                if (tbody) {
+                    const newIndex = new Date().getTime(); // Simple unique index
+                    // Create empty row object based on cols
+                    const newRow = {};
+                    // Render row (using string, need to ensure correct escaping/context)
+                    // Re-use renderRow logic but simpler for JS string injection
+                    // Better: Insert HTML directly
+                    const html = renderRow({}, newIndex);
+                    tbody.insertAdjacentHTML('beforeend', html);
+                }
+            };
+
+            const createUrl = field.options?.create_url;
+            // If create_url exists, use link. If NOT, use inline Add button.
+            const addBtn = createUrl ?
+                `<a href="${createUrl}" class="btn btn-sm btn-outline-primary float-end" target="_blank"><i class="fas fa-plus"></i> Añadir</a>` :
+                `<button type="button" class="btn btn-sm btn-outline-primary float-end" onclick="window['addRelationRow_${field.field}']()"><i class="fas fa-plus"></i> Añadir</button>`;
+
+            // Relation Lists default to full width unless specified
+            const relColClass = field.options?.col ? `col-md-${field.options.col}` : 'col-12';
+
+            return `
+                <div class="${relColClass} mt-3 mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="form-label fw-bold text-secondary mb-0">${field.label}</label>
+                        ${addBtn}
+                    </div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="${tableId}">
+                                <thead class="bg-light">
+                                    <tr>${renderHeader()}</tr>
+                                </thead>
+                                <tbody>${renderBody()}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         // Fallback for text
         return `
-            <div class="col-md-6">
+            <div class="${colClass}">
                 <label class="form-label small fw-bold text-secondary">${field.label}</label>
                 <input type="text" class="form-control" name="${field.field}" value="${value}">
             </div>
@@ -835,18 +1070,23 @@ export class AlxarafeResource {
                 throw new Error(msg);
             }
 
-            this.showMessage('Guardado correctamente', 'success');
-
             // Update Form Data if returned
-            if (result.data) {
-                this.updateFormFields(form, result.data);
+            if (result.status === 'success') {
+                this.showMessage(result.message || 'Guardado correctamente', 'success');
+                (window as any).alxarafe_unsaved_changes = false; // Reset flag on success
+
+                if (result.data) {
+                    this.updateFormFields(form, result.data);
+                }
+
+                if (this.config.recordId === 'new' && result.id) {
+                    // Redirect to edit mode for the new ID to reload properly
+                    const newUrl = new URL(window.location.href);
+                    newUrl.searchParams.set('id', result.id);
+                    window.location.href = newUrl.toString();
+                }
             }
 
-            if (this.config.recordId === 'new' && result.id) {
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('id', result.id);
-                window.location.href = newUrl.toString();
-            }
 
             // Restore button
             btnSave.disabled = false;

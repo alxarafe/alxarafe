@@ -10,10 +10,14 @@ El `ResourceController` es un controlador unificado diseñado para simplificar l
 ## Funcionalidades
 
 - **Modo Dual:** Detecta automáticamente si debe mostrar un listado (`MODE_LIST`) o un formulario de edición (`MODE_EDIT`) basándose en los parámetros de la petición (`id` o `code`).
-- **Auto-Scaffolding:** Capaz de generar columnas de listado y campos de edición automáticamente inspeccionando los metadatos del Modelo Eloquent asociado.
-- **Soporte Multi-Pestaña:** Permite definir múltiples modelos relacionados (por ejemplo: Principal, Direcciones, Teléfonos) y genera pestañas de navegación automáticamente.
-- **API AJAX Integrada:** Incluye métodos nativos para recuperar datos JSON (`fetchListData`, `fetchRecordData`) y guardar registros (`saveRecord`), facilitando la creación de interfaces SPA (Single Page Application).
-- **Componentes UI:** Transforma tipos de datos SQL (date, boolean, varchar) en componentes visuales de Alxarafe (`Date`, `Boolean`, `Text`).
+- **Auto-Scaffolding Inteligente:** Capaz de generar columnas de listado y campos de edición automáticamente inspeccionando los metadatos del Modelo Eloquent asociado. Inyecta automáticamente restricciones de base de datos (`maxlength`, `min/max` para numéricos) en los componentes visuales.
+- **Soporte Multi-Pestaña (Edición):** Permite organizar los campos de edición en múltiples pestañas (por ejemplo: Principal, Direcciones, Observaciones) mediante una estructura de array en `getEditFields()`.
+- **Sincronización de Relaciones 1:N:** Gestiona automáticamente la creación, actualización y *borrado* de registros relacionados (ej: Direcciones de una Persona) basándose en los datos enviados desde el frontend.
+- **API AJAX Integrada:** Incluye métodos nativos para recuperar datos JSON (`fetchListData`, `fetchRecordData`) y guardar registros (`saveRecord`), facilitando la creación de interfaces SPA.
+- **UX Avanzada:**
+  - **Soft Delete Visual:** En listas de relaciones, el borrado es visual (tachado) hasta que se guarda, permitiendo deshacer cambios.
+  - **Detección de Cambios:** Avisa al usuario si intenta salir sin guardar.
+  - **Botón Recargar:** Permite descartar cambios no guardados y recargar los datos del servidor.
 
 ## Propiedades
 
@@ -28,9 +32,34 @@ El `ResourceController` es un controlador unificado diseñado para simplificar l
 
 - `getModelClass()`: Método abstracto que debe definir el modelo o modelos asociados. Puede devolver una clase (`Person::class`) o un array de pestañas (`['general' => Person::class, 'addr' => Address::class]`).
 - `buildConfiguration()`: Construye la configuración de la interfaz. Si no se proporcionan definiciones manuales de campos, invoca a `convertModelFieldsToComponents()` para generarlos desde el modelo.
-- `convertModelFieldsToComponents(array $modelFields)`: Convierte metadatos de campos de Eloquent en objetos componentes de UI.
+- `getEditFields()`: Define los campos del formulario de edición. Soporta retorno de array plano (pestaña única) o estructura multi-pestaña.
 
-## Ejemplo de Uso
+## Personalización de Edición (Multi-Pestaña)
+
+Para organizar los campos en pestañas, `getEditFields()` debe devolver un array asociativo:
+
+```php
+protected function getEditFields(): array
+{
+    return [
+        'general' => [
+            'label' => 'Datos Generales',
+            'fields' => [
+                new Text('name', 'Nombre'),
+                new Boolean('active', 'Activo'),
+            ]
+        ],
+        'addresses' => [
+            'label' => 'Direcciones',
+            'fields' => [
+                new RelationList('addresses', 'Direcciones', [...])
+            ]
+        ]
+    ];
+}
+```
+
+## Ejemplo de Uso Básico
 
 ```php
 namespace Modules\Agenda\Controller;

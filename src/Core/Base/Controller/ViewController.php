@@ -58,6 +58,9 @@ abstract class ViewController extends GenericController
     /**
      * Alerts/Messages to display.
      */
+    /**
+     * Alerts/Messages to display.
+     */
     public array $alerts = [];
 
     /**

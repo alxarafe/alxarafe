@@ -32,7 +32,14 @@ abstract class AbstractField implements JsonSerializable
     {
         $this->field = $field;
         $this->label = $label;
-        $this->options = $options;
+
+        // Auto-wrap options for frontend consistency (field.options.*),
+        // unless already wrapped (by subclasses like Select that manually structure the payload)
+        if (!empty($options) && !array_key_exists('options', $options)) {
+            $this->options = ['options' => $options];
+        } else {
+            $this->options = $options;
+        }
     }
 
     abstract public function getType(): string;
@@ -55,6 +62,22 @@ abstract class AbstractField implements JsonSerializable
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function mergeOptions(array $newOptions): void
+    {
+        // Recursively merge? Or shallow? Shallow merge on 'options' key if present, or root?
+        // Our structure is $this->options['options'] holds the frontend payload.
+        // If $newOptions are raw keys (e.g. ['maxlength' => 50]), we should put them into $this->options['options']
+
+        if (isset($this->options['options'])) {
+            $this->options['options'] = array_merge($this->options['options'], $newOptions);
+        } else {
+            // If strictly using wrapped mode, we create it.
+            // If sticking to legacy root mode (unlikely now), we merge at root.
+            // Given previous change, we largely enforce wrapping.
+            $this->options['options'] = array_merge($this->options['options'] ?? [], $newOptions);
+        }
     }
 
     #[\ReturnTypeWillChange]
