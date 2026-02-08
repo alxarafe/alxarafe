@@ -26,6 +26,6 @@ skeleton/var/cache/*
 skeleton/data/
 
 # VitePress deployment
-/.vitepress/dist/
-/.vitepress/cache/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
 /node_modules/

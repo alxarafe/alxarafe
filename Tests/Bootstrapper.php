@@ -39,11 +39,21 @@ class Bootstrapper
             if (isset($config->db)) {
                 $config->db->name = 'alxarafe_test';
 
-                // Allow overriding DB config via environment variables (CI/CD)
                 $dbHost = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? ($_SERVER['DB_HOST'] ?? false));
-                if ($dbHost !== false) {
-                    $config->db->host = $dbHost;
+
+                // Fallback for GitHub Actions if DB_HOST is missing
+                if ($dbHost === false && getenv('GITHUB_ACTIONS') === 'true') {
+                    fwrite(STDERR, "Debug: DB_HOST not found, defaulting to 'mysql' for GITHUB_ACTIONS.\n");
+                    $dbHost = 'mysql';
                 }
+
+                if ($dbHost !== false) {
+                    fwrite(STDERR, "Debug: Using DB_HOST: $dbHost\n");
+                    $config->db->host = $dbHost;
+                } else {
+                    fwrite(STDERR, "Debug: No DB_HOST override found. Using config default: " . ($config->db->host ?? 'unknown') . "\n");
+                }
+
                 $dbUser = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? ($_SERVER['DB_USER'] ?? false));
                 if ($dbUser !== false) {
                     $config->db->user = $dbUser;

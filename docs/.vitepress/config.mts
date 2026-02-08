@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
     title: "Alxarafe",
     base: '/',
-    srcDir: './webDoc',
+    srcDir: '.',
     ignoreDeadLinks: true,
 
     locales: {
@@ -32,6 +32,7 @@ export default defineConfig({
                 },
                 {
                     text: 'Class Reference',
+                    link: '/en/classes/',
                     items: [
                         {
                             text: 'Controllers',
@@ -63,7 +64,7 @@ export default defineConfig({
                                 { text: 'DTO Trait', link: '/en/classes/core/base/model/model/trait/dto-trait' },
                             ]
                         },
-                        { text: 'Full API (phpDoc)', link: '/api/' },
+                        { text: 'Full API (phpDoc)', link: '/api_combined/' },
                     ]
                 }
             ],
@@ -82,6 +83,7 @@ export default defineConfig({
                 },
                 {
                     text: 'Referencia de Clases',
+                    link: '/es/classes/',
                     items: [
                         {
                             text: 'Controladores',
@@ -113,7 +115,7 @@ export default defineConfig({
                                 { text: 'Trait DTO', link: '/es/classes/core/base/model/model/trait/dto-trait' },
                             ]
                         },
-                        { text: 'API Completa (phpDoc)', link: '/api/' },
+                        { text: 'API Completa (phpDoc)', link: '/api_combined/' },
                     ]
                 }
             ]

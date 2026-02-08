@@ -11,9 +11,9 @@
     "watch": "echo 'Alxarafe Node environment is active...' && tail -f /dev/null",
     "dev": "webpack --mode development",
     "watch:ts": "webpack --watch --mode development",
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "repository": {
     "type": "git",

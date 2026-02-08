@@ -109,10 +109,10 @@ Para generar la documentación HTML de la API, se utiliza `phpDocumentor`.
 
 **Comando (desde Docker):**
 ```bash
-docker exec alxarafe_php php phpdoc.phar -d skeleton/Modules/Agenda/Api -d src/Modules/Admin/Api -t webDoc/api --force
+docker exec alxarafe_php php phpdoc.phar -d skeleton/Modules/Agenda/Api -d src/Modules/Admin/Api -t docs/public/api --force
 ```
 
-Esto generará un sitio estático en `webDoc/api/` con la referencia completa de clases, métodos y descripciones.
+Esto generará un sitio estático en `docs/public/api/` con la referencia completa de clases, métodos y descripciones.
 
 ## 4. Testing Manual de la API
 
