@@ -90,10 +90,27 @@ abstract class Functions
     public static function getThemes()
     {
         $routes = [
-            '/Templates/theme',
-            '/vendor/alxarafe/alxarafe/Templates/theme',
+            '/templates/themes',
+            '/src/templates/themes', // Fallback for vendor?
+            '/vendor/alxarafe/alxarafe/templates/themes',
         ];
-        return Functions::getFirstNonEmptyDirectory($routes, '');
+
+        $themes = ['default' => 'Default (System)'];
+
+        foreach ($routes as $route) {
+            $path = realpath(constant('ALX_PATH') . $route);
+            if ($path && is_dir($path)) {
+                $dirs = glob($path . '/*', GLOB_ONLYDIR) ?: [];
+                foreach ($dirs as $dir) {
+                    $name = basename($dir);
+                    if ($name !== 'default') {
+                        $themes[$name] = ucfirst($name);
+                    }
+                }
+            }
+        }
+
+        return $themes;
     }
 
     /**
