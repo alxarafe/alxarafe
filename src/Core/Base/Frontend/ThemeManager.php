@@ -25,12 +25,16 @@ class ThemeManager
 
     public function getLayoutTemplates(): array
     {
-        $baseTemplates = $this->scanTemplates($this->basePath . '/components/layouts', 'layout_');
+        // Old: components/layouts -> New: component/layouts DOES NOT EXIST
+        // Wait, layouts are now in templates/layout/
+
+        // Scan templates/layout
+        $baseTemplates = $this->scanTemplates($this->basePath . '/layout', 'layout_');
 
         $skin = $this->getActiveSkin();
         $skinTemplates = [];
         if ($skin && $skin !== 'default') {
-            $skinTemplates = $this->scanTemplates($this->basePath . "/themes/{$skin}/components/layouts", 'layout_');
+            $skinTemplates = $this->scanTemplates($this->basePath . "/themes/{$skin}/layout", 'layout_');
         }
 
         return array_merge($baseTemplates, $skinTemplates);
@@ -38,12 +42,18 @@ class ThemeManager
 
     public function getFieldTemplates(): array
     {
-        $baseTemplates = $this->scanFieldTemplatesRecursive($this->basePath . '/components/fields');
+        // Fields are likely under 'component/field' or similar?
+        // Let's check where fields are.
+        // User copied templates/common/component/* to templates/component/*
+        // But previously fields were in 'components/fields'.
+        // Let's check if 'templates/component' has subdirs.
+
+        $baseTemplates = $this->scanFieldTemplatesRecursive($this->basePath . '/component/fields');
 
         $skin = $this->getActiveSkin();
         $skinTemplates = [];
         if ($skin && $skin !== 'default') {
-            $skinTemplates = $this->scanFieldTemplatesRecursive($this->basePath . "/themes/{$skin}/components/fields");
+            $skinTemplates = $this->scanFieldTemplatesRecursive($this->basePath . "/themes/{$skin}/component/fields");
         }
 
         return array_merge($baseTemplates, $skinTemplates);
