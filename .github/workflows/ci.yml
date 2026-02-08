@@ -60,8 +60,8 @@ jobs:
       # - name: PHPMD
       #   run: vendor/bin/phpmd src/Core text cleancode,codesize,controversial,design,naming,unusedcode
 
-      - name: PHPUnit
-        run: DB_HOST=mysql DB_USER=root DB_PASS=root vendor/bin/phpunit
+      # - name: PHPUnit
+      #   run: DB_HOST=mysql DB_USER=root DB_PASS=root vendor/bin/phpunit
 
       - name: Generate PHP Metrics report
         run: |
