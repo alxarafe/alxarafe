@@ -14,29 +14,6 @@
 
 {!! $me->getRenderHeader() !!}
 
-<style>
-    .sidebar {
-        height: 100vh;
-        width: 250px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: #f8f9fa;
-        padding-top: 20px;
-    }
 
-    .sidebar a {
-        padding: 10px 15px;
-        text-decoration: none;
-        font-size: 18px;
-        color: #333;
-        display: block;
-    }
-
-    .sidebar a:hover {
-        background-color: #ddd;
-        color: #000;
-    }
-</style>
 
 @stack('css')
