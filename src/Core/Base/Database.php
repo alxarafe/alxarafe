@@ -58,6 +58,7 @@ class Database extends CapsuleManager
             'charset'   => $db->charset ?? 'utf8mb4',
             'collation' => $db->collation ?? 'utf8mb4_unicode_ci',
             'prefix'    => $db->prefix ?? '',
+            'port'      => $db->port ?? 3306,
         ]);
 
         $this->setAsGlobal();
@@ -66,8 +67,12 @@ class Database extends CapsuleManager
         // DebugBar Integration
         $debugBar = Debug::getDebugBar();
         if ($debugBar && !$debugBar->hasCollector('pdo')) {
-            $pdo = $this->getConnection()->getPdo();
-            $debugBar->addCollector(new PDOCollector($pdo));
+            try {
+                $pdo = $this->getConnection()->getPdo();
+                $debugBar->addCollector(new PDOCollector($pdo));
+            } catch (\Exception $e) {
+                // Ignore connection errors for DebugBar
+            }
         }
     }
 

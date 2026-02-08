@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Tools\Dispatcher;
 
+use Alxarafe\Base\Config;
 use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Routes;
@@ -64,7 +65,12 @@ class WebDispatcher extends Dispatcher
             static::dieWithMessage($className . ' is not a ViewController');
         }
 
+        $theme = Config::getConfig()->main->theme ?? 'default';
+
         $templates_path = [
+            // Theme override
+            constant('ALX_PATH') . '/templates/themes/' . $theme . '/',
+
             constant('ALX_PATH') . '/src/Modules/' . $module . '/templates/',
             constant('ALX_PATH') . '/src/Modules/' . $module . '/Templates/',
             constant('BASE_PATH') . '/../Modules/' . $module . '/templates/',

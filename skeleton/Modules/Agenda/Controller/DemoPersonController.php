@@ -9,6 +9,7 @@ use Alxarafe\Component\Fields\RelationList;
 use Alxarafe\Component\Fields\Select;
 use Alxarafe\Component\Fields\Text;
 use Alxarafe\Component\Fields\Textarea;
+use Alxarafe\Lib\Trans;
 use Modules\Agenda\Model\Country;
 use Modules\Agenda\Model\Person;
 
@@ -25,15 +26,15 @@ class DemoPersonController extends ResourceController
     protected function getListFields(): array
     {
         return [
-            new Text('id', 'ID', ['width' => '50px']),
-            new Text('name', 'Nombre'),
-            new Text('lastname', 'Apellidos'),
+            new Text('id', Trans::_('person.id'), ['width' => '50px']),
+            new Text('name', Trans::_('person.name')),
+            new Text('lastname', Trans::_('person.lastname')),
 
             // 1:1 Relation Field (Dot Notation)
-            new Text('country.name', 'País'),
+            new Text('country.name', Trans::_('person.country.name')),
 
-            new Boolean('active', 'Activo'),
-            new Date('birth_date', 'Fecha Nacimiento'),
+            new Boolean('active', Trans::_('person.active')),
+            new Date('birth_date', Trans::_('person.birthdate')),
         ];
     }
 
@@ -48,28 +49,28 @@ class DemoPersonController extends ResourceController
 
         return [
             'general' => [
-                'label' => 'General',
+                'label' => Trans::_('person.tab.general'),
                 'fields' => [
-                    new Text('name', 'Nombre'),
-                    new Text('lastname', 'Apellidos'),
-                    new Select('country_id', 'País', $countries),
-                    new Boolean('active', 'Activo'),
-                    new Date('birth_date', 'Fecha Nacimiento'),
+                    new Text('name', Trans::_('person.name')),
+                    new Text('lastname', Trans::_('person.lastname')),
+                    new Select('country_id', Trans::_('person.country.name'), $countries),
+                    new Boolean('active', Trans::_('person.active')),
+                    new Date('birth_date', Trans::_('person.birthdate')),
                 ]
             ],
             'observations' => [
-                'label' => 'Observaciones',
+                'label' => Trans::_('person.tab.observations'),
                 'fields' => [
-                    new Textarea('observations', 'Observaciones', ['full_width' => true, 'rows' => 4]),
+                    new Textarea('observations', Trans::_('person.tab.observations'), ['full_width' => true, 'rows' => 4]),
                 ]
             ],
             'addresses' => [
-                'label' => 'Direcciones',
+                'label' => Trans::_('person.tab.addresses'),
                 'fields' => [
-                    new RelationList('addresses', 'Direcciones', [
-                        ['field' => 'street', 'label' => 'Calle'],
-                        ['field' => 'city', 'label' => 'Ciudad'],
-                        ['field' => 'zip', 'label' => 'C. Postal']
+                    new RelationList('addresses', Trans::_('person.tab.addresses'), [
+                        ['field' => 'street', 'label' => Trans::_('person.address.street')],
+                        ['field' => 'city', 'label' => Trans::_('person.address.city')],
+                        ['field' => 'zip', 'label' => Trans::_('person.address.zip')]
                     ], ['col' => 12])
                 ]
             ]
