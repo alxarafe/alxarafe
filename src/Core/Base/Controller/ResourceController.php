@@ -256,7 +256,7 @@ abstract class ResourceController extends Controller
         $tabsConfig = [];
         if (!empty($fields)) {
             $isStructured = false;
-            foreach ($fields as $k => $v) {
+            foreach ($fields as $v) {
                 if (is_array($v) && isset($v['fields'])) {
                     $isStructured = true;
                     break;
@@ -1057,11 +1057,20 @@ abstract class ResourceController extends Controller
                 'data' => $model->toArray(),
                 'message' => 'Record saved successfully'
             ]);
-        } catch (\Exception $e) {
+        } catch (\Alxarafe\Base\Testing\HttpResponseException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
             DB::connection()->rollBack();
+            $msg = $e->getMessage();
+            if (empty($msg)) {
+                $msg = 'An error occurred but the exception message was empty.';
+            }
             $this->jsonResponse([
                 'status' => 'error',
-                'error' => $e->getMessage(),
+                'error' => $msg,
+                'class' => get_class($e),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString()
             ]);
         }
