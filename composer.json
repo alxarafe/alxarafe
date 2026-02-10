@@ -63,6 +63,9 @@
     ],
     "post-package-update": [
       "AlxRoot\\Installer::copyAssets();"
+    ],
+    "publish-assets": [
+      "php src/Scripts/publish_assets_manual.php"
     ]
   }
 }

@@ -9,9 +9,11 @@ body {
     background-color: #1f2833 !important;
     border-right: 2px solid #45a29e;
 }
+
 .sidebar a {
     color: #c5c6c7 !important;
 }
+
 .sidebar a:hover {
     background-color: #0b0c10 !important;
     color: #66fcf1 !important;
@@ -23,7 +25,9 @@ body {
     background-color: #1f2833;
     border: 1px solid #45a29e;
     box-shadow: 0 0 10px rgba(69, 162, 158, 0.2) !important;
+    margin-bottom: 1.5rem;
 }
+
 .card-header {
     background-color: #0b0c10;
     border-bottom: 1px solid #45a29e;
@@ -31,12 +35,15 @@ body {
 }
 
 /* Form Controls */
-.form-control, .form-select {
+.form-control,
+.form-select {
     background-color: #0b0c10;
     border: 1px solid #45a29e;
     color: #c5c6c7;
 }
-.form-control:focus, .form-select:focus {
+
+.form-control:focus,
+.form-select:focus {
     background-color: #0b0c10;
     color: #66fcf1;
     border-color: #66fcf1;
@@ -47,10 +54,12 @@ body {
 .table {
     color: #c5c6c7;
 }
+
 .table thead th {
     border-bottom: 2px solid #45a29e;
     color: #45a29e;
 }
+
 .table-hover tbody tr:hover {
     color: #66fcf1;
     background-color: rgba(69, 162, 158, 0.1);
@@ -63,6 +72,7 @@ body {
     color: #0b0c10;
     font-weight: bold;
 }
+
 .btn-primary:hover {
     background-color: #66fcf1;
     border-color: #66fcf1;
@@ -75,6 +85,7 @@ body {
     color: #45a29e;
     border: 1px solid transparent;
 }
+
 .nav-tabs .nav-link.active {
     color: #66fcf1;
     background-color: #1f2833;
@@ -107,8 +118,13 @@ body {
 }
 
 @keyframes scanline {
-    0% { top: -5%; }
-    100% { top: 105%; }
+    0% {
+        top: -5%;
+    }
+
+    100% {
+        top: 105%;
+    }
 }
 
 .cyber-link {
@@ -119,7 +135,8 @@ body {
 }
 
 .cyber-link:hover {
-    padding-left: 1.5rem !important; /* Visual bump */
+    padding-left: 1.5rem !important;
+    /* Visual bump */
     background: rgba(102, 252, 241, 0.1) !important;
     color: #66fcf1 !important;
     border-left: 3px solid #66fcf1;
@@ -135,12 +152,29 @@ body {
 }
 
 @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
 }
 
 /* Layout & Grid */
@@ -151,8 +185,8 @@ body {
 }
 
 .cyber-grid-overlay {
-    background-image: 
-        linear-gradient(0deg, transparent 24%, rgba(69, 162, 158, .1) 25%, rgba(69, 162, 158, .1) 26%, transparent 27%, transparent 74%, rgba(69, 162, 158, .1) 75%, rgba(69, 162, 158, .1) 76%, transparent 77%, transparent), 
+    background-image:
+        linear-gradient(0deg, transparent 24%, rgba(69, 162, 158, .1) 25%, rgba(69, 162, 158, .1) 26%, transparent 27%, transparent 74%, rgba(69, 162, 158, .1) 75%, rgba(69, 162, 158, .1) 76%, transparent 77%, transparent),
         linear-gradient(90deg, transparent 24%, rgba(69, 162, 158, .1) 25%, rgba(69, 162, 158, .1) 26%, transparent 27%, transparent 74%, rgba(69, 162, 158, .1) 75%, rgba(69, 162, 158, .1) 76%, transparent 77%, transparent);
     background-size: 50px 50px;
     height: 100%;
@@ -175,7 +209,8 @@ body {
 
 /* Override sidebar positioning for grid layout */
 .col-md-3 .sidebar {
-    position: relative !important; /* Force static inside column */
+    position: relative !important;
+    /* Force static inside column */
     height: 100vh;
     border-right: 2px solid #66fcf1;
     background-color: rgba(31, 40, 51, 0.9) !important;
@@ -186,7 +221,7 @@ body {
     background: rgba(11, 12, 16, 0.95) !important;
     border: 1px solid #333 !important;
     overflow: visible;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .cyber-corner {

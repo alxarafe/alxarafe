@@ -24,6 +24,10 @@ skeleton/vendor/
 skeleton/tmp/
 skeleton/var/cache/*
 skeleton/data/
+skeleton/public/themes/
+skeleton/public/alxarafe/
+skeleton/public/js/
+skeleton/public/css/
 
 # VitePress deployment
 docs/.vitepress/dist/

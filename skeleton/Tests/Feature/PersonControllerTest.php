@@ -81,7 +81,7 @@ class PersonControllerTest extends TestCase
             $response = $e->getResponse();
 
             $this->assertArrayHasKey('status', $response);
-            $this->assertEquals('success', $response['status']);
+            $this->assertEquals('success', $response['status'], "Save failed: " . json_encode($response));
             $this->assertArrayHasKey('id', $response);
 
             // Verify DB

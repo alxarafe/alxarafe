@@ -13,7 +13,8 @@
     "watch:ts": "webpack --watch --mode development",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "publish-assets": "php src/Scripts/publish_assets_manual.php"
   },
   "repository": {
     "type": "git",

@@ -9,13 +9,13 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<!-- Default Clean Theme Override -->
-<link href="/themes/default/css/default.css" rel="stylesheet">
+<!-- Alternative Pastel Theme Override -->
+<link href="/themes/alternative/css/default.css" rel="stylesheet">
 
 {!! $me->getRenderHeader() !!}
 
 <style>
-    /* Default Sidebar layout override */
+    /* Sidebar layout override - Keep structure but let css file handle colors */
     .sidebar {
         height: 100vh;
         width: 250px;
@@ -24,7 +24,6 @@
         left: 0;
         padding-top: 20px;
         z-index: 1000;
-        /* Background and colors controlled by default.css */
     }
     
     .id_container {

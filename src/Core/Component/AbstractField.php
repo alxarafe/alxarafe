@@ -76,7 +76,7 @@ abstract class AbstractField implements JsonSerializable
             // If strictly using wrapped mode, we create it.
             // If sticking to legacy root mode (unlikely now), we merge at root.
             // Given previous change, we largely enforce wrapping.
-            $this->options['options'] = array_merge($this->options['options'] ?? [], $newOptions);
+            $this->options['options'] = $newOptions;
         }
     }
 

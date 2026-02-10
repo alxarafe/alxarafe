@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <!-- High Contrast Theme Main CSS -->
-<link href="/css/high-contrast.css" rel="stylesheet">
+<link href="/themes/high-contrast/css/default.css" rel="stylesheet">
 
 {!! $me->getRenderHeader() !!}
 

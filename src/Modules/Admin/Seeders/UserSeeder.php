@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
      * Auto generated seed file
      *
      * @return void
+     * @psalm-suppress UndefinedConstant
      */
     #[\Override]
     protected function run($modelClass): void

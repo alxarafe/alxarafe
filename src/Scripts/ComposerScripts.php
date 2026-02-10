@@ -49,7 +49,20 @@ abstract class ComposerScripts
             return;
         }
 
-        $public = realpath(__DIR__ . '/../../../../../public');
+        $standardPublic = realpath(__DIR__ . '/../../../../../public');
+        $devPublic = realpath(__DIR__ . '/../../skeleton/public');
+
+        if ($standardPublic && is_dir($standardPublic)) {
+            $public = $standardPublic;
+        } elseif ($devPublic && is_dir($devPublic)) {
+            $public = $devPublic;
+        } else {
+            // Fallback or create relative to root if neither exists?
+            // Let's assume one must exist.
+            $io->write("Initial Public directory search failed. Defaulting to standard path.");
+            $public = $standardPublic ?: (__DIR__ . '/../../../../../public');
+        }
+
         $io->write("Public directory: " . $public);
 
         $target = $public . '/alxarafe/assets';
@@ -64,6 +77,75 @@ abstract class ComposerScripts
             return;
         }
         $io->write("Assets copied successfully.");
+
+        self::publishThemes($io);
+    }
+
+    private static function publishThemes($io)
+    {
+        $io->write("Starting publishThemes...");
+
+        // Source: templates/themes (relative to this script: ../../templates/themes)
+        $source = realpath(__DIR__ . '/../../templates/themes');
+
+        // Target: public folder (relative: ../../../../../public/themes)
+        // Wait, standard structure is: vendor/package/src -> ../../../public ?
+        // Using existing logic for $public path discovery
+        $standardPublic = realpath(__DIR__ . '/../../../../../public');
+        $devPublic = realpath(__DIR__ . '/../../skeleton/public');
+
+        if ($standardPublic && is_dir($standardPublic)) {
+            $public = $standardPublic;
+        } elseif ($devPublic && is_dir($devPublic)) {
+            $public = $devPublic;
+        } else {
+            $public = $standardPublic ?: (__DIR__ . '/../../../../../public');
+        }
+        $target = $public . '/themes';
+
+        $io->write("Source themes: " . $source);
+        $io->write("Target themes: " . $target);
+
+        if ($source === false || !is_dir($source)) {
+            $io->write("Source themes directory not found.");
+            return;
+        }
+
+        if (!self::makeDir($io, $target)) {
+            return;
+        }
+
+        // Copy each theme's CSS/JS assets
+        // Structure: templates/themes/{theme}/{css|js|assets} -> public/themes/{theme}/{css|js|assets}
+        // We do NOT want to copy .blade.php files to public.
+
+        $themes = scandir($source);
+        foreach ($themes as $theme) {
+            if (in_array($theme, ['.', '..']) || !is_dir($source . '/' . $theme)) {
+                continue;
+            }
+
+            $themeSource = $source . '/' . $theme;
+            $themeTarget = $target . '/' . $theme;
+
+            // Only care about 'css', 'js', 'assets', 'img' folders
+            $assetFolders = ['css', 'js', 'assets', 'img', 'fonts'];
+
+            foreach ($assetFolders as $folder) {
+                $subSource = $themeSource . '/' . $folder;
+                $subTarget = $themeTarget . '/' . $folder;
+
+                if (is_dir($subSource)) {
+                    $io->write("Publishing assets for theme '$theme' ($folder)...");
+                    if (!self::makeDir($io, $themeTarget)) {
+                        continue; // Skip if theme dir creation fails
+                    }
+                    // Copy the folder content
+                    self::copyFolder($io, $subSource, $subTarget);
+                }
+            }
+        }
+        $io->write("Themes published successfully.");
     }
 
     private static function makeDir($io, $path)

@@ -25,6 +25,42 @@ if ($config && isset($config->main->language)) {
     Trans::setLang($config->main->language);
 }
 
+// Check if assets are installed. If not, try to install them.
+// This is useful for Docker environments where volumes might obscure built assets.
+if (!is_dir(__DIR__ . '/themes') || !is_dir(__DIR__ . '/css')) {
+    // Only attempt in specific environments to avoid performance hit on prod?
+    // For now, check if we are in dev/local.
+    if (class_exists(\Alxarafe\Scripts\ComposerScripts::class)) {
+        // We'll use a mocked IO for runtime execution
+        $io = new class {
+            public function write($msg)
+            {
+                error_log("[AssetAutoPublish] " . $msg);
+            }
+            public function getIO()
+            {
+                return $this;
+            }
+        };
+
+        // Wrap in a mock event
+        $event = new class($io) {
+            private $io;
+            public function __construct($io)
+            {
+                $this->io = $io;
+            }
+            public function getIO()
+            {
+                return $this->io;
+            }
+        };
+
+        error_log("Assets missing. Triggering auto-publication...");
+        \Alxarafe\Scripts\ComposerScripts::postUpdate($event);
+    }
+}
+
 // Simple Routing for Demo
 if (php_sapi_name() === 'cli') {
     $module = $argv[1] ?? 'Demo';

@@ -108,7 +108,7 @@ export class AlxarafeResource {
 
         // Require template
         if (!this.config.templates || !this.config.templates['layout_list']) {
-            this.container.innerHTML = '<div class="alert alert-danger">Internal Error: Missing template "layout_list"</div>';
+            this.container.innerHTML = '<div class="alert alert-danger">Error Interno: Falta la plantilla "layout_list"</div>';
             return;
         }
 
@@ -631,7 +631,7 @@ export class AlxarafeResource {
         if (this.config.templates && this.config.templates['layout_edit']) {
             this.container.innerHTML = this.config.templates['layout_edit'];
         } else {
-            this.container.innerHTML = '<div class="alert alert-danger">Internal Error: Missing template "layout_edit"</div>';
+            this.container.innerHTML = '<div class="alert alert-danger">Error Interno: Falta la plantilla "layout_edit"</div>';
             return;
         }
 
@@ -685,7 +685,7 @@ export class AlxarafeResource {
         const entries = Object.entries(sections);
 
         if (entries.length === 0) {
-            container.innerHTML = '<div class="alert alert-warning">No sections defined</div>';
+            container.innerHTML = '<div class="alert alert-warning">No hay secciones definidas</div>';
             return;
         }
 

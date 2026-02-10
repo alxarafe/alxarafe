@@ -255,9 +255,16 @@ abstract class ResourceController extends Controller
         // Normalize to Tabs Structure
         $tabsConfig = [];
         if (!empty($fields)) {
-            $first = reset($fields);
-            if ($first instanceof \Alxarafe\Component\AbstractField) {
-                // Flat Array -> Default Tab
+            $isStructured = false;
+            foreach ($fields as $k => $v) {
+                if (is_array($v) && isset($v['fields'])) {
+                    $isStructured = true;
+                    break;
+                }
+            }
+
+            if (!$isStructured) {
+                // Flat Array -> Default Tab (Treat as 'main' section)
                 $tabsConfig['main'] = ['label' => 'General', 'fields' => $fields];
             } else {
                 // Structured Array -> Multi-Tab
@@ -924,12 +931,17 @@ abstract class ResourceController extends Controller
         $modelData = [];
         $relationData = [];
 
-        $editFields = $this->getEditFields();
-        // Map field names to their definition to check types
+        // Use processed configuration (instantiated components)
         $fieldDefs = [];
-        foreach ($editFields as $f) {
-            if ($f instanceof \Alxarafe\Component\AbstractField) {
-                $fieldDefs[$f->getField()] = $f;
+        if (!empty($this->structConfig['edit']['sections'])) {
+            foreach ($this->structConfig['edit']['sections'] as $section) {
+                if (!empty($section['fields'])) {
+                    foreach ($section['fields'] as $f) {
+                        if ($f instanceof \Alxarafe\Component\AbstractField) {
+                            $fieldDefs[$f->getField()] = $f;
+                        }
+                    }
+                }
             }
         }
 
@@ -1186,6 +1198,7 @@ abstract class ResourceController extends Controller
         }
     }
 
+    #[\Override]
     protected function jsonResponse(mixed $data)
     {
         if (defined('ALX_TESTING')) {
