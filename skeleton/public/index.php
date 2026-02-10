@@ -61,14 +61,14 @@ if (!is_dir(__DIR__ . '/themes') || !is_dir(__DIR__ . '/css')) {
     }
 }
 
-// Simple Routing for Demo
+// Simple Routing for Chascarrillo
 if (php_sapi_name() === 'cli') {
-    $module = $argv[1] ?? 'Demo';
-    $controller = $argv[2] ?? 'Home';
+    $module = $argv[1] ?? 'Chascarrillo';
+    $controller = $argv[2] ?? 'Blog';
     $method = $argv[3] ?? 'index';
 } else {
-    $module = $_GET['module'] ?? 'Demo';
-    $controller = $_GET['controller'] ?? 'Home';
+    $module = $_GET['module'] ?? 'Chascarrillo';
+    $controller = $_GET['controller'] ?? 'Blog';
     $method = $_GET['method'] ?? 'index';
 }
 

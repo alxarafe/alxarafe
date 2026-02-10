@@ -1,73 +1,28 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Chascarrillo;
 
 use Tests\TestCase;
-use Modules\Agenda\Controller\PersonController;
+use Modules\Chascarrillo\Controller\PostController;
 use Alxarafe\Base\Testing\HttpResponseException;
 
-class PersonControllerTest extends TestCase
+class PostControllerTest extends TestCase
 {
     public function testItReturnsValidationErrorOnEmptySave()
     {
-        // Mock POST data
-        $_POST = ['action' => 'save', 'data' => []]; // Empty data
+        $_POST = ['action' => 'save', 'data' => []];
 
         if (!defined('ALX_TEST_USER')) {
             define('ALX_TEST_USER', 'Tester');
         }
 
-        $controller = new PersonController();
-
-        // We expect the controller to throw HttpResponseException with validation errors or error response
-        try {
-            // We need to simulate the environment state required by saveRecord
-            // ResourceController::saveRecord reads php://input or $_POST
-            // Since we populated $_POST, it should pick it up.
-
-            // To invoke the logic we can call handleRequest() by setting params
-            // But handleRequest is protected. ResourceController typically exposes doIndex?
-            // saveRecord is protected.
-
-            // We can use reflection to call protected method, or modify controller to be more testable.
-            // Or use the Dispatcher?
-
-            // Let's use Reflection for robust unit testing of the protected method
-            $reflection = new \ReflectionClass($controller);
-
-
-
-            $method = $reflection->getMethod('saveRecord');
-            $method->setAccessible(true);
-            $method->invoke($controller);
-
-            $this->fail("Expected HttpResponseException was not thrown");
-        } catch (HttpResponseException $e) {
-            $response = $e->getResponse();
-            // Expecting error because data is empty
-            $this->assertArrayHasKey('error', $response);
-            $this->assertEquals('No data provided', $response['error']);
-        }
-    }
-
-    public function testItCanSaveAPersonViaController()
-    {
-        // Mock POST data with JSON payload structure that ResourceController expects
-        $data = [
-            'name' => 'Jane',
-            'lastname' => 'Smith',
-            'active' => 1,
-            'birth_date' => '1995-05-05'
-        ];
-        $_POST = ['data' => $data];
-
-        $controller = new PersonController(); // Simulate creating new record
-        $controller->recordId = 'new';
+        $controller = new PostController();
 
         try {
             $reflection = new \ReflectionClass($controller);
 
-            // Initialize configuration
+            // Need to initialize configuration for validation rules to kick in?
+            // saveRecord will validate empty data regardless of config generally
             $configMethod = $reflection->getMethod('buildConfiguration');
             $configMethod->setAccessible(true);
             $configMethod->invoke($controller);
@@ -79,15 +34,50 @@ class PersonControllerTest extends TestCase
             $this->fail("Expected HttpResponseException was not thrown");
         } catch (HttpResponseException $e) {
             $response = $e->getResponse();
+            $this->assertArrayHasKey('error', $response);
+            $this->assertEquals('No data provided', $response['error']);
+        }
+    }
+
+    public function testItCanSaveAPostViaController()
+    {
+        $data = [
+            'title' => 'My First Post',
+            'slug' => 'my-first-post',
+            'content' => 'This is the content of my first post.',
+            'is_published' => 1,
+            'published_at' => '2026-02-10 12:00:00'
+        ];
+        $_POST = ['data' => $data];
+
+        $controller = new PostController();
+        $controller->recordId = 'new';
+        $controller->mode = 'edit'; // Ensure edit mode for save
+
+        try {
+            $reflection = new \ReflectionClass($controller);
+
+            $configMethod = $reflection->getMethod('buildConfiguration');
+            $configMethod->setAccessible(true);
+            $configMethod->invoke($controller);
+
+            $method = $reflection->getMethod('saveRecord');
+            $method->setAccessible(true);
+            $method->invoke($controller);
+
+            $this->fail("Expected HttpResponseException was not thrown (success response)");
+        } catch (HttpResponseException $e) {
+            $response = $e->getResponse();
 
             $this->assertArrayHasKey('status', $response);
             $this->assertEquals('success', $response['status'], "Save failed: " . json_encode($response));
             $this->assertArrayHasKey('id', $response);
 
             // Verify DB
-            $this->assertDatabaseHas('people', [
+            $this->assertDatabaseHas('posts', [
                 'id' => $response['id'],
-                'name' => 'Jane'
+                'title' => 'My First Post',
+                'slug' => 'my-first-post'
             ]);
         }
     }
@@ -98,6 +88,6 @@ class PersonControllerTest extends TestCase
         foreach ($data as $key => $value) {
             $query->where($key, $value);
         }
-        $this->assertTrue($query->exists(), "Record not found in table $table");
+        $this->assertTrue($query->exists(), "Record not found in table $table with data " . json_encode($data));
     }
 }
