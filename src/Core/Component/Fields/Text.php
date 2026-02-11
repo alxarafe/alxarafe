@@ -22,7 +22,7 @@ use Alxarafe\Component\AbstractField;
 
 class Text extends AbstractField
 {
-    protected string $component = 'text';
+    protected string $component = 'input';
 
     #[\Override]
     public function getType(): string

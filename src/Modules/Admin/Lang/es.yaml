@@ -22,6 +22,9 @@ use_debugbar: Activar la barra de depuración
 check_db_connection: Comprobar la conexión con base de datos
 save_configuration: Guardar la configuración
 regenerate: Regenerar
+boolean_true: Sí
+boolean_false: No
 exit: Salir
 pending_migrations_advice: No se han encontrado las tablas del sistema. Por favor, ejecute las migraciones.
+go_migrations: Ejecutar migraciones
 error_message: "Error: %message%"

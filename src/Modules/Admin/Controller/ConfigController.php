@@ -45,18 +45,17 @@ class ConfigController extends ResourceController
     ];
 
     /**
-     * Configuration file information
-     *
-     * @var stdClass
-     */
-    public mixed $data;
-
-    /**
      * Array with availables languages
      *
      * @var array
      */
     public $languages;
+
+    /**
+     * Array containing the fields configuration for editing
+     * @var array
+     */
+    public array $configFields = [];
     public $themes;
     public $dbtypes;
 
@@ -102,10 +101,10 @@ class ConfigController extends ResourceController
                 new Boolean('security.debug', Trans::_('use_debugbar')),
             ],
             'connection' => [
-                new Select('db.type', Trans::_('db_type'), $this->dbtypes, ['readonly' => $this->pdo_connection]),
-                new Text('db.host', Trans::_('db_host'), ['readonly' => $this->pdo_connection]),
-                new Text('db.user', Trans::_('db_user'), ['readonly' => $this->pdo_connection]),
-                new Text('db.pass', Trans::_('db_password'), ['type' => 'password', 'readonly' => $this->pdo_connection]),
+                new Select('db.type', Trans::_('db_type'), $this->dbtypes),
+                new Text('db.host', Trans::_('db_host')),
+                new Text('db.user', Trans::_('db_user')),
+                new Text('db.pass', Trans::_('db_password'), ['type' => 'password']),
             ],
             'database_preferences' => [
                 new Text('db.prefix', 'DB Prefix'),
@@ -192,6 +191,11 @@ class ConfigController extends ResourceController
         }
 
         if (Config::setConfig($configData) && Config::saveConfig()) {
+            if (empty($_GET['ajax'])) {
+                Functions::httpRedirect($this->url('index', ['method' => 'general']) . '#');
+                exit;
+            }
+
             $this->jsonResponse([
                 'status' => 'success',
                 'message' => Trans::_('settings_saved_successfully')
@@ -299,6 +303,18 @@ class ConfigController extends ResourceController
      *
      * @return bool
      */
+    /**
+     * Handles the save action.
+     * 
+     * @return bool
+     */
+    public function doSave(): bool
+    {
+        $this->saveRecord();
+        // If saveRecord doesn't exit/redirect (e.g. error), fall back to index
+        return $this->doIndex();
+    }
+
     #[\Override]
     public function doIndex(): bool
     {
@@ -307,6 +323,9 @@ class ConfigController extends ResourceController
          *       are correctly implemented.
          */
         // $restricted_access = false;
+
+        // Make fields available to view via $me->configFields (ad-hoc property for now)
+        $this->configFields = $this->getEditFields();
 
         $this->setDefaultTemplate('page/config');
 
@@ -337,22 +356,7 @@ class ConfigController extends ResourceController
         Functions::httpRedirect(MigrationController::url());
     }
 
-    /**
-     * Save action.
-     *
-     *
-     * @return bool
-     */
-    public function doSave(): bool
-    {
-        if (!config::setConfig($this->data)) {
-            Messages::addError(Trans::_('error_saving_settings'));
-            return false;
-        }
 
-        Messages::addMessage(Trans::_('settings_saved_successfully'));
-        return true;
-    }
 
     public function doExit(): void
     {

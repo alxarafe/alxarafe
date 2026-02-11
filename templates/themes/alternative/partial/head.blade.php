@@ -10,7 +10,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <!-- Alternative Pastel Theme Override -->
-<link href="/themes/alternative/css/default.css" rel="stylesheet">
+<link href="/themes/alternative/css/default.css?v={{ time() }}" rel="stylesheet">
+<style>
+    /* Standardize button shapes in this theme */
+    .btn {
+        border-radius: 0.375rem !important; /* Standard Bootstrap radius */
+    }
+</style>
 
 {!! $me->getRenderHeader() !!}
 

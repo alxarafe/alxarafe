@@ -2,8 +2,8 @@
     "main": {
         "path": "/var/www/html/skeleton",
         "url": "http://localhost:8081",
-        "theme": "cyberpunk",
-        "language": "es",
+        "theme": "alternative",
+        "language": "en",
         "data": ""
     },
     "db": {

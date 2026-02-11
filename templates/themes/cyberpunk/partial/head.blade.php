@@ -10,7 +10,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <!-- Cyberpunk Theme Override -->
-<link href="/themes/cyberpunk/css/default.css" rel="stylesheet">
+<link href="/themes/cyberpunk/css/default.css?v={{ time() }}" rel="stylesheet">
+<style>
+    /* CRITICAL FIX: Force inputs to be editable bypassing any external CSS caching */
+    input, textarea {
+        -webkit-user-modify: read-write-plaintext-only !important;
+        user-modify: read-write-plaintext-only !important;
+        user-select: text !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Ensure Selects work */
+    select {
+        -webkit-user-modify: read-only !important;
+        user-modify: read-only !important;
+    }
+
+    /* Standardize button shapes in this theme */
+    .btn {
+        border-radius: 0.375rem !important; /* Standard Bootstrap radius */
+    }
+</style>
 
 {!! $me->getRenderHeader() !!}
 

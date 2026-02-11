@@ -23,8 +23,11 @@ use_debugbar: Use debugbar
 check_db_connection: Check database connection
 save_configuration: Save configuration
 regenerate: Regenerate
+boolean_true: Yes
+boolean_false: No
 exit: Exit
 template_not_found: 'Template not found: "%name%"'
 processing_migration: 'Processing migration: "%name%"'
 pending_migrations_advice: System tables not found. Please run migrations.
+go_migrations: Run migrations
 error_message: "Error: %message%"

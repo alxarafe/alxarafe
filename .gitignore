@@ -18,6 +18,10 @@ composer.phar
 /vendor/
 /.phpunit.cache/
 /dist/
+.env
+config.json
+test-scrutinizer.txt
+phpdoc.phar
 
 # Skeleton Development App
 skeleton/vendor/

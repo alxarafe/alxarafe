@@ -252,3 +252,17 @@ body {
     border-left: none;
     border-top: none;
 }
+
+/* Fix for editing issues */
+/* Fix for editing issues - RESTORED BUT MODIFIED */
+input,
+textarea {
+    -webkit-user-modify: read-write-plaintext-only !important;
+    user-select: text !important;
+}
+
+select {
+    /* Selects must remain read-only to function as dropdowns */
+    -webkit-user-modify: read-only !important;
+    user-select: none !important;
+}
