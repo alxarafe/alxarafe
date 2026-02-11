@@ -1,60 +1,192 @@
 @extends('partial.layout.main')
 
 @section('content')
-    @component('layout.div', ['fluid' => true])
-        @slot('slot')
-            @component('layout.row',[])
-                <button id="startProcess" class="btn btn-primary center">Iniciar Proceso</button>
-                <ul id="results" class="list-group mt-3"></ul>
-            @endcomponent
-        @endslot
-    @endcomponent
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-database me-2"></i>{{ $me->_('migration_status_title') }}</h5>
+        </div>
+        <div class="card-body">
+            @php
+                $pendingCount = 0;
+                foreach($allMigrationsWithStatus as $data) {
+                    if($data['status'] === 'pending') $pendingCount++;
+                }
+            @endphp
+
+            @if($pendingCount === 0)
+                <div class="alert alert-success d-flex align-items-center mb-3">
+                    <i class="fas fa-check-circle fa-2x me-3"></i>
+                    <div>
+                        <strong>{{ $me->_('migration_all_ok') }}</strong><br>
+                        {{ $me->_('migration_no_pending') }}
+                    </div>
+                </div>
+            @else
+                <div class="alert alert-warning d-flex align-items-center mb-3">
+                    <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+                    <div>
+                        <strong>{{ $me->_('migration_attention_needed') }}</strong><br>
+                        {{ $me->_('migration_pending_count', ['count' => $pendingCount]) }}
+                    </div>
+                </div>
+            @endif
+
+            <div class="list-group mb-4 shadow-sm">
+                @foreach($allMigrationsWithStatus as $key => $data)
+                    @php
+                        $parts = explode('@', $key);
+                        $class = $parts[0] ?? $key;
+                        $module = $parts[1] ?? 'Unknown';
+                        $isPending = $data['status'] === 'pending';
+                    @endphp
+                    <div class="list-group-item d-flex justify-content-between align-items-center migration-item" 
+                         data-key="{{ $key }}" 
+                         data-module="{{ $module }}" 
+                         data-class="{{ $class }}"
+                         data-status="{{ $data['status'] }}">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                @if($isPending)
+                                    <i class="fas fa-clock text-warning fa-lg"></i>
+                                @else
+                                    <i class="fas fa-check-circle text-success fa-lg"></i>
+                                @endif
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">{{ $module }} <small class="text-muted fw-normal">:: {{ $class }}</small></h6>
+                                <small class="text-muted font-monospace" style="font-size: 0.85em;">{{ basename($data['path']) }}</small>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="badge {{ $isPending ? 'bg-warning text-dark' : 'bg-success' }} status-badge rounded-pill">
+                                @if($isPending)
+                                    {{ $me->_('migration_pending') }}
+                                @else
+                                    {{ $me->_('migration_completed') }}
+                                @endif
+                            </span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="d-grid gap-2">
+                <button id="startProcess" class="btn btn-primary btn-lg" type="button" {{ $pendingCount === 0 ? 'disabled' : '' }}>
+                    <i class="fas fa-play me-2"></i> {{ $me->_('migration_start_process') }}
+                </button>
+            </div>
+            
+            <div id="results-log" class="mt-3"></div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
     <script type="text/javascript">
         document.getElementById('startProcess').addEventListener('click', function () {
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = '';
+            const btn = this;
+            const log = document.getElementById('results-log');
+            const pendingItems = document.querySelectorAll('.migration-item[data-status="pending"]');
 
-            fetch('{!! $me->url() !!}&action=getProcesses')
-                .then(response => response.json())
-                .then(actions => {
-                    // Paso 2: Ejecutar acciones secuencialmente
-                    const executeNext = (index) => {
-                        if (index >= actions.length) {
-                            return;
-                        }
+            if (pendingItems.length === 0) {
+                return;
+            }
 
-                        const action = actions[index];
-                        const listItem = document.createElement('li');
-                        listItem.className = 'list-group-item';
-                        listItem.textContent = 'Executing: ' + action.name;
-                        resultsContainer.appendChild(listItem);
+            // UI Reset
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> {{ $me->_('migration_processing') }}...';
+            log.innerHTML = '';
 
-                        fetch('{!! $me->url() !!}&action=ExecuteProcess', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                            body: new URLSearchParams(action)
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                listItem.textContent = data.message;
-                                executeNext(index + 1);
-                            })
-                            .catch(() => {
-                                listItem.textContent = 'Error executing ' + action.name;
-                            });
-                    };
+            let currentIndex = 0;
 
-                    executeNext(0); // Inicia el proceso
+            const executeNext = () => {
+                if (currentIndex >= pendingItems.length) {
+                    btn.innerHTML = '<i class="fas fa-check me-2"></i> {{ $me->_('migration_finished') }}';
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('btn-success');
+                    
+                     // Add simple success message
+                    const successAlert = document.createElement('div');
+                    successAlert.className = 'alert alert-success mt-3';
+                    successAlert.innerHTML = '<i class="fas fa-check-circle"></i> {{ $me->_('migration_all_finished') }}';
+                    log.appendChild(successAlert);
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                    return;
+                }
+
+                const item = pendingItems[currentIndex];
+                const module = item.getAttribute('data-module');
+                const cls = item.getAttribute('data-class');
+                const badge = item.querySelector('.status-badge');
+                const iconContainer = item.querySelector('.fas.fa-clock, .fas.fa-check-circle').parentNode;
+
+                // Update UI to "Running"
+                badge.className = 'badge bg-info text-dark status-badge rounded-pill';
+                badge.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> {{ $me->_('migration_processing') }}';
+                
+                // Update params for Request
+                const params = new URLSearchParams();
+                params.append('module', module);
+                params.append('class', cls);
+
+                fetch('{!! $me->url() !!}&action=ExecuteProcess', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: params
                 })
-                .catch(() => {
-                    const errorItem = document.createElement('li');
-                    errorItem.className = 'list-group-item list-group-item-danger';
-                    errorItem.textContent = 'Error getting the actions';
-                    resultsContainer.appendChild(errorItem);
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                         // Update Badge
+                         badge.className = 'badge bg-success status-badge rounded-pill';
+                         badge.innerHTML = '{{ $me->_('migration_completed') }}';
+                         
+                         // Update Icon
+                         // Find the icon element effectively
+                         const icon = item.querySelector('.fa-clock') || item.querySelector('.fa-spinner');
+                         if(icon) {
+                             icon.className = 'fas fa-check-circle text-success fa-lg';
+                         }
+                         
+                         item.setAttribute('data-status', 'completed');
+                    } else {
+                         badge.className = 'badge bg-danger status-badge rounded-pill';
+                         badge.textContent = '{{ $me->_('migration_error_badge') }}';
+                         
+                         const errDiv = document.createElement('div');
+                         errDiv.className = 'alert alert-danger mt-1 small';
+                         // We construct the error string manually or fetch a translated string if specific
+                         // Here we use a generic translated format for JS
+                         let errText = '{{ $me->_('migration_error_detail') }}';
+                         errText = errText.replace('%module%', module).replace('%class%', cls).replace('%message%', data.message);
+
+                         errDiv.textContent = errText;
+                         log.appendChild(errDiv);
+                    }
+                    currentIndex++;
+                    executeNext();
+                })
+                .catch(err => {
+                    badge.className = 'badge bg-danger status-badge rounded-pill';
+                    badge.textContent = '{{ $me->_('migration_fail_badge') }}';
+                    
+                    const errDiv = document.createElement('div');
+                    errDiv.className = 'alert alert-danger mt-1 small';
+                    
+                    let errText = '{{ $me->_('migration_network_error') }}';
+                    errText = errText.replace('%module%', module).replace('%class%', cls);
+
+                    errDiv.textContent = errText;
+                    log.appendChild(errDiv);
+                    
+                    currentIndex++;
+                    executeNext();
                 });
+            };
+
+            executeNext();
         });
-    </script>
-@endpush
+    </script>@endpush

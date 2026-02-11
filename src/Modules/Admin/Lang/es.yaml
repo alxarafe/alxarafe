@@ -28,3 +28,20 @@ exit: Salir
 pending_migrations_advice: No se han encontrado las tablas del sistema. Por favor, ejecute las migraciones.
 go_migrations: Ejecutar migraciones
 error_message: "Error: %message%"
+
+# Migration page
+migration_status_title: Estado de las Migraciones
+migration_start_process: Iniciar Proceso de Migración
+migration_all_ok: Todo está al día.
+migration_no_pending: No hay migraciones pendientes de ejecución.
+migration_attention_needed: Atención necesaria.
+migration_pending_count: Hay %count% migraciones pendientes. Por favor, ejecute el proceso de actualización.
+migration_pending: Pendiente
+migration_completed: Completado
+migration_processing: Procesando
+migration_finished: Proceso Finalizado
+migration_all_finished: Todas las operaciones han finalizado.
+migration_error_detail: "Error en %module%::%class%: %message%"
+migration_network_error: "Fallo de red en %module%::%class%"
+migration_error_badge: Error
+migration_fail_badge: Fallo
