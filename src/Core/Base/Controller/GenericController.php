@@ -57,6 +57,15 @@ abstract class GenericController
 
         $this->topMenu = ModuleManager::getArrayMenu();
         $this->sidebarMenu = ModuleManager::getArraySidebarMenu();
+
+        // Automatic Trait Initialization (Boot Pattern)
+        // Looks for methods named init{TraitName} and executes them
+        foreach (class_uses_recursive(static::class) as $trait) {
+            $method = 'init' . class_basename($trait);
+            if (method_exists($this, $method)) {
+                $this->$method();
+            }
+        }
     }
 
     /**

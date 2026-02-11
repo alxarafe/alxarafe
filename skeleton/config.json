@@ -1,10 +1,9 @@
 {
     "main": {
-        "path": "/var/www/html/skeleton",
+        "path": "/var/www/html/skeleton/public",
         "url": "http://localhost:8081",
-        "theme": "alternative",
-        "language": "en",
-        "data": ""
+        "theme": "default",
+        "language": "en"
     },
     "db": {
         "type": "mysql",
@@ -12,17 +11,12 @@
         "user": "root",
         "pass": "root",
         "name": "alxarafe_db",
-        "port": "3306",
-        "charset": "utf8mb4",
-        "collation": "utf8mb4_unicode_ci",
+        "port": "",
         "prefix": "alx_",
-        "encryption": "",
-        "encrypt_type": ""
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_unicode_ci"
     },
     "security": {
-        "debug": "1",
-        "unique_id": "",
-        "https": "",
-        "jwt_secret_key": ""
+        "debug": "1"
     }
 }

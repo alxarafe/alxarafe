@@ -70,7 +70,6 @@ abstract class ViewController extends GenericController
     {
         parent::__construct($action, $data);
 
-        $this->setDefaultTemplate();
         $this->config = Config::getConfig();
 
         // Nullsafe operator to prevent errors if config is missing

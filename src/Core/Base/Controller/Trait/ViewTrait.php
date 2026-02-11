@@ -99,6 +99,17 @@ trait ViewTrait
             $this->setDefaultTemplate();
         }
 
-        return $this->template->render($viewPath, $this->viewData);
+        try {
+            return $this->template->render($viewPath, $this->viewData);
+        } catch (\Exception $e) {
+            return "Error rendering template: " . $e->getMessage();
+        }
+    }
+    /**
+     * Automatic initialization method called by GenericController.
+     */
+    public function initViewTrait(): void
+    {
+        $this->setDefaultTemplate();
     }
 }

@@ -57,11 +57,7 @@ abstract class Controller extends ViewController
             return;
         }
 
-        // 1. Ensure Database connection
-        $dbConfig = $this->config->db ?? null;
-        if (!$dbConfig || !static::connectDb($dbConfig)) {
-            Functions::httpRedirect(ConfigController::url(true, false));
-        }
+
 
         // 2. Ensure Authentication (except for AuthController itself)
         if (static::class !== AuthController::class && !Auth::isLogged()) {

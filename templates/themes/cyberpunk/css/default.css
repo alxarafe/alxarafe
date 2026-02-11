@@ -231,6 +231,8 @@ body {
     border: 2px solid #66fcf1;
     z-index: 10;
     transition: all 0.3s;
+    pointer-events: none;
+    /* Critical: Allow clicks to pass through to inputs */
 }
 
 .cyber-card:hover .cyber-corner {
@@ -253,16 +255,16 @@ body {
     border-top: none;
 }
 
-/* Fix for editing issues */
-/* Fix for editing issues - RESTORED BUT MODIFIED */
+/* Standardize form elements behavior - user-modify caused issues */
 input,
 textarea {
-    -webkit-user-modify: read-write-plaintext-only !important;
     user-select: text !important;
+    pointer-events: auto !important;
 }
 
 select {
-    /* Selects must remain read-only to function as dropdowns */
-    -webkit-user-modify: read-only !important;
     user-select: none !important;
+    /* Standard behavior for dropdowns */
+    pointer-events: auto !important;
+    cursor: pointer;
 }
