@@ -28,7 +28,10 @@ final class User extends Model
         'password',
         'token',
         'is_admin',
-        'role_id'
+        'role_id',
+        'language',
+        'timezone',
+        'theme'
     ];
 
     /**
@@ -49,6 +52,9 @@ final class User extends Model
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
         'role_id' => 'integer',
+        'language' => 'string',
+        'timezone' => 'string',
+        'theme' => 'string',
     ];
 
 
@@ -121,5 +127,43 @@ final class User extends Model
         $checkKey = strtolower($module . '.' . $controller . '.' . $action);
 
         return in_array($checkKey, $userPermissions);
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language ?? \Alxarafe\Base\Config::getConfig()->main->language ?? 'en';
+    }
+
+    public function getTimezone(): string
+    {
+        return $this->timezone ?? 'UTC';
+    }
+
+    public function getTheme(): string
+    {
+        return $this->theme ?? \Alxarafe\Base\Config::getConfig()->main->theme ?? 'default';
+    }
+
+    /**
+     * Convert a datetime string or object to the user's timezone.
+     * Assumes input is in UTC.
+     *
+     * @param string|\DateTimeInterface $date
+     * @return \Carbon\Carbon
+     */
+    public function toUserTimezone($date)
+    {
+        return \Carbon\Carbon::parse($date, 'UTC')->setTimezone($this->getTimezone());
+    }
+
+    /**
+     * Convert a datetime string or object from user's timezone to UTC.
+     *
+     * @param string|\DateTimeInterface $date
+     * @return \Carbon\Carbon
+     */
+    public function toUtc($date)
+    {
+        return \Carbon\Carbon::parse($date, $this->getTimezone())->setTimezone('UTC');
     }
 }

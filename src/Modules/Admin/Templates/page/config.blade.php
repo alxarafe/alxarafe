@@ -74,5 +74,20 @@
 @endsection
 
 @push('scripts')
-    <!-- Prueba de script -->
+    <script>
+        $(document).ready(function() {
+            const $tzSelect = $('select[name="data[main.timezone]"]');
+            // If exists and has no value (first option empty)
+            if ($tzSelect.length && !$tzSelect.val()) {
+                try {
+                    const browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    if (browserTz) {
+                        $tzSelect.val(browserTz).trigger('change');
+                    }
+                } catch(e) {
+                    console.error("Timezone detection failed", e);
+                }
+            }
+        });
+    </script>
 @endpush

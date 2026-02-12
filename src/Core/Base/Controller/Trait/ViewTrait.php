@@ -60,6 +60,11 @@ trait ViewTrait
         }
     }
 
+    public function getTemplateName(): ?string
+    {
+        return $this->template?->getTemplateName();
+    }
+
     /**
      * Adds a variable to be accessible in the view.
      *
@@ -88,6 +93,14 @@ trait ViewTrait
             $this->setDefaultTemplate();
         }
         $this->template->setPaths($paths);
+    }
+
+    public function addTemplatesPath(string $path): void
+    {
+        if ($this->template === null) {
+            $this->setDefaultTemplate();
+        }
+        $this->template->addPath($path);
     }
 
     /**

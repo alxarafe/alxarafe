@@ -15,6 +15,7 @@ Thumbs.db
 .vagrant
 composer.phar
 /vendor/
+/var/
 /.phpunit.cache/
 /dist/
 .env

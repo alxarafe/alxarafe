@@ -268,3 +268,48 @@ select {
     pointer-events: auto !important;
     cursor: pointer;
 }
+
+/* SELECT2 CYBERPUNK OVERRIDES */
+/* Fix Layout in Input Group - Handled by Blade Wrapper */
+/* .input-group .select2-container { ... } removed */
+
+/* Match Input Aesthetic */
+.select2-container--bootstrap-5 .select2-selection {
+    background-color: #0b0c10 !important;
+    border: 1px solid #45a29e !important;
+    color: #c5c6c7 !important;
+}
+
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+    color: #c5c6c7 !important;
+}
+
+/* Dropdown */
+.select2-container--bootstrap-5 .select2-dropdown {
+    background-color: #0b0c10 !important;
+    border: 1px solid #66fcf1 !important;
+    color: #c5c6c7 !important;
+}
+
+/* Search Field */
+.select2-container--bootstrap-5 .select2-search__field {
+    background-color: #1f2833 !important;
+    color: #66fcf1 !important;
+    border: 1px solid #45a29e !important;
+}
+
+/* Options */
+.select2-container--bootstrap-5 .select2-results__option {
+    color: #c5c6c7 !important;
+}
+
+.select2-container--bootstrap-5 .select2-results__option--highlighted {
+    background-color: #45a29e !important;
+    color: #0b0c10 !important;
+}
+
+/* Selected */
+.select2-container--bootstrap-5 .select2-results__option[aria-selected="true"] {
+    background-color: #1f2833 !important;
+    color: #66fcf1 !important;
+}

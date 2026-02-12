@@ -20,11 +20,25 @@ class Template
     public function setPaths(array $paths): void
     {
         $this->paths = $paths;
+        $this->blade = null;
+    }
+
+    public function addPath(string $path): void
+    {
+        if (!in_array($path, $this->paths)) {
+            $this->paths[] = $path;
+            $this->blade = null;
+        }
     }
 
     public function setTemplateName(?string $name): void
     {
         $this->templateName = $name;
+    }
+
+    public function getTemplateName(): ?string
+    {
+        return $this->templateName;
     }
 
     public function render(?string $view = null, array $data = []): string|false

@@ -28,6 +28,7 @@ use Alxarafe\Tools\ModuleManager;
 use CoreModules\Admin\Model\Migration;
 use stdClass;
 use Alxarafe\Component\Fields\Select;
+use Alxarafe\Component\Fields\Select2;
 use Alxarafe\Component\Fields\Text;
 use Alxarafe\Component\Fields\Boolean;
 
@@ -94,10 +95,21 @@ class ConfigController extends ResourceController
         $this->themes = Functions::getThemes();
         $this->dbtypes = Database::getDbDrivers();
 
+        // Create Timezone Field with Action
+        $timezones = ['' => Trans::_('select_timezone')] + $this->getTimezones();
+        $tzField = new Select2('main.timezone', Trans::_('timezone'), $timezones);
+        $tzField->addAction(
+            'fas fa-location-arrow',
+            "const tz = Intl.DateTimeFormat().resolvedOptions().timeZone; if(tz) this.parentNode.querySelector('select').value = tz;",
+            Trans::_('detect_timezone'),
+            'btn-outline-primary'
+        );
+
         return [
             'miscellaneous' => [
                 new Select('main.theme', Trans::_('theme'), $this->themes),
                 new Select('main.language', Trans::_('language'), $this->languages),
+                $tzField,
                 new Boolean('security.debug', Trans::_('use_debugbar')),
             ],
             'connection' => [
@@ -367,6 +379,12 @@ class ConfigController extends ResourceController
     {
         ModuleManager::regenerate();
         return true;
+    }
+
+    private function getTimezones(): array
+    {
+        $identifiers = \DateTimeZone::listIdentifiers();
+        return array_combine($identifiers, $identifiers);
     }
 
     public function saveConfig(): bool

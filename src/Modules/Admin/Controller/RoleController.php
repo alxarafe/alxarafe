@@ -9,6 +9,10 @@ use CoreModules\Admin\Service\PermissionSyncer;
 
 class RoleController extends ResourceController
 {
+    const MENU = 'admin';
+    const SIDEBAR_MENU = [
+        ['option' => 'roles', 'url' => 'index.php?module=Admin&controller=Role']
+    ];
 
     #[\Override]
     public static function getModuleName(): string

@@ -139,6 +139,7 @@ textarea {
 .shadow-lg {
     box-shadow: none !important;
 }
+
 /* High Contrast Focus */
 /* Sidebar override */
 #id_container {
@@ -147,21 +148,24 @@ textarea {
 }
 
 #id-right {
-    margin-left: 310px; /* Matching the sidebar width + space */
+    margin-left: 310px;
+    /* Matching the sidebar width + space */
     padding: 2rem;
     flex-grow: 1;
     background-color: #000;
 }
 
 .sidebar {
-    width: 300px; /* Fixed width */
+    width: 300px;
+    /* Fixed width */
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     overflow-y: auto;
     background-color: #000;
-    border-right: 5px solid #FFD700; /* Gold/Yellow Border */
+    border-right: 5px solid #FFD700;
+    /* Gold/Yellow Border */
     z-index: 1000;
 }
 
@@ -175,10 +179,48 @@ textarea {
 }
 
 .sidebar h6 {
-    color: #FFD700; /* Yellow */
+    color: #FFD700;
+    /* Yellow */
     font-size: 1.4rem;
     text-transform: uppercase;
     padding: 1rem;
     margin-top: 1rem;
     border-bottom: 3px solid #FFD700;
+}
+
+/* SELECT2 FIXES FOR HIGH CONTRAST */
+/* Fix Layout in Input Group - Handled by Blade Wrapper */
+/* .input-group .select2-container { ... } removed */
+
+.select2-container .select2-selection--single {
+    height: 52px !important;
+    /* Approx 1.1em font + 10px padding * 2 + 6px border */
+    background-color: var(--hc-input-bg) !important;
+    border: 3px solid var(--hc-border) !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+    color: #FFFFFF !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    line-height: normal !important;
+    margin-top: 0 !important;
+    font-size: 1.1rem !important;
+}
+
+.select2-container--bootstrap-5 .select2-dropdown {
+    background-color: var(--hc-bg) !important;
+    border: 3px solid var(--hc-border) !important;
+}
+
+.select2-container--bootstrap-5 .select2-results__option {
+    color: #FFFFFF !important;
+}
+
+.select2-container--bootstrap-5 .select2-results__option--highlighted {
+    background-color: var(--hc-highlight) !important;
+    color: #000 !important;
 }

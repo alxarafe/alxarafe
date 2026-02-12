@@ -18,6 +18,7 @@
 
 namespace Alxarafe\Component;
 
+use Alxarafe\Component\Enum\ActionPosition;
 use JsonSerializable;
 
 abstract class AbstractField implements JsonSerializable
@@ -42,6 +43,12 @@ abstract class AbstractField implements JsonSerializable
         }
     }
 
+    public function getColClass(): string
+    {
+        // Support direct option or nested option
+        return $this->options['options']['col'] ?? $this->options['col'] ?? 'col-12';
+    }
+
     abstract public function getType(): string;
 
     public function getField(): string
@@ -57,6 +64,44 @@ abstract class AbstractField implements JsonSerializable
     public function getComponent(): string
     {
         return $this->component;
+    }
+
+    /**
+     * @var array actions
+     */
+    protected array $actions = [];
+
+    /**
+     * Add an action button to the field.
+     *
+     * @param string $icon FontAwesome icon class (e.g. 'fas fa-globe')
+     * @param string $onclick JavaScript code to execute on click
+     * @param string $title Tooltip title
+     * @param string $class Additional CSS classes for the button (default: btn-outline-secondary)
+     * @param \Alxarafe\Component\Enum\ActionPosition $position 'left' or 'right' (default: ActionPosition::Left)
+     * @return self
+     */
+    public function addAction(string $icon, string $onclick, string $title = '', string $class = 'btn-outline-secondary', \Alxarafe\Component\Enum\ActionPosition $position = \Alxarafe\Component\Enum\ActionPosition::Left): self
+    {
+        $this->actions[] = [
+            'icon' => $icon,
+            'onclick' => $onclick,
+            'title' => $title,
+            'class' => $class,
+            'position' => $position->value
+        ];
+        return $this;
+    }
+
+    public function getActions(): array
+    {
+        return $this->actions;
+    }
+
+    public function clearActions(): self
+    {
+        $this->actions = [];
+        return $this;
     }
 
     public function getOptions(): array
@@ -84,11 +129,19 @@ abstract class AbstractField implements JsonSerializable
     #[\Override]
     public function jsonSerialize()
     {
-        return array_merge([
+        $data = array_merge([
             'field' => $this->field,
             'label' => $this->label,
             'component' => $this->component,
             'type' => $this->getType(),
+            'actions' => $this->actions,
         ], $this->options);
+
+        // Flatten 'options' if it exists, so keys like 'values' become top-level variables in Blade
+        if (isset($data['options']) && is_array($data['options'])) {
+            $data = array_merge($data, $data['options']);
+        }
+
+        return $data;
     }
 }
