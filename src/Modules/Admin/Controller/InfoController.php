@@ -18,11 +18,22 @@
 
 namespace CoreModules\Admin\Controller;
 
-use Alxarafe\Base\Controller\Controller;
+use Alxarafe\Base\Controller\GenericPublicController;
+use Alxarafe\Lib\Auth;
 
-class InfoController extends Controller
+class InfoController extends GenericPublicController
 {
     const MENU = 'admin|info';
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Check if user is logged in to personalize the page if needed, 
+        // but it's now public.
+        // If we want to allow public access but show user info if logged in:
+        Auth::isLogged();
+    }
 
     /**
      * Returns the module name for use in url function

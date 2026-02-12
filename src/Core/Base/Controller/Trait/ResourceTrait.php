@@ -2,8 +2,7 @@
 
 namespace Alxarafe\Base\Controller\Trait;
 
-use Alxarafe\Base\Controller\ResourceInterface;
-
+use Alxarafe\Base\Controller\Interface\ResourceInterface;
 use Alxarafe\Component\AbstractField;
 use Alxarafe\Component\Container\Panel;
 use Alxarafe\Component\AbstractFilter;
@@ -307,6 +306,10 @@ trait ResourceTrait
         if (!empty($fields)) {
             $isStructured = false;
             foreach ($fields as $v) {
+                if ($v instanceof \Alxarafe\Component\Container\Panel) {
+                    $isStructured = true;
+                    break;
+                }
                 if (is_array($v) && isset($v['fields'])) {
                     $isStructured = true;
                     break;
@@ -319,7 +322,12 @@ trait ResourceTrait
             } else {
                 // Structured Array -> Multi-Tab
                 foreach ($fields as $key => $tabData) {
-                    if (is_array($tabData) && isset($tabData['fields'])) {
+                    if ($tabData instanceof \Alxarafe\Component\Container\Panel) {
+                        $tabsConfig[$tabData->getField()] = [
+                            'label' => $tabData->getLabel(),
+                            'fields' => $tabData->getFields()
+                        ];
+                    } elseif (is_array($tabData) && isset($tabData['fields'])) {
                         $tabsConfig[$key] = [
                             'label' => $tabData['label'] ?? ucfirst($key),
                             'fields' => $tabData['fields']
@@ -1440,6 +1448,19 @@ trait ResourceTrait
         foreach ($fields as $key => $value) {
             // Case 1: Value is a Field Object (Unified or Legacy FormField)
             if (is_object($value) && ($value instanceof AbstractField)) {
+                // Check for Panel (Container) masquerading as Field
+                // If it is a Panel, we register it as a separate SECTION, not a field.
+                if ($value instanceof \Alxarafe\Component\Container\Panel) {
+                    $panelSectionId = $value->getField();
+                    // Check if section exists, if not add it
+                    if (!isset($this->structConfig['edit']['sections'][$panelSectionId])) {
+                        $this->addEditSection($panelSectionId, $value->getLabel());
+                    }
+                    // Recursively set fields for this new section
+                    $this->setEditFields($value->getFields(), $panelSectionId);
+                    continue;
+                }
+
                 $this->addEditField($sectionId, $value);
                 continue;
             }

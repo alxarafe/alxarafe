@@ -10,4 +10,16 @@
       <directory>skeleton/Tests/Feature</directory>
     </testsuite>
   </testsuites>
+  <php>
+    <env name="DB_CONNECTION" value="mysql"/>
+    <env name="DB_HOST" value="127.0.0.1"/>
+    <env name="DB_PORT" value="3399"/>
+    <env name="DB_DATABASE" value="alxarafe_test"/>
+    <env name="DB_USERNAME" value="root"/>
+    <env name="DB_PASSWORD" value="root"/>
+    
+    <!-- Also define the internal config Keys used by Bootstrapper -->
+    <env name="DB_USER" value="root"/>
+    <env name="DB_PASS" value="root"/>
+  </php>
 </phpunit>

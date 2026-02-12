@@ -25,6 +25,7 @@ use Alxarafe\Lib\Routes;
 use Alxarafe\Tools\Debug;
 use CoreModules\Admin\Controller\Error404Controller;
 use DebugBar\DebugBarException;
+use Alxarafe\Lib\Auth;
 
 class WebDispatcher extends Dispatcher
 {
@@ -66,6 +67,13 @@ class WebDispatcher extends Dispatcher
         }
 
         $theme = Config::getConfig()->main->theme ?? 'default';
+
+        if (Auth::isLogged() && Auth::$user) {
+            $userTheme = Auth::$user->getTheme();
+            if (!empty($userTheme)) {
+                $theme = $userTheme;
+            }
+        }
 
         $templates_path = [
             // Theme override

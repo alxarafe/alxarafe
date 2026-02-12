@@ -24,8 +24,6 @@ namespace Alxarafe\Base\Controller;
 use Alxarafe\Base\Controller\Trait\DbTrait;
 use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Functions;
-use CoreModules\Admin\Controller\AuthController;
-use CoreModules\Admin\Controller\ConfigController;
 
 /**
  * Class Controller.
@@ -52,19 +50,32 @@ abstract class Controller extends ViewController
     {
         parent::__construct($action, $data);
 
-        // Skip checks if we are already in the Configuration module
-        if (static::class === ConfigController::class) {
-            return;
+        // Authentication and Authorization Checks
+        if ($this->shouldEnforceAuth()) {
+            // 1. Authentication Check
+            if (!\Alxarafe\Lib\Auth::isLogged()) {
+                $currentUrl = \Alxarafe\Lib\Functions::getUrl() . '/index.php?' . $_SERVER['QUERY_STRING'];
+                \Alxarafe\Lib\Functions::httpRedirect(\CoreModules\Admin\Controller\AuthController::url(true, false) . '&redirect=' . urlencode($currentUrl));
+            }
+
+            // 2. Authorization Check
+            // At this point Auth::$user is set (isLogged ensures it)
+            $actionName = $this->action ?: 'index';
+            if (!\Alxarafe\Lib\Auth::$user->can($actionName, static::getControllerName(), static::getModuleName())) {
+                \Alxarafe\Lib\Messages::addError(\Alxarafe\Lib\Trans::_('access_denied'));
+                \Alxarafe\Lib\Functions::httpRedirect('index.php?module=Admin&controller=Error404');
+            }
         }
 
+        $this->username = \Alxarafe\Lib\Auth::$user?->name;
+    }
 
-
-        // 2. Ensure Authentication (except for AuthController itself)
-        if (static::class !== AuthController::class && !Auth::isLogged()) {
-            $currentUrl = Functions::getUrl() . '/index.php?' . $_SERVER['QUERY_STRING'];
-            Functions::httpRedirect(AuthController::url(true, false) . '&redirect=' . urlencode($currentUrl));
-        }
-
-        $this->username = Auth::$user?->name;
+    /**
+     * Determine if this controller requires authentication.
+     * Can be overridden by child classes (e.g., ConfigController during install).
+     */
+    protected function shouldEnforceAuth(): bool
+    {
+        return true;
     }
 }

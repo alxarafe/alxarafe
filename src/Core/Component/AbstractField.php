@@ -131,6 +131,7 @@ abstract class AbstractField implements JsonSerializable
     {
         $data = array_merge([
             'field' => $this->field,
+            'name' => $this->field, // Ensure 'name' is available for Blade templates
             'label' => $this->label,
             'component' => $this->component,
             'type' => $this->getType(),

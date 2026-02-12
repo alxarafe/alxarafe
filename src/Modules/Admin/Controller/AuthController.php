@@ -18,14 +18,13 @@
 
 namespace CoreModules\Admin\Controller;
 
-use Alxarafe\Base\Controller\Controller;
-use Alxarafe\Base\Controller\Trait\DbTrait;
+use Alxarafe\Base\Controller\GenericPublicController;
 use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 
-class AuthController extends Controller
+class AuthController extends GenericPublicController
 {
     const MENU = 'admin|auth';
     const SIDEBAR_MENU = [
@@ -34,8 +33,6 @@ class AuthController extends Controller
         ['option' => 'admin|auth|forgot_password', 'url' => 'index.php?module=Admin&controller=Auth&method=forgotPassword']
     ];
 
-    use DbTrait;
-
     public ?string $username = null;
     public $password;
     public $remember;
@@ -43,10 +40,6 @@ class AuthController extends Controller
     public function __construct()
     {
         parent::__construct();
-
-        //        if (!static::connectDb($this->config->db)) {
-        //            throw new \Exception('Cannot connect to database.');
-        //        }
     }
 
     /**

@@ -128,6 +128,16 @@ abstract class GenericController
      */
     protected function executeAction(): bool
     {
+        $isPublic = is_subclass_of(static::class, 'GenericPublicController');
+        if (!$isPublic && \Alxarafe\Lib\Auth::$user) {
+            if (!\Alxarafe\Lib\Auth::$user->can($this->action, static::getControllerName(), static::getModuleName())) {
+                Debug::message(
+                    Trans::_('access_denied_action', ['action' => $this->action])
+                );
+                return false;
+            }
+        }
+
         $actionMethod = 'do' . ucfirst(Str::camel($this->action));
 
         if (!method_exists($this, $actionMethod)) {

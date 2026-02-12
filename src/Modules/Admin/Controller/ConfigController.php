@@ -239,6 +239,37 @@ class ConfigController extends ResourceController
         return 'Config';
     }
 
+    /**
+     * Determine if this controller requires authentication.
+     * Use to allow access during installation (when DB/Tables are missing).
+     */
+    protected function shouldEnforceAuth(): bool
+    {
+        $config = \Alxarafe\Base\Config::getConfig();
+
+        // If no config or no DB connection -> Allow access (return false)
+        if (!$config || empty($config->db) || !\Alxarafe\Base\Database::checkIfDatabaseExists($config->db, true)) {
+            return false;
+        }
+
+        // If DB exists, check for users table
+        try {
+            $dsn = "{$config->db->type}:host={$config->db->host};dbname={$config->db->name};charset={$config->db->charset}";
+            $pdo = new \PDO($dsn, $config->db->user, $config->db->pass);
+            $prefix = $config->db->prefix ?? '';
+            // Use explicit prepared statement or simple query
+            $stmt = $pdo->query("SHOW TABLES LIKE '{$prefix}users'");
+            if ($stmt && $stmt->rowCount() === 0) {
+                return false;
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        // DB and Tables exist -> Enforce Auth
+        return true;
+    }
+
     #[\Override]
     public function beforeAction(): bool
     {
@@ -249,8 +280,6 @@ class ConfigController extends ResourceController
         $this->dbtypes = Database::getDbDrivers();
 
         Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
-
-
 
         $this->checkDatabaseStatus();
 

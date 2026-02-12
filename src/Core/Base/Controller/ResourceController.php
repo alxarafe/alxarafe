@@ -2,6 +2,7 @@
 
 namespace Alxarafe\Base\Controller;
 
+use Alxarafe\Base\Controller\Interface\ResourceInterface;
 use Alxarafe\Base\Controller\Trait\ResourceTrait;
 
 /**

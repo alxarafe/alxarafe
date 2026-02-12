@@ -18,20 +18,25 @@
 
 namespace CoreModules\Admin\Controller;
 
+use Alxarafe\Base\Controller\Controller;
 use Alxarafe\Base\Config;
-use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Base\Database;
 use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Lib\Functions;
+use Alxarafe\Lib\Auth;
 
 /**
  * Class ConfigController. App settings controller.
  */
-class MigrationController extends ViewController
+class MigrationController extends Controller
 {
-    use \Alxarafe\Base\Controller\Trait\DbTrait;
-
     const MENU = 'admin|migrations';
+
+    public function __construct(?string $action = null, mixed $data = null)
+    {
+        parent::__construct($action, $data);
+    }
 
     /**
      * Returns the module name for use in url function

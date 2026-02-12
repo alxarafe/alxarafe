@@ -1,3 +1,6 @@
+/* Copied from skeleton/public/themes/cyberpunk/css/default.css */
+/* Copied from skeleton/public/themes/cyberpunk/css/default.css */
+/* Copied from skeleton/public/themes/cyberpunk/css/default.css */
 body {
     background-color: #0b0c10;
     color: #66fcf1;
@@ -53,16 +56,40 @@ body {
 /* Table Overrides */
 .table {
     color: #c5c6c7;
+    --bs-table-color: #c5c6c7;
+    --bs-table-bg: transparent;
+    --bs-table-border-color: #45a29e;
+    --bs-table-striped-bg: rgba(69, 162, 158, 0.1);
+    --bs-table-striped-color: #c5c6c7;
+    --bs-table-active-bg: rgba(69, 162, 158, 0.2);
+    --bs-table-active-color: #66fcf1;
+    --bs-table-hover-bg: rgba(69, 162, 158, 0.15);
+    --bs-table-hover-color: #66fcf1;
+}
+
+.table td,
+.table th {
+    border-color: #45a29e;
+    color: #c5c6c7 !important;
+    /* Force visibility */
+    background-color: transparent;
+    /* Let row bg show */
+}
+
+/* Explicit Bootstrap Override for Striped Rows if variables fail */
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    color: #c5c6c7 !important;
+    background-color: rgba(69, 162, 158, 0.05) !important;
 }
 
 .table thead th {
     border-bottom: 2px solid #45a29e;
-    color: #45a29e;
+    color: #45a29e !important;
 }
 
 .table-hover tbody tr:hover {
-    color: #66fcf1;
-    background-color: rgba(69, 162, 158, 0.1);
+    color: #66fcf1 !important;
+    background-color: rgba(69, 162, 158, 0.1) !important;
 }
 
 /* Buttons */
@@ -312,4 +339,148 @@ select {
 .select2-container--bootstrap-5 .select2-results__option[aria-selected="true"] {
     background-color: #1f2833 !important;
     color: #66fcf1 !important;
+}
+
+/* Retro Terminal Debug Bar Style */
+.phpdebugbar {
+    font-family: 'Courier New', Courier, monospace !important;
+    background-color: #000000 !important;
+}
+
+.phpdebugbar-header,
+.phpdebugbar-body,
+.phpdebugbar-panel,
+.phpdebugbar-dataset-title,
+.phpdebugbar-widget-content {
+    background-color: #000000 !important;
+    color: #33ff00 !important;
+    border-color: #33ff00 !important;
+}
+
+/* WIDGET LIST ITEMS: Black on Green when Hover options */
+.phpdebugbar-widgets-list li:hover,
+.phpdebugbar-widgets-list tr:hover td {
+    background-color: #33ff00 !important;
+    color: #000000 !important;
+}
+
+/* Ensure links inside hovered items turn black */
+.phpdebugbar-widgets-list li:hover a,
+.phpdebugbar-widgets-list li:hover span,
+.phpdebugbar-widgets-list tr:hover td span {
+    color: #000000 !important;
+}
+
+.phpdebugbar-tab,
+.phpdebugbar-indicator {
+    background-color: #000000 !important;
+    color: #33ff00 !important;
+    border-right: 1px solid #33ff00 !important;
+}
+
+/* Active/Hover Tab: High Contrast (Green BG, Black Text) */
+.phpdebugbar-tab.phpdebugbar-active,
+.phpdebugbar-tab:hover {
+    background-color: #33ff00 !important;
+    color: #000000 !important;
+}
+
+/* Ensure icons and text inside active tab turn black */
+.phpdebugbar-tab.phpdebugbar-active .phpdebugbar-text,
+.phpdebugbar-tab.phpdebugbar-active .phpdebugbar-icon,
+.phpdebugbar-tab:hover .phpdebugbar-text,
+.phpdebugbar-tab:hover .phpdebugbar-icon {
+    color: #000000 !important;
+    filter: none !important;
+    /* Remove green tint so it stays black */
+}
+
+/* Normal Icons (Green Tint) */
+.phpdebugbar-icon {
+    filter: sepia(100%) hue-rotate(50deg) saturate(500%) !important;
+}
+
+/* BADGES: Always Black Text on Green BG (as requested) */
+span.phpdebugbar-badge,
+.phpdebugbar .phpdebugbar-badge {
+    background-color: #33ff00 !important;
+    /* Always Green BG */
+    color: #000000 !important;
+    /* Always Black Text */
+    border-radius: 2px !important;
+    padding: 0 4px !important;
+    margin-left: 4px !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+    /* Ensure visibility */
+    border: 1px solid transparent !important;
+}
+
+/* If the tab itself is Green (Active), we need a border to distinguish the Green Badge */
+.phpdebugbar-tab.phpdebugbar-active span.phpdebugbar-badge,
+.phpdebugbar-tab:hover span.phpdebugbar-badge {
+    background-color: #33ff00 !important;
+    /* Keep Green BG */
+    color: #000000 !important;
+    /* Keep Black Text */
+    border: 1px solid #000000 !important;
+    /* Black border to pop against green tab */
+}
+
+/* General Text Color Inheritance */
+.phpdebugbar span,
+.phpdebugbar a {
+    color: inherit !important;
+}
+
+.phpdebugbar-tooltip {
+    background-color: #000000 !important;
+    border: 1px solid #33ff00 !important;
+    color: #33ff00 !important;
+}
+
+.phpdebugbar-datasets-switcher {
+    border: 1px solid #33ff00 !important;
+    background-color: #000000 !important;
+    color: #33ff00 !important;
+}
+
+/* --- DATABASE / SQL TAB SPECIFIC OVERRIDES --- */
+
+/* Normal State: Green text on Black background */
+.phpdebugbar-widgets-sqlqueries {
+    color: #33ff00 !important;
+}
+
+.phpdebugbar-widgets-sqlqueries code,
+.phpdebugbar-widgets-sqlqueries span,
+.phpdebugbar-widgets-sqlqueries pre {
+    color: #33ff00 !important;
+    /* Force green default */
+}
+
+/* Highlighted Syntax (Keywords/Values) - Normal: White */
+.phpdebugbar-widgets-sqlqueries .keyword,
+.phpdebugbar-widgets-sqlqueries b,
+.phpdebugbar-widgets-sqlqueries strong {
+    color: #ffffff !important;
+}
+
+/* Hover State - Row: Background Green (handled by generic list) */
+
+/* Hover State - Text: Normal Black, Highlighted Blue */
+/* We target the specific list context within sqlqueries to override generic rules */
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover code,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover span,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover pre {
+    color: #000000 !important;
+    /* Normal text black on green */
+}
+
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover .keyword,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover b,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover strong {
+    color: #0000ff !important;
+    /* Highlighted text Blue */
+    text-shadow: none !important;
 }

@@ -181,6 +181,23 @@ class UserController extends ResourceController
     {
         try {
             $id = $_POST['id'] ?? null;
+
+            // Handle JSON Input (mirrored from ResourceTrait)
+            $contentType = $_SERVER["CONTENT_TYPE"] ?? $_SERVER["HTTP_CONTENT_TYPE"] ?? '';
+            $rawInput = file_get_contents('php://input');
+
+            if (stripos($contentType, 'application/json') !== false || ($rawInput && $rawInput[0] === '{')) {
+                $json = json_decode($rawInput, true);
+                if (is_array($json)) {
+                    $_POST = array_merge($_POST, $json);
+
+                    // Re-check ID in case it came in JSON
+                    if (empty($id)) {
+                        $id = $_POST['id'] ?? null;
+                    }
+                }
+            }
+
             if ($id === 'new' || empty($id)) {
                 $user = new User();
             } else {
@@ -191,8 +208,12 @@ class UserController extends ResourceController
             }
 
             // Basic fields
-            $user->name = $_POST['name'] ?? '';
-            $user->email = $_POST['email'] ?? '';
+            if (isset($_POST['name'])) {
+                $user->name = $_POST['name'];
+            }
+            if (isset($_POST['email'])) {
+                $user->email = $_POST['email'];
+            }
 
             // Password handling
             $password = $_POST['password'] ?? '';

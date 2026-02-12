@@ -3,7 +3,8 @@
         "path": "/var/www/html/skeleton/public",
         "url": "http://localhost:8081",
         "theme": "default",
-        "language": "en"
+        "language": "es",
+        "timezone": "Europe/Madrid"
     },
     "db": {
         "type": "mysql",

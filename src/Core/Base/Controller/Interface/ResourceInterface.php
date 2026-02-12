@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Base\Controller;
+namespace Alxarafe\Base\Controller\Interface;
 
 interface ResourceInterface
 {

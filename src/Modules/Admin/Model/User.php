@@ -136,7 +136,7 @@ final class User extends Model
 
     public function getTimezone(): string
     {
-        return $this->timezone ?? 'UTC';
+        return $this->timezone ?? \Alxarafe\Base\Config::getConfig()->main->timezone ?? date_default_timezone_get();
     }
 
     public function getTheme(): string
