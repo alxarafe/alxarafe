@@ -45,6 +45,10 @@ class Template
     {
         $view = $view ?? $this->templateName;
         if (!$view) {
+            if (class_exists(\CoreModules\Admin\Controller\ErrorController::class)) {
+                $url = \CoreModules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode('No view specified');
+                \Alxarafe\Lib\Functions::httpRedirect($url);
+            }
             return "No view specified.";
         }
 

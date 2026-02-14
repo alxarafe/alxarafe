@@ -148,4 +148,15 @@ abstract class Functions
         header('Location: ' . $url);
         die();
     }
+
+    public static function exec(string $command): void
+    {
+        $output = [];
+        $return_var = 0;
+        exec($command, $output, $return_var);
+        if ($return_var !== 0) {
+            throw new \Exception("Command failed: $command. Output: " . implode("\n", $output));
+        }
+        \Alxarafe\Tools\Debug::message("Command executed: $command. Output: " . implode("\n", $output));
+    }
 }

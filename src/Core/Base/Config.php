@@ -115,6 +115,16 @@ abstract class Config
         return dirname($base) . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
     }
 
+    public static function getPublicRoot(): string
+    {
+        $path = self::getConfig()->main->path ?? '';
+        // Fallback if path is empty, try to determine from constant or __DIR__
+        if (empty($path)) {
+            $path = defined('BASE_PATH') ? constant('BASE_PATH') : dirname(__DIR__, 3);
+        }
+        return rtrim($path, '/') . '/public';
+    }
+
     /**
      * Executes pending database migrations.
      */

@@ -21,9 +21,18 @@ namespace CoreModules\Admin\Controller;
 use Alxarafe\Base\Controller\GenericPublicController;
 use Alxarafe\Lib\Auth;
 
+use Alxarafe\Attribute\Menu;
+
+#[Menu(
+    menu: 'admin_sidebar',
+    label: 'Info',
+    icon: 'fa-info-circle',
+    order: 100,
+    permission: 'Admin.Info.doIndex'
+)]
 class InfoController extends GenericPublicController
 {
-    const MENU = 'admin|info';
+
 
     public function __construct()
     {

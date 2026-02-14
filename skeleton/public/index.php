@@ -75,6 +75,12 @@ if (php_sapi_name() === 'cli') {
 try {
     WebDispatcher::run($module, $controller, $method);
 } catch (Throwable $e) {
+    if (class_exists(\CoreModules\Admin\Controller\ErrorController::class) && !headers_sent()) {
+        $trace = $e->getTraceAsString();
+        $url = \CoreModules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace);
+        \Alxarafe\Lib\Functions::httpRedirect($url);
+    }
+
     echo "<h1>Error Fatal en la Aplicación</h1>";
     echo "<pre>" . $e->getMessage() . "</pre>";
     echo "<pre>" . $e->getTraceAsString() . "</pre>";

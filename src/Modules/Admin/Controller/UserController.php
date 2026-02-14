@@ -8,13 +8,20 @@ use Alxarafe\Base\Config;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Lib\Functions;
 use CoreModules\Admin\Model\Role;
+use Alxarafe\Attribute\Menu;
+use Alxarafe\Component\Fields\StaticText;
+use Alxarafe\Component\Fields\Text;
 
+#[Menu(
+    menu: 'admin_sidebar',
+    label: 'Users',
+    icon: 'fa-users',
+    order: 40,
+    permission: 'Admin.User.doIndex'
+)]
 class UserController extends ResourceController
 {
-    const MENU = 'admin';
-    const SIDEBAR_MENU = [
-        ['option' => 'users', 'url' => 'index.php?module=Admin&controller=User']
-    ];
+
 
     #[\Override]
     public static function getModuleName(): string
@@ -158,10 +165,30 @@ class UserController extends ResourceController
             $themeField
         ], ['col' => 'col-md-4']);
 
+        // Avatar Panel
+        $currentAvatar = '';
+        if (!empty($user->avatar) && file_exists(Config::getPublicRoot() . '/' . $user->avatar)) {
+            $currentAvatar = '<div class="mb-2"><img src="' . $user->avatar . '" class="img-thumbnail" style="max-height: 150px;"></div>';
+        }
+
+        $avatarDisplay = new StaticText($currentAvatar, ['col' => 'col-12']);
+        $avatarUpload = new Text('avatar_upload', Trans::_('avatar'), [
+            'type' => 'file',
+            'accept' => 'image/*',
+            'col' => 'col-12',
+            'help' => Trans::_('upload_avatar_help')
+        ]);
+
+        $avatarPanel = new \Alxarafe\Component\Container\Panel(Trans::_('avatar'), [
+            $avatarDisplay,
+            $avatarUpload
+        ], ['col' => 'col-md-12']);
+
         // Register fields with ResourceController
         $this->setEditFields([
             $accountPanel,
-            $preferencesPanel
+            $preferencesPanel,
+            $avatarPanel
         ]);
 
         // Remove manual template setting to use the auto-generated one
@@ -234,6 +261,35 @@ class UserController extends ResourceController
             $user->language = !empty($_POST['language']) ? $_POST['language'] : null;
             $user->timezone = !empty($_POST['timezone']) ? $_POST['timezone'] : null;
             $user->theme = !empty($_POST['theme']) ? $_POST['theme'] : null;
+
+            // Handle Avatar Upload
+            if (isset($_FILES['avatar_upload']) && $_FILES['avatar_upload']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = 'uploads/avatars/';
+                $publicRoot = Config::getPublicRoot();
+                $targetDir = $publicRoot . '/' . $uploadDir;
+
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0755, true);
+                }
+
+                $fileTmpPath = $_FILES['avatar_upload']['tmp_name'];
+                $fileName = $_FILES['avatar_upload']['name'];
+                $fileSize = $_FILES['avatar_upload']['size'];
+                $fileType = $_FILES['avatar_upload']['type'];
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+
+                $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                $dest_path = $targetDir . $newFileName;
+
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                    // Delete old avatar
+                    if (!empty($user->avatar) && file_exists($publicRoot . '/' . $user->avatar)) {
+                        unlink($publicRoot . '/' . $user->avatar);
+                    }
+                    $user->avatar = $uploadDir . $newFileName;
+                }
+            }
 
             if (!$user->save()) {
                 throw new \Exception("Failed to save User to database.");

@@ -41,6 +41,7 @@ abstract class GenericController
      */
     public array $topMenu = [];
     public array $sidebarMenu = [];
+    public array $sidebar_menu = []; // Legacy support for Blade
 
     /**
      * @param string|null $action Optional action override.
@@ -56,7 +57,49 @@ abstract class GenericController
             ?? 'index';
 
         $this->topMenu = ModuleManager::getArrayMenu();
+        // Merge traditional sidebar menu with MenuManager items
         $this->sidebarMenu = ModuleManager::getArraySidebarMenu();
+        if (!is_array($this->sidebarMenu)) {
+            $this->sidebarMenu = [];
+        }
+
+        try {
+            // Fetch items from new Menu attribute system
+            $newSidebarItems = \CoreModules\Admin\Service\MenuManager::get('admin_sidebar');
+
+            \Alxarafe\Tools\Debug::message("MenuManager Items: " . json_encode($newSidebarItems));
+
+            foreach ($newSidebarItems as $item) {
+                // Adapt to legacy structure: ['Group' => ['Label' => 'URL']]
+                // Use 'Admin' as default group if parent is not set
+                $group = $item['parent'] ?: 'admin';
+                // Normalize label
+                $label = $item['label']; // Should be translation key or text
+
+                // Build URL
+                $url = $item['url'] ?: GenericController::url(null, ['route' => $item['route']]);
+                if (!$item['url'] && $item['route'] && strpos($item['route'], '.') !== false) {
+                    $parts = explode('.', $item['route']);
+                    if (count($parts) >= 3) {
+                        $url = "index.php?module={$parts[0]}&controller={$parts[1]}&action={$parts[2]}";
+                    }
+                }
+
+                // Add to sidebar array (merging)
+                $this->sidebarMenu[$group][strtolower($label)] = $url;
+            }
+        } catch (\Throwable $e) {
+            // Ignore errors if class missing
+            \Alxarafe\Tools\Debug::message("MenuManager Error: " . $e->getMessage());
+        }
+
+        // New Menu System Integration
+        try {
+            $this->data['header_user_menu'] = \CoreModules\Admin\Service\MenuManager::get('header_user');
+        } catch (\Throwable $e) {
+            // Fail gracefully if class not found or error
+            $this->data['header_user_menu'] = [];
+        }
 
         // Automatic Trait Initialization (Boot Pattern)
         // Looks for methods named init{TraitName} and executes them
@@ -66,6 +109,9 @@ abstract class GenericController
                 $this->$method();
             }
         }
+
+        // SYNC for Blade Template: side_bar.blade.php uses $me->sidebar_menu
+        $this->sidebar_menu = $this->sidebarMenu;
     }
 
     /**

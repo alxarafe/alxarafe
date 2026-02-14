@@ -25,13 +25,21 @@ use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Attribute\Menu;
 
 /**
  * Class ConfigController. App settings controller.
  */
+#[Menu(
+    menu: 'admin_sidebar',
+    label: 'Migrations',
+    icon: 'fa-bolt',
+    order: 85,
+    permission: 'Admin.Migration.doIndex'
+)]
 class MigrationController extends Controller
 {
-    const MENU = 'admin|migrations';
+
 
     public function __construct(?string $action = null, mixed $data = null)
     {

@@ -19,10 +19,19 @@
 namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Controller\GenericPublicController as BasePublicController;
+use Alxarafe\Attribute\Menu;
 
+#[Menu(
+    menu: 'public_menu',
+    label: 'Public',
+    icon: 'fa-globe',
+    order: 10,
+    permission: null,
+    visible: false
+)]
 class PublicController extends BasePublicController
 {
-    const MENU = 'public|public';
+
 
     /**
      * Returns the module name for use in url function

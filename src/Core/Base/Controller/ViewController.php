@@ -79,6 +79,11 @@ abstract class ViewController extends GenericController
         $this->addVariable('me', $this);
 
         $this->title = static::getModuleName() . ' - ' . static::getControllerName();
+
+        if (\Alxarafe\Lib\Auth::isLogged()) {
+            $this->addVariable('top_menu', \CoreModules\Admin\Service\MenuManager::get('admin_sidebar'));
+            $this->addVariable('header_user_menu', \CoreModules\Admin\Service\MenuManager::get('header_user'));
+        }
     }
 
     /**

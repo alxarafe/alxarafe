@@ -2,7 +2,7 @@
     "main": {
         "path": "/var/www/html/skeleton/public",
         "url": "http://localhost:8081",
-        "theme": "default",
+        "theme": "cyberpunk",
         "language": "es",
         "timezone": "Europe/Madrid"
     },

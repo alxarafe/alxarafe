@@ -1,6 +1,7 @@
 <!-- Start sidebar menu -->
-@if(!empty($me->sidebar_menu))
+@if(!empty($me->sidebar_menu) || !empty($me->sidebar_extra))
     <div class="sidebar">
+        @if(!empty($me->sidebar_menu))
         @foreach ($me->sidebar_menu as $key => $subMenu)
             <h6 class="px-3 mt-3">{{ ucfirst($key) }}</h6>
             @foreach ($subMenu as $subKey => $subSubMenu)
@@ -16,5 +17,6 @@
                 @endif
             @endforeach
         @endforeach
+        @endif
     </div>
 @endif

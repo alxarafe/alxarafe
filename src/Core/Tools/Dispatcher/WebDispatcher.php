@@ -23,7 +23,7 @@ use Alxarafe\Base\Controller\ViewController;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Routes;
 use Alxarafe\Tools\Debug;
-use CoreModules\Admin\Controller\Error404Controller;
+use CoreModules\Admin\Controller\ErrorController;
 use DebugBar\DebugBarException;
 use Alxarafe\Lib\Auth;
 
@@ -114,6 +114,6 @@ class WebDispatcher extends Dispatcher
     protected static function dieWithMessage($message)
     {
         Debug::message('WebDispatcher error: ' . $message);
-        Functions::httpRedirect(Error404Controller::url(true, false));
+        Functions::httpRedirect(ErrorController::url(true, false) . '&message=' . urlencode($message));
     }
 }

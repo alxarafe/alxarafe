@@ -20,9 +20,8 @@ namespace CoreModules\Admin\Controller;
 
 use Alxarafe\Base\Controller\GenericPublicController as BasePublicController;
 
-class Error404Controller extends BasePublicController
+class ErrorController extends BasePublicController
 {
-    const MENU = 'admin|info';
 
     /**
      * Returns the module name for use in url function
@@ -43,12 +42,16 @@ class Error404Controller extends BasePublicController
     #[\Override]
     public static function getControllerName(): string
     {
-        return 'Error404';
+        return 'Error';
     }
 
     public function doIndex(): bool
     {
-        $this->setDefaultTemplate('page/error404');
+        $message = filter_input(INPUT_GET, 'message') ?? 'The requested page has not been found!';
+        $trace = filter_input(INPUT_GET, 'trace');
+        $this->addVariable('errorMessage', $message);
+        $this->addVariable('errorTrace', $trace);
+        $this->setDefaultTemplate('page/error');
         return true;
     }
 }

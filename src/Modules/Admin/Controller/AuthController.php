@@ -23,15 +23,11 @@ use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Functions;
 use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Attribute\Menu;
 
 class AuthController extends GenericPublicController
 {
-    const MENU = 'admin|auth';
-    const SIDEBAR_MENU = [
-        ['option' => 'admin|auth|login', 'url' => 'index.php?module=Admin&controller=Auth&method=login'],
-        ['option' => 'admin|auth|register', 'url' => 'index.php?module=Admin&controller=Auth&method=register'],
-        ['option' => 'admin|auth|forgot_password', 'url' => 'index.php?module=Admin&controller=Auth&method=forgotPassword']
-    ];
+
 
     public ?string $username = null;
     public $password;
@@ -64,6 +60,15 @@ class AuthController extends GenericPublicController
         return 'Auth';
     }
 
+    #[Menu(
+        menu: 'header_user',
+        icon: 'fas fa-user-circle',
+        label: 'My Profile',
+        order: 10,
+        permission: null, // Public inside auth check
+        visibility: 'auth',
+        badgeResolver: null
+    )]
     public function doIndex()
     {
         return $this->doLogin();
@@ -98,6 +103,14 @@ class AuthController extends GenericPublicController
         return true;
     }
 
+    #[Menu(
+        menu: 'header_user',
+        icon: 'fas fa-sign-out-alt',
+        label: 'Logout',
+        order: 99,
+        permission: null,
+        visibility: 'auth'
+    )]
     public function doLogout()
     {
         Auth::logout();

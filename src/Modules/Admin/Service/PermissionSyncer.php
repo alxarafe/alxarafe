@@ -99,7 +99,7 @@ class PermissionSyncer
                         continue;
                     }
 
-                    if (in_array($controllerName, ['Auth', 'Error404', 'Login'])) {
+                    if (in_array($controllerName, ['Auth', 'Error', 'Login'])) {
                         continue;
                     }
 

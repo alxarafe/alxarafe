@@ -6,13 +6,18 @@ use Alxarafe\Base\Controller\ResourceController;
 use CoreModules\Admin\Model\Role;
 use Alxarafe\Base\Controller\Trait\ViewTrait;
 use CoreModules\Admin\Service\PermissionSyncer;
+use Alxarafe\Attribute\Menu;
 
+#[Menu(
+    menu: 'admin_sidebar',
+    label: 'Roles',
+    icon: 'fa-user-shield',
+    order: 30,
+    permission: 'Admin.Role.doIndex'
+)]
 class RoleController extends ResourceController
 {
-    const MENU = 'admin';
-    const SIDEBAR_MENU = [
-        ['option' => 'roles', 'url' => 'index.php?module=Admin&controller=Role']
-    ];
+
 
     #[\Override]
     public static function getModuleName(): string

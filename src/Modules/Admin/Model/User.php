@@ -31,7 +31,8 @@ final class User extends Model
         'role_id',
         'language',
         'timezone',
-        'theme'
+        'theme',
+        'avatar'
     ];
 
     /**

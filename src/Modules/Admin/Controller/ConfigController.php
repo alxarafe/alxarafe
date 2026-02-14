@@ -32,18 +32,21 @@ use Alxarafe\Component\Fields\Select2;
 use Alxarafe\Component\Fields\Text;
 use Alxarafe\Component\Fields\Boolean;
 
+use Alxarafe\Attribute\Menu;
+
 /**
  * Class ConfigController. App settings controller.
  */
+#[Menu(
+    menu: 'admin_sidebar',
+    label: 'Config',
+    icon: 'fa-cogs',
+    order: 99,
+    permission: 'Admin.Config.doIndex'
+)]
 class ConfigController extends ResourceController
 {
-    const MENU = 'admin|config';
-    const SIDEBAR_MENU = [
-        ['option' => 'admin|auth|logout', 'url' => 'index.php?module=Admin&controller=Auth&method=logout'],
-        ['option' => 'general', 'url' => 'index.php?module=Admin&controller=Config&method=general'],
-        ['option' => 'appearance', 'url' => 'index.php?module=Admin&controller=Config&method=appearance'],
-        ['option' => 'security', 'url' => 'index.php?module=Admin&controller=Config&method=security']
-    ];
+
 
     /**
      * Array with availables languages
@@ -406,7 +409,37 @@ class ConfigController extends ResourceController
 
     public function doRegenerate(): bool
     {
-        ModuleManager::regenerate();
+        $execute = filter_input(INPUT_GET, 'execute');
+
+        if ($execute) {
+            try {
+                switch ($execute) {
+                    case 'autoload':
+                        Functions::exec('composer dump-autoload');
+                        Messages::addMessage('Autoload regenerated.');
+                        break;
+                    case 'cache':
+                        // Clear blade cache
+                        $files = glob(constant('BASE_PATH') . '/../var/cache/blade/*'); // get all file names
+                        foreach ($files as $file) { // iterate files
+                            if (is_file($file))
+                                unlink($file); // delete file
+                        }
+                        Messages::addMessage('Cache cleared.');
+                        break;
+                    case 'full':
+                        ModuleManager::regenerate();
+                        Messages::addMessage('System fully regenerated.');
+                        break;
+                }
+            } catch (\Exception $e) {
+                Messages::addError('Error: ' . $e->getMessage());
+            }
+            Functions::httpRedirect(\CoreModules\Admin\Controller\ConfigController::url('regenerate'));
+        }
+
+        $this->addVariable('title', 'System Regeneration');
+        $this->setDefaultTemplate('page/regenerate');
         return true;
     }
 

@@ -63,7 +63,7 @@ abstract class Controller extends ViewController
             $actionName = $this->action ?: 'index';
             if (!\Alxarafe\Lib\Auth::$user->can($actionName, static::getControllerName(), static::getModuleName())) {
                 \Alxarafe\Lib\Messages::addError(\Alxarafe\Lib\Trans::_('access_denied'));
-                \Alxarafe\Lib\Functions::httpRedirect('index.php?module=Admin&controller=Error404');
+                \Alxarafe\Lib\Functions::httpRedirect(\CoreModules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode(\Alxarafe\Lib\Trans::_('access_denied')));
             }
         }
 
