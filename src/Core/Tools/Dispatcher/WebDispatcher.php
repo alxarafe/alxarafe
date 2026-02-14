@@ -67,13 +67,21 @@ class WebDispatcher extends Dispatcher
         }
 
         $theme = Config::getConfig()->main->theme ?? 'default';
+        $language = Config::getConfig()->main->language ?? \Alxarafe\Lib\Trans::FALLBACK_LANG;
 
         if (Auth::isLogged() && Auth::$user) {
             $userTheme = Auth::$user->getTheme();
             if (!empty($userTheme)) {
                 $theme = $userTheme;
             }
+
+            if (!empty(Auth::$user->language)) {
+                $language = Auth::$user->language;
+            }
         }
+
+        \Alxarafe\Lib\Trans::setLang($language);
+
 
         $templates_path = [
             // Theme override

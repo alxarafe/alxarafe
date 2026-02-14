@@ -30,6 +30,40 @@
                 @endforeach
             </ul>
             <ul class="navbar-nav ml-auto">
+                {{-- Clocks --}}
+                @php
+                    $companyTz = \Alxarafe\Base\Config::getConfig()->main->timezone ?? 'UTC';
+                    $userTz = \Alxarafe\Lib\Auth::$user->timezone ?? $companyTz;
+                @endphp
+                <li class="nav-item mr-3 d-none d-lg-block text-right border-right pr-3" style="line-height: 1.1; font-size: 0.75rem; padding-top: 5px;">
+                    <div title="UTC" class="text-muted">UTC: <span id="clock-utc">--</span></div>
+                    <div title="Company ({{ $companyTz }})" class="text-primary">EMP: <span id="clock-company">--</span></div>
+                    @if(\Alxarafe\Lib\Auth::$user)
+                    <div title="User ({{ $userTz }})" class="text-success">USU: <span id="clock-user">--</span></div>
+                    @endif
+                </li>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        function updateClocks() {
+                            const now = new Date();
+                            const fmt = (tz) => now.toLocaleString('es-ES', { timeZone: tz, hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).replace(',', '');
+                            
+                            const utcEl = document.getElementById('clock-utc');
+                            if(utcEl) utcEl.innerText = fmt('UTC');
+
+                            const compEl = document.getElementById('clock-company');
+                            if(compEl) compEl.innerText = fmt('{{ $companyTz }}');
+
+                            @if(\Alxarafe\Lib\Auth::$user)
+                            const userEl = document.getElementById('clock-user');
+                            if(userEl) userEl.innerText = fmt('{{ $userTz }}');
+                            @endif
+                        }
+                        setInterval(updateClocks, 1000);
+                        updateClocks();
+                    });
+                </script>
+
             {{-- Notifications --}}
             @php
                 $notifications = \CoreModules\Admin\Service\NotificationManager::getUnread();
@@ -87,8 +121,18 @@
                                     @endif
                                 </a>
                             @endforeach
+                            <div class="dropdown-divider"></div>
                         @endif
+                        <a class="dropdown-item" href="index.php?module=Admin&controller=Auth&method=logout">
+                            <i class="fas fa-sign-out-alt mr-2"></i> {{ $me->_('logout') }}
+                        </a>
                     </div>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?module=Admin&controller=Auth">
+                        <i class="fas fa-sign-in-alt mr-1"></i> {{ $me->_('login') }}
+                    </a>
                 </li>
             @endif
         </ul>

@@ -11,9 +11,9 @@ class Panel extends AbstractField
 
     public function __construct(string $title, array $fields = [], array $options = [])
     {
-        // Panel doesn't have a single 'field' name in the DB sense, but we need an ID.
-        // Use title slug as ID? Or random?
-        parent::__construct('panel_' . md5($title), $title, $options);
+        // Use title slug as ID to allow merging of sections with same name (case-insensitive)
+        $id = 'panel_' . strtolower(preg_replace('/[^a-zA-Z0-9]+/', '_', $title));
+        parent::__construct($id, $title, $options);
         $this->fields = $fields;
     }
 

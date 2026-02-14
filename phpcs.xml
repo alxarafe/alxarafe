@@ -53,9 +53,7 @@
         <severity>0</severity>
     </rule>
 
-    <rule ref="Generic.Functions.CallTimePassByReference">
-        <severity>0</severity>
-    </rule>
+
 
     <rule ref="Generic.NamingConventions.UpperCaseConstantName">
         <severity>0</severity>

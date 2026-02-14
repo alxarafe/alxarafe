@@ -35,7 +35,7 @@
         <div class="cyber-footer mt-5 px-3">
             <small class="text-muted d-block">IP: 127.0.0.1</small>
             <small class="text-muted d-block">UPTIME: 99.9%</small>
-            <a href="index.php?module=Admin&controller=Auth&action=doLogout" class="cyber-link d-block text-danger mt-3">
+            <a href="index.php?module=Admin&controller=Auth&action=logout" class="cyber-link d-block text-danger mt-3">
                 > LOGOUT_SYSTEM
             </a>
         </div>

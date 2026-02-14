@@ -20,5 +20,6 @@ class Menu
         public ?string $badgeResolver = null,
         public ?string $badgeClass = null,
         public ?string $class = null
-    ) {}
+    ) {
+}
 }

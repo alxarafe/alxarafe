@@ -27,7 +27,7 @@ use Alxarafe\Attribute\Menu;
     icon: 'fa-globe',
     order: 10,
     permission: null,
-    visible: false
+    visibility: 'hidden'
 )]
 class PublicController extends BasePublicController
 {

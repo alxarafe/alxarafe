@@ -40,8 +40,8 @@ abstract class GenericController
      * Top and sidebar menu items.
      */
     public array $topMenu = [];
-    public array $sidebarMenu = [];
     public array $sidebar_menu = []; // Legacy support for Blade
+    public ?string $backUrl = null;
 
     /**
      * @param string|null $action Optional action override.
@@ -58,9 +58,9 @@ abstract class GenericController
 
         $this->topMenu = ModuleManager::getArrayMenu();
         // Merge traditional sidebar menu with MenuManager items
-        $this->sidebarMenu = ModuleManager::getArraySidebarMenu();
-        if (!is_array($this->sidebarMenu)) {
-            $this->sidebarMenu = [];
+        $sidebarMenu = ModuleManager::getArraySidebarMenu();
+        if (!is_array($sidebarMenu)) {
+            $sidebarMenu = [];
         }
 
         try {
@@ -77,7 +77,7 @@ abstract class GenericController
                 $label = $item['label']; // Should be translation key or text
 
                 // Build URL
-                $url = $item['url'] ?: GenericController::url(null, ['route' => $item['route']]);
+                $url = $item['url'] ?: GenericController::url(false, ['route' => $item['route']]);
                 if (!$item['url'] && $item['route'] && strpos($item['route'], '.') !== false) {
                     $parts = explode('.', $item['route']);
                     if (count($parts) >= 3) {
@@ -86,7 +86,7 @@ abstract class GenericController
                 }
 
                 // Add to sidebar array (merging)
-                $this->sidebarMenu[$group][strtolower($label)] = $url;
+                $sidebarMenu[$group][strtolower($label)] = $url;
             }
         } catch (\Throwable $e) {
             // Ignore errors if class missing
@@ -111,7 +111,7 @@ abstract class GenericController
         }
 
         // SYNC for Blade Template: side_bar.blade.php uses $me->sidebar_menu
-        $this->sidebar_menu = $this->sidebarMenu;
+        $this->sidebar_menu = $sidebarMenu;
     }
 
     /**
@@ -174,12 +174,12 @@ abstract class GenericController
      */
     protected function executeAction(): bool
     {
-        $isPublic = is_subclass_of(static::class, 'GenericPublicController');
+        $isPublic = ($this instanceof \Alxarafe\Base\Controller\GenericPublicController) || (static::getControllerName() === 'Error');
         if (!$isPublic && \Alxarafe\Lib\Auth::$user) {
             if (!\Alxarafe\Lib\Auth::$user->can($this->action, static::getControllerName(), static::getModuleName())) {
-                Debug::message(
-                    Trans::_('access_denied_action', ['action' => $this->action])
-                );
+                $msg = Trans::_('access_denied_action', ['action' => $this->action]);
+                Debug::message($msg);
+                \Alxarafe\Lib\Functions::httpRedirect("index.php?module=Admin&controller=Error&action=index&message=" . urlencode($msg));
                 return false;
             }
         }
@@ -187,9 +187,9 @@ abstract class GenericController
         $actionMethod = 'do' . ucfirst(Str::camel($this->action));
 
         if (!method_exists($this, $actionMethod)) {
-            Debug::message(
-                Trans::_('unknown_method', ['method' => $actionMethod])
-            );
+            $msg = Trans::_('unknown_method', ['method' => $actionMethod]);
+            Debug::message($msg);
+            \Alxarafe\Lib\Functions::httpRedirect("index.php?module=Admin&controller=Error&action=index&message=" . urlencode($msg));
             return false;
         }
 

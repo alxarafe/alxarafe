@@ -179,17 +179,23 @@ trait ResourceTrait
     /**
      * Hook called before building configuration.
      */
-    protected function beforeConfig() {}
+    protected function beforeConfig()
+    {
+}
 
     /**
      * Hook called before processing list mode logic.
      */
-    protected function beforeList() {}
+    protected function beforeList()
+    {
+}
 
     /**
      * Hook called before processing edit mode logic.
      */
-    protected function beforeEdit() {}
+    protected function beforeEdit()
+    {
+}
 
     /**
      * Default action handler.
@@ -1146,6 +1152,11 @@ trait ResourceTrait
 
     protected function renderView()
     {
+        // Default back URL for Edit Mode
+        if (empty($this->backUrl) && $this->mode === \Alxarafe\Base\Controller\Interface\ResourceInterface::MODE_EDIT) {
+            $this->backUrl = static::url();
+        }
+
         // Skip automatic view resolution if a template was manually set in controller (e.g. beforeList)
         if (!$this->getTemplateName()) {
             $module = static::getModuleName();
@@ -1212,9 +1223,8 @@ trait ResourceTrait
                     error_log("ResourceTrait: Cache file not found after generation attempt: $cacheFile");
 
                     // Fallback to generic if generation failed or empty
-                    if (!$this->getTemplateName()) {
-                        $this->setDefaultTemplate('core/alxarafe_resource_view');
-                    }
+                    // Fallback to generic if generation failed or empty
+                    $this->setDefaultTemplate('core/alxarafe_resource_view');
                 }
             }
         }

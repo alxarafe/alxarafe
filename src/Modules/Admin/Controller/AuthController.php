@@ -103,6 +103,13 @@ class AuthController extends GenericPublicController
         return true;
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        Functions::httpRedirect('index.php?module=Admin&controller=Auth&action=index');
+        return true;
+    }
+
     #[Menu(
         menu: 'header_user',
         icon: 'fas fa-sign-out-alt',
@@ -113,8 +120,6 @@ class AuthController extends GenericPublicController
     )]
     public function doLogout()
     {
-        Auth::logout();
-        Functions::httpRedirect('index.php?module=Admin&controller=Auth&action=index');
-        return true;
+        return $this->logout();
     }
 }

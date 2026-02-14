@@ -38,7 +38,7 @@ class MenuManager
     {
         // FORCE VISIBILITY FOR DEBUG
         // Ignorar comprobaciones de Auth y Permisos por ahora
-        $label = $item['label'] ?? 'Unknown';
+        // $label = $item['label'] ?? 'Unknown';
         // \Alxarafe\Tools\Debug::message("MenuManager: Visible (FORCED) - {$label}");
         return true;
     }
@@ -71,7 +71,7 @@ class MenuManager
             'AuthController' => $baseDir . '/AuthController.php',
         ];
 
-        foreach ($manualIncludes as $name => $path) {
+        foreach ($manualIncludes as $path) {
             if (file_exists($path)) {
                 require_once $path;
             } else {
@@ -130,8 +130,9 @@ class MenuManager
 
                 if (!class_exists($className)) {
                     if (file_exists($filePath)) require_once $filePath;
-                    if (!class_exists($className)) continue;
                 }
+
+                if (!class_exists($className)) continue;
 
                 try {
                     $reflection = new ReflectionClass($className);

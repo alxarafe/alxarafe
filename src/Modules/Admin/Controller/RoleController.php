@@ -73,25 +73,27 @@ class RoleController extends ResourceController
                 $role = new Role();
                 // Avoid empty ID assignment on new model
             } else {
+                /** @var Role|null $role */
                 $role = Role::find($id);
                 if (!$role) {
                     throw new \Exception("Role not found with ID: " . htmlspecialchars((string)$id));
                 }
             }
+            /** @var Role $role */
 
             $role->name = $_POST['name'] ?? '';
             if (empty($role->name)) {
                 throw new \Exception("Role Name is required");
             }
             $role->description = $_POST['description'] ?? '';
-            $role->active = isset($_POST['active']) ? (int)$_POST['active'] : 1;
+            $role->active = isset($_POST['active']) ? (bool)$_POST['active'] : true;
 
             if (!$role->save()) {
                 throw new \Exception("Failed to save Role to database.");
             }
 
             // Update ID if new (for sync)
-            $this->recordId = $role->id;
+            $this->recordId = (string)$role->id;
 
             // 2. Handle Permissions Checkboxes
             if (isset($_POST['save_permissions'])) {
@@ -135,6 +137,7 @@ class RoleController extends ResourceController
         if ($this->recordId && $this->recordId !== 'new') {
             $role = Role::find($this->recordId);
             if ($role) {
+                /** @var Role $role */
                 $this->addVariable('role', $role);
                 $assignedPermissions = $role->permissions()->pluck('permissions.id')->toArray();
             }

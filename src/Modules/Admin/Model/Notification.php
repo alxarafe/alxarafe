@@ -4,6 +4,17 @@ namespace CoreModules\Admin\Model;
 
 use Alxarafe\Base\Model\Model;
 
+/**
+ * @property int $id
+ * @property int|null $user_id
+ * @property string $type
+ * @property string $message
+ * @property string|null $link
+ * @property bool $read
+ * @property \Illuminate\Support\Carbon|null $read_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Notification extends Model
 {
     protected $table = 'sys_notifications';

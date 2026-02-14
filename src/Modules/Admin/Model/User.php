@@ -15,8 +15,13 @@ use Illuminate\Database\Schema\Blueprint;
  * @property string $name
  * @property string $email
  * @property string $password
- * @property string $token
+ * @property string|null $token
  * @property bool $is_admin
+ * @property int|null $role_id
+ * @property string|null $language
+ * @property string|null $timezone
+ * @property string|null $theme
+ * @property string|null $avatar
  */
 final class User extends Model
 {
@@ -36,7 +41,7 @@ final class User extends Model
     ];
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected $hidden = [
         'password',

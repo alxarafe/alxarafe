@@ -18,26 +18,28 @@ class NotificationManager
      */
     public static function add(string $message, string $type = 'info', ?int $userId = null, ?string $link = null): Notification
     {
-        return Notification::create([
+        /** @var Notification $notification */
+        $notification = Notification::create([
             'user_id' => $userId,
             'type' => $type,
             'message' => $message,
             'link' => $link,
             'read' => false
         ]);
+        return $notification;
     }
 
     /**
      * Get unread notifications for the current user.
      * Includes global notifications (user_id is null).
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function getUnread()
     {
         $userId = Auth::$user->id ?? null;
         if (!$userId) {
-            return collect([]);
+            return collect();
         }
 
         return Notification::where('read', false)
@@ -51,6 +53,8 @@ class NotificationManager
 
     /**
      * Get recent notifications (read or unread)
+     * 
+     * @return \Illuminate\Support\Collection
      */
     public static function getRecent($limit = 5)
     {
@@ -70,6 +74,7 @@ class NotificationManager
 
     public static function markAsRead($id)
     {
+        /** @var Notification|null $notification */
         $notification = Notification::find($id);
         $userId = Auth::$user->id ?? null;
         if ($notification && ($notification->user_id == $userId || $notification->user_id === null)) {

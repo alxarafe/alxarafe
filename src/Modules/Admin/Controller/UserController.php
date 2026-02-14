@@ -44,24 +44,9 @@ class UserController extends ResourceController
     #[\Override]
     protected function getEditFields(): array
     {
-        // Not used directly as we have a custom template, but good for reference
-        return [
-            'name' => 'Name',
-            'email' => 'Email',
-            'password' => 'Password',
-            'role_id' => 'Role',
-            'language' => 'Language',
-            'timezone' => 'Timezone',
-            'theme' => 'Theme',
-            'is_admin' => 'Administrator'
-        ];
-    }
-
-    #[\Override]
-    protected function beforeEdit()
-    {
         // Load data for dropdowns
         $roles = Role::where('active', true)->get();
+        /** @var \Illuminate\Database\Eloquent\Collection<int, Role> $roles */
         $rolesList = [];
         foreach ($roles as $role) {
             $rolesList[$role->id] = $role->name;
@@ -71,6 +56,7 @@ class UserController extends ResourceController
         $themes = Functions::getThemes();
         $timezones = array_combine(\DateTimeZone::listIdentifiers(), \DateTimeZone::listIdentifiers());
 
+        /** @var User $user */
         $user = ($this->recordId && $this->recordId !== 'new') ? User::find($this->recordId) : new User();
         // $this->addVariable('user', $user); // Not needed for generic view
 
@@ -184,14 +170,19 @@ class UserController extends ResourceController
             $avatarUpload
         ], ['col' => 'col-md-12']);
 
-        // Register fields with ResourceController
-        $this->setEditFields([
+        // Return fields for ResourceController to build the view
+        return [
             $accountPanel,
             $preferencesPanel,
             $avatarPanel
-        ]);
+        ];
+    }
 
-        // Remove manual template setting to use the auto-generated one
+    #[\Override]
+    protected function beforeEdit()
+    {
+        // Default template logic uses the structure from getEditFields().
+        // If you create 'templates/page/user_edit.blade.php', you can use:
         // $this->setDefaultTemplate('page/user_edit');
     }
 
@@ -228,11 +219,13 @@ class UserController extends ResourceController
             if ($id === 'new' || empty($id)) {
                 $user = new User();
             } else {
+                /** @var User|null $user */
                 $user = User::find($id);
                 if (!$user) {
                     throw new \Exception("User not found with ID: " . htmlspecialchars((string)$id));
                 }
             }
+            /** @var User $user */
 
             // Basic fields
             if (isset($_POST['name'])) {
@@ -252,10 +245,10 @@ class UserController extends ResourceController
 
             // Role
             $roleId = $_POST['role_id'] ?? null;
-            $user->role_id = ($roleId && $roleId !== '0') ? $roleId : null;
+            $user->role_id = $roleId ? (int)$roleId : null;
 
             // Admin
-            $user->is_admin = isset($_POST['is_admin']) ? (int)$_POST['is_admin'] : 0;
+            $user->is_admin = isset($_POST['is_admin']) ? (bool)$_POST['is_admin'] : false;
 
             // Preferences
             $user->language = !empty($_POST['language']) ? $_POST['language'] : null;
@@ -295,7 +288,7 @@ class UserController extends ResourceController
                 throw new \Exception("Failed to save User to database.");
             }
 
-            $this->recordId = $user->id;
+            $this->recordId = (string)$user->id;
 
             // Redirect
             Functions::httpRedirect(static::url());

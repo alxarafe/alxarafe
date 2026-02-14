@@ -69,6 +69,7 @@ trait DbTrait
         if (!$config || !isset($config->db) || !static::connectDb($config->db)) {
             // Avoid redirect loops if we are already in ConfigController
             // (Just in case DbTrait is used there in the future)
+            /** @phpstan-ignore-next-line */
             if (static::class !== \CoreModules\Admin\Controller\ConfigController::class) {
                 \Alxarafe\Lib\Functions::httpRedirect(
                     \CoreModules\Admin\Controller\ConfigController::url(true, false)

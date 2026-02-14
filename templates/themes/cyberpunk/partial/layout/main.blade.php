@@ -17,7 +17,12 @@
 
         <!-- Main Content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-            <h1 class="cyber-page-title mb-4">> {{ strtoupper($me->title ?? 'Alxarafe') }}_</h1>
+            <h1 class="cyber-page-title mb-4">
+                @if(!empty($me->backUrl))
+                    <a href="{!! $me->backUrl !!}" class="text-decoration-none text-danger me-2">&lt;</a>
+                @endif
+                > {{ strtoupper($me->title ?? 'Alxarafe') }}_
+            </h1>
             
             @php
                 $_body = 'body_' . ($empty ?? false ? 'empty' : 'standard');

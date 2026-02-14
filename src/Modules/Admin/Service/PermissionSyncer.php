@@ -86,9 +86,10 @@ class PermissionSyncer
                     if (file_exists($filePath)) {
                         require_once $filePath;
                     }
-                    if (!class_exists($className)) {
-                        continue; // Skip if class still doesn't exist
-                    }
+                }
+
+                if (!class_exists($className)) {
+                    continue; // Skip if class still doesn't exist
                 }
 
                 try {
