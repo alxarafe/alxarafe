@@ -342,37 +342,32 @@ select {
 }
 
 /* Retro Terminal Debug Bar Style */
+/* Retro Terminal Debug Bar Style */
 .phpdebugbar {
     font-family: 'Courier New', Courier, monospace !important;
     background-color: #000000 !important;
 }
 
+/* Main Panels */
 .phpdebugbar-header,
 .phpdebugbar-body,
 .phpdebugbar-panel,
 .phpdebugbar-dataset-title,
-.phpdebugbar-widget-content {
+.phpdebugbar-widget-content,
+.phpdebugbar-widgets-sqlqueries {
     background-color: #000000 !important;
     color: #33ff00 !important;
     border-color: #33ff00 !important;
 }
 
-/* WIDGET LIST ITEMS: Black on Green when Hover options */
-.phpdebugbar-widgets-list li:hover,
-.phpdebugbar-widgets-list tr:hover td {
-    background-color: #33ff00 !important;
-    color: #000000 !important;
-}
-
-/* Ensure links inside hovered items turn black */
-.phpdebugbar-widgets-list li:hover a,
-.phpdebugbar-widgets-list li:hover span,
-.phpdebugbar-widgets-list tr:hover td span {
-    color: #000000 !important;
-}
-
-.phpdebugbar-tab,
+/* Fix generic indicators */
 .phpdebugbar-indicator {
+    background-color: #000000 !important;
+    color: #33ff00 !important;
+}
+
+/* TABS */
+.phpdebugbar-tab {
     background-color: #000000 !important;
     color: #33ff00 !important;
     border-right: 1px solid #33ff00 !important;
@@ -385,102 +380,88 @@ select {
     color: #000000 !important;
 }
 
-/* Ensure icons and text inside active tab turn black */
-.phpdebugbar-tab.phpdebugbar-active .phpdebugbar-text,
-.phpdebugbar-tab.phpdebugbar-active .phpdebugbar-icon,
-.phpdebugbar-tab:hover .phpdebugbar-text,
-.phpdebugbar-tab:hover .phpdebugbar-icon {
+.phpdebugbar-tab.phpdebugbar-active span,
+.phpdebugbar-tab.phpdebugbar-active i,
+.phpdebugbar-tab:hover span,
+.phpdebugbar-tab:hover i {
     color: #000000 !important;
     filter: none !important;
-    /* Remove green tint so it stays black */
 }
 
-/* Normal Icons (Green Tint) */
+/* ICONS */
 .phpdebugbar-icon {
     filter: sepia(100%) hue-rotate(50deg) saturate(500%) !important;
 }
 
-/* BADGES: Always Black Text on Green BG (as requested) */
+/* BADGES */
 span.phpdebugbar-badge,
 .phpdebugbar .phpdebugbar-badge {
     background-color: #33ff00 !important;
-    /* Always Green BG */
     color: #000000 !important;
-    /* Always Black Text */
-    border-radius: 2px !important;
-    padding: 0 4px !important;
-    margin-left: 4px !important;
-    font-weight: bold !important;
-    display: inline-block !important;
-    /* Ensure visibility */
-    border: 1px solid transparent !important;
 }
 
-/* If the tab itself is Green (Active), we need a border to distinguish the Green Badge */
-.phpdebugbar-tab.phpdebugbar-active span.phpdebugbar-badge,
-.phpdebugbar-tab:hover span.phpdebugbar-badge {
+/* LIST ITEMS (Generic) - Hover Effect */
+.phpdebugbar-widgets-list li:hover,
+.phpdebugbar-widgets-list tr:hover td {
     background-color: #33ff00 !important;
-    /* Keep Green BG */
     color: #000000 !important;
-    /* Keep Black Text */
-    border: 1px solid #000000 !important;
-    /* Black border to pop against green tab */
 }
 
-/* General Text Color Inheritance */
-.phpdebugbar span,
-.phpdebugbar a {
-    color: inherit !important;
-}
-
-.phpdebugbar-tooltip {
-    background-color: #000000 !important;
-    border: 1px solid #33ff00 !important;
-    color: #33ff00 !important;
-}
-
-.phpdebugbar-datasets-switcher {
-    border: 1px solid #33ff00 !important;
-    background-color: #000000 !important;
-    color: #33ff00 !important;
+/* Text colors inside hovered items - Default to Black */
+.phpdebugbar-widgets-list li:hover *,
+.phpdebugbar-widgets-list tr:hover td * {
+    color: #000000 !important;
 }
 
 /* --- DATABASE / SQL TAB SPECIFIC OVERRIDES --- */
 
-/* Normal State: Green text on Black background */
-.phpdebugbar-widgets-sqlqueries {
+/* 1. Normal State: Black Background, Green Text */
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list {
+    background-color: #000000 !important;
+}
+
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li {
+    background-color: #000000 !important;
     color: #33ff00 !important;
+    border-bottom: 1px solid #1a1a1a !important;
 }
 
 .phpdebugbar-widgets-sqlqueries code,
 .phpdebugbar-widgets-sqlqueries span,
 .phpdebugbar-widgets-sqlqueries pre {
+    background-color: transparent !important;
     color: #33ff00 !important;
-    /* Force green default */
 }
 
-/* Highlighted Syntax (Keywords/Values) - Normal: White */
+/* 2. Highlighted Syntax (Keywords like SELECT, FROM, etc.) - Normal: White */
 .phpdebugbar-widgets-sqlqueries .keyword,
 .phpdebugbar-widgets-sqlqueries b,
-.phpdebugbar-widgets-sqlqueries strong {
+.phpdebugbar-widgets-sqlqueries strong,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-stmt-highlight,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-duration,
+.phpdebugbar-widgets-duration {
     color: #ffffff !important;
 }
 
-/* Hover State - Row: Background Green (handled by generic list) */
+/* 3. Hover State: Green Background, Black Text */
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover {
+    background-color: #33ff00 !important;
+    color: #000000 !important;
+}
 
-/* Hover State - Text: Normal Black, Highlighted Blue */
-/* We target the specific list context within sqlqueries to override generic rules */
+/* 4. Text inside Hovered Row: Default Black */
 .phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover code,
 .phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover span,
 .phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover pre {
     color: #000000 !important;
-    /* Normal text black on green */
 }
 
+/* 5. Highlighted Syntax inside Hovered Row: BLUE */
 .phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover .keyword,
 .phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover b,
-.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover strong {
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover strong,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover .phpdebugbar-widgets-stmt-highlight,
+.phpdebugbar-widgets-sqlqueries .phpdebugbar-widgets-list li:hover .phpdebugbar-widgets-duration {
     color: #0000ff !important;
-    /* Highlighted text Blue */
     text-shadow: none !important;
 }

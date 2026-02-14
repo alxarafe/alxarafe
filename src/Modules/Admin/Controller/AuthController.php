@@ -114,6 +114,7 @@ class AuthController extends GenericPublicController
     public function doLogout()
     {
         Auth::logout();
+        Functions::httpRedirect('index.php?module=Admin&controller=Auth&action=index');
         return true;
     }
 }
