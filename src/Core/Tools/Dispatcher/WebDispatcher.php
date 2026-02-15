@@ -83,15 +83,29 @@ class WebDispatcher extends Dispatcher
         \Alxarafe\Lib\Trans::setLang($language);
 
 
+        // Initialize APP_PATH if not defined (fallback to BASE_PATH/..)
+        if (!defined('APP_PATH')) {
+            define('APP_PATH', realpath(constant('BASE_PATH') . '/../'));
+        }
+
         $templates_path = [
-            // Theme override
+            // Theme override (App)
+            constant('APP_PATH') . '/templates/themes/' . $theme . '/',
+            // Theme override (Package)
             constant('ALX_PATH') . '/templates/themes/' . $theme . '/',
 
+            // Module Templates (App - Higher priority)
+            constant('APP_PATH') . '/Modules/' . $module . '/templates/',
+            constant('APP_PATH') . '/Modules/' . $module . '/Templates/',
+
+            // Module Templates (Package)
             constant('ALX_PATH') . '/src/Modules/' . $module . '/templates/',
             constant('ALX_PATH') . '/src/Modules/' . $module . '/Templates/',
-            constant('BASE_PATH') . '/../Modules/' . $module . '/templates/',
-            constant('BASE_PATH') . '/../Modules/' . $module . '/Templates/',
-            // Add common templates path
+
+            // App General Templates
+            constant('APP_PATH') . '/templates/',
+
+            // Package General Templates (Default)
             constant('ALX_PATH') . '/templates/',
         ];
 
