@@ -4,7 +4,15 @@ namespace Modules\Chascarrillo\Controller;
 
 use Alxarafe\Base\Controller\ResourceController;
 use Modules\Chascarrillo\Model\Post;
+use Alxarafe\Attribute\Menu;
 
+#[Menu(
+    menu: 'main_menu',
+    label: 'Gestión Chascarrillos',
+    icon: 'fas fa-laugh-squint',
+    order: 40,
+    permission: 'Chascarrillo.Post.doIndex'
+)]
 class PostController extends ResourceController
 {
     public static function getModuleName(): string

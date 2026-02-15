@@ -5,3 +5,57 @@ es_ES: Spanish (Spain)
 unknown_method: The method %method% does not exists!
 test_english_only: Message only in english!
 error_message: 'Error: "%message%"'
+
+# Core / Dispatcher
+dispatcher_module_controller_not_found: "Controller %module%::%controller% does not exists!"
+dispatcher_file_not_found: "File %file% does not exists!"
+dispatcher_not_view_controller: "%class% is not a valid ViewController!"
+dispatcher_method_not_found: "Method %method% not found in controller %class%"
+template_no_view_specified: "No view specified"
+resource_invalid_tab: "Invalid tab"
+resource_no_id_provided: "No ID provided"
+trans_file_not_found: "Translation file not found: %file%"
+trans_invalid_yaml: "%file% is not a valid YAML file"
+api_bad_call: "Bad API call"
+command_failed_output: "Command failed: %command%. Output: %output%"
+
+# Generic UI Terms
+id: ID
+name: Name
+description: Description
+active: Active
+actions: Actions
+yes: Yes
+no: No
+edit: Edit
+delete: Delete
+save: Save
+cancel: Cancel
+create: Create
+update: Update
+list: List
+back: Back
+email: Email
+password: Password
+none: None
+default: Default
+title_user_general: General
+title_user_preferences: Preferences
+role: Role
+administrator: Administrator
+avatar: Avatar
+timezone: Timezone
+language: Language
+theme: Theme
+users: Users
+logout: Logout
+login: Login
+my_profile: My Profile
+settings: Settings
+default_page_active: Start page active
+set_as_default_page: Set as start page
+timezones: Timezones
+utc: UTC
+app_label: App
+user_label: User
+no_new_notifications: No new notifications

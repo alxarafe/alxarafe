@@ -312,7 +312,7 @@ trait ResourceTrait
         if (!empty($fields)) {
             $isStructured = false;
             foreach ($fields as $v) {
-                if ($v instanceof \Alxarafe\Component\Container\Panel) {
+                if (is_object($v) && method_exists($v, 'getFields')) {
                     $isStructured = true;
                     break;
                 }
@@ -328,7 +328,7 @@ trait ResourceTrait
             } else {
                 // Structured Array -> Multi-Tab
                 foreach ($fields as $key => $tabData) {
-                    if ($tabData instanceof \Alxarafe\Component\Container\Panel) {
+                    if (is_object($tabData) && method_exists($tabData, 'getFields')) {
                         $tabsConfig[$tabData->getField()] = [
                             'label' => $tabData->getLabel(),
                             'fields' => $tabData->getFields()

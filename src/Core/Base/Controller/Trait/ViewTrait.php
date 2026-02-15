@@ -112,6 +112,21 @@ trait ViewTrait
             $this->setDefaultTemplate();
         }
 
+        // Auto-Inference logic: If no view is set, try to infer from context
+        if ($viewPath === null && $this->template->getTemplateName() === null) {
+            // Check if we can infer from controller context
+            /** @phpstan-ignore-next-line */
+            if (isset($this->action) && method_exists($this, 'getModuleName') && method_exists($this, 'getControllerName')) {
+                $module = strtolower($this::getModuleName());
+                $controller = strtolower($this::getControllerName());
+                $action = strtolower((string)$this->action);
+
+                // Convention: page/{module}/{controller}/{action}
+                $inferred = "page/{$module}/{$controller}/{$action}";
+                $this->template->setTemplateName($inferred);
+            }
+        }
+
         try {
             return $this->template->render($viewPath, $this->viewData);
         } catch (\Exception $e) {

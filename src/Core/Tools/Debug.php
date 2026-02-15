@@ -89,6 +89,8 @@ abstract class Debug
 
         self::addCollector(new PhpCollector());
         self::addCollector(new TranslatorCollector());
+        // Add Templates Collector
+        self::addCollector(new \DebugBar\DataCollector\MessagesCollector('templates'));
 
         $baseUrl = constant('BASE_URL') . '/alxarafe/assets/DebugBar/Resources/';
         $basePath = realpath(constant('BASE_PATH') . '/..') . '/';
@@ -98,6 +100,24 @@ abstract class Debug
         self::stopTimer($shortName);
 
         return isset(self::$render);
+    }
+
+    /**
+     * Log a template trace.
+     * 
+     * @param string $name Template name (e.g. 'partial.side_bar')
+     * @param string $path Full file path
+     */
+    public static function addTemplateTrace(string $name, string $path): void
+    {
+        if (!isset(self::$debugBar) || !isset(self::$debugBar['templates'])) {
+            return;
+        }
+        // Normalize path for display
+        $displayPath = str_replace(constant('BASE_PATH'), '', $path);
+        /** @var \DebugBar\DataCollector\MessagesCollector $collector */
+        $collector = self::$debugBar['templates'];
+        $collector->addMessage("$name => $displayPath");
     }
 
     /**

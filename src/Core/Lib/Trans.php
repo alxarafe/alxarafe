@@ -199,13 +199,13 @@ abstract class Trans
 
         $filename = $folder . '/' . $lang . '.yaml';
         if (!file_exists($filename)) {
-            Debug::message($filename . ' not found');
+            Debug::message(self::_('trans_file_not_found', ['file' => $filename]));
             return;
         }
 
         $translates = Yaml::parseFile($filename);
         if (!is_array($translates)) {
-            Debug::message($filename . ' is not a valid YAML file');
+            Debug::message(self::_('trans_invalid_yaml', ['file' => $filename]));
             return;
         }
 

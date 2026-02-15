@@ -1,6 +1,11 @@
-@extends('layouts.master')
+@extends('partial.layout.main')
 
 @section('content')
+<div class="alert alert-info">
+    DEBUG: BLOG INDEX LOADED.<br>
+    Logged: {{ \Alxarafe\Lib\Auth::isLogged() ? 'YES' : 'NO' }}<br>
+    Main Menu Count: {{ isset($main_menu) ? count($main_menu) : 'NULL' }}
+</div>
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-4xl font-bold mb-8 text-center">{{ $title }}</h1>
 

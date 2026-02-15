@@ -13,16 +13,14 @@ use Alxarafe\Component\Fields\StaticText;
 use Alxarafe\Component\Fields\Text;
 
 #[Menu(
-    menu: 'admin_sidebar',
-    label: 'Users',
-    icon: 'fa-users',
+    menu: 'main_menu',
+    label: 'users',
+    icon: 'fas fa-users',
     order: 40,
     permission: 'Admin.User.doIndex'
 )]
 class UserController extends ResourceController
 {
-
-
     #[\Override]
     public static function getModuleName(): string
     {
@@ -44,138 +42,12 @@ class UserController extends ResourceController
     #[\Override]
     protected function getEditFields(): array
     {
-        // Load data for dropdowns
-        $roles = Role::where('active', true)->get();
-        /** @var \Illuminate\Database\Eloquent\Collection<int, Role> $roles */
-        $rolesList = [];
-        foreach ($roles as $role) {
-            $rolesList[$role->id] = $role->name;
-        }
-
-        $languages = Trans::getAvailableLanguages();
-        $themes = Functions::getThemes();
-        $timezones = array_combine(\DateTimeZone::listIdentifiers(), \DateTimeZone::listIdentifiers());
-
         /** @var User $user */
         $user = ($this->recordId && $this->recordId !== 'new') ? User::find($this->recordId) : new User();
-        // $this->addVariable('user', $user); // Not needed for generic view
 
-        // --- Fields Definition ---
+        $isAdminContext = \Alxarafe\Lib\Auth::$user->can('Admin.User.doEdit');
 
-        // Name & Email (50% each)
-        $nameField = new \Alxarafe\Component\Fields\Text('name', Trans::_('name'), [
-            'required' => true,
-            'value' => $user->name ?? '',
-            'col' => 'col-md-6'
-        ]);
-
-        $emailField = new \Alxarafe\Component\Fields\Text('email', Trans::_('email'), [
-            'type' => 'email',
-            'required' => true,
-            'value' => $user->email ?? '',
-            'col' => 'col-md-6'
-        ]);
-
-        // Password (Full width)
-        $passPlaceholder = ($this->recordId === 'new') ? 'Required' : 'Leave empty to keep current';
-        $passHelp = ($this->recordId !== 'new') ? Trans::_('keep_empty_to_not_change') : '';
-        $passwordField = new \Alxarafe\Component\Fields\Text('password', Trans::_('password'), [
-            'type' => 'password',
-            'placeholder' => $passPlaceholder,
-            'help' => $passHelp,
-            'col' => 'col-12'
-        ]);
-
-        // Role (50%)
-        $rolesList = ['' => Trans::_('none')] + $rolesList;
-        $roleField = new \Alxarafe\Component\Fields\Select('role_id', Trans::_('role'), $rolesList, [
-            'value' => $user->role_id ?? '',
-            'col' => 'col-md-6'
-        ]);
-
-        // Admin (50%) - Using Boolean/Checkbox
-        // Check if Boolean component exists and works. Assuming yes.
-        $adminField = new \Alxarafe\Component\Fields\Boolean('is_admin', Trans::_('administrator'), [
-            'value' => (bool)($user->is_admin ?? false),
-            'col' => 'col-md-6'
-        ]);
-
-        // Preferences Fields
-        $langField = new \Alxarafe\Component\Fields\Select('language', Trans::_('language'), ['' => Trans::_('default')] + $languages, ['value' => $user->language ?? '']);
-        $langField->addAction(
-            'fas fa-eraser',
-            "this.closest('.input-group').querySelector('select').value = '';",
-            Trans::_('default'),
-            'btn-outline-secondary',
-            \Alxarafe\Component\Enum\ActionPosition::Right
-        );
-
-        $systemTz = date_default_timezone_get();
-        // Note: Dates must always be stored in UTC and converted to user/system timezone for display.
-        $tzField = new \Alxarafe\Component\Fields\Select2('timezone', Trans::_('timezone'), ['' => Trans::_('default') . " ({$systemTz})"] + $timezones, ['value' => $user->timezone ?? '']);
-        $tzField->addAction(
-            'fas fa-location-arrow',
-            "const tz = Intl.DateTimeFormat().resolvedOptions().timeZone; if(tz) { $(this).closest('.input-group').find('select').val(tz).trigger('change'); }",
-            Trans::_('detect_timezone'),
-            'btn-outline-primary'
-        )->addAction(
-            'fas fa-eraser',
-            "$(this).closest('.input-group').find('select').val('').trigger('change');",
-            Trans::_('default'),
-            'btn-outline-secondary',
-            \Alxarafe\Component\Enum\ActionPosition::Right
-        );
-
-        $themeField = new \Alxarafe\Component\Fields\Select('theme', Trans::_('theme'), ['' => Trans::_('default')] + $themes, ['value' => $user->theme ?? '']);
-        $themeField->addAction(
-            'fas fa-eraser',
-            "this.closest('.input-group').querySelector('select').value = '';",
-            Trans::_('default'),
-            'btn-outline-secondary',
-            \Alxarafe\Component\Enum\ActionPosition::Right
-        );
-
-        // --- Organize into Panels ---
-
-        $accountPanel = new \Alxarafe\Component\Container\Panel(Trans::_('general'), [
-            $nameField,
-            $emailField,
-            $passwordField,
-            $roleField,
-            $adminField
-        ], ['col' => 'col-md-8']);
-
-        $preferencesPanel = new \Alxarafe\Component\Container\Panel(Trans::_('preferences'), [
-            $langField,
-            $tzField,
-            $themeField
-        ], ['col' => 'col-md-4']);
-
-        // Avatar Panel
-        $currentAvatar = '';
-        if (!empty($user->avatar) && file_exists(Config::getPublicRoot() . '/' . $user->avatar)) {
-            $currentAvatar = '<div class="mb-2"><img src="' . $user->avatar . '" class="img-thumbnail" style="max-height: 150px;"></div>';
-        }
-
-        $avatarDisplay = new StaticText($currentAvatar, ['col' => 'col-12']);
-        $avatarUpload = new Text('avatar_upload', Trans::_('avatar'), [
-            'type' => 'file',
-            'accept' => 'image/*',
-            'col' => 'col-12',
-            'help' => Trans::_('upload_avatar_help')
-        ]);
-
-        $avatarPanel = new \Alxarafe\Component\Container\Panel(Trans::_('avatar'), [
-            $avatarDisplay,
-            $avatarUpload
-        ], ['col' => 'col-md-12']);
-
-        // Return fields for ResourceController to build the view
-        return [
-            $accountPanel,
-            $preferencesPanel,
-            $avatarPanel
-        ];
+        return \CoreModules\Admin\Service\UserService::getFormPanels($user, $isAdminContext);
     }
 
     #[\Override]
@@ -192,6 +64,7 @@ class UserController extends ResourceController
         $users = User::with('role')->get();
         $this->addVariable('users', $users);
         $this->setDefaultTemplate('page/user_list');
+        $this->addVariable('title', \Alxarafe\Lib\Trans::_('user_management'));
     }
 
     #[\Override]
@@ -227,72 +100,23 @@ class UserController extends ResourceController
             }
             // @var User $user - Removed unnecessary annotation
 
-            // Basic fields
-            if (isset($_POST['name'])) {
-                $user->name = $_POST['name'];
-            }
-            if (isset($_POST['email'])) {
-                $user->email = $_POST['email'];
-            }
+            // @var User $user - Removed unnecessary annotation
 
-            // Password handling
-            $password = $_POST['password'] ?? '';
-            if (!empty($password)) {
-                $user->password = password_hash($password, PASSWORD_DEFAULT);
-            } elseif ($id === 'new') {
-                throw new \Exception("Password is required for new users.");
-            }
+            $isAdminContext = \Alxarafe\Lib\Auth::$user->can('Admin.User.doEdit');
 
-            // Role
-            $roleId = $_POST['role_id'] ?? null;
-            $user->role_id = $roleId ? (int)$roleId : null;
-
-            // Admin
-            $user->is_admin = isset($_POST['is_admin']) ? (bool)$_POST['is_admin'] : false;
-
-            // Preferences
-            $user->language = !empty($_POST['language']) ? $_POST['language'] : null;
-            $user->timezone = !empty($_POST['timezone']) ? $_POST['timezone'] : null;
-            $user->theme = !empty($_POST['theme']) ? $_POST['theme'] : null;
-
-            // Handle Avatar Upload
-            if (isset($_FILES['avatar_upload']) && $_FILES['avatar_upload']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = 'uploads/avatars/';
-                $publicRoot = Config::getPublicRoot();
-                $targetDir = $publicRoot . '/' . $uploadDir;
-
-                if (!is_dir($targetDir)) {
-                    mkdir($targetDir, 0755, true);
-                }
-
-                $fileTmpPath = $_FILES['avatar_upload']['tmp_name'];
-                $fileName = $_FILES['avatar_upload']['name'];
-                // $fileSize = $_FILES['avatar_upload']['size']; // Unused
-                // $fileType = $_FILES['avatar_upload']['type']; // Unused
-
-                $fileNameCmps = explode(".", $fileName);
-                $fileExtension = strtolower(end($fileNameCmps));
-
-                $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-                $dest_path = $targetDir . $newFileName;
-
-                if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                    // Delete old avatar
-                    if (!empty($user->avatar) && file_exists($publicRoot . '/' . $user->avatar)) {
-                        unlink($publicRoot . '/' . $user->avatar);
-                    }
-                    $user->avatar = $uploadDir . $newFileName;
-                }
-            }
-
-            if (!$user->save()) {
+            if (!\CoreModules\Admin\Service\UserService::saveUser($user, $_POST, $_FILES, $isAdminContext)) {
                 throw new \Exception("Failed to save User to database.");
             }
 
             $this->recordId = (string)$user->id;
 
             // Redirect
-            Functions::httpRedirect(static::url());
+            if (\Alxarafe\Lib\Auth::$user->can('Admin.User.doIndex')) {
+                Functions::httpRedirect(static::url());
+            } else {
+                // If can't list users, go back to profile
+                Functions::httpRedirect("index.php?module=Admin&controller=User&action=profile");
+            }
         } catch (\Throwable $e) {
             echo "<div style='background: #f8d7da; color: #721c24; padding: 20px; border: 10px solid red; margin: 20px;'>";
             echo "<h1>Fatal Error on Save</h1>";
@@ -301,5 +125,36 @@ class UserController extends ResourceController
             echo "</div>";
             die();
         }
+    }
+    /**
+     * Sets the current page (Referer) as the default start page for the user.
+     */
+    public function doSetDefaultPage()
+    {
+        $user = \Alxarafe\Lib\Auth::$user;
+        if ($user) {
+            $redirect = $_SERVER['HTTP_REFERER'] ?? 'index.php';
+
+            // Clean URL to store relative path
+            $baseUrl = Config::getConfig()->main->url;
+            $urlToSave = str_replace($baseUrl, '', $redirect);
+            // Remove leading/trailing slashes
+            $urlToSave = trim($urlToSave, '/');
+
+            // If empty (root), default to index.php
+            if (empty($urlToSave)) {
+                $urlToSave = 'index.php';
+            }
+
+            $user->default_page = $urlToSave;
+            if ($user->save()) {
+                \Alxarafe\Lib\Messages::addMessage(Trans::_('default_page_updated'));
+            } else {
+                \Alxarafe\Lib\Messages::addError(Trans::_('error_saving'));
+            }
+
+            Functions::httpRedirect($redirect);
+        }
+        return true;
     }
 }

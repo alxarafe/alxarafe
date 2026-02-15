@@ -72,6 +72,11 @@ abstract class ViewController extends GenericController
 
         $this->config = Config::getConfig();
 
+        // Auto-register App Templates path if defined
+        if (defined('APP_PATH')) {
+            $this->addTemplatesPath(constant('APP_PATH') . '/templates');
+        }
+
         // Nullsafe operator to prevent errors if config is missing
         Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
 
@@ -80,10 +85,10 @@ abstract class ViewController extends GenericController
 
         $this->title = static::getModuleName() . ' - ' . static::getControllerName();
 
-        if (\Alxarafe\Lib\Auth::isLogged()) {
-            $this->addVariable('top_menu', \CoreModules\Admin\Service\MenuManager::get('admin_sidebar'));
-            $this->addVariable('header_user_menu', \CoreModules\Admin\Service\MenuManager::get('header_user'));
-        }
+        // Inject menus - MenuManager handles visibility (Auth/Guest)
+        // Inject menus - MenuManager handles visibility (Auth/Guest)
+        $this->addVariable('main_menu', \CoreModules\Admin\Service\MenuManager::get('main_menu'));
+        $this->addVariable('user_menu', \CoreModules\Admin\Service\MenuManager::get('user_menu'));
     }
 
     /**

@@ -155,7 +155,7 @@ abstract class Functions
         $return_var = 0;
         exec($command, $output, $return_var);
         if ($return_var !== 0) {
-            throw new \Exception("Command failed: $command. Output: " . implode("\n", $output));
+            throw new \Exception(Trans::_('command_failed_output', ['command' => $command, 'output' => implode("\n", $output)]));
         }
         \Alxarafe\Tools\Debug::message("Command executed: $command. Output: " . implode("\n", $output));
     }

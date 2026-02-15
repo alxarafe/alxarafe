@@ -38,9 +38,9 @@ use Alxarafe\Attribute\Menu;
  * Class ConfigController. App settings controller.
  */
 #[Menu(
-    menu: 'admin_sidebar',
+    menu: 'main_menu',
     label: 'Config',
-    icon: 'fa-cogs',
+    icon: 'fas fa-cogs',
     order: 99,
     permission: 'Admin.Config.doIndex'
 )]
@@ -122,9 +122,9 @@ class ConfigController extends ResourceController
                 new Text('db.pass', Trans::_('db_password'), ['type' => 'password']),
             ],
             'database_preferences' => [
-                new Text('db.prefix', 'DB Prefix'),
-                new Text('db.charset', 'charset'),
-                new Text('db.collation', 'collation'),
+                new Text('db.prefix', Trans::_('db_prefix')),
+                new Text('db.charset', Trans::_('db_charset')),
+                new Text('db.collation', Trans::_('db_collation')),
             ],
             'database' => [
                 new Text('db.name', Trans::_('db_name')),
@@ -374,6 +374,7 @@ class ConfigController extends ResourceController
         $this->configFields = $this->getEditFields();
 
         $this->setDefaultTemplate('page/config');
+        $this->addVariable('title', Trans::_('configuration'));
 
         if (isset($this->config)) {
             // $this->setDefaultTemplate('page/forbidden');

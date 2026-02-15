@@ -19,8 +19,31 @@ body {
     line-height: 1.6;
 }
 
+/* Force icons to White (distinct from Yellow text) */
+i,
+svg,
+.fa,
+.fas,
+.far,
+.fab {
+    color: #FFFFFF !important;
+}
+
 /* Force high contrast on all text elements */
 h1,
+h1.text-dark,
+h1 * {
+    color: #FFFFFF !important;
+}
+
+/* Fix Bootstrap text utilities on Black BG */
+.text-dark,
+.text-body,
+.text-muted,
+.text-secondary {
+    color: var(--hc-text) !important;
+}
+
 h2,
 h3,
 h4,
@@ -50,6 +73,9 @@ a:focus {
 /* Cards & Containers - Solid borders instead of shadows */
 .card,
 .navbar,
+header,
+.bg-light,
+.bg-white,
 .sidebar,
 .modal-content {
     background-color: var(--hc-bg) !important;
@@ -223,4 +249,16 @@ textarea {
 .select2-container--bootstrap-5 .select2-results__option--highlighted {
     background-color: var(--hc-highlight) !important;
     color: #000 !important;
+}
+
+/* PHP DebugBar High Contrast Fix */
+.phpdebugbar,
+.phpdebugbar * {
+    background-color: #000 !important;
+    color: var(--hc-text) !important;
+    border-color: #FFF !important;
+}
+
+.phpdebugbar-fa {
+    color: var(--hc-text) !important;
 }

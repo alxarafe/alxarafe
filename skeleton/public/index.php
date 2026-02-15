@@ -17,6 +17,12 @@ define('APP_PATH', realpath(__DIR__ . '/../'));    // Root of the app (skeleton)
 // Load Configuration and Initialize Services
 $config = Config::getConfig();
 
+// Temporary App Branding (User Request)
+if ($config && isset($config->main)) {
+    $config->main->appName = 'Chascarrillos';
+    $config->main->appIcon = 'fas fa-laugh-wink';
+}
+
 // Bootstrapping
 Debug::initialize();
 Trans::initialize();

@@ -61,13 +61,23 @@ class AuthController extends GenericPublicController
     }
 
     #[Menu(
-        menu: 'header_user',
+        menu: 'user_menu',
         icon: 'fas fa-user-circle',
         label: 'My Profile',
         order: 10,
         permission: null, // Public inside auth check
         visibility: 'auth',
+        url: 'index.php?module=Admin&controller=Profile', // Points to ProfileController::doIndex
         badgeResolver: null
+    )]
+    #[Menu(
+        menu: 'user_menu',
+        icon: 'fas fa-sign-in-alt',
+        label: 'Login',
+        order: 10,
+        permission: null,
+        visibility: 'guest',
+        url: 'index.php?module=Admin&controller=Auth&action=login'
     )]
     public function doIndex()
     {
@@ -77,6 +87,7 @@ class AuthController extends GenericPublicController
     public function doLogin()
     {
         $this->setDefaultTemplate('page/login');
+        $this->addVariable('title', Trans::_('login'));
 
         $this->username = filter_input(INPUT_POST, 'username');
         $this->password = filter_input(INPUT_POST, 'password');
@@ -93,13 +104,13 @@ class AuthController extends GenericPublicController
         }
 
         $redirect = filter_input(INPUT_GET, 'redirect') ?? filter_input(INPUT_POST, 'redirect');
-        if ($redirect) {
-            Functions::httpRedirect(urldecode($redirect));
+
+        // If no redirect provided, default to Home/Index
+        if (!$redirect) {
+            $redirect = \Alxarafe\Lib\Auth::$user->getDefaultPage();
         }
 
-        $this->setDefaultTemplate('page/info');
-        Messages::addMessage(Trans::_('authenticated_user', ['user' => $this->username]));
-
+        Functions::httpRedirect(urldecode($redirect));
         return true;
     }
 
@@ -111,12 +122,13 @@ class AuthController extends GenericPublicController
     }
 
     #[Menu(
-        menu: 'header_user',
+        menu: 'user_menu',
         icon: 'fas fa-sign-out-alt',
         label: 'Logout',
         order: 99,
         permission: null,
-        visibility: 'auth'
+        visibility: 'auth',
+        url: 'index.php?module=Admin&controller=Auth&action=logout'
     )]
     public function doLogout()
     {

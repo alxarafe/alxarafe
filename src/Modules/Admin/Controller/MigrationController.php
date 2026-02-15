@@ -31,9 +31,9 @@ use Alxarafe\Attribute\Menu;
  * Class ConfigController. App settings controller.
  */
 #[Menu(
-    menu: 'admin_sidebar',
+    menu: 'main_menu',
     label: 'Migrations',
-    icon: 'fa-bolt',
+    icon: 'fas fa-bolt',
     order: 85,
     permission: 'Admin.Migration.doIndex'
 )]
@@ -162,6 +162,7 @@ class MigrationController extends Controller
     public function doIndex(): bool
     {
         $this->setDefaultTemplate('page/migration');
+        $this->addVariable('title', Trans::_('migrations'));
 
         // Ensure DB connection is managed via DbTrait
 
@@ -169,6 +170,17 @@ class MigrationController extends Controller
         // List all migrations with status
         \Alxarafe\Tools\Debug::message("MigrationController::doIndex accessing migrations");
         $all = Config::getMigrations();
+
+        // Sort by filename specifically handling date formats (YYYYMMDD vs YYYY_MM_DD)
+        uksort($all, function ($a, $b) use ($all) {
+            $pathA = basename($all[$a]);
+            $pathB = basename($all[$b]);
+            // Remove underscores to normalize 2026_02_10 to 20260210, making it comparable to 20260215
+            $cleanA = str_replace('_', '', $pathA);
+            $cleanB = str_replace('_', '', $pathB);
+            return strcmp($cleanA, $cleanB);
+        });
+
         $migrationsWithStatus = [];
 
         try {

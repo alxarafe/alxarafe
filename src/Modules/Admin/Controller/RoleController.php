@@ -9,9 +9,9 @@ use CoreModules\Admin\Service\PermissionSyncer;
 use Alxarafe\Attribute\Menu;
 
 #[Menu(
-    menu: 'admin_sidebar',
-    label: 'Roles',
-    icon: 'fa-user-shield',
+    menu: 'main_menu',
+    label: 'roles',
+    icon: 'fas fa-user-shield',
     order: 30,
     permission: 'Admin.Role.doIndex'
 )]
@@ -44,10 +44,10 @@ class RoleController extends ResourceController
     protected function getListColumns(): array
     {
         return [
-            'name' => 'Role Name',
-            'description' => 'Description',
-            'active' => 'Active',
-            // 'users_count' => 'Users', 
+            'name' => 'name',
+            'description' => 'description',
+            'active' => 'active',
+            // 'users_count' => 'users',
         ];
     }
 
@@ -55,9 +55,9 @@ class RoleController extends ResourceController
     protected function getEditFields(): array
     {
         return [
-            'name' => 'Role Name',
-            'description' => 'Description',
-            'active' => 'Active',
+            'name' => 'name',
+            'description' => 'description',
+            'active' => 'active',
         ];
     }
 
@@ -159,6 +159,7 @@ class RoleController extends ResourceController
 
         // 2. Use custom simple list template (bypassing JS resource)
         $this->setDefaultTemplate('page/role_list');
+        $this->addVariable('title', \Alxarafe\Lib\Trans::_('role_management'));
     }
 
     /**

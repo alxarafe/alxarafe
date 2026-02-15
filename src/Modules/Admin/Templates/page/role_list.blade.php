@@ -1,18 +1,16 @@
 @extends('partial.layout.main')
 
+@section('header_actions')
+    <a href="?module=Admin&controller=Role&id=new" class="btn btn-primary">
+        <i class="fas fa-plus"></i> {{ \Alxarafe\Lib\Trans::_('create_new_role') }}
+    </a>
+@endsection
+
 @section('content')
 
 <div class="container-fluid">
-    <div class="row mb-4">
-        <div class="col-6">
-            <h1>{{ \Alxarafe\Lib\Trans::_('role_management') }}</h1>
-        </div>
-        <div class="col-6 text-end">
-            <a href="?module=Admin&controller=Role&id=new" class="btn btn-primary">
-                <i class="fas fa-plus"></i> {{ \Alxarafe\Lib\Trans::_('create_new_role') }}
-            </a>
-        </div>
-    </div>
+
+
 
     @if(isset($roles) && count($roles) > 0)
         <div class="card">

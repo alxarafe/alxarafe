@@ -1,9 +1,15 @@
 @extends('partial.layout.main')
 
+@section('header_actions')
+    <button id="startProcess" class="btn btn-primary" type="button" {{ $pendingCount === 0 ? 'disabled' : '' }}>
+        <i class="fas fa-play me-2"></i> {{ $me->_('migration_start_process') }}
+    </button>
+@endsection
+
 @section('content')
     <div class="card">
         <div class="card-header bg-primary text-white">
-            <h5 class="mb-0"><i class="fas fa-database me-2"></i>{{ $me->_('migration_status_title') }}</h5>
+            <h5 class="mb-0 text-white"><i class="fas fa-database me-2"></i>{{ $me->_('migration_status_title') }}</h5>
         </div>
         <div class="card-body">
             @php
@@ -12,7 +18,7 @@
                     if($data['status'] === 'pending') $pendingCount++;
                 }
             @endphp
-
+            
             @if($pendingCount === 0)
                 <div class="alert alert-success d-flex align-items-center mb-3">
                     <i class="fas fa-check-circle fa-2x me-3"></i>
@@ -70,11 +76,7 @@
                 @endforeach
             </div>
 
-            <div class="d-grid gap-2">
-                <button id="startProcess" class="btn btn-primary btn-lg" type="button" {{ $pendingCount === 0 ? 'disabled' : '' }}>
-                    <i class="fas fa-play me-2"></i> {{ $me->_('migration_start_process') }}
-                </button>
-            </div>
+
             
             <div id="results-log" class="mt-3"></div>
         </div>

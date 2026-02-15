@@ -47,7 +47,7 @@ class WebDispatcher extends Dispatcher
         $routes = Routes::getAllRoutes();
         $endpoint = $routes['Controller'][$module][$controller] ?? null;
         if ($endpoint === null) {
-            static::dieWithMessage($module . '::' . $controller . 'does not exists');
+            static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_module_controller_not_found', ['module' => $module, 'controller' => $controller]));
         }
 
         Debug::message("Dispatcher::runWeb executing $module::$controller ($endpoint)");
@@ -56,14 +56,14 @@ class WebDispatcher extends Dispatcher
         $filename = $route_array[1];
 
         if (!file_exists($filename)) {
-            static::dieWithMessage($filename . 'does not exists');
+            static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_file_not_found', ['file' => $filename]));
         }
 
         require_once $filename;
 
         $controllerClass = new $className();
         if (!$controllerClass instanceof ViewController) {
-            static::dieWithMessage($className . ' is not a ViewController');
+            static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_not_view_controller', ['class' => $className]));
         }
 
         $theme = Config::getConfig()->main->theme ?? 'default';
@@ -120,7 +120,7 @@ class WebDispatcher extends Dispatcher
         }
 
         if (!method_exists($controllerClass, $method)) {
-            Debug::message('Method ' . $method . ' not found in controller ' . $className);
+            Debug::message(\Alxarafe\Lib\Trans::_('dispatcher_method_not_found', ['method' => $method, 'class' => $className]));
             $method = 'index';
         }
 

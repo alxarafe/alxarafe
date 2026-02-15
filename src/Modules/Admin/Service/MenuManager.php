@@ -5,6 +5,8 @@ namespace CoreModules\Admin\Service;
 use Alxarafe\Attribute\Menu;
 use Alxarafe\Lib\Routes;
 use Alxarafe\Lib\Auth;
+use Alxarafe\Lib\Trans;
+use Alxarafe\Base\Config;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -25,7 +27,46 @@ class MenuManager
             $allMenus = self::scanMenus();
         }
 
+
+
         $items = $allMenus[$menuCode] ?? [];
+
+        // INJECT DYNAMIC ITEMS
+        if ($menuCode === 'user_menu' && Auth::isLogged()) {
+            $currentUri = ltrim($_SERVER['REQUEST_URI'] ?? '', '/');
+            // Normalize current URI (remove leading slash)
+            // Example: index.php?module=Admin...
+
+            $defaultPage = Auth::$user->getDefaultPage();
+
+            // Loose comparison: check if defaultPage is contained in currentUri or equal
+            // Because REQUEST_URI might have extra slash or domain dependent things in some setups
+            // Simple approach: exact match or strict containment if needed.
+            // Let's rely on standard logic: stored 'index.php...' vs actual request.
+
+            // Handle case where stored is 'index.php' and current is '' (directory index)
+            if ($currentUri === '' && $defaultPage === 'index.php') {
+                $isActive = true;
+            } else {
+                $isActive = ($currentUri === $defaultPage);
+            }
+
+            // Url to trigger action
+            // We point to ProfileController::doSetDefaultPage
+            $actionUrl = 'index.php?module=Admin&controller=Profile&action=setDefaultPage';
+
+            $items[] = [
+                'label' => $isActive ? Trans::_('default_page_active') : Trans::_('set_as_default_page'),
+                'icon' => $isActive ? 'fas fa-star' : 'far fa-star',
+                'route' => null,
+                'url' => $actionUrl,
+                'order' => -10, // Top of the list
+                'permission' => null,
+                'visibility' => 'auth',
+                'badge' => null,
+                'badgeClass' => null,
+            ];
+        }
 
         // 2. Sort by Order
         usort($items, fn($a, $b) => $a['order'] <=> $b['order']);
@@ -34,12 +75,49 @@ class MenuManager
         return array_filter($items, fn($item) => self::isVisible($item));
     }
 
-    private static function isVisible(array $_item): bool
+    private static function isVisible(array $item): bool
     {
-        // FORCE VISIBILITY FOR DEBUG
-        // Ignorar comprobaciones de Auth y Permisos por ahora
-        // $label = $item['label'] ?? 'Unknown';
-        // \Alxarafe\Tools\Debug::message("MenuManager: Visible (FORCED) - {$label}");
+        $visibility = $item['visibility'] ?? 'auth';
+        $permission = $item['permission'] ?? null;
+
+        // 1. Check Auth State
+        $isLogged = \Alxarafe\Lib\Auth::isLogged();
+
+        if ($visibility === 'auth' && !$isLogged) {
+            return false;
+        }
+
+        if ($visibility === 'guest' && $isLogged) {
+            return false;
+        }
+
+        // 2. Check Permissions (only if logged in)
+        if ($isLogged && $permission) {
+            // Permission format: Module.Controller.Action
+            // Or simple string if handled differently.
+            // Auth::$user->can() expects (action, controller, module) or exact key ??
+            // Let's check User::can signature.
+            // can($action, $controller = null, $module = null)
+
+            // If permission is a fully qualified string "Module.Controller.Action", we might need to parse it
+            // OR User::can handles granular checks?
+            // User::can implementation I saw earlier:
+            // $checkKey = strtolower($module . '.' . $controller . '.' . $action);
+            // It constructs the key.
+
+            // If the attribute provides the FULL key (e.g. 'Admin.User.doIndex'),
+            // we should probably split it or update User::can to accept a full key.
+
+            // Let's parse the permission string assuming 'Module.Controller.Action' format
+            $parts = explode('.', $permission);
+            if (count($parts) === 3) {
+                return \Alxarafe\Lib\Auth::$user->can($parts[2], $parts[1], $parts[0]);
+            }
+
+            // Fallback: Pass as action, generic. (Likely to fail if strict)
+            return \Alxarafe\Lib\Auth::$user->can($permission);
+        }
+
         return true;
     }
 
@@ -86,8 +164,29 @@ class MenuManager
             'CoreModules\Admin\Controller\AuthController',
         ];
 
+        // Explicitly include Skeleton Controllers (Blog/Post) to ensure they are scanned
+        $skeletonBase = realpath(__DIR__ . '/../../../../skeleton/Modules/Chascarrillo/Controller');
+        if ($skeletonBase) {
+            $blogPath = $skeletonBase . '/BlogController.php';
+            $postPath = $skeletonBase . '/PostController.php';
+
+            if (file_exists($blogPath)) {
+                require_once $blogPath;
+                $adminControllers[] = 'Modules\Chascarrillo\Controller\BlogController';
+            }
+            if (file_exists($postPath)) {
+                require_once $postPath;
+                $adminControllers[] = 'Modules\Chascarrillo\Controller\PostController';
+            }
+        }
+
+        $scannedClasses = [];
+
         foreach ($adminControllers as $className) {
             if (class_exists($className)) {
+                if (in_array($className, $scannedClasses)) continue;
+                $scannedClasses[] = $className;
+
                 try {
                     $reflection = new ReflectionClass($className);
                     // Infer Module/Controller names
@@ -133,6 +232,8 @@ class MenuManager
                 }
 
                 if (!class_exists($className)) continue;
+                if (in_array($className, $scannedClasses)) continue;
+                $scannedClasses[] = $className;
 
                 try {
                     $reflection = new ReflectionClass($className);
@@ -167,11 +268,17 @@ class MenuManager
             $badge = call_user_func($attr->badgeResolver);
         }
 
+        // Generate Default URL if not provided
+        $url = $attr->url;
+        if (empty($url)) {
+            $url = sprintf('index.php?module=%s&controller=%s&action=%s', $module, $controller, $action);
+        }
+
         $menus[$attr->menu][] = [
-            'label' => $attr->label ?? $controller,
-            'icon' => $attr->icon,
+            'label' => Trans::_($attr->label ?? $controller),
+            'icon' => $attr->icon, // Icons should include prefix (fas/far/fab) in attribute
             'route' => $route,
-            'url' => $attr->url,
+            'url' => $url,
             'order' => $attr->order,
             'permission' => $attr->permission,
             'visibility' => $attr->visibility,

@@ -19,7 +19,9 @@ class ThemeManager
 
     public function getActiveSkin(): string
     {
-        // TODO: Could also fetch from user preferences via Auth::user()
+        if (class_exists(\Alxarafe\Lib\Auth::class) && \Alxarafe\Lib\Auth::isLogged() && !empty(\Alxarafe\Lib\Auth::$user->theme)) {
+            return \Alxarafe\Lib\Auth::$user->theme;
+        }
         return $this->activeSkin;
     }
 

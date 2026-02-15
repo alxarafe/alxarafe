@@ -87,7 +87,7 @@
                                                        data-ctrl-target="{{ $uniqueCtrlId }}"
                                                        {{ in_array($accessPerm->id, $assignedPermissions ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label small fst-italic" for="perm_{{ $accessPerm->id }}">
-                                                    Access
+                                                    {{ \Alxarafe\Lib\Trans::_('access') }}
                                                 </label>
                                             </div>
                                         @endif
@@ -110,7 +110,7 @@
                                         @endforeach
                                         @if(!$accessPerm)
                                             <div class="text-muted small fst-italic">
-                                                No 'doAccess' permission found.
+                                                {{ \Alxarafe\Lib\Trans::_('no_access_permission_found') }}
                                             </div>
                                         @endif
                                     </div>

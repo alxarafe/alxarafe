@@ -4,7 +4,16 @@ namespace Modules\Chascarrillo\Controller;
 
 use Alxarafe\Base\Controller\GenericPublicController;
 use Modules\Chascarrillo\Model\Post;
+use Alxarafe\Attribute\Menu;
 
+#[Menu(
+    menu: 'main_menu',
+    label: 'Ver Chascarrillos',
+    icon: 'fas fa-newspaper',
+    order: 41,
+    visibility: 'public',
+    url: 'index.php?module=Chascarrillo&controller=Blog&action=index'
+)]
 class BlogController extends GenericPublicController
 {
     public static function getModuleName(): string
@@ -22,15 +31,12 @@ class BlogController extends GenericPublicController
         $this->title = 'Chascarrillo Blog';
 
         $posts = Post::where('is_published', true)
-            ->orderBy('published_at', 'desc')
+            ->where('published_at', '<=', date('Y-m-d H:i:s'))
+            ->orderBy('published_at', 'DESC')
             ->get();
 
         $this->addVariable('posts', $posts);
 
-        // Template should be automatically inferred as 'Blog/index' 
-        // if ViewTrait logic assumes Controller/Method
-        // But explicitly setting it is safer if unsure.
-        // setDefaultTemplate() might have set it to 'Chascarrillo/Blog/index'?
         return true;
     }
 
@@ -43,14 +49,13 @@ class BlogController extends GenericPublicController
             ->first();
 
         if (!$post) {
-            \Alxarafe\Lib\Functions::httpRedirect(\CoreModules\Admin\Controller\Error404Controller::url(true));
+            \Alxarafe\Lib\Functions::httpRedirect(\CoreModules\Admin\Controller\ErrorController::url(true));
             return false;
         }
 
         $this->title = $post->title;
         $this->addVariable('post', $post);
 
-        // Template: Blog/show
         return true;
     }
 }

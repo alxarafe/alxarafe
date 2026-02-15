@@ -46,7 +46,7 @@ class Template
         $view = $view ?? $this->templateName;
         if (!$view) {
             if (class_exists(\CoreModules\Admin\Controller\ErrorController::class)) {
-                $url = \CoreModules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode('No view specified');
+                $url = \CoreModules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode(\Alxarafe\Lib\Trans::_('template_no_view_specified'));
                 \Alxarafe\Lib\Functions::httpRedirect($url);
             }
             return "No view specified.";
@@ -65,6 +65,13 @@ class Template
             \Illuminate\Container\Container::setInstance($container);
 
             $this->blade = new Blade($this->paths, $cachePath, $container);
+
+            // Template Tracer Hook
+            if (class_exists(\Alxarafe\Tools\Debug::class)) {
+                $this->blade->composer('*', function ($view) {
+                    \Alxarafe\Tools\Debug::addTemplateTrace($view->getName(), $view->getPath());
+                });
+            }
         }
 
         $viewName = str_replace('/', '.', $view);

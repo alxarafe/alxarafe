@@ -21,6 +21,7 @@ use Illuminate\Database\Schema\Blueprint;
  * @property string|null $language
  * @property string|null $timezone
  * @property string|null $theme
+ * @property string|null $default_page
  * @property string|null $avatar
  */
 final class User extends Model
@@ -37,6 +38,7 @@ final class User extends Model
         'language',
         'timezone',
         'theme',
+        'default_page',
         'avatar'
     ];
 
@@ -61,6 +63,7 @@ final class User extends Model
         'language' => 'string',
         'timezone' => 'string',
         'theme' => 'string',
+        'default_page' => 'string',
     ];
 
 
@@ -149,6 +152,11 @@ final class User extends Model
     public function getTheme(): string
     {
         return $this->theme ?? \Alxarafe\Base\Config::getConfig()->main->theme ?? 'default';
+    }
+
+    public function getDefaultPage(): string
+    {
+        return $this->default_page ?? 'index.php';
     }
 
     /**

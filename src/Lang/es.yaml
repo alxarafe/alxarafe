@@ -4,3 +4,57 @@ en_US: Inglés (EEUU)
 es_ES: Español (España)
 unknown_method: ¡No se ha encontrado el método '%method%'!
 test_english_only: ¡Prueba con mensajes sólo en inglés!
+
+# Core / Dispatcher
+dispatcher_module_controller_not_found: "¡El controlador %module%::%controller% no existe!"
+dispatcher_file_not_found: "¡El archivo %file% no existe!"
+dispatcher_not_view_controller: "¡%class% no es un ViewController válido!"
+dispatcher_method_not_found: "Método %method% no encontrado en controlador %class%"
+template_no_view_specified: "No se ha especificado ninguna vista"
+resource_invalid_tab: "Pestaña inválida"
+resource_no_id_provided: "No se ha proporcionado ID"
+trans_file_not_found: "Archivo de traducciones no encontrado: %file%"
+trans_invalid_yaml: "%file% no es un archivo YAML válido"
+api_bad_call: "Llamada API incorrecta"
+command_failed_output: "Fallo en comando: %command%. Salida: %output%"
+
+# Generic UI Terms
+id: ID
+name: Nombre
+description: Descripción
+active: Activo
+actions: Acciones
+yes: Sí
+no: No
+edit: Editar
+delete: Borrar
+save: Guardar
+cancel: Cancelar
+create: Crear
+update: Actualizar
+list: Listado
+back: Volver
+email: Correo electrónico
+password: Contraseña
+none: Ninguno
+default: Por defecto
+title_user_general: Información General
+title_user_preferences: Preferencias
+role: Rol
+administrator: Administrador
+avatar: Avatar
+timezone: Zona Horaria
+language: Idioma
+theme: Tema
+users: Usuarios
+logout: Cerrar sesión
+login: Iniciar sesión
+my_profile: Mi Perfil
+settings: Configuración
+default_page_active: Página de inicio activa
+set_as_default_page: Establecer como página de inicio
+timezones: Zonas Horarias
+utc: UTC
+app_label: App
+user_label: Usuario
+no_new_notifications: No hay notificaciones nuevas

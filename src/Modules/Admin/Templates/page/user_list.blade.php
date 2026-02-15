@@ -1,18 +1,17 @@
 @extends('partial.layout.main')
 
+@section('header_actions')
+    <a href="?module=Admin&controller=User&id=new" class="btn btn-primary">
+        <i class="fas fa-plus"></i> {{ \Alxarafe\Lib\Trans::_('create_new_user') }}
+    </a>
+@endsection
+
 @section('content')
 
 <div class="container-fluid">
-    <div class="row mb-4">
-        <div class="col-6">
-            <h1>{{ \Alxarafe\Lib\Trans::_('user_management') }}</h1>
-        </div>
-        <div class="col-6 text-end">
-            <a href="?module=Admin&controller=User&id=new" class="btn btn-primary">
-                <i class="fas fa-plus"></i> {{ \Alxarafe\Lib\Trans::_('create_new_user') }}
-            </a>
-        </div>
-    </div>
+
+    {{-- Local Header Removed. Title handled by Global Header. --}}
+
 
     @if(isset($users) && count($users) > 0)
         <div class="card">

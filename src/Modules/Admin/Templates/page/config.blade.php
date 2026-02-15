@@ -1,8 +1,9 @@
 @extends('partial.layout.main')
 
 @section('content')
-    @component('form.form', [])
+    @component('form.form', ['attributes' => ['id' => 'config-form']])
         @component('layout.div', ['fluid' => true])
+
             @slot('slot')
                 @component('layout.row',[])
                     @slot('slot')
@@ -40,37 +41,35 @@
                     @endslot
                 @endcomponent
 
-                @component('layout.row', [])
-                    @slot('slot')
-                        @component('layout.column', [])
-                            @slot('slot')
-                                @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'save'])
-                                    {!! $me->_('save_configuration') !!}
-                                @endcomponent
-                                @if ($me->pdo_connection ?? false)
-                                    @if (!$me->pdo_db_exists ?? false)
-                                        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'createDatabase'])
-                                            {!! $me->_('create_database') !!}
-                                        @endcomponent
-                                    @else
-                                        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'runMigrations'])
-                                            {!! $me->_('go_migrations') !!}
-                                        @endcomponent
-                                    @endif
-                                    @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'regenerate', 'class'=>'warning'])
-                                        {!! $me->_('regenerate') !!}
-                                    @endcomponent
-                                    @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'exit', 'class' => 'danger'])
-                                        {!! $me->_('exit') !!}
-                                    @endcomponent
-                                @endif
-                            @endslot
-                        @endcomponent
-                    @endslot
-                @endcomponent
+                {{-- Buttons managed via header_actions --}}
             @endslot
         @endcomponent
     @endcomponent
+@endsection
+
+@section('header_actions')
+    {{-- Config Actions linked to form --}}
+    @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'save', 'attributes' => ['form="config-form"']])
+        {!! $me->_('save_configuration') !!}
+    @endcomponent
+
+    @if ($me->pdo_connection ?? false)
+        @if (!$me->pdo_db_exists ?? false)
+            @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'createDatabase', 'attributes' => ['form="config-form"']])
+                {!! $me->_('create_database') !!}
+            @endcomponent
+        @else
+            @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'runMigrations', 'attributes' => ['form="config-form"']])
+                {!! $me->_('go_migrations') !!}
+            @endcomponent
+        @endif
+        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'regenerate', 'class'=>'warning', 'attributes' => ['form="config-form"']])
+            {!! $me->_('regenerate') !!}
+        @endcomponent
+        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'exit', 'class' => 'danger', 'attributes' => ['form="config-form"']])
+            {!! $me->_('exit') !!}
+        @endcomponent
+    @endif
 @endsection
 
 @push('scripts')

@@ -1,8 +1,8 @@
 @extends('partial.layout.main')
 
 @section('content')
-    @component('component.card', ['title' => 'Estado de la Base de Datos'])
-        @slot('slot')
+    <div class="card shadow-sm">
+        <div class="card-body">
             @php
                 $pendingCount = 0;
                 foreach($allMigrationsWithStatus as $data) {
@@ -47,8 +47,6 @@
                 </tbody>
             </table>
 
-            <hr>
-                
             @if($pendingCount > 0)
             <div id="progress-container" style="display:none;" class="mb-3">
                 <label>Procesando...</label>
@@ -57,18 +55,22 @@
                 </div>
                 <div id="migration-log" class="mt-2 text-muted font-monospace small"></div>
             </div>
-
-            <button type="button" class="btn btn-primary" id="btn-run-migrations">
-                <i class="fas fa-sync"></i> Ejecutar Migraciones Pendientes
-            </button>
             @endif
-            
-            <a href="{{ $me->url('Admin', 'Config', 'general') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Volver
-            </a>
-        @endslot
-    @endcomponent
+        </div>
+    </div>
 @endsection
+
+@section('header_actions')
+    @if(isset($pendingCount) && $pendingCount > 0)
+        <button type="button" class="btn btn-primary me-2" id="btn-run-migrations">
+            <i class="fas fa-sync"></i> Ejecutar Pendientes
+        </button>
+    @endif
+    <a href="{{ $me->url('Admin', 'Config', 'general') }}" class="btn btn-secondary">
+        <i class="fas fa-close"></i> Cerrar
+    </a>
+@endsection
+
 
 @push('scripts')
 <script>

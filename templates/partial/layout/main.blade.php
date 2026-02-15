@@ -5,12 +5,11 @@
     @include('partial.head')
 </head>
 <body class="container">
-    <h1>
-    @if(!empty($me->backUrl))
-        <a href="{!! $me->backUrl !!}" class="btn btn-sm btn-outline-secondary mr-2"><i class="fas fa-arrow-left"></i></a>
-    @endif
-    {{ $me->title ?? 'Alxarafe' }}
-    </h1>
+    <!-- Header handled by Top Bar -->
+    <!-- Header handled by Body Templates -->
+
+
+
 @php
     $_body = 'body_' . ($empty ?? false ? 'empty' : 'standard');
 @endphp

@@ -10,9 +10,13 @@ db_type: Type
 db_host: Host
 db_user: User
 db_password: Password
-db_create: Create database if not exists
-db_name: Database name
-db_port: Database port
+db_create: Create database (if not exists)
+db_name: Database Name
+db_port: Port
+connection: Connection
+db_prefix: Table Prefix
+db_charset: Charset
+db_collation: Collation
 pdo_connection_error: Error connecting to the database engine
 pdo_db_connection_error: Error connecting to database %db%
 pdo_db_does_not_exists: Database does not exists "%message%"
@@ -31,3 +35,56 @@ processing_migration: 'Processing migration: "%name%"'
 pending_migrations_advice: System tables not found. Please run migrations.
 go_migrations: Run migrations
 error_message: "Error: %message%"
+
+# Migration page
+migration_status_title: Migration Status
+migration_start_process: Start Migration Process
+migration_all_ok: Everything is up to date.
+migration_no_pending: No pending migrations.
+migration_attention_needed: Attention needed.
+migration_pending_count: There are %count% pending migrations. Please run the update process.
+migration_pending: Pending
+migration_completed: Completed
+migration_processing: Processing
+migration_finished: Process Finished
+migration_all_finished: All operations finished.
+migration_error_detail: "Error in %module%::%class%: %message%"
+migration_network_error: "Network error in %module%::%class%"
+migration_error_badge: Error
+migration_fail_badge: Fail
+
+# Role Management
+role_management: Role Management
+create_new_role: Create new Role
+no_roles_found: No Roles defined
+start_by_creating_role: Start by creating a role to define permissions.
+create_first_role: Create first Role
+roles: Roles
+
+# Role Edit & Sync
+new_role: New Role
+edit_role: Edit Role
+permissions: Permissions
+sync_permissions: Sync Permissions
+sync_permissions_confirm: Are you sure you want to sync permissions?
+syncing: Syncing...
+sync_completed: Sync completed.
+created: Created
+restored: Restored
+deleted: Deleted
+error_occurred: An error occurred
+role_details: Role Details
+save_changes: Save Changes
+access: Access
+no_access_permission_found: Access permission not found
+
+# User / Profile
+my_profile: My Profile
+profile_updated: Profile updated successfully.
+default_page_updated: Start page updated.
+error_saving: Error saving.
+upload_avatar_help: Upload avatar image (JPG, PNG).
+detect_timezone: Detect Timezone
+keep_empty_to_not_change: Keep empty to not change
+none: None
+default: Default
