@@ -164,22 +164,6 @@ class MenuManager
             'CoreModules\Admin\Controller\AuthController',
         ];
 
-        // Explicitly include Skeleton Controllers (Blog/Post) to ensure they are scanned
-        $skeletonBase = realpath(__DIR__ . '/../../../../skeleton/Modules/Chascarrillo/Controller');
-        if ($skeletonBase) {
-            $blogPath = $skeletonBase . '/BlogController.php';
-            $postPath = $skeletonBase . '/PostController.php';
-
-            if (file_exists($blogPath)) {
-                require_once $blogPath;
-                $adminControllers[] = 'Modules\Chascarrillo\Controller\BlogController';
-            }
-            if (file_exists($postPath)) {
-                require_once $postPath;
-                $adminControllers[] = 'Modules\Chascarrillo\Controller\PostController';
-            }
-        }
-
         $scannedClasses = [];
 
         foreach ($adminControllers as $className) {

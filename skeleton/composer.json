@@ -11,7 +11,8 @@
         }
     ],
     "require": {
-        "alxarafe/alxarafe": "dev-main"
+        "alxarafe/alxarafe": "dev-main",
+        "erusev/parsedown": "^1.7"
     },
     "autoload": {
         "psr-4": {

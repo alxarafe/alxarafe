@@ -19,8 +19,8 @@ $config = Config::getConfig();
 
 // Temporary App Branding (User Request)
 if ($config && isset($config->main)) {
-    $config->main->appName = 'Chascarrillos';
-    $config->main->appIcon = 'fas fa-laugh-wink';
+    $config->main->appName = 'Alxarafe';
+    $config->main->appIcon = 'fas fa-cubes';
 }
 
 // Bootstrapping
@@ -67,15 +67,28 @@ if (!is_dir(__DIR__ . '/themes') || !is_dir(__DIR__ . '/css')) {
     }
 }
 
-// Simple Routing for Chascarrillo
+// Load Routes
+require_once APP_PATH . '/routes.php';
+
+// Simple Routing
 if (php_sapi_name() === 'cli') {
-    $module = $argv[1] ?? 'Chascarrillo';
-    $controller = $argv[2] ?? 'Blog';
+    $module = $argv[1] ?? 'FrameworkTest';
+    $controller = $argv[2] ?? 'Test';
     $method = $argv[3] ?? 'index';
 } else {
-    $module = $_GET['module'] ?? 'Chascarrillo';
-    $controller = $_GET['controller'] ?? 'Blog';
-    $method = $_GET['method'] ?? 'index';
+    // Try Router first, but only if no module is explicitly provided in the query string
+    $match = !isset($_GET['module']) ? \Alxarafe\Lib\Router::match($_SERVER['REQUEST_URI']) : null;
+    if ($match) {
+        $module = $match['module'];
+        $controller = $match['controller'];
+        $method = $match['action'];
+        // Merge params into $_GET for transparency
+        $_GET = array_merge($_GET, $match['params']);
+    } else {
+        $module = $_GET['module'] ?? 'FrameworkTest';
+        $controller = $_GET['controller'] ?? 'Test';
+        $method = $_GET['method'] ?? 'index';
+    }
 }
 
 try {

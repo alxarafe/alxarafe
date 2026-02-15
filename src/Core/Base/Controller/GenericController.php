@@ -252,6 +252,14 @@ abstract class GenericController
         $module = static::getModuleName();
         $controller = static::getControllerName();
 
+        // Try to generate friendly URL
+        $actionStr = is_string($action) ? $action : 'index';
+        $paramsArr = is_array($params) ? $params : [];
+        $friendlyUrl = \Alxarafe\Lib\Router::generate($module, $controller, $actionStr, $paramsArr);
+        if ($friendlyUrl) {
+            return $friendlyUrl;
+        }
+
         $url = "index.php?module={$module}&controller={$controller}";
 
         if (is_string($action) && $action !== 'index' && $action !== '') {

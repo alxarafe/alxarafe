@@ -3,74 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Chascarrillos' }}</title>
-    
+    <title>{{ $title ?? 'Alxarafe' }}</title>
+    @if(!empty($meta_description))
+    <meta name="description" content="{{ $meta_description }}">
+    @endif
+    @if(!empty($meta_keywords))
+    <meta name="keywords" content="{{ $meta_keywords }}">
+    @endif
+
+    <!-- Open Graph (OG) -->
+    <meta property="og:title" content="{{ $title ?? 'Alxarafe' }}">
+    <meta property="og:description" content="{{ $meta_description ?? 'Microframework PHP' }}">
+    <meta property="og:type" content="website">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Tailwind CSS (for Blog templates compatibility) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        body { padding-top: 60px; }
-        footer { margin-top: 50px; padding: 20px 0; background: #f8f9fa; }
+        :root {
+            --bs-body-font-family: 'Inter', sans-serif;
+            --bs-body-color: #333;
+            --bs-primary: #000;
+            --bs-link-color: #000;
+            --bs-link-hover-color: #555;
+        }
+        
+        body {
+            background-color: #fff;
+            padding-top: 80px;
+        }
+
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #eaeaea;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        .navbar-brand {
+            color: #000 !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: #555 !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-left: 1rem;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: #000 !important;
+        }
+
+        .nav-link.active {
+            color: #000 !important;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            background: #fff;
+            border-top: 1px solid #eaeaea;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #111;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ \Modules\Chascarrillo\Controller\BlogController::url('index') }}">
-                <i class="fas fa-laugh-squint me-2"></i> Chascarrillos
+            <a class="navbar-brand" href="/">
+                Alxarafe
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- Application Menu (Left) -->
-                @if(isset($main_menu) && is_array($main_menu))
-                    <ul class="navbar-nav me-auto">
-                        @foreach($main_menu as $item)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ $item['url'] }}" title="{{ $item['label'] }}">
-                                    @if(!empty($item['icon']))
-                                        <i class="{{ $item['icon'] }}"></i>
-                                        <span class="d-none d-lg-inline ms-1">{{ $item['label'] }}</span>
-                                    @else
-                                        {{ $item['label'] }}
-                                    @endif
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
-
-                <!-- User Menu (Right) -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ \Modules\Chascarrillo\Controller\BlogController::url('index') }}" title="Inicio">
-                            <i class="fas fa-home"></i>
-                        </a>
+                        <a class="nav-link active" href="/">Inicio</a>
                     </li>
-                    
-                    @if(isset($header_user_menu) && is_array($header_user_menu))
-                        @foreach($header_user_menu as $item)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ $item['url'] }}" title="{{ $item['label'] }}">
-                                @if(!empty($item['icon']))
-                                    <i class="{{ $item['icon'] }}"></i>
-                                @endif
-                                <!-- Show label on mobile or if no icon -->
-                                @if(empty($item['icon']))
-                                    {{ $item['label'] }}
-                                @else
-                                    <span class="d-lg-none ms-2">{{ $item['label'] }}</span>
-                                @endif
-                            </a>
-                        </li>
-                        @endforeach
-                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Funcionalidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Documentación</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="/admin">Admin</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -80,9 +121,10 @@
         @yield('content')
     </main>
 
-    <footer class="text-center text-muted">
+    <footer class="text-center">
         <div class="container">
-            <small>&copy; {{ date('Y') }} Chascarrillos App. Powered by Alxarafe Framework.</small>
+            <p class="mb-1">Copyright © {{ date('Y') }} Alxarafe Framework</p>
+            <small class="text-muted">Desarrollo Rápido y Limpio</small>
         </div>
     </footer>
 
