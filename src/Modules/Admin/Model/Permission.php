@@ -39,6 +39,7 @@ class Permission extends Model
     /**
      * Helper to get the permission key in format: Module.Controller.Action
      */
+    #[\Override]
     public function getKey(): string
     {
         return sprintf('%s.%s.%s', $this->module, $this->controller, $this->action);

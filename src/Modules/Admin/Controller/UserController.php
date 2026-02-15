@@ -225,7 +225,7 @@ class UserController extends ResourceController
                     throw new \Exception("User not found with ID: " . htmlspecialchars((string)$id));
                 }
             }
-            /** @var User $user */
+            // @var User $user - Removed unnecessary annotation
 
             // Basic fields
             if (isset($_POST['name'])) {
@@ -267,8 +267,9 @@ class UserController extends ResourceController
 
                 $fileTmpPath = $_FILES['avatar_upload']['tmp_name'];
                 $fileName = $_FILES['avatar_upload']['name'];
-                $fileSize = $_FILES['avatar_upload']['size'];
-                $fileType = $_FILES['avatar_upload']['type'];
+                // $fileSize = $_FILES['avatar_upload']['size']; // Unused
+                // $fileType = $_FILES['avatar_upload']['type']; // Unused
+
                 $fileNameCmps = explode(".", $fileName);
                 $fileExtension = strtolower(end($fileNameCmps));
 

@@ -79,7 +79,7 @@ class RoleController extends ResourceController
                     throw new \Exception("Role not found with ID: " . htmlspecialchars((string)$id));
                 }
             }
-            /** @var Role $role */
+            // @var Role $role - Removed unnecessary annotation
 
             $role->name = $_POST['name'] ?? '';
             if (empty($role->name)) {

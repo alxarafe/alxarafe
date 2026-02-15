@@ -34,7 +34,7 @@ class MenuManager
         return array_filter($items, fn($item) => self::isVisible($item));
     }
 
-    private static function isVisible(array $item): bool
+    private static function isVisible(array $_item): bool
     {
         // FORCE VISIBILITY FOR DEBUG
         // Ignorar comprobaciones de Auth y Permisos por ahora

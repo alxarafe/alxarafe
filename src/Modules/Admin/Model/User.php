@@ -124,6 +124,7 @@ final class User extends Model
                 ->join('role_permissions', 'permissions.id', '=', 'role_permissions.permission_id')
                 ->where('role_permissions.role_id', $this->role_id)
                 ->get()
+                ->toBase()
                 ->map(function ($perm) {
                     return strtolower($perm->module . '.' . $perm->controller . '.' . $perm->action);
                 })

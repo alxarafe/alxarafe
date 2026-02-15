@@ -246,6 +246,7 @@ class ConfigController extends ResourceController
      * Determine if this controller requires authentication.
      * Use to allow access during installation (when DB/Tables are missing).
      */
+    #[\Override]
     protected function shouldEnforceAuth(): bool
     {
         $config = \Alxarafe\Base\Config::getConfig();
@@ -352,6 +353,7 @@ class ConfigController extends ResourceController
      * 
      * @return bool
      */
+    #[\Override]
     public function doSave(): bool
     {
         $this->saveRecord();

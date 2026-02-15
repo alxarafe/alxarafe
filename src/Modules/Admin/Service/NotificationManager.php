@@ -33,43 +33,49 @@ class NotificationManager
      * Get unread notifications for the current user.
      * Includes global notifications (user_id is null).
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getUnread()
     {
         $userId = Auth::$user->id ?? null;
         if (!$userId) {
-            return collect();
+            return new \Illuminate\Database\Eloquent\Collection();
         }
 
-        return Notification::where('read', false)
+        /** @var \Illuminate\Database\Eloquent\Collection $notifications */
+        $notifications = Notification::where('read', false)
             ->where(function ($query) use ($userId) {
                 $query->where('user_id', $userId)
                     ->orWhereNull('user_id');
             })
             ->orderBy('created_at', 'desc')
             ->get();
+
+        return $notifications;
     }
 
     /**
      * Get recent notifications (read or unread)
      * 
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getRecent($limit = 5)
     {
         $userId = Auth::$user->id ?? null;
         if (!$userId) {
-            return collect([]);
+            return new \Illuminate\Database\Eloquent\Collection();
         }
 
-        return Notification::where(function ($query) use ($userId) {
+        /** @var \Illuminate\Database\Eloquent\Collection $notifications */
+        $notifications = Notification::where(function ($query) use ($userId) {
             $query->where('user_id', $userId)
                 ->orWhereNull('user_id');
         })
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get();
+
+        return $notifications;
     }
 
     public static function markAsRead($id)
