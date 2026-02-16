@@ -63,7 +63,7 @@ class Router
 
                 return [
                     'name' => $name,
-                    'module' => $parts[0] ?? '',
+                    'module' => $parts[0],
                     'controller' => $parts[1] ?? '',
                     'action' => $parts[2] ?? 'index',
                     'params' => array_merge($route['defaults'], $params),

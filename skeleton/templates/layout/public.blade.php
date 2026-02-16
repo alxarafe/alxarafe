@@ -27,6 +27,9 @@
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
+    <!-- Alxarafe Content Styles -->
+    <link href="/css/alxarafe-content.css?v={{ time() }}" rel="stylesheet">
+    
     <style>
         :root {
             --bs-body-font-family: 'Inter', sans-serif;

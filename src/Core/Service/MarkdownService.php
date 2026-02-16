@@ -64,4 +64,49 @@ class MarkdownService
             'content' => trim($body),
         ];
     }
+
+    /**
+     * Renders Markdown content to HTML, including support for custom Alxarafe blocks.
+     *
+     * @param string|null $content Markdown text.
+     * @return string Rendered HTML.
+     */
+    public static function render(?string $content): string
+    {
+        if (empty($content)) {
+            return '';
+        }
+
+        // Support for Quarto/Pandoc style blocks: ::: callout-type
+        $content = preg_replace_callback('/:::\s+callout-(\w+)(.*?):::/s', function ($matches) {
+            $type = $matches[1];
+            $body = trim($matches[2]);
+
+            // Extract title if exists (first line of body)
+            $title = '';
+            if (str_starts_with($body, '## ')) {
+                preg_match('/^##\s+(.*)$/m', $body, $titleMatch);
+                $title = $titleMatch[1] ?? '';
+                $body = trim(preg_replace('/^##\s+.*$/m', '', $body, 1));
+            }
+
+            $icon = match ($type) {
+                'info' => 'fas fa-info-circle',
+                'warn' => 'fas fa-exclamation-triangle',
+                'note' => 'fas fa-sticky-note',
+                default => 'fas fa-lightbulb'
+            };
+
+            $html = '<div class="callout callout-' . $type . '">';
+            if ($title) {
+                $html .= '<div class="callout-title"><i class="' . $icon . '"></i> ' . htmlspecialchars($title) . '</div>';
+            }
+            $html .= (new \Parsedown())->text($body);
+            $html .= '</div>';
+
+            return $html;
+        }, $content);
+
+        return (new \Parsedown())->text($content);
+    }
 }
