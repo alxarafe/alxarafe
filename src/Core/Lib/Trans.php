@@ -72,6 +72,7 @@ abstract class Trans
      */
     public static function _(string $message, array $parameters = [], ?string $locale = null): string
     {
+        self::initialize();
         if (!isset($locale)) {
             $locale = self::$translator->getLocale();
         }
@@ -131,6 +132,7 @@ abstract class Trans
      */
     public static function getMissingStrings(): array
     {
+        self::initialize();
         self::$missingStringsDebug = [];
         $locale = self::$translator->getLocale();
         foreach (self::$missingStrings as $name => $value) {
@@ -150,6 +152,7 @@ abstract class Trans
      */
     public static function setLang($lang)
     {
+        self::initialize();
         self::$translations = [];
         self::$translator->setLocale($lang);
         self::getTranslations($lang);
