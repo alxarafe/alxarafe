@@ -30,6 +30,100 @@ use Alxarafe\Lib\Auth;
 class WebDispatcher extends Dispatcher
 {
     /**
+     * Entry point for web requests. Automatically detects the route or uses GET parameters.
+     *
+     * @param string $defaultModule
+     * @param string $defaultController
+     * @param string $defaultAction
+     * @return bool
+     */
+    public static function dispatch(
+        string $defaultModule = 'Chascarrillo',
+        string $defaultController = 'Blog',
+        string $defaultAction = 'index'
+    ): bool {
+        try {
+            // Initial path checks
+            if (!defined('BASE_PATH')) {
+                define('BASE_PATH', dirname($_SERVER['SCRIPT_FILENAME'] ?? __DIR__));
+            }
+            if (!defined('APP_PATH')) {
+                define('APP_PATH', realpath(BASE_PATH . '/../'));
+            }
+
+            // Asset auto-publication check
+            if (!is_dir(BASE_PATH . '/themes') || !is_dir(BASE_PATH . '/css')) {
+                if (class_exists(\Alxarafe\Scripts\ComposerScripts::class)) {
+                    $io = new class {
+                        public function write($msg)
+                        {
+                            error_log("[AssetAutoPublish] " . $msg);
+                        }
+                        public function getIO()
+                        {
+                            return $this;
+                        }
+                    };
+                    $event = new class($io) {
+                        private $io;
+                        public function __construct($io)
+                        {
+                            $this->io = $io;
+                        }
+                        public function getIO()
+                        {
+                            return $this->io;
+                        }
+                    };
+                    \Alxarafe\Scripts\ComposerScripts::postUpdate($event);
+                }
+            }
+
+            // Load routes
+            $routesPath = constant('APP_PATH') . '/routes.php';
+            if (file_exists($routesPath)) {
+                require_once $routesPath;
+            }
+
+            if (php_sapi_name() === 'cli') {
+                global $argv;
+                $module = $argv[1] ?? $defaultModule;
+                $controller = $argv[2] ?? $defaultController;
+                $method = $argv[3] ?? $defaultAction;
+            } else {
+                // Try Router first if no module is explicitly provided
+                $match = !isset($_GET['module']) ? \Alxarafe\Lib\Router::match($_SERVER['REQUEST_URI'] ?? '') : null;
+                if ($match) {
+                    $module = $match['module'];
+                    $controller = $match['controller'];
+                    $method = $match['action'];
+                    // Merge params into $_GET for transparency
+                    $_GET = array_merge($_GET, $match['params']);
+                    $_GET['action'] = $method;
+                    $_GET['route_name'] = $match['name'];
+                } else {
+                    $module = $_GET['module'] ?? $defaultModule;
+                    $controller = $_GET['controller'] ?? $defaultController;
+                    $method = $_GET['action'] ?? $_GET['method'] ?? $defaultAction;
+                }
+            }
+
+            return static::run($module, $controller, $method);
+        } catch (\Throwable $e) {
+            if (class_exists(ErrorController::class) && !headers_sent()) {
+                $trace = $e->getTraceAsString();
+                $url = ErrorController::url(true, false) . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace);
+                \Alxarafe\Lib\Functions::httpRedirect($url);
+            }
+
+            echo "<h1>Application Fatal Error</h1>";
+            echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+            echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
+            return false;
+        }
+    }
+
+    /**
      * Run the controller for the indicated module, if it exists.
      * Returns true if it can be executed.
      *

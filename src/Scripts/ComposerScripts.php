@@ -49,19 +49,7 @@ abstract class ComposerScripts
             return;
         }
 
-        $standardPublic = realpath(__DIR__ . '/../../../../../public');
-        $devPublic = realpath(__DIR__ . '/../../skeleton/public');
-
-        if ($standardPublic && is_dir($standardPublic)) {
-            $public = $standardPublic;
-        } elseif ($devPublic && is_dir($devPublic)) {
-            $public = $devPublic;
-        } else {
-            // Fallback or create relative to root if neither exists?
-            // Let's assume one must exist.
-            $io->write("Initial Public directory search failed. Defaulting to standard path.");
-            $public = $standardPublic ?: (__DIR__ . '/../../../../../public');
-        }
+        $public = self::getPublicDir();
 
         $io->write("Public directory: " . $public);
 
@@ -91,16 +79,7 @@ abstract class ComposerScripts
         // Target: public folder (relative: ../../../../../public/themes)
         // Wait, standard structure is: vendor/package/src -> ../../../public ?
         // Using existing logic for $public path discovery
-        $standardPublic = realpath(__DIR__ . '/../../../../../public');
-        $devPublic = realpath(__DIR__ . '/../../skeleton/public');
-
-        if ($standardPublic && is_dir($standardPublic)) {
-            $public = $standardPublic;
-        } elseif ($devPublic && is_dir($devPublic)) {
-            $public = $devPublic;
-        } else {
-            $public = $standardPublic ?: (__DIR__ . '/../../../../../public');
-        }
+        $public = self::getPublicDir();
         $target = $public . '/themes';
 
         $io->write("Source themes: " . $source);
@@ -201,5 +180,30 @@ abstract class ComposerScripts
         closedir($dir);
 
         return $result;
+    }
+    private static function getPublicDir(): string
+    {
+        $standardPublic = realpath(__DIR__ . '/../../../../../public');
+        $devPublic = realpath(__DIR__ . '/../../skeleton/public');
+
+        if ($standardPublic && is_dir($standardPublic)) {
+            return $standardPublic;
+        }
+        if ($devPublic && is_dir($devPublic)) {
+            return $devPublic;
+        }
+
+        // Search for common names in root
+        $root = realpath(__DIR__ . '/../../../../../');
+        if ($root) {
+            $commonNames = ['public_html', 'www', 'htdocs', 'html'];
+            foreach ($commonNames as $name) {
+                if (is_dir($root . '/' . $name)) {
+                    return $root . '/' . $name;
+                }
+            }
+        }
+
+        return $standardPublic ?: (__DIR__ . '/../../../../../public');
     }
 }
