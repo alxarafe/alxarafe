@@ -1,5 +1,4 @@
-<!-- Cyberpunk Vertical Right Bar (Old "Top Bar" transformed) -->
-@if(!empty($user_menu) || \Alxarafe\Lib\Auth::isLogged())
+<!-- Cyberpunk Vertical Right Bar -->
 <div class="cyber-rightbar d-flex flex-column align-items-center">
     <div class="cyber-scanline-v"></div>
     
@@ -29,28 +28,36 @@
                 </a>
             </div>
         </div>
+    @else
+        <!-- Guest Access icon -->
+        <div class="mb-4 mt-3 text-center">
+            <a href="index.php?module=Admin&controller=Auth" class="text-decoration-none" title="ACCESO">
+                <i class="fas fa-sign-in-alt fa-2x cyber-icon text-info"></i>
+            </a>
+        </div>
     @endif
 
-    <!-- Notifications -->
-    @php
-        $notifications = \CoreModules\Admin\Service\NotificationManager::getUnread();
-        $unreadCount = $notifications->count();
-    @endphp
-    <div class="mb-4 position-relative cyber-icon-container">
-        <a href="#" class="text-decoration-none" title="Notifications">
-            <i class="fas fa-bell fa-2x cyber-icon {{ $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary' }}"></i>
-            @if($unreadCount > 0)
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-dark">
-                    {{ $unreadCount }}
-                </span>
-            @endif
-        </a>
-    </div>
+    <!-- Notifications (Admin feature) -->
+    @if(\Alxarafe\Lib\Auth::isLogged())
+        @php
+            $notifications = \CoreModules\Admin\Service\NotificationManager::getUnread();
+            $unreadCount = $notifications->count();
+        @endphp
+        <div class="mb-4 position-relative cyber-icon-container">
+            <a href="#" class="text-decoration-none" title="Notifications">
+                <i class="fas fa-bell fa-2x cyber-icon {{ $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary' }}"></i>
+                @if($unreadCount > 0)
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-dark">
+                        {{ $unreadCount }}
+                    </span>
+                @endif
+            </a>
+        </div>
+    @endif
 
-    <!-- User Menu Items (Using $user_menu) -->
+    <!-- User Menu Items (Runtime) -->
     @if(!empty($user_menu) && is_array($user_menu))
         @foreach($user_menu as $item)
-            <!-- Skip Logout and Profile links (checked by Label AND URL, but preserve 'Set Default' action) -->
             @php
                 $isSetDefault = (strpos($item['url'], 'action=setDefault') !== false);
                 $isProfile = !$isSetDefault && ($item['label'] === 'Profile' || $item['label'] === 'Perfil' || $item['label'] === 'My Profile' || (strpos($item['url'], 'Profile') !== false && strpos($item['url'], 'action=') === false));
@@ -69,7 +76,50 @@
     <!-- Spacer -->
     <div class="mt-auto"></div>
 
+    <!-- Theme Switcher (Unified via shared partial) -->
+    <div class="mb-4 position-relative cyber-icon-container">
+        @include('partial.theme_switcher', ['class' => 'dropstart'])
+    </div>
+
 </div>
+
+<style>
+    /* Ensure the Bootstrap dropdown doesn't look totally off in Cyberpunk */
+    .cyber-rightbar .dropdown-menu {
+        background-color: rgba(10, 20, 30, 0.98);
+        border: 1px solid #00f0ff;
+        color: #fff;
+    }
+    .cyber-rightbar .dropdown-item {
+        color: #888;
+    }
+    .cyber-rightbar .dropdown-item:hover {
+        background: linear-gradient(90deg, rgba(0, 240, 255, 0.1), transparent);
+        color: #00f0ff;
+    }
+    .cyber-rightbar .dropdown-header {
+        color: #00f0ff;
+        font-family: 'Courier New', monospace;
+        font-size: 0.7em;
+        text-transform: uppercase;
+    }
+
+    /* Original Cyberpunk Styles */
+    .cyber-rightbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 80px;
+        background-color: rgba(5, 10, 15, 0.95);
+        border-left: 1px solid #00f0ff; 
+        z-index: 1040; 
+        box-shadow: -5px 0 15px rgba(0, 240, 255, 0.1);
+        padding-top: 1rem;
+        transition: all 0.3s ease;
+    }
+    ...
+</style>
 
 <style>
     /* Injected Styles for Cyberpunk Right Bar */
