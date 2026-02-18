@@ -62,8 +62,7 @@ abstract class Auth
             $user = User::find($userId);
             self::$user = $user;
         } catch (\Exception $e) {
-            Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
-            Functions::httpRedirect(ConfigController::url(true, false));
+            return false;
         }
 
         if (!self::$user) {

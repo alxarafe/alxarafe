@@ -35,9 +35,9 @@ use stdClass;
  */
 abstract class Config
 {
-    protected const string CONFIG_FILENAME = 'config.json';
+    protected const CONFIG_FILENAME = 'config.json';
 
-    public const array CONFIG_STRUCTURE = [
+    public const CONFIG_STRUCTURE = [
         'main' => ['path', 'url', 'data', 'theme', 'language', 'timezone'],
         'db' => ['type', 'host', 'user', 'pass', 'name', 'port', 'prefix', 'charset', 'collation', 'encryption', 'encrypt_type'],
         'security' => ['debug', 'unique_id', 'https', 'jwt_secret_key']

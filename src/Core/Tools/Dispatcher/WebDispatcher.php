@@ -99,6 +99,8 @@ class WebDispatcher extends Dispatcher
                     $method = $match['action'];
                     // Merge params into $_GET for transparency
                     $_GET = array_merge($_GET, $match['params']);
+                    $_GET['module'] = $module;
+                    $_GET['controller'] = $controller;
                     $_GET['action'] = $method;
                     $_GET['route_name'] = $match['name'];
                 } else {

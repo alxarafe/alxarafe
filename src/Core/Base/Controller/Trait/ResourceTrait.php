@@ -1,5 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 namespace Alxarafe\Base\Controller\Trait;
 
 use Alxarafe\Base\Controller\Interface\ResourceInterface;
@@ -179,23 +198,25 @@ trait ResourceTrait
     /**
      * Hook called before building configuration.
      */
-    protected function beforeConfig()
-    {
-}
+    protected function beforeConfig() {}
 
     /**
      * Hook called before processing list mode logic.
      */
-    protected function beforeList()
-    {
-}
+    protected function beforeList() {}
 
     /**
      * Hook called before processing edit mode logic.
      */
-    protected function beforeEdit()
-    {
-}
+    protected function beforeEdit() {}
+
+    /**
+     * Hook called after a record is saved.
+     * 
+     * @param \Alxarafe\Base\Model\Model $model The saved model instance.
+     * @param array $data The original submitted data.
+     */
+    protected function afterSaveRecord(\Alxarafe\Base\Model\Model $model, array $data) {}
 
     /**
      * Default action handler.
@@ -1032,13 +1053,13 @@ trait ResourceTrait
             foreach ($fieldDefs as $fieldName => $def) {
                 if ($def->getType() === 'relation_list') {
                     // Check if key starts with "fieldName["
-                    if (strpos($key, $fieldName . '[') === 0) {
+                    if (strpos((string)$key, $fieldName . '[') === 0) {
                         // It's part of this relation.
                         // We need to structure it into $relationData[$fieldName]
                         // Parse: addresses[123][street] -> value
                         // This requires expanding the dot/bracket notation.
                         // Simple regex extraction:
-                        if (preg_match('/^' . preg_quote($fieldName, '/') . '\[([^\]]+)\]\[([^\]]+)\]$/', $key, $matches)) {
+                        if (preg_match('/^' . preg_quote($fieldName, '/') . '\[([^\]]+)\]\[([^\]]+)\]$/', (string)$key, $matches)) {
                             // matches[1] = index, matches[2] = subfield
                             $relationData[$fieldName][$matches[1]][$matches[2]] = $value;
                         }
@@ -1122,6 +1143,9 @@ trait ResourceTrait
             }
 
             DB::connection()->commit();
+
+            $this->afterSaveRecord($model, $data);
+
             $this->jsonResponse([
                 'status' => 'success',
                 'id' => $model->{$model->primaryColumn()},
