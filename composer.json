@@ -57,10 +57,10 @@
   },
   "scripts": {
     "post-package-install": [
-      "AlxRoot\\Installer::copyAssets();"
+      "Alxarafe\\Scripts\\ComposerScripts::postUpdate"
     ],
     "post-package-update": [
-      "AlxRoot\\Installer::copyAssets();"
+      "Alxarafe\\Scripts\\ComposerScripts::postUpdate"
     ],
     "publish-assets": [
       "php src/Scripts/publish_assets_manual.php"

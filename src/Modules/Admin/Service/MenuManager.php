@@ -147,15 +147,17 @@ class MenuManager
 
         // Manually include Admin Controllers to guarantee they are scanned
         // This is a workaround for the autoloader issue in Docker environment
-        // Manual path resolution because autoloader is broken for new files
-        // Assuming BASE_PATH constant is defined or we can find src relative to this file
-        // __DIR__ is src/Modules/Admin/Service. We need to go up to src/Modules/Admin/Controller.
-        $baseDir = realpath(__DIR__ . '/../Controller');
+        $baseDir = '';
+        if (defined('ALX_PATH')) {
+            $baseDir = realpath(constant('ALX_PATH') . '/src/Modules/Admin/Controller');
+        }
 
-        // Debug: Log the resolved path
         if (!$baseDir) {
-            \Alxarafe\Tools\Debug::message("MenuManager: Controller directory not found at " . __DIR__ . '/../Controller');
-            // Try absolute path if we know it (fallback)
+            $baseDir = realpath(__DIR__ . '/../Controller');
+        }
+
+        if (!$baseDir) {
+            // Fallback for some docker setups
             $baseDir = '/var/www/html/src/Modules/Admin/Controller';
         }
 
@@ -170,7 +172,7 @@ class MenuManager
             if (file_exists($path)) {
                 require_once $path;
             } else {
-                \Alxarafe\Tools\Debug::message("MenuManager: File note found $path");
+                \Alxarafe\Tools\Debug::message("MenuManager: File not found $path");
             }
         }
 

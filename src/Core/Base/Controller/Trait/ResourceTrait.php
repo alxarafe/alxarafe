@@ -157,12 +157,6 @@ trait ResourceTrait
     /**
      * Main entry point.
      */
-    /**
-     * Main entry point.
-     */
-    /**
-     * Main entry point.
-     */
     protected function privateCore()
     {
         $this->detectMode();
@@ -182,15 +176,15 @@ trait ResourceTrait
 
         $this->handleRequest();
 
-        // If not an API/AJAX request, render the view
-        if (!isset($_GET['ajax'])) {
-            $this->renderView();
-        } else {
+        if (isset($_GET['ajax'])) {
             // If we are here, it means an AJAX request was sent but not handled by handleRequest
             // We return a JSON error instead of letting the framework fail trying to find a view
             $this->jsonResponse(['status' => 'error', 'error' => 'Unknown AJAX action: ' . htmlspecialchars($_GET['ajax'])]);
             exit;
         }
+
+        // If not an API/AJAX request, render the view
+        $this->renderView();
     }
 
     // --- Lifecycle Hooks ---

@@ -57,7 +57,17 @@ abstract class Routes
         $routes = [];
 
         foreach (self::$search_routes as $class => $route) {
-            $full_path = realpath(constant('BASE_PATH') . '/../' . $route);
+            $full_path = '';
+            if ($class === 'Modules' && defined('APP_PATH')) {
+                $full_path = realpath(constant('APP_PATH') . '/Modules/');
+            } elseif ($class === 'CoreModules' && defined('ALX_PATH')) {
+                $full_path = realpath(constant('ALX_PATH') . '/src/Modules/');
+            }
+
+            if (empty($full_path)) {
+                $full_path = realpath(constant('BASE_PATH') . '/../' . $route);
+            }
+
             if (empty($full_path)) {
                 continue;
             }

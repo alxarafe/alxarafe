@@ -42,6 +42,9 @@ jobs:
       - name: PHP Version
         run: php -v
 
+      - name: Configure Git Safe Directory
+        run: git config --global --add safe.directory /__w/alxarafe/alxarafe
+
       - name: Install Composer deps
         run: composer install --no-interaction --no-progress
 

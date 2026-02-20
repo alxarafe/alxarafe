@@ -36,7 +36,7 @@
 namespace Alxarafe\Lib;
 
 use Alxarafe\Tools\Debug;
-use Alxarafe\Tools\Dispatcher;
+use Alxarafe\Tools\Dispatcher\Dispatcher;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Yaml\Yaml;
@@ -177,8 +177,8 @@ abstract class Trans
 
     private static function getTranslations($lang)
     {
-        $app_route = constant('BASE_PATH') . '/..';
-        $main_route = constant('BASE_PATH') . '/../vendor/alxarafe/alxarafe/src';
+        $app_route = defined('APP_PATH') ? constant('APP_PATH') : (constant('BASE_PATH') . '/..');
+        $main_route = defined('ALX_PATH') ? (constant('ALX_PATH') . '/src') : (constant('BASE_PATH') . '/../vendor/alxarafe/alxarafe/src');
 
         $routes = [];
         $routes[] = $app_route;

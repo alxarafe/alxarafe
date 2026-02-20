@@ -103,7 +103,7 @@ class WebDispatcher extends Dispatcher
             }
 
             if (php_sapi_name() === 'cli') {
-                global $argv;
+                $argv = $_SERVER['argv'] ?? [];
                 $module = $argv[1] ?? $defaultModule;
                 $controller = $argv[2] ?? $defaultController;
                 $method = $argv[3] ?? $defaultAction;
