@@ -1,11 +1,5 @@
-if (typeof (PhpDebugBar) == 'undefined') {
-    // namespace
-    var PhpDebugBar = {};
-    PhpDebugBar.$ = jQuery;
-}
-
-(function ($) {
-    var csscls = PhpDebugBar.utils.makecsscls("phpdebugbar-widgets-");
+(function () {
+    const csscls = PhpDebugBar.utils.makecsscls("phpdebugbar-widgets-");
 
     /**
      * Widget for the displaying translations data
@@ -13,33 +7,40 @@ if (typeof (PhpDebugBar) == 'undefined') {
      * Options:
      *  - data
      */
-    var TranslationsWidget = PhpDebugBar.Widgets.TranslationsWidget = PhpDebugBar.Widget.extend({
-        className: csscls('translations'),
-        render: function () {
-            this.$status = $('<div />').addClass(csscls('status')).appendTo(this.$el);
+    class TranslationsWidget extends PhpDebugBar.Widget {
+        get className() {
+            return csscls('translations');
+        }
 
-            this.$list = new PhpDebugBar.Widgets.ListWidget({
-                itemRenderer: function (li, translation) {
-                    var text = translation.key + ": " + translation.value;
-                    if (translation.key == translation.value) {
-                        var $line = $('<span/>').addClass(csscls('name')).addClass('text-danger').text(text);
-                    } else {
-                        var $line = $('<span/>').addClass(csscls('name')).addClass('text-muted').text(text);
-                    }
+        render() {
+            this.statusEl = document.createElement('div');
+            this.statusEl.classList.add(csscls('status'));
+            this.el.append(this.statusEl);
 
-                    $line.appendTo(li);
+            this.listWidget = new PhpDebugBar.Widgets.ListWidget({
+                itemRenderer: (li, translation) => {
+                    const text = translation.key + ": " + translation.value;
+                    const line = document.createElement('span');
+                    line.classList.add(csscls('name'));
+                    line.classList.add(translation.key === translation.value ? 'text-danger' : 'text-muted');
+                    line.textContent = text;
+                    li.append(line);
                 }
             });
-            this.$list.$el.appendTo(this.$el);
+            this.el.append(this.listWidget.el);
 
-            this.bindAttr('data', function (data) {
-                this.$list.set('data', data.translations);
+            this.bindAttr('data', (data) => {
+                this.listWidget.set('data', data.translations);
                 if (data.translations) {
-                    var sentence = data.sentence || "translations were missed for your language";
-                    this.$status.empty().append($('<span />').text(data.translations.length + " " + sentence));
+                    const sentence = data.sentence || "translations were missed for your language";
+                    this.statusEl.innerHTML = '';
+                    const span = document.createElement('span');
+                    span.textContent = data.translations.length + " " + sentence;
+                    this.statusEl.append(span);
                 }
             });
         }
-    });
+    }
 
-})(PhpDebugBar.$);
+    PhpDebugBar.Widgets.TranslationsWidget = TranslationsWidget;
+})();
