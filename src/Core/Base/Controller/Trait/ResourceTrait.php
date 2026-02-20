@@ -198,17 +198,23 @@ trait ResourceTrait
     /**
      * Hook called before building configuration.
      */
-    protected function beforeConfig() {}
+    protected function beforeConfig()
+    {
+}
 
     /**
      * Hook called before processing list mode logic.
      */
-    protected function beforeList() {}
+    protected function beforeList()
+    {
+}
 
     /**
      * Hook called before processing edit mode logic.
      */
-    protected function beforeEdit() {}
+    protected function beforeEdit()
+    {
+}
 
     /**
      * Hook called after a record is saved.
@@ -216,7 +222,9 @@ trait ResourceTrait
      * @param \Alxarafe\Base\Model\Model $model The saved model instance.
      * @param array $data The original submitted data.
      */
-    protected function afterSaveRecord(\Alxarafe\Base\Model\Model $model, array $data) {}
+    protected function afterSaveRecord(\Alxarafe\Base\Model\Model $model, array $data)
+    {
+}
 
     /**
      * Default action handler.

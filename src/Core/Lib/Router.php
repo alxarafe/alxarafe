@@ -112,9 +112,9 @@ class Router
 
     private static function pathToRegex(string $path): string
     {
-        $regex = preg_quote($path, '/');
+        $regex = preg_quote($path, '#');
         $regex = preg_replace('/\\\{([a-zA-Z0-9_]+)\\\}/', '(?P<$1>[^/]+)', $regex);
-        return '/^' . $regex . '$/';
+        return '#^' . $regex . '$#';
     }
 
     public static function getRoutes(): array

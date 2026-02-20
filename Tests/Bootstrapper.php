@@ -32,26 +32,40 @@ class Bootstrapper
         // Initialize Services
         Debug::initialize();
         Trans::initialize();
-        Config::getConfig(); // Load config
+
+        $config = Config::getConfig();
+        if ($config === null) {
+            // Create a dummy config for testing if file is missing
+            $config = new \stdClass();
+            $config->main = Config::getDefaultMainFileInfo();
+            $config->db = new \stdClass();
+            $config->db->type = getenv('DB_CONNECTION') ?: 'mysql';
+            $config->db->host = getenv('DB_HOST') ?: '127.0.0.1';
+            $config->db->port = getenv('DB_PORT') ?: 3306;
+            $config->db->user = getenv('DB_USER') ?: 'root';
+            $config->db->pass = getenv('DB_PASS') ?: 'root';
+            $config->db->name = getenv('DB_DATABASE') ?: 'alxarafe_test';
+            $config->db->charset = 'utf8mb4';
+            $config->db->collation = 'utf8mb4_unicode_ci';
+
+            Config::setConfig($config);
+            $config = Config::getConfig(true);
+        }
 
         // Override Database Config for Testing
-        if ($config = Config::getConfig()) {
+        if ($config) {
             if (isset($config->db)) {
-                $config->db->name = 'alxarafe_test';
+                $config->db->name = getenv('DB_DATABASE') ?: ($config->db->name ?? 'alxarafe_test');
 
                 $dbHost = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? ($_SERVER['DB_HOST'] ?? false));
 
                 // Fallback for GitHub Actions if DB_HOST is missing
                 if ($dbHost === false && getenv('GITHUB_ACTIONS') === 'true') {
-                    fwrite(STDERR, "Debug: DB_HOST not found, defaulting to 'mysql' for GITHUB_ACTIONS.\n");
                     $dbHost = 'mysql';
                 }
 
                 if ($dbHost !== false) {
-                    fwrite(STDERR, "Debug: Using DB_HOST: $dbHost\n");
                     $config->db->host = $dbHost;
-                } else {
-                    fwrite(STDERR, "Debug: No DB_HOST override found. Using config default: " . ($config->db->host ?? 'unknown') . "\n");
                 }
 
                 $dbUser = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? ($_SERVER['DB_USER'] ?? false));

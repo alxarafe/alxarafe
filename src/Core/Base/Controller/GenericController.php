@@ -63,6 +63,11 @@ abstract class GenericController
             $sidebarMenu = [];
         }
 
+        // Automatic BackUrl Logic
+        if ($this->action !== 'index' && $this->action !== '') {
+            $this->backUrl = static::url('index');
+        }
+
         try {
             // Fetch items from new Menu attribute system
             $newSidebarItems = \CoreModules\Admin\Service\MenuManager::get('admin_sidebar');
