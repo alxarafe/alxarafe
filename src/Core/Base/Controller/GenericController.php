@@ -265,7 +265,7 @@ abstract class GenericController
             return $friendlyUrl;
         }
 
-        $url = "index.php?module={$module}&controller={$controller}";
+        $url = "/index.php?module={$module}&controller={$controller}";
 
         if (is_string($action) && $action !== 'index' && $action !== '') {
             $url .= "&action={$action}";

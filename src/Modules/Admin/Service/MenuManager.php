@@ -274,7 +274,7 @@ class MenuManager
         // Generate Default URL if not provided
         $url = $attr->url;
         if (empty($url)) {
-            $url = sprintf('index.php?module=%s&controller=%s&action=%s', $module, $controller, $action);
+            $url = sprintf('/index.php?module=%s&controller=%s&action=%s', $module, $controller, $action);
         }
 
         $menus[$attr->menu][] = [

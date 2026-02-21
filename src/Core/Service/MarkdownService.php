@@ -77,6 +77,44 @@ class MarkdownService
             return '';
         }
 
+        // Support for feature-grid container: :::: feature-grid
+        $content = preg_replace_callback('/::::\s+feature-grid(.*?)::::/s', function ($matches) {
+            $body = trim($matches[1]);
+            return '<div class="feature-grid">' . self::render($body) . '</div>';
+        }, $content);
+
+        // Support for feature-card: ::: feature-card icon="fa-..."
+        $content = preg_replace_callback('/:::\s+feature-card\s+icon="([^"]+)"(.*?):::/s', function ($matches) {
+            $icon = $matches[1];
+            $body = trim($matches[2]);
+
+            $html = '<div class="feature-card">';
+            $html .= '<div class="feature-icon"><i class="fas ' . $icon . '"></i></div>';
+            $html .= '<div class="feature-content">' . (new \Parsedown())->text($body) . '</div>';
+            $html .= '</div>';
+
+            return $html;
+        }, $content);
+
+        // Support for feature-item: ::: feature-item width="..." order="..."
+        $content = preg_replace_callback('/:::\s+feature-item(.*?)\n(.*?):::/s', function ($matches) {
+            $attrs = $matches[1];
+            $body = trim($matches[2]);
+
+            preg_match('/width="([^"]*)"/', $attrs, $wMatch);
+            preg_match('/order="([^"]*)"/', $attrs, $oMatch);
+
+            $width = $wMatch[1] ?? '6';
+            $order = $oMatch[1] ?? '';
+
+            $class = "feature-item col-md-{$width}";
+            if ($order === 'reverse') {
+                $class .= ' order-md-2';
+            }
+
+            return '<div class="' . $class . '">' . (new \Parsedown())->text($body) . '</div>';
+        }, $content);
+
         // Support for Quarto/Pandoc style blocks: ::: callout-type
         $content = preg_replace_callback('/:::\s+callout-(\w+)(.*?):::/s', function ($matches) {
             $type = $matches[1];
