@@ -1,4 +1,4 @@
-@component('layout.div')
+<x-layout.div>
     @include('partial.user_menu')
     <!-- Unified Page Header (Toolbar Only - Title in TopBar) -->
     <div class="container-fluid mt-4">
@@ -12,4 +12,4 @@
     </div>
     @include('partial.alerts')
     @yield('content')
-@endcomponent
+</x-layout.div>

@@ -1,8 +1,5 @@
-<?php
-/** @var string $label Content to display */
-/** @var string $field Unique ID (optional) */
-/** @var string $class Additional CSS classes (optional) */
-?>
-<div class="mb-3 {{ $class ?? '' }}" id="{{ $field }}">
+@props(['label', 'field' => null, 'class' => ''])
+
+<div {{ $attributes->merge(['class' => "mb-3 $class"]) }} @if($field) id="{{ $field }}" @endif>
     {!! $label !!}
 </div>

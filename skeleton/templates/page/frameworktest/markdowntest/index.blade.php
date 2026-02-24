@@ -1,7 +1,7 @@
 @extends('layout.public')
 
 @section('content')
-<div class="container mt-5">
+<x-layout.container class="mt-5">
     <div class="row">
         <div class="col-12">
             <h1 class="display-4"><i class="fab fa-markdown"></i> Markdown Service Test</h1>
@@ -18,43 +18,40 @@
         <div class="row">
             <!-- Sidebar with Meta -->
             <div class="col-lg-4">
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-dark text-white d-flex align-items-center">
-                        <i class="fas fa-tags me-2"></i>
-                        Metadata (FrontMatter)
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-sm">
-                            <tbody>
-                                @foreach($meta as $key => $value)
-                                    <tr>
-                                        <th class="text-muted">{{ ucfirst($key) }}</th>
-                                        <td>
-                                            @if(is_array($value))
-                                                @foreach($value as $val)
-                                                    <span class="badge bg-secondary">{{ $val }}</span>
-                                                @endforeach
-                                            @else
-                                                {{ $value }}
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <x-component.card class="shadow-sm mb-4">
+                    <x-slot:title>
+                        <i class="fas fa-tags me-2"></i> Metadata (FrontMatter)
+                    </x-slot:title>
+                    
+                    <table class="table table-sm mb-0">
+                        <tbody>
+                            @foreach($meta as $key => $value)
+                                <tr>
+                                    <th class="text-muted">{{ ucfirst($key) }}</th>
+                                    <td>
+                                        @if(is_array($value))
+                                            @foreach($value as $val)
+                                                <span class="badge bg-secondary">{{ $val }}</span>
+                                            @endforeach
+                                        @else
+                                            {{ $value }}
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </x-component.card>
 
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-secondary text-white">
-                        <i class="fas fa-file-code me-2"></i>
-                        Información del Archivo
-                    </div>
-                    <div class="card-body small">
+                <x-component.card class="shadow-sm mb-4">
+                    <x-slot:title>
+                        <i class="fas fa-file-code me-2"></i> Información del Archivo
+                    </x-slot:title>
+                    <div class="small">
                         <strong>Ruta:</strong><br>
                         <code>{{ $filePath }}</code>
                     </div>
-                </div>
+                </x-component.card>
             </div>
 
             <!-- Content -->
@@ -82,10 +79,9 @@
             </div>
         </div>
     @endif
-</div>
+</x-layout.container>
 
 <style>
-/* Estilos adicionales si fueran necesarios, aunque ya están en alxarafe-content.css */
 .post-content {
     color: #334155;
     font-size: 1.1rem;
@@ -94,6 +90,11 @@
     background: #f8fafc;
     color: #1e293b;
     border: 1px solid #e2e8f0;
+}
+/* Estilo para que el header del card use el background dark en este caso concreto */
+.card-header {
+    background-color: #212529 !important;
+    color: white !important;
 }
 </style>
 @endsection

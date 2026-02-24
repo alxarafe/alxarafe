@@ -30,11 +30,11 @@
         </div>
     @else
         <!-- Guest Access icon -->
-        <div class="mb-4 mt-3 text-center">
-            <a href="index.php?module=Admin&controller=Auth" class="text-decoration-none" title="ACCESO">
-                <i class="fas fa-sign-in-alt fa-2x cyber-icon text-info"></i>
-            </a>
-        </div>
+        <x-component.menu_item 
+            url="index.php?module=Admin&controller=Auth" 
+            icon="fas fa-sign-in-alt" 
+            title="ACCESO" 
+        />
     @endif
 
     <!-- Notifications (Admin feature) -->
@@ -43,16 +43,13 @@
             $notifications = \CoreModules\Admin\Service\NotificationManager::getUnread();
             $unreadCount = $notifications->count();
         @endphp
-        <div class="mb-4 position-relative cyber-icon-container">
-            <a href="#" class="text-decoration-none" title="Notifications">
-                <i class="fas fa-bell fa-2x cyber-icon {{ $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary' }}"></i>
-                @if($unreadCount > 0)
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-dark">
-                        {{ $unreadCount }}
-                    </span>
-                @endif
-            </a>
-        </div>
+        <x-component.menu_item 
+            url="#" 
+            icon="fas fa-bell" 
+            title="Notifications" 
+            colorClass="{{ $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary' }}" 
+            :badge="$unreadCount > 0 ? $unreadCount : null" 
+        />
     @endif
 
     <!-- User Menu Items (Runtime) -->
@@ -65,11 +62,11 @@
             @endphp
             @continue($isProfile || $isLogout)
             
-            <div class="mb-4 cyber-icon-container">
-                <a href="{{ $item['url'] }}" class="text-decoration-none" title="{{ $item['label'] }}">
-                    <i class="{{ $item['icon'] ?? 'fas fa-circle' }} fa-2x cyber-icon text-info"></i>
-                </a>
-            </div>
+            <x-component.menu_item 
+                :url="$item['url']" 
+                :icon="$item['icon'] ?? 'fas fa-circle'" 
+                :label="$item['label']" 
+            />
         @endforeach
     @endif
 

@@ -35,6 +35,7 @@ use Alxarafe\Component\Fields\Text;
 use Alxarafe\Component\Fields\Textarea;
 use Alxarafe\Component\Fields\Time;
 use Alxarafe\Component\Container\Panel;
+use Alxarafe\Component\Enum\ActionPosition;
 use Modules\FrameworkTest\Model\TestModel;
 
 #[Menu(
@@ -59,62 +60,80 @@ class TestController extends PublicResourceController
      */
     protected function getEditFields(): array
     {
+        // Name with a magic action
+        $nameField = new Text('name', 'Nombre del Recurso', [
+            'required' => true,
+            'help' => 'Introduce un nombre descriptivo para este objeto de prueba',
+            'placeholder' => 'Ej: Mi Primer Componente'
+        ]);
+        $nameField->addAction('fas fa-magic', "this.closest('.input-group').querySelector('input').value = 'Alxarafe ' + Math.floor(Math.random() * 1000);", 'Generar', 'btn-outline-primary', ActionPosition::Left);
+
+        // Integer with utility buttons
+        $intField = new Integer('integer', 'Valor de Control', [
+            'min' => 0,
+            'max' => 1000,
+            'help' => 'Un número entero entre 0 y 1000'
+        ]);
+        $intField->addAction('fas fa-minus', "const i = this.closest('.input-group').querySelector('input'); i.value = Math.max(0, parseInt(i.value || 0) - 10);", '-10', 'btn-outline-secondary', ActionPosition::Left);
+        $intField->addAction('fas fa-plus', "const i = this.closest('.input-group').querySelector('input'); i.value = Math.min(1000, parseInt(i.value || 0) + 10);", '+10', 'btn-outline-secondary', ActionPosition::Right);
+
+        // Decimal with Currency
+        $decimalField = new Decimal('decimal', 'Presupuesto Estimado', [
+            'precision' => 2,
+            'help' => 'Se formatea automáticamente con dos decimales'
+        ]);
+        $decimalField->addAction('fas fa-euro-sign', "", 'Moneda', 'btn-dark disabled', ActionPosition::Left);
+
         return [
-            new Panel('Información Básica', [
-                new Text('name', 'Nombre del Test', [
-                    'required' => true,
-                    'help' => 'Introduce un nombre descriptivo',
-                    'placeholder' => 'Ej: Prueba de componentes 2026'
+            new Panel('⚙️ Configuración Principal', [
+                $nameField,
+                new Textarea('description', 'Descripción Técnica', [
+                    'placeholder' => 'Detalla aquí las especificaciones...',
+                    'rows' => 3
                 ]),
-                new Textarea('description', 'Descripción Detallada', [
-                    'placeholder' => 'Escribe aquí una descripción larga...',
-                    'rows' => 4
+                new Boolean('active', 'Estado de Publicación', [
+                    'help' => 'Define si este elemento es visible en el frontend'
                 ]),
-            ], ['col' => 'col-md-8']),
+            ], ['col' => 'col-md-7', 'class' => 'shadow-lg border-primary']),
 
-            new Panel('Configuración', [
-                new Boolean('active', '¿Está activo?', ['default' => true]),
-                new Icon('icon', 'Icono de referencia', [], ['default' => 'fas fa-star']),
-                new Select('type', 'Tipo de Elemento', [
-                    'admin' => 'Administración',
-                    'user' => 'Usuario',
-                    'guest' => 'Invitado'
+            new Panel('🎨 Estética y Visualización', [
+                new Icon('icon', 'Icono Representativo', [
+                    'help' => 'Selecciona un icono de FontAwesome'
+                ], ['default' => 'fas fa-rocket']),
+                new Select('type', 'Clasificación de Objeto', [
+                    'core' => 'Núcleo del Sistema',
+                    'plugin' => 'Extensión / Plugin',
+                    'theme' => 'Estilo Visual / Tema'
                 ]),
-            ], ['col' => 'col-md-4']),
+                new StaticText('Este es un texto informativo que utiliza el componente StaticText para guiar al usuario sin permitir edición.', [
+                    'icon' => 'fas fa-lightbulb text-warning'
+                ]),
+            ], ['col' => 'col-md-5']),
 
-            new Panel('Datos Numéricos', [
-                new Integer('integer', 'Valor Entero', [
-                    'min' => 0,
-                    'max' => 100,
-                    'help' => 'Un número entre 0 y 100'
-                ]),
-                new Decimal('decimal', 'Valor Decimal', [
-                    'precision' => 2,
-                    'help' => 'Ej: 123.45'
-                ]),
+            new Panel('🔢 Datos Cuantitativos', [
+                $intField,
+                $decimalField,
+            ], ['col' => 'col-md-6', 'class' => 'border-info shadow-sm']),
+
+            new Panel('📅 Cronología', [
+                new Date('date', 'Fecha de Hito'),
+                new DateTime('datetime', 'Registro de Auditoría'),
+                new Time('time', 'Apertura de Ventana'),
             ], ['col' => 'col-md-6']),
 
-            new Panel('Fechas y Horas', [
-                new Date('date', 'Fecha de Registro'),
-                new DateTime('datetime', 'Sello de Tiempo Completo'),
-                new Time('time', 'Hora Especificada'),
-            ], ['col' => 'col-md-6']),
-
-            new Panel('Selectis Avanzados', [
-                new Select2('category_id', 'Categoría (Select2)', [
-                    1 => 'Categoría A',
-                    2 => 'Categoría B',
-                    3 => 'Categoría C'
+            new Panel('🚀 Avanzado y Multimedia', [
+                new Select2('category_id', 'Etiquetas Globales (Select2)', [
+                    1 => 'Tecnología',
+                    2 => 'Diseño',
+                    3 => 'Arquitectura',
+                    4 => 'Frontend',
+                    5 => 'Backend'
                 ], [
-                    'multiple' => false,
-                    'help' => 'Buscador mejorado con Select2'
+                    'help' => 'Buscador asíncrono mejorado con soporte para etiquetas'
                 ]),
-                new StaticText('Este es un texto estático que no se puede editar, pero se muestra en el formulario.', [
-                    'icon' => 'fas fa-info-circle'
-                ]),
-                new Image('https://via.placeholder.com/150', 'Imagen de Ejemplo', [
-                    'help' => 'Visualizador de imagen (si el modelo tiene la URL)',
-                    'width' => 150
+                new Image('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=300&q=80', 'Previsualización de Branding', [
+                    'width' => '100%',
+                    'help' => 'Componente Image para previsualizar activos'
                 ]),
             ], ['col' => 'col-md-12']),
         ];
@@ -135,11 +154,44 @@ class TestController extends PublicResourceController
     }
 
     /**
+     * Override detectMode to always show the form as a showcase.
+     */
+    protected function detectMode()
+    {
+        $this->mode = self::MODE_EDIT;
+        $this->recordId = 'demo';
+        $this->protectChanges = false; // Disable warning for the demo
+    }
+
+    /**
+     * Provide dummy data for the showcase.
+     */
+    protected function fetchRecordData(): array
+    {
+        return [
+            'id' => 'demo',
+            'data' => [
+                'name' => 'Alxarafe Showcase 2026',
+                'description' => 'Este es un ejemplo de cómo Alxarafe maneja formularios complejos con paneles y componentes modernizados.',
+                'active' => true,
+                'integer' => 42,
+                'decimal' => 1250.50,
+                'type' => 'core',
+                'icon' => 'fas fa-shield-alt',
+                'date' => date('Y-m-d'),
+                'datetime' => date('Y-m-d H:i:s'),
+                'time' => date('H:i:s'),
+                'category_id' => 3
+            ]
+        ];
+    }
+
+    /**
      * Ensure the test page has a nice title.
      */
     protected function beforeConfig()
     {
-        $this->title = 'Framework Components Showcase';
+        $this->title = 'Alxarafe Components Magic';
     }
 
     /**

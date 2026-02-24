@@ -10,7 +10,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <!-- Default Clean Theme Override -->
-<link href="/themes/default/css/default.css" rel="stylesheet">
+@hasSection('theme_css')
+    @yield('theme_css')
+@else
+    <link href="/themes/default/css/default.css" rel="stylesheet">
+@endif
 
 {!! $me->getRenderHeader() !!}
 

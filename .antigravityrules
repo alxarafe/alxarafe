@@ -1,0 +1,16 @@
+# Alxarafe AI Behavior and Project Structure Rules
+
+## Language & Coding Standards
+- **Code & Comments**: All PHP code, shell scripts, Blade templates, and internal documentation (DocBlocks, inline comments) MUST be in **English**.
+- **User Communication**: The USER prefers Spanish. Assistant should support this by communicating in Spanish while keeping technical/code references in English.
+- **Documentation Workflow**:
+    - `doc/es/`: Primary source for documentation in Spanish.
+    - `doc/en/`: Translation of `doc/es/`. The assistant is responsible for maintaining the English version in sync with the Spanish one.
+    - Reference workflow: `.agents/workflows/sync-docs.md`.
+- **Commit Messages**: Should be in **English** (following the repo standard).
+
+## Project Structure
+- **No Scripts in Root**: All executable scripts must be in subdirectories.
+- **`bin/` Folder**: Shared repository scripts (must be path-independent).
+- **`ai-scripts/` Folder**: Internal AI-only scripts (Git-ignored).
+- **Documentation Root**: Directory name is `doc/`.

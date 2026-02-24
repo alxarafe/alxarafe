@@ -7,13 +7,11 @@
 <body class="container">
     <!-- Header handled by Top Bar -->
     <!-- Header handled by Body Templates -->
-
-
-
-@php
-    $_body = 'body_' . ($empty ?? false ? 'empty' : 'standard');
-@endphp
-@include('partial.' . $_body)
-@include('partial.footer')
+    @if ($empty ?? false)
+        @include('partial.body_empty')
+    @else
+        @include('partial.body_standard')
+    @endif
+    @include('partial.footer')
 </body>
 </html>

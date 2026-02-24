@@ -65,7 +65,7 @@ class WebDispatcher extends Dispatcher
                             return $this;
                         }
                     };
-                    $event = new class ($io) {
+                    $event = new class($io) {
                         private $io;
                         public function __construct($io)
                         {
@@ -175,6 +175,8 @@ class WebDispatcher extends Dispatcher
             if (!empty(Auth::$user->language)) {
                 $language = Auth::$user->language;
             }
+        } elseif (isset($_COOKIE['alx_theme'])) {
+            $theme = $_COOKIE['alx_theme'];
         }
 
         \Alxarafe\Lib\Trans::setLang($language);

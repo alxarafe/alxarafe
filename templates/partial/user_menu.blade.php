@@ -118,6 +118,10 @@
                     </li>
                     @endif
                 @endif
+                
+                <li class="nav-item ms-2">
+                    @include('partial.theme_switcher', ['class' => ''])
+                </li>
             </ul>
         </div>
     </header>

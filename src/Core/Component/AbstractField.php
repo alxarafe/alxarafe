@@ -137,6 +137,7 @@ abstract class AbstractField implements JsonSerializable
             'component' => $this->component,
             'type' => $this->getType(),
             'actions' => $this->actions,
+            'attributes' => new \Illuminate\View\ComponentAttributeBag(), // Ensure attributes bag for @include fallback
         ], $this->options);
 
         // Flatten 'options' if it exists, so keys like 'values' become top-level variables in Blade
@@ -145,5 +146,30 @@ abstract class AbstractField implements JsonSerializable
         }
 
         return $data;
+    }
+
+    /**
+     * @var \Alxarafe\Base\Template|null Static renderer to avoid memory exhaustion
+     */
+    protected static ?\Alxarafe\Base\Template $renderer = null;
+
+    /**
+     * Renders the field component to HTML.
+     * 
+     * @param array $extraData Additional data to pass to the view (e.g. ['value' => '...'])
+     * @return string
+     */
+    public function render(array $extraData = []): string
+    {
+        if (self::$renderer === null) {
+            self::$renderer = new \Alxarafe\Base\Template();
+            // Add standard forms path
+            if (defined('BASE_PATH')) {
+                self::$renderer->addPath(constant('BASE_PATH') . '/templates');
+            }
+        }
+
+        $data = array_merge($this->jsonSerialize(), $extraData);
+        return self::$renderer->render('form/' . $this->component, $data);
     }
 }

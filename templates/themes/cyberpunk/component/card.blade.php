@@ -1,16 +1,11 @@
-@php
-    use Alxarafe\Lib\Functions;
+@props([
+    'title' => null,
+    'image' => null,
+    'footer' => null,
+    'class' => 'card'
+])
 
-    $title = $title ?? null;
-    $image = $image ?? null;
-    $footer = $footer ?? null;
-    $class = $class ?? 'card';
-    $class .= ' cyber-card bg-dark text-white border-0'; // Force custom classes
-
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
-@endphp
-
-<div class="{{ $class }} position-relative mb-4" {!! $_attributes !!}>
+<div {{ $attributes->merge(['class' => $class . ' cyber-card bg-dark text-white border-0 position-relative mb-4']) }}>
     <!-- Cyberpunk Decoration -->
     <div class="cyber-corner cyber-corner-tl"></div>
     <div class="cyber-corner cyber-corner-br"></div>

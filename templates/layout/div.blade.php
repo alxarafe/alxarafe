@@ -1,17 +1,9 @@
 <!-- Templates/common/layout/container.blade.php -->
 {{--
 USE:
-    @component('layout.div', [
-        'class' => 'custom-container-class',
-        'attributes' => ['style' => 'padding: 1rem;']
-    ])
-        @slot('slot')
-            <!--
-                Add the slot content here.
-                You can add other components (containers, cards, inputs, etc.)
-            -->
-        @endslot
-    @endcomponent
+    <x-layout.div class="custom-container-class" style="padding: 1rem;">
+        Contenido aquí...
+    </x-layout.div>
 
 @link: https://getbootstrap.com/docs/5.2/layout/containers/
 @link: https://getbootstrap.com/docs/5.2/layout/grid/
@@ -19,22 +11,12 @@ USE:
 
 Parameters:
     class is optional (default "container")
-    attributes is optional (additional HTML attributes for the container)
+    id is optional
+    any other attribute will be added to the div
 --}}
 
-@php
-    use Alxarafe\Lib\Functions;
+@props(['class' => 'container', 'id' => null])
 
-    $_class = $class ?? 'container';
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
-
-    $_id = '';
-    if (isset($id)) {
-        $_id = "id=\"$id\"";
-    }
-
-@endphp
-
-<div {{ $_id }} class="{{ $_class }}" {!! $_attributes !!}>
+<div {{ $id ? "id=$id" : '' }} {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </div>

@@ -3,7 +3,7 @@
 # Documentation:
 # This script starts the Docker containers defined in the project's root 
 # docker-compose.yml file. It clears the screen, provides status messages 
-# in Spanish for the user, and lists the running containers at the end.
+# in English for the user, and lists the running containers at the end.
 
 clear
 

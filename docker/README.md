@@ -1,39 +1,51 @@
-# Información básica sobre Docker
+# Basic Docker Information
 
-## Creación de los contenedores
+This folder contains the Docker configuration for the Alxarafe project.
 
-En la carpeta bin existen 3 scripts para la eliminación, creación y arranque de los contenedores necesarios.
+## Container Management
 
-Una vez creados, igual es necesario ejecutar el composer.
+In the `bin/` folder, there are scripts for removing, creating, and starting the necessary containers.
 
-### Acceso al contenedor
+Once the containers are created, it may be necessary to run Composer to install dependencies.
 
-Ejecutando el siguiente comando, se accede al contenedor en el que se encuentra el código.
+### Accessing the Container
 
-<code>docker exec -it alxarafe_php bash</code>
+Running the following command allows you to access the container where the code is located:
 
-Desde ahí se puede ejecutar.
+```bash
+docker exec -it alxarafe_php bash
+```
 
-<code>composer install</code>
+From within the container, you can run:
 
-<code>npm install && gulp build</code>
+```bash
+composer install
+npm install && gulp build
+```
 
-## Ejecución de mysql
+## MySQL Execution
 
-### Para ejecutar mysql con el usuario dbuser (contraseña dbuser)
+### To run MySQL with the user 'dbuser' (password 'dbuser')
 
+```bash
 mysql -h alxarafe_db -P 3306 -u dbuser -p
+```
 
-### Cambiar la base de datos
+### Managing the Database
 
-Se puede eliminar la base de datos existente:
+You can remove the existing database and recreate it:
 
-<code>drop database alxarafe;</code>
+```sql
+drop database alxarafe;
+create database alxarafe;
+use alxarafe;
+```
 
-<code>create database alxarafe;</code>
+The database to be imported should be copied to the `tmp/` folder to make it available inside the container. If the file is named `alxarafe_db.sql`:
 
-<code>use alxarafe;</code>
+```sql
+source tmp/alxarafe_db.sql;
+```
 
-La base de datos a importar se copia a la carpeta tmp y así queda disponible en el contenedor. Si por ejemplo es alxarafe_db.sql
-
-<code>source tmp/alxarafe_db.sql;</code>
+---
+*Spanish version available in [README_es.md](./README_es.md)*

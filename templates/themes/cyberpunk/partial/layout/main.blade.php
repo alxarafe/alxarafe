@@ -16,6 +16,9 @@
         margin-bottom: 70px; /* Space for Bottom Bar on Mobile */
     }
     @media (min-width: 768px) {
+        #id-right {
+            margin-left: 250px !important;
+        }
         .cyber-main-content {
             margin-right: 110px; /* Space for Right Bar on Desktop */
             margin-bottom: 0;

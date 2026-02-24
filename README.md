@@ -47,7 +47,7 @@ composer require alxarafe/alxarafe
 
 Official documentation is available at: [https://alxarafe.github.io/alxarafe/](https://alxarafe.github.io/alxarafe/)
 
-You can also find the markdown source in the `docs/` directory.
+You can also find the markdown source in the `doc/` directory.
 
 ## CONTRIBUTING
 

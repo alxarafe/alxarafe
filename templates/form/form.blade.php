@@ -1,37 +1,18 @@
 <!-- Templates/common/form/form.blade.php -->
 {{--
 USE:
-    @component('Templates.common.form.form', [
-        'method' => 'POST',
-        'action' => route('your.route'),
-        'class' => 'custom-form-class',
-        'attributes' => ['id' => 'your-form-id']
-    ])
-        @slot('slot')
-            <!--
-                Add the form content here.
-                You can add inputs, textareas, etc.
-            -->
-        @endslot
-    @endcomponent
+    <x-form.form method="POST" :action="route('your.route')" class="custom-form-class" id="your-form-id">
+        Contenido aquí...
+    </x-form.form>
 
 Parameters:
-    method is required (HTTP method like 'POST', 'GET', etc.)
-    action is required (URL where the form submits to)
-    class is optional (additional classes for the form)
-    attributes is optional (additional HTML attributes for the form)
+    method is optional (default 'POST')
+    action is optional (default '#')
+    class is optional (default 'form')
 --}}
 
-@php
-    use Alxarafe\Lib\Functions;
+@props(['method' => 'POST', 'action' => '#', 'class' => 'form'])
 
-    $method = $method ?? 'POST';
-    $action = $action ?? '#';
-    $class = $class ?? 'form';
-
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
-@endphp
-
-<form method="{{ strtoupper($method) }}" action="{{ $action }}" class="{{ $class }}" {!! $_attributes !!}>
+<form method="{{ strtoupper($method) }}" action="{{ $action }}" {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </form>

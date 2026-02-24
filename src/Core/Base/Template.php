@@ -83,6 +83,24 @@ class Template
 
             $this->blade = new Blade($this->paths, $cachePath, $container);
 
+            // Bind the View Factory contract to the 'view' service for component tag compilation
+            $container->alias('view', \Illuminate\Contracts\View\Factory::class);
+
+            // Bind a mock Application to satisfy Blade's ComponentTagCompiler (requires getNamespace())
+            $container->singleton(\Illuminate\Contracts\Foundation\Application::class, function () {
+                return new class {
+                    public function getNamespace()
+                    {
+                        return 'Alxarafe\\';
+                    }
+                };
+            });
+
+            // Register all template paths as anonymous component paths with no prefix
+            foreach ($this->paths as $path) {
+                $this->blade->compiler()->anonymousComponentPath($path, '');
+            }
+
             // Template Tracer Hook
             if (class_exists(\Alxarafe\Tools\Debug::class)) {
                 $this->blade->composer('*', function ($view) {

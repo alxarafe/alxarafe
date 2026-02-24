@@ -122,6 +122,16 @@ class AuthController extends GenericPublicController
         return true;
     }
 
+    public function doSetTheme(): void
+    {
+        $theme = filter_input(INPUT_GET, 'theme');
+        if ($theme) {
+            setcookie('alx_theme', $theme, time() + (86400 * 30), '/');
+        }
+        $redirect = $_SERVER['HTTP_REFERER'] ?? 'index.php';
+        Functions::httpRedirect($redirect);
+    }
+
     #[Menu(
         menu: 'user_menu',
         icon: 'fas fa-sign-out-alt',

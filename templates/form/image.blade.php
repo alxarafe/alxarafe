@@ -1,19 +1,11 @@
-<?php
-/** @var string $src Image URL */
-/** @var string $label Alt text */
-/** @var string $field Unique ID */
-/** @var string $class Additional CSS classes (optional) */
-/** @var string $width Optional width */
-/** @var string $height Optional height */
-/** @var string $style Optional inline style */
-?>
-<div class="mb-3 text-center">
+@props(['src', 'label' => '', 'field' => null, 'class' => 'rounded', 'width' => null, 'height' => null])
+
+<div {{ $attributes->merge(['class' => 'mb-3 text-center']) }}>
     <img src="{{ $src }}" 
-         alt="{{ $label ?? '' }}" 
-         id="{{ $field }}"
-         class="img-fluid {{ $class ?? 'rounded' }}"
-         @if(!empty($width)) width="{{ $width }}" @endif
-         @if(!empty($height)) height="{{ $height }}" @endif
-         @if(!empty($style)) style="{{ $style }}" @endif
+         alt="{{ $label }}" 
+         @if($field) id="{{ $field }}" @endif
+         class="img-fluid {{ $class }}"
+         @if($width) width="{{ $width }}" @endif
+         @if($height) height="{{ $height }}" @endif
     >
 </div>

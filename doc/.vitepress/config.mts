@@ -25,9 +25,15 @@ export default defineConfig({
                         { text: 'Architecture', link: '/en/architecture' },
                         { text: 'Docker Usage', link: '/en/docker' },
                         { text: 'Improvement Plan', link: '/en/improvement_plan' },
+                        { text: 'API Development', link: '/en/api_development' },
+                        { text: 'Menu Manager', link: '/en/menu_manager' },
+                        { text: 'Resource Controller Lifecycle', link: '/en/resource_controller_lifecycle' },
+                        { text: 'Themes & Templates', link: '/en/themes_and_templates' },
+                        { text: 'Template Schema', link: '/en/template_schema' },
                         { text: 'PHP 8.5 Diagnosis', link: '/en/php85_diagnosis' },
                         { text: 'Publishing Guide', link: '/en/publishing_guide' },
                         { text: 'Contribution Guide', link: '/en/contribution_guide' },
+                        { text: 'Testing', link: '/en/testing' },
                     ]
                 },
                 {
@@ -76,9 +82,15 @@ export default defineConfig({
                         { text: 'Arquitectura', link: '/es/arquitectura' },
                         { text: 'Uso de Docker', link: '/es/docker' },
                         { text: 'Análisis de Mejoras', link: '/es/analisis_de_mejoras' },
+                        { text: 'Desarrollo de APIs', link: '/es/desarrollo_de_apis' },
+                        { text: 'Gestor de Menús', link: '/es/gestor_de_menus' },
+                        { text: 'Ciclo de Vida ResourceController', link: '/es/resource_controller_lifecycle' },
+                        { text: 'Temas y Plantillas', link: '/es/temas_y_plantillas' },
+                        { text: 'Esquema de Plantillas', link: '/es/esquema_de_plantillas' },
                         { text: 'Diagnóstico PHP 8.5', link: '/es/diagnostico_php85' },
                         { text: 'Guía de Publicación', link: '/es/guia_de_publicacion' },
                         { text: 'Guía de Contribución', link: '/es/guia_de_contribucion' },
+                        { text: 'Testing', link: '/es/testing' },
                     ]
                 },
                 {

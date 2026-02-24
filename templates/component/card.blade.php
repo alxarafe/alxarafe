@@ -1,17 +1,9 @@
 <!-- Templates/common/component/card.blade.php -->
 {{--
 USE:
-    @component('component.card', [
-        'title' => 'Card Title',
-        'image' => 'path/to/image.jpg',
-        'footer' => 'Card footer text',
-        'class' => 'custom-class',
-        'attributes' => ['style' => 'width: 18rem;']
-    ])
-
-    @slot('body')
+    <x-component.card title="Card Title" image="path/to/image.jpg" footer="Card footer text" style="width: 18rem;">
         <p>This is the card body content with <strong>HTML</strong> support.</p>
-    @endslot
+    </x-component.card>
 
 @link: https://getbootstrap.com/docs/5.2/components/card/
 
@@ -20,21 +12,11 @@ Parameters:
     image is optional
     footer is optional
     class is optional (default "card")
-    attributes is optional (additional HTML attributes for the card)
 --}}
 
-@php
-    use Alxarafe\Lib\Functions;
+@props(['title' => null, 'image' => null, 'footer' => null, 'class' => 'card'])
 
-    $title = $title ?? null;
-    $image = $image ?? null;
-    $footer = $footer ?? null;
-    $class = $class ?? 'card';
-
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
-@endphp
-
-<div class="{{ $class }}" {!! $_attributes !!}>
+<div {{ $attributes->merge(['class' => $class]) }}>
     @if($image)
         <img src="{{ $image }}" class="card-img-top" alt="{{ $title ?? 'Card image' }}">
     @endif

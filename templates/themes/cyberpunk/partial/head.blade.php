@@ -45,9 +45,10 @@
     
     #id-right {
         margin-left: 250px; /* Sidebar width */
+        margin-right: 80px; /* Right bar width */
         padding: 20px;
         flex-grow: 1;
-        transition: margin-left 0.3s;
+        transition: all 0.3s;
     }
 
     @media (max-width: 768px) {
@@ -57,6 +58,8 @@
         }
         #id-right {
             margin-left: 0;
+            margin-right: 0;
+            padding-bottom: 80px; /* Space for the bottom bar on mobile */
         }
     }
 </style>

@@ -34,6 +34,7 @@ skeleton/public/js/
 skeleton/public/css/
 
 # VitePress deployment
-docs/.vitepress/dist/
-docs/.vitepress/cache/
+/doc/.vitepress/dist/
+/doc/.vitepress/cache/
 /node_modules/
+/ai-scripts/

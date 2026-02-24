@@ -1,16 +1,14 @@
-@php
-    use Alxarafe\Lib\Functions;
+@props([
+    'title' => null,
+    'image' => null,
+    'footer' => null,
+])
 
-    // Force title to be H2 with clear label
+@php
     $title = $title ? "PANEL: " . strtoupper($title) : null;
-    $image = $image ?? null;
-    $footer = $footer ?? null;
-    // Force specific classes
-    $class = 'card hc-card mb-5 border-5';
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
 @endphp
 
-<div class="{{ $class }}" {!! $_attributes !!}>
+<div {{ $attributes->merge(['class' => 'card hc-card mb-5 border-5']) }}>
     @if($image)
         <!-- Adding explicit ALT text if missing -->
         <img src="{{ $image }}" class="card-img-top border-bottom-5" alt="{{ $title ?? 'Descriptive Image' }}">

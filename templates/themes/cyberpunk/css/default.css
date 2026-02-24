@@ -465,3 +465,91 @@ span.phpdebugbar-badge,
     color: #0000ff !important;
     text-shadow: none !important;
 }
+/* --- RETRO ARCADE BUTTONS (Menu Items) --- */
+.cyber-retro-container {
+    perspective: 1000px;
+}
+
+.cyber-retro-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #0b0c10;
+    border: 3px solid #1f2833;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.1s steps(4);
+    box-shadow: 4px 4px 0px #000, 0 0 10px rgba(102, 252, 241, 0.1);
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.cyber-button-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.cyber-retro-icon {
+    transition: all 0.1s steps(2);
+    filter: drop-shadow(0 0 2px currentColor);
+}
+
+/* Retro Pixels in corners */
+.cyber-pixel {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #45a29e;
+    opacity: 0.5;
+}
+.pixel-tl { top: -3px; left: -3px; }
+.pixel-tr { top: -3px; right: -3px; }
+.pixel-bl { bottom: -3px; left: -3px; }
+.pixel-br { bottom: -3px; right: -3px; }
+
+/* HOVER EFFECT: Simulation of a pressed arcade button */
+.cyber-retro-button:hover {
+    background: #1f2833;
+    border-color: #66fcf1;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000, 0 0 20px rgba(102, 252, 241, 0.4);
+}
+
+.cyber-retro-button:hover .cyber-retro-icon {
+    color: #fff !important;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px #66fcf1);
+}
+
+.cyber-retro-button:hover .cyber-pixel {
+    background: #66fcf1;
+    opacity: 1;
+    box-shadow: 0 0 5px #66fcf1;
+}
+
+/* ACTIVE STATE */
+.cyber-retro-button.active {
+    background: rgba(102, 252, 241, 0.1);
+    border-color: #66fcf1;
+    box-shadow: inset 0 0 10px rgba(102, 252, 241, 0.2);
+}
+
+/* RETRO BADGE (Pixel style) */
+.cyber-retro-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff003c;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 2px 5px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0 #000;
+    z-index: 10;
+}
