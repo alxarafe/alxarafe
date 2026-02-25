@@ -10,13 +10,17 @@
 
 <div class="cyber-grid-overlay"></div>
 
+@php
+    $hasSidebar = \Alxarafe\Lib\Auth::isLogged() && !empty($main_menu);
+@endphp
+
 <style>
     .cyber-main-content {
         margin-right: 0;
         margin-bottom: 70px; /* Space for Bottom Bar on Mobile */
     }
     @media (min-width: 768px) {
-        #id-right {
+        .has-sidebar #id-right {
             margin-left: 250px !important;
         }
         .cyber-main-content {
@@ -28,10 +32,12 @@
 
 <div class="container-fluid">
     <div class="row">
+        @if($hasSidebar)
         <!-- Sidebar Column (Hidden on Mobile unless toggled) -->
         <div class="col-md-3 col-lg-2 d-none d-md-block p-0" id="cyber-sidebar-col">
              @include('partial.main_menu')
         </div>
+        @endif
 
         <!-- Main Content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
