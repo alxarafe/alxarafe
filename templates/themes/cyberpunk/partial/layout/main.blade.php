@@ -40,7 +40,7 @@
         @endif
 
         <!-- Main Content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+        <main class="{{ $hasSidebar ? 'col-md-9 ms-sm-auto col-lg-10' : 'col-12' }} px-md-4 py-4">
             <div class="cyber-main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h1 class="cyber-page-title mb-0 d-flex align-items-center">
