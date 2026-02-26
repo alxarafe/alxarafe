@@ -1,7 +1,7 @@
 # Exclude development files from production package (Composer ZIP)
 .docker/ export-ignore
 skeleton/ export-ignore
-docs/ export-ignore
+doc/ export-ignore
 tests/ export-ignore
 Tests/ export-ignore
 var/ export-ignore

@@ -71,8 +71,15 @@ The repository includes a `skeleton` application ready to use as a development e
 ## Additional Documentation
 
 *   [Architecture and Core Concepts](architecture.md)
+*   [Template Engine (V2)](template_engine.md)
+*   [Themes](themes.md)
+*   [Template Schema](template_schema.md)
 *   [Publishing and Versioning Guide](publishing_guide.md)
 *   [Contribution Guide](contribution_guide.md)
 *   [Testing Guide](testing.md)
+*   [API Development](api_development.md)
+*   [Improvement Plan](improvement_plan.md)
+*   [Menu Manager](menu_manager.md)
+*   [ResourceController Lifecycle](resource_controller_lifecycle.md)
+*   [PHP 8.5 Diagnosis](php85_diagnosis.md)
 *   [Module Guide](MODULOS.md) (Pending)
-*   [API Reference](API.md) (Pending)

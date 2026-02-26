@@ -70,9 +70,16 @@ El repositorio incluye una aplicación `skeleton` lista para usar como entorno d
 
 ## Documentación Adicional
 
-*   [Arquitectura y Conceptos Core](../es/arquitectura.md)
-*   [Guía de Publicación y Versionado](../es/guia_de_publicacion.md)
-*   [Guía de Contribución](../es/guia_de_contribucion.md)
-*   [Guía de Testing](../es/testing.md)
-*   [Guía de Módulos](MODULOS.md) (Pendiente)
+*   [Arquitectura y Conceptos Core](arquitectura.md)
+*   [Motor de Plantillas](motor-plantillas.md)
+*   [Temas](temas.md)
+*   [Esquema de Plantillas](esquema_de_plantillas.md)
+*   [Guía de Publicación y Versionado](guia_de_publicacion.md)
+*   [Guía de Contribución](guia_de_contribucion.md)
+*   [Guía de Testing](testing.md)
 *   [Desarrollo y Documentación de APIs](desarrollo_de_apis.md)
+*   [Análisis de Mejoras](analisis_de_mejoras.md)
+*   [Gestor de Menús](gestor_de_menus.md)
+*   [Ciclo de Vida del ResourceController](resource_controller_lifecycle.md)
+*   [Diagnóstico PHP 8.5](diagnostico_php85.md)
+*   [Guía de Módulos](MODULOS.md) (Pendiente)
