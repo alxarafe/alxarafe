@@ -8,7 +8,7 @@ Alxarafe uses a "fallback" (or cascade) system to locate template files (`.blade
 
 ### 1.1. Custom Theme (Application and Package)
 
-The system first checks if a specific version of the template exists for the active theme (`main.theme` in `config.json`).
+The system first checks if a specific version of the template exists for the active theme.
 This allows for multiple appearances without modifying the core code.
 
 1.  **Application Theme**: `[APP_ROOT]/templates/themes/[THEME]/`
@@ -54,25 +54,23 @@ It loads the following main blocks:
 Within the standard body, the screen is divided into functional areas. Although they may vary visually (top bar, side bar, off-canvas), they are conceptually defined as follows:
 
 #### **A. Main Menu (`main_menu`)**
-*   **Default file**: `templates/partial/side_bar.blade.php` (and part of `top_bar.blade.php`).
+*   **Default file**: `templates/partial/main_menu.blade.php`.
 *   **Function**: Contains the main navigation of the application (Modules, Controllers).
-*   **Customization**: To change the main navigation, override `partial/side_bar.blade.php` in `[APP_ROOT]/templates/partial/`.
 
-#### **B. Icon and Utility Menu (`icons_menu`)**
-*   **Default file**: `templates/partial/top_bar.blade.php` (Right section).
-*   **Function**: User tools, notifications, language change, user profile, and clock.
-*   **Customization**: To add icons or widgets to the header, override `partial/top_bar.blade.php`.
+#### **B. Icon and Utility Menu (`user_menu`)**
+*   **Default file**: `templates/partial/user_menu.blade.php`.
+*   **Function**: User tools, notifications, theme switcher, language change, user profile.
 
 #### **C. Central Content (`content`)**
 *   **Definition**: `@yield('content')`
-*   **Function**: This is where the specific view for each controller is injected (e.g., login form, user list, etc.).
+*   **Function**: This is where the specific view for each controller is injected.
 
 ### 2.3. Key Folders in `templates/` Summary
 
 | Folder | Description |
 | :--- | :--- |
 | `layout/` | Base page structures (e.g., `column`, `row`, `container`). |
-| `partial/` | Reusable fragments (`header`, `footer`, `alerts`, `side_bar`, `top_bar`). |
+| `partial/` | Reusable fragments (`header`, `footer`, `alerts`, `main_menu`, `user_menu`). |
 | `component/` | UI components (e.g., `card`, `modal`, `button`). |
 | `form/` | Templates for automatic form rendering. |
 | `page/` | Specific full pages (e.g., `migration`, `error`). |
@@ -81,11 +79,56 @@ Within the standard body, the screen is divided into functional areas. Although 
 
 ---
 
-## 3. Notes on Assets (CSS/JS)
+## 3. Theme CSS Loading
+
+The active theme CSS is loaded dynamically in `partial/head.blade.php` using this priority:
+
+1. **Cookie `alx_theme`** → set when the user selects a theme from the switcher
+2. **Configuration** → `config.json` → `main.theme`
+3. **Fallback** → `default`
+
+The CSS file `<link href="/themes/{active_theme}/css/default.css">` is loaded automatically.
+
+---
+
+## 4. Available Themes
+
+| Theme | Style | Key Colors | Font |
+|:---|:---|:---|:---|
+| **default** | Modern, clean | Light gray bg, dark text, blue accents | System UI |
+| **alternative** | Pastel, soft | Cream bg, periwinkle blue, mint green | Segoe UI |
+| **cyberpunk** | Dark, neon, futuristic | Black bg, cyan neon, teal | Courier New |
+| **high-contrast** | Accessibility-focused | Black bg, yellow text, magenta highlights | Arial 110% |
+| **vintage** | Retro, classic | Parchment bg, brown text, coffee accents | Georgia (serif) |
+
+### Theme File Structure
+
+| Theme | CSS | Custom Layout | Custom Components | Custom Partials |
+|:---|:---:|:---:|:---:|:---:|
+| default | ✅ | — | — | — |
+| alternative | ✅ | — | `boolean`, `select`, `fields/` | — |
+| cyberpunk | ✅ + SCSS | ✅ full layout | `card`, `menu_item`, `select` | `main_menu`, `user_menu` |
+| high-contrast | ✅ | — | `card` | — |
+| vintage | ✅ | — | — | — |
+
+---
+
+## 5. Assets (CSS/JS) Publishing
 
 The `ComposerScripts` script is responsible for publishing static files (images, CSS, JS) from the package to the public folder.
 
-*   **Source**: `vendor/alxarafe/alxarafe/assets` and `vendor/alxarafe/alxarafe/templates/themes/[THEME]/assets`
+*   **Source**: `vendor/alxarafe/alxarafe/assets` and `vendor/alxarafe/alxarafe/templates/themes/[THEME]/{css,js,assets,img,fonts}`
 *   **Destination**: `public/alxarafe/assets` and `public/themes/[THEME]/`
 
 **Important**: Unlike `.blade.php` templates (which are read dynamically based on the hierarchy), CSS/JS files **are physically copied** to `public`. If you need to modify the base CSS, you must do so by creating a new theme or overriding the file in your own asset structure, not by editing the files in `vendor`.
+
+---
+
+## 6. Creating a New Theme
+
+1.  Create a folder in `templates/themes/{my-theme}/`
+2.  Create `css/default.css` with the theme styles
+3.  (Optional) Add Blade templates that override defaults (e.g., `partial/layout/main.blade.php`)
+4.  (Optional) Add themed components (e.g., `component/card.blade.php`)
+5.  Run `composer update` or the publish script to copy assets to `public/themes/`
+

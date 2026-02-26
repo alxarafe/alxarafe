@@ -15,8 +15,15 @@ Parameters:
     any other attribute will be added to the div
 --}}
 
-@props(['class' => 'container', 'id' => null])
+@props(['class' => 'container', 'id' => null, 'fluid' => false])
 
-<div {{ $id ? "id=$id" : '' }} {{ $attributes->merge(['class' => $class]) }}>
+@php
+    if (isset($attributes) && is_array($attributes)) {
+        $attributes = new \Illuminate\View\ComponentAttributeBag($attributes);
+    }
+    $finalClass = $class . ($fluid ? '-fluid' : '');
+@endphp
+
+<div {{ $id ? "id=$id" : '' }} {{ $attributes->merge(['class' => $finalClass]) }}>
     {{ $slot }}
 </div>

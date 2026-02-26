@@ -10,6 +10,11 @@ Parameters:
     action is optional (default '#')
     class is optional (default 'form')
 --}}
+@php
+    if (isset($attributes) && is_array($attributes)) {
+        $attributes = new \Illuminate\View\ComponentAttributeBag($attributes);
+    }
+@endphp
 
 @props(['method' => 'POST', 'action' => '#', 'class' => 'form'])
 

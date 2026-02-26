@@ -1,6 +1,6 @@
 @props([
     'type' => 'text',
-    'name',
+    'name' => $name ?? '',
     'label' => '',
     'value' => '',
     'help' => '',
@@ -29,9 +29,9 @@
             </button>
         @endforeach
 
-        <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}"
+        <input type="{{ $type }}" name="{{ $name }}" id="{{ $attributes->get('id', $name) }}"
                placeholder="{{ $label }}" value="{{ $value }}"
-               {{ $attributes->merge(['class' => 'form-control']) }}>
+               {{ $attributes->whereDoesntStartWith('id')->merge(['class' => 'form-control']) }}>
 
         @foreach($rightActions as $action)
             <button class="btn {{ $action['class'] ?? 'btn-outline-secondary' }}" 

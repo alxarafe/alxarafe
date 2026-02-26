@@ -1,8 +1,5 @@
-<!-- Templates/common/component/badge.blade.php -->
-{{--
+@props(['type' => 'secondary', 'rounded' => false])
 
-@link: https://getbootstrap.com/docs/5.2/components/badge/
-
---}}
-
-Pending implementation.
+<span {{ $attributes->merge(['class' => "badge bg-{$type}" . ($rounded ? ' rounded-pill' : '')]) }}>
+    {{ $slot }}
+</span>

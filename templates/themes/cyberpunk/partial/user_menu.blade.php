@@ -101,6 +101,20 @@
         text-transform: uppercase;
     }
 
+    /* Ensure all icons in the right bar are consistently sized */
+    .cyber-rightbar .cyber-retro-icon,
+    .cyber-rightbar .menu-item-icon {
+        font-size: 2rem !important;
+        filter: drop-shadow(0 0 3px currentColor);
+    }
+
+    /* Consistent spacing between right-bar items */
+    .cyber-rightbar .menu-item-container,
+    .cyber-rightbar .cyber-retro-container {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
     /* Original Cyberpunk Styles */
     .cyber-rightbar {
         position: fixed;

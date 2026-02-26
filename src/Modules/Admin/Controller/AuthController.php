@@ -89,6 +89,7 @@ class AuthController extends GenericPublicController
     {
         $this->setDefaultTemplate('page/login');
         $this->addVariable('title', Trans::_('login'));
+        $this->backUrl = '/';
 
         $this->username = filter_input(INPUT_POST, 'username');
         $this->password = filter_input(INPUT_POST, 'password');
@@ -127,6 +128,12 @@ class AuthController extends GenericPublicController
         $theme = filter_input(INPUT_GET, 'theme');
         if ($theme) {
             setcookie('alx_theme', $theme, time() + (86400 * 30), '/');
+
+            // Persist to user record if logged in
+            if (Auth::isLogged() && Auth::$user) {
+                Auth::$user->theme = $theme;
+                Auth::$user->save();
+            }
         }
         $redirect = $_SERVER['HTTP_REFERER'] ?? 'index.php';
         Functions::httpRedirect($redirect);

@@ -1,4 +1,4 @@
-@extends('layout.public')
+@extends('partial.layout.main')
 
 @section('content')
 <x-layout.container class="py-5">

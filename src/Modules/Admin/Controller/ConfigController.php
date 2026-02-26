@@ -75,21 +75,74 @@ class ConfigController extends ResourceController
         return 'Alxarafe\Base\Config';
     }
 
+    /**
+     * Build the ViewDescriptor for the Config form.
+     * Uses the new body format with Panel components.
+     */
     #[\Override]
-    protected function setup()
+    public function getViewDescriptor(): array
     {
-        // Add custom buttons for Config
-        $this->addEditButton('save', Trans::_('save_configuration'), 'fas fa-save', 'primary', 'left', 'action');
+        $fields = $this->getEditFields();
+
+        $panels = [];
+        foreach ($fields as $groupName => $groupFields) {
+            $panels[] = new \Alxarafe\Component\Container\Panel(
+                Trans::_($groupName),
+                $groupFields,
+                ['col' => count($fields) > 1 ? 'col-md-6' : 'col-12']
+            );
+        }
+
+        $buttons = [
+            ['label' => Trans::_('save_configuration'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
+        ];
 
         if ($this->pdo_connection) {
             if (!$this->pdo_db_exists) {
-                $this->addEditButton('createDatabase', Trans::_('create_database'), 'fas fa-database', 'success', 'left', 'action');
+                $buttons[] = ['label' => Trans::_('create_database'), 'icon' => 'fas fa-database', 'type' => 'success', 'action' => 'submit', 'name' => 'createDatabase'];
             } else {
-                $this->addEditButton('runMigrations', Trans::_('go_migrations'), 'fas fa-sync', 'success', 'left', 'action');
+                $buttons[] = ['label' => Trans::_('go_migrations'), 'icon' => 'fas fa-sync', 'type' => 'success', 'action' => 'submit', 'name' => 'runMigrations'];
             }
-            $this->addEditButton('regenerate', Trans::_('regenerate'), 'fas fa-redo', 'warning', 'right', 'action');
-            $this->addEditButton('exit', Trans::_('exit'), 'fas fa-sign-out-alt', 'danger', 'right', 'action');
+            $buttons[] = ['label' => Trans::_('regenerate'), 'icon' => 'fas fa-redo', 'type' => 'warning', 'action' => 'submit', 'name' => 'regenerate'];
+            $buttons[] = ['label' => Trans::_('exit'), 'icon' => 'fas fa-sign-out-alt', 'type' => 'danger', 'action' => 'submit', 'name' => 'exit'];
         }
+
+        return [
+            'mode'     => $this->mode ?? 'edit',
+            'method'   => 'POST',
+            'action'   => '?module=' . static::getModuleName() . '&controller=' . static::getControllerName(),
+            'recordId' => 'current',
+            'record'   => $this->data ?? new \stdClass(),
+            'buttons'  => $buttons,
+            'body'     => new \Alxarafe\Component\Container\Panel('', $panels, ['col' => 'col-12']),
+        ];
+    }
+
+    /**
+     * Config is not a standard Eloquent model — skip table integrity check.
+     */
+    #[\Override]
+    protected function checkTableIntegrity()
+    {
+        // No-op: Config is an abstract class, not an Eloquent model.
+    }
+
+    /**
+     * Skip the standard buildConfiguration() since ConfigController
+     * doesn't use structConfig for its form — getViewDescriptor() handles everything.
+     */
+    #[\Override]
+    protected function buildConfiguration()
+    {
+        // No-op: Config form structure is defined in getViewDescriptor().
+    }
+
+    #[\Override]
+    protected function setup()
+    {
+        // Buttons are defined in getViewDescriptor() instead of here,
+        // because pdo_connection is not set until handleRequest() -> checkDatabaseStatus().
+        // getViewDescriptor() runs in renderView(), which executes after handleRequest().
     }
 
     #[\Override]
@@ -365,21 +418,12 @@ class ConfigController extends ResourceController
     #[\Override]
     public function doIndex(): bool
     {
-        /**
-         * TODO: The value of this variable will be filled in when the roles
-         *       are correctly implemented.
-         */
-        // $restricted_access = false;
-
-        // Make fields available to view via $me->configFields (ad-hoc property for now)
-        $this->configFields = $this->getEditFields();
-
-        $this->setDefaultTemplate('page/config');
         $this->addVariable('title', Trans::_('configuration'));
 
-        if (isset($this->config)) {
-            // $this->setDefaultTemplate('page/forbidden');
-        }
+        // Must call privateCore() to trigger the ResourceTrait lifecycle:
+        // detectMode → buildConfiguration → setup → handleRequest → renderView
+        // renderView() generates and caches the Blade template from getViewDescriptor().
+        $this->privateCore();
 
         return true;
     }

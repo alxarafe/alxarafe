@@ -1,8 +1,8 @@
-<!-- Templates/common/component/alert.blade.php -->
-{{--
+@props(['type' => 'info', 'dismissible' => false])
 
-@link: https://getbootstrap.com/docs/5.2/components/alerts/
-
---}}
-
-Pending implementation.
+<div {{ $attributes->merge(['class' => "alert alert-{$type}" . ($dismissible ? ' alert-dismissible fade show' : '')]) }} role="alert">
+    {{ $slot }}
+    @if($dismissible)
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    @endif
+</div>

@@ -11,7 +11,7 @@
 <div class="cyber-grid-overlay"></div>
 
 @php
-    $hasSidebar = \Alxarafe\Lib\Auth::isLogged() && !empty($main_menu);
+    $hasSidebar = !empty($main_menu);
 @endphp
 
 <style>
