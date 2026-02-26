@@ -58,3 +58,8 @@ utc: UTC
 app_label: App
 user_label: Usuario
 no_new_notifications: No hay notificaciones nuevas
+administration_access: Acceso Administración
+please_enter_credentials: Por favor, introduzca sus credenciales
+login_name: Nombre de usuario
+login_password: Contraseña
+login_button: Entrar

@@ -31,18 +31,18 @@
                     
                     <!-- Hover Tooltip -->
                     <div class="clock-details shadow rounded bg-white border p-3 position-absolute text-start" style="top: 100%; right: 0; min-width: 350px; display: none; z-index: 1060; line-height: 1.4;">
-                        <div class="small text-muted border-bottom mb-2 pb-1">{{ \Alxarafe\Lib\Trans::_('timezones') }}</div>
+                        <div class="small text-muted border-bottom mb-2 pb-1">{{ $me->_('timezones') }}</div>
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="text-muted small">{{ \Alxarafe\Lib\Trans::_('utc') }}:</span>
+                            <span class="text-muted small">{{ $me->_('utc') }}:</span>
                             <span id="clock-utc" class="text-dark font-weight-bold small">--</span>
                         </div>
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="text-primary small" title="{{ $companyTz }}">{{ \Alxarafe\Lib\Trans::_('app_label') }}:</span>
+                            <span class="text-primary small" title="{{ $companyTz }}">{{ $me->_('app_label') }}:</span>
                             <span id="clock-company" class="text-dark font-weight-bold small">--</span>
                         </div>
                         @if(\Alxarafe\Lib\Auth::$user)
                         <div class="d-flex justify-content-between">
-                            <span class="text-success small" title="{{ $userTz }}">{{ \Alxarafe\Lib\Trans::_('user_label') }}:</span>
+                            <span class="text-success small" title="{{ $userTz }}">{{ $me->_('user_label') }}:</span>
                             <span id="clock-user" class="text-dark font-weight-bold small">--</span>
                         </div>
                         @endif
@@ -77,7 +77,7 @@
                                     </a>
                                 @endforeach
                             @else
-                                 <span class="dropdown-item text-muted small">{{ \Alxarafe\Lib\Trans::_('no_new_notifications') }}</span>
+                                 <span class="dropdown-item text-muted small">{{ $me->_('no_new_notifications') }}</span>
                             @endif
                         </div>
                     </li>

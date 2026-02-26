@@ -1,4 +1,4 @@
-@props(['name', 'value' => false, 'label' => ''])
+@props(['name' => $name ?? '', 'value' => false, 'label' => ''])
 
 <div {{ $attributes->merge(['class' => 'form-check']) }}>
     <input type="hidden" name="{{ $name }}" value="0">

@@ -164,12 +164,15 @@ abstract class AbstractField implements JsonSerializable
         if (self::$renderer === null) {
             self::$renderer = new \Alxarafe\Base\Template();
             // Add standard forms path
+            if (defined('ALX_PATH')) {
+                self::$renderer->addPath(constant('ALX_PATH') . '/templates');
+            }
             if (defined('BASE_PATH')) {
                 self::$renderer->addPath(constant('BASE_PATH') . '/templates');
             }
         }
 
         $data = array_merge($this->jsonSerialize(), $extraData);
-        return self::$renderer->render('form/' . $this->component, $data);
+        return (string) self::$renderer->render('form/' . $this->component, $data);
     }
 }

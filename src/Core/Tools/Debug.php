@@ -78,8 +78,14 @@ abstract class Debug
         self::$render = null;
 
         $config = Config::getConfig();
-        self::$enabled = $config->security->debug ?? false;
+        self::$enabled = (bool)($config->security->debug ?? false);
         if (!self::$enabled) {
+            return false;
+        }
+
+        if (!class_exists('DebugBar\StandardDebugBar')) {
+            self::$enabled = false;
+            error_log('DebugBar library not found. Debug mode disabled.');
             return false;
         }
 

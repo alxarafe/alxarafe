@@ -9,12 +9,13 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<!-- Default Clean Theme Override -->
-@hasSection('theme_css')
-    @yield('theme_css')
-@else
-    <link href="/themes/default/css/default.css" rel="stylesheet">
-@endif
+<!-- Dynamic Theme CSS -->
+@php
+    $activeTheme = $_COOKIE['alx_theme']
+        ?? \Alxarafe\Base\Config::getConfig()->main->theme
+        ?? 'default';
+@endphp
+<link href="/themes/{{ $activeTheme }}/css/default.css" rel="stylesheet">
 
 {!! $me->getRenderHeader() !!}
 
@@ -30,6 +31,10 @@
         z-index: 1000;
         /* Background and colors controlled by default.css */
     }
+
+    .no-sidebar .sidebar {
+        display: none;
+    }
     
     .id_container {
         display: flex;
@@ -37,10 +42,14 @@
     }
     
     #id-right {
-        margin-left: 250px; /* Sidebar width */
+        margin-left: 0;
         padding: 20px;
         flex-grow: 1;
         transition: margin-left 0.3s;
+    }
+
+    .has-sidebar #id-right {
+        margin-left: 250px; /* Sidebar width */
     }
 
     @media (max-width: 768px) {
@@ -48,10 +57,11 @@
             width: 0;
             overflow: hidden;
         }
-        #id-right {
+        .has-sidebar #id-right {
             margin-left: 0;
         }
     }
+
 </style>
 
 @stack('css')

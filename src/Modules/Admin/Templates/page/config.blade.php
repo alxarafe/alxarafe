@@ -1,17 +1,17 @@
 @extends('partial.layout.main')
 
 @section('content')
-    @component('form.form', ['attributes' => ['id' => 'config-form']])
-        @component('layout.div', ['fluid' => true])
+    <x-form.form id="config-form">
+        <x-layout.div :fluid="true">
 
             @slot('slot')
-                @component('layout.row',[])
+                <x-layout.row>
                     @slot('slot')
 
                         @foreach ($me->configFields as $groupName => $groupFields)
-                            @component('layout.column', ['class' => count($me->configFields) > 1 ? 'col-md-6' : 'col-12'])
+                            <x-layout.column :class="count($me->configFields) > 1 ? 'col-md-6' : 'col-12'">
                                 @slot('slot')
-                                    @component('component.card', ['title' => $me->_($groupName)])
+                                    <x-component.card :title="$me->_($groupName)">
                                         @slot('slot')
                                             @foreach ($groupFields as $field)
                                                 @php
@@ -34,42 +34,43 @@
                                                 @include('form.' . $field->getComponent(), $data)
                                             @endforeach
                                         @endslot
-                                    @endcomponent
+                                    </x-component.card>
                                 @endslot
-                            @endcomponent
+                            </x-layout.column>
                         @endforeach
                     @endslot
-                @endcomponent
+                </x-layout.row>
 
                 {{-- Buttons managed via header_actions --}}
             @endslot
-        @endcomponent
-    @endcomponent
+        </x-layout.div>
+    </x-form.form>
 @endsection
 
 @section('header_actions')
     {{-- Config Actions linked to form --}}
-    @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'save', 'attributes' => ['form="config-form"']])
+    <x-component.button type="submit" name="action" value="save" form="config-form">
         {!! $me->_('save_configuration') !!}
-    @endcomponent
+    </x-component.button>
 
     @if ($me->pdo_connection ?? false)
         @if (!$me->pdo_db_exists ?? false)
-            @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'createDatabase', 'attributes' => ['form="config-form"']])
+            <x-component.button type="submit" name="action" value="createDatabase" form="config-form">
                 {!! $me->_('create_database') !!}
-            @endcomponent
+            </x-component.button>
         @else
-            @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'runMigrations', 'attributes' => ['form="config-form"']])
+            <x-component.button type="submit" name="action" value="runMigrations" form="config-form">
                 {!! $me->_('go_migrations') !!}
-            @endcomponent
+            </x-component.button>
         @endif
-        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'regenerate', 'class'=>'warning', 'attributes' => ['form="config-form"']])
+        <x-component.button type="submit" name="action" value="regenerate" class="warning" form="config-form">
             {!! $me->_('regenerate') !!}
-        @endcomponent
-        @component('component.button', ['type'=>'submit', 'name'=>'action', 'value'=>'exit', 'class' => 'danger', 'attributes' => ['form="config-form"']])
+        </x-component.button>
+        <x-component.button type="submit" name="action" value="exit" class="danger" form="config-form">
             {!! $me->_('exit') !!}
-        @endcomponent
+        </x-component.button>
     @endif
+
 @endsection
 
 @push('scripts')

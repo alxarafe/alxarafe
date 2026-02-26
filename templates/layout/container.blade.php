@@ -16,6 +16,9 @@ Parameters:
 @props(['fluid' => false, 'class' => 'container', 'id' => null])
 
 @php
+    if (isset($attributes) && is_array($attributes)) {
+        $attributes = new \Illuminate\View\ComponentAttributeBag($attributes);
+    }
     $finalClass = $class . ($fluid ? '-fluid' : '');
 @endphp
 

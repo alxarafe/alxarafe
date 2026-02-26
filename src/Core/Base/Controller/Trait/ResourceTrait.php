@@ -1259,6 +1259,8 @@ trait ResourceTrait
         $this->addVariable('config', $this->structConfig);
         $this->addVariable('recordId', $this->recordId);
         $this->addVariable('mode', $this->mode);
+        $descriptor = $this->getViewDescriptor();
+        $this->addVariable('viewDescriptor', $descriptor);
 
         // Flatten fields for Dynamic View Binding
         $viewFields = [];
@@ -1294,119 +1296,76 @@ trait ResourceTrait
         ]));
     }
 
+    /**
+     * Build the canonical ViewDescriptor array from the current structConfig.
+     *
+     * Controllers may override this method to provide a fully custom descriptor
+     * without needing to follow the buildConfiguration() path.
+     *
+     * @return array The ViewDescriptor array with body component.
+     */
+    public function getViewDescriptor(): array
+    {
+        $descriptor = [
+            'mode'     => $this->mode,
+            'method'   => 'POST',
+            'action'   => '?module=' . static::getModuleName() . '&controller=' . static::getControllerName(),
+            'recordId' => $this->recordId ?? null,
+            'record'   => [],
+            'buttons'  => [],
+            'body'     => null,
+        ];
+
+        // --- Buttons from structConfig ---
+        foreach ($this->structConfig['edit']['head_buttons'] ?? [] as $btn) {
+            $descriptor['buttons'][] = [
+                'label'  => $btn['label'] ?? '',
+                'icon'   => $btn['icon'] ?? '',
+                'type'   => $btn['type'] ?? 'secondary',
+                'action' => $btn['action'] ?? 'submit',
+                'target' => $btn['target'] ?? '',
+                'name'   => $btn['name'] ?? '',
+            ];
+        }
+
+        // --- Sections → body with Panel components ---
+        $panels = [];
+        foreach ($this->structConfig['edit']['sections'] ?? [] as $secId => $section) {
+            $panels[] = new \Alxarafe\Component\Container\Panel(
+                $section['title'] ?? ucfirst($secId),
+                $section['fields'] ?? [],
+                ['col' => $section['col'] ?? 'col-md-6']
+            );
+        }
+
+        // Single panel → body is that panel. Multiple → wrap in a Panel container.
+        if (count($panels) === 1) {
+            $descriptor['body'] = $panels[0];
+        } elseif (count($panels) > 1) {
+            $descriptor['body'] = new \Alxarafe\Component\Container\Panel('', $panels, ['col' => 'col-12']);
+        }
+
+        // --- Record data ---
+        if ($this->mode === ResourceInterface::MODE_EDIT && $this->recordId && $this->recordId !== 'new') {
+            try {
+                $data = $this->fetchRecordData();
+                $descriptor['record'] = $data['data'] ?? [];
+            } catch (\Exception $e) {
+                error_log("getViewDescriptor: Error fetching record data: " . $e->getMessage());
+            }
+        }
+
+        return $descriptor;
+    }
+
     protected function generateViewContent(string $mode): string
     {
-        if ($mode === ResourceInterface::MODE_EDIT) {
-            return $this->generateEditView();
-        }
-        // List mode placeholder for now - or simple dump
-        return $this->generateListView();
+        $generator = new \Alxarafe\Base\Frontend\TemplateGenerator();
+        $descriptor = $this->getViewDescriptor();
+        $descriptor['mode'] = $mode; // Ensure correct mode
+        return $generator->generate($descriptor);
     }
 
-    protected function generateEditView(): string
-    {
-        $out = "@extends('partial.layout.main')\n";
-        $out .= "@section('content')\n";
-        $out .= "<div class=\"container-fluid\">\n";
-        // Form Wrapper
-        $out .= "    <form method=\"POST\" action=\"?module=" . static::getModuleName() . "&controller=" . static::getControllerName() . "\">\n";
-        $out .= "        <input type=\"hidden\" name=\"action\" value=\"save\">\n";
-        $out .= "        <input type=\"hidden\" name=\"id\" value=\"{{ \$recordId }}\">\n\n";
-
-        // Action Buttons (Header)
-        if (!empty($this->structConfig['edit']['head_buttons'])) {
-            $out .= "        <div class=\"mb-3 text-end\">\n";
-            foreach ($this->structConfig['edit']['head_buttons'] as $btn) {
-                // Render button html or component
-                $out .= "            <button type=\"submit\" class=\"btn btn-" . ($btn['type'] ?? 'secondary') . "\">" . ($btn['label'] ?? '') . "</button>\n";
-            }
-            $out .= "        </div>\n";
-        }
-
-        // Sections
-        if (!empty($this->structConfig['edit']['sections'])) {
-            foreach ($this->structConfig['edit']['sections'] as $secId => $section) {
-                $out .= "        <div class=\"card mb-4\">\n";
-                $out .= "            <div class=\"card-header\">" . ($section['title'] ?? ucfirst($secId)) . "</div>\n";
-                $out .= "            <div class=\"card-body\">\n";
-                $out .= "                <div class=\"row\">\n";
-
-                // Fields
-                if (!empty($section['fields'])) {
-                    foreach ($section['fields'] as $field) {
-                        // Recursively handle panels
-                        if ($field instanceof \Alxarafe\Component\Container\Panel) {
-                            $out .= "                <!-- Panel: " . $field->getLabel() . " -->\n";
-                            $out .= "                <div class=\"" . $field->getColClass() . "\">\n";
-                            $out .= "                    <div class=\"card mb-3\">\n";
-                            $out .= "                        <div class=\"card-header\">" . $field->getLabel() . "</div>\n";
-                            $out .= "                        <div class=\"card-body\">\n";
-                            $out .= "                            <div class=\"row\">\n";
-                            foreach ($field->getFields() as $subField) {
-                                if ($subField instanceof AbstractField) {
-                                    $out .= $this->generateFieldInclude($subField);
-                                }
-                            }
-                            $out .= "                            </div>\n"; // End nested row
-                            $out .= "                        </div>\n";
-                            $out .= "                    </div>\n";
-                            $out .= "                </div>\n";
-                        } elseif ($field instanceof AbstractField) {
-                            $out .= $this->generateFieldInclude($field);
-                        }
-                    }
-                }
-
-                $out .= "                </div>\n"; // End section row
-                $out .= "            </div>\n";
-                $out .= "        </div>\n";
-            }
-        }
-
-        $out .= "        <div class=\"mb-5\">\n";
-        $out .= "            <button type=\"submit\" class=\"btn btn-primary\"><i class=\"fas fa-save\"></i> {{ \\Alxarafe\\Lib\\Trans::_('save') }}</button>\n";
-        $out .= "        </div>\n";
-
-        $out .= "    </form>\n";
-        $out .= "</div>\n";
-        $out .= "@endsection\n";
-        return $out;
-    }
-
-    protected function generateFieldInclude(AbstractField $field): string
-    {
-        // Dynamic Reference to $fields variable passed from controller
-        $fieldName = $field->getField();
-        $safeName = str_replace("'", "\\'", $fieldName);
-        $colClass = $field->getColClass(); // Baking the layout info
-
-        return "                @if(isset(\$fields['" . $safeName . "']))\n" .
-            "                    <div class=\"" . $colClass . "\">\n" .
-            "                        @include('form." . $field->getComponent() . "', \$fields['" . $safeName . "']->jsonSerialize())\n" .
-            "                    </div>\n" .
-            "                @endif\n";
-    }
-
-    protected function generateListView(): string
-    {
-        // Basic placeholder that falls back to JS renderer for specific implementation
-        // Or just basic table
-        $out = "@extends('partial.layout.main')\n";
-        $out .= "@section('content')\n";
-        // Use the JS renderer for List for now as it's complex
-        $out .= "    <div id=\"alxarafe-resource-container\" class=\"mt-3\"></div>\n";
-        $out .= "    <script src=\"/js/resource.bundle.js\"></script>\n";
-        $out .= "    <script>\n";
-        $out .= "        document.addEventListener('DOMContentLoaded', function() {\n";
-        $out .= "            try {\n";
-        $out .= "                var config = JSON.parse(atob(\"{{ \$me->viewConfig }}\"));\n";
-        $out .= "                new AlxarafeResource.AlxarafeResource(document.getElementById('alxarafe-resource-container'), config);\n";
-        $out .= "            } catch(e) { console.error(e); }\n";
-        $out .= "        });\n";
-        $out .= "    </script>\n";
-        $out .= "@endsection\n";
-        return $out;
-    }
 
 
     /**

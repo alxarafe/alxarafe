@@ -16,15 +16,17 @@ Parameters:
     attributes is optional (additional HTML attributes for the column)
 --}}
 
+@props([
+    'size' => 'col',
+    'class' => ''
+])
+
 @php
-    use Alxarafe\Lib\Functions;
-
-    $size = $size ?? 'col';
-    $class = trim(($class ?? '') . ' ' . $size);
-
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
+    if (isset($attributes) && is_array($attributes)) {
+        $attributes = new \Illuminate\View\ComponentAttributeBag($attributes);
+    }
 @endphp
 
-<div class="{{ $class }}" {!! $_attributes !!}>
+<div {{ $attributes->merge(['class' => trim($class . ' ' . $size)]) }}>
     {{ $slot }}
 </div>

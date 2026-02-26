@@ -14,14 +14,15 @@ Parameters:
     attributes is optional (additional HTML attributes for the row)
 --}}
 
+@props([
+    'class' => 'row'
+])
 @php
-    use Alxarafe\Lib\Functions;
-
-    $class = $class ?? 'row';
-
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
+    if (isset($attributes) && is_array($attributes)) {
+        $attributes = new \Illuminate\View\ComponentAttributeBag($attributes);
+    }
 @endphp
 
-<div class="{{ $class }}" {!! $_attributes !!}>
+<div {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </div>

@@ -1,10 +1,10 @@
-<!-- Templates/common/form/input.blade.php -->
-@php
-    use Alxarafe\Lib\Functions;
-    $_attributes = Functions::htmlAttributes($attributes ?? []);
-@endphp
-<div class="form-group">
-    <label for="{!! $name !!}" class="form-label">{!! $label !!}</label>
-    <input type="{!! $type !!}" name="{!! $name !!}" class="form-control" id="{!! $name !!}"
-           placeholder="{!! $label !!}" value="{!! $value ?? '' !!}" {!! $_attributes !!}>
+@props(['name', 'label' => null, 'type' => 'text', 'value' => '', 'placeholder' => null, 'hideLabel' => false])
+
+<div {{ $attributes->only('class')->merge(['class' => $hideLabel ? '' : 'mb-3']) }}>
+    @if($label && !$hideLabel)
+        <label for="{{ $attributes->get('id', $name) }}" class="form-label">{{ $label }}</label>
+    @endif
+    <input type="{{ $type }}" name="{{ $name }}" id="{{ $attributes->get('id', $name) }}" 
+           value="{{ $value }}" placeholder="{{ $placeholder ?? $label }}" 
+           {{ $attributes->whereDoesntStartWith('class')->class(['form-control']) }}>
 </div>

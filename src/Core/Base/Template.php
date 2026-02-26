@@ -96,9 +96,12 @@ class Template
                 };
             });
 
-            // Register all template paths as anonymous component paths with no prefix
+            // Register all existing template paths as anonymous component paths
             foreach ($this->paths as $path) {
-                $this->blade->compiler()->anonymousComponentPath($path, '');
+                $cleanPath = rtrim($path, '/');
+                if (is_dir($cleanPath)) {
+                    $this->blade->compiler()->anonymousComponentPath($cleanPath);
+                }
             }
 
             // Template Tracer Hook

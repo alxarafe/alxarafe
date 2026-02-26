@@ -1,5 +1,5 @@
 @props([
-    'name',
+    'name' => $name ?? '',
     'label' => '',
     'value' => '',
     'values' => [],

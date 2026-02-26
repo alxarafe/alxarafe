@@ -1,4 +1,4 @@
-@extends('layout.public')
+@extends('partial.layout.main')
 
 @section('content')
 <x-layout.container class="mt-5">
@@ -68,7 +68,7 @@
                         </button>
                     </li>
                 </ul>
-                <div class="tab-content border rounded p-4 bg-white shadow-sm" id="markdownTabsContent">
+                <div class="tab-content border rounded p-4 shadow-sm" id="markdownTabsContent">
                     <div class="tab-pane fade show active post-content" id="rendered" role="tabpanel" aria-labelledby="rendered-tab">
                         {!! $contentHtml !!}
                     </div>
@@ -83,18 +83,8 @@
 
 <style>
 .post-content {
-    color: #334155;
     font-size: 1.1rem;
-}
-.tab-pane pre {
-    background: #f8fafc;
-    color: #1e293b;
-    border: 1px solid #e2e8f0;
-}
-/* Estilo para que el header del card use el background dark en este caso concreto */
-.card-header {
-    background-color: #212529 !important;
-    color: white !important;
 }
 </style>
 @endsection
+
