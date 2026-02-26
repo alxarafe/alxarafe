@@ -1,6 +1,6 @@
 # Alxarafe
 
-![PHP Version](https://img.shields.io/badge/PHP-8.5.1-blueviolet?style=flat-square)
+![PHP Version](https://img.shields.io/badge/PHP-8.2+-blueviolet?style=flat-square)
 ![CI](https://github.com/alxarafe/alxarafe/actions/workflows/ci.yml/badge.svg)
 ![Tests](https://github.com/alxarafe/alxarafe/actions/workflows/tests.yml/badge.svg)
 [![Quality Report](https://img.shields.io/badge/quality-report-brightgreen?style=flat-square)](https://alxarafe.github.io/alxarafe/quality/)
