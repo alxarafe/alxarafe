@@ -14,6 +14,11 @@ define('BASE_URL', 'http://localhost:8081');
 define('ALX_PATH', realpath(__DIR__ . '/../../')); // Root of the repo (framework)
 define('APP_PATH', realpath(__DIR__ . '/../'));    // Root of the app (skeleton)
 
+// Pre-define APP_PATH for Config class to find the config.json correctly
+if (!defined('APP_PATH')) {
+    define('APP_PATH', realpath(__DIR__ . '/../'));
+}
+
 // Load Configuration and Initialize Services
 $config = Config::getConfig();
 
@@ -68,7 +73,13 @@ if (!is_dir(__DIR__ . '/themes') || !is_dir(__DIR__ . '/css')) {
 }
 
 // Load Routes
-require_once APP_PATH . '/routes.php';
+$routesPath = constant('APP_PATH') . '/routes.php';
+$configRoutesPath = constant('APP_PATH') . '/config/routes.php';
+if (file_exists($configRoutesPath)) {
+    require_once $configRoutesPath;
+} elseif (file_exists($routesPath)) {
+    require_once $routesPath;
+}
 
 // Simple Routing
 if (php_sapi_name() === 'cli') {

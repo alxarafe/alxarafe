@@ -28,6 +28,7 @@ class Template
     protected ?string $templateName;
     protected array $paths = [];
     protected ?Blade $blade = null;
+    protected static ?BladeContainer $globalContainer = null;
 
     public function __construct(?string $templateName = null)
     {
@@ -77,30 +78,39 @@ class Template
                 mkdir($cachePath, 0755, true);
             }
 
-            // Fix: Use custom BladeContainer to support illuminate/view ^10
-            $container = new \Alxarafe\Base\BladeContainer();
-            \Illuminate\Container\Container::setInstance($container);
+            // Use a persistent container to avoid service loss between instances
+            if (self::$globalContainer === null) {
+                self::$globalContainer = new \Alxarafe\Base\BladeContainer();
+                \Illuminate\Container\Container::setInstance(self::$globalContainer);
+            }
+            $container = self::$globalContainer;
 
             $this->blade = new Blade($this->paths, $cachePath, $container);
 
-            // Bind the View Factory contract to the 'view' service for component tag compilation
+            // Ensure the view service is correctly registered for component resolution
+            $factory = $container->make('view');
+            $container->instance(\Illuminate\Contracts\View\Factory::class, $factory);
             $container->alias('view', \Illuminate\Contracts\View\Factory::class);
 
             // Bind a mock Application to satisfy Blade's ComponentTagCompiler (requires getNamespace())
-            $container->singleton(\Illuminate\Contracts\Foundation\Application::class, function () {
-                return new class {
-                    public function getNamespace()
-                    {
-                        return 'Alxarafe\\';
-                    }
-                };
-            });
+            if (!$container->bound(\Illuminate\Contracts\Foundation\Application::class)) {
+                $container->singleton(\Illuminate\Contracts\Foundation\Application::class, function () {
+                    return new class {
+                        public function getNamespace()
+                        {
+                            return 'Alxarafe\\';
+                        }
+                    };
+                });
+            }
 
-            // Register all existing template paths as anonymous component paths
+            // Register anonymous component paths
             foreach ($this->paths as $path) {
                 $cleanPath = rtrim($path, '/');
                 if (is_dir($cleanPath)) {
                     $this->blade->compiler()->anonymousComponentPath($cleanPath);
+                    // Explicitly add the __components namespace to the view factory to avoid 'No hint path' error
+                    $this->blade->addNamespace('__components', $cleanPath);
                 }
             }
 
@@ -114,9 +124,11 @@ class Template
 
         $viewName = str_replace('/', '.', $view);
 
+
         if ($this->blade) {
+            $exists = $this->blade->exists($viewName);
             // Using Blade to render
-            if ($this->blade->exists($viewName)) {
+            if ($exists) {
                 return $this->blade->make($viewName, $data)->render();
             }
         }

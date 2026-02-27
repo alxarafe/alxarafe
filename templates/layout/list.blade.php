@@ -1,21 +1,11 @@
-@extends('partial.layout.main')
-
-@section('header_actions')
-    <!-- Action Toolbar (Native Blade Placement) -->
-    <!-- Kept IDs for JS binding -->
-    <div class="btn-group me-2" id="alxarafe-toolbar-left"></div>
-    <div class="d-flex gap-2" id="alxarafe-toolbar-right"></div>
-@endsection
-
-@section('content')
+<!-- Client-side HTML layout template for AlxarafeResource JS.
+     Read via file_get_contents() and injected into DOM. Not Blade-processed. -->
 <div class="alxarafe-resource-list animate__animated animate__fadeIn">
     
     <!-- Tabs Navigation (if multiple) -->
     <div id="alxarafe-tabs-container">
         <!-- Tabs injected via JS -->
     </div>
-
-    <!-- Toolbar moved to header_actions section -->
 
     <!-- Collapsible Filters Panel (Default Open) -->
     <div class="card border mb-3 shadow-sm" id="alxarafe-filters-container">
@@ -24,7 +14,7 @@
                 data-bs-toggle="collapse" 
                 data-bs-target="#alxarafe-filters-collapse" 
                 aria-expanded="true">
-            <h6 class="mb-0 text-primary"><i class="fas fa-search me-2"></i>Filtros de búsqueda</h6>
+            <h6 class="mb-0 text-primary"><i class="fas fa-search me-2"></i>[trans:search_filters]</h6>
             <i class="fas fa-chevron-up text-muted"></i>
         </div>
         <div class="collapse show" id="alxarafe-filters-collapse">
@@ -57,4 +47,4 @@
         </div>
     </div>
 </div>
-@endsection
+

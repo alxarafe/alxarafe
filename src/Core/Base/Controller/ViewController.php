@@ -77,8 +77,26 @@ abstract class ViewController extends GenericController
             $this->addTemplatesPath(constant('APP_PATH') . '/templates');
         }
 
-        // Nullsafe operator to prevent errors if config is missing
-        Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
+        // Register framework-level template paths (theme + base fallback)
+        if (defined('ALX_PATH')) {
+            $alxPath = constant('ALX_PATH');
+            $theme = Config::getConfig()->main->theme ?? null;
+            if ($theme) {
+                $themePath = $alxPath . '/templates/themes/' . $theme;
+                if (is_dir($themePath)) {
+                    $this->addTemplatesPath($themePath);
+                }
+            }
+            $baseTplPath = $alxPath . '/templates';
+            if (is_dir($baseTplPath)) {
+                $this->addTemplatesPath($baseTplPath);
+            }
+        }
+
+        // Initialize language only if not already set by dispatcher
+        if (!\Alxarafe\Lib\Trans::wasSet()) {
+            \Alxarafe\Lib\Trans::setLang($this->config->main->language ?? \Alxarafe\Lib\Trans::FALLBACK_LANG);
+        }
 
         // Inject $me as the controller itself, preserving property access
         $this->addVariable('me', $this);

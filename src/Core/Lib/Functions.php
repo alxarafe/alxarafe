@@ -159,4 +159,55 @@ abstract class Functions
         }
         \Alxarafe\Tools\Debug::message("Command executed: $command. Output: " . implode("\n", $output));
     }
+
+    /**
+     * Recursively removes a directory or its contents.
+     *
+     * @param string $dir
+     * @param bool $removeRoot
+     * @return int Number of files/directories removed
+     */
+    public static function recursiveRemove(string $dir, bool $removeRoot = false): int
+    {
+        $count = 0;
+        if (!is_dir($dir)) {
+            if (file_exists($dir)) {
+                if (unlink($dir)) {
+                    $count++;
+                }
+            }
+            return $count;
+        }
+
+        $objects = scandir($dir);
+        if ($objects === false) {
+            \Alxarafe\Tools\Debug::message("Failed to scandir: $dir");
+            return 0;
+        }
+
+        foreach ($objects as $object) {
+            if ($object !== "." && $object !== "..") {
+                $path = $dir . DIRECTORY_SEPARATOR . $object;
+                if (is_dir($path) && !is_link($path)) {
+                    $count += self::recursiveRemove($path, true);
+                } else {
+                    if (unlink($path)) {
+                        $count++;
+                    } else {
+                        \Alxarafe\Tools\Debug::message("Failed to unlink: $path");
+                    }
+                }
+            }
+        }
+
+        if ($removeRoot) {
+            if (rmdir($dir)) {
+                $count++;
+            } else {
+                \Alxarafe\Tools\Debug::message("Failed to rmdir: $dir");
+            }
+        }
+
+        return $count;
+    }
 }

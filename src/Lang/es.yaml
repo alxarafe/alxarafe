@@ -2,6 +2,26 @@ en: Inglés
 es: Español
 en_US: Inglés (EEUU)
 es_ES: Español (España)
+fr: Francés
+de: Alemán
+pt: Portugués
+it: Italiano
+ru: Ruso
+zh: Chino
+ja: Japonés
+ar: Árabe
+nl: Holandés
+hi: Hindi
+ca: Catalán
+eu: Euskera
+es_AR: Español (Argentina)
+es_VE: Español (Venezuela)
+es_MX: Español (México)
+pt_BR: Português (Brasil)
+en_GB: Inglés (Reino Unido)
+
+
+
 unknown_method: ¡No se ha encontrado el método '%method%'!
 test_english_only: ¡Prueba con mensajes sólo en inglés!
 
@@ -63,3 +83,45 @@ please_enter_credentials: Por favor, introduzca sus credenciales
 login_name: Nombre de usuario
 login_password: Contraseña
 login_button: Entrar
+
+# Config Controller
+save_configuration: Guardar configuración
+create_database: Crear base de datos
+go_migrations: Ejecutar migraciones
+regenerate: Regenerar
+exit: Salir
+miscellaneous: Miscelánea
+connection: Conexión
+database_preferences: Preferencias de BD
+database: Base de datos
+use_debugbar: Usar barra de depuración
+db_type: Tipo de BD
+db_host: Host de BD
+db_user: Usuario de BD
+db_password: Contraseña de BD
+db_prefix: Prefijo de tablas
+db_charset: Charset
+db_collation: Collation
+db_name: Nombre de la BD
+db_port: Puerto
+select_timezone: Seleccionar zona horaria
+detect_timezone: Detectar zona horaria
+
+# Resource UI
+search_filters: Filtros de búsqueda
+new: Nuevo
+configuration_error_tab_not_found: "Error de configuración: No se ha encontrado la pestaña activa"
+missing_template_layout_list: "Error interno: Falta la plantilla 'layout_list'"
+missing_template_layout_edit: "Error interno: Falta la plantilla 'layout_edit'"
+no_results_found: No se encontraron resultados.
+loading: Cargando...
+reload: Recargar
+confirm_revert_changes: "¿Seguro que quieres descartar los cambios y recargar los datos originales?"
+no_sections_defined: No hay secciones definidas
+edit_record: Editar registro
+loading_data: Cargando datos...
+notifications: Notificaciones
+select_language: Seleccionar idioma
+available_languages: Idiomas disponibles
+select_theme: Seleccionar tema
+available_themes: Temas disponibles

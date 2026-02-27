@@ -82,16 +82,8 @@ class ConfigController extends ResourceController
     #[\Override]
     public function getViewDescriptor(): array
     {
-        $fields = $this->getEditFields();
-
-        $panels = [];
-        foreach ($fields as $groupName => $groupFields) {
-            $panels[] = new \Alxarafe\Component\Container\Panel(
-                Trans::_($groupName),
-                $groupFields,
-                ['col' => count($fields) > 1 ? 'col-md-6' : 'col-12']
-            );
-        }
+        $tabs = $this->getTabs();
+        $body = new \Alxarafe\Component\Container\TabGroup($tabs, ['id' => 'config-tabs']);
 
         $buttons = [
             ['label' => Trans::_('save_configuration'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
@@ -114,8 +106,30 @@ class ConfigController extends ResourceController
             'recordId' => 'current',
             'record'   => $this->data ?? new \stdClass(),
             'buttons'  => $buttons,
-            'body'     => new \Alxarafe\Component\Container\Panel('', $panels, ['col' => 'col-12']),
+            'body'     => new \Alxarafe\Component\Container\Panel('', [$body], ['col' => 'col-12']),
         ];
+    }
+
+    /**
+     * Generates configuration tabs based on groups defined in getEditFields().
+     * This method can be overridden or extended by child classes.
+     *
+     * @return array<\Alxarafe\Component\Container\Tab>
+     */
+    protected function getTabs(): array
+    {
+        $fields = $this->getEditFields();
+        $tabs = [];
+
+        foreach ($fields as $key => $data) {
+            // Support for old flat format or new structured format
+            $label = $data['label'] ?? Trans::_($key);
+            $groupFields = $data['fields'] ?? $data;
+
+            $tabs[] = new \Alxarafe\Component\Container\Tab($key, $label, '', $groupFields);
+        }
+
+        return $tabs;
     }
 
     /**
@@ -467,13 +481,10 @@ class ConfigController extends ResourceController
                         Messages::addMessage('Autoload regenerated.');
                         break;
                     case 'cache':
-                        // Clear blade cache
-                        $files = glob(constant('BASE_PATH') . '/../var/cache/blade/*'); // get all file names
-                        foreach ($files as $file) { // iterate files
-                            if (is_file($file))
-                                unlink($file); // delete file
-                        }
-                        Messages::addMessage('Cache cleared.');
+                        // Clear blade and resources cache
+                        $count = Functions::recursiveRemove(constant('BASE_PATH') . '/../var/cache/blade');
+                        $count += Functions::recursiveRemove(constant('BASE_PATH') . '/../var/cache/resources');
+                        Messages::addMessage("Cache cleared. Total items removed: $count");
                         break;
                     case 'full':
                         ModuleManager::regenerate();
@@ -483,7 +494,6 @@ class ConfigController extends ResourceController
             } catch (\Exception $e) {
                 Messages::addError('Error: ' . $e->getMessage());
             }
-            Functions::httpRedirect(\CoreModules\Admin\Controller\ConfigController::url('regenerate'));
         }
 
         $this->addVariable('title', 'System Regeneration');

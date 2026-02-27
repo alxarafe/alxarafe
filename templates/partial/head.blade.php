@@ -62,6 +62,20 @@
         }
     }
 
+    /* Switcher global styles */
+    .animate__fadeInFast { animation-duration: 0.2s; }
+    .nav-link.dropdown-toggle::after { display: none !important; }
+    .cyber-icon { transition: color 0.3s ease; }
+    .nav-item.dropdown .nav-link { 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        height: 40px;
+    }
 </style>
 
+
 @stack('css')
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+

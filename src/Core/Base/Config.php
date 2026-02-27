@@ -66,17 +66,15 @@ abstract class Config
             self::$config->main = static::getDefaultMainFileInfo();
         }
 
-        foreach (self::CONFIG_STRUCTURE as $section => $fields) {
-            if (!isset($data->$section)) {
+        foreach ($data as $section => $fields) {
+            if (!is_object($fields) && !is_array($fields)) {
                 continue;
             }
 
             self::$config->$section ??= new stdClass();
 
-            foreach ($fields as $key) {
-                if (isset($data->$section->$key)) {
-                    self::$config->$section->$key = $data->$section->$key;
-                }
+            foreach ($fields as $key => $value) {
+                self::$config->$section->$key = $value;
             }
         }
 
@@ -111,8 +109,15 @@ abstract class Config
 
     public static function getConfigFilename(): string
     {
-        $base = defined('BASE_PATH') ? constant('BASE_PATH') : __DIR__;
-        return dirname($base) . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        $basePath = defined('APP_PATH') ? constant('APP_PATH') : (defined('BASE_PATH') ? constant('BASE_PATH') . '/..' : __DIR__);
+        $base = realpath($basePath);
+
+        $configInConfigDir = $base . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        if (file_exists($configInConfigDir)) {
+            return $configInConfigDir;
+        }
+
+        return $base . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
     }
 
     public static function getPublicRoot(): string

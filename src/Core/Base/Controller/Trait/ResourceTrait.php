@@ -136,7 +136,13 @@ trait ResourceTrait
     public string $viewConfig = '';
 
     /**
+     * @var bool Whether to warn about unsaved changes.
+     */
+    public bool $protectChanges = false;
+
+    /**
      * Initial setup of the controller configuration.
+
      * Logic for default buttons (Code over Configuration).
      */
     protected function setup()
@@ -192,23 +198,17 @@ trait ResourceTrait
     /**
      * Hook called before building configuration.
      */
-    protected function beforeConfig()
-    {
-}
+    protected function beforeConfig() {}
 
     /**
      * Hook called before processing list mode logic.
      */
-    protected function beforeList()
-    {
-}
+    protected function beforeList() {}
 
     /**
      * Hook called before processing edit mode logic.
      */
-    protected function beforeEdit()
-    {
-}
+    protected function beforeEdit() {}
 
     /**
      * Hook called after a record is saved.
@@ -216,9 +216,7 @@ trait ResourceTrait
      * @param \Alxarafe\Base\Model\Model $model The saved model instance.
      * @param array $data The original submitted data.
      */
-    protected function afterSaveRecord(\Alxarafe\Base\Model\Model $model, array $data)
-    {
-}
+    protected function afterSaveRecord(\Alxarafe\Base\Model\Model $model, array $data) {}
 
     /**
      * Default action handler.
@@ -561,6 +559,21 @@ trait ResourceTrait
                 $this->jsonResponse($this->fetchRecordData());
                 exit;
             }
+
+            // Handle custom submit buttons by their name (e.g. name="clearCache" calls doClearCache())
+            // Exclude 'save', 'delete' and 'index' as they are main entry points.
+            foreach ($_POST as $name => $value) {
+                if (in_array($name, ['data', 'id', '_token', 'save', 'delete', 'index'])) {
+                    continue;
+                }
+
+                $actionMethod = 'do' . ucfirst($name);
+                if (method_exists($this, $actionMethod)) {
+                    $this->{$actionMethod}();
+                    exit;
+                }
+            }
+
             // Support both POST action and AJAX param for save
             if ((isset($_POST['action']) && $_POST['action'] === 'save') || (isset($_GET['ajax']) && $_GET['ajax'] === 'save_record')) {
                 $this->saveRecord();
@@ -1227,8 +1240,7 @@ trait ResourceTrait
 
                 $cacheFile = $cacheDir . '/' . $viewName . '.blade.php';
 
-                // Always regenerate if in debug mode or missing?
-                // For now, check existence.
+                // Generate cached template if missing
                 if (!file_exists($cacheFile)) {
                     $content = $this->generateViewContent($action);
                     if ($content) {
@@ -1247,9 +1259,6 @@ trait ResourceTrait
                     $this->setDefaultTemplate($viewName);
                 } else {
                     error_log("ResourceTrait: Cache file not found after generation attempt: $cacheFile");
-
-                    // Fallback to generic if generation failed or empty
-                    // Fallback to generic if generation failed or empty
                     $this->setDefaultTemplate('core/alxarafe_resource_view');
                 }
             }
@@ -1292,6 +1301,7 @@ trait ResourceTrait
             'recordId' => $this->recordId,
             'config' => $this->structConfig,
             'protectChanges' => $this->protectChanges ?? false,
+            'translations' => \Alxarafe\Lib\Trans::getAll(),
             'templates' => $templates
         ]));
     }

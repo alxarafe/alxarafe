@@ -10,7 +10,22 @@
 - **Commit Messages**: Should be in **English** (following the repo standard).
 
 ## Project Structure
-- **No Scripts in Root**: All executable scripts must be in subdirectories.
+- **No Scripts in Root**: All executable scripts must be in subdirectories (`bin/`, `scripts/`, etc.).
+- **Configuration Layout**: 
+    - `config/config.json`: Primary configuration file.
+    - `config/routes.php`: Primary routes definition.
+    - Framework fallback: The framework MUST support both the `config/` subdirectory AND the project root for these files to ensure backward compatibility, but always prefer the `config/` location.
+- **Skeleton Structure**:
+    - `skeleton/config/`: Configuration files for the demo/base app.
+    - `skeleton/bin/`: Application-specific scripts and CLI tools for the skeleton.
 - **`bin/` Folder**: Shared repository scripts (must be path-independent).
 - **`ai-scripts/` Folder**: Internal AI-only scripts (Git-ignored).
 - **Documentation Root**: Directory name is `doc/`.
+
+## Code Decoupling
+- **HTML, PHP, and TypeScript must remain decoupled** — they cannot be mixed or embedded within each other.
+- Do NOT embed HTML strings within PHP classes (use Blade template files instead).
+- Do NOT embed PHP logic within HTML templates (use Blade directives or pass variables).
+- TypeScript must be in dedicated `.ts` files, never inline in PHP or Blade.
+- **Client-side templates** (read via `file_get_contents` for JS injection) must NOT contain Blade directives (`@extends`, `@section`, etc.).
+

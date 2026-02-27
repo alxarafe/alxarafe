@@ -101,11 +101,20 @@ class ThemeManager
 
         $files = scandir($path);
         foreach ($files as $file) {
-            if ($file === '.' || $file === '..' || !str_ends_with($file, '.blade.php')) continue;
+            if ($file === '.' || $file === '..' || !str_ends_with($file, '.blade.php')) {
+                continue;
+            }
 
             $type = substr($file, 0, -10); // remove .blade.php
             $key = strtolower($prefix . $type . $suffix);
-            $templates[$key] = file_get_contents($path . '/' . $file);
+            $content = file_get_contents($path . '/' . $file);
+
+            // Translate markers like [trans:key]
+            $content = preg_replace_callback('/\[trans:([^\]]+)\]/', function ($matches) {
+                return \Alxarafe\Lib\Trans::_($matches[1]);
+            }, $content);
+
+            $templates[$key] = $content;
         }
         return $templates;
     }

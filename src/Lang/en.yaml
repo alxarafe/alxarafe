@@ -2,6 +2,26 @@ en: English
 es: Spanish
 en_US: English (USA)
 es_ES: Spanish (Spain)
+fr: French
+de: German
+pt: Portuguese
+it: Italian
+ru: Russian
+zh: Chinese
+ja: Japanese
+ar: Arabic
+nl: Dutch
+hi: Hindi
+ca: Catalan
+eu: Basque
+es_AR: Spanish (Argentina)
+es_VE: Spanish (Venezuela)
+es_MX: Spanish (Mexico)
+pt_BR: Portuguese (Brazil)
+en_GB: English (UK)
+
+
+
 unknown_method: The method %method% does not exists!
 test_english_only: Message only in english!
 error_message: 'Error: "%message%"'
@@ -64,3 +84,50 @@ please_enter_credentials: Please enter your credentials
 login_name: Username
 login_password: Password
 login_button: Login
+
+# Config Controller
+save_configuration: Save Configuration
+create_database: Create Database
+go_migrations: Run Migrations
+regenerate: Regenerate
+exit: Exit
+miscellaneous: Miscellaneous
+connection: Connection
+database_preferences: DB Preferences
+database: Database
+use_debugbar: Use Debugbar
+db_type: DB Type
+db_host: DB Host
+db_user: DB User
+db_password: DB Password
+db_prefix: Table Prefix
+db_charset: Charset
+db_collation: Collation
+db_name: Database Name
+db_port: Port
+select_timezone: Select Timezone
+detect_timezone: Detect Timezone
+
+# Resource UI
+search_filters: Search Filters
+new: New
+configuration_error_tab_not_found: "Configuration Error: Active tab not found"
+missing_template_layout_list: "Internal Error: Missing template 'layout_list'"
+missing_template_layout_edit: "Internal Error: Missing template 'layout_edit'"
+no_results_found: No results found.
+loading: Loading...
+reload: Reload
+confirm_revert_changes: "Are you sure you want to discard changes and reload original data?"
+no_sections_defined: No sections defined
+edit_record: Edit record
+loading_data: Loading data...
+notifications: Notifications
+select_language: Select Language
+available_languages: Available Languages
+select_theme: Select Theme
+available_themes: Available Themes
+
+
+
+
+

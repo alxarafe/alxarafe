@@ -30,11 +30,7 @@
         </div>
     @else
         <!-- Guest Access icon -->
-        <x-component.menu_item 
-            url="index.php?module=Admin&controller=Auth" 
-            icon="fas fa-sign-in-alt" 
-            title="ACCESO" 
-        />
+        @include('component.menu_item', ['url' => 'index.php?module=Admin&controller=Auth', 'icon' => 'fas fa-sign-in-alt', 'title' => \Alxarafe\Lib\Trans::_('login_button')])
     @endif
 
     <!-- Notifications (Admin feature) -->
@@ -43,13 +39,7 @@
             $notifications = \CoreModules\Admin\Service\NotificationManager::getUnread();
             $unreadCount = $notifications->count();
         @endphp
-        <x-component.menu_item 
-            url="#" 
-            icon="fas fa-bell" 
-            title="Notifications" 
-            colorClass="{{ $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary' }}" 
-            :badge="$unreadCount > 0 ? $unreadCount : null" 
-        />
+        @include('component.menu_item', ['url' => '#', 'icon' => 'fas fa-bell', 'title' => \Alxarafe\Lib\Trans::_('notifications'), 'colorClass' => $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary', 'badge' => $unreadCount > 0 ? $unreadCount : null])
     @endif
 
     <!-- User Menu Items (Runtime) -->
@@ -62,21 +52,23 @@
             @endphp
             @continue($isProfile || $isLogout)
             
-            <x-component.menu_item 
-                :url="$item['url']" 
-                :icon="$item['icon'] ?? 'fas fa-circle'" 
-                :label="$item['label']" 
-            />
+            @include('component.menu_item', ['url' => $item['url'], 'icon' => $item['icon'] ?? 'fas fa-circle', 'label' => $item['label']])
         @endforeach
     @endif
 
     <!-- Spacer -->
     <div class="mt-auto"></div>
 
+    <!-- Language Switcher -->
+    <div class="mb-4 position-relative cyber-icon-container">
+        @include('partial.lang_switcher', ['class' => 'dropstart'])
+    </div>
+
     <!-- Theme Switcher (Unified via shared partial) -->
     <div class="mb-4 position-relative cyber-icon-container">
         @include('partial.theme_switcher', ['class' => 'dropstart'])
     </div>
+
 
 </div>
 

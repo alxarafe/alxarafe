@@ -1,0 +1,39 @@
+# Agenda Module
+agenda: Agenda
+contacts: Contacts
+channels: Communication Channels
+general: General
+
+# Contact fields
+first_name: First Name
+last_name: Last Name
+notes: Notes
+first_name_placeholder: e.g. Ana
+last_name_placeholder: e.g. García López
+notes_placeholder: Notes about this contact...
+
+# Channel fields
+channel_name: Channel Name
+channel_name_placeholder: e.g. Landline Phone
+icon: Icon
+icon_help: FontAwesome icon (e.g. fas fa-phone)
+
+# Address fields
+address: Address
+city: City
+state: State / Province
+postal_code: Postal Code
+country: Country
+additional_info: Additional Info
+address_label: Address Type
+address_label_help: e.g. home, work, partner...
+
+# Channel assignment
+channel_value: Value
+channel_value_help: The phone number, email, URL, etc.
+
+# Actions
+add_address: Add Address
+add_channel: Add Channel
+addresses: Addresses
+contact_channels: Channels

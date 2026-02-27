@@ -1,20 +1,17 @@
-@props([
-    'url' => '#',
-    'icon' => 'fas fa-circle',
-    'label' => '',
-    'title' => null,
-    'active' => false,
-    'colorClass' => 'text-info',
-    'badge' => null,
-    'iconSize' => 'fa-2x',
-    'containerClass' => ''
-])
-
+{{-- Menu item for sidebar/rightbar - Include-compatible version --}}
 @php
+    $url = $url ?? '#';
+    $icon = $icon ?? 'fas fa-circle';
+    $label = $label ?? '';
     $title = $title ?? $label;
+    $active = $active ?? false;
+    $colorClass = $colorClass ?? 'text-info';
+    $badge = $badge ?? null;
+    $iconSize = $iconSize ?? 'fa-2x';
+    $containerClass = $containerClass ?? '';
 @endphp
 
-<div {{ $attributes->merge(['class' => 'cyber-retro-container mb-4 ' . ($active ? 'active' : '') . ' ' . $containerClass]) }}>
+<div class="cyber-retro-container mb-4 {{ $active ? 'active' : '' }} {{ $containerClass }}">
     <a href="{{ $url }}" class="cyber-retro-button {{ $active ? 'active' : '' }}" title="{{ $title }}">
         <div class="cyber-button-inner">
             <i class="cyber-retro-icon {{ $icon }} {{ $iconSize }} {{ $colorClass }}"></i>

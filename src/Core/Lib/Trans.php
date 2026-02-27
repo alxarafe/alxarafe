@@ -51,6 +51,13 @@ abstract class Trans
     private static $translator;
 
     private static $translations = [];
+    private static bool $wasSet = false;
+
+    public static function getAll(): array
+    {
+        return self::$translations;
+    }
+
 
     /**
      * List of strings without translation, for debugging bar purposes.
@@ -66,18 +73,42 @@ abstract class Trans
      *
      * @return array
      */
-    public static function getAvailableLanguages()
+    public static function getAvailableLanguages(): array
     {
-        $routes = [
-            '/Lang',
-            '/vendor/alxarafe/alxarafe/src/Lang'
+        $alxPath = defined('ALX_PATH') ? constant('ALX_PATH') : null;
+        $searchPaths = [
+            realpath(constant('BASE_PATH') . '/../Lang'),
+            realpath($alxPath . '/src/Lang'),
         ];
+
         $result = [];
-        foreach (Functions::getFirstNonEmptyDirectory($routes, '.yaml') as $lang) {
-            $result[$lang] = self::_($lang);
+        foreach ($searchPaths as $path) {
+            if ($path && is_dir($path)) {
+                $files = glob($path . '/*.yaml');
+                foreach ($files as $file) {
+                    $lang = basename($file, '.yaml');
+                    if (!isset($result[$lang])) {
+                        // Get native name from the file itself
+                        $result[$lang] = self::getNativeName($file, $lang);
+                    }
+                }
+            }
         }
+        asort($result); // Sort by native name
         return $result;
     }
+
+    private static function getNativeName(string $filename, string $lang): string
+    {
+        try {
+            $content = Yaml::parseFile($filename);
+            return $content[$lang] ?? $lang;
+        } catch (\Exception $e) {
+            return $lang;
+        }
+    }
+
+
 
     /**
      * Return a text in the selected language.
@@ -173,6 +204,18 @@ abstract class Trans
         self::$translations = [];
         self::$translator->setLocale($lang);
         self::getTranslations($lang);
+        self::$wasSet = true;
+    }
+
+    public static function wasSet(): bool
+    {
+        return self::$wasSet;
+    }
+
+    public static function getLocale(): string
+    {
+        self::initialize();
+        return self::$translator->getLocale();
     }
 
     private static function getTranslations($lang)
@@ -181,13 +224,34 @@ abstract class Trans
         $main_route = defined('ALX_PATH') ? (constant('ALX_PATH') . '/src') : (constant('BASE_PATH') . '/../vendor/alxarafe/alxarafe/src');
 
         $routes = [];
-        $routes[] = $app_route;
         $routes[] = $main_route;
+        $routes[] = $app_route;
+
+        // Load translations from ALL modules found in skeleton/Modules (or app_route/Modules)
+        $modulesPath = $app_route . '/Modules';
+        if (is_dir($modulesPath)) {
+            $dirs = array_filter(glob($modulesPath . '/*'), 'is_dir');
+            foreach ($dirs as $dir) {
+                $routes[] = $dir;
+            }
+        }
+
+        // Also check framework modules if any
+        $mainModulesPath = $main_route . '/Modules';
+        if (is_dir($mainModulesPath)) {
+            $dirs = array_filter(glob($mainModulesPath . '/*'), 'is_dir');
+            foreach ($dirs as $dir) {
+                $routes[] = $dir;
+            }
+        }
+
+
         if (isset($_GET[Dispatcher::MODULE])) {
             $module = $_GET[Dispatcher::MODULE];
-            $routes[] = $app_route . '/Modules/' . $module;
             $routes[] = $main_route . '/Modules/' . $module;
+            $routes[] = $app_route . '/Modules/' . $module;
         }
+
 
         self::$translator->addLoader('array', new ArrayLoader());
         foreach ($routes as $route) {

@@ -1,6 +1,6 @@
 <?php
-define('BASE_PATH', __DIR__ . '/public');
-require_once __DIR__ . '/vendor/autoload.php';
+define('APP_PATH', realpath(__DIR__ . '/..')); define('ALX_PATH', realpath(__DIR__ . '/../..')); define('BASE_PATH', APP_PATH . '/public');
+require_once APP_PATH . '/vendor/autoload.php';
 
 use Alxarafe\Base\Config;
 use Alxarafe\Lib\Routes;

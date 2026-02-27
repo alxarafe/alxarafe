@@ -65,7 +65,7 @@ class WebDispatcher extends Dispatcher
                             return $this;
                         }
                     };
-                    $event = new class ($io) {
+                    $event = new class($io) {
                         private $io;
                         public function __construct($io)
                         {
@@ -82,7 +82,10 @@ class WebDispatcher extends Dispatcher
 
             // Load routes
             $routesPath = constant('APP_PATH') . '/routes.php';
-            if (file_exists($routesPath)) {
+            $configRoutesPath = constant('APP_PATH') . '/config/routes.php';
+            if (file_exists($configRoutesPath)) {
+                require_once $configRoutesPath;
+            } elseif (file_exists($routesPath)) {
                 require_once $routesPath;
             }
 
@@ -158,11 +161,6 @@ class WebDispatcher extends Dispatcher
 
         require_once $filename;
 
-        $controllerClass = new $className();
-        if (!$controllerClass instanceof ViewController) {
-            static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_not_view_controller', ['class' => $className]));
-        }
-
         $theme = Config::getConfig()->main->theme ?? 'default';
         $language = Config::getConfig()->main->language ?? \Alxarafe\Lib\Trans::FALLBACK_LANG;
 
@@ -175,11 +173,22 @@ class WebDispatcher extends Dispatcher
             if (!empty(Auth::$user->language)) {
                 $language = Auth::$user->language;
             }
-        } elseif (isset($_COOKIE['alx_theme'])) {
+        }
+
+        if (isset($_COOKIE['alx_theme'])) {
             $theme = $_COOKIE['alx_theme'];
+        }
+        if (isset($_COOKIE['alx_lang'])) {
+            $language = $_COOKIE['alx_lang'];
         }
 
         \Alxarafe\Lib\Trans::setLang($language);
+
+        $controllerClass = new $className();
+        if (!$controllerClass instanceof ViewController) {
+            static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_not_view_controller', ['class' => $className]));
+        }
+
 
 
         // Initialize APP_PATH if not defined (fallback to BASE_PATH/..)

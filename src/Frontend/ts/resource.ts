@@ -14,6 +14,7 @@ export interface StructConfig {
         };
     };
     templates?: Record<string, string>;
+    translations?: Record<string, string>;
 }
 
 export class AlxarafeResource {
@@ -24,6 +25,10 @@ export class AlxarafeResource {
     private activeFilters: Record<string, string> = {};
     private searchDebounceTimer: any = null;
     // Using global window.alxarafe_unsaved_changes
+
+    private trans(key: string, def?: string): string {
+        return this.config.translations?.[key] || def || key;
+    }
 
     constructor(container: HTMLElement, config: StructConfig) {
         this.container = container;
@@ -91,7 +96,7 @@ export class AlxarafeResource {
         const currentTab = tabs[this.activeTab];
 
         if (!currentTab) {
-            this.container.innerHTML = '<div class="alert alert-danger">Configuration Error: Active tab not found.</div>';
+            this.container.innerHTML = `<div class="alert alert-danger">${this.trans('configuration_error_tab_not_found', 'Configuration Error: Active tab not found.')}</div>`;
             return;
         }
 
@@ -108,7 +113,7 @@ export class AlxarafeResource {
 
         // Require template
         if (!this.config.templates || !this.config.templates['layout_list']) {
-            this.container.innerHTML = '<div class="alert alert-danger">Error Interno: Falta la plantilla "layout_list"</div>';
+            this.container.innerHTML = `<div class="alert alert-danger">${this.trans('missing_template_layout_list', 'Error Interno: Falta la plantilla "layout_list"')}</div>`;
             return;
         }
 
@@ -130,7 +135,7 @@ export class AlxarafeResource {
         if (theadRow) {
             theadRow.innerHTML = currentTab.columns.map((col: any) => `
                     <th class="py-3 px-4 border-0">${col.label}</th>
-                `).join('') + '<th class="text-end py-3 px-4 border-0" style="width: 120px;">Acciones</th>';
+                `).join('') + `<th class="text-end py-3 px-4 border-0" style="width: 120px;">${this.trans('actions', 'Acciones')}</th>`;
         }
 
         this.renderFilters(currentTab.filters || []);
@@ -381,7 +386,7 @@ export class AlxarafeResource {
         if (!tbody) return;
 
         if (!rows || rows.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="100" class="text-center p-4 text-muted">No se encontraron resultados.</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="100" class="text-center p-4 text-muted">${this.trans('no_results_found', 'No se encontraron resultados.')}</td></tr>`;
             return;
         }
 
@@ -393,7 +398,7 @@ export class AlxarafeResource {
                     <td class="px-4 py-3 text-secondary">${this.formatValue(row[col.field], col, row)}</td>
                 `).join('')}
                 <td class="text-end px-4 py-3">
-                    <a href="?${this.getRoutingParams()}&id=${row.id ?? row.code}" class="btn btn-sm btn-outline-primary rounded-pill px-3" title="Editar">
+                    <a href="?${this.getRoutingParams()}&id=${row.id ?? row.code}" class="btn btn-sm btn-outline-primary rounded-pill px-3" title="${this.trans('edit', 'Editar')}">
                         <i class="fas fa-pen small"></i>
                     </a>
                 </td>
@@ -536,7 +541,7 @@ export class AlxarafeResource {
         if (!tbody) return;
         if (loading) {
             const cols = (this.config.config.list?.tabs?.[this.activeTab]?.columns?.length || 0) + 1;
-            tbody.innerHTML = `<tr><td colspan="${cols}" class="text-center p-5"><div class="spinner-border text-primary" role="status"></div><br>Cargando...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="${cols}" class="text-center p-5"><div class="spinner-border text-primary" role="status"></div><br>${this.trans('loading', 'Cargando...')}</td></tr>`;
         }
     }
 
@@ -631,7 +636,7 @@ export class AlxarafeResource {
         if (this.config.templates && this.config.templates['layout_edit']) {
             this.container.innerHTML = this.config.templates['layout_edit'];
         } else {
-            this.container.innerHTML = '<div class="alert alert-danger">Error Interno: Falta la plantilla "layout_edit"</div>';
+            this.container.innerHTML = `<div class="alert alert-danger">${this.trans('missing_template_layout_edit', 'Error Interno: Falta la plantilla "layout_edit"')}</div>`;
             return;
         }
 
@@ -646,9 +651,9 @@ export class AlxarafeResource {
             const btnRevert = document.createElement('button');
             btnRevert.type = 'button';
             btnRevert.className = 'btn btn-secondary ms-2';
-            btnRevert.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Recargar';
+            btnRevert.innerHTML = `<i class="fas fa-sync-alt me-1"></i> ${this.trans('reload', 'Recargar')}`;
             btnRevert.onclick = () => {
-                if (confirm('¿Seguro que quieres descartar los cambios y recargar los datos originales?')) {
+                if (confirm(this.trans('confirm_revert_changes', '¿Seguro que quieres descartar los cambios y recargar los datos originales?'))) {
                     this.loadRecordData();
                     (window as any).alxarafe_unsaved_changes = false;
                 }
@@ -685,7 +690,7 @@ export class AlxarafeResource {
         const entries = Object.entries(sections);
 
         if (entries.length === 0) {
-            container.innerHTML = '<div class="alert alert-warning">No hay secciones definidas</div>';
+            container.innerHTML = `<div class="alert alert-warning">${this.trans('no_sections_defined', 'No hay secciones definidas')}</div>`;
             return;
         }
 

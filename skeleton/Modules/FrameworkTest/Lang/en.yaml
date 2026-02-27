@@ -1,0 +1,52 @@
+# FrameworkTest Showcase
+showcase_title: Alxarafe Components Showcase
+main_config: "⚙️ Main Configuration"
+aesthetics: "🎨 Aesthetics and Visualization"
+quantitative_data: "🔢 Quantitative Data"
+chronology: "📅 Chronology"
+advanced_multimedia: "🚀 Advanced and Multimedia"
+tab_components: "🧩 Components"
+tab_nesting: "📦 Nested Panels"
+tab_markdown: "📝 Markdown"
+save_demo: Save Demo
+clear_cache: Clear Cache
+resource_name: Resource Name
+technical_description: Technical Description
+publication_status: Publication Status
+icon_representative: Representative Icon
+object_classification: Object Classification
+core_system: Core System
+plugin_extension: Extension / Plugin
+visual_theme: Visual Style / Theme
+estimated_budget: Estimated Budget
+milestone_date: Milestone Date
+audit_record: Audit Record
+window_opening: Window Opening
+global_tags: Global Tags (Select2)
+branding_preview: Branding Preview
+contact_first_name: Contact Name
+contact_last_name: Contact Surname
+contact_email: Contact Email
+fields_row: Row Fields (no card)
+parent_company: Parent Company
+fiscal_address: Fiscal Address
+primary_contact: Primary Contact
+security_config: Advanced Configuration
+metrics: Metrics
+rendered_document: Rendered Document
+no_markdown_found: No test_markdown.md file found
+resource_name_help: Enter a descriptive name for this test object
+resource_name_placeholder: "e.g. My First Component"
+generate: Generate
+control_value: Control Value
+control_value_help: An integer between 0 and 1000
+estimated_budget_help: Automatically formatted with two decimals
+currency: Currency
+static_text_demo: This is an informative text using the StaticText component to guide the user without allowing editing.
+tech: Technology
+design: Design
+architecture: Architecture
+select2_help: Improved asynchronous search with tag support
+image_help: Image component to preview assets
+active_users: Active Users
+last_audit: Last Audit

@@ -139,6 +139,22 @@ class AuthController extends GenericPublicController
         Functions::httpRedirect($redirect);
     }
 
+    public function doSetLang(): void
+    {
+        $lang = filter_input(INPUT_GET, 'lang');
+        if ($lang) {
+            setcookie('alx_lang', $lang, time() + (86400 * 30), '/');
+
+            // Persist to user record if logged in
+            if (Auth::isLogged() && Auth::$user) {
+                Auth::$user->language = $lang;
+                Auth::$user->save();
+            }
+        }
+        $redirect = $_SERVER['HTTP_REFERER'] ?? 'index.php';
+        Functions::httpRedirect($redirect);
+    }
+
     #[Menu(
         menu: 'user_menu',
         icon: 'fas fa-sign-out-alt',

@@ -85,7 +85,27 @@ class TestController extends PublicResourceController
      */
     protected function beforeConfig()
     {
-        $this->title = 'Alxarafe Components Showcase';
+        $this->title = \Alxarafe\Lib\Trans::_('showcase_title');
+    }
+
+    // ───────────────────────────────────────────────
+    //  ACTIONS
+    // ───────────────────────────────────────────────
+
+    /**
+     * Clear the application cache.
+     * Demonstrates how to add custom actions to a ResourceController.
+     */
+    public function doClearCache(): void
+    {
+        $appPath = defined('APP_PATH') ? constant('APP_PATH') : realpath(__DIR__ . '/../../');
+        $cachePath = $appPath . '/var/cache';
+
+        $count = \Alxarafe\Lib\Functions::recursiveRemove($cachePath . '/blade', false);
+        $count += \Alxarafe\Lib\Functions::recursiveRemove($cachePath . '/resources', false);
+
+        \Alxarafe\Lib\Messages::addMessage("Caché limpiado con éxito. Se han eliminado $count elementos.");
+        \Alxarafe\Lib\Functions::httpRedirect($this->url());
     }
 
     // ───────────────────────────────────────────────
@@ -109,13 +129,13 @@ class TestController extends PublicResourceController
             'recordId' => 'demo',
             'record'   => $this->getDemoData(),
             'buttons'  => [
-                ['label' => 'Guardar Demo', 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
-                ['label' => 'Limpiar Cache', 'icon' => 'fas fa-broom', 'type' => 'warning', 'action' => 'submit', 'name' => 'clearCache'],
+                ['label' => \Alxarafe\Lib\Trans::_('save_demo'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
+                ['label' => \Alxarafe\Lib\Trans::_('clear_cache'), 'icon' => 'fas fa-broom', 'type' => 'warning', 'action' => 'submit', 'name' => 'clearCache'],
             ],
             'body' => new TabGroup([
-                new Tab('components', '🧩 Componentes', 'fas fa-puzzle-piece', $this->buildComponentsPanels()),
-                new Tab('nesting', '📦 Paneles Anidados', 'fas fa-boxes-stacked', $this->buildNestingPanels()),
-                new Tab('markdown', '📝 Markdown', 'fab fa-markdown', $this->buildMarkdownPanels()),
+                new Tab('components', \Alxarafe\Lib\Trans::_('tab_components'), 'fas fa-puzzle-piece', $this->buildComponentsPanels()),
+                new Tab('nesting', \Alxarafe\Lib\Trans::_('tab_nesting'), 'fas fa-boxes-stacked', $this->buildNestingPanels()),
+                new Tab('markdown', \Alxarafe\Lib\Trans::_('tab_markdown'), 'fab fa-markdown', $this->buildMarkdownPanels()),
             ]),
         ];
     }
@@ -125,79 +145,77 @@ class TestController extends PublicResourceController
     protected function buildComponentsPanels(): array
     {
         // Name with a magic action
-        $nameField = new Text('name', 'Nombre del Recurso', [
+        $nameField = new Text('name', \Alxarafe\Lib\Trans::_('resource_name'), [
             'required' => true,
-            'help' => 'Introduce un nombre descriptivo para este objeto de prueba',
-            'placeholder' => 'Ej: Mi Primer Componente'
+            'help' => \Alxarafe\Lib\Trans::_('resource_name_help'),
+            'placeholder' => \Alxarafe\Lib\Trans::_('resource_name_placeholder')
         ]);
-        $nameField->addAction('fas fa-magic', "this.closest('.input-group').querySelector('input').value = 'Alxarafe ' + Math.floor(Math.random() * 1000);", 'Generar', 'btn-outline-primary', ActionPosition::Left);
+        $nameField->addAction('fas fa-magic', "this.closest('.input-group').querySelector('input').value = 'Alxarafe ' + Math.floor(Math.random() * 1000);", \Alxarafe\Lib\Trans::_('generate'), 'btn-outline-primary', ActionPosition::Left);
 
         // Integer with utility buttons
-        $intField = new Integer('integer', 'Valor de Control', [
+        $intField = new Integer('integer', \Alxarafe\Lib\Trans::_('control_value'), [
             'min' => 0,
             'max' => 1000,
-            'help' => 'Un número entero entre 0 y 1000'
+            'help' => \Alxarafe\Lib\Trans::_('control_value_help')
         ]);
         $intField->addAction('fas fa-minus', "const i = this.closest('.input-group').querySelector('input'); i.value = Math.max(0, parseInt(i.value || 0) - 10);", '-10', 'btn-outline-secondary', ActionPosition::Left);
         $intField->addAction('fas fa-plus', "const i = this.closest('.input-group').querySelector('input'); i.value = Math.min(1000, parseInt(i.value || 0) + 10);", '+10', 'btn-outline-secondary', ActionPosition::Right);
 
         // Decimal with Currency
-        $decimalField = new Decimal('decimal', 'Presupuesto Estimado', [
+        $decimalField = new Decimal('decimal', \Alxarafe\Lib\Trans::_('estimated_budget'), [
             'precision' => 2,
-            'help' => 'Se formatea automáticamente con dos decimales'
+            'help' => \Alxarafe\Lib\Trans::_('estimated_budget_help')
         ]);
-        $decimalField->addAction('fas fa-euro-sign', '', 'Moneda', 'btn-dark disabled', ActionPosition::Left);
+        $decimalField->addAction('fas fa-euro-sign', '', \Alxarafe\Lib\Trans::_('currency'), 'btn-dark disabled', ActionPosition::Left);
 
         return [
-            new Panel('⚙️ Configuración Principal', [
+            new Panel(\Alxarafe\Lib\Trans::_('main_config'), [
                 $nameField,
-                new Textarea('description', 'Descripción Técnica', [
+                new Textarea('description', \Alxarafe\Lib\Trans::_('technical_description'), [
                     'placeholder' => 'Detalla aquí las especificaciones...',
                     'rows' => 3
                 ]),
-                new Boolean('active', 'Estado de Publicación', [
+                new Boolean('active', \Alxarafe\Lib\Trans::_('publication_status'), [
                     'help' => 'Define si este elemento es visible en el frontend'
                 ]),
             ], ['col' => 'col-md-7', 'class' => 'shadow-lg border-primary']),
 
-            new Panel('🎨 Estética y Visualización', [
-                new Icon('icon', 'Icono Representativo', [
+            new Panel(\Alxarafe\Lib\Trans::_('aesthetics'), [
+                new Icon('icon', \Alxarafe\Lib\Trans::_('icon_representative'), [
                     'help' => 'Selecciona un icono de FontAwesome'
                 ], ['default' => 'fas fa-rocket']),
-                new Select('type', 'Clasificación de Objeto', [
-                    'core' => 'Núcleo del Sistema',
-                    'plugin' => 'Extensión / Plugin',
-                    'theme' => 'Estilo Visual / Tema'
+                new Select('type', \Alxarafe\Lib\Trans::_('object_classification'), [
+                    'core' => \Alxarafe\Lib\Trans::_('core_system'),
+                    'plugin' => \Alxarafe\Lib\Trans::_('plugin_extension'),
+                    'theme' => \Alxarafe\Lib\Trans::_('visual_theme')
                 ]),
-                new StaticText('Este es un texto informativo que utiliza el componente StaticText para guiar al usuario sin permitir edición.', [
+                new StaticText(\Alxarafe\Lib\Trans::_('static_text_demo'), [
                     'icon' => 'fas fa-lightbulb text-warning'
                 ]),
             ], ['col' => 'col-md-5']),
 
-            new Panel('🔢 Datos Cuantitativos', [
+            new Panel(\Alxarafe\Lib\Trans::_('quantitative_data'), [
                 $intField,
                 $decimalField,
             ], ['col' => 'col-md-6', 'class' => 'border-info shadow-sm']),
 
-            new Panel('📅 Cronología', [
-                new Date('date', 'Fecha de Hito'),
-                new DateTime('datetime', 'Registro de Auditoría'),
-                new Time('time', 'Apertura de Ventana'),
+            new Panel(\Alxarafe\Lib\Trans::_('chronology'), [
+                new Date('date', \Alxarafe\Lib\Trans::_('milestone_date')),
+                new DateTime('datetime', \Alxarafe\Lib\Trans::_('audit_record')),
+                new Time('time', \Alxarafe\Lib\Trans::_('window_opening')),
             ], ['col' => 'col-md-6']),
 
-            new Panel('🚀 Avanzado y Multimedia', [
-                new Select2('category_id', 'Etiquetas Globales (Select2)', [
-                    1 => 'Tecnología',
-                    2 => 'Diseño',
-                    3 => 'Arquitectura',
-                    4 => 'Frontend',
-                    5 => 'Backend'
+            new Panel(\Alxarafe\Lib\Trans::_('advanced_multimedia'), [
+                new Select2('category_id', \Alxarafe\Lib\Trans::_('global_tags'), [
+                    1 => \Alxarafe\Lib\Trans::_('tech'),
+                    2 => \Alxarafe\Lib\Trans::_('design'),
+                    3 => \Alxarafe\Lib\Trans::_('architecture'),
                 ], [
-                    'help' => 'Buscador asíncrono mejorado con soporte para etiquetas'
+                    'help' => \Alxarafe\Lib\Trans::_('select2_help')
                 ]),
-                new Image('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=300&q=80', 'Previsualización de Branding', [
+                new Image('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=300&q=80', \Alxarafe\Lib\Trans::_('branding_preview'), [
                     'width' => '100%',
-                    'help' => 'Componente Image para previsualizar activos'
+                    'help' => \Alxarafe\Lib\Trans::_('image_help')
                 ]),
             ], ['col' => 'col-md-12']),
 
@@ -208,13 +226,13 @@ class TestController extends PublicResourceController
             new Separator(),
 
             // --- Separator (labeled) ---
-            new Separator('Campos con Row (sin card)'),
+            new Separator(\Alxarafe\Lib\Trans::_('fields_row')),
 
             // --- Row: fields side by side, no card ---
             new Row([
-                new Text('contact_first', 'Nombre de contacto', ['col' => 'col-md-4']),
-                new Text('contact_last', 'Apellido de contacto', ['col' => 'col-md-4']),
-                new Text('contact_email', 'Email de contacto', ['col' => 'col-md-4']),
+                new Text('contact_first', \Alxarafe\Lib\Trans::_('contact_first_name'), ['col' => 'col-md-4']),
+                new Text('contact_last', \Alxarafe\Lib\Trans::_('contact_last_name'), ['col' => 'col-md-4']),
+                new Text('contact_email', \Alxarafe\Lib\Trans::_('contact_email'), ['col' => 'col-md-4']),
             ], ['col' => 'col-12', 'class' => 'mb-3']),
 
             // --- Row with mixed field types ---
@@ -232,13 +250,13 @@ class TestController extends PublicResourceController
     protected function buildNestingPanels(): array
     {
         return [
-            new Panel('🏢 Empresa Matriz', [
+            new Panel(\Alxarafe\Lib\Trans::_('parent_company'), [
                 new Text('company_name', 'Nombre de Empresa', [
                     'help' => 'Campo de nivel superior'
                 ]),
 
                 // ----- Panel Nivel 1 -----
-                new Panel('📍 Dirección Fiscal', [
+                new Panel(\Alxarafe\Lib\Trans::_('fiscal_address'), [
                     new Text('address_street', 'Calle'),
                     new Text('address_city', 'Ciudad'),
                     new Text('address_zip', 'Código Postal', ['col' => 'col-md-4']),
@@ -250,7 +268,7 @@ class TestController extends PublicResourceController
                     ], ['col' => 'col-md-4']),
 
                     // ----- Panel Nivel 2 -----
-                    new Panel('📞 Contacto Principal', [
+                    new Panel(\Alxarafe\Lib\Trans::_('primary_contact'), [
                         new Text('contact_phone', 'Teléfono', ['col' => 'col-md-6']),
                         new Text('contact_email', 'Email', ['col' => 'col-md-6', 'type' => 'email']),
                         new Boolean('contact_gdpr', 'Acepta RGPD'),
@@ -263,7 +281,7 @@ class TestController extends PublicResourceController
                 ]),
             ], ['col' => 'col-12', 'class' => 'border-warning']),
 
-            new Panel('🔧 Configuración Avanzada', [
+            new Panel(\Alxarafe\Lib\Trans::_('security_config'), [
                 new Panel('🔒 Seguridad', [
                     new Boolean('two_factor', 'Autenticación 2FA'),
                     new Select('session_timeout', 'Tiempo de Sesión', [
@@ -275,11 +293,11 @@ class TestController extends PublicResourceController
                 ], ['col' => 'col-12']),
             ], ['col' => 'col-md-6']),
 
-            new Panel('📊 Métricas', [
-                new Integer('users_count', 'Usuarios Activos'),
-                new Decimal('monthly_revenue', 'Ingresos Mensuales', ['precision' => 2]),
-                new Date('last_audit', 'Última Auditoría'),
-            ], ['col' => 'col-md-6']),
+            new Panel(\Alxarafe\Lib\Trans::_('metrics'), [
+                new Integer('users_count', \Alxarafe\Lib\Trans::_('active_users')),
+                new Decimal('monthly_revenue', \Alxarafe\Lib\Trans::_('monthly_revenue'), ['precision' => 2]),
+                new Date('last_audit', \Alxarafe\Lib\Trans::_('last_audit')),
+            ], ['col' => 'col-md-6', 'class' => 'border-success shadow']),
         ];
     }
 
@@ -303,7 +321,7 @@ class TestController extends PublicResourceController
         }
 
         return [
-            new HtmlContent($contentHtml, '📄 Documento Renderizado', ['col' => 'col-12']),
+            new HtmlContent($contentHtml, \Alxarafe\Lib\Trans::_('rendered_document'), ['col' => 'col-12']),
         ];
     }
 

@@ -39,17 +39,20 @@
             }
         });
 
-        // Mark as dirty on input/change
+        // Mark as dirty on input/change (Using bubble for all forms)
         document.addEventListener('input', function(e) {
             if (e.target.closest('form')) {
                 window.alxarafe_unsaved_changes = true;
+                console.log('[Alxarafe] Unsaved changes detected via input');
             }
         });
         document.addEventListener('change', function(e) {
             if (e.target.closest('form')) {
                 window.alxarafe_unsaved_changes = true;
+                console.log('[Alxarafe] Unsaved changes detected via change');
             }
         });
+
 
         // Reset on valid submit
         document.addEventListener('submit', function(e) {

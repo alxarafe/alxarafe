@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "watch": "echo 'Alxarafe Node environment is active...' && tail -f /dev/null",
+    "watch": "npm install && webpack --watch --mode development",
     "dev": "webpack --mode development",
     "watch:ts": "webpack --watch --mode development",
     "docs:dev": "vitepress dev doc",
@@ -16,15 +16,19 @@
     "docs:preview": "vitepress preview doc",
     "publish-assets": "php src/Scripts/publish_assets_manual.php"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alxarafe/alxarafe.git"
+  "require": {
+    "php": "^8.2",
+    "alxarafe/alxarafe": "v0.4.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "css-loader": "^7.1.4",
+    "mini-css-extract-plugin": "^2.10.0",
+    "sass": "^1.97.3",
+    "sass-loader": "^16.0.7",
     "ts-loader": "^9.5.4",
     "typescript": "^5.9.3",
     "vitepress": "latest",

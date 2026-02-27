@@ -1,0 +1,52 @@
+# FrameworkTest Showcase
+showcase_title: Alxarafe Components Showcase
+main_config: "⚙️ Configuración Principal"
+aesthetics: "🎨 Estética y Visualización"
+quantitative_data: "🔢 Datos Cuantitativos"
+chronology: "📅 Cronología"
+advanced_multimedia: "🚀 Avanzado y Multimedia"
+tab_components: "🧩 Componentes"
+tab_nesting: "📦 Paneles Anidados"
+tab_markdown: "📝 Markdown"
+save_demo: Guardar Demo
+clear_cache: Limpiar Cache
+resource_name: Nombre del Recurso
+technical_description: Descripción Técnica
+publication_status: Estado de Publicación
+icon_representative: Icono Representativo
+object_classification: Clasificación de Objeto
+core_system: Núcleo del Sistema
+plugin_extension: Extensión / Plugin
+visual_theme: Estilo Visual / Tema
+estimated_budget: Presupuesto Estimado
+milestone_date: Fecha de Hito
+audit_record: Registro de Auditoría
+window_opening: Apertura de Ventana
+global_tags: Etiquetas Globales (Select2)
+branding_preview: Previsualización de Branding
+contact_first_name: Nombre de contacto
+contact_last_name: Apellido de contacto
+contact_email: Email de contacto
+fields_row: Campos con Row (sin card)
+parent_company: Empresa Matriz
+fiscal_address: Dirección Fiscal
+primary_contact: Contacto Principal
+security_config: Configuración Avanzada
+metrics: Métricas
+rendered_document: Documento Renderizado
+no_markdown_found: No se encontró el archivo test_markdown.md
+resource_name_help: Introduce un nombre descriptivo para este objeto de prueba
+resource_name_placeholder: "Ej: Mi Primer Componente"
+generate: Generar
+control_value: Valor de Control
+control_value_help: Un número entero entre 0 y 1000
+estimated_budget_help: Se formatea automáticamente con dos decimales
+currency: Moneda
+static_text_demo: Este es un texto informativo que utiliza el componente StaticText para guiar al usuario sin permitir edición.
+tech: Tecnología
+design: Diseño
+architecture: Arquitectura
+select2_help: Buscador asíncrono mejorado con soporte para etiquetas
+image_help: Componente Image para previsualizar activos
+active_users: Usuarios Activos
+last_audit: Última Auditoría
