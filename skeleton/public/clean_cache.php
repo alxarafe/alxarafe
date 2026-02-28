@@ -65,6 +65,24 @@ if (is_dir($cacheDir)) {
     echo "<p style='color:red'>Cache directory not found at: <code>$cacheDir</code></p>";
 }
 
-echo "
-<hr>
-<p><a href='/'>Go to Homepage</a></p>";
+echo "<h2>File Search for RoleController.php</h2>";
+$cmd = "find " . escapeshellarg($appPath) . " -name RoleController.php";
+$output = [];
+exec($cmd, $output);
+if (!empty($output)) {
+    echo "<ul>";
+    foreach ($output as $file) {
+        echo "<li>Found: <code>$file</code></li>";
+    }
+    echo "</ul>";
+} else {
+    echo "<p>No duplicate RoleController.php found with find command. Trying PHP glob...</p>";
+    $files = glob($appPath . "/**/RoleController.php");
+    if ($files) {
+        foreach ($files as $file) echo "<li>Found (glob): <code>$file</code></li>";
+    } else {
+        echo "<p>No files found with glob either.</p>";
+    }
+}
+
+echo "<hr><p><a href='/'>Go to Homepage</a></p>";
