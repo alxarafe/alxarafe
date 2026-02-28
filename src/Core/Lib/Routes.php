@@ -60,17 +60,27 @@ abstract class Routes
 
         foreach (self::$search_routes as $class => $route) {
             $full_path = '';
+
+            // Priority logic for CoreModules and Modules
             if ($class === 'Modules' && defined('APP_PATH')) {
                 $full_path = realpath(constant('APP_PATH') . '/Modules/');
-            } elseif ($class === 'CoreModules' && defined('ALX_PATH')) {
-                $full_path = realpath(constant('ALX_PATH') . '/src/Modules/');
+            } elseif ($class === 'CoreModules') {
+                // Priority: Use ALX_PATH/src/Modules if defined, otherwise try to guess
+                if (defined('ALX_PATH')) {
+                    $full_path = realpath(constant('ALX_PATH') . '/src/Modules/');
+                }
+                // Fallback to vendor only if src/Modules doesn't exist or wasn't found
+                if (empty($full_path) || !is_dir($full_path)) {
+                    $full_path = realpath(constant('BASE_PATH') . '/../' . $route);
+                }
             }
 
             if (empty($full_path)) {
                 $full_path = realpath(constant('BASE_PATH') . '/../' . $route);
             }
 
-            if (empty($full_path) || in_array($full_path, $scanned_paths)) {
+            // Skip if path already scanned or doesn't exist
+            if (empty($full_path) || !is_dir($full_path) || in_array($full_path, $scanned_paths)) {
                 continue;
             }
             $scanned_paths[] = $full_path;
