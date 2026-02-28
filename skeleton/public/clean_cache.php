@@ -101,7 +101,7 @@ if ($foundClasses) {
 }
 
 echo "<h2>Autoloader Inspection (autoload_psr4.php)</h2>";
-$psr4File = $basePath . '/vendor/composer/autoload_psr4.php';
+$psr4File = dirname($autoload) . '/composer/autoload_psr4.php';
 if (file_exists($psr4File)) {
     echo "<p>File found at: <code>$psr4File</code></p>";
     $content = file_get_contents($psr4File);
