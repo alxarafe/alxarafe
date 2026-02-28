@@ -180,11 +180,12 @@ class WebDispatcher extends Dispatcher
         $className = $route_array[0];
         $filename = $route_array[1];
 
-        if (!file_exists($filename)) {
-            static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_file_not_found', ['file' => $filename]));
+        if (!class_exists($className)) {
+            if (!file_exists($filename)) {
+                static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_file_not_found', ['file' => $filename]));
+            }
+            require_once $filename;
         }
-
-        require_once $filename;
 
         $theme = 'default';
         $language = \Alxarafe\Lib\Trans::FALLBACK_LANG;
