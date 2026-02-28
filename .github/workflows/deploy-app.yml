@@ -30,7 +30,7 @@ jobs:
       - name: Install Composer dependencies (skeleton)
         run: |
           cd skeleton
-          composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
+          composer update --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
 
       # Build a clean deploy directory with the server structure
       - name: Prepare deploy structure
