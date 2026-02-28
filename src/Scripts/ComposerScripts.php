@@ -186,7 +186,15 @@ abstract class ComposerScripts
     {
         $standardPublic = realpath(__DIR__ . '/../../../../../public');
         $devPublic = realpath(__DIR__ . '/../../skeleton/public');
+        $prodPublic = realpath(__DIR__ . '/../../public_html');
+        $rootPublic = realpath(__DIR__ . '/../../public');
 
+        if ($prodPublic && is_dir($prodPublic)) {
+            return $prodPublic;
+        }
+        if ($rootPublic && is_dir($rootPublic)) {
+            return $rootPublic;
+        }
         if ($standardPublic && is_dir($standardPublic)) {
             return $standardPublic;
         }
@@ -195,9 +203,9 @@ abstract class ComposerScripts
         }
 
         // Search for common names in root
-        $root = realpath(__DIR__ . '/../../../../../');
+        $root = realpath(__DIR__ . '/../../'); // App Root in new layout
         if ($root) {
-            $commonNames = ['public_html', 'www', 'htdocs', 'html'];
+            $commonNames = ['public_html', 'public', 'www', 'htdocs', 'html'];
             foreach ($commonNames as $name) {
                 if (is_dir($root . '/' . $name)) {
                     return $root . '/' . $name;
@@ -205,6 +213,7 @@ abstract class ComposerScripts
             }
         }
 
-        return $standardPublic ?: (__DIR__ . '/../../../../../public');
+        // Fallback to absolute relative to this script
+        return $prodPublic ?: ($root ? $root . '/public_html' : $standardPublic);
     }
 }
