@@ -190,6 +190,10 @@ class WebDispatcher extends Dispatcher
                 return true;
             }
 
+            if (isset($_GET['debug'])) {
+                echo "<!-- Loading $className from $filename -->\n";
+            }
+
             require_once $filename;
         }
 

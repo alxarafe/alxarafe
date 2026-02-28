@@ -51,8 +51,14 @@ jobs:
           cp composer.json skeleton/vendor/alxarafe/alxarafe/composer.json
 
           # Skeleton app files (above public_html)
-          cp -r skeleton/Modules deploy/Modules
-          cp -r skeleton/vendor deploy/vendor
+          cp -r skeleton/* deploy/
+          # Remove redundant framework copy if it exists in vendor to prevent conflicts
+          rm -rf deploy/vendor/alxarafe/alxarafe
+          # Remove internal tests from deploy
+          rm -rf deploy/Tests
+          rm -rf deploy/skeleton/Tests
+          # The original line was `cp -r skeleton/bin deploy/bin 2>/dev/null || true`
+          # This is now covered by `cp -r skeleton/* deploy/` but we keep the error suppression for safety
           cp -r skeleton/bin deploy/bin 2>/dev/null || true
 
           # Config: only routes.php, NOT config.json (preserve server config)
