@@ -103,7 +103,7 @@ abstract class Config
             self::$config->main = static::getDefaultMainFileInfo();
         }
 
-        foreach ($data as $section => $fields) {
+        foreach ((array) $data as $section => $fields) {
             if (!is_object($fields) && !is_array($fields)) {
                 continue;
             }

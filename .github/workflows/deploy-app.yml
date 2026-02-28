@@ -63,6 +63,10 @@ jobs:
           cp -r skeleton/public/* deploy/public_html/ 2>/dev/null || true
           cp skeleton/public/.htaccess deploy/public_html/.htaccess 2>/dev/null || true
 
+          # Clear stale Blade cache to prevent "Unable to locate component" errors
+          rm -rf deploy/var/cache/blade
+          mkdir -p deploy/var/cache/blade
+
       # Single deploy step to upload everything
       - name: Deploy to server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

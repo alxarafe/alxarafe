@@ -39,6 +39,9 @@ class Template
     {
         $this->paths = $paths;
         $this->blade = null;
+        // Reset the global container so that namespace registrations from
+        // previous Blade instances do not survive with stale prefixHash values.
+        self::$globalContainer = null;
     }
 
     public function addPath(string $path): void
@@ -46,6 +49,7 @@ class Template
         if (!in_array($path, $this->paths)) {
             $this->paths[] = $path;
             $this->blade = null;
+            self::$globalContainer = null;
         }
     }
 
