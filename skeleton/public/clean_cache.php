@@ -65,24 +65,30 @@ if (is_dir($cacheDir)) {
     echo "<p style='color:red'>Cache directory not found at: <code>$cacheDir</code></p>";
 }
 
-echo "<h2>File Search for RoleController.php</h2>";
-$cmd = "find " . escapeshellarg($appPath) . " -name RoleController.php";
-$output = [];
-exec($cmd, $output);
-if (!empty($output)) {
-    echo "<ul>";
-    foreach ($output as $file) {
-        echo "<li>Found: <code>$file</code></li>";
+echo "<h2>File Search for RoleController.php (Recursive PHP)</h2>";
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($appPath));
+$foundCount = 0;
+echo "<ul>";
+foreach ($iterator as $file) {
+    if ($file->getFilename() === 'RoleController.php') {
+        echo "<li>Found: <code>" . $file->getPathname() . "</code></li>";
+        $foundCount++;
     }
+}
+echo "</ul>";
+if ($foundCount === 0) echo "<p>No files found.</p>";
+
+echo "<h2>Declared Classes (CoreModules)</h2>";
+$classes = get_declared_classes();
+$foundClasses = array_filter($classes, function ($c) {
+    return str_contains($c, 'CoreModules');
+});
+if ($foundClasses) {
+    echo "<ul>";
+    foreach ($foundClasses as $c) echo "<li><code>$c</code></li>";
     echo "</ul>";
 } else {
-    echo "<p>No duplicate RoleController.php found with find command. Trying PHP glob...</p>";
-    $files = glob($appPath . "/**/RoleController.php");
-    if ($files) {
-        foreach ($files as $file) echo "<li>Found (glob): <code>$file</code></li>";
-    } else {
-        echo "<p>No files found with glob either.</p>";
-    }
+    echo "<p>No CoreModules classes declared yet.</p>";
 }
 
 echo "<hr><p><a href='/'>Go to Homepage</a></p>";
