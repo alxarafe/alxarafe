@@ -46,10 +46,14 @@ class WebDispatcher extends Dispatcher
         try {
             // Initial path checks
             if (!defined('BASE_PATH')) {
-                define('BASE_PATH', dirname($_SERVER['SCRIPT_FILENAME'] ?? __DIR__));
+                define('BASE_PATH', dirname($_SERVER['SCRIPT_FILENAME'] ?? __FILE__));
             }
             if (!defined('APP_PATH')) {
-                define('APP_PATH', realpath(BASE_PATH . '/../'));
+                $appPath = realpath(BASE_PATH . '/..');
+                if (!$appPath) {
+                    $appPath = dirname(BASE_PATH);
+                }
+                define('APP_PATH', $appPath);
             }
 
             // Asset auto-publication check
@@ -65,7 +69,7 @@ class WebDispatcher extends Dispatcher
                             return $this;
                         }
                     };
-                    $event = new class ($io) {
+                    $event = new class($io) {
                         private $io;
                         public function __construct($io)
                         {
@@ -217,7 +221,11 @@ class WebDispatcher extends Dispatcher
 
         // Initialize APP_PATH if not defined (fallback to BASE_PATH/..)
         if (!defined('APP_PATH')) {
-            define('APP_PATH', realpath(constant('BASE_PATH') . '/../'));
+            $appPath = realpath(constant('BASE_PATH') . '/..');
+            if (!$appPath) {
+                $appPath = dirname(constant('BASE_PATH'));
+            }
+            define('APP_PATH', $appPath);
         }
 
         $templates_path = [
