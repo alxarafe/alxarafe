@@ -41,9 +41,22 @@ jobs:
           # Skeleton app files (above public_html)
           cp -r skeleton/Modules deploy/Modules
           cp -r skeleton/vendor deploy/vendor
-          cp -r skeleton/composer.json deploy/skeleton_composer.json
           cp -r skeleton/bin deploy/bin 2>/dev/null || true
-          cp -r skeleton/Tests deploy/Tests 2>/dev/null || true
+
+          # Clean vendor/alxarafe/alxarafe (path repo copies entire repo)
+          rm -rf deploy/vendor/alxarafe/alxarafe/skeleton
+          rm -rf deploy/vendor/alxarafe/alxarafe/docker
+          rm -rf deploy/vendor/alxarafe/alxarafe/.docker
+          rm -rf deploy/vendor/alxarafe/alxarafe/doc
+          rm -rf deploy/vendor/alxarafe/alxarafe/Tests
+          rm -rf deploy/vendor/alxarafe/alxarafe/bin
+          rm -rf deploy/vendor/alxarafe/alxarafe/node_modules
+          rm -rf deploy/vendor/alxarafe/alxarafe/.github
+          rm -rf deploy/vendor/alxarafe/alxarafe/.idea
+          rm -rf deploy/vendor/alxarafe/alxarafe/.phpdoc
+          rm -rf deploy/vendor/alxarafe/alxarafe/ai-scripts
+          rm -rf deploy/vendor/alxarafe/alxarafe/assets
+          rm -rf deploy/vendor/alxarafe/alxarafe/var
 
           # Config: only routes.php, NOT config.json (preserve server config)
           mkdir -p deploy/config
