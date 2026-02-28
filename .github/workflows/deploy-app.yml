@@ -9,6 +9,9 @@ on:
       - '*.md'
       - '.github/workflows/deploy-docs.yml'
 
+  # Allow manual trigger
+  workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -25,8 +28,33 @@ jobs:
           cd skeleton
           composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
 
-      # Deploy framework source + templates above public_html
-      - name: Deploy framework to server root
+      # Build a clean deploy directory with the server structure
+      - name: Prepare deploy structure
+        run: |
+          mkdir -p deploy/public_html
+
+          # Framework source (above public_html)
+          cp -r src deploy/src
+          cp -r templates deploy/templates
+          cp composer.json deploy/composer.json
+
+          # Skeleton app files (above public_html)
+          cp -r skeleton/Modules deploy/Modules
+          cp -r skeleton/vendor deploy/vendor
+          cp -r skeleton/composer.json deploy/skeleton_composer.json
+          cp -r skeleton/bin deploy/bin 2>/dev/null || true
+          cp -r skeleton/Tests deploy/Tests 2>/dev/null || true
+
+          # Config: only routes.php, NOT config.json (preserve server config)
+          mkdir -p deploy/config
+          cp skeleton/config/routes.php deploy/config/routes.php 2>/dev/null || true
+
+          # Public files → public_html
+          cp -r skeleton/public/* deploy/public_html/ 2>/dev/null || true
+          cp skeleton/public/.htaccess deploy/public_html/.htaccess 2>/dev/null || true
+
+      # Single deploy step to upload everything
+      - name: Deploy to server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_APP_SERVER }}
@@ -34,59 +62,11 @@ jobs:
           password: ${{ secrets.FTP_APP_PASS }}
           protocol: ftp
           port: 21
-          local-dir: ./
+          local-dir: ./deploy/
           server-dir: /
           exclude: |
             **/.git*
             **/.git*/**
-            .github/**
-            .docker/**
-            .idea/**
-            .phpdoc/**
-            .phpunit.cache/**
-            ai-scripts/**
-            docker/**
-            docker-compose.yml
-            node_modules/**
-            Tests/**
-            bin/**
-            doc/**
-            var/**
-            *.md
-            *.xml
-            *.neon
-            *.phar
-            .env
-            .env.example
-            .antigravityrules
-            package.json
-            package-lock.json
-            tsconfig.json
-            webpack.config.js
-            phpcs.xml
-            phpstan.neon
-            phpunit.xml
-            psalm.xml
-            skeleton/public/**
-            skeleton/config/config.json
-            skeleton/database/**
-            skeleton/tmp/**
-            skeleton/var/**
-
-      # Deploy skeleton/public to public_html (preserving docs/)
-      - name: Deploy public files to public_html
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_APP_SERVER }}
-          username: ${{ secrets.FTP_APP_USER }}
-          password: ${{ secrets.FTP_APP_PASS }}
-          protocol: ftp
-          port: 21
-          local-dir: ./skeleton/public/
-          server-dir: /public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            docs/**
-          # state-name ensures separate sync state from the root deploy
-          state-name: public_html
+            public_html/docs/**
+            public_html/config/**
+            config/config.json
