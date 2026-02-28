@@ -35,7 +35,7 @@ jobs:
           # Adjust paths in skeleton/composer.json to be relative to the root for production
           # When vendor is at the domain root, src is also at the domain root.
           sed -i 's|../src/|src/|g' skeleton/composer.json
-          cd skeleton && composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs && cd ..
+          cd skeleton && composer update --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs && cd ..
 
       # Build a clean deploy directory with the server structure
       - name: Prepare deploy structure
