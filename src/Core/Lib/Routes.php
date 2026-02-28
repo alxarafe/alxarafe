@@ -56,6 +56,8 @@ abstract class Routes
     {
         $routes = [];
 
+        $scanned_paths = [];
+
         foreach (self::$search_routes as $class => $route) {
             $full_path = '';
             if ($class === 'Modules' && defined('APP_PATH')) {
@@ -68,9 +70,10 @@ abstract class Routes
                 $full_path = realpath(constant('BASE_PATH') . '/../' . $route);
             }
 
-            if (empty($full_path)) {
+            if (empty($full_path) || in_array($full_path, $scanned_paths)) {
                 continue;
             }
+            $scanned_paths[] = $full_path;
 
             $modules = glob($full_path . '/*', GLOB_ONLYDIR);
 
