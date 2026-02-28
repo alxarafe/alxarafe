@@ -12,6 +12,10 @@ on:
   # Allow manual trigger
   workflow_dispatch:
 
+concurrency:
+  group: deploy-app
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
