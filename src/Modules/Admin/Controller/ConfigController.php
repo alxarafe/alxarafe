@@ -192,8 +192,6 @@ class ConfigController extends ResourceController
     #[\Override]
     protected function handleRequest()
     {
-        $this->checkDatabaseStatus();
-
         if (isset($_GET['ajax'])) {
             if ($_GET['ajax'] === 'get_record') {
                 $this->jsonResponse($this->fetchRecordData());
