@@ -23,7 +23,7 @@ jobs:
       - name: Install Composer dependencies (skeleton)
         run: |
           cd skeleton
-          composer install --no-dev --optimize-autoloader --no-interaction
+          composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
 
       # Deploy framework source + templates above public_html
       - name: Deploy framework to server root
