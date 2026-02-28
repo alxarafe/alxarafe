@@ -11,8 +11,21 @@ use Alxarafe\Tools\Debug;
 // Define base paths
 define('BASE_PATH', __DIR__); // skeleton/public
 define('BASE_URL', 'http://localhost:8081');
-define('ALX_PATH', realpath(__DIR__ . '/../../')); // Root of the repo (framework)
-define('APP_PATH', realpath(__DIR__ . '/../'));    // Root of the app (skeleton)
+$appPath = realpath(__DIR__ . '/../');
+if (!$appPath) {
+    $appPath = dirname(__DIR__);
+}
+define('APP_PATH', $appPath); // Root of the app (skeleton)
+
+// Resolve ALX_PATH (Framework root)
+// 1. Check if we're in a combined production layout (src exists in APP_PATH)
+if (is_dir($appPath . '/src/Core') || is_dir($appPath . '/vendor/alxarafe/alxarafe')) {
+    define('ALX_PATH', $appPath);
+} else {
+    // 2. Default to relative path for development
+    $alxPath = realpath(__DIR__ . '/../../');
+    define('ALX_PATH', $alxPath ?: dirname($appPath));
+}
 
 // Pre-define APP_PATH for Config class to find the config.json correctly
 if (!defined('APP_PATH')) {

@@ -56,6 +56,17 @@ class WebDispatcher extends Dispatcher
                 define('APP_PATH', $appPath);
             }
 
+            if (!defined('ALX_PATH')) {
+                // If src exists in APP_PATH, it means framework and app are in same root
+                if (is_dir(constant('APP_PATH') . '/src/Core')) {
+                    define('ALX_PATH', constant('APP_PATH'));
+                } else {
+                    // Try to guess from vendor or parent
+                    $alxPath = realpath(constant('APP_PATH') . '/vendor/alxarafe/alxarafe');
+                    define('ALX_PATH', $alxPath ?: dirname(constant('APP_PATH')));
+                }
+            }
+
             // Asset auto-publication check
             if (!is_dir(BASE_PATH . '/themes') || !is_dir(BASE_PATH . '/css')) {
                 if (class_exists(\Alxarafe\Scripts\ComposerScripts::class)) {
