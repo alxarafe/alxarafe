@@ -29,6 +29,7 @@ use Alxarafe\Base\Model\Model;
  *
  * @method static find($code)
  * @method static where($column, $operator = null, $value = null)
+ * @method static \Illuminate\Database\Eloquent\Builder active()
  */
 final class Language extends Model
 {
