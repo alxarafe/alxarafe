@@ -30,8 +30,10 @@ jobs:
       - name: Install Composer dependencies (skeleton)
         run: |
           # Copy src into skeleton temporarily so composer can see it for path mapping
+          # This ensures the autoloader points to the correct place relative to the app
           cp -r src skeleton/src
-          # Adjust paths in skeleton/composer.json to be relative to skeleton/
+          # Adjust paths in skeleton/composer.json to be relative to the root for production
+          # When vendor is at the domain root, src is also at the domain root.
           sed -i 's|../src/|src/|g' skeleton/composer.json
           cd skeleton && composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs && cd ..
 
@@ -39,40 +41,26 @@ jobs:
       - name: Prepare deploy structure
         run: |
           mkdir -p deploy/public_html
-
+          
           # Framework source (above public_html)
           cp -r src deploy/src
           cp -r templates deploy/templates
           cp composer.json deploy/composer.json
-
-          # Fix symlink: composer path repo creates vendor/alxarafe/alxarafe → ../..
-          # Replace it with only the needed files to avoid recursive copy
-          rm -rf skeleton/vendor/alxarafe/alxarafe
-          mkdir -p skeleton/vendor/alxarafe/alxarafe
-          cp -r src skeleton/vendor/alxarafe/alxarafe/src
-          cp -r templates skeleton/vendor/alxarafe/alxarafe/templates
-          cp composer.json skeleton/vendor/alxarafe/alxarafe/composer.json
-
+          
           # Skeleton app files (above public_html)
+          # We copy skeleton contents EXCEPT the temporary 'src' we copied for composer
+          rm -rf skeleton/src
           cp -r skeleton/* deploy/
-          # Remove redundant framework copy if it exists in vendor to prevent conflicts
-          rm -rf deploy/vendor/alxarafe/alxarafe
+          
           # Remove internal tests from deploy
           rm -rf deploy/Tests
           rm -rf deploy/skeleton/Tests
-          # The original line was `cp -r skeleton/bin deploy/bin 2>/dev/null || true`
-          # This is now covered by `cp -r skeleton/* deploy/` but we keep the error suppression for safety
-          cp -r skeleton/bin deploy/bin 2>/dev/null || true
-
-          # Config: only routes.php, NOT config.json (preserve server config)
-          mkdir -p deploy/config
-          cp skeleton/config/routes.php deploy/config/routes.php 2>/dev/null || true
-
+          
           # Public files → public_html
           cp -r skeleton/public/* deploy/public_html/ 2>/dev/null || true
           cp skeleton/public/.htaccess deploy/public_html/.htaccess 2>/dev/null || true
-
-          # Clear stale Blade cache to prevent "Unable to locate component" errors
+          
+          # Clear stale Blade cache
           rm -rf deploy/var/cache/blade
           mkdir -p deploy/var/cache/blade
 
