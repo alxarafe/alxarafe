@@ -302,21 +302,28 @@ class ConfigController extends ResourceController
             return false;
         }
 
-        // If DB exists, check for users table
+        // If DB exists, check for users table and if it is empty
         try {
             $dsn = "{$config->db->type}:host={$config->db->host};dbname={$config->db->name};charset={$config->db->charset}";
             $pdo = new \PDO($dsn, $config->db->user, $config->db->pass);
             $prefix = $config->db->prefix ?? '';
-            // Use explicit prepared statement or simple query
+
+            // Check if table exists
             $stmt = $pdo->query("SHOW TABLES LIKE '{$prefix}users'");
-            if ($stmt && $stmt->rowCount() === 0) {
+            if (!$stmt || $stmt->rowCount() === 0) {
+                return false;
+            }
+
+            // Check if table is empty (Installation mode)
+            $stmt = $pdo->query("SELECT COUNT(*) FROM `{$prefix}users` LIMIT 1");
+            if ($stmt && (int)$stmt->fetchColumn() === 0) {
                 return false;
             }
         } catch (\Exception $e) {
             return false;
         }
 
-        // DB and Tables exist -> Enforce Auth
+        // DB exists and contains users -> Enforce Auth
         return true;
     }
 
