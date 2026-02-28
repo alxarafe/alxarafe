@@ -251,7 +251,7 @@ class ConfigController extends ResourceController
             }
         }
 
-        if (Config::setConfig($configData) && Config::saveConfig()) {
+        if (Config::setConfig($configData)) {
             if (empty($_GET['ajax'])) {
                 Functions::httpRedirect($this->url('index', ['method' => 'general']) . '#');
                 exit;
@@ -262,6 +262,7 @@ class ConfigController extends ResourceController
                 'message' => Trans::_('settings_saved_successfully')
             ]);
         } else {
+            error_log("Alxarafe Config Error: Failed to save record in ConfigController. Check file permissions for config.json");
             $this->jsonResponse(['status' => 'error', 'error' => Trans::_('error_saving_settings')]);
         }
     }
@@ -501,11 +502,5 @@ class ConfigController extends ResourceController
     {
         $identifiers = \DateTimeZone::listIdentifiers();
         return array_combine($identifiers, $identifiers);
-    }
-
-    public function saveConfig(): bool
-    {
-        $configFilename = Config::getConfigFilename();
-        return (bool)file_put_contents($configFilename, json_encode($this->data, JSON_PRETTY_PRINT));
     }
 }

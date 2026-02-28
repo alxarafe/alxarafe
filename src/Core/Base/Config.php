@@ -141,13 +141,21 @@ abstract class Config
         $path = self::getConfigFilename();
         $json = json_encode(self::$config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-        return file_put_contents($path, $json) !== false;
+        $result = @file_put_contents($path, $json);
+
+        if ($result === false) {
+            $error = error_get_last();
+            error_log("Alxarafe Critical Error: Failed to write to config file: $path. PHP error: " . ($error['message'] ?? 'Unknown'));
+            return false;
+        }
+
+        return true;
     }
 
     public static function getConfigFilename(): string
     {
-        $basePath = defined('APP_PATH') ? constant('APP_PATH') : (defined('BASE_PATH') ? constant('BASE_PATH') . '/..' : __DIR__);
-        $base = realpath($basePath);
+        $basePath = defined('APP_PATH') ? constant('APP_PATH') : (defined('BASE_PATH') ? constant('BASE_PATH') : __DIR__);
+        $base = realpath($basePath) ?: $basePath;
 
         $configInConfigDir = $base . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
         if (file_exists($configInConfigDir)) {

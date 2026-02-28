@@ -72,22 +72,30 @@ abstract class ViewController extends GenericController
 
         $this->config = Config::getConfig();
 
-        // Auto-register App Templates path if defined
+        // Register templates path
         if (defined('APP_PATH')) {
-            $this->addTemplatesPath(constant('APP_PATH') . '/templates');
-        }
+            $appPath = constant('APP_PATH');
 
-        // Register framework-level template paths (theme + base fallback)
-        if (defined('ALX_PATH')) {
-            $alxPath = constant('ALX_PATH');
-            $theme = Config::getConfig()?->main?->theme ?? null;
-            if ($theme) {
-                $themePath = $alxPath . '/templates/themes/' . $theme;
+            // 1. App specific templates
+            $this->addTemplatesPath($appPath . '/templates');
+
+            // 2. Active Theme templates (Highest priority)
+            $theme = Config::getConfig()?->main?->theme ?? 'default';
+            if ($theme !== 'default') {
+                $themePath = $appPath . '/themes/' . $theme . '/templates';
                 if (is_dir($themePath)) {
                     $this->addTemplatesPath($themePath);
                 }
             }
+        }
+
+        // 3. Framework base templates (Fallback)
+        if (defined('ALX_PATH')) {
+            $alxPath = constant('ALX_PATH');
             $baseTplPath = $alxPath . '/templates';
+            if (!is_dir($baseTplPath) && defined('APP_PATH')) {
+                $baseTplPath = constant('APP_PATH') . '/templates';
+            }
             if (is_dir($baseTplPath)) {
                 $this->addTemplatesPath($baseTplPath);
             }

@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 require __DIR__ . '/../vendor/autoload.php';
 
 use Alxarafe\Tools\Dispatcher\WebDispatcher;
@@ -22,8 +19,10 @@ define('APP_PATH', $appPath); // Root of the app (skeleton)
 
 // Resolve ALX_PATH (Framework root)
 // 1. Check if we're in a combined production layout (src exists in APP_PATH)
-if (is_dir($appPath . '/src/Core') || is_dir($appPath . '/vendor/alxarafe/alxarafe')) {
-    define('ALX_PATH', $appPath);
+if (file_exists(__DIR__ . '/src/Core')) {
+    define('BASE_PATH', __DIR__);
+    define('APP_PATH', __DIR__);
+    define('ALX_PATH', __DIR__ . '/src/Core');
 } else {
     // 2. Default to relative path for development
     $alxPath = realpath(__DIR__ . '/../../');
