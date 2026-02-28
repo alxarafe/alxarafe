@@ -29,8 +29,11 @@ jobs:
 
       - name: Install Composer dependencies (skeleton)
         run: |
-          cd skeleton
-          composer update --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
+          # Copy src into skeleton temporarily so composer can see it for path mapping
+          cp -r src skeleton/src
+          # Adjust paths in skeleton/composer.json to be relative to skeleton/
+          sed -i 's|../src/|src/|g' skeleton/composer.json
+          cd skeleton && composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs && cd ..
 
       # Build a clean deploy directory with the server structure
       - name: Prepare deploy structure
