@@ -19,6 +19,7 @@ db_charset: Juego de Caracteres
 db_collation: Cotejamiento
 pdo_connection_error: Error al conectar con el motor de base de datos
 pdo_db_connection_error: Error al conectar con la base de datos '%db%'
+pdo_db_does_not_exists: La base de datos no existe "%message%"
 successful_connection_database: Conexión satisfactoria con la base de datos %db%
 error_saving_settings: Error al guardar la configuración
 settings_saved_successfully: Configuración guardada correctamente
@@ -29,6 +30,8 @@ regenerate: Regenerar
 boolean_true: Sí
 boolean_false: No
 exit: Salir
+template_not_found: 'Plantilla no encontrada: "%name%"'
+processing_migration: 'Procesando migración: "%name%"'
 pending_migrations_advice: No se han encontrado las tablas del sistema. Por favor, ejecute las migraciones.
 go_migrations: Ejecutar migraciones
 error_message: "Error: %message%"
@@ -56,6 +59,7 @@ create_new_role: Crear un nuevo Rol
 no_roles_found: No se han definido Roles
 start_by_creating_role: Comience creando un rol para definir permisos.
 create_first_role: Crear el primer Rol
+roles: Roles
 
 # Role Edit & Sync
 new_role: Nuevo Rol

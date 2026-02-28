@@ -1,6 +1,126 @@
-ca: Català
-es: Espanyol
 en: Anglès
+es: Espanyol
+en_US: Anglès (EUA)
+es_ES: Espanyol (Espanya)
 fr: Francès
-gl: Gallec
+de: Alemany
+pt: Portuguès
+it: Italià
+ru: Rus
+zh: Xinès
+ja: Japonès
+ar: Àrab
+nl: Neerlandès
+hi: Hindi
+ca: Català
 eu: Basc
+es_AR: Espanyol (Argentina)
+es_VE: Espanyol (Veneçuela)
+es_MX: Espanyol (Mèxic)
+pt_BR: Portuguès (Brasil)
+en_GB: Anglès (Regne Unit)
+
+unknown_method: El mètode %method% no existeix!
+test_english_only: Missatge només en anglès!
+error_message: 'Error: "%message%"'
+
+# Core / Dispatcher
+dispatcher_module_controller_not_found: "El controlador %module%::%controller% no existeix!"
+dispatcher_file_not_found: "El fitxer %file% no existeix!"
+dispatcher_not_view_controller: "%class% no és un ViewController vàlid!"
+dispatcher_method_not_found: "Mètode %method% no trobat al controlador %class%"
+template_no_view_specified: "No s'ha especificat cap vista"
+resource_invalid_tab: "Pestanya no vàlida"
+resource_no_id_provided: "No s'ha proporcionat cap ID"
+trans_file_not_found: "Fitxer de traducció no trobat: %file%"
+trans_invalid_yaml: "%file% no és un fitxer YAML vàlid"
+api_bad_call: "Crida API incorrecta"
+command_failed_output: "Comanda fallida: %command%. Sortida: %output%"
+
+# Generic UI Terms
+id: ID
+name: Nom
+description: Descripció
+active: Actiu
+actions: Accions
+yes: Sí
+no: No
+edit: Edita
+delete: Elimina
+save: Desa
+cancel: Cancel·la
+create: Crea
+update: Actualitza
+list: Llista
+back: Enrere
+email: Correu electrònic
+password: Contrasenya
+none: Cap
+default: Per defecte
+title_user_general: General
+title_user_preferences: Preferències
+role: Rol
+administrator: Administrador
+avatar: Avatar
+timezone: Zona horària
+language: Idioma
+theme: Tema
+users: Usuaris
+logout: Tanca sessió
+login: Inicia sessió
+my_profile: El meu Perfil
+settings: Configuració
+default_page_active: Pàgina d'inici activa
+set_as_default_page: Establir com a pàgina d'inici
+timezones: Zones horàries
+utc: UTC
+app_label: App
+user_label: Usuari
+no_new_notifications: No hi ha notificacions noves
+administration_access: Accés Administració
+please_enter_credentials: Introduïu les vostres credencials
+login_name: Nom d'usuari
+login_password: Contrasenya
+login_button: Entra
+
+# Config Controller
+save_configuration: Desa la configuració
+create_database: Crea la base de dades
+go_migrations: Executa les migracions
+regenerate: Regenera
+exit: Surt
+miscellaneous: Miscel·lània
+connection: Connexió
+database_preferences: Preferències de BD
+database: Base de dades
+use_debugbar: Usar barra de depuració
+db_type: Tipus de BD
+db_host: Host de BD
+db_user: Usuari de BD
+db_password: Contrasenya de BD
+db_prefix: Prefix de taules
+db_charset: Charset
+db_collation: Collation
+db_name: Nom de la base de dades
+db_port: Port
+select_timezone: Selecciona zona horària
+detect_timezone: Detecta zona horària
+
+# Resource UI
+search_filters: Filtres de cerca
+new: Nou
+configuration_error_tab_not_found: "Error de configuració: No s'ha trobat la pestanya activa"
+missing_template_layout_list: "Error intern: Falta la plantilla 'layout_list'"
+missing_template_layout_edit: "Error intern: Falta la plantilla 'layout_edit'"
+no_results_found: No s'han trobat resultats.
+loading: Carregant...
+reload: Recarrega
+confirm_revert_changes: "Esteu segur que voleu descartar els canvis i recarregar les dades originals?"
+no_sections_defined: No hi ha seccions definides
+edit_record: Edita registre
+loading_data: Carregant dades...
+notifications: Notificacions
+select_language: Selecciona idioma
+available_languages: Idiomes disponibles
+select_theme: Selecciona tema
+available_themes: Temes disponibles

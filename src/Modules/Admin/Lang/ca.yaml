@@ -1,0 +1,90 @@
+miscellaneous: Miscel·lània
+database: Base de dades
+database_preferences: Preferències de la base de dades
+theme: Tema
+language: Idioma
+login_name: Nom
+login_password: Contrasenya
+login_button: Entra
+db_type: Tipus
+db_host: Host
+db_user: Usuari
+db_password: Contrasenya
+db_create: Crear base de dades (si no existeix)
+db_name: Nom de la base de dades
+db_port: Port
+connection: Connexió
+db_prefix: Prefix de Taules
+db_charset: Joc de Caràcters
+db_collation: Col·lació
+pdo_connection_error: Error en connectar amb el motor de base de dades
+pdo_db_connection_error: Error en connectar amb la base de dades %db%
+pdo_db_does_not_exists: La base de dades no existeix "%message%"
+successful_connection_database: Connexió satisfactòria amb la base de dades '%db%'
+error_saving_settings: Error en desar la configuració
+settings_saved_successfully: Configuració desada correctament
+use_debugbar: Activar la barra de depuració
+check_db_connection: Comprovar la connexió amb la base de dades
+save_configuration: Desar la configuració
+regenerate: Regenerar
+boolean_true: Sí
+boolean_false: No
+exit: Surt
+template_not_found: 'Plantilla no trobada: "%name%"'
+processing_migration: 'Processant migració: "%name%"'
+pending_migrations_advice: No s'han trobat les taules del sistema. Executeu les migracions.
+go_migrations: Executar migracions
+error_message: "Error: %message%"
+
+# Migration page
+migration_status_title: Estat de les Migracions
+migration_start_process: Iniciar Procés de Migració
+migration_all_ok: Tot està al dia.
+migration_no_pending: No hi ha migracions pendents.
+migration_attention_needed: Atenció necessària.
+migration_pending_count: Hi ha %count% migracions pendents. Executeu el procés d'actualització.
+migration_pending: Pendent
+migration_completed: Completada
+migration_processing: Processant
+migration_finished: Procés Finalitzat
+migration_all_finished: Totes les operacions han finalitzat.
+migration_error_detail: "Error a %module%::%class%: %message%"
+migration_network_error: "Error de xarxa a %module%::%class%"
+migration_error_badge: Error
+migration_fail_badge: Fallada
+
+# Role Management
+role_management: Gestió de Rols
+create_new_role: Crear un nou Rol
+no_roles_found: No s'han definit Rols
+start_by_creating_role: Comenceu creant un rol per definir permisos.
+create_first_role: Crear el primer Rol
+roles: Rols
+
+# Role Edit & Sync
+new_role: Nou Rol
+edit_role: Editar Rol
+permissions: Permisos
+sync_permissions: Sincronitzar Permisos
+sync_permissions_confirm: Esteu segur de sincronitzar els permisos?
+syncing: Sincronitzant...
+sync_completed: Sincronització completada.
+created: Creats
+restored: Restaurats
+deleted: Eliminats
+error_occurred: S'ha produït un error
+role_details: Detalls del Rol
+save_changes: Desar Canvis
+access: Accés
+no_access_permission_found: Permís d'accés no trobat
+
+# User / Profile
+my_profile: El meu Perfil
+profile_updated: Perfil actualitzat correctament.
+default_page_updated: Pàgina d'inici actualitzada.
+error_saving: Error en desar.
+upload_avatar_help: Pujar imatge d'avatar (JPG, PNG).
+detect_timezone: Detectar Zona Horària
+keep_empty_to_not_change: Deixar buit per no canviar
+none: Cap
+default: Per defecte

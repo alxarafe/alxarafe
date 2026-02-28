@@ -24,7 +24,10 @@ namespace Alxarafe\Base\Controller\Trait;
 use Alxarafe\Base\Controller\Interface\ResourceInterface;
 use Alxarafe\Component\AbstractField;
 use Alxarafe\Component\Container\Panel;
+use Alxarafe\Component\Container\Tab;
+use Alxarafe\Component\Container\TabGroup;
 use Alxarafe\Component\AbstractFilter;
+use Alxarafe\Lib\Trans;
 use Illuminate\Database\Capsule\Manager as DB;
 
 /**
@@ -40,6 +43,12 @@ trait ResourceTrait
     // Modes
 
     public string $mode = ResourceInterface::MODE_LIST;
+
+    /**
+     * Whether to render edit sections as tabs instead of side-by-side panels.
+     * Set to true in controllers with complex multi-section forms.
+     */
+    protected bool $useTabs = false;
 
     /**
      * Define the primary model class for this controller.
@@ -74,6 +83,59 @@ trait ResourceTrait
     protected function getEditFields(): array
     {
         return [];
+    }
+
+    /**
+     * Generates Tab objects from getEditFields() groups.
+     *
+     * This is the main extension point for tab-based forms.
+     * Child controllers override this, call parent::getTabs(),
+     * and add/insert their own tabs.
+     *
+     * Only used when $useTabs is true.
+     *
+     * @return Tab[]
+     */
+    protected function getTabs(): array
+    {
+        $fields = $this->getEditFields();
+        $tabs = [];
+
+        foreach ($fields as $key => $data) {
+            if (is_array($data) && isset($data['fields'])) {
+                // Structured format: ['label' => '...', 'fields' => [...]]
+                $label = $data['label'] ?? Trans::_($key);
+                $tabs[] = new Tab($key, $label, '', $data['fields']);
+            } elseif (is_array($data)) {
+                // Flat format: ['key' => [field1, field2, ...]]
+                $tabs[] = new Tab($key, Trans::_($key), '', $data);
+            }
+        }
+
+        return $tabs;
+    }
+
+    /**
+     * Insert a tab after an existing tab identified by key.
+     * Falls back to appending at the end if $afterKey is not found.
+     *
+     * @param Tab[]  $tabs     Existing tabs array
+     * @param string $afterKey Tab key to insert after (without 'tab_' prefix)
+     * @param Tab    $newTab   New tab to insert
+     * @return Tab[]
+     */
+    protected function insertTabAfter(array $tabs, string $afterKey, Tab $newTab): array
+    {
+        $targetId = 'tab_' . $afterKey;
+        foreach ($tabs as $i => $tab) {
+            if ($tab->getTabId() === $targetId) {
+                array_splice($tabs, $i + 1, 0, [$newTab]);
+                return $tabs;
+            }
+        }
+        // Fallback: append at end
+        $tabs[] = $newTab;
+        return $tabs;
     }
 
     /**
@@ -1338,21 +1400,30 @@ trait ResourceTrait
             ];
         }
 
-        // --- Sections → body with Panel components ---
-        $panels = [];
-        foreach ($this->structConfig['edit']['sections'] ?? [] as $secId => $section) {
-            $panels[] = new \Alxarafe\Component\Container\Panel(
-                $section['title'] ?? ucfirst($secId),
-                $section['fields'] ?? [],
-                ['col' => $section['col'] ?? 'col-md-6']
-            );
-        }
+        // --- Sections → body ---
+        if ($this->useTabs) {
+            // Tab-based rendering
+            $tabs = $this->getTabs();
+            if (!empty($tabs)) {
+                $tabGroup = new TabGroup($tabs, ['id' => 'edit-tabs']);
+                $descriptor['body'] = new Panel('', [$tabGroup], ['col' => 'col-12']);
+            }
+        } else {
+            // Panel-based rendering (default)
+            $panels = [];
+            foreach ($this->structConfig['edit']['sections'] ?? [] as $secId => $section) {
+                $panels[] = new Panel(
+                    $section['title'] ?? ucfirst($secId),
+                    $section['fields'] ?? [],
+                    ['col' => $section['col'] ?? 'col-md-6']
+                );
+            }
 
-        // Single panel → body is that panel. Multiple → wrap in a Panel container.
-        if (count($panels) === 1) {
-            $descriptor['body'] = $panels[0];
-        } elseif (count($panels) > 1) {
-            $descriptor['body'] = new \Alxarafe\Component\Container\Panel('', $panels, ['col' => 'col-12']);
+            if (count($panels) === 1) {
+                $descriptor['body'] = $panels[0];
+            } elseif (count($panels) > 1) {
+                $descriptor['body'] = new Panel('', $panels, ['col' => 'col-12']);
+            }
         }
 
         // --- Record data ---

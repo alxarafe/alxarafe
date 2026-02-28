@@ -1,0 +1,92 @@
+name: Deploy App to alxarafe.com
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+      - '.github/workflows/deploy-docs.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install Composer dependencies (skeleton)
+        run: |
+          cd skeleton
+          composer install --no-dev --optimize-autoloader --no-interaction
+
+      # Deploy framework source + templates above public_html
+      - name: Deploy framework to server root
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_APP_SERVER }}
+          username: ${{ secrets.FTP_APP_USER }}
+          password: ${{ secrets.FTP_APP_PASS }}
+          protocol: ftp
+          port: 21
+          local-dir: ./
+          server-dir: /
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .docker/**
+            .idea/**
+            .phpdoc/**
+            .phpunit.cache/**
+            ai-scripts/**
+            docker/**
+            docker-compose.yml
+            node_modules/**
+            Tests/**
+            bin/**
+            doc/**
+            var/**
+            *.md
+            *.xml
+            *.neon
+            *.phar
+            .env
+            .env.example
+            .antigravityrules
+            package.json
+            package-lock.json
+            tsconfig.json
+            webpack.config.js
+            phpcs.xml
+            phpstan.neon
+            phpunit.xml
+            psalm.xml
+            skeleton/public/**
+            skeleton/config/config.json
+            skeleton/database/**
+            skeleton/tmp/**
+            skeleton/var/**
+
+      # Deploy skeleton/public to public_html (preserving docs/)
+      - name: Deploy public files to public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_APP_SERVER }}
+          username: ${{ secrets.FTP_APP_USER }}
+          password: ${{ secrets.FTP_APP_PASS }}
+          protocol: ftp
+          port: 21
+          local-dir: ./skeleton/public/
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            docs/**
+          # state-name ensures separate sync state from the root deploy
+          state-name: public_html

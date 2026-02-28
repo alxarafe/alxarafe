@@ -24,6 +24,7 @@ en_GB: Inglés (Reino Unido)
 
 unknown_method: ¡No se ha encontrado el método '%method%'!
 test_english_only: ¡Prueba con mensajes sólo en inglés!
+error_message: 'Error: "%message%"'
 
 # Core / Dispatcher
 dispatcher_module_controller_not_found: "¡El controlador %module%::%controller% no existe!"

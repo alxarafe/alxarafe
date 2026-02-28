@@ -1,0 +1,52 @@
+# FrameworkTest Showcase
+showcase_title: Alxarafe Components Showcase
+main_config: "⚙️ Hauptkonfiguration"
+aesthetics: "🎨 Ästhetik und Visualisierung"
+quantitative_data: "🔢 Quantitative Daten"
+chronology: "📅 Chronologie"
+advanced_multimedia: "🚀 Erweitert und Multimedia"
+tab_components: "🧩 Komponenten"
+tab_nesting: "📦 Verschachtelte Panels"
+tab_markdown: "📝 Markdown"
+save_demo: Demo Speichern
+clear_cache: Cache Leeren
+resource_name: Ressourcenname
+technical_description: Technische Beschreibung
+publication_status: Veröffentlichungsstatus
+icon_representative: Repräsentatives Icon
+object_classification: Objektklassifikation
+core_system: Systemkern
+plugin_extension: Erweiterung / Plugin
+visual_theme: Visueller Stil / Thema
+estimated_budget: Geschätztes Budget
+milestone_date: Meilensteindatum
+audit_record: Prüfprotokoll
+window_opening: Fensteröffnung
+global_tags: Globale Tags (Select2)
+branding_preview: Branding-Vorschau
+contact_first_name: Kontaktname
+contact_last_name: Kontakt-Nachname
+contact_email: Kontakt-E-Mail
+fields_row: Zeilenfelder (ohne Karte)
+parent_company: Muttergesellschaft
+fiscal_address: Steueradresse
+primary_contact: Hauptkontakt
+security_config: Erweiterte Konfiguration
+metrics: Metriken
+rendered_document: Gerendertes Dokument
+no_markdown_found: Datei test_markdown.md nicht gefunden
+resource_name_help: Geben Sie einen beschreibenden Namen für dieses Testobjekt ein
+resource_name_placeholder: "z.B. Meine Erste Komponente"
+generate: Generieren
+control_value: Kontrollwert
+control_value_help: Eine Ganzzahl zwischen 0 und 1000
+estimated_budget_help: Automatisch mit zwei Dezimalstellen formatiert
+currency: Währung
+static_text_demo: Dies ist ein informativer Text, der die StaticText-Komponente verwendet, um den Benutzer zu leiten, ohne Bearbeitung zu erlauben.
+tech: Technologie
+design: Design
+architecture: Architektur
+select2_help: Verbesserte asynchrone Suche mit Tag-Unterstützung
+image_help: Image-Komponente zur Vorschau von Assets
+active_users: Aktive Benutzer
+last_audit: Letzte Prüfung

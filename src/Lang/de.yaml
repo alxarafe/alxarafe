@@ -1,7 +1,9 @@
-de: Deutsch
 en: Englisch
 es: Spanisch
+en_US: Englisch (USA)
+es_ES: Spanisch (Spanien)
 fr: Französisch
+de: Deutsch
 pt: Portugiesisch
 it: Italienisch
 ru: Russisch
@@ -11,6 +13,114 @@ ar: Arabisch
 nl: Niederländisch
 hi: Hindi
 ca: Katalanisch
-gl: Galizisch
 eu: Baskisch
+es_AR: Spanisch (Argentinien)
+es_VE: Spanisch (Venezuela)
+es_MX: Spanisch (Mexiko)
+pt_BR: Portugiesisch (Brasilien)
+en_GB: Englisch (Vereinigtes Königreich)
 
+unknown_method: Die Methode %method% existiert nicht!
+test_english_only: Nachricht nur auf Englisch!
+error_message: 'Fehler: "%message%"'
+
+# Core / Dispatcher
+dispatcher_module_controller_not_found: "Controller %module%::%controller% existiert nicht!"
+dispatcher_file_not_found: "Datei %file% existiert nicht!"
+dispatcher_not_view_controller: "%class% ist kein gültiger ViewController!"
+dispatcher_method_not_found: "Methode %method% nicht gefunden in Controller %class%"
+template_no_view_specified: "Keine Ansicht angegeben"
+resource_invalid_tab: "Ungültiger Tab"
+resource_no_id_provided: "Keine ID angegeben"
+trans_file_not_found: "Übersetzungsdatei nicht gefunden: %file%"
+trans_invalid_yaml: "%file% ist keine gültige YAML-Datei"
+api_bad_call: "Ungültiger API-Aufruf"
+command_failed_output: "Befehl fehlgeschlagen: %command%. Ausgabe: %output%"
+
+# Generic UI Terms
+id: ID
+name: Name
+description: Beschreibung
+active: Aktiv
+actions: Aktionen
+yes: Ja
+no: Nein
+edit: Bearbeiten
+delete: Löschen
+save: Speichern
+cancel: Abbrechen
+create: Erstellen
+update: Aktualisieren
+list: Liste
+back: Zurück
+email: E-Mail
+password: Passwort
+none: Keine
+default: Standard
+title_user_general: Allgemein
+title_user_preferences: Einstellungen
+role: Rolle
+administrator: Administrator
+avatar: Avatar
+timezone: Zeitzone
+language: Sprache
+theme: Thema
+users: Benutzer
+logout: Abmelden
+login: Anmelden
+my_profile: Mein Profil
+settings: Einstellungen
+default_page_active: Startseite aktiv
+set_as_default_page: Als Startseite festlegen
+timezones: Zeitzonen
+utc: UTC
+app_label: App
+user_label: Benutzer
+no_new_notifications: Keine neuen Benachrichtigungen
+administration_access: Administrationszugang
+please_enter_credentials: Bitte geben Sie Ihre Zugangsdaten ein
+login_name: Benutzername
+login_password: Passwort
+login_button: Anmelden
+
+# Config Controller
+save_configuration: Konfiguration speichern
+create_database: Datenbank erstellen
+go_migrations: Migrationen ausführen
+regenerate: Regenerieren
+exit: Beenden
+miscellaneous: Verschiedenes
+connection: Verbindung
+database_preferences: DB-Einstellungen
+database: Datenbank
+use_debugbar: Debug-Leiste verwenden
+db_type: DB-Typ
+db_host: DB-Host
+db_user: DB-Benutzer
+db_password: DB-Passwort
+db_prefix: Tabellenpräfix
+db_charset: Zeichensatz
+db_collation: Sortierung
+db_name: Datenbankname
+db_port: Port
+select_timezone: Zeitzone auswählen
+detect_timezone: Zeitzone erkennen
+
+# Resource UI
+search_filters: Suchfilter
+new: Neu
+configuration_error_tab_not_found: "Konfigurationsfehler: Aktiver Tab nicht gefunden"
+missing_template_layout_list: "Interner Fehler: Template 'layout_list' fehlt"
+missing_template_layout_edit: "Interner Fehler: Template 'layout_edit' fehlt"
+no_results_found: Keine Ergebnisse gefunden.
+loading: Laden...
+reload: Neu laden
+confirm_revert_changes: "Sind Sie sicher, dass Sie die Änderungen verwerfen und die Originaldaten neu laden möchten?"
+no_sections_defined: Keine Abschnitte definiert
+edit_record: Datensatz bearbeiten
+loading_data: Daten werden geladen...
+notifications: Benachrichtigungen
+select_language: Sprache auswählen
+available_languages: Verfügbare Sprachen
+select_theme: Thema auswählen
+available_themes: Verfügbare Themen

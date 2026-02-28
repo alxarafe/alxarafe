@@ -1,0 +1,52 @@
+# FrameworkTest Showcase
+showcase_title: Alxarafe Components Showcase
+main_config: "⚙️ Configurazione Principale"
+aesthetics: "🎨 Estetica e Visualizzazione"
+quantitative_data: "🔢 Dati Quantitativi"
+chronology: "📅 Cronologia"
+advanced_multimedia: "🚀 Avanzato e Multimedia"
+tab_components: "🧩 Componenti"
+tab_nesting: "📦 Pannelli Annidati"
+tab_markdown: "📝 Markdown"
+save_demo: Salva Demo
+clear_cache: Svuota Cache
+resource_name: Nome della Risorsa
+technical_description: Descrizione Tecnica
+publication_status: Stato di Pubblicazione
+icon_representative: Icona Rappresentativa
+object_classification: Classificazione dell'Oggetto
+core_system: Nucleo del Sistema
+plugin_extension: Estensione / Plugin
+visual_theme: Stile Visivo / Tema
+estimated_budget: Budget Stimato
+milestone_date: Data di Traguardo
+audit_record: Registro di Audit
+window_opening: Apertura Finestra
+global_tags: Tag Globali (Select2)
+branding_preview: Anteprima del Branding
+contact_first_name: Nome del Contatto
+contact_last_name: Cognome del Contatto
+contact_email: E-mail del Contatto
+fields_row: Campi in Riga (senza scheda)
+parent_company: Società Madre
+fiscal_address: Indirizzo Fiscale
+primary_contact: Contatto Principale
+security_config: Configurazione Avanzata
+metrics: Metriche
+rendered_document: Documento Renderizzato
+no_markdown_found: File test_markdown.md non trovato
+resource_name_help: Inserisci un nome descrittivo per questo oggetto di test
+resource_name_placeholder: "Es: Il Mio Primo Componente"
+generate: Genera
+control_value: Valore di Controllo
+control_value_help: Un numero intero tra 0 e 1000
+estimated_budget_help: Formattato automaticamente con due decimali
+currency: Valuta
+static_text_demo: Questo è un testo informativo che utilizza il componente StaticText per guidare l'utente senza permettere la modifica.
+tech: Tecnologia
+design: Design
+architecture: Architettura
+select2_help: Ricerca asincrona migliorata con supporto tag
+image_help: Componente Image per visualizzare in anteprima le risorse
+active_users: Utenti Attivi
+last_audit: Ultima Verifica

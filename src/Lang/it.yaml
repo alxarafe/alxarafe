@@ -1,9 +1,11 @@
-it: Italiano
 en: Inglese
 es: Spagnolo
+en_US: Inglese (USA)
+es_ES: Spagnolo (Spagna)
 fr: Francese
 de: Tedesco
 pt: Portoghese
+it: Italiano
 ru: Russo
 zh: Cinese
 ja: Giapponese
@@ -11,6 +13,114 @@ ar: Arabo
 nl: Olandese
 hi: Hindi
 ca: Catalano
-gl: Galiziano
 eu: Basco
+es_AR: Spagnolo (Argentina)
+es_VE: Spagnolo (Venezuela)
+es_MX: Spagnolo (Messico)
+pt_BR: Portoghese (Brasile)
+en_GB: Inglese (Regno Unito)
 
+unknown_method: Il metodo %method% non esiste!
+test_english_only: Messaggio solo in inglese!
+error_message: 'Errore: "%message%"'
+
+# Core / Dispatcher
+dispatcher_module_controller_not_found: "Il controller %module%::%controller% non esiste!"
+dispatcher_file_not_found: "Il file %file% non esiste!"
+dispatcher_not_view_controller: "%class% non è un ViewController valido!"
+dispatcher_method_not_found: "Metodo %method% non trovato nel controller %class%"
+template_no_view_specified: "Nessuna vista specificata"
+resource_invalid_tab: "Scheda non valida"
+resource_no_id_provided: "Nessun ID fornito"
+trans_file_not_found: "File di traduzione non trovato: %file%"
+trans_invalid_yaml: "%file% non è un file YAML valido"
+api_bad_call: "Chiamata API non valida"
+command_failed_output: "Comando fallito: %command%. Output: %output%"
+
+# Generic UI Terms
+id: ID
+name: Nome
+description: Descrizione
+active: Attivo
+actions: Azioni
+yes: Sì
+no: No
+edit: Modifica
+delete: Elimina
+save: Salva
+cancel: Annulla
+create: Crea
+update: Aggiorna
+list: Elenco
+back: Indietro
+email: E-mail
+password: Password
+none: Nessuno
+default: Predefinito
+title_user_general: Generale
+title_user_preferences: Preferenze
+role: Ruolo
+administrator: Amministratore
+avatar: Avatar
+timezone: Fuso orario
+language: Lingua
+theme: Tema
+users: Utenti
+logout: Disconnetti
+login: Accedi
+my_profile: Il mio Profilo
+settings: Impostazioni
+default_page_active: Pagina iniziale attiva
+set_as_default_page: Imposta come pagina iniziale
+timezones: Fusi orari
+utc: UTC
+app_label: App
+user_label: Utente
+no_new_notifications: Nessuna nuova notifica
+administration_access: Accesso Amministrazione
+please_enter_credentials: Inserisci le tue credenziali
+login_name: Nome utente
+login_password: Password
+login_button: Accedi
+
+# Config Controller
+save_configuration: Salva configurazione
+create_database: Crea database
+go_migrations: Esegui migrazioni
+regenerate: Rigenera
+exit: Esci
+miscellaneous: Varie
+connection: Connessione
+database_preferences: Preferenze DB
+database: Database
+use_debugbar: Usa barra di debug
+db_type: Tipo DB
+db_host: Host DB
+db_user: Utente DB
+db_password: Password DB
+db_prefix: Prefisso tabelle
+db_charset: Charset
+db_collation: Collation
+db_name: Nome database
+db_port: Porta
+select_timezone: Seleziona fuso orario
+detect_timezone: Rileva fuso orario
+
+# Resource UI
+search_filters: Filtri di ricerca
+new: Nuovo
+configuration_error_tab_not_found: "Errore di configurazione: Scheda attiva non trovata"
+missing_template_layout_list: "Errore interno: Template 'layout_list' mancante"
+missing_template_layout_edit: "Errore interno: Template 'layout_edit' mancante"
+no_results_found: Nessun risultato trovato.
+loading: Caricamento...
+reload: Ricarica
+confirm_revert_changes: "Sei sicuro di voler annullare le modifiche e ricaricare i dati originali?"
+no_sections_defined: Nessuna sezione definita
+edit_record: Modifica record
+loading_data: Caricamento dati...
+notifications: Notifiche
+select_language: Seleziona lingua
+available_languages: Lingue disponibili
+select_theme: Seleziona tema
+available_themes: Temi disponibili

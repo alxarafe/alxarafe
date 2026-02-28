@@ -1,8 +1,10 @@
-pt: Português
 en: Inglês
 es: Espanhol
+en_US: Inglês (EUA)
+es_ES: Espanhol (Espanha)
 fr: Francês
 de: Alemão
+pt: Português
 it: Italiano
 ru: Russo
 zh: Chinês
@@ -11,6 +13,114 @@ ar: Árabe
 nl: Holandês
 hi: Hindi
 ca: Catalão
-gl: Galego
 eu: Basco
+es_AR: Espanhol (Argentina)
+es_VE: Espanhol (Venezuela)
+es_MX: Espanhol (México)
+pt_BR: Português (Brasil)
+en_GB: Inglês (Reino Unido)
 
+unknown_method: O método %method% não existe!
+test_english_only: Mensagem apenas em inglês!
+error_message: 'Erro: "%message%"'
+
+# Core / Dispatcher
+dispatcher_module_controller_not_found: "O controlador %module%::%controller% não existe!"
+dispatcher_file_not_found: "O ficheiro %file% não existe!"
+dispatcher_not_view_controller: "%class% não é um ViewController válido!"
+dispatcher_method_not_found: "Método %method% não encontrado no controlador %class%"
+template_no_view_specified: "Nenhuma vista especificada"
+resource_invalid_tab: "Separador inválido"
+resource_no_id_provided: "Nenhum ID fornecido"
+trans_file_not_found: "Ficheiro de tradução não encontrado: %file%"
+trans_invalid_yaml: "%file% não é um ficheiro YAML válido"
+api_bad_call: "Chamada API incorreta"
+command_failed_output: "Comando falhou: %command%. Saída: %output%"
+
+# Generic UI Terms
+id: ID
+name: Nome
+description: Descrição
+active: Ativo
+actions: Ações
+yes: Sim
+no: Não
+edit: Editar
+delete: Eliminar
+save: Guardar
+cancel: Cancelar
+create: Criar
+update: Atualizar
+list: Lista
+back: Voltar
+email: E-mail
+password: Palavra-passe
+none: Nenhum
+default: Predefinição
+title_user_general: Geral
+title_user_preferences: Preferências
+role: Função
+administrator: Administrador
+avatar: Avatar
+timezone: Fuso horário
+language: Idioma
+theme: Tema
+users: Utilizadores
+logout: Terminar sessão
+login: Iniciar sessão
+my_profile: Meu Perfil
+settings: Definições
+default_page_active: Página inicial ativa
+set_as_default_page: Definir como página inicial
+timezones: Fusos horários
+utc: UTC
+app_label: App
+user_label: Utilizador
+no_new_notifications: Sem novas notificações
+administration_access: Acesso à Administração
+please_enter_credentials: Introduza as suas credenciais
+login_name: Nome de utilizador
+login_password: Palavra-passe
+login_button: Entrar
+
+# Config Controller
+save_configuration: Guardar configuração
+create_database: Criar base de dados
+go_migrations: Executar migrações
+regenerate: Regenerar
+exit: Sair
+miscellaneous: Diversos
+connection: Ligação
+database_preferences: Preferências da BD
+database: Base de dados
+use_debugbar: Usar barra de depuração
+db_type: Tipo de BD
+db_host: Anfitrião BD
+db_user: Utilizador BD
+db_password: Palavra-passe BD
+db_prefix: Prefixo das tabelas
+db_charset: Charset
+db_collation: Collation
+db_name: Nome da base de dados
+db_port: Porta
+select_timezone: Selecionar fuso horário
+detect_timezone: Detetar fuso horário
+
+# Resource UI
+search_filters: Filtros de pesquisa
+new: Novo
+configuration_error_tab_not_found: "Erro de configuração: Separador ativo não encontrado"
+missing_template_layout_list: "Erro interno: Template 'layout_list' em falta"
+missing_template_layout_edit: "Erro interno: Template 'layout_edit' em falta"
+no_results_found: Nenhum resultado encontrado.
+loading: A carregar...
+reload: Recarregar
+confirm_revert_changes: "Tem a certeza de que deseja descartar as alterações e recarregar os dados originais?"
+no_sections_defined: Sem secções definidas
+edit_record: Editar registo
+loading_data: A carregar dados...
+notifications: Notificações
+select_language: Selecionar idioma
+available_languages: Idiomas disponíveis
+select_theme: Selecionar tema
+available_themes: Temas disponíveis

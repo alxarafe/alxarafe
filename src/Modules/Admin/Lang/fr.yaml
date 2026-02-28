@@ -1,0 +1,90 @@
+miscellaneous: Divers
+database: Base de données
+database_preferences: Préférences de la base de données
+theme: Thème
+language: Langue
+login_name: Nom
+login_password: Mot de passe
+login_button: Connexion
+db_type: Type
+db_host: Hôte
+db_user: Utilisateur
+db_password: Mot de passe
+db_create: Créer la base de données (si elle n'existe pas)
+db_name: Nom de la base de données
+db_port: Port
+connection: Connexion
+db_prefix: Préfixe des tables
+db_charset: Charset
+db_collation: Collation
+pdo_connection_error: Erreur de connexion au moteur de base de données
+pdo_db_connection_error: Erreur de connexion à la base de données %db%
+pdo_db_does_not_exists: La base de données n'existe pas "%message%"
+successful_connection_database: Connexion réussie à la base de données '%db%'
+error_saving_settings: Erreur lors de l'enregistrement des paramètres
+settings_saved_successfully: Paramètres enregistrés avec succès
+use_debugbar: Utiliser la barre de débogage
+check_db_connection: Vérifier la connexion à la base de données
+save_configuration: Enregistrer la configuration
+regenerate: Régénérer
+boolean_true: Oui
+boolean_false: Non
+exit: Quitter
+template_not_found: 'Modèle introuvable : "%name%"'
+processing_migration: 'Traitement de la migration : "%name%"'
+pending_migrations_advice: Tables système introuvables. Veuillez exécuter les migrations.
+go_migrations: Exécuter les migrations
+error_message: "Erreur : %message%"
+
+# Migration page
+migration_status_title: État des Migrations
+migration_start_process: Démarrer le processus de migration
+migration_all_ok: Tout est à jour.
+migration_no_pending: Aucune migration en attente.
+migration_attention_needed: Attention requise.
+migration_pending_count: Il y a %count% migrations en attente. Veuillez exécuter le processus de mise à jour.
+migration_pending: En attente
+migration_completed: Terminée
+migration_processing: En cours
+migration_finished: Processus terminé
+migration_all_finished: Toutes les opérations sont terminées.
+migration_error_detail: "Erreur dans %module%::%class% : %message%"
+migration_network_error: "Erreur réseau dans %module%::%class%"
+migration_error_badge: Erreur
+migration_fail_badge: Échec
+
+# Role Management
+role_management: Gestion des Rôles
+create_new_role: Créer un nouveau Rôle
+no_roles_found: Aucun Rôle défini
+start_by_creating_role: Commencez par créer un rôle pour définir les permissions.
+create_first_role: Créer le premier Rôle
+roles: Rôles
+
+# Role Edit & Sync
+new_role: Nouveau Rôle
+edit_role: Modifier le Rôle
+permissions: Permissions
+sync_permissions: Synchroniser les Permissions
+sync_permissions_confirm: Êtes-vous sûr de vouloir synchroniser les permissions ?
+syncing: Synchronisation...
+sync_completed: Synchronisation terminée.
+created: Créés
+restored: Restaurés
+deleted: Supprimés
+error_occurred: Une erreur s'est produite
+role_details: Détails du Rôle
+save_changes: Enregistrer les modifications
+access: Accès
+no_access_permission_found: Permission d'accès introuvable
+
+# User / Profile
+my_profile: Mon Profil
+profile_updated: Profil mis à jour avec succès.
+default_page_updated: Page de démarrage mise à jour.
+error_saving: Erreur lors de l'enregistrement.
+upload_avatar_help: Télécharger une image d'avatar (JPG, PNG).
+detect_timezone: Détecter le fuseau horaire
+keep_empty_to_not_change: Laisser vide pour ne pas modifier
+none: Aucun
+default: Par défaut

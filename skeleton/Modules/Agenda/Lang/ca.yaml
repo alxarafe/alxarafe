@@ -1,0 +1,39 @@
+# Agenda Module
+agenda: Agenda
+contacts: Contactes
+channels: Canals de Comunicació
+general: General
+
+# Contact fields
+first_name: Nom
+last_name: Cognoms
+notes: Observacions
+first_name_placeholder: Ex. Ana
+last_name_placeholder: Ex. García López
+notes_placeholder: Notes sobre aquest contacte...
+
+# Channel fields
+channel_name: Nom del Canal
+channel_name_placeholder: Ex. Telèfon Fix
+icon: Icona
+icon_help: Icona FontAwesome (ex. fas fa-phone)
+
+# Address fields
+address: Adreça
+city: Ciutat / Població
+state: Província
+postal_code: Codi Postal
+country: País
+additional_info: Informació Addicional
+address_label: Tipus d'Adreça
+address_label_help: Ex. casa, feina, parella...
+
+# Channel assignment
+channel_value: Valor
+channel_value_help: El número de telèfon, correu, URL, etc.
+
+# Actions
+add_address: Afegir Adreça
+add_channel: Afegir Canal
+addresses: Adreces
+contact_channels: Canals

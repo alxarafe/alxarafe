@@ -1,0 +1,90 @@
+miscellaneous: Diversos
+database: Base de dados
+database_preferences: Preferências da base de dados
+theme: Tema
+language: Idioma
+login_name: Nome
+login_password: Palavra-passe
+login_button: Entrar
+db_type: Tipo
+db_host: Anfitrião
+db_user: Utilizador
+db_password: Palavra-passe
+db_create: Criar base de dados (se não existir)
+db_name: Nome da base de dados
+db_port: Porta
+connection: Ligação
+db_prefix: Prefixo das tabelas
+db_charset: Charset
+db_collation: Collation
+pdo_connection_error: Erro ao ligar ao motor de base de dados
+pdo_db_connection_error: Erro ao ligar à base de dados %db%
+pdo_db_does_not_exists: A base de dados não existe "%message%"
+successful_connection_database: Ligação bem-sucedida à base de dados '%db%'
+error_saving_settings: Erro ao guardar as definições
+settings_saved_successfully: Definições guardadas com sucesso
+use_debugbar: Usar barra de depuração
+check_db_connection: Verificar ligação à base de dados
+save_configuration: Guardar configuração
+regenerate: Regenerar
+boolean_true: Sim
+boolean_false: Não
+exit: Sair
+template_not_found: 'Template não encontrado: "%name%"'
+processing_migration: 'A processar migração: "%name%"'
+pending_migrations_advice: Tabelas do sistema não encontradas. Execute as migrações.
+go_migrations: Executar migrações
+error_message: "Erro: %message%"
+
+# Migration page
+migration_status_title: Estado das Migrações
+migration_start_process: Iniciar Processo de Migração
+migration_all_ok: Tudo está atualizado.
+migration_no_pending: Sem migrações pendentes.
+migration_attention_needed: Atenção necessária.
+migration_pending_count: Existem %count% migrações pendentes. Execute o processo de atualização.
+migration_pending: Pendente
+migration_completed: Concluída
+migration_processing: A processar
+migration_finished: Processo Concluído
+migration_all_finished: Todas as operações concluídas.
+migration_error_detail: "Erro em %module%::%class%: %message%"
+migration_network_error: "Erro de rede em %module%::%class%"
+migration_error_badge: Erro
+migration_fail_badge: Falha
+
+# Role Management
+role_management: Gestão de Funções
+create_new_role: Criar nova Função
+no_roles_found: Sem Funções definidas
+start_by_creating_role: Comece por criar uma função para definir permissões.
+create_first_role: Criar primeira Função
+roles: Funções
+
+# Role Edit & Sync
+new_role: Nova Função
+edit_role: Editar Função
+permissions: Permissões
+sync_permissions: Sincronizar Permissões
+sync_permissions_confirm: Tem a certeza de que deseja sincronizar as permissões?
+syncing: A sincronizar...
+sync_completed: Sincronização concluída.
+created: Criados
+restored: Restaurados
+deleted: Eliminados
+error_occurred: Ocorreu um erro
+role_details: Detalhes da Função
+save_changes: Guardar Alterações
+access: Acesso
+no_access_permission_found: Permissão de acesso não encontrada
+
+# User / Profile
+my_profile: Meu Perfil
+profile_updated: Perfil atualizado com sucesso.
+default_page_updated: Página inicial atualizada.
+error_saving: Erro ao guardar.
+upload_avatar_help: Carregar imagem de avatar (JPG, PNG).
+detect_timezone: Detetar fuso horário
+keep_empty_to_not_change: Deixar vazio para não alterar
+none: Nenhum
+default: Predefinição

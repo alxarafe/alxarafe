@@ -1,0 +1,52 @@
+# FrameworkTest Showcase
+showcase_title: Alxarafe Components Showcase
+main_config: "⚙️ Configuration Principale"
+aesthetics: "🎨 Esthétique et Visualisation"
+quantitative_data: "🔢 Données Quantitatives"
+chronology: "📅 Chronologie"
+advanced_multimedia: "🚀 Avancé et Multimédia"
+tab_components: "🧩 Composants"
+tab_nesting: "📦 Panneaux Imbriqués"
+tab_markdown: "📝 Markdown"
+save_demo: Enregistrer Démo
+clear_cache: Vider le Cache
+resource_name: Nom de la Ressource
+technical_description: Description Technique
+publication_status: Statut de Publication
+icon_representative: Icône Représentative
+object_classification: Classification de l'Objet
+core_system: Noyau du Système
+plugin_extension: Extension / Plugin
+visual_theme: Style Visuel / Thème
+estimated_budget: Budget Estimé
+milestone_date: Date Jalon
+audit_record: Registre d'Audit
+window_opening: Ouverture de Fenêtre
+global_tags: Étiquettes Globales (Select2)
+branding_preview: Aperçu du Branding
+contact_first_name: Nom du Contact
+contact_last_name: Prénom du Contact
+contact_email: E-mail du Contact
+fields_row: Champs en Ligne (sans carte)
+parent_company: Société Mère
+fiscal_address: Adresse Fiscale
+primary_contact: Contact Principal
+security_config: Configuration Avancée
+metrics: Métriques
+rendered_document: Document Rendu
+no_markdown_found: Fichier test_markdown.md introuvable
+resource_name_help: Entrez un nom descriptif pour cet objet de test
+resource_name_placeholder: "Ex : Mon Premier Composant"
+generate: Générer
+control_value: Valeur de Contrôle
+control_value_help: Un nombre entier entre 0 et 1000
+estimated_budget_help: Formaté automatiquement avec deux décimales
+currency: Devise
+static_text_demo: Ceci est un texte informatif utilisant le composant StaticText pour guider l'utilisateur sans permettre l'édition.
+tech: Technologie
+design: Design
+architecture: Architecture
+select2_help: Recherche asynchrone améliorée avec support de tags
+image_help: Composant Image pour prévisualiser les ressources
+active_users: Utilisateurs Actifs
+last_audit: Dernier Audit

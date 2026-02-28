@@ -1,0 +1,52 @@
+# FrameworkTest Showcase
+showcase_title: Alxarafe Components Showcase
+main_config: "⚙️ Configuração Principal"
+aesthetics: "🎨 Estética e Visualização"
+quantitative_data: "🔢 Dados Quantitativos"
+chronology: "📅 Cronologia"
+advanced_multimedia: "🚀 Avançado e Multimédia"
+tab_components: "🧩 Componentes"
+tab_nesting: "📦 Painéis Aninhados"
+tab_markdown: "📝 Markdown"
+save_demo: Guardar Demo
+clear_cache: Limpar Cache
+resource_name: Nome do Recurso
+technical_description: Descrição Técnica
+publication_status: Estado de Publicação
+icon_representative: Ícone Representativo
+object_classification: Classificação do Objeto
+core_system: Núcleo do Sistema
+plugin_extension: Extensão / Plugin
+visual_theme: Estilo Visual / Tema
+estimated_budget: Orçamento Estimado
+milestone_date: Data de Marco
+audit_record: Registo de Auditoria
+window_opening: Abertura de Janela
+global_tags: Etiquetas Globais (Select2)
+branding_preview: Pré-visualização de Branding
+contact_first_name: Nome do Contacto
+contact_last_name: Apelido do Contacto
+contact_email: E-mail do Contacto
+fields_row: Campos em Linha (sem cartão)
+parent_company: Empresa-Mãe
+fiscal_address: Morada Fiscal
+primary_contact: Contacto Principal
+security_config: Configuração Avançada
+metrics: Métricas
+rendered_document: Documento Renderizado
+no_markdown_found: Ficheiro test_markdown.md não encontrado
+resource_name_help: Introduza um nome descritivo para este objeto de teste
+resource_name_placeholder: "Ex: O Meu Primeiro Componente"
+generate: Gerar
+control_value: Valor de Controlo
+control_value_help: Um número inteiro entre 0 e 1000
+estimated_budget_help: Formatado automaticamente com duas casas decimais
+currency: Moeda
+static_text_demo: Este é um texto informativo que utiliza o componente StaticText para guiar o utilizador sem permitir edição.
+tech: Tecnologia
+design: Design
+architecture: Arquitetura
+select2_help: Pesquisa assíncrona melhorada com suporte para tags
+image_help: Componente Image para pré-visualizar ativos
+active_users: Utilizadores Ativos
+last_audit: Última Auditoria

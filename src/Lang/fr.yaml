@@ -1,6 +1,8 @@
-fr: Français
-en: Anglais
+en: Français
 es: Espagnol
+en_US: Anglais (États-Unis)
+es_ES: Espagnol (Espagne)
+fr: Français
 de: Allemand
 pt: Portugais
 it: Italien
@@ -11,6 +13,114 @@ ar: Arabe
 nl: Néerlandais
 hi: Hindi
 ca: Catalan
-gl: Galicien
 eu: Basque
+es_AR: Espagnol (Argentine)
+es_VE: Espagnol (Venezuela)
+es_MX: Espagnol (Mexique)
+pt_BR: Portugais (Brésil)
+en_GB: Anglais (Royaume-Uni)
 
+unknown_method: La méthode %method% n'existe pas !
+test_english_only: Message uniquement en anglais !
+error_message: 'Erreur : "%message%"'
+
+# Core / Dispatcher
+dispatcher_module_controller_not_found: "Le contrôleur %module%::%controller% n'existe pas !"
+dispatcher_file_not_found: "Le fichier %file% n'existe pas !"
+dispatcher_not_view_controller: "%class% n'est pas un ViewController valide !"
+dispatcher_method_not_found: "Méthode %method% introuvable dans le contrôleur %class%"
+template_no_view_specified: "Aucune vue spécifiée"
+resource_invalid_tab: "Onglet invalide"
+resource_no_id_provided: "Aucun ID fourni"
+trans_file_not_found: "Fichier de traduction introuvable : %file%"
+trans_invalid_yaml: "%file% n'est pas un fichier YAML valide"
+api_bad_call: "Appel API incorrect"
+command_failed_output: "Commande échouée : %command%. Sortie : %output%"
+
+# Generic UI Terms
+id: ID
+name: Nom
+description: Description
+active: Actif
+actions: Actions
+yes: Oui
+no: Non
+edit: Modifier
+delete: Supprimer
+save: Enregistrer
+cancel: Annuler
+create: Créer
+update: Mettre à jour
+list: Liste
+back: Retour
+email: E-mail
+password: Mot de passe
+none: Aucun
+default: Par défaut
+title_user_general: Général
+title_user_preferences: Préférences
+role: Rôle
+administrator: Administrateur
+avatar: Avatar
+timezone: Fuseau horaire
+language: Langue
+theme: Thème
+users: Utilisateurs
+logout: Déconnexion
+login: Connexion
+my_profile: Mon Profil
+settings: Paramètres
+default_page_active: Page de démarrage active
+set_as_default_page: Définir comme page de démarrage
+timezones: Fuseaux horaires
+utc: UTC
+app_label: App
+user_label: Utilisateur
+no_new_notifications: Aucune nouvelle notification
+administration_access: Accès Administration
+please_enter_credentials: Veuillez entrer vos identifiants
+login_name: Nom d'utilisateur
+login_password: Mot de passe
+login_button: Se connecter
+
+# Config Controller
+save_configuration: Enregistrer la configuration
+create_database: Créer la base de données
+go_migrations: Exécuter les migrations
+regenerate: Régénérer
+exit: Quitter
+miscellaneous: Divers
+connection: Connexion
+database_preferences: Préférences BD
+database: Base de données
+use_debugbar: Utiliser la barre de débogage
+db_type: Type de BD
+db_host: Hôte BD
+db_user: Utilisateur BD
+db_password: Mot de passe BD
+db_prefix: Préfixe des tables
+db_charset: Charset
+db_collation: Collation
+db_name: Nom de la base de données
+db_port: Port
+select_timezone: Sélectionner le fuseau horaire
+detect_timezone: Détecter le fuseau horaire
+
+# Resource UI
+search_filters: Filtres de recherche
+new: Nouveau
+configuration_error_tab_not_found: "Erreur de configuration : Onglet actif introuvable"
+missing_template_layout_list: "Erreur interne : Modèle 'layout_list' manquant"
+missing_template_layout_edit: "Erreur interne : Modèle 'layout_edit' manquant"
+no_results_found: Aucun résultat trouvé.
+loading: Chargement...
+reload: Recharger
+confirm_revert_changes: "Êtes-vous sûr de vouloir annuler les modifications et recharger les données originales ?"
+no_sections_defined: Aucune section définie
+edit_record: Modifier l'enregistrement
+loading_data: Chargement des données...
+notifications: Notifications
+select_language: Sélectionner la langue
+available_languages: Langues disponibles
+select_theme: Sélectionner le thème
+available_themes: Thèmes disponibles

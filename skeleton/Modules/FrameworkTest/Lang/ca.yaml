@@ -1,0 +1,52 @@
+# FrameworkTest Showcase
+showcase_title: Alxarafe Components Showcase
+main_config: "⚙️ Configuració Principal"
+aesthetics: "🎨 Estètica i Visualització"
+quantitative_data: "🔢 Dades Quantitatives"
+chronology: "📅 Cronologia"
+advanced_multimedia: "🚀 Avançat i Multimèdia"
+tab_components: "🧩 Components"
+tab_nesting: "📦 Panells Imbricats"
+tab_markdown: "📝 Markdown"
+save_demo: Desar Demo
+clear_cache: Netejar Cache
+resource_name: Nom del Recurs
+technical_description: Descripció Tècnica
+publication_status: Estat de Publicació
+icon_representative: Icona Representativa
+object_classification: Classificació de l'Objecte
+core_system: Nucli del Sistema
+plugin_extension: Extensió / Plugin
+visual_theme: Estil Visual / Tema
+estimated_budget: Pressupost Estimat
+milestone_date: Data de Fita
+audit_record: Registre d'Auditoria
+window_opening: Obertura de Finestra
+global_tags: Etiquetes Globals (Select2)
+branding_preview: Previsualització de Branding
+contact_first_name: Nom del Contacte
+contact_last_name: Cognom del Contacte
+contact_email: Correu del Contacte
+fields_row: Camps en Fila (sense targeta)
+parent_company: Empresa Matriu
+fiscal_address: Adreça Fiscal
+primary_contact: Contacte Principal
+security_config: Configuració Avançada
+metrics: Mètriques
+rendered_document: Document Renderitzat
+no_markdown_found: No s'ha trobat el fitxer test_markdown.md
+resource_name_help: Introduïu un nom descriptiu per a aquest objecte de prova
+resource_name_placeholder: "Ex: El Meu Primer Component"
+generate: Genera
+control_value: Valor de Control
+control_value_help: Un nombre enter entre 0 i 1000
+estimated_budget_help: Es formata automàticament amb dos decimals
+currency: Moneda
+static_text_demo: Aquest és un text informatiu que utilitza el component StaticText per guiar l'usuari sense permetre l'edició.
+tech: Tecnologia
+design: Disseny
+architecture: Arquitectura
+select2_help: Cercador asíncron millorat amb suport per a etiquetes
+image_help: Component Image per previsualitzar actius
+active_users: Usuaris Actius
+last_audit: Última Auditoria

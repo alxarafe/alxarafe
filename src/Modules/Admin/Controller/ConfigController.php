@@ -67,6 +67,7 @@ class ConfigController extends ResourceController
     public $db_create;
     public bool $pdo_connection = false;
     public bool $pdo_db_exists = false;
+    protected bool $useTabs = true;
 
     #[\Override]
     protected function getModelClass()
@@ -110,27 +111,6 @@ class ConfigController extends ResourceController
         ];
     }
 
-    /**
-     * Generates configuration tabs based on groups defined in getEditFields().
-     * This method can be overridden or extended by child classes.
-     *
-     * @return array<\Alxarafe\Component\Container\Tab>
-     */
-    protected function getTabs(): array
-    {
-        $fields = $this->getEditFields();
-        $tabs = [];
-
-        foreach ($fields as $key => $data) {
-            // Support for old flat format or new structured format
-            $label = $data['label'] ?? Trans::_($key);
-            $groupFields = $data['fields'] ?? $data;
-
-            $tabs[] = new \Alxarafe\Component\Container\Tab($key, $label, '', $groupFields);
-        }
-
-        return $tabs;
-    }
 
     /**
      * Config is not a standard Eloquent model — skip table integrity check.
@@ -368,16 +348,27 @@ class ConfigController extends ResourceController
         $config = Config::getConfig();
         $this->data = $config ?? new stdClass();
 
-        foreach (Config::CONFIG_STRUCTURE as $section => $values) {
+        foreach (Config::getConfigStructure() as $section => $values) {
             if (!isset($this->data->{$section})) {
                 $this->data->{$section} = new stdClass();
             }
-            foreach ($values as $variable) {
-                $value = Functions::getIfIsset($variable, $this->data->{$section}->{$variable} ?? '');
-                if (!isset($value)) {
-                    continue;
+
+            if (empty($values)) {
+                // Open section — accept any POST key matching 'section.key' pattern
+                foreach ($_POST as $postKey => $postValue) {
+                    if (str_starts_with($postKey, $section . '.')) {
+                        $prop = substr($postKey, strlen($section) + 1);
+                        $this->data->{$section}->{$prop} = $postValue;
+                    }
                 }
-                $this->data->{$section}->{$variable} = $value;
+            } else {
+                foreach ($values as $variable) {
+                    $value = Functions::getIfIsset($variable, $this->data->{$section}->{$variable} ?? '');
+                    if (!isset($value)) {
+                        continue;
+                    }
+                    $this->data->{$section}->{$variable} = $value;
+                }
             }
         }
 

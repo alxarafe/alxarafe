@@ -1,0 +1,90 @@
+miscellaneous: Verschiedenes
+database: Datenbank
+database_preferences: Datenbankeinstellungen
+theme: Thema
+language: Sprache
+login_name: Name
+login_password: Passwort
+login_button: Anmelden
+db_type: Typ
+db_host: Host
+db_user: Benutzer
+db_password: Passwort
+db_create: Datenbank erstellen (falls nicht vorhanden)
+db_name: Datenbankname
+db_port: Port
+connection: Verbindung
+db_prefix: Tabellenpräfix
+db_charset: Zeichensatz
+db_collation: Sortierung
+pdo_connection_error: Fehler beim Verbinden mit der Datenbank-Engine
+pdo_db_connection_error: Fehler beim Verbinden mit der Datenbank %db%
+pdo_db_does_not_exists: Datenbank existiert nicht "%message%"
+successful_connection_database: Erfolgreiche Verbindung zur Datenbank '%db%'
+error_saving_settings: Fehler beim Speichern der Einstellungen
+settings_saved_successfully: Einstellungen erfolgreich gespeichert
+use_debugbar: Debug-Leiste verwenden
+check_db_connection: Datenbankverbindung prüfen
+save_configuration: Konfiguration speichern
+regenerate: Regenerieren
+boolean_true: Ja
+boolean_false: Nein
+exit: Beenden
+template_not_found: 'Template nicht gefunden: "%name%"'
+processing_migration: 'Migration wird verarbeitet: "%name%"'
+pending_migrations_advice: Systemtabellen nicht gefunden. Bitte führen Sie die Migrationen aus.
+go_migrations: Migrationen ausführen
+error_message: "Fehler: %message%"
+
+# Migration page
+migration_status_title: Migrationsstatus
+migration_start_process: Migrationsprozess starten
+migration_all_ok: Alles ist aktuell.
+migration_no_pending: Keine ausstehenden Migrationen.
+migration_attention_needed: Aufmerksamkeit erforderlich.
+migration_pending_count: Es gibt %count% ausstehende Migrationen. Bitte führen Sie den Aktualisierungsprozess aus.
+migration_pending: Ausstehend
+migration_completed: Abgeschlossen
+migration_processing: In Bearbeitung
+migration_finished: Prozess abgeschlossen
+migration_all_finished: Alle Operationen abgeschlossen.
+migration_error_detail: "Fehler in %module%::%class%: %message%"
+migration_network_error: "Netzwerkfehler in %module%::%class%"
+migration_error_badge: Fehler
+migration_fail_badge: Fehlgeschlagen
+
+# Role Management
+role_management: Rollenverwaltung
+create_new_role: Neue Rolle erstellen
+no_roles_found: Keine Rollen definiert
+start_by_creating_role: Erstellen Sie zunächst eine Rolle, um Berechtigungen zu definieren.
+create_first_role: Erste Rolle erstellen
+roles: Rollen
+
+# Role Edit & Sync
+new_role: Neue Rolle
+edit_role: Rolle bearbeiten
+permissions: Berechtigungen
+sync_permissions: Berechtigungen synchronisieren
+sync_permissions_confirm: Sind Sie sicher, dass Sie die Berechtigungen synchronisieren möchten?
+syncing: Synchronisiere...
+sync_completed: Synchronisierung abgeschlossen.
+created: Erstellt
+restored: Wiederhergestellt
+deleted: Gelöscht
+error_occurred: Ein Fehler ist aufgetreten
+role_details: Rollendetails
+save_changes: Änderungen speichern
+access: Zugang
+no_access_permission_found: Zugriffsberechtigung nicht gefunden
+
+# User / Profile
+my_profile: Mein Profil
+profile_updated: Profil erfolgreich aktualisiert.
+default_page_updated: Startseite aktualisiert.
+error_saving: Fehler beim Speichern.
+upload_avatar_help: Avatar-Bild hochladen (JPG, PNG).
+detect_timezone: Zeitzone erkennen
+keep_empty_to_not_change: Leer lassen, um nicht zu ändern
+none: Keine
+default: Standard

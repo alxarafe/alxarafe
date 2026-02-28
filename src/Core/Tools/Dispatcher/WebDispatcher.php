@@ -116,16 +116,26 @@ class WebDispatcher extends Dispatcher
 
             return static::run($module, $controller, $method);
         } catch (\Throwable $e) {
-            if (class_exists(ErrorController::class) && !headers_sent()) {
+            // Anti-loop guard: if we're already heading to ErrorController, render raw HTML
+            $isAlreadyError = (($module ?? '') === 'Admin' && ($controller ?? '') === 'Error');
+
+            if (!$isAlreadyError && class_exists(ErrorController::class) && !headers_sent()) {
                 $trace = $e->getTraceAsString();
                 $url = ErrorController::url(true, false) . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace);
                 \Alxarafe\Lib\Functions::httpRedirect($url);
             }
 
-            echo "<h1>Application Fatal Error</h1>";
+            // Fallback: render error directly to break any possible loop
+            http_response_code(500);
+            echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Application Error</title>";
+            echo "<style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;background:#1a1a2e;color:#e0e0e0}";
+            echo "h1{color:#e94560}pre{background:#16213e;padding:16px;border-radius:8px;overflow-x:auto;border:1px solid #0f3460;font-size:13px}</style></head>";
+            echo "<body><h1>Application Error</h1>";
             echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+            echo "<h2>Stack Trace</h2>";
             echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
-            return false;
+            echo "</body></html>";
+            exit;
         }
     }
 
@@ -161,18 +171,32 @@ class WebDispatcher extends Dispatcher
 
         require_once $filename;
 
-        $theme = Config::getConfig()->main->theme ?? 'default';
-        $language = Config::getConfig()->main->language ?? \Alxarafe\Lib\Trans::FALLBACK_LANG;
+        $theme = 'default';
+        $language = \Alxarafe\Lib\Trans::FALLBACK_LANG;
 
-        if (Auth::isLogged() && Auth::$user) {
-            $userTheme = Auth::$user->getTheme();
-            if (!empty($userTheme)) {
-                $theme = $userTheme;
+        try {
+            $config = Config::getConfig();
+            if ($config && isset($config->main)) {
+                $theme = $config->main->theme ?? $theme;
+                $language = $config->main->language ?? $language;
             }
+        } catch (\Throwable $e) {
+            // Config unavailable — use defaults
+        }
 
-            if (!empty(Auth::$user->language)) {
-                $language = Auth::$user->language;
+        try {
+            if (Auth::isLogged() && Auth::$user) {
+                $userTheme = Auth::$user->getTheme();
+                if (!empty($userTheme)) {
+                    $theme = $userTheme;
+                }
+
+                if (!empty(Auth::$user->language)) {
+                    $language = Auth::$user->language;
+                }
             }
+        } catch (\Throwable $e) {
+            // Auth/DB unavailable — continue without user preferences
         }
 
         if (isset($_COOKIE['alx_theme'])) {
@@ -240,10 +264,27 @@ class WebDispatcher extends Dispatcher
         return true;
     }
 
+    /**
+     * Track if we are already in an error state to prevent redirect loops.
+     */
+    private static bool $inErrorState = false;
+
     #[\Override]
     protected static function dieWithMessage($message)
     {
         Debug::message('WebDispatcher error: ' . $message);
+
+        // Anti-loop: if already in error state, render directly
+        if (self::$inErrorState || headers_sent()) {
+            http_response_code(500);
+            echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Error</title>";
+            echo "<style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;background:#1a1a2e;color:#e0e0e0}";
+            echo "h1{color:#e94560}pre{background:#16213e;padding:16px;border-radius:8px;overflow-x:auto;border:1px solid #0f3460}</style></head>";
+            echo "<body><h1>Error</h1><pre>" . htmlspecialchars($message) . "</pre></body></html>";
+            exit;
+        }
+
+        self::$inErrorState = true;
         Functions::httpRedirect(ErrorController::url(true, false) . '&message=' . urlencode($message));
     }
 }

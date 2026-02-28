@@ -73,7 +73,93 @@ abstract class Trans
      *
      * @return array
      */
+    /**
+     * Gets a list of available languages as [code => native_name].
+     * Uses the DB table when available, falls back to YAML file scan.
+     *
+     * @return array
+     */
     public static function getAvailableLanguages(): array
+    {
+        // Try DB first
+        try {
+            if (class_exists(\CoreModules\Admin\Model\Language::class)) {
+                $model = new \CoreModules\Admin\Model\Language();
+                if ($model->existsInSchema()) {
+                    return \CoreModules\Admin\Model\Language::getActiveList();
+                }
+            }
+        } catch (\Throwable $e) {
+            // DB unavailable — fall through to YAML scan
+        }
+
+        return self::getAvailableLanguagesFromYaml();
+    }
+
+    /**
+     * Gets active languages with flag info as [code => ['name' => ..., 'flag' => ...]].
+     * Used by lang_switcher. Falls back to YAML + hardcoded flags.
+     *
+     * @return array
+     */
+    public static function getAvailableLanguagesWithFlags(): array
+    {
+        try {
+            if (class_exists(\CoreModules\Admin\Model\Language::class)) {
+                $model = new \CoreModules\Admin\Model\Language();
+                if ($model->existsInSchema()) {
+                    return \CoreModules\Admin\Model\Language::getActiveWithFlags();
+                }
+            }
+        } catch (\Throwable $e) {
+            // DB unavailable
+        }
+
+        // Fallback: YAML names + hardcoded flags
+        $languages = self::getAvailableLanguagesFromYaml();
+        $defaultFlags = [
+            // Full locale codes (idioma_PAIS)
+            'es_ES' => 'es',
+            'en_US' => 'us',
+            'en_GB' => 'gb',
+            'fr_FR' => 'fr',
+            'de_DE' => 'de',
+            'pt_PT' => 'pt',
+            'it_IT' => 'it',
+            'ca_ES' => 'es-ct',
+            'ar_SA' => 'sa',
+            'eu_ES' => 'es-pv',
+            'gl_ES' => 'es-ga',
+            'hi_IN' => 'in',
+            'ja_JP' => 'jp',
+            'nl_NL' => 'nl',
+            'ru_RU' => 'ru',
+            'zh_CN' => 'cn',
+            'es_AR' => 'ar',
+            'pt_BR' => 'br',
+            // Legacy short codes (YAML fallback)
+            'es' => 'es',
+            'en' => 'us',
+            'fr' => 'fr',
+            'de' => 'de',
+            'pt' => 'pt',
+            'it' => 'it',
+            'ca' => 'es-ct',
+        ];
+        $result = [];
+        foreach ($languages as $code => $name) {
+            $result[$code] = ['code' => $code, 'name' => $name, 'flag' => $defaultFlags[$code] ?? 'un'];
+        }
+        return $result;
+    }
+
+    /**
+     * Scans YAML files on disk to find available languages.
+     * Used as fallback when DB is not available.
+     *
+     * @return array
+     */
+    private static function getAvailableLanguagesFromYaml(): array
     {
         $alxPath = defined('ALX_PATH') ? constant('ALX_PATH') : null;
         $searchPaths = [
@@ -88,13 +174,12 @@ abstract class Trans
                 foreach ($files as $file) {
                     $lang = basename($file, '.yaml');
                     if (!isset($result[$lang])) {
-                        // Get native name from the file itself
                         $result[$lang] = self::getNativeName($file, $lang);
                     }
                 }
             }
         }
-        asort($result); // Sort by native name
+        asort($result);
         return $result;
     }
 

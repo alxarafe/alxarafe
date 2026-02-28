@@ -37,11 +37,48 @@ abstract class Config
 {
     protected const CONFIG_FILENAME = 'config.json';
 
-    public const CONFIG_STRUCTURE = [
+    /**
+     * Core configuration sections. Apps should NOT modify this directly.
+     * Use Config::registerSection() to add custom sections.
+     */
+    protected const CORE_CONFIG_STRUCTURE = [
         'main' => ['path', 'url', 'data', 'theme', 'language', 'timezone'],
         'db' => ['type', 'host', 'user', 'pass', 'name', 'port', 'prefix', 'charset', 'collation', 'encryption', 'encrypt_type'],
         'security' => ['debug', 'unique_id', 'https', 'jwt_secret_key']
     ];
+
+    /**
+     * Backward-compatible alias. Use getConfigStructure() for dynamic access.
+     */
+    public const CONFIG_STRUCTURE = self::CORE_CONFIG_STRUCTURE;
+
+    /**
+     * Runtime-registered custom sections from apps/plugins.
+     * @var array<string, array<string>>
+     */
+    private static array $extraSections = [];
+
+    /**
+     * Register an additional configuration section.
+     * Call this from your app's bootstrap (e.g., routes.php or a ServiceProvider).
+     *
+     * @param string $section Section name (e.g., 'blog')
+     * @param array  $keys    Allowed keys within that section. Empty array = accept any key.
+     */
+    public static function registerSection(string $section, array $keys = []): void
+    {
+        self::$extraSections[$section] = $keys;
+    }
+
+    /**
+     * Returns the full config structure (core + app-registered sections).
+     *
+     * @return array<string, array<string>>
+     */
+    public static function getConfigStructure(): array
+    {
+        return array_merge(static::CORE_CONFIG_STRUCTURE, self::$extraSections);
+    }
 
     private static ?stdClass $config = null;
 

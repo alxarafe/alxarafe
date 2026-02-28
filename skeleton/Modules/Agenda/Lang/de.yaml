@@ -1,0 +1,39 @@
+# Agenda Module
+agenda: Terminkalender
+contacts: Kontakte
+channels: Kommunikationskanäle
+general: Allgemein
+
+# Contact fields
+first_name: Vorname
+last_name: Nachname
+notes: Anmerkungen
+first_name_placeholder: z.B. Ana
+last_name_placeholder: z.B. García López
+notes_placeholder: Notizen zu diesem Kontakt...
+
+# Channel fields
+channel_name: Kanalname
+channel_name_placeholder: z.B. Festnetztelefon
+icon: Icon
+icon_help: FontAwesome-Icon (z.B. fas fa-phone)
+
+# Address fields
+address: Adresse
+city: Stadt
+state: Bundesland / Provinz
+postal_code: Postleitzahl
+country: Land
+additional_info: Zusätzliche Informationen
+address_label: Adresstyp
+address_label_help: z.B. Zuhause, Arbeit, Partner...
+
+# Channel assignment
+channel_value: Wert
+channel_value_help: Telefonnummer, E-Mail, URL, etc.
+
+# Actions
+add_address: Adresse Hinzufügen
+add_channel: Kanal Hinzufügen
+addresses: Adressen
+contact_channels: Kanäle
