@@ -4,18 +4,26 @@
     "type": "project",
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "path",
-            "url": ".."
-        }
-    ],
     "require": {
-        "alxarafe/alxarafe": "dev-main",
+        "firebase/php-jwt": "^7.0",
+        "illuminate/database": "^10.48",
+        "illuminate/events": "^10.48",
+        "illuminate/view": "^10.48",
+        "jenssegers/blade": "^2.0",
+        "luracast/restler": "^5.0",
+        "symfony/translation": "^6.4",
+        "symfony/var-dumper": "^6.4",
+        "symfony/yaml": "^6.4",
+        "ext-pdo": "*",
         "erusev/parsedown": "^1.7"
+    },
+    "replace": {
+        "alxarafe/alxarafe": "dev-main"
     },
     "autoload": {
         "psr-4": {
+            "Alxarafe\\": "../src/Core",
+            "CoreModules\\": "../src/Modules",
             "Modules\\": "Modules/"
         }
     },
