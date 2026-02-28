@@ -177,13 +177,19 @@ class WebDispatcher extends Dispatcher
 
         Debug::message("Dispatcher::runWeb executing $module::$controller ($endpoint)");
         $route_array = explode('|', $endpoint);
-        $className = $route_array[0];
-        $filename = $route_array[1];
+        $className = ltrim($route_array[0], '\\');
+        $filename = realpath($route_array[1]) ?: $route_array[1];
 
         if (!class_exists($className)) {
             if (!file_exists($filename)) {
                 static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_file_not_found', ['file' => $filename]));
             }
+
+            // Final safety check before require
+            if (class_exists($className)) {
+                return true;
+            }
+
             require_once $filename;
         }
 
