@@ -78,5 +78,4 @@ jobs:
             **/.git*
             **/.git*/**
             public_html/docs/**
-            public_html/config/**
             config/config.json
