@@ -10,7 +10,7 @@ use Alxarafe\Tools\Debug;
 
 // Define base paths
 define('BASE_PATH', __DIR__); // skeleton/public
-define('BASE_URL', 'http://localhost:8081');
+define('BASE_URL', \Alxarafe\Lib\Functions::getUrl());
 $appPath = realpath(__DIR__ . '/../');
 if (!$appPath) {
     $appPath = dirname(__DIR__);

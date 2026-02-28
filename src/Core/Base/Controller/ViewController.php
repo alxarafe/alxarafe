@@ -80,7 +80,7 @@ abstract class ViewController extends GenericController
         // Register framework-level template paths (theme + base fallback)
         if (defined('ALX_PATH')) {
             $alxPath = constant('ALX_PATH');
-            $theme = Config::getConfig()->main->theme ?? null;
+            $theme = Config::getConfig()?->main?->theme ?? null;
             if ($theme) {
                 $themePath = $alxPath . '/templates/themes/' . $theme;
                 if (is_dir($themePath)) {

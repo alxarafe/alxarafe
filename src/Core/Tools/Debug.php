@@ -78,7 +78,7 @@ abstract class Debug
         self::$render = null;
 
         $config = Config::getConfig();
-        self::$enabled = (bool)($config->security->debug ?? false);
+        self::$enabled = (bool)($config?->security->debug ?? false);
         if (!self::$enabled) {
             return false;
         }
