@@ -1,62 +1,67 @@
-<?php
 /**
- * Alxarafe Cache Cleaner
- * Temporary script to clear Blade cache on production server.
- */
+* Alxarafe Cache Cleaner & Path Debugger
+*/
 
-// Basic security check - you can add a token here if needed
-// if (($_GET['token'] ?? '') !== 'some_secret') { die('Unauthorized'); }
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
-$autoload = __DIR__ . '/../vendor/autoload.php';
-if (file_exists($autoload)) {
-    require_once $autoload;
+echo "<h1>Alxarafe Path Debugger & Cache Cleaner</h1>";
+
+$scriptPath = $_SERVER['SCRIPT_FILENAME'] ?? __FILE__;
+$basePath = dirname($scriptPath);
+$appPath = realpath($basePath . '/../');
+
+echo "<ul>";
+    echo "<li><strong>SCRIPT_FILENAME:</strong> " . htmlspecialchars($scriptPath) . "</li>";
+    echo "<li><strong>Calculated BASE_PATH:</strong> " . htmlspecialchars($basePath) . "</li>";
+    echo "<li><strong>Calculated APP_PATH:</strong> " . htmlspecialchars($appPath) . "</li>";
+    echo "</ul>";
+
+$autoload = $appPath . '/vendor/autoload.php';
+if (!file_exists($autoload)) {
+// Try one more level up if it's weird
+$autoload = realpath($appPath . '/../vendor/autoload.php');
+}
+
+if ($autoload && file_exists($autoload)) {
+echo "<p>Autoload found at: <code>$autoload</code></p>";
+require_once $autoload;
 } else {
-    // Fallback if vendor is not exactly where expected
-    $autoload = __DIR__ . '/vendor/autoload.php';
-    if (file_exists($autoload)) {
-        require_once $autoload;
-    }
+echo "<p style='color:red'>Autoload NOT found. Tried: <code>$appPath/vendor/autoload.php</code></p>";
 }
 
-$cacheDir = __DIR__ . '/../var/cache/blade';
-if (!is_dir($cacheDir)) {
-    // Try absolute path from server root if known
-    $cacheDir = '/home/u826748402/domains/alxarafe.com/var/cache/blade';
-}
-
-echo "<h1>Alxarafe Cache Cleaner</h1>";
-
+$cacheDir = $appPath . '/var/cache/blade';
 if (is_dir($cacheDir)) {
-    echo "<p>Found cache directory: <code>$cacheDir</code></p>";
-    
-    // We use the framework's recursive remove if available
-    if (class_exists('\\Alxarafe\\Lib\\Functions')) {
-        $count = \\Alxarafe\\Lib\\Functions::recursiveRemove($cacheDir, false);
-        echo "<p><strong>Success!</strong> Removed $count files/directories from cache.</p>";
-    } else {
-        // Simple fallback if framework classes aren't loaded
-        function simpleRecursiveRemove($dir) {
-            $count = 0;
-            $files = array_diff(scandir($dir), array('.', '..'));
-            foreach ($files as $file) {
-                $path = "$dir/$file";
-                if (is_dir($path)) {
-                    $count += simpleRecursiveRemove($path);
-                    rmdir($path);
-                    $count++;
-                } else {
-                    unlink($path);
-                    $count++;
-                }
-            }
-            return $count;
-        }
-        $count = simpleRecursiveRemove($cacheDir);
-        echo "<p><strong>Success (Fallback)!</strong> Removed $count files from cache.</p>";
-    }
+echo "<p>Found cache directory: <code>$cacheDir</code></p>";
+
+// Simple fallback if framework classes aren't loaded
+function simpleRecursiveRemove($dir) {
+$count = 0;
+if (!is_dir($dir)) return 0;
+$files = array_diff(scandir($dir), array('.', '..'));
+foreach ($files as $file) {
+$path = "$dir/$file";
+if (is_dir($path) && !is_link($path)) {
+$count += simpleRecursiveRemove($path);
+if (@rmdir($path)) $count++;
 } else {
-    echo "<p style='color:red'>Cache directory not found at $cacheDir</p>";
-    echo "<p>Current directory: " . __DIR__ . "</p>";
+if (@unlink($path)) $count++;
+}
+}
+return $count;
 }
 
-echo "<p><a href='/'>Go to Homepage</a></p>";
+if (class_exists('\\Alxarafe\\Lib\\Functions')) {
+$count = \\Alxarafe\\Lib\\Functions::recursiveRemove($cacheDir, false);
+echo "<p><strong>Success!</strong> Removed $count files/directories from cache using Framework.</p>";
+} else {
+$count = simpleRecursiveRemove($cacheDir);
+echo "<p><strong>Success!</strong> Removed $count files from cache using Fallback.</p>";
+}
+} else {
+echo "<p style='color:red'>Cache directory not found at: <code>$cacheDir</code></p>";
+}
+
+echo "
+<hr>
+<p><a href='/'>Go to Homepage</a></p>";
