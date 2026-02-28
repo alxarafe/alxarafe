@@ -61,6 +61,15 @@ if (is_dir($cacheDir)) {
         $count = simpleRecursiveRemove($cacheDir);
         echo "<p><strong>Success!</strong> Removed $count files from cache using Fallback.</p>";
     }
+
+    // EMERGENCY CLEANUP: Remove redundant framework copy if it exists
+    $redundantPath = $appPath . '/vendor/alxarafe/alxarafe';
+    if (is_dir($redundantPath)) {
+        echo "<h2>Emergency Cleanup: Redundant Framework found!</h2>";
+        $rmCount = simpleRecursiveRemove($redundantPath);
+        if (@rmdir($redundantPath)) $rmCount++;
+        echo "<p style='color:orange'><strong>Action:</strong> Removed $rmCount files/directories from <code>$redundantPath</code> to fix class conflicts.</p>";
+    }
 } else {
     echo "<p style='color:red'>Cache directory not found at: <code>$cacheDir</code></p>";
 }
