@@ -100,4 +100,27 @@ if ($foundClasses) {
     echo "<p>No CoreModules classes declared yet.</p>";
 }
 
+echo "<h2>Autoloader Inspection (autoload_psr4.php)</h2>";
+$psr4File = $basePath . '/vendor/composer/autoload_psr4.php';
+if (file_exists($psr4File)) {
+    echo "<p>File found at: <code>$psr4File</code></p>";
+    $content = file_get_contents($psr4File);
+    echo "<pre style='background:#eee; padding:10px; border:1px solid #ccc; max-height:400px; overflow:auto;'>" . htmlspecialchars($content) . "</pre>";
+} else {
+    echo "<p style='color:red'>Autoloader file NOT found at: <code>$psr4File</code></p>";
+}
+
+echo "<h2>Directory Check</h2>";
+$checks = [
+    'src' => $appPath . '/src',
+    'src/Core' => $appPath . '/src/Core',
+    'vendor' => $appPath . '/vendor',
+    'vendor/alxarafe' => $appPath . '/vendor/alxarafe',
+];
+echo "<ul>";
+foreach ($checks as $name => $path) {
+    echo "<li><code>$name</code>: " . (is_dir($path) ? "<span style='color:green'>Found</span>" : "<span style='color:red'>Not Found</span>") . " (<code>$path</code>)</li>";
+}
+echo "</ul>";
+
 echo "<hr><p><a href='/'>Go to Homepage</a></p>";
