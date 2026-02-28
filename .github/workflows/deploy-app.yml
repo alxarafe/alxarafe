@@ -76,7 +76,7 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: ./deploy/
-          server-dir: /domains/alxarafe.com/
+          server-dir: /
           exclude: |
             **/.git*
             **/.git*/**
