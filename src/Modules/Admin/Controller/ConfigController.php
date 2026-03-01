@@ -217,8 +217,11 @@ class ConfigController extends ResourceController
     protected function fetchRecordData(): array
     {
         $config = Config::getConfig(true);
-        // Flatten or nested? ResourceController's saveRecord expects flat keys if they match property names.
-        // But for Config, we might want to keep the structure.
+
+        // Security: Don't send the password to the client/inspector
+        if (isset($config->db->pass)) {
+            $config->db->pass = '';
+        }
 
         return [
             'id' => 'current',
@@ -244,6 +247,12 @@ class ConfigController extends ResourceController
         foreach ($data as $key => $value) {
             if (str_contains($key, '.')) {
                 [$section, $prop] = explode('.', $key, 2);
+
+                // Security: If the password field arrives empty, we don't overwrite the existing one.
+                if ($section === 'db' && $prop === 'pass' && empty($value)) {
+                    continue;
+                }
+
                 if (!isset($configData->$section)) {
                     $configData->$section = new stdClass();
                 }
