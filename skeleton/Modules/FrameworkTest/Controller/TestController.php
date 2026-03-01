@@ -48,7 +48,7 @@ use Symfony\Component\Yaml\Yaml;
 
 #[Menu(
     menu: 'main_menu',
-    label: 'Prueba Framework',
+    label: 'showcase_title',
     icon: 'fas fa-vial',
     order: 10,
     visibility: 'public'
@@ -141,6 +141,16 @@ class TestController extends PublicResourceController
         parent::handleRequest();
     }
 
+    /**
+     * AJAX action to render markdown content.
+     */
+    public function doRenderMarkdown()
+    {
+        $md = $_POST['markdown'] ?? '';
+        $html = MarkdownService::render($md);
+        $this->jsonResponse(['html' => $html]);
+    }
+
     // ───────────────────────────────────────────────
     //  VIEW DESCRIPTOR — Component-based body format
     // ───────────────────────────────────────────────
@@ -164,6 +174,7 @@ class TestController extends PublicResourceController
             'buttons'  => [
                 ['label' => \Alxarafe\Lib\Trans::_('save_demo'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
                 ['label' => \Alxarafe\Lib\Trans::_('clear_cache'), 'icon' => 'fas fa-broom', 'type' => 'warning', 'action' => 'submit', 'name' => 'clearCache'],
+                ['label' => \Alxarafe\Lib\Trans::_('back'), 'icon' => 'fas fa-arrow-left', 'type' => 'secondary', 'action' => 'url', 'target' => 'index.php'],
             ],
             'body' => new TabGroup([
                 new Tab('components', \Alxarafe\Lib\Trans::_('tab_components'), 'fas fa-puzzle-piece', $this->buildComponentsPanels()),
@@ -205,17 +216,17 @@ class TestController extends PublicResourceController
             new Panel(\Alxarafe\Lib\Trans::_('main_config'), [
                 $nameField,
                 new Textarea('description', \Alxarafe\Lib\Trans::_('technical_description'), [
-                    'placeholder' => 'Detalla aquí las especificaciones...',
+                    'placeholder' => \Alxarafe\Lib\Trans::_('technical_description_placeholder'),
                     'rows' => 3
                 ]),
                 new Boolean('active', \Alxarafe\Lib\Trans::_('publication_status'), [
-                    'help' => 'Define si este elemento es visible en el frontend'
+                    'help' => \Alxarafe\Lib\Trans::_('publication_status_help')
                 ]),
             ], ['col' => 'col-md-7', 'class' => 'shadow-lg border-primary']),
 
             new Panel(\Alxarafe\Lib\Trans::_('aesthetics'), [
                 new Icon('icon', \Alxarafe\Lib\Trans::_('icon_representative'), [
-                    'help' => 'Selecciona un icono de FontAwesome'
+                    'help' => \Alxarafe\Lib\Trans::_('icon_help_fa')
                 ], ['default' => 'fas fa-rocket']),
                 new Select('type', \Alxarafe\Lib\Trans::_('object_classification'), [
                     'core' => \Alxarafe\Lib\Trans::_('core_system'),
@@ -253,7 +264,7 @@ class TestController extends PublicResourceController
             ], ['col' => 'col-md-12']),
 
             // --- Hidden field ---
-            new Hidden('_token', 'CSRF Token'),
+            new Hidden('_token', \Alxarafe\Lib\Trans::_('csrf_token')),
 
             // --- Separator (plain) ---
             new Separator(),
@@ -270,10 +281,10 @@ class TestController extends PublicResourceController
 
             // --- Row with mixed field types ---
             new Row([
-                new Date('row_date', 'Fecha', ['col' => 'col-md-3']),
-                new Time('row_time', 'Hora', ['col' => 'col-md-3']),
-                new Boolean('row_active', 'Activo', ['col' => 'col-md-3']),
-                new Integer('row_priority', 'Prioridad', ['col' => 'col-md-3']),
+                new Date('row_date', \Alxarafe\Lib\Trans::_('date'), ['col' => 'col-md-3']),
+                new Time('row_time', \Alxarafe\Lib\Trans::_('time'), ['col' => 'col-md-3']),
+                new Boolean('row_active', \Alxarafe\Lib\Trans::_('active'), ['col' => 'col-md-3']),
+                new Integer('row_priority', \Alxarafe\Lib\Trans::_('priority'), ['col' => 'col-md-3']),
             ], ['col' => 'col-12']),
         ];
     }
@@ -284,16 +295,16 @@ class TestController extends PublicResourceController
     {
         return [
             new Panel(\Alxarafe\Lib\Trans::_('parent_company'), [
-                new Text('company_name', 'Nombre de Empresa', [
-                    'help' => 'Campo de nivel superior'
+                new Text('company_name', \Alxarafe\Lib\Trans::_('parent_company'), [
+                    'help' => \Alxarafe\Lib\Trans::_('parent_company_help')
                 ]),
 
                 // ----- Panel Nivel 1 -----
                 new Panel(\Alxarafe\Lib\Trans::_('fiscal_address'), [
-                    new Text('address_street', 'Calle'),
-                    new Text('address_city', 'Ciudad'),
-                    new Text('address_zip', 'Código Postal', ['col' => 'col-md-4']),
-                    new Select('address_country', 'País', [
+                    new Text('address_street', \Alxarafe\Lib\Trans::_('street')),
+                    new Text('address_city', \Alxarafe\Lib\Trans::_('city')),
+                    new Text('address_zip', \Alxarafe\Lib\Trans::_('postal_code'), ['col' => 'col-md-4']),
+                    new Select('address_country', \Alxarafe\Lib\Trans::_('country'), [
                         'ES' => 'España',
                         'FR' => 'Francia',
                         'DE' => 'Alemania',
@@ -302,26 +313,26 @@ class TestController extends PublicResourceController
 
                     // ----- Panel Nivel 2 -----
                     new Panel(\Alxarafe\Lib\Trans::_('primary_contact'), [
-                        new Text('contact_phone', 'Teléfono', ['col' => 'col-md-6']),
-                        new Text('contact_email', 'Email', ['col' => 'col-md-6', 'type' => 'email']),
-                        new Boolean('contact_gdpr', 'Acepta RGPD'),
+                        new Text('contact_phone', \Alxarafe\Lib\Trans::_('phone'), ['col' => 'col-md-6']),
+                        new Text('contact_email', \Alxarafe\Lib\Trans::_('email'), ['col' => 'col-md-6', 'type' => 'email']),
+                        new Boolean('contact_gdpr', \Alxarafe\Lib\Trans::_('gdpr_accept')),
                     ], ['col' => 'col-12']),
 
                 ], ['col' => 'col-12']),
 
-                new StaticText('↑ El panel "Dirección Fiscal" contiene un sub-panel "Contacto Principal". Esto demuestra paneles anidados en 3 niveles.', [
+                new StaticText(\Alxarafe\Lib\Trans::_('nesting_demo_info'), [
                     'icon' => 'fas fa-info-circle text-info'
                 ]),
             ], ['col' => 'col-12', 'class' => 'border-warning']),
 
             new Panel(\Alxarafe\Lib\Trans::_('security_config'), [
-                new Panel('🔒 Seguridad', [
-                    new Boolean('two_factor', 'Autenticación 2FA'),
-                    new Select('session_timeout', 'Tiempo de Sesión', [
-                        '15' => '15 minutos',
-                        '30' => '30 minutos',
-                        '60' => '1 hora',
-                        '120' => '2 horas',
+                new Panel(\Alxarafe\Lib\Trans::_('security'), [
+                    new Boolean('two_factor', \Alxarafe\Lib\Trans::_('two_factor')),
+                    new Select('session_timeout', \Alxarafe\Lib\Trans::_('session_timeout'), [
+                        '15' => \Alxarafe\Lib\Trans::_('15_minutes'),
+                        '30' => \Alxarafe\Lib\Trans::_('30_minutes'),
+                        '60' => \Alxarafe\Lib\Trans::_('1_hour'),
+                        '120' => \Alxarafe\Lib\Trans::_('2_hours'),
                     ]),
                 ], ['col' => 'col-12']),
             ], ['col' => 'col-md-6']),
@@ -338,6 +349,7 @@ class TestController extends PublicResourceController
 
     protected function buildMarkdownPanels(): array
     {
+        $mdContent = '';
         $contentHtml = '<div class="alert alert-warning">No se encontró el archivo test_markdown.md</div>';
 
         try {
@@ -347,14 +359,70 @@ class TestController extends PublicResourceController
 
             if (file_exists($filePath)) {
                 $parsed = MarkdownService::parse($filePath);
-                $contentHtml = MarkdownService::render($parsed['content']);
+                $mdContent = $parsed['content'];
+                $contentHtml = MarkdownService::render($mdContent);
             }
         } catch (\Exception $e) {
             $contentHtml = '<div class="alert alert-danger">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
         }
 
+        // Inline script to handle the preview refresh on tab change
+        // We use a MutationObserver or a simple Interval if we don't want to rely on exact IDs,
+        // but here we can try to target the data-bs-toggle="tab" links.
+        $script = '<script>
+            (function() {
+                const initPreview = () => {
+                    const previewTab = document.querySelector(\'[data-bs-target*="tab_md_preview"]\');
+                    if (!previewTab) return;
+                    
+                    previewTab.addEventListener(\'show.bs.tab\', async () => {
+                        const textarea = document.querySelector(\'textarea[name="data[test_markdown]"]\');
+                        const preview = document.getElementById(\'markdown-preview-container\');
+                        if (!textarea || !preview) return;
+                        
+                        // Show loading
+                        preview.style.opacity = "0.5";
+                        
+                        try {
+                            const resp = await fetch(\'?module=FrameworkTest&controller=Test&action=renderMarkdown\', {
+                                method: \'POST\',
+                                headers: { 
+                                    \'Content-Type\': \'application/x-www-form-urlencoded\',
+                                    \'X-Requested-With\': \'XMLHttpRequest\'
+                                },
+                                body: \'markdown=\' + encodeURIComponent(textarea.value)
+                            });
+                            const result = await resp.json();
+                            preview.innerHTML = result.html;
+                        } catch (e) {
+                            console.error("Markdown preview error:", e);
+                        } finally {
+                            preview.style.opacity = "1";
+                        }
+                    });
+                };
+                
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", initPreview);
+                } else {
+                    initPreview();
+                }
+            })();
+        </script>';
+
         return [
-            new HtmlContent($contentHtml, \Alxarafe\Lib\Trans::_('rendered_document'), ['col' => 'col-12']),
+            new TabGroup([
+                new Tab('md_editor', \Alxarafe\Lib\Trans::_('editor'), 'fas fa-edit', [
+                    new Textarea('test_markdown', '', [
+                        'rows' => 15,
+                        'col' => 'col-12',
+                        'value' => $mdContent // Initial value
+                    ])
+                ]),
+                new Tab('md_preview', \Alxarafe\Lib\Trans::_('preview'), 'fas fa-eye', [
+                    new HtmlContent('<div id="markdown-preview-container">' . $contentHtml . '</div>' . $script, '', ['col' => 'col-12']),
+                ]),
+            ])
         ];
     }
 

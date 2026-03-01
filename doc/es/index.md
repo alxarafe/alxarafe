@@ -11,11 +11,17 @@
 *   **Configuración Centralizada:** Un único archivo `config.json` gestiona todo el entorno.
 *   **Internacionalización (i18n):** Soporte nativo para múltiples idiomas.
 
-## Instalación
+### 1. Nuevo proyecto (Recomendado)
 
-Alxarafe se distribuye como una librería de Composer. Para utilizarlo en tu proyecto:
+La forma más sencilla de empezar es utilizando nuestra plantilla de proyecto:
 
-1.  Añade la dependencia a tu `composer.json`:
+```bash
+composer create-project alxarafe/alxarafe-template miprojecto
+```
+
+### 2. Agregar a un proyecto existente
+
+Si quieres incluir Alxarafe como librería en un proyecto ya existente:
 
 ```bash
 composer require alxarafe/alxarafe

@@ -1,13 +1,13 @@
 # FrameworkTest Showcase
 showcase_title: Alxarafe Components Showcase
-main_config: "⚙️ Configuració Principal"
-aesthetics: "🎨 Estètica i Visualització"
-quantitative_data: "🔢 Dades Quantitatives"
-chronology: "📅 Cronologia"
-advanced_multimedia: "🚀 Avançat i Multimèdia"
-tab_components: "🧩 Components"
-tab_nesting: "📦 Panells Imbricats"
-tab_markdown: "📝 Markdown"
+main_config: "Configuració Principal"
+aesthetics: "Estètica i Visualització"
+quantitative_data: "Dades Quantitatives"
+chronology: "Cronologia"
+advanced_multimedia: "Avançat i Multimèdia"
+tab_components: Components
+tab_nesting: Panells Imbricats
+tab_markdown: Markdown
 save_demo: Desar Demo
 clear_cache: Netejar Cache
 resource_name: Nom del Recurs

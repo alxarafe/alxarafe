@@ -37,3 +37,10 @@ add_address: Adicionar Morada
 add_channel: Adicionar Canal
 addresses: Moradas
 contact_channels: Canais
+
+# Entity labels
+work: Trabalho
+home: Particular
+billing: Faturação
+shipping: Envio
+other: Outro

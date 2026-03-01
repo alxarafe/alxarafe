@@ -37,3 +37,10 @@ add_address: Afegir Adreça
 add_channel: Afegir Canal
 addresses: Adreces
 contact_channels: Canals
+
+# Entity labels
+work: Feina
+home: Particular
+billing: Facturació
+shipping: Enviament
+other: Altre

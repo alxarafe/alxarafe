@@ -37,3 +37,10 @@ add_address: Adresse Hinzufügen
 add_channel: Kanal Hinzufügen
 addresses: Adressen
 contact_channels: Kanäle
+
+# Entity labels
+work: Arbeit
+home: Privat
+billing: Rechnungsstellung
+shipping: Versand
+other: Sonstiges

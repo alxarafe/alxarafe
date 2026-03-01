@@ -129,8 +129,19 @@ class ContactController extends PublicResourceController
             $this->addVariable('contact_channels', collect());
         }
 
-        // Always provide channel types for the selector
-        $this->addVariable('channel_types', ContactChannel::all());
+        // Always provide channel types for the selector, with translations
+        $channelTypes = ContactChannel::all();
+        foreach ($channelTypes as $ct) {
+            $ct->trans_name = Trans::_($ct->name);
+        }
+        $this->addVariable('channel_types', $channelTypes);
+
+        // Provide standard address labels for the datalist
+        $standardLabels = [];
+        foreach ($this->getStandardAddressLabels() as $key) {
+            $standardLabels[$key] = Trans::_($key);
+        }
+        $this->addVariable('standard_address_labels', $standardLabels);
     }
 
     /**
@@ -184,6 +195,16 @@ class ContactController extends PublicResourceController
         foreach ($addressData as $item) {
             $addrId = $item['id'] ?? 'new';
             $label = $item['label'] ?? null;
+
+            // Reverse translation: if the label matches a standard key's translation, store the key
+            if ($label) {
+                foreach ($this->getStandardAddressLabels() as $key) {
+                    if ($label === Trans::_($key)) {
+                        $label = '#' . $key;
+                        break;
+                    }
+                }
+            }
 
             if ($addrId === 'new' || empty($addrId)) {
                 // Create a new address
@@ -256,5 +277,15 @@ class ContactController extends PublicResourceController
         foreach ($syncData as $entry) {
             $contact->channels()->attach($entry['contact_channel_id'], ['value' => $entry['value']]);
         }
+    }
+
+    /**
+     * Standard keys for address labels that should be translatable.
+     *
+     * @return array
+     */
+    private function getStandardAddressLabels(): array
+    {
+        return ['home', 'work', 'billing', 'shipping', 'other'];
     }
 }

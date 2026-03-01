@@ -37,7 +37,17 @@ Alxarafe includes a complete Docker development environment. To use it:
 
 For more details, see the [Docker documentation](https://alxarafe.github.io/alxarafe/en/docker).
 
-### Manual installation
+### Create a new project (Recommended)
+
+The easiest way to start a new project with Alxarafe is to use our project template:
+
+```bash
+composer create-project alxarafe/alxarafe-template my-app
+```
+
+### Add to an existing project
+
+If you already have a project and want to include Alxarafe, run:
 
 ```bash
 composer require alxarafe/alxarafe

@@ -34,7 +34,7 @@ class AgendaSeeder extends Seeder
     protected function run(string $modelClass): void
     {
         // Ensure channel types exist (AgendaSeeder runs before ContactChannelSeeder alphabetically)
-        new ContactChannelSeeder();
+        new ContactChannelSeeder(true);
 
         // --- Addresses (shared) ---
         $officeAddress = Address::create([
@@ -110,25 +110,25 @@ class AgendaSeeder extends Seeder
         ]);
 
         // --- Address assignments (shared office address) ---
-        $ana->addresses()->attach($officeAddress->id, ['label' => 'work']);
-        $ana->addresses()->attach($homeAna->id, ['label' => 'home']);
+        $ana->addresses()->attach($officeAddress->id, ['label' => '#work']);
+        $ana->addresses()->attach($homeAna->id, ['label' => '#home']);
 
-        $carlos->addresses()->attach($officeAddress->id, ['label' => 'work']); // Same office!
-        $carlos->addresses()->attach($homeCarlos->id, ['label' => 'home']);
+        $carlos->addresses()->attach($officeAddress->id, ['label' => '#work']); // Same office!
+        $carlos->addresses()->attach($homeCarlos->id, ['label' => '#home']);
 
-        $lucia->addresses()->attach($homeLucia->id, ['label' => 'home']);
+        $lucia->addresses()->attach($homeLucia->id, ['label' => '#home']);
 
-        $martin->addresses()->attach($homeMartin->id, ['label' => 'home']);
-        $martin->addresses()->attach($officeAddress->id, ['label' => 'work']); // Same office!
+        $martin->addresses()->attach($homeMartin->id, ['label' => '#home']);
+        $martin->addresses()->attach($officeAddress->id, ['label' => '#work']); // Same office!
 
-        $elena->addresses()->attach($officeAddress->id, ['label' => 'work']); // Same office!
+        $elena->addresses()->attach($officeAddress->id, ['label' => '#work']); // Same office!
 
         // --- Channel assignments ---
-        $phone = ContactChannel::where('name', 'Landline Phone')->first();
-        $mobile = ContactChannel::where('name', 'Mobile Phone')->first();
-        $email = ContactChannel::where('name', 'Email')->first();
-        $linkedin = ContactChannel::where('name', 'LinkedIn')->first();
-        $whatsapp = ContactChannel::where('name', 'WhatsApp')->first();
+        $phone = ContactChannel::where('name', '#phone_landline')->first();
+        $mobile = ContactChannel::where('name', '#phone_mobile')->first();
+        $email = ContactChannel::where('name', '#email')->first();
+        $linkedin = ContactChannel::where('name', '#linkedin')->first();
+        $whatsapp = ContactChannel::where('name', '#whatsapp')->first();
 
         if ($phone && $mobile && $email && $linkedin && $whatsapp) {
             // Ana

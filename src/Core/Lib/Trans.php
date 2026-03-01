@@ -206,6 +206,12 @@ abstract class Trans
     public static function _(string $message, array $parameters = [], ?string $locale = null): string
     {
         self::initialize();
+
+        // Optional '#' prefix for explicit translation keys (e.g. from database)
+        if (strpos($message, '#') === 0) {
+            $message = substr($message, 1);
+        }
+
         if (!isset($locale)) {
             $locale = self::$translator->getLocale();
         }
@@ -213,13 +219,6 @@ abstract class Trans
         $params = [];
         foreach ($parameters as $name => $value) {
             $params['%' . $name . '%'] = $value;
-        }
-
-        if (!isset(self::$translations[$message])) {
-            self::$missingStrings[$message] = [
-                'lang' => self::FALLBACK_LANG,
-                'text' => 'Not defined!',
-            ];
         }
 
         return self::$translator->trans($message, $params, null, $locale);
@@ -339,16 +338,23 @@ abstract class Trans
 
 
         self::$translator->addLoader('array', new ArrayLoader());
+
+        // First pass: Load fallback language for all routes
+        if ($lang !== self::FALLBACK_LANG) {
+            foreach ($routes as $route) {
+                $lp = realpath($route . '/Lang');
+                if ($lp && file_exists($lp)) {
+                    self::loadLang(self::FALLBACK_LANG, $lp);
+                }
+            }
+        }
+
+        // Second pass: Load target language for all routes (overwrites fallback)
         foreach ($routes as $route) {
-            $route .= '/Lang';
-            $route = realpath($route);
-            if ($route === false || !file_exists($route)) {
-                continue;
+            $lp = realpath($route . '/Lang');
+            if ($lp && file_exists($lp)) {
+                self::loadLang($lang, $lp);
             }
-            if ($lang !== self::FALLBACK_LANG) {
-                self::loadLang(self::FALLBACK_LANG, $route);
-            }
-            self::loadLang($lang, $route);
         }
 
         self::$translator->addResource('array', self::$translations, $lang);

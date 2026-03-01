@@ -3,6 +3,10 @@ agenda: Agenda
 contacts: Contactos
 channels: Canales de Comunicación
 general: General
+Contact: Contactos
+ContactChannel: Canales de Comunicación
+contact: Contactos
+contactchannel: Canales de Comunicación
 
 # Contact fields
 first_name: Nombre
@@ -13,27 +17,51 @@ last_name_placeholder: Ej. García López
 notes_placeholder: Notas sobre este contacto...
 
 # Channel fields
-channel_name: Nombre del Canal
+channel_name: Canal
 channel_name_placeholder: Ej. Teléfono Fijo
 icon: Icono
 icon_help: Icono de FontAwesome (ej. fas fa-phone)
 
 # Address fields
 address: Dirección
-city: Ciudad / Población
+city: Ciudad
 state: Provincia
-postal_code: Código Postal
+postal_code: CP
 country: País
-additional_info: Información Adicional
-address_label: Tipo de Dirección
-address_label_help: Ej. casa, trabajo, pareja...
+additional_info: Info adicional
+address_label: Tipo de Domicilio
+address_label_help: Particular, Trabajo...
 
 # Channel assignment
 channel_value: Valor
-channel_value_help: El número de teléfono, email, URL, etc.
+channel_value_help: Teléfono, email, URL...
 
 # Actions
 add_address: Añadir Dirección
 add_channel: Añadir Canal
 addresses: Direcciones
 contact_channels: Canales
+
+# Channel Types and literals
+phone_landline: Teléfono Fijo
+phone_mobile: Teléfono Móvil
+fax: Fax
+email: Email
+website: Sitio Web
+linkedin: LinkedIn
+twitter: X (Twitter)
+instagram: Instagram
+whatsapp: WhatsApp
+telegram: Telegram
+
+# Shared UI
+save_changes: Guardar Cambios
+back: Volver
+create: Crear
+
+# Entity labels
+work: Trabajo
+home: Particular
+billing: Facturación
+shipping: Envío
+other: Otro

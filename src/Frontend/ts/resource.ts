@@ -33,7 +33,21 @@ export class AlxarafeResource {
     constructor(container: HTMLElement, config: StructConfig) {
         this.container = container;
         this.config = config;
+        this.preprocessTemplates();
         this.init();
+    }
+
+    private preprocessTemplates() {
+        if (!this.config.templates) return;
+        for (const key in this.config.templates) {
+            this.config.templates[key] = this.replaceTranslationTags(this.config.templates[key]);
+        }
+    }
+
+    private replaceTranslationTags(html: string): string {
+        return html.replace(/\[trans:([^\]]+)\]/g, (match, key) => {
+            return this.trans(key);
+        });
     }
 
     private init() {

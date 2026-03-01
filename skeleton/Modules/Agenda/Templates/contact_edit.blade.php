@@ -1,18 +1,23 @@
 @extends('partial.layout.main')
 
 @section('header_actions')
-@if(!empty($viewDescriptor['recordId']) && $viewDescriptor['recordId'] !== 'new')
-    <button type="submit" form="alxarafe-edit-form" name="save" value="save" class="btn btn-primary">
-        <i class="fas fa-save me-1"></i> {{ $me->trans('save_changes') ?: 'Guardar' }}
-    </button>
-@else
-    <button type="submit" form="alxarafe-edit-form" name="save" value="save" class="btn btn-success">
-        <i class="fas fa-plus me-1"></i> {{ $me->trans('create') ?: 'Crear' }}
-    </button>
-@endif
-    <a href="?module=Agenda&controller=Contact" class="btn btn-secondary">
-        <i class="fas fa-arrow-left me-1"></i> {{ $me->trans('back') ?: 'Volver' }}
-    </a>
+@php $buttons = $viewDescriptor['buttons'] ?? []; @endphp
+@foreach($buttons as $btn)
+    @if(($btn['action'] ?? 'submit') === 'submit')
+        <button type="submit" form="alxarafe-edit-form"
+                name="{{ $btn['name'] ?? '' }}" value="{{ $btn['name'] ?? '' }}"
+                class="btn btn-{{ $btn['type'] ?? 'primary' }}">
+            @if(!empty($btn['icon']))<i class="{{ $btn['icon'] }} me-1"></i>@endif
+            {{ $btn['label'] ?? '' }}
+        </button>
+    @elseif(($btn['action'] ?? '') === 'url')
+        <a href="{{ $btn['target'] ?? '#' }}"
+           class="btn btn-{{ $btn['type'] ?? 'secondary' }}">
+            @if(!empty($btn['icon']))<i class="{{ $btn['icon'] }} me-1"></i>@endif
+            {{ $btn['label'] ?? '' }}
+        </a>
+    @endif
+@endforeach
 @endsection
 
 @section('content')
@@ -23,7 +28,14 @@
     $addresses = $contact_addresses ?? [];
     $channels = $contact_channels ?? [];
     $channelTypes = $channel_types ?? [];
+    $standardLabels = $standard_address_labels ?? [];
 @endphp
+
+<datalist id="address-labels">
+    @foreach($standardLabels as $key => $label)
+        <option value="{{ $label }}"></option>
+    @endforeach
+</datalist>
 
 <div class="container-fluid">
     <form method="POST" action="?module=Agenda&controller=Contact" id="alxarafe-edit-form">
@@ -94,8 +106,9 @@
                                 <i class="fas fa-map-marker-alt me-1"></i>
                                 <input type="text" class="form-control form-control-sm d-inline-block" style="width: 150px"
                                        name="addresses[{{ $idx }}][label]"
-                                       value="{{ $addr->pivot->label ?? '' }}"
-                                       placeholder="{{ $me->trans('address_label_help') ?: 'casa, trabajo...' }}">
+                                       list="address-labels"
+                                       value="{{ $me->trans($addr->pivot->label ?? '') }}"
+                                       placeholder="{{ $me->trans('address_label_help') ?: 'Particular, Trabajo...' }}">
                             </span>
                             <button type="button" class="btn btn-sm btn-outline-danger btn-remove-address" data-idx="{{ $idx }}">
                                 <i class="fas fa-trash"></i>
@@ -159,7 +172,7 @@
                                 <select class="form-select form-select-sm" name="channels[{{ $idx }}][channel_id]">
                                     @foreach($channelTypes as $ct)
                                     <option value="{{ $ct->id }}" {{ ($ch->id == $ct->id) ? 'selected' : '' }}>
-                                        {{ $ct->name }}
+                                        {{ $me->trans($ct->name) ?: $ct->name }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -202,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span>
                         <i class="fas fa-map-marker-alt me-1"></i>
                         <input type="text" class="form-control form-control-sm d-inline-block" style="width: 150px"
-                               name="addresses[${i}][label]" value="" placeholder="{{ $me->trans('address_label_help') ?: 'casa, trabajo...' }}">
+                               name="addresses[${i}][label]" list="address-labels" value="" placeholder="{{ $me->trans('address_label_help') ?: 'Particular, Trabajo...' }}">
                     </span>
                     <button type="button" class="btn btn-sm btn-outline-danger btn-remove-address">
                         <i class="fas fa-trash"></i>
@@ -252,7 +265,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const options = @json($channelTypes ?? []);
             let optHtml = '';
             options.forEach(ct => {
-                optHtml += `<option value="${ct.id}">${ct.name}</option>`;
+                const label = ct.trans_name || ct.name;
+                optHtml += `<option value="${ct.id}">${label}</option>`;
             });
             const html = `
             <tr class="channel-row">

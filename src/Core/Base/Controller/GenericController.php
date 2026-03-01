@@ -42,6 +42,7 @@ abstract class GenericController
     public array $topMenu = [];
     public array $sidebar_menu = []; // Legacy support for Blade
     public ?string $backUrl = null;
+    public string $title = '';
 
     /**
      * @param string|null $action Optional action override.

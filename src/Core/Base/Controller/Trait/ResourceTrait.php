@@ -207,18 +207,39 @@ trait ResourceTrait
 
      * Logic for default buttons (Code over Configuration).
      */
+    /**
+     * @return void
+     */
     protected function setup()
     {
         // 1. Generic "New" Button
         $this->addListButton(
             'new',
-            'Nuevo',
+            \Alxarafe\Lib\Trans::_('new'),
             'fas fa-plus',
             'primary',
             'right',
             'url',
-            // Uses class_name to build URL (e.g. index.php?page=clientes&id=new)
             'index.php?module=' . static::getModuleName() . '&controller=' . static::getControllerName() . '&id=new'
+        );
+
+        // 2. Generic "Save" and "Back" Buttons for Edit mode
+        $this->addEditButton(
+            'save',
+            \Alxarafe\Lib\Trans::_('save_changes'),
+            'fas fa-save',
+            'primary',
+            'right',
+            'submit'
+        );
+        $this->addEditButton(
+            'back',
+            \Alxarafe\Lib\Trans::_('back'),
+            'fas fa-arrow-left',
+            'secondary',
+            'right',
+            'url',
+            static::url()
         );
     }
 
@@ -1144,7 +1165,7 @@ trait ResourceTrait
                         // Parse: addresses[123][street] -> value
                         // This requires expanding the dot/bracket notation.
                         // Simple regex extraction:
-                        if (preg_match('/^' . preg_quote($fieldName, '/') . '\[([^\]]+)\]\[([^\]]+)\]$/', (string)$key, $matches)) {
+                        if (preg_match('/^' . preg_quote((string)$fieldName, '/') . '\[([^\]]+)\]\[([^\]]+)\]$/', (string)$key, $matches)) {
                             // matches[1] = index, matches[2] = subfield
                             $relationData[$fieldName][$matches[1]][$matches[2]] = $value;
                         }
@@ -1398,10 +1419,27 @@ trait ResourceTrait
 
         // --- Buttons from structConfig ---
         foreach ($this->structConfig['edit']['head_buttons'] ?? [] as $btn) {
+            $label = $btn['label'] ?? '';
+            $icon = $btn['icon'] ?? '';
+            $type = $btn['type'] ?? 'secondary';
+
+            // Refine Save button if it's a new record
+            if (($btn['name'] ?? '') === 'save') {
+                if (empty($this->recordId) || $this->recordId === 'new') {
+                    $label = \Alxarafe\Lib\Trans::_('create');
+                    $icon = 'fas fa-plus';
+                    $type = 'success';
+                } else {
+                    $label = \Alxarafe\Lib\Trans::_('save_changes');
+                    $icon = 'fas fa-save';
+                    $type = 'primary';
+                }
+            }
+
             $descriptor['buttons'][] = [
-                'label'  => $btn['label'] ?? '',
-                'icon'   => $btn['icon'] ?? '',
-                'type'   => $btn['type'] ?? 'secondary',
+                'label'  => $label,
+                'icon'   => $icon,
+                'type'   => $type,
                 'action' => $btn['action'] ?? 'submit',
                 'target' => $btn['target'] ?? '',
                 'name'   => $btn['name'] ?? '',

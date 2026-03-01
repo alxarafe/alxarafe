@@ -31,16 +31,16 @@ class ContactChannelSeeder extends Seeder
     protected function run(string $modelClass): void
     {
         $channels = [
-            ['name' => 'Landline Phone', 'icon' => 'fas fa-phone'],
-            ['name' => 'Mobile Phone', 'icon' => 'fas fa-mobile-alt'],
-            ['name' => 'Fax', 'icon' => 'fas fa-fax'],
-            ['name' => 'Email', 'icon' => 'fas fa-envelope'],
-            ['name' => 'Website', 'icon' => 'fas fa-globe'],
-            ['name' => 'LinkedIn', 'icon' => 'fab fa-linkedin'],
-            ['name' => 'X (Twitter)', 'icon' => 'fab fa-x-twitter'],
-            ['name' => 'Instagram', 'icon' => 'fab fa-instagram'],
-            ['name' => 'WhatsApp', 'icon' => 'fab fa-whatsapp'],
-            ['name' => 'Telegram', 'icon' => 'fab fa-telegram'],
+            ['name' => '#phone_landline', 'icon' => 'fas fa-phone'],
+            ['name' => '#phone_mobile', 'icon' => 'fas fa-mobile-alt'],
+            ['name' => '#fax', 'icon' => 'fas fa-fax'],
+            ['name' => '#email', 'icon' => 'fas fa-envelope'],
+            ['name' => '#website', 'icon' => 'fas fa-globe'],
+            ['name' => '#linkedin', 'icon' => 'fab fa-linkedin'],
+            ['name' => '#twitter', 'icon' => 'fab fa-x-twitter'],
+            ['name' => '#instagram', 'icon' => 'fab fa-instagram'],
+            ['name' => '#whatsapp', 'icon' => 'fab fa-whatsapp'],
+            ['name' => '#telegram', 'icon' => 'fab fa-telegram'],
         ];
 
         foreach ($channels as $channel) {

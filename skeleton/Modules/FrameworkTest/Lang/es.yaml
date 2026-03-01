@@ -1,13 +1,15 @@
 # FrameworkTest Showcase
-showcase_title: Alxarafe Components Showcase
+showcase_title: Demostración de Componentes Alxarafe
+FrameworkTest: Prueba Framework
+Test: Componentes
 main_config: "⚙️ Configuración Principal"
 aesthetics: "🎨 Estética y Visualización"
 quantitative_data: "🔢 Datos Cuantitativos"
 chronology: "📅 Cronología"
 advanced_multimedia: "🚀 Avanzado y Multimedia"
-tab_components: "🧩 Componentes"
-tab_nesting: "📦 Paneles Anidados"
-tab_markdown: "📝 Markdown"
+tab_components: Componentes
+tab_nesting: Paneles Anidados
+tab_markdown: Markdown
 save_demo: Guardar Demo
 clear_cache: Limpiar Cache
 resource_name: Nombre del Recurso
@@ -50,3 +52,24 @@ select2_help: Buscador asíncrono mejorado con soporte para etiquetas
 image_help: Componente Image para previsualizar activos
 active_users: Usuarios Activos
 last_audit: Última Auditoría
+technical_description_placeholder: Detalla aquí las especificaciones...
+publication_status_help: Define si este elemento es visible en el frontend
+icon_help_fa: Selecciona un icono de FontAwesome
+csrf_token: CSRF Token
+priority: Prioridad
+parent_company_help: Campo de nivel superior
+two_factor: Autenticación 2FA
+session_timeout: Tiempo de Sesión
+15_minutes: 15 minutos
+30_minutes: 30 minutos
+1_hour: 1 hora
+2_hours: 2 horas
+nesting_demo_info: "↑ El panel 'Dirección Fiscal' contiene un sub-panel 'Contacto Principal'. Esto demuestra paneles anidados en 3 niveles."
+security: Seguridad
+gdpr_accept: Acepta RGPD
+date: Fecha
+time: Hora
+active: Activo
+category: Categoría
+editor: Editor
+preview: Previsualización

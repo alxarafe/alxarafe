@@ -1,13 +1,15 @@
 # FrameworkTest Showcase
 showcase_title: Alxarafe Components Showcase
+FrameworkTest: Framework Test
+Test: Components
 main_config: "⚙️ Main Configuration"
 aesthetics: "🎨 Aesthetics and Visualization"
 quantitative_data: "🔢 Quantitative Data"
 chronology: "📅 Chronology"
 advanced_multimedia: "🚀 Advanced and Multimedia"
-tab_components: "🧩 Components"
-tab_nesting: "📦 Nested Panels"
-tab_markdown: "📝 Markdown"
+tab_components: Components
+tab_nesting: Nested Panels
+tab_markdown: Markdown
 save_demo: Save Demo
 clear_cache: Clear Cache
 resource_name: Resource Name
@@ -50,3 +52,24 @@ select2_help: Improved asynchronous search with tag support
 image_help: Image component to preview assets
 active_users: Active Users
 last_audit: Last Audit
+technical_description_placeholder: Detail specifications here...
+publication_status_help: Defines if this item is visible on the frontend
+icon_help_fa: Select a FontAwesome icon
+csrf_token: CSRF Token
+priority: Priority
+parent_company_help: Top-level field
+two_factor: 2FA Authentication
+session_timeout: Session Timeout
+15_minutes: 15 minutes
+30_minutes: 30 minutes
+1_hour: 1 hour
+2_hours: 2 hours
+nesting_demo_info: "↑ The 'Fiscal Address' panel contains a 'Primary Contact' sub-panel. This demonstrates nested panels in 3 levels."
+security: Security
+gdpr_accept: Accepts GDPR
+date: Date
+time: Time
+active: Active
+category: Category
+editor: Editor
+preview: Preview

@@ -1,13 +1,13 @@
 # FrameworkTest Showcase
 showcase_title: Alxarafe Components Showcase
-main_config: "⚙️ Configuration Principale"
-aesthetics: "🎨 Esthétique et Visualisation"
-quantitative_data: "🔢 Données Quantitatives"
-chronology: "📅 Chronologie"
-advanced_multimedia: "🚀 Avancé et Multimédia"
-tab_components: "🧩 Composants"
-tab_nesting: "📦 Panneaux Imbriqués"
-tab_markdown: "📝 Markdown"
+main_config: "Configuration Principale"
+aesthetics: "Esthétique et Visualisation"
+quantitative_data: "Données Quantitatives"
+chronology: "Chronologie"
+advanced_multimedia: "Avancé et Multimédia"
+tab_components: Composants
+tab_nesting: Panneaux Imbriqués
+tab_markdown: Markdown
 save_demo: Enregistrer Démo
 clear_cache: Vider le Cache
 resource_name: Nom de la Ressource

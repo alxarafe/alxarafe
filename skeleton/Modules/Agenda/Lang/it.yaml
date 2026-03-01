@@ -37,3 +37,10 @@ add_address: Aggiungi Indirizzo
 add_channel: Aggiungi Canale
 addresses: Indirizzi
 contact_channels: Canali
+
+# Entity labels
+work: Lavoro
+home: Privato
+billing: Fatturazione
+shipping: Spedizione
+other: Altro

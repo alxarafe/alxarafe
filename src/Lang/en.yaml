@@ -50,11 +50,18 @@ no: No
 edit: Edit
 delete: Delete
 save: Save
+save_changes: Save changes
 cancel: Cancel
 create: Create
 update: Update
 list: List
 back: Back
+street: Street
+city: City
+state: State / Province
+postal_code: Postal Code
+country: Country
+phone: Phone
 email: Email
 password: Password
 none: None
@@ -126,6 +133,7 @@ select_language: Select Language
 available_languages: Available Languages
 select_theme: Select Theme
 available_themes: Available Themes
+pagination_text: "Showing {{start}} - {{end}} of {{total}} records"
 
 
 

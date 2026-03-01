@@ -3,6 +3,8 @@ agenda: Agenda
 contacts: Contacts
 channels: Communication Channels
 general: General
+Contact: Contacts
+ContactChannel: Channels
 
 # Contact fields
 first_name: First Name
@@ -13,7 +15,7 @@ last_name_placeholder: e.g. García López
 notes_placeholder: Notes about this contact...
 
 # Channel fields
-channel_name: Channel Name
+channel_name: Channel
 channel_name_placeholder: e.g. Landline Phone
 icon: Icon
 icon_help: FontAwesome icon (e.g. fas fa-phone)
@@ -26,14 +28,38 @@ postal_code: Postal Code
 country: Country
 additional_info: Additional Info
 address_label: Address Type
-address_label_help: e.g. home, work, partner...
+address_label_help: home, work...
 
 # Channel assignment
 channel_value: Value
-channel_value_help: The phone number, email, URL, etc.
+channel_value_help: Phone, email, URL...
 
 # Actions
 add_address: Add Address
 add_channel: Add Channel
 addresses: Addresses
 contact_channels: Channels
+
+# Channel Types
+phone_landline: Landline Phone
+phone_mobile: Mobile Phone
+fax: Fax
+email: Email
+website: Website
+linkedin: LinkedIn
+twitter: X (Twitter)
+instagram: Instagram
+whatsapp: WhatsApp
+telegram: Telegram
+
+# Shared UI
+save_changes: Save Changes
+back: Back
+create: Create
+
+# Entity labels
+work: Work
+home: Home
+billing: Billing
+shipping: Shipping
+other: Other

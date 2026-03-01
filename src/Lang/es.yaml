@@ -50,11 +50,18 @@ no: No
 edit: Editar
 delete: Borrar
 save: Guardar
+save_changes: Guardar cambios
 cancel: Cancelar
 create: Crear
 update: Actualizar
 list: Listado
 back: Volver
+street: Calle
+city: Ciudad
+state: Provincia
+postal_code: Código Postal
+country: País
+phone: Teléfono
 email: Correo electrónico
 password: Contraseña
 none: Ninguno
@@ -126,3 +133,4 @@ select_language: Seleccionar idioma
 available_languages: Idiomas disponibles
 select_theme: Seleccionar tema
 available_themes: Temas disponibles
+pagination_text: "Mostrando {{start}} - {{end}} de {{total}} registros"
