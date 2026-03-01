@@ -15,10 +15,8 @@ if (!defined('BASE_PATH')) {
 
 // 1. Resolve APP_PATH (The application root)
 if (!defined('APP_PATH')) {
-    $appPath = realpath(__DIR__ . '/../');
-    if (!$appPath || $appPath === __DIR__) {
-        $appPath = __DIR__;
-    }
+    $baseAppPath = __DIR__ . '/../';
+    $appPath = realpath($baseAppPath) ?: dirname(__DIR__);
     define('APP_PATH', $appPath); // Root of the app
 }
 
@@ -28,12 +26,13 @@ if (!defined('ALX_PATH')) {
         // Production layout or combined layout: framework is in the same root
         define('ALX_PATH', constant('APP_PATH'));
     } elseif (is_dir(constant('APP_PATH') . '/../src/Core')) {
-        // Alternative layout (e.g. some dev setups)
-        define('ALX_PATH', realpath(constant('APP_PATH') . '/..'));
+        // Alternative layout
+        $alxPath = realpath(constant('APP_PATH') . '/..');
+        define('ALX_PATH', $alxPath ?: dirname(constant('APP_PATH')));
     } else {
-        // Development fallback: framework is in the parent of the project
+        // Development fallback
         $alxPath = realpath(constant('APP_PATH') . '/../');
-        define('ALX_PATH', $alxPath ?: constant('APP_PATH'));
+        define('ALX_PATH', $alxPath ?: dirname(constant('APP_PATH')));
     }
 }
 
