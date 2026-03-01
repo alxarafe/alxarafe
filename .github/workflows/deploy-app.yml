@@ -42,33 +42,27 @@ jobs:
         run: |
           mkdir -p deploy/public_html
           
-          # Framework source (above public_html)
+          # 1. Framework source & core templates (from root)
           cp -r src deploy/src
           cp -r templates deploy/templates
           cp composer.json deploy/composer.json
           
-          # Skeleton app files (above public_html)
-          # First remove the temporary 'src' we copied for composer
-          rm -rf skeleton/src
+          # 2. Skeleton application folders (above public_html)
+          # We take everything from skeleton EXCEPT 'src', 'public' and 'vendor' (handled separately)
+          rsync -av --exclude='src' --exclude='public' --exclude='vendor' --exclude='Tests' skeleton/ deploy/
           
-          # Now copy skeleton contents to deploy
-          cp -r skeleton/* deploy/
+          # 3. Dependencies from skeleton
+          cp -r skeleton/vendor deploy/vendor
           
-          # Remove public from root as it's now in public_html
-          rm -rf deploy/public 2>/dev/null || true
-          
-          # Remove internal tests from deploy
-          rm -rf deploy/Tests
-          rm -rf deploy/skeleton/Tests
-          
-          # Public files → public_html
-          # Ensure .htaccess and index.php are correctly placed
+          # 4. Public assets -> public_html
+          # We copy the CONTENT of skeleton/public to deploy/public_html
           cp -r skeleton/public/* deploy/public_html/ 2>/dev/null || true
           cp skeleton/public/.htaccess deploy/public_html/.htaccess 2>/dev/null || true
           
-          # Clear stale Blade cache
+          # 5. Clear stale Blade cache
           rm -rf deploy/var/cache/blade
           mkdir -p deploy/var/cache/blade
+          chmod -R 775 deploy/var/cache
 
       # Single deploy step to upload everything
       - name: Deploy to server

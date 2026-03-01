@@ -59,10 +59,10 @@ if ($config && isset($config->main->language)) {
 }
 
 // Check if assets are installed. If not, try to install them.
-// This is useful for Docker environments where volumes might obscure built assets.
-if (!is_dir(__DIR__ . '/themes') || !is_dir(__DIR__ . '/css')) {
-    // Only attempt in specific environments to avoid performance hit on prod?
-    // For now, check if we are in dev/local.
+// This is useful for Docker environments and production where some folders might be missing.
+if (!file_exists(__DIR__ . '/themes/default/css/default.css') || !is_dir(__DIR__ . '/css')) {
+    // Only attempt in specific environments or if source is available?
+    // We already checked APP_PATH and ALX_PATH exist in production.
     if (class_exists(\Alxarafe\Scripts\ComposerScripts::class)) {
         // We'll use a mocked IO for runtime execution
         $io = new class {
