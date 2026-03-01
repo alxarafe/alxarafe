@@ -89,6 +89,7 @@ jobs:
           password: ${{ secrets.FTP_APP_PASS }}
           protocol: ftp
           port: 21
+          timeout: 60000 # Increase timeout to 60 seconds
           local-dir: ./deploy/
           server-dir: /
           exclude: |
