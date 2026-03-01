@@ -1,0 +1,20 @@
+name: 'Alxarafe YAML Test'
+description: 'Este es un ejemplo de cómo Alxarafe maneja formularios complejos con paneles y componentes modernizados. Estás viendo los datos por defecto porque aún no has guardado nada.'
+active: '1'
+icon: 'fas fa-shield-alt'
+type: core
+category_id: '3'
+_token: ''
+contact_first: ''
+contact_last: ''
+contact_email: info@alxarafe.com
+row_active: '0'
+company_name: 'Alxarafe Technologies S.L.'
+address_street: 'Calle Innovación, 42'
+address_city: Sevilla
+address_zip: '41013'
+address_country: ES
+contact_phone: '+34 954 000 000'
+contact_gdpr: '1'
+two_factor: '1'
+session_timeout: '30'

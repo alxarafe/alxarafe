@@ -44,6 +44,7 @@ use Alxarafe\Component\Enum\ActionPosition;
 use Alxarafe\Component\Fields\Hidden;
 use Alxarafe\Service\MarkdownService;
 use Modules\FrameworkTest\Model\TestModel;
+use Symfony\Component\Yaml\Yaml;
 
 #[Menu(
     menu: 'main_menu',
@@ -109,15 +110,31 @@ class TestController extends PublicResourceController
     }
 
     /**
+     * Path to the temporary YAML file for demo data.
+     */
+    protected function getDemoFilePath(): string
+    {
+        return (defined('APP_PATH') ? constant('APP_PATH') : __DIR__ . '/../../') . '/var/demo_data.yaml';
+    }
+
+    /**
      * Handle the request for the test page.
-     * Intercepts the 'save' action to provide a demo message without a real database.
+     * Intercepts the 'save' action to persist data into a YAML file for demo purposes.
      */
     #[\Override]
     protected function handleRequest()
     {
         // Custom handling for 'save' button in demo mode
         if ((isset($_POST['action']) && $_POST['action'] === 'save') || (isset($_GET['ajax']) && $_GET['ajax'] === 'save_record')) {
-            \Alxarafe\Lib\Messages::addMessage("DEMO: En un entorno real, los datos se habrían guardado en la base de datos.");
+            $data = $_POST['data'] ?? [];
+            if (!empty($data)) {
+                try {
+                    file_put_contents($this->getDemoFilePath(), Yaml::dump($data));
+                    \Alxarafe\Lib\Messages::addMessage("DEMO: Los datos se han guardado correctamente en el archivo YAML temporal.");
+                } catch (\Exception $e) {
+                    \Alxarafe\Lib\Messages::addError("Error al guardar en YAML: " . $e->getMessage());
+                }
+            }
             return;
         }
 
@@ -345,9 +362,21 @@ class TestController extends PublicResourceController
 
     protected function getDemoData(): array
     {
+        $filePath = $this->getDemoFilePath();
+        if (file_exists($filePath)) {
+            try {
+                $savedData = Yaml::parseFile($filePath);
+                if (is_array($savedData)) {
+                    return $savedData;
+                }
+            } catch (\Exception $e) {
+                // Return default if parse fails
+            }
+        }
+
         return [
             'name' => 'Alxarafe Showcase 2026',
-            'description' => 'Este es un ejemplo de cómo Alxarafe maneja formularios complejos con paneles y componentes modernizados.',
+            'description' => 'Este es un ejemplo de cómo Alxarafe maneja formularios complejos con paneles y componentes modernizados. Estás viendo los datos por defecto porque aún no has guardado nada.',
             'active' => true,
             'integer' => 42,
             'decimal' => 1250.50,
