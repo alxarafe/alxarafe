@@ -108,6 +108,22 @@ class TestController extends PublicResourceController
         \Alxarafe\Lib\Functions::httpRedirect($this->url());
     }
 
+    /**
+     * Handle the request for the test page.
+     * Intercepts the 'save' action to provide a demo message without a real database.
+     */
+    #[\Override]
+    protected function handleRequest()
+    {
+        // Custom handling for 'save' button in demo mode
+        if ((isset($_POST['action']) && $_POST['action'] === 'save') || (isset($_GET['ajax']) && $_GET['ajax'] === 'save_record')) {
+            \Alxarafe\Lib\Messages::addMessage("DEMO: En un entorno real, los datos se habrían guardado en la base de datos.");
+            return;
+        }
+
+        parent::handleRequest();
+    }
+
     // ───────────────────────────────────────────────
     //  VIEW DESCRIPTOR — Component-based body format
     // ───────────────────────────────────────────────
