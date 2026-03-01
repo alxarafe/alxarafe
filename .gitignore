@@ -26,7 +26,8 @@ phpdoc.phar
 # Skeleton Development App
 skeleton/vendor/
 skeleton/tmp/
-skeleton/var/cache/*
+skeleton/var/*
+!skeleton/var/.gitkeep
 skeleton/data/
 skeleton/public/themes/
 skeleton/public/alxarafe/
