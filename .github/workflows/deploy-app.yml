@@ -48,15 +48,17 @@ jobs:
           cp composer.json deploy/composer.json
           
           # Skeleton app files (above public_html)
-          # We copy skeleton contents EXCEPT the temporary 'src' we copied for composer
-          rm -rf skeleton/src
+          # We copy skeleton contents EXCEPT 'src' (temp) and 'public' (moved to public_html)
           cp -r skeleton/* deploy/
+          rm -rf deploy/src
+          rm -rf deploy/public 2>/dev/null || true
           
           # Remove internal tests from deploy
           rm -rf deploy/Tests
           rm -rf deploy/skeleton/Tests
           
           # Public files → public_html
+          # Ensure .htaccess and index.php are correctly placed
           cp -r skeleton/public/* deploy/public_html/ 2>/dev/null || true
           cp skeleton/public/.htaccess deploy/public_html/.htaccess 2>/dev/null || true
           

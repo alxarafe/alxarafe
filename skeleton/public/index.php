@@ -9,29 +9,37 @@ use Alxarafe\Lib\Trans;
 use Alxarafe\Tools\Debug;
 
 // Define base paths
-define('BASE_PATH', __DIR__); // skeleton/public
-define('BASE_URL', \Alxarafe\Lib\Functions::getUrl());
-$appPath = realpath(__DIR__ . '/../');
-if (!$appPath) {
-    $appPath = dirname(__DIR__);
-}
-define('APP_PATH', $appPath); // Root of the app (skeleton)
-
-// Resolve ALX_PATH (Framework root)
-// 1. Check if we're in a combined production layout (src exists in APP_PATH)
-if (file_exists(__DIR__ . '/src/Core')) {
-    define('BASE_PATH', __DIR__);
-    define('APP_PATH', __DIR__);
-    define('ALX_PATH', __DIR__ . '/src/Core');
-} else {
-    // 2. Default to relative path for development
-    $alxPath = realpath(__DIR__ . '/../../');
-    define('ALX_PATH', $alxPath ?: dirname($appPath));
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', __DIR__); // skeleton/public or public_html
 }
 
-// Pre-define APP_PATH for Config class to find the config.json correctly
+// 1. Resolve APP_PATH (The application root)
 if (!defined('APP_PATH')) {
-    define('APP_PATH', realpath(__DIR__ . '/../'));
+    $appPath = realpath(__DIR__ . '/../');
+    if (!$appPath || $appPath === __DIR__) {
+        $appPath = __DIR__;
+    }
+    define('APP_PATH', $appPath); // Root of the app
+}
+
+// 2. Resolve ALX_PATH (The framework root)
+if (!defined('ALX_PATH')) {
+    if (is_dir(constant('APP_PATH') . '/src/Core')) {
+        // Production layout or combined layout: framework is in the same root
+        define('ALX_PATH', constant('APP_PATH'));
+    } elseif (is_dir(constant('APP_PATH') . '/../src/Core')) {
+        // Alternative layout (e.g. some dev setups)
+        define('ALX_PATH', realpath(constant('APP_PATH') . '/..'));
+    } else {
+        // Development fallback: framework is in the parent of the project
+        $alxPath = realpath(constant('APP_PATH') . '/../');
+        define('ALX_PATH', $alxPath ?: constant('APP_PATH'));
+    }
+}
+
+// 3. Define other constants
+if (!defined('BASE_URL')) {
+    define('BASE_URL', \Alxarafe\Lib\Functions::getUrl());
 }
 
 // Load Configuration and Initialize Services
