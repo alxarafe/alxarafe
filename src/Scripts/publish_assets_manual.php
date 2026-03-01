@@ -19,7 +19,29 @@
 
 namespace Alxarafe\Scripts;
 
-require __DIR__ . '/../../vendor/autoload.php';
+// Robust autoloader discovery
+$autoloaders = [
+    __DIR__ . '/../../vendor/autoload.php',           // Standard root
+    __DIR__ . '/../../skeleton/vendor/autoload.php',  // Skeleton-first (CI)
+    __DIR__ . '/../../../../autoload.php',            // vendor/alxarafe/alxarafe/src/Scripts
+];
+
+$loaded = false;
+foreach ($autoloaders as $autoloader) {
+    if (file_exists($autoloader)) {
+        require $autoloader;
+        $loaded = true;
+        break;
+    }
+}
+
+if (!$loaded) {
+    echo "Fatal error: Could not find vendor/autoload.php in any of the expected locations." . PHP_EOL;
+    foreach ($autoloaders as $path) {
+        echo "  Checked: " . realpath($path) . " (" . $path . ")" . PHP_EOL;
+    }
+    exit(1);
+}
 
 class MockIO
 {

@@ -42,12 +42,16 @@ jobs:
           # Copy src into skeleton temporarily so composer can see it for path mapping
           cp -r src skeleton/src
           # Adjust paths in skeleton/composer.json to be relative to the root for production
+          # Also add the Scripts mapping if missing
           sed -i 's|../src/|src/|g' skeleton/composer.json
+          # Add Alxarafe\Scripts mapping to skeleton composer.json for asset publication
+          php -r '$c = json_decode(file_get_contents("skeleton/composer.json"), true); $c["autoload"]["psr-4"]["Alxarafe\\Scripts\\"] = "src/Scripts"; file_put_contents("skeleton/composer.json", json_encode($c, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));'
           cd skeleton && composer update --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs && cd ..
 
       - name: Publish framework assets to skeleton
         run: |
-          php src/Scripts/publish_assets_manual.php
+          # Run from skeleton so paths match its vendor
+          cd skeleton && php src/Scripts/publish_assets_manual.php && cd ..
 
       # Build a clean deploy directory with the server structure
       - name: Prepare deploy structure
