@@ -27,15 +27,27 @@ jobs:
         with:
           php-version: '8.2'
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build frontend assets
+        run: |
+          npm install
+          npm run dev
+          
       - name: Install Composer dependencies (skeleton)
         run: |
           # Copy src into skeleton temporarily so composer can see it for path mapping
-          # This ensures the autoloader points to the correct place relative to the app
           cp -r src skeleton/src
           # Adjust paths in skeleton/composer.json to be relative to the root for production
-          # When vendor is at the domain root, src is also at the domain root.
           sed -i 's|../src/|src/|g' skeleton/composer.json
           cd skeleton && composer update --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs && cd ..
+
+      - name: Publish framework assets to skeleton
+        run: |
+          php src/Scripts/publish_assets_manual.php
 
       # Build a clean deploy directory with the server structure
       - name: Prepare deploy structure
