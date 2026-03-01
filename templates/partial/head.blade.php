@@ -45,6 +45,8 @@
         margin-left: 0;
         padding: 20px;
         flex-grow: 1;
+        min-width: 0; /* Prevent flex item from expanding beyond parent */
+        overflow-x: hidden; /* Clip content that would flow under sidebar */
         transition: margin-left 0.3s;
     }
 
