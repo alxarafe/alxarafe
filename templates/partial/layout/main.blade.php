@@ -4,7 +4,7 @@
     <title>{!! $me->title !!}</title>
     @include('partial.head')
 </head>
-<body class="container">
+<body>
     <!-- Header handled by Top Bar -->
     <!-- Header handled by Body Templates -->
     @if ($empty ?? false)
