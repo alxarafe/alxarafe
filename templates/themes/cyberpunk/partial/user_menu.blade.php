@@ -30,7 +30,9 @@
         </div>
     @else
         <!-- Guest Access icon -->
-        @include('component.menu_item', ['url' => 'index.php?module=Admin&controller=Auth', 'icon' => 'fas fa-sign-in-alt', 'title' => \Alxarafe\Lib\Trans::_('login_button')])
+        @if(stripos($_SERVER['QUERY_STRING'] ?? '', 'controller=Auth') === false)
+            @include('component.menu_item', ['url' => 'index.php?module=Admin&controller=Auth', 'icon' => 'fas fa-sign-in-alt', 'title' => \Alxarafe\Lib\Trans::_('login_button')])
+        @endif
     @endif
 
     <!-- Notifications (Admin feature) -->

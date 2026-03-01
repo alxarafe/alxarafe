@@ -60,6 +60,28 @@
         .has-sidebar #id-right {
             margin-left: 0;
         }
+        #id-right {
+            padding: 10px;
+        }
+        /* Reduce title size on mobile */
+        .display-6 {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Scrollable tabs on narrow screens */
+    .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+    }
+    .nav-tabs::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    .nav-tabs .nav-item {
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
     /* Switcher global styles */

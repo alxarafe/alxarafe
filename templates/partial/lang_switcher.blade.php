@@ -15,13 +15,13 @@
     $currentFlag = $languagesData[$currentLang]['flag'] ?? 'un';
 @endphp
 
-<a class="nav-link dropdown-toggle d-flex align-items-center px-2 text-secondary"
-   style="height: 40px; min-width: 40px; justify-content: center;"
+<a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center px-1 text-secondary"
+   style="height: 40px; min-width: 40px;"
    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ \Alxarafe\Lib\Trans::_('select_language') }}">
     @if($isUserSelection && $currentFlag !== 'un')
-        <span class="fi fi-{{ $currentFlag }} shadow-sm rounded-1" style="width: 1.4rem; height: 1rem;"></span>
+        <span class="fi fi-{{ $currentFlag }} shadow-sm rounded-1" style="width: 1.4rem; height: 1.1rem; flex-shrink: 0;"></span>
     @else
-        <i class="fas fa-globe fa-lg cyber-icon"></i>
+        <i class="fas fa-globe fa-lg cyber-icon" style="flex-shrink: 0;"></i>
     @endif
 </a>
 

@@ -1,5 +1,5 @@
 <!-- Top Bar (Flexbox Layout) -->
-    <header class="d-flex flex-column-reverse flex-md-row align-items-center justify-content-between px-3 py-2 bg-light border-bottom">
+    <header class="d-flex flex-column-reverse flex-md-row align-items-center justify-content-between px-2 px-md-3 py-1 py-md-2 bg-light border-bottom">
         
         <!-- Brand / Title Section -->
         <div class="d-flex align-items-center flex-grow-1 w-100 w-md-auto mt-2 mt-md-0">

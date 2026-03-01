@@ -42,7 +42,7 @@
         <!-- Main Content -->
         <main class="{{ $hasSidebar ? 'col-md-9 ms-sm-auto col-lg-10' : 'col-12' }} px-md-4 py-4">
             <div class="cyber-main-content">
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-2">
                     <h1 class="cyber-page-title mb-0 d-flex align-items-center">
                         <button class="btn btn-sm btn-outline-info me-3 d-md-none" onclick="document.getElementById('cyber-sidebar-col').classList.toggle('d-none');">
                             <i class="fas fa-bars"></i>

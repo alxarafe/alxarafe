@@ -8,23 +8,23 @@
     <div id="id-right">
 
         @include('partial.user_menu')
-        <!-- Unified Page Header -->
         <div class="container-fluid mt-4">
+            <!-- Unified Page Header -->
             <div class="row mb-4 align-items-center">
-                <div class="col d-flex align-items-center">
+                <div class="col-12 col-md d-flex align-items-center mb-2 mb-md-0">
                     @if ($me->title)
                         <h1 class="display-6 fw-bold mb-0">{!! $me->title !!}</h1>
                     @endif
                 </div>
-                <div class="col text-end">
+                <div class="col-12 col-md-auto text-end">
                     <div class="page-actions" id="global-actions-container">
                         @yield('header_actions')
                     </div>
                 </div>
             </div>
+
+            @include('partial.alerts')
+            @yield('content')
         </div>
-        
-        @include('partial.alerts')
-        @yield('content')
     </div>
 </div>

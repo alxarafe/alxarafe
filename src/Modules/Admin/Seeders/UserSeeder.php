@@ -47,14 +47,32 @@ class UserSeeder extends Seeder
 
         $modelClass::create([
             'name' => 'admin',
-            'email' => 'admin@mycompany.com',
+            'email' => 'admin@alxarafe.com',
             'password' => $hashedPassword,
             'is_admin' => true,
         ]);
 
         $modelClass::create([
             'name' => 'user',
-            'email' => 'user@mycompany.com',
+            'email' => 'user@alxarafe.com',
+            'password' => $hashedPassword,
+        ]);
+
+        $modelClass::create([
+            'name' => 'tester',
+            'email' => 'tester@alxarafe.com',
+            'password' => $hashedPassword,
+        ]);
+
+        $modelClass::create([
+            'name' => 'gestor',
+            'email' => 'gestor@alxarafe.com',
+            'password' => $hashedPassword,
+        ]);
+
+        $modelClass::create([
+            'name' => 'auditor',
+            'email' => 'auditor@alxarafe.com',
             'password' => $hashedPassword,
         ]);
     }
