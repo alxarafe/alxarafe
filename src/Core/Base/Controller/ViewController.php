@@ -80,7 +80,7 @@ abstract class ViewController extends GenericController
             $this->addTemplatesPath($appPath . '/templates');
 
             // 2. Active Theme templates (Highest priority)
-            $theme = Config::getConfig()?->main?->theme ?? 'default';
+            $theme = Config::getConfig()?->main->theme ?? 'default';
             if ($theme !== 'default') {
                 $themePath = $appPath . '/themes/' . $theme . '/templates';
                 if (is_dir($themePath)) {

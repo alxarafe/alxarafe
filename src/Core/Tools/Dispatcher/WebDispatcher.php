@@ -80,7 +80,7 @@ class WebDispatcher extends Dispatcher
                             return $this;
                         }
                     };
-                    $event = new class($io) {
+                    $event = new class ($io) {
                         private $io;
                         public function __construct($io)
                         {
@@ -185,10 +185,7 @@ class WebDispatcher extends Dispatcher
                 static::dieWithMessage(\Alxarafe\Lib\Trans::_('dispatcher_file_not_found', ['file' => $filename]));
             }
 
-            // Final safety check before require
-            if (class_exists($className)) {
-                return true;
-            }
+
 
             if (isset($_GET['debug'])) {
                 echo "<!-- Loading $className from $filename -->\n";

@@ -184,36 +184,32 @@ abstract class ComposerScripts
     }
     private static function getPublicDir(): string
     {
-        $standardPublic = realpath(__DIR__ . '/../../../../../public');
-        $devPublic = realpath(__DIR__ . '/../../skeleton/public');
-        $prodPublic = realpath(__DIR__ . '/../../public_html');
-        $rootPublic = realpath(__DIR__ . '/../../public');
+        $root = realpath(__DIR__ . '/../../') ?: (__DIR__ . '/../../');
 
-        if ($prodPublic && is_dir($prodPublic)) {
-            return $prodPublic;
-        }
-        if ($rootPublic && is_dir($rootPublic)) {
-            return $rootPublic;
-        }
-        if ($standardPublic && is_dir($standardPublic)) {
-            return $standardPublic;
-        }
-        if ($devPublic && is_dir($devPublic)) {
-            return $devPublic;
-        }
+        // Check priorities
+        $checks = [
+            $root . '/public_html',
+            $root . '/public',
+            $root . '/skeleton/public',
+            realpath(__DIR__ . '/../../../../../public'), // vendor standard
+        ];
 
-        // Search for common names in root
-        $root = realpath(__DIR__ . '/../../'); // App Root in new layout
-        if ($root) {
-            $commonNames = ['public_html', 'public', 'www', 'htdocs', 'html'];
-            foreach ($commonNames as $name) {
-                if (is_dir($root . '/' . $name)) {
-                    return $root . '/' . $name;
-                }
+        foreach ($checks as $path) {
+            if ($path && is_dir($path)) {
+                return (string)realpath($path) ?: $path;
             }
         }
 
-        // Fallback to absolute relative to this script
-        return $prodPublic ?: ($root ? $root . '/public_html' : $standardPublic);
+        // Search for common names in root if not found
+        $commonNames = ['www', 'htdocs', 'html'];
+        foreach ($commonNames as $name) {
+            $path = $root . '/' . $name;
+            if (is_dir($path)) {
+                return (string)realpath($path) ?: $path;
+            }
+        }
+
+        // Final fallback: assume public_html in root
+        return $root . '/public_html';
     }
 }
