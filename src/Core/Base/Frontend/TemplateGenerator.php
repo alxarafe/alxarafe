@@ -104,6 +104,7 @@ class TemplateGenerator
         $out .= "    @if((\$btn['action'] ?? 'submit') === 'submit')\n";
         $out .= "        <button type=\"submit\" form=\"alxarafe-edit-form\"\n";
         $out .= "                name=\"{{ \$btn['name'] ?? '' }}\" value=\"{{ \$btn['name'] ?? '' }}\"\n";
+        $out .= "                onclick=\"document.querySelector('#alxarafe-edit-form input[name=action]').value='{{ \$btn['name'] ?? 'save' }}'\"\n";
         $out .= "                class=\"btn btn-{{ \$btn['type'] ?? 'primary' }}\">\n";
         $out .= "            @if(!empty(\$btn['icon']))<i class=\"{{ \$btn['icon'] }} me-1\"></i>@endif\n";
         $out .= "            {{ \$btn['label'] ?? '' }}\n";

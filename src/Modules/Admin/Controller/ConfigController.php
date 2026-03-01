@@ -100,12 +100,19 @@ class ConfigController extends ResourceController
             $buttons[] = ['label' => Trans::_('exit'), 'icon' => 'fas fa-sign-out-alt', 'type' => 'danger', 'action' => 'submit', 'name' => 'exit'];
         }
 
+        // Security: Clone data and clear the password before sending to the view
+        $viewData = clone($this->data ?? new \stdClass());
+        if (isset($viewData->db) && isset($viewData->db->pass)) {
+            $viewData->db = clone $viewData->db;
+            $viewData->db->pass = '';
+        }
+
         return [
             'mode'     => $this->mode ?? 'edit',
             'method'   => 'POST',
             'action'   => '?module=' . static::getModuleName() . '&controller=' . static::getControllerName(),
             'recordId' => 'current',
-            'record'   => $this->data ?? new \stdClass(),
+            'record'   => $viewData,
             'buttons'  => $buttons,
             'body'     => new \Alxarafe\Component\Container\Panel('', [$body], ['col' => 'col-12']),
         ];
@@ -262,6 +269,11 @@ class ConfigController extends ResourceController
 
         if (Config::setConfig($configData)) {
             if (empty($_GET['ajax'])) {
+                // Store flash message in session so it survives the redirect
+                if (session_status() === PHP_SESSION_ACTIVE) {
+                    $_SESSION['flash_message'] = Trans::_('settings_saved_successfully');
+                    $_SESSION['flash_type'] = 'success';
+                }
                 Functions::httpRedirect($this->url('index', ['method' => 'general']) . '#');
                 exit;
             }
@@ -272,6 +284,14 @@ class ConfigController extends ResourceController
             ]);
         } else {
             error_log("Alxarafe Config Error: Failed to save record in ConfigController. Check file permissions for config.json");
+            if (empty($_GET['ajax'])) {
+                if (session_status() === PHP_SESSION_ACTIVE) {
+                    $_SESSION['flash_message'] = Trans::_('error_saving_settings');
+                    $_SESSION['flash_type'] = 'danger';
+                }
+                Functions::httpRedirect($this->url('index', ['method' => 'general']) . '#');
+                exit;
+            }
             $this->jsonResponse(['status' => 'error', 'error' => Trans::_('error_saving_settings')]);
         }
     }
@@ -340,6 +360,19 @@ class ConfigController extends ResourceController
     #[\Override]
     public function beforeAction(): bool
     {
+        // Restore flash messages from session (survive redirects)
+        if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION['flash_message'])) {
+            $type = $_SESSION['flash_type'] ?? 'success';
+            if ($type === 'success') {
+                Messages::addMessage($_SESSION['flash_message']);
+            } elseif ($type === 'danger') {
+                Messages::addError($_SESSION['flash_message']);
+            } else {
+                Messages::addAdvice($_SESSION['flash_message']);
+            }
+            unset($_SESSION['flash_message'], $_SESSION['flash_type']);
+        }
+
         $this->getPost();
 
         $this->languages = Trans::getAvailableLanguages();

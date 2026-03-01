@@ -174,7 +174,6 @@ class TestController extends PublicResourceController
             'buttons'  => [
                 ['label' => \Alxarafe\Lib\Trans::_('save_demo'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
                 ['label' => \Alxarafe\Lib\Trans::_('clear_cache'), 'icon' => 'fas fa-broom', 'type' => 'warning', 'action' => 'submit', 'name' => 'clearCache'],
-                ['label' => \Alxarafe\Lib\Trans::_('back'), 'icon' => 'fas fa-arrow-left', 'type' => 'secondary', 'action' => 'url', 'target' => 'index.php'],
             ],
             'body' => new TabGroup([
                 new Tab('components', \Alxarafe\Lib\Trans::_('tab_components'), 'fas fa-puzzle-piece', $this->buildComponentsPanels()),

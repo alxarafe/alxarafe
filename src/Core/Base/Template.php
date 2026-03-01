@@ -39,9 +39,6 @@ class Template
     {
         $this->paths = $paths;
         $this->blade = null;
-        // Reset the global container so that namespace registrations from
-        // previous Blade instances do not survive with stale prefixHash values.
-        self::$globalContainer = null;
     }
 
     public function addPath(string $path): void
@@ -49,7 +46,6 @@ class Template
         if (!in_array($path, $this->paths)) {
             $this->paths[] = $path;
             $this->blade = null;
-            self::$globalContainer = null;
         }
     }
 
@@ -113,6 +109,7 @@ class Template
                 $cleanPath = rtrim($path, '/');
                 if (is_dir($cleanPath)) {
                     $this->blade->compiler()->anonymousComponentPath($cleanPath);
+                    $this->blade->addNamespace(md5($cleanPath), $cleanPath);
                     // Explicitly add the __components namespace to the view factory to avoid 'No hint path' error
                     $this->blade->addNamespace('__components', $cleanPath);
                 }

@@ -1,5 +1,12 @@
 @extends('partial.layout.main')
 
+@php
+    $pendingCount = 0;
+    foreach($allMigrationsWithStatus as $data) {
+        if($data['status'] === 'pending') $pendingCount++;
+    }
+@endphp
+
 @section('header_actions')
     <button id="startProcess" class="btn btn-primary" type="button" {{ $pendingCount === 0 ? 'disabled' : '' }}>
         <i class="fas fa-play me-2"></i> {{ $me->_('migration_start_process') }}
@@ -12,12 +19,6 @@
             <h5 class="mb-0 text-white"><i class="fas fa-database me-2"></i>{{ $me->_('migration_status_title') }}</h5>
         </div>
         <div class="card-body">
-            @php
-                $pendingCount = 0;
-                foreach($allMigrationsWithStatus as $data) {
-                    if($data['status'] === 'pending') $pendingCount++;
-                }
-            @endphp
             
             @if($pendingCount === 0)
                 <div class="alert alert-success d-flex align-items-center mb-3">
