@@ -1,0 +1,34 @@
+# 🏛️ Alxarafe Framework - Core AI Rules
+# Version: 1.1.1
+# Description: Global standards for any project based on Alxarafe Microframework.
+
+## 🌍 Language & Communication
+- **Code & Comments**: All PHP code, shell scripts, Blade templates, and internal documentation (DocBlocks) MUST be in **English**.
+- **User Interaction**: Communicate with the USER in **Spanish** (unless otherwise requested), but keep technical references and code snippets in English.
+- **Documentation**: 
+    - `doc/es/`: Primary source of documentation (Spanish).
+    - `doc/en/`: English translation, kept in sync by the Assistant.
+- **Git**: Commit messages MUST be in **English**.
+
+## 📁 Project Structure & Organization
+- **No Scripts in Root**: All executable logic must reside in subdirectories (`bin/`, `scripts/`, `ai-scripts/`, etc.).
+- **Folder Conventions**:
+    - `bin/`: Stable, path-independent repository scripts.
+    - `scripts/`: Dev-only test/diagnostic scripts (Git-ignored).
+    - `ai-scripts/`: AI-specific utilities (Git-ignored).
+    - `doc/`: Documentation root.
+- **Configuration**: Prefer `config/config.json` and `config/routes.php` over root files (maintain backward compatibility).
+
+## 🧩 Frontend & Components
+- **Encapsulation**: ALWAYS use Blade Components for UI elements (e.g., `<x-form.input>`) instead of raw HTML tags.
+- **Decoupling**: 
+    - No HTML strings inside PHP classes (use Blade).
+    - No complex PHP logic inside Blade (use controllers or directives).
+    - No inline JS/TS/CSS; use dedicated files.
+
+## 🛠️ Development Workflow
+- **Git Hygiene**: Ensure no logs, temp files, or `.php.bak` files are included in commits.
+- **Dependency Respect**: Treat `alxarafe/alxarafe` in `vendor/` as a "Read-Only" library. 
+    - Modifications to the Core must be done in its own repository, NOT inside a project's `vendor/` folder.
+- **Core Modification Restriction**: The Assistant IS NOT ALLOWED to modify `alxarafe` core code when working from another application or project, unless explicitly REQUESTED by the USER.
+- **Modernization**: Prefer PHP 8.2+ features (attributes, constructor promotion, readonly properties).
