@@ -19,6 +19,8 @@
 
 namespace Alxarafe\Scripts;
 
+echo "Alxarafe Asset Publication Script v1.1" . PHP_EOL;
+
 // Robust autoloader discovery
 $autoloaders = [
     __DIR__ . '/../../vendor/autoload.php',           // Standard root
@@ -29,6 +31,7 @@ $autoloaders = [
 $loaded = false;
 foreach ($autoloaders as $autoloader) {
     if (file_exists($autoloader)) {
+        echo "Loading autoloader: " . realpath($autoloader) . PHP_EOL;
         require $autoloader;
         $loaded = true;
         break;
