@@ -67,12 +67,12 @@ class ThemeManager
         // But previously fields were in 'components/fields'.
         // Let's check if 'templates/component' has subdirs.
 
-        $baseTemplates = $this->scanFieldTemplatesRecursive($this->basePath . '/component/fields');
+        $baseTemplates = $this->scanFieldTemplatesRecursive($this->basePath . '/component/form/fields');
 
         $skin = $this->getActiveSkin();
         $skinTemplates = [];
         if ($skin && $skin !== 'default') {
-            $skinTemplates = $this->scanFieldTemplatesRecursive($this->basePath . "/themes/{$skin}/component/fields");
+            $skinTemplates = $this->scanFieldTemplatesRecursive($this->basePath . "/themes/{$skin}/component/form/fields");
         }
 
         return array_merge($baseTemplates, $skinTemplates);
