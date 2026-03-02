@@ -80,7 +80,7 @@ class WebDispatcher extends Dispatcher
                             return $this;
                         }
                     };
-                    $event = new class ($io) {
+                    $event = new class($io) {
                         private $io;
                         public function __construct($io)
                         {
@@ -147,6 +147,12 @@ class WebDispatcher extends Dispatcher
             echo "h1{color:#e94560}pre{background:#16213e;padding:16px;border-radius:8px;overflow-x:auto;border:1px solid #0f3460;font-size:13px}</style></head>";
             echo "<body><h1>Application Error</h1>";
             echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+
+            echo '<div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">';
+            echo '<a href="/" style="background:#e94560; color:white; padding:12px 24px; text-decoration:none; border-radius:8px; font-weight:bold; display:inline-block;">Volver a Inicio</a>';
+            echo '<button onclick="document.cookie=\'alx_theme=default; path=/\'; location.href=\'index.php\';" style="background:#0f3460; color:white; padding:12px 24px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-family:inherit;">Reiniciar Tema (Reset)</button>';
+            echo '</div>';
+
             echo "<h2>Stack Trace</h2>";
             echo "<pre>" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
             echo "</body></html>";
@@ -227,6 +233,11 @@ class WebDispatcher extends Dispatcher
         }
         if (isset($_COOKIE['alx_lang'])) {
             $language = $_COOKIE['alx_lang'];
+        }
+
+        // Emergency fallback: If it's an error controller, force default theme
+        if ($module === 'Admin' && $controller === 'Error') {
+            $theme = 'default';
         }
 
         \Alxarafe\Lib\Trans::setLang($language);

@@ -15,6 +15,12 @@
         </div>
         <p>Go to the <a href="index.php?module=Admin&controller=Auth">user login page</a> to access the application.</p>
         <p>You can access the settings at the following <a href="index.php?module=Admin&controller=Config">link</a>.</p>
+        <div class="mt-4 border-top pt-3">
+             <p class="text-muted small">If the error persists or the page looks broken, try resetting the theme:</p>
+             <button onclick="document.cookie='alx_theme=default; path=/'; location.href='index.php';" class="btn btn-outline-warning">
+                 <i class="fas fa-magic"></i> Resetear Tema (Modo Seguro)
+             </button>
+        </div>
     @endcomponent
 @endsection
 

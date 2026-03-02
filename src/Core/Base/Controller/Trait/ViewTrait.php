@@ -129,8 +129,25 @@ trait ViewTrait
 
         try {
             return $this->template->render($viewPath, $this->viewData);
-        } catch (\Exception $e) {
-            return "Error rendering template: " . $e->getMessage();
+        } catch (\Throwable $e) {
+            $msg = $e->getMessage();
+            $file = method_exists($e, 'getFile') ? $e->getFile() : '';
+
+            // Self-healing: If the error comes from a theme, try to reset it
+            if (str_contains($msg, '/themes/') || str_contains($file, '/themes/')) {
+                if (isset($_COOKIE['alx_theme']) && $_COOKIE['alx_theme'] !== 'default') {
+                    // Try to reset theme and redirect back
+                    setcookie('alx_theme', 'default', time() + (86400 * 30), '/');
+                    if (!headers_sent()) {
+                        header('Location: ' . ($_SERVER['REQUEST_URI'] ?? '/'));
+                        exit('Theme reset due to error. Redirecting...');
+                    }
+                }
+            }
+
+            // If we're here, either it's not a theme error or we already sent headers.
+            // Throwing allows WebDispatcher or other handlers to catch it normally.
+            throw $e;
         }
     }
     /**
