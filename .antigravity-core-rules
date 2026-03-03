@@ -43,3 +43,9 @@
     - Modifications to the Core must be done in its own repository, NOT inside a project's `vendor/` folder.
 - **Core Modification Restriction**: The Assistant IS NOT ALLOWED to modify `alxarafe` core code when working from another application or project, unless explicitly REQUESTED by the USER. (Exception: The user has explicitly authorized this update).
 - **Modernization**: Prefer PHP 8.2+ features (attributes, constructor promotion, readonly properties).
+
+## 🐳 Environment & Isolation (Docker-First)
+- **Automatic Detection**: If a project contains a `docker-compose.yml` file or a `.docker/` directory, the ASSISTANT MUST assume the project runs within a Docker environment.
+- **Proxied Execution**: ALL PHP, Composer, and test commands MUST be executed inside the relevant container (usually `*_php` or `app`) using `docker exec -it <container_name> <command>`.
+- **Infrastructure Context**: Database hosts, Redis, and other services defined in `docker-compose.yml` are only resolvable from within the Docker network. NEVER try to run migrations or database-dependent scripts from the host machine if Docker is present.
+- **Path Mapping**: Ensure file paths passed to commands inside Docker match the internal container structure (standard: `/var/www/html/`).
