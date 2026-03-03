@@ -27,8 +27,19 @@
     - No inline JS/TS/CSS; use dedicated files.
 
 ## 🛠️ Development Workflow
+- **Type Safety**: 
+    - Use `declare(strict_types=1);` in all new PHP files.
+    - ALWAYS define strict types for function arguments and return values.
+- **Testing**: 
+    - Every new feature or fix in the Core MUST include unit or integration tests in the `Tests/` directory.
+    - AI-generated logic should be verified against existing tests before finalizing.
+- **Database & Migrations**:
+    - ALL database queries and manipulations MUST be encapsulated within Model classes (Eloquent).
+    - NEVER perform direct database operations (queries, updates, deletes) inside Controllers or Blade templates.
+    - Schema modifications MUST be done via migration files or the framework's self-healing migration system.
+    - NEVER execute raw SQL for schema changes in controllers or models.
 - **Git Hygiene**: Ensure no logs, temp files, or `.php.bak` files are included in commits.
 - **Dependency Respect**: Treat `alxarafe/alxarafe` in `vendor/` as a "Read-Only" library. 
     - Modifications to the Core must be done in its own repository, NOT inside a project's `vendor/` folder.
-- **Core Modification Restriction**: The Assistant IS NOT ALLOWED to modify `alxarafe` core code when working from another application or project, unless explicitly REQUESTED by the USER.
+- **Core Modification Restriction**: The Assistant IS NOT ALLOWED to modify `alxarafe` core code when working from another application or project, unless explicitly REQUESTED by the USER. (Exception: The user has explicitly authorized this update).
 - **Modernization**: Prefer PHP 8.2+ features (attributes, constructor promotion, readonly properties).

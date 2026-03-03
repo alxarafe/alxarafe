@@ -19,8 +19,25 @@
 
 namespace Alxarafe\Tools;
 
+use Alxarafe\Lib\Auth;
+
 abstract class ModuleManager
 {
+    /**
+     * Callback para determinar si un módulo está activo.
+     * @var callable|null
+     */
+    private static $activationChecker = null;
+
+    /**
+     * Establece el verificador de activación de módulos.
+     * 
+     * @param callable $checker Función que recibe el nombre del módulo y devuelve bool
+     */
+    public static function setActivationChecker(callable $checker): void
+    {
+        self::$activationChecker = $checker;
+    }
     /**
      * Regenerate menus and actions.
      * This is temporary, everything will be cached by user or role.
@@ -81,9 +98,44 @@ abstract class ModuleManager
         $routes = self::routes();
         $data = [];
         foreach ($routes as $route) {
-            $data = array_merge($data, self::getModuleControllers($route['namespace'], $route['path']));
+            $modulesPath = $route['path'];
+            if (!is_dir($modulesPath)) continue;
+
+            $modules = scandir($modulesPath);
+            foreach ($modules as $moduleName) {
+                if ($moduleName === '.' || $moduleName === '..' || !is_dir($modulesPath . '/' . $moduleName)) {
+                    continue;
+                }
+
+                // Verificar si el módulo está activo antes de procesar sus controladores
+                if (self::isModuleActive($moduleName, $route['namespace'])) {
+                    $data = array_merge($data, self::getControllers(
+                        $route['namespace'] . '\\' . $moduleName,
+                        $modulesPath,
+                        $moduleName
+                    ));
+                }
+            }
         }
         return $data;
+    }
+
+    /**
+     * Verifica si un módulo está activado en el sistema.
+     */
+    private static function isModuleActive(string $moduleName, string $namespace): bool
+    {
+        // Los módulos del Core siempre están activos
+        if ($namespace === 'CoreModules') {
+            return true;
+        }
+
+        if (self::$activationChecker !== null) {
+            return (bool) call_user_func(self::$activationChecker, $moduleName);
+        }
+
+        // Por defecto, si no hay checker, el módulo está activo si la carpeta existe
+        return true;
     }
 
     /**
