@@ -282,6 +282,8 @@ class MenuManager
             'icon' => $attr->icon, // Icons should include prefix (fas/far/fab) in attribute
             'route' => $route,
             'url' => $url,
+            'parent' => $attr->parent,
+            'class' => $attr->class,
             'order' => $attr->order,
             'permission' => $attr->permission,
             'visibility' => $attr->visibility,
