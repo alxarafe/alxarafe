@@ -61,8 +61,29 @@ Extract the administration module to a separate package.
 *   **Action:** Move `src/Modules/Admin` to its own repository (`alxarafe/admin-panel`).
 *   **Benefit:** Alxarafe becomes a pure, lightweight, and multi-purpose microframework.
 
-### Phase 4: Application Kernel
+### Phase 4: Application Kernel (Unified Boot)
 Unify the entry point.
-
 *   **Action:** Create an `App` or `Kernel` class that initializes the framework, instead of relying on scattered configuration in `index.php`.
 *   **Benefit:** Standardized bootstrap and ease of installation.
+
+---
+
+## 3. Improvement Suggestions (March 2026)
+
+### ✅ Implemented: `#[ExtraFieldsModel]` Attribute
+*   **Action:** An explicit way to link extrafields models has been created using the `#[ExtraFieldsModel]` attribute.
+*   **Benefit:** Removes reliance on rigid class naming conventions and allows per-model custom prefixes and labels.
+
+### 🚀 Future Proposed Improvements
+
+#### 1. Migration from Webpack to Vite
+*   **Action:** Replace the Webpack asset build stack (JS/SCSS) with Vite.
+*   **Benefit:** Unification with the documentation system (VitePress), lightning-fast build times, and superior development experience (HMR).
+
+#### 2. `ResourceTrait` Modularization
+*   **Action:** Split the monolithic `ResourceTrait.php` (currently >1800 lines) into specialized components (`HasListLogic`, `HasEditLogic`, `HasMetadata`).
+*   **Benefit:** Cleaner code, easier maintenance, and flexible developer controller composition.
+
+#### 3. Strict Typing and Readonly Properties (PHP 8.2+)
+*   **Action:** Fully embrace PHP 8.2 features in the Core, including `readonly` properties for startup configuration and strict return types for all lifecycle hooks.
+*   **Benefit:** Increased code robustness, earlier error detection, and better IDE support.

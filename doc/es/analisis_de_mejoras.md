@@ -61,8 +61,29 @@ Extraer el módulo de administración a un paquete separado.
 *   **Acción:** Mover `src/Modules/Admin` a un repositorio propio (`alxarafe/admin-panel`).
 *   **Beneficio:** Alxarafe se convierte en un microframework puro, ligero y multipropósito.
 
-### Fase 4: Kernel de Aplicación
+### Fase 4: Kernel de Aplicación (Arranque Unificado)
 Unificar el punto de entrada.
-
 *   **Acción:** Crear una clase `App` o `Kernel` que inicialice el framework, en lugar de depender de la configuración dispersa en `index.php`.
 *   **Beneficio:** Arranque estandarizado y facilidad de instalación.
+
+---
+
+## 3. Sugerencias de Mejora (Marzo 2026)
+
+### ✅ Implementado: Atributo `#[ExtraFieldsModel]`
+*   **Acción:** Se ha creado una forma explícita de vincular modelos de extrafields a través del atributo `#[ExtraFieldsModel]`.
+*   **Beneficio:** Elimina la dependencia de nombres de clase rígidos y permite prefijos y etiquetas personalizados por modelo.
+
+### 🚀 Futuras Mejoras Propuestas
+
+#### 1. Migración de Webpack a Vite
+*   **Acción:** Reemplazar el stack de construcción de assets (JS/SCSS) de Webpack por Vite.
+*   **Beneficio:** Unificación con el sistema de documentación (VitePress), tiempos de compilación casi instantáneos y mejor experiencia de desarrollo (HMR).
+
+#### 2. Modularización de `ResourceTrait`
+*   **Acción:** Dividir el trait monolítico `ResourceTrait.php` (actualmente >1800 líneas) en componentes especializados (`HasListLogic`, `HasEditLogic`, `HasMetadata`).
+*   **Beneficio:** Código más limpio, fácil de mantener y permite composición de controladores más flexible para el desarrollador.
+
+#### 3. Tipado Estricto y Propiedades Readonly (PHP 8.2+)
+*   **Acción:** Adoptar plenamente las características de PHP 8.2 en el Core, incluyendo propiedades `readonly` para configuraciones de arranque y tipos de retorno estrictos en todos los hooks de ciclo de vida.
+*   **Beneficio:** Mayor robustez del código, detección temprana de errores y mejor soporte para IDEs.
