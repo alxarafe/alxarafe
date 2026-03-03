@@ -29,3 +29,14 @@
 - TypeScript must be in dedicated `.ts` files, never inline in PHP or Blade.
 - **Client-side templates** (read via `file_get_contents` for JS injection) must NOT contain Blade directives (`@extends`, `@section`, etc.).
 
+## 📢 Feedback System — Processing Incoming Proposals
+- **Collecting Feedback**: Run `composer collect-feedback` (or `php src/Scripts/collect_feedback.php`) to scan satellite apps in sibling directories for `.alxarafe/feedback/*.yml` proposals.
+- **Processing Proposals**:
+    1. Review each valid proposal for relevance, feasibility, and alignment with the framework's architecture.
+    2. For accepted proposals, add an entry to `doc/feedback/registry.yml` with status `accepted`.
+    3. For rejected or deferred proposals, add the entry with status `rejected` or `deferred` and include a clear `response` explaining why.
+    4. After implementing a proposal, update its status to `implemented` and set `resolved_in` to the target version.
+- **Updating the Changelog**: After any status change in `registry.yml`, mirror the update in `doc/feedback/changelog.yml` so satellite apps receive the updated status on their next `composer update`.
+- **Copying Proposals**: Use `composer collect-feedback -- --copy` to copy valid proposals into `doc/feedback/proposals/` for archival.
+- **Roadmap Integration**: When accepting a proposal, evaluate if it should be added to `doc/roadmap_proposals.md`.
+- **NEVER** auto-reject proposals. Always present them to the USER for triaging decisions.

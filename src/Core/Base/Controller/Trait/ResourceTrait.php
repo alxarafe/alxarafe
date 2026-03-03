@@ -21,16 +21,15 @@ declare(strict_types=1);
 
 namespace Alxarafe\Base\Controller\Trait;
 
-use Alxarafe\Attribute\ExtraFieldsModel;
 use Alxarafe\Base\Controller\Interface\ResourceInterface;
 use Alxarafe\Component\AbstractField;
 use Alxarafe\Component\Container\Panel;
 use Alxarafe\Component\Container\Tab;
 use Alxarafe\Component\Container\TabGroup;
 use Alxarafe\Component\AbstractFilter;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 use Illuminate\Database\Capsule\Manager as DB;
-use ReflectionClass;
 
 /**
  * Class ResourceController
@@ -51,6 +50,11 @@ trait ResourceTrait
      * Set to true in controllers with complex multi-section forms.
      */
     protected bool $useTabs = false;
+
+    /**
+     * Prefix for extrafields form field names to avoid collisions.
+     */
+    protected string $extrafieldsPrefix = 'extra_fields_';
 
     /**
      * Define the primary model class for this controller.
@@ -180,21 +184,6 @@ trait ResourceTrait
     ];
 
     /**
-     * @var string Suffix for the Extrafields model class detection.
-     */
-    protected string $extrafieldsSuffix = 'ExtraFields';
-
-    /**
-     * @var string Prefix for extrafields fields in the form data.
-     */
-    protected string $extrafieldsPrefix = 'extra_fields_';
-
-    /**
-     * @var string Translation key for the extrafields section label.
-     */
-    protected string $extrafieldsLabel = 'extra_fields';
-
-    /**
      * @var string Active tab identifier (List Mode)
      */
     protected string $activeTab = '';
@@ -258,6 +247,56 @@ trait ResourceTrait
             'url',
             static::url()
         );
+
+        // 3. Auto-detect Workflow transition buttons
+        $this->setupWorkflowButtons();
+    }
+
+    /**
+     * Auto-detect if the model uses HasWorkflow and inject transition buttons.
+     *
+     * Called from setup(). Only active in Edit mode with an existing record.
+     * Buttons are rendered as submit buttons with name="workflow_transition"
+     * and value=targetStateId.
+     */
+    protected function setupWorkflowButtons(): void
+    {
+        if ($this->mode !== ResourceInterface::MODE_EDIT) {
+            return;
+        }
+
+        if (!$this->modelClass || !$this->recordId || $this->recordId === 'new') {
+            return;
+        }
+
+        // Check if model uses HasWorkflow trait
+        if (!method_exists($this->modelClass, 'getAvailableTransitions')) {
+            return;
+        }
+
+        $model = $this->modelClass::find($this->recordId);
+        if (!$model) {
+            return;
+        }
+
+        $transitions = $model->getAvailableTransitions();
+        foreach ($transitions as $transition) {
+            $this->addEditButton(
+                'workflow_transition_' . $transition['id'],
+                $transition['label'],
+                'fas fa-exchange-alt',
+                'warning',
+                'left',
+                'submit',
+                (string) $transition['id']
+            );
+            // Register as a workflow action so the view can render it correctly
+            $this->structConfig['edit']['actions'][] = [
+                'type' => 'workflow_transition',
+                'target_state' => $transition['id'],
+                'label' => $transition['label'],
+            ];
+        }
     }
 
     /**
@@ -535,7 +574,7 @@ trait ResourceTrait
             $efFields = $this->convertModelFieldsToComponents($efClass::getFields());
             if (!empty($efFields)) {
                 $efSectionId = 'extrafields';
-                $this->addEditSection($efSectionId, \Alxarafe\Lib\Trans::_($this->extrafieldsLabel));
+                $this->addEditSection($efSectionId, \Alxarafe\Lib\Trans::_('extrafields'));
                 $this->setEditFields($efFields, $efSectionId);
             }
         }
@@ -556,32 +595,27 @@ trait ResourceTrait
             return null;
         }
 
-        // 1. Try Attribute-based explicit link
-        $reflection = new ReflectionClass($modelClass);
-        $attributes = $reflection->getAttributes(ExtraFieldsModel::class);
-        if (!empty($attributes)) {
-            /** @var ExtraFieldsModel $attr */
-            $attr = $attributes[0]->newInstance();
-            $this->extrafieldsSuffix = $attr->suffix;
-            $this->extrafieldsPrefix = $attr->prefix;
-            $this->extrafieldsLabel = $attr->label;
-            return $attr->modelClass;
+        // 1. Priority: PHP 8 #[ExtraFieldsModel] attribute on the model class
+        try {
+            $ref = new \ReflectionClass($modelClass);
+            $attrs = $ref->getAttributes(\Alxarafe\Attribute\ExtraFieldsModel::class);
+            if (!empty($attrs)) {
+                /** @var \Alxarafe\Attribute\ExtraFieldsModel $attr */
+                $attr = $attrs[0]->newInstance();
+                $this->extrafieldsPrefix = $attr->prefix;
+                if (class_exists($attr->modelClass) && method_exists($attr->modelClass, 'getFields')) {
+                    return $attr->modelClass;
+                }
+            }
+        } catch (\ReflectionException $e) {
+            // Silently skip — model class may not be reflectable
         }
 
-        // 2. Try configured suffix
-        $efClass = $modelClass . $this->extrafieldsSuffix;
+        // 2. Fallback: convention-based discovery ({Model}Extrafields)
+        $efClass = $modelClass . 'Extrafields';
         if (class_exists($efClass) && method_exists($efClass, 'getFields')) {
             return $efClass;
         }
-
-        // 3. Fallback to Dolibarr style if different from configured
-        if ($this->extrafieldsSuffix !== 'Extrafields') {
-            $efClass = $modelClass . 'Extrafields';
-            if (class_exists($efClass) && method_exists($efClass, 'getFields')) {
-                return $efClass;
-            }
-        }
-
         return null;
     }
 
@@ -715,6 +749,15 @@ trait ResourceTrait
                 exit;
             }
 
+            // Handle Workflow Transition (auto-detected from HasWorkflow)
+            foreach ($_POST as $name => $value) {
+                if (str_starts_with($name, 'workflow_transition_')) {
+                    $targetState = (int) str_replace('workflow_transition_', '', $name);
+                    $this->handleWorkflowTransition($targetState);
+                    return;
+                }
+            }
+
             // Handle custom submit buttons by their name (e.g. name="clearCache" calls doClearCache())
             // Exclude 'save', 'delete' and 'index' as they are main entry points.
             foreach ($_POST as $name => $value) {
@@ -734,6 +777,63 @@ trait ResourceTrait
                 $this->saveRecord();
             }
         }
+    }
+
+    // --- Workflow ---
+
+    /**
+     * Handle a workflow state transition for the current record.
+     *
+     * Loads the model, validates the transition via HasWorkflow::canTransition(),
+     * executes it, and redirects back to the edit view with a status message.
+     *
+     * @param int $targetState Target state ID from the transition buttons
+     */
+    protected function handleWorkflowTransition(int $targetState): void
+    {
+        if (!$this->recordId || $this->recordId === 'new') {
+            Messages::addError(Trans::_('workflow_no_record'));
+            return;
+        }
+
+        $modelClass = $this->modelClass;
+        if (!$modelClass) {
+            Messages::addError(Trans::_('workflow_no_model'));
+            return;
+        }
+
+        $model = $modelClass::find($this->recordId);
+        if (!$model) {
+            Messages::addError(Trans::_('record_not_found'));
+            return;
+        }
+
+        if (!method_exists($model, 'transition')) {
+            Messages::addError(Trans::_('workflow_not_supported'));
+            return;
+        }
+
+        $previousLabel = method_exists($model, 'getCurrentStateLabel') ? $model->getCurrentStateLabel() : '?';
+
+        if ($model->transition($targetState)) {
+            $newLabel = $model->getCurrentStateLabel();
+            Messages::addMessage(Trans::_('workflow_transition_success', [
+                'from' => $previousLabel,
+                'to' => $newLabel,
+            ]));
+        } else {
+            Messages::addError(Trans::_('workflow_transition_failed', [
+                'from' => $previousLabel,
+                'to' => (string) $targetState,
+            ]));
+        }
+
+        // Redirect back to edit view
+        $url = 'index.php?module=' . static::getModuleName()
+            . '&controller=' . static::getControllerName()
+            . '&id=' . $this->recordId;
+        header('Location: ' . $url);
+        exit;
     }
 
     // --- Configuration Methods ---
@@ -1297,7 +1397,12 @@ trait ResourceTrait
 
             if (!$model->save()) {
                 DB::connection()->rollBack();
-                $this->jsonResponse(['error' => 'Failed to save record']);
+                Messages::addError(Trans::_('record_save_error'));
+                $this->jsonResponse([
+                    'status' => 'error',
+                    'error' => Trans::_('record_save_error'),
+                    'messages' => Messages::getMessages(),
+                ]);
                 exit;
             }
 
@@ -1393,13 +1498,15 @@ trait ResourceTrait
 
             DB::connection()->commit();
 
+            Messages::addMessage(Trans::_('record_saved'));
+
             $this->afterSaveRecord($model, $data);
 
             $this->jsonResponse([
                 'status' => 'success',
                 'id' => $model->{$model->primaryColumn()},
                 'data' => $model->toArray(),
-                'message' => 'Record saved successfully'
+                'messages' => Messages::getMessages(),
             ]);
         } catch (\Alxarafe\Base\Testing\HttpResponseException $e) {
             throw $e;
@@ -1409,13 +1516,15 @@ trait ResourceTrait
             if (empty($msg)) {
                 $msg = 'An error occurred but the exception message was empty.';
             }
+            Messages::addError($msg);
             $this->jsonResponse([
                 'status' => 'error',
                 'error' => $msg,
                 'class' => get_class($e),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
+                'messages' => Messages::getMessages(),
             ]);
         }
         exit;
@@ -1529,6 +1638,24 @@ trait ResourceTrait
             }
         }
         $this->addVariable('fields', $viewFields);
+
+        // Workflow: pass available transitions and current state to the view
+        $workflowTransitions = [];
+        $workflowCurrentState = '';
+        if (
+            $this->modelClass
+            && $this->recordId
+            && $this->recordId !== 'new'
+            && method_exists($this->modelClass, 'getAvailableTransitions')
+        ) {
+            $wfModel = $this->modelClass::find($this->recordId);
+            if ($wfModel) {
+                $workflowTransitions = $wfModel->getAvailableTransitions();
+                $workflowCurrentState = $wfModel->getCurrentStateLabel();
+            }
+        }
+        $this->addVariable('workflowTransitions', $workflowTransitions);
+        $this->addVariable('workflowCurrentState', $workflowCurrentState);
 
         // Initialize View Config for JS fallback if needed
         $themeManager = new \Alxarafe\Base\Frontend\ThemeManager();

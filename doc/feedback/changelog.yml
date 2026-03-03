@@ -1,0 +1,65 @@
+# =============================================================================
+# Changelog de Propuestas — Alxarafe Core
+# =============================================================================
+#
+# Este fichero es consumido por las aplicaciones satélite (vía Composer)
+# para conocer el estado de sus propuestas.
+#
+# Las apps pueden parsearlo con Symfony\Yaml para mostrar notificaciones
+# o simplemente consultarlo como referencia.
+# =============================================================================
+
+version: "1.0"
+last_updated: "2026-03-03"
+
+entries:
+  - id: "CHAS-001"
+    source_app: "chascarrillo"
+    title: "Configuración extensible para aplicaciones"
+    status: "released"
+    resolved_in: "v0.4.3"
+    response: |
+      Implementado: Config::registerSection() y Config::getConfigStructure()
+      permiten a las apps registrar sus propias secciones de configuración.
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-002"
+    source_app: "chascarrillo"
+    title: "Corrección de prioridad de rutas (App > Core)"
+    status: "implemented"
+    resolved_in: "v0.4.4"
+    response: |
+      Invertido el orden en Routes::$search_routes para que Modules/ (App)
+      tenga prioridad sobre CoreModules/ (Framework).
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-003"
+    source_app: "chascarrillo"
+    title: "Seguridad: visibilidad de contraseña DB"
+    status: "implemented"
+    resolved_in: "v0.4.4"
+    response: |
+      Limpieza de db.pass en ConfigController::getPost(). La contraseña
+      ya no se envía a la vista.
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-004"
+    source_app: "chascarrillo"
+    title: "Prioridad de idioma y cookies"
+    status: "implemented"
+    resolved_in: "v0.4.4"
+    response: |
+      Ajustada prioridad en WebDispatcher::run(). Usuarios autenticados
+      ignoran cookies y priorizan perfil o configuración global.
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-005"
+    source_app: "chascarrillo"
+    title: "Traducciones dinámicas en tablas de datos"
+    status: "received"
+    response: "Pendiente de triaje."
+    date_received: "2026-03-01"

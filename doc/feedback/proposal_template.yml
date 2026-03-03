@@ -1,0 +1,56 @@
+# =============================================================================
+# Plantilla de Propuesta de Mejora para Alxarafe
+# =============================================================================
+#
+# Instrucciones:
+#   1. Copia este fichero a tu app en: .alxarafe/feedback/NNN-titulo-corto.yml
+#   2. Rellena todos los campos obligatorios (marcados con REQUERIDO)
+#   3. Haz commit del fichero en tu repositorio
+#   4. El mantenedor del core lo recogerá con: composer collect-feedback
+#
+# Ejemplo: .alxarafe/feedback/001-workflow-auto-buttons.yml
+# =============================================================================
+
+# Identificador único dentro de tu app (REQUERIDO)
+id: "001"
+
+# Título descriptivo y conciso (REQUERIDO)
+title: "Descripción breve de la mejora"
+
+# Nombre de tu aplicación (REQUERIDO)
+app: "nombre-de-tu-app"
+
+# Autor de la propuesta
+author: "tu-nombre-o-usuario"
+
+# Fecha de creación (REQUERIDO)
+date: "2026-01-01"
+
+# Prioridad según el impacto en tu app (REQUERIDO)
+# Valores: high | medium | low
+priority: "medium"
+
+# Categoría de la propuesta (REQUERIDO)
+# Valores: feature | bugfix | improvement | breaking
+category: "feature"
+
+# Componentes del core afectados (opcional pero recomendado)
+affects:
+  - "NombreDeClase"
+  - "OtroComponente"
+
+# Descripción detallada del problema o necesidad (REQUERIDO)
+description: |
+  Explica aquí qué necesitas y por qué. Sé lo más específico posible
+  sobre el comportamiento actual vs el comportamiento deseado.
+
+# Caso de uso real en tu aplicación (REQUERIDO)
+# Esto ayuda al mantenedor a entender el contexto de producción.
+use_case: |
+  Describe cómo y dónde usas (o usarías) esta funcionalidad en tu app.
+  Incluye ejemplos concretos si es posible.
+
+# Solución propuesta (opcional)
+# Si tienes una idea de implementación, descríbela aquí.
+proposed_solution: |
+  Descripción técnica de cómo crees que podría implementarse.

@@ -64,6 +64,9 @@
     ],
     "publish-assets": [
       "php src/Scripts/publish_assets_manual.php"
+    ],
+    "collect-feedback": [
+      "php src/Scripts/collect_feedback.php"
     ]
   }
 }

@@ -49,3 +49,18 @@
 - **Proxied Execution**: ALL PHP, Composer, and test commands MUST be executed inside the relevant container (usually `*_php` or `app`) using `docker exec -it <container_name> <command>`.
 - **Infrastructure Context**: Database hosts, Redis, and other services defined in `docker-compose.yml` are only resolvable from within the Docker network. NEVER try to run migrations or database-dependent scripts from the host machine if Docker is present.
 - **Path Mapping**: Ensure file paths passed to commands inside Docker match the internal container structure (standard: `/var/www/html/`).
+
+## 📢 Feedback System — Proposals to Alxarafe Core
+- **Purpose**: When working on a project that consumes `alxarafe/alxarafe`, use this system to submit improvement proposals, bug reports, or feature requests back to the core framework.
+- **How to Submit**:
+    1. Create the directory `.alxarafe/feedback/` in your project root.
+    2. Copy the proposal template from `vendor/alxarafe/alxarafe/doc/feedback/proposal_template.yml`.
+    3. Rename the copy to `NNN-short-title.yml` (e.g., `001-workflow-auto-buttons.yml`).
+    4. Fill in all required fields: `id`, `title`, `app`, `date`, `priority`, `category`, `description`, `use_case`.
+    5. Commit the file to your repository.
+- **Valid Values**:
+    - `priority`: `high`, `medium`, `low`
+    - `category`: `feature`, `bugfix`, `improvement`, `breaking`
+- **Checking Status**: After a `composer update`, check `vendor/alxarafe/alxarafe/doc/feedback/changelog.yml` for the status of your proposals (`received`, `accepted`, `rejected`, `deferred`, `implemented`, `released`).
+- **Full Guide**: See `vendor/alxarafe/alxarafe/doc/feedback/FEEDBACK.md` for detailed instructions and examples.
+- **Do NOT modify** any file under `vendor/alxarafe/alxarafe/doc/feedback/` directly — the core team manages the registry and changelog.

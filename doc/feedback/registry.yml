@@ -1,0 +1,55 @@
+# =============================================================================
+# Registro Global de Propuestas — Alxarafe Core
+# =============================================================================
+#
+# Este fichero indexa todas las propuestas recibidas desde aplicaciones
+# satélite. Es mantenido por el equipo del core.
+#
+# Estados posibles:
+#   received  — Recibida, pendiente de triaje
+#   accepted  — Aceptada para implementación
+#   rejected  — Rechazada (ver motivo en response)
+#   deferred  — Aplazada para una versión futura
+#   implemented — Implementada (ver resolved_in)
+#   released  — Incluida en una release publicada
+# =============================================================================
+
+# Migración del feedback histórico de Chascarrillo
+proposals:
+  - id: "CHAS-001"
+    app: "chascarrillo"
+    title: "Configuración extensible para aplicaciones"
+    status: "released"
+    resolved_in: "v0.4.3"
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-002"
+    app: "chascarrillo"
+    title: "Corrección de prioridad de rutas (App > Core)"
+    status: "implemented"
+    resolved_in: "v0.4.4"
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-003"
+    app: "chascarrillo"
+    title: "Seguridad: visibilidad de contraseña DB en inspector HTML"
+    status: "implemented"
+    resolved_in: "v0.4.4"
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-004"
+    app: "chascarrillo"
+    title: "Prioridad de idioma y cookies entre proyectos localhost"
+    status: "implemented"
+    resolved_in: "v0.4.4"
+    date_received: "2026-03-01"
+    date_resolved: "2026-03-01"
+
+  - id: "CHAS-005"
+    app: "chascarrillo"
+    title: "Traducciones dinámicas en tablas de datos"
+    status: "received"
+    date_received: "2026-03-01"
