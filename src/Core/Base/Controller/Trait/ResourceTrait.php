@@ -178,6 +178,21 @@ trait ResourceTrait
     ];
 
     /**
+     * @var string Suffix for the Extrafields model class detection.
+     */
+    protected string $extrafieldsSuffix = 'ExtraFields';
+
+    /**
+     * @var string Prefix for extrafields fields in the form data.
+     */
+    protected string $extrafieldsPrefix = 'extra_fields_';
+
+    /**
+     * @var string Translation key for the extrafields section label.
+     */
+    protected string $extrafieldsLabel = 'extra_fields';
+
+    /**
      * @var string Active tab identifier (List Mode)
      */
     protected string $activeTab = '';
@@ -518,7 +533,7 @@ trait ResourceTrait
             $efFields = $this->convertModelFieldsToComponents($efClass::getFields());
             if (!empty($efFields)) {
                 $efSectionId = 'extrafields';
-                $this->addEditSection($efSectionId, \Alxarafe\Lib\Trans::_('extrafields'));
+                $this->addEditSection($efSectionId, \Alxarafe\Lib\Trans::_($this->extrafieldsLabel));
                 $this->setEditFields($efFields, $efSectionId);
             }
         }
@@ -538,10 +553,21 @@ trait ResourceTrait
         if (!$modelClass) {
             return null;
         }
-        $efClass = $modelClass . 'Extrafields';
+
+        // 1. Try configured suffix
+        $efClass = $modelClass . $this->extrafieldsSuffix;
         if (class_exists($efClass) && method_exists($efClass, 'getFields')) {
             return $efClass;
         }
+
+        // 2. Fallback to Dolibarr style if different from configured
+        if ($this->extrafieldsSuffix !== 'Extrafields') {
+            $efClass = $modelClass . 'Extrafields';
+            if (class_exists($efClass) && method_exists($efClass, 'getFields')) {
+                return $efClass;
+            }
+        }
+
         return null;
     }
 
@@ -1101,13 +1127,13 @@ trait ResourceTrait
                 $efRecord = $efClass::where($efFk, $this->recordId)->first();
                 if ($efRecord) {
                     $efData = $efRecord->toArray();
-                    // Merge with extrafields_ prefix to avoid collisions
+                    // Merge with configured prefix to avoid collisions
                     foreach ($efData as $efKey => $efValue) {
                         // Skip internal fields
                         if (in_array($efKey, ['id', $efFk, 'created_at', 'updated_at', 'deleted_at'], true)) {
                             continue;
                         }
-                        $values['extrafields_' . $efKey] = $efValue;
+                        $values[$this->extrafieldsPrefix . $efKey] = $efValue;
                     }
                 }
             } catch (\Throwable $e) {
@@ -1314,14 +1340,14 @@ trait ResourceTrait
             if ($efClass !== null) {
                 $efData = [];
                 foreach ($modelData as $key => $value) {
-                    if (str_starts_with($key, 'extrafields_')) {
-                        $efData[substr($key, 12)] = $value; // Strip "extrafields_" prefix
+                    if (str_starts_with($key, $this->extrafieldsPrefix)) {
+                        $efData[substr($key, strlen($this->extrafieldsPrefix))] = $value;
                     }
                 }
-                // Also check if any extrafields_ keys were sent outside modelData
+                // Also check if any extrafields keys were sent outside modelData
                 foreach ($data as $key => $value) {
-                    if (str_starts_with($key, 'extrafields_')) {
-                        $efData[substr($key, 12)] = $value;
+                    if (str_starts_with($key, $this->extrafieldsPrefix)) {
+                        $efData[substr($key, strlen($this->extrafieldsPrefix))] = $value;
                     }
                 }
 
