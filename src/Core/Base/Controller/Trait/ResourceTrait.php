@@ -511,6 +511,38 @@ trait ResourceTrait
                 $this->setEditFields($sectionFields, $sectionId);
             }
         }
+
+        // --- 3. AUTO-DETECT EXTRAFIELDS ---
+        $efClass = $this->detectExtrafieldsClass();
+        if ($efClass !== null) {
+            $efFields = $this->convertModelFieldsToComponents($efClass::getFields());
+            if (!empty($efFields)) {
+                $efSectionId = 'extrafields';
+                $this->addEditSection($efSectionId, \Alxarafe\Lib\Trans::_('extrafields'));
+                $this->setEditFields($efFields, $efSectionId);
+            }
+        }
+    }
+
+    /**
+     * Detect if an Extrafields model exists for the current model.
+     *
+     * Looks for a class named {ModelClass}Extrafields in the same namespace.
+     * Backward-compatible: returns null if no Extrafields class exists.
+     *
+     * @return string|null Fully qualified class name of the Extrafields model, or null
+     */
+    private function detectExtrafieldsClass(): ?string
+    {
+        $modelClass = $this->modelClass;
+        if (!$modelClass) {
+            return null;
+        }
+        $efClass = $modelClass . 'Extrafields';
+        if (class_exists($efClass) && method_exists($efClass, 'getFields')) {
+            return $efClass;
+        }
+        return null;
     }
 
     /**
@@ -1047,6 +1079,43 @@ trait ResourceTrait
 
         $values = $data->toArray();
 
+        // --- Load Extrafields data if model exists ---
+        $efClass = $this->detectExtrafieldsClass();
+        if ($efClass !== null) {
+            try {
+                $efInstance = new $efClass();
+                // Detect foreign key: typically 'fk_{table}' or '{table}_id'
+                $parentTable = $model->getTable();
+                $efFk = 'fk_object';
+
+                // Try common foreign key patterns
+                $candidateKeys = ['fk_object', 'fk_' . $parentTable, rtrim($parentTable, 's') . '_id'];
+                $efColumns = array_keys($efClass::getFields());
+                foreach ($candidateKeys as $candidate) {
+                    if (in_array($candidate, $efColumns, true)) {
+                        $efFk = $candidate;
+                        break;
+                    }
+                }
+
+                $efRecord = $efClass::where($efFk, $this->recordId)->first();
+                if ($efRecord) {
+                    $efData = $efRecord->toArray();
+                    // Merge with extrafields_ prefix to avoid collisions
+                    foreach ($efData as $efKey => $efValue) {
+                        // Skip internal fields
+                        if (in_array($efKey, ['id', $efFk, 'created_at', 'updated_at', 'deleted_at'], true)) {
+                            continue;
+                        }
+                        $values['extrafields_' . $efKey] = $efValue;
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Silently ignore extrafields errors — backward compatible
+                error_log('Extrafields fetch error: ' . $e->getMessage());
+            }
+        }
+
         return [
             'id' => $this->recordId,
             'data' => $values,
@@ -1236,6 +1305,48 @@ trait ResourceTrait
                             [$relatedKeyName => $rowId],
                             $row
                         );
+                    }
+                }
+            }
+
+            // --- Save Extrafields if model exists ---
+            $efClass = $this->detectExtrafieldsClass();
+            if ($efClass !== null) {
+                $efData = [];
+                foreach ($modelData as $key => $value) {
+                    if (str_starts_with($key, 'extrafields_')) {
+                        $efData[substr($key, 12)] = $value; // Strip "extrafields_" prefix
+                    }
+                }
+                // Also check if any extrafields_ keys were sent outside modelData
+                foreach ($data as $key => $value) {
+                    if (str_starts_with($key, 'extrafields_')) {
+                        $efData[substr($key, 12)] = $value;
+                    }
+                }
+
+                if (!empty($efData)) {
+                    try {
+                        $efInstance = new $efClass();
+                        $parentTable = $model->getTable();
+                        $efFk = 'fk_object';
+
+                        $candidateKeys = ['fk_object', 'fk_' . $parentTable, rtrim($parentTable, 's') . '_id'];
+                        $efColumns = array_keys($efClass::getFields());
+                        foreach ($candidateKeys as $candidate) {
+                            if (in_array($candidate, $efColumns, true)) {
+                                $efFk = $candidate;
+                                break;
+                            }
+                        }
+
+                        $efData[$efFk] = $model->{$model->primaryColumn()};
+                        $efClass::updateOrCreate(
+                            [$efFk => $efData[$efFk]],
+                            $efData
+                        );
+                    } catch (\Throwable $e) {
+                        error_log('Extrafields save error: ' . $e->getMessage());
                     }
                 }
             }

@@ -33,15 +33,23 @@ class Tab extends AbstractContainer
     protected string $icon;
 
     /**
-     * @param string $id   Unique tab identifier (e.g. 'general')
-     * @param string $label Tab button label
-     * @param string $icon  FontAwesome icon class (optional)
-     * @param array  $children Child components for this tab's content
-     * @param array  $options  Additional options
+     * Optional external URL for navigation tabs.
+     * When set, the tab renders as an <a> link instead of a Bootstrap toggle button.
      */
-    public function __construct(string $id, string $label, string $icon = '', array $children = [], array $options = [])
+    protected ?string $url;
+
+    /**
+     * @param string      $id       Unique tab identifier (e.g. 'general')
+     * @param string      $label    Tab button label
+     * @param string      $icon     FontAwesome icon class (optional)
+     * @param array       $children Child components for this tab's content
+     * @param array       $options  Additional options
+     * @param string|null $url      External URL — if set, tab renders as <a> link
+     */
+    public function __construct(string $id, string $label, string $icon = '', array $children = [], array $options = [], ?string $url = null)
     {
         $this->icon = $icon;
+        $this->url = $url;
         parent::__construct('tab_' . $id, $label, $children, $options);
     }
 
@@ -53,5 +61,15 @@ class Tab extends AbstractContainer
     public function getTabId(): string
     {
         return $this->field; // 'tab_{id}'
+    }
+
+    /**
+     * Get the external URL for this tab, if any.
+     *
+     * @return string|null URL string or null for inline tab content
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
     }
 }

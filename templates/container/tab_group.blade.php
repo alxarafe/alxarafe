@@ -16,25 +16,40 @@
     <ul class="nav nav-tabs mb-4" id="{{ $groupId }}-nav" role="tablist">
         @foreach($tabs as $i => $tab)
             <li class="nav-item" role="presentation">
-                <button class="nav-link {{ $i === 0 ? 'active' : '' }}"
-                        id="{{ $groupId }}-{{ $tab->getTabId() }}-btn"
-                        data-bs-toggle="tab"
-                        data-bs-target="#{{ $groupId }}-{{ $tab->getTabId() }}"
-                        type="button" role="tab">
-                    @if($tab->getIcon())
-                        <i class="{{ $tab->getIcon() }} me-1"></i>
-                    @endif
-                    {{ $tab->getLabel() }}
-                </button>
+                @if($tab->getUrl())
+                    {{-- URL tab: renders as a plain link --}}
+                    <a class="nav-link"
+                       href="{{ $tab->getUrl() }}"
+                       id="{{ $groupId }}-{{ $tab->getTabId() }}-btn">
+                        @if($tab->getIcon())
+                            <i class="{{ $tab->getIcon() }} me-1"></i>
+                        @endif
+                        {{ $tab->getLabel() }}
+                    </a>
+                @else
+                    {{-- Inline tab: Bootstrap toggle button --}}
+                    <button class="nav-link {{ $i === 0 ? 'active' : '' }}"
+                            id="{{ $groupId }}-{{ $tab->getTabId() }}-btn"
+                            data-bs-toggle="tab"
+                            data-bs-target="#{{ $groupId }}-{{ $tab->getTabId() }}"
+                            type="button" role="tab">
+                        @if($tab->getIcon())
+                            <i class="{{ $tab->getIcon() }} me-1"></i>
+                        @endif
+                        {{ $tab->getLabel() }}
+                    </button>
+                @endif
             </li>
         @endforeach
     </ul>
     <div class="tab-content" id="{{ $groupId }}-content">
         @foreach($tabs as $i => $tab)
-            <div class="tab-pane fade {{ $i === 0 ? 'show active' : '' }}"
-                 id="{{ $groupId }}-{{ $tab->getTabId() }}" role="tabpanel">
-                {!! $tab->render(['record' => $record]) !!}
-            </div>
+            @if(!$tab->getUrl())
+                <div class="tab-pane fade {{ $i === 0 ? 'show active' : '' }}"
+                     id="{{ $groupId }}-{{ $tab->getTabId() }}" role="tabpanel">
+                    {!! $tab->render(['record' => $record]) !!}
+                </div>
+            @endif
         @endforeach
     </div>
 @endif
