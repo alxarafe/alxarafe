@@ -21,6 +21,7 @@ declare(strict_types=1);
 
 namespace Alxarafe\Base\Controller\Trait;
 
+use Alxarafe\Attribute\ExtraFieldsModel;
 use Alxarafe\Base\Controller\Interface\ResourceInterface;
 use Alxarafe\Component\AbstractField;
 use Alxarafe\Component\Container\Panel;
@@ -29,6 +30,7 @@ use Alxarafe\Component\Container\TabGroup;
 use Alxarafe\Component\AbstractFilter;
 use Alxarafe\Lib\Trans;
 use Illuminate\Database\Capsule\Manager as DB;
+use ReflectionClass;
 
 /**
  * Class ResourceController
@@ -554,13 +556,25 @@ trait ResourceTrait
             return null;
         }
 
-        // 1. Try configured suffix
+        // 1. Try Attribute-based explicit link
+        $reflection = new ReflectionClass($modelClass);
+        $attributes = $reflection->getAttributes(ExtraFieldsModel::class);
+        if (!empty($attributes)) {
+            /** @var ExtraFieldsModel $attr */
+            $attr = $attributes[0]->newInstance();
+            $this->extrafieldsSuffix = $attr->suffix;
+            $this->extrafieldsPrefix = $attr->prefix;
+            $this->extrafieldsLabel = $attr->label;
+            return $attr->modelClass;
+        }
+
+        // 2. Try configured suffix
         $efClass = $modelClass . $this->extrafieldsSuffix;
         if (class_exists($efClass) && method_exists($efClass, 'getFields')) {
             return $efClass;
         }
 
-        // 2. Fallback to Dolibarr style if different from configured
+        // 3. Fallback to Dolibarr style if different from configured
         if ($this->extrafieldsSuffix !== 'Extrafields') {
             $efClass = $modelClass . 'Extrafields';
             if (class_exists($efClass) && method_exists($efClass, 'getFields')) {
