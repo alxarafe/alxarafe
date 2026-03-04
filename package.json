@@ -39,5 +39,8 @@
   "bugs": {
     "url": "https://github.com/alxarafe/alxarafe/issues"
   },
-  "homepage": "https://github.com/alxarafe/alxarafe#readme"
+  "homepage": "https://github.com/alxarafe/alxarafe#readme",
+  "overrides": {
+    "esbuild": "^0.25.0"
+  }
 }
