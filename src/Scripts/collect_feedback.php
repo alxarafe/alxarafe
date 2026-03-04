@@ -127,10 +127,22 @@ function validateProposal(array $data, string $filename): array
     }
 
     // Formato de fecha
+    // Note: Symfony YAML parser auto-converts dates like '2026-03-04' to Unix timestamps
     if (isset($data['date'])) {
-        $parsed = \DateTimeImmutable::createFromFormat('Y-m-d', $data['date']);
-        if ($parsed === false) {
-            $errors[] = "Formato de fecha inválido: '{$data['date']}'. Esperado: YYYY-MM-DD";
+        $dateValue = $data['date'];
+        $valid = false;
+
+        if (is_int($dateValue)) {
+            // YAML auto-parsed as Unix timestamp — valid
+            $parsed = \DateTimeImmutable::createFromFormat('U', (string) $dateValue);
+            $valid = ($parsed !== false);
+        } elseif (is_string($dateValue)) {
+            $parsed = \DateTimeImmutable::createFromFormat('Y-m-d', $dateValue);
+            $valid = ($parsed !== false);
+        }
+
+        if (!$valid) {
+            $errors[] = "Formato de fecha inválido: '{$dateValue}'. Esperado: YYYY-MM-DD";
         }
     }
 

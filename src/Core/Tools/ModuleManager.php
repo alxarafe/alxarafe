@@ -38,6 +38,33 @@ abstract class ModuleManager
     {
         self::$activationChecker = $checker;
     }
+
+    /**
+     * Initialize the activation checker from the settings table.
+     * Call this during application bootstrap after DB is available.
+     * Backward-compatible: if settings table does not exist, all modules stay active.
+     */
+    public static function initFromSettings(): void
+    {
+        self::setActivationChecker(function (string $moduleName): bool {
+            try {
+                if (!class_exists('\CoreModules\Admin\Model\Setting')) {
+                    return true;
+                }
+                $value = \CoreModules\Admin\Model\Setting::get(
+                    'module_enabled_' . strtolower($moduleName)
+                );
+                // Default to enabled if no setting exists
+                if ($value === null) {
+                    return true;
+                }
+                return in_array($value, ['1', 'true', 'yes'], true);
+            } catch (\Throwable $e) {
+                // If settings table doesn't exist yet, allow all modules
+                return true;
+            }
+        });
+    }
     /**
      * Regenerate menus and actions.
      * This is temporary, everything will be cached by user or role.
@@ -143,7 +170,7 @@ abstract class ModuleManager
      *
      * @return array<int, array<string, string>>
      */
-    private static function routes(): array
+    public static function routes(): array
     {
         $base_path = realpath(constant('BASE_PATH') . '/..');
         $result = [];
