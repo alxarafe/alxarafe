@@ -89,6 +89,12 @@ abstract class Routes
 
             foreach ($modules as $module_path) {
                 $module = basename($module_path);
+
+                // Check if module is active before including its routes
+                if (!self::isModuleActive($module, $class)) {
+                    continue;
+                }
+
                 $data = glob($module_path . '/' . $class_type . '/*' . $suffix . '.php');
 
                 foreach ($data as $filename) {
@@ -101,6 +107,33 @@ abstract class Routes
         }
 
         return $routes;
+    }
+
+    /**
+     * Check if a module is active. CoreModules are always active.
+     * Application modules check the settings table.
+     */
+    private static function isModuleActive(string $moduleName, string $namespacePrefix): bool
+    {
+        // Core modules are always active
+        if ($namespacePrefix === 'CoreModules') {
+            return true;
+        }
+
+        try {
+            if (!class_exists('\CoreModules\Admin\Model\Setting')) {
+                return true;
+            }
+            $value = \CoreModules\Admin\Model\Setting::get(
+                'module_enabled_' . strtolower($moduleName)
+            );
+            if ($value === null) {
+                return true; // Default enabled if no setting exists
+            }
+            return in_array($value, ['1', 'true', 'yes'], true);
+        } catch (\Throwable $e) {
+            return true; // If settings table doesn't exist yet, allow all
+        }
     }
 
     public static function getAllRoutes()

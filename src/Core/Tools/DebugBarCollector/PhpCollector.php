@@ -137,6 +137,11 @@ class PhpCollector extends DataCollector implements Renderable
      */
     public function errorHandler($severity, $message, $fileName, $line)
     {
+        // Skip deprecations from vendor directory
+        if (($severity === E_DEPRECATED || $severity === E_USER_DEPRECATED) && str_contains($fileName, 'vendor')) {
+            return;
+        }
+
         for ($i = 0; $i < 15; $i++) {
             if ($type = $severity & (2 ** $i)) {
                 $label = self::friendlyErrorType($type);

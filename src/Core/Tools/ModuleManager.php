@@ -73,11 +73,7 @@ abstract class ModuleManager
      */
     public static function regenerate()
     {
-        dump([
-            'acciones' => self::getActions(),
-            'menú refactorizado' => self::getArrayMenu(),
-            'menú lateral' => self::getArraySidebarMenu()
-        ]);
+        DependencyResolver::invalidate();
     }
 
     /**
@@ -157,11 +153,15 @@ abstract class ModuleManager
             return true;
         }
 
+        // Auto-initialize from settings on first call
+        if (self::$activationChecker === null) {
+            self::initFromSettings();
+        }
+
         if (self::$activationChecker !== null) {
             return (bool) call_user_func(self::$activationChecker, $moduleName);
         }
 
-        // Por defecto, si no hay checker, el módulo está activo si la carpeta existe
         return true;
     }
 
@@ -221,7 +221,11 @@ abstract class ModuleManager
     private static function getControllers(string $namespace, string $path, string $directory): array
     {
         $result = [];
-        $files = scandir($path . '/' . $directory . '/Controller');
+        $controllerPath = $path . '/' . $directory . '/Controller';
+        if (!is_dir($controllerPath)) {
+            return [];
+        }
+        $files = scandir($controllerPath);
         foreach ($files as $file) {
             if ($file === '.' || $file === '..' || !str_ends_with($file, '.php')) {
                 continue;
@@ -230,7 +234,7 @@ abstract class ModuleManager
             $result[] = [
                 'name' => $name,
                 'namespace' => $namespace . '\\Controller\\' . $name,
-                'path' => $path . '/' . $directory . '/Controller/' . $file,
+                'path' => $controllerPath . '/' . $file,
             ];
         }
         return $result;
