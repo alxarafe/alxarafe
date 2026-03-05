@@ -52,6 +52,16 @@ abstract class Routes
         self::$search_routes = array_merge($routes, self::$search_routes);
     }
 
+    /**
+     * Clear the static route cache.
+     * Must be called after module activation/deactivation changes
+     * so that the next getAllRoutes() call re-discovers active modules.
+     */
+    public static function invalidateCache(): void
+    {
+        self::$routes = [];
+    }
+
     private static function getRoutesFor($class_type, $suffix): array
     {
         $routes = [];

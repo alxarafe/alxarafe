@@ -67,13 +67,19 @@ abstract class ModuleManager
     }
     /**
      * Regenerate menus and actions.
-     * This is temporary, everything will be cached by user or role.
+     * Invalidates all caches: dependency graph, route cache, and menu cache.
      *
      * @return void
      */
     public static function regenerate()
     {
         DependencyResolver::invalidate();
+        \Alxarafe\Lib\Routes::invalidateCache();
+
+        // Invalidate MenuManager file cache if available
+        if (class_exists('\CoreModules\Admin\Service\MenuManager')) {
+            \CoreModules\Admin\Service\MenuManager::invalidateCache();
+        }
     }
 
     /**

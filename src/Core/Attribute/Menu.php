@@ -36,7 +36,7 @@ class Menu
         public string  $visibility = 'auth', // 'auth', 'guest', 'public'
         public ?string $badgeResolver = null,
         public ?string $badgeClass = null,
-        public ?string $class = null
-    ) {
-}
+        public ?string $class = null,
+        public ?string $module = null,  // Source module name (auto-detected if null)
+    ) {}
 }

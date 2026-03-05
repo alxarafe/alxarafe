@@ -30,46 +30,49 @@ use ReflectionMethod;
 class MenuManager
 {
     /**
+     * Class-level static for the scanned menus cache.
+     * Using a class-level property (instead of function-level static)
+     * allows invalidateCache() to clear it.
+     */
+    private static ?array $allMenus = null;
+
+    /**
      * Runtime menu loader (Code-First, no DB required for now).
      * Scans controllers for #[Menu] attributes and returns built menus.
-     * 
-     * @param string $menuCode The menu identifier (e.g. 'admin_top_icons')
+     * Results are cached per-request and can be persisted to file per role.
+     *
+     * @param string $menuCode The menu identifier (e.g. 'top_menu')
      * @return array
      */
     public static function get(string $menuCode): array
     {
-        // 1. Scan Codebase (Cached in static to avoid re-scan per call)
-        static $allMenus = null;
-        if ($allMenus === null) {
-            $allMenus = self::scanMenus();
+        // 1. Try role-based file cache first
+        if (self::$allMenus === null) {
+            $cached = self::loadFromFileCache();
+            if ($cached !== null) {
+                self::$allMenus = $cached;
+            } else {
+                // 2. Scan Codebase
+                self::$allMenus = self::scanMenus();
+                // 3. Save to file cache
+                self::saveToFileCache(self::$allMenus);
+            }
         }
 
-
-
-        $items = $allMenus[$menuCode] ?? [];
+        $items = self::$allMenus[$menuCode] ?? [];
 
         // INJECT DYNAMIC ITEMS
         if ($menuCode === 'user_menu' && Auth::isLogged()) {
             $currentUri = ltrim($_SERVER['REQUEST_URI'] ?? '', '/');
-            // Normalize current URI (remove leading slash)
-            // Example: index.php?module=Admin...
 
             $defaultPage = Auth::$user->getDefaultPage();
 
-            // Loose comparison: check if defaultPage is contained in currentUri or equal
-            // Because REQUEST_URI might have extra slash or domain dependent things in some setups
-            // Simple approach: exact match or strict containment if needed.
-            // Let's rely on standard logic: stored 'index.php...' vs actual request.
-
-            // Handle case where stored is 'index.php' and current is '' (directory index)
             if ($currentUri === '' && $defaultPage === 'index.php') {
                 $isActive = true;
             } else {
                 $isActive = ($currentUri === $defaultPage);
             }
 
-            // Url to trigger action
-            // We point to ProfileController::doSetDefaultPage
             $actionUrl = 'index.php?module=Admin&controller=Profile&action=setDefaultPage';
 
             $items[] = [
@@ -77,11 +80,12 @@ class MenuManager
                 'icon' => $isActive ? 'fas fa-star' : 'far fa-star',
                 'route' => null,
                 'url' => $actionUrl,
-                'order' => -10, // Top of the list
+                'order' => -10,
                 'permission' => null,
                 'visibility' => 'auth',
                 'badge' => null,
                 'badgeClass' => null,
+                'module' => 'Admin',
             ];
         }
 
@@ -92,13 +96,116 @@ class MenuManager
         return array_filter($items, fn($item) => self::isVisible($item));
     }
 
+    /**
+     * Clear the in-memory menu cache AND delete all role-based file caches.
+     * Must be called after module activation/deactivation changes.
+     */
+    public static function invalidateCache(): void
+    {
+        self::$allMenus = null;
+
+        // Delete all cached menu files
+        $cacheDir = self::getCacheDir();
+        if (is_dir($cacheDir)) {
+            $files = glob($cacheDir . '/menu_*.php');
+            foreach ($files as $file) {
+                @unlink($file);
+            }
+        }
+    }
+
+    /**
+     * Get the cache directory for menu files.
+     * Uses the application's var/cache directory.
+     */
+    private static function getCacheDir(): string
+    {
+        if (defined('APP_PATH')) {
+            return realpath(constant('APP_PATH')) . '/var/cache/menus';
+        }
+        if (defined('BASE_PATH')) {
+            return realpath(constant('BASE_PATH') . '/..') . '/var/cache/menus';
+        }
+        return sys_get_temp_dir() . '/alxarafe/cache/menus';
+    }
+
+    /**
+     * Generate a cache key based on the current user's role.
+     * If no user is logged in, uses 'guest'.
+     */
+    private static function getCacheKey(): string
+    {
+        if (Auth::isLogged() && Auth::$user) {
+            // Use role ID if available, otherwise user ID
+            try {
+                $role = Auth::$user->role ?? null;
+                if ($role && isset($role->id)) {
+                    return 'role_' . $role->id;
+                }
+            } catch (\Throwable $e) {
+                // Role not available, fall through
+            }
+            return 'user_' . Auth::$user->id;
+        }
+        return 'guest';
+    }
+
+    /**
+     * Try to load menus from the role-based file cache.
+     * Returns null if no valid cache exists.
+     */
+    private static function loadFromFileCache(): ?array
+    {
+        $cacheDir = self::getCacheDir();
+        $cacheKey = self::getCacheKey();
+        $cachePath = $cacheDir . '/menu_' . $cacheKey . '.php';
+
+        if (!file_exists($cachePath)) {
+            return null;
+        }
+
+        // Check cache age (max 1 hour to auto-refresh)
+        $maxAge = 3600;
+        if (time() - filemtime($cachePath) > $maxAge) {
+            @unlink($cachePath);
+            return null;
+        }
+
+        try {
+            $data = require $cachePath;
+            return is_array($data) ? $data : null;
+        } catch (\Throwable $e) {
+            @unlink($cachePath);
+            return null;
+        }
+    }
+
+    /**
+     * Save menus to a role-based file cache.
+     */
+    private static function saveToFileCache(array $menus): void
+    {
+        $cacheDir = self::getCacheDir();
+        $cacheKey = self::getCacheKey();
+        $cachePath = $cacheDir . '/menu_' . $cacheKey . '.php';
+
+        if (!is_dir($cacheDir)) {
+            @mkdir($cacheDir, 0755, true);
+        }
+
+        $export = var_export($menus, true);
+        $content = "<?php\n// Auto-generated menu cache — " . date('Y-m-d H:i:s') . "\n// Cache key: {$cacheKey}\nreturn {$export};\n";
+
+        @file_put_contents($cachePath, $content, LOCK_EX);
+    }
+
     private static function isVisible(array $item): bool
     {
         $visibility = $item['visibility'] ?? 'auth';
         $permission = $item['permission'] ?? null;
 
         // 1. Check Auth State
-        $isLogged = \Alxarafe\Lib\Auth::isLogged();
+        $isLogged = Auth::isLogged();
 
         if ($visibility === 'auth' && !$isLogged) {
             return false;
@@ -110,32 +217,44 @@ class MenuManager
 
         // 2. Check Permissions (only if logged in)
         if ($isLogged && $permission) {
-            // Permission format: Module.Controller.Action
-            // Or simple string if handled differently.
-            // Auth::$user->can() expects (action, controller, module) or exact key ??
-            // Let's check User::can signature.
-            // can($action, $controller = null, $module = null)
-
-            // If permission is a fully qualified string "Module.Controller.Action", we might need to parse it
-            // OR User::can handles granular checks?
-            // User::can implementation I saw earlier:
-            // $checkKey = strtolower($module . '.' . $controller . '.' . $action);
-            // It constructs the key.
-
-            // If the attribute provides the FULL key (e.g. 'Admin.User.doIndex'),
-            // we should probably split it or update User::can to accept a full key.
-
-            // Let's parse the permission string assuming 'Module.Controller.Action' format
             $parts = explode('.', $permission);
             if (count($parts) === 3) {
-                return \Alxarafe\Lib\Auth::$user->can($parts[2], $parts[1], $parts[0]);
+                return Auth::$user->can($parts[2], $parts[1], $parts[0]);
             }
 
-            // Fallback: Pass as action, generic. (Likely to fail if strict)
-            return \Alxarafe\Lib\Auth::$user->can($permission);
+            // Fallback: Pass as action
+            return Auth::$user->can($permission);
         }
 
         return true;
+    }
+
+    /**
+     * Check if a module is enabled in the settings.
+     * Core modules (Admin) are always enabled.
+     * This provides defense-in-depth filtering independent of Routes cache.
+     */
+    private static function isModuleEnabled(string $moduleName): bool
+    {
+        // Core module Admin is always enabled
+        if ($moduleName === 'Admin') {
+            return true;
+        }
+
+        try {
+            if (!class_exists('\CoreModules\Admin\Model\Setting')) {
+                return true;
+            }
+            $value = \CoreModules\Admin\Model\Setting::get(
+                'module_enabled_' . strtolower($moduleName)
+            );
+            if ($value === null) {
+                return true; // Default enabled if no setting exists
+            }
+            return in_array($value, ['1', 'true', 'yes'], true);
+        } catch (\Throwable $e) {
+            return true; // If settings table doesn't exist yet, allow all
+        }
     }
 
     private static function scanMenus(): array
@@ -192,20 +311,12 @@ class MenuManager
 
                 try {
                     $reflection = new ReflectionClass($className);
-                    // Infer Module/Controller names
                     $parts = explode('\\', $className);
-                    $controllerName = substr(end($parts), 0, -10); // Remove 'Controller'
+                    $controllerName = substr(end($parts), 0, -10);
                     $module = $parts[1] === 'Admin' ? 'Admin' : $parts[1];
 
                     // Class Attributes
                     $classAttrs = $reflection->getAttributes(Menu::class);
-                    \Alxarafe\Tools\Debug::message("MenuManager: Class $className has " . count($classAttrs) . " Menu attributes.");
-
-                    if (count($classAttrs) > 0) {
-                        // Check what the attribute contains
-                        $inst = $classAttrs[0]->newInstance();
-                        \Alxarafe\Tools\Debug::message("MenuManager: Attribute menu key: " . $inst->menu);
-                    }
 
                     foreach ($classAttrs as $attribute) {
                         $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, 'index');
@@ -213,7 +324,6 @@ class MenuManager
                     // Method Attributes
                     foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                         foreach ($method->getAttributes(Menu::class) as $attribute) {
-                            \Alxarafe\Tools\Debug::message("MenuManager: Method " . $method->getName() . " has Menu attribute.");
                             $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, $method->getName());
                         }
                     }
@@ -227,6 +337,11 @@ class MenuManager
         }
 
         foreach ($controllers as $module => $moduleControllers) {
+            // Defense-in-depth: skip controllers from disabled modules
+            if (!self::isModuleEnabled($module)) {
+                continue;
+            }
+
             foreach ($moduleControllers as $controllerName => $info) {
                 [$className, $filePath] = explode('|', $info);
 
@@ -256,8 +371,6 @@ class MenuManager
             }
         }
 
-        \Alxarafe\Tools\Debug::message("MenuManager: Scan complete. Keys found: " . implode(', ', array_keys($menus)));
-
         return $menus;
     }
 
@@ -279,7 +392,7 @@ class MenuManager
 
         $menus[$attr->menu][] = [
             'label' => Trans::_($attr->label ?? $controller),
-            'icon' => $attr->icon, // Icons should include prefix (fas/far/fab) in attribute
+            'icon' => $attr->icon,
             'route' => $route,
             'url' => $url,
             'parent' => $attr->parent,
@@ -289,6 +402,7 @@ class MenuManager
             'visibility' => $attr->visibility,
             'badge' => $badge,
             'badgeClass' => $attr->badgeClass,
+            'module' => $attr->module ?? $module,
         ];
         return $menus;
     }
