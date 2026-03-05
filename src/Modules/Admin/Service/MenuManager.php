@@ -281,10 +281,15 @@ class MenuManager
         }
 
         $manualIncludes = [
+            'HomeController' => $baseDir . '/HomeController.php',
             'RoleController' => $baseDir . '/RoleController.php',
             'UserController' => $baseDir . '/UserController.php',
             'ConfigController' => $baseDir . '/ConfigController.php',
             'AuthController' => $baseDir . '/AuthController.php',
+            'ModuleController' => $baseDir . '/ModuleController.php',
+            'MigrationController' => $baseDir . '/MigrationController.php',
+            'DictionaryController' => $baseDir . '/DictionaryController.php',
+            'EmailTemplateController' => $baseDir . '/EmailTemplateController.php',
         ];
 
         foreach ($manualIncludes as $path) {
@@ -296,10 +301,15 @@ class MenuManager
         }
 
         $adminControllers = [
+            'CoreModules\Admin\Controller\HomeController',
             'CoreModules\Admin\Controller\RoleController',
             'CoreModules\Admin\Controller\UserController',
             'CoreModules\Admin\Controller\ConfigController',
             'CoreModules\Admin\Controller\AuthController',
+            'CoreModules\Admin\Controller\ModuleController',
+            'CoreModules\Admin\Controller\MigrationController',
+            'CoreModules\Admin\Controller\DictionaryController',
+            'CoreModules\Admin\Controller\EmailTemplateController',
         ];
 
         $scannedClasses = [];

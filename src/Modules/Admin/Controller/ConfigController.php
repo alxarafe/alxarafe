@@ -43,7 +43,8 @@ use Alxarafe\Attribute\Menu;
     label: 'Config',
     icon: 'fas fa-cogs',
     order: 99,
-    permission: 'Admin.Config.doIndex'
+    permission: 'Admin.Config.doIndex',
+    parent: HomeController::class
 )]
 class ConfigController extends ResourceController
 {

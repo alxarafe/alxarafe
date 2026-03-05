@@ -36,7 +36,7 @@ use Alxarafe\Base\Controller\ResourceController;
  *
  * Usage: index.php?module=Admin&controller=Dictionary&model=CCountry
  */
-#[Menu(menu: 'admin|dictionaries', label: 'Dictionaries', icon: 'fas fa-book', order: 80)]
+#[Menu(menu: 'main_menu', label: 'Dictionaries', icon: 'fas fa-book', order: 80, parent: HomeController::class)]
 class DictionaryController extends ResourceController
 {
     /**
