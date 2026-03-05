@@ -42,5 +42,7 @@ class ModuleInfo
         public string $icon = 'fas fa-puzzle-piece',
         /** FQCN of the module's configuration controller, if any */
         public ?string $setupController = null,
+        /** If true, this module is always enabled and cannot be toggled off */
+        public bool $core = false,
     ) {}
 }

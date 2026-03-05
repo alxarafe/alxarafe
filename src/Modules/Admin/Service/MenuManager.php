@@ -241,6 +241,11 @@ class MenuManager
             return true;
         }
 
+        // App-level core modules (ModuleInfo::core = true) are always enabled
+        if (self::isModuleCore($moduleName)) {
+            return true;
+        }
+
         try {
             if (!class_exists('\CoreModules\Admin\Model\Setting')) {
                 return true;
@@ -254,6 +259,28 @@ class MenuManager
             return in_array($value, ['1', 'true', 'yes'], true);
         } catch (\Throwable $e) {
             return true; // If settings table doesn't exist yet, allow all
+        }
+    }
+
+    /**
+     * Check if a module is declared as core via its ModuleInfo attribute.
+     * Core modules are always enabled and cannot be toggled off.
+     */
+    private static function isModuleCore(string $moduleName): bool
+    {
+        try {
+            $moduleClass = "Modules\\{$moduleName}\\Module";
+            if (!class_exists($moduleClass)) {
+                return false;
+            }
+            $ref = new \ReflectionClass($moduleClass);
+            $attrs = $ref->getAttributes(\Alxarafe\Attribute\ModuleInfo::class);
+            if (empty($attrs)) {
+                return false;
+            }
+            return $attrs[0]->newInstance()->core;
+        } catch (\Throwable $e) {
+            return false;
         }
     }
 

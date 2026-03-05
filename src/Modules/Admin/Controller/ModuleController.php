@@ -213,10 +213,13 @@ class ModuleController extends Controller
 
                 $isCoreModule = $route['namespace'] === 'CoreModules';
                 $key = 'module_enabled_' . strtolower($dirName);
-                $enabled = $isCoreModule ? true : Setting::getBool($key, true);
 
                 // Read ModuleInfo metadata if Module.php exists
                 $metadata = $this->readModuleMetadata($modulesPath . '/' . $dirName, $route['namespace'], $dirName);
+
+                // App-level core modules (ModuleInfo::core = true) are always enabled
+                $isAppCore = $metadata['core'] ?? false;
+                $enabled = ($isCoreModule || $isAppCore) ? true : Setting::getBool($key, true);
 
                 // Check for SetupController
                 $setupUrl = $this->findSetupUrl($dirName);
@@ -226,7 +229,7 @@ class ModuleController extends Controller
                     'namespace' => $route['namespace'],
                     'path' => $modulesPath . '/' . $dirName,
                     'enabled' => $enabled,
-                    'is_core' => $isCoreModule,
+                    'is_core' => $isCoreModule || $isAppCore,
                     'description' => $metadata['description'] ?? '',
                     'icon' => $metadata['icon'] ?? 'fas fa-puzzle-piece',
                     'setup_url' => $setupUrl ?? $metadata['setup_url'] ?? null,
@@ -263,6 +266,7 @@ class ModuleController extends Controller
             return [
                 'description' => $info->description,
                 'icon' => $info->icon,
+                'core' => $info->core,
                 'setup_url' => $info->setupController
                     ? "index.php?module={$moduleName}&controller=Setup"
                     : null,
