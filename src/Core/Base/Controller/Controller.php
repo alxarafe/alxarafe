@@ -58,7 +58,16 @@ abstract class Controller extends ViewController
                 \Alxarafe\Lib\Functions::httpRedirect(\CoreModules\Admin\Controller\AuthController::url(true, false) . '&redirect=' . urlencode($currentUrl));
             }
 
-            // 2. Authorization Check
+            // 2. Module Activation Check (Ockham's Razor)
+            $moduleName = static::getModuleName();
+            if ($moduleName !== '' && $moduleName !== 'Admin') {
+                if (!\CoreModules\Admin\Service\MenuManager::isModuleEnabled($moduleName)) {
+                    \Alxarafe\Lib\Messages::addError(\Alxarafe\Lib\Trans::_('module_disabled', ['module' => $moduleName]));
+                    \Alxarafe\Lib\Functions::httpRedirect(\CoreModules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode(\Alxarafe\Lib\Trans::_('module_disabled', ['module' => $moduleName])));
+                }
+            }
+
+            // 3. Authorization Check
             // At this point Auth::$user is set (isLogged ensures it)
             $actionName = $this->action ?: 'index';
             if (!\Alxarafe\Lib\Auth::$user->can($actionName, static::getControllerName(), static::getModuleName())) {

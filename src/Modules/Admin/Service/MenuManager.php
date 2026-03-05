@@ -234,7 +234,7 @@ class MenuManager
      * Core modules (Admin) are always enabled.
      * This provides defense-in-depth filtering independent of Routes cache.
      */
-    private static function isModuleEnabled(string $moduleName): bool
+    public static function isModuleEnabled(string $moduleName): bool
     {
         // Core module Admin is always enabled
         if ($moduleName === 'Admin') {
