@@ -36,7 +36,8 @@ use Alxarafe\Attribute\Menu;
     label: 'Migrations',
     icon: 'fas fa-bolt',
     order: 85,
-    permission: 'Admin.Migration.doIndex'
+    permission: 'Admin.Migration.doIndex',
+    parent: HomeController::class
 )]
 class MigrationController extends Controller
 {

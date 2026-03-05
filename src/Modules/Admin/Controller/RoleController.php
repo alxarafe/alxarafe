@@ -30,7 +30,8 @@ use Alxarafe\Attribute\Menu;
     label: 'roles',
     icon: 'fas fa-user-shield',
     order: 30,
-    permission: 'Admin.Role.doIndex'
+    permission: 'Admin.Role.doIndex',
+    parent: HomeController::class
 )]
 class RoleController extends ResourceController
 {
