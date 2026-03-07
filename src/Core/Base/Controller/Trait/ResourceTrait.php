@@ -1050,8 +1050,10 @@ trait ResourceTrait
                 }
             }
             if ($modelClass && class_exists($modelClass)) {
-                /** @var \Alxarafe\Base\Model\Model $modelClass */
-                $this->record = $modelClass::find($this->recordId);
+                /** @var class-string<\Alxarafe\Base\Model\Model> $modelClass */
+                /** @var \Alxarafe\Base\Model\Model|null $record */
+                $record = $modelClass::find($this->recordId);
+                $this->record = $record;
             }
         }
         return $this->record;
@@ -1103,43 +1105,7 @@ trait ResourceTrait
 
         $values = $data->toArray();
 
-        // --- Load Extrafields data if model exists ---
-        $efClass = $this->detectExtrafieldsClass();
-        if ($efClass !== null) {
-            try {
-                $efInstance = new $efClass();
-                // Detect foreign key: typically 'fk_{table}' or '{table}_id'
-                $parentTable = $model->getTable();
-                $efFk = 'fk_object';
 
-                // Try common foreign key patterns
-                $candidateKeys = ['fk_object', 'fk_' . $parentTable, rtrim($parentTable, 's') . '_id'];
-                $efColumns = array_keys($efClass::getFields());
-                foreach ($candidateKeys as $candidate) {
-                    if (in_array($candidate, $efColumns, true)) {
-                        /** @psalm-suppress NoValue */
-                        $efFk = $candidate;
-                        break;
-                    }
-                }
-
-                $efRecord = $efClass::where($efFk, $this->recordId)->first();
-                if ($efRecord) {
-                    $efData = $efRecord->toArray();
-                    // Merge with configured prefix to avoid collisions
-                    foreach ($efData as $efKey => $efValue) {
-                        // Skip internal fields
-                        if (in_array($efKey, ['id', $efFk, 'created_at', 'updated_at', 'deleted_at'], true)) {
-                            continue;
-                        }
-                        $values[$this->extrafieldsPrefix . $efKey] = $efValue;
-                    }
-                }
-            } catch (\Throwable $e) {
-                // Silently ignore extrafields errors — backward compatible
-                error_log('Extrafields fetch error: ' . $e->getMessage());
-            }
-        }
 
         return [
             'id' => $this->recordId,
@@ -1339,48 +1305,7 @@ trait ResourceTrait
                 }
             }
 
-            // --- Save Extrafields if model exists ---
-            $efClass = $this->detectExtrafieldsClass();
-            if ($efClass !== null) {
-                $efData = [];
-                foreach ($modelData as $key => $value) {
-                    if (str_starts_with($key, $this->extrafieldsPrefix)) {
-                        $efData[substr($key, strlen($this->extrafieldsPrefix))] = $value;
-                    }
-                }
-                // Also check if any extrafields keys were sent outside modelData
-                foreach ($data as $key => $value) {
-                    if (str_starts_with($key, $this->extrafieldsPrefix)) {
-                        $efData[substr($key, strlen($this->extrafieldsPrefix))] = $value;
-                    }
-                }
 
-                if (!empty($efData)) {
-                    try {
-                        $efInstance = new $efClass();
-                        $parentTable = $model->getTable();
-                        $efFk = 'fk_object';
-
-                        $candidateKeys = ['fk_object', 'fk_' . $parentTable, rtrim($parentTable, 's') . '_id'];
-                        $efColumns = array_keys($efClass::getFields());
-                        foreach ($candidateKeys as $candidate) {
-                            if (in_array($candidate, $efColumns, true)) {
-                                /** @psalm-suppress NoValue */
-                                $efFk = $candidate;
-                                break;
-                            }
-                        }
-
-                        $efData[$efFk] = $model->{$model->primaryColumn()};
-                        $efClass::updateOrCreate(
-                            [$efFk => $efData[$efFk]],
-                            $efData
-                        );
-                    } catch (\Throwable $e) {
-                        error_log('Extrafields save error: ' . $e->getMessage());
-                    }
-                }
-            }
 
             DB::connection()->commit();
 
