@@ -400,12 +400,12 @@ trait ResourceTrait
 
     /**
      * Entry point for creation flow.
+     * Override this method in child classes to add specific logic (like $this->privateCore()).
      *
      * @return bool
      */
     public function doCreate(): bool
     {
-        $this->privateCore();
         return true;
     }
 
