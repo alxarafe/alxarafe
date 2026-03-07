@@ -128,7 +128,8 @@ class ApiRouter
         $searchDirs = [
             $appRoot . '/src/Modules',
             $appRoot . '/skeleton/Modules',
-            $appRoot . '/app/Modules'
+            $appRoot . '/app/Modules',
+            $appRoot . '/Modules'
         ];
 
         foreach ($searchDirs as $baseDir) {

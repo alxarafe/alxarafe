@@ -157,6 +157,11 @@ trait ResourceTrait
     public ?string $recordId = null;
 
     /**
+     * @var \Alxarafe\Base\Model\Model|null Cached record instance.
+     */
+    protected ?\Alxarafe\Base\Model\Model $record = null;
+
+    /**
      * @var string|null Default Model Class (optional, for simple controllers)
      */
     protected ?string $modelClass = null;
@@ -388,6 +393,17 @@ trait ResourceTrait
      * Handle Delete action.
      */
     public function doDelete(): bool
+    {
+        $this->privateCore();
+        return true;
+    }
+
+    /**
+     * Entry point for creation flow.
+     *
+     * @return bool
+     */
+    public function doCreate(): bool
     {
         $this->privateCore();
         return true;
@@ -1180,6 +1196,32 @@ trait ResourceTrait
                 'offset' => $this->offset,
             ]
         ];
+    }
+
+    /**
+     * Returns the current model instance.
+     *
+     * @return \Alxarafe\Base\Model\Model|null
+     */
+    protected function getRecord(): ?\Alxarafe\Base\Model\Model
+    {
+        if ($this->record === null && $this->recordId && $this->recordId !== 'new') {
+            $modelClass = $this->modelClass;
+            if (!$modelClass) {
+                // Determine Model from getModelClass()
+                $modelDefinition = $this->getModelClass();
+                if (is_array($modelDefinition)) {
+                    $modelClass = reset($modelDefinition);
+                } else {
+                    $modelClass = $modelDefinition;
+                }
+            }
+            if ($modelClass && class_exists($modelClass)) {
+                /** @var \Alxarafe\Base\Model\Model $modelClass */
+                $this->record = $modelClass::find($this->recordId);
+            }
+        }
+        return $this->record;
     }
 
     protected function fetchRecordData(): array
