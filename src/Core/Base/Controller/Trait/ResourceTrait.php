@@ -337,17 +337,23 @@ trait ResourceTrait
     /**
      * Hook called before building configuration.
      */
-    protected function beforeConfig() {}
+    protected function beforeConfig()
+    {
+}
 
     /**
      * Hook called before processing list mode logic.
      */
-    protected function beforeList() {}
+    protected function beforeList()
+    {
+}
 
     /**
      * Hook called before processing edit mode logic.
      */
-    protected function beforeEdit() {}
+    protected function beforeEdit()
+    {
+}
 
     /**
      * Hook called after a record is saved.
@@ -355,7 +361,9 @@ trait ResourceTrait
      * @param \Alxarafe\Base\Model\Model $model The saved model instance.
      * @param array $data The original submitted data.
      */
-    protected function afterSaveRecord(\Alxarafe\Base\Model\Model $model, array $data) {}
+    protected function afterSaveRecord(\Alxarafe\Base\Model\Model $model, array $data)
+    {
+}
 
     /**
      * Default action handler.
@@ -816,6 +824,7 @@ trait ResourceTrait
         $previousLabel = method_exists($model, 'getCurrentStateLabel') ? $model->getCurrentStateLabel() : '?';
 
         if ($model->transition($targetState)) {
+            /** @phpstan-ignore method.nonObject */
             $newLabel = $model->getCurrentStateLabel();
             Messages::addMessage(Trans::_('workflow_transition_success', [
                 'from' => $previousLabel,
@@ -1233,6 +1242,7 @@ trait ResourceTrait
                 $efColumns = array_keys($efClass::getFields());
                 foreach ($candidateKeys as $candidate) {
                     if (in_array($candidate, $efColumns, true)) {
+                        /** @psalm-suppress NoValue */
                         $efFk = $candidate;
                         break;
                     }
@@ -1480,6 +1490,7 @@ trait ResourceTrait
                         $efColumns = array_keys($efClass::getFields());
                         foreach ($candidateKeys as $candidate) {
                             if (in_array($candidate, $efColumns, true)) {
+                                /** @psalm-suppress NoValue */
                                 $efFk = $candidate;
                                 break;
                             }

@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
@@ -13,7 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 
 // Dummy classes to simulate existence/non-existence of Extrafields models
-class DummyModel {}
+class DummyModel
+{
+}
 class DummyModelExtrafields
 {
     public static function getFields(): array
@@ -23,7 +27,9 @@ class DummyModelExtrafields
         ];
     }
 }
-class DummyModelNoExtrafields {}
+class DummyModelNoExtrafields
+{
+}
 
 class ExtrafieldsDetectionTest extends TestCase
 {
@@ -36,6 +42,7 @@ class ExtrafieldsDetectionTest extends TestCase
         $efClassName = $className . 'Extrafields';
 
         $this->assertTrue(class_exists($efClassName), 'DummyModelExtrafields should exist');
+        /** @phpstan-ignore function.alreadyNarrowedType */
         $this->assertTrue(method_exists($efClassName, 'getFields'), 'getFields should exist on Extrafields');
     }
 

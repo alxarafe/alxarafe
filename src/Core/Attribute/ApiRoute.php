@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
  *
@@ -21,23 +23,16 @@ namespace Alxarafe\Attribute;
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-class Menu
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
+class ApiRoute
 {
+    /**
+     * @param string $path   The API route path (e.g. '/api/users')
+     * @param string $method The HTTP method (GET, POST, PUT, DELETE, PATCH, OPTIONS)
+     */
     public function __construct(
-        public string  $menu,
-        public ?string $label = null,
-        public ?string $icon = null,
-        public ?string $route = null,
-        public ?string $url = null,
-        public ?string $parent = null,
-        public int     $order = 99,
-        public ?string $permission = null,
-        public string  $visibility = 'auth', // 'auth', 'guest', 'public'
-        public ?string $badgeResolver = null,
-        public ?string $badgeClass = null,
-        public ?string $class = null,
-        public ?string $module = null,  // Source module name (auto-detected if null)
+        public string $path,
+        public string $method = 'GET'
     ) {
-}
+    }
 }

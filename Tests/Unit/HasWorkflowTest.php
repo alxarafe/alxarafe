@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
@@ -22,12 +24,15 @@ class MockWorkflowModel
 
     /** Simulated DB field */
     public int $fk_statut = 0;
+
+    public array $statePermissions = [];
 }
 
 class HasWorkflowTest extends TestCase
 {
     private MockWorkflowModel $model;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

@@ -34,7 +34,7 @@ class AgendaSeeder extends Seeder
     protected function run(string $modelClass): void
     {
         // Ensure channel types exist (AgendaSeeder runs before ContactChannelSeeder alphabetically)
-        new ContactChannelSeeder(true);
+        new ContactChannelSeeder();
 
         // --- Addresses (shared) ---
         $officeAddress = Address::create([

@@ -142,7 +142,9 @@ class MenuManager
                 if ($role && isset($role->id)) {
                     return 'role_' . $role->id;
                 }
-            } catch (\Throwable $e) {
+            } 
+            /** @phpstan-ignore catch.neverThrown */
+            catch (\Throwable $e) {
                 // Role not available, fall through
             }
             return 'user_' . Auth::$user->id;

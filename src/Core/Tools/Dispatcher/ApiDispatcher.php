@@ -38,6 +38,8 @@ namespace Alxarafe\Tools\Dispatcher;
 use Alxarafe\Base\Controller\ApiController;
 use Alxarafe\Lib\Routes;
 use Alxarafe\Tools\Debug;
+use Alxarafe\Service\ApiRouter;
+use Alxarafe\Service\ApiDispatcher as NewApiDispatcher;
 
 class ApiDispatcher extends Dispatcher
 {
@@ -49,51 +51,19 @@ class ApiDispatcher extends Dispatcher
     }
 
     /**
-     * Run the API call for the indicated module, if it exists.
-     * Execution die with a json response.
+     * Run the API call using the new Attribute-based Router.
+     * Execution dies with a json response.
      *
-     * @param $route
+     * @param $route unused here since the new Service\ApiDispatcher reads $_SERVER['REQUEST_URI']
      * @return void
      */
     public static function run($route)
     {
-        $array = explode('/', $route);
-        $module = $array[0];
-        $controller = $array[1] ?? null;
-        $method = $array[2] ?? null; // Uncommented to support method routing
-        $params = array_slice($array, 3); // Extract parameters
-
-        $routes = Routes::getAllRoutes();
-        $endpoint = $routes['Api'][$module][$controller] ?? null;
-        if ($endpoint === null) {
-            Debug::message("Dispatcher::runApi error: $route does not exists");
-            ApiController::badApiCall();
-        }
-
-        Debug::message("Dispatcher::runApi executing $route ($endpoint)");
-        $route_array = explode('|', $endpoint);
-        $className = $route_array[0];
-        $filename = $route_array[1];
-
-        if (!file_exists($filename)) {
-            Debug::message("Dispatcher::runApi error: $filename does not exists");
-            ApiController::badApiCall();
-        }
-
-        require_once $filename;
-
-        $controllerInstance = new $className();
-        if (!$controllerInstance instanceof ApiController) {
-            Debug::message("Dispatcher::runApi error: $className is not an ApiController");
-            ApiController::badApiCall();
-        }
-
-        // Execute method if defined
-        if ($method && method_exists($controllerInstance, $method)) {
-            call_user_func_array([$controllerInstance, $method], $params);
-        } elseif ($method) {
-            Debug::message("Dispatcher::runApi error: Method $method not found in $className");
-            ApiController::badApiCall("Method $method not found", 404);
-        }
+        Debug::message("ApiDispatcher::run delegating to new Attribute-based Router");
+        
+        $router = new \Alxarafe\Service\ApiRouter();
+        $dispatcher = new \Alxarafe\Service\ApiDispatcher($router);
+        
+        $dispatcher->dispatch();
     }
 }

@@ -45,7 +45,8 @@
 - **Modernization**: Prefer PHP 8.2+ features (attributes, constructor promotion, readonly properties).
 
 ## 🐳 Environment & Isolation (Docker-First)
-- **Automatic Detection**: If a project contains a `docker-compose.yml` file or a `.docker/` directory, the ASSISTANT MUST assume the project runs within a Docker environment.
+- **Docker by Default**: Unless explicitly instructed otherwise, the ASSISTANT MUST ALWAYS assume the project runs within a Docker environment and that all development tools (PHP, Composer, etc.) are to be invoked via Docker.
+- **Automatic Detection**: Even without explicit instruction, if a project contains a `docker-compose.yml` file or a `.docker/` directory, the ASSISTANT MUST assume the project runs within a Docker environment.
 - **Proxied Execution**: ALL PHP, Composer, and test commands MUST be executed inside the relevant container (usually `*_php` or `app`) using `docker exec -it <container_name> <command>`.
 - **Infrastructure Context**: Database hosts, Redis, and other services defined in `docker-compose.yml` are only resolvable from within the Docker network. NEVER try to run migrations or database-dependent scripts from the host machine if Docker is present.
 - **Path Mapping**: Ensure file paths passed to commands inside Docker match the internal container structure (standard: `/var/www/html/`).
@@ -64,3 +65,8 @@
 - **Checking Status**: After a `composer update`, check `vendor/alxarafe/alxarafe/doc/feedback/changelog.yml` for the status of your proposals (`received`, `accepted`, `rejected`, `deferred`, `implemented`, `released`).
 - **Full Guide**: See `vendor/alxarafe/alxarafe/doc/feedback/FEEDBACK.md` for detailed instructions and examples.
 - **Do NOT modify** any file under `vendor/alxarafe/alxarafe/doc/feedback/` directly — the core team manages the registry and changelog.
+
+## 🐳 Environment & Isolation (Docker-First)
+- **Always Docker**: Unless explicitly stated otherwise, the ASSISTANT MUST always assume the project is being developed and run within a Docker environment.
+- **Proxied Execution**: ALL commands related to PHP, Composer, Node/NPM, and tests MUST be executed inside the appropriate Docker container using `docker compose exec`.
+- **Path Awareness**: Be mindful that absolute paths on the host machine may differ from paths inside the container. Always use paths relative to the project root when executing commands inside Docker.

@@ -131,6 +131,7 @@ trait ViewTrait
             return $this->template->render($viewPath, $this->viewData);
         } catch (\Throwable $e) {
             $msg = $e->getMessage();
+            /** @phpstan-ignore function.alreadyNarrowedType */
             $file = method_exists($e, 'getFile') ? $e->getFile() : '';
 
             // Self-healing: If the error comes from a theme, try to reset it

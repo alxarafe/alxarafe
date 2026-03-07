@@ -44,5 +44,6 @@ class ModuleInfo
         public ?string $setupController = null,
         /** If true, this module is always enabled and cannot be toggled off */
         public bool $core = false,
-    ) {}
+    ) {
+}
 }

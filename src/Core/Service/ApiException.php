@@ -7,7 +7,7 @@ declare(strict_types=1);
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -19,24 +19,14 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Alxarafe\Service;
 
-use Alxarafe\Attribute\Menu;
-use Alxarafe\Base\Controller\ResourceController;
+use Exception;
 
-/**
- * Class EmailTemplateController.
- *
- * CRUD controller for managing email templates.
- * Each template has a unique code, subject, body (with {variable} placeholders),
- * and a list of available variables.
- */
-#[Menu(menu: 'main_menu', label: 'Email Templates', icon: 'fas fa-envelope-open-text', order: 75, parent: HomeController::class)]
-class EmailTemplateController extends ResourceController
+class ApiException extends Exception
 {
-    #[\Override]
-    protected function getModelClass()
+    public function __construct(string $message, int $code = 0, ?\Throwable $previous = null)
     {
-        return \CoreModules\Admin\Model\EmailTemplate::class;
+        parent::__construct($message, $code, $previous);
     }
 }

@@ -39,6 +39,7 @@ use CoreModules\Admin\Model\AuditLog;
  *   - Override getAuditExcludedFields() to exclude sensitive fields
  *   - Override shouldAudit() to conditionally disable auditing
  */
+/** @phpstan-ignore trait.unused */
 trait HasAuditLog
 {
     /**

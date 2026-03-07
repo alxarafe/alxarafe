@@ -24,38 +24,38 @@ use Alxarafe\Lib\Auth;
 use Alxarafe\Lib\Trans;
 use CoreModules\Admin\Model\User;
 use Firebase\JWT\JWT;
-use Luracast\Restler\RestException;
+use Alxarafe\Attribute\ApiRoute;
 
 class LoginController extends ApiController
 {
-    /**
-     * @url POST /login
-     * @throws RestException
-     */
-    public function __construct()
+    #[ApiRoute(path: '/api/login', method: 'POST')]
+    public function login(): array
     {
-        parent::__construct();
-
-        $username = $_REQUEST['username'];
-        $password = $_REQUEST['password'];
+        $username = $_REQUEST['username'] ?? '';
+        $password = $_REQUEST['password'] ?? '';
         $secret_key = Auth::getSecurityKey();
+        
         if ($secret_key === null) {
-            self::badApiCall(Trans::_('bad_secret_key'), 401);
+            self::badApiCall(Trans::_('bad_secret_key') ?: 'Secret key not found', 500);
         }
 
         $user = User::where('name', $username)->first();
         if ($user === null || !sodium_crypto_pwhash_str_verify($user->password, $password)) {
-            self::badApiCall(Trans::_('bad_api_call'), 401);
+            self::badApiCall(Trans::_('bad_api_call') ?: 'Invalid credentials', 401);
         }
 
         $payload = [
             'iat' => time(),
-            'exp' => time() + (60 * 60),
+            'exp' => time() + (60 * 60 * 24), // 24 hours token
             'data' => [
-                'user' => $username
+                'user' => $username,
+                'role' => $user->getRole()->name ?? 'user'
             ]
         ];
 
-        self::jsonResponse(JWT::encode($payload, $secret_key, 'HS256'), 200, 'token');
+        // ApiDispatcher will wrap this return in a { "status": "success", "data": ... } payload
+        return [
+            'token' => JWT::encode($payload, $secret_key, 'HS256')
+        ];
     }
 }

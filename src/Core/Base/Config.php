@@ -154,7 +154,7 @@ abstract class Config
 
     public static function getConfigFilename(): string
     {
-        $basePath = defined('APP_PATH') ? constant('APP_PATH') : (defined('BASE_PATH') ? constant('BASE_PATH') : __DIR__);
+        $basePath = defined('APP_PATH') && constant('APP_PATH') ? constant('APP_PATH') : (defined('BASE_PATH') && constant('BASE_PATH') ? constant('BASE_PATH') : __DIR__);
         $base = realpath($basePath) ?: $basePath;
 
         $configInConfigDir = $base . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
@@ -162,7 +162,21 @@ abstract class Config
             return $configInConfigDir;
         }
 
-        return $base . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        $configInBase = $base . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        if (file_exists($configInBase)) {
+            return $configInBase;
+        }
+
+        // Fallback to ALX_PATH if defined
+        if (defined('ALX_PATH') && constant('ALX_PATH')) {
+            $alxBase = constant('ALX_PATH');
+            $configInAlx = $alxBase . DIRECTORY_SEPARATOR . 'skeleton' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+            if (file_exists($configInAlx)) {
+                return $configInAlx;
+            }
+        }
+
+        return $configInConfigDir; // Return default guess if not found
     }
 
     public static function getPublicRoot(): string

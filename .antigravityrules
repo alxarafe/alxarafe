@@ -40,3 +40,8 @@
 - **Copying Proposals**: Use `composer collect-feedback -- --copy` to copy valid proposals into `doc/feedback/proposals/` for archival.
 - **Roadmap Integration**: When accepting a proposal, evaluate if it should be added to `doc/roadmap_proposals.md`.
 - **NEVER** auto-reject proposals. Always present them to the USER for triaging decisions.
+
+## Environment & Isolation (Docker-First)
+- **Docker by Default**: Unless explicitly instructed otherwise, the ASSISTANT MUST ALWAYS assume the project runs within a Docker environment and that all development tools (PHP, Composer, etc.) are to be invoked via Docker.
+- **Proxied Execution**: ALL commands related to PHP, Composer, Node/NPM, and tests MUST be executed inside the appropriate Docker container (usually using `docker compose exec`).
+- **Path Awareness**: Be mindful that absolute paths on the host machine may differ from paths inside the container. Always use paths relative to the project root when executing commands inside Docker.

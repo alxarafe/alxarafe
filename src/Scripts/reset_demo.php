@@ -25,6 +25,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 use Alxarafe\Base\Config;
 use Alxarafe\Base\Database;
+use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 
 // Define base paths if not already defined (CLI execution)
@@ -42,7 +43,14 @@ echo "Starting Alxarafe Demo Reset..." . PHP_EOL;
 
 $config = Config::getConfig(true);
 if (!$config || !isset($config->db)) {
+    $configFile = Config::getConfigFilename();
     echo "Error: Configuration (config.json) not found or database not configured." . PHP_EOL;
+    echo "Attempted to load from: " . $configFile . PHP_EOL;
+    if (!file_exists($configFile)) {
+        echo "The file does not exist at that path." . PHP_EOL;
+    }
+    echo "BASE_PATH: " . (defined('BASE_PATH') ? BASE_PATH : 'Undefined') . PHP_EOL;
+    echo "APP_PATH: " . (defined('APP_PATH') ? APP_PATH : 'Undefined') . PHP_EOL;
     exit(1);
 }
 
@@ -52,6 +60,7 @@ try {
     $schema = $db->getConnection()->getSchemaBuilder();
 
     echo "Dropping all existing tables..." . PHP_EOL;
+    $db->getConnection()->statement('SET FOREIGN_KEY_CHECKS = 0');
     $schema->dropAllTables();
     echo "Done." . PHP_EOL;
 
@@ -59,18 +68,32 @@ try {
     if (Config::doRunMigrations()) {
         echo "Migrations completed successfully." . PHP_EOL;
     } else {
-        echo "Warning: Some migrations might have failed." . PHP_EOL;
+        echo "Warning: Some migrations might have failed. Errors:" . PHP_EOL;
+        foreach (Messages::getMessages() as $message) {
+            if ($message['type'] === 'danger') {
+                echo " - " . $message['text'] . PHP_EOL;
+            }
+        }
     }
 
     echo "Running seeders (demo data)..." . PHP_EOL;
     if (Config::runSeeders()) {
         echo "Seeders completed successfully." . PHP_EOL;
     } else {
-        echo "Warning: Some seeders might have failed." . PHP_EOL;
+        echo "Warning: Some seeders might have failed. Errors:" . PHP_EOL;
+        foreach (Messages::getMessages() as $message) {
+            if ($message['type'] === 'danger') {
+                echo " - " . $message['text'] . PHP_EOL;
+            }
+        }
     }
 
+    $db->getConnection()->statement('SET FOREIGN_KEY_CHECKS = 1');
     echo "Alxarafe Demo Reset completed successfully at " . date('Y-m-d H:i:s') . PHP_EOL;
 } catch (\Throwable $e) {
+    if (isset($db)) {
+        $db->getConnection()->statement('SET FOREIGN_KEY_CHECKS = 1');
+    }
     echo "CRITICAL ERROR: " . $e->getMessage() . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);

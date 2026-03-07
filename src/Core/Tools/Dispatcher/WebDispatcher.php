@@ -80,7 +80,7 @@ class WebDispatcher extends Dispatcher
                             return $this;
                         }
                     };
-                    $event = new class($io) {
+                    $event = new class ($io) {
                         private $io;
                         public function __construct($io)
                         {

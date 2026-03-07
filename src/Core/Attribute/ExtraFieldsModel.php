@@ -29,5 +29,6 @@ class ExtraFieldsModel
         public string $suffix = 'ExtraFields',
         public string $prefix = 'extra_fields_',
         public string $label = 'extra_fields'
-    ) {}
+    ) {
+}
 }

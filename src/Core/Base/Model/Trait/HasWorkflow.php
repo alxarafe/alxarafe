@@ -45,8 +45,15 @@ namespace Alxarafe\Base\Model\Trait;
  *       '1->-1' => 'order.cancel',
  *   ];
  */
+/** @phpstan-ignore trait.unused */
 trait HasWorkflow
 {
+    /**
+     * Optional custom checker.
+     * @var callable|null
+     */
+    protected $permissionChecker = null;
+
     /**
      * Get the workflow states definition.
      *
