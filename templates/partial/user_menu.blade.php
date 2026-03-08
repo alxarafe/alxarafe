@@ -95,18 +95,15 @@
                              <span class="d-none d-sm-inline">{{ \Alxarafe\Lib\Auth::$user->name ?? \Alxarafe\Lib\Auth::$user->username ?? 'User' }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarUser" style="z-index: 1050;">
-                            @if(isset($user_menu) && is_array($user_menu))
-                                @foreach($user_menu as $item)
-                                    <a class="dropdown-item" href="{{ $item['url'] }}">
-                                        @if(!empty($item['icon'])) <i class="{{ $item['icon'] }} me-2 text-muted"></i> @endif
-                                        {{ $item['label'] }}
-                                    </a>
-                                @endforeach
-                                <div class="dropdown-divider"></div>
-                            @endif
-                            <a class="dropdown-item text-danger" href="index.php?module=Admin&controller=Auth&action=logout">
-                                <i class="fas fa-sign-out-alt me-2"></i> {{ $me->_('logout') }}
-                            </a>
+                        @if(isset($user_menu) && is_array($user_menu))
+                            @foreach($user_menu as $item)
+                                @php $isLogout = (strpos($item['url'] ?? '', 'action=logout') !== false); @endphp
+                                <a class="dropdown-item @if($item['class']??null) {{ $item['class'] }} @endif @if($isLogout) text-danger @endif" href="{{ $item['url'] }}">
+                                    @if(!empty($item['icon'])) <i class="{{ $item['icon'] }} me-2 text-muted"></i> @endif
+                                    {{ $item['label'] }}
+                                </a>
+                            @endforeach
+                        @endif
                         </div>
                     </li>
                 @else

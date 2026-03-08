@@ -35,7 +35,7 @@ use Alxarafe\Component\Fields\Text;
     icon: 'fas fa-users',
     order: 40,
     permission: 'Admin.User.doIndex',
-    parent: HomeController::class
+    parent: 'Administration'
 )]
 class UserController extends ResourceController
 {

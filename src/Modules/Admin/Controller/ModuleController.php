@@ -29,7 +29,7 @@ use CoreModules\Admin\Model\Setting;
  *
  * @see doc/modules-and-dependencies.md
  */
-#[Menu(menu: 'main_menu', label: 'Modules', icon: 'fas fa-puzzle-piece', order: 70, parent: HomeController::class)]
+#[Menu(menu: 'main_menu', label: 'Modules', icon: 'fas fa-puzzle-piece', order: 30, parent: 'Administration')]
 class ModuleController extends Controller
 {
     /**

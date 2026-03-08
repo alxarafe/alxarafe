@@ -31,7 +31,7 @@ use Alxarafe\Base\Controller\ResourceController;
  * Each template has a unique code, subject, body (with {variable} placeholders),
  * and a list of available variables.
  */
-#[Menu(menu: 'main_menu', label: 'Email Templates', icon: 'fas fa-envelope-open-text', order: 75, parent: HomeController::class)]
+#[Menu(menu: 'main_menu', label: 'Email Templates', icon: 'fas fa-envelope-open-text', order: 30, parent: 'Configuration')]
 class EmailTemplateController extends ResourceController
 {
     #[\Override]

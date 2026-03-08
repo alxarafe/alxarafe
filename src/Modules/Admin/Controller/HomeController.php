@@ -39,6 +39,20 @@ use Alxarafe\Attribute\Menu;
     icon: 'fas fa-home',
     order: 1
 )]
+#[Menu(
+    menu: 'main_menu',
+    label: 'Administration',
+    icon: 'fas fa-shield-halved',
+    order: 10,
+    permission: 'Admin.User.doIndex'
+)]
+#[Menu(
+    menu: 'main_menu',
+    label: 'Configuration',
+    icon: 'fas fa-cogs',
+    order: 20,
+    permission: 'Admin.Config.doIndex'
+)]
 class HomeController extends Controller
 {
     #[\Override]
@@ -55,9 +69,8 @@ class HomeController extends Controller
 
     #[Menu(
         menu: 'main_menu',
-        label: 'admin_dashboard',
+        label: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        parent: HomeController::class,
         order: 1
     )]
     public function doIndex(): bool

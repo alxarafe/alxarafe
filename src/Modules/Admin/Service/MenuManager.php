@@ -93,7 +93,51 @@ class MenuManager
         usort($items, fn($a, $b) => $a['order'] <=> $b['order']);
 
         // 3. Filter by Visibility & Permissions
-        return array_filter($items, fn($item) => self::isVisible($item));
+        $filtered = array_filter($items, fn($item) => self::isVisible($item));
+
+        // 4. Group by Parent (Tree support)
+        return self::buildTree($filtered);
+    }
+
+    /**
+     * Converts a flat list of menu items into a hierarchical tree.
+     * Items with a 'parent' that exists in the list become children of that parent.
+     */
+    private static function buildTree(array $items): array
+    {
+        $tree = [];
+        $indexed = [];
+        $indexedByLabel = [];
+
+        // First pass: Index items
+        foreach ($items as $item) {
+            $key = $item['class_name'] ?? ($item['route'] ?? $item['url']);
+            $indexed[$key] = $item;
+            $indexed[$key]['children'] = [];
+            
+            // Also index by label (for human-friendly parent identifiers)
+            $labelKey = $item['label'];
+            $indexedByLabel[$labelKey] = &$indexed[$key];
+        }
+
+        // Second pass: Link children to parents
+        foreach ($indexed as $key => &$item) {
+            $parent = $item['parent'] ?? null;
+            if ($parent) {
+                if (isset($indexed[$parent])) {
+                    $indexed[$parent]['children'][] = &$item;
+                    continue; // Linked by class/route/url
+                }
+                if (isset($indexedByLabel[$parent])) {
+                    $indexedByLabel[$parent]['children'][] = &$item;
+                    continue; // Linked by label
+                }
+            }
+            // Root items
+            $tree[] = &$item;
+        }
+
+        return $tree;
     }
 
     /**
@@ -358,12 +402,12 @@ class MenuManager
                     $classAttrs = $reflection->getAttributes(Menu::class);
 
                     foreach ($classAttrs as $attribute) {
-                        $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, 'index');
+                        $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, 'index', $className);
                     }
                     // Method Attributes
                     foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                         foreach ($method->getAttributes(Menu::class) as $attribute) {
-                            $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, $method->getName());
+                            $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, $method->getName(), $className);
                         }
                     }
                 } catch (\Throwable $e) {
@@ -396,12 +440,12 @@ class MenuManager
                     $reflection = new ReflectionClass($className);
                     // Class Attributes
                     foreach ($reflection->getAttributes(Menu::class) as $attribute) {
-                        $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, 'index');
+                        $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, 'index', $className);
                     }
                     // Method Attributes
                     foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                         foreach ($method->getAttributes(Menu::class) as $attribute) {
-                            $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, $method->getName());
+                            $menus = self::addToMenu($menus, $attribute->newInstance(), $module, $controllerName, $method->getName(), $className);
                         }
                     }
                 } catch (\Throwable $e) {
@@ -413,7 +457,7 @@ class MenuManager
         return $menus;
     }
 
-    private static function addToMenu(array $menus, Menu $attr, string $module, string $controller, string $action): array
+    private static function addToMenu(array $menus, Menu $attr, string $module, string $controller, string $action, ?string $className = null): array
     {
         $route = $attr->route ?? sprintf('%s.%s.%s', $module, $controller, $action);
 
@@ -435,6 +479,7 @@ class MenuManager
             'route' => $route,
             'url' => $url,
             'parent' => $attr->parent,
+            'class_name' => $className,
             'class' => $attr->class,
             'order' => $attr->order,
             'permission' => $attr->permission,

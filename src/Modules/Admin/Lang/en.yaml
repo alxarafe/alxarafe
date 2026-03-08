@@ -88,3 +88,11 @@ detect_timezone: Detect Timezone
 keep_empty_to_not_change: Keep empty to not change
 none: None
 default: Default
+Administration: Administration
+Configuration: Configuration
+Dashboard: Dashboard
+Logout: Logout
+Login: Login
+My Profile: My Profile
+default_page_active: Current Start Page
+set_as_default_page: Set as Start Page

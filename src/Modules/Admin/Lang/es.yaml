@@ -88,3 +88,11 @@ detect_timezone: Detectar Zona Horaria
 keep_empty_to_not_change: Dejar vacío para no cambiar
 none: Ninguno
 default: Por defecto
+Administration: Administración
+Configuration: Configuración
+Dashboard: Dashboard
+Logout: Cerrar sesión
+Login: Iniciar sesión
+My Profile: Mi perfil
+default_page_active: Inicio actual
+set_as_default_page: Establecer como inicio
