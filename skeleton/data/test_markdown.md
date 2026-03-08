@@ -1,97 +1,76 @@
 ---
-title: Historia de Supermercados CODI
-author: Rafael San José
-date: 2026-03-08
+title: Alxarafe Showcase
+subtitle: Experimentando con el motor de Markdown y componentes visuales.
 ---
 
 <div class="markdown-showcase">
 
-Corría el año **1996** cuando me incorporó a la cadena *Supermercados CODI*. Las tiendas aún no habían abierto: todo estaba **en preparación para la inauguración**, y el calendario no se movía. Tenía apenas unas semanas para entender un ecosistema heredado, estabilizarlo y dejarlo listo para arrancar.
+# Alxarafe: Potencia y Simplicidad
+
+El framework está diseñado para ofrecer una experiencia de desarrollo fluida, combinando la robustez de PHP 8.2+ con un sistema de componentes flexible y extensible. Esta página demuestra las capacidades de renderizado de contenido mediante bloques dinámicos.
+
+::: callout-info
+## El propósito de esta demo
+Aquí puedes probar cómo se comportan los diferentes bloques personalizados (Callouts, Grids, Cards) y ver cómo el CSS global aplica estilos "premium" de forma automática.
+:::
+
+## Características principales
 
 :::: feature-grid
-::: feature-card icon="fa-server"
-## La central
-Nuevo desarrollo en **FoxPro 2.6 para Windows**, ambicioso e inacabado. La empresa que lo estaba implantando terminó abandonándolo y nos cedió los fuentes.  
-Yo había hecho pequeños scripts en FoxPro, pero nada comparable a un sistema logístico completo. Tocaba aprender *dentro* del propio proyecto.  
-Las comunicaciones con las tiendas se realizaban mediante un script de **Telnet** que llamaba a cada tienda a partir de medianoche. Tampoco tenía experiencia en ese terreno.
+::: feature-card icon="fa-bolt"
+## Rendimiento
+Arquitectura optimizada para tiempos de respuesta mínimos. Sin sobrecarga innecesaria, solo el código que tu aplicación necesita para brillar.
 :::
 
-::: feature-card icon="fa-network-wired"
-## La trastienda
-Un PC con MS‑DOS actuaba como servidor **Novell** y se comunicaba con las cajas TPV y con las balanzas Dibal vía RS‑232.  
-El ordenador tenía una aplicación en **Clipper** que era madura y estable, de la cual **no tenía los fuentes**. Dicha aplicación recibía un archivo plano con las ventas y un DBF con los precios de la central, y gestionaba el intercambio con las cajas y balanzas, además de imprimir las etiquetas con los nuevos precios recibidos de la central, si habían cambios.
+::: feature-card icon="fa-shield-halved"
+## Seguridad
+Protección integrada contra ataques comunes. Manejo seguro de sesiones, validación estricta y cumplimiento de estándares PSR.
 :::
 
-::: feature-card icon="fa-cash-register"
-## Las cajas
-Las cajas eran TPV **IBM 4694** con una aplicación en **TurboPascal**, también madura y ampliamente utilizada por la empresa proveedora en pequeñas empresas.
-Al ser un software maduro y cumplir con su cometido de gestionar las ventas, tampoco dispuse de los fuentes.
-Además de las cajas, teníamos balanzas Dibal que recibían artículos y precios… **Cuando querían**.
+::: feature-card icon="fa-puzzle-piece"
+## Modularidad
+Crea módulos independientes y reutilizables fácilmente. Cada pieza del sistema se conecta de forma natural y escalable.
 :::
 ::::
 
-::: .mt-5
-![IBM 4694](https://alxarafe.es/uploads/images/ibm-4694.png)
-:::
+## Layouts Flexibles (Side-by-Side)
 
-::: callout-info
-## Software heredado
-Salvo el programa de central, todo el software era lo suficientemente maduro como para que la empresa desarrolladora no cediera los fuentes.  
-La central, en cambio, era un desarrollo nuevo que había crecido demasiado rápido.
-Hay que considerar que hablamos de una época, en la que prácticamente, **Internet no existía**.
-:::
-
-Muchos hablan hoy de "resiliencia", pero la de verdad la aprendí cuando la comunicación se hacía por **Telnet** y se caía si alguien levantaba el auricular en casa, o sencillamente, cuando un error interrumpía el script y las tiendas no se comunicaban con la central.
-
-Sin los pedidos en la central, el personal de almacén, no podía trabajar.
-
-## Migración de Telnet a Telix
-
-**Telix** era un software mucho más potente y robusto que Telnet, por lo que de las primeras cosas que hice para que no me llamasen a las 5 de la mañana para que saliera corriendo a realizar las comunicaciones, fue instalar Telix en central y tiendas y reescribir por completo los scripts para que reintentase y fuese sacando los pedidos aunque no estuviese la información de todas las tiendas.
-
-::: callout-info
-La aplicación cogía los pedidos de todas las tiendas y los procesaba antes de hacer la preparación, más que nada porque sería necesario preparar el almacén haciendo tranferencias de mercancía de *huecos de reserva* a *Picking*, o directamente de reserva a un pedido si se pedía un palet completo.
-:::
-
-También aproveché para poder enviar actualizaciones de los scripts en el propio paquete y evitar desplazamientos a las tiendas.
-
-## El misterio de los huecos que se esfumaban
+Con el sistema de `feature-grid` y `feature-item`, puedes crear disposiciones complejas que se adaptan a cualquier resolución de pantalla.
 
 :::: feature-grid
 ::: feature-item
-### El problema: Centinelas
-El sistema de ubicación del almacén se basaba en "**centinelas**": marcas lógicas que indicaban qué huecos eran de picking.
-Si un proceso fallaba, el centinela desaparecía… y el hueco también.
+### Control total del diseño
+Aprovecha las clases de Bootstrap vinculadas a Markdown para crear columnas personalizadas. Puedes indicar el ancho (`width="6"`) y el orden para alternar texto e imágenes.
 
-### La solución: Inmutabilidad
-Definí una **estructura estática de almacén**.  
-Si un hueco existe físicamente, existe en el software.  
-Una lección temprana sobre **entidades inmutables** que sigo aplicando hoy.
+### Inmutabilidad y Estructura
+Aprende a definir estructuras de datos sólidas que mantengan la integridad de tu aplicación a lo largo del tiempo.
 :::
 
 ::: feature-item
-![El centinela perdió el hueco](https://alxarafe.es/uploads/images/el-centinela-perdio-el-hueco.png)
+![Showcase Image](https://alxarafe.com/assets/img/logo.png)
 :::
 ::::
 
-## Sobrevivir al Euro sin código fuente
-
-La aplicación en **Clipper** era madura y estable, pero **no tenía los fuentes** , así que recurrí a ingeniería inversa para poder adaptarla a la moneda dual.
-
-Tampoco disponía de las fuentes de la aplicación que se ejecutaba en los terminales IBM de las cajas (TurboPascal).
-
-Para la adaptación al Euro desarrollé un software liviano en **C++**, usando los ejemplos de IBM para comunicarme con los periféricos con el que sustituí el programa original. En ese momento, todo el código estaba bajo mi control.
-
-Fue mi primera lección de interoperabilidad:  
-
-::: callout-info
-El lenguaje es secundario; lo importante es entender cómo hablan las máquinas entre sí.
+::: .mt-5.mb-5.text-center
+![Centered Showcase](https://alxarafe.com/assets/img/logo.png)
+_Pie de foto opcional usando clases de utilidad de margen y alineación._
 :::
 
-## El controlador de frescos
+::: callout-note
+## Nota técnica
+El sistema utiliza **Parsedown** como motor base, extendido con filtros regex personalizados para soportar bloques de Quarto/Pandoc.
+:::
 
-Había poco personal. Un empleado salía de madrugada con un camión hacia **Mercasevilla** y volvía cada mañana con un único albarán de compra y el reparto individual a cada tienda. Creé un controlador que, en un solo paso, generaba el albarán de compra y los albaranes de venta para cada tienda como columnas del albarán de compra.
+## Ejemplo de código
 
-El software debe **reducir la carga cognitiva del humano**, no aumentarla.
+```php
+// Alxarafe: Renderizando componentes
+echo MarkdownService::render($content);
+```
+
+::: callout-warn
+## Advertencia
+Esta página de previsualización se restablece periódicamente para mantener la integridad de la demostración.
+:::
 
 </div>

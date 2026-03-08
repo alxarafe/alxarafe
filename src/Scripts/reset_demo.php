@@ -95,6 +95,21 @@ try {
     }
 
     $db->getConnection()->statement('SET FOREIGN_KEY_CHECKS = 1');
+
+    echo "Resetting Markdown showcase file..." . PHP_EOL;
+    $defaultShowcase = APP_PATH . '/data/default_showcase.md';
+    $targetShowcase = APP_PATH . '/data/test_markdown.md';
+    
+    if (file_exists($defaultShowcase)) {
+        if (@copy($defaultShowcase, $targetShowcase)) {
+            echo "Markdown showcase reset correctly." . PHP_EOL;
+        } else {
+            echo "Warning: Failed to copy default_showcase.md to test_markdown.md." . PHP_EOL;
+        }
+    } else {
+        echo "Warning: default_showcase.md not found at {$defaultShowcase}." . PHP_EOL;
+    }
+
     echo "Alxarafe Demo Reset completed successfully at " . date('Y-m-d H:i:s') . PHP_EOL;
 } catch (\Throwable $e) {
     if (isset($db)) {
