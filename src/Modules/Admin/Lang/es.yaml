@@ -91,6 +91,13 @@ default: Por defecto
 Administration: Administración
 Configuration: Configuración
 Dashboard: Dashboard
+Dashboard_description: Centro de administración y control del sistema.
+config_description: Configuración general y base de datos.
+modules_description: Gestión de módulos y estados.
+users_description: Cuentas de usuario y perfiles.
+roles_description: Permisos y seguridad por roles.
+migrations_description: Estructura de base de datos y actualizaciones.
+dictionaries_description: Datos maestros y tablas de referencia.
 Logout: Cerrar sesión
 Login: Iniciar sesión
 My Profile: Mi perfil

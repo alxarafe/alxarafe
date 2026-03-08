@@ -75,7 +75,7 @@ class HomeController extends Controller
     )]
     public function doIndex(): bool
     {
-        $this->addVariable('title', Trans::_('admin_dashboard'));
+        $this->addVariable('title', Trans::_('Dashboard'));
         $this->setDefaultTemplate('page/admin_home');
         return true;
     }

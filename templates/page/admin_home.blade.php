@@ -2,14 +2,14 @@
 
 @section('content')
 @php
-    $title = $title ?? \Alxarafe\Lib\Trans::_('admin_dashboard');
+    $title = $title ?? \Alxarafe\Lib\Trans::_('Dashboard');
 @endphp
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
         <div class="col-12">
             <h2 class="mb-1"><i class="fas fa-cogs me-2"></i>{{ $title }}</h2>
-            <p class="text-muted">{{ \Alxarafe\Lib\Trans::_('admin_dashboard_description') }}</p>
+            <p class="text-muted">{{ \Alxarafe\Lib\Trans::_('Dashboard_description') }}</p>
         </div>
     </div>
 
