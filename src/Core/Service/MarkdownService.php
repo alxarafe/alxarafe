@@ -145,6 +145,13 @@ class MarkdownService
             return $html;
         }, $content);
 
+        // Support for generic blocks: ::: .classname1.classname2 (must have dots)
+        $content = preg_replace_callback('/:::\s+\.([a-zA-Z0-9\._-]+)\n(.*?):::/s', function ($matches) {
+            $classes = str_replace('.', ' ', trim($matches[1], '. '));
+            $body = trim($matches[2]);
+            return '<div class="' . $classes . '">' . self::render($body) . '</div>';
+        }, $content);
+
         return (new \Parsedown())->text($content);
     }
 }

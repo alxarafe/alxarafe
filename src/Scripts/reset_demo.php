@@ -29,14 +29,20 @@ use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
 
 // Define base paths if not already defined (CLI execution)
-if (!defined('BASE_PATH')) {
-    define('BASE_PATH', realpath(__DIR__ . '/../../skeleton/public'));
+if (!defined('ALX_PATH')) {
+    $alxPath = realpath(__DIR__ . '/../../');
+    if (!$alxPath && is_dir(__DIR__ . '/../../src/Core')) {
+        $alxPath = dirname(__DIR__, 2);
+    }
+    define('ALX_PATH', $alxPath ?: dirname(__DIR__, 2));
 }
 if (!defined('APP_PATH')) {
-    define('APP_PATH', realpath(__DIR__ . '/../../skeleton'));
+    $appPath = realpath(ALX_PATH . '/skeleton');
+    define('APP_PATH', $appPath ?: ALX_PATH . '/skeleton');
 }
-if (!defined('ALX_PATH')) {
-    define('ALX_PATH', realpath(__DIR__ . '/../../'));
+if (!defined('BASE_PATH')) {
+    $basePath = realpath(APP_PATH . '/public');
+    define('BASE_PATH', $basePath ?: APP_PATH . '/public');
 }
 
 echo "Starting Alxarafe Demo Reset..." . PHP_EOL;
