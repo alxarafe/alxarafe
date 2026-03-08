@@ -56,6 +56,14 @@ use Symfony\Component\Yaml\Yaml;
 class TestController extends PublicResourceController
 {
     /**
+     * @return string
+     */
+    public static function getModuleName(): string
+    {
+        return 'FrameworkTest';
+    }
+
+    /**
      * Define the primary model class for this controller.
      */
     protected function getModelClass()
@@ -256,7 +264,7 @@ class TestController extends PublicResourceController
                 ], [
                     'help' => \Alxarafe\Lib\Trans::_('select2_help')
                 ]),
-                new Image('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=300&q=80', \Alxarafe\Lib\Trans::_('branding_preview'), [
+                new Image('/alxarafe/assets/img/logo.png', \Alxarafe\Lib\Trans::_('branding_preview'), [
                     'width' => '100%',
                     'help' => \Alxarafe\Lib\Trans::_('image_help')
                 ]),

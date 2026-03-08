@@ -28,8 +28,8 @@ use Alxarafe\Attribute\Menu;
 #[Menu(
     menu: 'main_menu',
     label: 'roles',
-    icon: 'fas fa-user-shield',
-    order: 30,
+    icon: 'fas fa-user-tag',
+    order: 50,
     permission: 'Admin.Role.doIndex',
     parent: 'Administration'
 )]

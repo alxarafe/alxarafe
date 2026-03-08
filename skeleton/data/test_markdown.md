@@ -47,13 +47,13 @@ Aprende a definir estructuras de datos sólidas que mantengan la integridad de t
 :::
 
 ::: feature-item
-![Showcase Image](https://alxarafe.com/assets/img/logo.png)
+![Showcase Image](https://picsum.photos/seed/alxarafe-layout/800/600)
 :::
 ::::
 
 ::: .mt-5.mb-5.text-center
-![Centered Showcase](https://alxarafe.com/assets/img/logo.png)
-_Pie de foto opcional usando clases de utilidad de margen y alineación._
+![Centered Showcase](/alxarafe/assets/img/logo.png)
+_Pie de foto opcional usando el logotipo local de Alxarafe._
 :::
 
 ::: callout-note

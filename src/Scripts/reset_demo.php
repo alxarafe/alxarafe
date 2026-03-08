@@ -99,6 +99,7 @@ try {
     echo "Resetting Markdown showcase file..." . PHP_EOL;
     $defaultShowcase = APP_PATH . '/data/default_showcase.md';
     $targetShowcase = APP_PATH . '/data/test_markdown.md';
+    $demoDataYaml = APP_PATH . '/var/demo_data.yaml';
     
     if (file_exists($defaultShowcase)) {
         if (@copy($defaultShowcase, $targetShowcase)) {
@@ -108,6 +109,14 @@ try {
         }
     } else {
         echo "Warning: default_showcase.md not found at {$defaultShowcase}." . PHP_EOL;
+    }
+
+    if (file_exists($demoDataYaml)) {
+        if (@unlink($demoDataYaml)) {
+            echo "Temporary demo data (YAML) cleared." . PHP_EOL;
+        } else {
+            echo "Warning: Failed to delete {$demoDataYaml}." . PHP_EOL;
+        }
     }
 
     echo "Alxarafe Demo Reset completed successfully at " . date('Y-m-d H:i:s') . PHP_EOL;

@@ -40,9 +40,9 @@ use Alxarafe\Attribute\Menu;
  */
 #[Menu(
     menu: 'main_menu',
-    label: 'Config',
+    label: 'settings',
     icon: 'fas fa-cogs',
-    order: 99,
+    order: 10,
     permission: 'Admin.Config.doIndex',
     parent: 'Configuration'
 )]

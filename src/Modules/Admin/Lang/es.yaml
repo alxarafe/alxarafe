@@ -13,6 +13,7 @@ db_password: Contraseña
 db_create: Crear base de datos (si no existe)
 db_name: Nombre de la base de datos
 db_port: Puerto
+Config: Configuración
 connection: Conexión
 db_prefix: Prefijo de Tablas
 db_charset: Juego de Caracteres
@@ -60,6 +61,7 @@ no_roles_found: No se han definido Roles
 start_by_creating_role: Comience creando un rol para definir permisos.
 create_first_role: Crear el primer Rol
 roles: Roles
+Roles: Roles
 
 # Role Edit & Sync
 new_role: Nuevo Rol
@@ -103,3 +105,17 @@ Login: Iniciar sesión
 My Profile: Mi perfil
 default_page_active: Inicio actual
 set_as_default_page: Establecer como inicio
+Migrations: Migraciones
+Dictionaries: Diccionarios
+users: Usuarios
+Users: Usuarios
+Modules: Gestión de Módulos
+modules: Gestión de Módulos
+enable_all: Activar todos
+disable_all: Desactivar todos
+no_description_available: Sin descripción disponible
+setup: Configurar
+module_enabled: Módulo activado
+module_disabled: Módulo desactivado
+all_modules_disabled: Todos los módulos desactivados
+all_modules_enabled: Todos los módulos activados

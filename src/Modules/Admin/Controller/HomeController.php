@@ -71,7 +71,8 @@ class HomeController extends Controller
         menu: 'main_menu',
         label: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        order: 1
+        order: 1,
+        parent: 'Administration'
     )]
     public function doIndex(): bool
     {

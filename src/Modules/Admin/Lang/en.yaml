@@ -103,3 +103,19 @@ Login: Login
 My Profile: My Profile
 default_page_active: Current Start Page
 set_as_default_page: Set as Start Page
+Config: Configuration
+Roles: Roles
+Migrations: Migrations
+Dictionaries: Dictionaries
+users: Users
+Users: Users
+Modules: Module Management
+modules: Module Management
+enable_all: Enable all
+disable_all: Disable all
+no_description_available: No description available
+setup: Setup
+module_enabled: Module enabled
+module_disabled: Module disabled
+all_modules_disabled: All modules disabled
+all_modules_enabled: All modules enabled

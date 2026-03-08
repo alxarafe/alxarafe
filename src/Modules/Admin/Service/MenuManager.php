@@ -116,8 +116,13 @@ class MenuManager
             $indexed[$key]['children'] = [];
             
             // Also index by label (for human-friendly parent identifiers)
+            // AND by untranslated label (priority)
             $labelKey = $item['label'];
             $indexedByLabel[$labelKey] = &$indexed[$key];
+            
+            if (isset($item['label_key'])) {
+                $indexedByLabel[$item['label_key']] = &$indexed[$key];
+            }
         }
 
         // Second pass: Link children to parents
@@ -130,7 +135,7 @@ class MenuManager
                 }
                 if (isset($indexedByLabel[$parent])) {
                     $indexedByLabel[$parent]['children'][] = &$item;
-                    continue; // Linked by label
+                    continue; // Linked by label (translated or untranslated)
                 }
             }
             // Root items
@@ -459,6 +464,12 @@ class MenuManager
 
     private static function addToMenu(array $menus, Menu $attr, string $module, string $controller, string $action, ?string $className = null): array
     {
+        // Convention: action "index" in URL calls "doIndex" in Controller.
+        // We strip "do" prefix from method names when generating the URL/Route.
+        if (str_starts_with($action, 'do')) {
+            $action = lcfirst(substr($action, 2));
+        }
+
         $route = $attr->route ?? sprintf('%s.%s.%s', $module, $controller, $action);
 
         // Resolve Badge (Runtime!)
@@ -475,6 +486,7 @@ class MenuManager
 
         $menus[$attr->menu][] = [
             'label' => Trans::_($attr->label ?? $controller),
+            'label_key' => $attr->label ?? $controller,
             'icon' => $attr->icon,
             'route' => $route,
             'url' => $url,

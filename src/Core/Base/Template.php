@@ -72,8 +72,13 @@ class Template
 
         // Initialize Blade if paths are set
         if ($this->blade === null && !empty($this->paths)) {
-            // Assuming cache path is writable and exists
-            $cachePath = constant('BASE_PATH') . '/../var/cache/blade';
+            // Theme-specific cache path to avoid cross-theme component spills
+            $theme = \Alxarafe\Base\Config::getConfig()?->main->theme ?? 'default';
+            if (isset($_COOKIE['alx_theme'])) {
+                $theme = $_COOKIE['alx_theme'];
+            }
+            
+            $cachePath = constant('BASE_PATH') . '/../var/cache/blade/' . $theme;
             if (!is_dir($cachePath)) {
                 mkdir($cachePath, 0755, true);
             }

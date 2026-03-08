@@ -79,7 +79,7 @@ class UserController extends ResourceController
     #[\Override]
     protected function beforeList()
     {
-        $users = User::with('role')->get();
+        $users = User::all();
         $this->addVariable('users', $users);
         $this->setDefaultTemplate('page/user_list');
         $this->addVariable('title', \Alxarafe\Lib\Trans::_('user_management'));

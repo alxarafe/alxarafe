@@ -33,7 +33,7 @@ use Alxarafe\Attribute\Menu;
  */
 #[Menu(
     menu: 'main_menu',
-    label: 'Migrations',
+    label: 'migrations',
     icon: 'fas fa-bolt',
     order: 85,
     permission: 'Admin.Migration.doIndex',

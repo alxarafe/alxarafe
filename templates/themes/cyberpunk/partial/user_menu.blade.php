@@ -49,8 +49,8 @@
         @foreach($user_menu as $item)
             @php
                 $isSetDefault = (strpos($item['url'], 'action=setDefault') !== false);
-                $isProfile = !$isSetDefault && ($item['label'] === 'Profile' || $item['label'] === 'Perfil' || $item['label'] === 'My Profile' || (strpos($item['url'], 'Profile') !== false && strpos($item['url'], 'action=') === false));
-                $isLogout = ($item['label'] === 'Logout' || strpos($item['url'], 'logout') !== false);
+                $isProfile = !$isSetDefault && ($item['label_key'] === 'Profile' || $item['label_key'] === 'My Profile' || (strpos($item['url'], 'Profile') !== false && strpos($item['url'], 'action=') === false));
+                $isLogout = ($item['label_key'] === 'Logout' || $item['label_key'] === 'logout' || strpos($item['url'], 'logout') !== false);
             @endphp
             @continue($isProfile || $isLogout)
             
