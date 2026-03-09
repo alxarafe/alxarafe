@@ -36,10 +36,24 @@ if (!defined('ALX_PATH')) {
     }
     define('ALX_PATH', $alxPath ?: dirname(__DIR__, 2));
 }
+
+// Detection logic for APP_PATH (where config.json lives)
 if (!defined('APP_PATH')) {
-    $appPath = realpath(ALX_PATH . '/skeleton');
-    define('APP_PATH', $appPath ?: ALX_PATH . '/skeleton');
+    $skeletonPath = ALX_PATH . '/skeleton';
+    $configInRoot = ALX_PATH . '/config/config.json';
+    $configInSkeleton = $skeletonPath . '/config/config.json';
+
+    if (file_exists($configInSkeleton)) {
+        define('APP_PATH', realpath($skeletonPath) ?: $skeletonPath);
+    } elseif (file_exists($configInRoot)) {
+        define('APP_PATH', ALX_PATH);
+    } else {
+        // Fallback to skeleton if it exists, otherwise root
+        $appPath = is_dir($skeletonPath) ? $skeletonPath : ALX_PATH;
+        define('APP_PATH', realpath($appPath) ?: $appPath);
+    }
 }
+
 if (!defined('BASE_PATH')) {
     $basePath = realpath(APP_PATH . '/public');
     define('BASE_PATH', $basePath ?: APP_PATH . '/public');
@@ -52,11 +66,26 @@ if (!$config || !isset($config->db)) {
     $configFile = Config::getConfigFilename();
     echo "Error: Configuration (config.json) not found or database not configured." . PHP_EOL;
     echo "Attempted to load from: " . $configFile . PHP_EOL;
+    
     if (!file_exists($configFile)) {
-        echo "The file does not exist at that path." . PHP_EOL;
+        echo "The file does not exist at that path. Note: config.json is ignored by git and must be created manually." . PHP_EOL;
     }
-    echo "BASE_PATH: " . (defined('BASE_PATH') ? BASE_PATH : 'Undefined') . PHP_EOL;
-    echo "APP_PATH: " . (defined('APP_PATH') ? APP_PATH : 'Undefined') . PHP_EOL;
+    
+    echo "Current Environment:" . PHP_EOL;
+    echo " - ALX_PATH: " . (defined('ALX_PATH') ? ALX_PATH : 'Undefined') . PHP_EOL;
+    echo " - APP_PATH: " . (defined('APP_PATH') ? APP_PATH : 'Undefined') . PHP_EOL;
+    echo " - BASE_PATH: " . (defined('BASE_PATH') ? BASE_PATH : 'Undefined') . PHP_EOL;
+    
+    // Check common locations to help the user
+    $candidates = [
+        ALX_PATH . '/config/config.json',
+        ALX_PATH . '/skeleton/config/config.json'
+    ];
+    echo "Checked locations:" . PHP_EOL;
+    foreach ($candidates as $c) {
+        $exists = file_exists($c) ? "[EXISTS]" : "[MISSING]";
+        echo " - $exists $c" . PHP_EOL;
+    }
     exit(1);
 }
 

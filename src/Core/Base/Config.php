@@ -157,22 +157,32 @@ abstract class Config
         $basePath = defined('APP_PATH') && constant('APP_PATH') ? constant('APP_PATH') : (defined('BASE_PATH') && constant('BASE_PATH') ? constant('BASE_PATH') : __DIR__);
         $base = realpath($basePath) ?: $basePath;
 
+        // 1. Try in the detected APP_PATH/config (or BASE_PATH/config)
         $configInConfigDir = $base . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
         if (file_exists($configInConfigDir)) {
             return $configInConfigDir;
         }
 
+        // 2. Try in the detected APP_PATH root
         $configInBase = $base . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
         if (file_exists($configInBase)) {
             return $configInBase;
         }
 
-        // Fallback to ALX_PATH if defined
+        // 3. Fallback to ALX_PATH if defined (checking both root/config and skeleton/config)
         if (defined('ALX_PATH') && constant('ALX_PATH')) {
             $alxBase = constant('ALX_PATH');
-            $configInAlx = $alxBase . DIRECTORY_SEPARATOR . 'skeleton' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
-            if (file_exists($configInAlx)) {
-                return $configInAlx;
+            
+            // Check in ALX_PATH/config/ (Standard deployment)
+            $configInAlxRoot = $alxBase . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+            if (file_exists($configInAlxRoot)) {
+                return $configInAlxRoot;
+            }
+
+            // Check in ALX_PATH/skeleton/config/ (Development structure)
+            $configInAlxSkeleton = $alxBase . DIRECTORY_SEPARATOR . 'skeleton' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+            if (file_exists($configInAlxSkeleton)) {
+                return $configInAlxSkeleton;
             }
         }
 
