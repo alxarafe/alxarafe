@@ -40,7 +40,7 @@ class LoginController extends ApiController
         }
 
         $user = User::where('name', $username)->first();
-        if ($user === null || !sodium_crypto_pwhash_str_verify($user->password, $password)) {
+        if ($user === null || !password_verify($password, $user->password)) {
             self::badApiCall(Trans::_('bad_api_call') ?: 'Invalid credentials', 401);
         }
 

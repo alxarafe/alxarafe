@@ -151,7 +151,7 @@ class UserService
         // Password
         $password = $data['password'] ?? '';
         if (!empty($password)) {
-            $user->password = password_hash($password, PASSWORD_DEFAULT);
+            $user->password = password_hash($password, PASSWORD_BCRYPT);
         } elseif (!$user->exists && empty($user->password)) { // New user must have password
             throw new \Exception("Password is required for new users.");
         }

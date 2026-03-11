@@ -39,11 +39,7 @@ class UserSeeder extends Seeder
     protected function run($modelClass): void
     {
         $password = 'password';
-        $hashedPassword = sodium_crypto_pwhash_str(
-            $password,
-            SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE,
-            SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE
-        );
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         $modelClass::create([
             'name' => 'admin',
