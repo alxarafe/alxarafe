@@ -6,6 +6,7 @@ use Alxarafe\Tools\Dispatcher\WebDispatcher;
 use Alxarafe\Tools\Dispatcher\ApiDispatcher;
 use Alxarafe\Base\Config;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Base\Database;
 use Alxarafe\Tools\Debug;
 
 // Define base paths
@@ -91,6 +92,23 @@ if (!file_exists(__DIR__ . '/themes/default/css/default.css') || !is_dir(__DIR__
 
         error_log("Assets missing. Triggering auto-publication...");
         \Alxarafe\Scripts\ComposerScripts::postUpdate($event);
+    }
+}
+
+// 4. Auto-installation on first run (Database)
+if ($config && isset($config->db->name) && !empty($config->db->name)) {
+    try {
+        if (Database::checkDatabaseConnection($config->db, true)) {
+            Database::createConnection($config->db);
+            if (!Database::schema()->hasTable('users')) {
+                error_log("[AutoInstall] Database tables missing. Running auto-migrations and seeders...");
+                Config::doRunMigrations();
+                Config::runSeeders();
+                error_log("[AutoInstall] Auto-installation completed successfully.");
+            }
+        }
+    } catch (Throwable $e) {
+        error_log("[AutoInstall] Auto-migration check failed or skipped: " . $e->getMessage());
     }
 }
 
