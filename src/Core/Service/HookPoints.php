@@ -31,17 +31,17 @@ namespace Alxarafe\Service;
 class HookPoints
 {
     // Form hooks
-    const FORM_FIELDS_BEFORE = 'form.{entity}.fields.before';
-    const FORM_FIELDS_AFTER  = 'form.{entity}.fields.after';
-    const FORM_TAB_CONTENT   = 'form.{entity}.tab.{tab}';
+    public const FORM_FIELDS_BEFORE = 'form.{entity}.fields.before';
+    public const FORM_FIELDS_AFTER  = 'form.{entity}.fields.after';
+    public const FORM_TAB_CONTENT   = 'form.{entity}.tab.{tab}';
 
     // List hooks
-    const LIST_COLUMNS       = 'list.{entity}.columns';
-    const LIST_ROW_ACTIONS   = 'list.{entity}.row_actions';
+    public const LIST_COLUMNS       = 'list.{entity}.columns';
+    public const LIST_ROW_ACTIONS   = 'list.{entity}.row_actions';
 
     // Action hooks
-    const BEFORE_SAVE   = 'action.{entity}.before_save';
-    const AFTER_SAVE    = 'action.{entity}.after_save';
-    const BEFORE_DELETE = 'action.{entity}.before_delete';
-    const AFTER_DELETE  = 'action.{entity}.after_delete';
+    public const BEFORE_SAVE   = 'action.{entity}.before_save';
+    public const AFTER_SAVE    = 'action.{entity}.after_save';
+    public const BEFORE_DELETE = 'action.{entity}.before_delete';
+    public const AFTER_DELETE  = 'action.{entity}.after_delete';
 }
