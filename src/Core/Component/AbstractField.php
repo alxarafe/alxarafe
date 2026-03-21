@@ -110,6 +110,26 @@ abstract class AbstractField implements JsonSerializable
         return $this->options;
     }
 
+    /**
+     * Check if this field should be visible based on its module dependency.
+     * Fields without a 'module' option are always visible.
+     */
+    public function isVisible(): bool
+    {
+        $module = $this->options['module'] ?? $this->options['options']['module'] ?? null;
+        if ($module === null) {
+            return true;
+        }
+        try {
+            if (class_exists('\CoreModules\Admin\Service\MenuManager')) {
+                return \CoreModules\Admin\Service\MenuManager::isModuleEnabled($module);
+            }
+        } catch (\Throwable) {
+            // Fail open: show the field if we can't check
+        }
+        return true;
+    }
+
     public function mergeOptions(array $newOptions): void
     {
         // Recursively merge? Or shallow? Shallow merge on 'options' key if present, or root?

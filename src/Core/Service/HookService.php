@@ -60,4 +60,45 @@ class HookService
     {
         return implode('', self::execute($hookName, ...$args));
     }
+
+    /**
+     * Executes hooks as a filter chain: each callback receives and returns $value.
+     *
+     * @param string $hookName
+     * @param mixed  $value     The value to filter
+     * @param mixed  ...$args   Additional context arguments
+     * @return mixed The filtered value
+     */
+    public static function filter(string $hookName, mixed $value, ...$args): mixed
+    {
+        if (!isset(self::$hooks[$hookName])) {
+            return $value;
+        }
+        foreach (self::$hooks[$hookName] as $hook) {
+            $value = call_user_func($hook['callback'], $value, ...$args);
+        }
+        return $value;
+    }
+
+    /**
+     * Replace placeholders in a hook name pattern.
+     * Example: resolve('form.{entity}.fields', ['entity' => 'Order']) → 'form.Order.fields'
+     */
+    public static function resolve(string $pattern, array $replacements): string
+    {
+        return str_replace(
+            array_map(fn($k) => '{' . $k . '}', array_keys($replacements)),
+            array_values($replacements),
+            $pattern
+        );
+    }
+
+    /**
+     * Clear all registered hooks. Useful for testing.
+     */
+    public static function clear(): void
+    {
+        self::$hooks = [];
+    }
 }
+

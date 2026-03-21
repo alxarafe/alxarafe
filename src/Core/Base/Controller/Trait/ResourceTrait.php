@@ -29,6 +29,8 @@ use Alxarafe\Component\Container\TabGroup;
 use Alxarafe\Component\AbstractFilter;
 use Alxarafe\Lib\Messages;
 use Alxarafe\Lib\Trans;
+use Alxarafe\Service\HookService;
+use Alxarafe\Service\HookPoints;
 use Illuminate\Database\Capsule\Manager as DB;
 
 /**
@@ -92,6 +94,29 @@ trait ResourceTrait
     }
 
     /**
+     * Override to define visibility conditions for edit tabs.
+     * Return an associative array: tab key => callable that returns bool.
+     * Tabs not listed are always visible.
+     *
+     * @return array<string, callable(): bool>
+     */
+    protected function getTabVisibility(): array
+    {
+        return [];
+    }
+
+    /**
+     * Override to define badge counts for tabs.
+     * Return an associative array: tab key => callable that returns int|null.
+     *
+     * @return array<string, callable(): ?int>
+     */
+    protected function getTabBadges(): array
+    {
+        return [];
+    }
+
+    /**
      * Generates Tab objects from getEditFields() groups.
      *
      * This is the main extension point for tab-based forms.
@@ -105,9 +130,17 @@ trait ResourceTrait
     protected function getTabs(): array
     {
         $fields = $this->getEditFields();
+        $visibility = $this->getTabVisibility();
         $tabs = [];
 
         foreach ($fields as $key => $data) {
+            // Check tab visibility
+            if (isset($visibility[$key]) && is_callable($visibility[$key])) {
+                if (!call_user_func($visibility[$key])) {
+                    continue;
+                }
+            }
+
             if (is_array($data) && isset($data['fields'])) {
                 // Structured format: ['label' => '...', 'fields' => [...]]
                 $label = $data['label'] ?? Trans::_($key);
@@ -115,6 +148,18 @@ trait ResourceTrait
             } elseif (is_array($data)) {
                 // Flat format: ['key' => [field1, field2, ...]]
                 $tabs[] = new Tab($key, Trans::_($key), '', $data);
+            }
+        }
+
+        // Apply badge counts
+        $badges = $this->getTabBadges();
+        foreach ($tabs as $tab) {
+            $key = str_replace('tab_', '', $tab->getTabId());
+            if (isset($badges[$key]) && is_callable($badges[$key])) {
+                $count = call_user_func($badges[$key]);
+                if ($count !== null) {
+                    $tab->setBadgeCount($count);
+                }
             }
         }
 
@@ -343,7 +388,21 @@ trait ResourceTrait
      */
     public function doDelete(): bool
     {
+        // Hook: BEFORE_DELETE
+        $record = $this->getRecord();
+        if ($record) {
+            $hookName = HookService::resolve(HookPoints::BEFORE_DELETE, ['entity' => static::getControllerName()]);
+            HookService::execute($hookName, $record);
+        }
+
         $this->privateCore();
+
+        // Hook: AFTER_DELETE
+        if ($record) {
+            $hookName = HookService::resolve(HookPoints::AFTER_DELETE, ['entity' => static::getControllerName()]);
+            HookService::execute($hookName, $record);
+        }
+
         return true;
     }
 
@@ -489,10 +548,33 @@ trait ResourceTrait
                 }
             }
 
+            $visibility = $this->getTabVisibility();
+
             foreach ($tabsConfig as $sectionId => $sectionData) {
+                // Respect tab visibility
+                if (isset($visibility[$sectionId]) && is_callable($visibility[$sectionId])) {
+                    if (!call_user_func($visibility[$sectionId])) {
+                        continue;
+                    }
+                }
+
                 $this->addEditSection($sectionId, $sectionData['label']);
 
                 $sectionFields = $sectionData['fields'];
+
+                // Filter fields by module dependency
+                $sectionFields = array_values(array_filter($sectionFields, function ($fieldObj) {
+                    if ($fieldObj instanceof \Alxarafe\Component\AbstractField) {
+                        return $fieldObj->isVisible();
+                    }
+                    // Containers (Panel, etc.) — check recursively
+                    if ($fieldObj instanceof \Alxarafe\Component\Container\AbstractContainer) {
+                        $fieldObj->filterChildren(fn($child) =>
+                            !($child instanceof \Alxarafe\Component\AbstractField) || $child->isVisible()
+                        );
+                    }
+                    return true;
+                }));
 
                 // Metadata Enrichment Loop
                 if (!empty($fieldsByName)) {
@@ -537,6 +619,10 @@ trait ResourceTrait
                 }
 
                 // Register fields for this section
+                $entity = static::getControllerName();
+                $hookName = HookService::resolve(HookPoints::FORM_FIELDS_AFTER, ['entity' => $entity]);
+                $sectionFields = HookService::filter($hookName, $sectionFields, $this);
+
                 $this->setEditFields($sectionFields, $sectionId);
             }
         }
@@ -1246,6 +1332,10 @@ trait ResourceTrait
                 $model->$key = $value;
             }
 
+            // Hook: BEFORE_SAVE
+            $hookName = HookService::resolve(HookPoints::BEFORE_SAVE, ['entity' => static::getControllerName()]);
+            HookService::execute($hookName, $model, $data);
+
             if (!$model->save()) {
                 DB::connection()->rollBack();
                 Messages::addError(Trans::_('record_save_error'));
@@ -1312,6 +1402,10 @@ trait ResourceTrait
             Messages::addMessage(Trans::_('record_saved'));
 
             $this->afterSaveRecord($model, $data);
+
+            // Hook: AFTER_SAVE
+            $hookName = HookService::resolve(HookPoints::AFTER_SAVE, ['entity' => static::getControllerName()]);
+            HookService::execute($hookName, $model, $data);
 
             $this->jsonResponse([
                 'status' => 'success',

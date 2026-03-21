@@ -63,6 +63,15 @@ abstract class AbstractContainer extends AbstractField
     }
 
     /**
+     * Filter children in-place using a callable predicate.
+     * Children for which the predicate returns false are removed.
+     */
+    public function filterChildren(callable $predicate): void
+    {
+        $this->children = array_values(array_filter($this->children, $predicate));
+    }
+
+    /**
      * Render this container to HTML by delegating to its Blade template.
      *
      * Each container template receives:

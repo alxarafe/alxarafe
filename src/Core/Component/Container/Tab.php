@@ -72,4 +72,31 @@ class Tab extends AbstractContainer
     {
         return $this->url;
     }
+
+    // --- Badge Support ---
+
+    private ?int $badgeCount = null;
+    private string $badgeClass = 'badge bg-secondary ms-1';
+
+    public function setBadgeCount(?int $count): self
+    {
+        $this->badgeCount = $count;
+        return $this;
+    }
+
+    public function getBadgeCount(): ?int
+    {
+        return $this->badgeCount;
+    }
+
+    public function setBadgeClass(string $class): self
+    {
+        $this->badgeClass = $class;
+        return $this;
+    }
+
+    public function getBadgeClass(): string
+    {
+        return $this->badgeClass;
+    }
 }

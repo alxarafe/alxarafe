@@ -25,6 +25,9 @@
                             <i class="{{ $tab->getIcon() }} me-1"></i>
                         @endif
                         {{ $tab->getLabel() }}
+                        @if($tab->getBadgeCount() !== null)
+                            <span class="{{ $tab->getBadgeClass() }}">{{ $tab->getBadgeCount() }}</span>
+                        @endif
                     </a>
                 @else
                     {{-- Inline tab: Bootstrap toggle button --}}
@@ -37,6 +40,9 @@
                             <i class="{{ $tab->getIcon() }} me-1"></i>
                         @endif
                         {{ $tab->getLabel() }}
+                        @if($tab->getBadgeCount() !== null)
+                            <span class="{{ $tab->getBadgeClass() }}">{{ $tab->getBadgeCount() }}</span>
+                        @endif
                     </button>
                 @endif
             </li>
