@@ -45,8 +45,7 @@ class FieldVisibilityTest extends TestCase
 
         // Filter: keep only 'visible'
         $panel->filterChildren(fn($child) =>
-            !($child instanceof AbstractField) || $child->getField() === 'visible'
-        );
+            !($child instanceof AbstractField) || $child->getField() === 'visible');
 
         $children = $panel->getChildren();
         $this->assertCount(1, $children);

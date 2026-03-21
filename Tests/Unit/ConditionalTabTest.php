@@ -87,7 +87,9 @@ class ConditionalTabTest extends TestCase
             'notes' => ['label' => 'Notes', 'fields' => [new Text('note', 'Note')]],
         ];
         $visibility = [
-            'notes' => function() use (&$showNotes) { return $showNotes; },
+            'notes' => function () use (&$showNotes) {
+ return $showNotes; 
+},
         ];
 
         // Initially hidden

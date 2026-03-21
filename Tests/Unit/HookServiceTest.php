@@ -13,12 +13,14 @@ use PHPUnit\Framework\TestCase;
  */
 class HookServiceTest extends TestCase
 {
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
         HookService::clear();
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         HookService::clear();
@@ -93,9 +95,15 @@ class HookServiceTest extends TestCase
     {
         $order = [];
 
-        HookService::add('test.prio', function () use (&$order) { $order[] = 'low'; }, 20);
-        HookService::add('test.prio', function () use (&$order) { $order[] = 'high'; }, 1);
-        HookService::add('test.prio', function () use (&$order) { $order[] = 'med'; }, 10);
+        HookService::add('test.prio', function () use (&$order) {
+ $order[] = 'low'; 
+}, 20);
+        HookService::add('test.prio', function () use (&$order) {
+ $order[] = 'high'; 
+}, 1);
+        HookService::add('test.prio', function () use (&$order) {
+ $order[] = 'med'; 
+}, 10);
 
         HookService::execute('test.prio');
 

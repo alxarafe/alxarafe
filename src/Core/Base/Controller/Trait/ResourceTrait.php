@@ -135,7 +135,7 @@ trait ResourceTrait
 
         foreach ($fields as $key => $data) {
             // Check tab visibility
-            if (isset($visibility[$key]) && is_callable($visibility[$key])) {
+            if (isset($visibility[$key])) {
                 if (!call_user_func($visibility[$key])) {
                     continue;
                 }
@@ -155,7 +155,7 @@ trait ResourceTrait
         $badges = $this->getTabBadges();
         foreach ($tabs as $tab) {
             $key = str_replace('tab_', '', $tab->getTabId());
-            if (isset($badges[$key]) && is_callable($badges[$key])) {
+            if (isset($badges[$key])) {
                 $count = call_user_func($badges[$key]);
                 if ($count !== null) {
                     $tab->setBadgeCount($count);
@@ -552,7 +552,7 @@ trait ResourceTrait
 
             foreach ($tabsConfig as $sectionId => $sectionData) {
                 // Respect tab visibility
-                if (isset($visibility[$sectionId]) && is_callable($visibility[$sectionId])) {
+                if (isset($visibility[$sectionId])) {
                     if (!call_user_func($visibility[$sectionId])) {
                         continue;
                     }
@@ -563,12 +563,11 @@ trait ResourceTrait
                 $sectionFields = $sectionData['fields'];
 
                 // Filter fields by module dependency
-                $sectionFields = array_values(array_filter($sectionFields, function ($fieldObj) {
+                $sectionFields = array_values(array_filter($sectionFields, function (mixed $fieldObj): bool {
                     if ($fieldObj instanceof \Alxarafe\Component\AbstractField) {
                         return $fieldObj->isVisible();
-                    }
-                    // Containers (Panel, etc.) — check recursively
-                    if ($fieldObj instanceof \Alxarafe\Component\Container\AbstractContainer) {
+                    } elseif ($fieldObj instanceof \Alxarafe\Component\Container\AbstractContainer) { // @phpstan-ignore instanceof.alwaysFalse
+                        // Containers (Panel, etc.) — check recursively
                         $fieldObj->filterChildren(fn($child) =>
                             !($child instanceof \Alxarafe\Component\AbstractField) || $child->isVisible());
                     }
@@ -1062,7 +1061,7 @@ trait ResourceTrait
                         // But if it wasn't in toArray(), it might be hidden or a relation.
                         try {
                             $val = $item->$field;
-                        } catch (\Exception $e) {
+                        } catch (\Throwable $e) { // @phpstan-ignore catch.neverThrown
                             $val = null;
                         }
                     }
@@ -1076,7 +1075,7 @@ trait ResourceTrait
                                 // Eloquent relations are accessible as properties
                                 try {
                                     $obj = $obj->$part;
-                                } catch (\Exception $e) {
+                                } catch (\Throwable $e) { // @phpstan-ignore catch.neverThrown
                                     $obj = null;
                                 }
                             } else {

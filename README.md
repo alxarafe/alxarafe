@@ -11,9 +11,9 @@
 
 Alxarafe is released under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version (GPL-3+).
 
-See the [COPYING](https://github.com/alxarafe/alxarafe/blob/develop/COPYING) file for a full copy of the license.
+See the [LICENSE](https://github.com/alxarafe/alxarafe/blob/develop/LICENSE) file for a full copy of the license.
 
-Other licenses apply for some included dependencies. See [COPYRIGHT](https://github.com/alxarafe/alxarafe/blob/develop/COPYRIGHT) for a full list.
+Other licenses apply for some included dependencies. See [COPYRIGHT](https://github.com/alxarafe/alxarafe/blob/develop/COPYRIGHT.md) for a full list.
 
 ## INSTALLING
 
@@ -62,13 +62,13 @@ You can also find the markdown source in the `doc/` directory.
 ## CONTRIBUTING
 
 This project exists thanks to all the people who contribute.
-Please read the instructions on how to contribute (report a bug/error, a feature request, send code, ...)  [[Contributing](https://github.com/alxarafe/alxarafe/blob/develop/.github/CONTRIBUTING.md)]
+Please read the instructions on how to contribute (report a bug/error, a feature request, send code, ...)  [[Contributing](https://github.com/alxarafe/alxarafe/blob/develop/CONTRIBUTING.md)]
 
 ## CREDITS
 
 alxarafe is the work of many contributors over the years and uses some fine PHP libraries.
 
-See [COPYRIGHT](https://github.com/alxarafe/alxarafe/blob/develop/COPYRIGHT) file.
+See [COPYRIGHT](https://github.com/alxarafe/alxarafe/blob/develop/COPYRIGHT.md) file.
 
 ## NEWS AND SOCIAL NETWORKS
 
