@@ -48,10 +48,13 @@ class StatusWorkflow
     }
 
     public function addTransition(
-        int $from, int $to, string $action,
-        ?string $permission = null, ?string $icon = null, ?string $cssClass = null
-    ): self
-    {
+        int $from,
+        int $to,
+        string $action,
+        ?string $permission = null,
+        ?string $icon = null,
+        ?string $cssClass = null
+    ): self {
         $this->transitions[$from][$to] = new StatusTransition($from, $to, $action, $permission, $icon, $cssClass);
         return $this;
     }

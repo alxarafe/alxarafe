@@ -33,5 +33,6 @@ class StatusTransition
         public readonly ?string $permission = null,
         public readonly ?string $icon = null,
         public readonly ?string $cssClass = null,
-    ) {}
+    ) {
+}
 }

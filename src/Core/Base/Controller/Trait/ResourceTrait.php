@@ -570,8 +570,7 @@ trait ResourceTrait
                     // Containers (Panel, etc.) — check recursively
                     if ($fieldObj instanceof \Alxarafe\Component\Container\AbstractContainer) {
                         $fieldObj->filterChildren(fn($child) =>
-                            !($child instanceof \Alxarafe\Component\AbstractField) || $child->isVisible()
-                        );
+                            !($child instanceof \Alxarafe\Component\AbstractField) || $child->isVisible());
                     }
                     return true;
                 }));

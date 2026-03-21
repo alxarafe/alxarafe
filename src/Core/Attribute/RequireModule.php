@@ -31,5 +31,6 @@ class RequireModule
 {
     public function __construct(
         public string $module,
-    ) {}
+    ) {
+}
 }

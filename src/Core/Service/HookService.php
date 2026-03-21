@@ -101,4 +101,3 @@ class HookService
         self::$hooks = [];
     }
 }
-
