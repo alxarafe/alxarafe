@@ -1,66 +1,171 @@
-# Alxarafe Architecture
+# Architecture & Directory Structure
 
-Alxarafe follows a modular MVC (Model-View-Controller) pattern, but with a strong focus on "Convention over Configuration" to minimize boilerplate code.
+Alxarafe follows a modular **MVC** pattern with **Convention over Configuration**: controllers, models, migrations, seeders, and templates are auto-discovered by scanning PSR-4 namespaces. No manual route files are required.
 
-## 1. Request Lifecycle
+## PSR-4 Namespace Mapping
 
-The framework does not impose a single `index.php`, but the recommended flow is:
+Defined in `composer.json`:
 
-1.  **Entry:** The web server directs the request to an entry script (usually `index.php`).
-2.  **Dispatch:** The script invokes `Alxarafe\Tools\Dispatcher\WebDispatcher` (or `ApiDispatcher`).
-3.  **Routing:** The Dispatcher consults `Routes::getAllRoutes()` to find the appropriate controller class based on the parameters (Module, Controller).
-4.  **Execution:**
-    *   The Controller is instantiated.
-    *   The requested method is searched for. If it doesn't exist, it falls back to `index`.
-    *   If the controller extends `GenericController`, the `index` method (or another) invokes the action logic (`doAction`).
-5.  **Rendering:** Upon execution completion (controller object destruction), the `ViewTrait` automatically renders the associated Blade template.
+| Namespace | Path | Purpose |
+|---|---|---|
+| `Alxarafe\` | `src/Core/` | Framework kernel — controllers, models, services, tools |
+| `Alxarafe\Scripts\` | `src/Scripts/` | Composer post-install scripts, asset publishing |
+| `CoreModules\` | `src/Modules/` | Bundled core modules (Admin). Always active. |
+| `Modules\` | `skeleton/Modules/` | Application-level modules. Activatable via settings. |
+| `Tests\` | `Tests/`, `skeleton/Tests/` | PHPUnit test suites |
 
-## 2. Routing System
+## Framework Directory Tree
 
-Alxarafe **does not use route files**. Routes are generated dynamically by scanning code directories.
+```text
+alxarafe/                         # Package root (ALX_PATH)
+├── src/
+│   ├── Core/                     # Framework kernel
+│   │   ├── Attribute/            # PHP 8 Attributes (#[Menu], #[ApiRoute], etc.)
+│   │   ├── Base/                 # Foundation classes
+│   │   │   ├── Controller/       # Controller hierarchy
+│   │   │   │   ├── Interface/    # ResourceInterface
+│   │   │   │   └── Trait/        # DbTrait, ViewTrait, ResourceTrait
+│   │   │   ├── Frontend/        # TemplateGenerator, ThemeManager
+│   │   │   ├── Model/           # Base Model, DtoTrait, HasAuditLog
+│   │   │   └── Testing/         # HttpResponseException
+│   │   ├── Component/           # UI component system
+│   │   │   ├── Container/       # Panel, Tab, TabGroup, Row, Separator, HtmlContent
+│   │   │   ├── Enum/            # ActionPosition
+│   │   │   ├── Fields/          # 15 field types (Boolean, Text, Select, etc.)
+│   │   │   ├── Filter/          # 6 filter types (Text, Select, DateRange, etc.)
+│   │   │   └── Workflow/        # StatusWorkflow, StatusTransition
+│   │   ├── Lib/                 # Utility libraries
+│   │   │   ├── Auth.php         # JWT authentication
+│   │   │   ├── Functions.php    # HTTP helpers, URL, redirect
+│   │   │   ├── Messages.php     # Flash message system
+│   │   │   ├── Router.php       # Friendly URL matching/generation
+│   │   │   ├── Routes.php       # Auto-discovery of controllers/models/migrations
+│   │   │   └── Trans.php        # i18n (Symfony Translation + YAML)
+│   │   ├── Service/             # Application services
+│   │   │   ├── ApiDispatcher.php     # API request handler
+│   │   │   ├── ApiRouter.php         # API route resolution
+│   │   │   ├── EmailService.php      # SMTP email (Symfony Mailer)
+│   │   │   ├── HookService.php       # Event/Hook system
+│   │   │   ├── HookPoints.php        # Hook point definitions
+│   │   │   ├── MarkdownService.php   # Markdown parsing (Parsedown)
+│   │   │   ├── MarkdownSyncService.php # Doc synchronization
+│   │   │   └── PdfService.php        # PDF generation (DOMPDF)
+│   │   └── Tools/               # Infrastructure tools
+│   │       ├── Debug.php             # DebugBar integration
+│   │       ├── DependencyResolver.php # Module dependency DAG
+│   │       ├── Dispatcher.php        # Main entry dispatcher
+│   │       ├── Dispatcher/
+│   │       │   ├── WebDispatcher.php  # HTML page dispatch
+│   │       │   └── ApiDispatcher.php  # API JSON dispatch
+│   │       └── ModuleManager.php     # Module scanning & menus
+│   ├── Frontend/
+│   │   └── ts/              # TypeScript source (compiled via Webpack)
+│   ├── Lang/                # YAML translation files (18 languages)
+│   ├── Modules/             # Core modules
+│   │   └── Admin/           # Bundled Admin module
+│   │       ├── Api/         # LoginController, UserApiController
+│   │       ├── Controller/  # Auth, Config, Dictionary, Error, Home, ...
+│   │       ├── Migrations/  # 8 migration files
+│   │       ├── Model/       # User, Role, Permission, Setting, ...
+│   │       ├── Seeders/     # UserSeeder
+│   │       ├── Service/     # MenuManager, NotificationManager, ...
+│   │       └── Templates/   # Blade views
+│   ├── Scripts/             # Composer scripts & utilities
+│   └── public/              # (empty, assets published at runtime)
+├── skeleton/                # Skeleton application for development
+│   ├── public/              # Entry point (index.php)
+│   ├── Modules/             # Application modules
+│   ├── config/              # config.json location
+│   ├── templates/           # Application-level templates
+│   └── themes/              # Theme directories
+├── templates/               # Framework default Blade templates
+├── assets/                  # Static assets (CSS, JS, images)
+├── Tests/                   # PHPUnit tests
+└── doc/                     # Documentation (en/, es/)
+```
 
-*   Class: `Alxarafe\Lib\Routes`
-*   Mechanism: Searches in `src/Modules/` and `vendor/alxarafe/alxarafe/src/Modules/`.
-*   Recognized Import Patterns:
-    *   `*Controller.php` -> Web Routes.
-    *   `*Api.php` -> API Routes.
-    *   `*Migration.php` -> Migrations.
+## Application Directory Tree
 
-For example, if `src/Modules/Blog/Controller/PostController.php` exists, an accessible route is automatically generated (depending on how your `index.php` handles parameters, e.g., `?module=Blog&controller=Post`).
+When Alxarafe is installed as a Composer dependency, the consuming application follows a parallel structure:
 
-## 3. Controllers
+```text
+my-application/              # Application root (APP_PATH)
+├── config/
+│   └── config.json          # Application configuration
+├── public/                  # Document Root (BASE_PATH)
+│   ├── index.php            # Entry point
+│   ├── css/                 # Published CSS assets
+│   ├── js/                  # Published JS assets
+│   └── themes/              # Published theme assets
+├── Modules/                 # Application-specific modules
+│   └── Blog/
+│       ├── Controller/
+│       ├── Model/
+│       ├── Api/
+│       ├── Migrations/
+│       └── Templates/
+├── templates/               # Application-level template overrides
+├── routes.php               # Optional custom route definitions
+└── vendor/
+    └── alxarafe/alxarafe/   # Framework package (ALX_PATH)
+```
 
-Controllers inherit from `Alxarafe\Base\Controller\Controller` (for protected routes) or `GenericController`.
+## Path Constants
 
-### `doAction` Pattern
-Although the Dispatcher calls the public method (e.g., `save()`), `GenericController` implements a pattern where the real logic resides in methods prefixed with `do` (e.g., `doSave()`).
+The framework defines four critical constants during bootstrap:
 
-This allows:
-1.  Intercepting the call in `beforeAction()` and `afterAction()`.
-2.  Handling the default `index` action which reads the `action` parameter from the request (`$_REQUEST['action']`) and redirects to the corresponding `doAction`.
+| Constant | Description | Example |
+|---|---|---|
+| `ALX_PATH` | Root of the Alxarafe package | `/var/www/vendor/alxarafe/alxarafe` |
+| `APP_PATH` | Root of the consuming application | `/var/www` |
+| `BASE_PATH` | Public document root (`APP_PATH/public`) | `/var/www/public` |
+| `BASE_URL` | Base URL of the application | `https://example.com` |
 
-**Example:**
-A call to `PostController->index()` with `?action=create` will internally execute `doCreate()`.
+These are initialized in `Dispatcher::initializeConstants()` and are available globally throughout the framework.
 
-## 4. Views
+## Dependency Graph
 
-The view system uses **Blade** (Laravel's template engine).
+```mermaid
+graph TD
+    A["index.php"] --> B["Dispatcher"]
+    B --> C["Trans (i18n)"]
+    B --> D["Routes (Auto-discovery)"]
+    B --> E["WebDispatcher"]
+    B --> F["ApiDispatcher"]
+    
+    E --> G["Config"]
+    E --> H["Auth (JWT)"]
+    E --> I["Controller"]
+    
+    I --> J["ViewTrait (Blade)"]
+    I --> K["DbTrait (Eloquent)"]
+    I --> L["ResourceTrait (CRUD)"]
+    
+    K --> M["Database (Illuminate Capsule)"]
+    J --> N["BladeContainer"]
+    N --> O["Template Resolution"]
+    
+    G --> P["config.json"]
+    M --> P
+    H --> Q["Firebase JWT"]
+    
+    D --> R["ModuleManager"]
+    R --> S["Modules\\"]
+    R --> T["CoreModules\\"]
+```
 
-*   **Automatic Rendering:** There is no need to call `view()` or `render()`. The `Alxarafe\Base\Controller\Trait\ViewTrait` handles rendering the template in the controller's `__destruct()` method.
-*   **Naming Convention:** By default, a `PostController` will look for a template in `page/post.blade.php`.
-*   **Location:** Templates are searched in order of priority:
-    1.  `src/Modules/{Module}/Templates/` (in your project).
-    2.  `vendor/.../src/Modules/{Module}/Templates/` (in the core).
+## Key Dependencies
 
-## 5. REST API
-
-For APIs, `ApiDispatcher` is used and controllers inherit from `Alxarafe\Base\Controller\ApiController`.
-*   **Authentication:** Native support for JWT.
-*   **Response:** Helper methods `jsonResponse()` and `badApiCall()` to standardize JSON outputs.
-
-## 6. Database
-
-*   **Configuration:** Defined in `config.json`.
-*   **Abstraction:** `Alxarafe\Base\Database` is used (based on PDO/Illuminate Database).
-*   **Traits:** `DbTrait` facilitates connection and common operations in controllers.
-*   **Models:** It is recommended to use Eloquent (Illuminate) or the Alxarafe base model.
+| Package | Version | Use |
+|---|---|---|
+| `illuminate/database` | ^10.48 | Eloquent ORM, Query Builder, Schema Builder |
+| `illuminate/view` | ^10.48 | Blade template compilation |
+| `illuminate/events` | ^10.48 | Event dispatcher (required by Illuminate) |
+| `jenssegers/blade` | ^2.0 | Standalone Blade container |
+| `symfony/translation` | ^6.4 / ^7.0 | i18n translation layer |
+| `symfony/yaml` | ^6.4 / ^7.0 | YAML language file parsing |
+| `symfony/mailer` | ^7.2 | Email sending service |
+| `firebase/php-jwt` | ^7.0 | JWT token creation and validation |
+| `erusev/parsedown` | ^1.7 | Markdown to HTML conversion |
+| `dompdf/dompdf` | ^3.1 | HTML to PDF generation |
+| `symfony/var-dumper` | ^6.4 / ^7.0 | Enhanced debugging output |

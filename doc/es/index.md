@@ -1,94 +1,123 @@
-# Alxarafe Microframework
+# Alxarafe Microframework – Referencia Técnica
 
-**Alxarafe** es un microframework PHP moderno (8.2+) diseñado para el desarrollo rápido de aplicaciones web y APIs RESTful. Se centra en la simplicidad, la modularidad y la convención sobre configuración.
+**Alxarafe** es un microframework PHP 8.2+ diseñado para el desarrollo rápido de aplicaciones web modulares y APIs RESTful. Proporciona una capa delgada y con opinión sobre componentes estándar de la industria (Illuminate ORM, Blade, Symfony Translation) siguiendo estrictamente la filosofía de **Convención sobre Configuración**.
 
-## Características Principales
+## Principios de Diseño
 
-*   **Arquitectura Modular:** El código se organiza en Módulos (Core y de Usuario) que encapsulan la lógica de negocio.
-*   **API First:** Soporte nativo para APIs REST con autenticación JWT integrada.
-*   **Enrutamiento Automático:** Sistema de rutas inteligente que mapea URLs a Controladores basándose en convenciones de nombres, sin necesidad de definir archivos de rutas manuales.
-*   **Base de Datos Flexible:** Capa de abstracción de base de datos ligera con soporte para migraciones y seeders automáticos.
-*   **Configuración Centralizada:** Un único archivo `config.json` gestiona todo el entorno.
-*   **Internacionalización (i18n):** Soporte nativo para múltiples idiomas.
+| Principio | Descripción |
+|---|---|
+| **Convención sobre Configuración** | Controladores, modelos, migraciones y plantillas se descubren automáticamente escaneando namespaces PSR-4. No hay archivos de rutas que mantener. |
+| **Modular por Defecto** | Cada funcionalidad se empaqueta como un Módulo (`CoreModules\` o `Modules\`), cada uno con sus propios Controllers, Models, Migrations, Seeders y Templates. |
+| **Reutilizar, No Reinventar** | Capa de datos = Illuminate/Eloquent. Plantillas = Blade. Traducciones = Symfony/Translation. Autenticación = JWT (Firebase PHP-JWT). |
+| **Metadatos vía Atributos** | Los Atributos PHP 8 (`#[Menu]`, `#[ApiRoute]`, `#[RequireRole]`, `#[ModuleInfo]`) definen declarativamente rutas, permisos y metadatos de módulos. |
+| **Arquitectura de Componentes** | Los formularios UI se ensamblan programáticamente a partir de componentes Field, Container y Filter — no HTML codificado a mano. |
 
-### 1. Nuevo proyecto (Recomendado)
+## Requisitos del Sistema
 
-La forma más sencilla de empezar es utilizando nuestra plantilla de proyecto:
+- PHP ≥ 8.2
+- Composer
+- Extensiones requeridas: `ext-pdo`, `ext-json`, `ext-openssl`
+- Base de datos: MySQL 5.7+ / MariaDB 10.3+ o PostgreSQL 12+
+
+## Inicio Rápido
+
+### Nuevo Proyecto (Recomendado)
 
 ```bash
-composer create-project alxarafe/alxarafe-template miprojecto
+composer create-project alxarafe/alxarafe-template mi-app
+cd mi-app
+cp .env.example .env
+# Editar .env con las credenciales de base de datos
+php bin/run_migrations.sh
 ```
 
-### 2. Agregar a un proyecto existente
-
-Si quieres incluir Alxarafe como librería en un proyecto ya existente:
+### Agregar a un Proyecto Existente
 
 ```bash
 composer require alxarafe/alxarafe
 ```
 
-2.  Asegúrate de tener la estructura de directorios esperada por el framework (ver sección Arquitectura).
+Luego crear la estructura de directorios esperada (ver [Arquitectura](arquitectura.md)).
 
-## Requisitos del Sistema
+### Desarrollo con Docker
 
-*   PHP >= 8.2
-*   Composer
-*   Extensiones PHP: `ext-pdo`, `ext-json`, `openssl`
+```bash
+cp .env.example .env
+./bin/docker_start.sh
+./bin/run_migrations.sh
+# Acceder en http://localhost:8081
+```
 
-## Estructura de un Proyecto Alxarafe
-
-Un proyecto típico que utiliza Alxarafe sigue esta estructura:
+## Estructura del Proyecto
 
 ```text
 mi-proyecto/
-├── config.json          # Configuración global
-├── public/              # Document Root del servidor web
-│   ├── index.php        # Punto de entrada
-│   └── .htaccess        # Reglas de reescritura
-├── src/
-│   └── Modules/         # Módulos de tu aplicación
-│       └── MiModulo/
-│           ├── Controller/
-│           ├── Model/
-│           └── Api/
-└── vendor/              # Dependencias (incluyendo Alxarafe)
+├── config/
+│   └── config.json          # Configuración global (BD, seguridad, idioma)
+├── public/                  # Document Root del servidor web
+│   ├── index.php            # Punto de entrada → Dispatcher::run()
+│   └── .htaccess            # Reglas de reescritura URL
+├── Modules/                 # Módulos de aplicación (namespace Modules\)
+│   └── MiModulo/
+│       ├── Controller/      # *Controller.php → Rutas web
+│       ├── Model/           # Modelos Eloquent
+│       ├── Api/             # *Controller.php → Rutas API
+│       ├── Migrations/      # Migraciones de base de datos
+│       ├── Seeders/         # Seeders de datos
+│       └── Templates/       # Vistas Blade
+├── templates/               # Plantillas Blade compartidas y layouts
+├── themes/                  # Sobrescrituras de temas
+└── vendor/                  # Dependencias (incluye alxarafe/alxarafe)
+    └── alxarafe/alxarafe/
+        └── src/
+            ├── Core/        # Kernel del framework (namespace Alxarafe\)
+            └── Modules/     # Módulos core (namespace CoreModules\)
 ```
 
-## Primeros Pasos
+## Índice de Documentación
 
-### 1. Configuración (`config.json`)
-Crea un archivo `config.json` en la raíz de tu proyecto. Este archivo define la conexión a la base de datos, rutas y claves de seguridad.
+### Fundamentos
 
-### 2. Crear un Módulo
-Crea una carpeta en `src/Modules/` (ej. `src/Modules/HolaMundo`).
-Dentro, crea `Controller/HolaMundoController.php`.
+| Documento | Descripción |
+|---|---|
+| [Arquitectura y Estructura de Directorios](arquitectura.md) | Namespaces PSR-4, responsabilidad de directorios, grafo de dependencias |
+| [Ciclo de Vida de una Petición](ciclo_de_vida.md) | Flujo completo desde `index.php` hasta la respuesta HTTP |
 
-### 3. Rutas Automáticas
-Alxarafe detectará automáticamente tu controlador.
-Si tu módulo es `HolaMundo` y tu controlador `SaludoController`, la ruta podría ser algo como:
-`/HolaMundo/Saludo
+### Referencia de API
 
-## Desarrollo y Contribución
+| Documento | Descripción |
+|---|---|
+| [Atributos](classes/core/attribute/index.md) | `#[ApiRoute]`, `#[Menu]`, `#[ModuleInfo]`, `#[RequireModule]`, `#[RequirePermission]`, `#[RequireRole]` |
+| [Controladores](classes/core/base/controller/index.md) | Jerarquía `GenericController` → `ViewController` → `Controller` → `ResourceController` |
+| [Modelos y Traits](classes/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
+| [Config y Base de Datos](classes/core/base/index.md) | `Config`, `Database`, `Seeder`, `Template`, `BladeContainer` |
+| [Campos de Componentes](classes/core/component/fields/index.md) | 15 tipos de campos para generación de formularios |
+| [Contenedores de Componentes](classes/core/component/container/index.md) | `Panel`, `Tab`, `TabGroup`, `Row`, `Separator`, `HtmlContent` |
+| [Filtros de Componentes](classes/core/component/filter/index.md) | `TextFilter`, `SelectFilter`, `DateRangeFilter`, etc. |
+| [Workflow de Componentes](classes/core/component/workflow/index.md) | `StatusWorkflow`, `StatusTransition` |
+| [Capa Lib](classes/core/lib/index.md) | `Auth`, `Functions`, `Messages`, `Router`, `Routes`, `Trans` |
+| [Capa de Servicios](classes/core/service/index.md) | `HookService`, `EmailService`, `PdfService`, servicios API, Markdown |
+| [Capa de Herramientas](classes/core/tools/index.md) | `Dispatcher`, `Debug`, `ModuleManager`, `DependencyResolver` |
 
-Si deseas contribuir al desarrollo del framework o probar cambios localmente sin publicar en Packagist, consulta la [Guía de Contribución](GUIA_CONTRIBUCION.md).
+### Guías
 
-El repositorio incluye una aplicación `skeleton` lista para usar como entorno de desarrollo.`
+| Documento | Descripción |
+|---|---|
+| [Referencia del Módulo Admin](admin_module.md) | Módulo Admin integrado: auth, usuarios, roles, permisos, config, migraciones |
+| [Uso Avanzado](uso_avanzado.md) | Crear módulos, hooks, campos personalizados, temas, JWT, i18n |
+| [Motor de Plantillas](motor-plantillas.md) | Integración Blade y descubrimiento de plantillas |
+| [Esquema de Plantillas](esquema_de_plantillas.md) | Estructura de vistas basada en componentes |
+| [Pestañas Extensibles](pestanas_extensibles.md) | Sistema de pestañas condicionales y dinámicas |
+| [Arquitectura de Temas](frontend/arquitectura_temas.md) | Pipeline de assets y sobrescrituras de temas |
+| [Sistema de Temas](frontend/sistema_de_temas.md) | Instalación y personalización de temas |
+| [Gestor de Menús](gestor_de_menus.md) | Sistema de menús basado en atributos |
+| [Ciclo de Vida del ResourceController](resource_controller_lifecycle.md) | Ciclo CRUD en detalle |
+| [Desarrollo de APIs](desarrollo_de_apis.md) | APIs REST con autenticación JWT |
+| [Guía de Testing](testing.md) | Configuración de PHPUnit, PHPStan, Psalm |
+| [Docker](docker.md) | Entorno de desarrollo Docker |
+| [Guía de Publicación](guia_de_publicacion.md) | Versionado y publicación en Packagist |
+| [Guía de Contribución](guia_de_contribucion.md) | Cómo contribuir al proyecto |
 
-## Documentación Adicional
+## Licencia
 
-*   [Arquitectura y Conceptos Core](arquitectura.md)
-*   [Motor de Plantillas](motor-plantillas.md)
-*   [Temas](temas.md)
-*   [Arquitectura de Temas y Assets](frontend/arquitectura_temas.md)
-*   [Sistema de Temas y Sobrescritura](frontend/sistema_de_temas.md)
-*   [Esquema de Plantillas](esquema_de_plantillas.md)
-*   [Pestañas Extensibles](pestanas_extensibles.md)
-*   [Guía de Publicación y Versionado](guia_de_publicacion.md)
-*   [Guía de Contribución](guia_de_contribucion.md)
-*   [Guía de Testing](testing.md)
-*   [Desarrollo y Documentación de APIs](desarrollo_de_apis.md)
-*   [Análisis de Mejoras](analisis_de_mejoras.md)
-*   [Gestor de Menús](gestor_de_menus.md)
-*   [Ciclo de Vida del ResourceController](resource_controller_lifecycle.md)
-*   [Diagnóstico PHP 8.5](diagnostico_php85.md)
-*   [Guía de Módulos](MODULOS.md) (Pendiente)
+Alxarafe se distribuye bajo la **GNU General Public License v3.0+** (GPL-3.0-or-later).
