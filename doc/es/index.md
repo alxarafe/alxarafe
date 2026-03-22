@@ -103,7 +103,7 @@ mi-proyecto/
 
 | Documento | Descripción |
 |---|---|
-| [Referencia del Módulo Admin](admin_module.md) | Módulo Admin integrado: auth, usuarios, roles, permisos, config, migraciones |
+| [Referencia del Módulo Admin](modulo_admin.md) | Módulo Admin integrado: auth, usuarios, roles, permisos, config, migraciones |
 | [Uso Avanzado](uso_avanzado.md) | Crear módulos, hooks, campos personalizados, temas, JWT, i18n |
 | [Motor de Plantillas](motor-plantillas.md) | Integración Blade y descubrimiento de plantillas |
 | [Esquema de Plantillas](esquema_de_plantillas.md) | Estructura de vistas basada en componentes |

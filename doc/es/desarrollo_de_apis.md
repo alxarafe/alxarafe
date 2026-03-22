@@ -1,138 +1,112 @@
 # Desarrollo de APIs en Alxarafe
 
-Alxarafe facilita la creación de APIs RESTful mediante controladores dedicados y un despachador inteligente. Este documento explica cómo implementar, documentar y probar endpoints de API.
+Alxarafe proporciona una infraestructura sólida para construir APIs RESTful utilizando atributos de PHP 8 para el enrutamiento y JSON Web Tokens (JWT) para una autenticación segura y sin estado (stateless).
 
-## 1. Estructura de un Controlador de API
+## 1. Estructura del Controlador
 
-Los controladores de API deben:
-1.  Estar ubicados en la carpeta `Api/` de tu módulo (ej. `Modules/Mimodulo/Api/`).
-2.  Extender de `Alxarafe\Base\Controller\ApiController`.
-3.  Tener el sufijo `ApiController` (recomendado para diferenciar de controladores web, aunque el despachador lo gestiona).
+Los controladores de API deben extender `Alxarafe\Base\Controller\ApiController` y se colocan típicamente en el directorio `Api/` de un módulo.
 
-### Ejemplo: `PersonApiController` (Skeleton)
+### Características Base
+- **Sin estado**: No se utilizan sesiones. La autenticación se basa en tokens.
+- **Respuestas JSON**: Salida unificada a través de `self::jsonResponse()`.
+- **Manejo de errores**: Respuestas de error estandarizadas a través de `self::badApiCall()`.
 
-Ubicación: `skeleton/Modules/Agenda/Api/PersonApiController.php`
+---
+
+## 2. Enrutamiento Declarativo
+
+El enrutamiento se define directamente en los métodos utilizando el atributo `#[ApiRoute]`.
 
 ```php
-<?php
-
-namespace Modules\Agenda\Api;
+namespace Modules\Blog\Api;
 
 use Alxarafe\Base\Controller\ApiController;
-use Modules\Agenda\Model\Person;
+use Alxarafe\Attribute\ApiRoute;
 
-/**
- * Class PersonApiController.
- *
- * API Endpoint for managing Person resources.
- *
- * @package Modules\Agenda\Api
- */
-class PersonApiController extends ApiController
+class PostApiController extends ApiController
 {
-    /**
-     * Retrieve a Person by ID.
-     *
-     * @param int $id The unique identifier of the person.
-     * @return never Outputs JSON response and terminates execution.
-     */
+    #[ApiRoute(path: 'posts', method: 'GET')]
+    public function list()
+    {
+        return Post::all();
+    }
+
+    #[ApiRoute(path: 'posts/{id}', method: 'GET')]
     public function get(int $id)
     {
-        $person = Person::find($id);
-
-        if (!$person) {
-            self::badApiCall('Person not found', 404);
-        }
-
-        self::jsonResponse($person->toArray());
+        $post = Post::find($id);
+        return $post ?: self::badApiCall('Post no encontrado', 404);
     }
 }
 ```
 
-### Ejemplo: `UserApiController` (Core)
+### Patrones de Ruta
+- **Estándar**: `ruta/al/recurso`
+- **Parámetros**: `recurso/{id}` (se mapean automáticamente a los argumentos del método).
 
-Ubicación: `src/Modules/Admin/Api/UserApiController.php`
+---
+
+## 3. Seguridad y Autenticación
+
+Alxarafe implementa JWT (HS256) para la seguridad de la API.
+
+### Obtener un Token
+Un cliente debe autenticarse primero a través del endpoint de inicio de sesión del módulo `Admin`:
+`POST /api/Admin/Login/doLogin`
+Retorna: `{"status": "success", "data": {"token": "eyJhbG..."}}`
+
+### Uso del Token
+Incluye el token en todas las peticiones posteriores:
+`Authorization: Bearer <token>`
+
+### Forzar Permisos
+Utiliza atributos para restringir el acceso a nivel de método:
 
 ```php
-<?php
-
-namespace CoreModules\Admin\Api;
-
-use Alxarafe\Base\Controller\ApiController;
-use CoreModules\Admin\Model\User;
-
-class UserApiController extends ApiController
+#[ApiRoute(path: 'posts', method: 'POST')]
+#[RequireRole(role: 'Editor')]
+#[RequirePermission(permission: 'Blog.Post.doCreate')]
+public function create()
 {
-    public function get(int $id)
-    {
-        $user = User::find($id);
-        if (!$user) {
-            self::badApiCall('User not found', 404);
-        }
-        self::jsonResponse($user->toArray());
-    }
+    // ...
 }
 ```
 
-## 2. Enrutamiento (Dispatching)
+---
 
-El `ApiDispatcher` de Alxarafe resuelve automáticamente las rutas basándose en la estructura del módulo y el método del controlador.
+## 4. Formato de Respuesta
 
-Patrón de ruta:
-`/api/{Modulo}/{Controlador}/{Metodo}/{Parametro1}/{Parametro2}...`
+Todas las respuestas de la API siguen una estructura consistente:
 
-### Ejemplos de Llamada
-*   **Obtener Persona ID 1**:
-    `GET /api/Agenda/PersonApi/get/1`
-    *   Módulo: `Agenda`
-    *   Controlador: `PersonApi` (busca `PersonApiController.php`)
-    *   Método: `get`
-    *   Parámetro: `1`
-
-*   **Obtener Usuario ID 5**:
-    `GET /api/Admin/UserApi/get/5`
-
-> **Nota**: El despachador automáticamente instancia el controlador y llama al método indicado, pasando los parámetros adicionales como argumentos.
-
-## 3. Documentación con phpDocumentor
-
-Es obligatorio documentar las clases y métodos de la API utilizando bloques PHPDoc estándar. Esto permite generar documentación automática y mantener el código inteligible.
-
-### Etiquetas Comunes
-*   `@package`: Define el paquete/módulo.
-*   `@param`: Describe los parámetros del método.
-*   `@return`: Describe el valor de retorno (o `never` si termina la ejecución).
-*   `@api`: Marca el elemento como parte de la API pública.
-
-### Generación de Documentación
-Para generar la documentación HTML de la API, se utiliza `phpDocumentor`.
-
-**Comando (desde Docker):**
-```bash
-docker exec alxarafe_php php phpdoc.phar -d skeleton/Modules/Agenda/Api -d src/Modules/Admin/Api -t doc/public/api --force
-```
-
-Esto generará un sitio estático en `doc/public/api/` con la referencia completa de clases, métodos y descripciones.
-
-## 4. Testing Manual de la API
-
-Dado que los endpoints son accesibles vía HTTP, puedes probarlos fácilmente con herramientas como `curl` o Postman.
-
-**Ejemplo con curl:**
-```bash
-curl -X GET http://localhost:8000/api/Agenda/PersonApi/get/1
-```
-
-Respuesta esperada (JSON):
+**Éxito (200 OK):**
 ```json
 {
-    "ok": true,
-    "status": 200,
-    "result": {
-        "id": 1,
-        "name": "Juan",
-        "lastname": "Pérez",
-        ...
-    }
+    "status": "success",
+    "data": { ... }
 }
 ```
+
+**Error (4xx/5xx):**
+```json
+{
+    "status": "error",
+    "code": 403,
+    "message": "Forbidden: Missing permission Blog.Post.doCreate"
+}
+```
+
+---
+
+## 5. Herramientas de Desarrollo
+
+### Probar con cURL
+```bash
+curl -X GET http://localhost:8081/api/posts/1 \
+     -H "Authorization: Bearer <tu_token>"
+```
+
+### Resolución de Problemas
+El `ApiDispatcher` valida:
+1. **Existencia de la Ruta**: Verifica si algún método de controlador coincide con la URI y el método HTTP.
+2. **Validez del Token**: Comprueba la firma y la expiración utilizando `security.jwt_secret_key`.
+3. **RBAC**: Verifica si el usuario asociado al token tiene los roles y permisos requeridos en la base de datos.
