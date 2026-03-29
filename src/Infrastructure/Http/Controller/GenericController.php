@@ -180,7 +180,7 @@ abstract class GenericController
      */
     protected function executeAction(): bool
     {
-        $isPublic = ($this instanceof \Alxarafe\Infrastructure\Persistence\Controller\GenericPublicController) || (static::getControllerName() === 'Error');
+        $isPublic = ($this instanceof \Alxarafe\Infrastructure\Http\Controller\GenericPublicController) || (static::getControllerName() === 'Error');
         if (!$isPublic && \Alxarafe\Infrastructure\Auth\Auth::$user) {
             if (!\Alxarafe\Infrastructure\Auth\Auth::$user->can($this->action, static::getControllerName(), static::getModuleName())) {
                 $msg = Trans::_('access_denied_action', ['action' => $this->action]);

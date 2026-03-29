@@ -140,9 +140,16 @@ abstract class Auth
 
     public static function logout(): void
     {
-        // Erase old cookies using the same path as creation
-        setcookie(self::COOKIE_USER, '', time() - 3600, '/');
-        setcookie(self::COOKIE_NAME, '', time() - 3600, '/');
+        $cookie_options = [
+            'expires' => time() - 3600,
+            'path' => '/',
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ];
+        // Erase old cookies using the same options as creation
+        setcookie(self::COOKIE_USER, '', $cookie_options);
+        setcookie(self::COOKIE_NAME, '', $cookie_options);
         self::$user = null;
     }
 
