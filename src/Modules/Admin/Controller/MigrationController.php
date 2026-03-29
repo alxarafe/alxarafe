@@ -17,16 +17,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\Controller;
-use Alxarafe\Base\Config;
-use Alxarafe\Base\Database;
-use Alxarafe\Lib\Messages;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Lib\Functions;
-use Alxarafe\Lib\Auth;
-use Alxarafe\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Controller\Controller;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Persistence\Database;
+use Alxarafe\Infrastructure\Lib\Messages;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Lib\Functions;
+use Alxarafe\Infrastructure\Auth\Auth;
+use Alxarafe\Infrastructure\Attribute\Menu;
 
 /**
  * Class ConfigController. App settings controller.
@@ -41,8 +41,6 @@ use Alxarafe\Attribute\Menu;
 )]
 class MigrationController extends Controller
 {
-
-
     public function __construct(?string $action = null, mixed $data = null)
     {
         parent::__construct($action, $data);
@@ -112,7 +110,7 @@ class MigrationController extends Controller
             $path = $migrations[$key];
 
             // Check if already executed
-            if (\CoreModules\Admin\Model\Migration::where('migration', $key)->exists()) {
+            if (\Modules\Admin\Model\Migration::where('migration', $key)->exists()) {
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'Already executed'
@@ -139,8 +137,8 @@ class MigrationController extends Controller
             }
 
             // Log to DB
-            $batch = \CoreModules\Admin\Model\Migration::getLastBatch() + 1;
-            \CoreModules\Admin\Model\Migration::create([
+            $batch = \Modules\Admin\Model\Migration::getLastBatch() + 1;
+            \Modules\Admin\Model\Migration::create([
                 'migration' => $key,
                 'batch' => $batch,
             ]);
@@ -170,7 +168,7 @@ class MigrationController extends Controller
 
 
         // List all migrations with status
-        \Alxarafe\Tools\Debug::message("MigrationController::doIndex accessing migrations");
+        \Alxarafe\Infrastructure\Tools\Debug::message("MigrationController::doIndex accessing migrations");
         $all = Config::getMigrations();
 
         // Sort by filename specifically handling date formats (YYYYMMDD vs YYYY_MM_DD)
@@ -186,7 +184,7 @@ class MigrationController extends Controller
         $migrationsWithStatus = [];
 
         try {
-            $executed = \CoreModules\Admin\Model\Migration::pluck('migration')->toArray();
+            $executed = \Modules\Admin\Model\Migration::pluck('migration')->toArray();
             foreach ($all as $name => $path) {
                 $isExecuted = in_array($name, $executed);
                 $migrationsWithStatus[$name] = [
@@ -269,10 +267,10 @@ class MigrationController extends Controller
     #[\Override]
     protected function shouldEnforceAuth(): bool
     {
-        $config = \Alxarafe\Base\Config::getConfig();
+        $config = \Alxarafe\Infrastructure\Persistence\Config::getConfig();
 
         // If no config or no DB connection -> Allow access (return false)
-        if (!$config || empty($config->db) || !\Alxarafe\Base\Database::checkIfDatabaseExists($config->db, true)) {
+        if (!$config || empty($config->db) || !\Alxarafe\Infrastructure\Persistence\Database::checkIfDatabaseExists($config->db, true)) {
             return false;
         }
 

@@ -3,4 +3,4 @@ parameters:
     paths:
         - src
     excludePaths:
-        - src/Core/Base/Model/Trait/DtoTrait.php
+        - src/Infrastructure/Persistence/Model/Trait/DtoTrait.php

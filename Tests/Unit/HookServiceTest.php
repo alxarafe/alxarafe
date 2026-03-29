@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Alxarafe\Service\HookService;
-use Alxarafe\Service\HookPoints;
+use Alxarafe\Infrastructure\Service\HookService;
+use Alxarafe\Infrastructure\Service\HookPoints;
 use PHPUnit\Framework\TestCase;
 
 /**

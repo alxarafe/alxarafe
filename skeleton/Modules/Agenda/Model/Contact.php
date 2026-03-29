@@ -19,7 +19,7 @@
 
 namespace Modules\Agenda\Model;
 
-use Alxarafe\Base\Model\Model;
+use Alxarafe\Infrastructure\Persistence\Model\Model;
 
 /**
  * Contact model representing a person in the agenda.

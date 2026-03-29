@@ -17,23 +17,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Config;
-use Alxarafe\Base\Controller\ResourceController;
-use Alxarafe\Base\Database;
-use Alxarafe\Lib\Functions;
-use Alxarafe\Lib\Messages;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Tools\ModuleManager;
-use CoreModules\Admin\Model\Migration;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Http\Controller\ResourceController;
+use Alxarafe\Infrastructure\Persistence\Database;
+use Alxarafe\Infrastructure\Lib\Functions;
+use Alxarafe\Infrastructure\Lib\Messages;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Tools\ModuleManager;
+use Modules\Admin\Model\Migration;
 use stdClass;
-use Alxarafe\Component\Fields\Select;
-use Alxarafe\Component\Fields\Select2;
-use Alxarafe\Component\Fields\Text;
-use Alxarafe\Component\Fields\Boolean;
-
-use Alxarafe\Attribute\Menu;
+use Alxarafe\Infrastructure\Component\Fields\Select;
+use Alxarafe\Infrastructure\Component\Fields\Select2;
+use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\Infrastructure\Component\Fields\Boolean;
+use Alxarafe\Infrastructure\Attribute\Menu;
 
 /**
  * Class ConfigController. App settings controller.
@@ -48,8 +47,6 @@ use Alxarafe\Attribute\Menu;
 )]
 class ConfigController extends ResourceController
 {
-
-
     /**
      * Array with availables languages
      *
@@ -74,7 +71,7 @@ class ConfigController extends ResourceController
     protected function getModelClass()
     {
         // Config is not a standard Eloquent Model, but we can treat it specially in handleRequest/fetchRecordData
-        return 'Alxarafe\Base\Config';
+        return 'Alxarafe\Infrastructure\Persistence\Config';
     }
 
     /**
@@ -85,7 +82,7 @@ class ConfigController extends ResourceController
     public function getViewDescriptor(): array
     {
         $tabs = $this->getTabs();
-        $body = new \Alxarafe\Component\Container\TabGroup($tabs, ['id' => 'config-tabs']);
+        $body = new \Alxarafe\Infrastructure\Component\Container\TabGroup($tabs, ['id' => 'config-tabs']);
 
         $buttons = [
             ['label' => Trans::_('save_configuration'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
@@ -115,7 +112,7 @@ class ConfigController extends ResourceController
             'recordId' => 'current',
             'record'   => $viewData,
             'buttons'  => $buttons,
-            'body'     => new \Alxarafe\Component\Container\Panel('', [$body], ['col' => 'col-12']),
+            'body'     => new \Alxarafe\Infrastructure\Component\Container\Panel('', [$body], ['col' => 'col-12']),
         ];
     }
 
@@ -326,10 +323,10 @@ class ConfigController extends ResourceController
     #[\Override]
     protected function shouldEnforceAuth(): bool
     {
-        $config = \Alxarafe\Base\Config::getConfig();
+        $config = \Alxarafe\Infrastructure\Persistence\Config::getConfig();
 
         // If no config or no DB connection -> Allow access (return false)
-        if (!$config || empty($config->db) || !\Alxarafe\Base\Database::checkIfDatabaseExists($config->db, true)) {
+        if (!$config || empty($config->db) || !\Alxarafe\Infrastructure\Persistence\Database::checkIfDatabaseExists($config->db, true)) {
             return false;
         }
 

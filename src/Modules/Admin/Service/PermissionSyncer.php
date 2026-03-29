@@ -17,10 +17,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Service;
+namespace Modules\Admin\Service;
 
-use Alxarafe\Lib\Routes;
-use CoreModules\Admin\Model\Permission;
+use Alxarafe\Infrastructure\Http\Routes;
+use Modules\Admin\Model\Permission;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -113,7 +113,7 @@ class PermissionSyncer
                     $reflection = new ReflectionClass($className);
 
                     // Skip Public Controllers (descendants of GenericPublicController)
-                    if ($reflection->isSubclassOf(\Alxarafe\Base\Controller\GenericPublicController::class)) {
+                    if ($reflection->isSubclassOf(\Alxarafe\Infrastructure\Http\Controller\GenericPublicController::class)) {
                         continue;
                     }
 

@@ -11,15 +11,15 @@ declare(strict_types=1);
  * (at your option) any later version.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Attribute\Menu;
-use Alxarafe\Attribute\ModuleInfo;
-use Alxarafe\Base\Controller\Controller;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Tools\DependencyResolver;
-use Alxarafe\Tools\ModuleManager;
-use CoreModules\Admin\Model\Setting;
+use Alxarafe\Infrastructure\Attribute\Menu;
+use Alxarafe\Infrastructure\Attribute\ModuleInfo;
+use Alxarafe\Infrastructure\Http\Controller\Controller;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Tools\DependencyResolver;
+use Alxarafe\Infrastructure\Tools\ModuleManager;
+use Modules\Admin\Model\Setting;
 
 /**
  * Class ModuleController.
@@ -211,7 +211,7 @@ class ModuleController extends Controller
                     continue;
                 }
 
-                $isCoreModule = $route['namespace'] === 'CoreModules';
+                $isCoreModule = $route['namespace'] === 'Modules';
                 $key = 'module_enabled_' . strtolower($dirName);
 
                 // Read ModuleInfo metadata if Module.php exists
@@ -298,7 +298,7 @@ class ModuleController extends Controller
     {
         $routes = ModuleManager::routes();
         foreach ($routes as $route) {
-            if ($route['namespace'] === 'CoreModules') {
+            if ($route['namespace'] === 'Modules') {
                 if (is_dir($route['path'] . '/' . $moduleName)) {
                     return true;
                 }

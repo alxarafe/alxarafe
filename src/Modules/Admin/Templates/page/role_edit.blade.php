@@ -7,9 +7,9 @@
         <div class="col-12">
             <h1>
                 @if($recordId === 'new')
-                    {{ \Alxarafe\Lib\Trans::_('new_role') }}
+                    {{ \Alxarafe\Infrastructure\Lib\Trans::_('new_role') }}
                 @else
-                    {{ \Alxarafe\Lib\Trans::_('edit_role') }}: {{ $role->name ?? '' }}
+                    {{ \Alxarafe\Infrastructure\Lib\Trans::_('edit_role') }}: {{ $role->name ?? '' }}
                 @endif
             </h1>
         </div>
@@ -18,7 +18,7 @@
     <div class="row mb-3">
         <div class="col-12 text-end">
             <button class="btn btn-warning btn-sm" id="syncPermissionsBtn">
-                <i class="fas fa-sync"></i> {{ \Alxarafe\Lib\Trans::_('sync_permissions') }}
+                <i class="fas fa-sync"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('sync_permissions') }}
             </button>
         </div>
     </div>
@@ -29,22 +29,22 @@
 
         {{-- Role Details --}}
         <div class="card mb-4">
-            <div class="card-header">{{ \Alxarafe\Lib\Trans::_('role_details') }}</div>
+            <div class="card-header">{{ \Alxarafe\Infrastructure\Lib\Trans::_('role_details') }}</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">{{ \Alxarafe\Lib\Trans::_('name') }}</label>
+                        <label class="form-label">{{ \Alxarafe\Infrastructure\Lib\Trans::_('name') }}</label>
                         <input type="text" name="name" class="form-control" value="{{ $role->name ?? '' }}" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">{{ \Alxarafe\Lib\Trans::_('active') }}</label>
+                        <label class="form-label">{{ \Alxarafe\Infrastructure\Lib\Trans::_('active') }}</label>
                         <select name="active" class="form-select">
-                            <option value="1" {{ ($role->active ?? true) ? 'selected' : '' }}>{{ \Alxarafe\Lib\Trans::_('yes') }}</option>
-                            <option value="0" {{ !($role->active ?? true) ? 'selected' : '' }}>{{ \Alxarafe\Lib\Trans::_('no') }}</option>
+                            <option value="1" {{ ($role->active ?? true) ? 'selected' : '' }}>{{ \Alxarafe\Infrastructure\Lib\Trans::_('yes') }}</option>
+                            <option value="0" {{ !($role->active ?? true) ? 'selected' : '' }}>{{ \Alxarafe\Infrastructure\Lib\Trans::_('no') }}</option>
                         </select>
                     </div>
                     <div class="col-12 mb-3">
-                        <label class="form-label">{{ \Alxarafe\Lib\Trans::_('description') }}</label>
+                        <label class="form-label">{{ \Alxarafe\Infrastructure\Lib\Trans::_('description') }}</label>
                         <textarea name="description" class="form-control" rows="2">{{ $role->description ?? '' }}</textarea>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
 
         {{-- Permissions Matrix --}}
         <div class="card">
-            <div class="card-header bg-primary text-white">{{ \Alxarafe\Lib\Trans::_('permissions') }}</div>
+            <div class="card-header bg-primary text-white">{{ \Alxarafe\Infrastructure\Lib\Trans::_('permissions') }}</div>
             <div class="card-body">
                 <input type="hidden" name="save_permissions" value="1">
                 
@@ -87,7 +87,7 @@
                                                        data-ctrl-target="{{ $uniqueCtrlId }}"
                                                        {{ in_array($accessPerm->id, $assignedPermissions ?? []) ? 'checked' : '' }}>
                                                 <label class="form-check-label small fst-italic" for="perm_{{ $accessPerm->id }}">
-                                                    {{ \Alxarafe\Lib\Trans::_('access') }}
+                                                    {{ \Alxarafe\Infrastructure\Lib\Trans::_('access') }}
                                                 </label>
                                             </div>
                                         @endif
@@ -110,7 +110,7 @@
                                         @endforeach
                                         @if(!$accessPerm)
                                             <div class="text-muted small fst-italic">
-                                                {{ \Alxarafe\Lib\Trans::_('no_access_permission_found') }}
+                                                {{ \Alxarafe\Infrastructure\Lib\Trans::_('no_access_permission_found') }}
                                             </div>
                                         @endif
                                     </div>
@@ -124,23 +124,23 @@
 
         <div class="mt-4 mb-5">
             <button type="submit" class="btn btn-primary btn-lg">
-                <i class="fas fa-save"></i> {{ \Alxarafe\Lib\Trans::_('save_changes') }}
+                <i class="fas fa-save"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('save_changes') }}
             </button>
-            <a href="?module=Admin&controller=Role" class="btn btn-secondary btn-lg">{{ \Alxarafe\Lib\Trans::_('cancel') }}</a>
+            <a href="?module=Admin&controller=Role" class="btn btn-secondary btn-lg">{{ \Alxarafe\Infrastructure\Lib\Trans::_('cancel') }}</a>
         </div>
     </form>
 </div>
 
 <script>
     // Translation constants for JS
-    const TXT_SYNC_CONFIRM = "{{ \Alxarafe\Lib\Trans::_('sync_permissions_confirm') }}";
-    const TXT_SYNCING = "{{ \Alxarafe\Lib\Trans::_('syncing') }}";
-    const TXT_SYNC_SUCCESS = "{{ \Alxarafe\Lib\Trans::_('sync_completed') }}";
-    const TXT_CREATED = "{{ \Alxarafe\Lib\Trans::_('created') }}";
-    const TXT_RESTORED = "{{ \Alxarafe\Lib\Trans::_('restored') }}";
-    const TXT_DELETED = "{{ \Alxarafe\Lib\Trans::_('deleted') }}";
-    const TXT_ERROR = "{{ \Alxarafe\Lib\Trans::_('error') }}";
-    const TXT_ERROR_OCCURRED = "{{ \Alxarafe\Lib\Trans::_('error_occurred') }}";
+    const TXT_SYNC_CONFIRM = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('sync_permissions_confirm') }}";
+    const TXT_SYNCING = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('syncing') }}";
+    const TXT_SYNC_SUCCESS = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('sync_completed') }}";
+    const TXT_CREATED = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('created') }}";
+    const TXT_RESTORED = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('restored') }}";
+    const TXT_DELETED = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('deleted') }}";
+    const TXT_ERROR = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('error') }}";
+    const TXT_ERROR_OCCURRED = "{{ \Alxarafe\Infrastructure\Lib\Trans::_('error_occurred') }}";
 
     // Permission Logic
     document.addEventListener('DOMContentLoaded', function() {

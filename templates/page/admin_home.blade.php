@@ -2,14 +2,14 @@
 
 @section('content')
 @php
-    $title = $title ?? \Alxarafe\Lib\Trans::_('Dashboard');
+    $title = $title ?? \Alxarafe\Infrastructure\Lib\Trans::_('Dashboard');
 @endphp
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
         <div class="col-12">
             <h2 class="mb-1"><i class="fas fa-cogs me-2"></i>{{ $title }}</h2>
-            <p class="text-muted">{{ \Alxarafe\Lib\Trans::_('Dashboard_description') }}</p>
+            <p class="text-muted">{{ \Alxarafe\Infrastructure\Lib\Trans::_('Dashboard_description') }}</p>
         </div>
     </div>
 
@@ -22,8 +22,8 @@
                         <div class="mb-3">
                             <i class="fas fa-cogs fa-3x text-primary"></i>
                         </div>
-                        <h5 class="card-title">{{ \Alxarafe\Lib\Trans::_('Config') }}</h5>
-                        <p class="card-text text-muted small">{{ \Alxarafe\Lib\Trans::_('config_description') }}</p>
+                        <h5 class="card-title">{{ \Alxarafe\Infrastructure\Lib\Trans::_('Config') }}</h5>
+                        <p class="card-text text-muted small">{{ \Alxarafe\Infrastructure\Lib\Trans::_('config_description') }}</p>
                     </div>
                 </div>
             </a>
@@ -37,8 +37,8 @@
                         <div class="mb-3">
                             <i class="fas fa-puzzle-piece fa-3x text-success"></i>
                         </div>
-                        <h5 class="card-title">{{ \Alxarafe\Lib\Trans::_('Modules') }}</h5>
-                        <p class="card-text text-muted small">{{ \Alxarafe\Lib\Trans::_('modules_description') }}</p>
+                        <h5 class="card-title">{{ \Alxarafe\Infrastructure\Lib\Trans::_('Modules') }}</h5>
+                        <p class="card-text text-muted small">{{ \Alxarafe\Infrastructure\Lib\Trans::_('modules_description') }}</p>
                     </div>
                 </div>
             </a>
@@ -52,8 +52,8 @@
                         <div class="mb-3">
                             <i class="fas fa-users fa-3x text-info"></i>
                         </div>
-                        <h5 class="card-title">{{ \Alxarafe\Lib\Trans::_('users') }}</h5>
-                        <p class="card-text text-muted small">{{ \Alxarafe\Lib\Trans::_('users_description') }}</p>
+                        <h5 class="card-title">{{ \Alxarafe\Infrastructure\Lib\Trans::_('users') }}</h5>
+                        <p class="card-text text-muted small">{{ \Alxarafe\Infrastructure\Lib\Trans::_('users_description') }}</p>
                     </div>
                 </div>
             </a>
@@ -67,8 +67,8 @@
                         <div class="mb-3">
                             <i class="fas fa-user-shield fa-3x text-warning"></i>
                         </div>
-                        <h5 class="card-title">{{ \Alxarafe\Lib\Trans::_('roles') }}</h5>
-                        <p class="card-text text-muted small">{{ \Alxarafe\Lib\Trans::_('roles_description') }}</p>
+                        <h5 class="card-title">{{ \Alxarafe\Infrastructure\Lib\Trans::_('roles') }}</h5>
+                        <p class="card-text text-muted small">{{ \Alxarafe\Infrastructure\Lib\Trans::_('roles_description') }}</p>
                     </div>
                 </div>
             </a>
@@ -82,8 +82,8 @@
                         <div class="mb-3">
                             <i class="fas fa-bolt fa-3x text-danger"></i>
                         </div>
-                        <h5 class="card-title">{{ \Alxarafe\Lib\Trans::_('Migrations') }}</h5>
-                        <p class="card-text text-muted small">{{ \Alxarafe\Lib\Trans::_('migrations_description') }}</p>
+                        <h5 class="card-title">{{ \Alxarafe\Infrastructure\Lib\Trans::_('Migrations') }}</h5>
+                        <p class="card-text text-muted small">{{ \Alxarafe\Infrastructure\Lib\Trans::_('migrations_description') }}</p>
                     </div>
                 </div>
             </a>
@@ -97,8 +97,8 @@
                         <div class="mb-3">
                             <i class="fas fa-book fa-3x text-secondary"></i>
                         </div>
-                        <h5 class="card-title">{{ \Alxarafe\Lib\Trans::_('Dictionaries') }}</h5>
-                        <p class="card-text text-muted small">{{ \Alxarafe\Lib\Trans::_('dictionaries_description') }}</p>
+                        <h5 class="card-title">{{ \Alxarafe\Infrastructure\Lib\Trans::_('Dictionaries') }}</h5>
+                        <p class="card-text text-muted small">{{ \Alxarafe\Infrastructure\Lib\Trans::_('dictionaries_description') }}</p>
                     </div>
                 </div>
             </a>

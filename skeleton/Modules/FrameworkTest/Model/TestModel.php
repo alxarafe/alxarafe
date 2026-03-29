@@ -19,7 +19,7 @@
 
 namespace Modules\FrameworkTest\Model;
 
-use Alxarafe\Base\Model\Model;
+use Alxarafe\Infrastructure\Persistence\Model\Model;
 
 class TestModel extends Model
 {

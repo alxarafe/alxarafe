@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Alxarafe\Component\Workflow\StatusTransition;
-use Alxarafe\Component\Workflow\StatusWorkflow;
+use Alxarafe\Infrastructure\Component\Workflow\StatusTransition;
+use Alxarafe\Infrastructure\Component\Workflow\StatusWorkflow;
 use PHPUnit\Framework\TestCase;
 
 /**

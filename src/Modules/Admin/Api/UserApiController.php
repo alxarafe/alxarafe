@@ -17,10 +17,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Api;
+namespace Modules\Admin\Api;
 
-use Alxarafe\Base\Controller\ApiController;
-use CoreModules\Admin\Model\User;
+use Alxarafe\Infrastructure\Http\Controller\ApiController;
+use Modules\Admin\Model\User;
 
 /**
  * Class UserApiController.
@@ -28,7 +28,7 @@ use CoreModules\Admin\Model\User;
  * API Endpoint for managing System Users.
  * Provides access to user details via JSON API.
  *
- * @package CoreModules\Admin\Api
+ * @package Modules\Admin\Api
  */
 class UserApiController extends ApiController
 {

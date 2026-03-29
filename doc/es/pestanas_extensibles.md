@@ -85,7 +85,7 @@ Config::registerSection('social', []);  // [] = acepta cualquier clave
 Luego en el controlador:
 
 ```php
-class ConfigController extends \CoreModules\Admin\Controller\ConfigController
+class ConfigController extends \Modules\Admin\Controller\ConfigController
 {
     protected function getTabs(): array
     {

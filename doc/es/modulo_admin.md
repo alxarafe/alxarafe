@@ -1,6 +1,6 @@
 # Referencia del Módulo Admin
 
-El **Módulo Admin** (`CoreModules\Admin`) es el núcleo de gestión integrado de Alxarafe. Proporciona la infraestructura esencial para la autenticación, gestión de usuarios, control de acceso basado en roles (RBAC) y la configuración del sistema.
+El **Módulo Admin** (`Modules\Admin`) es el núcleo de gestión integrado de Alxarafe. Proporciona la infraestructura esencial para la autenticación, gestión de usuarios, control de acceso basado en roles (RBAC) y la configuración del sistema.
 
 ## Funcionalidades
 

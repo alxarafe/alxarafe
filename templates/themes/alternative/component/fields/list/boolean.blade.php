@@ -4,5 +4,5 @@
     $isTrue = ($val == 1 || $val === true || $val === 'true' || $val === 'on');
 @endphp
 <span class="badge {{ $isTrue ? 'bg-info' : 'bg-secondary' }}" style="background-color: var(--alt-primary) !important; color: #fff;">
-    {{ $isTrue ? \Alxarafe\Lib\Trans::_('yes') : \Alxarafe\Lib\Trans::_('no') }}
+    {{ $isTrue ? \Alxarafe\Infrastructure\Lib\Trans::_('yes') : \Alxarafe\Infrastructure\Lib\Trans::_('no') }}
 </span>

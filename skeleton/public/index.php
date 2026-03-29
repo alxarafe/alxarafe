@@ -1,13 +1,14 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../src/Infrastructure/Legacy/aliases.php';
 
-use Alxarafe\Tools\Dispatcher\WebDispatcher;
-use Alxarafe\Tools\Dispatcher\ApiDispatcher;
-use Alxarafe\Base\Config;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Base\Database;
-use Alxarafe\Tools\Debug;
+use Alxarafe\Infrastructure\Tools\Dispatcher\WebDispatcher;
+use Alxarafe\Infrastructure\Tools\Dispatcher\ApiDispatcher;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Persistence\Database;
+use Alxarafe\Infrastructure\Tools\Debug;
 
 // Define base paths
 if (!defined('BASE_PATH')) {
@@ -145,10 +146,10 @@ if (php_sapi_name() === 'cli') {
 try {
     WebDispatcher::run($module, $controller, $method);
 } catch (Throwable $e) {
-    if (class_exists(\CoreModules\Admin\Controller\ErrorController::class) && !headers_sent()) {
+    if (class_exists(\Modules\Admin\Controller\ErrorController::class) && !headers_sent() && !isset($_GET['err'])) {
         $trace = $e->getTraceAsString();
-        $url = \CoreModules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace);
-        \Alxarafe\Lib\Functions::httpRedirect($url);
+        $url = \Modules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace) . '&err=1';
+        \Alxarafe\Infrastructure\Lib\Functions::httpRedirect($url);
     }
 
     echo "<h1>Error Fatal en la Aplicación</h1>";

@@ -17,20 +17,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\GenericPublicController;
-use Alxarafe\Lib\Auth;
-use Alxarafe\Lib\Functions;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Lib\Messages;
-use Alxarafe\Base\Config;
-use Alxarafe\Component\Fields\Text;
-use Alxarafe\Component\Fields\Select;
-use Alxarafe\Component\Fields\Select2;
-use Alxarafe\Component\Fields\StaticText;
-use Alxarafe\Component\Enum\ActionPosition;
-use Alxarafe\Component\Container\Panel;
+use Alxarafe\Infrastructure\Http\Controller\GenericPublicController;
+use Alxarafe\Infrastructure\Auth\Auth;
+use Alxarafe\Infrastructure\Lib\Functions;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Lib\Messages;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\Infrastructure\Component\Fields\Select;
+use Alxarafe\Infrastructure\Component\Fields\Select2;
+use Alxarafe\Infrastructure\Component\Fields\StaticText;
+use Alxarafe\Infrastructure\Component\Enum\ActionPosition;
+use Alxarafe\Infrastructure\Component\Container\Panel;
 
 class ProfileController extends GenericPublicController
 {
@@ -62,7 +62,7 @@ class ProfileController extends GenericPublicController
         $user = Auth::$user;
 
         // No admin context for profile
-        $panels = \CoreModules\Admin\Service\UserService::getFormPanels($user, false);
+        $panels = \Modules\Admin\Service\UserService::getFormPanels($user, false);
 
         $this->addVariable('panels', $panels);
         $this->setDefaultTemplate('page/profile');
@@ -75,7 +75,7 @@ class ProfileController extends GenericPublicController
 
         try {
             // Save using service (false = no admin fields)
-            if (\CoreModules\Admin\Service\UserService::saveUser($user, $_POST, $_FILES, false)) {
+            if (\Modules\Admin\Service\UserService::saveUser($user, $_POST, $_FILES, false)) {
                 Messages::addMessage(Trans::_('profile_updated'));
             } else {
                 Messages::addError(Trans::_('error_saving'));

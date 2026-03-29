@@ -1,0 +1,47 @@
+<?php
+
+/*
+ * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+namespace Alxarafe\Infrastructure\Component\Filter;
+
+use Alxarafe\Infrastructure\Component\AbstractFilter;
+
+class DateRangeFilter extends AbstractFilter
+{
+    #[\Override]
+    public function apply($query, $value): void
+    {
+        // DateRange values usually come as separate params handled by the controller logic
+        // But if passed as an array ['from' => '...', 'to' => '...']:
+        $from = $value['from'] ?? null;
+        $to = $value['to'] ?? null;
+
+        if ($from) {
+            $query->where($this->field, '>=', $from . ' 00:00:00');
+        }
+        if ($to) {
+            $query->where($this->field, '<=', $to . ' 23:59:59');
+        }
+    }
+
+    #[\Override]
+    public function getType(): string
+    {
+        return 'date_range';
+    }
+}

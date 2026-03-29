@@ -3,8 +3,8 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use Alxarafe\Base\Config;
-use Alxarafe\Base\Database;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Persistence\Database;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 abstract class TestCase extends BaseTestCase

@@ -3,10 +3,10 @@
 @section('header_actions')
     <div class="btn-group">
         <button id="btn-enable-all" class="btn btn-outline-success">
-            <i class="fas fa-check-double me-1"></i> {{ \Alxarafe\Lib\Trans::_('enable_all') }}
+            <i class="fas fa-check-double me-1"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('enable_all') }}
         </button>
         <button id="btn-disable-all" class="btn btn-outline-danger">
-            <i class="fas fa-times-circle me-1"></i> {{ \Alxarafe\Lib\Trans::_('disable_all') }}
+            <i class="fas fa-times-circle me-1"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('disable_all') }}
         </button>
     </div>
 @endsection
@@ -40,7 +40,7 @@
                         </div>
                         
                         <p class="card-text text-muted small" style="height: 3rem; overflow: hidden;">
-                            {{ $module['description'] ?: \Alxarafe\Lib\Trans::_('no_description_available') }}
+                            {{ $module['description'] ?: \Alxarafe\Infrastructure\Lib\Trans::_('no_description_available') }}
                         </p>
 
                         <div class="mt-auto d-flex justify-content-between align-items-center">
@@ -53,7 +53,7 @@
                             <div class="action-buttons">
                                 @if($module['enabled'] && $module['setup_url'])
                                     <a href="{{ $module['setup_url'] }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-cog"></i> {{ \Alxarafe\Lib\Trans::_('setup') }}
+                                        <i class="fas fa-cog"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('setup') }}
                                     </a>
                                 @endif
                             </div>

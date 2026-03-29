@@ -27,6 +27,7 @@
     "illuminate/events": "^10.48",
     "illuminate/view": "^10.48",
     "jenssegers/blade": "^2.0",
+    "psr/log": "^3.0",
     "symfony/translation": "^6.4 || ^7.0",
     "symfony/var-dumper": "^6.4 || ^7.0",
     "symfony/yaml": "^6.4 || ^7.0",
@@ -37,10 +38,14 @@
   },
   "autoload": {
     "psr-4": {
+      "Alxarafe\\Domain\\": "src/Domain",
+      "Alxarafe\\Application\\": "src/Application",
+      "Alxarafe\\Infrastructure\\": "src/Infrastructure",
       "Alxarafe\\Scripts\\": "src/Scripts",
-      "Alxarafe\\": "src/Core",
-      "CoreModules\\": "src/Modules",
-      "Modules\\": "skeleton/Modules/",
+      "Modules\\": [
+        "skeleton/Modules/",
+        "src/Modules/"
+      ],
       "Tests\\": [
         "Tests/",
         "skeleton/Tests/"

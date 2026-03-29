@@ -21,7 +21,7 @@ Para exponer un método al exterior a través de la API de Alxarafe, basta con a
 
 **Ejemplo de uso:**
 ```php
-namespace CoreModules\Users\Api;
+namespace Modules\Users\Api;
 
 use Alxarafe\Base\Controller\ApiController;
 use Alxarafe\Attribute\ApiRoute;

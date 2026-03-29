@@ -17,19 +17,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\GenericPublicController;
-use Alxarafe\Lib\Auth;
-use Alxarafe\Lib\Functions;
-use Alxarafe\Lib\Messages;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Controller\GenericPublicController;
+use Alxarafe\Infrastructure\Auth\Auth;
+use Alxarafe\Infrastructure\Lib\Functions;
+use Alxarafe\Infrastructure\Lib\Messages;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Attribute\Menu;
 
 class AuthController extends GenericPublicController
 {
-
-
     public ?string $username = null;
     public $password;
     public $remember;
@@ -109,7 +107,7 @@ class AuthController extends GenericPublicController
 
         // If no redirect provided, default to Home/Index
         if (!$redirect) {
-            $redirect = \Alxarafe\Lib\Auth::$user->getDefaultPage();
+            $redirect = \Alxarafe\Infrastructure\Auth\Auth::$user->getDefaultPage();
         }
 
         Functions::httpRedirect(urldecode($redirect));

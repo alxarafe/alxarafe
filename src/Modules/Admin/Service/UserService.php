@@ -17,20 +17,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Service;
+namespace Modules\Admin\Service;
 
-use Alxarafe\Component\Container\Panel;
-use Alxarafe\Component\Fields\Boolean;
-use Alxarafe\Component\Fields\Select;
-use Alxarafe\Component\Fields\Select2;
-use Alxarafe\Component\Fields\StaticText;
-use Alxarafe\Component\Fields\Text;
-use Alxarafe\Base\Config;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Lib\Functions;
-use CoreModules\Admin\Model\Role;
-use CoreModules\Admin\Model\User;
-use Alxarafe\Component\Enum\ActionPosition;
+use Alxarafe\Infrastructure\Component\Container\Panel;
+use Alxarafe\Infrastructure\Component\Fields\Boolean;
+use Alxarafe\Infrastructure\Component\Fields\Select;
+use Alxarafe\Infrastructure\Component\Fields\Select2;
+use Alxarafe\Infrastructure\Component\Fields\StaticText;
+use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Lib\Functions;
+use Modules\Admin\Model\Role;
+use Modules\Admin\Model\User;
+use Alxarafe\Infrastructure\Component\Enum\ActionPosition;
 
 class UserService
 {

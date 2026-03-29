@@ -17,9 +17,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Model;
+namespace Modules\Admin\Model;
 
-use Alxarafe\Base\Model\Model;
+use Alxarafe\Infrastructure\Persistence\Model\Model;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -100,7 +100,7 @@ final class User extends Model
      */
     public function role()
     {
-        return $this->belongsTo(\CoreModules\Admin\Model\Role::class);
+        return $this->belongsTo(\Modules\Admin\Model\Role::class);
     }
 
     /**
@@ -139,7 +139,7 @@ final class User extends Model
         if ($userPermissions === null) {
             // Load all permissions for this user's role
             // We load the keys: "Module.Controller.Action"
-            $userPermissions = \CoreModules\Admin\Model\Permission::query()
+            $userPermissions = \Modules\Admin\Model\Permission::query()
                 ->select('permissions.module', 'permissions.controller', 'permissions.action')
                 ->join('role_permissions', 'permissions.id', '=', 'role_permissions.permission_id')
                 ->where('role_permissions.role_id', $this->role_id)
@@ -158,17 +158,17 @@ final class User extends Model
 
     public function getLanguage(): string
     {
-        return $this->language ?? \Alxarafe\Base\Config::getConfig()->main->language ?? 'en';
+        return $this->language ?? \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->language ?? 'en';
     }
 
     public function getTimezone(): string
     {
-        return $this->timezone ?? \Alxarafe\Base\Config::getConfig()->main->timezone ?? date_default_timezone_get();
+        return $this->timezone ?? \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->timezone ?? date_default_timezone_get();
     }
 
     public function getTheme(): string
     {
-        return $this->theme ?? \Alxarafe\Base\Config::getConfig()->main->theme ?? 'default';
+        return $this->theme ?? \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->theme ?? 'default';
     }
 
     public function getDefaultPage(): string

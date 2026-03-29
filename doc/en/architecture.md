@@ -10,8 +10,7 @@ Defined in `composer.json`:
 |---|---|---|
 | `Alxarafe\` | `src/Core/` | Framework kernel — controllers, models, services, tools |
 | `Alxarafe\Scripts\` | `src/Scripts/` | Composer post-install scripts, asset publishing |
-| `CoreModules\` | `src/Modules/` | Bundled core modules (Admin). Always active. |
-| `Modules\` | `skeleton/Modules/` | Application-level modules. Activatable via settings. |
+| `Modules\` | `src/Modules/` and `APP_PATH/Modules/` | Bundled core and application modules. |
 | `Tests\` | `Tests/`, `skeleton/Tests/` | PHPUnit test suites |
 
 ## Framework Directory Tree
@@ -150,8 +149,8 @@ graph TD
     H --> Q["Firebase JWT"]
     
     D --> R["ModuleManager"]
-    R --> S["Modules\\"]
-    R --> T["CoreModules\\"]
+    R --> S["Modules\\ (Application)"]
+    R --> T["Modules\\ (Core)"]
 ```
 
 ## Key Dependencies

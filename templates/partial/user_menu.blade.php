@@ -22,8 +22,8 @@
             <ul class="nav">
                 {{-- Clocks (Hidden on small screens) --}}
                 @php
-                    $companyTz = \Alxarafe\Base\Config::getConfig()->main->timezone ?? 'UTC';
-                    $userTz = (\Alxarafe\Lib\Auth::$user->timezone ?? null) ?: $companyTz;
+                    $companyTz = \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->timezone ?? 'UTC';
+                    $userTz = (\Alxarafe\Infrastructure\Auth\Auth::$user->timezone ?? null) ?: $companyTz;
                 @endphp
                 <li class="nav-item position-relative me-3 d-none d-lg-flex align-items-center clock-container text-secondary" style="cursor: help;">
                     <i class="far fa-clock me-2"></i>
@@ -40,7 +40,7 @@
                             <span class="text-primary small" title="{{ $companyTz }}">{{ $me->_('app_label') }}:</span>
                             <span id="clock-company" class="text-dark font-weight-bold small">--</span>
                         </div>
-                        @if(\Alxarafe\Lib\Auth::$user)
+                        @if(\Alxarafe\Infrastructure\Auth\Auth::$user)
                         <div class="d-flex justify-content-between">
                             <span class="text-success small" title="{{ $userTz }}">{{ $me->_('user_label') }}:</span>
                             <span id="clock-user" class="text-dark font-weight-bold small">--</span>
@@ -56,9 +56,9 @@
                 </style>
                 
                 {{-- Notifications --}}
-                @if(\Alxarafe\Lib\Auth::isLogged())
+                @if(\Alxarafe\Infrastructure\Auth\Auth::isLogged())
                     @php
-                        $notifications = \CoreModules\Admin\Service\NotificationManager::getUnread();
+                        $notifications = \Modules\Admin\Service\NotificationManager::getUnread();
                         $unreadCount = $notifications->count();
                     @endphp
                     <li class="nav-item dropdown me-2">
@@ -84,15 +84,15 @@
                 @endif
 
                 {{-- User Menu --}}
-                @if(\Alxarafe\Lib\Auth::$user)
+                @if(\Alxarafe\Infrastructure\Auth\Auth::$user)
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle pr-0 d-flex align-items-center text-dark" href="#" id="navbarUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if(!empty(\Alxarafe\Lib\Auth::$user->avatar) && file_exists(\Alxarafe\Base\Config::getPublicRoot() . '/' . \Alxarafe\Lib\Auth::$user->avatar))
-                                <img src="{{ \Alxarafe\Lib\Auth::$user->avatar }}" class="rounded-circle border me-2" style="width: 32px; height: 32px; object-fit: cover;">
+                            @if(!empty(\Alxarafe\Infrastructure\Auth\Auth::$user->avatar) && file_exists(\Alxarafe\Infrastructure\Persistence\Config::getPublicRoot() . '/' . \Alxarafe\Infrastructure\Auth\Auth::$user->avatar))
+                                <img src="{{ \Alxarafe\Infrastructure\Auth\Auth::$user->avatar }}" class="rounded-circle border me-2" style="width: 32px; height: 32px; object-fit: cover;">
                             @else
                                 <i class="fas fa-user-circle fa-lg text-secondary me-2"></i>
                             @endif
-                             <span class="d-none d-sm-inline">{{ \Alxarafe\Lib\Auth::$user->name ?? \Alxarafe\Lib\Auth::$user->username ?? 'User' }}</span>
+                             <span class="d-none d-sm-inline">{{ \Alxarafe\Infrastructure\Auth\Auth::$user->name ?? \Alxarafe\Infrastructure\Auth\Auth::$user->username ?? 'User' }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarUser" style="z-index: 1050;">
                         @if(isset($user_menu) && is_array($user_menu))
@@ -141,7 +141,7 @@
                 const compEl = document.getElementById('clock-company');
                 if(compEl) compEl.innerText = fmt('{{ $companyTz }}');
 
-                @if(\Alxarafe\Lib\Auth::$user)
+                @if(\Alxarafe\Infrastructure\Auth\Auth::$user)
                 const userEl = document.getElementById('clock-user');
                 if(userEl) userEl.innerText = fmt('{{ $userTz }}');
                 @endif

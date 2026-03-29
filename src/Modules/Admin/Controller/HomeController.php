@@ -17,17 +17,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\Controller;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Controller\Controller;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Attribute\Menu;
 
 /**
  * Class HomeController.
  *
  * Provides the baseline "Inicio" top menu entry that is always visible.
- * CoreModules are never disabled, so this ensures a minimal admin
+ * Modules are never disabled, so this ensures a minimal admin
  * interface is always accessible regardless of application module state.
  *
  * Applications can override this behavior by providing their own

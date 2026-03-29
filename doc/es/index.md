@@ -7,7 +7,7 @@
 | Principio | Descripción |
 |---|---|
 | **Convención sobre Configuración** | Controladores, modelos, migraciones y plantillas se descubren automáticamente escaneando namespaces PSR-4. No hay archivos de rutas que mantener. |
-| **Modular por Defecto** | Cada funcionalidad se empaqueta como un Módulo (`CoreModules\` o `Modules\`), cada uno con sus propios Controllers, Models, Migrations, Seeders y Templates. |
+| **Modular por Defecto** | Cada funcionalidad se empaqueta como un Módulo (`Modules\`), cada uno con sus propios Controllers, Models, Migrations, Seeders y Templates. |
 | **Reutilizar, No Reinventar** | Capa de datos = Illuminate/Eloquent. Plantillas = Blade. Traducciones = Symfony/Translation. Autenticación = JWT (Firebase PHP-JWT). |
 | **Metadatos vía Atributos** | Los Atributos PHP 8 (`#[Menu]`, `#[ApiRoute]`, `#[RequireRole]`, `#[ModuleInfo]`) definen declarativamente rutas, permisos y metadatos de módulos. |
 | **Arquitectura de Componentes** | Los formularios UI se ensamblan programáticamente a partir de componentes Field, Container y Filter — no HTML codificado a mano. |
@@ -71,7 +71,7 @@ mi-proyecto/
     └── alxarafe/alxarafe/
         └── src/
             ├── Core/        # Kernel del framework (namespace Alxarafe\)
-            └── Modules/     # Módulos core (namespace CoreModules\)
+            └── Modules/     # Módulos core (namespace Modules\)
 ```
 
 ## Índice de Documentación
@@ -87,17 +87,17 @@ mi-proyecto/
 
 | Documento | Descripción |
 |---|---|
-| [Atributos](classes/core/attribute/index.md) | `#[ApiRoute]`, `#[Menu]`, `#[ModuleInfo]`, `#[RequireModule]`, `#[RequirePermission]`, `#[RequireRole]` |
-| [Controladores](classes/core/base/controller/index.md) | Jerarquía `GenericController` → `ViewController` → `Controller` → `ResourceController` |
-| [Modelos y Traits](classes/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
-| [Config y Base de Datos](classes/core/base/index.md) | `Config`, `Database`, `Seeder`, `Template`, `BladeContainer` |
-| [Campos de Componentes](classes/core/component/fields/index.md) | 15 tipos de campos para generación de formularios |
-| [Contenedores de Componentes](classes/core/component/container/index.md) | `Panel`, `Tab`, `TabGroup`, `Row`, `Separator`, `HtmlContent` |
-| [Filtros de Componentes](classes/core/component/filter/index.md) | `TextFilter`, `SelectFilter`, `DateRangeFilter`, etc. |
-| [Workflow de Componentes](classes/core/component/workflow/index.md) | `StatusWorkflow`, `StatusTransition` |
-| [Capa Lib](classes/core/lib/index.md) | `Auth`, `Functions`, `Messages`, `Router`, `Routes`, `Trans` |
-| [Capa de Servicios](classes/core/service/index.md) | `HookService`, `EmailService`, `PdfService`, servicios API, Markdown |
-| [Capa de Herramientas](classes/core/tools/index.md) | `Dispatcher`, `Debug`, `ModuleManager`, `DependencyResolver` |
+| [Atributos](classes_legacy/core/attribute/index.md) | `#[ApiRoute]`, `#[Menu]`, `#[ModuleInfo]`, `#[RequireModule]`, `#[RequirePermission]`, `#[RequireRole]` |
+| [Controladores](classes_legacy/core/base/controller/index.md) | Jerarquía `GenericController` → `ViewController` → `Controller` → `ResourceController` |
+| [Modelos y Traits](classes_legacy/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
+| [Config y Base de Datos](classes_legacy/core/base/index.md) | `Config`, `Database`, `Seeder`, `Template`, `BladeContainer` |
+| [Campos de Componentes](classes_legacy/core/component/fields/index.md) | 15 tipos de campos para generación de formularios |
+| [Contenedores de Componentes](classes_legacy/core/component/container/index.md) | `Panel`, `Tab`, `TabGroup`, `Row`, `Separator`, `HtmlContent` |
+| [Filtros de Componentes](classes_legacy/core/component/filter/index.md) | `TextFilter`, `SelectFilter`, `DateRangeFilter`, etc. |
+| [Workflow de Componentes](classes_legacy/core/component/workflow/index.md) | `StatusWorkflow`, `StatusTransition` |
+| [Capa Lib](classes_legacy/core/lib/index.md) | `Auth`, `Functions`, `Messages`, `Router`, `Routes`, `Trans` |
+| [Capa de Servicios](classes_legacy/core/service/index.md) | `HookService`, `EmailService`, `PdfService`, servicios API, Markdown |
+| [Capa de Herramientas](classes_legacy/core/tools/index.md) | `Dispatcher`, `Debug`, `ModuleManager`, `DependencyResolver` |
 
 ### Guías
 

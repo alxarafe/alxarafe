@@ -19,7 +19,7 @@ Las columnas del listado y los campos del formulario se **auto-generan** a parti
 | Elemento | Ruta |
 |---|---|
 | **Clase** | `src/Modules/Admin/Controller/DictionaryController.php` |
-| **Namespace** | `CoreModules\Admin\Controller` |
+| **Namespace** | `Modules\Admin\Controller` |
 | **Herencia** | `DictionaryController → ResourceController → Controller` |
 | **Traits aplicados** | `ResourceTrait` (1 762 líneas de lógica CRUD automática) |
 
@@ -55,7 +55,7 @@ classDiagram
 Cuando se recibe `?model=CCountry`, el controlador sigue esta cadena:
 
 1. **FQCN directo** — Si el parámetro ya contiene `\` y la clase existe, se usa directamente.
-2. **Escaneo de módulos core** — Busca en `CoreModules\{Módulo}\Model\{Modelo}`.
+2. **Escaneo de módulos core** — Busca en `Modules\{Módulo}\Model\{Modelo}`.
 3. **Escaneo de módulos skeleton** — Busca en `Modules\{Módulo}\Model\{Modelo}`.
 4. **Escaneo de plugins** — Busca en `Plugins\{Plugin}\Model\{Modelo}`.
 
@@ -68,7 +68,7 @@ flowchart TD
     C -- Sí --> D[validateNamespace]
     C -- No --> E[RuntimeException]
     B -- No --> F[Generar candidatos]
-    F --> G["CoreModules\\*\\Model\\CCountry"]
+    F --> G["Modules\\*\\Model\\CCountry"]
     F --> H["Modules\\*\\Model\\CCountry"]
     F --> I["Plugins\\*\\Model\\CCountry"]
     G --> J{¿class_exists?}
@@ -89,7 +89,7 @@ Solo se permite acceder a modelos cuyo FQCN comience por uno de los prefijos aut
 
 ```php
 protected array $allowedNamespaces = [
-    'CoreModules\\',
+    'Modules\\',
     'Modules\\',
     'Plugins\\',
 ];

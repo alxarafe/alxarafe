@@ -3,11 +3,11 @@
     <div class="cyber-scanline-v"></div>
     
     <!-- User Avatar / Profile with Hover Menu -->
-    @if(\Alxarafe\Lib\Auth::$user)
+    @if(\Alxarafe\Infrastructure\Auth\Auth::$user)
         <div class="mb-4 mt-3 text-center group-hover-glow position-relative">
             <a href="index.php?module=Admin&controller=Profile" class="text-decoration-none">
-                @if(!empty(\Alxarafe\Lib\Auth::$user->avatar) && file_exists(\Alxarafe\Base\Config::getPublicRoot() . '/' . \Alxarafe\Lib\Auth::$user->avatar))
-                    <img src="{{ \Alxarafe\Lib\Auth::$user->avatar }}" class="cyber-avatar rounded-circle border border-primary" style="width: 48px; height: 48px; object-fit: cover;">
+                @if(!empty(\Alxarafe\Infrastructure\Auth\Auth::$user->avatar) && file_exists(\Alxarafe\Infrastructure\Persistence\Config::getPublicRoot() . '/' . \Alxarafe\Infrastructure\Auth\Auth::$user->avatar))
+                    <img src="{{ \Alxarafe\Infrastructure\Auth\Auth::$user->avatar }}" class="cyber-avatar rounded-circle border border-primary" style="width: 48px; height: 48px; object-fit: cover;">
                 @else
                     <div class="cyber-avatar-placeholder rounded-circle border border-info d-flex align-items-center justify-content-center mx-auto" style="width: 48px; height: 48px; background: #000;">
                         <i class="fas fa-user cyber-icon text-info fa-lg"></i>
@@ -18,30 +18,30 @@
             <!-- Hover Menu -->
             <div class="cyber-user-menu">
                 <div class="cyber-user-name mb-2 text-nowrap">
-                    <span class="text-info">></span> {{ \Alxarafe\Lib\Auth::$user->name ?? \Alxarafe\Lib\Auth::$user->username }}
+                    <span class="text-info">></span> {{ \Alxarafe\Infrastructure\Auth\Auth::$user->name ?? \Alxarafe\Infrastructure\Auth\Auth::$user->username }}
                 </div>
                 <a href="index.php?module=Admin&controller=Profile" class="cyber-menu-link d-block mb-2">
-                    <i class="fas fa-id-card me-2"></i> {{ \Alxarafe\Lib\Trans::_('my_profile') }}
+                    <i class="fas fa-id-card me-2"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('my_profile') }}
                 </a>
                 <a href="index.php?module=Admin&controller=Auth&action=logout" class="cyber-menu-link d-block text-danger">
-                    <i class="fas fa-power-off me-2"></i> {{ \Alxarafe\Lib\Trans::_('logout') }}
+                    <i class="fas fa-power-off me-2"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('logout') }}
                 </a>
             </div>
         </div>
     @else
         <!-- Guest Access icon -->
         @if(stripos($_SERVER['QUERY_STRING'] ?? '', 'controller=Auth') === false)
-            @include('component.menu_item', ['url' => 'index.php?module=Admin&controller=Auth', 'icon' => 'fas fa-sign-in-alt', 'title' => \Alxarafe\Lib\Trans::_('login_button')])
+            @include('component.menu_item', ['url' => 'index.php?module=Admin&controller=Auth', 'icon' => 'fas fa-sign-in-alt', 'title' => \Alxarafe\Infrastructure\Lib\Trans::_('login_button')])
         @endif
     @endif
 
     <!-- Notifications (Admin feature) -->
-    @if(\Alxarafe\Lib\Auth::isLogged())
+    @if(\Alxarafe\Infrastructure\Auth\Auth::isLogged())
         @php
-            $notifications = \CoreModules\Admin\Service\NotificationManager::getUnread();
+            $notifications = \Modules\Admin\Service\NotificationManager::getUnread();
             $unreadCount = $notifications->count();
         @endphp
-        @include('component.menu_item', ['url' => '#', 'icon' => 'fas fa-bell', 'title' => \Alxarafe\Lib\Trans::_('notifications'), 'colorClass' => $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary', 'badge' => $unreadCount > 0 ? $unreadCount : null])
+        @include('component.menu_item', ['url' => '#', 'icon' => 'fas fa-bell', 'title' => \Alxarafe\Infrastructure\Lib\Trans::_('notifications'), 'colorClass' => $unreadCount > 0 ? 'text-danger animate-pulse' : 'text-secondary', 'badge' => $unreadCount > 0 ? $unreadCount : null])
     @endif
 
     <!-- User Menu Items (Runtime) -->

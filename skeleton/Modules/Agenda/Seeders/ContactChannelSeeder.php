@@ -19,7 +19,7 @@
 
 namespace Modules\Agenda\Seeders;
 
-use Alxarafe\Base\Seeder;
+use Alxarafe\Infrastructure\Persistence\Seeder;
 use Modules\Agenda\Model\ContactChannel;
 
 /**

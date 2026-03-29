@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Alxarafe\Component\AbstractField;
-use Alxarafe\Component\Fields\Text;
-use Alxarafe\Component\Container\Panel;
+use Alxarafe\Infrastructure\Component\AbstractField;
+use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\Infrastructure\Component\Container\Panel;
 use PHPUnit\Framework\TestCase;
 
 /**

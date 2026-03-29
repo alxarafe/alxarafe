@@ -21,8 +21,8 @@ declare(strict_types=1);
 
 namespace Skeleton\Tests\Unit;
 
-use Alxarafe\Service\ApiRouter;
-use CoreModules\Admin\Api\LoginController;
+use Alxarafe\Infrastructure\Service\ApiRouter;
+use Modules\Admin\Api\LoginController;
 use PHPUnit\Framework\TestCase;
 
 class ApiRouterTest extends TestCase

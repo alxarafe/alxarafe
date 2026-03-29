@@ -17,13 +17,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\GenericPublicController as BasePublicController;
+use Alxarafe\Infrastructure\Http\Controller\GenericPublicController as BasePublicController;
 
 class ErrorController extends BasePublicController
 {
-
     /**
      * Returns the module name for use in url function
      *

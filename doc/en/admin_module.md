@@ -1,6 +1,6 @@
 # Admin Module Reference
 
-The **Admin Module** (`CoreModules\Admin`) is the built-in management core of Alxarafe. It provides the essential infrastructure for authentication, user management, role-based access control (RBAC), and system configuration.
+The **Admin Module** (`Modules\Admin`) is the built-in management core of Alxarafe. It provides the essential infrastructure for authentication, user management, role-based access control (RBAC), and system configuration.
 
 ## Features
 

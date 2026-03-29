@@ -1,23 +1,23 @@
 @php
-    $languagesData = \Alxarafe\Lib\Trans::getAvailableLanguagesWithFlags();
+    $languagesData = \Alxarafe\Infrastructure\Lib\Trans::getAvailableLanguagesWithFlags();
 
     // Preference order: Cookie > User > Company Config > Fallback
     $cookieLang = $_COOKIE['alx_lang'] ?? null;
-    $userLang = \Alxarafe\Lib\Auth::$user->language ?? null;
+    $userLang = \Alxarafe\Infrastructure\Auth\Auth::$user->language ?? null;
 
     $configLang = null;
     try {
-        $configLang = \Alxarafe\Base\Config::getConfig()->main->language ?? null;
+        $configLang = \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->language ?? null;
     } catch (\Throwable $e) {}
 
-    $currentLang = $cookieLang ?? $userLang ?? $configLang ?? \Alxarafe\Lib\Trans::FALLBACK_LANG;
+    $currentLang = $cookieLang ?? $userLang ?? $configLang ?? \Alxarafe\Infrastructure\Lib\Trans::FALLBACK_LANG;
     $isUserSelection = !empty($cookieLang) || !empty($userLang);
     $currentFlag = $languagesData[$currentLang]['flag'] ?? 'un';
 @endphp
 
 <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center px-1 text-secondary"
    style="height: 40px; min-width: 40px;"
-   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ \Alxarafe\Lib\Trans::_('select_language') }}">
+   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ \Alxarafe\Infrastructure\Lib\Trans::_('select_language') }}">
     @if($isUserSelection && $currentFlag !== 'un')
         <span class="fi fi-{{ $currentFlag }} shadow-sm rounded-1" style="width: 1.4rem; height: 1.1rem; flex-shrink: 0;"></span>
     @else
@@ -26,7 +26,7 @@
 </a>
 
 <ul class="dropdown-menu dropdown-menu-end shadow animate__animated animate__fadeInFast">
-    <li class="dropdown-header text-uppercase small fw-bold text-primary">{{ \Alxarafe\Lib\Trans::_('available_languages') }}</li>
+    <li class="dropdown-header text-uppercase small fw-bold text-primary">{{ \Alxarafe\Infrastructure\Lib\Trans::_('available_languages') }}</li>
     <li><hr class="dropdown-divider"></li>
     @foreach($languagesData as $code => $lang)
         <li>

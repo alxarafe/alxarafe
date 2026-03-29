@@ -17,10 +17,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\GenericPublicController as BasePublicController;
-use Alxarafe\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Controller\GenericPublicController as BasePublicController;
+use Alxarafe\Infrastructure\Attribute\Menu;
 
 #[Menu(
     menu: 'public_menu',
@@ -32,8 +32,6 @@ use Alxarafe\Attribute\Menu;
 )]
 class PublicController extends BasePublicController
 {
-
-
     /**
      * Returns the module name for use in url function
      *

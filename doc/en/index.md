@@ -7,7 +7,7 @@
 | Principle | Description |
 |---|---|
 | **Convention over Configuration** | Controllers, models, migrations and templates are discovered automatically by scanning PSR-4 namespaces. No route files to maintain. |
-| **Modular by Default** | Every feature ships as a Module (`CoreModules\` or `Modules\`), each containing its own Controllers, Models, Migrations, Seeders, and Templates. |
+| **Modular by Default** | Every feature ships as a Module (`Modules\`), each containing its own Controllers, Models, Migrations, Seeders, and Templates. |
 | **Leverage, Don't Reinvent** | Database layer = Illuminate/Eloquent. Templates = Blade. Translations = Symfony/Translation. Authentication = JWT (Firebase PHP-JWT). |
 | **Attribute-Driven Metadata** | PHP 8 Attributes (`#[Menu]`, `#[ApiRoute]`, `#[RequireRole]`, `#[ModuleInfo]`) declaratively define routing, permissions, and module metadata. |
 | **Component Architecture** | UI forms are assembled programmatically from Field, Container, and Filter components — not hard-coded HTML. |
@@ -71,7 +71,7 @@ my-project/
     └── alxarafe/alxarafe/
         └── src/
             ├── Core/        # Framework kernel (Alxarafe\ namespace)
-            └── Modules/     # Core modules (CoreModules\ namespace)
+            └── Modules/     # Core modules (Modules\ namespace)
 ```
 
 ## Documentation Index
@@ -87,17 +87,17 @@ my-project/
 
 | Document | Description |
 |---|---|
-| [Attributes](classes/core/attribute/index.md) | `#[ApiRoute]`, `#[Menu]`, `#[ModuleInfo]`, `#[RequireModule]`, `#[RequirePermission]`, `#[RequireRole]` |
-| [Controllers](classes/core/base/controller/index.md) | `GenericController` → `ViewController` → `Controller` → `ResourceController` hierarchy |
-| [Models & Traits](classes/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
-| [Config & Database](classes/core/base/index.md) | `Config`, `Database`, `Seeder`, `Template`, `BladeContainer` |
-| [Component Fields](classes/core/component/fields/index.md) | 15 field types for form generation |
-| [Component Containers](classes/core/component/container/index.md) | `Panel`, `Tab`, `TabGroup`, `Row`, `Separator`, `HtmlContent` |
-| [Component Filters](classes/core/component/filter/index.md) | `TextFilter`, `SelectFilter`, `DateRangeFilter`, etc. |
-| [Component Workflow](classes/core/component/workflow/index.md) | `StatusWorkflow`, `StatusTransition` |
-| [Lib Layer](classes/core/lib/index.md) | `Auth`, `Functions`, `Messages`, `Router`, `Routes`, `Trans` |
-| [Service Layer](classes/core/service/index.md) | `HookService`, `EmailService`, `PdfService`, API services, Markdown |
-| [Tools Layer](classes/core/tools/index.md) | `Dispatcher`, `Debug`, `ModuleManager`, `DependencyResolver` |
+| [Attributes](classes_legacy/core/attribute/index.md) | `#[ApiRoute]`, `#[Menu]`, `#[ModuleInfo]`, `#[RequireModule]`, `#[RequirePermission]`, `#[RequireRole]` |
+| [Controllers](classes_legacy/core/base/controller/index.md) | `GenericController` → `ViewController` → `Controller` → `ResourceController` hierarchy |
+| [Models & Traits](classes_legacy/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
+| [Config & Database](classes_legacy/core/base/index.md) | `Config`, `Database`, `Seeder`, `Template`, `BladeContainer` |
+| [Component Fields](classes_legacy/core/component/fields/index.md) | 15 field types for form generation |
+| [Component Containers](classes_legacy/core/component/container/index.md) | `Panel`, `Tab`, `TabGroup`, `Row`, `Separator`, `HtmlContent` |
+| [Component Filters](classes_legacy/core/component/filter/index.md) | `TextFilter`, `SelectFilter`, `DateRangeFilter`, etc. |
+| [Component Workflow](classes_legacy/core/component/workflow/index.md) | `StatusWorkflow`, `StatusTransition` |
+| [Lib Layer](classes_legacy/core/lib/index.md) | `Auth`, `Functions`, `Messages`, `Router`, `Routes`, `Trans` |
+| [Service Layer](classes_legacy/core/service/index.md) | `HookService`, `EmailService`, `PdfService`, API services, Markdown |
+| [Tools Layer](classes_legacy/core/tools/index.md) | `Dispatcher`, `Debug`, `ModuleManager`, `DependencyResolver` |
 
 ### Guides
 

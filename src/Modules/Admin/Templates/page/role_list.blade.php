@@ -2,7 +2,7 @@
 
 @section('header_actions')
     <a href="?module=Admin&controller=Role&id=new" class="btn btn-primary">
-        <i class="fas fa-plus"></i> {{ \Alxarafe\Lib\Trans::_('create_new_role') }}
+        <i class="fas fa-plus"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('create_new_role') }}
     </a>
 @endsection
 
@@ -18,11 +18,11 @@
                 <table class="table table-hover table-striped mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th style="width: 50px;">{{ \Alxarafe\Lib\Trans::_('id') }}</th>
-                            <th>{{ \Alxarafe\Lib\Trans::_('name') }}</th>
-                            <th>{{ \Alxarafe\Lib\Trans::_('description') }}</th>
-                            <th class="text-center" style="width: 100px;">{{ \Alxarafe\Lib\Trans::_('active') }}</th>
-                            <th class="text-end" style="width: 150px;">{{ \Alxarafe\Lib\Trans::_('actions') }}</th>
+                            <th style="width: 50px;">{{ \Alxarafe\Infrastructure\Lib\Trans::_('id') }}</th>
+                            <th>{{ \Alxarafe\Infrastructure\Lib\Trans::_('name') }}</th>
+                            <th>{{ \Alxarafe\Infrastructure\Lib\Trans::_('description') }}</th>
+                            <th class="text-center" style="width: 100px;">{{ \Alxarafe\Infrastructure\Lib\Trans::_('active') }}</th>
+                            <th class="text-end" style="width: 150px;">{{ \Alxarafe\Infrastructure\Lib\Trans::_('actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,14 +33,14 @@
                                 <td class="align-middle">{{ $role->description }}</td>
                                 <td class="align-middle text-center">
                                     @if($role->active)
-                                        <span class="badge bg-success">{{ \Alxarafe\Lib\Trans::_('yes') }}</span>
+                                        <span class="badge bg-success">{{ \Alxarafe\Infrastructure\Lib\Trans::_('yes') }}</span>
                                     @else
-                                        <span class="badge bg-secondary">{{ \Alxarafe\Lib\Trans::_('no') }}</span>
+                                        <span class="badge bg-secondary">{{ \Alxarafe\Infrastructure\Lib\Trans::_('no') }}</span>
                                     @endif
                                 </td>
                                 <td class="align-middle text-end">
                                     <a href="?module=Admin&controller=Role&id={{ $role->id }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-edit"></i> {{ \Alxarafe\Lib\Trans::_('edit') }}
+                                        <i class="fas fa-edit"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('edit') }}
                                     </a>
                                 </td>
                             </tr>
@@ -51,10 +51,10 @@
         </div>
     @else
         <div class="alert alert-info py-4 text-center">
-            <h4>{{ \Alxarafe\Lib\Trans::_('no_roles_found') }}</h4>
-            <p>{{ \Alxarafe\Lib\Trans::_('start_by_creating_role') }}</p>
+            <h4>{{ \Alxarafe\Infrastructure\Lib\Trans::_('no_roles_found') }}</h4>
+            <p>{{ \Alxarafe\Infrastructure\Lib\Trans::_('start_by_creating_role') }}</p>
             <a href="?module=Admin&controller=Role&id=new" class="btn btn-primary mt-2">
-                {{ \Alxarafe\Lib\Trans::_('create_first_role') }}
+                {{ \Alxarafe\Infrastructure\Lib\Trans::_('create_first_role') }}
             </a>
         </div>
     @endif

@@ -19,10 +19,10 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Attribute\Menu;
-use Alxarafe\Base\Controller\ResourceController;
+use Alxarafe\Infrastructure\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Controller\ResourceController;
 
 /**
  * Class EmailTemplateController.
@@ -37,6 +37,6 @@ class EmailTemplateController extends ResourceController
     #[\Override]
     protected function getModelClass()
     {
-        return \CoreModules\Admin\Model\EmailTemplate::class;
+        return \Modules\Admin\Model\EmailTemplate::class;
     }
 }

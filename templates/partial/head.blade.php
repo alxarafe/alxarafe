@@ -13,7 +13,7 @@
 <!-- Dynamic Theme CSS -->
 @php
     $activeTheme = $_COOKIE['alx_theme']
-        ?? \Alxarafe\Base\Config::getConfig()->main->theme
+        ?? \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->theme
         ?? 'default';
 @endphp
 <link href="/themes/{{ $activeTheme }}/css/default.css?v=0.5.7" rel="stylesheet">

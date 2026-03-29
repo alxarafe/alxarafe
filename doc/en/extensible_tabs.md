@@ -85,7 +85,7 @@ Config::registerSection('social', []);  // [] = accept any key
 Then in the controller:
 
 ```php
-class ConfigController extends \CoreModules\Admin\Controller\ConfigController
+class ConfigController extends \Modules\Admin\Controller\ConfigController
 {
     protected function getTabs(): array
     {

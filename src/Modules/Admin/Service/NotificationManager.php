@@ -17,10 +17,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Service;
+namespace Modules\Admin\Service;
 
-use CoreModules\Admin\Model\Notification;
-use Alxarafe\Lib\Auth;
+use Modules\Admin\Model\Notification;
+use Alxarafe\Infrastructure\Auth\Auth;
 
 class NotificationManager
 {

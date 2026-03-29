@@ -17,11 +17,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Seeders;
+namespace Modules\Admin\Seeders;
 
-use Alxarafe\Base\Model\Model;
-use Alxarafe\Base\Seeder;
-use CoreModules\Admin\Model\User;
+use Alxarafe\Infrastructure\Persistence\Model\Model;
+use Alxarafe\Infrastructure\Persistence\Seeder;
+use Modules\Admin\Model\User;
 
 class UserSeeder extends Seeder
 {

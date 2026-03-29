@@ -1,0 +1,161 @@
+<?php
+
+/*
+ * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
+namespace Alxarafe\Infrastructure\Http\Controller\Trait;
+
+use Alxarafe\Infrastructure\Persistence\Template;
+
+/**
+ * Trait ViewTrait.
+ *
+ * Provides template management and view variable injection for controllers.
+ */
+trait ViewTrait
+{
+    /**
+     * Instance of the template engine.
+     */
+    public ?Template $template = null;
+
+    /**
+     * Array of variables to be passed to the view.
+     */
+    protected array $viewData = [];
+
+    /**
+     * @var bool If true, enables protection against unsaved changes (warns on exit).
+     */
+    public bool $protectChanges = false;
+
+    /**
+     * Sets the default template for the controller.
+     */
+    /**
+     * Sets the default template for the controller.
+     */
+    public function setDefaultTemplate(?string $templateName = null): void
+    {
+        if ($this->template === null) {
+            $this->template = new Template($templateName);
+        } else {
+            $this->template->setTemplateName($templateName);
+        }
+    }
+
+    public function getTemplateName(): ?string
+    {
+        return $this->template?->getTemplateName();
+    }
+
+    /**
+     * Adds a variable to be accessible in the view.
+     *
+     * @param string $name Variable name.
+     * @param mixed $value Variable value.
+     */
+    public function addVariable(string $name, mixed $value): void
+    {
+        $this->viewData[$name] = $value;
+    }
+
+    /**
+     * Bulk adds variables to the view data.
+     */
+    public function addVariables(array $variables): void
+    {
+        $this->viewData = array_merge($this->viewData, $variables);
+    }
+
+    /**
+     * Sets the paths where templates are located.
+     */
+    public function setTemplatesPath(array $paths): void
+    {
+        if ($this->template === null) {
+            $this->setDefaultTemplate();
+        }
+        $this->template->setPaths($paths);
+    }
+
+    public function addTemplatesPath(string $path): void
+    {
+        if ($this->template === null) {
+            $this->setDefaultTemplate();
+        }
+        $this->template->addPath($path);
+    }
+
+    /**
+     * Renders a specific view file within the current template.
+     */
+    public function render(?string $viewPath = null): string
+    {
+        if ($this->template === null) {
+            $this->setDefaultTemplate();
+        }
+
+        // Auto-Inference logic: If no view is set, try to infer from context
+        if ($viewPath === null && $this->template->getTemplateName() === null) {
+            // Check if we can infer from controller context
+            /** @phpstan-ignore-next-line */
+            if (isset($this->action) && method_exists($this, 'getModuleName') && method_exists($this, 'getControllerName')) {
+                $module = strtolower($this::getModuleName());
+                $controller = strtolower($this::getControllerName());
+                $action = strtolower((string)$this->action);
+
+                // Convention: page/{module}/{controller}/{action}
+                $inferred = "page/{$module}/{$controller}/{$action}";
+                $this->template->setTemplateName($inferred);
+            }
+        }
+
+        try {
+            return $this->template->render($viewPath, $this->viewData);
+        } catch (\Throwable $e) {
+            $msg = $e->getMessage();
+            /** @phpstan-ignore function.alreadyNarrowedType */
+            $file = method_exists($e, 'getFile') ? $e->getFile() : '';
+
+            // Self-healing: If the error comes from a theme, try to reset it
+            if (str_contains($msg, '/themes/') || str_contains($file, '/themes/')) {
+                if (isset($_COOKIE['alx_theme']) && $_COOKIE['alx_theme'] !== 'default') {
+                    // Try to reset theme and redirect back
+                    setcookie('alx_theme', 'default', time() + (86400 * 30), '/');
+                    if (!headers_sent()) {
+                        header('Location: ' . ($_SERVER['REQUEST_URI'] ?? '/'));
+                        exit('Theme reset due to error. Redirecting...');
+                    }
+                }
+            }
+
+            // If we're here, either it's not a theme error or we already sent headers.
+            // Throwing allows WebDispatcher or other handlers to catch it normally.
+            throw $e;
+        }
+    }
+    /**
+     * Automatic initialization method called by GenericController.
+     */
+    public function initViewTrait(): void
+    {
+        $this->setDefaultTemplate();
+    }
+}

@@ -17,13 +17,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\ResourceController;
-use CoreModules\Admin\Model\Role;
-use Alxarafe\Base\Controller\Trait\ViewTrait;
-use CoreModules\Admin\Service\PermissionSyncer;
-use Alxarafe\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Controller\ResourceController;
+use Modules\Admin\Model\Role;
+use Alxarafe\Infrastructure\Http\Controller\Trait\ViewTrait;
+use Modules\Admin\Service\PermissionSyncer;
+use Alxarafe\Infrastructure\Attribute\Menu;
 
 #[Menu(
     menu: 'main_menu',
@@ -35,8 +35,6 @@ use Alxarafe\Attribute\Menu;
 )]
 class RoleController extends ResourceController
 {
-
-
     #[\Override]
     public static function getModuleName(): string
     {
@@ -124,7 +122,7 @@ class RoleController extends ResourceController
             }
 
             // Redirect to List
-            \Alxarafe\Lib\Functions::httpRedirect(static::url());
+            \Alxarafe\Infrastructure\Lib\Functions::httpRedirect(static::url());
         } catch (\Throwable $e) {
             // In case of fatal error, display it explicitly
             echo "<div style='background: #f8d7da; color: #721c24; padding: 20px; border: 10px solid red; margin: 20px;'>";
@@ -140,7 +138,7 @@ class RoleController extends ResourceController
     protected function beforeEdit()
     {
         // Load Permissions
-        $allPermissions = \CoreModules\Admin\Model\Permission::orderBy('module')
+        $allPermissions = \Modules\Admin\Model\Permission::orderBy('module')
             ->orderBy('controller')
             ->orderBy('action')
             ->get();
@@ -177,7 +175,7 @@ class RoleController extends ResourceController
 
         // 2. Use custom simple list template (bypassing JS resource)
         $this->setDefaultTemplate('page/role_list');
-        $this->addVariable('title', \Alxarafe\Lib\Trans::_('role_management'));
+        $this->addVariable('title', \Alxarafe\Infrastructure\Lib\Trans::_('role_management'));
     }
 
     /**

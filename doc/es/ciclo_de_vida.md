@@ -32,7 +32,7 @@ sequenceDiagram
     WebDispatcher->>WebDispatcher: Debug::initialize()
     WebDispatcher->>Routes: Routes::getAllRoutes()
     
-    Note over Routes: Escanea namespaces<br/>CoreModules\ y Modules\<br/>buscando *Controller.php
+    Note over Routes: Escanea namespace<br/>Modules\<br/>buscando *Controller.php
     
     Routes-->>WebDispatcher: mapa de rutas
     WebDispatcher->>WebDispatcher: Resolver className de la ruta
@@ -137,14 +137,14 @@ Debug::initialize();  // Configura DebugBar si está en modo debug
 ```php
 $routes = Routes::getAllRoutes();
 $endpoint = $routes['Controller'][$module][$controller];
-// ej. "CoreModules\Admin\Controller\HomeController|/ruta/a/HomeController.php"
+// ej. "Modules\Admin\Controller\HomeController|/ruta/a/HomeController.php"
 ```
 
 `Routes::getAllRoutes()` escanea dos raíces de namespace:
 
 | Raíz | Namespace | Siempre Activo |
 |---|---|---|
-| `src/Modules/` | `CoreModules\` | Sí |
+| `src/Modules/` | `Modules\` | Sí |
 | `APP_PATH/Modules/` | `Modules\` | Verificado vía tabla `Setting` |
 
 Para cada directorio de módulo, descubre:

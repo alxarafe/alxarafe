@@ -3,8 +3,8 @@
 
 echo "Running PHP Code Beautifier and Fixer..."
 
-# Fix src/Core
-docker exec alxarafe_php ./vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Core -s || true
+# Fix src/Domain, Application, Infrastructure, Modules
+docker exec alxarafe_php ./vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml src/Domain src/Application src/Infrastructure src/Modules -s || true
 
 # Fix Tests
 docker exec alxarafe_php ./vendor/bin/phpcbf --tab-width=4 --encoding=utf-8 --standard=phpcs.xml Tests -s || true

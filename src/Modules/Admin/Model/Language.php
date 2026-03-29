@@ -17,9 +17,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Model;
+namespace Modules\Admin\Model;
 
-use Alxarafe\Base\Model\Model;
+use Alxarafe\Infrastructure\Persistence\Model\Model;
 
 /**
  * @property string $code   ISO locale code (PK): 'es', 'en_GB', 'ca'

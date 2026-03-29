@@ -17,13 +17,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Service;
+namespace Modules\Admin\Service;
 
-use Alxarafe\Attribute\Menu;
-use Alxarafe\Lib\Routes;
-use Alxarafe\Lib\Auth;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Base\Config;
+use Alxarafe\Infrastructure\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Routes;
+use Alxarafe\Infrastructure\Auth\Auth;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Persistence\Config;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -298,10 +298,10 @@ class MenuManager
         }
 
         try {
-            if (!class_exists('\CoreModules\Admin\Model\Setting')) {
+            if (!class_exists('\Modules\Admin\Model\Setting')) {
                 return true;
             }
-            $value = \CoreModules\Admin\Model\Setting::get(
+            $value = \Modules\Admin\Model\Setting::get(
                 'module_enabled_' . strtolower($moduleName)
             );
             if ($value === null) {
@@ -325,7 +325,7 @@ class MenuManager
                 return false;
             }
             $ref = new \ReflectionClass($moduleClass);
-            $attrs = $ref->getAttributes(\Alxarafe\Attribute\ModuleInfo::class);
+            $attrs = $ref->getAttributes(\Alxarafe\Infrastructure\Attribute\ModuleInfo::class);
             if (empty($attrs)) {
                 return false;
             }
@@ -374,20 +374,20 @@ class MenuManager
             if (file_exists($path)) {
                 require_once $path;
             } else {
-                \Alxarafe\Tools\Debug::message("MenuManager: File not found $path");
+                \Alxarafe\Infrastructure\Tools\Debug::message("MenuManager: File not found $path");
             }
         }
 
         $adminControllers = [
-            'CoreModules\Admin\Controller\HomeController',
-            'CoreModules\Admin\Controller\RoleController',
-            'CoreModules\Admin\Controller\UserController',
-            'CoreModules\Admin\Controller\ConfigController',
-            'CoreModules\Admin\Controller\AuthController',
-            'CoreModules\Admin\Controller\ModuleController',
-            'CoreModules\Admin\Controller\MigrationController',
-            'CoreModules\Admin\Controller\DictionaryController',
-            'CoreModules\Admin\Controller\EmailTemplateController',
+            'Modules\Admin\Controller\HomeController',
+            'Modules\Admin\Controller\RoleController',
+            'Modules\Admin\Controller\UserController',
+            'Modules\Admin\Controller\ConfigController',
+            'Modules\Admin\Controller\AuthController',
+            'Modules\Admin\Controller\ModuleController',
+            'Modules\Admin\Controller\MigrationController',
+            'Modules\Admin\Controller\DictionaryController',
+            'Modules\Admin\Controller\EmailTemplateController',
         ];
 
         $scannedClasses = [];
@@ -416,11 +416,11 @@ class MenuManager
                         }
                     }
                 } catch (\Throwable $e) {
-                    \Alxarafe\Tools\Debug::message("MenuManager Scan Error: " . $e->getMessage());
+                    \Alxarafe\Infrastructure\Tools\Debug::message("MenuManager Scan Error: " . $e->getMessage());
                     continue;
                 }
             } else {
-                \Alxarafe\Tools\Debug::message("MenuManager: Class $className does not exist even after require.");
+                \Alxarafe\Infrastructure\Tools\Debug::message("MenuManager: Class $className does not exist even after require.");
             }
         }
 

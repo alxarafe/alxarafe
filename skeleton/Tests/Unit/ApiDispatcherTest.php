@@ -21,9 +21,9 @@ declare(strict_types=1);
 
 namespace Skeleton\Tests\Unit;
 
-use Alxarafe\Service\ApiDispatcher;
-use Alxarafe\Service\ApiRouter;
-use Alxarafe\Service\ApiException;
+use Alxarafe\Infrastructure\Service\ApiDispatcher;
+use Alxarafe\Infrastructure\Service\ApiRouter;
+use Alxarafe\Infrastructure\Service\ApiException;
 use PHPUnit\Framework\TestCase;
 
 class ApiDispatcherTest extends TestCase

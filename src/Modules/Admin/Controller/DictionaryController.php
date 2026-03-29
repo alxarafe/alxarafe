@@ -19,10 +19,10 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Attribute\Menu;
-use Alxarafe\Base\Controller\ResourceController;
+use Alxarafe\Infrastructure\Attribute\Menu;
+use Alxarafe\Infrastructure\Http\Controller\ResourceController;
 
 /**
  * Class DictionaryController.
@@ -46,7 +46,7 @@ class DictionaryController extends ResourceController
      * Applications can extend this array via beforeConfig().
      */
     protected array $allowedNamespaces = [
-        'CoreModules\\',
+        'Modules\\',
         'Modules\\',
         'Plugins\\',
     ];
@@ -84,7 +84,7 @@ class DictionaryController extends ResourceController
      *
      * Tries several resolution strategies:
      * 1. Direct FQCN (if already fully qualified and in allowed namespace)
-     * 2. Common namespace patterns (CoreModules\*\Model\*, Modules\*\Model\*, etc.)
+     * 2. Common namespace patterns (Modules\*\Model\*, Modules\*\Model\*, etc.)
      *
      * @param string $model Short or full model name
      * @return string Resolved FQCN
@@ -104,12 +104,12 @@ class DictionaryController extends ResourceController
         // Strategy 2: Try common namespace patterns
         $candidates = [];
 
-        // Try CoreModules\*\Model\{Model}
+        // Try Modules\*\Model\{Model}
         $moduleDirs = glob(defined('ALX_PATH') ? constant('ALX_PATH') . '/Modules/*' : __DIR__ . '/../../*', GLOB_ONLYDIR);
         if ($moduleDirs) {
             foreach ($moduleDirs as $dir) {
                 $moduleName = basename($dir);
-                $candidates[] = "CoreModules\\{$moduleName}\\Model\\{$model}";
+                $candidates[] = "Modules\\{$moduleName}\\Model\\{$model}";
             }
         }
 
@@ -163,7 +163,7 @@ class DictionaryController extends ResourceController
     protected function getFallbackModelClass(): string
     {
         // Default: use the Setting model as a safe fallback
-        return \CoreModules\Admin\Model\Setting::class;
+        return \Modules\Admin\Model\Setting::class;
     }
 
     /**
@@ -172,6 +172,6 @@ class DictionaryController extends ResourceController
     public function getTitle(): string
     {
         $model = $_GET['model'] ?? 'Dictionary';
-        return \Alxarafe\Lib\Trans::_('dictionary') . ': ' . $model;
+        return \Alxarafe\Infrastructure\Lib\Trans::_('dictionary') . ': ' . $model;
     }
 }

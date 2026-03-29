@@ -1,0 +1,299 @@
+<?php
+
+/*
+ * Copyright (C) 2024-2026 Rafael San José <rsanjose@alxarafe.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
+namespace Alxarafe\Infrastructure\Persistence;
+
+use Alxarafe\Infrastructure\Lib\Messages;
+use Alxarafe\Infrastructure\Http\Routes;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Tools\Debug;
+use Modules\Admin\Model\Migration;
+use Exception;
+use stdClass;
+
+/**
+ * Class Config.
+ * * Manages the application configuration file, migrations, and database seeders.
+ */
+abstract class Config
+{
+    protected const CONFIG_FILENAME = 'config.json';
+
+    /**
+     * Core configuration sections. Apps should NOT modify this directly.
+     * Use Config::registerSection() to add custom sections.
+     */
+    protected const CORE_CONFIG_STRUCTURE = [
+        'main' => ['path', 'url', 'data', 'theme', 'language', 'timezone'],
+        'db' => ['type', 'host', 'user', 'pass', 'name', 'port', 'prefix', 'charset', 'collation', 'encryption', 'encrypt_type'],
+        'security' => ['debug', 'unique_id', 'https', 'jwt_secret_key']
+    ];
+
+    /**
+     * Backward-compatible alias. Use getConfigStructure() for dynamic access.
+     */
+    public const CONFIG_STRUCTURE = self::CORE_CONFIG_STRUCTURE;
+
+    /**
+     * Runtime-registered custom sections from apps/plugins.
+     * @var array<string, array<string>>
+     */
+    private static array $extraSections = [];
+
+    /**
+     * Register an additional configuration section.
+     * Call this from your app's bootstrap (e.g., routes.php or a ServiceProvider).
+     *
+     * @param string $section Section name (e.g., 'blog')
+     * @param array  $keys    Allowed keys within that section. Empty array = accept any key.
+     */
+    public static function registerSection(string $section, array $keys = []): void
+    {
+        self::$extraSections[$section] = $keys;
+    }
+
+    /**
+     * Returns the full config structure (core + app-registered sections).
+     *
+     * @return array<string, array<string>>
+     */
+    public static function getConfigStructure(): array
+    {
+        return array_merge(static::CORE_CONFIG_STRUCTURE, self::$extraSections);
+    }
+
+    private static ?stdClass $config = null;
+
+    /**
+     * Retrieves configuration. Reloads from disk if $reload is true.
+     */
+    public static function getConfig(bool $reload = false): ?stdClass
+    {
+        if ($reload || self::$config === null) {
+            self::$config = self::loadConfig();
+        }
+        return self::$config;
+    }
+
+    /**
+     * Updates and saves the configuration settings.
+     */
+    public static function setConfig(stdClass $data): bool
+    {
+        if (self::$config === null) {
+            self::$config = new stdClass();
+            self::$config->main = static::getDefaultMainFileInfo();
+        }
+
+        foreach ((array) $data as $section => $fields) {
+            if (!is_object($fields) && !is_array($fields)) {
+                continue;
+            }
+
+            self::$config->$section ??= new stdClass();
+
+            foreach ($fields as $key => $value) {
+                self::$config->$section->$key = $value;
+            }
+        }
+
+        Trans::setLang(self::$config->main->language ?? Trans::FALLBACK_LANG);
+        $saved = self::saveConfig();
+
+        self::getConfig(true);
+        Debug::initialize(true);
+
+        return $saved;
+    }
+
+    public static function getDefaultMainFileInfo(): stdClass
+    {
+        return (object)[
+            'path' => defined('BASE_PATH') ? constant('BASE_PATH') : '',
+            'url'  => defined('BASE_URL') ? constant('BASE_URL') : '',
+        ];
+    }
+
+    public static function saveConfig(): bool
+    {
+        if (self::$config === null) {
+            return true;
+        }
+
+        $path = self::getConfigFilename();
+        $json = json_encode(self::$config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+        $result = @file_put_contents($path, $json);
+
+        if ($result === false) {
+            $error = error_get_last();
+            error_log("Alxarafe Critical Error: Failed to write to config file: $path. PHP error: " . ($error['message'] ?? 'Unknown'));
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function getConfigFilename(): string
+    {
+        $basePath = defined('APP_PATH') && constant('APP_PATH') ? constant('APP_PATH') : (defined('BASE_PATH') && constant('BASE_PATH') ? constant('BASE_PATH') : __DIR__);
+        $base = realpath($basePath) ?: $basePath;
+
+        // 1. Try in the detected APP_PATH/config (or BASE_PATH/config)
+        $configInConfigDir = $base . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        if (file_exists($configInConfigDir)) {
+            return $configInConfigDir;
+        }
+
+        // 2. Try in the detected APP_PATH root
+        $configInBase = $base . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        if (file_exists($configInBase)) {
+            return $configInBase;
+        }
+
+        // 3. Fallback to ALX_PATH if defined (checking both root/config and skeleton/config)
+        if (defined('ALX_PATH') && constant('ALX_PATH')) {
+            $alxBase = constant('ALX_PATH');
+            
+            // Check in ALX_PATH/config/ (Standard deployment)
+            $configInAlxRoot = $alxBase . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+            if (file_exists($configInAlxRoot)) {
+                return $configInAlxRoot;
+            }
+
+            // Check in ALX_PATH/skeleton/config/ (Development structure)
+            $configInAlxSkeleton = $alxBase . DIRECTORY_SEPARATOR . 'skeleton' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+            if (file_exists($configInAlxSkeleton)) {
+                return $configInAlxSkeleton;
+            }
+        }
+
+        return $configInConfigDir; // Return default guess if not found
+    }
+
+    public static function getPublicRoot(): string
+    {
+        $path = self::getConfig()->main->path ?? '';
+        // Fallback if path is empty, try to determine from constant or __DIR__
+        if (empty($path)) {
+            $path = defined('BASE_PATH') ? constant('BASE_PATH') : dirname(__DIR__, 3);
+        }
+        return rtrim($path, '/') . '/public';
+    }
+
+    /**
+     * Executes pending database migrations.
+     */
+    public static function doRunMigrations(): bool
+    {
+        try {
+            $config = static::getConfig();
+            if ($config && isset($config->db)) {
+                Database::createConnection($config->db);
+            }
+
+            $batch = Migration::getLastBatch() + 1;
+
+            foreach (static::getMigrations() as $name => $path) {
+                if (Migration::where('migration', $name)->exists()) {
+                    continue;
+                }
+
+                $migration = require_once $path;
+                $migration->up();
+
+                Migration::create([
+                    'migration' => $name,
+                    'batch' => $batch,
+                ]);
+            }
+            return true;
+        } catch (Exception $e) {
+            Messages::addError($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Collects all migrations from registered modules.
+     */
+    public static function getMigrations(): array
+    {
+        $routes = Routes::getAllRoutes();
+        $migrations = $routes['Migrations'] ?? [];
+        $result = [];
+
+        foreach ($migrations as $module => $files) {
+            foreach ($files as $filename => $entry) {
+                $filepath = explode('|', $entry)[1] ?? '';
+                if ($filepath) {
+                    $result["{$filename}@{$module}"] = $filepath;
+                }
+            }
+        }
+
+        ksort($result);
+        return $result;
+    }
+
+    /**
+     * Runs database seeders for initial data population.
+     */
+    public static function runSeeders(): bool
+    {
+        $routes = Routes::getAllRoutes();
+        $seeders = $routes['Seeders'] ?? [];
+
+        foreach ($seeders as $moduleSeeders) {
+            foreach ($moduleSeeders as $entry) {
+                $className = explode('|', $entry)[0];
+                if (class_exists($className)) {
+                    try {
+                        new $className();
+                    } catch (Exception $e) {
+                        Messages::addError($e->getMessage());
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private static function loadConfig(): ?stdClass
+    {
+        $filename = self::getConfigFilename();
+        if (!file_exists($filename)) {
+            return null;
+        }
+
+        $content = file_get_contents($filename);
+        if (!$content) {
+            return null;
+        }
+
+        try {
+            return json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+        } catch (Exception) {
+            return null;
+        }
+    }
+}

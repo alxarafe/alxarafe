@@ -1,7 +1,7 @@
 <div class="sidebar" id="sidebar-wrapper">
     <!-- App Branding -->
     <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
-        <i class="{{ \Alxarafe\Base\Config::getConfig()->main->appIcon ?? 'fas fa-rocket' }} me-2"></i> {{ \Alxarafe\Base\Config::getConfig()->main->appName ?? 'Alxarafe' }}
+        <i class="{{ \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->appIcon ?? 'fas fa-rocket' }} me-2"></i> {{ \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->appName ?? 'Alxarafe' }}
     </div>
     <!-- Main Menu (Navigation) -->
     @if(!empty($main_menu) && is_array($main_menu))

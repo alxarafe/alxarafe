@@ -19,12 +19,12 @@
 
 namespace Modules\Agenda\Controller;
 
-use Alxarafe\Base\Controller\PublicResourceController;
-use Alxarafe\Attribute\Menu;
-use Alxarafe\Component\Fields\Text;
-use Alxarafe\Component\Fields\Textarea;
-use Alxarafe\Lib\Functions;
-use Alxarafe\Lib\Trans;
+use Alxarafe\Infrastructure\Http\Controller\PublicResourceController;
+use Alxarafe\Infrastructure\Attribute\Menu;
+use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\Infrastructure\Component\Fields\Textarea;
+use Alxarafe\Infrastructure\Lib\Functions;
+use Alxarafe\Infrastructure\Lib\Trans;
 use Modules\Agenda\Model\Address;
 use Modules\Agenda\Model\Contact;
 use Modules\Agenda\Model\ContactChannel;

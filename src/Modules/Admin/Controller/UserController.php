@@ -17,17 +17,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Controller;
+namespace Modules\Admin\Controller;
 
-use Alxarafe\Base\Controller\ResourceController;
-use CoreModules\Admin\Model\User;
-use Alxarafe\Base\Config;
-use Alxarafe\Lib\Trans;
-use Alxarafe\Lib\Functions;
-use CoreModules\Admin\Model\Role;
-use Alxarafe\Attribute\Menu;
-use Alxarafe\Component\Fields\StaticText;
-use Alxarafe\Component\Fields\Text;
+use Alxarafe\Infrastructure\Http\Controller\ResourceController;
+use Modules\Admin\Model\User;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Alxarafe\Infrastructure\Lib\Functions;
+use Modules\Admin\Model\Role;
+use Alxarafe\Infrastructure\Attribute\Menu;
+use Alxarafe\Infrastructure\Component\Fields\StaticText;
+use Alxarafe\Infrastructure\Component\Fields\Text;
 
 #[Menu(
     menu: 'main_menu',
@@ -63,9 +63,9 @@ class UserController extends ResourceController
         /** @var User $user */
         $user = ($this->recordId && $this->recordId !== 'new') ? User::find($this->recordId) : new User();
 
-        $isAdminContext = \Alxarafe\Lib\Auth::$user->can('Admin.User.doEdit');
+        $isAdminContext = \Alxarafe\Infrastructure\Auth\Auth::$user->can('Admin.User.doEdit');
 
-        return \CoreModules\Admin\Service\UserService::getFormPanels($user, $isAdminContext);
+        return \Modules\Admin\Service\UserService::getFormPanels($user, $isAdminContext);
     }
 
     #[\Override]
@@ -82,7 +82,7 @@ class UserController extends ResourceController
         $users = User::all();
         $this->addVariable('users', $users);
         $this->setDefaultTemplate('page/user_list');
-        $this->addVariable('title', \Alxarafe\Lib\Trans::_('user_management'));
+        $this->addVariable('title', \Alxarafe\Infrastructure\Lib\Trans::_('user_management'));
     }
 
     #[\Override]
@@ -120,16 +120,16 @@ class UserController extends ResourceController
 
             // @var User $user - Removed unnecessary annotation
 
-            $isAdminContext = \Alxarafe\Lib\Auth::$user->can('Admin.User.doEdit');
+            $isAdminContext = \Alxarafe\Infrastructure\Auth\Auth::$user->can('Admin.User.doEdit');
 
-            if (!\CoreModules\Admin\Service\UserService::saveUser($user, $_POST, $_FILES, $isAdminContext)) {
+            if (!\Modules\Admin\Service\UserService::saveUser($user, $_POST, $_FILES, $isAdminContext)) {
                 throw new \Exception("Failed to save User to database.");
             }
 
             $this->recordId = (string)$user->id;
 
             // Redirect
-            if (\Alxarafe\Lib\Auth::$user->can('Admin.User.doIndex')) {
+            if (\Alxarafe\Infrastructure\Auth\Auth::$user->can('Admin.User.doIndex')) {
                 Functions::httpRedirect(static::url());
             } else {
                 // If can't list users, go back to profile
@@ -149,7 +149,7 @@ class UserController extends ResourceController
      */
     public function doSetDefaultPage()
     {
-        $user = \Alxarafe\Lib\Auth::$user;
+        $user = \Alxarafe\Infrastructure\Auth\Auth::$user;
         if ($user) {
             $redirect = $_SERVER['HTTP_REFERER'] ?? 'index.php';
 
@@ -166,9 +166,9 @@ class UserController extends ResourceController
 
             $user->default_page = $urlToSave;
             if ($user->save()) {
-                \Alxarafe\Lib\Messages::addMessage(Trans::_('default_page_updated'));
+                \Alxarafe\Infrastructure\Lib\Messages::addMessage(Trans::_('default_page_updated'));
             } else {
-                \Alxarafe\Lib\Messages::addError(Trans::_('error_saving'));
+                \Alxarafe\Infrastructure\Lib\Messages::addError(Trans::_('error_saving'));
             }
 
             Functions::httpRedirect($redirect);

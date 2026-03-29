@@ -17,14 +17,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CoreModules\Admin\Api;
+namespace Modules\Admin\Api;
 
-use Alxarafe\Base\Controller\ApiController;
-use Alxarafe\Lib\Auth;
-use Alxarafe\Lib\Trans;
-use CoreModules\Admin\Model\User;
+use Alxarafe\Infrastructure\Http\Controller\ApiController;
+use Alxarafe\Infrastructure\Auth\Auth;
+use Alxarafe\Infrastructure\Lib\Trans;
+use Modules\Admin\Model\User;
 use Firebase\JWT\JWT;
-use Alxarafe\Attribute\ApiRoute;
+use Alxarafe\Infrastructure\Attribute\ApiRoute;
 
 class LoginController extends ApiController
 {
