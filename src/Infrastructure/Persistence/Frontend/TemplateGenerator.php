@@ -126,7 +126,7 @@ class TemplateGenerator
 
         $out .= "@section('content')\n";
         $out .= "    <div id=\"alxarafe-resource-container\" class=\"mt-3\"></div>\n";
-        $out .= "    <script src=\"/js/resource.bundle.js\"></script>\n";
+        $out .= "    <script src=\"/js/resource.bundle.js?v={{ time() }}\"></script>\n";
         $out .= "    <script>\n";
         $out .= "        document.addEventListener('DOMContentLoaded', function() {\n";
         $out .= "            try {\n";

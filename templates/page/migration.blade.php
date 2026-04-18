@@ -12,21 +12,21 @@
 
             @if($pendingCount === 0)
                 <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i> La base de datos está actualizada.
+                    <i class="fas fa-check-circle"></i> {{ $me->_('migration_all_ok') }}
                 </div>
             @else
                 <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle"></i> Hay {{ $pendingCount }} migraciones pendientes.
+                    <i class="fas fa-exclamation-triangle"></i> {{ $me->_('migration_pending_count', ['count' => $pendingCount]) }}
                 </div>
             @endif
                 
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th style="width: 50px;">Estado</th>
-                        <th>Migración</th>
-                        <th>Módulo</th>
-                        <th>Archivo</th>
+                        <th style="width: 50px;">{{ $me->_('status') }}</th>
+                        <th>{{ $me->_('migration') }}</th>
+                        <th>{{ $me->_('module') }}</th>
+                        <th>{{ $me->_('file') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@
 
             @if($pendingCount > 0)
             <div id="progress-container" style="display:none;" class="mb-3">
-                <label>Procesando...</label>
+                <label>{{ $me->_('processing') }}</label>
                 <div class="progress">
                     <div id="migration-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
                 </div>
@@ -63,11 +63,11 @@
 @section('header_actions')
     @if(isset($pendingCount) && $pendingCount > 0)
         <button type="button" class="btn btn-primary me-2" id="btn-run-migrations">
-            <i class="fas fa-sync"></i> Ejecutar Pendientes
+            <i class="fas fa-sync"></i> {{ $me->_('run_pending') }}
         </button>
     @endif
     <a href="{{ $me->url('Admin', 'Config', 'general') }}" class="btn btn-secondary">
-        <i class="fas fa-close"></i> Cerrar
+        <i class="fas fa-close"></i> {{ $me->_('close') }}
     </a>
 @endsection
 
@@ -82,9 +82,9 @@ document.getElementById('btn-run-migrations')?.addEventListener('click', functio
     
     // UI Update
     btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Ejecutando...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {{ $me->_("running") }}';
     container.style.display = 'block';
-    log.innerHTML = 'Iniciando proceso...';
+    log.innerHTML = '{{ $me->_("starting_process") }}';
 
     fetch('{{ $me->url('Admin', 'Migration', 'run_batch_ajax') }}')
         .then(response => response.json())
@@ -92,7 +92,7 @@ document.getElementById('btn-run-migrations')?.addEventListener('click', functio
             if(data.status === 'success') {
                 bar.classList.remove('progress-bar-animated');
                 bar.classList.add('bg-success');
-                log.innerHTML = '<span class="text-success fw-bold"><i class="fas fa-check"></i> Proceso finalizado correctamente.</span>';
+                log.innerHTML = '<span class="text-success fw-bold"><i class="fas fa-check"></i> {{ $me->_("process_completed") }}</span>';
                 
                 // Update rows visually
                 document.querySelectorAll('.pending-row').forEach(row => {
@@ -108,16 +108,16 @@ document.getElementById('btn-run-migrations')?.addEventListener('click', functio
                 setTimeout(() => window.location.reload(), 2000);
             } else {
                 bar.classList.add('bg-danger');
-                log.innerHTML = '<span class="text-danger fw-bold">Error: ' + data.message + '</span>';
+                log.innerHTML = '<span class="text-danger fw-bold">{{ $me->_("error") }}: ' + data.message + '</span>';
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-sync"></i> Reintentar';
+                btn.innerHTML = '<i class="fas fa-sync"></i> {{ $me->_("retry") }}';
             }
         })
         .catch(error => {
             bar.classList.add('bg-danger');
-            log.innerHTML = '<span class="text-danger fw-bold">Error de comunicación: ' + error + '</span>';
+            log.innerHTML = '<span class="text-danger fw-bold">{{ $me->_("communication_error", ["error" => ""]) }}' + error + '</span>';
             btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-sync"></i> Reintentar';
+            btn.innerHTML = '<i class="fas fa-sync"></i> {{ $me->_("retry") }}';
         });
 });
 </script>

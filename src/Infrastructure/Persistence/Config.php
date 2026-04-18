@@ -115,7 +115,11 @@ abstract class Config
             }
         }
 
-        Trans::setLang(self::$config->main->language ?? Trans::FALLBACK_LANG);
+        // Re-apply language from the saved config only if it was part of this save
+        // (The dispatcher already set the correct user/cookie language)
+        if (isset($data->main->language)) {
+            Trans::setLang(self::$config->main->language ?? Trans::FALLBACK_LANG);
+        }
         $saved = self::saveConfig();
 
         self::getConfig(true);

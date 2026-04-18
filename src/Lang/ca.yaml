@@ -124,3 +124,39 @@ select_language: Selecciona idioma
 available_languages: Idiomes disponibles
 select_theme: Selecciona tema
 available_themes: Temes disponibles
+pagination_text: "Mostrant {{start}} - {{end}} de {{total}} registres"
+
+# Error / System messages
+no_data_provided: No s'han proporcionat dades
+record_not_found: Registre no trobat
+model_config_missing: Configuració del model no trobada
+unknown_ajax_action: "Acció AJAX desconeguda: %action%"
+database_error: "Error de base de dades: %message%"
+record_saved: Registre desat correctament.
+record_save_error: Error en desar el registre.
+
+# Regeneration
+autoload_regenerated: Autoload regenerat.
+cache_cleared: "Memòria cau netejada. Elements eliminats: %count%"
+system_regenerated: Sistema regenerat completament.
+system_regeneration: Regeneració del Sistema
+
+# Table / UI
+status: Estat
+migration: Migració
+module: Mòdul
+file: Fitxer
+processing: Processant...
+run_pending: Executar pendents
+close: Tancar
+running: Executant...
+starting_process: Iniciant procés...
+process_completed: Procés finalitzat correctament.
+retry: Reintentar
+communication_error: "Error de comunicació: %error%"
+authenticated_error: Nom d'usuari o contrasenya incorrectes.
+
+# Missing Keys
+admin: Administració
+auth: Autenticació
+monthly_revenue: Ingressos Mensuals

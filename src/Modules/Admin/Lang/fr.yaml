@@ -88,3 +88,34 @@ detect_timezone: Détecter le fuseau horaire
 keep_empty_to_not_change: Laisser vide pour ne pas modifier
 none: Aucun
 default: Par défaut
+
+# Navigation & Menu Labels
+Administration: Administration
+Configuration: Configuration
+Dashboard: Tableau de bord
+Dashboard_description: Centre d'administration et de contrôle du système.
+config_description: Paramètres généraux et base de données.
+modules_description: Gestion des modules et états.
+users_description: Comptes utilisateurs et gestion des profils.
+roles_description: Permissions et sécurité basées sur les rôles.
+migrations_description: Structure de la base de données et mises à jour.
+dictionaries_description: Données de référence et tables maîtresses.
+Logout: Déconnexion
+Login: Connexion
+Config: Configuration
+Roles: Rôles
+Migrations: Migrations
+Dictionaries: Dictionnaires
+users: Utilisateurs
+Users: Utilisateurs
+Modules: Gestion des Modules
+modules: Gestion des Modules
+enable_all: Tout activer
+disable_all: Tout désactiver
+no_description_available: Aucune description disponible
+setup: Configurer
+module_enabled: Module activé
+module_disabled: Module désactivé
+all_modules_disabled: Tous les modules désactivés
+all_modules_enabled: Tous les modules activés
+pagination_text: "Affichage de {{start}} - {{end}} sur {{total}} enregistrements"

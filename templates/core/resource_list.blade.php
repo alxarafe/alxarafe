@@ -15,12 +15,12 @@
                         @endif
                     </th>
                 @endforeach
-                <th>Actions</th>
+                <th>{{ $me->_('actions') }}</th>
             </tr>
         </thead>
         <tbody id="resource-list-body">
             <tr>
-                <td colspan="100" class="text-center">Loading data...</td>
+                <td colspan="100" class="text-center">{{ $me->_('loading_data') }}</td>
             </tr>
         </tbody>
     </table>
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (!data.data || data.data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="100" class="text-center">No records found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="100" class="text-center">{{ $me->_("no_results_found") }}</td></tr>';
                 return;
             }
 
@@ -55,7 +55,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     const td = document.createElement('td');
                     // Handle object columns vs array columns
                     const field = col.field || col.name; // adjust based on serialization
-                    td.textContent = row[field] || '';
+                    
+                    if (col.type === 'icon') {
+                        let iconVal = row[field];
+                        if (col.map && col.map[iconVal]) {
+                            iconVal = col.map[iconVal];
+                        }
+                        if (iconVal) {
+                            td.innerHTML = `<i class="${iconVal}"></i>`;
+                        }
+                    } else {
+                        td.textContent = row[field] || '';
+                    }
                     tr.appendChild(td);
                 });
                 
@@ -65,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const editLink = document.createElement('a');
                 editLink.href = '?module={{ $me::getModuleName() }}&controller={{ $me::getControllerName() }}&id=' + row.id;
                 editLink.className = 'btn btn-sm btn-info';
-                editLink.textContent = 'Edit';
+                editLink.textContent = '{{ $me->_("edit") }}';
                 tdActions.appendChild(editLink);
                 tr.appendChild(tdActions);
                 

@@ -47,6 +47,7 @@ class EloquentBridgeAdapter implements PersistencePort
         $this->primaryKey = $primaryKey;
 
         // Ensure Capsule is booted — the legacy Database class sets it as global
+        /** @phpstan-ignore booleanNot.alwaysFalse */
         if (!CapsuleManager::schema()->getConnection()->getPdo()) {
             throw new \RuntimeException(
                 'EloquentBridgeAdapter requires an active Capsule connection. '
@@ -149,7 +150,7 @@ class EloquentBridgeAdapter implements PersistencePort
     /** @inheritDoc */
     public function rawQuery(string $sql, array $params = []): array
     {
-        $results = CapsuleManager::select($sql, $params);
+        $results = CapsuleManager::connection()->select($sql, $params);
         return array_map(fn($row) => (array) $row, $results);
     }
 

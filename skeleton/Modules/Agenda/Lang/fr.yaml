@@ -44,3 +44,26 @@ home: Domicile
 billing: Facturation
 shipping: Livraison
 other: Autre
+
+# Entity names
+Contact: Contacts
+ContactChannel: Canaux
+
+# Channel Types
+phone: Téléphone
+phone_landline: Téléphone Fixe
+phone_mobile: Téléphone Mobile
+fax: Fax
+email: E-mail
+website: Site Web
+linkedin: LinkedIn
+twitter: X (Twitter)
+instagram: Instagram
+whatsapp: WhatsApp
+telegram: Telegram
+street: Rue
+
+# Shared UI
+save_changes: Enregistrer les Modifications
+back: Retour
+create: Créer

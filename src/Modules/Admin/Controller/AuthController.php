@@ -62,7 +62,7 @@ class AuthController extends GenericPublicController
     #[Menu(
         menu: 'user_menu',
         icon: 'fas fa-user-circle',
-        label: 'My Profile',
+        label: 'my_profile',
         order: 10,
         permission: null, // Public inside auth check
         visibility: 'auth',
@@ -72,7 +72,7 @@ class AuthController extends GenericPublicController
     #[Menu(
         menu: 'user_menu',
         icon: 'fas fa-sign-in-alt',
-        label: 'Login',
+        label: 'login',
         order: 10,
         permission: null,
         visibility: 'guest',
@@ -156,7 +156,7 @@ class AuthController extends GenericPublicController
     #[Menu(
         menu: 'user_menu',
         icon: 'fas fa-sign-out-alt',
-        label: 'Logout',
+        label: 'logout',
         order: 99,
         permission: null,
         visibility: 'auth',

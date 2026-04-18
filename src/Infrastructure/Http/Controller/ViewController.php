@@ -103,7 +103,19 @@ abstract class ViewController extends GenericController
         // Inject $me as the controller itself, preserving property access
         $this->addVariable('me', $this);
 
-        $this->title = Trans::_($this->getModuleName()) . ' - ' . Trans::_($this->getControllerName());
+        $moduleKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $this->getModuleName()));
+        $translatedModule = Trans::_($moduleKey);
+        if ($translatedModule === $moduleKey) {
+            $translatedModule = $this->getModuleName();
+        }
+
+        $controllerKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $this->getControllerName()));
+        $translatedController = Trans::_($controllerKey);
+        if ($translatedController === $controllerKey) {
+            $translatedController = $this->getControllerName();
+        }
+
+        $this->title = $translatedModule . ' - ' . $translatedController;
 
         // Inject menus - MenuManager handles visibility (Auth/Guest)
         if (class_exists('\Modules\Admin\Service\MenuManager')) {

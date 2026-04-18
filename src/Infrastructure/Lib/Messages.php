@@ -22,11 +22,20 @@ namespace Alxarafe\Infrastructure\Lib;
 abstract class Messages
 {
     /**
-     * Contains messages, advices and errors pending to be shown.
+     * Initializes the session if needed and ensures the storage array exists.
      *
-     * @var array
+     * @return void
      */
-    private static array $messages = [];
+    private static function init(): void
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['alxarafe_messages'])) {
+            $_SESSION['alxarafe_messages'] = [];
+        }
+    }
 
     /**
      * Add a new message (success) to show the user
@@ -36,7 +45,8 @@ abstract class Messages
      */
     public static function addMessage($message): void
     {
-        self::$messages[]['success'] = $message;
+        self::init();
+        $_SESSION['alxarafe_messages'][] = ['success' => $message];
     }
 
     /**
@@ -47,7 +57,8 @@ abstract class Messages
      */
     public static function addAdvice($message): void
     {
-        self::$messages[]['warning'] = $message;
+        self::init();
+        $_SESSION['alxarafe_messages'][] = ['warning' => $message];
     }
 
     /**
@@ -58,7 +69,8 @@ abstract class Messages
      */
     public static function addError($message): void
     {
-        self::$messages[]['danger'] = $message;
+        self::init();
+        $_SESSION['alxarafe_messages'][] = ['danger' => $message];
     }
 
     /**
@@ -69,8 +81,9 @@ abstract class Messages
      */
     public static function getMessages(): array
     {
+        self::init();
         $alerts = [];
-        foreach (self::$messages as $message) {
+        foreach ($_SESSION['alxarafe_messages'] as $message) {
             foreach ($message as $type => $text) {
                 $alerts[] = [
                     'type' => $type,
@@ -78,7 +91,7 @@ abstract class Messages
                 ];
             }
         }
-        self::$messages = [];
+        $_SESSION['alxarafe_messages'] = [];
         return $alerts;
     }
 }

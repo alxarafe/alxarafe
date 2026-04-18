@@ -48,13 +48,17 @@
     @if(!empty($user_menu) && is_array($user_menu))
         @foreach($user_menu as $item)
             @php
-                $isSetDefault = (strpos($item['url'], 'action=setDefault') !== false);
-                $isProfile = !$isSetDefault && ($item['label_key'] === 'Profile' || $item['label_key'] === 'My Profile' || (strpos($item['url'], 'Profile') !== false && strpos($item['url'], 'action=') === false));
-                $isLogout = ($item['label_key'] === 'Logout' || $item['label_key'] === 'logout' || strpos($item['url'], 'logout') !== false);
+                $url = $item['url'] ?? '#';
+                $labelKey = $item['label_key'] ?? '';
+                $label = $item['label'] ?? $labelKey;
+                
+                $isSetDefault = (strpos($url, 'action=setDefault') !== false);
+                $isProfile = !$isSetDefault && ($labelKey === 'Profile' || $labelKey === 'My Profile' || (strpos($url, 'Profile') !== false && strpos($url, 'action=') === false));
+                $isLogout = ($labelKey === 'Logout' || $labelKey === 'logout' || strpos($url, 'logout') !== false);
             @endphp
             @continue($isProfile || $isLogout)
             
-            @include('component.menu_item', ['url' => $item['url'], 'icon' => $item['icon'] ?? 'fas fa-circle', 'label' => $item['label']])
+            @include('component.menu_item', ['url' => $url, 'icon' => $item['icon'] ?? 'fas fa-circle', 'label' => $label])
         @endforeach
     @endif
 

@@ -124,3 +124,39 @@ select_language: Sprache auswählen
 available_languages: Verfügbare Sprachen
 select_theme: Thema auswählen
 available_themes: Verfügbare Themen
+pagination_text: "Zeige {{start}} - {{end}} von {{total}} Einträgen"
+
+# Error / System messages
+no_data_provided: Keine Daten bereitgestellt
+record_not_found: Datensatz nicht gefunden
+model_config_missing: Modellkonfiguration fehlt
+unknown_ajax_action: "Unbekannte AJAX-Aktion: %action%"
+database_error: "Datenbankfehler: %message%"
+record_saved: Datensatz erfolgreich gespeichert.
+record_save_error: Fehler beim Speichern des Datensatzes.
+
+# Regeneration
+autoload_regenerated: Autoload regeneriert.
+cache_cleared: "Cache geleert. Entfernte Elemente: %count%"
+system_regenerated: System vollständig regeneriert.
+system_regeneration: Systemregeneration
+
+# Table / UI
+status: Status
+migration: Migration
+module: Modul
+file: Datei
+processing: Verarbeitung...
+run_pending: Ausstehende ausführen
+close: Schließen
+running: Wird ausgeführt...
+starting_process: Prozess wird gestartet...
+process_completed: Prozess erfolgreich abgeschlossen.
+retry: Erneut versuchen
+communication_error: "Kommunikationsfehler: %error%"
+authenticated_error: Ungültiger Benutzername oder Passwort.
+
+# Missing Keys
+admin: Verwaltung
+auth: Authentifizierung
+monthly_revenue: Monatlicher Umsatz

@@ -88,3 +88,33 @@ detect_timezone: Detetar fuso horário
 keep_empty_to_not_change: Deixar vazio para não alterar
 none: Nenhum
 default: Predefinição
+
+# Navigation & Menu Labels
+Administration: Administração
+Configuration: Configuração
+Dashboard: Painel de Controlo
+Dashboard_description: Centro de administração e controlo do sistema.
+config_description: Definições gerais e base de dados.
+modules_description: Gestão de módulos e estados.
+users_description: Contas de utilizador e gestão de perfis.
+roles_description: Permissões e segurança baseadas em funções.
+migrations_description: Estrutura da base de dados e atualizações.
+dictionaries_description: Dados mestres e tabelas de referência.
+Logout: Terminar sessão
+Login: Iniciar sessão
+Config: Configuração
+Roles: Funções
+Migrations: Migrações
+Dictionaries: Dicionários
+users: Utilizadores
+Users: Utilizadores
+Modules: Gestão de Módulos
+modules: Gestão de Módulos
+enable_all: Ativar todos
+disable_all: Desativar todos
+no_description_available: Sem descrição disponível
+setup: Configurar
+module_enabled: Módulo ativado
+module_disabled: Módulo desativado
+all_modules_disabled: Todos os módulos desativados
+all_modules_enabled: Todos os módulos ativados

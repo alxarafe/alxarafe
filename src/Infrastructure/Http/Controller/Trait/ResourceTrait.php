@@ -323,7 +323,7 @@ trait ResourceTrait
         if (isset($_GET['ajax'])) {
             // If we are here, it means an AJAX request was sent but not handled by handleRequest
             // We return a JSON error instead of letting the framework fail trying to find a view
-            $this->jsonResponse(['status' => 'error', 'error' => 'Unknown AJAX action: ' . htmlspecialchars($_GET['ajax'])]);
+            $this->jsonResponse(['status' => 'error', 'error' => Trans::_('unknown_ajax_action', ['action' => htmlspecialchars($_GET['ajax'])])]);
             exit;
         }
 
@@ -941,7 +941,7 @@ trait ResourceTrait
     protected function fetchListData(string $tabId): array
     {
         if (!isset($this->structConfig['list']['tabs'][$tabId])) {
-            return ['error' => 'Invalid tab'];
+            return ['error' => Trans::_('resource_invalid_tab')];
         }
 
         $tabConfig = $this->structConfig['list']['tabs'][$tabId];
@@ -1016,7 +1016,7 @@ trait ResourceTrait
             $models = $query->get();
             return $this->processResultModels($models, $tabConfig['columns'], $total, $limit);
         } catch (\Exception $e) {
-            return ['error' => 'Database error: ' . $e->getMessage()];
+            return ['error' => Trans::_('database_error', ['message' => $e->getMessage()])];
         }
     }
 
@@ -1097,6 +1097,11 @@ trait ResourceTrait
                     $processed[$field] = $val;
                 }
 
+                // Auto-translate values starting with '#'
+                if (is_string($processed[$field]) && strpos($processed[$field], '#') === 0) {
+                    $processed[$field] = \Alxarafe\Infrastructure\Lib\Trans::_($processed[$field]);
+                }
+
                 // Boolean Casting Fix
                 if (($col['type'] ?? '') === 'boolean' || ($col['component'] ?? '') === 'boolean') {
                     $processed[$field] = (bool)($processed[$field] ?? false);
@@ -1146,7 +1151,7 @@ trait ResourceTrait
     protected function fetchRecordData(): array
     {
         if (!$this->recordId) {
-            return ['error' => 'No ID provided'];
+            return ['error' => Trans::_('resource_no_id_provided')];
         }
 
         // Determine Model
@@ -1159,7 +1164,7 @@ trait ResourceTrait
         }
 
         if (!$modelClass || !class_exists($modelClass)) {
-            return ['error' => 'Model configuration missing'];
+            return ['error' => Trans::_('model_config_missing')];
         }
 
         // Handle New Record
@@ -1184,7 +1189,7 @@ trait ResourceTrait
         $data = $query->find($this->recordId);
 
         if (!$data) {
-            return ['error' => 'Record not found'];
+            return ['error' => Trans::_('record_not_found')];
         }
 
         $values = $data->toArray();
@@ -1200,11 +1205,39 @@ trait ResourceTrait
         ];
     }
 
+    protected function respondToSave(array $response, bool $isAjax, ?string $redirectUrl = null)
+    {
+        if ($isAjax) {
+            if (!isset($response['messages'])) {
+                $response['messages'] = Messages::getMessages();
+            }
+            $this->jsonResponse($response);
+            exit;
+        }
+
+        if (($response['status'] ?? '') === 'success') {
+            if (!$redirectUrl) {
+                // By default redirect to the edit view of the record
+                $id = $response['id'] ?? '';
+                $redirectUrl = static::url('', ['id' => $id]);
+            }
+        } else {
+            // For errors, go back to previous page or index
+            if (!$redirectUrl) {
+                $redirectUrl = $_SERVER['HTTP_REFERER'] ?? static::url('index');
+            }
+        }
+
+        \Alxarafe\Infrastructure\Lib\Functions::httpRedirect($redirectUrl);
+        exit;
+    }
+
     protected function saveRecord()
     {
         // Handle JSON Input
         $contentType = $_SERVER["CONTENT_TYPE"] ?? $_SERVER["HTTP_CONTENT_TYPE"] ?? '';
         $rawInput = file_get_contents('php://input');
+        $isAjax = (stripos($contentType, 'application/json') !== false) || isset($_GET['ajax']) || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 
         // Try to decode JSON if content type matches or if raw input looks like JSON
         if (stripos($contentType, 'application/json') !== false || ($rawInput && $rawInput[0] === '{')) {
@@ -1216,15 +1249,16 @@ trait ResourceTrait
 
         $data = $_POST['data'] ?? [];
         if (empty($data)) {
-            $this->jsonResponse([
-                'error' => 'No data provided',
+            Messages::addError(Trans::_('no_data_provided'));
+            $this->respondToSave([
+                'status' => 'error',
+                'error' => Trans::_('no_data_provided'),
                 'debug_content_type' => $contentType,
                 'debug_post' => $_POST,
                 'debug_request' => $_REQUEST,
                 'debug_raw' => $rawInput, // Return the actual captured input
                 'debug_json_error' => json_last_error_msg()
-            ]);
-            exit;
+            ], $isAjax);
         }
 
         // Determine Model
@@ -1237,8 +1271,8 @@ trait ResourceTrait
         }
 
         if (!$modelClass || !class_exists($modelClass)) {
-            $this->jsonResponse(['error' => 'Model configuration missing']);
-            exit;
+            Messages::addError(Trans::_('model_config_missing'));
+            $this->respondToSave(['status' => 'error', 'error' => Trans::_('model_config_missing')], $isAjax);
         }
 
         $model = new $modelClass();
@@ -1246,8 +1280,8 @@ trait ResourceTrait
         if ($this->recordId && $this->recordId !== 'new') {
             $model = $modelClass::find($this->recordId);
             if (!$model) {
-                $this->jsonResponse(['error' => 'Record not found']);
-                exit;
+                Messages::addError(Trans::_('record_not_found'));
+                $this->respondToSave(['status' => 'error', 'error' => Trans::_('record_not_found')], $isAjax);
             }
         }
 
@@ -1337,12 +1371,10 @@ trait ResourceTrait
             if (!$model->save()) {
                 DB::connection()->rollBack();
                 Messages::addError(Trans::_('record_save_error'));
-                $this->jsonResponse([
+                $this->respondToSave([
                     'status' => 'error',
                     'error' => Trans::_('record_save_error'),
-                    'messages' => Messages::getMessages(),
-                ]);
-                exit;
+                ], $isAjax);
             }
 
             // Save Relations
@@ -1405,32 +1437,29 @@ trait ResourceTrait
             $hookName = HookService::resolve(HookPoints::AFTER_SAVE, ['entity' => static::getControllerName()]);
             HookService::execute($hookName, $model, $data);
 
-            $this->jsonResponse([
+            $this->respondToSave([
                 'status' => 'success',
                 'id' => $model->{$model->primaryColumn()},
                 'data' => $model->toArray(),
-                'messages' => Messages::getMessages(),
-            ]);
+            ], $isAjax);
         } catch (\Alxarafe\Infrastructure\Testing\HttpResponseException $e) {
             throw $e;
         } catch (\Throwable $e) {
             DB::connection()->rollBack();
             $msg = $e->getMessage();
             if (empty($msg)) {
-                $msg = 'An error occurred but the exception message was empty.';
+                $msg = Trans::_('error_occurred');
             }
             Messages::addError($msg);
-            $this->jsonResponse([
+            $this->respondToSave([
                 'status' => 'error',
                 'error' => $msg,
                 'class' => get_class($e),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString(),
-                'messages' => Messages::getMessages(),
-            ]);
+            ], $isAjax);
         }
-        exit;
     }
 
     // --- View Rendering ---
@@ -1455,7 +1484,7 @@ trait ResourceTrait
             // Prepare Paths
             $basePath = defined('BASE_PATH') ? constant('BASE_PATH') : __DIR__ . '/../../../../..';
             $cacheDir = $basePath . '/../var/cache/resources/' . $module . '/' . $controller;
-            $customDir = $basePath . '/templates/custom/' . $module . '/' . $controller;
+            $customDir = $basePath . '/../templates/custom/' . $module . '/' . $controller;
 
             $viewName = $action;
 

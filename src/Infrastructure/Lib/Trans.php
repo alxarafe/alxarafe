@@ -221,6 +221,13 @@ abstract class Trans
             $params['%' . $name . '%'] = $value;
         }
 
+        if (!isset(self::$translations[$message])) {
+            self::$missingStrings[$message] = [
+                'lang' => $locale,
+                'text' => 'MISSING'
+            ];
+        }
+
         return self::$translator->trans($message, $params, null, $locale);
     }
 
@@ -266,12 +273,8 @@ abstract class Trans
     {
         self::initialize();
         self::$missingStringsDebug = [];
-        $locale = self::$translator->getLocale();
         foreach (self::$missingStrings as $name => $value) {
-            if ($value['lang'] === $locale) {
-                continue;
-            }
-            self::$missingStringsDebug[$name] = '(' . $value['lang'] . ') ' . $value['text'];
+            self::$missingStringsDebug[$name] = 'MISSING in ' . $value['lang'];
         }
         return self::$missingStringsDebug;
     }
@@ -386,10 +389,6 @@ abstract class Trans
 
         foreach ($translates as $name => $translate) {
             self::$translations[$name] = $translate;
-            self::$missingStrings[$name] = [
-                'lang' => $lang,
-                'text' => $translate
-            ];
         }
     }
 }

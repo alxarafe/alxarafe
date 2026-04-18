@@ -44,3 +44,26 @@ home: Particular
 billing: Faturação
 shipping: Envio
 other: Outro
+
+# Entity names
+Contact: Contactos
+ContactChannel: Canais
+
+# Channel Types
+phone: Telefone
+phone_landline: Telefone Fixo
+phone_mobile: Telemóvel
+fax: Fax
+email: E-mail
+website: Website
+linkedin: LinkedIn
+twitter: X (Twitter)
+instagram: Instagram
+whatsapp: WhatsApp
+telegram: Telegram
+street: Rua
+
+# Shared UI
+save_changes: Guardar Alterações
+back: Voltar
+create: Criar

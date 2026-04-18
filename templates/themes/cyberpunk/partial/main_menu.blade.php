@@ -18,6 +18,17 @@
                     @if(!empty($item['icon']))<i class="{{ $item['icon'] }} me-2"></i>@endif
                     {{ strtoupper($item['label']) }}
                 </a>
+                @if(!empty($item['children']))
+                    <div class="cyber-submenu ps-4">
+                        @foreach($item['children'] as $child)
+                            <a href="{{ $child['url'] }}" class="cyber-link d-block px-3 py-1 text-muted" title="{{ $child['label'] }}" style="font-size: 0.9em;">
+                                <span class="cyber-marker">-</span> 
+                                @if(!empty($child['icon']))<i class="{{ $child['icon'] }} me-2"></i>@endif
+                                {{ strtoupper($child['label']) }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
             @endforeach
             </div>
         </div>

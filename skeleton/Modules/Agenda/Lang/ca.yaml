@@ -44,3 +44,26 @@ home: Particular
 billing: Facturació
 shipping: Enviament
 other: Altre
+
+# Entity names
+Contact: Contactes
+ContactChannel: Canals
+
+# Channel Types
+phone: Telèfon
+phone_landline: Telèfon Fix
+phone_mobile: Telèfon Mòbil
+fax: Fax
+email: Correu electrònic
+website: Lloc Web
+linkedin: LinkedIn
+twitter: X (Twitter)
+instagram: Instagram
+whatsapp: WhatsApp
+telegram: Telegram
+street: Carrer
+
+# Shared UI
+save_changes: Desar Canvis
+back: Enrere
+create: Crear

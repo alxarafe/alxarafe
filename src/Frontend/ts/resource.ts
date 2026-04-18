@@ -567,6 +567,7 @@ export class AlxarafeResource {
     // --- UTILS ---
 
     private formatValue(cellValue: any, col: any, row: any): string {
+        console.log('formatValue START:', { cellValue, colField: col.field, type: col.type, component: col.component });
         if (typeof col === 'string') {
             col = { type: col };
         }
@@ -618,7 +619,9 @@ export class AlxarafeResource {
 
         if (col.type === 'icon' || col.component === 'icon') {
             const map = col.map || {};
-            const iconClass = map[String(value)] !== undefined ? map[String(value)] : '';
+            const strVal = String(value);
+            const iconClass = Object.keys(map).length > 0 && map[strVal] !== undefined ? map[strVal] : strVal;
+            console.log('ICON RENDER:', { value, strVal, map, iconClass });
             if (iconClass) {
                 return `<i class="${iconClass}"></i>`;
             }

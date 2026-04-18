@@ -242,7 +242,7 @@ class ConfigController extends ResourceController
     {
         $data = $_POST['data'] ?? [];
         if (empty($data)) {
-            $this->jsonResponse(['error' => 'No data provided']);
+            $this->jsonResponse(['error' => Trans::_('no_data_provided')]);
             exit;
         }
 
@@ -377,7 +377,11 @@ class ConfigController extends ResourceController
         $this->themes = Functions::getThemes();
         $this->dbtypes = Database::getDbDrivers();
 
-        Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
+        // Initialize language only if not already set by dispatcher
+        // (Dispatcher applies full cascade: config → user preference → cookie)
+        if (!Trans::wasSet()) {
+            Trans::setLang($this->config->main->language ?? Trans::FALLBACK_LANG);
+        }
 
         $this->checkDatabaseStatus();
 
@@ -515,25 +519,25 @@ class ConfigController extends ResourceController
                 switch ($execute) {
                     case 'autoload':
                         Functions::exec('composer dump-autoload');
-                        Messages::addMessage('Autoload regenerated.');
+                        Messages::addMessage(Trans::_('autoload_regenerated'));
                         break;
                     case 'cache':
                         // Clear blade and resources cache
                         $count = Functions::recursiveRemove(constant('BASE_PATH') . '/../var/cache/blade');
                         $count += Functions::recursiveRemove(constant('BASE_PATH') . '/../var/cache/resources');
-                        Messages::addMessage("Cache cleared. Total items removed: $count");
+                        Messages::addMessage(Trans::_('cache_cleared', ['count' => $count]));
                         break;
                     case 'full':
                         ModuleManager::regenerate();
-                        Messages::addMessage('System fully regenerated.');
+                        Messages::addMessage(Trans::_('system_regenerated'));
                         break;
                 }
             } catch (\Exception $e) {
-                Messages::addError('Error: ' . $e->getMessage());
+                Messages::addError(Trans::_('error_message', ['message' => $e->getMessage()]));
             }
         }
 
-        $this->addVariable('title', 'System Regeneration');
+        $this->addVariable('title', Trans::_('system_regeneration'));
         $this->setDefaultTemplate('page/regenerate');
         return true;
     }

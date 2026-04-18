@@ -135,41 +135,6 @@ select_theme: Select Theme
 available_themes: Available Themes
 pagination_text: "Showing {{start}} - {{end}} of {{total}} records"
 
-# Error / System messages
-no_data_provided: No data provided
-record_not_found: Record not found
-model_config_missing: Model configuration missing
-unknown_ajax_action: "Unknown AJAX action: %action%"
-database_error: "Database error: %message%"
-record_saved: Record saved successfully.
-record_save_error: Error saving record.
-authenticated_error: Invalid username or password.
-
-# Regeneration
-autoload_regenerated: Autoload regenerated.
-cache_cleared: "Cache cleared. Removed items: %count%"
-system_regenerated: System fully regenerated.
-system_regeneration: System Regeneration
-
-# Missing Keys
-admin: Administration
-auth: Authentication
-monthly_revenue: Monthly Revenue
-
-# Table / UI
-status: Status
-migration: Migration
-module: Module
-file: File
-processing: Processing...
-run_pending: Run Pending
-close: Close
-running: Running...
-starting_process: Starting process...
-process_completed: Process completed successfully.
-retry: Retry
-communication_error: "Communication error: %error%"
-
 
 
 

@@ -44,3 +44,26 @@ home: Privat
 billing: Rechnungsstellung
 shipping: Versand
 other: Sonstiges
+
+# Entity names
+Contact: Kontakte
+ContactChannel: Kanäle
+
+# Channel Types
+phone: Telefon
+phone_landline: Festnetztelefon
+phone_mobile: Mobiltelefon
+fax: Fax
+email: E-Mail
+website: Webseite
+linkedin: LinkedIn
+twitter: X (Twitter)
+instagram: Instagram
+whatsapp: WhatsApp
+telegram: Telegram
+street: Straße
+
+# Shared UI
+save_changes: Änderungen Speichern
+back: Zurück
+create: Erstellen

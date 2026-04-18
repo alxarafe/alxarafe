@@ -1,0 +1,121 @@
+miscellaneous: Miscelánea
+database: Base de datos
+database_preferences: Preferencias de la base de datos
+theme: Tema
+language: Idioma
+login_name: Nombre del usuario
+login_password: Contraseña
+login_button: Login
+db_type: Tipo
+db_host: Host
+db_user: Usuario
+db_password: Contraseña
+db_create: Crear base de datos (si no existe)
+db_name: Nombre de la base de datos
+db_port: Puerto
+Config: Configuración
+connection: Conexión
+db_prefix: Prefijo de Tablas
+db_charset: Juego de Caracteres
+db_collation: Cotejamiento
+pdo_connection_error: Error al conectar con el motor de base de datos
+pdo_db_connection_error: Error al conectar con la base de datos '%db%'
+pdo_db_does_not_exists: La base de datos no existe "%message%"
+successful_connection_database: Conexión satisfactoria con la base de datos %db%
+error_saving_settings: Error al guardar la configuración
+settings_saved_successfully: Configuración guardada correctamente
+use_debugbar: Activar la barra de depuración
+check_db_connection: Comprobar la conexión con base de datos
+save_configuration: Guardar la configuración
+regenerate: Regenerar
+boolean_true: Sí
+boolean_false: No
+exit: Salir
+template_not_found: 'Plantilla no encontrada: "%name%"'
+processing_migration: 'Procesando migración: "%name%"'
+pending_migrations_advice: No se han encontrado las tablas del sistema. Por favor, ejecute las migraciones.
+go_migrations: Ejecutar migraciones
+error_message: "Error: %message%"
+
+# Migration page
+migration_status_title: Estado de las Migraciones
+migration_start_process: Iniciar Proceso de Migración
+migration_all_ok: Todo está al día.
+migration_no_pending: No hay migraciones pendientes de ejecución.
+migration_attention_needed: Atención necesaria.
+migration_pending_count: Hay %count% migraciones pendientes. Por favor, ejecute el proceso de actualización.
+migration_pending: Pendiente
+migration_completed: Completado
+migration_processing: Procesando
+migration_finished: Proceso Finalizado
+migration_all_finished: Todas las operaciones han finalizado.
+migration_error_detail: "Error en %module%::%class%: %message%"
+migration_network_error: "Fallo de red en %module%::%class%"
+migration_error_badge: Error
+migration_fail_badge: Fallo
+
+# Role Management
+role_management: Gestión de Roles
+create_new_role: Crear un nuevo Rol
+no_roles_found: No se han definido Roles
+start_by_creating_role: Comience creando un rol para definir permisos.
+create_first_role: Crear el primer Rol
+roles: Roles
+Roles: Roles
+
+# Role Edit & Sync
+new_role: Nuevo Rol
+edit_role: Editar Rol
+permissions: Permisos
+sync_permissions: Sincronizar Permisos
+sync_permissions_confirm: ¿Estás seguro de sincronizar permisos?
+syncing: Sincronizando...
+sync_completed: Sincronización completada.
+created: Creados
+restored: Restaurados
+deleted: Eliminados
+error_occurred: Ha ocurrido un error
+role_details: Detalles del Rol
+save_changes: Guardar Cambios
+access: Acceso
+no_access_permission_found: Permiso de acceso no encontrado
+
+# User / Profile
+my_profile: Mi Perfil
+profile_updated: Perfil actualizado correctamente.
+default_page_updated: Página de inicio actualizada.
+error_saving: Error al guardar.
+upload_avatar_help: Subir imagen de avatar (JPG, PNG).
+detect_timezone: Detectar Zona Horaria
+keep_empty_to_not_change: Dejar vacío para no cambiar
+none: Ninguno
+default: Por defecto
+Administration: Administración
+Configuration: Configuración
+Dashboard: Dashboard
+Dashboard_description: Centro de administración y control del sistema.
+config_description: Configuración general y base de datos.
+modules_description: Gestión de módulos y estados.
+users_description: Cuentas de usuario y perfiles.
+roles_description: Permisos y seguridad por roles.
+migrations_description: Estructura de base de datos y actualizaciones.
+dictionaries_description: Datos maestros y tablas de referencia.
+Logout: Cerrar sesión
+Login: Iniciar sesión
+My Profile: Mi perfil
+default_page_active: Inicio actual
+set_as_default_page: Establecer como inicio
+Migrations: Migraciones
+Dictionaries: Diccionarios
+users: Usuarios
+Users: Usuarios
+Modules: Gestión de Módulos
+modules: Gestión de Módulos
+enable_all: Activar todos
+disable_all: Desactivar todos
+no_description_available: Sin descripción disponible
+setup: Configurar
+module_enabled: Módulo activado
+module_disabled: Módulo desactivado
+all_modules_disabled: Todos los módulos desactivados
+all_modules_enabled: Todos los módulos activados

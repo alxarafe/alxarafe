@@ -23,10 +23,10 @@ namespace Alxarafe\Scripts;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use Alxarafe\Base\Config;
-use Alxarafe\Base\Database;
-use Alxarafe\Lib\Messages;
-use Alxarafe\Lib\Trans;
+use Alxarafe\Infrastructure\Persistence\Config;
+use Alxarafe\Infrastructure\Persistence\Database;
+use Alxarafe\Infrastructure\Lib\Messages;
+use Alxarafe\Infrastructure\Lib\Trans;
 
 // Define base paths if not already defined (CLI execution)
 if (!defined('ALX_PATH')) {

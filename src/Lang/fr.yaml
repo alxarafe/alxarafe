@@ -124,3 +124,39 @@ select_language: Sélectionner la langue
 available_languages: Langues disponibles
 select_theme: Sélectionner le thème
 available_themes: Thèmes disponibles
+pagination_text: "Affichage de {{start}} - {{end}} sur {{total}} enregistrements"
+
+# Error / System messages
+no_data_provided: Aucune donnée fournie
+record_not_found: Enregistrement introuvable
+model_config_missing: Configuration du modèle manquante
+unknown_ajax_action: "Action AJAX inconnue : %action%"
+database_error: "Erreur de base de données : %message%"
+record_saved: Enregistrement sauvegardé avec succès.
+record_save_error: Erreur lors de la sauvegarde.
+
+# Regeneration
+autoload_regenerated: Autoload régénéré.
+cache_cleared: "Cache vidé. Total éléments supprimés : %count%"
+system_regenerated: Système entièrement régénéré.
+system_regeneration: Régénération du Système
+
+# Table / UI
+status: Statut
+migration: Migration
+module: Module
+file: Fichier
+processing: Traitement en cours...
+run_pending: Exécuter les pendants
+close: Fermer
+running: En cours d'exécution...
+starting_process: Démarrage du processus...
+process_completed: Processus terminé avec succès.
+retry: Réessayer
+communication_error: "Erreur de communication : %error%"
+authenticated_error: Nom d'utilisateur ou mot de passe incorrect.
+
+# Missing Keys
+admin: Administration
+auth: Authentification
+monthly_revenue: Revenus Mensuels

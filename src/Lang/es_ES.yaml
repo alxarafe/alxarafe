@@ -134,39 +134,3 @@ available_languages: Idiomas disponibles
 select_theme: Seleccionar tema
 available_themes: Temas disponibles
 pagination_text: "Mostrando {{start}} - {{end}} de {{total}} registros"
-
-# Error / System messages
-no_data_provided: No se han proporcionado datos
-record_not_found: Registro no encontrado
-model_config_missing: Configuración del modelo no encontrada
-unknown_ajax_action: "Acción AJAX desconocida: %action%"
-database_error: "Error de base de datos: %message%"
-record_saved: Registro guardado correctamente.
-record_save_error: Error al guardar el registro.
-
-# Regeneration
-autoload_regenerated: Autoload regenerado.
-cache_cleared: "Caché limpiada. Total de elementos eliminados: %count%"
-system_regenerated: Sistema regenerado completamente.
-system_regeneration: Regeneración del Sistema
-
-# Table / UI
-status: Estado
-migration: Migración
-module: Módulo
-file: Archivo
-processing: Procesando...
-run_pending: Ejecutar Pendientes
-close: Cerrar
-running: Ejecutando...
-starting_process: Iniciando proceso...
-process_completed: Proceso finalizado correctamente.
-retry: Reintentar
-communication_error: "Error de comunicación: %error%"
-authenticated_error: Usuario o contraseña incorrectos.
-
-# Missing Keys
-admin: Administración
-auth: Autenticación
-monthly_revenue: Ingresos Mensuales
-contact_channel: Canal de Contacto

@@ -44,3 +44,26 @@ home: Privato
 billing: Fatturazione
 shipping: Spedizione
 other: Altro
+
+# Entity names
+Contact: Contatti
+ContactChannel: Canali
+
+# Channel Types
+phone: Telefono
+phone_landline: Telefono Fisso
+phone_mobile: Cellulare
+fax: Fax
+email: E-mail
+website: Sito Web
+linkedin: LinkedIn
+twitter: X (Twitter)
+instagram: Instagram
+whatsapp: WhatsApp
+telegram: Telegram
+street: Via
+
+# Shared UI
+save_changes: Salva Modifiche
+back: Indietro
+create: Crea

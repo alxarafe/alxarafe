@@ -3,7 +3,7 @@
 @section('content')
     <div id="alxarafe-resource-container" class="mt-3"></div>
 
-    <script src="/js/resource.bundle.js"></script>
+    <script src="/js/resource.bundle.js?v={{ time() }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             try {

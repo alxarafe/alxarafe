@@ -77,6 +77,7 @@ class MenuManager
 
             $items[] = [
                 'label' => $isActive ? Trans::_('default_page_active') : Trans::_('set_as_default_page'),
+                'label_key' => $isActive ? 'default_page_active' : 'set_as_default_page',
                 'icon' => $isActive ? 'fas fa-star' : 'far fa-star',
                 'route' => null,
                 'url' => $actionUrl,
@@ -95,7 +96,19 @@ class MenuManager
         // 3. Filter by Visibility & Permissions
         $filtered = array_filter($items, fn($item) => self::isVisible($item));
 
-        // 4. Group by Parent (Tree support)
+        // 4. Normalize (Ensure label_key and icon exist to prevent warnings in views)
+        foreach ($filtered as &$item) {
+            if (!isset($item['label_key'])) {
+                $item['label_key'] = $item['label'] ?? '';
+            }
+            if (!isset($item['icon'])) {
+                $item['icon'] = 'fas fa-circle';
+            }
+            $item['label'] = \Alxarafe\Infrastructure\Lib\Trans::_($item['label_key']);
+        }
+        unset($item);
+
+        // 5. Group by Parent (Tree support)
         return self::buildTree($filtered);
     }
 
@@ -111,7 +124,8 @@ class MenuManager
 
         // First pass: Index items
         foreach ($items as $item) {
-            $key = $item['class_name'] ?? ($item['route'] ?? $item['url']);
+            // Use label_key as primary unique key to prevent multiple attributes on same class from overwriting each other
+            $key = $item['label_key'] ?? ($item['class_name'] ?? ($item['route'] ?? $item['url']));
             $indexed[$key] = $item;
             $indexed[$key]['children'] = [];
             
@@ -484,9 +498,15 @@ class MenuManager
             $url = sprintf('/index.php?module=%s&controller=%s&action=%s', $module, $controller, $action);
         }
 
+        $fallbackKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $controller));
+        $label = Trans::_($attr->label ?? $fallbackKey);
+        if (!isset($attr->label) && $label === $fallbackKey) {
+            $label = $controller;
+        }
+
         $menus[$attr->menu][] = [
-            'label' => Trans::_($attr->label ?? $controller),
-            'label_key' => $attr->label ?? $controller,
+            'label' => $label,
+            'label_key' => $attr->label ?? $fallbackKey,
             'icon' => $attr->icon,
             'route' => $route,
             'url' => $url,

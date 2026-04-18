@@ -88,3 +88,33 @@ detect_timezone: Detectar Zona Horària
 keep_empty_to_not_change: Deixar buit per no canviar
 none: Cap
 default: Per defecte
+
+# Navigation & Menu Labels
+Administration: Administració
+Configuration: Configuració
+Dashboard: Tauler de Control
+Dashboard_description: Centre d'administració i control del sistema.
+config_description: Configuració general i base de dades.
+modules_description: Gestió de mòduls i estats.
+users_description: Comptes d'usuari i gestió de perfils.
+roles_description: Permisos i seguretat basats en rols.
+migrations_description: Estructura de la base de dades i actualitzacions.
+dictionaries_description: Dades mestres i taules de referència.
+Logout: Tancar sessió
+Login: Iniciar sessió
+Config: Configuració
+Roles: Rols
+Migrations: Migracions
+Dictionaries: Diccionaris
+users: Usuaris
+Users: Usuaris
+Modules: Gestió de Mòduls
+modules: Gestió de Mòduls
+enable_all: Activar tots
+disable_all: Desactivar tots
+no_description_available: Sense descripció disponible
+setup: Configurar
+module_enabled: Mòdul activat
+module_disabled: Mòdul desactivat
+all_modules_disabled: Tots els mòduls desactivats
+all_modules_enabled: Tots els mòduls activats

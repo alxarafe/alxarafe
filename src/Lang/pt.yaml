@@ -124,3 +124,39 @@ select_language: Selecionar idioma
 available_languages: Idiomas disponíveis
 select_theme: Selecionar tema
 available_themes: Temas disponíveis
+pagination_text: "A mostrar {{start}} - {{end}} de {{total}} registos"
+
+# Error / System messages
+no_data_provided: Nenhum dado fornecido
+record_not_found: Registo não encontrado
+model_config_missing: Configuração do modelo em falta
+unknown_ajax_action: "Ação AJAX desconhecida: %action%"
+database_error: "Erro de base de dados: %message%"
+record_saved: Registo guardado com sucesso.
+record_save_error: Erro ao guardar o registo.
+
+# Regeneration
+autoload_regenerated: Autoload regenerado.
+cache_cleared: "Cache limpa. Total de elementos removidos: %count%"
+system_regenerated: Sistema totalmente regenerado.
+system_regeneration: Regeneração do Sistema
+
+# Table / UI
+status: Estado
+migration: Migração
+module: Módulo
+file: Ficheiro
+processing: A processar...
+run_pending: Executar pendentes
+close: Fechar
+running: A executar...
+starting_process: A iniciar processo...
+process_completed: Processo concluído com sucesso.
+retry: Tentar novamente
+communication_error: "Erro de comunicação: %error%"
+authenticated_error: Nome de utilizador ou palavra-passe incorretos.
+
+# Missing Keys
+admin: Administração
+auth: Autenticação
+monthly_revenue: Receita Mensal

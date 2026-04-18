@@ -113,7 +113,7 @@ class TestController extends PublicResourceController
         $count = \Alxarafe\Infrastructure\Lib\Functions::recursiveRemove($cachePath . '/blade', false);
         $count += \Alxarafe\Infrastructure\Lib\Functions::recursiveRemove($cachePath . '/resources', false);
 
-        \Alxarafe\Infrastructure\Lib\Messages::addMessage("Caché limpiado con éxito. Se han eliminado $count elementos.");
+        \Alxarafe\Infrastructure\Lib\Messages::addMessage(\Alxarafe\Infrastructure\Lib\Trans::_('cache_cleared', ['count' => $count]));
         \Alxarafe\Infrastructure\Lib\Functions::httpRedirect($this->url());
     }
 
