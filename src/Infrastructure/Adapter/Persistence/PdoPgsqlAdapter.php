@@ -74,6 +74,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function findById(string $table, int|string $id): ?array
     {
         $sql = 'SELECT * FROM ' . $this->qi($table) . ' WHERE ' . $this->qi($this->primaryKey) . ' = $1 LIMIT 1';
@@ -85,6 +86,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function findBy(
         string $table,
         array $criteria = [],
@@ -123,6 +125,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function findOneBy(string $table, array $criteria): ?array
     {
         $results = $this->findBy($table, $criteria, [], 1);
@@ -130,6 +133,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function insert(string $table, array $data): int|string
     {
         $columns = array_keys($data);
@@ -151,6 +155,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function update(string $table, int|string $id, array $data): bool
     {
         $sets = [];
@@ -173,6 +178,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function delete(string $table, int|string $id): bool
     {
         $sql = 'DELETE FROM ' . $this->qi($table) . ' WHERE ' . $this->qi($this->primaryKey) . ' = $1';
@@ -183,6 +189,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function transactional(callable $callback): mixed
     {
         $this->pdo->beginTransaction();
@@ -197,6 +204,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function rawQuery(string $sql, array $params = []): array
     {
         $stmt = $this->pdo->prepare($sql);
@@ -209,6 +217,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function exists(string $table, int|string $id): bool
     {
         $sql = 'SELECT 1 FROM ' . $this->qi($table) . ' WHERE ' . $this->qi($this->primaryKey) . ' = $1 LIMIT 1';
@@ -219,6 +228,7 @@ class PdoPgsqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function count(string $table, array $criteria = []): int
     {
         $sql = 'SELECT COUNT(*) FROM ' . $this->qi($table);

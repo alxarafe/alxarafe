@@ -1273,6 +1273,7 @@ trait ResourceTrait
         if (!$modelClass || !class_exists($modelClass)) {
             Messages::addError(Trans::_('model_config_missing'));
             $this->respondToSave(['status' => 'error', 'error' => Trans::_('model_config_missing')], $isAjax);
+            return;
         }
 
         $model = new $modelClass();

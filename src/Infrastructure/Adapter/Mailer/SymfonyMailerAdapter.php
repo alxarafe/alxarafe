@@ -57,6 +57,7 @@ class SymfonyMailerAdapter implements MailerPort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function send(
         string|array $to,
         string $subject,
@@ -95,6 +96,7 @@ class SymfonyMailerAdapter implements MailerPort
     }
 
     /** @inheritDoc */
+    #[\Override]
     public function sendBatch(
         array $recipients,
         string $subject,
