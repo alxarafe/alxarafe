@@ -19,16 +19,123 @@
 
 namespace Alxarafe\Infrastructure\Http\Controller;
 
-use Alxarafe\Infrastructure\Http\Controller\Interface\ResourceInterface;
-use Alxarafe\Infrastructure\Http\Controller\Trait\ResourceTrait;
+use Alxarafe\Infrastructure\Adapter\AlxarafeHookAdapter;
+use Alxarafe\Infrastructure\Adapter\AlxarafeMessageBag;
+use Alxarafe\Infrastructure\Adapter\AlxarafeTranslator;
+use Alxarafe\ResourceController\Contracts\HookContract;
+use Alxarafe\ResourceController\Contracts\MessageBagContract;
+use Alxarafe\ResourceController\Contracts\RepositoryContract;
+use Alxarafe\ResourceController\Contracts\TransactionContract;
+use Alxarafe\ResourceController\Contracts\TranslatorContract;
+use Alxarafe\ResourceController\ResourceInterface;
+use Alxarafe\ResourceController\Trait\ResourceTrait;
+use Alxarafe\ResourceEloquent\EloquentRepository;
+use Alxarafe\ResourceEloquent\EloquentTransaction;
 
 /**
  * Class ResourceController
  *
  * Unified controller for Listing and Editing resources.
- * Extends standard Controller (Private).
+ * Extends standard Controller (Private) and uses the package ResourceTrait.
+ *
+ * Bridges Alxarafe services (Trans, Messages, HookService) to the
+ * ORM-agnostic contracts via adapter classes.
  */
 abstract class ResourceController extends Controller implements ResourceInterface
 {
     use ResourceTrait;
+    use \Alxarafe\Infrastructure\Http\Controller\Trait\AlxarafeResourceBridgeTrait;
+
+    private AlxarafeTranslator $alxTranslator;
+    private AlxarafeMessageBag $alxMessages;
+    private AlxarafeHookAdapter $alxHooks;
+    private EloquentTransaction $alxTransaction;
+
+    public function __construct()
+    {
+        $this->alxTranslator = new AlxarafeTranslator();
+        $this->alxMessages = new AlxarafeMessageBag();
+        $this->alxHooks = new AlxarafeHookAdapter();
+        $this->alxTransaction = new EloquentTransaction();
+
+        parent::__construct();
+    }
+
+    protected function getTranslator(): TranslatorContract
+    {
+        return $this->alxTranslator;
+    }
+
+    protected function getMessages(): MessageBagContract
+    {
+        return $this->alxMessages;
+    }
+
+    protected function getHooks(): HookContract
+    {
+        return $this->alxHooks;
+    }
+
+    protected function getTransaction(): TransactionContract
+    {
+        return $this->alxTransaction;
+    }
+
+    #[\Override]
+    public static function url(string $action = 'index', array $params = []): string
+    {
+        $baseUrl = 'index.php?module=' . static::getModuleName() . '&controller=' . static::getControllerName();
+        if ($action && $action !== 'index') {
+            $baseUrl .= '&action=' . $action;
+        }
+        foreach ($params as $k => $v) {
+            $baseUrl .= '&' . $k . '=' . urlencode((string)$v);
+        }
+        return $baseUrl;
+    }
+
+    public function doIndex(): bool
+    {
+        $this->privateCore();
+        return true;
+    }
+
+    public function doSave(): bool
+    {
+        $this->privateCore();
+        return true;
+    }
+
+    public function doDelete(): bool
+    {
+        // Add basic hook integration later if needed
+        $this->privateCore();
+        return true;
+    }
+
+    public function doCreate(): bool
+    {
+        $this->privateCore();
+        return true;
+    }
+
+    protected function getRepository(string $tabId = 'default'): RepositoryContract
+    {
+        $modelClass = $this->getModelClass();
+
+        if (is_array($modelClass)) {
+            $class = $modelClass[$tabId] ?? reset($modelClass);
+        } else {
+            $class = $modelClass;
+        }
+
+        return new EloquentRepository($class, $this->with ?? []);
+    }
+
+    /**
+     * Must return the Eloquent model class (or array of classes for multi-tab).
+     *
+     * @return string|array<string, string>
+     */
+    abstract protected function getModelClass(): string|array;
 }

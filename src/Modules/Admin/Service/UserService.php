@@ -19,18 +19,18 @@
 
 namespace Modules\Admin\Service;
 
-use Alxarafe\Infrastructure\Component\Container\Panel;
-use Alxarafe\Infrastructure\Component\Fields\Boolean;
-use Alxarafe\Infrastructure\Component\Fields\Select;
-use Alxarafe\Infrastructure\Component\Fields\Select2;
-use Alxarafe\Infrastructure\Component\Fields\StaticText;
-use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Container\Panel;
+use Alxarafe\ResourceController\Component\Fields\Boolean;
+use Alxarafe\ResourceController\Component\Fields\Select;
+use Alxarafe\ResourceController\Component\Fields\Select2;
+use Alxarafe\ResourceController\Component\Fields\StaticText;
+use Alxarafe\ResourceController\Component\Fields\Text;
 use Alxarafe\Infrastructure\Persistence\Config;
 use Alxarafe\Infrastructure\Lib\Trans;
 use Alxarafe\Infrastructure\Lib\Functions;
 use Modules\Admin\Model\Role;
 use Modules\Admin\Model\User;
-use Alxarafe\Infrastructure\Component\Enum\ActionPosition;
+use Alxarafe\ResourceController\Component\Enum\ActionPosition;
 
 class UserService
 {

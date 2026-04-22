@@ -30,8 +30,6 @@
     "mini-css-extract-plugin": "^2.10.0",
     "sass": "^1.97.3",
     "sass-loader": "^16.0.7",
-    "ts-loader": "^9.5.4",
-    "typescript": "^5.9.3",
     "vitepress": "latest",
     "vue": "latest",
     "webpack": "^5.105.0",

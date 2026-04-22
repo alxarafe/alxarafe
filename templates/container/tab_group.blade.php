@@ -1,15 +1,15 @@
 @php
     /** @var \Alxarafe\Component\Container\TabGroup $container */
     /** @var array $record */
-    $tabs    = $container->getTabs();
-    $groupId = $container->getGroupId();
+    $tabs    = $container->getFields();
+    $groupId = $container->getField();
     $single  = count($tabs) === 1;
 @endphp
 
 @if($single)
     {{-- Single tab: render children directly without nav --}}
-    @foreach($tabs[0]->getChildren() as $child)
-        {!! \Alxarafe\Component\Container\AbstractContainer::renderChild($child, $record) !!}
+    @foreach($tabs[0]->getFields() as $child)
+        {!! \Alxarafe\Infrastructure\Component\ComponentRenderer::render($child, ['record' => $record ?? []]) !!}
     @endforeach
 @else
     {{-- Multiple tabs: full Bootstrap nav-tabs --}}
@@ -53,7 +53,7 @@
             @if(!$tab->getUrl())
                 <div class="tab-pane fade {{ $i === 0 ? 'show active' : '' }}"
                      id="{{ $groupId }}-{{ $tab->getTabId() }}" role="tabpanel">
-                    {!! $tab->render(['record' => $record]) !!}
+                    {!! \Alxarafe\Infrastructure\Component\ComponentRenderer::render($tab, ['record' => $record]) !!}
                 </div>
             @endif
         @endforeach

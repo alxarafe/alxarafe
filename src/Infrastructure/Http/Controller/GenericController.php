@@ -83,7 +83,7 @@ abstract class GenericController
                 $label = $item['label']; // Should be translation key or text
 
                 // Build URL
-                $url = $item['url'] ?: GenericController::url(false, ['route' => $item['route']]);
+                $url = $item['url'] ?: GenericController::url('index', ['route' => $item['route']]);
                 if (!$item['url'] && $item['route'] && strpos($item['route'], '.') !== false) {
                     $parts = explode('.', $item['route']);
                     if (count($parts) >= 3) {
@@ -253,14 +253,14 @@ abstract class GenericController
      * @param array|bool $params  Query parameters, or legacy bool flag.
      * @return string
      */
-    public static function url($action = 'index', $params = []): string
+    public static function url(string $action = 'index', array $params = []): string
     {
         $module = static::getModuleName();
         $controller = static::getControllerName();
 
         // Try to generate friendly URL
-        $actionStr = is_string($action) ? $action : 'index';
-        $paramsArr = is_array($params) ? $params : [];
+        $actionStr = $action;
+        $paramsArr = $params;
         $friendlyUrl = \Alxarafe\Infrastructure\Http\Router::generate($module, $controller, $actionStr, $paramsArr);
         if ($friendlyUrl) {
             return $friendlyUrl;

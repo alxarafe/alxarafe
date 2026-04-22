@@ -26,8 +26,8 @@ use Alxarafe\Infrastructure\Lib\Trans;
 use Alxarafe\Infrastructure\Lib\Functions;
 use Modules\Admin\Model\Role;
 use Alxarafe\Infrastructure\Attribute\Menu;
-use Alxarafe\Infrastructure\Component\Fields\StaticText;
-use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Fields\StaticText;
+use Alxarafe\ResourceController\Component\Fields\Text;
 
 #[Menu(
     menu: 'main_menu',
@@ -52,7 +52,7 @@ class UserController extends ResourceController
     }
 
     #[\Override]
-    protected function getModelClass()
+    protected function getModelClass(): string|array
     {
         return User::class;
     }
@@ -69,7 +69,7 @@ class UserController extends ResourceController
     }
 
     #[\Override]
-    protected function beforeEdit()
+    protected function beforeEdit(): void
     {
         // Default template logic uses the structure from getEditFields().
         // If you create 'templates/page/user_edit.blade.php', you can use:
@@ -77,7 +77,7 @@ class UserController extends ResourceController
     }
 
     #[\Override]
-    protected function beforeList()
+    protected function beforeList(): void
     {
         $users = User::all();
         $this->addVariable('users', $users);
@@ -86,7 +86,7 @@ class UserController extends ResourceController
     }
 
     #[\Override]
-    protected function saveRecord()
+    protected function saveRecord(): void
     {
         try {
             $id = $_POST['id'] ?? null;

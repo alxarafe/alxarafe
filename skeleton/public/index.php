@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/../../vendor/autoload.php';
-require_once __DIR__ . '/../../src/Infrastructure/Legacy/aliases.php';
+
 
 use Alxarafe\Infrastructure\Tools\Dispatcher\WebDispatcher;
 use Alxarafe\Infrastructure\Tools\Dispatcher\ApiDispatcher;
@@ -40,7 +40,7 @@ if (!defined('ALX_PATH')) {
 
 // 3. Define other constants
 if (!defined('BASE_URL')) {
-    define('BASE_URL', \Alxarafe\Lib\Functions::getUrl());
+    define('BASE_URL', \Alxarafe\Infrastructure\Lib\Functions::getUrl());
 }
 
 // Load Configuration and Initialize Services
@@ -129,7 +129,7 @@ if (php_sapi_name() === 'cli') {
     $method = $argv[3] ?? 'index';
 } else {
     // Try Router first, but only if no module is explicitly provided in the query string
-    $match = !isset($_GET['module']) ? \Alxarafe\Lib\Router::match($_SERVER['REQUEST_URI']) : null;
+    $match = !isset($_GET['module']) ? \Alxarafe\Infrastructure\Http\Router::match($_SERVER['REQUEST_URI']) : null;
     if ($match) {
         $module = $match['module'];
         $controller = $match['controller'];
@@ -148,7 +148,7 @@ try {
 } catch (Throwable $e) {
     if (class_exists(\Modules\Admin\Controller\ErrorController::class) && !headers_sent() && !isset($_GET['err'])) {
         $trace = $e->getTraceAsString();
-        $url = \Modules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace) . '&err=1';
+        $url = \Modules\Admin\Controller\ErrorController::url() . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace) . '&err=1';
         \Alxarafe\Infrastructure\Lib\Functions::httpRedirect($url);
     }
 

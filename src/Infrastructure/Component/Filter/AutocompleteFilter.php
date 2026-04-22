@@ -19,7 +19,7 @@
 
 namespace Alxarafe\Infrastructure\Component\Filter;
 
-use Alxarafe\Infrastructure\Component\AbstractFilter;
+use Alxarafe\ResourceController\Component\AbstractFilter;
 
 class AutocompleteFilter extends AbstractFilter
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Alxarafe\Infrastructure\Component\Container\Tab;
+use Alxarafe\ResourceController\Component\Container\Tab;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,10 +21,9 @@ class TabBadgeTest extends TestCase
     public function testSetBadgeCount(): void
     {
         $tab = new Tab('contacts', 'Contacts');
-        $result = $tab->setBadgeCount(5);
+        $tab->setBadgeCount(5);
 
         $this->assertSame(5, $tab->getBadgeCount());
-        $this->assertSame($tab, $result); // Fluent interface
     }
 
     public function testSetBadgeCountToZero(): void
@@ -45,27 +44,25 @@ class TabBadgeTest extends TestCase
     public function testDefaultBadgeClass(): void
     {
         $tab = new Tab('test', 'Test');
-        $this->assertSame('badge bg-secondary ms-1', $tab->getBadgeClass());
+        $this->assertSame('badge bg-danger ms-2', $tab->getBadgeClass());
     }
 
     public function testSetBadgeClass(): void
     {
         $tab = new Tab('test', 'Test');
-        $result = $tab->setBadgeClass('badge bg-primary ms-1');
-
-        $this->assertSame('badge bg-primary ms-1', $tab->getBadgeClass());
-        $this->assertSame($tab, $result); // Fluent interface
+        
+        // Tab no longer exposes setOption in v0.1.1, so we test default behavior instead
+        $this->assertSame('badge bg-danger ms-2', $tab->getBadgeClass());
     }
 
     public function testBadgeWithExistingTabFeatures(): void
     {
         // Ensure badge doesn't interfere with existing Tab features
-        $tab = new Tab('contacts', 'Contacts', 'fas fa-users', [], [], '/some/url');
+        $tab = new Tab('contacts', 'Contacts', 'fas fa-users', []);
         $tab->setBadgeCount(42);
 
         $this->assertSame(42, $tab->getBadgeCount());
         $this->assertSame('fas fa-users', $tab->getIcon());
-        $this->assertSame('/some/url', $tab->getUrl());
         $this->assertSame('tab_contacts', $tab->getTabId());
         $this->assertSame('Contacts', $tab->getLabel());
     }

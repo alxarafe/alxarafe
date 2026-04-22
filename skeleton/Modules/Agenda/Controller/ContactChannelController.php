@@ -21,8 +21,8 @@ namespace Modules\Agenda\Controller;
 
 use Alxarafe\Infrastructure\Http\Controller\PublicResourceController;
 use Alxarafe\Infrastructure\Attribute\Menu;
-use Alxarafe\Infrastructure\Component\Fields\Text;
-use Alxarafe\Infrastructure\Component\Fields\Icon;
+use Alxarafe\ResourceController\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Fields\Icon;
 use Alxarafe\Infrastructure\Lib\Trans;
 use Modules\Agenda\Model\ContactChannel;
 
@@ -52,7 +52,7 @@ class ContactChannelController extends PublicResourceController
     }
 
     #[\Override]
-    protected function getModelClass()
+    protected function getModelClass(): string|array
     {
         return ContactChannel::class;
     }
@@ -61,7 +61,7 @@ class ContactChannelController extends PublicResourceController
     protected function getListColumns(): array
     {
         return [
-            new \Alxarafe\Infrastructure\Component\Fields\Icon('icon', Trans::_('icon')),
+            new \Alxarafe\ResourceController\Component\Fields\Icon('icon', Trans::_('icon')),
             new Text('name', Trans::_('channel_name')),
         ];
     }

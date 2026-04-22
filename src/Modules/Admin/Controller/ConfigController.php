@@ -28,10 +28,10 @@ use Alxarafe\Infrastructure\Lib\Trans;
 use Alxarafe\Infrastructure\Tools\ModuleManager;
 use Modules\Admin\Model\Migration;
 use stdClass;
-use Alxarafe\Infrastructure\Component\Fields\Select;
-use Alxarafe\Infrastructure\Component\Fields\Select2;
-use Alxarafe\Infrastructure\Component\Fields\Text;
-use Alxarafe\Infrastructure\Component\Fields\Boolean;
+use Alxarafe\ResourceController\Component\Fields\Select;
+use Alxarafe\ResourceController\Component\Fields\Select2;
+use Alxarafe\ResourceController\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Fields\Boolean;
 use Alxarafe\Infrastructure\Attribute\Menu;
 
 /**
@@ -68,7 +68,7 @@ class ConfigController extends ResourceController
     protected bool $useTabs = true;
 
     #[\Override]
-    protected function getModelClass()
+    protected function getModelClass(): string|array
     {
         // Config is not a standard Eloquent Model, but we can treat it specially in handleRequest/fetchRecordData
         return 'Alxarafe\Infrastructure\Persistence\Config';
@@ -82,7 +82,7 @@ class ConfigController extends ResourceController
     public function getViewDescriptor(): array
     {
         $tabs = $this->getTabs();
-        $body = new \Alxarafe\Infrastructure\Component\Container\TabGroup($tabs, ['id' => 'config-tabs']);
+        $body = new \Alxarafe\ResourceController\Component\Container\TabGroup($tabs, ['id' => 'config-tabs']);
 
         $buttons = [
             ['label' => Trans::_('save_configuration'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
@@ -112,32 +112,23 @@ class ConfigController extends ResourceController
             'recordId' => 'current',
             'record'   => $viewData,
             'buttons'  => $buttons,
-            'body'     => new \Alxarafe\Infrastructure\Component\Container\Panel('', [$body], ['col' => 'col-12']),
+            'body'     => new \Alxarafe\ResourceController\Component\Container\Panel('', [$body], ['col' => 'col-12']),
         ];
     }
 
-
-    /**
-     * Config is not a standard Eloquent model — skip table integrity check.
-     */
-    #[\Override]
-    protected function checkTableIntegrity()
-    {
-        // No-op: Config is an abstract class, not an Eloquent model.
-    }
 
     /**
      * Skip the standard buildConfiguration() since ConfigController
      * doesn't use structConfig for its form — getViewDescriptor() handles everything.
      */
     #[\Override]
-    protected function buildConfiguration()
+    protected function buildConfiguration(): void
     {
         // No-op: Config form structure is defined in getViewDescriptor().
     }
 
     #[\Override]
-    protected function setup()
+    protected function setup(): void
     {
         // Buttons are defined in getViewDescriptor() instead of here,
         // because pdo_connection is not set until handleRequest() -> checkDatabaseStatus().
@@ -187,7 +178,7 @@ class ConfigController extends ResourceController
     }
 
     #[\Override]
-    protected function detectMode()
+    protected function detectMode(): void
     {
         // Config is always in Edit Mode
         $this->mode = self::MODE_EDIT;
@@ -195,7 +186,7 @@ class ConfigController extends ResourceController
     }
 
     #[\Override]
-    protected function handleRequest()
+    protected function handleRequest(): void
     {
         if (isset($_GET['ajax'])) {
             if ($_GET['ajax'] === 'get_record') {
@@ -238,7 +229,7 @@ class ConfigController extends ResourceController
     }
 
     #[\Override]
-    protected function saveRecord()
+    protected function saveRecord(): void
     {
         $data = $_POST['data'] ?? [];
         if (empty($data)) {
@@ -462,7 +453,6 @@ class ConfigController extends ResourceController
      * 
      * @return bool
      */
-    #[\Override]
     public function doSave(): bool
     {
         $this->saveRecord();
@@ -470,7 +460,6 @@ class ConfigController extends ResourceController
         return $this->doIndex();
     }
 
-    #[\Override]
     public function doIndex(): bool
     {
         $this->addVariable('title', Trans::_('configuration'));

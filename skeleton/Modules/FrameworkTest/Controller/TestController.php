@@ -21,27 +21,27 @@ namespace Modules\FrameworkTest\Controller;
 
 use Alxarafe\Infrastructure\Http\Controller\PublicResourceController;
 use Alxarafe\Infrastructure\Attribute\Menu;
-use Alxarafe\Infrastructure\Component\Fields\Boolean;
-use Alxarafe\Infrastructure\Component\Fields\Date;
-use Alxarafe\Infrastructure\Component\Fields\DateTime;
-use Alxarafe\Infrastructure\Component\Fields\Decimal;
-use Alxarafe\Infrastructure\Component\Fields\Icon;
-use Alxarafe\Infrastructure\Component\Fields\Image;
-use Alxarafe\Infrastructure\Component\Fields\Integer;
-use Alxarafe\Infrastructure\Component\Fields\Select;
-use Alxarafe\Infrastructure\Component\Fields\Select2;
-use Alxarafe\Infrastructure\Component\Fields\StaticText;
-use Alxarafe\Infrastructure\Component\Fields\Text;
-use Alxarafe\Infrastructure\Component\Fields\Textarea;
-use Alxarafe\Infrastructure\Component\Fields\Time;
-use Alxarafe\Infrastructure\Component\Container\Panel;
-use Alxarafe\Infrastructure\Component\Container\TabGroup;
-use Alxarafe\Infrastructure\Component\Container\Tab;
-use Alxarafe\Infrastructure\Component\Container\HtmlContent;
-use Alxarafe\Infrastructure\Component\Container\Row;
-use Alxarafe\Infrastructure\Component\Container\Separator;
-use Alxarafe\Infrastructure\Component\Enum\ActionPosition;
-use Alxarafe\Infrastructure\Component\Fields\Hidden;
+use Alxarafe\ResourceController\Component\Fields\Boolean;
+use Alxarafe\ResourceController\Component\Fields\Date;
+use Alxarafe\ResourceController\Component\Fields\DateTime;
+use Alxarafe\ResourceController\Component\Fields\Decimal;
+use Alxarafe\ResourceController\Component\Fields\Icon;
+use Alxarafe\ResourceController\Component\Fields\Image;
+use Alxarafe\ResourceController\Component\Fields\Integer;
+use Alxarafe\ResourceController\Component\Fields\Select;
+use Alxarafe\ResourceController\Component\Fields\Select2;
+use Alxarafe\ResourceController\Component\Fields\StaticText;
+use Alxarafe\ResourceController\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Fields\Textarea;
+use Alxarafe\ResourceController\Component\Fields\Time;
+use Alxarafe\ResourceController\Component\Container\Panel;
+use Alxarafe\ResourceController\Component\Container\TabGroup;
+use Alxarafe\ResourceController\Component\Container\Tab;
+use Alxarafe\ResourceController\Component\Container\HtmlContent;
+use Alxarafe\ResourceController\Component\Container\Row;
+use Alxarafe\ResourceController\Component\Container\Separator;
+use Alxarafe\ResourceController\Component\Enum\ActionPosition;
+use Alxarafe\ResourceController\Component\Fields\Hidden;
 use Alxarafe\Infrastructure\Service\MarkdownService;
 use Modules\FrameworkTest\Model\TestModel;
 use Symfony\Component\Yaml\Yaml;
@@ -66,7 +66,7 @@ class TestController extends PublicResourceController
     /**
      * Define the primary model class for this controller.
      */
-    protected function getModelClass()
+    protected function getModelClass(): string|array
     {
         return TestModel::class;
     }
@@ -74,7 +74,7 @@ class TestController extends PublicResourceController
     /**
      * Override detectMode: always show edit form as showcase.
      */
-    protected function detectMode()
+    protected function detectMode(): void
     {
         $this->mode = self::MODE_EDIT;
         $this->recordId = 'demo';
@@ -92,7 +92,7 @@ class TestController extends PublicResourceController
     /**
      * Ensure the test page has a nice title.
      */
-    protected function beforeConfig()
+    protected function beforeConfig(): void
     {
         $this->title = \Alxarafe\Infrastructure\Lib\Trans::_('showcase_title');
     }
@@ -130,7 +130,7 @@ class TestController extends PublicResourceController
      * Intercepts the 'save' action to persist data into a YAML file for demo purposes.
      */
     #[\Override]
-    protected function handleRequest()
+    protected function handleRequest(): void
     {
         // Custom handling for 'save' button in demo mode
         if ((isset($_POST['action']) && $_POST['action'] === 'save') || (isset($_GET['ajax']) && $_GET['ajax'] === 'save_record')) {
@@ -233,8 +233,9 @@ class TestController extends PublicResourceController
 
             new Panel(\Alxarafe\Infrastructure\Lib\Trans::_('aesthetics'), [
                 new Icon('icon', \Alxarafe\Infrastructure\Lib\Trans::_('icon_representative'), [
-                    'help' => \Alxarafe\Infrastructure\Lib\Trans::_('icon_help_fa')
-                ], ['default' => 'fas fa-rocket']),
+                    'help' => \Alxarafe\Infrastructure\Lib\Trans::_('icon_help_fa'),
+                    'default' => 'fas fa-rocket'
+                ]),
                 new Select('type', \Alxarafe\Infrastructure\Lib\Trans::_('object_classification'), [
                     'core' => \Alxarafe\Infrastructure\Lib\Trans::_('core_system'),
                     'plugin' => \Alxarafe\Infrastructure\Lib\Trans::_('plugin_extension'),

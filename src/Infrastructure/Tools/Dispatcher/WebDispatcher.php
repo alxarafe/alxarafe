@@ -136,7 +136,7 @@ class WebDispatcher extends Dispatcher
 
             if (!$isAlreadyError && class_exists(ErrorController::class) && !headers_sent()) {
                 $trace = $e->getTraceAsString();
-                $url = ErrorController::url(true, false) . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace);
+                $url = ErrorController::url() . '&message=' . urlencode($e->getMessage()) . '&trace=' . urlencode($trace);
                 \Alxarafe\Infrastructure\Lib\Functions::httpRedirect($url);
             }
 
@@ -323,6 +323,6 @@ class WebDispatcher extends Dispatcher
         }
 
         self::$inErrorState = true;
-        Functions::httpRedirect(ErrorController::url(true, false) . '&message=' . urlencode($message));
+        Functions::httpRedirect(ErrorController::url() . '&message=' . urlencode($message));
     }
 }

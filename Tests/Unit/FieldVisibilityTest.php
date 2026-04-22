@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Alxarafe\Infrastructure\Component\AbstractField;
-use Alxarafe\Infrastructure\Component\Fields\Text;
-use Alxarafe\Infrastructure\Component\Container\Panel;
+use Alxarafe\ResourceController\Component\AbstractField;
+use Alxarafe\ResourceController\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Container\Panel;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -47,7 +47,7 @@ class FieldVisibilityTest extends TestCase
         $panel->filterChildren(fn($child) =>
             !($child instanceof AbstractField) || $child->getField() === 'visible');
 
-        $children = $panel->getChildren();
+        $children = $panel->getFields();
         $this->assertCount(1, $children);
         $this->assertSame('visible', $children[0]->getField());
     }
@@ -62,7 +62,7 @@ class FieldVisibilityTest extends TestCase
         // Filter that removes all AbstractFields but keeps containers
         $panel->filterChildren(fn($child) => $child instanceof Panel);
 
-        $children = $panel->getChildren();
+        $children = $panel->getFields();
         $this->assertCount(1, $children);
         $this->assertInstanceOf(Panel::class, $children[0]);
     }
@@ -75,6 +75,6 @@ class FieldVisibilityTest extends TestCase
         ]);
 
         $panel->filterChildren(fn() => false);
-        $this->assertCount(0, $panel->getChildren());
+        $this->assertCount(0, $panel->getFields());
     }
 }

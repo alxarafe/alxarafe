@@ -1,6 +1,6 @@
 <?php
 
-use Alxarafe\Lib\Router;
+use Alxarafe\Infrastructure\Http\Router;
 
 // Define your generic routes here
 Router::add('home', '/', 'FrameworkTest.Test.index');

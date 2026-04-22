@@ -25,12 +25,12 @@ use Alxarafe\Infrastructure\Lib\Functions;
 use Alxarafe\Infrastructure\Lib\Trans;
 use Alxarafe\Infrastructure\Lib\Messages;
 use Alxarafe\Infrastructure\Persistence\Config;
-use Alxarafe\Infrastructure\Component\Fields\Text;
-use Alxarafe\Infrastructure\Component\Fields\Select;
-use Alxarafe\Infrastructure\Component\Fields\Select2;
-use Alxarafe\Infrastructure\Component\Fields\StaticText;
-use Alxarafe\Infrastructure\Component\Enum\ActionPosition;
-use Alxarafe\Infrastructure\Component\Container\Panel;
+use Alxarafe\ResourceController\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Fields\Select;
+use Alxarafe\ResourceController\Component\Fields\Select2;
+use Alxarafe\ResourceController\Component\Fields\StaticText;
+use Alxarafe\ResourceController\Component\Enum\ActionPosition;
+use Alxarafe\ResourceController\Component\Container\Panel;
 
 class ProfileController extends GenericPublicController
 {

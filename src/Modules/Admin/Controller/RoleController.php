@@ -48,7 +48,7 @@ class RoleController extends ResourceController
     }
 
     #[\Override]
-    protected function getModelClass()
+    protected function getModelClass(): string|array
     {
         return Role::class;
     }
@@ -78,7 +78,7 @@ class RoleController extends ResourceController
     }
 
     #[\Override]
-    protected function saveRecord()
+    protected function saveRecord(): void
     {
         // Custom Manual Save to support standard HTML Form POST
         // (Parent implementation expects API/JSON payload)
@@ -135,7 +135,7 @@ class RoleController extends ResourceController
     }
 
     #[\Override]
-    protected function beforeEdit()
+    protected function beforeEdit(): void
     {
         // Load Permissions
         $allPermissions = \Modules\Admin\Model\Permission::orderBy('module')
@@ -167,7 +167,7 @@ class RoleController extends ResourceController
     }
 
     #[\Override]
-    protected function beforeList()
+    protected function beforeList(): void
     {
         // 1. Fetch all roles for the simple list view
         $roles = Role::all();

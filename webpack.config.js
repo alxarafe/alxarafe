@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     // Define multiple entry points
     entry: {
-        'js/resource.bundle': './src/Frontend/ts/resource.ts',
         'themes/cyberpunk/css/default': './templates/themes/cyberpunk/scss/default.scss'
     },
     module: {

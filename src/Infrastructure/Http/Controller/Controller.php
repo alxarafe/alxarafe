@@ -57,7 +57,7 @@ abstract class Controller extends ViewController
             // 1. Authentication Check
             if (!Auth::isLogged()) {
                 $currentUrl = Functions::getUrl() . '/index.php?' . $_SERVER['QUERY_STRING'];
-                Functions::httpRedirect(\Modules\Admin\Controller\AuthController::url(true, false) . '&redirect=' . urlencode($currentUrl));
+                Functions::httpRedirect(\Modules\Admin\Controller\AuthController::url() . '&redirect=' . urlencode($currentUrl));
             }
 
             // 2. Module Activation Check (Ockham's Razor)
@@ -65,7 +65,7 @@ abstract class Controller extends ViewController
             if ($moduleName !== '' && $moduleName !== 'Admin') {
                 if (class_exists('\Modules\Admin\Service\MenuManager') && !\Modules\Admin\Service\MenuManager::isModuleEnabled($moduleName)) {
                     Messages::addError(Trans::_('module_disabled', ['module' => $moduleName]));
-                    Functions::httpRedirect(\Modules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode(Trans::_('module_disabled', ['module' => $moduleName])));
+                    Functions::httpRedirect(\Modules\Admin\Controller\ErrorController::url() . '&message=' . urlencode(Trans::_('module_disabled', ['module' => $moduleName])));
                 }
             }
 
@@ -74,7 +74,7 @@ abstract class Controller extends ViewController
             $actionName = $this->action ?: 'index';
             if (Auth::$user && !Auth::$user->can($actionName, static::getControllerName(), static::getModuleName())) {
                 Messages::addError(Trans::_('access_denied'));
-                Functions::httpRedirect(\Modules\Admin\Controller\ErrorController::url(true, false) . '&message=' . urlencode(Trans::_('access_denied')));
+                Functions::httpRedirect(\Modules\Admin\Controller\ErrorController::url() . '&message=' . urlencode(Trans::_('access_denied')));
             }
         }
 

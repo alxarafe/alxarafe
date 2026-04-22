@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Alxarafe\Infrastructure\Component\Container\Tab;
-use Alxarafe\Infrastructure\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Container\Tab;
+use Alxarafe\ResourceController\Component\Fields\Text;
 use Alxarafe\Lib\Trans;
 use PHPUnit\Framework\TestCase;
 

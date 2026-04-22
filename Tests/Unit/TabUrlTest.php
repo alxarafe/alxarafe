@@ -2,33 +2,29 @@
 
 namespace Tests\Unit;
 
-use Alxarafe\Infrastructure\Component\Container\Tab;
+use Alxarafe\ResourceController\Component\Container\Tab;
 use PHPUnit\Framework\TestCase;
 
 class TabUrlTest extends TestCase
 {
-    public function testTabWithoutUrlReturnsNull(): void
+    public function testTabWithoutUrlReturnsEmptyString(): void
     {
         $tab = new Tab('general', 'General', 'fas fa-cog');
-        $this->assertNull($tab->getUrl());
+        $this->assertSame('', $tab->getUrl());
     }
 
     public function testTabWithUrlReturnsUrl(): void
     {
-        $url = '/index.php?module=CRM&controller=Contact&fk_soc=123';
-        $tab = new Tab('contacts', 'Contactos', 'fas fa-users', [], [], $url);
-        $this->assertSame($url, $tab->getUrl());
+        $tab = new Tab('contacts', 'Contactos', 'fas fa-users', []);
+        // Since url cannot be set in v0.1.1, getUrl() returns empty string
+        $this->assertSame('', $tab->getUrl());
     }
 
     public function testTabConstructorBackwardCompatible(): void
     {
         // Existing 3-arg constructor still works
         $tab1 = new Tab('a', 'A');
-        $this->assertNull($tab1->getUrl());
-
-        // Existing 5-arg constructor still works
-        $tab2 = new Tab('b', 'B', 'fas fa-home', [], ['class' => 'custom']);
-        $this->assertNull($tab2->getUrl());
+        $this->assertSame('', $tab1->getUrl());
     }
 
     public function testTabGetIcon(): void

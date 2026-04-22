@@ -36,7 +36,7 @@ abstract class TestCase extends BaseTestCase
         Capsule::connection()->rollBack();
 
         // Reset Auth User
-        \Alxarafe\Lib\Auth::$user = null;
+        \Alxarafe\Infrastructure\Auth\Auth::$user = null;
 
         parent::tearDown();
     }

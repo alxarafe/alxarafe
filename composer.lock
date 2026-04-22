@@ -4,8 +4,122 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2f861cd8d9d386b69e8d4bc9dfb5cff",
+    "content-hash": "997850ee9af56c58cf6f44ca1f3d0620",
     "packages": [
+        {
+            "name": "alxarafe/resource-controller",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alxarafe/resource-controller.git",
+                "reference": "8297004c45c016ee5d23e8b7f32704a6d4d87eed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alxarafe/resource-controller/zipball/8297004c45c016ee5d23e8b7f32704a6d4d87eed",
+                "reference": "8297004c45c016ee5d23e8b7f32704a6d4d87eed",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5"
+            },
+            "suggest": {
+                "alxarafe/resource-eloquent": "Eloquent ORM adapter for RepositoryContract",
+                "illuminate/view": "For Blade template rendering",
+                "symfony/translation": "For the default TranslatorAdapter"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Alxarafe\\ResourceController\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael San José",
+                    "email": "rsanjose@alxarafe.com",
+                    "homepage": "https://alxarafe.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "ORM-agnostic declarative CRUD controller for PHP. Auto-generates list/edit UIs from field metadata.",
+            "keywords": [
+                "ERP",
+                "admin",
+                "controller",
+                "crud",
+                "orm-agnostic",
+                "resource",
+                "scaffolding"
+            ],
+            "support": {
+                "issues": "https://github.com/alxarafe/resource-controller/issues",
+                "source": "https://github.com/alxarafe/resource-controller/tree/v0.1.1"
+            },
+            "time": "2026-04-22T11:11:41+00:00"
+        },
+        {
+            "name": "alxarafe/resource-eloquent",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alxarafe/resource-eloquent.git",
+                "reference": "955b58c3401bbb81d8cfd6cf965977a9aa07f20a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alxarafe/resource-eloquent/zipball/955b58c3401bbb81d8cfd6cf965977a9aa07f20a",
+                "reference": "955b58c3401bbb81d8cfd6cf965977a9aa07f20a",
+                "shasum": ""
+            },
+            "require": {
+                "alxarafe/resource-controller": "^0.1",
+                "illuminate/database": "^10.0 || ^11.0 || ^12.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Alxarafe\\ResourceEloquent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael San José",
+                    "email": "rsanjose@alxarafe.com",
+                    "homepage": "https://alxarafe.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Eloquent ORM adapter for alxarafe/resource-controller. Implements RepositoryContract, QueryContract, and TransactionContract using Illuminate Database.",
+            "keywords": [
+                "adapter",
+                "crud",
+                "eloquent",
+                "illuminate",
+                "orm",
+                "resource-controller"
+            ],
+            "support": {
+                "issues": "https://github.com/alxarafe/resource-eloquent/issues",
+                "source": "https://github.com/alxarafe/resource-eloquent/tree/v0.1.0"
+            },
+            "time": "2026-04-22T08:42:09+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.3",

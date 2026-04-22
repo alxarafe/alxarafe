@@ -72,7 +72,7 @@ trait DbTrait
             /** @phpstan-ignore-next-line */
             if (static::class !== \Modules\Admin\Controller\ConfigController::class) {
                 \Alxarafe\Infrastructure\Lib\Functions::httpRedirect(
-                    \Modules\Admin\Controller\ConfigController::url(true, false)
+                    \Modules\Admin\Controller\ConfigController::url()
                 );
             }
         }

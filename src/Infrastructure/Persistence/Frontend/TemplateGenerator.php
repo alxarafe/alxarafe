@@ -19,7 +19,7 @@
 
 namespace Alxarafe\Infrastructure\Persistence\Frontend;
 
-use Alxarafe\Infrastructure\Component\Container\AbstractContainer;
+use Alxarafe\ResourceController\Component\Container\AbstractContainer;
 
 /**
  * Unified Blade template generator.
@@ -72,8 +72,8 @@ class TemplateGenerator
         $out .= "    @endif\n\n";
 
         // --- Body: delegate to component render() ---
-        $out .= "    @if(\$viewDescriptor['body'] instanceof \\Alxarafe\\Infrastructure\\Component\\Container\\AbstractContainer)\n";
-        $out .= "        {!! \$viewDescriptor['body']->render(['record' => \$record]) !!}\n";
+        $out .= "    @if(\$viewDescriptor['body'] instanceof \\Alxarafe\\ResourceController\\Component\\Container\\AbstractContainer)\n";
+        $out .= "        {!! \\Alxarafe\\Infrastructure\\Component\\ComponentRenderer::render(\$viewDescriptor['body'], ['record' => \$record]) !!}\n";
         $out .= "    @endif\n\n";
 
         $out .= "</form>\n";

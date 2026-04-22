@@ -21,8 +21,8 @@ namespace Modules\Agenda\Controller;
 
 use Alxarafe\Infrastructure\Http\Controller\PublicResourceController;
 use Alxarafe\Infrastructure\Attribute\Menu;
-use Alxarafe\Infrastructure\Component\Fields\Text;
-use Alxarafe\Infrastructure\Component\Fields\Textarea;
+use Alxarafe\ResourceController\Component\Fields\Text;
+use Alxarafe\ResourceController\Component\Fields\Textarea;
 use Alxarafe\Infrastructure\Lib\Functions;
 use Alxarafe\Infrastructure\Lib\Trans;
 use Modules\Agenda\Model\Address;
@@ -63,7 +63,7 @@ class ContactController extends PublicResourceController
     }
 
     #[\Override]
-    protected function getModelClass()
+    protected function getModelClass(): string|array
     {
         return Contact::class;
     }
@@ -104,7 +104,7 @@ class ContactController extends PublicResourceController
      * Set custom template and pass relationship data for the edit view.
      */
     #[\Override]
-    protected function beforeEdit()
+    protected function beforeEdit(): void
     {
         // Register the module's Templates directory
         $templatesPath = realpath(defined('APP_PATH') ? constant('APP_PATH') : __DIR__ . '/../..') . '/Modules/Agenda/Templates';
@@ -148,7 +148,7 @@ class ContactController extends PublicResourceController
      * Save contact with addresses and channels relationships.
      */
     #[\Override]
-    protected function saveRecord()
+    protected function saveRecord(): void
     {
         $id = $_POST['id'] ?? null;
         $isNew = ($id === 'new' || empty($id));

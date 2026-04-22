@@ -5,7 +5,7 @@ namespace Tests;
 use Alxarafe\Infrastructure\Persistence\Config;
 use Alxarafe\Infrastructure\Persistence\Database;
 use Alxarafe\Infrastructure\Tools\Debug;
-use Alxarafe\Lib\Trans;
+use Alxarafe\Infrastructure\Lib\Trans;
 
 class Bootstrapper
 {

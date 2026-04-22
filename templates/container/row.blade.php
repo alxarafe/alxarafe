@@ -7,8 +7,8 @@
 
 <div class="{{ $col }}">
     <div class="row {{ $class }}">
-        @foreach($container->getChildren() as $child)
-            {!! \Alxarafe\Component\Container\AbstractContainer::renderChild($child, $record) !!}
+        @foreach($container->getFields() as $child)
+            {!! \Alxarafe\Infrastructure\Component\ComponentRenderer::render($child, ['record' => $record ?? []]) !!}
         @endforeach
     </div>
 </div>
