@@ -20,7 +20,6 @@
 namespace Alxarafe\Infrastructure\Component\Filter;
 
 use Alxarafe\ResourceController\Component\AbstractFilter;
-use Alxarafe\Infrastructure\Component\AbstractFilter;
 
 class RelationFilter extends AbstractFilter
 {

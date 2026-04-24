@@ -4,15 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dcdf01a6a482e2d868fd9392ac76d9e",
+    "content-hash": "ae151d8fd64df84b64f7d02455d443b7",
     "packages": [
         {
             "name": "alxarafe/resource-controller",
-            "version": "0.2.1",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alxarafe/resource-controller.git",
+                "reference": "1e20265f504a43a1e6784d5c56f4a6a5fad9449e"
+            },
             "dist": {
-                "type": "path",
-                "url": "../resource-controller",
-                "reference": "79ec738453213603391c7652778bf5d681f93c51"
+                "type": "zip",
+                "url": "https://api.github.com/repos/alxarafe/resource-controller/zipball/1e20265f504a43a1e6784d5c56f4a6a5fad9449e",
+                "reference": "1e20265f504a43a1e6784d5c56f4a6a5fad9449e",
+                "shasum": ""
             },
             "require": {
                 "php": "^8.2"
@@ -34,11 +40,7 @@
                     "Alxarafe\\ResourceController\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Alxarafe\\ResourceController\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -52,26 +54,33 @@
             ],
             "description": "ORM-agnostic declarative CRUD controller for PHP. Auto-generates list/edit UIs from field metadata.",
             "keywords": [
+                "ERP",
                 "admin",
                 "controller",
                 "crud",
-                "erp",
                 "orm-agnostic",
                 "resource",
                 "scaffolding"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/alxarafe/resource-controller/issues",
+                "source": "https://github.com/alxarafe/resource-controller/tree/v0.2.1"
+            },
+            "time": "2026-04-24T11:02:10+00:00"
         },
         {
             "name": "alxarafe/resource-eloquent",
-            "version": "0.1.1",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alxarafe/resource-eloquent.git",
+                "reference": "9de4040cfc938e004418ca3731ced88d996e2204"
+            },
             "dist": {
-                "type": "path",
-                "url": "../resource-eloquent",
-                "reference": "e6faa3f590ebbfb103d35011ac2c2b9b967498e5"
+                "type": "zip",
+                "url": "https://api.github.com/repos/alxarafe/resource-eloquent/zipball/9de4040cfc938e004418ca3731ced88d996e2204",
+                "reference": "9de4040cfc938e004418ca3731ced88d996e2204",
+                "shasum": ""
             },
             "require": {
                 "alxarafe/resource-controller": "^0.2.1",
@@ -90,11 +99,7 @@
                     "Alxarafe\\ResourceEloquent\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Alxarafe\\ResourceEloquent\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -115,10 +120,11 @@
                 "orm",
                 "resource-controller"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/alxarafe/resource-eloquent/issues",
+                "source": "https://github.com/alxarafe/resource-eloquent/tree/v0.1.1"
+            },
+            "time": "2026-04-24T11:02:42+00:00"
         },
         {
             "name": "brick/math",
