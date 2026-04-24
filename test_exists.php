@@ -17,7 +17,7 @@ echo "View name from ViewHelper: " . $viewName . "\n";
 // Emulate ComponentRenderer setup
 $template = new \Alxarafe\Infrastructure\Persistence\Template();
 $template->addPath(__DIR__ . '/templates');
-$template->addPath(__DIR__ . '/../resource-blade/templates');
+// Path to other templates if needed
 
 // Force Blade init
 $template->render('dummy_view_just_to_init');

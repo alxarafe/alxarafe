@@ -33,7 +33,6 @@ services:
             - alxarafe_network
         volumes:
             - ".:/var/www/html:rw"
-            - "../resource-blade:/var/www/resource-blade:rw"
             - "../resource-controller:/var/www/resource-controller:rw"
             - "../resource-eloquent:/var/www/resource-eloquent:rw"
             - "../resource-html:/var/www/resource-html:rw"

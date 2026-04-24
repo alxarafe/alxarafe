@@ -139,7 +139,7 @@ class Template
             // Register native custom directive for resource-controller components
             $this->blade->directive('renderComponent', function ($expression) {
                 error_log("Blade directive renderComponent called with expression: " . $expression);
-                return "<?php echo \Alxarafe\ResourceBlade\ViewHelper::render(\$__env, $expression); ?>";
+                return "<?php echo \Alxarafe\Infrastructure\Component\ComponentRenderer::render($expression); ?>";
             });
         }
 

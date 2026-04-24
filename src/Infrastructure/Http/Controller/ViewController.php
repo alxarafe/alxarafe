@@ -93,7 +93,6 @@ abstract class ViewController extends GenericController
             if (is_dir($baseTplPath)) {
                 $this->addTemplatesPath($baseTplPath);
             }
-            }
         }
 
         // Initialize language only if not already set by dispatcher

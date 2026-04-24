@@ -8,7 +8,7 @@
     {
       "name": "Rafael San José",
       "email": "rsanjose@alxarafe.com",
-      "homepage": "https://alxarafe.com",
+      "homepage": "https://alxarafe.es",
       "role": "Developer"
     }
   ],
@@ -20,20 +20,10 @@
     "vendor-dir": "vendor",
     "process-timeout": 0
   },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../resource-html"
-    },
-    {
-      "type": "path",
-      "url": "../resource-twig"
-    }
-  ],
   "require": {
     "php": "^8.2",
-    "alxarafe/resource-controller": "^0.1.1",
-    "alxarafe/resource-eloquent": "^0.1.0",
+    "alxarafe/resource-controller": "^0.2.1",
+    "alxarafe/resource-eloquent": "^0.1.1",
     "firebase/php-jwt": "^7.0",
     "illuminate/database": "^10.48",
     "illuminate/events": "^10.48",

@@ -9,7 +9,7 @@ $template = new Template();
 $template->setPaths([
     __DIR__ . '/skeleton/public/templates',
     __DIR__ . '/templates',
-    __DIR__ . '/../resource-blade/templates'
+    // Add other paths as needed
 ]);
 
 $exists = $template->render('component/container/tab_group');
