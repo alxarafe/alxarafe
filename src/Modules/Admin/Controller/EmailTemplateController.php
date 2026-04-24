@@ -35,7 +35,7 @@ use Alxarafe\Infrastructure\Http\Controller\ResourceController;
 class EmailTemplateController extends ResourceController
 {
     #[\Override]
-    protected function getModelClass(): string|array
+    protected function getModelClassName(): string
     {
         return \Modules\Admin\Model\EmailTemplate::class;
     }

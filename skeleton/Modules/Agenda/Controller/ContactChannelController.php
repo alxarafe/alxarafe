@@ -52,7 +52,7 @@ class ContactChannelController extends PublicResourceController
     }
 
     #[\Override]
-    protected function getModelClass(): string|array
+    protected function getModelClassName(): string
     {
         return ContactChannel::class;
     }

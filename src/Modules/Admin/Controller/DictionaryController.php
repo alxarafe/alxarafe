@@ -62,7 +62,7 @@ class DictionaryController extends ResourceController
      * @return string
      */
     #[\Override]
-    protected function getModelClass(): string|array
+    protected function getModelClassName(): string
     {
         if ($this->resolvedModelClass) {
             return $this->resolvedModelClass;

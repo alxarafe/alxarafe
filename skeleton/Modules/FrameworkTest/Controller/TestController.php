@@ -66,7 +66,7 @@ class TestController extends PublicResourceController
     /**
      * Define the primary model class for this controller.
      */
-    protected function getModelClass(): string|array
+    protected function getModelClassName(): string
     {
         return TestModel::class;
     }

@@ -68,7 +68,7 @@ class ConfigController extends ResourceController
     protected bool $useTabs = true;
 
     #[\Override]
-    protected function getModelClass(): string|array
+    protected function getModelClassName(): string
     {
         // Config is not a standard Eloquent Model, but we can treat it specially in handleRequest/fetchRecordData
         return 'Alxarafe\Infrastructure\Persistence\Config';

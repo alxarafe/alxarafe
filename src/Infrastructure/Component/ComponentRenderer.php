@@ -14,11 +14,15 @@ class ComponentRenderer
     {
         if (self::$renderer === null) {
             self::$renderer = new Template();
-            if (defined('ALX_PATH')) {
-                self::$renderer->addPath(constant('ALX_PATH') . '/templates');
-            }
+            
+            // Allow application to override templates
             if (defined('BASE_PATH')) {
                 self::$renderer->addPath(constant('BASE_PATH') . '/templates');
+            }
+            
+            // Core templates
+            if (defined('ALX_PATH')) {
+                self::$renderer->addPath(constant('ALX_PATH') . '/templates');
             }
         }
 
@@ -32,10 +36,10 @@ class ComponentRenderer
             } elseif ($componentName === 'select2') {
                 $componentName = 'select';
             }
-            $viewName = 'form/' . $componentName;
+            $viewName = 'component/form/' . $componentName;
             $data = $component->jsonSerialize();
         } elseif ($component instanceof AbstractContainer) {
-            $viewName = 'container/' . $component->getContainerType();
+            $viewName = 'component/container/' . $component->getContainerType();
             $data = $component->jsonSerialize();
             // Container views often expect the object itself as $container
             $data['container'] = $component;

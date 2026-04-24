@@ -97,6 +97,12 @@ class Template
             $container->instance(\Illuminate\Contracts\View\Factory::class, $factory);
             $container->alias('view', \Illuminate\Contracts\View\Factory::class);
 
+            // Ensure paths are added to the FileViewFinder ACTUAL instance used by the factory
+            $finder = $factory->getFinder();
+            foreach ($this->paths as $path) {
+                $finder->addLocation($path);
+            }
+
             // Bind a mock Application to satisfy Blade's ComponentTagCompiler (requires getNamespace())
             if (!$container->bound(\Illuminate\Contracts\Foundation\Application::class)) {
                 $container->singleton(\Illuminate\Contracts\Foundation\Application::class, function () {
@@ -114,6 +120,9 @@ class Template
                 $cleanPath = rtrim($path, '/');
                 if (is_dir($cleanPath)) {
                     $this->blade->compiler()->anonymousComponentPath($cleanPath);
+                    if (is_dir($cleanPath . '/component')) {
+                        $this->blade->compiler()->anonymousComponentPath($cleanPath . '/component', '');
+                    }
                     $this->blade->addNamespace(md5($cleanPath), $cleanPath);
                     // Explicitly add the __components namespace to the view factory to avoid 'No hint path' error
                     $this->blade->addNamespace('__components', $cleanPath);
@@ -126,6 +135,12 @@ class Template
                     \Alxarafe\Infrastructure\Tools\Debug::addTemplateTrace($view->getName(), $view->getPath());
                 });
             }
+
+            // Register native custom directive for resource-controller components
+            $this->blade->directive('renderComponent', function ($expression) {
+                error_log("Blade directive renderComponent called with expression: " . $expression);
+                return "<?php echo \Alxarafe\ResourceBlade\ViewHelper::render(\$__env, $expression); ?>";
+            });
         }
 
         $viewName = str_replace('/', '.', $view);

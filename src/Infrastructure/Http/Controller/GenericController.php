@@ -49,7 +49,7 @@ abstract class GenericController
      * @param mixed $data Arbitrary data passed to the controller.
      */
     public function __construct(
-        ?string      $action = null,
+        ?string $action = null,
         public mixed $data = null
     ) {
         $this->action = $action

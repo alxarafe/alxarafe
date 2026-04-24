@@ -121,21 +121,13 @@ abstract class ResourceController extends Controller implements ResourceInterfac
 
     protected function getRepository(string $tabId = 'default'): RepositoryContract
     {
-        $modelClass = $this->getModelClass();
-
-        if (is_array($modelClass)) {
-            $class = $modelClass[$tabId] ?? reset($modelClass);
-        } else {
-            $class = $modelClass;
-        }
-
-        return new EloquentRepository($class, $this->with ?? []);
+        return new EloquentRepository($this->getModelClassName(), $this->with ?? []);
     }
 
     /**
-     * Must return the Eloquent model class (or array of classes for multi-tab).
+     * Must return the Eloquent model class name.
      *
-     * @return string|array<string, string>
+     * @return string
      */
-    abstract protected function getModelClass(): string|array;
+    abstract protected function getModelClassName(): string;
 }

@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "997850ee9af56c58cf6f44ca1f3d0620",
+    "content-hash": "b7cb016fe3137a1d28fe2508eb165a31",
     "packages": [
+        {
+            "name": "alxarafe/resource-blade",
+            "version": "0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "../resource-blade",
+                "reference": "ddf55284aef9f4d4488e8b4d26e804257bb7f82f"
+            },
+            "require": {
+                "alxarafe/resource-controller": "^0.1",
+                "illuminate/filesystem": "^10.0 || ^11.0 || ^12.0",
+                "illuminate/view": "^10.0 || ^11.0 || ^12.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^10.5",
+                "squizlabs/php_codesniffer": "^3.10",
+                "vimeo/psalm": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Alxarafe\\ResourceBlade\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Alxarafe\\ResourceBlade\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael San José",
+                    "email": "rsanjose@alxarafe.com",
+                    "homepage": "https://alxarafe.es",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Blade adapter for alxarafe/resource-controller. Provides a RendererContract implementation using Laravel's Blade engine for server-side template rendering.",
+            "keywords": [
+                "alxarafe",
+                "blade",
+                "laravel",
+                "renderer",
+                "resource-controller",
+                "template"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "alxarafe/resource-controller",
             "version": "v0.1.1",

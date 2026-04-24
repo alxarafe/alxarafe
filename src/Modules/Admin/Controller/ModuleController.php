@@ -307,7 +307,7 @@ class ModuleController extends Controller
         return false;
     }
 
-    protected function getModelClass()
+    protected function getModelClassName(): ?string
     {
         return null;
     }

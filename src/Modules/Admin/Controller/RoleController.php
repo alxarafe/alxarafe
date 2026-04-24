@@ -48,7 +48,7 @@ class RoleController extends ResourceController
     }
 
     #[\Override]
-    protected function getModelClass(): string|array
+    protected function getModelClassName(): string
     {
         return Role::class;
     }

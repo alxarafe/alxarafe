@@ -20,6 +20,16 @@
     "vendor-dir": "vendor",
     "process-timeout": 0
   },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../resource-html"
+    },
+    {
+      "type": "path",
+      "url": "../resource-twig"
+    }
+  ],
   "require": {
     "php": "^8.2",
     "alxarafe/resource-controller": "^0.1.1",

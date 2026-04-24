@@ -283,10 +283,12 @@ class WebDispatcher extends Dispatcher
          * If the class exists and is successfully instantiated, the module blade templates folder
          * is added, if they exist.
          */
-        if (method_exists($controllerClass, 'setTemplatesPath')) {
+        if (method_exists($controllerClass, 'addTemplatesPath')) {
             Debug::message('Templates: ' . $templates_path[0]);
             Debug::message('Templates: ' . $templates_path[1]);
-            $controllerClass->setTemplatesPath($templates_path);
+            foreach ($templates_path as $path) {
+                $controllerClass->addTemplatesPath($path);
+            }
         }
 
         if (!method_exists($controllerClass, $method)) {
