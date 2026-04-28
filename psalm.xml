@@ -16,5 +16,6 @@
     </projectFiles>
     <issueHandlers>
         <MissingOverrideAttribute errorLevel="suppress" />
+        <UndefinedInterfaceMethod errorLevel="suppress" />
     </issueHandlers>
 </psalm>
