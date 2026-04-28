@@ -43,10 +43,10 @@ if (!defined('APP_PATH')) {
 
 // 2. Resolve ALX_PATH (The framework root)
 if (!defined('ALX_PATH')) {
-    if (is_dir(constant('APP_PATH') . '/src/Core')) {
+    if (is_dir(constant('APP_PATH') . '/src/Infrastructure')) {
         // Production layout or combined layout: framework is in the same root
         define('ALX_PATH', constant('APP_PATH'));
-    } elseif (is_dir(constant('APP_PATH') . '/../src/Core')) {
+    } elseif (is_dir(constant('APP_PATH') . '/../src/Infrastructure')) {
         // Alternative layout
         $alxPath = realpath(constant('APP_PATH') . '/..');
         define('ALX_PATH', $alxPath ?: dirname(constant('APP_PATH')));

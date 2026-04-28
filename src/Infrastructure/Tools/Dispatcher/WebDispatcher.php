@@ -58,7 +58,7 @@ class WebDispatcher extends Dispatcher
 
             if (!defined('ALX_PATH')) {
                 // If src exists in APP_PATH, it means framework and app are in same root
-                if (is_dir(constant('APP_PATH') . '/src/Core')) {
+                if (is_dir(constant('APP_PATH') . '/src/Infrastructure')) {
                     define('ALX_PATH', constant('APP_PATH'));
                 } else {
                     // Try to guess from vendor or parent
