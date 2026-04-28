@@ -149,6 +149,8 @@ abstract class Functions
         if (defined('ALX_TESTING')) {
             throw new \Alxarafe\Infrastructure\Testing\HttpResponseException(['redirect' => $url], "Redirect to $url");
         }
+        // Temporary logging to debug redirect loops
+        error_log("[ALX-DEBUG] Redirecting to: " . $url . " | From: " . ($_SERVER['REQUEST_URI'] ?? 'Unknown'));
         header('Location: ' . $url);
         die();
     }
