@@ -24,7 +24,7 @@ use Alxarafe\ResourceController\Component\AbstractFilter;
 class AutocompleteFilter extends AbstractFilter
 {
     #[\Override]
-    public function apply($query, $value): void
+    public function apply(\Alxarafe\ResourceController\Contracts\QueryContract $query, $value): void
     {
         $query->where($this->field, '=', $value);
     }

@@ -68,8 +68,8 @@ trait AlxarafeResourceBridgeTrait
         }
         
         // Fallback using reflection
-        if (!$baseDir && class_exists(\Alxarafe\ResourceController\Controller\ResourceController::class)) {
-            $reflector = new \ReflectionClass(\Alxarafe\ResourceController\Controller\ResourceController::class);
+        if (!$baseDir && class_exists(\Alxarafe\ResourceController\AbstractResourceController::class)) {
+            $reflector = new \ReflectionClass(\Alxarafe\ResourceController\AbstractResourceController::class);
             $baseDir = dirname($reflector->getFileName(), 3) . '/templates';
         }
 

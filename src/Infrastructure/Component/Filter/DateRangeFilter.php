@@ -24,7 +24,7 @@ use Alxarafe\ResourceController\Component\AbstractFilter;
 class DateRangeFilter extends AbstractFilter
 {
     #[\Override]
-    public function apply($query, $value): void
+    public function apply(\Alxarafe\ResourceController\Contracts\QueryContract $query, $value): void
     {
         // DateRange values usually come as separate params handled by the controller logic
         // But if passed as an array ['from' => '...', 'to' => '...']:

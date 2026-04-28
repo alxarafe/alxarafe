@@ -67,7 +67,6 @@ class ConfigController extends ResourceController
     public bool $pdo_db_exists = false;
     protected bool $useTabs = true;
 
-    #[\Override]
     protected function getModelClassName(): string
     {
         // Config is not a standard Eloquent Model, but we can treat it specially in handleRequest/fetchRecordData
@@ -78,7 +77,6 @@ class ConfigController extends ResourceController
      * Build the ViewDescriptor for the Config form.
      * Uses the new body format with Panel components.
      */
-    #[\Override]
     public function getViewDescriptor(): array
     {
         $tabs = $this->getTabs();
@@ -121,13 +119,11 @@ class ConfigController extends ResourceController
      * Skip the standard buildConfiguration() since ConfigController
      * doesn't use structConfig for its form — getViewDescriptor() handles everything.
      */
-    #[\Override]
     protected function buildConfiguration(): void
     {
         // No-op: Config form structure is defined in getViewDescriptor().
     }
 
-    #[\Override]
     protected function setup(): void
     {
         // Buttons are defined in getViewDescriptor() instead of here,
@@ -135,7 +131,6 @@ class ConfigController extends ResourceController
         // getViewDescriptor() runs in renderView(), which executes after handleRequest().
     }
 
-    #[\Override]
     protected function getEditFields(): array
     {
         $this->languages = Trans::getAvailableLanguages();
@@ -177,7 +172,6 @@ class ConfigController extends ResourceController
         ];
     }
 
-    #[\Override]
     protected function detectMode(): void
     {
         // Config is always in Edit Mode
@@ -185,7 +179,6 @@ class ConfigController extends ResourceController
         $this->recordId = 'current';
     }
 
-    #[\Override]
     protected function handleRequest(): void
     {
         if (isset($_GET['ajax'])) {
@@ -209,7 +202,6 @@ class ConfigController extends ResourceController
         parent::handleRequest();
     }
 
-    #[\Override]
     protected function fetchRecordData(): array
     {
         $config = Config::getConfig(true);
@@ -228,7 +220,6 @@ class ConfigController extends ResourceController
         ];
     }
 
-    #[\Override]
     protected function saveRecord(): void
     {
         $data = $_POST['data'] ?? [];
@@ -290,7 +281,6 @@ class ConfigController extends ResourceController
      *
      * @return string
      */
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
@@ -301,7 +291,6 @@ class ConfigController extends ResourceController
      *
      * @return string
      */
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'Config';
@@ -311,7 +300,6 @@ class ConfigController extends ResourceController
      * Determine if this controller requires authentication.
      * Use to allow access during installation (when DB/Tables are missing).
      */
-    #[\Override]
     protected function shouldEnforceAuth(): bool
     {
         $config = \Alxarafe\Infrastructure\Persistence\Config::getConfig();
@@ -346,7 +334,6 @@ class ConfigController extends ResourceController
         return true;
     }
 
-    #[\Override]
     public function beforeAction(): bool
     {
         // Restore flash messages from session (survive redirects)

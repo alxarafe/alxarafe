@@ -29,7 +29,7 @@ class RelationFilter extends AbstractFilter
 
     public function __construct(string $field, string $relatedModelClass, string $label)
     {
-        parent::__construct($field, $label, 'text', []);
+        parent::__construct($field, $label);
         $this->relatedModelClass = $relatedModelClass;
 
         if (method_exists($relatedModelClass, 'tableName')) {
@@ -52,11 +52,9 @@ class RelationFilter extends AbstractFilter
             }
         }
     }
-
-    #[\Override]
-    public function apply($query, $value): void
+    public function apply(\Alxarafe\ResourceController\Contracts\QueryContract $query, $value): void
     {
-        $searchSQL = $this->getSearchSQL($value);
+        $searchSQL = $this->getSearchSQL((string)$value);
         if ($searchSQL) {
             // Construimos la subconsulta usando whereRaw para aprovechar el SQL generado
             // FIELD IN (SELECT PK FROM RELATED_TABLE WHERE SEARCH_SQL)
@@ -95,7 +93,6 @@ class RelationFilter extends AbstractFilter
         return empty($parts) ? '' : '(' . implode(' OR ', $parts) . ')';
     }
 
-    #[\Override]
     public function getType(): string
     {
         return 'text'; // En el frontend se comporta como un input texto

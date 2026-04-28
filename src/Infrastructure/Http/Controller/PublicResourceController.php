@@ -48,6 +48,12 @@ abstract class PublicResourceController extends GenericPublicController implemen
     private AlxarafeHookAdapter $alxHooks;
     private EloquentTransaction $alxTransaction;
 
+    /**
+     * Eager loading relationships for the repository.
+     * @var array
+     */
+    protected array $with = [];
+
     public function __construct()
     {
         $this->alxTranslator = new AlxarafeTranslator();
@@ -78,7 +84,6 @@ abstract class PublicResourceController extends GenericPublicController implemen
         return $this->alxTransaction;
     }
 
-    #[\Override]
     public static function url(string $action = 'index', array $params = []): string
     {
         $baseUrl = 'index.php?module=' . static::getModuleName() . '&controller=' . static::getControllerName();
@@ -115,9 +120,10 @@ abstract class PublicResourceController extends GenericPublicController implemen
         return true;
     }
 
+    #[\Override]
     protected function getRepository(string $tabId = 'default'): RepositoryContract
     {
-        return new EloquentRepository($this->getModelClassName(), $this->with ?? []);
+        return new EloquentRepository($this->getModelClassName(), $this->with);
     }
 
     /**
