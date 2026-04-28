@@ -21,9 +21,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Alxarafe\\": "../src/Core",
-            "CoreModules\\": "../src/Modules",
-            "Modules\\": "Modules/"
+            "Alxarafe\\Domain\\": "../src/Domain",
+            "Alxarafe\\Application\\": "../src/Application",
+            "Alxarafe\\Infrastructure\\": "../src/Infrastructure",
+            "Alxarafe\\Scripts\\": "../src/Scripts",
+            "Modules\\": ["Modules/", "../src/Modules"]
         }
     },
     "config": {
