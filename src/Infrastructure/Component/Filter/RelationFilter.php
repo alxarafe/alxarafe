@@ -29,7 +29,7 @@ class RelationFilter extends AbstractFilter
 
     public function __construct(string $field, string $relatedModelClass, string $label)
     {
-        parent::__construct($field, $label, []);
+        parent::__construct($field, $label, 'text', []);
         $this->relatedModelClass = $relatedModelClass;
 
         if (method_exists($relatedModelClass, 'tableName')) {

@@ -206,7 +206,6 @@ class MenuManager
                     return 'role_' . $role->id;
                 }
             } 
-            /** @phpstan-ignore catch.neverThrown */
             catch (\Throwable $e) {
                 // Role not available, fall through
             }

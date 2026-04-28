@@ -106,7 +106,7 @@ class ConfigController extends ResourceController
         }
 
         return [
-            'mode'     => $this->mode ?? 'edit',
+            'mode'     => $this->mode,
             'method'   => 'POST',
             'action'   => '?module=' . static::getModuleName() . '&controller=' . static::getControllerName(),
             'recordId' => 'current',

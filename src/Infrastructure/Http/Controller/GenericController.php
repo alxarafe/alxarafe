@@ -249,8 +249,8 @@ abstract class GenericController
     /**
      * Generates a URL for this controller.
      *
-     * @param string|bool $action Action name (or 'index'), or legacy bool flag.
-     * @param array|bool $params  Query parameters, or legacy bool flag.
+     * @param string $action Action name (or 'index').
+     * @param array $params  Query parameters.
      * @return string
      */
     public static function url(string $action = 'index', array $params = []): string
@@ -268,11 +268,11 @@ abstract class GenericController
 
         $url = "/index.php?module={$module}&controller={$controller}";
 
-        if (is_string($action) && $action !== 'index' && $action !== '') {
+        if ($action !== 'index' && $action !== '') {
             $url .= "&action={$action}";
         }
 
-        if (is_array($params) && !empty($params)) {
+        if (!empty($params)) {
             $url .= '&' . http_build_query($params);
         }
 

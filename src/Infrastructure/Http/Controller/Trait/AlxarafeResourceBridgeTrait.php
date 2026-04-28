@@ -19,7 +19,7 @@ trait AlxarafeResourceBridgeTrait
         if (!$this->getTemplateName()) {
             $module = static::getModuleName();
             $controller = static::getControllerName();
-            $action = $this->mode ?? 'edit';
+            $action = $this->mode;
 
             $basePath = defined('BASE_PATH') ? constant('BASE_PATH') : __DIR__ . '/../../../../..';
             $cacheDir = $basePath . '/../var/cache/resources/' . $module . '/' . $controller;
@@ -37,17 +37,16 @@ trait AlxarafeResourceBridgeTrait
             }
         }
 
-        if (property_exists($this, 'structConfig')) {
-            $this->addVariable('config', $this->structConfig);
-            
-            $jsConfig = [
-                'mode' => $this->mode ?? 'edit',
-                'recordId' => $this->recordId ?? '',
-                'config' => $this->structConfig,
-                'templates' => $this->getJsTemplates()
-            ];
-            $this->addVariable('jsConfig', $jsConfig);
-        }
+        // Add config to view
+        $this->addVariable('config', $this->structConfig);
+
+        $jsConfig = [
+            'mode' => $this->mode,
+            'recordId' => $this->recordId ?? '',
+            'config' => $this->structConfig,
+            'templates' => $this->getJsTemplates()
+        ];
+        $this->addVariable('jsConfig', $jsConfig);
         $this->addVariable('viewDescriptor', $this->getViewDescriptor());
     }
 

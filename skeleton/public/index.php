@@ -1,6 +1,25 @@
 <?php
 
-require __DIR__ . '/../../vendor/autoload.php';
+// 1. Resolve Autoloader (Support multiple folder structures)
+$autoloadPaths = [
+    __DIR__ . '/../../vendor/autoload.php', // Local dev (skeleton/public/../../vendor)
+    __DIR__ . '/../vendor/autoload.php',    // Standard deployment (public_html/../vendor)
+    __DIR__ . '/vendor/autoload.php',       // Flat deployment
+];
+
+$found = false;
+foreach ($autoloadPaths as $path) {
+    if (file_exists($path)) {
+        require_once $path;
+        $found = true;
+        break;
+    }
+}
+
+if (!$found) {
+    http_response_code(500);
+    die("Fatal Error: vendor/autoload.php not found. Please run 'composer install'. Checked: " . implode(', ', $autoloadPaths));
+}
 
 
 use Alxarafe\Infrastructure\Tools\Dispatcher\WebDispatcher;
