@@ -50,25 +50,21 @@ use Modules\Agenda\Model\ContactChannel;
 )]
 class ContactController extends PublicResourceController
 {
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Agenda';
     }
 
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'Contact';
     }
 
-    #[\Override]
     protected function getModelClassName(): string
     {
         return Contact::class;
     }
 
-    #[\Override]
     protected function getListColumns(): array
     {
         return [
@@ -77,7 +73,6 @@ class ContactController extends PublicResourceController
         ];
     }
 
-    #[\Override]
     protected function getEditFields(): array
     {
         return [
@@ -103,7 +98,6 @@ class ContactController extends PublicResourceController
     /**
      * Set custom template and pass relationship data for the edit view.
      */
-    #[\Override]
     protected function beforeEdit(): void
     {
         // Register the module's Templates directory
@@ -147,7 +141,6 @@ class ContactController extends PublicResourceController
     /**
      * Save contact with addresses and channels relationships.
      */
-    #[\Override]
     protected function saveRecord(): void
     {
         $id = $_POST['id'] ?? null;

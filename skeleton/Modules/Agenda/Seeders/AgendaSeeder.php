@@ -30,7 +30,6 @@ use Modules\Agenda\Model\ContactChannel;
  */
 class AgendaSeeder extends Seeder
 {
-    #[\Override]
     protected function run(string $modelClass): void
     {
         // Ensure channel types exist (AgendaSeeder runs before ContactChannelSeeder alphabetically)
@@ -159,7 +158,6 @@ class AgendaSeeder extends Seeder
         }
     }
 
-    #[\Override]
     protected static function model(): string
     {
         return Contact::class;

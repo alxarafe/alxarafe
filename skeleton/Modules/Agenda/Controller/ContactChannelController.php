@@ -39,25 +39,21 @@ use Modules\Agenda\Model\ContactChannel;
 )]
 class ContactChannelController extends PublicResourceController
 {
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Agenda';
     }
 
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'ContactChannel';
     }
 
-    #[\Override]
     protected function getModelClassName(): string
     {
         return ContactChannel::class;
     }
 
-    #[\Override]
     protected function getListColumns(): array
     {
         return [
@@ -66,7 +62,6 @@ class ContactChannelController extends PublicResourceController
         ];
     }
 
-    #[\Override]
     protected function getEditFields(): array
     {
         return [

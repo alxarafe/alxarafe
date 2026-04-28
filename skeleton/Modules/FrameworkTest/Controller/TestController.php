@@ -129,7 +129,6 @@ class TestController extends PublicResourceController
      * Handle the request for the test page.
      * Intercepts the 'save' action to persist data into a YAML file for demo purposes.
      */
-    #[\Override]
     protected function handleRequest(): void
     {
         // Custom handling for 'save' button in demo mode
@@ -170,7 +169,6 @@ class TestController extends PublicResourceController
      * Tab 2: "Paneles Anidados" — Nested panels demo (Panel in Panel in Panel)
      * Tab 3: "Markdown" — Rendered content from test_markdown.md
      */
-    #[\Override]
     public function getViewDescriptor(): array
     {
         return [

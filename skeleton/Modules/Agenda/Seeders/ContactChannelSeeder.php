@@ -27,7 +27,6 @@ use Modules\Agenda\Model\ContactChannel;
  */
 class ContactChannelSeeder extends Seeder
 {
-    #[\Override]
     protected function run(string $modelClass): void
     {
         $channels = [
@@ -48,7 +47,6 @@ class ContactChannelSeeder extends Seeder
         }
     }
 
-    #[\Override]
     protected static function model(): string
     {
         return ContactChannel::class;
