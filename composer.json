@@ -22,7 +22,7 @@
   },
   "require": {
     "php": "^8.2",
-    "alxarafe/resource-controller": "^0.2.1",
+    "alxarafe/resource-controller": "^0.2.2",
     "alxarafe/resource-eloquent": "^0.1.1",
     "firebase/php-jwt": "^7.0",
     "illuminate/database": "^10.48",

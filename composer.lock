@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae151d8fd64df84b64f7d02455d443b7",
+    "content-hash": "abf09f2057e1e0f23b51489e372c4452",
     "packages": [
         {
             "name": "alxarafe/resource-controller",
-            "version": "v0.2.1",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alxarafe/resource-controller.git",
-                "reference": "1e20265f504a43a1e6784d5c56f4a6a5fad9449e"
+                "reference": "e7dd6b0edd88ecc82adb0c55504c15d6e3ad53b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alxarafe/resource-controller/zipball/1e20265f504a43a1e6784d5c56f4a6a5fad9449e",
-                "reference": "1e20265f504a43a1e6784d5c56f4a6a5fad9449e",
+                "url": "https://api.github.com/repos/alxarafe/resource-controller/zipball/e7dd6b0edd88ecc82adb0c55504c15d6e3ad53b2",
+                "reference": "e7dd6b0edd88ecc82adb0c55504c15d6e3ad53b2",
                 "shasum": ""
             },
             "require": {
@@ -64,26 +64,26 @@
             ],
             "support": {
                 "issues": "https://github.com/alxarafe/resource-controller/issues",
-                "source": "https://github.com/alxarafe/resource-controller/tree/v0.2.1"
+                "source": "https://github.com/alxarafe/resource-controller/tree/v0.2.2"
             },
-            "time": "2026-04-24T11:02:10+00:00"
+            "time": "2026-04-28T18:14:30+00:00"
         },
         {
             "name": "alxarafe/resource-eloquent",
-            "version": "v0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alxarafe/resource-eloquent.git",
-                "reference": "9de4040cfc938e004418ca3731ced88d996e2204"
+                "reference": "c90ac127e64a07f95ad918a7e8c0a55fc81aa6d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alxarafe/resource-eloquent/zipball/9de4040cfc938e004418ca3731ced88d996e2204",
-                "reference": "9de4040cfc938e004418ca3731ced88d996e2204",
+                "url": "https://api.github.com/repos/alxarafe/resource-eloquent/zipball/c90ac127e64a07f95ad918a7e8c0a55fc81aa6d7",
+                "reference": "c90ac127e64a07f95ad918a7e8c0a55fc81aa6d7",
                 "shasum": ""
             },
             "require": {
-                "alxarafe/resource-controller": "^0.2.1",
+                "alxarafe/resource-controller": "^0.2.2",
                 "illuminate/database": "^10.0 || ^11.0 || ^12.0",
                 "php": "^8.2"
             },
@@ -122,9 +122,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alxarafe/resource-eloquent/issues",
-                "source": "https://github.com/alxarafe/resource-eloquent/tree/v0.1.1"
+                "source": "https://github.com/alxarafe/resource-eloquent/tree/v0.1.2"
             },
-            "time": "2026-04-24T11:02:42+00:00"
+            "time": "2026-04-28T18:25:44+00:00"
         },
         {
             "name": "brick/math",
