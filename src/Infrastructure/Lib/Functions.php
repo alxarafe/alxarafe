@@ -31,8 +31,9 @@ abstract class Functions
      */
     public static function getUrl()
     {
-        $ssl = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on';
-        $proto = strtolower($_SERVER['SERVER_PROTOCOL']);
+        $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ||
+               (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
+        $proto = strtolower($_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1');
         $proto = substr($proto, 0, strpos($proto, '/')) . ($ssl ? 's' : '');
         if (isset($_SERVER['HTTP_HOST'])) {
             $host = $_SERVER['HTTP_HOST'];

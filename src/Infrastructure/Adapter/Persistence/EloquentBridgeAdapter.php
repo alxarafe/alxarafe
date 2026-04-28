@@ -57,7 +57,6 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function findById(string $table, int|string $id): ?array
     {
         $result = CapsuleManager::table($table)
@@ -68,7 +67,6 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function findBy(
         string $table,
         array $criteria = [],
@@ -101,7 +99,6 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function findOneBy(string $table, array $criteria): ?array
     {
         $query = CapsuleManager::table($table);
@@ -119,14 +116,12 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function insert(string $table, array $data): int|string
     {
         return (string) CapsuleManager::table($table)->insertGetId($data);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function update(string $table, int|string $id, array $data): bool
     {
         $affected = CapsuleManager::table($table)
@@ -137,7 +132,6 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function delete(string $table, int|string $id): bool
     {
         $affected = CapsuleManager::table($table)
@@ -148,14 +142,12 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function transactional(callable $callback): mixed
     {
         return CapsuleManager::connection()->transaction($callback);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function rawQuery(string $sql, array $params = []): array
     {
         $results = CapsuleManager::connection()->select($sql, $params);
@@ -163,7 +155,6 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function exists(string $table, int|string $id): bool
     {
         return CapsuleManager::table($table)
@@ -172,7 +163,6 @@ class EloquentBridgeAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function count(string $table, array $criteria = []): int
     {
         $query = CapsuleManager::table($table);

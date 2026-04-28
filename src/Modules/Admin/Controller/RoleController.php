@@ -35,19 +35,16 @@ use Alxarafe\Infrastructure\Attribute\Menu;
 )]
 class RoleController extends ResourceController
 {
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
     }
 
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'Role';
     }
 
-    #[\Override]
     protected function getModelClassName(): string
     {
         return Role::class;
@@ -56,7 +53,6 @@ class RoleController extends ResourceController
     /**
      * List view properties.
      */
-    #[\Override]
     protected function getListColumns(): array
     {
         return [
@@ -67,7 +63,6 @@ class RoleController extends ResourceController
         ];
     }
 
-    #[\Override]
     protected function getEditFields(): array
     {
         return [
@@ -77,7 +72,6 @@ class RoleController extends ResourceController
         ];
     }
 
-    #[\Override]
     protected function saveRecord(): void
     {
         // Custom Manual Save to support standard HTML Form POST
@@ -134,7 +128,6 @@ class RoleController extends ResourceController
         }
     }
 
-    #[\Override]
     protected function beforeEdit(): void
     {
         // Load Permissions
@@ -166,7 +159,6 @@ class RoleController extends ResourceController
         $this->setDefaultTemplate('page/role_edit');
     }
 
-    #[\Override]
     protected function beforeList(): void
     {
         // 1. Fetch all roles for the simple list view

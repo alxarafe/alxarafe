@@ -120,7 +120,6 @@ abstract class PublicResourceController extends GenericPublicController implemen
         return true;
     }
 
-    #[\Override]
     protected function getRepository(string $tabId = 'default'): RepositoryContract
     {
         return new EloquentRepository($this->getModelClassName(), $this->with);

@@ -55,13 +55,11 @@ use Alxarafe\Infrastructure\Attribute\Menu;
 )]
 class HomeController extends Controller
 {
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
     }
 
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'Home';

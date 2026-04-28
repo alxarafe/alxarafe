@@ -49,7 +49,6 @@ class SessionAuthAdapter implements AuthPort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function authenticate(string $username, string $password): ?array
     {
         $user = $this->persistence->findOneBy($this->usersTable, ['name' => $username]);
@@ -69,28 +68,24 @@ class SessionAuthAdapter implements AuthPort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function getAuthenticatedUser(): ?array
     {
         return $_SESSION[self::SESSION_KEY] ?? null;
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function isAuthenticated(): bool
     {
         return isset($_SESSION[self::SESSION_KEY]);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function logout(): void
     {
         unset($_SESSION[self::SESSION_KEY]);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function hasPermission(string $permission): bool
     {
         $user = $this->getAuthenticatedUser();
@@ -108,7 +103,6 @@ class SessionAuthAdapter implements AuthPort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function hasRole(string $role): bool
     {
         $user = $this->getAuthenticatedUser();
@@ -120,7 +114,6 @@ class SessionAuthAdapter implements AuthPort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function getUserId(): int|string|null
     {
         $user = $this->getAuthenticatedUser();

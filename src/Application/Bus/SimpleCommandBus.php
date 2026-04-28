@@ -86,7 +86,6 @@ class SimpleCommandBus implements CommandBusPort
      *
      * @throws \RuntimeException If no handler is registered for the command.
      */
-    #[\Override]
     public function dispatch(Command $command): mixed
     {
         $commandClass = $command::class;

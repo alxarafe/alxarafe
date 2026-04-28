@@ -309,7 +309,6 @@ class WebDispatcher extends Dispatcher
      */
     private static bool $inErrorState = false;
 
-    #[\Override]
     protected static function dieWithMessage($message)
     {
         Debug::message('WebDispatcher error: ' . $message);

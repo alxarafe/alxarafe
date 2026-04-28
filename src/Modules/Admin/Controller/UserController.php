@@ -39,25 +39,21 @@ use Alxarafe\ResourceController\Component\Fields\Text;
 )]
 class UserController extends ResourceController
 {
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
     }
 
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'User';
     }
 
-    #[\Override]
     protected function getModelClassName(): string
     {
         return User::class;
     }
 
-    #[\Override]
     protected function getEditFields(): array
     {
         /** @var User $user */
@@ -68,7 +64,6 @@ class UserController extends ResourceController
         return \Modules\Admin\Service\UserService::getFormPanels($user, $isAdminContext);
     }
 
-    #[\Override]
     protected function beforeEdit(): void
     {
         // Default template logic uses the structure from getEditFields().
@@ -76,7 +71,6 @@ class UserController extends ResourceController
         // $this->setDefaultTemplate('page/user_edit');
     }
 
-    #[\Override]
     protected function beforeList(): void
     {
         $users = User::all();
@@ -85,7 +79,6 @@ class UserController extends ResourceController
         $this->addVariable('title', \Alxarafe\Infrastructure\Lib\Trans::_('user_management'));
     }
 
-    #[\Override]
     protected function saveRecord(): void
     {
         try {

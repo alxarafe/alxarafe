@@ -97,7 +97,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function findById(string $table, int|string $id): ?array
     {
         $sql = "SELECT * FROM `{$this->sanitizeIdentifier($table)}` WHERE `{$this->primaryKey}` = ? LIMIT 1";
@@ -109,7 +108,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function findBy(
         string $table,
         array $criteria = [],
@@ -150,7 +148,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function findOneBy(string $table, array $criteria): ?array
     {
         $results = $this->findBy($table, $criteria, [], 1);
@@ -158,7 +155,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function insert(string $table, array $data): int|string
     {
         $table = $this->sanitizeIdentifier($table);
@@ -176,7 +172,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function update(string $table, int|string $id, array $data): bool
     {
         $table = $this->sanitizeIdentifier($table);
@@ -199,7 +194,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function delete(string $table, int|string $id): bool
     {
         $table = $this->sanitizeIdentifier($table);
@@ -211,7 +205,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function transactional(callable $callback): mixed
     {
         $this->pdo->beginTransaction();
@@ -227,7 +220,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function rawQuery(string $sql, array $params = []): array
     {
         $stmt = $this->pdo->prepare($sql);
@@ -242,7 +234,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function exists(string $table, int|string $id): bool
     {
         $table = $this->sanitizeIdentifier($table);
@@ -254,7 +245,6 @@ class PdoMysqlAdapter implements PersistencePort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function count(string $table, array $criteria = []): int
     {
         $table = $this->sanitizeIdentifier($table);

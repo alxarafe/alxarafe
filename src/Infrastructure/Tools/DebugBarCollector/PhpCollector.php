@@ -63,7 +63,6 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @return array Collected data.
      */
-    #[\Override]
     public function collect(): array
     {
         $messages = $this->getMessages();
@@ -97,7 +96,6 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @return string The widget name.
      */
-    #[\Override]
     public function getName(): string
     {
         return self::$name;
@@ -109,7 +107,6 @@ class PhpCollector extends DataCollector implements Renderable
      *
      * @return array<string, array{default?: float|int|string, icon?: string, map?: string, title?: string, tooltip?: string, widget?: string}>
      */
-    #[\Override]
     public function getWidgets(): array
     {
         $name = self::$name;

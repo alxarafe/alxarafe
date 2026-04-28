@@ -177,7 +177,6 @@ abstract class ViewController extends GenericController
     /**
      * Hook executed after the main action.
      */
-    #[\Override]
     public function afterAction(): bool
     {
         // Load messages before rendering

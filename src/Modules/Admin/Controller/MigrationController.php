@@ -51,7 +51,6 @@ class MigrationController extends Controller
      *
      * @return string
      */
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
@@ -62,7 +61,6 @@ class MigrationController extends Controller
      *
      * @return string
      */
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'Migration';
@@ -264,7 +262,6 @@ class MigrationController extends Controller
      * Determine if this controller requires authentication.
      * Use to allow access during installation (when DB/Tables are missing).
      */
-    #[\Override]
     protected function shouldEnforceAuth(): bool
     {
         $config = \Alxarafe\Infrastructure\Persistence\Config::getConfig();

@@ -34,19 +34,16 @@ use Alxarafe\ResourceController\Component\Container\Panel;
 
 class ProfileController extends GenericPublicController
 {
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
     }
 
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'Profile';
     }
 
-    #[\Override]
     public function beforeAction(): bool
     {
         if (!Auth::isLogged()) {

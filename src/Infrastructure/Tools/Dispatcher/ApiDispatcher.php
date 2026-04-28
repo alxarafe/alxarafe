@@ -43,7 +43,6 @@ use Alxarafe\Infrastructure\Service\ApiDispatcher as NewApiDispatcher;
 
 class ApiDispatcher extends Dispatcher
 {
-    #[\Override]
     protected static function dieWithMessage($message)
     {
         Debug::message('ApiDispatcher error:');

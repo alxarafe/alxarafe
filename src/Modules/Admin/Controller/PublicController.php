@@ -37,7 +37,6 @@ class PublicController extends BasePublicController
      *
      * @return string
      */
-    #[\Override]
     public static function getModuleName(): string
     {
         return 'Admin';
@@ -48,7 +47,6 @@ class PublicController extends BasePublicController
      *
      * @return string
      */
-    #[\Override]
     public static function getControllerName(): string
     {
         return 'Public';

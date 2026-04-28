@@ -52,7 +52,6 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return string
      */
-    #[\Override]
     public function getName(): string
     {
         return 'translations';
@@ -64,7 +63,6 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return array<string, array{default?: float|int|string, icon?: string, map?: string, title?: string, tooltip?: string, widget?: string}>
      */
-    #[\Override]
     public function getWidgets(): array
     {
         return [
@@ -87,7 +85,6 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return array{base_path?: null|string, base_url?: null|string, css?: array<int|string, string>|string, inline_css?: array<int|string, string>, inline_head?: array<int|string, string>, inline_js?: array<int|string, string>, js?: array<int|string, string>|string}
      */
-    #[\Override]
     public function getAssets(): array
     {
         return [
@@ -101,7 +98,6 @@ class TranslatorCollector extends DataCollector implements Renderable, AssetProv
      *
      * @return array Collected data
      */
-    #[\Override]
     public function collect(): array
     {
         $this->addTranslations();

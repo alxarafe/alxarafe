@@ -70,63 +70,54 @@ class FileLoggerAdapter implements LoggerPort
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function emergency(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function alert(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::ALERT, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function critical(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::CRITICAL, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function error(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::ERROR, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function warning(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::WARNING, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function notice(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::NOTICE, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function info(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::INFO, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function debug(string|\Stringable $message, array $context = []): void
     {
         $this->log(LogLevel::DEBUG, $message, $context);
     }
 
     /** @inheritDoc */
-    #[\Override]
     public function log($level, string|\Stringable $message, array $context = []): void
     {
         // Filter by minimum level

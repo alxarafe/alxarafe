@@ -34,7 +34,6 @@ use Alxarafe\Infrastructure\Http\Controller\ResourceController;
 #[Menu(menu: 'main_menu', label: 'Email Templates', icon: 'fas fa-envelope-open-text', order: 30, parent: 'Configuration')]
 class EmailTemplateController extends ResourceController
 {
-    #[\Override]
     protected function getModelClassName(): string
     {
         return \Modules\Admin\Model\EmailTemplate::class;

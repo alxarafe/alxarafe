@@ -35,7 +35,6 @@ class UserSeeder extends Seeder
      * @return void
      * @psalm-suppress UndefinedConstant
      */
-    #[\Override]
     protected function run($modelClass): void
     {
         $password = 'password';
@@ -73,7 +72,6 @@ class UserSeeder extends Seeder
         ]);
     }
 
-    #[\Override]
     protected static function model(): string
     {
         return User::class;
