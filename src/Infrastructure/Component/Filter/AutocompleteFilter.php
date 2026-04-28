@@ -23,13 +23,11 @@ use Alxarafe\ResourceController\Component\AbstractFilter;
 
 class AutocompleteFilter extends AbstractFilter
 {
-    #[\Override]
     public function apply(\Alxarafe\ResourceController\Contracts\QueryContract $query, $value): void
     {
         $query->where($this->field, '=', $value);
     }
 
-    #[\Override]
     public function getType(): string
     {
         // Fallback to select for visibility if autocomplete type is not implemented in the view.

@@ -23,7 +23,6 @@ use Alxarafe\ResourceController\Component\AbstractFilter;
 
 class DateRangeFilter extends AbstractFilter
 {
-    #[\Override]
     public function apply(\Alxarafe\ResourceController\Contracts\QueryContract $query, $value): void
     {
         // DateRange values usually come as separate params handled by the controller logic
@@ -39,7 +38,6 @@ class DateRangeFilter extends AbstractFilter
         }
     }
 
-    #[\Override]
     public function getType(): string
     {
         return 'date_range';

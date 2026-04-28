@@ -23,7 +23,6 @@ use Alxarafe\ResourceController\Component\AbstractFilter;
 
 class Select2Filter extends SelectFilter
 {
-    #[\Override]
     public function getType(): string
     {
         return 'select2';

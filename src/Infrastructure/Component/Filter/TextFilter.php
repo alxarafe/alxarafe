@@ -23,13 +23,11 @@ use Alxarafe\ResourceController\Component\AbstractFilter;
 
 class TextFilter extends AbstractFilter
 {
-    #[\Override]
     public function apply(\Alxarafe\ResourceController\Contracts\QueryContract $query, $value): void
     {
         $query->whereRaw("LOWER({$this->field}) LIKE LOWER(?)", ["%{$value}%"]);
     }
 
-    #[\Override]
     public function getType(): string
     {
         return 'text';

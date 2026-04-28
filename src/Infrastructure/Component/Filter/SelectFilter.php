@@ -23,13 +23,11 @@ use Alxarafe\ResourceController\Component\AbstractFilter;
 
 class SelectFilter extends AbstractFilter
 {
-    #[\Override]
     public function apply(\Alxarafe\ResourceController\Contracts\QueryContract $query, $value): void
     {
         $query->where($this->field, '=', $value);
     }
 
-    #[\Override]
     public function getType(): string
     {
         // Si se pasa la opción 'searchable' => true en el constructor, 
