@@ -37,48 +37,32 @@ jobs:
           npm install
           npm run dev
           
-      - name: Install Composer dependencies (skeleton)
+      - name: Install Composer dependencies
         run: |
-          # Copy src into skeleton temporarily so composer can see it for path mapping
-          cp -r src skeleton/src
-          # Adjust paths in skeleton/composer.json to be relative to the root for production
-          # Also add the Scripts mapping if missing
-          sed -i 's|../src/|src/|g' skeleton/composer.json
-          # Add Alxarafe\Scripts mapping to skeleton composer.json for asset publication
-          php -r '$c = json_decode(file_get_contents("skeleton/composer.json"), true); $c["autoload"]["psr-4"]["Alxarafe\\Scripts\\"] = "src/Scripts"; file_put_contents("skeleton/composer.json", json_encode($c, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));'
-          cd skeleton && composer update --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs && cd ..
+          composer update --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
 
       - name: Publish framework assets (manual)
         run: |
-          # 2026-03-01: Run from within skeleton to ensure autoloader relative paths match
-          cd skeleton && php -f src/Scripts/publish_assets_manual.php && cd ..
+          php -f src/Scripts/publish_assets_manual.php
 
       # Build a clean deploy directory with the server structure
       - name: Prepare deploy structure
         run: |
-          mkdir -p deploy/public_html
+          mkdir -p deploy
           
-          # 1. Framework source & core templates (from root)
-          cp -r src deploy/src
-          cp -r templates deploy/templates
-          cp composer.json deploy/composer.json
+          # 1. Copy the entire repository into deploy/
+          rsync -av --exclude='.git' --exclude='node_modules' --exclude='deploy' --exclude='.github' --exclude='Tests' --exclude='skeleton/Tests' ./ deploy/
           
-          # 2. Skeleton application folders (above public_html)
-          # We take everything from skeleton EXCEPT 'src', 'public' and 'vendor' (handled separately)
-          rsync -av --exclude='src' --exclude='public' --exclude='vendor' --exclude='Tests' skeleton/ deploy/
+          # 2. Map skeleton/public to public_html
+          mv deploy/skeleton/public deploy/public_html
           
-          # 3. Dependencies from skeleton
-          cp -r skeleton/vendor deploy/vendor
+          # 3. Patch index.php so APP_PATH points to skeleton
+          sed -i "s|\$baseAppPath = __DIR__ . '/../';|\$baseAppPath = __DIR__ . '/../skeleton';|" deploy/public_html/index.php
           
-          # 4. Public assets -> public_html
-          # We copy the CONTENT of skeleton/public to deploy/public_html
-          cp -r skeleton/public/* deploy/public_html/ 2>/dev/null || true
-          cp skeleton/public/.htaccess deploy/public_html/.htaccess 2>/dev/null || true
-          
-          # 5. Clear stale Blade cache
-          rm -rf deploy/var/cache/blade
-          mkdir -p deploy/var/cache/blade
-          chmod -R 775 deploy/var/cache
+          # 4. Clear stale Blade cache
+          rm -rf deploy/skeleton/var/cache/blade
+          mkdir -p deploy/skeleton/var/cache/blade
+          chmod -R 775 deploy/skeleton/var/cache
 
       # Single deploy step to upload everything
       - name: Deploy to server
