@@ -69,9 +69,9 @@ export default defineConfig({
                             text: 'Traits',
                             collapsed: true,
                             items: [
-                                { text: 'Database Trait', link: '/en/classes/core/base/controller/trait/db-trait' },
-                                { text: 'View Trait', link: '/en/classes/core/base/controller/trait/view-trait' },
-                                { text: 'DTO Trait', link: '/en/classes/core/base/model/model/trait/dto-trait' },
+                                { text: 'Database Trait', link: '/en/classes/core/base/controller/traits/db-trait' },
+                                { text: 'View Trait', link: '/en/classes/core/base/controller/traits/view-trait' },
+                                { text: 'DTO Trait', link: '/en/classes/core/base/model/model/traits/dto-trait' },
                             ]
                         },
                         { text: 'Full API (phpDoc)', link: '/api_combined/' },
@@ -130,9 +130,9 @@ export default defineConfig({
                             text: 'Traits',
                             collapsed: true,
                             items: [
-                                { text: 'Trait de Base de Datos', link: '/es/classes/core/base/controller/trait/db-trait' },
-                                { text: 'Trait de Vista', link: '/es/classes/core/base/controller/trait/view-trait' },
-                                { text: 'Trait DTO', link: '/es/classes/core/base/model/model/trait/dto-trait' },
+                                { text: 'Trait de Base de Datos', link: '/es/classes/core/base/controller/traits/db-trait' },
+                                { text: 'Trait de Vista', link: '/es/classes/core/base/controller/traits/view-trait' },
+                                { text: 'Trait DTO', link: '/es/classes/core/base/model/model/traits/dto-trait' },
                             ]
                         },
                         { text: 'API Completa (phpDoc)', link: '/api_combined/' },

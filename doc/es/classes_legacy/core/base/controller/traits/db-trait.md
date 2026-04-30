@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base\Controller\Trait`  
 **Uso:** Inyectado en controladores que requieren acceso a datos.  
-**Estado:** 🛠️ Refactorizado a PHP 8.5.1
+**Estado:** 🛠️ Refactorizado a php 8.2
 :::
 
 El `DbTrait` proporciona una capa de abstracción para la gestión de conexiones a bases de datos dentro de los controladores. Implementa un patrón similar al *Singleton* para asegurar que no se creen múltiples conexiones innecesarias durante el ciclo de vida de la petición.

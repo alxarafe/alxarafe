@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base\Controller\Trait`  
 **Usage:** Injected into controllers requiring data access.  
-**Status:** 🛠️ Refactored to PHP 8.5.1
+**Status:** 🛠️ Refactored to php 8.2
 :::
 
 The `DbTrait` provides an abstraction layer for managing database connections within controllers. It implements a pattern similar to *Singleton* to ensure multiple unnecessary connections are not created during the request lifecycle.

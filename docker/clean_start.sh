@@ -20,7 +20,7 @@ echo "Pruning Docker system..."
 docker system prune -f
 
 # 4. Build and start containers in the background
-# This will trigger the build process for PHP 8.5 and Node/TS
+# This will trigger the build process for php 8.2 and Node/TS
 echo "Starting containers with docker compose..."
 docker compose up -d --build
 

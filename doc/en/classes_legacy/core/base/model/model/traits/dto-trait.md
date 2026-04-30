@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base\Model\Trait`  
 **Usage:** Injected into models or data classes to provide dynamic access.  
-**Status:** 🛠️ Refactored to PHP 8.5.1
+**Status:** 🛠️ Refactored to php 8.2
 :::
 
 The `DtoTrait` allows objects to behave as intelligent data containers. It provides access via magic methods, facilitating the use of "getters" and "setters" without needing to manually define them if following a naming convention.

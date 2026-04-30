@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base\Controller\Trait`  
 **Uso:** Inyectado en controladores que necesitan renderizar HTML.  
-**Estado:** 🛠️ Refactorizado a PHP 8.5.1
+**Estado:** 🛠️ Refactorizado a php 8.2
 :::
 
 El `ViewTrait` es el encargado de gestionar la comunicación entre la lógica del controlador y la capa de presentación (vistas). Facilita la inyección de datos y la selección de plantillas.

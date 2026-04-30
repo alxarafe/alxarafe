@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base`  
 **Extiende:** `Illuminate\Database\Capsule\Manager`  
-**Estado:** 🛠️ Refactorizado a PHP 8.5.1
+**Estado:** 🛠️ Refactorizado a php 8.2
 :::
 
 La clase `Database` es el corazón de la persistencia en Alxarafe. Hereda directamente de la cápsula de **Eloquent**, lo que permite utilizar el ORM de Laravel de forma independiente, añadiendo herramientas de diagnóstico y auto-instalación.

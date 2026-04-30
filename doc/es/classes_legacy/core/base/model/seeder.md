@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base`  
 **Uso:** Clase base para datos maestros y de configuración inicial.  
-**Estado:** 🛠️ Refactorizado a PHP 8.5.1
+**Estado:** 🛠️ Refactorizado a php 8.2
 :::
 
 La clase `Seeder` permite automatizar la inserción de registros iniciales en la base de datos (como una lista de países, tipos de documentos o usuarios administradores). Trabaja en estrecha colaboración con los **Modelos de Eloquent**.

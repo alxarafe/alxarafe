@@ -8,7 +8,7 @@ Explore key classes by category:
 
 *   **[Controllers](./core/base/controller/resource-controller.md)**: Base controllers, resources, and APIs.
 *   **[Models](./core/base/model/model/model.md)**: Database abstraction layer and Active Record.
-*   **Traits**: Code reuse for [Database](./core/base/controller/trait/db-trait.md) and [Views](./core/base/controller/trait/view-trait.md).
+*   **Traits**: Code reuse for [Database](./core/base/controller/traits/db-trait.md) and [Views](./core/base/controller/traits/view-trait.md).
 
 ## Generated API (phpDocumentor)
 

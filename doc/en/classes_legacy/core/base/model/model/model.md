@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base\Model`  
 **Extends:** `Illuminate\Database\Eloquent\Model`  
-**Status:** 🛠️ Refactored to PHP 8.5.1
+**Status:** 🛠️ Refactored to php 8.2
 :::
 
 The base `Model` class integrates the **Eloquent** ORM (from Laravel) into the Alxarafe ecosystem, adding useful schema introspection features for dynamic interface generation.

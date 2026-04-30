@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base`  
 **Physical File:** `config.json` (outside Document Root)  
-**Status:** 🛠️ Refactored to PHP 8.5.1
+**Status:** 🛠️ Refactored to php 8.2
 :::
 
 The `Config` class is the control center of the framework. It handles global settings persistence and coordinates database evolution via migrations and seeders.

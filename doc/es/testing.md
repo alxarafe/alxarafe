@@ -14,7 +14,7 @@ Alxarafe incluye una configuración robusta de **PHPUnit** integrada con Docker,
 
 El entorno de pruebas está contenerizado y se apoya en los siguientes pilares:
 
-1.  **Contenedor Docker (`alxarafe_php`)**: Todos los tests se ejecutan dentro del contenedor PHP para garantizar consistencia con el entorno de producción (mismas extensiones, versión de PHP 8.5+).
+1.  **Contenedor Docker (`alxarafe_php`)**: Todos los tests se ejecutan dentro del contenedor PHP para garantizar consistencia con el entorno de producción (mismas extensiones, versión de php 8.2+).
 2.  **Base de Datos Aislada (`alxarafe_test`)**:
     *   Al iniciar los tests, el sistema conecta automáticamente a una base de datos dedicada llamada `alxarafe_test`.
     *   Esta base de datos se crea y migra automáticamente si no existe.

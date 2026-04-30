@@ -4,7 +4,7 @@
 **Namespace:** `Alxarafe\Base\Controller`  
 **Usa:** `DbTrait`  
 **Autenticación:** JWT (JSON Web Tokens)  
-**Estado:** 🛠️ Refactorizado a PHP 8.5.1
+**Estado:** 🛠️ Refactorizado a php 8.2
 :::
 
 El `ApiController` es el controlador base para construir servicios API REST dentro del framework. A diferencia de los controladores basados en vistas, este está optimizado para la comunicación mediante objetos JSON y utiliza un flujo de ejecución que termina en la salida del buffer.

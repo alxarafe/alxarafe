@@ -1,6 +1,6 @@
 # Contribution and Development Guide
 
-This guide details how to set up the **Alxarafe** development environment using Docker and PHP 8.5.1.
+This guide details how to set up the **Alxarafe** development environment using Docker and php 8.2.
 
 ## Development Architecture (Monorepo)
 
@@ -20,7 +20,7 @@ To allow real-time testing of the framework, we use a "Skeleton" application loc
     ```
 
 2.  **Install Framework & Skeleton dependencies:**
-    Access the PHP 8.5 container:
+    Access the php 8.2 container:
     ```bash
     docker exec -it alxarafe_php bash
     ```
@@ -45,7 +45,7 @@ Instead of the built-in PHP server, we use the optimized Nginx container.
 1.  **Modify Core:** Edit files in `src/` (e.g., `src/Core/Base/Controller.php`).
 2.  **Instant Feedback:** Since `src/` is mounted as a Docker volume and symlinked via Composer, your changes are reflected immediately at `localhost:8081`.
 3.  **Run Tests:**
-    Execute tests from within the container to ensure PHP 8.5 compatibility:
+    Execute tests from within the container to ensure php 8.2 compatibility:
     ```bash
     ./vendor/bin/phpunit
     ```

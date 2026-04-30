@@ -3,7 +3,7 @@
 ::: info
 **Namespace:** `Alxarafe\Base\Controller\Trait`  
 **Usage:** Injected into controllers that need to render HTML.  
-**Status:** 🛠️ Refactored to PHP 8.5.1
+**Status:** 🛠️ Refactored to php 8.2
 :::
 
 The `ViewTrait` is responsible for managing communication between controller logic and the presentation layer (views). It facilitates data injection and template selection.
