@@ -68,7 +68,7 @@ Wrapper singleton sobre `Jenssegers\Blade\Blade`.
 
 Clase base para seeders de BD. Auto-descubiertos desde `Modules/{Module}/Seeders/`.
 
-## Traits de Modelo
+## Trait de Modelo
 
 - **`DtoTrait`**: Métodos de Data Transfer Object para serialización.
 - **`HasAuditLog`**: Logging automático de cambios en modelos.

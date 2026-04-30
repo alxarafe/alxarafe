@@ -19,7 +19,7 @@
 
 declare(strict_types=1);
 
-namespace Alxarafe\Infrastructure\Persistence\Model\Traits;
+namespace Alxarafe\Infrastructure\Persistence\Model\Trait;
 
 use stdClass;
 

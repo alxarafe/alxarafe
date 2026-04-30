@@ -8,7 +8,7 @@ Explora las clases clave por categoría:
 
 *   **[Controladores](./core/base/controller/resource-controller.md)**: Controladores base, recursos y APIs.
 *   **[Modelos](./core/base/model/model/model.md)**: Capa de abstracción de base de datos y Active Record.
-*   **Traits**: Reutilización de código para [Base de Datos](./core/base/controller/traits/db-trait.md) y [Vistas](./core/base/controller/traits/view-trait.md).
+*   **Trait**: Reutilización de código para [Base de Datos](./core/base/controller/traits/db-trait.md) y [Vistas](./core/base/controller/traits/view-trait.md).
 
 ## API Generada (phpDocumentor)
 

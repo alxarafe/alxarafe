@@ -66,7 +66,7 @@ export default defineConfig({
                             ]
                         },
                         {
-                            text: 'Traits',
+                            text: 'Trait',
                             collapsed: true,
                             items: [
                                 { text: 'Database Trait', link: '/en/classes/core/base/controller/traits/db-trait' },
@@ -127,7 +127,7 @@ export default defineConfig({
                             ]
                         },
                         {
-                            text: 'Traits',
+                            text: 'Trait',
                             collapsed: true,
                             items: [
                                 { text: 'Trait de Base de Datos', link: '/es/classes/core/base/controller/traits/db-trait' },

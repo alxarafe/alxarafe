@@ -19,7 +19,7 @@
 
 declare(strict_types=1);
 
-namespace Alxarafe\Infrastructure\Http\Controller\Traits;
+namespace Alxarafe\Infrastructure\Http\Controller\Trait;
 
 use Alxarafe\Infrastructure\Persistence\Database;
 use stdClass;

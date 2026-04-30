@@ -21,7 +21,7 @@ namespace Modules\Admin\Controller;
 
 use Alxarafe\Infrastructure\Http\Controller\ResourceController;
 use Modules\Admin\Model\Role;
-use Alxarafe\Infrastructure\Http\Controller\Traits\ViewTrait;
+use Alxarafe\Infrastructure\Http\Controller\Trait\ViewTrait;
 use Modules\Admin\Service\PermissionSyncer;
 use Alxarafe\Infrastructure\Attribute\Menu;
 

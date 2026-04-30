@@ -87,10 +87,3 @@ jobs:
             cd domains/alxarafe.com/
             # Use specific PHP version for composer on Hostinger
             php8.2 /usr/local/bin/composer install --no-dev --optimize-autoloader --ignore-platform-reqs
-
-            # Parche automático para el Trait de la dependencia si es necesario
-            if [ -d vendor/alxarafe/resource-controller/src/Trait ]; then
-                echo "Aplicando parche de compatibilidad para ResourceTrait..."
-                mv vendor/alxarafe/resource-controller/src/Trait vendor/alxarafe/resource-controller/src/Traits
-                sed -i 's/namespace Alxarafe\\ResourceController\\Trait;/namespace Alxarafe\\ResourceController\\Traits;/' vendor/alxarafe/resource-controller/src/Traits/ResourceTrait.php
-            fi

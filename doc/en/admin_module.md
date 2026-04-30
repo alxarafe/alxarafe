@@ -50,7 +50,7 @@ UI wrapper for `Config::doRunMigrations()`.
 ### `User`
 The primary identity model.
 - **Fields**: `name`, `email`, `password`, `role_id`, `is_admin`, `language`, `timezone`, `theme`, `avatar`, `default_page`.
-- **Traits**: Uses `DtoTrait` for API responses and `HasAuditLog` for change tracking.
+- **Trait**: Uses `DtoTrait` for API responses and `HasAuditLog` for change tracking.
 
 ### `Role` & `Permission`
 Implements the RBAC schema.

@@ -163,7 +163,7 @@ Singleton wrapper around `Jenssegers\Blade\Blade`. Manages the Blade instance li
 
 ---
 
-## Model Traits
+## Model Trait
 
 ### `DtoTrait`
 

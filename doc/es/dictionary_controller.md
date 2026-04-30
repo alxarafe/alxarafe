@@ -21,7 +21,7 @@ Las columnas del listado y los campos del formulario se **auto-generan** a parti
 | **Clase** | `src/Modules/Admin/Controller/DictionaryController.php` |
 | **Namespace** | `Modules\Admin\Controller` |
 | **Herencia** | `DictionaryController → ResourceController → Controller` |
-| **Traits aplicados** | `ResourceTrait` (1 762 líneas de lógica CRUD automática) |
+| **Trait aplicados** | `ResourceTrait` (1 762 líneas de lógica CRUD automática) |
 
 ---
 

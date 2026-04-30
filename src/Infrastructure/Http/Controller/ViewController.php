@@ -22,7 +22,7 @@ declare(strict_types=1);
 namespace Alxarafe\Infrastructure\Http\Controller;
 
 use Alxarafe\Infrastructure\Persistence\Config;
-use Alxarafe\Infrastructure\Http\Controller\Traits\ViewTrait;
+use Alxarafe\Infrastructure\Http\Controller\Trait\ViewTrait;
 use Alxarafe\Infrastructure\Lib\Messages;
 use Alxarafe\Infrastructure\Lib\Trans;
 use Alxarafe\Infrastructure\Tools\Debug;

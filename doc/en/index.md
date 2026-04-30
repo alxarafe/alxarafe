@@ -89,7 +89,7 @@ my-project/
 |---|---|
 | [Attributes](classes_legacy/core/attribute/index.md) | `#[ApiRoute]`, `#[Menu]`, `#[ModuleInfo]`, `#[RequireModule]`, `#[RequirePermission]`, `#[RequireRole]` |
 | [Controllers](classes_legacy/core/base/controller/index.md) | `GenericController` → `ViewController` → `Controller` → `ResourceController` hierarchy |
-| [Models & Traits](classes_legacy/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
+| [Models & Trait](classes_legacy/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
 | [Config & Database](classes_legacy/core/base/index.md) | `Config`, `Database`, `Seeder`, `Template`, `BladeContainer` |
 | [Component Fields](classes_legacy/core/component/fields/index.md) | 15 field types for form generation |
 | [Component Containers](classes_legacy/core/component/container/index.md) | `Panel`, `Tab`, `TabGroup`, `Row`, `Separator`, `HtmlContent` |

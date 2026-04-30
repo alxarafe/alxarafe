@@ -89,7 +89,7 @@ mi-proyecto/
 |---|---|
 | [Atributos](classes_legacy/core/attribute/index.md) | `#[ApiRoute]`, `#[Menu]`, `#[ModuleInfo]`, `#[RequireModule]`, `#[RequirePermission]`, `#[RequireRole]` |
 | [Controladores](classes_legacy/core/base/controller/index.md) | Jerarquía `GenericController` → `ViewController` → `Controller` → `ResourceController` |
-| [Modelos y Traits](classes_legacy/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
+| [Modelos y Trait](classes_legacy/core/base/model/index.md) | `Model`, `DtoTrait`, `HasAuditLog` |
 | [Config y Base de Datos](classes_legacy/core/base/index.md) | `Config`, `Database`, `Seeder`, `Template`, `BladeContainer` |
 | [Campos de Componentes](classes_legacy/core/component/fields/index.md) | 15 tipos de campos para generación de formularios |
 | [Contenedores de Componentes](classes_legacy/core/component/container/index.md) | `Panel`, `Tab`, `TabGroup`, `Row`, `Separator`, `HtmlContent` |

@@ -1,6 +1,6 @@
 <?php
 
-namespace Alxarafe\Infrastructure\Http\Controller\Traits;
+namespace Alxarafe\Infrastructure\Http\Controller\Trait;
 
 trait AlxarafeResourceBridgeTrait
 {

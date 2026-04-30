@@ -50,7 +50,7 @@ Interfaz de usuario para `Config::doRunMigrations()`.
 ### `User`
 El modelo de identidad principal.
 - **Campos**: `name`, `email`, `password`, `role_id`, `is_admin`, `language`, `timezone`, `theme`, `avatar`, `default_page`.
-- **Traits**: Utiliza `DtoTrait` para respuestas de API y `HasAuditLog` para el seguimiento de cambios.
+- **Trait**: Utiliza `DtoTrait` para respuestas de API y `HasAuditLog` para el seguimiento de cambios.
 
 ### `Role` y `Permission`
 Implementan el esquema RBAC.
