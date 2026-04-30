@@ -66,7 +66,7 @@ jobs:
 
       # Single deploy step to upload everything via SSH (Rsync)
       - name: Deploy to server via SSH
-        uses: BurnettK/rsync-deploy@v1
+        uses: Burnett01/rsync-deployments@v8
         with:
           switches: -avzr --delete
           path: ./deploy/
