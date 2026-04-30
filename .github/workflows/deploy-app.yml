@@ -68,17 +68,13 @@ jobs:
       - name: Deploy to server via SSH
         uses: Burnett01/rsync-deployments@v8
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --exclude='vendor/' --exclude='.git/' --exclude='node_modules/'
           path: ./deploy/
           remote_path: /home/u826748402/domains/alxarafe.com/
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USER }}
           remote_key: ${{ secrets.SSH_KEY }}
           remote_port: ${{ secrets.SSH_PORT }}
-          exclude: |
-            vendor/
-            .git/
-            node_modules/
 
       - name: Run remote composer install
         uses: appleboy/ssh-action@v1.0.3
