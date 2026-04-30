@@ -86,4 +86,4 @@ jobs:
           script: |
             cd domains/alxarafe.com/
             # Use specific PHP version for composer on Hostinger
-            php8.2 /usr/local/bin/composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+            /opt/cloudlinux/alt-php82/root/usr/bin/php /usr/local/bin/composer install --no-dev --optimize-autoloader --ignore-platform-reqs
