@@ -4,6 +4,6 @@ parameters:
     paths:
         - src
     excludePaths:
-        - src/Infrastructure/Persistence/Model/Trait/DtoTrait.php
+        - src/Infrastructure/Persistence/Model/Traits/DtoTrait.php
     ignoreErrors:
         - '#Call to an undefined method Alxarafe\\ResourceController\\Contracts\\QueryContract::whereRaw\(\)#'
