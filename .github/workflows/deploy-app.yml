@@ -68,7 +68,7 @@ jobs:
       - name: Deploy to server via SSH
         uses: Burnett01/rsync-deployments@v8
         with:
-          switches: -avzr --delete --exclude='vendor/' --exclude='.git/' --exclude='node_modules/'
+          switches: -avzr --delete --exclude='vendor/' --exclude='.git/' --exclude='node_modules/' --exclude='config/config.json' --exclude='public_html/docs/'
           path: ./deploy/
           remote_path: /home/u826748402/domains/alxarafe.com/
           remote_host: ${{ secrets.SSH_HOST }}
