@@ -173,6 +173,18 @@ abstract class Config
             return $configInBase;
         }
 
+        // 3. Fallback: Try in the parent directory's config folder (useful for production structures)
+        $configInParentConfig = dirname($base) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        if (file_exists($configInParentConfig)) {
+            return $configInParentConfig;
+        }
+
+        // 4. Fallback: Try in the parent directory root
+        $configInParentBase = dirname($base) . DIRECTORY_SEPARATOR . self::CONFIG_FILENAME;
+        if (file_exists($configInParentBase)) {
+            return $configInParentBase;
+        }
+
         // 3. Fallback to ALX_PATH if defined (checking both root/config and skeleton/config)
         if (defined('ALX_PATH') && constant('ALX_PATH')) {
             $alxBase = constant('ALX_PATH');
