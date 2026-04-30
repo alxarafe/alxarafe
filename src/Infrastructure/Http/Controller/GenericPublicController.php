@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 namespace Alxarafe\Infrastructure\Http\Controller;
 
-use Alxarafe\Infrastructure\Http\Controller\Trait\DbTrait;
+use Alxarafe\Infrastructure\Http\Controller\Traits\DbTrait;
 
 /**
  * Class GenericPublicController.

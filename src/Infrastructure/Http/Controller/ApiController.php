@@ -22,7 +22,7 @@ declare(strict_types=1);
 namespace Alxarafe\Infrastructure\Http\Controller;
 
 use Alxarafe\Infrastructure\Persistence\Config;
-use Alxarafe\Infrastructure\Http\Controller\Trait\DbTrait;
+use Alxarafe\Infrastructure\Http\Controller\Traits\DbTrait;
 use Alxarafe\Infrastructure\Auth\Auth;
 use Alxarafe\Infrastructure\Lib\Functions;
 use Alxarafe\Infrastructure\Lib\Messages;

@@ -28,7 +28,7 @@ use Alxarafe\ResourceController\Contracts\RepositoryContract;
 use Alxarafe\ResourceController\Contracts\TransactionContract;
 use Alxarafe\ResourceController\Contracts\TranslatorContract;
 use Alxarafe\ResourceController\ResourceInterface;
-use Alxarafe\ResourceController\Trait\ResourceTrait;
+use Alxarafe\ResourceController\Traits\ResourceTrait;
 use Alxarafe\ResourceEloquent\EloquentRepository;
 use Alxarafe\ResourceEloquent\EloquentTransaction;
 
@@ -41,7 +41,7 @@ use Alxarafe\ResourceEloquent\EloquentTransaction;
 abstract class PublicResourceController extends GenericPublicController implements ResourceInterface
 {
     use ResourceTrait;
-    use \Alxarafe\Infrastructure\Http\Controller\Trait\AlxarafeResourceBridgeTrait;
+    use \Alxarafe\Infrastructure\Http\Controller\Traits\AlxarafeResourceBridgeTrait;
 
     private AlxarafeTranslator $alxTranslator;
     private AlxarafeMessageBag $alxMessages;

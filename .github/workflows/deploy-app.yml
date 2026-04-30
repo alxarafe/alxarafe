@@ -64,22 +64,37 @@ jobs:
           mkdir -p deploy/skeleton/var/cache/blade
           chmod -R 775 deploy/skeleton/var/cache
 
-      # Single deploy step to upload everything
-      - name: Deploy to server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      # Single deploy step to upload everything via SSH (Rsync)
+      - name: Deploy to server via SSH
+        uses: BurnettK/rsync-deploy@v1
         with:
-          server: ${{ secrets.FTP_APP_SERVER }}
-          username: ${{ secrets.FTP_APP_USER }}
-          password: ${{ secrets.FTP_APP_PASS }}
-          protocol: ftp
-          port: 21
-          timeout: 600000 # Increase timeout to 10 minutes (600,000 ms)
-          state-name: .ftp-deploy-sync-state.json
-          log-level: verbose
-          local-dir: ./deploy/
-          server-dir: /
+          switches: -avzr --delete
+          path: ./deploy/
+          remote_path: /home/u826748402/domains/alxarafe.com/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
+          remote_port: ${{ secrets.SSH_PORT }}
           exclude: |
-            **/.git*
-            **/.git*/**
-            public_html/docs/**
-            config/config.json
+            vendor/
+            .git/
+            node_modules/
+
+      - name: Run remote composer install
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd domains/alxarafe.com/
+            # Use specific PHP version for composer on Hostinger
+            php8.2 /usr/local/bin/composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+            # Parche automático para el Trait de la dependencia si es necesario
+            if [ -d vendor/alxarafe/resource-controller/src/Trait ]; then
+                echo "Aplicando parche de compatibilidad para ResourceTrait..."
+                mv vendor/alxarafe/resource-controller/src/Trait vendor/alxarafe/resource-controller/src/Traits
+                sed -i 's/namespace Alxarafe\\ResourceController\\Trait;/namespace Alxarafe\\ResourceController\\Traits;/' vendor/alxarafe/resource-controller/src/Traits/ResourceTrait.php
+            fi
