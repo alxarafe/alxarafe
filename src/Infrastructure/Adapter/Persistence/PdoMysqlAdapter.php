@@ -37,6 +37,7 @@ class PdoMysqlAdapter implements PersistencePort
 {
     private PDO $pdo;
     private string $primaryKey;
+    private string $prefix;
 
     /**
      * @param string $host     Database host.
@@ -46,6 +47,7 @@ class PdoMysqlAdapter implements PersistencePort
      * @param int    $port     Database port (default: 3306).
      * @param string $charset  Character set (default: utf8mb4).
      * @param string $primaryKey Default primary key column name (default: 'id').
+     * @param string $prefix   Table prefix (default: '').
      */
     public function __construct(
         string $host,
@@ -54,7 +56,8 @@ class PdoMysqlAdapter implements PersistencePort
         string $password,
         int $port = 3306,
         string $charset = 'utf8mb4',
-        string $primaryKey = 'id'
+        string $primaryKey = 'id',
+        string $prefix = ''
     ) {
         $dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset={$charset}";
 
@@ -65,12 +68,13 @@ class PdoMysqlAdapter implements PersistencePort
         ]);
 
         $this->primaryKey = $primaryKey;
+        $this->prefix = $prefix;
     }
 
     /**
      * Alternative constructor from a configuration object.
      *
-     * @param \stdClass $config Config with properties: host, name, user, pass, port, charset.
+     * @param \stdClass $config Config with properties: host, name, user, pass, port, charset, prefix.
      * @param string    $primaryKey Default primary key column.
      *
      * @return self
@@ -84,8 +88,17 @@ class PdoMysqlAdapter implements PersistencePort
             password: $config->pass,
             port: (int) ($config->port ?? 3306),
             charset: $config->charset ?? 'utf8mb4',
-            primaryKey: $primaryKey
+            primaryKey: $primaryKey,
+            prefix: $config->prefix ?? ''
         );
+    }
+
+    /**
+     * Returns a fully qualified table name applying the configured prefix.
+     */
+    private function getTableName(string $table): string
+    {
+        return $this->sanitizeIdentifier($this->prefix . $table);
     }
 
     /**
@@ -99,7 +112,7 @@ class PdoMysqlAdapter implements PersistencePort
     /** @inheritDoc */
     public function findById(string $table, int|string $id): ?array
     {
-        $sql = "SELECT * FROM `{$this->sanitizeIdentifier($table)}` WHERE `{$this->primaryKey}` = ? LIMIT 1";
+        $sql = "SELECT * FROM `{$this->getTableName($table)}` WHERE `{$this->primaryKey}` = ? LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
 
@@ -115,7 +128,7 @@ class PdoMysqlAdapter implements PersistencePort
         ?int $limit = null,
         ?int $offset = null
     ): array {
-        $table = $this->sanitizeIdentifier($table);
+        $table = $this->getTableName($table);
         $sql = "SELECT * FROM `{$table}`";
         $params = [];
 
@@ -157,7 +170,7 @@ class PdoMysqlAdapter implements PersistencePort
     /** @inheritDoc */
     public function insert(string $table, array $data): int|string
     {
-        $table = $this->sanitizeIdentifier($table);
+        $table = $this->getTableName($table);
         $columns = array_keys($data);
         $placeholders = array_fill(0, count($columns), '?');
 
@@ -174,7 +187,7 @@ class PdoMysqlAdapter implements PersistencePort
     /** @inheritDoc */
     public function update(string $table, int|string $id, array $data): bool
     {
-        $table = $this->sanitizeIdentifier($table);
+        $table = $this->getTableName($table);
         $sets = [];
         $params = [];
 
@@ -196,7 +209,7 @@ class PdoMysqlAdapter implements PersistencePort
     /** @inheritDoc */
     public function delete(string $table, int|string $id): bool
     {
-        $table = $this->sanitizeIdentifier($table);
+        $table = $this->getTableName($table);
         $sql = "DELETE FROM `{$table}` WHERE `{$this->primaryKey}` = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
@@ -236,7 +249,7 @@ class PdoMysqlAdapter implements PersistencePort
     /** @inheritDoc */
     public function exists(string $table, int|string $id): bool
     {
-        $table = $this->sanitizeIdentifier($table);
+        $table = $this->getTableName($table);
         $sql = "SELECT 1 FROM `{$table}` WHERE `{$this->primaryKey}` = ? LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
@@ -247,7 +260,7 @@ class PdoMysqlAdapter implements PersistencePort
     /** @inheritDoc */
     public function count(string $table, array $criteria = []): int
     {
-        $table = $this->sanitizeIdentifier($table);
+        $table = $this->getTableName($table);
         $sql = "SELECT COUNT(*) FROM `{$table}`";
         $params = [];
 
