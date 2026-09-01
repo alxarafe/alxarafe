@@ -57,8 +57,8 @@ trait AlxarafeResourceBridgeTrait
         // Define paths for templates from resource-controller
         $baseDir = '';
         if (defined('APP_PATH')) {
-            $vendorPath = constant('APP_PATH') . '/../vendor/alxarafe/resource-controller/templates';
-            $monoPath = constant('APP_PATH') . '/../../resource-controller/templates';
+            $vendorPath = constant('APP_PATH') . '/vendor/alxarafe/resource-controller/templates';
+            $monoPath = constant('APP_PATH') . '/../resource-controller/templates';
             
             if (is_dir($vendorPath)) {
                 $baseDir = $vendorPath;
@@ -70,7 +70,13 @@ trait AlxarafeResourceBridgeTrait
         // Fallback using reflection
         if (!$baseDir && class_exists(\Alxarafe\ResourceController\AbstractResourceController::class)) {
             $reflector = new \ReflectionClass(\Alxarafe\ResourceController\AbstractResourceController::class);
-            $baseDir = dirname($reflector->getFileName(), 3) . '/templates';
+            $resourceControllerRoot = dirname($reflector->getFileName(), 2);
+            foreach ([$resourceControllerRoot . '/templates', $resourceControllerRoot . '/src/templates'] as $candidate) {
+                if (is_dir($candidate)) {
+                    $baseDir = $candidate;
+                    break;
+                }
+            }
         }
 
         if (is_dir($baseDir)) {
