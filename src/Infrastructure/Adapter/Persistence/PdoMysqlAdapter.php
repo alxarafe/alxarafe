@@ -179,7 +179,7 @@ class PdoMysqlAdapter implements PersistencePort
 
         $sql = "INSERT INTO `{$table}` (`{$columnList}`) VALUES ({$placeholderList})";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(array_values($data));
+        $stmt->execute(array_map([$this, 'normalizeValue'], array_values($data)));
 
         return $this->pdo->lastInsertId();
     }
@@ -193,7 +193,7 @@ class PdoMysqlAdapter implements PersistencePort
 
         foreach ($data as $column => $value) {
             $sets[] = "`{$this->sanitizeIdentifier($column)}` = ?";
-            $params[] = $value;
+            $params[] = $this->normalizeValue($value);
         }
 
         $params[] = $id;
@@ -293,7 +293,7 @@ class PdoMysqlAdapter implements PersistencePort
                 $conditions[] = "`{$col}` IS NULL";
             } else {
                 $conditions[] = "`{$col}` = ?";
-                $params[] = $value;
+                $params[] = $this->normalizeValue($value);
             }
         }
 
@@ -306,5 +306,19 @@ class PdoMysqlAdapter implements PersistencePort
     private function sanitizeIdentifier(string $identifier): string
     {
         return preg_replace('/[^a-zA-Z0-9_]/', '', $identifier) ?? $identifier;
+    }
+
+    /**
+     * Normalize a value for PDO binding.
+     * Booleans must be converted to integers with native prepares
+     * (PDO would otherwise bind false as an empty string).
+     */
+    private function normalizeValue(mixed $value): mixed
+    {
+        if (is_bool($value)) {
+            return $value ? 1 : 0;
+        }
+
+        return $value;
     }
 }
