@@ -6,6 +6,7 @@
 </head>
 <body class="cyber-shell">
 
+@include('partial.project_menu')
 @include('partial.user_menu')
 
 <div class="cyber-grid-overlay"></div>

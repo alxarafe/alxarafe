@@ -1,3 +1,6 @@
+<!-- Navigation Menu -->
+@include('partial.project_menu')
+
 <!-- Top Bar (Flexbox Layout) -->
     <header class="d-flex flex-column-reverse flex-md-row align-items-center justify-content-between px-2 px-md-3 py-1 py-md-2 bg-light border-bottom">
         

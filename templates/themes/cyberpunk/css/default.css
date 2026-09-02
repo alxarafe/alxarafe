@@ -637,3 +637,44 @@ span.phpdebugbar-badge,
 .dropdown-header {
     color: #45a29e !important;
 }
+
+/* Cyberpunk Navbar Overrides */
+.alx-navbar {
+    background: rgba(5, 10, 15, 0.95) !important;
+    border-bottom: 1px solid #45a29e !important;
+}
+
+.alx-navbar-brand {
+    color: #66fcf1 !important;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(102, 252, 241, 0.5);
+}
+
+.alx-navbar-brand:hover {
+    color: #fff !important;
+    text-shadow: 0 0 10px #66fcf1;
+}
+
+.alx-nav-link {
+    color: #c5c6c7 !important;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    font-size: 0.8rem !important;
+}
+
+.alx-nav-link:hover {
+    color: #66fcf1 !important;
+    background: rgba(102, 252, 241, 0.1) !important;
+    text-shadow: 0 0 5px rgba(102, 252, 241, 0.5);
+}
+
+.alx-navbar-tools a {
+    color: #c5c6c7 !important;
+}
+
+.alx-navbar-tools a:hover {
+    color: #66fcf1 !important;
+    text-shadow: 0 0 5px rgba(102, 252, 241, 0.5);
+}
