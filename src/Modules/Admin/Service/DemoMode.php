@@ -35,7 +35,7 @@ class DemoMode
     private static function demo(): ?object
     {
         try {
-            return Config::getConfig()?->demo ?? null;
+            return Config::getConfig()->demo ?? null;
         } catch (\Throwable $e) {
             return null;
         }
@@ -43,7 +43,8 @@ class DemoMode
 
     public static function isEnabled(): bool
     {
-        return (bool)(self::demo()?->enabled ?? false);
+        $demo = self::demo();
+        return $demo !== null && (bool)($demo->enabled ?? false);
     }
 
     public static function isReadonlyConfig(): bool
@@ -51,7 +52,8 @@ class DemoMode
         if (!self::isEnabled()) {
             return false;
         }
-        return (bool)(self::demo()?->readonly_config ?? false);
+        $demo = self::demo();
+        return $demo !== null && (bool)($demo->readonly_config ?? false);
     }
 
     public static function protectsUserChanges(): bool
@@ -59,6 +61,7 @@ class DemoMode
         if (!self::isEnabled()) {
             return false;
         }
-        return (bool)(self::demo()?->protect_user_changes ?? false);
+        $demo = self::demo();
+        return $demo !== null && (bool)($demo->protect_user_changes ?? false);
     }
 }
