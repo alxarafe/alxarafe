@@ -66,29 +66,38 @@ abstract class ViewController extends GenericController
 
         $this->config = Config::getConfig();
 
-        // Register templates path
+        // Register templates paths in priority order.
+        // Theme templates (App and Package) take precedence over generic templates,
+        // so a theme can override the general layout without app-level duplicates.
         if (defined('APP_PATH')) {
             $appPath = constant('APP_PATH');
+        } else {
+            $appPath = null;
+        }
+        $alxPath = defined('ALX_PATH') ? constant('ALX_PATH') : null;
 
-            // 1. App specific templates
-            $this->addTemplatesPath($appPath . '/templates');
-
-            // 2. Active Theme templates (Highest priority)
-            $theme = Config::getConfig()?->main->theme ?? 'default';
-            if ($theme !== 'default') {
-                $themePath = $appPath . '/themes/' . $theme . '/templates';
-                if (is_dir($themePath)) {
-                    $this->addTemplatesPath($themePath);
-                }
+        // 1. Active Theme templates (Highest priority)
+        // Convention: {base}/templates/themes/{theme}/ (Blade layout/partials override)
+        $theme = Config::getConfig()?->main->theme ?? 'default';
+        if ($theme !== 'default') {
+            if ($appPath !== null && is_dir($appPath . '/templates/themes/' . $theme)) {
+                $this->addTemplatesPath($appPath . '/templates/themes/' . $theme);
+            }
+            if ($alxPath !== null && is_dir($alxPath . '/templates/themes/' . $theme)) {
+                $this->addTemplatesPath($alxPath . '/templates/themes/' . $theme);
             }
         }
 
+        // 2. App specific templates
+        if ($appPath !== null) {
+            $this->addTemplatesPath($appPath . '/templates');
+        }
+
         // 3. Framework base templates (Fallback)
-        if (defined('ALX_PATH')) {
-            $alxPath = constant('ALX_PATH');
+        if ($alxPath !== null) {
             $baseTplPath = $alxPath . '/templates';
-            if (!is_dir($baseTplPath) && defined('APP_PATH')) {
-                $baseTplPath = constant('APP_PATH') . '/templates';
+            if (!is_dir($baseTplPath) && $appPath !== null) {
+                $baseTplPath = $appPath . '/templates';
             }
             if (is_dir($baseTplPath)) {
                 $this->addTemplatesPath($baseTplPath);
