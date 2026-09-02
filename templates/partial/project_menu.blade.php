@@ -42,34 +42,3 @@
     </div>
 </nav>
 
-<style>
-    .alx-navbar {
-        gap: 0.5rem;
-        padding: 0.4rem 0.75rem;
-        border-bottom: 1px solid #e9ecef;
-        background: #fff;
-        flex-wrap: nowrap;
-    }
-    .alx-navbar-brand {
-        color: #333;
-        font-size: 0.95rem;
-        white-space: nowrap;
-    }
-    .alx-navbar-brand:hover { color: #000; }
-    .alx-nav-link {
-        color: #555;
-        font-size: 0.85rem;
-        white-space: nowrap;
-        transition: color 0.2s, background 0.2s;
-    }
-    .alx-nav-link:hover {
-        color: #000;
-        background: rgba(0,0,0,0.05);
-    }
-    .alx-navbar-spacer { flex: 1; }
-    .alx-navbar-tools a {
-        font-size: 0.85rem;
-        transition: color 0.2s;
-    }
-    .alx-navbar-tools a:hover { color: #000 !important; }
-</style>
