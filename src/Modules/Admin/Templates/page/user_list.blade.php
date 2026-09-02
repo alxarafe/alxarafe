@@ -1,9 +1,15 @@
 @extends('partial.layout.main')
 
 @section('header_actions')
-    <a href="?module=Admin&controller=User&id=new" class="btn btn-primary">
-        <i class="fas fa-plus"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('create_new_user') }}
-    </a>
+    @if(!empty($users_locked))
+        <span class="btn btn-secondary disabled">
+            <i class="fas fa-lock"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('users_locked_demo') }}
+        </span>
+    @else
+        <a href="?module=Admin&controller=User&id=new" class="btn btn-primary">
+            <i class="fas fa-plus"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('create_new_user') }}
+        </a>
+    @endif
 @endsection
 
 @section('content')
@@ -24,7 +30,9 @@
                             <th>{{ \Alxarafe\Infrastructure\Lib\Trans::_('email') }}</th>
                             <th>{{ \Alxarafe\Infrastructure\Lib\Trans::_('role') }}</th>
                             <th class="text-center" style="width: 100px;">{{ \Alxarafe\Infrastructure\Lib\Trans::_('admin') }}</th>
-                            <th class="text-end" style="width: 150px;">{{ \Alxarafe\Infrastructure\Lib\Trans::_('actions') }}</th>
+                            @if(empty($users_locked))
+                                <th class="text-end" style="width: 150px;">{{ \Alxarafe\Infrastructure\Lib\Trans::_('actions') }}</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -47,11 +55,13 @@
                                         <span class="badge bg-secondary">{{ \Alxarafe\Infrastructure\Lib\Trans::_('no') }}</span>
                                     @endif
                                 </td>
-                                <td class="align-middle text-end">
-                                    <a href="?module=Admin&controller=User&id={{ $user->id }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-edit"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('edit') }}
-                                    </a>
-                                </td>
+                                @if(empty($users_locked))
+                                    <td class="align-middle text-end">
+                                        <a href="?module=Admin&controller=User&id={{ $user->id }}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i> {{ \Alxarafe\Infrastructure\Lib\Trans::_('edit') }}
+                                        </a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -61,9 +71,11 @@
     @else
         <div class="alert alert-info py-4 text-center">
             <h4>{{ \Alxarafe\Infrastructure\Lib\Trans::_('no_users_found') }}</h4>
-            <a href="?module=Admin&controller=User&id=new" class="btn btn-primary mt-2">
-                {{ \Alxarafe\Infrastructure\Lib\Trans::_('create_first_user') }}
-            </a>
+            @if(empty($users_locked))
+                <a href="?module=Admin&controller=User&id=new" class="btn btn-primary mt-2">
+                    {{ \Alxarafe\Infrastructure\Lib\Trans::_('create_first_user') }}
+                </a>
+            @endif
         </div>
     @endif
 </div>

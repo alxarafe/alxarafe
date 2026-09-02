@@ -24,6 +24,8 @@ use Modules\Admin\Model\User;
 use Alxarafe\Infrastructure\Persistence\Config;
 use Alxarafe\Infrastructure\Lib\Trans;
 use Alxarafe\Infrastructure\Lib\Functions;
+use Alxarafe\Infrastructure\Lib\Messages;
+use Modules\Admin\Service\DemoMode;
 use Modules\Admin\Model\Role;
 use Alxarafe\Infrastructure\Attribute\Menu;
 use Alxarafe\ResourceController\Component\Fields\StaticText;
@@ -66,6 +68,13 @@ class UserController extends ResourceController
 
     protected function beforeEdit(): void
     {
+        // Demo mode: users cannot be modified or created.
+        if (DemoMode::protectsUserChanges()) {
+            Messages::addError(Trans::_('users_locked_demo'));
+            Functions::httpRedirect(static::url());
+            return;
+        }
+
         // Default template logic uses the structure from getEditFields().
         // If you create 'templates/page/user_edit.blade.php', you can use:
         // $this->setDefaultTemplate('page/user_edit');
@@ -75,12 +84,20 @@ class UserController extends ResourceController
     {
         $users = User::all();
         $this->addVariable('users', $users);
+        $this->addVariable('users_locked', DemoMode::protectsUserChanges());
         $this->setDefaultTemplate('page/user_list');
         $this->addVariable('title', \Alxarafe\Infrastructure\Lib\Trans::_('user_management'));
     }
 
     protected function saveRecord(): void
     {
+        // Demo mode: users cannot be modified or created.
+        if (DemoMode::protectsUserChanges()) {
+            Messages::addError(Trans::_('users_locked_demo'));
+            Functions::httpRedirect(static::url());
+            return;
+        }
+
         try {
             $id = $_POST['id'] ?? null;
 

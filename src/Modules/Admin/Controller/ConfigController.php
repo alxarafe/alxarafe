@@ -26,6 +26,7 @@ use Alxarafe\Infrastructure\Lib\Functions;
 use Alxarafe\Infrastructure\Lib\Messages;
 use Alxarafe\Infrastructure\Lib\Trans;
 use Alxarafe\Infrastructure\Tools\ModuleManager;
+use Modules\Admin\Service\DemoMode;
 use Modules\Admin\Model\Migration;
 use stdClass;
 use Alxarafe\ResourceController\Component\Fields\Select;
@@ -79,20 +80,26 @@ class ConfigController extends ResourceController
      */
     public function getViewDescriptor(): array
     {
+        // Demo mode: configuration is read-only. Disable saving and protect changes.
+        $readOnly = DemoMode::isReadonlyConfig();
+        if ($readOnly) {
+            $this->protectChanges = true;
+        }
+
         $tabs = $this->getTabs();
         $body = new \Alxarafe\ResourceController\Component\Container\TabGroup($tabs, ['id' => 'config-tabs']);
 
         $buttons = [
-            ['label' => Trans::_('save_configuration'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save'],
+            ['label' => Trans::_('save_configuration'), 'icon' => 'fas fa-save', 'type' => 'primary', 'action' => 'submit', 'name' => 'save', 'disabled' => $readOnly],
         ];
 
         if ($this->pdo_connection) {
             if (!$this->pdo_db_exists) {
-                $buttons[] = ['label' => Trans::_('create_database'), 'icon' => 'fas fa-database', 'type' => 'success', 'action' => 'submit', 'name' => 'createDatabase'];
+                $buttons[] = ['label' => Trans::_('create_database'), 'icon' => 'fas fa-database', 'type' => 'success', 'action' => 'submit', 'name' => 'createDatabase', 'disabled' => $readOnly];
             } else {
-                $buttons[] = ['label' => Trans::_('go_migrations'), 'icon' => 'fas fa-sync', 'type' => 'success', 'action' => 'submit', 'name' => 'runMigrations'];
+                $buttons[] = ['label' => Trans::_('go_migrations'), 'icon' => 'fas fa-sync', 'type' => 'success', 'action' => 'submit', 'name' => 'runMigrations', 'disabled' => $readOnly];
             }
-            $buttons[] = ['label' => Trans::_('regenerate'), 'icon' => 'fas fa-redo', 'type' => 'warning', 'action' => 'submit', 'name' => 'regenerate'];
+            $buttons[] = ['label' => Trans::_('regenerate'), 'icon' => 'fas fa-redo', 'type' => 'warning', 'action' => 'submit', 'name' => 'regenerate', 'disabled' => $readOnly];
             $buttons[] = ['label' => Trans::_('exit'), 'icon' => 'fas fa-sign-out-alt', 'type' => 'danger', 'action' => 'submit', 'name' => 'exit'];
         }
 
@@ -111,6 +118,7 @@ class ConfigController extends ResourceController
             'record'   => $viewData,
             'buttons'  => $buttons,
             'body'     => new \Alxarafe\ResourceController\Component\Container\Panel('', [$body], ['col' => 'col-12']),
+            'disabled_title' => $readOnly ? Trans::_('config_readonly_demo') : null,
         ];
     }
 
@@ -187,12 +195,20 @@ class ConfigController extends ResourceController
                 exit;
             }
             if ($_GET['ajax'] === 'save_record' || (isset($_POST['action']) && $_POST['action'] === 'save')) {
+                if (DemoMode::isReadonlyConfig()) {
+                    $this->rejectConfigSave();
+                    return;
+                }
                 $this->saveRecord();
                 exit;
             }
             if (isset($_POST['action'])) {
                 $method = 'do' . ucfirst($_POST['action']);
                 if (method_exists($this, $method)) {
+                    if (in_array($_POST['action'], ['createDatabase', 'runMigrations', 'regenerate'], true) && DemoMode::isReadonlyConfig()) {
+                        $this->rejectConfigSave();
+                        return;
+                    }
                     $this->$method();
                     exit;
                 }
@@ -220,9 +236,51 @@ class ConfigController extends ResourceController
         ];
     }
 
+    /**
+     * Blocks config saving in demo/read-only mode.
+     * Always called before any configuration mutation.
+     */
+    protected function rejectConfigSave(): void
+    {
+        Messages::addError(Trans::_('config_readonly_demo'));
+        if (empty($_GET['ajax'])) {
+            if (session_status() === PHP_SESSION_ACTIVE) {
+                $_SESSION['flash_message'] = Trans::_('config_readonly_demo');
+                $_SESSION['flash_type'] = 'danger';
+            }
+            Functions::httpRedirect($this->url('index', ['method' => 'general']) . '#');
+            exit;
+        }
+        $this->jsonResponse(['status' => 'error', 'error' => Trans::_('config_readonly_demo')]);
+    }
+
     protected function saveRecord(): void
     {
+        // Demo mode: configuration cannot be saved.
+        if (DemoMode::isReadonlyConfig()) {
+            $this->rejectConfigSave();
+            return;
+        }
+
         $data = $_POST['data'] ?? [];
+
+        // The resource editor posts flat field names (main.theme, db.host, ...),
+        // but PHP converts dots in POST keys to underscores (main.theme -> main_theme),
+        // so we parse the raw form body keeping the dotted keys intact.
+        if (empty($data)) {
+            $data = [];
+            foreach (explode('&', file_get_contents('php://input')) as $pair) {
+                if (!str_contains($pair, '=')) {
+                    continue;
+                }
+                [$key, $value] = explode('=', $pair, 2);
+                $key = urldecode($key);
+                if (str_contains($key, '.')) {
+                    $data[$key] = urldecode($value);
+                }
+            }
+        }
+
         if (empty($data)) {
             $this->jsonResponse(['error' => Trans::_('no_data_provided')]);
             exit;
@@ -466,6 +524,11 @@ class ConfigController extends ResourceController
      */
     public function doCreateDatabase(): bool
     {
+        if (DemoMode::isReadonlyConfig()) {
+            $this->rejectConfigSave();
+            return true;
+        }
+
         if (!Database::createDatabaseIfNotExists($this->data->db)) {
             Messages::addError(Trans::_('error_connecting_database', ['db' => $this->data->db->name]));
             return true;
@@ -476,6 +539,11 @@ class ConfigController extends ResourceController
 
     public function doRunMigrations(): void
     {
+        if (DemoMode::isReadonlyConfig()) {
+            $this->rejectConfigSave();
+            return;
+        }
+
         Functions::httpRedirect(MigrationController::url());
     }
 
@@ -488,6 +556,12 @@ class ConfigController extends ResourceController
 
     public function doRegenerate(): bool
     {
+        if (DemoMode::isReadonlyConfig() && !empty($_GET['execute'])) {
+            // Only block actual regeneration/mutation; allow viewing the page.
+            Messages::addError(Trans::_('config_readonly_demo'));
+            return true;
+        }
+
         $execute = filter_input(INPUT_GET, 'execute');
 
         if ($execute) {

@@ -119,3 +119,7 @@ module_enabled: Module enabled
 module_disabled: Module disabled
 all_modules_disabled: All modules disabled
 all_modules_enabled: All modules enabled
+
+# Demo mode
+config_readonly_demo: "Configuration is locked in demo mode (read-only)."
+users_locked_demo: "Users are locked in demo mode: they cannot be created or modified."

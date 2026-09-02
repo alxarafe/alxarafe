@@ -68,6 +68,13 @@ class ProfileController extends GenericPublicController
 
     public function doSave()
     {
+        // Demo mode: users cannot be modified.
+        if (\Modules\Admin\Service\DemoMode::protectsUserChanges()) {
+            Messages::addError(Trans::_('users_locked_demo'));
+            Functions::httpRedirect('index.php?module=Admin&controller=Profile');
+            return true;
+        }
+
         $user = Auth::$user;
 
         try {

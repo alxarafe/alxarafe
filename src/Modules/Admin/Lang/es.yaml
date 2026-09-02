@@ -119,3 +119,7 @@ module_enabled: Módulo activado
 module_disabled: Módulo desactivado
 all_modules_disabled: Todos los módulos desactivados
 all_modules_enabled: Todos los módulos activados
+
+# Demo mode
+config_readonly_demo: "La configuración está bloqueada en modo demostración (solo lectura)."
+users_locked_demo: "Usuarios bloqueados en modo demostración: no se pueden crear ni modificar."
