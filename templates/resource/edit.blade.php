@@ -7,13 +7,15 @@
         <button type="submit" form="alxarafe-edit-form"
                 name="{{ $btn['name'] ?? '' }}" value="{{ $btn['name'] ?? '' }}"
                 onclick="document.querySelector('#alxarafe-edit-form input[name=action]').value='{{ $btn['name'] ?? 'save' }}'"
-                class="btn btn-{{ $btn['type'] ?? 'primary' }}">
+                class="btn btn-{{ $btn['type'] ?? 'primary' }}"
+                @if(!empty($btn['disabled'])) disabled title="{{ $viewDescriptor['disabled_title'] ?? '' }}" @endif>
             @if(!empty($btn['icon']))<i class="{{ $btn['icon'] }} me-1"></i>@endif
             {{ $btn['label'] ?? '' }}
         </button>
     @elseif(($btn['action'] ?? '') === 'url')
         <a href="{{ $btn['target'] ?? '#' }}"
-           class="btn btn-{{ $btn['type'] ?? 'secondary' }}">
+           class="btn btn-{{ $btn['type'] ?? 'secondary' }}"
+           @if(!empty($btn['disabled'])) aria-disabled="true" style="pointer-events: none; opacity: 0.6;" @endif>
             @if(!empty($btn['icon']))<i class="{{ $btn['icon'] }} me-1"></i>@endif
             {{ $btn['label'] ?? '' }}
         </a>

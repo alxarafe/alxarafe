@@ -66,7 +66,7 @@
             <i class="fas fa-sync"></i> {{ $me->_('run_pending') }}
         </button>
     @endif
-    <a href="{{ $me->url('Admin', 'Config', 'general') }}" class="btn btn-secondary">
+    <a href="/index.php?module=Admin&amp;controller=Config&amp;action=index&amp;method=general" class="btn btn-secondary">
         <i class="fas fa-close"></i> {{ $me->_('close') }}
     </a>
 @endsection
@@ -86,7 +86,7 @@ document.getElementById('btn-run-migrations')?.addEventListener('click', functio
     container.style.display = 'block';
     log.innerHTML = '{{ $me->_("starting_process") }}';
 
-    fetch('{{ $me->url('Admin', 'Migration', 'run_batch_ajax') }}')
+    fetch('{{ $me->url('run_batch_ajax') }}')
         .then(response => response.json())
         .then(data => {
             if(data.status === 'success') {

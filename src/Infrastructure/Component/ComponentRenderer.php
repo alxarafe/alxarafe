@@ -53,6 +53,28 @@ class ComponentRenderer
         if (!isset($data['attributes']) && class_exists(\Illuminate\View\ComponentAttributeBag::class)) {
             $data['attributes'] = new \Illuminate\View\ComponentAttributeBag($data['options'] ?? []);
         }
+
+        if ($component instanceof AbstractField && isset($data['record'])) {
+            if (($data['value'] ?? null) === null) {
+                $data['value'] = self::extractValue((string)($data['field'] ?? ''), $data['record']);
+            }
+        }
+
         return (string) self::$renderer->render($viewName, $data);
+    }
+
+    private static function extractValue(string $field, mixed $record): mixed
+    {
+        $value = $record;
+        foreach (explode('.', $field) as $key) {
+            if (is_object($value) && isset($value->$key)) {
+                $value = $value->$key;
+            } elseif (is_array($value) && array_key_exists($key, $value)) {
+                $value = $value[$key];
+            } else {
+                return null;
+            }
+        }
+        return $value;
     }
 }
