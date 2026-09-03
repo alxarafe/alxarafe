@@ -21,6 +21,7 @@ namespace Alxarafe\Infrastructure\Persistence;
 
 use Alxarafe\Infrastructure\Persistence\Config;
 use Alxarafe\Infrastructure\Lib\Functions;
+use Illuminate\View\Component;
 use Jenssegers\Blade\Blade;
 
 class Template
@@ -115,19 +116,21 @@ class Template
                 });
             }
 
-            // Register anonymous component paths
+            // Register only roots that actually provide anonymous components.
+            // Blade creates the hash namespace itself and searches these paths in
+            // registration order, which preserves the public template precedence.
             foreach ($this->paths as $path) {
                 $cleanPath = rtrim($path, '/');
-                if (is_dir($cleanPath)) {
+                if (is_dir($cleanPath . '/component')) {
                     $this->blade->compiler()->anonymousComponentPath($cleanPath);
-                    if (is_dir($cleanPath . '/component')) {
-                        $this->blade->compiler()->anonymousComponentPath($cleanPath . '/component', '');
-                    }
-                    $this->blade->addNamespace(md5($cleanPath), $cleanPath);
-                    // Explicitly add the __components namespace to the view factory to avoid 'No hint path' error
-                    $this->blade->addNamespace('__components', $cleanPath);
+                    $this->blade->compiler()->anonymousComponentPath($cleanPath . '/component', '');
                 }
             }
+
+            // Illuminate caches the component factory and resolved anonymous
+            // views statically. A new Blade factory must not reuse either cache.
+            Component::forgetFactory();
+            Component::flushCache();
 
             // Template Tracer Hook
             if (class_exists(\Alxarafe\Infrastructure\Tools\Debug::class)) {

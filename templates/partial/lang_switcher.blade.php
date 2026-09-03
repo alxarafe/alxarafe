@@ -31,7 +31,7 @@
     @foreach($languagesData as $code => $lang)
         <li>
             <a class="dropdown-item d-flex align-items-center py-2 {{ $currentLang === $code ? 'active' : '' }}"
-               href="index.php?module=Admin&controller=Auth&action=setLang&lang={{ $code }}">
+               href="/index.php?module=Admin&controller=Auth&action=setLang&lang={{ $code }}">
                 <span class="fi fi-{{ $lang['flag'] ?? 'un' }} me-3 shadow-sm rounded-1" style="width: 1.5rem; height: 1.1rem;"></span>
                 <span>{{ $lang['name'] }}</span>
             </a>
