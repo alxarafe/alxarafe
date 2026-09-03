@@ -1,9 +1,45 @@
-<!-- Navigation Menu -->
-@include('partial.project_menu')
-
 <!-- Top Bar (Flexbox Layout) -->
-    <header class="d-flex flex-column-reverse flex-md-row align-items-center justify-content-between px-2 px-md-3 py-1 py-md-2 bg-light border-bottom">
+    <header class="topbar d-flex flex-column-reverse flex-md-row align-items-center justify-content-between px-2 px-md-3 py-1 py-md-2 bg-light border-bottom">
         
+        <style>
+            /* Keep header icon rows tidy on narrow screens so items never overlap */
+            .topbar { flex-wrap: wrap; row-gap: 0.5rem; }
+            .topbar .nav { flex-wrap: wrap; row-gap: 0.25rem; }
+            .topbar .nav .nav-item { flex-shrink: 0; }
+            .topbar .nav .topbar-control { display: flex; align-items: center; }
+            .topbar .nav .topbar-control > .nav-link,
+            .topbar .nav .topbar-control > .dropdown > .btn {
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 44px !important;
+                min-height: 44px !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+            .topbar .nav-link { white-space: nowrap; }
+            .topbar .alx-navbar { border-bottom: 0; min-width: 0; padding-block: 0; }
+            .topbar > .flex-grow-1, .topbar > .flex-grow-1 > div { min-width: 0; }
+            @media (max-width: 767.98px) {
+                .topbar .nav .topbar-control .btn {
+                    padding-left: 0.5rem !important;
+                    padding-right: 0.5rem !important;
+                }
+            }
+            @media (min-width: 768px) and (max-width: 991.98px) {
+                .topbar .alx-navbar-nav { display: none !important; }
+            }
+            @media (min-width: 768px) {
+                .topbar > .flex-grow-1 > div { flex-wrap: nowrap; }
+                .topbar > .flex-grow-1 { width: auto !important; flex: 1 1 auto; }
+                .topbar > .justify-content-end { width: auto !important; flex: 0 0 auto; }
+                .topbar h1 { display: none; }
+                .topbar { flex-wrap: nowrap; }
+                .topbar .nav { flex-wrap: nowrap; }
+            }
+        </style>
+
         <!-- Brand / Title Section -->
         <div class="d-flex align-items-center flex-grow-1 w-100 w-md-auto mt-2 mt-md-0">
             <!-- Sidebar Toggler (Only visible on mobile/small Screens) -->
@@ -16,6 +52,7 @@
                 @if(!empty($me->backUrl))
                     <a href="{!! $me->backUrl !!}" class="btn btn-sm btn-outline-secondary me-2"><i class="fas fa-arrow-left"></i></a>
                 @endif
+                @include('partial.project_menu')
                 <h1 class="h4 mb-0 text-dark font-weight-bold text-truncate" title="{{ $title ?? '' }}">{{ $title ?? '' }}</h1>
             </div>
         </div>
@@ -28,7 +65,7 @@
                     $companyTz = \Alxarafe\Infrastructure\Persistence\Config::getConfig()->main->timezone ?? 'UTC';
                     $userTz = (\Alxarafe\Infrastructure\Auth\Auth::$user->timezone ?? null) ?: $companyTz;
                 @endphp
-                <li class="nav-item position-relative me-3 d-none d-lg-flex align-items-center clock-container text-secondary" style="cursor: help;">
+                <li class="nav-item position-relative me-3 d-none d-xl-flex align-items-center clock-container text-secondary" style="cursor: help;">
                     <i class="far fa-clock me-2"></i>
                     <span id="clock-display" class="font-weight-bold">--:--:--</span>
                     
@@ -88,7 +125,7 @@
 
                 {{-- User Menu --}}
                 @if(\Alxarafe\Infrastructure\Auth\Auth::$user)
-                     <li class="nav-item dropdown">
+                     <li class="nav-item dropdown topbar-control">
                         <a class="nav-link dropdown-toggle pr-0 d-flex align-items-center text-dark" href="#" id="navbarUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @if(!empty(\Alxarafe\Infrastructure\Auth\Auth::$user->avatar) && file_exists(\Alxarafe\Infrastructure\Persistence\Config::getPublicRoot() . '/' . \Alxarafe\Infrastructure\Auth\Auth::$user->avatar))
                                 <img src="{{ \Alxarafe\Infrastructure\Auth\Auth::$user->avatar }}" class="rounded-circle border me-2" style="width: 32px; height: 32px; object-fit: cover;">
@@ -111,18 +148,18 @@
                     </li>
                 @else
                     @if(stripos($_SERVER['QUERY_STRING'] ?? '', 'controller=Auth') === false)
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-sm btn-primary text-white ms-2" href="index.php?module=Admin&controller=Auth">
-                            <i class="fas fa-sign-in-alt me-1"></i> {{ $me->_('login') }}
+                    <li class="nav-item topbar-control">
+                        <a class="nav-link btn btn-sm btn-primary text-white ms-2" href="/index.php?module=Admin&controller=Auth">
+                            <i class="fas fa-sign-in-alt me-1"></i><span class="d-none d-sm-inline"> {{ $me->_('login') }}</span>
                         </a>
                     </li>
                     @endif
                 @endif
                 
-                <li class="nav-item dropdown ms-2">
+                <li class="nav-item dropdown ms-2 topbar-control">
                     @include('partial.lang_switcher', ['class' => ''])
                 </li>
-                <li class="nav-item dropdown ms-2">
+                <li class="nav-item dropdown ms-2 topbar-control">
                     @include('partial.theme_switcher', ['class' => ''])
                 </li>
 

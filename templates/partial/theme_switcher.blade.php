@@ -20,7 +20,7 @@
         @foreach($themes as $name => $label)
             <li>
                 <a class="dropdown-item d-flex align-items-center {{ $currentTheme === $name ? 'active' : '' }}" 
-                   href="index.php?module=Admin&controller=Auth&action=setTheme&theme={{ $name }}">
+                   href="/index.php?module=Admin&controller=Auth&action=setTheme&theme={{ $name }}">
                     <i class="fas fa-circle me-2" style="font-size: 0.5em;"></i>
                     {{ $label }}
                 </a>
